@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ContainerParentDataMixin from rendering
 // ContainerParentDataMixin adds sibling navigation to ParentData for containers
 import 'package:flutter/material.dart';

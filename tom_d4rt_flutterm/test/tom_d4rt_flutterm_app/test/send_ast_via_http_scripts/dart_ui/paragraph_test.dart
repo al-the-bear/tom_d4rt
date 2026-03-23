@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Paragraph, ParagraphBuilder, ParagraphStyle, StrutStyle, LineMetrics
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

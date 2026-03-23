@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests material Badge, SegmentedButton advanced,
 // NavigationDrawer, NavigationRailDestination, NavigationRailLabelType
 import 'package:flutter/material.dart';

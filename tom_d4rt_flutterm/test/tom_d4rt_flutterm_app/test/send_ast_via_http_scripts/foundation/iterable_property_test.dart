@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests IterableProperty from foundation
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

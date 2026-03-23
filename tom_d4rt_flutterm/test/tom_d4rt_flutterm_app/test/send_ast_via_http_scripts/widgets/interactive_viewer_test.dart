@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests InteractiveViewer, TransformationController,
 // MatrixGestureDetector patterns, Matrix4 transforms, FittedBox,
 // RotatedBox, ClipRect, ClipRRect

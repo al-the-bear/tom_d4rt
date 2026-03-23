@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PathMetrics (Iterable<PathMetric>) from dart:ui
 // NOTE: PathMetrics doesn't support .first/.length/.isEmpty through bridge.
 // Must use iterator.moveNext() + iterator.current pattern.

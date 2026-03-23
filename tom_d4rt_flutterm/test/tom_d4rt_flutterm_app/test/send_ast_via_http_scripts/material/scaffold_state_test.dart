@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ScaffoldState from material - state class providing access to Scaffold features
 import 'package:flutter/material.dart';
 

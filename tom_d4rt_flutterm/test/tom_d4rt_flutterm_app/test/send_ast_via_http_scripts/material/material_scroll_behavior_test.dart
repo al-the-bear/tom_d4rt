@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests MaterialScrollBehavior from material
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';

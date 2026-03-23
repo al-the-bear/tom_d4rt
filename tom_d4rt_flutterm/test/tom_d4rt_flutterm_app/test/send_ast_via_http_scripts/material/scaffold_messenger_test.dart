@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // ScaffoldMessenger Deep Demo
 // Manages SnackBars and MaterialBanners across Scaffolds
 // Provides a consistent API for showing transient messages

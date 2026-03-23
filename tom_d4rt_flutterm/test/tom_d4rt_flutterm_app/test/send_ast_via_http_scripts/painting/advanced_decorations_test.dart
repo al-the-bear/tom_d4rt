@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests advanced painting — ImageFilter, ColorFilter,
 // MaskFilter, Gradient advanced (sweep, radial stops), ShaderMask concept,
 // TextHeightBehavior, StrutStyle

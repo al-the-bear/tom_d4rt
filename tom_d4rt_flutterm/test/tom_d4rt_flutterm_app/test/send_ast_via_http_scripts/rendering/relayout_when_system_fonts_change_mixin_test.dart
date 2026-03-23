@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RelayoutWhenSystemFontsChangeMixin from rendering
 //
 // RelayoutWhenSystemFontsChangeMixin is a mixin on RenderObject that

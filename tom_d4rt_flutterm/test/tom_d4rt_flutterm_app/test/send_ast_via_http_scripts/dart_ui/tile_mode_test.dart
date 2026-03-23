@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for TileMode from dart:ui
 //
 // TileMode defines how a shader or gradient tiles beyond its bounds.

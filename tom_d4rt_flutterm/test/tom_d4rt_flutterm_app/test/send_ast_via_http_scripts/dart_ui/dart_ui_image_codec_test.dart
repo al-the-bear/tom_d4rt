@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Image & Codec APIs from dart:ui
 // Covers: Image, instantiateImageCodec, decodeImageFromPixels, ImageByteFormat
 // Image is the core class for decoded raster images in the engine

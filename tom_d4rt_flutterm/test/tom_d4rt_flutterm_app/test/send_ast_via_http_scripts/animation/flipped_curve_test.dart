@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FlippedCurve from animation
 // FlippedCurve transforms any curve by flipping it around both axes
 // Formula: flipped(t) = 1 - original(1 - t)

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderIgnoreBaseline / IgnoreBaseline widget
 // Demonstrates how IgnoreBaseline causes its child's baseline to be
 // ignored during layout, particularly in Row with CrossAxisAlignment.baseline.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt Deep Demo: BlendMode - Advanced Color Compositing Operations
 // This demo comprehensively explores BlendMode enum which defines how colors
 // are combined when drawing one element over another.

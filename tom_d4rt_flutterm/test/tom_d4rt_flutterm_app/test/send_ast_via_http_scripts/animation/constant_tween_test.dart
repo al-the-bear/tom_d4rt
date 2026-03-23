@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - ConstantTween from animation
 // Comprehensive demonstration of tweens that return constant values
 import 'package:flutter/widgets.dart';

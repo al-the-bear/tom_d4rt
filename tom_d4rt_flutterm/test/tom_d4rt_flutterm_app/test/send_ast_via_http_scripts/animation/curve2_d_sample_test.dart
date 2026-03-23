@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - Curve2DSample from animation
 // Comprehensive demonstration of 2D curve sample points
 import 'package:flutter/widgets.dart';

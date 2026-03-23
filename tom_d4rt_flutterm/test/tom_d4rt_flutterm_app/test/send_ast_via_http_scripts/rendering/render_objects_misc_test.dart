@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: Miscellaneous render objects and sizing widgets
 // Covers SizedBox, LimitedBox, ConstrainedBox, IntrinsicWidth,
 // IntrinsicHeight, AspectRatio, UnconstrainedBox, OverflowBar,
@@ -77,7 +78,12 @@ Widget _buildLabel(String text) {
   );
 }
 
-Widget _buildColoredBox(Color color, double width, double height, String label) {
+Widget _buildColoredBox(
+  Color color,
+  double width,
+  double height,
+  String label,
+) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -92,7 +98,11 @@ Widget _buildColoredBox(Color color, double width, double height, String label) 
         alignment: Alignment.center,
         child: Text(
           label,
-          style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
           textAlign: TextAlign.center,
         ),
       ),
@@ -120,7 +130,10 @@ Widget _buildSizedBoxSection() {
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
-          child: Text('60x60', style: TextStyle(color: Colors.white, fontSize: 10)),
+          child: Text(
+            '60x60',
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
         ),
       ),
       SizedBox(
@@ -132,7 +145,10 @@ Widget _buildSizedBoxSection() {
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
-          child: Text('100x40', style: TextStyle(color: Colors.white, fontSize: 10)),
+          child: Text(
+            '100x40',
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
         ),
       ),
       SizedBox(
@@ -144,7 +160,10 @@ Widget _buildSizedBoxSection() {
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
-          child: Text('40x80', style: TextStyle(color: Colors.white, fontSize: 10)),
+          child: Text(
+            '40x80',
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
         ),
       ),
       SizedBox(
@@ -156,7 +175,10 @@ Widget _buildSizedBoxSection() {
             borderRadius: BorderRadius.circular(8),
           ),
           alignment: Alignment.center,
-          child: Text('80x80', style: TextStyle(color: Colors.white, fontSize: 10)),
+          child: Text(
+            '80x80',
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
         ),
       ),
     ],
@@ -188,7 +210,10 @@ Widget _buildSizedBoxFactorySection() {
           borderRadius: BorderRadius.circular(8),
         ),
         alignment: Alignment.center,
-        child: Text('SizedBox.expand', style: TextStyle(color: Colors.white, fontSize: 12)),
+        child: Text(
+          'SizedBox.expand',
+          style: TextStyle(color: Colors.white, fontSize: 12),
+        ),
       ),
     ),
   );
@@ -206,7 +231,8 @@ Widget _buildSizedBoxFactorySection() {
           color: Color(0xFFEEEEEE),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text('SizedBox.shrink takes zero space',
+        child: Text(
+          'SizedBox.shrink takes zero space',
           style: TextStyle(fontSize: 10, color: Color(0xFF757575)),
         ),
       ),
@@ -222,7 +248,10 @@ Widget _buildSizedBoxFactorySection() {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text('fromSize(120,50)', style: TextStyle(color: Colors.white, fontSize: 11)),
+      child: Text(
+        'fromSize(120,50)',
+        style: TextStyle(color: Colors.white, fontSize: 11),
+      ),
     ),
   );
 
@@ -235,11 +264,16 @@ Widget _buildSizedBoxFactorySection() {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text('square(70)', style: TextStyle(color: Colors.white, fontSize: 11)),
+      child: Text(
+        'square(70)',
+        style: TextStyle(color: Colors.white, fontSize: 11),
+      ),
     ),
   );
 
-  print('[render_objects_misc] SizedBox factories: expand, shrink, fromSize, square');
+  print(
+    '[render_objects_misc] SizedBox factories: expand, shrink, fromSize, square',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -253,13 +287,7 @@ Widget _buildSizedBoxFactorySection() {
       _buildLabel('SizedBox.fromSize and SizedBox.square'),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            fromSizeBox,
-            SizedBox(width: 16),
-            squareBox,
-          ],
-        ),
+        child: Row(children: [fromSizeBox, SizedBox(width: 16), squareBox]),
       ),
     ],
   );
@@ -276,7 +304,8 @@ Widget _buildLimitedBoxSection() {
       child: Container(
         color: Color(0xFFAB47BC),
         padding: EdgeInsets.all(8),
-        child: Text('maxW:150 maxH:60',
+        child: Text(
+          'maxW:150 maxH:60',
           style: TextStyle(color: Colors.white, fontSize: 11),
         ),
       ),
@@ -290,7 +319,8 @@ Widget _buildLimitedBoxSection() {
       child: Container(
         color: Color(0xFF7E57C2),
         padding: EdgeInsets.all(8),
-        child: Text('maxW:200 maxH:40',
+        child: Text(
+          'maxW:200 maxH:40',
           style: TextStyle(color: Colors.white, fontSize: 11),
         ),
       ),
@@ -304,7 +334,8 @@ Widget _buildLimitedBoxSection() {
       child: Container(
         color: Color(0xFF5C6BC0),
         padding: EdgeInsets.all(8),
-        child: Text('100x100',
+        child: Text(
+          '100x100',
           style: TextStyle(color: Colors.white, fontSize: 11),
         ),
       ),
@@ -341,7 +372,8 @@ Widget _buildConstrainedBoxSection() {
     child: Container(
       color: Color(0xFFEF5350),
       alignment: Alignment.center,
-      child: Text('min100x50\nmax200x80',
+      child: Text(
+        'min100x50\nmax200x80',
         style: TextStyle(color: Colors.white, fontSize: 10),
         textAlign: TextAlign.center,
       ),
@@ -353,7 +385,8 @@ Widget _buildConstrainedBoxSection() {
     child: Container(
       color: Color(0xFFFF7043),
       alignment: Alignment.center,
-      child: Text('tightFor\n120x60',
+      child: Text(
+        'tightFor\n120x60',
         style: TextStyle(color: Colors.white, fontSize: 10),
         textAlign: TextAlign.center,
       ),
@@ -365,7 +398,8 @@ Widget _buildConstrainedBoxSection() {
     child: Container(
       color: Color(0xFFFFCA28),
       alignment: Alignment.center,
-      child: Text('expand(h:50)',
+      child: Text(
+        'expand(h:50)',
         style: TextStyle(color: Colors.black87, fontSize: 11),
       ),
     ),
@@ -381,13 +415,16 @@ Widget _buildConstrainedBoxSection() {
     child: Container(
       color: Color(0xFF26A69A),
       alignment: Alignment.center,
-      child: Text('fixed height 30, flexible width',
+      child: Text(
+        'fixed height 30, flexible width',
         style: TextStyle(color: Colors.white, fontSize: 11),
       ),
     ),
   );
 
-  print('[render_objects_misc] ConstrainedBox demos built: minMax, tightFor, expand, fixed');
+  print(
+    '[render_objects_misc] ConstrainedBox demos built: minMax, tightFor, expand, fixed',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -409,7 +446,9 @@ Widget _buildConstrainedBoxSection() {
 }
 
 Widget _buildIntrinsicSection() {
-  print('[render_objects_misc] Building IntrinsicWidth / IntrinsicHeight section');
+  print(
+    '[render_objects_misc] Building IntrinsicWidth / IntrinsicHeight section',
+  );
 
   Widget intrinsicWidthDemo = IntrinsicWidth(
     child: Column(
@@ -418,19 +457,26 @@ Widget _buildIntrinsicSection() {
         Container(
           color: Color(0xFF1E88E5),
           padding: EdgeInsets.all(8),
-          child: Text('Short', style: TextStyle(color: Colors.white, fontSize: 12)),
+          child: Text(
+            'Short',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ),
         SizedBox(height: 4),
         Container(
           color: Color(0xFF1565C0),
           padding: EdgeInsets.all(8),
-          child: Text('Medium length text', style: TextStyle(color: Colors.white, fontSize: 12)),
+          child: Text(
+            'Medium length text',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ),
         SizedBox(height: 4),
         Container(
           color: Color(0xFF0D47A1),
           padding: EdgeInsets.all(8),
-          child: Text('Longest text here determines width',
+          child: Text(
+            'Longest text here determines width',
             style: TextStyle(color: Colors.white, fontSize: 12),
           ),
         ),
@@ -454,7 +500,9 @@ Widget _buildIntrinsicSection() {
           color: Color(0xFF2E7D32),
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(vertical: 20),
-          child: Text('B\nTall', style: TextStyle(color: Colors.white, fontSize: 12),
+          child: Text(
+            'B\nTall',
+            style: TextStyle(color: Colors.white, fontSize: 12),
             textAlign: TextAlign.center,
           ),
         ),
@@ -469,18 +517,26 @@ Widget _buildIntrinsicSection() {
     ),
   );
 
-  print('[render_objects_misc] IntrinsicWidth aligns children to widest; IntrinsicHeight to tallest');
+  print(
+    '[render_objects_misc] IntrinsicWidth aligns children to widest; IntrinsicHeight to tallest',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionTitle('IntrinsicWidth & IntrinsicHeight'),
       _buildLabel('IntrinsicWidth - all children match widest'),
       SizedBox(height: 6),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: intrinsicWidthDemo),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: intrinsicWidthDemo,
+      ),
       SizedBox(height: 16),
       _buildLabel('IntrinsicHeight - all children match tallest'),
       SizedBox(height: 6),
-      Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: intrinsicHeightDemo),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: intrinsicHeightDemo,
+      ),
     ],
   );
 }
@@ -502,8 +558,13 @@ Widget _buildAspectRatioSection() {
                 borderRadius: BorderRadius.circular(6),
               ),
               alignment: Alignment.center,
-              child: Text(label,
-                style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
@@ -548,7 +609,8 @@ Widget _buildUnconstrainedBoxSection() {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text('UnconstrainedBox child (250x50)',
+      child: Text(
+        'UnconstrainedBox child (250x50)',
         style: TextStyle(color: Colors.white, fontSize: 12),
       ),
     ),
@@ -564,7 +626,8 @@ Widget _buildUnconstrainedBoxSection() {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text('constrainedAxis: horizontal',
+      child: Text(
+        'constrainedAxis: horizontal',
         style: TextStyle(color: Colors.white, fontSize: 12),
       ),
     ),
@@ -580,13 +643,16 @@ Widget _buildUnconstrainedBoxSection() {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Text('constrainedAxis: vertical',
+      child: Text(
+        'constrainedAxis: vertical',
         style: TextStyle(color: Colors.white, fontSize: 12),
       ),
     ),
   );
 
-  print('[render_objects_misc] UnconstrainedBox: fully free, horizontal, vertical');
+  print(
+    '[render_objects_misc] UnconstrainedBox: fully free, horizontal, vertical',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -680,28 +746,58 @@ Widget _buildRichTextSection() {
     text: TextSpan(
       style: TextStyle(fontSize: 14, color: Color(0xFF212121), height: 1.6),
       children: [
-        TextSpan(text: 'RichText ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        TextSpan(
+          text: 'RichText ',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         TextSpan(text: 'allows '),
-        TextSpan(text: 'multiple ', style: TextStyle(color: Color(0xFFD32F2F), fontWeight: FontWeight.w600)),
-        TextSpan(text: 'styles ', style: TextStyle(color: Color(0xFF1976D2), fontStyle: FontStyle.italic)),
+        TextSpan(
+          text: 'multiple ',
+          style: TextStyle(
+            color: Color(0xFFD32F2F),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        TextSpan(
+          text: 'styles ',
+          style: TextStyle(
+            color: Color(0xFF1976D2),
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         TextSpan(text: 'in a '),
-        TextSpan(text: 'single ', style: TextStyle(
-          decoration: TextDecoration.underline,
-          decorationColor: Color(0xFF388E3C),
-          color: Color(0xFF388E3C),
-        )),
+        TextSpan(
+          text: 'single ',
+          style: TextStyle(
+            decoration: TextDecoration.underline,
+            decorationColor: Color(0xFF388E3C),
+            color: Color(0xFF388E3C),
+          ),
+        ),
         TextSpan(text: 'paragraph. '),
         TextSpan(text: 'You can mix '),
-        TextSpan(text: 'bold', style: TextStyle(fontWeight: FontWeight.w900)),
+        TextSpan(
+          text: 'bold',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
         TextSpan(text: ', '),
-        TextSpan(text: 'italic', style: TextStyle(fontStyle: FontStyle.italic)),
+        TextSpan(
+          text: 'italic',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
         TextSpan(text: ', '),
-        TextSpan(text: 'colored', style: TextStyle(
-          color: Color(0xFFFF6F00),
-          fontWeight: FontWeight.w600,
-        )),
+        TextSpan(
+          text: 'colored',
+          style: TextStyle(
+            color: Color(0xFFFF6F00),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         TextSpan(text: ', and '),
-        TextSpan(text: 'sized', style: TextStyle(fontSize: 20, color: Color(0xFF7B1FA2))),
+        TextSpan(
+          text: 'sized',
+          style: TextStyle(fontSize: 20, color: Color(0xFF7B1FA2)),
+        ),
         TextSpan(text: ' text freely.'),
       ],
     ),
@@ -713,22 +809,31 @@ Widget _buildRichTextSection() {
       style: TextStyle(fontSize: 13, color: Color(0xFF455A64), height: 1.5),
       children: [
         TextSpan(text: 'Status: '),
-        TextSpan(text: 'ACTIVE', style: TextStyle(
-          color: Color(0xFF2E7D32),
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
-        )),
+        TextSpan(
+          text: 'ACTIVE',
+          style: TextStyle(
+            color: Color(0xFF2E7D32),
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
+        ),
         TextSpan(text: '  |  Priority: '),
-        TextSpan(text: 'HIGH', style: TextStyle(
-          color: Color(0xFFD32F2F),
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
-        )),
+        TextSpan(
+          text: 'HIGH',
+          style: TextStyle(
+            color: Color(0xFFD32F2F),
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
+        ),
         TextSpan(text: '  |  Updated: '),
-        TextSpan(text: '2026-03-23', style: TextStyle(
-          color: Color(0xFF1565C0),
-          fontWeight: FontWeight.w500,
-        )),
+        TextSpan(
+          text: '2026-03-23',
+          style: TextStyle(
+            color: Color(0xFF1565C0),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     ),
   );
@@ -769,11 +874,17 @@ Widget _buildSummarySection() {
   print('[render_objects_misc] Building summary section');
 
   List<Map<String, String>> items = [
-    {'widget': 'SizedBox', 'desc': 'Fixed width/height or expand/shrink/square'},
+    {
+      'widget': 'SizedBox',
+      'desc': 'Fixed width/height or expand/shrink/square',
+    },
     {'widget': 'LimitedBox', 'desc': 'Limits size only when unconstrained'},
     {'widget': 'ConstrainedBox', 'desc': 'Applies BoxConstraints to child'},
     {'widget': 'IntrinsicWidth', 'desc': 'Sizes children to widest intrinsic'},
-    {'widget': 'IntrinsicHeight', 'desc': 'Sizes children to tallest intrinsic'},
+    {
+      'widget': 'IntrinsicHeight',
+      'desc': 'Sizes children to tallest intrinsic',
+    },
     {'widget': 'AspectRatio', 'desc': 'Maintains width/height ratio'},
     {'widget': 'UnconstrainedBox', 'desc': 'Removes parent constraints'},
     {'widget': 'OverflowBar', 'desc': 'Adaptive horizontal/vertical layout'},
@@ -794,7 +905,11 @@ Widget _buildSummarySection() {
               width: 130,
               child: Text(
                 item['widget']!,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Color(0xFF4A148C)),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                  color: Color(0xFF4A148C),
+                ),
               ),
             ),
             Expanded(
@@ -809,7 +924,9 @@ Widget _buildSummarySection() {
     );
   }
 
-  print('[render_objects_misc] Summary table built with ${items.length} entries');
+  print(
+    '[render_objects_misc] Summary table built with ${items.length} entries',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -833,7 +950,9 @@ dynamic build(BuildContext context) {
   print('[render_objects_misc] ========================================');
   print('[render_objects_misc] Topics: SizedBox, LimitedBox, ConstrainedBox');
   print('[render_objects_misc] Topics: IntrinsicWidth/Height, AspectRatio');
-  print('[render_objects_misc] Topics: UnconstrainedBox, OverflowBar, RichText');
+  print(
+    '[render_objects_misc] Topics: UnconstrainedBox, OverflowBar, RichText',
+  );
 
   Widget content = SingleChildScrollView(
     padding: EdgeInsets.all(16),

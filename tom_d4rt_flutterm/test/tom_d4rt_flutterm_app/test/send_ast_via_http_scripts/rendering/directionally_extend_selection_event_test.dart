@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt deep demo script: DirectionallyExtendSelectionEvent
 //
 // DirectionallyExtendSelectionEvent represents a text selection extension event

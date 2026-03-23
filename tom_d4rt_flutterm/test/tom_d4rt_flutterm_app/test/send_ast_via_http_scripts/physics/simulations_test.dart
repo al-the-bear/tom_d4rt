@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SpringSimulation, ScrollSpringSimulation, FrictionSimulation from physics
 import 'package:flutter/widgets.dart';
 import 'package:flutter/physics.dart';

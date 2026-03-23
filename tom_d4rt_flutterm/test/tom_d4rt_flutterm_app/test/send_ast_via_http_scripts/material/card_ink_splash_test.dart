@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Card advanced, CardTheme, InkSplash, InkRipple,
 // InteractiveInkFeatureFactory, MaterialInkController, Ink, InkDecoration
 import 'package:flutter/material.dart';

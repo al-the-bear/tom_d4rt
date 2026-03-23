@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BoxHitTestResult, BoxHitTestEntry,
 // HitTestResult, HitTestEntry, PipelineOwner concepts via widget interaction
 import 'package:flutter/material.dart';

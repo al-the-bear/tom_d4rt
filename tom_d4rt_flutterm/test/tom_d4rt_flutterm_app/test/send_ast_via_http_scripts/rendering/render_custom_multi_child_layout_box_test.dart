@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderCustomMultiChildLayoutBox / CustomMultiChildLayout widget
 // Tests CustomMultiChildLayout with custom delegates, LayoutId children,
 // circular arrangements, staggered layouts, card stacks, dynamic sizing,
@@ -42,10 +43,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -164,13 +162,12 @@ class _CircularDelegate extends MultiChildLayoutDelegate {
   double radius;
   int count;
 
-  _CircularDelegate({
-    required this.radius,
-    required this.count,
-  });
+  _CircularDelegate({required this.radius, required this.count});
 
   void performLayout(Size size) {
-    print('  CircularDelegate.performLayout called, radius: $radius, count: $count');
+    print(
+      '  CircularDelegate.performLayout called, radius: $radius, count: $count',
+    );
     double centerX = size.width / 2;
     double centerY = size.height / 2;
     print('    Center: ($centerX, $centerY)');
@@ -180,9 +177,35 @@ class _CircularDelegate extends MultiChildLayoutDelegate {
       if (hasChild(id)) {
         Size childSize = layoutChild(id, BoxConstraints.loose(size));
         // Simplified circular placement at cardinal directions
-        double px = centerX + (radius * ((i % 4 == 0) ? -1.0 : (i % 4 == 1) ? 0.0 : (i % 4 == 2) ? 1.0 : 0.0)) - childSize.width / 2;
-        double py = centerY + (radius * ((i % 4 == 0) ? 0.0 : (i % 4 == 1) ? -1.0 : (i % 4 == 2) ? 0.0 : 1.0)) - childSize.height / 2;
-        positionChild(id, Offset(px.clamp(0.0, size.width - childSize.width), py.clamp(0.0, size.height - childSize.height)));
+        double px =
+            centerX +
+            (radius *
+                ((i % 4 == 0)
+                    ? -1.0
+                    : (i % 4 == 1)
+                    ? 0.0
+                    : (i % 4 == 2)
+                    ? 1.0
+                    : 0.0)) -
+            childSize.width / 2;
+        double py =
+            centerY +
+            (radius *
+                ((i % 4 == 0)
+                    ? 0.0
+                    : (i % 4 == 1)
+                    ? -1.0
+                    : (i % 4 == 2)
+                    ? 0.0
+                    : 1.0)) -
+            childSize.height / 2;
+        positionChild(
+          id,
+          Offset(
+            px.clamp(0.0, size.width - childSize.width),
+            py.clamp(0.0, size.height - childSize.height),
+          ),
+        );
         print('    Positioned $id at circular position index $i');
       }
     }
@@ -230,7 +253,9 @@ class _StaggeredDelegate extends MultiChildLayoutDelegate {
         double y = columnHeights[shortestCol] + 4;
         positionChild(id, Offset(x, y));
         columnHeights[shortestCol] = y + childSize.height;
-        print('    Positioned $id in column $shortestCol at y=$y, childH=${childSize.height}');
+        print(
+          '    Positioned $id in column $shortestCol at y=$y, childH=${childSize.height}',
+        );
       }
     }
   }
@@ -273,7 +298,9 @@ class _DynamicSizingDelegate extends MultiChildLayoutDelegate {
   _DynamicSizingDelegate({required this.availableWidth});
 
   void performLayout(Size size) {
-    print('  DynamicSizingDelegate.performLayout called, available: $availableWidth');
+    print(
+      '  DynamicSizingDelegate.performLayout called, available: $availableWidth',
+    );
     List<String> ids = ['dyn_header', 'dyn_body', 'dyn_footer'];
     double currentY = 0;
 
@@ -311,7 +338,10 @@ class _DashboardDelegate extends MultiChildLayoutDelegate {
 
     // Header across the top
     if (hasChild('dash_header')) {
-      layoutChild('dash_header', BoxConstraints.tightFor(width: size.width, height: headerHeight));
+      layoutChild(
+        'dash_header',
+        BoxConstraints.tightFor(width: size.width, height: headerHeight),
+      );
       positionChild('dash_header', Offset(0, 0));
       print('    Dashboard header positioned');
     }
@@ -320,7 +350,10 @@ class _DashboardDelegate extends MultiChildLayoutDelegate {
     double bodyTop = headerHeight + padding;
     double bodyHeight = size.height - bodyTop;
     if (hasChild('dash_sidebar')) {
-      layoutChild('dash_sidebar', BoxConstraints.tightFor(width: sidebarWidth, height: bodyHeight));
+      layoutChild(
+        'dash_sidebar',
+        BoxConstraints.tightFor(width: sidebarWidth, height: bodyHeight),
+      );
       positionChild('dash_sidebar', Offset(0, bodyTop));
       print('    Dashboard sidebar positioned at left');
     }
@@ -328,7 +361,10 @@ class _DashboardDelegate extends MultiChildLayoutDelegate {
     // Main content area top half
     if (hasChild('dash_main_top')) {
       double mainH = (bodyHeight - padding) / 2;
-      layoutChild('dash_main_top', BoxConstraints.tightFor(width: mainWidth, height: mainH));
+      layoutChild(
+        'dash_main_top',
+        BoxConstraints.tightFor(width: mainWidth, height: mainH),
+      );
       positionChild('dash_main_top', Offset(sidebarWidth + padding, bodyTop));
       print('    Dashboard main_top positioned');
     }
@@ -337,8 +373,14 @@ class _DashboardDelegate extends MultiChildLayoutDelegate {
     if (hasChild('dash_main_bottom')) {
       double mainH = (bodyHeight - padding) / 2;
       double bottomY = bodyTop + mainH + padding;
-      layoutChild('dash_main_bottom', BoxConstraints.tightFor(width: mainWidth, height: mainH));
-      positionChild('dash_main_bottom', Offset(sidebarWidth + padding, bottomY));
+      layoutChild(
+        'dash_main_bottom',
+        BoxConstraints.tightFor(width: mainWidth, height: mainH),
+      );
+      positionChild(
+        'dash_main_bottom',
+        Offset(sidebarWidth + padding, bottomY),
+      );
       print('    Dashboard main_bottom positioned');
     }
   }
@@ -427,7 +469,10 @@ Widget _buildLayoutIdSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('id: diag_a', style: TextStyle(color: Colors.white, fontSize: 10)),
+                    child: Text(
+                      'id: diag_a',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                   ),
                 ),
               ),
@@ -441,7 +486,10 @@ Widget _buildLayoutIdSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('id: diag_b', style: TextStyle(color: Colors.white, fontSize: 10)),
+                    child: Text(
+                      'id: diag_b',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                   ),
                 ),
               ),
@@ -455,7 +503,10 @@ Widget _buildLayoutIdSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('id: diag_c', style: TextStyle(color: Colors.white, fontSize: 10)),
+                    child: Text(
+                      'id: diag_c',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                   ),
                 ),
               ),
@@ -469,7 +520,10 @@ Widget _buildLayoutIdSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('id: diag_d', style: TextStyle(color: Colors.white, fontSize: 10)),
+                    child: Text(
+                      'id: diag_d',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                   ),
                 ),
               ),
@@ -509,11 +563,21 @@ Widget _buildCircularSection() {
             color: circleColors[i],
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(color: Color(0x40000000), blurRadius: 4, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Color(0x40000000),
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Center(
-            child: Text('${i + 1}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text(
+              '${i + 1}',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),
@@ -578,7 +642,11 @@ Widget _buildStaggeredSection() {
             child: Text(
               'Item $i\n${heights[i].toInt()}px',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
@@ -615,12 +683,66 @@ Widget _buildStaggeredSection() {
           child: CustomMultiChildLayout(
             delegate: _StaggeredDelegate(columnCount: 2),
             children: [
-              LayoutId(id: 'stagger_0', child: Container(height: 70, decoration: BoxDecoration(color: Color(0xFF5C6BC0), borderRadius: BorderRadius.circular(8)))),
-              LayoutId(id: 'stagger_1', child: Container(height: 100, decoration: BoxDecoration(color: Color(0xFF7986CB), borderRadius: BorderRadius.circular(8)))),
-              LayoutId(id: 'stagger_2', child: Container(height: 50, decoration: BoxDecoration(color: Color(0xFF9FA8DA), borderRadius: BorderRadius.circular(8)))),
-              LayoutId(id: 'stagger_3', child: Container(height: 80, decoration: BoxDecoration(color: Color(0xFF3F51B5), borderRadius: BorderRadius.circular(8)))),
-              LayoutId(id: 'stagger_4', child: Container(height: 60, decoration: BoxDecoration(color: Color(0xFF303F9F), borderRadius: BorderRadius.circular(8)))),
-              LayoutId(id: 'stagger_5', child: Container(height: 90, decoration: BoxDecoration(color: Color(0xFF283593), borderRadius: BorderRadius.circular(8)))),
+              LayoutId(
+                id: 'stagger_0',
+                child: Container(
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF5C6BC0),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stagger_1',
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF7986CB),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stagger_2',
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF9FA8DA),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stagger_3',
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF3F51B5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stagger_4',
+                child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF303F9F),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stagger_5',
+                child: Container(
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF283593),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -659,14 +781,22 @@ Widget _buildCardStackSection() {
             color: stackColors[i],
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Color(0x60000000), blurRadius: 6, offset: Offset(2, 2)),
+              BoxShadow(
+                color: Color(0x60000000),
+                blurRadius: 6,
+                offset: Offset(2, 2),
+              ),
             ],
             border: Border.all(color: Colors.white, width: 2),
           ),
           child: Center(
             child: Text(
               'Card ${i + 1}',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
             ),
           ),
         ),
@@ -703,11 +833,66 @@ Widget _buildCardStackSection() {
           child: CustomMultiChildLayout(
             delegate: _CardStackDelegate(overlapOffset: 18.0),
             children: [
-              LayoutId(id: 'stack_0', child: Container(width: 90, height: 120, decoration: BoxDecoration(color: Color(0xFF8E24AA), borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white, width: 2)))),
-              LayoutId(id: 'stack_1', child: Container(width: 90, height: 120, decoration: BoxDecoration(color: Color(0xFFAB47BC), borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white, width: 2)))),
-              LayoutId(id: 'stack_2', child: Container(width: 90, height: 120, decoration: BoxDecoration(color: Color(0xFFCE93D8), borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white, width: 2)))),
-              LayoutId(id: 'stack_3', child: Container(width: 90, height: 120, decoration: BoxDecoration(color: Color(0xFFE1BEE7), borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white, width: 2)))),
-              LayoutId(id: 'stack_4', child: Container(width: 90, height: 120, decoration: BoxDecoration(color: Color(0xFFF3E5F5), borderRadius: BorderRadius.circular(10), border: Border.all(color: Color(0xFFCE93D8), width: 2)))),
+              LayoutId(
+                id: 'stack_0',
+                child: Container(
+                  width: 90,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF8E24AA),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stack_1',
+                child: Container(
+                  width: 90,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFAB47BC),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stack_2',
+                child: Container(
+                  width: 90,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFCE93D8),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stack_3',
+                child: Container(
+                  width: 90,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE1BEE7),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+              LayoutId(
+                id: 'stack_4',
+                child: Container(
+                  width: 90,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF3E5F5),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Color(0xFFCE93D8), width: 2),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -749,7 +934,13 @@ Widget _buildDynamicSizingSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('Header Region', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Header Region',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -762,7 +953,10 @@ Widget _buildDynamicSizingSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('Body Region', style: TextStyle(color: Colors.white)),
+                    child: Text(
+                      'Body Region',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
@@ -775,7 +969,10 @@ Widget _buildDynamicSizingSection() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('Footer', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    child: Text(
+                      'Footer',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ),
@@ -798,24 +995,48 @@ Widget _buildDynamicSizingSection() {
                 id: 'dyn_header',
                 child: Container(
                   height: 40,
-                  decoration: BoxDecoration(color: Color(0xFF004D40), borderRadius: BorderRadius.circular(6)),
-                  child: Center(child: Text('Hdr', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF004D40),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Hdr',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               LayoutId(
                 id: 'dyn_body',
                 child: Container(
                   height: 80,
-                  decoration: BoxDecoration(color: Color(0xFF00695C), borderRadius: BorderRadius.circular(6)),
-                  child: Center(child: Text('Body', style: TextStyle(color: Colors.white))),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF00695C),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text('Body', style: TextStyle(color: Colors.white)),
+                  ),
                 ),
               ),
               LayoutId(
                 id: 'dyn_footer',
                 child: Container(
                   height: 30,
-                  decoration: BoxDecoration(color: Color(0xFF00897B), borderRadius: BorderRadius.circular(6)),
-                  child: Center(child: Text('Ftr', style: TextStyle(color: Colors.white, fontSize: 12))),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF00897B),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Ftr',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -850,10 +1071,22 @@ Widget _buildFlowComparisonSection() {
           child: CustomMultiChildLayout(
             delegate: _DiagonalDelegate(),
             children: [
-              LayoutId(id: 'diag_a', child: _buildColorBox(Color(0xFF558B2F), 45, 45, '1')),
-              LayoutId(id: 'diag_b', child: _buildColorBox(Color(0xFF689F38), 45, 45, '2')),
-              LayoutId(id: 'diag_c', child: _buildColorBox(Color(0xFF7CB342), 45, 45, '3')),
-              LayoutId(id: 'diag_d', child: _buildColorBox(Color(0xFF8BC34A), 45, 45, '4')),
+              LayoutId(
+                id: 'diag_a',
+                child: _buildColorBox(Color(0xFF558B2F), 45, 45, '1'),
+              ),
+              LayoutId(
+                id: 'diag_b',
+                child: _buildColorBox(Color(0xFF689F38), 45, 45, '2'),
+              ),
+              LayoutId(
+                id: 'diag_c',
+                child: _buildColorBox(Color(0xFF7CB342), 45, 45, '3'),
+              ),
+              LayoutId(
+                id: 'diag_d',
+                child: _buildColorBox(Color(0xFF8BC34A), 45, 45, '4'),
+              ),
             ],
           ),
         ),
@@ -888,13 +1121,31 @@ Widget _buildFlowComparisonSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Key Differences:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'Key Differences:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 6),
-              Text('- CustomMultiChildLayout: named children via LayoutId', style: TextStyle(fontSize: 12)),
-              Text('- Flow: index-based, uses matrix transforms', style: TextStyle(fontSize: 12)),
-              Text('- CustomMulti: full layout control per child', style: TextStyle(fontSize: 12)),
-              Text('- Flow: efficient for animations, repaints only', style: TextStyle(fontSize: 12)),
-              Text('- Both use delegates with performLayout', style: TextStyle(fontSize: 12)),
+              Text(
+                '- CustomMultiChildLayout: named children via LayoutId',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Flow: index-based, uses matrix transforms',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- CustomMulti: full layout control per child',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Flow: efficient for animations, repaints only',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Both use delegates with performLayout',
+                style: TextStyle(fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -937,11 +1188,26 @@ Widget _buildDashboardSection() {
                       SizedBox(width: 16),
                       Icon(Icons.dashboard, color: Colors.white, size: 20),
                       SizedBox(width: 8),
-                      Text('Dashboard', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                      Text(
+                        'Dashboard',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
                       Spacer(),
-                      Icon(Icons.notifications_none, color: Color(0xAAFFFFFF), size: 20),
+                      Icon(
+                        Icons.notifications_none,
+                        color: Color(0xAAFFFFFF),
+                        size: 20,
+                      ),
                       SizedBox(width: 12),
-                      Icon(Icons.person_outline, color: Color(0xAAFFFFFF), size: 20),
+                      Icon(
+                        Icons.person_outline,
+                        color: Color(0xAAFFFFFF),
+                        size: 20,
+                      ),
                       SizedBox(width: 16),
                     ],
                   ),
@@ -952,7 +1218,9 @@ Widget _buildDashboardSection() {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFF455A64),
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12)),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(12),
+                    ),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                   child: Column(
@@ -977,13 +1245,23 @@ Widget _buildDashboardSection() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Statistics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(
+                        'Statistics',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       SizedBox(height: 8),
                       Row(
                         children: [
                           _buildStatChip('Users', '1,234', Color(0xFF1E88E5)),
                           SizedBox(width: 8),
-                          _buildStatChip('Revenue', '\$5.6k', Color(0xFF43A047)),
+                          _buildStatChip(
+                            'Revenue',
+                            '\$5.6k',
+                            Color(0xFF43A047),
+                          ),
                         ],
                       ),
                       SizedBox(height: 8),
@@ -1003,17 +1281,37 @@ Widget _buildDashboardSection() {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(12)),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(12),
+                    ),
                   ),
                   padding: EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Recent Activity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(
+                        'Recent Activity',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       SizedBox(height: 8),
-                      _buildActivityRow('New signup', '2 min ago', Color(0xFF1E88E5)),
-                      _buildActivityRow('Order placed', '15 min ago', Color(0xFF43A047)),
-                      _buildActivityRow('Payment received', '1 hr ago', Color(0xFFF57C00)),
+                      _buildActivityRow(
+                        'New signup',
+                        '2 min ago',
+                        Color(0xFF1E88E5),
+                      ),
+                      _buildActivityRow(
+                        'Order placed',
+                        '15 min ago',
+                        Color(0xFF43A047),
+                      ),
+                      _buildActivityRow(
+                        'Payment received',
+                        '1 hr ago',
+                        Color(0xFFF57C00),
+                      ),
                     ],
                   ),
                 ),
@@ -1058,7 +1356,14 @@ Widget _buildStatChip(String label, String value, Color color) {
         children: [
           Text(label, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
           SizedBox(height: 2),
-          Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ],
       ),
     ),
@@ -1101,23 +1406,59 @@ Widget _buildDelegateNotesSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Required methods:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'Required methods:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 6),
-              Text('1. performLayout(Size size) - layout and position children', style: TextStyle(fontSize: 12)),
-              Text('2. shouldRelayout(old) - return true if layout changed', style: TextStyle(fontSize: 12)),
+              Text(
+                '1. performLayout(Size size) - layout and position children',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '2. shouldRelayout(old) - return true if layout changed',
+                style: TextStyle(fontSize: 12),
+              ),
               SizedBox(height: 10),
-              Text('Available in performLayout:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'Available in performLayout:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 6),
-              Text('- hasChild(id) - check if child with id exists', style: TextStyle(fontSize: 12)),
-              Text('- layoutChild(id, constraints) - measure child', style: TextStyle(fontSize: 12)),
-              Text('- positionChild(id, offset) - place child', style: TextStyle(fontSize: 12)),
+              Text(
+                '- hasChild(id) - check if child with id exists',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- layoutChild(id, constraints) - measure child',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- positionChild(id, offset) - place child',
+                style: TextStyle(fontSize: 12),
+              ),
               SizedBox(height: 10),
-              Text('Rules:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'Rules:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 6),
-              Text('- Each child must be laid out exactly once', style: TextStyle(fontSize: 12)),
-              Text('- layoutChild must be called before positionChild', style: TextStyle(fontSize: 12)),
-              Text('- Children not positioned default to Offset.zero', style: TextStyle(fontSize: 12)),
-              Text('- LayoutId wraps each child with a unique id', style: TextStyle(fontSize: 12)),
+              Text(
+                '- Each child must be laid out exactly once',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- layoutChild must be called before positionChild',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Children not positioned default to Offset.zero',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- LayoutId wraps each child with a unique id',
+                style: TextStyle(fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -1132,12 +1473,30 @@ Widget _buildDelegateNotesSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('- Complex positioning not achievable with Row/Column/Stack', style: TextStyle(fontSize: 12)),
-              Text('- Children sizes depend on each other', style: TextStyle(fontSize: 12)),
-              Text('- Dashboard or grid layouts with named regions', style: TextStyle(fontSize: 12)),
-              Text('- Circular / radial arrangements', style: TextStyle(fontSize: 12)),
-              Text('- Overlapping elements with precise control', style: TextStyle(fontSize: 12)),
-              Text('- Any layout where child position depends on sibling size', style: TextStyle(fontSize: 12)),
+              Text(
+                '- Complex positioning not achievable with Row/Column/Stack',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Children sizes depend on each other',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Dashboard or grid layouts with named regions',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Circular / radial arrangements',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Overlapping elements with precise control',
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                '- Any layout where child position depends on sibling size',
+                style: TextStyle(fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -1167,7 +1526,10 @@ dynamic build(BuildContext context) {
         _buildSectionTitle(Icons.label, '2. LayoutId Mapping'),
         _buildLayoutIdSection(),
 
-        _buildSectionTitle(Icons.radio_button_unchecked, '3. Circular Arrangement'),
+        _buildSectionTitle(
+          Icons.radio_button_unchecked,
+          '3. Circular Arrangement',
+        ),
         _buildCircularSection(),
 
         _buildSectionTitle(Icons.view_quilt, '4. Staggered Waterfall'),

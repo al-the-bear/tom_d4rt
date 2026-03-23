@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Overlay, OverlayEntry, OverlayPortal,
 // OverlayPortalController, CompositedTransformTarget, CompositedTransformFollower
 import 'package:flutter/material.dart';

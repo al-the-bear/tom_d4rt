@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FragmentShader from dart:ui
 // FragmentShader is an executable instance created from FragmentProgram
 // It holds uniform values and can be assigned to Paint.shader

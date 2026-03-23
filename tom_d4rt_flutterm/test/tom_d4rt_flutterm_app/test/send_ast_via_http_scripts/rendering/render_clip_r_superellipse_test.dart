@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderClipRSuperellipse / ClipRSuperellipse
 // Demonstrates smooth superellipse clipping (iOS-style continuous corners)
 // compared to standard ClipRRect rounded rectangles.
@@ -19,7 +20,9 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // Section 1: Different border radii
-          _buildSectionTitle('1. ClipRSuperellipse with Different Border Radii'),
+          _buildSectionTitle(
+            '1. ClipRSuperellipse with Different Border Radii',
+          ),
           SizedBox(height: 12.0),
           _buildRadiiShowcase(),
           SizedBox(height: 32.0),
@@ -31,7 +34,9 @@ dynamic build(BuildContext context) {
           SizedBox(height: 32.0),
 
           // Section 3: Clip behaviors
-          _buildSectionTitle('3. ClipRSuperellipse with Different clipBehavior'),
+          _buildSectionTitle(
+            '3. ClipRSuperellipse with Different clipBehavior',
+          ),
           SizedBox(height: 12.0),
           _buildClipBehaviorSection(),
           SizedBox(height: 32.0),
@@ -100,18 +105,12 @@ Widget _buildHeader() {
         SizedBox(height: 8.0),
         Text(
           'Smooth superellipse clipping with iOS-style continuous corners',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Color(0xDDFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14.0, color: Color(0xDDFFFFFF)),
         ),
         SizedBox(height: 4.0),
         Text(
           'ClipRSuperellipse produces smoother corner curves than ClipRRect',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Color(0xAAFFFFFF),
-          ),
+          style: TextStyle(fontSize: 12.0, color: Color(0xAAFFFFFF)),
         ),
       ],
     ),
@@ -181,11 +180,7 @@ Widget _buildRadiiShowcase() {
     );
   }
 
-  return Wrap(
-    spacing: 12.0,
-    runSpacing: 12.0,
-    children: items,
-  );
+  return Wrap(spacing: 12.0, runSpacing: 12.0, children: items);
 }
 
 // Section 2: Side-by-side comparison
@@ -214,7 +209,11 @@ Widget _buildComparisonSection() {
                     child: Center(
                       child: Text(
                         'Super',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
                       ),
                     ),
                   ),
@@ -236,7 +235,11 @@ Widget _buildComparisonSection() {
                     child: Center(
                       child: Text(
                         'RRect',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
                       ),
                     ),
                   ),
@@ -277,7 +280,10 @@ Widget _buildClipBehaviorSection() {
     {'clip': Clip.none, 'label': 'Clip.none'},
     {'clip': Clip.hardEdge, 'label': 'Clip.hardEdge'},
     {'clip': Clip.antiAlias, 'label': 'Clip.antiAlias'},
-    {'clip': Clip.antiAliasWithSaveLayer, 'label': 'Clip.antiAliasWithSaveLayer'},
+    {
+      'clip': Clip.antiAliasWithSaveLayer,
+      'label': 'Clip.antiAliasWithSaveLayer',
+    },
   ];
 
   List<Widget> items = [];
@@ -308,7 +314,11 @@ Widget _buildClipBehaviorSection() {
                   ),
                 ),
                 child: Center(
-                  child: Icon(Icons.auto_awesome, color: Colors.white, size: 36.0),
+                  child: Icon(
+                    Icons.auto_awesome,
+                    color: Colors.white,
+                    size: 36.0,
+                  ),
                 ),
               ),
             ),
@@ -323,11 +333,7 @@ Widget _buildClipBehaviorSection() {
     );
   }
 
-  return Wrap(
-    spacing: 16.0,
-    runSpacing: 12.0,
-    children: items,
-  );
+  return Wrap(spacing: 16.0, runSpacing: 12.0, children: items);
 }
 
 // Section 4: Gradients and patterns
@@ -595,17 +601,16 @@ Widget _buildAsymmetricSection() {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(label, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500)),
+          Text(
+            label,
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+          ),
         ],
       ),
     );
   }
 
-  return Wrap(
-    spacing: 14.0,
-    runSpacing: 14.0,
-    children: items,
-  );
+  return Wrap(spacing: 14.0, runSpacing: 14.0, children: items);
 }
 
 // Section 6: Nested ClipRSuperellipse
@@ -690,7 +695,11 @@ Widget _buildNestedOffset() {
                     height: 80.0,
                     color: Color(0xFFF48FB1),
                     child: Center(
-                      child: Icon(Icons.favorite, color: Colors.white, size: 28.0),
+                      child: Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 28.0,
+                      ),
                     ),
                   ),
                 ),
@@ -730,7 +739,11 @@ Widget _buildNestedTriple() {
                       height: 60.0,
                       color: Color(0xFFA5D6A7),
                       child: Center(
-                        child: Icon(Icons.eco, color: Color(0xFF1B5E20), size: 24.0),
+                        child: Icon(
+                          Icons.eco,
+                          color: Color(0xFF1B5E20),
+                          size: 24.0,
+                        ),
                       ),
                     ),
                   ),
@@ -767,7 +780,11 @@ Widget _buildNestedDecreasing() {
                 child: Container(
                   color: Color(0xFFFFF9C4),
                   child: Center(
-                    child: Icon(Icons.wb_sunny, color: Color(0xFFFF6F00), size: 30.0),
+                    child: Icon(
+                      Icons.wb_sunny,
+                      color: Color(0xFFFF6F00),
+                      size: 30.0,
+                    ),
                   ),
                 ),
               ),
@@ -808,7 +825,13 @@ Widget _buildNestedWithContent() {
                   height: 40.0,
                   color: Color(0xCCFFFFFF),
                   child: Center(
-                    child: Text('Header', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
+                    child: Text(
+                      'Header',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -820,7 +843,10 @@ Widget _buildNestedWithContent() {
                   height: 40.0,
                   color: Color(0x88FFFFFF),
                   child: Center(
-                    child: Text('Content', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+                    child: Text(
+                      'Content',
+                      style: TextStyle(color: Colors.white, fontSize: 11.0),
+                    ),
                   ),
                 ),
               ),
@@ -855,13 +881,23 @@ Widget _buildClipTypeComparison() {
                 ),
               ),
               child: Center(
-                child: Icon(Icons.rounded_corner, color: Colors.white, size: 32.0),
+                child: Icon(
+                  Icons.rounded_corner,
+                  color: Colors.white,
+                  size: 32.0,
+                ),
               ),
             ),
           ),
           SizedBox(height: 6.0),
-          Text('Superellipse', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600)),
-          Text('Smooth corners', style: TextStyle(fontSize: 9.0, color: Color(0xFF757575))),
+          Text(
+            'Superellipse',
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600),
+          ),
+          Text(
+            'Smooth corners',
+            style: TextStyle(fontSize: 9.0, color: Color(0xFF757575)),
+          ),
         ],
       ),
       // ClipRRect
@@ -883,8 +919,14 @@ Widget _buildClipTypeComparison() {
             ),
           ),
           SizedBox(height: 6.0),
-          Text('RRect', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600)),
-          Text('Standard corners', style: TextStyle(fontSize: 9.0, color: Color(0xFF757575))),
+          Text(
+            'RRect',
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600),
+          ),
+          Text(
+            'Standard corners',
+            style: TextStyle(fontSize: 9.0, color: Color(0xFF757575)),
+          ),
         ],
       ),
       // ClipOval
@@ -900,13 +942,23 @@ Widget _buildClipTypeComparison() {
                 ),
               ),
               child: Center(
-                child: Icon(Icons.circle_outlined, color: Colors.white, size: 32.0),
+                child: Icon(
+                  Icons.circle_outlined,
+                  color: Colors.white,
+                  size: 32.0,
+                ),
               ),
             ),
           ),
           SizedBox(height: 6.0),
-          Text('Oval', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600)),
-          Text('Elliptical clip', style: TextStyle(fontSize: 9.0, color: Color(0xFF757575))),
+          Text(
+            'Oval',
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600),
+          ),
+          Text(
+            'Elliptical clip',
+            style: TextStyle(fontSize: 9.0, color: Color(0xFF757575)),
+          ),
         ],
       ),
       // ClipRect
@@ -927,8 +979,14 @@ Widget _buildClipTypeComparison() {
             ),
           ),
           SizedBox(height: 6.0),
-          Text('Rect', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600)),
-          Text('Sharp corners', style: TextStyle(fontSize: 9.0, color: Color(0xFF757575))),
+          Text(
+            'Rect',
+            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600),
+          ),
+          Text(
+            'Sharp corners',
+            style: TextStyle(fontSize: 9.0, color: Color(0xFF757575)),
+          ),
         ],
       ),
     ],
@@ -959,9 +1017,7 @@ Widget _buildCardComposition() {
     borderRadius: BorderRadius.circular(24.0),
     child: Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
+      decoration: BoxDecoration(color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -971,7 +1027,11 @@ Widget _buildCardComposition() {
             height: 120.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF0D47A1), Color(0xFF42A5F5), Color(0xFF90CAF9)],
+                colors: [
+                  Color(0xFF0D47A1),
+                  Color(0xFF42A5F5),
+                  Color(0xFF90CAF9),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -984,9 +1044,18 @@ Widget _buildCardComposition() {
                   child: ClipRSuperellipse(
                     borderRadius: BorderRadius.circular(12.0),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 4.0,
+                      ),
                       color: Color(0xCCFFFFFF),
-                      child: Text('Featured', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Featured',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -999,7 +1068,9 @@ Widget _buildCardComposition() {
                       color: Colors.white,
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                      shadows: [Shadow(blurRadius: 6.0, color: Color(0x66000000))],
+                      shadows: [
+                        Shadow(blurRadius: 6.0, color: Color(0x66000000)),
+                      ],
                     ),
                   ),
                 ),
@@ -1029,18 +1100,33 @@ Widget _buildCardComposition() {
                     ClipRSuperellipse(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 6.0,
+                        ),
                         color: Color(0xFF1565C0),
-                        child: Text('Action', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                        child: Text(
+                          'Action',
+                          style: TextStyle(color: Colors.white, fontSize: 12.0),
+                        ),
                       ),
                     ),
                     SizedBox(width: 8.0),
                     ClipRSuperellipse(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 6.0,
+                        ),
                         color: Color(0xFFE3F2FD),
-                        child: Text('Details', style: TextStyle(color: Color(0xFF1565C0), fontSize: 12.0)),
+                        child: Text(
+                          'Details',
+                          style: TextStyle(
+                            color: Color(0xFF1565C0),
+                            fontSize: 12.0,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -1078,15 +1164,16 @@ Widget _buildGridComposition() {
               height: 64.0,
               color: gridItems[i]['color'],
               child: Center(
-                child: Icon(gridItems[i]['icon'], color: Colors.white, size: 28.0),
+                child: Icon(
+                  gridItems[i]['icon'],
+                  color: Colors.white,
+                  size: 28.0,
+                ),
               ),
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            gridItems[i]['label'],
-            style: TextStyle(fontSize: 10.0),
-          ),
+          Text(gridItems[i]['label'], style: TextStyle(fontSize: 10.0)),
         ],
       ),
     );
@@ -1106,11 +1193,7 @@ Widget _buildGridComposition() {
           style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 20.0,
-          runSpacing: 12.0,
-          children: items,
-        ),
+        Wrap(spacing: 20.0, runSpacing: 12.0, children: items),
       ],
     ),
   );

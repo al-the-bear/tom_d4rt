@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Size from dart:ui
 // Size represents 2D dimensions (width × height) — fundamental for layout
 import 'dart:ui' as ui;

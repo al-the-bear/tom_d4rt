@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for OffsetBase from dart:ui
 //
 // OffsetBase is an abstract class that serves as the base for both Offset

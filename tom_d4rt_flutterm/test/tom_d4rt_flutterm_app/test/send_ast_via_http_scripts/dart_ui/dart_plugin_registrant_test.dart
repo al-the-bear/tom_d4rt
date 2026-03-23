@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for DartPluginRegistrant from dart:ui
 // DartPluginRegistrant provides plugin registration hooks for Dart-only environments
 // It ensures dartPluginRegistrantImplementation is available

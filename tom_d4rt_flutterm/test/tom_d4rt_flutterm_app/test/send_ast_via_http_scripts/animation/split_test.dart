@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Split from animation
 // Split applies two different curves before and after a threshold
 // Perfect for multi-phase animations with distinct behaviors

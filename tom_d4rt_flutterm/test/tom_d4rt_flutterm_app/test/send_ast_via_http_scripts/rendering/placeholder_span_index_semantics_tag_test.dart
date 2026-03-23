@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // PlaceholderSpanIndexSemanticsTag Deep Demo
 // Semantics tag for inline widgets in text - enables accessibility for WidgetSpan elements
 // Created: March 2026

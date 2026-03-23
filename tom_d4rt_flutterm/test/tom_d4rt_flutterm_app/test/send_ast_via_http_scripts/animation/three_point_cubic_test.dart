@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ThreePointCubic from animation
 // ThreePointCubic defines a curve through 3 control point regions
 // Used for Material Design emphasis curves with precise control

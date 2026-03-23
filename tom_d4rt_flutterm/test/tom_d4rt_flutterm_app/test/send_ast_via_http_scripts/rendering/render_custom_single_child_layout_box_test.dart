@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 
 // RenderCustomSingleChildLayoutBox Deep Demo
@@ -12,7 +13,9 @@ class CenteringDelegate extends SingleChildLayoutDelegate {
   }
 
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    print('[CenteringDelegate] getConstraintsForChild: allowing child up to half parent');
+    print(
+      '[CenteringDelegate] getConstraintsForChild: allowing child up to half parent',
+    );
     return BoxConstraints(
       maxWidth: constraints.maxWidth * 0.5,
       maxHeight: constraints.maxHeight * 0.5,
@@ -22,7 +25,9 @@ class CenteringDelegate extends SingleChildLayoutDelegate {
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) / 2.0;
     double dy = (size.height - childSize.height) / 2.0;
-    print('[CenteringDelegate] getPositionForChild: parent=$size child=$childSize offset=($dx, $dy)');
+    print(
+      '[CenteringDelegate] getPositionForChild: parent=$size child=$childSize offset=($dx, $dy)',
+    );
     return Offset(dx, dy);
   }
 
@@ -38,7 +43,9 @@ class PercentageOffsetDelegate extends SingleChildLayoutDelegate {
   double yPercent;
 
   PercentageOffsetDelegate(this.xPercent, this.yPercent) {
-    print('[PercentageOffsetDelegate] created with xPercent=$xPercent yPercent=$yPercent');
+    print(
+      '[PercentageOffsetDelegate] created with xPercent=$xPercent yPercent=$yPercent',
+    );
   }
 
   Size getSize(BoxConstraints constraints) {
@@ -49,23 +56,25 @@ class PercentageOffsetDelegate extends SingleChildLayoutDelegate {
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.4;
     double maxH = constraints.maxHeight * 0.4;
-    print('[PercentageOffsetDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH');
-    return BoxConstraints(
-      maxWidth: maxW,
-      maxHeight: maxH,
+    print(
+      '[PercentageOffsetDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH',
     );
+    return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) * xPercent;
     double dy = (size.height - childSize.height) * yPercent;
-    print('[PercentageOffsetDelegate] getPositionForChild: placing at ($dx, $dy)');
+    print(
+      '[PercentageOffsetDelegate] getPositionForChild: placing at ($dx, $dy)',
+    );
     return Offset(dx, dy);
   }
 
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is PercentageOffsetDelegate) {
-      bool result = oldDelegate.xPercent != xPercent || oldDelegate.yPercent != yPercent;
+      bool result =
+          oldDelegate.xPercent != xPercent || oldDelegate.yPercent != yPercent;
       print('[PercentageOffsetDelegate] shouldRelayout: $result');
       return result;
     }
@@ -79,7 +88,9 @@ class FractionalConstraintDelegate extends SingleChildLayoutDelegate {
   double heightFraction;
 
   FractionalConstraintDelegate(this.widthFraction, this.heightFraction) {
-    print('[FractionalConstraintDelegate] created: widthFraction=$widthFraction heightFraction=$heightFraction');
+    print(
+      '[FractionalConstraintDelegate] created: widthFraction=$widthFraction heightFraction=$heightFraction',
+    );
   }
 
   Size getSize(BoxConstraints constraints) {
@@ -90,20 +101,25 @@ class FractionalConstraintDelegate extends SingleChildLayoutDelegate {
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double w = constraints.maxWidth * widthFraction;
     double h = constraints.maxHeight * heightFraction;
-    print('[FractionalConstraintDelegate] getConstraintsForChild: tight($w, $h)');
+    print(
+      '[FractionalConstraintDelegate] getConstraintsForChild: tight($w, $h)',
+    );
     return BoxConstraints.tightFor(width: w, height: h);
   }
 
   Offset getPositionForChild(Size size, Size childSize) {
     double dx = (size.width - childSize.width) / 2.0;
     double dy = (size.height - childSize.height) / 2.0;
-    print('[FractionalConstraintDelegate] getPositionForChild: centered at ($dx, $dy)');
+    print(
+      '[FractionalConstraintDelegate] getPositionForChild: centered at ($dx, $dy)',
+    );
     return Offset(dx, dy);
   }
 
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is FractionalConstraintDelegate) {
-      bool result = oldDelegate.widthFraction != widthFraction ||
+      bool result =
+          oldDelegate.widthFraction != widthFraction ||
           oldDelegate.heightFraction != heightFraction;
       print('[FractionalConstraintDelegate] shouldRelayout: $result');
       return result;
@@ -119,7 +135,9 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
   double tooltipOffset;
 
   TooltipPositionDelegate(this.anchorX, this.anchorY, this.tooltipOffset) {
-    print('[TooltipPositionDelegate] created: anchor=($anchorX, $anchorY) offset=$tooltipOffset');
+    print(
+      '[TooltipPositionDelegate] created: anchor=($anchorX, $anchorY) offset=$tooltipOffset',
+    );
   }
 
   Size getSize(BoxConstraints constraints) {
@@ -130,11 +148,10 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.6;
     double maxH = 80.0;
-    print('[TooltipPositionDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH');
-    return BoxConstraints(
-      maxWidth: maxW,
-      maxHeight: maxH,
+    print(
+      '[TooltipPositionDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH',
     );
+    return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
   Offset getPositionForChild(Size size, Size childSize) {
@@ -146,13 +163,16 @@ class TooltipPositionDelegate extends SingleChildLayoutDelegate {
     if (dy < 0) {
       dy = anchorY + tooltipOffset;
     }
-    print('[TooltipPositionDelegate] getPositionForChild: tooltip at ($dx, $dy)');
+    print(
+      '[TooltipPositionDelegate] getPositionForChild: tooltip at ($dx, $dy)',
+    );
     return Offset(dx, dy);
   }
 
   bool shouldRelayout(SingleChildLayoutDelegate oldDelegate) {
     if (oldDelegate is TooltipPositionDelegate) {
-      bool result = oldDelegate.anchorX != anchorX ||
+      bool result =
+          oldDelegate.anchorX != anchorX ||
           oldDelegate.anchorY != anchorY ||
           oldDelegate.tooltipOffset != tooltipOffset;
       print('[TooltipPositionDelegate] shouldRelayout: $result');
@@ -178,11 +198,10 @@ class BottomRightDelegate extends SingleChildLayoutDelegate {
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     double maxW = constraints.maxWidth * 0.3;
     double maxH = constraints.maxHeight * 0.3;
-    print('[BottomRightDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH');
-    return BoxConstraints(
-      maxWidth: maxW,
-      maxHeight: maxH,
+    print(
+      '[BottomRightDelegate] getConstraintsForChild: maxW=$maxW maxH=$maxH',
     );
+    return BoxConstraints(maxWidth: maxW, maxHeight: maxH);
   }
 
   Offset getPositionForChild(Size size, Size childSize) {
@@ -223,7 +242,9 @@ class DiagonalDelegate extends SingleChildLayoutDelegate {
     double maxDy = size.height - childSize.height;
     double dx = maxDx * progress;
     double dy = maxDy * progress;
-    print('[DiagonalDelegate] getPositionForChild: progress=$progress pos=($dx, $dy)');
+    print(
+      '[DiagonalDelegate] getPositionForChild: progress=$progress pos=($dx, $dy)',
+    );
     return Offset(dx, dy);
   }
 
@@ -236,7 +257,9 @@ class DiagonalDelegate extends SingleChildLayoutDelegate {
 }
 
 Widget _buildHeader() {
-  print('[Header] Building gradient header for RenderCustomSingleChildLayoutBox demo');
+  print(
+    '[Header] Building gradient header for RenderCustomSingleChildLayoutBox demo',
+  );
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(24.0),
@@ -269,18 +292,12 @@ Widget _buildHeader() {
         SizedBox(height: 8.0),
         Text(
           'Deep demo of CustomSingleChildLayout and SingleChildLayoutDelegate',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14.0, color: Color(0xCCFFFFFF)),
         ),
         SizedBox(height: 4.0),
         Text(
           'Covers: getConstraintsForChild, getPositionForChild, getSize, shouldRelayout',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Color(0x99FFFFFF),
-          ),
+          style: TextStyle(fontSize: 12.0, color: Color(0x99FFFFFF)),
         ),
       ],
     ),
@@ -315,10 +332,7 @@ Widget _buildSectionTitle(String title, String subtitle) {
         SizedBox(height: 4.0),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Color(0xBBFFFFFF),
-          ),
+          style: TextStyle(fontSize: 12.0, color: Color(0xBBFFFFFF)),
         ),
       ],
     ),
@@ -357,7 +371,12 @@ Widget _buildInfoCard(String label, String description) {
   );
 }
 
-Widget _buildCustomLayoutSection(String label, SingleChildLayoutDelegate delegate, Widget child, double height) {
+Widget _buildCustomLayoutSection(
+  String label,
+  SingleChildLayoutDelegate delegate,
+  Widget child,
+  double height,
+) {
   print('[CustomLayoutSection] Building section: $label with height=$height');
   return Container(
     width: double.infinity,
@@ -399,13 +418,8 @@ Widget _buildCustomLayoutSection(String label, SingleChildLayoutDelegate delegat
         Container(
           width: double.infinity,
           height: height,
-          decoration: BoxDecoration(
-            color: Color(0xFFFAFAFA),
-          ),
-          child: CustomSingleChildLayout(
-            delegate: delegate,
-            child: child,
-          ),
+          decoration: BoxDecoration(color: Color(0xFFFAFAFA)),
+          child: CustomSingleChildLayout(delegate: delegate, child: child),
         ),
       ],
     ),
@@ -417,18 +431,24 @@ Widget _buildSection1CenteringDelegate() {
   Widget child = Container(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF42A5F5), Color(0xFF1565C0)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF42A5F5), Color(0xFF1565C0)]),
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: [
-        BoxShadow(color: Color(0x40000000), blurRadius: 6.0, offset: Offset(0, 3)),
+        BoxShadow(
+          color: Color(0x40000000),
+          blurRadius: 6.0,
+          offset: Offset(0, 3),
+        ),
       ],
     ),
     child: Text(
       'Centered Child\n(half parent size)',
       textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 13.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
 
@@ -443,10 +463,30 @@ Widget _buildSection1CenteringDelegate() {
 Widget _buildSection2PercentageOffsets() {
   print('[Section2] PercentageOffsetDelegate - various offset positions');
   List<Map<String, dynamic>> configs = [
-    {'x': 0.0, 'y': 0.0, 'label': 'Top-Left (0%, 0%)', 'color': Color(0xFFEF5350)},
-    {'x': 1.0, 'y': 0.0, 'label': 'Top-Right (100%, 0%)', 'color': Color(0xFF66BB6A)},
-    {'x': 0.5, 'y': 0.5, 'label': 'Center (50%, 50%)', 'color': Color(0xFFAB47BC)},
-    {'x': 0.25, 'y': 0.75, 'label': 'Low-Left (25%, 75%)', 'color': Color(0xFFFF7043)},
+    {
+      'x': 0.0,
+      'y': 0.0,
+      'label': 'Top-Left (0%, 0%)',
+      'color': Color(0xFFEF5350),
+    },
+    {
+      'x': 1.0,
+      'y': 0.0,
+      'label': 'Top-Right (100%, 0%)',
+      'color': Color(0xFF66BB6A),
+    },
+    {
+      'x': 0.5,
+      'y': 0.5,
+      'label': 'Center (50%, 50%)',
+      'color': Color(0xFFAB47BC),
+    },
+    {
+      'x': 0.25,
+      'y': 0.75,
+      'label': 'Low-Left (25%, 75%)',
+      'color': Color(0xFFFF7043),
+    },
   ];
 
   List<Widget> items = [];
@@ -465,7 +505,11 @@ Widget _buildSection2PercentageOffsets() {
       ),
       child: Text(
         label,
-        style: TextStyle(color: Colors.white, fontSize: 11.0, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 11.0,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
     items.add(
@@ -505,7 +549,11 @@ Widget _buildSection3FractionalConstraints() {
       child: Center(
         child: Text(
           'Fraction: $label',
-          style: TextStyle(color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -522,14 +570,20 @@ Widget _buildSection3FractionalConstraints() {
 }
 
 Widget _buildSection4TooltipPositioning() {
-  print('[Section4] TooltipPositionDelegate - floating tooltip-like positioning');
+  print(
+    '[Section4] TooltipPositionDelegate - floating tooltip-like positioning',
+  );
   Widget tooltipChild = Container(
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
     decoration: BoxDecoration(
       color: Color(0xFF37474F),
       borderRadius: BorderRadius.circular(8.0),
       boxShadow: [
-        BoxShadow(color: Color(0x60000000), blurRadius: 8.0, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x60000000),
+          blurRadius: 8.0,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
@@ -537,7 +591,11 @@ Widget _buildSection4TooltipPositioning() {
       children: [
         Text(
           'Tooltip Content',
-          style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 13.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -571,7 +629,11 @@ Widget _buildSection4TooltipPositioning() {
     ),
     child: Text(
       'Flipped Below (near top edge)',
-      style: TextStyle(color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 12.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
   tooltipExamples.add(
@@ -593,7 +655,11 @@ Widget _buildSection4TooltipPositioning() {
     ),
     child: Text(
       'Clamped to right edge',
-      style: TextStyle(color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 12.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
   tooltipExamples.add(
@@ -605,18 +671,27 @@ Widget _buildSection4TooltipPositioning() {
     ),
   );
 
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: tooltipExamples);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: tooltipExamples,
+  );
 }
 
 Widget _buildSection5BottomRight() {
-  print('[Section5] BottomRightDelegate - positions child at bottom-right with padding');
+  print(
+    '[Section5] BottomRightDelegate - positions child at bottom-right with padding',
+  );
   Widget child = Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: Color(0xFFFF6F00),
       borderRadius: BorderRadius.circular(24.0),
       boxShadow: [
-        BoxShadow(color: Color(0x40000000), blurRadius: 6.0, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x40000000),
+          blurRadius: 6.0,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Icon(Icons.add, color: Colors.white, size: 28.0),
@@ -633,7 +708,12 @@ Widget _buildSection5BottomRight() {
 Widget _buildSection6DiagonalLayout() {
   print('[Section6] DiagonalDelegate - child moves along diagonal');
   List<double> progressValues = [0.0, 0.33, 0.66, 1.0];
-  List<Color> colors = [Color(0xFFF44336), Color(0xFFFF9800), Color(0xFF4CAF50), Color(0xFF2196F3)];
+  List<Color> colors = [
+    Color(0xFFF44336),
+    Color(0xFFFF9800),
+    Color(0xFF4CAF50),
+    Color(0xFF2196F3),
+  ];
   List<Widget> items = [];
 
   for (int i = 0; i < progressValues.length; i++) {
@@ -645,13 +725,21 @@ Widget _buildSection6DiagonalLayout() {
         color: c,
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
-          BoxShadow(color: Color(0x30000000), blurRadius: 4.0, offset: Offset(0, 2)),
+          BoxShadow(
+            color: Color(0x30000000),
+            blurRadius: 4.0,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: Center(
         child: Text(
           '${(p * 100).toInt()}%',
-          style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -683,11 +771,18 @@ Widget _buildSection7ComparisonWithAlign() {
       children: [
         Text(
           'Comparison: CustomSingleChildLayout vs Align vs FractionallySizedBox',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFFE65100)),
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFE65100),
+          ),
         ),
         SizedBox(height: 12.0),
         // Align example
-        Text('1. Align - Simple alignment only:', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+        Text(
+          '1. Align - Simple alignment only:',
+          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+        ),
         SizedBox(height: 4.0),
         Container(
           width: double.infinity,
@@ -701,13 +796,19 @@ Widget _buildSection7ComparisonWithAlign() {
             child: Container(
               padding: EdgeInsets.all(8.0),
               color: Color(0xFF1976D2),
-              child: Text('Align(0.5, -0.5)', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+              child: Text(
+                'Align(0.5, -0.5)',
+                style: TextStyle(color: Colors.white, fontSize: 11.0),
+              ),
             ),
           ),
         ),
         SizedBox(height: 12.0),
         // FractionallySizedBox example
-        Text('2. FractionallySizedBox - Fraction sizing only:', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+        Text(
+          '2. FractionallySizedBox - Fraction sizing only:',
+          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+        ),
         SizedBox(height: 4.0),
         Container(
           width: double.infinity,
@@ -723,14 +824,20 @@ Widget _buildSection7ComparisonWithAlign() {
             child: Container(
               color: Color(0xFF388E3C),
               child: Center(
-                child: Text('60% x 50%', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+                child: Text(
+                  '60% x 50%',
+                  style: TextStyle(color: Colors.white, fontSize: 11.0),
+                ),
               ),
             ),
           ),
         ),
         SizedBox(height: 12.0),
         // CustomSingleChildLayout example
-        Text('3. CustomSingleChildLayout - Full control:', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600)),
+        Text(
+          '3. CustomSingleChildLayout - Full control:',
+          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+        ),
         SizedBox(height: 4.0),
         Container(
           width: double.infinity,
@@ -744,7 +851,10 @@ Widget _buildSection7ComparisonWithAlign() {
             child: Container(
               padding: EdgeInsets.all(8.0),
               color: Color(0xFF7B1FA2),
-              child: Text('Custom (70%, 30%)', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+              child: Text(
+                'Custom (70%, 30%)',
+                style: TextStyle(color: Colors.white, fontSize: 11.0),
+              ),
             ),
           ),
         ),
@@ -752,8 +862,8 @@ Widget _buildSection7ComparisonWithAlign() {
         _buildInfoCard(
           'Key Differences',
           'Align: only alignment, no constraint control.\n'
-          'FractionallySizedBox: fraction sizing + alignment, no arbitrary positioning.\n'
-          'CustomSingleChildLayout: full control over constraints, positioning, and parent size.',
+              'FractionallySizedBox: fraction sizing + alignment, no arbitrary positioning.\n'
+              'CustomSingleChildLayout: full control over constraints, positioning, and parent size.',
         ),
       ],
     ),
@@ -776,7 +886,11 @@ Widget _buildSection8ShouldRelayout() {
       children: [
         Text(
           'shouldRelayout Behavior',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFF283593)),
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF283593),
+          ),
         ),
         SizedBox(height: 8.0),
         _buildInfoCard(
@@ -802,7 +916,11 @@ Widget _buildSection8ShouldRelayout() {
         SizedBox(height: 8.0),
         Text(
           'Best practice: compare all mutable fields in shouldRelayout to avoid unnecessary layout passes.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF455A64), fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF455A64),
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -829,28 +947,32 @@ Widget _buildDelegateApiSummary() {
       children: [
         Text(
           'SingleChildLayoutDelegate API Summary',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFF006064)),
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF006064),
+          ),
         ),
         SizedBox(height: 12.0),
         _buildInfoCard(
           'getSize(BoxConstraints constraints) -> Size',
           'Determines the size of the parent. Defaults to constraints.biggest. '
-          'Override to set a specific size for the layout area.',
+              'Override to set a specific size for the layout area.',
         ),
         _buildInfoCard(
           'getConstraintsForChild(BoxConstraints constraints) -> BoxConstraints',
           'Returns the constraints to apply to the child. Can restrict, loosen, or tighten '
-          'the constraints from the parent. Called before getPositionForChild.',
+              'the constraints from the parent. Called before getPositionForChild.',
         ),
         _buildInfoCard(
           'getPositionForChild(Size size, Size childSize) -> Offset',
           'Returns the offset at which to paint the child. size = parent size from getSize, '
-          'childSize = child size after applying getConstraintsForChild.',
+              'childSize = child size after applying getConstraintsForChild.',
         ),
         _buildInfoCard(
           'shouldRelayout(covariant oldDelegate) -> bool',
           'Returns true if layout needs to be recomputed. Compare mutable fields with '
-          'the old delegate. Returning false avoids expensive layout recalculations.',
+              'the old delegate. Returning false avoids expensive layout recalculations.',
         ),
       ],
     ),
@@ -860,7 +982,9 @@ Widget _buildDelegateApiSummary() {
 dynamic build(BuildContext context) {
   print('[build] Starting RenderCustomSingleChildLayoutBox deep demo');
   print('[build] CustomSingleChildLayout uses SingleChildLayoutDelegate');
-  print('[build] The render object RenderCustomSingleChildLayoutBox handles layout');
+  print(
+    '[build] The render object RenderCustomSingleChildLayoutBox handles layout',
+  );
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(16.0),

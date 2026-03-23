@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for AnnotationResult from rendering
 //
 // AnnotationResult<T> collects annotation entries from hit testing.

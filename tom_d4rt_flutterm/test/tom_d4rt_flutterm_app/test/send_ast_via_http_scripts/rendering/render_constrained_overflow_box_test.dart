@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt deep demo: RenderConstrainedOverflowBox / OverflowBox
 // Tests OverflowBox widget which imposes different constraints on its child
 // than it receives from its parent, allowing the child to overflow.
@@ -7,7 +8,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('[render_constrained_overflow_box_test] build() called');
-  print('[render_constrained_overflow_box_test] Building OverflowBox deep demo');
+  print(
+    '[render_constrained_overflow_box_test] Building OverflowBox deep demo',
+  );
 
   return SingleChildScrollView(
     child: Container(
@@ -50,7 +53,9 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // Section 7: Overflow visualization with colored borders
-          _buildSectionTitle('7. Overflow Visualization (Parent vs Child Bounds)'),
+          _buildSectionTitle(
+            '7. Overflow Visualization (Parent vs Child Bounds)',
+          ),
           _buildOverflowVisualization(),
           SizedBox(height: 24.0),
 
@@ -99,10 +104,7 @@ Widget _buildHeader() {
         SizedBox(height: 6.0),
         Text(
           'OverflowBox • SizedOverflowBox • ConstrainedBox comparison',
-          style: TextStyle(
-            color: Color(0xCCFFFFFF),
-            fontSize: 13.0,
-          ),
+          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 13.0),
         ),
       ],
     ),
@@ -141,15 +143,19 @@ Widget _buildSectionTitle(String title) {
 }
 
 // Helper: labeled parent container with clipping to show overflow
-Widget _buildParentBox(String label, double width, double height, Widget child) {
-  print('[render_constrained_overflow_box_test] _buildParentBox: $label (${width}x$height)');
+Widget _buildParentBox(
+  String label,
+  double width,
+  double height,
+  Widget child,
+) {
+  print(
+    '[render_constrained_overflow_box_test] _buildParentBox: $label (${width}x$height)',
+  );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        label,
-        style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-      ),
+      Text(label, style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0)),
       SizedBox(height: 4.0),
       Container(
         width: width,
@@ -202,17 +208,27 @@ Widget _buildOverflowBasicDemo() {
         SizedBox(height: 12.0),
         Row(
           children: [
-            _buildParentBox('Without OverflowBox', 100.0, 100.0,
+            _buildParentBox(
+              'Without OverflowBox',
+              100.0,
+              100.0,
               Container(
                 width: 160.0,
                 height: 160.0,
                 color: Color(0x44FF5722),
                 alignment: Alignment.center,
-                child: Text('160x160\n(clipped)', style: TextStyle(color: Colors.white, fontSize: 10.0), textAlign: TextAlign.center),
+                child: Text(
+                  '160x160\n(clipped)',
+                  style: TextStyle(color: Colors.white, fontSize: 10.0),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             SizedBox(width: 40.0),
-            _buildParentBox('With OverflowBox', 100.0, 100.0,
+            _buildParentBox(
+              'With OverflowBox',
+              100.0,
+              100.0,
               OverflowBox(
                 maxWidth: 160.0,
                 maxHeight: 160.0,
@@ -224,7 +240,11 @@ Widget _buildOverflowBasicDemo() {
                     border: Border.all(color: Color(0xFFFF5722), width: 1.5),
                   ),
                   alignment: Alignment.center,
-                  child: Text('160x160\n(overflows!)', style: TextStyle(color: Colors.white, fontSize: 10.0), textAlign: TextAlign.center),
+                  child: Text(
+                    '160x160\n(overflows!)',
+                    style: TextStyle(color: Colors.white, fontSize: 10.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
@@ -253,7 +273,9 @@ Widget _buildMinMaxWidthDemo() {
 
   List<Widget> rows = [];
   for (var cfg in configs) {
-    print('[render_constrained_overflow_box_test] minMaxWidth config: ${cfg['label']}');
+    print(
+      '[render_constrained_overflow_box_test] minMaxWidth config: ${cfg['label']}',
+    );
     rows.add(
       Padding(
         padding: EdgeInsets.only(bottom: 10.0),
@@ -325,7 +347,9 @@ Widget _buildMinMaxHeightDemo() {
 
   List<Widget> rows = [];
   for (var cfg in configs) {
-    print('[render_constrained_overflow_box_test] minMaxHeight config: ${cfg['label']}');
+    print(
+      '[render_constrained_overflow_box_test] minMaxHeight config: ${cfg['label']}',
+    );
     rows.add(
       Padding(
         padding: EdgeInsets.only(bottom: 10.0),
@@ -457,11 +481,7 @@ Widget _buildAlignmentDemo() {
           style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
         ),
         SizedBox(height: 10.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: items,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: items),
       ],
     ),
   );
@@ -509,7 +529,10 @@ Widget _buildSizedOverflowBoxDemo() {
                       height: 50.0,
                       decoration: BoxDecoration(
                         color: Color(0x55FF9800),
-                        border: Border.all(color: Color(0xFFFF9800), width: 1.0),
+                        border: Border.all(
+                          color: Color(0xFFFF9800),
+                          width: 1.0,
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Text(
@@ -543,7 +566,10 @@ Widget _buildSizedOverflowBoxDemo() {
                       height: 100.0,
                       decoration: BoxDecoration(
                         color: Color(0x55E91E63),
-                        border: Border.all(color: Color(0xFFE91E63), width: 1.0),
+                        border: Border.all(
+                          color: Color(0xFFE91E63),
+                          width: 1.0,
+                        ),
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                       alignment: Alignment.center,
@@ -571,7 +597,9 @@ Widget _buildSizedOverflowBoxDemo() {
 
 // Section 6: ConstrainedBox vs OverflowBox behavior comparison
 Widget _buildConstrainedVsOverflowDemo() {
-  print('[render_constrained_overflow_box_test] _buildConstrainedVsOverflowDemo()');
+  print(
+    '[render_constrained_overflow_box_test] _buildConstrainedVsOverflowDemo()',
+  );
 
   return Container(
     padding: EdgeInsets.all(12.0),
@@ -868,7 +896,11 @@ Widget _buildPracticalPatterns() {
         // Tooltip-like overflow pattern
         Text(
           'Pattern A: Tooltip that overflows its trigger',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Color(0xFFBBBBBB),
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 8.0),
         Row(
@@ -927,7 +959,11 @@ Widget _buildPracticalPatterns() {
         // Dropdown menu overflow pattern
         Text(
           'Pattern B: Dropdown menu that overflows container',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Color(0xFFBBBBBB),
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 8.0),
         Row(
@@ -955,10 +991,17 @@ Widget _buildPracticalPatterns() {
                         children: [
                           Text(
                             'Select...',
-                            style: TextStyle(color: Colors.white, fontSize: 11.0),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11.0,
+                            ),
                           ),
                           SizedBox(width: 4.0),
-                          Icon(Icons.arrow_drop_down, color: Colors.white, size: 16.0),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.white,
+                            size: 16.0,
+                          ),
                         ],
                       ),
                     ),
@@ -998,7 +1041,11 @@ Widget _buildPracticalPatterns() {
         // Badge overflow pattern
         Text(
           'Pattern C: Badge overflowing icon container',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Color(0xFFBBBBBB),
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 8.0),
         Row(
@@ -1015,7 +1062,11 @@ Widget _buildPracticalPatterns() {
         // Decorative overflow
         Text(
           'Pattern D: Decorative element overflowing card',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Color(0xFFBBBBBB),
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 8.0),
         Container(
@@ -1051,12 +1102,19 @@ Widget _buildPracticalPatterns() {
                   children: [
                     Text(
                       'Feature Card',
-                      style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 4.0),
                     Text(
                       'Decorative circle overflows edge',
-                      style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 11.0),
+                      style: TextStyle(
+                        color: Color(0xFFAAAAAA),
+                        fontSize: 11.0,
+                      ),
                     ),
                   ],
                 ),
@@ -1075,10 +1133,7 @@ Widget _buildDropdownItem(String text) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-    child: Text(
-      text,
-      style: TextStyle(color: Colors.white, fontSize: 11.0),
-    ),
+    child: Text(text, style: TextStyle(color: Colors.white, fontSize: 11.0)),
   );
 }
 
@@ -1111,7 +1166,11 @@ Widget _buildBadgeIcon(IconData icon, String count) {
             ),
             child: Text(
               count,
-              style: TextStyle(color: Colors.white, fontSize: 9.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 9.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

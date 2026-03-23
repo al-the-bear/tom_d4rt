@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt Flutter demo: ListBodyParentData - parent data in ListBody layouts
 // Explores how ListBody uses parent data for sibling-linked child layout,
 // vertical/horizontal arrangement, and the render tree's linked-list structure.

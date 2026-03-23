@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - AnimationWithParentMixin from animation
 // Comprehensive demonstration of parent animation delegation pattern
 import 'package:flutter/widgets.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PointerRemovedEvent from gestures
 import 'dart:ui' as ui;
 import 'package:flutter/gestures.dart';

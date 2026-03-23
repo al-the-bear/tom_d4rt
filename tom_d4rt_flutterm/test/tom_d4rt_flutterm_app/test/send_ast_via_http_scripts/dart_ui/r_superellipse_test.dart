@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RSuperellipse from dart:ui
 //
 // RSuperellipse is a rounded shape similar to RRect but with smoother,

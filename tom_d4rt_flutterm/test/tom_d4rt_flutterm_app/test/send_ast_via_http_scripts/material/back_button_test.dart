@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BackButton from material
 // Demonstrates BackButton widget in app bars, standalone, with different styles
 import 'package:flutter/material.dart';

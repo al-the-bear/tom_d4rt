@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SemanticsData, SemanticsHintOverrides, SemanticsTag, OrdinalSortKey, AttributedString from semantics
 import 'dart:ui';
 import 'package:flutter/semantics.dart';

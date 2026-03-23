@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TapDownDetails, TapUpDetails, ForcePressDetails,
 // PointerDeviceKind, PointerSignalKind, GestureDisposition, DragGestureRecognizer
 import 'package:flutter/material.dart';

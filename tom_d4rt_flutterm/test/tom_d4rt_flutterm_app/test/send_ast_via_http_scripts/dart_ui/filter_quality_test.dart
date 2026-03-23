@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FilterQuality from dart:ui
 // FilterQuality controls the quality level of image sampling/filtering
 import 'dart:ui' as ui;

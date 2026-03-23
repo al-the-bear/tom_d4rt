@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for OpacityEngineLayer from dart:ui
 //
 // OpacityEngineLayer is the return type from SceneBuilder.pushOpacity().

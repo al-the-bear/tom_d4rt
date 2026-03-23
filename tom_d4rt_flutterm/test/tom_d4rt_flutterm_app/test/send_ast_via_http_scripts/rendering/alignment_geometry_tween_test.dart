@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for AlignmentGeometryTween from rendering
 //
 // AlignmentGeometryTween animates between AlignmentGeometry values.

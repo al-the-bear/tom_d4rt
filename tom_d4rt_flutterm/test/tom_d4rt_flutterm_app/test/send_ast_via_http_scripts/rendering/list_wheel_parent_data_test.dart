@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt Flutter demo: ListWheelParentData - layout metadata for wheel children
 // Explores how ListWheelScrollView stores offset-from-center and layout info
 // in parent data, and how the viewport uses it for cylindrical transforms.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt deep demo script: GranularlyExtendSelectionEvent
 // Granular text selection extension event for Flutter rendering system
 //

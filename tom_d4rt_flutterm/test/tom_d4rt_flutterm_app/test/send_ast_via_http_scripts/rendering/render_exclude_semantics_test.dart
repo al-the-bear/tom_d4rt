@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderExcludeSemantics
 // ExcludeSemantics removes subtree from accessibility/semantics tree
 // When excluding=true, screen readers ignore the content entirely
@@ -79,18 +80,12 @@ Widget _buildHeader() {
         SizedBox(height: 8),
         Text(
           'Control what the accessibility tree sees',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFFE1BEE7),
-          ),
+          style: TextStyle(fontSize: 16, color: Color(0xFFE1BEE7)),
         ),
         SizedBox(height: 4),
         Text(
           'ExcludeSemantics hides decorative content from screen readers',
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFFCE93D8),
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFFCE93D8)),
         ),
       ],
     ),
@@ -118,7 +113,11 @@ Widget _buildSectionTitle(String title) {
           height: 3,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF6A1B9A), Color(0xFFCE93D8), Colors.transparent],
+              colors: [
+                Color(0xFF6A1B9A),
+                Color(0xFFCE93D8),
+                Colors.transparent,
+              ],
             ),
             borderRadius: BorderRadius.circular(2),
           ),
@@ -145,7 +144,10 @@ Widget _buildExcludedDecorativeContent() {
         children: [
           Text(
             'These decorative elements are EXCLUDED from semantics:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFB71C1C)),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFB71C1C),
+            ),
           ),
           SizedBox(height: 12),
           ExcludeSemantics(
@@ -217,7 +219,10 @@ Widget _buildIncludedImportantContent() {
         children: [
           Text(
             'These elements remain VISIBLE to semantics:',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1B5E20),
+            ),
           ),
           SizedBox(height: 12),
           ExcludeSemantics(
@@ -252,7 +257,10 @@ Widget _buildIncludedImportantContent() {
               ),
               child: Text(
                 'Error message: Please enter a valid email address',
-                style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF1B5E20)),
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF1B5E20),
+                ),
               ),
             ),
           ),
@@ -295,7 +303,11 @@ Widget _buildSemanticsComparison() {
               child: Center(
                 child: Text(
                   'JD',
-                  style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -323,7 +335,11 @@ Widget _buildSemanticsComparison() {
             value: '29 dollars and 99 cents',
             child: Text(
               '\$29.99',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF4A148C),
+              ),
             ),
           ),
           SizedBox(height: 8),
@@ -392,7 +408,10 @@ Widget _buildMergeSemanticsDemo() {
                   children: [
                     Icon(Icons.phone, color: Color(0xFF43A047)),
                     SizedBox(width: 8),
-                    Text('Phone:', style: TextStyle(fontWeight: FontWeight.w600)),
+                    Text(
+                      'Phone:',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
                     SizedBox(width: 4),
                     Text('+1 555-0123'),
                   ],
@@ -428,7 +447,11 @@ Widget _buildDecorativeVsMeaningful() {
             height: 40,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFFE1BEE7), Color(0xFFB39DDB), Color(0xFF9FA8DA)],
+                colors: [
+                  Color(0xFFE1BEE7),
+                  Color(0xFFB39DDB),
+                  Color(0xFF9FA8DA),
+                ],
               ),
               borderRadius: BorderRadius.circular(6),
             ),
@@ -521,10 +544,7 @@ Widget _buildPatternRow(String description, bool isExcluded, Widget child) {
                 ),
               ),
               SizedBox(height: 4),
-              ExcludeSemantics(
-                excluding: isExcluded,
-                child: child,
-              ),
+              ExcludeSemantics(excluding: isExcluded, child: child),
             ],
           ),
         ),
@@ -552,7 +572,11 @@ Widget _buildColorCodedComparison() {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.accessibility_new, color: Color(0xFF43A047), size: 36),
+                    Icon(
+                      Icons.accessibility_new,
+                      color: Color(0xFF43A047),
+                      size: 36,
+                    ),
                     SizedBox(height: 6),
                     Text(
                       'SEMANTICS ON',
@@ -592,7 +616,11 @@ Widget _buildColorCodedComparison() {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.not_accessible, color: Color(0xFFE53935), size: 36),
+                    Icon(
+                      Icons.not_accessible,
+                      color: Color(0xFFE53935),
+                      size: 36,
+                    ),
                     SizedBox(height: 6),
                     Text(
                       'SEMANTICS OFF',
@@ -650,7 +678,11 @@ Widget _buildAccessibilityTreeVisualization() {
         children: [
           Text(
             'What the screen reader sees:',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFFE65100)),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: Color(0xFFE65100),
+            ),
           ),
           SizedBox(height: 12),
           _buildTreeNode('Root', 0, true),
@@ -692,7 +724,14 @@ Widget _buildAccessibilityTreeVisualization() {
 
 // Helper for tree node visualization
 Widget _buildTreeNode(String label, int depth, bool isVisible) {
-  print('[TreeNode] depth=' + depth.toString() + ' visible=' + isVisible.toString() + ' -> ' + label);
+  print(
+    '[TreeNode] depth=' +
+        depth.toString() +
+        ' visible=' +
+        isVisible.toString() +
+        ' -> ' +
+        label,
+  );
   String indent = '';
   for (int i = 0; i < depth; i++) {
     indent = indent + '  ';
@@ -719,7 +758,9 @@ Widget _buildTreeNode(String label, int depth, bool isVisible) {
               fontSize: 12,
               fontFamily: 'monospace',
               color: isVisible ? Color(0xFF212121) : Color(0xFFBDBDBD),
-              decoration: isVisible ? TextDecoration.none : TextDecoration.lineThrough,
+              decoration: isVisible
+                  ? TextDecoration.none
+                  : TextDecoration.lineThrough,
             ),
           ),
         ),
@@ -892,7 +933,10 @@ Widget _buildAccessibleCard(
                 height: 48,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [accentColor.withOpacity(0.2), accentColor.withOpacity(0.05)],
+                    colors: [
+                      accentColor.withOpacity(0.2),
+                      accentColor.withOpacity(0.05),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -937,7 +981,11 @@ Widget _buildAccessibleCard(
               height: 1,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.transparent, Color(0xFFE0E0E0), Colors.transparent],
+                  colors: [
+                    Colors.transparent,
+                    Color(0xFFE0E0E0),
+                    Colors.transparent,
+                  ],
                 ),
               ),
             ),
@@ -977,7 +1025,11 @@ Widget _buildFormLayoutDemo() {
               height: 4,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF6A1B9A), Color(0xFF1E88E5), Color(0xFF43A047)],
+                  colors: [
+                    Color(0xFF6A1B9A),
+                    Color(0xFF1E88E5),
+                    Color(0xFF43A047),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(2),
               ),
@@ -995,10 +1047,18 @@ Widget _buildFormLayoutDemo() {
           ),
           SizedBox(height: 16),
           // Name field with excluded decorative icon
-          _buildFormField('Full Name', Icons.person_outline, 'Enter your full name'),
+          _buildFormField(
+            'Full Name',
+            Icons.person_outline,
+            'Enter your full name',
+          ),
           SizedBox(height: 12),
           // Email field
-          _buildFormField('Email Address', Icons.email_outlined, 'Enter your email'),
+          _buildFormField(
+            'Email Address',
+            Icons.email_outlined,
+            'Enter your email',
+          ),
           SizedBox(height: 12),
           // Password field
           _buildFormField('Password', Icons.lock_outline, 'Create a password'),
@@ -1119,9 +1179,7 @@ Widget _buildFooter() {
     width: double.infinity,
     padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)]),
     ),
     child: Column(
       children: [

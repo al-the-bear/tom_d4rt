@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ClipContext mixin for clipping paths and rects
 import 'package:flutter/material.dart';
 import 'dart:math' as math;

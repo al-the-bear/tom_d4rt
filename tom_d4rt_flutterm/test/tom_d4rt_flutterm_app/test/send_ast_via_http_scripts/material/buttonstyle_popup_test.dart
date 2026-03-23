@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ButtonStyle, ButtonBar, PopupMenuButton,
 // PopupMenuItem, PopupMenuDivider
 import 'package:flutter/material.dart';

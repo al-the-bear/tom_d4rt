@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for GestureSettings from dart:ui
 // GestureSettings configures physical gesture parameters like touch slop
 // (the minimum distance a pointer must move before being recognized as a gesture)

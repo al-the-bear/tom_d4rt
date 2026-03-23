@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RenderAbsorbPointer from rendering
 //
 // RenderAbsorbPointer is a render object that absorbs pointer events,

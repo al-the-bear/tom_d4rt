@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Quick check if .first works on PathMetrics
 import 'package:flutter/material.dart';
 

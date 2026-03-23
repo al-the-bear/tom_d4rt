@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for ClipRSuperellipseLayer from rendering
 //
 // ClipRSuperellipseLayer clips content to a rounded superellipse shape.

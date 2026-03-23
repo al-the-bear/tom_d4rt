@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Adaptation from material
 // Demonstrates how Adaptation<T> works with ThemeData to adapt widgets per platform
 import 'package:flutter/material.dart';

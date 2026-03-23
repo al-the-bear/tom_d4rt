@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests CupertinoColors extended, CupertinoTheme,
 // CupertinoThemeData, CupTextThemeData, CupertinoIconThemeData
 import 'package:flutter/cupertino.dart';

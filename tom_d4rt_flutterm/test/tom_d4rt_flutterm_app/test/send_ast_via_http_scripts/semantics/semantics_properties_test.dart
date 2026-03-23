@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SemanticsProperties, CustomSemanticsAction,
 // OrdinalSortKey, SemanticsTag, SemanticsHintOverrides
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: ScrollPosition, ScrollPositionWithSingleContext, ScrollContext,
 //        ScrollActivity, IdleScrollActivity, DrivenScrollActivity,
 //        HoldScrollActivity, DragScrollActivity

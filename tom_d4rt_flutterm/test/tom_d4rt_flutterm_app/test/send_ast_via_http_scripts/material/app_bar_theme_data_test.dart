@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AppBarThemeData from material
 // Shows multiple AppBar-like constructions with different themes
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for ClipPathLayer from rendering
 //
 // ClipPathLayer clips its child layers to an arbitrary Path.

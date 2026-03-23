@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Paint from dart:ui
 // Paint configures how shapes, paths, and text are drawn on a Canvas
 import 'dart:ui' as ui;

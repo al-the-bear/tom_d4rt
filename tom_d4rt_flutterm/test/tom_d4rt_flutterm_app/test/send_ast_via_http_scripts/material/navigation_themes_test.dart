@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests NavigationBarTheme, NavigationBarThemeData, NavigationRailTheme, NavigationRailThemeData, DrawerTheme, DrawerThemeData from material
 import 'package:flutter/material.dart';
 

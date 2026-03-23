@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SearchAnchor - Material 3 search widget with suggestions
 import 'package:flutter/material.dart';
 

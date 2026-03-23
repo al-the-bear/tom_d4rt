@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive visual demonstration of SemanticsValidationResult from dart_ui
 // This enum describes validation states for semantic nodes, helping assistive technologies
 // communicate form validation feedback to users.

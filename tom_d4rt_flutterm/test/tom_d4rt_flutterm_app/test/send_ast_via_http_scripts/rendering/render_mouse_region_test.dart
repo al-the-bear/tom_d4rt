@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderMouseRegion — MouseRegion widget test
 // MouseRegion detects mouse enter, hover, exit events and controls mouse cursor
 // Tests all SystemMouseCursors, opaque, hitTestBehavior, nesting, and practical patterns

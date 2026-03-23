@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for StepTween from animation
 // StepTween interpolates integers using floor (truncation)
 // Perfect for discrete value animations like page numbers, counts

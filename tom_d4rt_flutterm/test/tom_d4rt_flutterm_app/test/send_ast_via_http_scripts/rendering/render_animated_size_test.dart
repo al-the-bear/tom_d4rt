@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderAnimatedSize / AnimatedSize widget
 // Tests AnimatedSize with various durations, curves, alignments,
 // clip behaviors, nesting, and reverseDuration configurations.

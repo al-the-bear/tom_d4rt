@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: Flutter rendering package classes
 // Covers RenderObject, RenderBox, Constraints, ParentData and related concepts
 

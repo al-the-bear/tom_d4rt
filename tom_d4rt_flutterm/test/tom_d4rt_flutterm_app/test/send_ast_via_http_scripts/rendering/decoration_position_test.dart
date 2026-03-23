@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for DecorationPosition from rendering
 //
 // DecorationPosition is an enum that specifies where a decoration should be

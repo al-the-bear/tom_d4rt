@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for TextAlign from dart:ui
 //
 // TextAlign defines how text is aligned horizontally within its container.

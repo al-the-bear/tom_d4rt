@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive visual demonstration of SemanticsRole from dart_ui
 // This enum describes semantic roles for accessibility, helping assistive technologies
 // understand the purpose and structure of UI elements.

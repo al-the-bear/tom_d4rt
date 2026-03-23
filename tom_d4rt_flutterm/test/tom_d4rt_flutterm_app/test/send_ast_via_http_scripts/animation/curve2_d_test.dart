@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Curve2D from animation
 // Curve2D is an abstract class representing 2D parametric curves
 // This comprehensive test exercises curve behavior through its concrete implementation

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt Flutter demo: MaxColumnWidth – table column strategy using the
 // larger of two TableColumnWidth values. Visual comparison of FixedColumnWidth,
 // FractionColumnWidth, IntrinsicColumnWidth, FlexColumnWidth and how

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for DisplayFeatureState from dart:ui
 // DisplayFeatureState describes the posture or state of a foldable device display feature
 // Used with DisplayFeature to describe how a hinge or fold is currently positioned

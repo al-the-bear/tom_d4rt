@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: ShortcutActivator (abstract), ShortcutManager, ShortcutRegistry,
 //        ShortcutRegistryEntry, DoNothingAndStopPropagationIntent,
 //        DoNothingAndStopPropagationAction, PrioritizedAction,

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for miscellaneous advanced dart:ui APIs
 // Covers: GestureSettings, PointerData, PointerDataPacket, SemanticsUpdate,
 // RootIsolateToken, IsolateNameServer, PluginUtilities

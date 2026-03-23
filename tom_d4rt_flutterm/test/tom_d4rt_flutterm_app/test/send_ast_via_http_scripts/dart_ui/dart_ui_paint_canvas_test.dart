@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Paint & Canvas interaction from dart:ui
 // Covers: Paint configuration with Canvas drawing operations
 // Shows how Paint properties affect visual output on Canvas

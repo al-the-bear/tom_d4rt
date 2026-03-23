@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - Animation Class Hierarchy from animation
 // Comprehensive demonstration of Animation class types and relationships
 import 'package:flutter/widgets.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DatePickerTheme, DatePickerThemeData, TimePickerTheme, TimePickerThemeData, PopupMenuTheme, PopupMenuThemeData from material
 import 'package:flutter/material.dart';
 

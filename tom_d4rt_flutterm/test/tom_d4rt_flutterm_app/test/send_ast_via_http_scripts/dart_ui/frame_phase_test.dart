@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FramePhase from dart:ui
 // FramePhase enum represents the specific phases of rendering a single frame
 // Used with FrameTiming to measure per-phase timing for profiling

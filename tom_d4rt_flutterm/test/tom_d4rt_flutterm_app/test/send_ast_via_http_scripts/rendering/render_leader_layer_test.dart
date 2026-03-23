@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderLeaderLayer / CompositedTransformTarget & Follower
 // Tests LayerLink, CompositedTransformTarget, CompositedTransformFollower
 // with various anchor alignments, offsets, showWhenUnlinked, and
@@ -42,10 +43,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -884,9 +882,15 @@ Widget _buildMultiPairLayout() {
 
 dynamic build(BuildContext context) {
   print('=== RenderLeaderLayer Deep Demo ===');
-  print('Demonstrating LayerLink, CompositedTransformTarget, CompositedTransformFollower');
-  print('RenderLeaderLayer is the render object behind CompositedTransformTarget');
-  print('RenderFollowerLayer is the render object behind CompositedTransformFollower');
+  print(
+    'Demonstrating LayerLink, CompositedTransformTarget, CompositedTransformFollower',
+  );
+  print(
+    'RenderLeaderLayer is the render object behind CompositedTransformTarget',
+  );
+  print(
+    'RenderFollowerLayer is the render object behind CompositedTransformFollower',
+  );
 
   // Create LayerLinks for demonstrations
   LayerLink demoLink1 = LayerLink();
@@ -952,7 +956,10 @@ dynamic build(BuildContext context) {
         ),
 
         // Section 3: Follower anchor variations
-        _buildSectionTitle(Icons.control_point, '3. Follower Anchor Variations'),
+        _buildSectionTitle(
+          Icons.control_point,
+          '3. Follower Anchor Variations',
+        ),
         _buildInfoCard(
           'followerAnchor',
           'Controls which point on the follower widget aligns with the targetAnchor point. For example, followerAnchor: bottomCenter means the bottom-center of the follower sits at the targetAnchor point.',
@@ -1014,7 +1021,10 @@ dynamic build(BuildContext context) {
         _buildShowWhenUnlinkedDemo(),
 
         // Section 6: Practical tooltip pattern
-        _buildSectionTitle(Icons.chat_bubble, '6. Practical Pattern: Custom Tooltip'),
+        _buildSectionTitle(
+          Icons.chat_bubble,
+          '6. Practical Pattern: Custom Tooltip',
+        ),
         _buildInfoCard(
           'Tooltip Pattern',
           'Use targetAnchor: topCenter with followerAnchor: bottomCenter and a negative Y offset to position a tooltip above the target widget.',
@@ -1023,7 +1033,10 @@ dynamic build(BuildContext context) {
         _buildTooltipDemo('Save your progress', Color(0xFF1565C0)),
 
         // Section 7: Practical dropdown pattern
-        _buildSectionTitle(Icons.arrow_drop_down_circle, '7. Practical Pattern: Dropdown Menu'),
+        _buildSectionTitle(
+          Icons.arrow_drop_down_circle,
+          '7. Practical Pattern: Dropdown Menu',
+        ),
         _buildInfoCard(
           'Dropdown Pattern',
           'Use targetAnchor: bottomLeft with followerAnchor: topLeft to position a dropdown directly below the trigger button.',
@@ -1031,7 +1044,10 @@ dynamic build(BuildContext context) {
         _buildDropdownDemo(),
 
         // Section 8: Contextual popup pattern
-        _buildSectionTitle(Icons.web_asset, '8. Practical Pattern: Contextual Popup'),
+        _buildSectionTitle(
+          Icons.web_asset,
+          '8. Practical Pattern: Contextual Popup',
+        ),
         _buildInfoCard(
           'Popup Pattern',
           'Use targetAnchor: centerRight with followerAnchor: centerLeft to show a popup card next to an avatar or icon button.',
@@ -1039,7 +1055,10 @@ dynamic build(BuildContext context) {
         _buildContextualPopup(),
 
         // Section 9: Multiple pairs in one layout
-        _buildSectionTitle(Icons.dashboard, '9. Multiple Target-Follower Pairs'),
+        _buildSectionTitle(
+          Icons.dashboard,
+          '9. Multiple Target-Follower Pairs',
+        ),
         _buildInfoCard(
           'Multiple LayerLinks',
           'Each target-follower pair uses its own LayerLink instance. Multiple pairs can coexist independently in the same widget tree.',
@@ -1047,7 +1066,10 @@ dynamic build(BuildContext context) {
         _buildMultiPairLayout(),
 
         // Section 10: LayerLink configuration summary
-        _buildSectionTitle(Icons.settings, '10. LayerLink Configuration Summary'),
+        _buildSectionTitle(
+          Icons.settings,
+          '10. LayerLink Configuration Summary',
+        ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           padding: EdgeInsets.all(14),
@@ -1068,13 +1090,34 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 10),
-              _buildConfigRow('LayerLink', 'Shared object connecting target and follower'),
-              _buildConfigRow('CompositedTransformTarget', 'Wraps the leader widget (creates RenderLeaderLayer)'),
-              _buildConfigRow('CompositedTransformFollower', 'Wraps the follower widget (creates RenderFollowerLayer)'),
-              _buildConfigRow('targetAnchor', 'Alignment point on the target widget'),
-              _buildConfigRow('followerAnchor', 'Alignment point on the follower widget'),
-              _buildConfigRow('offset', 'Additional pixel offset after anchor calculation'),
-              _buildConfigRow('showWhenUnlinked', 'Whether follower shows when leader is absent'),
+              _buildConfigRow(
+                'LayerLink',
+                'Shared object connecting target and follower',
+              ),
+              _buildConfigRow(
+                'CompositedTransformTarget',
+                'Wraps the leader widget (creates RenderLeaderLayer)',
+              ),
+              _buildConfigRow(
+                'CompositedTransformFollower',
+                'Wraps the follower widget (creates RenderFollowerLayer)',
+              ),
+              _buildConfigRow(
+                'targetAnchor',
+                'Alignment point on the target widget',
+              ),
+              _buildConfigRow(
+                'followerAnchor',
+                'Alignment point on the follower widget',
+              ),
+              _buildConfigRow(
+                'offset',
+                'Additional pixel offset after anchor calculation',
+              ),
+              _buildConfigRow(
+                'showWhenUnlinked',
+                'Whether follower shows when leader is absent',
+              ),
             ],
           ),
         ),

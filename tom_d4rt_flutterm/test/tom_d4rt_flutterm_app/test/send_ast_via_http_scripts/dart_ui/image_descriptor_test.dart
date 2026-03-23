@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ImageDescriptor from dart:ui (async — type reference)
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

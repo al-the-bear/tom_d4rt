@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests CupertinoTheme inheritance, nested themes, IconThemeData in Cupertino context from cupertino
 import 'package:flutter/cupertino.dart';
 

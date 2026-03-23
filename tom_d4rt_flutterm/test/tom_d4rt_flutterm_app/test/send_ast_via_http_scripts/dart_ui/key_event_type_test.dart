@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests KeyEventType from dart_ui
 import 'dart:ui';
 import 'package:flutter/widgets.dart';

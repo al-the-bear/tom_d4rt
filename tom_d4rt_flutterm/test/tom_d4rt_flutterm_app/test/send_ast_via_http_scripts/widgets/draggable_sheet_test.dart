@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DraggableScrollableSheet, DraggableScrollableController,
 // DraggableScrollableNotification, BottomSheet, NotificationListener,
 // SheetDragDetails, SnappingSheetBehavior and ShowModalBottomSheet concepts

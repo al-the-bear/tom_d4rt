@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AnimationStatusListener, AnimatedValue (Tween), AnimatedEvaluation, SpringDescription, BoundedFrictionSimulation, Priority, SchedulerPhase
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';

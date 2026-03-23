@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SchedulerBinding from scheduler
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests CupertinoAlertDialog, CupertinoActionSheet, CupertinoDialogAction from cupertino
 import 'package:flutter/cupertino.dart';
 

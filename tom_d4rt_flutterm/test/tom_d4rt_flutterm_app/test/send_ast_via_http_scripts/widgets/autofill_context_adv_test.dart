@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: OverrideAction, AutofillGroupState, AutofillClient (abstract),
 //        AutofillScope (abstract), EditableTextContextMenuBuilder (typedef),
 //        ContextMenuController, ContextMenuRegion, ContextMenuArea

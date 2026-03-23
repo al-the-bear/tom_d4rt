@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ViewFocusState from dart:ui
 // ViewFocusState represents the focus state of a view
 import 'dart:ui';

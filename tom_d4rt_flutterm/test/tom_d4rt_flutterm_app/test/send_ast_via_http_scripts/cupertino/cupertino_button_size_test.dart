@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for CupertinoButtonSize from cupertino
 // CupertinoButtonSize enum defines iOS-style button sizes: small, medium, large
 // Part of the Cupertino design system for iOS-like Flutter apps

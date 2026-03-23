@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for PipelineManifold from rendering
 //
 // PipelineManifold manages pipeline owner connections for rendering.

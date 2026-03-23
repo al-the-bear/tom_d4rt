@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for CupertinoListSectionType from cupertino
 // CupertinoListSectionType enum defines iOS-style list section styling
 // Controls the visual grouping and inset styling of list sections

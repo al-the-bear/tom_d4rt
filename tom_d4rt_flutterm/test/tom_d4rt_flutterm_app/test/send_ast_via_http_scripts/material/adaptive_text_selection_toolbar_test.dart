@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AdaptiveTextSelectionToolbar from material
 // Demonstrates toolbar-like visuals with different button configurations
 import 'package:flutter/material.dart';

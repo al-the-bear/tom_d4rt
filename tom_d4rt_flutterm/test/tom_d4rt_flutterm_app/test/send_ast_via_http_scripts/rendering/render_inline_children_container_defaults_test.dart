@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderInlineChildrenContainerDefaults
 // Demonstrates inline children (WidgetSpan) rendered within text flow
 // using TextParentData positioning and PlaceholderAlignment options.
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('[InlineChildrenContainerDefaults] build() called');
-  print('[InlineChildrenContainerDefaults] Building deep demo with inline widget spans');
+  print(
+    '[InlineChildrenContainerDefaults] Building deep demo with inline widget spans',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -126,11 +129,7 @@ Widget _buildHeader() {
         Text(
           'Deep demo of inline children rendering within text flow.\n'
           'WidgetSpan embeds widgets inline, positioned via TextParentData.',
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-            height: 1.5,
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF), height: 1.5),
         ),
       ],
     ),
@@ -195,12 +194,20 @@ Widget _buildIconsInlineSection(BuildContext context) {
         SizedBox(height: 14),
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 15, color: Color(0xFFB0BEC5), height: 1.7),
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFFB0BEC5),
+              height: 1.7,
+            ),
             children: [
               TextSpan(text: 'Press '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.play_arrow, size: 18, color: Colors.greenAccent),
+                child: Icon(
+                  Icons.play_arrow,
+                  size: 18,
+                  color: Colors.greenAccent,
+                ),
               ),
               TextSpan(text: ' to play, '),
               WidgetSpan(
@@ -247,7 +254,10 @@ Widget _buildChipsBadgesSection(BuildContext context) {
                     color: Colors.teal,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text('urgent', style: TextStyle(fontSize: 12, color: Colors.white)),
+                  child: Text(
+                    'urgent',
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  ),
                 ),
               ),
               TextSpan(text: ' and assigned to '),
@@ -259,7 +269,10 @@ Widget _buildChipsBadgesSection(BuildContext context) {
                     color: Colors.deepPurple,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text('team-alpha', style: TextStyle(fontSize: 12, color: Colors.white)),
+                  child: Text(
+                    'team-alpha',
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  ),
                 ),
               ),
               TextSpan(text: ' for review.'),
@@ -269,7 +282,11 @@ Widget _buildChipsBadgesSection(BuildContext context) {
         SizedBox(height: 12),
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 15, color: Color(0xFFCFD8DC), height: 2.0),
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFFCFD8DC),
+              height: 2.0,
+            ),
             children: [
               TextSpan(text: 'Status: '),
               WidgetSpan(
@@ -285,7 +302,10 @@ Widget _buildChipsBadgesSection(BuildContext context) {
                     children: [
                       Icon(Icons.check_circle, size: 14, color: Colors.white),
                       SizedBox(width: 4),
-                      Text('Approved', style: TextStyle(fontSize: 11, color: Colors.white)),
+                      Text(
+                        'Approved',
+                        style: TextStyle(fontSize: 11, color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -299,7 +319,14 @@ Widget _buildChipsBadgesSection(BuildContext context) {
                     color: Color(0xFFE65100),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text('HIGH', style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'HIGH',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -312,7 +339,9 @@ Widget _buildChipsBadgesSection(BuildContext context) {
 
 // Section 3: Multiple WidgetSpans in one paragraph
 Widget _buildMultipleWidgetSpansSection(BuildContext context) {
-  print('[InlineChildrenContainerDefaults] Building multiple widget spans section');
+  print(
+    '[InlineChildrenContainerDefaults] Building multiple widget spans section',
+  );
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -337,14 +366,25 @@ Widget _buildMultipleWidgetSpansSection(BuildContext context) {
           TextSpan(text: ' then '),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: _buildPipelineStage('Deploy', Colors.greenAccent, Icons.cloud_upload),
+            child: _buildPipelineStage(
+              'Deploy',
+              Colors.greenAccent,
+              Icons.cloud_upload,
+            ),
           ),
           TextSpan(text: ' and finally '),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: _buildPipelineStage('Monitor', Colors.purpleAccent, Icons.monitor_heart),
+            child: _buildPipelineStage(
+              'Monitor',
+              Colors.purpleAccent,
+              Icons.monitor_heart,
+            ),
           ),
-          TextSpan(text: '. Each stage must pass before proceeding to the next step in the continuous delivery workflow.'),
+          TextSpan(
+            text:
+                '. Each stage must pass before proceeding to the next step in the continuous delivery workflow.',
+          ),
         ],
       ),
     ),
@@ -364,7 +404,14 @@ Widget _buildPipelineStage(String label, Color color, IconData icon) {
       children: [
         Icon(icon, size: 14, color: color),
         SizedBox(width: 4),
-        Text(label, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -412,7 +459,11 @@ Widget _buildAlignmentRow(String name, PlaceholderAlignment alignment) {
         width: 130,
         child: Text(
           name,
-          style: TextStyle(fontSize: 13, color: Color(0xFF80CBC4), fontFamily: 'monospace'),
+          style: TextStyle(
+            fontSize: 13,
+            color: Color(0xFF80CBC4),
+            fontFamily: 'monospace',
+          ),
         ),
       ),
       Expanded(
@@ -453,7 +504,9 @@ Widget _buildAlignmentRow(String name, PlaceholderAlignment alignment) {
 
 // Section 5: Baseline alignment
 Widget _buildBaselineAlignmentSection(BuildContext context) {
-  print('[InlineChildrenContainerDefaults] Building baseline alignment section');
+  print(
+    '[InlineChildrenContainerDefaults] Building baseline alignment section',
+  );
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -491,7 +544,11 @@ Widget _buildBaselineAlignmentSection(BuildContext context) {
                     ),
                     child: Text(
                       '\$49.99',
-                      style: TextStyle(fontSize: 22, color: Colors.greenAccent, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.greenAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -521,14 +578,25 @@ Widget _buildBaselineAlignmentSection(BuildContext context) {
                       color: Color(0xFFFF6F00),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text('98.7', style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      '98.7',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 TextSpan(text: ' / 100 — '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.baseline,
                   baseline: TextBaseline.alphabetic,
-                  child: Icon(Icons.emoji_events, size: 22, color: Colors.amber),
+                  child: Icon(
+                    Icons.emoji_events,
+                    size: 22,
+                    color: Colors.amber,
+                  ),
                 ),
                 TextSpan(text: ' Excellent!'),
               ],
@@ -559,7 +627,10 @@ Widget _buildMixedComplexSection(BuildContext context) {
             children: [
               TextSpan(
                 text: 'Important: ',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.redAccent,
+                ),
               ),
               TextSpan(text: 'The system detected '),
               WidgetSpan(
@@ -570,7 +641,14 @@ Widget _buildMixedComplexSection(BuildContext context) {
                     color: Colors.red.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('3 errors', style: TextStyle(fontSize: 13, color: Colors.redAccent, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '3 errors',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               TextSpan(text: ' and '),
@@ -582,7 +660,14 @@ Widget _buildMixedComplexSection(BuildContext context) {
                     color: Colors.orange.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('12 warnings', style: TextStyle(fontSize: 13, color: Colors.orangeAccent, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '12 warnings',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               TextSpan(text: ' in the latest analysis run. Please review the '),
@@ -596,7 +681,11 @@ Widget _buildMixedComplexSection(BuildContext context) {
               TextSpan(text: ' and fix issues marked with '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.error_outline, size: 16, color: Colors.redAccent),
+                child: Icon(
+                  Icons.error_outline,
+                  size: 16,
+                  color: Colors.redAccent,
+                ),
               ),
               TextSpan(text: ' before committing.'),
             ],
@@ -605,7 +694,11 @@ Widget _buildMixedComplexSection(BuildContext context) {
         SizedBox(height: 16),
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFFB0BEC5), height: 2.0),
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFFB0BEC5),
+              height: 2.0,
+            ),
             children: [
               TextSpan(text: 'Contributors: '),
               WidgetSpan(
@@ -613,7 +706,10 @@ Widget _buildMixedComplexSection(BuildContext context) {
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: Colors.teal,
-                  child: Text('A', style: TextStyle(fontSize: 10, color: Colors.white)),
+                  child: Text(
+                    'A',
+                    style: TextStyle(fontSize: 10, color: Colors.white),
+                  ),
                 ),
               ),
               TextSpan(text: ' Alice, '),
@@ -622,7 +718,10 @@ Widget _buildMixedComplexSection(BuildContext context) {
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: Colors.indigo,
-                  child: Text('B', style: TextStyle(fontSize: 10, color: Colors.white)),
+                  child: Text(
+                    'B',
+                    style: TextStyle(fontSize: 10, color: Colors.white),
+                  ),
                 ),
               ),
               TextSpan(text: ' Bob, '),
@@ -631,13 +730,20 @@ Widget _buildMixedComplexSection(BuildContext context) {
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: Colors.deepOrange,
-                  child: Text('C', style: TextStyle(fontSize: 10, color: Colors.white)),
+                  child: Text(
+                    'C',
+                    style: TextStyle(fontSize: 10, color: Colors.white),
+                  ),
                 ),
               ),
               TextSpan(text: ' Charlie — all reviewed and approved '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.verified, size: 16, color: Colors.greenAccent),
+                child: Icon(
+                  Icons.verified,
+                  size: 16,
+                  color: Colors.greenAccent,
+                ),
               ),
             ],
           ),
@@ -663,7 +769,11 @@ Widget _buildVariedStylesSection(BuildContext context) {
         // Large heading style with inline widget
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
             children: [
               TextSpan(text: 'Dashboard '),
               WidgetSpan(
@@ -674,7 +784,14 @@ Widget _buildVariedStylesSection(BuildContext context) {
                     color: Colors.blueAccent,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text('BETA', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'BETA',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -684,7 +801,11 @@ Widget _buildVariedStylesSection(BuildContext context) {
         // Medium body style with colored inline widgets
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 16, color: Color(0xFFCFD8DC), height: 1.8),
+            style: TextStyle(
+              fontSize: 16,
+              color: Color(0xFFCFD8DC),
+              height: 1.8,
+            ),
             children: [
               TextSpan(text: 'Memory usage is '),
               WidgetSpan(
@@ -695,7 +816,14 @@ Widget _buildVariedStylesSection(BuildContext context) {
                     color: Colors.green.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('42%', style: TextStyle(fontSize: 14, color: Colors.greenAccent, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '42%',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.greenAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               TextSpan(text: ' and CPU is at '),
@@ -707,7 +835,14 @@ Widget _buildVariedStylesSection(BuildContext context) {
                     color: Colors.orange.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('78%', style: TextStyle(fontSize: 14, color: Colors.orangeAccent, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '78%',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.orangeAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               TextSpan(text: ' load.'),
@@ -718,7 +853,11 @@ Widget _buildVariedStylesSection(BuildContext context) {
         // Small caption style with tiny inline indicators
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 12, color: Color(0xFF78909C), height: 1.6),
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF78909C),
+              height: 1.6,
+            ),
             children: [
               TextSpan(text: 'Last updated 5 min ago '),
               WidgetSpan(
@@ -745,16 +884,29 @@ Widget _buildVariedStylesSection(BuildContext context) {
         // Italic style with decorative inline elements
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic, color: Color(0xFFB0BEC5), height: 1.8),
+            style: TextStyle(
+              fontSize: 15,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFFB0BEC5),
+              height: 1.8,
+            ),
             children: [
               TextSpan(text: '"Simplicity is the ultimate sophistication" '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.format_quote, size: 18, color: Color(0xFF546E7A)),
+                child: Icon(
+                  Icons.format_quote,
+                  size: 18,
+                  color: Color(0xFF546E7A),
+                ),
               ),
               TextSpan(
                 text: ' — Leonardo da Vinci',
-                style: TextStyle(fontStyle: FontStyle.normal, fontWeight: FontWeight.w600, color: Colors.white70),
+                style: TextStyle(
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white70,
+                ),
               ),
             ],
           ),
@@ -795,18 +947,36 @@ Widget _buildSelectableTextSection(BuildContext context) {
                     color: Color(0xFF0277BD),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('WidgetSpan', style: TextStyle(fontSize: 13, color: Colors.white, fontFamily: 'monospace')),
+                  child: Text(
+                    'WidgetSpan',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
               ),
-              TextSpan(text: ' for embedding arbitrary widgets inline. This works with '),
+              TextSpan(
+                text:
+                    ' for embedding arbitrary widgets inline. This works with ',
+              ),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.touch_app, size: 18, color: Colors.tealAccent),
+                child: Icon(
+                  Icons.touch_app,
+                  size: 18,
+                  color: Colors.tealAccent,
+                ),
               ),
               TextSpan(text: ' gestures and '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.select_all, size: 18, color: Colors.amberAccent),
+                child: Icon(
+                  Icons.select_all,
+                  size: 18,
+                  color: Colors.amberAccent,
+                ),
               ),
               TextSpan(text: ' text selection seamlessly.'),
             ],
@@ -815,7 +985,11 @@ Widget _buildSelectableTextSection(BuildContext context) {
         SizedBox(height: 14),
         SelectableText.rich(
           TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFFB0BEC5), height: 1.8),
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFFB0BEC5),
+              height: 1.8,
+            ),
             children: [
               TextSpan(text: 'Version '),
               WidgetSpan(
@@ -827,13 +1001,24 @@ Widget _buildSelectableTextSection(BuildContext context) {
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(color: Color(0xFF546E7A)),
                   ),
-                  child: Text('3.24.1', style: TextStyle(fontSize: 12, color: Colors.tealAccent, fontFamily: 'monospace')),
+                  child: Text(
+                    '3.24.1',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.tealAccent,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
               ),
               TextSpan(text: ' released on March 2026 '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: Icon(Icons.new_releases, size: 16, color: Colors.amberAccent),
+                child: Icon(
+                  Icons.new_releases,
+                  size: 16,
+                  color: Colors.amberAccent,
+                ),
               ),
             ],
           ),
@@ -845,7 +1030,9 @@ Widget _buildSelectableTextSection(BuildContext context) {
 
 // Section 9: Decorative inline compositions
 Widget _buildDecorativeCompositionsSection(BuildContext context) {
-  print('[InlineChildrenContainerDefaults] Building decorative compositions section');
+  print(
+    '[InlineChildrenContainerDefaults] Building decorative compositions section',
+  );
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -879,7 +1066,11 @@ Widget _buildDecorativeCompositionsSection(BuildContext context) {
         // Progress inline display
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 15, color: Color(0xFFCFD8DC), height: 2.2),
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFFCFD8DC),
+              height: 2.2,
+            ),
             children: [
               TextSpan(text: 'Upload progress: '),
               WidgetSpan(
@@ -905,10 +1096,20 @@ Widget _buildDecorativeCompositionsSection(BuildContext context) {
         // Color swatch inline display
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 15, color: Color(0xFFB0BEC5), height: 2.2),
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFFB0BEC5),
+              height: 2.2,
+            ),
             children: [
               TextSpan(text: 'Theme colors: '),
-              for (Color c in [Colors.teal, Colors.indigo, Colors.amber, Colors.deepOrange, Colors.pink]) ...[
+              for (Color c in [
+                Colors.teal,
+                Colors.indigo,
+                Colors.amber,
+                Colors.deepOrange,
+                Colors.pink,
+              ]) ...[
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   child: Container(
@@ -931,7 +1132,11 @@ Widget _buildDecorativeCompositionsSection(BuildContext context) {
         // Keyboard shortcut inline display
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFF90A4AE), height: 2.0),
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFF90A4AE),
+              height: 2.0,
+            ),
             children: [
               TextSpan(text: 'Press '),
               WidgetSpan(
@@ -965,12 +1170,21 @@ Widget _buildKeyboardKey(String label) {
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: Color(0xFF546E7A)),
       boxShadow: [
-        BoxShadow(color: Color(0x33000000), offset: Offset(0, 2), blurRadius: 0),
+        BoxShadow(
+          color: Color(0x33000000),
+          offset: Offset(0, 2),
+          blurRadius: 0,
+        ),
       ],
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 11, color: Colors.white, fontFamily: 'monospace', fontWeight: FontWeight.w600),
+      style: TextStyle(
+        fontSize: 11,
+        color: Colors.white,
+        fontFamily: 'monospace',
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -997,7 +1211,11 @@ Widget _buildStatusBarSection(BuildContext context) {
           ),
           child: Text.rich(
             TextSpan(
-              style: TextStyle(fontSize: 13, color: Color(0xFF90A4AE), height: 1.8),
+              style: TextStyle(
+                fontSize: 13,
+                color: Color(0xFF90A4AE),
+                height: 1.8,
+              ),
               children: [
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
@@ -1006,12 +1224,20 @@ Widget _buildStatusBarSection(BuildContext context) {
                 TextSpan(text: ' Connected  '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.language, size: 14, color: Color(0xFF546E7A)),
+                  child: Icon(
+                    Icons.language,
+                    size: 14,
+                    color: Color(0xFF546E7A),
+                  ),
                 ),
                 TextSpan(text: ' Dart 3.7  '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.flutter_dash, size: 14, color: Color(0xFF546E7A)),
+                  child: Icon(
+                    Icons.flutter_dash,
+                    size: 14,
+                    color: Color(0xFF546E7A),
+                  ),
                 ),
                 TextSpan(text: ' Flutter 3.29  '),
                 WidgetSpan(
@@ -1047,21 +1273,36 @@ Widget _buildStatusBarSection(BuildContext context) {
                 TextSpan(text: ' Home '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.chevron_right, size: 16, color: Color(0xFF546E7A)),
+                  child: Icon(
+                    Icons.chevron_right,
+                    size: 16,
+                    color: Color(0xFF546E7A),
+                  ),
                 ),
                 TextSpan(text: ' Projects '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.chevron_right, size: 16, color: Color(0xFF546E7A)),
+                  child: Icon(
+                    Icons.chevron_right,
+                    size: 16,
+                    color: Color(0xFF546E7A),
+                  ),
                 ),
                 TextSpan(text: ' Tom Agent '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.chevron_right, size: 16, color: Color(0xFF546E7A)),
+                  child: Icon(
+                    Icons.chevron_right,
+                    size: 16,
+                    color: Color(0xFF546E7A),
+                  ),
                 ),
                 TextSpan(
                   text: ' Settings',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -1071,7 +1312,11 @@ Widget _buildStatusBarSection(BuildContext context) {
         // Tag cloud inline display
         Text.rich(
           TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFF90A4AE), height: 2.4),
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFF90A4AE),
+              height: 2.4,
+            ),
             children: [
               TextSpan(text: 'Tags: '),
               for (Map<String, dynamic> tag in [
@@ -1089,7 +1334,9 @@ Widget _buildStatusBarSection(BuildContext context) {
                     decoration: BoxDecoration(
                       color: (tag['color'] as Color).withOpacity(0.3),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: (tag['color'] as Color).withOpacity(0.6)),
+                      border: Border.all(
+                        color: (tag['color'] as Color).withOpacity(0.6),
+                      ),
                     ),
                     child: Text(
                       tag['label'] as String,

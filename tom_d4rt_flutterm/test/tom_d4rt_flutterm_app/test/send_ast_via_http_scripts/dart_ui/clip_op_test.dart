@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ClipOp from dart:ui
 // ClipOp defines operations for combining clip regions on Canvas
 import 'dart:ui' as ui;

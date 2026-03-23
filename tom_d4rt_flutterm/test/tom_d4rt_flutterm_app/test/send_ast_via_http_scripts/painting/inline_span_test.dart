@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests InlineSpan from painting
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderMetaData / MetaData widget
 // MetaData stores opaque data accessible during hit testing.
 // Demonstrates metadata tagging, HitTestBehavior modes,

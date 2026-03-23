@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for PlatformViewRenderBox from rendering
 //
 // PlatformViewRenderBox is the render object responsible for embedding

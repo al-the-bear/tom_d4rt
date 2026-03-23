@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests MediaQueryData, MediaQuery, ViewPadding,
 // DeviceGestureSettings, FlexibleSpaceBarSettings, Orientation,
 // NavigatorState

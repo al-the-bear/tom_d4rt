@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests rendering layer classes and PaintingContext
 import 'dart:ui';
 import 'package:flutter/rendering.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests WidgetStateInputBorder (was MaterialStateInputBorder)
 // Widget state aware input border for dynamic, state-responsive TextField borders
 import 'package:flutter/material.dart';

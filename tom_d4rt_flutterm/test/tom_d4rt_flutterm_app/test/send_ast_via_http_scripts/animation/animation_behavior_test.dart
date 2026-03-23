@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AnimationBehavior from animation
 // Deep Demo: Visual demonstration of AnimationBehavior enum and its effects
 import 'package:flutter/material.dart';

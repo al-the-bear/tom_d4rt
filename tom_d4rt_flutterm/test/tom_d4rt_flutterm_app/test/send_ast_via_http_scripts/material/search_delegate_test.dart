@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SearchDelegate from material - delegate for showSearch() function
 import 'package:flutter/material.dart';
 

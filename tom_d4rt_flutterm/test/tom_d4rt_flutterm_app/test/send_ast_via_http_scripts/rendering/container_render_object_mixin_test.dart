@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for ContainerRenderObjectMixin from rendering
 //
 // ContainerRenderObjectMixin is a mixin for render objects that manage multiple children.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for ParentData from rendering
 //
 // ParentData is the base class for render object parent data.

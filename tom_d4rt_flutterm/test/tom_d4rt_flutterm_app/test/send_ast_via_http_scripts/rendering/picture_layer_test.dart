@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for PictureLayer from rendering
 //
 // PictureLayer is a compositing layer that displays a Picture object.

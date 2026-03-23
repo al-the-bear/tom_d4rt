@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BoxWidthStyle from dart_ui
 // BoxWidthStyle controls how text selection rectangles are calculated horizontally
 // Used in Paragraph.getBoxesForRange() and TextPainter

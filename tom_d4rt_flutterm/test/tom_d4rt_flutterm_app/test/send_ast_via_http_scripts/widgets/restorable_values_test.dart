@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Restorable values - RestorableInt, RestorableDouble,
 // RestorableBool, RestorableString, RestorableTextEditingController,
 // RestorableDateTime, RestorableEnum

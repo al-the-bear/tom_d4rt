@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests CallbackHandle from dart:ui
 // CallbackHandle enables passing Dart callbacks to native code/isolates
 // Used for background processing, plugins, and platform channel callbacks

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for ImageFilterConfig from rendering
 //
 // ImageFilter in Flutter provides GPU-accelerated visual effects including

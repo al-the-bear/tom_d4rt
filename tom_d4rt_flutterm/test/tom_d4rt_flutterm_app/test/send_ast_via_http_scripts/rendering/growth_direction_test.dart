@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for GrowthDirection from rendering
 //
 // GrowthDirection is an enum that describes the direction in which a sliver's

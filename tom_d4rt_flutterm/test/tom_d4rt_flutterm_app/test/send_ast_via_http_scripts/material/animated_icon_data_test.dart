@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AnimatedIconData from material
 // Displays icon variations and animated icon states at different progress values
 import 'package:flutter/material.dart';

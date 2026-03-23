@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PageView, PageController, TabBarView, TabBar advanced,
 // TabController, DefaultTabController, PageScrollPhysics, PageStorageKey
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ToggleButtons, SegmentedButton, ButtonSegment,
 // ToggleButtonsThemeData, MaterialStateBorderSide, MaterialStateTextStyle, ButtonBar
 import 'package:flutter/material.dart';

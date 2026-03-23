@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for SemanticsUpdateBuilder from dart:ui
 //
 // SemanticsUpdateBuilder constructs accessibility trees for screen readers.

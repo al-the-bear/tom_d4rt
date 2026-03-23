@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FrameInfo from dart:ui
 // FrameInfo provides decoded image frame data including duration for animations
 // Used with Codec.getNextFrame() to iterate through animated image frames

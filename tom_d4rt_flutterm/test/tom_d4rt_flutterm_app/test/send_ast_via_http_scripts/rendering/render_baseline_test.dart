@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: Baseline widget (RenderBaseline)
 // Baseline positions its child according to the child's baseline offset.
 // It takes a baseline value (double) and a baselineType (TextBaseline).

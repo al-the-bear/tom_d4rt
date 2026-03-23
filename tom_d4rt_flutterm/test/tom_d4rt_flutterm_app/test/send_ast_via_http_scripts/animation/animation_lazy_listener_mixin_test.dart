@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AnimationLazyListenerMixin from animation
 // Deep Demo: Visual demonstration of lazy listener mixin deferred registration
 import 'package:flutter/material.dart';

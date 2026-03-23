@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - CatmullRomCurve from animation
 // Comprehensive demonstration of Catmull-Rom spline interpolation for smooth curves
 import 'package:flutter/widgets.dart';

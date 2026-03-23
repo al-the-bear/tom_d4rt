@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for PathMetric from dart:ui
 //
 // PathMetric provides metrics about a single contour of a Path.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ExpansionTileTransitionMode from cupertino
 // ExpansionTileTransitionMode controls expand/collapse animation behavior
 // Used with CupertinoExpansionTile for iOS-style expandable content

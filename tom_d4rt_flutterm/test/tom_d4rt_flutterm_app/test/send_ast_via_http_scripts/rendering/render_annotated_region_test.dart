@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderAnnotatedRegion / AnnotatedRegion<SystemUiOverlayStyle>
 // Tests annotating regions of the render tree with system UI overlay data
 // Demonstrates light/dark styles, custom configs, sized behavior, nesting, layout contexts

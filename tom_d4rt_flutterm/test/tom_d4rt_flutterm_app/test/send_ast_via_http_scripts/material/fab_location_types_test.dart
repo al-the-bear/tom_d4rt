@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests FloatingActionButtonLocation variants:
 // StandardFabLocation, endFloat, centerFloat, endDocked, centerDocked,
 // endTop, startTop, endContained, miniStartTop

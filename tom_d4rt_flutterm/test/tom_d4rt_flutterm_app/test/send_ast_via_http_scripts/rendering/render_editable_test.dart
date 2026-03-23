@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt deep demo: RenderEditable via EditableText and TextField
 // Demonstrates editable text rendering with layout, selection, cursor,
 // text alignment, direction, strut style, obscuring, formatting, and more.

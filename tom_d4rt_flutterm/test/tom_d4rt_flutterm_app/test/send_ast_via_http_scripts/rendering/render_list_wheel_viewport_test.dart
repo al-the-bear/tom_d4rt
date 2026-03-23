@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderListWheelViewport via ListWheelScrollView
 // Tests cylindrical wheel-style scrollable lists with various configurations
 // Covers diameterRatio, offAxisFraction, magnifier, squeeze, perspective, etc.
@@ -44,10 +45,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8),
           Text(
             'Cylindrical wheel-style scrollable lists with ListWheelScrollView',
-            style: TextStyle(
-              fontSize: 14,
-              color: Color(0xCCFFFFFF),
-            ),
+            style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
           ),
         ],
       ),
@@ -82,10 +80,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xBBFFFFFF),
-            ),
+            style: TextStyle(fontSize: 12, color: Color(0xBBFFFFFF)),
           ),
         ],
       ),
@@ -149,10 +144,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               value,
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xFF424242),
-              ),
+              style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
             ),
           ),
         ],
@@ -681,7 +673,9 @@ dynamic build(BuildContext context) {
           useMagnifier: true,
           squeeze: 1.2,
           onSelectedItemChanged: (int index) {
-            print('[ListWheelViewport] CupertinoPicker fruit selected: ${fruitNames[index]}');
+            print(
+              '[ListWheelViewport] CupertinoPicker fruit selected: ${fruitNames[index]}',
+            );
           },
           children: List.generate(fruitNames.length, (i) {
             return Center(
@@ -712,14 +706,20 @@ dynamic build(BuildContext context) {
           itemExtent: 40,
           diameterRatio: 1.5,
           onSelectedItemChanged: (int index) {
-            print('[ListWheelViewport] CupertinoPicker month selected: ${monthNames[index]}');
+            print(
+              '[ListWheelViewport] CupertinoPicker month selected: ${monthNames[index]}',
+            );
           },
           children: List.generate(monthNames.length, (i) {
             return Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.calendar_month, size: 16, color: Color(0xFF283593)),
+                  Icon(
+                    Icons.calendar_month,
+                    size: 16,
+                    color: Color(0xFF283593),
+                  ),
                   SizedBox(width: 8),
                   Text(
                     monthNames[i],

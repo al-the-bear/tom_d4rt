@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for CupertinoTextField from cupertino
 // CupertinoTextField is an iOS-style text input widget
 // Provides text entry with iOS styling and behavior

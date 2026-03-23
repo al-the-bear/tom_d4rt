@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ScrollConfiguration, ScrollBehavior, ViewportOffset,
 // PrimaryScrollController, PageStorage, PageStorageBucket
 import 'package:flutter/material.dart';

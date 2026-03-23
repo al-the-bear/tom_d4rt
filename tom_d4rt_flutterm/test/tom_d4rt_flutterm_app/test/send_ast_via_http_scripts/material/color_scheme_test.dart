@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ColorScheme, MaterialColor, MaterialAccentColor,
 // ThemeDataTween, theme concepts
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RenderAnimatedOpacityMixin from rendering
 //
 // RenderAnimatedOpacityMixin is a mixin that provides efficient animated

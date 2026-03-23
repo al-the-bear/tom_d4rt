@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ShaderMask, BackdropFilter, ImageFiltered,
 // ColorFiltered (as widgets), OrientationBuilder, CheckedModeBanner
 import 'dart:ui';

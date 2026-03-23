@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AppBar widget from widgets
 import 'package:flutter/material.dart';
 

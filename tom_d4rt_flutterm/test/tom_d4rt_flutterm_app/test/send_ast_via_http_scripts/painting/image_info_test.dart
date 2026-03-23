@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo of ImageInfo - pair of dart:ui Image with scale
 import 'package:flutter/material.dart';
 

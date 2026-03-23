@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests VertexMode enum from dart:ui
 // Demonstrates different modes for drawing vertices with Canvas.drawVertices.
 // VertexMode controls how vertex positions are interpreted when rendering.

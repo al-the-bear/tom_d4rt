@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Tooltip, TooltipThemeData, TooltipTriggerMode,
 // Feedback, InkResponse, InkWell advanced
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for AnnotatedRegionLayer from rendering
 //
 // AnnotatedRegionLayer<T> attaches metadata to a region of the render tree.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // render_ignore_pointer_test.dart
 // Deep demo: RenderIgnorePointer via the IgnorePointer widget
 // IgnorePointer makes its subtree invisible to hit testing.
@@ -122,9 +123,7 @@ Widget _buildSectionTitle(String title) {
     margin: EdgeInsets.only(bottom: 12.0),
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF533483), Color(0xFF0F3460)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF533483), Color(0xFF0F3460)]),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: Color(0x44FFFFFF), width: 1.0),
     ),
@@ -178,9 +177,7 @@ Widget _buildDemoButton(String label, Color color) {
       backgroundColor: color,
       foregroundColor: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
     child: Text(label),
   );
@@ -340,7 +337,9 @@ Widget _buildComparisonSection(BuildContext context) {
                   Positioned.fill(
                     child: GestureDetector(
                       onTap: () {
-                        print('[s3] Bottom layer tapped UNDER AbsorbPointer — should NOT happen');
+                        print(
+                          '[s3] Bottom layer tapped UNDER AbsorbPointer — should NOT happen',
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -454,7 +453,9 @@ Widget _buildIgnoringSemanticsSection(BuildContext context) {
 // Section 5: Stacked widgets — tap reaches bottom layer
 // ============================================================
 Widget _buildStackedPassThroughSection(BuildContext context) {
-  print('[s5] Stacked scenario: IgnorePointer on top layer lets taps reach bottom');
+  print(
+    '[s5] Stacked scenario: IgnorePointer on top layer lets taps reach bottom',
+  );
   return _buildCard(
     'Three-layer stack — middle layer uses IgnorePointer',
     Column(
@@ -616,7 +617,10 @@ Widget _buildPracticalPatternsSection(BuildContext context) {
                 children: [
                   Positioned.fill(
                     child: Center(
-                      child: _buildDemoButton('Still Tappable', Color(0xFF7B1FA2)),
+                      child: _buildDemoButton(
+                        'Still Tappable',
+                        Color(0xFF7B1FA2),
+                      ),
                     ),
                   ),
                   Positioned.fill(
@@ -683,12 +687,17 @@ Widget _buildPracticalPatternsSection(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation(Color(0xFFE94560)),
+                              valueColor: AlwaysStoppedAnimation(
+                                Color(0xFFE94560),
+                              ),
                             ),
                             SizedBox(height: 10.0),
                             Text(
                               'Loading...',
-                              style: TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                              ),
                             ),
                           ],
                         ),
@@ -718,7 +727,9 @@ Widget _buildPracticalPatternsSection(BuildContext context) {
 // Section 7: IgnorePointer + Opacity combination
 // ============================================================
 Widget _buildOpacityCombinationSection(BuildContext context) {
-  print('[s7] Combining IgnorePointer with Opacity for visual + interaction disabling');
+  print(
+    '[s7] Combining IgnorePointer with Opacity for visual + interaction disabling',
+  );
   return Column(
     children: [
       _buildCard(
@@ -841,7 +852,10 @@ Widget _buildNestedSection(BuildContext context) {
                   SizedBox(height: 8.0),
                   IgnorePointer(
                     ignoring: false,
-                    child: _buildDemoButton('Inner NOT Ignored', Color(0xFF1976D2)),
+                    child: _buildDemoButton(
+                      'Inner NOT Ignored',
+                      Color(0xFF1976D2),
+                    ),
                   ),
                 ],
               ),
@@ -897,7 +911,10 @@ Widget _buildNestedSection(BuildContext context) {
                   children: [
                     Text(
                       'Level 1: ignoring=true',
-                      style: TextStyle(color: Color(0xFFE94560), fontSize: 12.0),
+                      style: TextStyle(
+                        color: Color(0xFFE94560),
+                        fontSize: 12.0,
+                      ),
                     ),
                     SizedBox(height: 6.0),
                     IgnorePointer(
@@ -905,14 +922,20 @@ Widget _buildNestedSection(BuildContext context) {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF4CAF50), width: 1.0),
+                          border: Border.all(
+                            color: Color(0xFF4CAF50),
+                            width: 1.0,
+                          ),
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                         child: Column(
                           children: [
                             Text(
                               'Level 2: ignoring=false',
-                              style: TextStyle(color: Color(0xFF4CAF50), fontSize: 12.0),
+                              style: TextStyle(
+                                color: Color(0xFF4CAF50),
+                                fontSize: 12.0,
+                              ),
                             ),
                             SizedBox(height: 6.0),
                             IgnorePointer(
@@ -920,17 +943,26 @@ Widget _buildNestedSection(BuildContext context) {
                               child: Container(
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xFF2196F3), width: 1.0),
+                                  border: Border.all(
+                                    color: Color(0xFF2196F3),
+                                    width: 1.0,
+                                  ),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Column(
                                   children: [
                                     Text(
                                       'Level 3: ignoring=true',
-                                      style: TextStyle(color: Color(0xFF2196F3), fontSize: 12.0),
+                                      style: TextStyle(
+                                        color: Color(0xFF2196F3),
+                                        fontSize: 12.0,
+                                      ),
                                     ),
                                     SizedBox(height: 4.0),
-                                    _buildDemoButton('Deeply Nested', Color(0xFF5C6BC0)),
+                                    _buildDemoButton(
+                                      'Deeply Nested',
+                                      Color(0xFF5C6BC0),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -968,7 +1000,10 @@ Widget _buildNestedSection(BuildContext context) {
                     children: [
                       Text(
                         'Ignored',
-                        style: TextStyle(color: Color(0xFFE94560), fontSize: 12.0),
+                        style: TextStyle(
+                          color: Color(0xFFE94560),
+                          fontSize: 12.0,
+                        ),
                       ),
                       SizedBox(height: 4.0),
                       _buildDemoButton('No Tap', Color(0xFF880E4F)),
@@ -991,7 +1026,10 @@ Widget _buildNestedSection(BuildContext context) {
                     children: [
                       Text(
                         'Active',
-                        style: TextStyle(color: Color(0xFF4CAF50), fontSize: 12.0),
+                        style: TextStyle(
+                          color: Color(0xFF4CAF50),
+                          fontSize: 12.0,
+                        ),
                       ),
                       SizedBox(height: 4.0),
                       _buildDemoButton('Tappable', Color(0xFF2E7D32)),
@@ -1014,9 +1052,7 @@ Widget _buildFooter() {
     width: double.infinity,
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF0F3460), Color(0xFF533483)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF0F3460), Color(0xFF533483)]),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(

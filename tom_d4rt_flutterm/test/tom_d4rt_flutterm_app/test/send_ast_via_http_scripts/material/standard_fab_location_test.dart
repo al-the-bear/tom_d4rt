@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests StandardFabLocation - FAB position in Scaffold
 import 'package:flutter/material.dart';
 

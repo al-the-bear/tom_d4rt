@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests RenderFlex, RenderWrap, RenderTable, RenderFlow, RenderListBody
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

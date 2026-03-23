@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: BlockSemantics, ExcludeSemantics, MergeSemantics, Semantics
 // BlockSemantics drops the semantics subtree below it when blocking is true.
 // This prevents screen readers from seeing content behind modals, drawers, etc.
@@ -55,18 +56,12 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8),
         Text(
           'Demonstrates BlockSemantics, ExcludeSemantics, MergeSemantics & Semantics',
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
         SizedBox(height: 4),
         Text(
           'RenderBlockSemantics drops the semantics subtree when blocking is true',
-          style: TextStyle(
-            fontSize: 12,
-            color: Color(0x99FFFFFF),
-          ),
+          style: TextStyle(fontSize: 12, color: Color(0x99FFFFFF)),
         ),
       ],
     ),
@@ -118,10 +113,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: dividerGrey, width: 0.5),
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 13, color: darkText),
-      ),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkText)),
     );
   }
 
@@ -142,7 +134,11 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               label,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: darkText),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: darkText,
+              ),
             ),
           ),
         ],
@@ -158,7 +154,11 @@ dynamic build(BuildContext context) {
   Widget section1 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('1. BlockSemantics (blocking: true)', Color(0xFFD32F2F), Color(0xFFC62828)),
+      buildSectionTitle(
+        '1. BlockSemantics (blocking: true)',
+        Color(0xFFD32F2F),
+        Color(0xFFC62828),
+      ),
       buildInfoCard(
         'When blocking is true, the semantics subtree below this widget is dropped. '
         'Screen readers will NOT see the child content. This is the default behavior.',
@@ -203,8 +203,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.visibility_off, color: Color(0xFFD32F2F)),
                         SizedBox(width: 8),
-                        Text('Semantics: HIDDEN',
-                            style: TextStyle(fontSize: 14, color: Color(0xFFD32F2F))),
+                        Text(
+                          'Semantics: HIDDEN',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFFD32F2F),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -225,7 +230,11 @@ dynamic build(BuildContext context) {
   Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('2. BlockSemantics (blocking: false)', Color(0xFF2E7D32), Color(0xFF1B5E20)),
+      buildSectionTitle(
+        '2. BlockSemantics (blocking: false)',
+        Color(0xFF2E7D32),
+        Color(0xFF1B5E20),
+      ),
       buildInfoCard(
         'When blocking is false, the semantics subtree is preserved normally. '
         'Screen readers CAN see all child content. This is a pass-through mode.',
@@ -247,7 +256,11 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Icon(Icons.check_circle, size: 48, color: Color(0xFF2E7D32)),
+                    Icon(
+                      Icons.check_circle,
+                      size: 48,
+                      color: Color(0xFF2E7D32),
+                    ),
                     SizedBox(height: 8),
                     Text(
                       'VISIBLE - Screen readers CAN see this',
@@ -270,8 +283,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.visibility, color: Color(0xFF2E7D32)),
                         SizedBox(width: 8),
-                        Text('Semantics: VISIBLE',
-                            style: TextStyle(fontSize: 14, color: Color(0xFF2E7D32))),
+                        Text(
+                          'Semantics: VISIBLE',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFF2E7D32),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -292,7 +310,11 @@ dynamic build(BuildContext context) {
   Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('3. Modal Overlay Pattern', Color(0xFF6A1B9A), Color(0xFF4A148C)),
+      buildSectionTitle(
+        '3. Modal Overlay Pattern',
+        Color(0xFF6A1B9A),
+        Color(0xFF4A148C),
+      ),
       buildInfoCard(
         'BlockSemantics is commonly used behind modals and dialogs to block '
         'screen reader access to background content. The overlay blocks semantics '
@@ -321,31 +343,55 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Background Content',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: darkText)),
+                    Text(
+                      'Background Content',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: darkText,
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Text('This is background text that screen readers should NOT access.',
-                        style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'This is background text that screen readers should NOT access.',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                     SizedBox(height: 4),
-                    Text('Button below is also blocked from accessibility tree.',
-                        style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Button below is also blocked from accessibility tree.',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                     SizedBox(height: 12),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Color(0xFF90CAF9),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text('Background Button (blocked)',
-                          style: TextStyle(fontSize: 13, color: darkText)),
+                      child: Text(
+                        'Background Button (blocked)',
+                        style: TextStyle(fontSize: 13, color: darkText),
+                      ),
                     ),
                     SizedBox(height: 8),
                     Row(
                       children: [
-                        Icon(Icons.visibility_off, size: 16, color: Color(0xFFD32F2F)),
+                        Icon(
+                          Icons.visibility_off,
+                          size: 16,
+                          color: Color(0xFFD32F2F),
+                        ),
                         SizedBox(width: 4),
-                        Text('Semantics blocked by overlay',
-                            style: TextStyle(fontSize: 11, color: Color(0xFFD32F2F))),
+                        Text(
+                          'Semantics blocked by overlay',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFFD32F2F),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -377,10 +423,20 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.warning_amber_rounded, size: 40, color: Color(0xFFF57C00)),
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      size: 40,
+                      color: Color(0xFFF57C00),
+                    ),
                     SizedBox(height: 12),
-                    Text('Modal Dialog',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: darkText)),
+                    Text(
+                      'Modal Dialog',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: darkText,
+                      ),
+                    ),
                     SizedBox(height: 8),
                     Text(
                       'This dialog is accessible to screen readers. '
@@ -396,9 +452,11 @@ dynamic build(BuildContext context) {
                         color: accentPink,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text('Dismiss',
-                          style: TextStyle(fontSize: 14, color: lightText),
-                          textAlign: TextAlign.center),
+                      child: Text(
+                        'Dismiss',
+                        style: TextStyle(fontSize: 14, color: lightText),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),
@@ -418,7 +476,11 @@ dynamic build(BuildContext context) {
   Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('4. ExcludeSemantics Comparison', Color(0xFFE65100), Color(0xFFBF360C)),
+      buildSectionTitle(
+        '4. ExcludeSemantics Comparison',
+        Color(0xFFE65100),
+        Color(0xFFBF360C),
+      ),
       buildInfoCard(
         'ExcludeSemantics removes the child from the semantics tree entirely. '
         'Unlike BlockSemantics which drops the subtree below, ExcludeSemantics '
@@ -446,11 +508,19 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('ExcludeSemantics(excluding: true)',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: darkText)),
+                      Text(
+                        'ExcludeSemantics(excluding: true)',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: darkText,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('This content is completely excluded from semantics tree.',
-                          style: TextStyle(fontSize: 12, color: darkText)),
+                      Text(
+                        'This content is completely excluded from semantics tree.',
+                        style: TextStyle(fontSize: 12, color: darkText),
+                      ),
                     ],
                   ),
                 ),
@@ -474,17 +544,29 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.all(14),
             child: Row(
               children: [
-                Icon(Icons.check_circle_outline, color: Color(0xFF2E7D32), size: 28),
+                Icon(
+                  Icons.check_circle_outline,
+                  color: Color(0xFF2E7D32),
+                  size: 28,
+                ),
                 SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('ExcludeSemantics(excluding: false)',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: darkText)),
+                      Text(
+                        'ExcludeSemantics(excluding: false)',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: darkText,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('This content is NOT excluded. Semantics are normal.',
-                          style: TextStyle(fontSize: 12, color: darkText)),
+                      Text(
+                        'This content is NOT excluded. Semantics are normal.',
+                        style: TextStyle(fontSize: 12, color: darkText),
+                      ),
                     ],
                   ),
                 ),
@@ -510,7 +592,11 @@ dynamic build(BuildContext context) {
   Widget section5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('5. MergeSemantics Comparison', Color(0xFF33691E), Color(0xFF1B5E20)),
+      buildSectionTitle(
+        '5. MergeSemantics Comparison',
+        Color(0xFF33691E),
+        Color(0xFF1B5E20),
+      ),
       buildInfoCard(
         'MergeSemantics merges the semantics of its descendants into one node. '
         'This is the opposite of blocking -- it combines multiple semantic nodes '
@@ -536,19 +622,30 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.merge_type, color: Color(0xFF33691E), size: 28),
                     SizedBox(width: 12),
-                    Text('MergeSemantics',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: darkText)),
+                    Text(
+                      'MergeSemantics',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: darkText,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 10),
-                Text('All these items are merged into ONE semantic node:',
-                    style: TextStyle(fontSize: 13, color: darkText)),
+                Text(
+                  'All these items are merged into ONE semantic node:',
+                  style: TextStyle(fontSize: 13, color: darkText),
+                ),
                 SizedBox(height: 8),
                 Row(
                   children: [
                     Icon(Icons.star, color: Color(0xFFFFC107), size: 20),
                     SizedBox(width: 6),
-                    Text('Rating: 4.5 stars', style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Rating: 4.5 stars',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4),
@@ -556,7 +653,10 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.favorite, color: accentPink, size: 20),
                     SizedBox(width: 6),
-                    Text('Liked by 1234 users', style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Liked by 1234 users',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4),
@@ -564,13 +664,20 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.share, color: Color(0xFF1976D2), size: 20),
                     SizedBox(width: 6),
-                    Text('Shared 567 times', style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Shared 567 times',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                   ],
                 ),
                 SizedBox(height: 10),
                 Text(
                   'Screen reader reads this as a single group rather than individual items.',
-                  style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic, color: Color(0xFF616161)),
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFF616161),
+                  ),
                 ),
               ],
             ),
@@ -591,11 +698,19 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Without MergeSemantics (separate nodes)',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: darkText)),
+              Text(
+                'Without MergeSemantics (separate nodes)',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: darkText,
+                ),
+              ),
               SizedBox(height: 8),
-              Text('Each item below is a separate semantic node:',
-                  style: TextStyle(fontSize: 13, color: darkText)),
+              Text(
+                'Each item below is a separate semantic node:',
+                style: TextStyle(fontSize: 13, color: darkText),
+              ),
               SizedBox(height: 6),
               Semantics(
                 label: 'Rating node',
@@ -603,7 +718,10 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.star, color: Color(0xFFFFC107), size: 20),
                     SizedBox(width: 6),
-                    Text('Rating: 4.5 stars', style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Rating: 4.5 stars',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                   ],
                 ),
               ),
@@ -614,7 +732,10 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.favorite, color: accentPink, size: 20),
                     SizedBox(width: 6),
-                    Text('Liked by 1234 users', style: TextStyle(fontSize: 13, color: darkText)),
+                    Text(
+                      'Liked by 1234 users',
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
                   ],
                 ),
               ),
@@ -633,7 +754,11 @@ dynamic build(BuildContext context) {
   Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('6. Semantics Widget Properties', Color(0xFF0D47A1), Color(0xFF1565C0)),
+      buildSectionTitle(
+        '6. Semantics Widget Properties',
+        Color(0xFF0D47A1),
+        Color(0xFF1565C0),
+      ),
       buildInfoCard(
         'The Semantics widget annotates the widget tree with accessibility information. '
         'It provides label, hint, value, and many other properties for screen readers.',
@@ -715,7 +840,11 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Text(
                       'BlockSemantics wrapping Semantics widgets',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFD32F2F)),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFD32F2F),
+                      ),
                     ),
                   ),
                 ],
@@ -723,15 +852,19 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Semantics(
                 label: 'This label is blocked',
-                child: Text('Semantics(label: "This label is blocked") - NOT accessible',
-                    style: TextStyle(fontSize: 12, color: darkText)),
+                child: Text(
+                  'Semantics(label: "This label is blocked") - NOT accessible',
+                  style: TextStyle(fontSize: 12, color: darkText),
+                ),
               ),
               SizedBox(height: 4),
               Semantics(
                 label: 'This hint is also blocked',
                 hint: 'Cannot be read',
-                child: Text('Semantics(hint: "Cannot be read") - also blocked',
-                    style: TextStyle(fontSize: 12, color: darkText)),
+                child: Text(
+                  'Semantics(hint: "Cannot be read") - also blocked',
+                  style: TextStyle(fontSize: 12, color: darkText),
+                ),
               ),
             ],
           ),
@@ -748,7 +881,11 @@ dynamic build(BuildContext context) {
   Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('7. Drawer Overlay Pattern', Color(0xFF7B1FA2), Color(0xFF6A1B9A)),
+      buildSectionTitle(
+        '7. Drawer Overlay Pattern',
+        Color(0xFF7B1FA2),
+        Color(0xFF6A1B9A),
+      ),
       buildInfoCard(
         'In a real app, when a drawer is open, BlockSemantics blocks the main content '
         'behind the drawer. This prevents screen readers from navigating to the '
@@ -781,35 +918,61 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.menu, color: darkText, size: 24),
                         SizedBox(width: 12),
-                        Text('My App',
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: darkText)),
+                        Text(
+                          'My App',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: darkText,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 16),
-                    Text('Main Content Area',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: darkText)),
+                    Text(
+                      'Main Content Area',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: darkText,
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Text('This content is behind the drawer.',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF757575))),
-                    Text('Screen readers cannot access this.',
-                        style: TextStyle(fontSize: 13, color: Color(0xFF757575))),
+                    Text(
+                      'This content is behind the drawer.',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF757575)),
+                    ),
+                    Text(
+                      'Screen readers cannot access this.',
+                      style: TextStyle(fontSize: 13, color: Color(0xFF757575)),
+                    ),
                     SizedBox(height: 12),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: Color(0xFFE3F2FD),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text('Action Button (blocked)',
-                          style: TextStyle(fontSize: 13, color: darkText)),
+                      child: Text(
+                        'Action Button (blocked)',
+                        style: TextStyle(fontSize: 13, color: darkText),
+                      ),
                     ),
                     SizedBox(height: 8),
                     Row(
                       children: [
                         Icon(Icons.block, size: 14, color: Color(0xFFD32F2F)),
                         SizedBox(width: 4),
-                        Text('Blocked by drawer overlay',
-                            style: TextStyle(fontSize: 11, color: Color(0xFFD32F2F))),
+                        Text(
+                          'Blocked by drawer overlay',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Color(0xFFD32F2F),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -849,53 +1012,92 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.account_circle, size: 48, color: lightText),
+                          Icon(
+                            Icons.account_circle,
+                            size: 48,
+                            color: lightText,
+                          ),
                           SizedBox(height: 8),
-                          Text('Navigation Drawer',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: lightText)),
-                          Text('Accessible to readers',
-                              style: TextStyle(fontSize: 12, color: Color(0xCCFFFFFF))),
+                          Text(
+                            'Navigation Drawer',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: lightText,
+                            ),
+                          ),
+                          Text(
+                            'Accessible to readers',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xCCFFFFFF),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: 8),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
                           Icon(Icons.home, size: 20, color: darkText),
                           SizedBox(width: 12),
-                          Text('Home', style: TextStyle(fontSize: 14, color: darkText)),
+                          Text(
+                            'Home',
+                            style: TextStyle(fontSize: 14, color: darkText),
+                          ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
                           Icon(Icons.settings, size: 20, color: darkText),
                           SizedBox(width: 12),
-                          Text('Settings', style: TextStyle(fontSize: 14, color: darkText)),
+                          Text(
+                            'Settings',
+                            style: TextStyle(fontSize: 14, color: darkText),
+                          ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
                           Icon(Icons.help, size: 20, color: darkText),
                           SizedBox(width: 12),
-                          Text('Help', style: TextStyle(fontSize: 14, color: darkText)),
+                          Text(
+                            'Help',
+                            style: TextStyle(fontSize: 14, color: darkText),
+                          ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
                           Icon(Icons.logout, size: 20, color: darkText),
                           SizedBox(width: 12),
-                          Text('Logout', style: TextStyle(fontSize: 14, color: darkText)),
+                          Text(
+                            'Logout',
+                            style: TextStyle(fontSize: 14, color: darkText),
+                          ),
                         ],
                       ),
                     ),
@@ -917,7 +1119,11 @@ dynamic build(BuildContext context) {
   Widget section8 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('8. Visual Blocked vs Visible Indicators', accentTeal, Color(0xFF00695C)),
+      buildSectionTitle(
+        '8. Visual Blocked vs Visible Indicators',
+        accentTeal,
+        Color(0xFF00695C),
+      ),
       buildInfoCard(
         'Side-by-side comparison using colour-coded overlays to visually indicate '
         'which regions are blocked (red) vs visible (green) to screen readers.',
@@ -949,19 +1155,28 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.block, size: 36, color: Color(0xFFD32F2F)),
                       SizedBox(height: 8),
-                      Text('BLOCKED',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFD32F2F),
-                          )),
+                      Text(
+                        'BLOCKED',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFD32F2F),
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('blocking: true',
-                          style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                      Text(
+                        'blocking: true',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF757575),
+                        ),
+                      ),
                       SizedBox(height: 8),
-                      Text('Semantics hidden',
-                          style: TextStyle(fontSize: 12, color: darkText),
-                          textAlign: TextAlign.center),
+                      Text(
+                        'Semantics hidden',
+                        style: TextStyle(fontSize: 12, color: darkText),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -987,21 +1202,34 @@ dynamic build(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.accessibility_new, size: 36, color: Color(0xFF2E7D32)),
+                      Icon(
+                        Icons.accessibility_new,
+                        size: 36,
+                        color: Color(0xFF2E7D32),
+                      ),
                       SizedBox(height: 8),
-                      Text('VISIBLE',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF2E7D32),
-                          )),
+                      Text(
+                        'VISIBLE',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2E7D32),
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('blocking: false',
-                          style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                      Text(
+                        'blocking: false',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF757575),
+                        ),
+                      ),
                       SizedBox(height: 8),
-                      Text('Semantics active',
-                          style: TextStyle(fontSize: 12, color: darkText),
-                          textAlign: TextAlign.center),
+                      Text(
+                        'Semantics active',
+                        style: TextStyle(fontSize: 12, color: darkText),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -1035,7 +1263,10 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(width: 6),
-                    Text('Red = Blocked', style: TextStyle(fontSize: 12, color: darkText)),
+                    Text(
+                      'Red = Blocked',
+                      style: TextStyle(fontSize: 12, color: darkText),
+                    ),
                   ],
                 ),
               ),
@@ -1060,7 +1291,10 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(width: 6),
-                    Text('Green = Visible', style: TextStyle(fontSize: 12, color: darkText)),
+                    Text(
+                      'Green = Visible',
+                      style: TextStyle(fontSize: 12, color: darkText),
+                    ),
                   ],
                 ),
               ),
@@ -1079,7 +1313,11 @@ dynamic build(BuildContext context) {
   Widget section9 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle('9. Semantics Widgets Summary', Color(0xFF37474F), Color(0xFF263238)),
+      buildSectionTitle(
+        '9. Semantics Widgets Summary',
+        Color(0xFF37474F),
+        Color(0xFF263238),
+      ),
       SizedBox(height: 8),
       // Table header
       Container(
@@ -1096,13 +1334,25 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 2,
-              child: Text('Widget',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: lightText)),
+              child: Text(
+                'Widget',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: lightText,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text('Effect on Semantics',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: lightText)),
+              child: Text(
+                'Effect on Semantics',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: lightText,
+                ),
+              ),
             ),
           ],
         ),
@@ -1116,12 +1366,21 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 2,
-              child: Text('BlockSemantics', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: darkText)),
+              child: Text(
+                'BlockSemantics',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: darkText,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text('Drops semantics subtree below when blocking=true',
-                  style: TextStyle(fontSize: 12, color: darkText)),
+              child: Text(
+                'Drops semantics subtree below when blocking=true',
+                style: TextStyle(fontSize: 12, color: darkText),
+              ),
             ),
           ],
         ),
@@ -1135,12 +1394,21 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 2,
-              child: Text('ExcludeSemantics', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: darkText)),
+              child: Text(
+                'ExcludeSemantics',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: darkText,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text('Excludes node and all descendants from tree',
-                  style: TextStyle(fontSize: 12, color: darkText)),
+              child: Text(
+                'Excludes node and all descendants from tree',
+                style: TextStyle(fontSize: 12, color: darkText),
+              ),
             ),
           ],
         ),
@@ -1154,12 +1422,21 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 2,
-              child: Text('MergeSemantics', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: darkText)),
+              child: Text(
+                'MergeSemantics',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: darkText,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text('Merges all descendant semantics into one node',
-                  style: TextStyle(fontSize: 12, color: darkText)),
+              child: Text(
+                'Merges all descendant semantics into one node',
+                style: TextStyle(fontSize: 12, color: darkText),
+              ),
             ),
           ],
         ),
@@ -1179,12 +1456,21 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(
               flex: 2,
-              child: Text('Semantics', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: darkText)),
+              child: Text(
+                'Semantics',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: darkText,
+                ),
+              ),
             ),
             Expanded(
               flex: 3,
-              child: Text('Annotates tree with label, hint, value, roles',
-                  style: TextStyle(fontSize: 12, color: darkText)),
+              child: Text(
+                'Annotates tree with label, hint, value, roles',
+                style: TextStyle(fontSize: 12, color: darkText),
+              ),
             ),
           ],
         ),
@@ -1205,11 +1491,19 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Text('End of BlockSemantics Deep Demo',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: lightText)),
+            Text(
+              'End of BlockSemantics Deep Demo',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: lightText,
+              ),
+            ),
             SizedBox(height: 4),
-            Text('RenderBlockSemantics controls semantics tree visibility',
-                style: TextStyle(fontSize: 12, color: Color(0xCCFFFFFF))),
+            Text(
+              'RenderBlockSemantics controls semantics tree visibility',
+              style: TextStyle(fontSize: 12, color: Color(0xCCFFFFFF)),
+            ),
           ],
         ),
       ),

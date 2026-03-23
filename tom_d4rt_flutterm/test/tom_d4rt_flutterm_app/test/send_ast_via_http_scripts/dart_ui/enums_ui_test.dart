@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for miscellaneous dart:ui enums
 // Covers: AppLifecycleState, Brightness, BoxHeightStyle, BoxWidthStyle,
 //         Clip, BlendMode categories, and FontWeight constants

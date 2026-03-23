@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests UniformVec3Slot from dart:ui (fragment shader type)
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

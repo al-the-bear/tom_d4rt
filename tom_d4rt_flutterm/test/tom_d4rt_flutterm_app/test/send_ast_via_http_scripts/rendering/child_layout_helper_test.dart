@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for ChildLayoutHelper from rendering
 //
 // ChildLayoutHelper is a static utility class that provides methods for

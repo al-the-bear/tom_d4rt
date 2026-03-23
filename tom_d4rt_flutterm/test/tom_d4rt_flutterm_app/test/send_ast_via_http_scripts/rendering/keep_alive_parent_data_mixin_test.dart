@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for KeepAliveParentDataMixin
 //
 // KeepAliveParentDataMixin is used by lazy list widgets (ListView, GridView)

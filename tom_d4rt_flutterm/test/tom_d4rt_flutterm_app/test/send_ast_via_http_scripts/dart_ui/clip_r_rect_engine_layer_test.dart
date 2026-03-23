@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ClipRRectEngineLayer via SceneBuilder
 // ClipRRectEngineLayer clips child layers using rounded rectangles
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for CheckedState from dart:ui
 // CheckedState defines tri-state values for checkbox accessibility semantics
 import 'dart:ui' as ui;

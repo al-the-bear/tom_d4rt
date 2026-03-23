@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for SystemColor from dart:ui
 //
 // SystemColor represents a color defined by the operating system that user

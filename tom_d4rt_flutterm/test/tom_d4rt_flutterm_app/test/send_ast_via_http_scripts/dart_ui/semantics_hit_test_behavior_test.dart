@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for SemanticsHitTestBehavior from dart:ui
 // SemanticsHitTestBehavior controls how semantics hit testing works
 import 'dart:ui';

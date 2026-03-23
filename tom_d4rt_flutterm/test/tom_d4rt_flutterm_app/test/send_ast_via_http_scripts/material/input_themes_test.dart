@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TabBarTheme, SliderTheme, SliderThemeData, SwitchTheme, SwitchThemeData, CheckboxTheme, CheckboxThemeData, RadioTheme, RadioThemeData, ProgressIndicatorTheme, ProgressIndicatorThemeData from material
 import 'package:flutter/material.dart';
 

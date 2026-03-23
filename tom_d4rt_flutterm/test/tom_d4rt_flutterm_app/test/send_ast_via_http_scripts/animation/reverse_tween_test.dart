@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ReverseTween from animation
 // ReverseTween creates a reversed version of any tween
 // Swaps begin and end without modifying the original

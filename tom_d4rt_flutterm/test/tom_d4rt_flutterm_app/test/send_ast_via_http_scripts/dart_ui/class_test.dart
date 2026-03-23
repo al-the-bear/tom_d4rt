@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests dart:ui core class availability and type system
 // Comprehensive overview of dart:ui class hierarchy and categories
 import 'dart:ui' as ui;

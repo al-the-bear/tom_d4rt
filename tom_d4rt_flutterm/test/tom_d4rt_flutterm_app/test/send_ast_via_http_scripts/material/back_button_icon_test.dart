@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BackButtonIcon from material
 // Shows back button icons in various contexts, themes, sizes, and color configurations
 import 'package:flutter/material.dart';

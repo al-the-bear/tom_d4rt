@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for Constraints from rendering
 //
 // Constraints is the abstract base class for all constraint types.

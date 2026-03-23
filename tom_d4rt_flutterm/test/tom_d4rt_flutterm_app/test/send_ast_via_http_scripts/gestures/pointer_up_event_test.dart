@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PointerUpEvent from gestures
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

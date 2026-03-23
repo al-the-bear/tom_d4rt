@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Threshold from animation
 // Threshold is a step function curve - outputs 0 before threshold, 1 at/after
 // Useful for binary state changes in animations

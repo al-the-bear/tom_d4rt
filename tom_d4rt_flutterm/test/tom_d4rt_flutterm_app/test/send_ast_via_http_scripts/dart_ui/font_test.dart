@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Font-related APIs from dart:ui
 // Covers: loadFontFromList, FontFeature, FontVariation
 // Font registration pipeline and OpenType feature/variation axis control

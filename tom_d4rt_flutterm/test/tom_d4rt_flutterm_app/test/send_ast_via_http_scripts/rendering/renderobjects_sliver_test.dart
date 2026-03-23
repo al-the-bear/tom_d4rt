@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests RenderSliverList, RenderSliverGrid, RenderSliverPadding, RenderSliverOpacity, SliverGeometry
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

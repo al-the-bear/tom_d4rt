@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for CacheExtentStyle from rendering
 //
 // CacheExtentStyle controls how scrollable widgets pre-build off-screen content.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for AppExitResponse from dart:ui
 // AppExitResponse enum controls whether an app should exit or cancel exit
 import 'dart:ui';

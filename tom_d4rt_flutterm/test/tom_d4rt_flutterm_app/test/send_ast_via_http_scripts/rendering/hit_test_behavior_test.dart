@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for HitTestBehavior from rendering
 //
 // HitTestBehavior is an enum that controls how a render object participates

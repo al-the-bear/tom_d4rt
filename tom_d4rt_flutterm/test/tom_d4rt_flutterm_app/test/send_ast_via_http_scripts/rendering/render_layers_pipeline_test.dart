@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests RenderAnnotatedRegion, RenderFollowerLayer, RenderLeaderLayer, PipelineManifold, PerformanceOverlayLayer, ImageFilterLayer, ColorFilterLayer, PlatformViewLayer, TreeOwner
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;

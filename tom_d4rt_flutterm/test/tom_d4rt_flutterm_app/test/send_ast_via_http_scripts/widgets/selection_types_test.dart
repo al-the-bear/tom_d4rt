@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: TwoDimensionalScrollable, SelectionContainer, SelectableRegion,
 //        SelectionRegistrar, SelectionRegistrarScope, SelectionEvent,
 //        SelectionHandler, SelectionOverlay

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 
 // Deep demo: ContainerBoxParentData & container defaults mixin
@@ -269,10 +270,12 @@ Widget _buildStackFitSection() {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           buildFitDemo('StackFit.loose', StackFit.loose, Color(0xFF1565C0)),
+          buildFitDemo('StackFit.expand', StackFit.expand, Color(0xFFC62828)),
           buildFitDemo(
-              'StackFit.expand', StackFit.expand, Color(0xFFC62828)),
-          buildFitDemo(
-              'StackFit.passthrough', StackFit.passthrough, Color(0xFF2E7D32)),
+            'StackFit.passthrough',
+            StackFit.passthrough,
+            Color(0xFF2E7D32),
+          ),
         ],
       ),
     ],
@@ -301,16 +304,8 @@ Widget _buildAlignmentSection() {
           child: Stack(
             alignment: align,
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                color: clr,
-              ),
-              Container(
-                width: 20,
-                height: 20,
-                color: clr.withOpacity(0.5),
-              ),
+              Container(width: 40, height: 40, color: clr),
+              Container(width: 20, height: 20, color: clr.withOpacity(0.5)),
             ],
           ),
         ),
@@ -333,24 +328,51 @@ Widget _buildAlignmentSection() {
         spacing: 12,
         runSpacing: 12,
         children: [
-          buildAlignDemo('topStart', AlignmentDirectional.topStart,
-              Color(0xFFD32F2F)),
-          buildAlignDemo('topCenter', AlignmentDirectional.topCenter,
-              Color(0xFF1976D2)),
           buildAlignDemo(
-              'topEnd', AlignmentDirectional.topEnd, Color(0xFF388E3C)),
-          buildAlignDemo('centerStart', AlignmentDirectional.centerStart,
-              Color(0xFFF57C00)),
+            'topStart',
+            AlignmentDirectional.topStart,
+            Color(0xFFD32F2F),
+          ),
           buildAlignDemo(
-              'center', AlignmentDirectional.center, Color(0xFF7B1FA2)),
-          buildAlignDemo('centerEnd', AlignmentDirectional.centerEnd,
-              Color(0xFF00796B)),
-          buildAlignDemo('bottomStart', AlignmentDirectional.bottomStart,
-              Color(0xFF5D4037)),
-          buildAlignDemo('bottomCenter', AlignmentDirectional.bottomCenter,
-              Color(0xFF455A64)),
-          buildAlignDemo('bottomEnd', AlignmentDirectional.bottomEnd,
-              Color(0xFFC2185B)),
+            'topCenter',
+            AlignmentDirectional.topCenter,
+            Color(0xFF1976D2),
+          ),
+          buildAlignDemo(
+            'topEnd',
+            AlignmentDirectional.topEnd,
+            Color(0xFF388E3C),
+          ),
+          buildAlignDemo(
+            'centerStart',
+            AlignmentDirectional.centerStart,
+            Color(0xFFF57C00),
+          ),
+          buildAlignDemo(
+            'center',
+            AlignmentDirectional.center,
+            Color(0xFF7B1FA2),
+          ),
+          buildAlignDemo(
+            'centerEnd',
+            AlignmentDirectional.centerEnd,
+            Color(0xFF00796B),
+          ),
+          buildAlignDemo(
+            'bottomStart',
+            AlignmentDirectional.bottomStart,
+            Color(0xFF5D4037),
+          ),
+          buildAlignDemo(
+            'bottomCenter',
+            AlignmentDirectional.bottomCenter,
+            Color(0xFF455A64),
+          ),
+          buildAlignDemo(
+            'bottomEnd',
+            AlignmentDirectional.bottomEnd,
+            Color(0xFFC2185B),
+          ),
         ],
       ),
     ],
@@ -526,10 +548,7 @@ Widget _buildPositionedFillDirectionalSection() {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 color: Color(0xCCFFFFFF),
-                child: Text(
-                  'On top of fill',
-                  style: TextStyle(fontSize: 11),
-                ),
+                child: Text('On top of fill', style: TextStyle(fontSize: 11)),
               ),
             ),
           ],
@@ -553,15 +572,13 @@ Widget _buildPositionedFillDirectionalSection() {
                 textDirection: TextDirection.ltr,
                 start: 10,
                 top: 10,
-                child: _buildColorBox(
-                    Color(0xFF2E7D32), 'LTR start', 100, 35),
+                child: _buildColorBox(Color(0xFF2E7D32), 'LTR start', 100, 35),
               ),
               Positioned.directional(
                 textDirection: TextDirection.rtl,
                 start: 10,
                 bottom: 10,
-                child: _buildColorBox(
-                    Color(0xFFC62828), 'RTL start', 100, 35),
+                child: _buildColorBox(Color(0xFFC62828), 'RTL start', 100, 35),
               ),
               Positioned(
                 left: 130,
@@ -791,10 +808,7 @@ Widget _buildHierarchyBox(String name, String desc, Color color, int depth) {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
-            desc,
-            style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 11),
-          ),
+          Text(desc, style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 11)),
         ],
       ),
     ),
@@ -962,13 +976,21 @@ Widget _buildNestedStacksSection() {
                       left: 5,
                       top: 5,
                       child: _buildColorBox(
-                          Color(0xFFAD1457), 'Inner A', 60, 35),
+                        Color(0xFFAD1457),
+                        'Inner A',
+                        60,
+                        35,
+                      ),
                     ),
                     Positioned(
                       right: 5,
                       bottom: 5,
                       child: _buildColorBox(
-                          Color(0xFF00695C), 'Inner B', 60, 35),
+                        Color(0xFF00695C),
+                        'Inner B',
+                        60,
+                        35,
+                      ),
                     ),
                     Positioned(
                       left: 30,
@@ -1011,8 +1033,7 @@ Widget _buildNestedStacksSection() {
                       alignment: Alignment.center,
                       child: Text(
                         'Center',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 11),
+                        style: TextStyle(color: Colors.white, fontSize: 11),
                       ),
                     ),
                     Positioned(
@@ -1023,8 +1044,7 @@ Widget _buildNestedStacksSection() {
                         color: Color(0xCC1565C0),
                         child: Text(
                           'Corner',
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 9),
+                          style: TextStyle(color: Colors.white, fontSize: 9),
                         ),
                       ),
                     ),
@@ -1063,10 +1083,10 @@ class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
 
     // Layout header
     if (hasChild('header')) {
-      layoutChild('header', BoxConstraints.tightFor(
-        width: size.width - 20,
-        height: headerHeight,
-      ));
+      layoutChild(
+        'header',
+        BoxConstraints.tightFor(width: size.width - 20, height: headerHeight),
+      );
       positionChild('header', Offset(10, 10));
       print('[CustomLayout] Positioned header at (10, 10)');
     }
@@ -1076,20 +1096,20 @@ class _DemoLayoutDelegate extends MultiChildLayoutDelegate {
       double bodyTop = 10 + headerHeight + spacing;
       double bodyHeight =
           size.height - headerHeight - footerHeight - spacing * 3 - 20;
-      layoutChild('body', BoxConstraints.tightFor(
-        width: size.width - 20,
-        height: bodyHeight,
-      ));
+      layoutChild(
+        'body',
+        BoxConstraints.tightFor(width: size.width - 20, height: bodyHeight),
+      );
       positionChild('body', Offset(10, bodyTop));
       print('[CustomLayout] Positioned body at (10, $bodyTop)');
     }
 
     // Layout footer
     if (hasChild('footer')) {
-      layoutChild('footer', BoxConstraints.tightFor(
-        width: size.width - 20,
-        height: footerHeight,
-      ));
+      layoutChild(
+        'footer',
+        BoxConstraints.tightFor(width: size.width - 20, height: footerHeight),
+      );
       double footerTop = size.height - footerHeight - 10;
       positionChild('footer', Offset(10, footerTop));
       print('[CustomLayout] Positioned footer at (10, $footerTop)');
@@ -1163,14 +1183,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'ContainerBoxParentData is central to multi-child layouts. '
-                    'It provides offset-based positioning (from BoxParentData) '
-                    'and linked-list child traversal (from ContainerParentDataMixin). '
-                    'Stack, CustomMultiChildLayout, and similar widgets all rely '
-                    'on this parent data to position their children during layout.',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Color(0xDDFFFFFF),
-                ),
+                'It provides offset-based positioning (from BoxParentData) '
+                'and linked-list child traversal (from ContainerParentDataMixin). '
+                'Stack, CustomMultiChildLayout, and similar widgets all rely '
+                'on this parent data to position their children during layout.',
+                style: TextStyle(fontSize: 13, color: Color(0xDDFFFFFF)),
               ),
             ],
           ),

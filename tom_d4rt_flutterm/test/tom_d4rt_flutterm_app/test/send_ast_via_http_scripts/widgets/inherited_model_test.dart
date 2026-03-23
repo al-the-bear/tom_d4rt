@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests InheritedModel, InheritedWidget, InheritedNotifier,
 // ValueListenableBuilder, ValueNotifier, ListenableBuilder, AnimatedBuilder
 import 'package:flutter/material.dart';

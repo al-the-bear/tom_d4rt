@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Table, TableRow, TableCell, TableBorder,
 // Wrap, Flow, FlowDelegate
 import 'package:flutter/material.dart';

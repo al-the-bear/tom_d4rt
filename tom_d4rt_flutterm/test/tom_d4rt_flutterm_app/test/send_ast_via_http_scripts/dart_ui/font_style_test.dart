@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FontStyle from dart:ui
 // FontStyle is an enum with two values: normal and italic
 // Controls whether text is rendered upright or slanted

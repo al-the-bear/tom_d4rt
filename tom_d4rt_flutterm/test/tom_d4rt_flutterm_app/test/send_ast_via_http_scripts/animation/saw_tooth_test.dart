@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for SawTooth from animation
 // SawTooth creates a repeating linear sawtooth pattern
 // Perfect for looping animations and progress indicators

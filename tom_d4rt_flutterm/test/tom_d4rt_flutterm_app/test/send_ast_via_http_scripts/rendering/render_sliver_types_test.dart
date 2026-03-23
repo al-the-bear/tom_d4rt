@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SliverPersistentHeader, SliverPersistentHeaderDelegate,
 // SliverAppBar advanced, SliverOverlapAbsorber, SliverOverlapInjector,
 // NestedScrollView, SliverLayoutBuilder, SliverCrossAxisGroup

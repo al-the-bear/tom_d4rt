@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DataTable, DataRow, DataCell, DataColumn,
 // PaginatedDataTable, DataTableSource, DataTableThemeData, SortColumnOrder
 import 'package:flutter/material.dart';

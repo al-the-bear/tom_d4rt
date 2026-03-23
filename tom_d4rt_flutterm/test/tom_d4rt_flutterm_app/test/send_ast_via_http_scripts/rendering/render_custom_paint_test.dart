@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderCustomPaint via CustomPaint widget
 // Tests CustomPaint with multiple CustomPainter implementations,
 // foregroundPainter, child combinations, and Canvas drawing APIs.
@@ -31,14 +32,26 @@ class GeometricShapesPainter extends CustomPainter {
     var circlePaint = Paint()
       ..color = Colors.blue
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 30.0, circlePaint);
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      30.0,
+      circlePaint,
+    );
 
     var circleStrokePaint = Paint()
       ..color = Colors.green
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0;
-    canvas.drawCircle(Offset(size.width / 4, size.height / 4), 20.0, circleStrokePaint);
-    canvas.drawCircle(Offset(size.width * 3 / 4, size.height / 4), 20.0, circleStrokePaint);
+    canvas.drawCircle(
+      Offset(size.width / 4, size.height / 4),
+      20.0,
+      circleStrokePaint,
+    );
+    canvas.drawCircle(
+      Offset(size.width * 3 / 4, size.height / 4),
+      20.0,
+      circleStrokePaint,
+    );
     print('[GeometricShapesPainter] circles drawn');
 
     // Draw filled rectangles
@@ -46,7 +59,10 @@ class GeometricShapesPainter extends CustomPainter {
       ..color = Colors.orange.withValues(alpha: 0.5)
       ..style = PaintingStyle.fill;
     canvas.drawRect(Rect.fromLTWH(10, 10, 60, 40), rectPaint);
-    canvas.drawRect(Rect.fromLTWH(size.width - 70, size.height - 50, 60, 40), rectPaint);
+    canvas.drawRect(
+      Rect.fromLTWH(size.width - 70, size.height - 50, 60, 40),
+      rectPaint,
+    );
 
     // Draw rounded rectangle
     var rrectPaint = Paint()
@@ -264,7 +280,9 @@ class GradientPatternPainter extends CustomPainter {
 class ForegroundGridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    print('[ForegroundGridPainter] paint called as foregroundPainter, size: $size');
+    print(
+      '[ForegroundGridPainter] paint called as foregroundPainter, size: $size',
+    );
 
     var gridPaint = Paint()
       ..color = Colors.white.withValues(alpha: 0.25)
@@ -296,14 +314,38 @@ class ForegroundGridPainter extends CustomPainter {
     canvas.drawLine(Offset(0, 0), Offset(markerSize, 0), markerPaint);
     canvas.drawLine(Offset(0, 0), Offset(0, markerSize), markerPaint);
     // Top-right
-    canvas.drawLine(Offset(size.width, 0), Offset(size.width - markerSize, 0), markerPaint);
-    canvas.drawLine(Offset(size.width, 0), Offset(size.width, markerSize), markerPaint);
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(size.width - markerSize, 0),
+      markerPaint,
+    );
+    canvas.drawLine(
+      Offset(size.width, 0),
+      Offset(size.width, markerSize),
+      markerPaint,
+    );
     // Bottom-left
-    canvas.drawLine(Offset(0, size.height), Offset(markerSize, size.height), markerPaint);
-    canvas.drawLine(Offset(0, size.height), Offset(0, size.height - markerSize), markerPaint);
+    canvas.drawLine(
+      Offset(0, size.height),
+      Offset(markerSize, size.height),
+      markerPaint,
+    );
+    canvas.drawLine(
+      Offset(0, size.height),
+      Offset(0, size.height - markerSize),
+      markerPaint,
+    );
     // Bottom-right
-    canvas.drawLine(Offset(size.width, size.height), Offset(size.width - markerSize, size.height), markerPaint);
-    canvas.drawLine(Offset(size.width, size.height), Offset(size.width, size.height - markerSize), markerPaint);
+    canvas.drawLine(
+      Offset(size.width, size.height),
+      Offset(size.width - markerSize, size.height),
+      markerPaint,
+    );
+    canvas.drawLine(
+      Offset(size.width, size.height),
+      Offset(size.width, size.height - markerSize),
+      markerPaint,
+    );
     print('[ForegroundGridPainter] corner markers drawn');
   }
 
@@ -376,9 +418,12 @@ class ArcAndPathPainter extends CustomPainter {
     var bezierPath = Path();
     bezierPath.moveTo(10, size.height - 20);
     bezierPath.cubicTo(
-      size.width * 0.25, 10,
-      size.width * 0.75, size.height - 10,
-      size.width - 10, 20,
+      size.width * 0.25,
+      10,
+      size.width * 0.75,
+      size.height - 10,
+      size.width - 10,
+      20,
     );
     var bezierPaint = Paint()
       ..color = Colors.pink
@@ -521,9 +566,7 @@ dynamic build(BuildContext context) {
   var gradientPatternPaint = SizedBox(
     width: 250,
     height: 250,
-    child: CustomPaint(
-      painter: GradientPatternPainter(),
-    ),
+    child: CustomPaint(painter: GradientPatternPainter()),
   );
 
   // Section 5: ForegroundPainter with child widget
@@ -602,23 +645,17 @@ dynamic build(BuildContext context) {
   var smallPaint = SizedBox(
     width: 100,
     height: 100,
-    child: CustomPaint(
-      painter: GeometricShapesPainter(),
-    ),
+    child: CustomPaint(painter: GeometricShapesPainter()),
   );
   var mediumPaint = SizedBox(
     width: 180,
     height: 180,
-    child: CustomPaint(
-      painter: GradientPatternPainter(),
-    ),
+    child: CustomPaint(painter: GradientPatternPainter()),
   );
   var largePaint = SizedBox(
     width: 280,
     height: 160,
-    child: CustomPaint(
-      painter: BarChartPainter(),
-    ),
+    child: CustomPaint(painter: BarChartPainter()),
   );
 
   // Section 9: Combined painter and foregroundPainter
@@ -675,10 +712,7 @@ dynamic build(BuildContext context) {
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Container(
-            color: Colors.white,
-            child: barChartPaint,
-          ),
+          child: Container(color: Colors.white, child: barChartPaint),
         ),
 
         // 3. Line graph
@@ -688,10 +722,7 @@ dynamic build(BuildContext context) {
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Container(
-            color: Colors.grey.shade50,
-            child: lineGraphPaint,
-          ),
+          child: Container(color: Colors.grey.shade50, child: lineGraphPaint),
         ),
 
         // 4. Gradient pattern
@@ -702,10 +733,7 @@ dynamic build(BuildContext context) {
         Center(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Container(
-              color: Colors.black,
-              child: gradientPatternPaint,
-            ),
+            child: Container(color: Colors.black, child: gradientPatternPaint),
           ),
         ),
 
@@ -736,10 +764,7 @@ dynamic build(BuildContext context) {
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Container(
-            color: Colors.grey.shade100,
-            child: complexPaint,
-          ),
+          child: Container(color: Colors.grey.shade100, child: complexPaint),
         ),
 
         // 8. Different sizes
@@ -753,7 +778,10 @@ dynamic build(BuildContext context) {
           children: [
             Column(
               children: [
-                Text('Small', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                Text(
+                  'Small',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                ),
                 SizedBox(height: 4),
                 Container(
                   decoration: BoxDecoration(
@@ -769,7 +797,10 @@ dynamic build(BuildContext context) {
             ),
             Column(
               children: [
-                Text('Medium', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                Text(
+                  'Medium',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                ),
                 SizedBox(height: 4),
                 Container(
                   decoration: BoxDecoration(
@@ -789,7 +820,10 @@ dynamic build(BuildContext context) {
         Center(
           child: Column(
             children: [
-              Text('Large', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+              Text(
+                'Large',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+              ),
               SizedBox(height: 4),
               Container(
                 decoration: BoxDecoration(

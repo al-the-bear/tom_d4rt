@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: BallisticScrollActivity, ScrollDragController, ScrollHoldController,
 //        ScrollAction, KeyboardDismissBehavior, TwoDimensionalScrollView,
 //        TwoDimensionalChildDelegate, TwoDimensionalViewport

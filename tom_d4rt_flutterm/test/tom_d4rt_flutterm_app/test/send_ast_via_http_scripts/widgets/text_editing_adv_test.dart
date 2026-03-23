@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: TextSelectionGestureDetector, TextSelectionGestureDetectorBuilder,
 //        EditableTextState, BlacklistingTextInputFormatter (deprecated),
 //        WhitelistingTextInputFormatter (deprecated), SelectionHandleType (enum),

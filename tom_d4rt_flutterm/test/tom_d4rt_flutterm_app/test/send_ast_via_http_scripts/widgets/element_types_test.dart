@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: RenderObjectElement, ComponentElement, StatefulElement, StatelessElement,
 //        ProxyElement, ParentDataElement, InheritedElement, LeafRenderObjectWidget
 import 'package:flutter/material.dart';

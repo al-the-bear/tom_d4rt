@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AnimatedTheme from material
 // Shows Theme widget with different ThemeData configurations
 import 'package:flutter/material.dart';

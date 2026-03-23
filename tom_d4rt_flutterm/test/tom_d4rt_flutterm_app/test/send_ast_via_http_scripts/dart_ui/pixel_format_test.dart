@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for PixelFormat from dart:ui
 // PixelFormat defines the byte layout of pixel data in images
 import 'dart:ui';

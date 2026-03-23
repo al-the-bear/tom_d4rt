@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TextPosition, TextRange, TextBox, TextDecoration, TextHeightBehavior, FontFeature, FontVariation
 import 'package:flutter/material.dart';
 

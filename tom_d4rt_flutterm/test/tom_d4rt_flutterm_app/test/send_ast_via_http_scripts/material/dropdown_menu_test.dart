@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DropdownMenu, DropdownMenuEntry, DropdownMenuThemeData,
 // MenuAnchor, MenuBar, MenuItemButton, SubmenuButton, MenuStyle
 import 'package:flutter/material.dart';

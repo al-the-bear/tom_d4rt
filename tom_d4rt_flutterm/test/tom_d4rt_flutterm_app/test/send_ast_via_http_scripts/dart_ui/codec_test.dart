@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Codec & TargetImageSize from dart:ui
 // Codec represents an encoded image with frame access (no public constructor).
 // TargetImageSize specifies desired decode dimensions.

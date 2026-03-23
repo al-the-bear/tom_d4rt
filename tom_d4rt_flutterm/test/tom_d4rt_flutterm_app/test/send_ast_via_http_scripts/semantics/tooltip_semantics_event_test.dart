@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TooltipSemanticsEvent from semantics
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';

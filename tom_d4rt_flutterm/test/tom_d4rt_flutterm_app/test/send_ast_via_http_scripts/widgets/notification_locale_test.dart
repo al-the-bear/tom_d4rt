@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests NotificationListener, SizeChangedLayoutNotifier,
 // LayoutChangedNotification, WidgetsLocalizations
 import 'package:flutter/material.dart';

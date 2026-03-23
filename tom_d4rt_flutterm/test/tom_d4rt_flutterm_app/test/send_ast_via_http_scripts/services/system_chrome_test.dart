@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SystemChrome enums, DeviceOrientation, SystemUiMode,
 // SystemUiOverlay, Clipboard, HapticFeedback, SystemSound
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ChannelBuffers from dart:ui
 // ChannelBuffers manages message queuing for platform channels
 // Used internally by Flutter's platform channel system

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderOffstage / Offstage widget
 // Tests Offstage with offstage true/false, space collapse behavior,
 // comparison with Visibility, Opacity, SizedBox.shrink, state retention,
@@ -42,10 +43,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -127,7 +125,11 @@ Widget _buildColorBox(Color color, double width, double height, String label) {
     alignment: Alignment.center,
     child: Text(
       label,
-      style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        fontSize: 11,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -174,12 +176,23 @@ Widget _buildOnOffComparison() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Before', style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E))),
+              Text(
+                'Before',
+                style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E)),
+              ),
               Offstage(
                 offstage: isOffstage,
-                child: _buildColorBox(color, 120, 50, isOffstage ? 'Hidden' : 'Visible'),
+                child: _buildColorBox(
+                  color,
+                  120,
+                  50,
+                  isOffstage ? 'Hidden' : 'Visible',
+                ),
               ),
-              Text('After', style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E))),
+              Text(
+                'After',
+                style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E)),
+              ),
             ],
           ),
         ),
@@ -192,10 +205,26 @@ Widget _buildOnOffComparison() {
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        offstageDemo('offstage: false (child visible, takes space)', false, Color(0xFF4CAF50)),
-        offstageDemo('offstage: true (child hidden, zero space)', true, Color(0xFFF44336)),
-        offstageDemo('offstage: false (blue box shown)', false, Color(0xFF2196F3)),
-        offstageDemo('offstage: true (orange box hidden)', true, Color(0xFFFF9800)),
+        offstageDemo(
+          'offstage: false (child visible, takes space)',
+          false,
+          Color(0xFF4CAF50),
+        ),
+        offstageDemo(
+          'offstage: true (child hidden, zero space)',
+          true,
+          Color(0xFFF44336),
+        ),
+        offstageDemo(
+          'offstage: false (blue box shown)',
+          false,
+          Color(0xFF2196F3),
+        ),
+        offstageDemo(
+          'offstage: true (orange box hidden)',
+          true,
+          Color(0xFFFF9800),
+        ),
       ],
     ),
   );
@@ -226,7 +255,12 @@ Widget _buildSpaceCollapseSection() {
                 offstage: offstageMiddle,
                 child: Column(
                   children: [
-                    _buildColorBox(Color(0xFFEF5350), 200, 60, 'Middle item (offstaged)'),
+                    _buildColorBox(
+                      Color(0xFFEF5350),
+                      200,
+                      60,
+                      'Middle item (offstaged)',
+                    ),
                     SizedBox(height: 4),
                   ],
                 ),
@@ -339,7 +373,11 @@ Widget _buildOffstageVsVisibility() {
         ),
         Text(
           'Offstage always collapses. Visibility has fine-grained control.',
-          style: TextStyle(fontSize: 11, color: Color(0xFF757575), fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 11,
+            color: Color(0xFF757575),
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -480,7 +518,11 @@ Widget _buildOffstageVsSizedBoxShrink() {
             children: [
               Text(
                 'Key difference:',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF1565C0)),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1565C0),
+                ),
               ),
               SizedBox(height: 4),
               Text(
@@ -641,7 +683,14 @@ Widget _buildColumnRowLayouts() {
         borderRadius: BorderRadius.circular(6),
       ),
       alignment: Alignment.center,
-      child: Text(label, style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 10,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 
@@ -727,10 +776,16 @@ Widget _buildColumnRowLayouts() {
             runSpacing: 4,
             children: [
               layoutBox(Color(0xFF0288D1), 'W1', 60, 40),
-              Offstage(offstage: true, child: layoutBox(Color(0xFFD32F2F), 'W2', 60, 40)),
+              Offstage(
+                offstage: true,
+                child: layoutBox(Color(0xFFD32F2F), 'W2', 60, 40),
+              ),
               layoutBox(Color(0xFF388E3C), 'W3', 60, 40),
               layoutBox(Color(0xFFF57C00), 'W4', 60, 40),
-              Offstage(offstage: true, child: layoutBox(Color(0xFF7B1FA2), 'W5', 60, 40)),
+              Offstage(
+                offstage: true,
+                child: layoutBox(Color(0xFF7B1FA2), 'W5', 60, 40),
+              ),
               layoutBox(Color(0xFF00796B), 'W6', 60, 40),
             ],
           ),
@@ -765,7 +820,10 @@ Widget _buildSliverOffstageSection() {
                   height: 40,
                   color: Color(0xFF1E88E5),
                   alignment: Alignment.center,
-                  child: Text('Sliver 1 (visible)', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  child: Text(
+                    'Sliver 1 (visible)',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                 ),
               ),
               SliverOffstage(
@@ -775,7 +833,10 @@ Widget _buildSliverOffstageSection() {
                     height: 60,
                     color: Color(0xFFE53935),
                     alignment: Alignment.center,
-                    child: Text('Sliver 2 (offstage)', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    child: Text(
+                      'Sliver 2 (offstage)',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ),
@@ -784,7 +845,10 @@ Widget _buildSliverOffstageSection() {
                   height: 40,
                   color: Color(0xFF43A047),
                   alignment: Alignment.center,
-                  child: Text('Sliver 3 (visible)', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  child: Text(
+                    'Sliver 3 (visible)',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                 ),
               ),
               SliverOffstage(
@@ -794,7 +858,10 @@ Widget _buildSliverOffstageSection() {
                     height: 40,
                     color: Color(0xFFFB8C00),
                     alignment: Alignment.center,
-                    child: Text('Sliver 4 (offstage=false)', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    child: Text(
+                      'Sliver 4 (offstage=false)',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ),
@@ -802,8 +869,22 @@ Widget _buildSliverOffstageSection() {
                 offstage: true,
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    Container(height: 30, color: Color(0xFF7B1FA2), child: Text('Hidden list A', style: TextStyle(color: Colors.white))),
-                    Container(height: 30, color: Color(0xFF6A1B9A), child: Text('Hidden list B', style: TextStyle(color: Colors.white))),
+                    Container(
+                      height: 30,
+                      color: Color(0xFF7B1FA2),
+                      child: Text(
+                        'Hidden list A',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      color: Color(0xFF6A1B9A),
+                      child: Text(
+                        'Hidden list B',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ]),
                 ),
               ),
@@ -812,7 +893,10 @@ Widget _buildSliverOffstageSection() {
                   height: 40,
                   color: Color(0xFF00695C),
                   alignment: Alignment.center,
-                  child: Text('Sliver 6 (visible, after hidden list)', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  child: Text(
+                    'Sliver 6 (visible, after hidden list)',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                 ),
               ),
             ],
@@ -869,7 +953,10 @@ Widget _buildPracticalPatterns() {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.bar_chart, size: 40, color: Colors.white),
-                      Text('Heavy Chart Widget', style: TextStyle(color: Colors.white)),
+                      Text(
+                        'Heavy Chart Widget',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -893,7 +980,10 @@ Widget _buildPracticalPatterns() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Shipping address (always shown):', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(
+                'Shipping address (always shown):',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 4),
               Container(
                 padding: EdgeInsets.all(8),
@@ -901,10 +991,16 @@ Widget _buildPracticalPatterns() {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text('123 Main Street, City', style: TextStyle(fontSize: 12)),
+                child: Text(
+                  '123 Main Street, City',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               SizedBox(height: 8),
-              Text('Billing address (offstage if same as shipping):', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(
+                'Billing address (offstage if same as shipping):',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 4),
               Offstage(
                 offstage: true,
@@ -917,7 +1013,10 @@ Widget _buildPracticalPatterns() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Different billing address', style: TextStyle(fontSize: 12)),
+                      Text(
+                        'Different billing address',
+                        style: TextStyle(fontSize: 12),
+                      ),
                       SizedBox(height: 4),
                       SizedBox(
                         width: 200,
@@ -970,7 +1069,13 @@ Widget _buildPracticalPatterns() {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       alignment: Alignment.center,
-                      child: Text('Page 0 - Active', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Page 0 - Active',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   // Page 1: offstage
@@ -981,7 +1086,10 @@ Widget _buildPracticalPatterns() {
                       height: 60,
                       color: Color(0xFF2196F3),
                       alignment: Alignment.center,
-                      child: Text('Page 1 - Offstage', style: TextStyle(color: Colors.white)),
+                      child: Text(
+                        'Page 1 - Offstage',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                   // Page 2: offstage
@@ -992,7 +1100,10 @@ Widget _buildPracticalPatterns() {
                       height: 60,
                       color: Color(0xFF4CAF50),
                       alignment: Alignment.center,
-                      child: Text('Page 2 - Offstage', style: TextStyle(color: Colors.white)),
+                      child: Text(
+                        'Page 2 - Offstage',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
@@ -1036,15 +1147,37 @@ Widget _buildDebugLoggingSection() {
             children: [
               Text(
                 'RenderOffstage internals:',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF37474F)),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF37474F),
+                ),
               ),
               SizedBox(height: 6),
-              Text('- offstage=true: size = Size.zero', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
-              Text('- offstage=true: paint() is a no-op', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
-              Text('- offstage=true: hitTest() returns false', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
-              Text('- offstage=false: behaves like normal RenderBox', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
-              Text('- Always lays out child (to maintain state)', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
-              Text('- Semantics still active even when offstage', style: TextStyle(fontSize: 11, color: Color(0xFF546E7A))),
+              Text(
+                '- offstage=true: size = Size.zero',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
+              Text(
+                '- offstage=true: paint() is a no-op',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
+              Text(
+                '- offstage=true: hitTest() returns false',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
+              Text(
+                '- offstage=false: behaves like normal RenderBox',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
+              Text(
+                '- Always lays out child (to maintain state)',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
+              Text(
+                '- Semantics still active even when offstage',
+                style: TextStyle(fontSize: 11, color: Color(0xFF546E7A)),
+              ),
             ],
           ),
         ),
@@ -1068,50 +1201,153 @@ Widget _buildDebugLoggingSection() {
               TableRow(
                 decoration: BoxDecoration(color: Color(0xFF37474F)),
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('Technique', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Space', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('State', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Semantics', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'Technique',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'Space',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'State',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'Semantics',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('Offstage', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('None', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Kept', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Yes', style: TextStyle(fontSize: 10))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Offstage', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('None', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Kept', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Yes', style: TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('Visibility', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Config', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Config', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Config', style: TextStyle(fontSize: 10))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Visibility', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Config', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Config', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Config', style: TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('Opacity(0)', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Kept', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Kept', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Yes', style: TextStyle(fontSize: 10))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Opacity(0)', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Kept', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Kept', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Yes', style: TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('SizedBox.shrink', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('None', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Lost', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('No', style: TextStyle(fontSize: 10))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      'SizedBox.shrink',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('None', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Lost', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('No', style: TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
-                  Padding(padding: EdgeInsets.all(4), child: Text('if(false)', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('None', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('Lost', style: TextStyle(fontSize: 10))),
-                  Padding(padding: EdgeInsets.all(4), child: Text('No', style: TextStyle(fontSize: 10))),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('if(false)', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('None', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('Lost', style: TextStyle(fontSize: 10)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text('No', style: TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
             ],

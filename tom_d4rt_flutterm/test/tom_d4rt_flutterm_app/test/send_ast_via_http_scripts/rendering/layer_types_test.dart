@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Layer types - ContainerLayer, LeaderLayer,
 // FollowerLayer, AnnotatedRegionLayer, PictureLayer, ShaderMaskLayer,
 // TextureLayer

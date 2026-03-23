@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ExpansionTileTheme, ExpansionTileThemeData, SegmentedButtonTheme, SegmentedButtonThemeData, BadgeTheme, BadgeThemeData, ActionIconTheme, ActionIconThemeData, TextSelectionTheme, TextSelectionThemeData, ScrollbarTheme, ScrollbarThemeData, MaterialBannerTheme, MaterialBannerThemeData, PageTransitionsTheme, PageTransitionsBuilder from material
 import 'package:flutter/material.dart';
 

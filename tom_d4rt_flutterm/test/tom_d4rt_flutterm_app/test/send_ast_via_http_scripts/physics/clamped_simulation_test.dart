@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ClampedSimulation from physics
 import 'package:flutter/physics.dart';
 import 'package:flutter/material.dart';

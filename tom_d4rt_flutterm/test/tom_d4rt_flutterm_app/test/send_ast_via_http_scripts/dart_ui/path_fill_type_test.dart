@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PathFillType enum from dart:ui
 // Demonstrates path fill rules for determining inside/outside of complex paths.
 // PathFillType is critical for rendering self-intersecting or nested paths.

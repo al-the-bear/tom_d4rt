@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for IntTween from animation
 // IntTween interpolates between integers with proper rounding
 // Useful for discrete animations like counters, steps, indices

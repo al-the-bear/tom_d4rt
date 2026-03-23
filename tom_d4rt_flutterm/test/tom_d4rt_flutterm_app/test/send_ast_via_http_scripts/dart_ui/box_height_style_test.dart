@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for BoxHeightStyle from dart:ui
 // BoxHeightStyle controls how text selection rectangles are calculated vertically
 // Used in Paragraph.getBoxesForRange() and TextPainter

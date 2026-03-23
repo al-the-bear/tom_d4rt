@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for SceneBuilder from dart:ui
 //
 // SceneBuilder is the low-level API for constructing compositing scenes

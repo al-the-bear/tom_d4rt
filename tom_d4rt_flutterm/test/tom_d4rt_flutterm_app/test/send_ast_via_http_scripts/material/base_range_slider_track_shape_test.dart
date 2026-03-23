@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BaseRangeSliderTrackShape from material
 // Shows range sliders with different track shapes, active/inactive colors, range selections
 import 'package:flutter/material.dart';

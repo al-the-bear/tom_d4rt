@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderMergeSemantics via MergeSemantics widget
 // MergeSemantics merges descendant semantics nodes into one unit
 // Screen readers announce merged children as a single item

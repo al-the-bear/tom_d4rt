@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - AnimationMean from animation
 // Comprehensive demonstration of the AnimationMean class for averaging two animations
 import 'package:flutter/widgets.dart';

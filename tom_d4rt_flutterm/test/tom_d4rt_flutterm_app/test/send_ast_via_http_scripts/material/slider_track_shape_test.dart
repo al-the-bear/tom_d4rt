@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SliderTrackShape - base class for slider track painting
 import 'package:flutter/material.dart';
 

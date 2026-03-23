@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderFractionallySizedOverflowBox via FractionallySizedBox
 // Tests fractional sizing, overflow, alignment, and comparison with SizedBox
 import 'package:flutter/material.dart';
@@ -70,7 +71,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24),
 
         // Section 4: Combined width and height factors
-        _buildSectionTitle('4. Combined Width + Height Factors', sectionColors[3]),
+        _buildSectionTitle(
+          '4. Combined Width + Height Factors',
+          sectionColors[3],
+        ),
         _buildCombinedFactorsSection(sectionColors[3]),
 
         SizedBox(height: 24),
@@ -82,7 +86,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24),
 
         // Section 6: As Expanded alternative in Row/Column
-        _buildSectionTitle('6. FractionallySizedBox in Row/Column', sectionColors[5]),
+        _buildSectionTitle(
+          '6. FractionallySizedBox in Row/Column',
+          sectionColors[5],
+        ),
         _buildRowColumnSection(sectionColors[5]),
 
         SizedBox(height: 24),
@@ -94,7 +101,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24),
 
         // Section 8: Comparison with SizedBox variants
-        _buildSectionTitle('8. Comparison: SizedBox.expand / SizedBox.shrink', sectionColors[7]),
+        _buildSectionTitle(
+          '8. Comparison: SizedBox.expand / SizedBox.shrink',
+          sectionColors[7],
+        ),
         _buildComparisonSection(sectionColors[7]),
 
         SizedBox(height: 24),
@@ -140,10 +150,7 @@ Widget _buildHeader() {
         SizedBox(height: 8),
         Text(
           'RenderFractionallySizedOverflowBox Deep Demo',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white70,
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.white70),
         ),
         SizedBox(height: 8),
         Text(
@@ -301,9 +308,15 @@ Widget _buildHeightFactorSection(List<double> factors, Color color) {
 Widget _buildAlignmentSection(List<Alignment> alignments, Color color) {
   print('Building alignment section with ${alignments.length} alignments');
   List<String> alignmentNames = [
-    'topLeft', 'topCenter', 'topRight',
-    'centerLeft', 'center', 'centerRight',
-    'bottomLeft', 'bottomCenter', 'bottomRight',
+    'topLeft',
+    'topCenter',
+    'topRight',
+    'centerLeft',
+    'center',
+    'centerRight',
+    'bottomLeft',
+    'bottomCenter',
+    'bottomRight',
   ];
 
   List<Widget> rows = [];
@@ -353,9 +366,7 @@ Widget _buildAlignmentSection(List<Alignment> alignments, Color color) {
         ),
       );
     }
-    rows.add(
-      Row(children: cells),
-    );
+    rows.add(Row(children: cells));
   }
 
   return Padding(
@@ -432,7 +443,9 @@ Widget _buildNullFactorSection(Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildLabel('widthFactor: 0.6, heightFactor: null (fills parent height)'),
+        _buildLabel(
+          'widthFactor: 0.6, heightFactor: null (fills parent height)',
+        ),
         Container(
           height: 80,
           decoration: BoxDecoration(
@@ -458,7 +471,9 @@ Widget _buildNullFactorSection(Color color) {
           ),
         ),
         SizedBox(height: 12),
-        _buildLabel('widthFactor: null, heightFactor: 0.5 (fills parent width)'),
+        _buildLabel(
+          'widthFactor: null, heightFactor: 0.5 (fills parent width)',
+        ),
         Container(
           height: 80,
           decoration: BoxDecoration(
@@ -544,8 +559,10 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('Flex 1, w:90% h:80%',
-                          style: TextStyle(fontSize: 11, color: Colors.white)),
+                      child: Text(
+                        'Flex 1, w:90% h:80%',
+                        style: TextStyle(fontSize: 11, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -561,8 +578,10 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('Flex 2, w:70% h:90%',
-                          style: TextStyle(fontSize: 11, color: Colors.white)),
+                      child: Text(
+                        'Flex 2, w:70% h:90%',
+                        style: TextStyle(fontSize: 11, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -578,8 +597,10 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('Flex 1, w:50% h:70%',
-                          style: TextStyle(fontSize: 11, color: Colors.white)),
+                      child: Text(
+                        'Flex 1, w:50% h:70%',
+                        style: TextStyle(fontSize: 11, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -609,7 +630,13 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('R', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'R',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -625,7 +652,13 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('G', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'G',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -641,7 +674,13 @@ Widget _buildRowColumnSection(Color color) {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                      child: Text('B', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'B',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -657,7 +696,9 @@ Widget _buildRowColumnSection(Color color) {
 Widget _buildOverflowSection(Color color) {
   print('Building overflow section');
   print('  factor > 1.0 causes child to overflow parent bounds');
-  print('  This is the "overflow box" part of RenderFractionallySizedOverflowBox');
+  print(
+    '  This is the "overflow box" part of RenderFractionallySizedOverflowBox',
+  );
 
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -683,8 +724,10 @@ Widget _buildOverflowSection(Color color) {
                 border: Border.all(color: color, width: 1),
               ),
               child: Center(
-                child: Text('150% width - overflows!',
-                    style: TextStyle(fontSize: 12, color: Colors.white)),
+                child: Text(
+                  '150% width - overflows!',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -709,8 +752,10 @@ Widget _buildOverflowSection(Color color) {
                 border: Border.all(color: color, width: 1),
               ),
               child: Center(
-                child: Text('130% height - overflows!',
-                    style: TextStyle(fontSize: 12, color: Colors.white)),
+                child: Text(
+                  '130% height - overflows!',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -736,8 +781,10 @@ Widget _buildOverflowSection(Color color) {
                 border: Border.all(color: color, width: 1),
               ),
               child: Center(
-                child: Text('120% x 140% - both overflow!',
-                    style: TextStyle(fontSize: 12, color: Colors.white)),
+                child: Text(
+                  '120% x 140% - both overflow!',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -762,8 +809,10 @@ Widget _buildOverflowSection(Color color) {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Center(
-                child: Text('Clipped at parent boundary',
-                    style: TextStyle(fontSize: 12, color: Colors.white)),
+                child: Text(
+                  'Clipped at parent boundary',
+                  style: TextStyle(fontSize: 12, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -784,7 +833,9 @@ Widget _buildComparisonSection(Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildLabel('FractionallySizedBox(widthFactor: 1.0, heightFactor: 1.0)'),
+        _buildLabel(
+          'FractionallySizedBox(widthFactor: 1.0, heightFactor: 1.0)',
+        ),
         Container(
           height: 60,
           decoration: BoxDecoration(
@@ -798,8 +849,10 @@ Widget _buildComparisonSection(Color color) {
             child: Container(
               color: color.withOpacity(0.4),
               child: Center(
-                child: Text('FractionallySizedBox 100%x100%',
-                    style: TextStyle(fontSize: 11, color: Colors.white)),
+                child: Text(
+                  'FractionallySizedBox 100%x100%',
+                  style: TextStyle(fontSize: 11, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -817,8 +870,10 @@ Widget _buildComparisonSection(Color color) {
             child: Container(
               color: color.withOpacity(0.6),
               child: Center(
-                child: Text('SizedBox.expand',
-                    style: TextStyle(fontSize: 11, color: Colors.white)),
+                child: Text(
+                  'SizedBox.expand',
+                  style: TextStyle(fontSize: 11, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -965,7 +1020,10 @@ Widget _buildNestedSection(Color color) {
                   Positioned(
                     top: 2,
                     left: 4,
-                    child: Text('80%', style: TextStyle(fontSize: 10, color: color)),
+                    child: Text(
+                      '80%',
+                      style: TextStyle(fontSize: 10, color: color),
+                    ),
                   ),
                   FractionallySizedBox(
                     widthFactor: 0.8,
@@ -981,7 +1039,10 @@ Widget _buildNestedSection(Color color) {
                           Positioned(
                             top: 2,
                             left: 4,
-                            child: Text('64%', style: TextStyle(fontSize: 10, color: color)),
+                            child: Text(
+                              '64%',
+                              style: TextStyle(fontSize: 10, color: color),
+                            ),
                           ),
                           FractionallySizedBox(
                             widthFactor: 0.8,
@@ -989,7 +1050,9 @@ Widget _buildNestedSection(Color color) {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: color.withOpacity(0.4),
-                                border: Border.all(color: color.withOpacity(0.5)),
+                                border: Border.all(
+                                  color: color.withOpacity(0.5),
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Stack(
@@ -997,7 +1060,13 @@ Widget _buildNestedSection(Color color) {
                                   Positioned(
                                     top: 2,
                                     left: 4,
-                                    child: Text('51.2%', style: TextStyle(fontSize: 10, color: Colors.white)),
+                                    child: Text(
+                                      '51.2%',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                   FractionallySizedBox(
                                     widthFactor: 0.8,
@@ -1005,7 +1074,9 @@ Widget _buildNestedSection(Color color) {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: color.withOpacity(0.6),
-                                        border: Border.all(color: color.withOpacity(0.7)),
+                                        border: Border.all(
+                                          color: color.withOpacity(0.7),
+                                        ),
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Center(
@@ -1064,12 +1135,18 @@ Widget _buildPracticalSection(Color color) {
                   children: [
                     Text(
                       'Responsive Card',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'Always 70% of parent width',
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -1210,7 +1287,9 @@ Widget _buildPracticalSection(Color color) {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               SizedBox(height: 8),
-              Text('- widthFactor / heightFactor: fraction of parent size (0.0 to any)'),
+              Text(
+                '- widthFactor / heightFactor: fraction of parent size (0.0 to any)',
+              ),
               Text('- null factor: child matches parent in that dimension'),
               Text('- factor > 1.0: child overflows parent bounds'),
               Text('- alignment: positions child within (or beyond) parent'),
@@ -1234,8 +1313,14 @@ Widget _buildMetricBar(String label, double fraction, Color barColor) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
-            Text('${(fraction * 100).toInt()}%', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+            Text(
+              label,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              '${(fraction * 100).toInt()}%',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+            ),
           ],
         ),
         SizedBox(height: 3),

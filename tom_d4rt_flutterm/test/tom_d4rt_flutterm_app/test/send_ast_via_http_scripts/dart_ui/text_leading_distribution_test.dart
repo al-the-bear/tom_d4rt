@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for TextLeadingDistribution from dart:ui
 // TextLeadingDistribution controls how leading (extra vertical space) is distributed in text
 import 'package:flutter/material.dart';

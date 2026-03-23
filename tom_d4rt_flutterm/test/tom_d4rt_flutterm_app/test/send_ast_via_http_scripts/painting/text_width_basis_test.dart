@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TextWidthBasis from painting
 import 'package:flutter/widgets.dart';
 

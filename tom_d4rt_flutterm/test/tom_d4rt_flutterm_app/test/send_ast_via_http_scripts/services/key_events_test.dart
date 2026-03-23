@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests RawKeyEvent, RawKeyDownEvent, RawKeyUpEvent,
 // LogicalKeyboardKey, PhysicalKeyboardKey, KeyEvent, HardwareKeyboard,
 // KeyDownEvent, KeyUpEvent, KeyRepeatEvent

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Clip enum from dart:ui
 // Demonstrates all Clip modes used for clipping behavior in Flutter widgets.
 // Clip controls how content that exceeds container boundaries is handled.

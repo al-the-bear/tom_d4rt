@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for BoxHitTestEntry from rendering
 //
 // BoxHitTestEntry is a specialized hit test entry for RenderBox targets.

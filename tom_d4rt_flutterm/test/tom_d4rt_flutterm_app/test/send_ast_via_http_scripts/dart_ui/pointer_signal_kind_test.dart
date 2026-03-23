@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for PointerSignalKind from dart:ui
 // PointerSignalKind identifies the type of signal from pointer devices
 import 'dart:ui';

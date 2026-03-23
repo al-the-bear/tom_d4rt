@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for PlaceholderAlignment from dart:ui
 // PlaceholderAlignment defines alignment of inline widgets within text
 import 'package:flutter/material.dart';

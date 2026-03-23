@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for OverlayVisibilityMode from cupertino
 // OverlayVisibilityMode controls visibility of overlay elements in text fields
 // Used for prefix, suffix, and clear button visibility in CupertinoTextField

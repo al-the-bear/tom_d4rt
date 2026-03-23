@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt Deep Demo: AppLifecycleState - Application Lifecycle States
 // This demo comprehensively explores AppLifecycleState enum which represents
 // the various states an application can be in during its lifecycle.

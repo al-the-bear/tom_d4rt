@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderFractionalTranslation / FractionalTranslation widget
 // FractionalTranslation translates its child by a fraction of the child's own size.
 // Offset(0.5, 0.5) moves the child 50% of its width right and 50% of its height down.

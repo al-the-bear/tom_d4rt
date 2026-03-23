@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests AssetMetadata from services
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';

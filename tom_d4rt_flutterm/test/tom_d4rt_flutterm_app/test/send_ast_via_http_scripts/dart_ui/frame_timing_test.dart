@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FrameTiming from dart:ui
 // FrameTiming stores microsecond timestamps for each rendering phase of a frame
 // Obtained via SchedulerBinding.instance.addTimingsCallback

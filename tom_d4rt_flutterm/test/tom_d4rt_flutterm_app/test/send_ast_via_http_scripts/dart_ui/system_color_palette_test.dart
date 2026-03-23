@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for SystemColorPalette from dart:ui
 //
 // SystemColorPalette provides W3C CSS system colors from the OS.

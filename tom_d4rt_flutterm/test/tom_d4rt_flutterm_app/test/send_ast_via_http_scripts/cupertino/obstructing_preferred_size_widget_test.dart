@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ObstructingPreferredSizeWidget from cupertino
 // ObstructingPreferredSizeWidget is abstract — tested via CupertinoNavigationBar
 // which implements it.

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for BoxHitTestResult - result of hit testing on RenderBox
 //
 // BoxHitTestResult is a specialized HitTestResult for collecting hits during

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests ExpansionTile from Flutter material (focused coverage)
 import 'package:flutter/material.dart';
 

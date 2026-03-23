@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for Interval from animation
 // Interval remaps a portion of the animation timeline to 0-1
 // Essential for staggered and sequential animations

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for LayerLink
 //
 // LayerLink connects a LeaderLayer to one or more FollowerLayers so that

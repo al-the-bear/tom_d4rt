@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for ColorFilterLayer from rendering
 //
 // ColorFilterLayer applies a ColorFilter to all children.

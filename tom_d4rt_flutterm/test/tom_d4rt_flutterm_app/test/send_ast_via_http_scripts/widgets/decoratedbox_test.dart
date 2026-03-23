@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DecoratedBox, ColoredBox, RotatedBox from widgets
 import 'package:flutter/material.dart';
 

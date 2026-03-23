@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SemanticsFlags (deprecated alias) from dart:ui
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

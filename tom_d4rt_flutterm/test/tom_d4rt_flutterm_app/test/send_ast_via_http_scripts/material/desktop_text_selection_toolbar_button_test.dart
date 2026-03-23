@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 
 /// Deep visual demo for DesktopTextSelectionToolbarButton - individual toolbar button.

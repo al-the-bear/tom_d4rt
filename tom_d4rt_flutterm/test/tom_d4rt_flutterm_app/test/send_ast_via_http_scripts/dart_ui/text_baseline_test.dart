@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for TextBaseline from dart:ui
 // TextBaseline defines the horizontal alignment of text within its bounding box
 import 'package:flutter/material.dart';

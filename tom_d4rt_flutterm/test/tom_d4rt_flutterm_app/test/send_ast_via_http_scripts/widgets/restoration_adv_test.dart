@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: RestorableProperty (abstract), RestorableEnumN, RestorationMixin,
 //        RestorationBucket, RestorationManager, UndoHistoryState,
 //        RawGestureDetectorState, SemanticsGestureDelegate

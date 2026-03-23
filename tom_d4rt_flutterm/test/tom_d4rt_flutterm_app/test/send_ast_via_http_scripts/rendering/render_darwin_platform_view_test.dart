@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderDarwinPlatformView concepts visualization
 // Demonstrates native macOS/iOS platform view embedding concepts
 // including composition layers, hit testing, sizing modes, and lifecycle

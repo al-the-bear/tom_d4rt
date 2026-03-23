@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests CupertinoTabBar advanced, CupertinoTabScaffold advanced,
 // CupertinoTabController advanced, CupertinoScrollbar, CupertinoListSection,
 // CupertinoListTile, CupertinoFormSection, CupertinoFormRow

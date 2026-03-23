@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for FlexFit from rendering
 //
 // FlexFit is an enum that controls how a child in a Flex widget (Row/Column)

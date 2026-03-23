@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: PlatformViewHitTestBehavior - controls hit testing for platform views
 // PlatformViewHitTestBehavior determines how touch events interact with
 // platform views (native Android/iOS views embedded in Flutter).

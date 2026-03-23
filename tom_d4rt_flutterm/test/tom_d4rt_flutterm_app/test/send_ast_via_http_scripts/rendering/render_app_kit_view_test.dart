@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderAppKitView / RenderUiKitView platform view embedding concepts
 // Shows placeholder containers representing native macOS/iOS views,
 // layout configurations, hit test behaviors, gesture recognizer areas,

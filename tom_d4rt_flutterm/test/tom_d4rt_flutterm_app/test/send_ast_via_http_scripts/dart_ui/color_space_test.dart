@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ColorSpace from dart:ui
 // ColorSpace defines the color gamut for rendering and display
 import 'dart:ui' as ui;

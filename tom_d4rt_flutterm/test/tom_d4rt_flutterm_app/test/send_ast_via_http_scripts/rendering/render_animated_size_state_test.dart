@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RenderAnimatedSizeState from rendering
 //
 // RenderAnimatedSizeState is an enum representing the animation state of a

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for LeaderLayer
 //
 // LeaderLayer is a compositing layer that anchors a position in the layer

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests TextSpan, WidgetSpan, InlineSpan from widgets/painting
 import 'package:flutter/material.dart';
 

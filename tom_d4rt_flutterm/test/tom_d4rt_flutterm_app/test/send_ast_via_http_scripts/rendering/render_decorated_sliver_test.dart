@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderDecoratedSliver via DecoratedSliver widget
 // Tests DecoratedSliver with various Decoration types, positions, and sliver children
 import 'package:flutter/material.dart';
@@ -183,21 +184,16 @@ Widget _buildBasicColorSection(BuildContext context) {
       physics: NeverScrollableScrollPhysics(),
       slivers: [
         DecoratedSliver(
-          decoration: BoxDecoration(
-            color: Color(0xFFE1BEE7),
-          ),
+          decoration: BoxDecoration(color: Color(0xFFE1BEE7)),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 1] Building item ' + index.toString());
-                return ListTile(
-                  leading: Icon(Icons.circle, color: Color(0xFF6A1B9A)),
-                  title: Text('Color decorated item ' + index.toString()),
-                  subtitle: Text('Simple background color via DecoratedSliver'),
-                );
-              },
-              childCount: 5,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 1] Building item ' + index.toString());
+              return ListTile(
+                leading: Icon(Icons.circle, color: Color(0xFF6A1B9A)),
+                title: Text('Color decorated item ' + index.toString()),
+                subtitle: Text('Simple background color via DecoratedSliver'),
+              );
+            }, childCount: 5),
           ),
         ),
       ],
@@ -223,25 +219,25 @@ Widget _buildGradientSection(BuildContext context) {
             ),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 2] Gradient item ' + index.toString());
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.gradient, color: Color(0xFF4A148C)),
-                      SizedBox(width: 12.0),
-                      Text(
-                        'Gradient sliver item ' + index.toString(),
-                        style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 2] Gradient item ' + index.toString());
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.gradient, color: Color(0xFF4A148C)),
+                    SizedBox(width: 12.0),
+                    Text(
+                      'Gradient sliver item ' + index.toString(),
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
-                  ),
-                );
-              },
-              childCount: 6,
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: 6),
           ),
         ),
       ],
@@ -265,19 +261,16 @@ Widget _buildBorderSection(BuildContext context) {
             borderRadius: BorderRadius.circular(12.0),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 3] Border item ' + index.toString());
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                  child: Text(
-                    'Bordered sliver item ' + index.toString(),
-                    style: TextStyle(fontSize: 14.0, color: Color(0xFFBF360C)),
-                  ),
-                );
-              },
-              childCount: 6,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 3] Border item ' + index.toString());
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text(
+                  'Bordered sliver item ' + index.toString(),
+                  style: TextStyle(fontSize: 14.0, color: Color(0xFFBF360C)),
+                ),
+              );
+            }, childCount: 6),
           ),
         ),
       ],
@@ -315,16 +308,16 @@ Widget _buildBoxShadowSection(BuildContext context) {
               ],
             ),
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  print('[Section 4] Shadow item ' + index.toString());
-                  return ListTile(
-                    leading: Icon(Icons.wb_sunny, color: Color(0xFFFF8F00)),
-                    title: Text('Shadowed sliver item ' + index.toString()),
-                  );
-                },
-                childCount: 4,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext ctx,
+                int index,
+              ) {
+                print('[Section 4] Shadow item ' + index.toString());
+                return ListTile(
+                  leading: Icon(Icons.wb_sunny, color: Color(0xFFFF8F00)),
+                  title: Text('Shadowed sliver item ' + index.toString()),
+                );
+              }, childCount: 4),
             ),
           ),
         ],
@@ -357,19 +350,22 @@ Widget _buildPositionComparisonSection(BuildContext context) {
               ),
               position: DecorationPosition.background,
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext ctx, int index) {
-                    print('[Section 5a] Background pos item ' + index.toString());
-                    return Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Background decoration item ' + index.toString(),
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFF0D47A1)),
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext ctx,
+                  int index,
+                ) {
+                  print('[Section 5a] Background pos item ' + index.toString());
+                  return Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Background decoration item ' + index.toString(),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color(0xFF0D47A1),
                       ),
-                    );
-                  },
-                  childCount: 3,
-                ),
+                    ),
+                  );
+                }, childCount: 3),
               ),
             ),
           ],
@@ -395,19 +391,22 @@ Widget _buildPositionComparisonSection(BuildContext context) {
               ),
               position: DecorationPosition.foreground,
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext ctx, int index) {
-                    print('[Section 5b] Foreground pos item ' + index.toString());
-                    return Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Foreground decoration item ' + index.toString(),
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFF880E4F)),
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext ctx,
+                  int index,
+                ) {
+                  print('[Section 5b] Foreground pos item ' + index.toString());
+                  return Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Foreground decoration item ' + index.toString(),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color(0xFF880E4F),
                       ),
-                    );
-                  },
-                  childCount: 3,
-                ),
+                    ),
+                  );
+                }, childCount: 3),
               ),
             ),
           ],
@@ -421,8 +420,14 @@ Widget _buildPositionComparisonSection(BuildContext context) {
 Widget _buildSliverListSection(BuildContext context) {
   print('[Section 6] DecoratedSliver wrapping SliverList with many items');
   List<String> items = [
-    'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon',
-    'Zeta', 'Eta', 'Theta',
+    'Alpha',
+    'Beta',
+    'Gamma',
+    'Delta',
+    'Epsilon',
+    'Zeta',
+    'Eta',
+    'Theta',
   ];
   return SizedBox(
     height: 300.0,
@@ -440,28 +445,25 @@ Widget _buildSliverListSection(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                String itemName = items[index];
-                print('[Section 6] SliverList item: ' + itemName);
-                return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Color(0xFF283593),
-                      child: Text(
-                        itemName.substring(0, 1),
-                        style: TextStyle(color: Colors.white),
-                      ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              String itemName = items[index];
+              print('[Section 6] SliverList item: ' + itemName);
+              return Card(
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Color(0xFF283593),
+                    child: Text(
+                      itemName.substring(0, 1),
+                      style: TextStyle(color: Colors.white),
                     ),
-                    title: Text(itemName),
-                    subtitle: Text('Greek letter #' + index.toString()),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 14.0),
                   ),
-                );
-              },
-              childCount: items.length,
-            ),
+                  title: Text(itemName),
+                  subtitle: Text('Greek letter #' + index.toString()),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 14.0),
+                ),
+              );
+            }, childCount: items.length),
           ),
         ),
       ],
@@ -495,43 +497,46 @@ Widget _buildSliverGridSection(BuildContext context) {
               crossAxisSpacing: 8.0,
               childAspectRatio: 1.2,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 7] Grid item ' + index.toString());
-                List<IconData> icons = [
-                  Icons.star, Icons.favorite, Icons.bolt,
-                  Icons.palette, Icons.music_note, Icons.camera,
-                  Icons.cloud, Icons.rocket_launch, Icons.diamond,
-                ];
-                IconData icon = icons[index % icons.length];
-                return Container(
-                  margin: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x1A000000),
-                        blurRadius: 4.0,
-                        offset: Offset(0.0, 2.0),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(icon, color: Color(0xFF00838F), size: 28.0),
-                      SizedBox(height: 4.0),
-                      Text(
-                        'Grid ' + index.toString(),
-                        style: TextStyle(fontSize: 11.0),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: 9,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 7] Grid item ' + index.toString());
+              List<IconData> icons = [
+                Icons.star,
+                Icons.favorite,
+                Icons.bolt,
+                Icons.palette,
+                Icons.music_note,
+                Icons.camera,
+                Icons.cloud,
+                Icons.rocket_launch,
+                Icons.diamond,
+              ];
+              IconData icon = icons[index % icons.length];
+              return Container(
+                margin: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x1A000000),
+                      blurRadius: 4.0,
+                      offset: Offset(0.0, 2.0),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(icon, color: Color(0xFF00838F), size: 28.0),
+                    SizedBox(height: 4.0),
+                    Text(
+                      'Grid ' + index.toString(),
+                      style: TextStyle(fontSize: 11.0),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: 9),
           ),
         ),
       ],
@@ -584,7 +589,10 @@ Widget _buildSliverToBoxAdapterSection(BuildContext context) {
                       SizedBox(width: 8.0),
                       Text(
                         'Decorated non-scrollable sliver content',
-                        style: TextStyle(fontSize: 12.0, color: Color(0xFFAD1457)),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xFFAD1457),
+                        ),
                       ),
                     ],
                   ),
@@ -616,30 +624,30 @@ Widget _buildSliverPaddingSection(BuildContext context) {
           sliver: SliverPadding(
             padding: EdgeInsets.all(12.0),
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  print('[Section 9] Padded sliver item ' + index.toString());
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 6.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.eco, color: Color(0xFF33691E), size: 20.0),
-                        SizedBox(width: 10.0),
-                        Text(
-                          'Padded sliver child ' + index.toString(),
-                          style: TextStyle(color: Color(0xFF33691E)),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                childCount: 4,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext ctx,
+                int index,
+              ) {
+                print('[Section 9] Padded sliver item ' + index.toString());
+                return Container(
+                  margin: EdgeInsets.only(bottom: 6.0),
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.eco, color: Color(0xFF33691E), size: 20.0),
+                      SizedBox(width: 10.0),
+                      Text(
+                        'Padded sliver child ' + index.toString(),
+                        style: TextStyle(color: Color(0xFF33691E)),
+                      ),
+                    ],
+                  ),
+                );
+              }, childCount: 4),
             ),
           ),
         ),
@@ -687,24 +695,23 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
             ),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 10a] Purple item ' + index.toString());
-                return ListTile(
-                  dense: true,
-                  leading: Icon(Icons.square, color: Color(0xFF6A1B9A), size: 16.0),
-                  title: Text('Purple list item ' + index.toString()),
-                );
-              },
-              childCount: 3,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 10a] Purple item ' + index.toString());
+              return ListTile(
+                dense: true,
+                leading: Icon(
+                  Icons.square,
+                  color: Color(0xFF6A1B9A),
+                  size: 16.0,
+                ),
+                title: Text('Purple list item ' + index.toString()),
+              );
+            }, childCount: 3),
           ),
         ),
         // Second decorated sliver - teal theme
         DecoratedSliver(
-          decoration: BoxDecoration(
-            color: Color(0xFFE0F2F1),
-          ),
+          decoration: BoxDecoration(color: Color(0xFFE0F2F1)),
           sliver: SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(12.0),
@@ -730,17 +737,18 @@ Widget _buildMultipleDecoratedSliversSection(BuildContext context) {
             ),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                print('[Section 10b] Teal item ' + index.toString());
-                return ListTile(
-                  dense: true,
-                  leading: Icon(Icons.circle, color: Color(0xFF00695C), size: 16.0),
-                  title: Text('Teal list item ' + index.toString()),
-                );
-              },
-              childCount: 3,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              print('[Section 10b] Teal item ' + index.toString());
+              return ListTile(
+                dense: true,
+                leading: Icon(
+                  Icons.circle,
+                  color: Color(0xFF00695C),
+                  size: 16.0,
+                ),
+                title: Text('Teal list item ' + index.toString()),
+              );
+            }, childCount: 3),
           ),
         ),
       ],
@@ -768,7 +776,11 @@ Widget _buildVariousDecorationsSection(BuildContext context) {
             DecoratedSliver(
               decoration: BoxDecoration(
                 gradient: RadialGradient(
-                  colors: [Color(0xFFFFF9C4), Color(0xFFFFEE58), Color(0xFFFDD835)],
+                  colors: [
+                    Color(0xFFFFF9C4),
+                    Color(0xFFFFEE58),
+                    Color(0xFFFDD835),
+                  ],
                   center: Alignment.topRight,
                   radius: 1.5,
                 ),
@@ -805,8 +817,10 @@ Widget _buildVariousDecorationsSection(BuildContext context) {
               decoration: BoxDecoration(
                 gradient: SweepGradient(
                   colors: [
-                    Color(0xFFE8EAF6), Color(0xFFC5CAE9),
-                    Color(0xFF9FA8DA), Color(0xFFE8EAF6),
+                    Color(0xFFE8EAF6),
+                    Color(0xFFC5CAE9),
+                    Color(0xFF9FA8DA),
+                    Color(0xFFE8EAF6),
                   ],
                   center: Alignment.center,
                 ),
@@ -957,7 +971,10 @@ Widget _buildComparisonSection(BuildContext context) {
                       Text(
                         'The sliver equivalent of DecoratedBox. '
                         'Must wrap a sliver child and live inside a CustomScrollView.',
-                        style: TextStyle(fontSize: 12.0, color: Color(0xFF0277BD)),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xFF0277BD),
+                        ),
                       ),
                     ],
                   ),
@@ -1027,7 +1044,10 @@ Widget _buildComplexNestedSection(BuildContext context) {
                       ),
                       Text(
                         'Multiple decoration styles combined',
-                        style: TextStyle(fontSize: 12.0, color: Color(0xB3FFFFFF)),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xB3FFFFFF),
+                        ),
                       ),
                     ],
                   ),
@@ -1038,9 +1058,7 @@ Widget _buildComplexNestedSection(BuildContext context) {
         ),
         // Body with subtle background
         DecoratedSliver(
-          decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
-          ),
+          decoration: BoxDecoration(color: Color(0xFFF5F5F5)),
           sliver: SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             sliver: SliverGrid(
@@ -1050,40 +1068,46 @@ Widget _buildComplexNestedSection(BuildContext context) {
                 crossAxisSpacing: 8.0,
                 childAspectRatio: 1.8,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  print('[Section 13] Complex grid item ' + index.toString());
-                  List<Color> cardColors = [
-                    Color(0xFFE8EAF6), Color(0xFFE0F2F1),
-                    Color(0xFFFFF3E0), Color(0xFFFCE4EC),
-                    Color(0xFFF1F8E9), Color(0xFFE3F2FD),
-                  ];
-                  List<String> labels = [
-                    'Analytics', 'Reports',
-                    'Settings', 'Profile',
-                    'Storage', 'Network',
-                  ];
-                  Color cardColor = cardColors[index % cardColors.length];
-                  String label = labels[index % labels.length];
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: cardColor,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Color(0x1A000000)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        label,
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext ctx,
+                int index,
+              ) {
+                print('[Section 13] Complex grid item ' + index.toString());
+                List<Color> cardColors = [
+                  Color(0xFFE8EAF6),
+                  Color(0xFFE0F2F1),
+                  Color(0xFFFFF3E0),
+                  Color(0xFFFCE4EC),
+                  Color(0xFFF1F8E9),
+                  Color(0xFFE3F2FD),
+                ];
+                List<String> labels = [
+                  'Analytics',
+                  'Reports',
+                  'Settings',
+                  'Profile',
+                  'Storage',
+                  'Network',
+                ];
+                Color cardColor = cardColors[index % cardColors.length];
+                String label = labels[index % labels.length];
+                return Container(
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Color(0x1A000000)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  );
-                },
-                childCount: 6,
-              ),
+                  ),
+                );
+              }, childCount: 6),
             ),
           ),
         ),
@@ -1106,7 +1130,11 @@ Widget _buildComplexNestedSection(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.check_circle, color: Color(0xFF69F0AE), size: 18.0),
+                  Icon(
+                    Icons.check_circle,
+                    color: Color(0xFF69F0AE),
+                    size: 18.0,
+                  ),
                   SizedBox(width: 8.0),
                   Text(
                     'All decorated slivers rendered successfully',

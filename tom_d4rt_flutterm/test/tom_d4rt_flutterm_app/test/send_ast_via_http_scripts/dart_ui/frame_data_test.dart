@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for FrameData from dart:ui
 // FrameData carries per-frame metadata provided to onBeginFrame callback
 // It replaces the raw Duration parameter with structured frame info

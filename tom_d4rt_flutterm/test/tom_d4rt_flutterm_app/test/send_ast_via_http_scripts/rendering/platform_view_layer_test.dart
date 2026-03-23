@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for PlatformViewLayer from rendering
 //
 // PlatformViewLayer is a specialized layer for embedding native platform views

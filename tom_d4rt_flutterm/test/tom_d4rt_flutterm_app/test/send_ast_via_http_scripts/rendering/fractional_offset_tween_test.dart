@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive deep demo for FractionalOffsetTween
 //
 // FractionalOffsetTween extends Tween<FractionalOffset?> (rendering library).

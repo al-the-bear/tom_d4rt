@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Tests: DefaultPlatformMenuDelegate, PlatformMenuBar, PlatformMenu,
 //        PlatformMenuItem, PlatformMenuDelegate, DefaultTextStyleTransition,
 //        RawMagnifier, RawKeyboardListener

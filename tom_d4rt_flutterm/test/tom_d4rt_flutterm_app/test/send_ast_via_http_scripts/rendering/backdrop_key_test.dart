@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo of BackdropKey from rendering
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderAnimatedOpacity via AnimatedOpacity and FadeTransition
 // RenderAnimatedOpacity efficiently animates the opacity of its child
 // by avoiding repainting the child when only the opacity changes.

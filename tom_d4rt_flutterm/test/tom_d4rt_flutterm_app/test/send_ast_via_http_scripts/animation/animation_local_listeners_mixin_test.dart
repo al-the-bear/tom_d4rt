@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo - AnimationLocalListenersMixin from animation
 // Comprehensive demonstration of value listener management in Flutter animations
 import 'package:flutter/widgets.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // WidgetStateUnderlineInputBorder Deep Demo Test
 // Tests state-responsive underline input borders for TextField widgets
 // Demonstrates focus, error, disabled, hovered states affecting underline appearance

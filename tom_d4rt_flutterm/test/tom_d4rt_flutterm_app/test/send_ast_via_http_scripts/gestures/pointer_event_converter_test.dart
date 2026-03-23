@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests PointerEventConverter concepts from package:flutter/gestures.dart
 import 'package:flutter/material.dart';
 

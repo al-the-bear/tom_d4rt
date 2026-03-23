@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests LinearGradient, RadialGradient, SweepGradient in rendering context with createShader
 import 'package:flutter/material.dart';
 

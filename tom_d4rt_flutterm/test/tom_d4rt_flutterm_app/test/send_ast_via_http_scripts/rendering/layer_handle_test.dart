@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for LayerHandle<T extends Layer>
 //
 // LayerHandle<T extends Layer> provides deterministic disposal of compositing

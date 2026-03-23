@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for OverflowBoxFit from rendering
 //
 // OverflowBoxFit is an enum that defines how an OverflowBox sizes its child

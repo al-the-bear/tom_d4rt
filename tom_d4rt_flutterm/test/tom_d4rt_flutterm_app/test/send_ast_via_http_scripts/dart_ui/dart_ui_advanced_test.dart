@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for advanced dart:ui APIs
 // Covers: AccessibilityFeatures, ChannelBuffers, PlatformConfiguration
 // These are lower-level dart:ui classes used by the Flutter framework internals

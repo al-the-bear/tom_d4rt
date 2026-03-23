@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderIndexedSemantics - semantic index annotation for accessible lists
 // IndexedSemantics assigns an index to a semantics node so screen readers
 // can announce "item X of Y" when navigating scrollable collections.

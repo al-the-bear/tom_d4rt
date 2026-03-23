@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests viewport and scroll related rendering classes
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';

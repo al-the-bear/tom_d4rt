@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo of painting package classes and concepts
 import 'dart:math' as math;
 import 'package:flutter/material.dart';

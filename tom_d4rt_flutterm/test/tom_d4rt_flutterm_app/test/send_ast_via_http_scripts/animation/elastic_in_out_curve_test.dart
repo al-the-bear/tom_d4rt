@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for ElasticInOutCurve from animation
 // ElasticInOutCurve provides spring-like animation at both start and end
 // Creates a symmetric "pull-back and overshoot" effect

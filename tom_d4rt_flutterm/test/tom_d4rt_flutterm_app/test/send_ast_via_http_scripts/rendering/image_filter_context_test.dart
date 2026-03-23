@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Comprehensive demo for ImageFilterContext from rendering
 //
 // ImageFilter in Flutter's rendering layer operates within a "context" —

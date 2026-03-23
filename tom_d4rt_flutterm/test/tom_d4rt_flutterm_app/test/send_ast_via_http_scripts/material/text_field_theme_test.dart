@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests InputDecorationTheme, TextSelectionThemeData,
 // TextSelectionControls, TextField advanced, TextEditingController advanced,
 // MaxLengthEnforcement, SmartDashesType, SmartQuotesType

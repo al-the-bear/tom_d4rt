@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderBackdropFilter / BackdropFilter widget
 // BackdropFilter applies a filter (blur, color matrix, etc.) to the area
 // behind its child in the widget tree. It operates on the render layer

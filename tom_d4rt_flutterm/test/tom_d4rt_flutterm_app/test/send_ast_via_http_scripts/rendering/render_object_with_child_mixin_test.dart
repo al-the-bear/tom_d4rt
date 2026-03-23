@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderObjectWithChildMixin - single-child render objects
 // Tests widgets backed by render objects using RenderObjectWithChildMixin
 // which provides exactly one child slot (child getter/setter).
@@ -118,9 +119,15 @@ Widget _buildPaddingSection() {
   List<Map<String, dynamic>> paddingExamples = [
     {'label': 'EdgeInsets.all(8)', 'padding': EdgeInsets.all(8)},
     {'label': 'EdgeInsets.all(20)', 'padding': EdgeInsets.all(20)},
-    {'label': 'EdgeInsets.symmetric(h:24, v:8)', 'padding': EdgeInsets.symmetric(horizontal: 24, vertical: 8)},
+    {
+      'label': 'EdgeInsets.symmetric(h:24, v:8)',
+      'padding': EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+    },
     {'label': 'EdgeInsets.only(left:32)', 'padding': EdgeInsets.only(left: 32)},
-    {'label': 'EdgeInsets.fromLTRB(4,16,24,4)', 'padding': EdgeInsets.fromLTRB(4, 16, 24, 4)},
+    {
+      'label': 'EdgeInsets.fromLTRB(4,16,24,4)',
+      'padding': EdgeInsets.fromLTRB(4, 16, 24, 4),
+    },
   ];
 
   List<Widget> items = [];
@@ -138,7 +145,13 @@ Widget _buildPaddingSection() {
               height: 50,
               color: Color(0xFF7B1FA2),
               child: Center(
-                child: Text('P', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'P',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -225,7 +238,14 @@ Widget _buildTransformSection() {
       borderRadius: BorderRadius.circular(8),
     ),
     child: Center(
-      child: Text('T', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+      child: Text(
+        'T',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     ),
   );
 
@@ -249,9 +269,7 @@ Widget _buildTransformSection() {
           height: 100,
           width: double.infinity,
           color: Color(0xFFFFF3E0),
-          child: Center(
-            child: Transform.rotate(angle: 0.3, child: baseBox),
-          ),
+          child: Center(child: Transform.rotate(angle: 0.3, child: baseBox)),
         ),
       ),
       _buildDemoCard(
@@ -260,9 +278,7 @@ Widget _buildTransformSection() {
           height: 100,
           width: double.infinity,
           color: Color(0xFFFFF3E0),
-          child: Center(
-            child: Transform.scale(scale: 1.4, child: baseBox),
-          ),
+          child: Center(child: Transform.scale(scale: 1.4, child: baseBox)),
         ),
       ),
       _buildDemoCard(
@@ -322,7 +338,10 @@ Widget _buildOpacitySection() {
               ),
             ),
             SizedBox(height: 4),
-            Text('$val', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+            Text(
+              '$val',
+              style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+            ),
           ],
         ),
       ),
@@ -359,7 +378,10 @@ Widget _buildDecoratedBoxSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('5. DecoratedBox (RenderDecoratedBox)', Color(0xFFC62828)),
+      _buildSectionTitle(
+        '5. DecoratedBox (RenderDecoratedBox)',
+        Color(0xFFC62828),
+      ),
       Text(
         '  DecoratedBox uses RenderDecoratedBox which paints a Decoration\n  either before or after its child.',
         style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
@@ -408,7 +430,11 @@ Widget _buildDecoratedBoxSection() {
             border: Border.all(color: Color(0xFFC62828), width: 2),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Color(0x40C62828), blurRadius: 8, offset: Offset(2, 4)),
+              BoxShadow(
+                color: Color(0x40C62828),
+                blurRadius: 8,
+                offset: Offset(2, 4),
+              ),
             ],
           ),
           child: SizedBox(width: 160, height: 60),
@@ -443,7 +469,14 @@ Widget _buildClipSection() {
       ),
     ),
     child: Center(
-      child: Text('CLIP', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+      child: Text(
+        'CLIP',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
     ),
   );
 
@@ -473,17 +506,9 @@ Widget _buildClipSection() {
       ),
       _buildDemoCard(
         'ClipRRect (borderRadius: 20)',
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: sampleImage,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(20), child: sampleImage),
       ),
-      _buildDemoCard(
-        'ClipOval',
-        ClipOval(
-          child: sampleImage,
-        ),
-      ),
+      _buildDemoCard('ClipOval', ClipOval(child: sampleImage)),
       _buildDemoCard(
         'ClipRRect (only topLeft: 30, bottomRight: 30)',
         ClipRRect(
@@ -510,7 +535,10 @@ Widget _buildSizingSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('7. Sizing Boxes (RenderConstrainedBox etc.)', Color(0xFF2E7D32)),
+      _buildSectionTitle(
+        '7. Sizing Boxes (RenderConstrainedBox etc.)',
+        Color(0xFF2E7D32),
+      ),
       Text(
         '  SizedBox, ConstrainedBox, LimitedBox all use single-child render\n  objects that impose sizing constraints on their child.',
         style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
@@ -534,7 +562,9 @@ Widget _buildSizingSection() {
           height: 80,
           child: Container(
             color: Color(0xFF66BB6A),
-            child: Center(child: Text('80x80', style: TextStyle(color: Colors.white))),
+            child: Center(
+              child: Text('80x80', style: TextStyle(color: Colors.white)),
+            ),
           ),
         ),
       ),
@@ -559,7 +589,9 @@ Widget _buildSizingSection() {
             width: 300,
             height: 100,
             color: Color(0xFF81C784),
-            child: Center(child: Text('Constrained', style: TextStyle(color: Colors.white))),
+            child: Center(
+              child: Text('Constrained', style: TextStyle(color: Colors.white)),
+            ),
           ),
         ),
       ),
@@ -571,7 +603,9 @@ Widget _buildSizingSection() {
             maxHeight: 50,
             child: Container(
               color: Color(0xFF388E3C),
-              child: Center(child: Text('Limited', style: TextStyle(color: Colors.white))),
+              child: Center(
+                child: Text('Limited', style: TextStyle(color: Colors.white)),
+              ),
             ),
           ),
         ),
@@ -598,13 +632,14 @@ Widget _buildFittedBoxSection() {
     width: 120,
     height: 80,
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF4A148C), Color(0xFF9C27B0)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF4A148C), Color(0xFF9C27B0)]),
       borderRadius: BorderRadius.circular(6),
     ),
     child: Center(
-      child: Text('FIT', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      child: Text(
+        'FIT',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
     ),
   );
 
@@ -618,10 +653,7 @@ Widget _buildFittedBoxSection() {
           width: 180,
           height: 60,
           color: Color(0xFFF3E5F5),
-          child: FittedBox(
-            fit: ex['fit'],
-            child: innerContent,
-          ),
+          child: FittedBox(fit: ex['fit'], child: innerContent),
         ),
       ),
     );
@@ -646,22 +678,86 @@ Widget _buildComparisonTable() {
   print('[Table] Building comparison of single-child render objects');
 
   List<Map<String, String>> tableData = [
-    {'widget': 'Padding', 'renderObject': 'RenderPadding', 'purpose': 'Insets child by EdgeInsets'},
-    {'widget': 'Align', 'renderObject': 'RenderPositionedBox', 'purpose': 'Positions child by Alignment'},
-    {'widget': 'Center', 'renderObject': 'RenderPositionedBox', 'purpose': 'Centers child (Align subclass)'},
-    {'widget': 'Transform', 'renderObject': 'RenderTransform', 'purpose': 'Applies Matrix4 transform'},
-    {'widget': 'Opacity', 'renderObject': 'RenderOpacity', 'purpose': 'Applies alpha transparency'},
-    {'widget': 'DecoratedBox', 'renderObject': 'RenderDecoratedBox', 'purpose': 'Paints Decoration around child'},
-    {'widget': 'ClipRect', 'renderObject': 'RenderClipRect', 'purpose': 'Clips to rectangle'},
-    {'widget': 'ClipRRect', 'renderObject': 'RenderClipRRect', 'purpose': 'Clips to rounded rectangle'},
-    {'widget': 'ClipOval', 'renderObject': 'RenderClipOval', 'purpose': 'Clips to oval/circle'},
-    {'widget': 'SizedBox', 'renderObject': 'RenderConstrainedBox', 'purpose': 'Forces exact size'},
-    {'widget': 'ConstrainedBox', 'renderObject': 'RenderConstrainedBox', 'purpose': 'Applies BoxConstraints'},
-    {'widget': 'LimitedBox', 'renderObject': 'RenderLimitedBox', 'purpose': 'Limits size in unconstrained axis'},
-    {'widget': 'FittedBox', 'renderObject': 'RenderFittedBox', 'purpose': 'Scales/positions by BoxFit'},
-    {'widget': 'FractionallySizedBox', 'renderObject': 'RenderFractionallySizedOverflowBox', 'purpose': 'Sizes child as fraction of parent'},
-    {'widget': 'IntrinsicWidth', 'renderObject': 'RenderIntrinsicWidth', 'purpose': 'Sizes to intrinsic width'},
-    {'widget': 'IntrinsicHeight', 'renderObject': 'RenderIntrinsicHeight', 'purpose': 'Sizes to intrinsic height'},
+    {
+      'widget': 'Padding',
+      'renderObject': 'RenderPadding',
+      'purpose': 'Insets child by EdgeInsets',
+    },
+    {
+      'widget': 'Align',
+      'renderObject': 'RenderPositionedBox',
+      'purpose': 'Positions child by Alignment',
+    },
+    {
+      'widget': 'Center',
+      'renderObject': 'RenderPositionedBox',
+      'purpose': 'Centers child (Align subclass)',
+    },
+    {
+      'widget': 'Transform',
+      'renderObject': 'RenderTransform',
+      'purpose': 'Applies Matrix4 transform',
+    },
+    {
+      'widget': 'Opacity',
+      'renderObject': 'RenderOpacity',
+      'purpose': 'Applies alpha transparency',
+    },
+    {
+      'widget': 'DecoratedBox',
+      'renderObject': 'RenderDecoratedBox',
+      'purpose': 'Paints Decoration around child',
+    },
+    {
+      'widget': 'ClipRect',
+      'renderObject': 'RenderClipRect',
+      'purpose': 'Clips to rectangle',
+    },
+    {
+      'widget': 'ClipRRect',
+      'renderObject': 'RenderClipRRect',
+      'purpose': 'Clips to rounded rectangle',
+    },
+    {
+      'widget': 'ClipOval',
+      'renderObject': 'RenderClipOval',
+      'purpose': 'Clips to oval/circle',
+    },
+    {
+      'widget': 'SizedBox',
+      'renderObject': 'RenderConstrainedBox',
+      'purpose': 'Forces exact size',
+    },
+    {
+      'widget': 'ConstrainedBox',
+      'renderObject': 'RenderConstrainedBox',
+      'purpose': 'Applies BoxConstraints',
+    },
+    {
+      'widget': 'LimitedBox',
+      'renderObject': 'RenderLimitedBox',
+      'purpose': 'Limits size in unconstrained axis',
+    },
+    {
+      'widget': 'FittedBox',
+      'renderObject': 'RenderFittedBox',
+      'purpose': 'Scales/positions by BoxFit',
+    },
+    {
+      'widget': 'FractionallySizedBox',
+      'renderObject': 'RenderFractionallySizedOverflowBox',
+      'purpose': 'Sizes child as fraction of parent',
+    },
+    {
+      'widget': 'IntrinsicWidth',
+      'renderObject': 'RenderIntrinsicWidth',
+      'purpose': 'Sizes to intrinsic width',
+    },
+    {
+      'widget': 'IntrinsicHeight',
+      'renderObject': 'RenderIntrinsicHeight',
+      'purpose': 'Sizes to intrinsic height',
+    },
   ];
 
   List<TableRow> rows = [];
@@ -673,15 +769,36 @@ Widget _buildComparisonTable() {
       children: [
         Padding(
           padding: EdgeInsets.all(8),
-          child: Text('Widget', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+          child: Text(
+            'Widget',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         Padding(
           padding: EdgeInsets.all(8),
-          child: Text('Render Object', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+          child: Text(
+            'Render Object',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         Padding(
           padding: EdgeInsets.all(8),
-          child: Text('Purpose', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+          child: Text(
+            'Purpose',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
       ],
     ),
@@ -698,15 +815,32 @@ Widget _buildComparisonTable() {
         children: [
           Padding(
             padding: EdgeInsets.all(8),
-            child: Text(row['widget']!, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1B5E20))),
+            child: Text(
+              row['widget']!,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF1B5E20),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(8),
-            child: Text(row['renderObject']!, style: TextStyle(fontSize: 11, color: Color(0xFF4E342E), fontFamily: 'monospace')),
+            child: Text(
+              row['renderObject']!,
+              style: TextStyle(
+                fontSize: 11,
+                color: Color(0xFF4E342E),
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(8),
-            child: Text(row['purpose']!, style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+            child: Text(
+              row['purpose']!,
+              style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+            ),
           ),
         ],
       ),
@@ -716,7 +850,10 @@ Widget _buildComparisonTable() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('9. Single-Child Render Object Comparison', Color(0xFF37474F)),
+      _buildSectionTitle(
+        '9. Single-Child Render Object Comparison',
+        Color(0xFF37474F),
+      ),
       Text(
         '  All these widgets use RenderObjectWithChildMixin internally.\n  Each has exactly one child slot managed by the mixin.',
         style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
@@ -749,7 +886,10 @@ Widget _buildAdditionalDemos() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('10. Additional Single-Child Demos', Color(0xFF00838F)),
+      _buildSectionTitle(
+        '10. Additional Single-Child Demos',
+        Color(0xFF00838F),
+      ),
       _buildDemoCard(
         'FractionallySizedBox(widthFactor: 0.7, heightFactor: 0.5)',
         Container(
@@ -765,7 +905,10 @@ Widget _buildAdditionalDemos() {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Center(
-                child: Text('70% x 50%', style: TextStyle(color: Colors.white, fontSize: 14)),
+                child: Text(
+                  '70% x 50%',
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
               ),
             ),
           ),
@@ -787,7 +930,11 @@ Widget _buildAdditionalDemos() {
                     ),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
-                      BoxShadow(color: Color(0x4000838F), blurRadius: 10, offset: Offset(2, 4)),
+                      BoxShadow(
+                        color: Color(0x4000838F),
+                        blurRadius: 10,
+                        offset: Offset(2, 4),
+                      ),
                     ],
                   ),
                   child: SizedBox(
@@ -796,7 +943,10 @@ Widget _buildAdditionalDemos() {
                     child: Center(
                       child: Text(
                         'Nested RenderObjects',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -828,7 +978,14 @@ Widget _buildAdditionalDemos() {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text('!', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        '!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -848,9 +1005,7 @@ Widget _buildFooter() {
     margin: EdgeInsets.all(16),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)]),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
@@ -896,7 +1051,11 @@ dynamic build(BuildContext context) {
             'Deep demo of widgets using single-child render objects.\n'
             'RenderObjectWithChildMixin is a mixin that provides exactly\n'
             'one child slot with getter/setter for the render object.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242), height: 1.5),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF424242),
+              height: 1.5,
+            ),
           ),
         ),
         SizedBox(height: 8),

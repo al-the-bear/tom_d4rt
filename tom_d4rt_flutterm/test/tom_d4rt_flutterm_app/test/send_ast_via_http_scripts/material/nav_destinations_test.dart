@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests NavigationDestination, NavigationRailDestination, NavigationDrawerDestination, DrawerHeader, UserAccountsDrawerHeader, AboutListTile from Flutter material
 import 'package:flutter/material.dart';
 

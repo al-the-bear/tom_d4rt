@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep Demo for TextDecorationStyle from dart:ui
 // TextDecorationStyle defines the style of text decorations (underline, etc.)
 import 'package:flutter/material.dart';

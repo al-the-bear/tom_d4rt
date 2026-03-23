@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderEditablePainter / Editable text painting concepts
 // Demonstrates text field cursor styles, selection colors, handles,
 // TextSelectionThemeData, InputDecoration borders, text styles,
@@ -42,10 +43,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 6),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -112,10 +110,7 @@ Widget _buildInfoCard(String label, String description) {
               SizedBox(height: 2),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF00695C),
-                ),
+                style: TextStyle(fontSize: 12, color: Color(0xFF00695C)),
               ),
             ],
           ),
@@ -278,7 +273,9 @@ Widget _buildSelectionColorsSection() {
             ),
           ),
           child: TextField(
-            controller: TextEditingController(text: 'Purple highlight, amber handles'),
+            controller: TextEditingController(
+              text: 'Purple highlight, amber handles',
+            ),
             decoration: InputDecoration(
               hintText: 'Purple/amber combo',
               border: OutlineInputBorder(),
@@ -471,7 +468,10 @@ Widget _buildValidationSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle(Icons.verified_user, 'TextFormField Validation States'),
+      _buildSectionTitle(
+        Icons.verified_user,
+        'TextFormField Validation States',
+      ),
       _buildInfoCard(
         'Validation visuals',
         'Error text, error border, and helper text provide visual feedback during editing.',
@@ -484,9 +484,7 @@ Widget _buildValidationSection() {
             hintText: 'user@example.com',
             errorText: 'Please enter a valid email',
             prefixIcon: Icon(Icons.email),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -517,9 +515,7 @@ Widget _buildValidationSection() {
             helperText: 'Min 8 characters',
             prefixIcon: Icon(Icons.lock),
             suffixIcon: Icon(Icons.visibility_off),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -565,9 +561,7 @@ Widget _buildMultiLineSection() {
           decoration: InputDecoration(
             labelText: 'Limited to 3 lines',
             hintText: 'Type multiple lines here...',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -579,9 +573,7 @@ Widget _buildMultiLineSection() {
           decoration: InputDecoration(
             labelText: 'Grows from 2 to 5 lines',
             hintText: 'Expandable text area...',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -592,9 +584,7 @@ Widget _buildMultiLineSection() {
           decoration: InputDecoration(
             labelText: 'Unlimited lines',
             hintText: 'Grows indefinitely...',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -639,9 +629,7 @@ Widget _buildReadonlyDisabledSection() {
           decoration: InputDecoration(
             labelText: 'Normal field',
             suffixIcon: Icon(Icons.edit, color: Color(0xFF00897B)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -653,9 +641,7 @@ Widget _buildReadonlyDisabledSection() {
           decoration: InputDecoration(
             labelText: 'Read-only field',
             suffixIcon: Icon(Icons.visibility, color: Color(0xFF757575)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -667,9 +653,7 @@ Widget _buildReadonlyDisabledSection() {
           decoration: InputDecoration(
             labelText: 'Disabled field',
             suffixIcon: Icon(Icons.block, color: Color(0xFFBDBDBD)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Color(0xFFBDBDBD)),
@@ -687,9 +671,7 @@ Widget _buildReadonlyDisabledSection() {
           decoration: InputDecoration(
             labelText: 'Cursor visible, not editable',
             suffixIcon: Icon(Icons.text_format, color: Color(0xFF00897B)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -720,9 +702,7 @@ Widget _buildHandleCustomizationSection() {
           ),
           child: TextField(
             controller: TextEditingController(text: 'Teal selection handles'),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-            ),
+            decoration: InputDecoration(border: OutlineInputBorder()),
           ),
         ),
       ),
@@ -738,9 +718,7 @@ Widget _buildHandleCustomizationSection() {
           ),
           child: TextField(
             controller: TextEditingController(text: 'Red handles, blue cursor'),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-            ),
+            decoration: InputDecoration(border: OutlineInputBorder()),
           ),
         ),
       ),
@@ -755,10 +733,10 @@ Widget _buildHandleCustomizationSection() {
             ),
           ),
           child: TextField(
-            controller: TextEditingController(text: 'Amber handles, deep orange cursor'),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
+            controller: TextEditingController(
+              text: 'Amber handles, deep orange cursor',
             ),
+            decoration: InputDecoration(border: OutlineInputBorder()),
           ),
         ),
       ),
@@ -783,9 +761,7 @@ Widget _buildMiscEditableSection() {
           maxLength: 50,
           decoration: InputDecoration(
             labelText: 'Max 50 characters',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -796,9 +772,7 @@ Widget _buildMiscEditableSection() {
           style: TextStyle(fontSize: 18, letterSpacing: 2),
           decoration: InputDecoration(
             hintText: 'Center aligned',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -810,9 +784,7 @@ Widget _buildMiscEditableSection() {
           decoration: InputDecoration(
             hintText: 'Right aligned',
             suffixText: 'USD',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           ),
         ),
       ),
@@ -826,9 +798,7 @@ Widget _buildMiscEditableSection() {
             prefixStyle: TextStyle(color: Color(0xFF757575)),
             suffixText: '.com',
             suffixStyle: TextStyle(color: Color(0xFF757575)),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
       ),
@@ -858,8 +828,12 @@ dynamic build(BuildContext context) {
   print('RenderEditablePainter deep demo - building');
   print('Demonstrates text editing visual concepts');
   print('Cursor styles, selection, borders, validation, multi-line, readonly');
-  print('RenderEditablePainter is the interface for painting decorations on editable text');
-  print('RenderEditable delegates visual painting to RenderEditablePainter instances');
+  print(
+    'RenderEditablePainter is the interface for painting decorations on editable text',
+  );
+  print(
+    'RenderEditable delegates visual painting to RenderEditablePainter instances',
+  );
 
   return SingleChildScrollView(
     child: Column(
@@ -882,10 +856,7 @@ dynamic build(BuildContext context) {
         Center(
           child: Text(
             'RenderEditablePainter Demo Complete',
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF9E9E9E),
-            ),
+            style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E)),
           ),
         ),
         SizedBox(height: 24),

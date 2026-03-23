@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Deep demo: RenderObjectWithLayoutCallbackMixin
 // Demonstrates LayoutBuilder, OrientationBuilder, and responsive patterns
 // that leverage the layout callback mechanism under the hood.
@@ -39,10 +40,7 @@ Widget _buildHeader() {
         Text(
           'LayoutBuilder uses this mixin to invoke a callback during layout, '
           'giving access to parent constraints for responsive UI decisions.',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white70,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.white70),
         ),
       ],
     ),
@@ -62,9 +60,7 @@ Widget _buildSectionTitle(String title, IconData icon) {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: Colors.indigo, width: 4),
-        ),
+        border: Border(left: BorderSide(color: Colors.indigo, width: 4)),
       ),
       child: Row(
         children: [
@@ -146,8 +142,17 @@ Widget _buildWidthBasedLayout() {
                   children: [
                     Icon(Icons.view_column, color: Colors.teal),
                     SizedBox(height: 4),
-                    Text('Left Panel', style: TextStyle(color: Colors.teal.shade700)),
-                    Text('Wide mode: side by side', style: TextStyle(fontSize: 11, color: Colors.teal.shade400)),
+                    Text(
+                      'Left Panel',
+                      style: TextStyle(color: Colors.teal.shade700),
+                    ),
+                    Text(
+                      'Wide mode: side by side',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.teal.shade400,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -167,8 +172,17 @@ Widget _buildWidthBasedLayout() {
                   children: [
                     Icon(Icons.view_column, color: Colors.orange),
                     SizedBox(height: 4),
-                    Text('Right Panel', style: TextStyle(color: Colors.orange.shade700)),
-                    Text('Wide mode: side by side', style: TextStyle(fontSize: 11, color: Colors.orange.shade400)),
+                    Text(
+                      'Right Panel',
+                      style: TextStyle(color: Colors.orange.shade700),
+                    ),
+                    Text(
+                      'Wide mode: side by side',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.orange.shade400,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -188,7 +202,10 @@ Widget _buildWidthBasedLayout() {
               border: Border.all(color: Colors.teal.shade200),
             ),
             alignment: Alignment.center,
-            child: Text('Top (narrow stacked)', style: TextStyle(color: Colors.teal.shade700)),
+            child: Text(
+              'Top (narrow stacked)',
+              style: TextStyle(color: Colors.teal.shade700),
+            ),
           ),
           SizedBox(height: 8),
           Container(
@@ -200,7 +217,10 @@ Widget _buildWidthBasedLayout() {
               border: Border.all(color: Colors.orange.shade200),
             ),
             alignment: Alignment.center,
-            child: Text('Bottom (narrow stacked)', style: TextStyle(color: Colors.orange.shade700)),
+            child: Text(
+              'Bottom (narrow stacked)',
+              style: TextStyle(color: Colors.orange.shade700),
+            ),
           ),
         ],
       );
@@ -241,7 +261,10 @@ Widget _buildDynamicColumnCount() {
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
-            child: Text('Item ${i + 1}', style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text(
+              'Item ${i + 1}',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
           ),
         );
       }
@@ -286,7 +309,14 @@ Widget _buildListGridSwitch() {
         Icons.description,
         Icons.archive,
       ];
-      List<String> labels = ['Documents', 'Photos', 'Music', 'Videos', 'Notes', 'Archive'];
+      List<String> labels = [
+        'Documents',
+        'Photos',
+        'Music',
+        'Videos',
+        'Notes',
+        'Archive',
+      ];
 
       for (int i = 0; i < icons.length; i++) {
         if (useGrid) {
@@ -302,7 +332,13 @@ Widget _buildListGridSwitch() {
                 children: [
                   Icon(icons[i], size: 28, color: Colors.blueGrey.shade600),
                   SizedBox(height: 4),
-                  Text(labels[i], style: TextStyle(fontSize: 12, color: Colors.blueGrey.shade700)),
+                  Text(
+                    labels[i],
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.blueGrey.shade700,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -320,7 +356,10 @@ Widget _buildListGridSwitch() {
                 children: [
                   Icon(icons[i], size: 20, color: Colors.blueGrey.shade600),
                   SizedBox(width: 12),
-                  Text(labels[i], style: TextStyle(color: Colors.blueGrey.shade700)),
+                  Text(
+                    labels[i],
+                    style: TextStyle(color: Colors.blueGrey.shade700),
+                  ),
                 ],
               ),
             ),
@@ -348,9 +387,11 @@ Widget _buildConstraintDisplay() {
   print('[LayoutCallback] Building constraint display section');
   return LayoutBuilder(
     builder: (BuildContext context, BoxConstraints constraints) {
-      print('[LayoutCallback] Constraints: '
-          'minW=${constraints.minWidth}, maxW=${constraints.maxWidth}, '
-          'minH=${constraints.minHeight}, maxH=${constraints.maxHeight}');
+      print(
+        '[LayoutCallback] Constraints: '
+        'minW=${constraints.minWidth}, maxW=${constraints.maxWidth}, '
+        'minH=${constraints.minHeight}, maxH=${constraints.maxHeight}',
+      );
       return Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -368,10 +409,26 @@ Widget _buildConstraintDisplay() {
             SizedBox(height: 10),
             Wrap(
               children: [
-                _buildConstraintChip('minWidth', constraints.minWidth.toStringAsFixed(1), Colors.blue),
-                _buildConstraintChip('maxWidth', constraints.maxWidth.toStringAsFixed(1), Colors.indigo),
-                _buildConstraintChip('minHeight', constraints.minHeight.toStringAsFixed(1), Colors.green),
-                _buildConstraintChip('maxHeight', constraints.maxHeight.toStringAsFixed(1), Colors.teal),
+                _buildConstraintChip(
+                  'minWidth',
+                  constraints.minWidth.toStringAsFixed(1),
+                  Colors.blue,
+                ),
+                _buildConstraintChip(
+                  'maxWidth',
+                  constraints.maxWidth.toStringAsFixed(1),
+                  Colors.indigo,
+                ),
+                _buildConstraintChip(
+                  'minHeight',
+                  constraints.minHeight.toStringAsFixed(1),
+                  Colors.green,
+                ),
+                _buildConstraintChip(
+                  'maxHeight',
+                  constraints.maxHeight.toStringAsFixed(1),
+                  Colors.teal,
+                ),
               ],
             ),
             SizedBox(height: 8),
@@ -382,7 +439,9 @@ Widget _buildConstraintDisplay() {
               style: TextStyle(
                 fontSize: 12,
                 fontStyle: FontStyle.italic,
-                color: constraints.isTight ? Colors.red.shade600 : Colors.green.shade600,
+                color: constraints.isTight
+                    ? Colors.red.shade600
+                    : Colors.green.shade600,
               ),
             ),
           ],
@@ -411,7 +470,11 @@ Widget _buildNestedLayoutBuilders() {
           children: [
             Text(
               'Outer: maxWidth=${outerMax.toStringAsFixed(0)}',
-              style: TextStyle(fontSize: 12, color: Colors.deepPurple, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(height: 8),
             Padding(
@@ -419,7 +482,9 @@ Widget _buildNestedLayoutBuilders() {
               child: LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints middleConstraints) {
                   double middleMax = middleConstraints.maxWidth;
-                  print('[LayoutCallback]   Middle LayoutBuilder: maxWidth=$middleMax');
+                  print(
+                    '[LayoutCallback]   Middle LayoutBuilder: maxWidth=$middleMax',
+                  );
                   return Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -432,7 +497,11 @@ Widget _buildNestedLayoutBuilders() {
                       children: [
                         Text(
                           'Middle: maxWidth=${middleMax.toStringAsFixed(0)}',
-                          style: TextStyle(fontSize: 12, color: Colors.blue, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 8),
                         Padding(
@@ -440,18 +509,26 @@ Widget _buildNestedLayoutBuilders() {
                           child: LayoutBuilder(
                             builder: (BuildContext ctx2, BoxConstraints innerConstraints) {
                               double innerMax = innerConstraints.maxWidth;
-                              print('[LayoutCallback]     Inner LayoutBuilder: maxWidth=$innerMax');
+                              print(
+                                '[LayoutCallback]     Inner LayoutBuilder: maxWidth=$innerMax',
+                              );
                               return Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.green.shade300, width: 2),
+                                  border: Border.all(
+                                    color: Colors.green.shade300,
+                                    width: 2,
+                                  ),
                                   borderRadius: BorderRadius.circular(8),
                                   color: Colors.green.shade50,
                                 ),
                                 child: Text(
                                   'Inner: maxWidth=${innerMax.toStringAsFixed(0)}\n'
                                   'Each nesting level reduces available width by padding.',
-                                  style: TextStyle(fontSize: 12, color: Colors.green.shade700),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.green.shade700,
+                                  ),
                                 ),
                               );
                             },
@@ -480,7 +557,9 @@ Widget _buildMediaQueryComparison() {
       double screenWidth = screenSize.width;
       double screenHeight = screenSize.height;
       double ratio = (layoutWidth / screenWidth) * 100;
-      print('[LayoutCallback] MediaQuery compare: layout=$layoutWidth, screen=$screenWidth');
+      print(
+        '[LayoutCallback] MediaQuery compare: layout=$layoutWidth, screen=$screenWidth',
+      );
       return Container(
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -497,12 +576,22 @@ Widget _buildMediaQueryComparison() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('LayoutBuilder', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                      Text(
+                        'LayoutBuilder',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('maxWidth: ${layoutWidth.toStringAsFixed(0)}px',
-                          style: TextStyle(fontSize: 12, color: Colors.brown)),
-                      Text('Reflects ACTUAL parent space',
-                          style: TextStyle(fontSize: 11, color: Colors.grey)),
+                      Text(
+                        'maxWidth: ${layoutWidth.toStringAsFixed(0)}px',
+                        style: TextStyle(fontSize: 12, color: Colors.brown),
+                      ),
+                      Text(
+                        'Reflects ACTUAL parent space',
+                        style: TextStyle(fontSize: 11, color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -513,12 +602,22 @@ Widget _buildMediaQueryComparison() {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('MediaQuery', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        Text(
+                          'MediaQuery',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
                         SizedBox(height: 4),
-                        Text('width: ${screenWidth.toStringAsFixed(0)}px',
-                            style: TextStyle(fontSize: 12, color: Colors.brown)),
-                        Text('height: ${screenHeight.toStringAsFixed(0)}px',
-                            style: TextStyle(fontSize: 12, color: Colors.brown)),
+                        Text(
+                          'width: ${screenWidth.toStringAsFixed(0)}px',
+                          style: TextStyle(fontSize: 12, color: Colors.brown),
+                        ),
+                        Text(
+                          'height: ${screenHeight.toStringAsFixed(0)}px',
+                          style: TextStyle(fontSize: 12, color: Colors.brown),
+                        ),
                       ],
                     ),
                   ),
@@ -565,7 +664,9 @@ Widget _buildResponsiveTextSizing() {
       double titleSize = (maxW / 20).clamp(14.0, 32.0);
       double bodySize = (maxW / 30).clamp(11.0, 18.0);
       int maxLines = maxW > 400 ? 5 : 3;
-      print('[LayoutCallback] Text sizing: title=$titleSize, body=$bodySize, maxLines=$maxLines');
+      print(
+        '[LayoutCallback] Text sizing: title=$titleSize, body=$bodySize, maxLines=$maxLines',
+      );
       return Container(
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -604,9 +705,21 @@ Widget _buildResponsiveTextSizing() {
               spacing: 6,
               runSpacing: 6,
               children: [
-                _buildConstraintChip('titleSize', '${titleSize.toStringAsFixed(1)}', Colors.green),
-                _buildConstraintChip('bodySize', '${bodySize.toStringAsFixed(1)}', Colors.teal),
-                _buildConstraintChip('maxLines', '$maxLines', Colors.lime.shade700),
+                _buildConstraintChip(
+                  'titleSize',
+                  '${titleSize.toStringAsFixed(1)}',
+                  Colors.green,
+                ),
+                _buildConstraintChip(
+                  'bodySize',
+                  '${bodySize.toStringAsFixed(1)}',
+                  Colors.teal,
+                ),
+                _buildConstraintChip(
+                  'maxLines',
+                  '$maxLines',
+                  Colors.lime.shade700,
+                ),
               ],
             ),
           ],
@@ -638,7 +751,9 @@ Widget _buildOrientationSection() {
             Row(
               children: [
                 Icon(
-                  isLandscape ? Icons.stay_current_landscape : Icons.stay_current_portrait,
+                  isLandscape
+                      ? Icons.stay_current_landscape
+                      : Icons.stay_current_portrait,
                   color: isLandscape ? Colors.cyan : Colors.pink,
                   size: 28,
                 ),
@@ -648,7 +763,9 @@ Widget _buildOrientationSection() {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: isLandscape ? Colors.cyan.shade800 : Colors.pink.shade800,
+                    color: isLandscape
+                        ? Colors.cyan.shade800
+                        : Colors.pink.shade800,
                   ),
                 ),
               ],
@@ -669,12 +786,18 @@ Widget _buildOrientationSection() {
               spacing: 8,
               children: [
                 Chip(
-                  label: Text(isLandscape ? 'Horizontal flow' : 'Vertical flow'),
-                  backgroundColor: isLandscape ? Colors.cyan.shade100 : Colors.pink.shade100,
+                  label: Text(
+                    isLandscape ? 'Horizontal flow' : 'Vertical flow',
+                  ),
+                  backgroundColor: isLandscape
+                      ? Colors.cyan.shade100
+                      : Colors.pink.shade100,
                 ),
                 Chip(
                   label: Text(isLandscape ? 'Side nav' : 'Bottom nav'),
-                  backgroundColor: isLandscape ? Colors.cyan.shade100 : Colors.pink.shade100,
+                  backgroundColor: isLandscape
+                      ? Colors.cyan.shade100
+                      : Colors.pink.shade100,
                 ),
               ],
             ),
@@ -695,12 +818,42 @@ Widget _buildResponsiveDashboard() {
       print('[LayoutCallback] Dashboard: columns=$crossAxisCount, width=$maxW');
 
       List<Map<String, dynamic>> cards = [
-        {'title': 'Revenue', 'value': '\$12,340', 'icon': Icons.attach_money, 'color': Colors.green},
-        {'title': 'Users', 'value': '1,204', 'icon': Icons.people, 'color': Colors.blue},
-        {'title': 'Orders', 'value': '384', 'icon': Icons.shopping_cart, 'color': Colors.orange},
-        {'title': 'Growth', 'value': '+14.2%', 'icon': Icons.trending_up, 'color': Colors.purple},
-        {'title': 'Bounce', 'value': '32.1%', 'icon': Icons.exit_to_app, 'color': Colors.red},
-        {'title': 'Uptime', 'value': '99.9%', 'icon': Icons.check_circle, 'color': Colors.teal},
+        {
+          'title': 'Revenue',
+          'value': '\$12,340',
+          'icon': Icons.attach_money,
+          'color': Colors.green,
+        },
+        {
+          'title': 'Users',
+          'value': '1,204',
+          'icon': Icons.people,
+          'color': Colors.blue,
+        },
+        {
+          'title': 'Orders',
+          'value': '384',
+          'icon': Icons.shopping_cart,
+          'color': Colors.orange,
+        },
+        {
+          'title': 'Growth',
+          'value': '+14.2%',
+          'icon': Icons.trending_up,
+          'color': Colors.purple,
+        },
+        {
+          'title': 'Bounce',
+          'value': '32.1%',
+          'icon': Icons.exit_to_app,
+          'color': Colors.red,
+        },
+        {
+          'title': 'Uptime',
+          'value': '99.9%',
+          'icon': Icons.check_circle,
+          'color': Colors.teal,
+        },
       ];
 
       List<Widget> cardWidgets = [];
@@ -726,7 +879,10 @@ Widget _buildResponsiveDashboard() {
                     Expanded(
                       child: Text(
                         card['title'] as String,
-                        style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -735,7 +891,11 @@ Widget _buildResponsiveDashboard() {
                 SizedBox(height: 6),
                 Text(
                   card['value'] as String,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: c),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: c,
+                  ),
                 ),
               ],
             ),
@@ -793,7 +953,9 @@ Widget _buildAdaptiveNavigation() {
               style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
             ),
             Text(
-              showSideNav ? 'Side navigation visible' : 'Bottom navigation mode',
+              showSideNav
+                  ? 'Side navigation visible'
+                  : 'Bottom navigation mode',
               style: TextStyle(color: Colors.grey.shade400, fontSize: 11),
             ),
           ],
@@ -837,7 +999,11 @@ Widget _buildAdaptiveNavigation() {
               children: [
                 Icon(Icons.home, color: Colors.indigo, size: 22),
                 Icon(Icons.search, color: Colors.indigo.shade300, size: 22),
-                Icon(Icons.notifications, color: Colors.indigo.shade300, size: 22),
+                Icon(
+                  Icons.notifications,
+                  color: Colors.indigo.shade300,
+                  size: 22,
+                ),
                 Icon(Icons.settings, color: Colors.indigo.shade300, size: 22),
               ],
             ),
@@ -868,9 +1034,15 @@ Widget _buildNavItem(IconData icon, String label, bool expanded) {
 
 // Main entry point
 dynamic build(BuildContext context) {
-  print('[LayoutCallback] === RenderObjectWithLayoutCallbackMixin Deep Demo ===');
-  print('[LayoutCallback] LayoutBuilder wraps RenderObjectWithLayoutCallbackMixin');
-  print('[LayoutCallback] to provide parent constraints during the layout phase');
+  print(
+    '[LayoutCallback] === RenderObjectWithLayoutCallbackMixin Deep Demo ===',
+  );
+  print(
+    '[LayoutCallback] LayoutBuilder wraps RenderObjectWithLayoutCallbackMixin',
+  );
+  print(
+    '[LayoutCallback] to provide parent constraints during the layout phase',
+  );
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
@@ -896,7 +1068,10 @@ dynamic build(BuildContext context) {
         _buildConstraintDisplay(),
 
         // Section 5: Nested LayoutBuilders
-        _buildSectionTitle('5. Nested LayoutBuilders (Constraint Propagation)', Icons.layers),
+        _buildSectionTitle(
+          '5. Nested LayoutBuilders (Constraint Propagation)',
+          Icons.layers,
+        ),
         _buildNestedLayoutBuilders(),
 
         // Section 6: MediaQuery comparison
@@ -940,7 +1115,11 @@ dynamic build(BuildContext context) {
                 'pattern to let widgets adapt to their actual constraints rather '
                 'than just screen size. This is fundamental to truly responsive '
                 'Flutter layouts.',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade700,
+                  height: 1.4,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],

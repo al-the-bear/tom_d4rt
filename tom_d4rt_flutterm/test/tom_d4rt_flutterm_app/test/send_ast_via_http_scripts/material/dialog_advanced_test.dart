@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests SimpleDialog, SimpleDialogOption, DialogTheme,
 // AlertDialog advanced properties
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests DraggableScrollableNotification from widgets
 import 'package:flutter/widgets.dart';
 

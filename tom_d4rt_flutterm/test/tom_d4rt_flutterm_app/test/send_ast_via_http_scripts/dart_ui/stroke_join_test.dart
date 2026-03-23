@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for StrokeJoin from dart:ui
 //
 // StrokeJoin defines how corners are drawn where two lines meet.

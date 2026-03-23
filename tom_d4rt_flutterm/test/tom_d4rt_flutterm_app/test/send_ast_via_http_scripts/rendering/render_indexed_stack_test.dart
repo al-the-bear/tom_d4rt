@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // render_indexed_stack_test.dart
 // Deep demo: IndexedStack (RenderIndexedStack) widget showcase
 // IndexedStack shows only one child at a time from a stack of children.
@@ -166,8 +167,10 @@ Widget _buildBasicIndexExamples(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Each row shows IndexedStack at a different index:',
-            style: TextStyle(fontSize: 13, color: Color(0xFF616161))),
+        Text(
+          'Each row shows IndexedStack at a different index:',
+          style: TextStyle(fontSize: 13, color: Color(0xFF616161)),
+        ),
         SizedBox(height: 8),
 
         // Index 0
@@ -178,10 +181,7 @@ Widget _buildBasicIndexExamples(BuildContext context) {
             border: Border.all(color: Color(0xFFBDBDBD)),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: IndexedStack(
-            index: 0,
-            children: children,
-          ),
+          child: IndexedStack(index: 0, children: children),
         ),
         SizedBox(height: 8),
 
@@ -193,10 +193,7 @@ Widget _buildBasicIndexExamples(BuildContext context) {
             border: Border.all(color: Color(0xFFBDBDBD)),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: IndexedStack(
-            index: 1,
-            children: children,
-          ),
+          child: IndexedStack(index: 1, children: children),
         ),
         SizedBox(height: 8),
 
@@ -208,10 +205,7 @@ Widget _buildBasicIndexExamples(BuildContext context) {
             border: Border.all(color: Color(0xFFBDBDBD)),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: IndexedStack(
-            index: 2,
-            children: children,
-          ),
+          child: IndexedStack(index: 2, children: children),
         ),
         SizedBox(height: 8),
 
@@ -223,10 +217,7 @@ Widget _buildBasicIndexExamples(BuildContext context) {
             border: Border.all(color: Color(0xFFBDBDBD)),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: IndexedStack(
-            index: 3,
-            children: children,
-          ),
+          child: IndexedStack(index: 3, children: children),
         ),
       ],
     ),
@@ -310,8 +301,10 @@ Widget _buildAlignmentExamples(BuildContext context) {
             print('[alignment] Rendering alignment: ${alignmentNames[i]}');
             return Column(
               children: [
-                Text(alignmentNames[i],
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+                Text(
+                  alignmentNames[i],
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                ),
                 SizedBox(height: 4),
                 Container(
                   width: 110,
@@ -333,10 +326,18 @@ Widget _buildAlignmentExamples(BuildContext context) {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Center(
-                          child: Icon(Icons.star, color: Colors.white, size: 20),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
-                      Container(width: 30, height: 30, color: Color(0xFFE53935)),
+                      Container(
+                        width: 30,
+                        height: 30,
+                        color: Color(0xFFE53935),
+                      ),
                     ],
                   ),
                 ),
@@ -371,8 +372,10 @@ Widget _buildSizingBehavior(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('index: 0 (small child)',
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+                  Text(
+                    'index: 0 (small child)',
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     decoration: BoxDecoration(
@@ -386,26 +389,43 @@ Widget _buildSizingBehavior(BuildContext context) {
                           width: 60,
                           height: 40,
                           color: Color(0xFFEF9A9A),
-                          child: Center(child: Text('Small', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text(
+                              'Small',
+                              style: TextStyle(fontSize: 11),
+                            ),
+                          ),
                         ),
                         Container(
                           width: 140,
                           height: 100,
                           color: Color(0xFF90CAF9),
-                          child: Center(child: Text('LARGE', style: TextStyle(fontSize: 16))),
+                          child: Center(
+                            child: Text(
+                              'LARGE',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
                         ),
                         Container(
                           width: 100,
                           height: 70,
                           color: Color(0xFFA5D6A7),
-                          child: Center(child: Text('Medium', style: TextStyle(fontSize: 13))),
+                          child: Center(
+                            child: Text(
+                              'Medium',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Border shows actual size',
-                      style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
+                  Text(
+                    'Border shows actual size',
+                    style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+                  ),
                 ],
               ),
             ),
@@ -414,8 +434,10 @@ Widget _buildSizingBehavior(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('index: 1 (large child)',
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+                  Text(
+                    'index: 1 (large child)',
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     decoration: BoxDecoration(
@@ -429,26 +451,43 @@ Widget _buildSizingBehavior(BuildContext context) {
                           width: 60,
                           height: 40,
                           color: Color(0xFFEF9A9A),
-                          child: Center(child: Text('Small', style: TextStyle(fontSize: 11))),
+                          child: Center(
+                            child: Text(
+                              'Small',
+                              style: TextStyle(fontSize: 11),
+                            ),
+                          ),
                         ),
                         Container(
                           width: 140,
                           height: 100,
                           color: Color(0xFF90CAF9),
-                          child: Center(child: Text('LARGE', style: TextStyle(fontSize: 16))),
+                          child: Center(
+                            child: Text(
+                              'LARGE',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
                         ),
                         Container(
                           width: 100,
                           height: 70,
                           color: Color(0xFFA5D6A7),
-                          child: Center(child: Text('Medium', style: TextStyle(fontSize: 13))),
+                          child: Center(
+                            child: Text(
+                              'Medium',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('Same border size!',
-                      style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
+                  Text(
+                    'Same border size!',
+                    style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+                  ),
                 ],
               ),
             ),
@@ -478,8 +517,10 @@ Widget _buildTextDirectionExamples(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('TextDirection.ltr',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'TextDirection.ltr',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     height: 80,
@@ -498,9 +539,15 @@ Widget _buildTextDirectionExamples(BuildContext context) {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.arrow_forward, color: Color(0xFF2E7D32)),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Color(0xFF2E7D32),
+                              ),
                               SizedBox(width: 4),
-                              Text('LTR Start', style: TextStyle(color: Color(0xFF2E7D32))),
+                              Text(
+                                'LTR Start',
+                                style: TextStyle(color: Color(0xFF2E7D32)),
+                              ),
                             ],
                           ),
                         ),
@@ -514,8 +561,10 @@ Widget _buildTextDirectionExamples(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('TextDirection.rtl',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'TextDirection.rtl',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     height: 80,
@@ -536,7 +585,10 @@ Widget _buildTextDirectionExamples(BuildContext context) {
                             children: [
                               Icon(Icons.arrow_back, color: Color(0xFFE65100)),
                               SizedBox(width: 4),
-                              Text('RTL Start', style: TextStyle(color: Color(0xFFE65100))),
+                              Text(
+                                'RTL Start',
+                                style: TextStyle(color: Color(0xFFE65100)),
+                              ),
                             ],
                           ),
                         ),
@@ -586,7 +638,10 @@ Widget _buildNullIndexExample(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('index: 0', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'index: 0',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     height: 80,
@@ -600,8 +655,13 @@ Widget _buildNullIndexExample(BuildContext context) {
                         Container(
                           color: Color(0xFF42A5F5),
                           child: Center(
-                            child: Text('Visible!',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Visible!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         Container(color: Color(0xFFEF5350)),
@@ -615,7 +675,10 @@ Widget _buildNullIndexExample(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  Text('index: null', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'index: null',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                   SizedBox(height: 4),
                   Container(
                     height: 80,
@@ -629,8 +692,13 @@ Widget _buildNullIndexExample(BuildContext context) {
                         Container(
                           color: Color(0xFF42A5F5),
                           child: Center(
-                            child: Text('Visible!',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Visible!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         Container(color: Color(0xFFEF5350)),
@@ -662,7 +730,9 @@ Widget _buildNullIndexExample(BuildContext context) {
 
 // Section 6: Comparison with Visibility and Offstage
 Widget _buildComparisonSection(BuildContext context) {
-  print('[compare] Building comparison: IndexedStack vs Visibility vs Offstage');
+  print(
+    '[compare] Building comparison: IndexedStack vs Visibility vs Offstage',
+  );
 
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16),
@@ -686,7 +756,9 @@ Widget _buildComparisonSection(BuildContext context) {
               Container(
                 height: 40,
                 color: Color(0xFF3949AB),
-                child: Center(child: Text('Active', style: TextStyle(color: Colors.white))),
+                child: Center(
+                  child: Text('Active', style: TextStyle(color: Colors.white)),
+                ),
               ),
               Container(
                 height: 40,
@@ -710,7 +782,12 @@ Widget _buildComparisonSection(BuildContext context) {
                 child: Container(
                   height: 40,
                   color: Color(0xFF43A047),
-                  child: Center(child: Text('Visible', style: TextStyle(color: Colors.white))),
+                  child: Center(
+                    child: Text(
+                      'Visible',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
               Visibility(
@@ -738,7 +815,12 @@ Widget _buildComparisonSection(BuildContext context) {
                 child: Container(
                   height: 40,
                   color: Color(0xFFE64A19),
-                  child: Center(child: Text('On Stage', style: TextStyle(color: Colors.white))),
+                  child: Center(
+                    child: Text(
+                      'On Stage',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
               Offstage(
@@ -766,14 +848,23 @@ Widget _buildComparisonSection(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Summary:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(
+                'Summary:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
               SizedBox(height: 4),
-              Text('IndexedStack: reserves space of LARGEST child, all children keep state',
-                  style: TextStyle(fontSize: 11)),
-              Text('Visibility: can maintain or collapse space, single child focus',
-                  style: TextStyle(fontSize: 11)),
-              Text('Offstage: no space reserved, child still in tree for state',
-                  style: TextStyle(fontSize: 11)),
+              Text(
+                'IndexedStack: reserves space of LARGEST child, all children keep state',
+                style: TextStyle(fontSize: 11),
+              ),
+              Text(
+                'Visibility: can maintain or collapse space, single child focus',
+                style: TextStyle(fontSize: 11),
+              ),
+              Text(
+                'Offstage: no space reserved, child still in tree for state',
+                style: TextStyle(fontSize: 11),
+              ),
             ],
           ),
         ),
@@ -782,7 +873,12 @@ Widget _buildComparisonSection(BuildContext context) {
   );
 }
 
-Widget _buildComparisonCard(String title, Color color, String description, Widget child) {
+Widget _buildComparisonCard(
+  String title,
+  Color color,
+  String description,
+  Widget child,
+) {
   print('[compare] Card: $title');
   return Container(
     width: double.infinity,
@@ -794,14 +890,21 @@ Widget _buildComparisonCard(String title, Color color, String description, Widge
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 14)),
-        SizedBox(height: 4),
-        Text(description, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
-        SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: child,
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 14,
+          ),
         ),
+        SizedBox(height: 4),
+        Text(
+          description,
+          style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+        ),
+        SizedBox(height: 8),
+        ClipRRect(borderRadius: BorderRadius.circular(6), child: child),
       ],
     ),
   );
@@ -850,7 +953,12 @@ Widget _buildPracticalPatterns(BuildContext context) {
 }
 
 Widget _buildPatternCard(
-    String title, IconData icon, Color color, String description, Widget example) {
+  String title,
+  IconData icon,
+  Color color,
+  String description,
+  Widget example,
+) {
   print('[pattern] $title');
   return Container(
     width: double.infinity,
@@ -872,13 +980,22 @@ Widget _buildPatternCard(
             Icon(icon, color: color, size: 22),
             SizedBox(width: 8),
             Expanded(
-              child: Text(title,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 15)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                  fontSize: 15,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 6),
-        Text(description, style: TextStyle(fontSize: 12, color: Color(0xFF616161))),
+        Text(
+          description,
+          style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
+        ),
         SizedBox(height: 10),
         example,
       ],
@@ -930,7 +1047,10 @@ Widget _buildTabStyleExample() {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.search, color: Color(0xFF0277BD), size: 24),
-                  Text('Search Content (active)', style: TextStyle(fontSize: 12)),
+                  Text(
+                    'Search Content (active)',
+                    style: TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
             ),
@@ -998,19 +1118,31 @@ Widget _buildStepWizardExample() {
         child: IndexedStack(
           index: 1,
           children: [
-            Center(child: Text('Step 1: Enter your name', style: TextStyle(fontSize: 13))),
+            Center(
+              child: Text(
+                'Step 1: Enter your name',
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
             Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.email, color: Color(0xFF558B2F), size: 18),
                   SizedBox(width: 6),
-                  Text('Step 2: Enter your email (active)',
-                      style: TextStyle(fontSize: 13, color: Color(0xFF33691E))),
+                  Text(
+                    'Step 2: Enter your email (active)',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF33691E)),
+                  ),
                 ],
               ),
             ),
-            Center(child: Text('Step 3: Confirm details', style: TextStyle(fontSize: 13))),
+            Center(
+              child: Text(
+                'Step 3: Confirm details',
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
           ],
         ),
       ),
@@ -1065,7 +1197,10 @@ Widget _buildCardFlipExample() {
               children: [
                 Icon(Icons.credit_card, color: Colors.white, size: 24),
                 SizedBox(height: 4),
-                Text('Front Face', style: TextStyle(color: Colors.white, fontSize: 13)),
+                Text(
+                  'Front Face',
+                  style: TextStyle(color: Colors.white, fontSize: 13),
+                ),
               ],
             ),
           ),
@@ -1082,8 +1217,10 @@ Widget _buildCardFlipExample() {
               children: [
                 Icon(Icons.info_outline, color: Color(0xFF6A1B9A), size: 24),
                 SizedBox(height: 4),
-                Text('Back Face (details)',
-                    style: TextStyle(color: Color(0xFF6A1B9A), fontSize: 13)),
+                Text(
+                  'Back Face (details)',
+                  style: TextStyle(color: Color(0xFF6A1B9A), fontSize: 13),
+                ),
               ],
             ),
           ),
@@ -1152,15 +1289,29 @@ Widget _buildStatePreservation(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Demonstration: Switch showing index 2 of 3 children',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+              Text(
+                'Demonstration: Switch showing index 2 of 3 children',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
               SizedBox(height: 8),
               IndexedStack(
                 index: 2,
                 children: [
-                  _buildStateChild('Child 0', 'Has a counter at value 42', Color(0xFFE53935)),
-                  _buildStateChild('Child 1', 'Has a text input with "Hello"', Color(0xFF43A047)),
-                  _buildStateChild('Child 2', 'Currently visible (active)', Color(0xFF1E88E5)),
+                  _buildStateChild(
+                    'Child 0',
+                    'Has a counter at value 42',
+                    Color(0xFFE53935),
+                  ),
+                  _buildStateChild(
+                    'Child 1',
+                    'Has a text input with "Hello"',
+                    Color(0xFF43A047),
+                  ),
+                  _buildStateChild(
+                    'Child 2',
+                    'Currently visible (active)',
+                    Color(0xFF1E88E5),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
@@ -1176,7 +1327,12 @@ Widget _buildStatePreservation(BuildContext context) {
   );
 }
 
-Widget _buildStateInfoCard(IconData icon, String title, String desc, Color color) {
+Widget _buildStateInfoCard(
+  IconData icon,
+  String title,
+  String desc,
+  Color color,
+) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -1193,8 +1349,18 @@ Widget _buildStateInfoCard(IconData icon, String title, String desc, Color color
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: color)),
-              Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+              ),
             ],
           ),
         ),
@@ -1214,7 +1380,14 @@ Widget _buildStateChild(String name, String info, Color color) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+          Text(
+            name,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
           Text(info, style: TextStyle(color: Colors.white70, fontSize: 11)),
         ],
       ),
@@ -1247,9 +1420,14 @@ Widget _buildNestedIndexedStack(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Outer IndexedStack (index: 1)',
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF283593))),
+              Text(
+                'Outer IndexedStack (index: 1)',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF283593),
+                ),
+              ),
               SizedBox(height: 6),
               IndexedStack(
                 index: 1,
@@ -1270,11 +1448,14 @@ Widget _buildNestedIndexedStack(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Inner IndexedStack (index: 0)',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFFBF360C))),
+                        Text(
+                          'Inner IndexedStack (index: 0)',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFBF360C),
+                          ),
+                        ),
                         SizedBox(height: 6),
                         IndexedStack(
                           index: 0,
@@ -1283,14 +1464,21 @@ Widget _buildNestedIndexedStack(BuildContext context) {
                               height: 60,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFFFF7043), Color(0xFFFF8A65)],
+                                  colors: [
+                                    Color(0xFFFF7043),
+                                    Color(0xFFFF8A65),
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Center(
-                                child: Text('Inner Sub-Page 1 (active)',
-                                    style: TextStyle(
-                                        color: Colors.white, fontWeight: FontWeight.bold)),
+                                child: Text(
+                                  'Inner Sub-Page 1 (active)',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                             Container(
@@ -1371,7 +1559,11 @@ Widget _buildDecoratedChildren(BuildContext context) {
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF42A5F5)],
+                      colors: [
+                        Color(0xFF0D47A1),
+                        Color(0xFF1565C0),
+                        Color(0xFF42A5F5),
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -1386,14 +1578,22 @@ Widget _buildDecoratedChildren(BuildContext context) {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Dashboard View',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              'Dashboard View',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             SizedBox(height: 4),
-                            Text('Your analytics at a glance',
-                                style: TextStyle(color: Color(0xFFBBDEFB), fontSize: 13)),
+                            Text(
+                              'Your analytics at a glance',
+                              style: TextStyle(
+                                color: Color(0xFFBBDEFB),
+                                fontSize: 13,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1403,23 +1603,35 @@ Widget _buildDecoratedChildren(BuildContext context) {
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF66BB6A)],
+                      colors: [
+                        Color(0xFF1B5E20),
+                        Color(0xFF2E7D32),
+                        Color(0xFF66BB6A),
+                      ],
                     ),
                   ),
                   child: Center(
-                    child: Text('Settings View',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    child: Text(
+                      'Settings View',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                   ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFBF360C), Color(0xFFE64A19), Color(0xFFFF7043)],
+                      colors: [
+                        Color(0xFFBF360C),
+                        Color(0xFFE64A19),
+                        Color(0xFFFF7043),
+                      ],
                     ),
                   ),
                   child: Center(
-                    child: Text('Notifications View',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    child: Text(
+                      'Notifications View',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                   ),
                 ),
               ],
@@ -1441,15 +1653,29 @@ Widget _buildDecoratedChildren(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Key Takeaways',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF1A237E))),
+              Text(
+                'Key Takeaways',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Color(0xFF1A237E),
+                ),
+              ),
               SizedBox(height: 6),
-              _buildTakeawayItem('IndexedStack lays out ALL children but paints only one'),
+              _buildTakeawayItem(
+                'IndexedStack lays out ALL children but paints only one',
+              ),
               _buildTakeawayItem('Size is determined by the LARGEST child'),
-              _buildTakeawayItem('All children maintain their state (key advantage)'),
+              _buildTakeawayItem(
+                'All children maintain their state (key advantage)',
+              ),
               _buildTakeawayItem('Use null index to hide all children'),
-              _buildTakeawayItem('alignment and textDirection control child positioning'),
-              _buildTakeawayItem('Great for tabs, wizards, and content switching'),
+              _buildTakeawayItem(
+                'alignment and textDirection control child positioning',
+              ),
+              _buildTakeawayItem(
+                'Great for tabs, wizards, and content switching',
+              ),
             ],
           ),
         ),
@@ -1462,8 +1688,14 @@ Widget _buildGalleryItem(int showIndex) {
   print('[gallery] Gallery item showing index $showIndex');
   return Column(
     children: [
-      Text('idx: $showIndex',
-          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF5C6BC0))),
+      Text(
+        'idx: $showIndex',
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF5C6BC0),
+        ),
+      ),
       SizedBox(height: 4),
       Container(
         height: 80,
@@ -1530,7 +1762,10 @@ Widget _buildTakeawayItem(String text) {
         Icon(Icons.check_circle_outline, color: Color(0xFF3949AB), size: 14),
         SizedBox(width: 6),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 12, color: Color(0xFF37474F))),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: Color(0xFF37474F)),
+          ),
         ),
       ],
     ),

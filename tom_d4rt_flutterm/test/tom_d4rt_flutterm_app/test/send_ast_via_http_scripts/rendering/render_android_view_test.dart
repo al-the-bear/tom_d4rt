@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for RenderAndroidView from rendering
 //
 // RenderAndroidView is Flutters render object responsible for embedding

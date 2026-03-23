@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests RenderDecoratedBox, RenderPadding, RenderAlign,
 // RenderPositionedBox, RenderConstrainedBox, RenderFlex, RenderConstrainedOverflowBox
 import 'package:flutter/material.dart';

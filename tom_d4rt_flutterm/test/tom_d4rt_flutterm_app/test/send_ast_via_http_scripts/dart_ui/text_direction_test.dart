@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Deep demo for TextDirection from dart:ui
 //
 // TextDirection defines the reading direction of text.

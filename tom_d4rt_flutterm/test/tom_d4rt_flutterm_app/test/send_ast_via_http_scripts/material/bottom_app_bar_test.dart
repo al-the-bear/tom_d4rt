@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests BottomAppBar, BottomAppBarTheme, NavigationBar,
 // NavigationDestination, NavigationBarThemeData, BadgeThemeData,
 // Badge, NavigationDrawer, NavigationDrawerDestination

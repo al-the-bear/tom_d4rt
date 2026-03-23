@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // D4rt test script: Tests Autocomplete with date picker concept from material
 // Demonstrates combined autocomplete and date picking visual patterns
 import 'package:flutter/material.dart';
