@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // WidgetStateOutlineInputBorder Deep Demo Test
 // Tests state-responsive outline input borders for TextField widgets
 // Demonstrates focus, error, disabled, hovered states affecting border appearance

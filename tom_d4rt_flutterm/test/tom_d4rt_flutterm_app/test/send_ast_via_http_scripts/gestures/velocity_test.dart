@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderInlineChildrenContainerDefaults
 // Demonstrates inline children (WidgetSpan) rendered within text flow
 // using TextParentData positioning and PlaceholderAlignment options.

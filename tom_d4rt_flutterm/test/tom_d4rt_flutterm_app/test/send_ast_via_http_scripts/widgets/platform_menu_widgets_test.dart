@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Tests: DefaultPlatformMenuDelegate, PlatformMenuBar, PlatformMenu,
 //        PlatformMenuItem, PlatformMenuDelegate, DefaultTextStyleTransition,
 //        RawMagnifier, RawKeyboardListener
@@ -63,7 +63,6 @@ dynamic build(BuildContext context) {
 
   // --- RawKeyboardListener Tests ---
   print('--- RawKeyboardListener Tests ---');
-  // ignore: deprecated_member_use
   var keyboardListener = RawKeyboardListener(
     focusNode: FocusNode(),
     onKey: (event) {

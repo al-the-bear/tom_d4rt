@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for DisplayFeature from dart:ui
 // DisplayFeature describes a physical feature on the display surface
 // (folds, hinges, cutouts) with bounds, type, and state

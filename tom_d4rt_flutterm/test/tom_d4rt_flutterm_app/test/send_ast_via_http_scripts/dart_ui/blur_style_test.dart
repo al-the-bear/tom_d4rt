@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Deep Demo: BlurStyle - Shadow Blur Rendering Styles
 // This demo comprehensively explores BlurStyle enum which controls
 // how blur is applied to MaskFilter for shadow and blur effects.

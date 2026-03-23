@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for PointMode from dart:ui
 // PointMode defines how a list of points is interpreted when drawn
 import 'dart:ui';

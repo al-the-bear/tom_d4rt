@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderAnimatedOpacity via AnimatedOpacity and FadeTransition
 // RenderAnimatedOpacity efficiently animates the opacity of its child
 // by avoiding repainting the child when only the opacity changes.

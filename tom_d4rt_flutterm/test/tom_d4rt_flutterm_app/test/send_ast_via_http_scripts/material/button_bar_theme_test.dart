@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ButtonBarTheme from material
-// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 
 // Helper to build section title

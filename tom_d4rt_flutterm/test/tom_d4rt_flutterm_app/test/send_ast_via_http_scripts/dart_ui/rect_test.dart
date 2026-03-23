@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for Rect from dart:ui
 // Rect defines a rectangle by left, top, right, bottom coordinates
 import 'dart:ui' as ui;

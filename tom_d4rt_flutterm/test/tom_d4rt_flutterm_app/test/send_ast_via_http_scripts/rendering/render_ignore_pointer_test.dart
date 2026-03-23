@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // render_ignore_pointer_test.dart
 // Deep demo: RenderIgnorePointer via the IgnorePointer widget
 // IgnorePointer makes its subtree invisible to hit testing.

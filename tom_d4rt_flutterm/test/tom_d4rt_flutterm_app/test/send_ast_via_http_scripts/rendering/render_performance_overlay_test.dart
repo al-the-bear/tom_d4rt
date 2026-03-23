@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderPerformanceOverlay via PerformanceOverlay widget
 // Tests performance overlay rendering with various configurations
 // Shows rasterizer and UI thread frame timing bar charts

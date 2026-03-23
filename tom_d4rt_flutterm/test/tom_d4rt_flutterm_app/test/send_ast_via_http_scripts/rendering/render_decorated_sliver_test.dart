@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderDecoratedSliver via DecoratedSliver widget
 // Tests DecoratedSliver with various Decoration types, positions, and sliver children
 import 'package:flutter/material.dart';

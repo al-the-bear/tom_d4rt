@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // render_indexed_stack_test.dart
 // Deep demo: IndexedStack (RenderIndexedStack) widget showcase
 // IndexedStack shows only one child at a time from a stack of children.

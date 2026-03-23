@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for geometry primitives from dart:ui
 // Covers: Offset, Size, Rect, RRect, Radius — the core geometry building blocks
 import 'dart:math' as math;

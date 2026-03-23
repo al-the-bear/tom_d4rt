@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for NavigationBarBottomMode from cupertino
 // NavigationBarBottomMode controls bottom area behavior in CupertinoNavigationBar
 // Defines how content interacts with the bottom edge and safe areas

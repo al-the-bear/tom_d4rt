@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderLeaderLayer / CompositedTransformTarget & Follower
 // Tests LayerLink, CompositedTransformTarget, CompositedTransformFollower
 // with various anchor alignments, offsets, showWhenUnlinked, and

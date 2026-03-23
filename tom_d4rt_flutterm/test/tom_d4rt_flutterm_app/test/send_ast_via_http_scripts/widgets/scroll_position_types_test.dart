@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Tests: ScrollPosition, ScrollPositionWithSingleContext, ScrollContext,
 //        ScrollActivity, IdleScrollActivity, DrivenScrollActivity,
 //        HoldScrollActivity, DragScrollActivity

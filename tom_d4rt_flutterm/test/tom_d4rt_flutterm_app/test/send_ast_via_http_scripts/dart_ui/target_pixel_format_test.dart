@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Comprehensive visual demonstration of TargetPixelFormat from dart_ui
 // This enum specifies the target pixel format when decoding images, allowing control
 // over precision and memory usage for decoded image data.

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: Baseline widget (RenderBaseline)
 // Baseline positions its child according to the child's baseline offset.
 // It takes a baseline value (double) and a baselineType (TextBaseline).

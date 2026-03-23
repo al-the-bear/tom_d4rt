@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for CurveTween from animation
 // CurveTween applies a curve transformation to animation values
 // Converts linear 0-1 input to curved output using specified Curve

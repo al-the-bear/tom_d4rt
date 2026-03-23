@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderExcludeSemantics
 // ExcludeSemantics removes subtree from accessibility/semantics tree
 // When excluding=true, screen readers ignore the content entirely

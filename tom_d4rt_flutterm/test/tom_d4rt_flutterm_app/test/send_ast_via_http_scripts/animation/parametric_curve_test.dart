@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for ParametricCurve from animation
 // ParametricCurve is the base class for all animation curves
 // Maps time [0,1] to value [0,1] with various mathematical functions

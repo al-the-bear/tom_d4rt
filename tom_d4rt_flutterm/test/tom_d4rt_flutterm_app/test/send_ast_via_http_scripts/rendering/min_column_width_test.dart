@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Flutter demo: MinColumnWidth – table column strategy using the
 // smaller of two TableColumnWidth values. Visual comparison with
 // MaxColumnWidth, constraint clamping, responsive table columns,

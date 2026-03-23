@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderFractionallySizedOverflowBox via FractionallySizedBox
 // Tests fractional sizing, overflow, alignment, and comparison with SizedBox
 import 'package:flutter/material.dart';

@@ -1,6 +1,0 @@
-import 'package:flutter/material.dart';
-
-/// Deep visual demo for ThemeMode
-dynamic build(BuildContext context) {
-  return Scaffold(appBar: AppBar(title: Text('ThemeMode Demo')), body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(Icons.wb_sunny, color: Colors.orange), SizedBox(width: 8), Text('ThemeMode.light', style: TextStyle(fontWeight: FontWeight.bold))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(8)), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(Icons.nightlight_round, color: Colors.yellow), SizedBox(width: 8), Text('ThemeMode.dark', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white))])), SizedBox(height: 16), Container(padding: EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(8)), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(Icons.settings_system_daydream, color: Colors.green), SizedBox(width: 8), Text('ThemeMode.system', style: TextStyle(fontWeight: FontWeight.bold))]))])));
-}

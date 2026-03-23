@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for DartPerformanceMode from dart:ui
 // DartPerformanceMode controls Dart VM runtime behavior for performance tuning
 import 'dart:ui' as ui;

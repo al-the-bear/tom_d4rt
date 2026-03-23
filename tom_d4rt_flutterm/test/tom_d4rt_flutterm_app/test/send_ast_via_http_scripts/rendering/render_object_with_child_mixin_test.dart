@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderObjectWithChildMixin - single-child render objects
 // Tests widgets backed by render objects using RenderObjectWithChildMixin
 // which provides exactly one child slot (child getter/setter).

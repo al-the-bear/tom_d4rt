@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // NoSplash Demo - Ink factory that produces no splash effect
 // D4rt compatible: no const, no assert(), no late, no ///
 

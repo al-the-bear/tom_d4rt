@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for FlutterView from dart:ui
 // FlutterView is the primary rendering surface that connects
 // to a physical Display with configuration, size, padding, insets

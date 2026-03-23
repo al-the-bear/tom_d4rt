@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for Color from dart:ui
 // Color represents an ARGB color value in the sRGB color space
 import 'dart:ui' as ui;

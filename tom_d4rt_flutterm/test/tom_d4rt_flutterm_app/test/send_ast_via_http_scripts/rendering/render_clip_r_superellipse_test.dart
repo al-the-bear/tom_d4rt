@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderClipRSuperellipse / ClipRSuperellipse
 // Demonstrates smooth superellipse clipping (iOS-style continuous corners)
 // compared to standard ClipRRect rounded rectangles.

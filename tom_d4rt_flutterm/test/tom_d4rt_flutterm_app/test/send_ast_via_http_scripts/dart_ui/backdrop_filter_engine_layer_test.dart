@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Deep Demo: BackdropFilterEngineLayer - Scene Composition Blur Effects
 // This demo comprehensively explores BackdropFilterEngineLayer which provides
 // efficient backdrop blur and filter effects in Flutter's scene composition system.

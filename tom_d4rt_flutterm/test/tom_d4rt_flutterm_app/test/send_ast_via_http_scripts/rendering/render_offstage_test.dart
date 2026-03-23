@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderOffstage / Offstage widget
 // Tests Offstage with offstage true/false, space collapse behavior,
 // comparison with Visibility, Opacity, SizedBox.shrink, state retention,

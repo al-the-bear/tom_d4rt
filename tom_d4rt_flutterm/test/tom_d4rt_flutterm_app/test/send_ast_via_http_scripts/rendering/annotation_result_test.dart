@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Comprehensive demo for AnnotationResult from rendering
 //
 // AnnotationResult<T> collects annotation entries from hit testing.

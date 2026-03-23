@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt deep demo: RenderConstrainedOverflowBox / OverflowBox
 // Tests OverflowBox widget which imposes different constraints on its child
 // than it receives from its parent, allowing the child to overflow.

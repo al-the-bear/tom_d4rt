@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ProxyAnimation, ReverseAnimation, and animation composition from animation
 import 'package:flutter/widgets.dart';
 

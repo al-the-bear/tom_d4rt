@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests Autocomplete widget concepts from material
 // Demonstrates autocomplete with different data sources and suggestion rendering
 import 'package:flutter/material.dart';

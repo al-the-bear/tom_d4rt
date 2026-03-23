@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Flutter demo: MainAxisSize – min vs max sizing along main axis
 // Visual comparison of MainAxisSize.min (shrink-wrap) vs MainAxisSize.max
 // (expand to parent) in Row and Column, practical button bars, centering

@@ -24,7 +24,7 @@
 //
 // This demo visualizes the FlowPaintingContext APIs and capabilities.
 
-// ignore_for_file: avoid_print, deprecated_member_use, prefer_interpolation_to_compose_strings
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;

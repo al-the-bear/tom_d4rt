@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests Clipboard, SystemChrome, HapticFeedback, SystemNavigator from services
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

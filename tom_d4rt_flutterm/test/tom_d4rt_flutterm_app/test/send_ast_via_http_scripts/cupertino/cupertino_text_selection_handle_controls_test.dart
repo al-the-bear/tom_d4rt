@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests CupertinoTextSelectionHandleControls from cupertino
 // NOTE: CupertinoTextSelectionHandleControls is NOT bridged in d4rt.
 // This test demonstrates the class through its superclass behavior and

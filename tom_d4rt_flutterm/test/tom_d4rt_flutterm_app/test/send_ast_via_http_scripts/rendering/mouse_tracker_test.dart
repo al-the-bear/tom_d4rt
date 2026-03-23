@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Flutter demo: MouseTracker – pointer/hover effect management
 // Demonstrates SystemMouseCursors, MouseRegion widget, hover regions,
 // enter/exit detection, cursor changes, and practical hover UI patterns.

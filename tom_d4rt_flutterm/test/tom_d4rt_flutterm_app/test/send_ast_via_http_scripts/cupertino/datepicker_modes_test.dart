@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests CupertinoDatePicker with CupertinoDatePickerMode values, CupertinoTimerPicker with CupertinoTimerPickerMode values from cupertino
 import 'package:flutter/cupertino.dart';
 

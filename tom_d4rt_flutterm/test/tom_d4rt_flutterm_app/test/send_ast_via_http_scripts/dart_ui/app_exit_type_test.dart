@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Deep Demo: AppExitType - Enum for App Exit Request Types
 // This demo comprehensively explores AppExitType, which categorizes
 // exit requests into cancelable and required types for proper handling.

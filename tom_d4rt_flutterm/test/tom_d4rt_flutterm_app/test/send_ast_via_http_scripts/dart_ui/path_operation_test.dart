@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests PathOperation enum from dart:ui
 // Demonstrates boolean operations that can be applied to combine two paths.
 // PathOperation is used with Path.combine() to create complex shapes.

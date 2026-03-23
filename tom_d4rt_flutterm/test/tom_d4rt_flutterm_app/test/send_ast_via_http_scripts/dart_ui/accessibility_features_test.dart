@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for AccessibilityFeatures from dart:ui
 // AccessibilityFeatures provides info about platform accessibility settings
 // Used to adapt UI for users with accessibility needs

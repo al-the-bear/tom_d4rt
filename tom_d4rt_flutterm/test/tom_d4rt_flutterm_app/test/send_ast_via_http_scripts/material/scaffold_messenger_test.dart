@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // ScaffoldMessenger Deep Demo
 // Manages SnackBars and MaterialBanners across Scaffolds
 // Provides a consistent API for showing transient messages

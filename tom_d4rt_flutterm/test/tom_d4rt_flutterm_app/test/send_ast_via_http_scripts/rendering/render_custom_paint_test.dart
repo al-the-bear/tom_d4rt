@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // Deep demo: RenderCustomPaint via CustomPaint widget
 // Tests CustomPaint with multiple CustomPainter implementations,
 // foregroundPainter, child combinations, and Canvas drawing APIs.

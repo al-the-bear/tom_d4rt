@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep Demo for Display from dart:ui
 // Display represents a physical display/monitor with size, pixel ratio,
 // and refresh rate information

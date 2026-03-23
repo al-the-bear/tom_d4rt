@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ImmutableBuffer from dart:ui
 import 'dart:ui' as ui;
 import 'dart:typed_data';

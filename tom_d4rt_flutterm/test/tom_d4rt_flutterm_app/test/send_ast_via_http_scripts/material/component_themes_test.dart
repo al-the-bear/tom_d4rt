@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ListTileTheme, ListTileThemeData, CardTheme, ChipTheme, ChipThemeData, TooltipTheme, TooltipThemeData, DividerTheme, DividerThemeData from material
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Deep demo for RenderAbstractViewport from rendering
 //
 // RenderAbstractViewport is the abstract base class for viewports that

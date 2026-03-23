@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests KeyEventDeviceType from dart_ui
 import 'dart:ui';
 import 'package:flutter/widgets.dart';

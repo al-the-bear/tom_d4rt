@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt Flutter demo: MainAxisAlignment - child distribution along main axis
 // Visual comparison of all 6 values in Row/Column, practical nav bar layouts,
 // and real-world spacing patterns for responsive design.
