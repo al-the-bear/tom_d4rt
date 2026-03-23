@@ -348,7 +348,6 @@ dynamic build(BuildContext context) {
           height: 80.0,
           child: PerformanceOverlay(
             optionsMask: 15,
-            rasterizerThreshold: 0,
           ),
         ),
       ],
@@ -382,7 +381,6 @@ dynamic build(BuildContext context) {
           height: 80.0,
           child: PerformanceOverlay(
             optionsMask: 15,
-            rasterizerThreshold: 3,
           ),
         ),
       ],
@@ -436,7 +434,6 @@ dynamic build(BuildContext context) {
           height: 80.0,
           child: PerformanceOverlay(
             optionsMask: 15,
-            checkerboardRasterCacheImages: true,
           ),
         ),
       ],
@@ -499,7 +496,6 @@ dynamic build(BuildContext context) {
           height: 80.0,
           child: PerformanceOverlay(
             optionsMask: 15,
-            checkerboardOffscreenLayers: true,
           ),
         ),
       ],
@@ -965,9 +961,6 @@ dynamic build(BuildContext context) {
           height: 120.0,
           child: PerformanceOverlay(
             optionsMask: 15,
-            rasterizerThreshold: 1,
-            checkerboardRasterCacheImages: true,
-            checkerboardOffscreenLayers: true,
           ),
         ),
       ],

@@ -509,7 +509,6 @@ dynamic build(BuildContext context) {
 
         // Section 1: Opacity values side by side
         _buildSectionTitle('Opacity Values Comparison', Icons.compare),
-        print('[build] Section 1: five opacity swatches side by side'),
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -533,7 +532,6 @@ dynamic build(BuildContext context) {
 
         // Section 2: Opacity on different content types
         _buildSectionTitle('Opacity on Content Types', Icons.category),
-        print('[build] Section 2: text, icons, images, gradient containers'),
 
         // Text at various opacities
         _buildOpacityComparisonRow(
@@ -581,7 +579,6 @@ dynamic build(BuildContext context) {
 
         // Section 3: FadeTransition examples
         _buildSectionTitle('FadeTransition Examples', Icons.swap_horiz),
-        print('[build] Section 3: FadeTransition demonstrations'),
 
         _buildFadeTransitionCard(
           'Fully Visible',
@@ -668,14 +665,12 @@ dynamic build(BuildContext context) {
 
         // Section 4: Layered overlapping elements
         _buildSectionTitle('Layered Overlapping Elements', Icons.layers),
-        print('[build] Section 4: layered semi-transparent overlapping content'),
         _buildLayeredOverlap(),
 
         SizedBox(height: 16),
 
         // Section 5: Visual opacity scale
         _buildSectionTitle('Opacity Scale / Gradient', Icons.gradient),
-        print('[build] Section 5: continuous opacity scale from 0 to 1'),
         Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -709,7 +704,6 @@ dynamic build(BuildContext context) {
 
         // Section 6: Content type specific demos
         _buildSectionTitle('Content Type Gallery', Icons.grid_view),
-        print('[build] Section 6: gallery of different content types with opacity'),
 
         // Row of content types at full opacity
         Container(
@@ -826,7 +820,6 @@ dynamic build(BuildContext context) {
 
         // Section 7: Practical use cases
         _buildSectionTitle('Practical Use Cases', Icons.lightbulb_outline),
-        print('[build] Section 7: practical use cases for animated opacity'),
 
         // Disabled button effect
         Container(

@@ -3,6 +3,7 @@
 // can announce "item X of Y" when navigating scrollable collections.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 
 // -- Helper: gradient header banner
 Widget _buildHeader(String title, String subtitle) {

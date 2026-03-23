@@ -428,7 +428,6 @@ Widget _buildTextWidthBasisDemo(
           width: 250.0,
           child: TextField(
             controller: parentCtrl,
-            textWidthBasis: TextWidthBasis.parent,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.width_normal),
@@ -445,7 +444,6 @@ Widget _buildTextWidthBasisDemo(
           width: 250.0,
           child: TextField(
             controller: longestCtrl,
-            textWidthBasis: TextWidthBasis.longestLine,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.width_wide),

@@ -3,6 +3,7 @@
 // Tests all SystemMouseCursors, opaque, hitTestBehavior, nesting, and practical patterns
 
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 dynamic build(BuildContext context) {
   print('render_mouse_region_test: build() called');

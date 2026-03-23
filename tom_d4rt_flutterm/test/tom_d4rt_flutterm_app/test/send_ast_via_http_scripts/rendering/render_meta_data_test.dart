@@ -1006,7 +1006,7 @@ dynamic build(BuildContext context) {
         _buildAnalyticsPattern(),
 
         // Section 8: Labeled interactive areas
-        _buildSectionTitle(Icons.interactive_space, '8. Labeled Interactive Areas'),
+        _buildSectionTitle(Icons.touch_app, '8. Labeled Interactive Areas'),
         _buildInfoCard(
           'UI Region Labels',
           'Each interactive element carries a metadata label identifying its purpose. '
