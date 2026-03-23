@@ -12,22 +12,40 @@ dynamic build(BuildContext context) {
   var leftAlignCtrl = TextEditingController(text: 'Left aligned text');
   var centerAlignCtrl = TextEditingController(text: 'Center aligned text');
   var rightAlignCtrl = TextEditingController(text: 'Right aligned text');
-  var justifyAlignCtrl = TextEditingController(text: 'Justify aligned text that spans multiple words for demonstration');
+  var justifyAlignCtrl = TextEditingController(
+    text: 'Justify aligned text that spans multiple words for demonstration',
+  );
 
   var ltrCtrl = TextEditingController(text: 'Left-to-right text direction');
   var rtlCtrl = TextEditingController(text: 'Right-to-left text direction');
 
-  var strutCtrl1 = TextEditingController(text: 'Strut with height 1.5 and leading 0.5');
-  var strutCtrl2 = TextEditingController(text: 'Strut with height 2.0 and leading 1.0');
-  var strutCtrl3 = TextEditingController(text: 'Strut with forced height enabled');
+  var strutCtrl1 = TextEditingController(
+    text: 'Strut with height 1.5 and leading 0.5',
+  );
+  var strutCtrl2 = TextEditingController(
+    text: 'Strut with height 2.0 and leading 1.0',
+  );
+  var strutCtrl3 = TextEditingController(
+    text: 'Strut with forced height enabled',
+  );
 
-  var widthBasisParentCtrl = TextEditingController(text: 'TextWidthBasis.parent');
-  var widthBasisLongestCtrl = TextEditingController(text: 'TextWidthBasis.longestLine');
+  var widthBasisParentCtrl = TextEditingController(
+    text: 'TextWidthBasis.parent',
+  );
+  var widthBasisLongestCtrl = TextEditingController(
+    text: 'TextWidthBasis.longestLine',
+  );
 
   var capNoneCtrl = TextEditingController(text: 'no capitalization applied');
-  var capWordsCtrl = TextEditingController(text: 'words capitalization applied');
-  var capSentencesCtrl = TextEditingController(text: 'sentences capitalization applied');
-  var capAllCtrl = TextEditingController(text: 'characters capitalization applied');
+  var capWordsCtrl = TextEditingController(
+    text: 'words capitalization applied',
+  );
+  var capSentencesCtrl = TextEditingController(
+    text: 'sentences capitalization applied',
+  );
+  var capAllCtrl = TextEditingController(
+    text: 'characters capitalization applied',
+  );
 
   var obscureCtrl = TextEditingController(text: 'secret');
   var obscureStarCtrl = TextEditingController(text: 'hidden');
@@ -43,7 +61,9 @@ dynamic build(BuildContext context) {
   var emailCtrl = TextEditingController(text: 'user@example.com');
   var phoneCtrl = TextEditingController(text: '+1234567890');
   var urlCtrl = TextEditingController(text: 'https://example.com');
-  var multilineCtrl = TextEditingController(text: 'Line one\nLine two\nLine three');
+  var multilineCtrl = TextEditingController(
+    text: 'Line one\nLine two\nLine three',
+  );
 
   var digitsOnlyCtrl = TextEditingController(text: '9876');
   var upperCaseCtrl = TextEditingController(text: 'lowercase');
@@ -64,7 +84,12 @@ dynamic build(BuildContext context) {
         // Section 1: Text Alignment
         _buildSectionTitle('1. TextField with Different textAlign Values'),
         SizedBox(height: 8.0),
-        _buildAlignmentDemo(leftAlignCtrl, centerAlignCtrl, rightAlignCtrl, justifyAlignCtrl),
+        _buildAlignmentDemo(
+          leftAlignCtrl,
+          centerAlignCtrl,
+          rightAlignCtrl,
+          justifyAlignCtrl,
+        ),
         SizedBox(height: 24.0),
 
         // Section 2: Text Direction
@@ -88,11 +113,18 @@ dynamic build(BuildContext context) {
         // Section 5: Text Capitalization
         _buildSectionTitle('5. TextField with textCapitalization Modes'),
         SizedBox(height: 8.0),
-        _buildCapitalizationDemo(capNoneCtrl, capWordsCtrl, capSentencesCtrl, capAllCtrl),
+        _buildCapitalizationDemo(
+          capNoneCtrl,
+          capWordsCtrl,
+          capSentencesCtrl,
+          capAllCtrl,
+        ),
         SizedBox(height: 24.0),
 
         // Section 6: Obscure Text
-        _buildSectionTitle('6. TextField with obscureText and obscuringCharacter'),
+        _buildSectionTitle(
+          '6. TextField with obscureText and obscuringCharacter',
+        ),
         SizedBox(height: 8.0),
         _buildObscureDemo(obscureCtrl, obscureStarCtrl, obscureHashCtrl),
         SizedBox(height: 24.0),
@@ -112,13 +144,24 @@ dynamic build(BuildContext context) {
         // Section 9: Keyboard Types
         _buildSectionTitle('9. TextField with Different keyboardType Values'),
         SizedBox(height: 8.0),
-        _buildKeyboardTypeDemo(numberCtrl, emailCtrl, phoneCtrl, urlCtrl, multilineCtrl),
+        _buildKeyboardTypeDemo(
+          numberCtrl,
+          emailCtrl,
+          phoneCtrl,
+          urlCtrl,
+          multilineCtrl,
+        ),
         SizedBox(height: 24.0),
 
         // Section 10: Input Formatters
         _buildSectionTitle('10. TextField with inputFormatters'),
         SizedBox(height: 8.0),
-        _buildInputFormattersDemo(digitsOnlyCtrl, upperCaseCtrl, lengthLimitCtrl, denyCtrl),
+        _buildInputFormattersDemo(
+          digitsOnlyCtrl,
+          upperCaseCtrl,
+          lengthLimitCtrl,
+          denyCtrl,
+        ),
         SizedBox(height: 24.0),
 
         // Footer
@@ -163,10 +206,7 @@ Widget _buildHeader() {
         Text(
           'Editable text rendering: alignment, direction, strut,\nobscuring, formatting, keyboard types, and more',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 14.0, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),
@@ -636,10 +676,7 @@ Widget _buildEditableTextDemo(
           child: EditableText(
             controller: controller,
             focusNode: focusNode,
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Color(0xFF212121),
-            ),
+            style: TextStyle(fontSize: 16.0, color: Color(0xFF212121)),
             cursorColor: Color(0xFF3949AB),
             backgroundCursorColor: Color(0xFFBBDEFB),
             selectionColor: Color(0x663949AB),
@@ -661,7 +698,9 @@ Widget _buildEditableTextDemo(
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: EditableText(
-            controller: TextEditingController(text: 'Custom cursor: orange theme'),
+            controller: TextEditingController(
+              text: 'Custom cursor: orange theme',
+            ),
             focusNode: FocusNode(),
             style: TextStyle(
               fontSize: 18.0,
@@ -736,29 +775,36 @@ Widget _buildMaxLengthDemo(
         TextField(
           controller: TextEditingController(text: 'Custom counter'),
           maxLength: 50,
-          buildCounter: (
-            BuildContext context, {
-            required int currentLength,
-            required bool isFocused,
-            required int? maxLength,
-          }) {
-            print('[maxLength] counter build: $currentLength/$maxLength focused=$isFocused');
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-              decoration: BoxDecoration(
-                color: currentLength > 40 ? Color(0xFFFFCDD2) : Color(0xFFC8E6C9),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: Text(
-                '$currentLength / $maxLength',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: currentLength > 40 ? Color(0xFFC62828) : Color(0xFF2E7D32),
-                ),
-              ),
-            );
-          },
+          buildCounter:
+              (
+                BuildContext context, {
+                required int currentLength,
+                required bool isFocused,
+                required int? maxLength,
+              }) {
+                print(
+                  '[maxLength] counter build: $currentLength/$maxLength focused=$isFocused',
+                );
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                  decoration: BoxDecoration(
+                    color: currentLength > 40
+                        ? Color(0xFFFFCDD2)
+                        : Color(0xFFC8E6C9),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Text(
+                    '$currentLength / $maxLength',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w600,
+                      color: currentLength > 40
+                          ? Color(0xFFC62828)
+                          : Color(0xFF2E7D32),
+                    ),
+                  ),
+                );
+              },
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.format_list_numbered),
@@ -893,9 +939,7 @@ Widget _buildInputFormattersDemo(
         _buildLabel('FilteringTextInputFormatter.digitsOnly'),
         TextField(
           controller: digitsCtrl,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-          ],
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
@@ -911,9 +955,7 @@ Widget _buildInputFormattersDemo(
         _buildLabel('UpperCaseTextFormatter (custom)'),
         TextField(
           controller: upperCtrl,
-          inputFormatters: [
-            UpperCaseTextFormatter(),
-          ],
+          inputFormatters: [UpperCaseTextFormatter()],
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.text_rotation_angleup),
@@ -928,9 +970,7 @@ Widget _buildInputFormattersDemo(
         _buildLabel('LengthLimitingTextInputFormatter(10)'),
         TextField(
           controller: lengthCtrl,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(10),
-          ],
+          inputFormatters: [LengthLimitingTextInputFormatter(10)],
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.straighten),
@@ -945,9 +985,7 @@ Widget _buildInputFormattersDemo(
         _buildLabel('FilteringTextInputFormatter.deny(RegExp(r"[0-9]"))'),
         TextField(
           controller: denyCtrl,
-          inputFormatters: [
-            FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
-          ],
+          inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[0-9]'))],
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.block),
@@ -1030,10 +1068,7 @@ Widget _buildFooter() {
           'capitalization, obscuring, EditableText, maxLength,\n'
           'keyboard types, and input formatters',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Color(0xCCFFFFFF),
-          ),
+          style: TextStyle(fontSize: 12.0, color: Color(0xCCFFFFFF)),
         ),
       ],
     ),

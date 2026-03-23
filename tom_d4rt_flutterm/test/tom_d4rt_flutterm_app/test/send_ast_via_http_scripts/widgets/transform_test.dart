@@ -261,11 +261,7 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(height: 80.0, width: 80.0, child: Center(child: scaled)),
-            SizedBox(
-              height: 80.0,
-              width: 80.0,
-              child: Center(child: scaledXY),
-            ),
+            SizedBox(height: 80.0, width: 80.0, child: Center(child: scaledXY)),
           ],
         ),
         SizedBox(height: 30.0),

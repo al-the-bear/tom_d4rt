@@ -192,18 +192,26 @@ Widget _buildStateCard(
           ],
         ),
         SizedBox(height: 12),
-        ...details.map((d) => Padding(
-          padding: EdgeInsets.only(left: 8, bottom: 4),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('- ', style: TextStyle(color: color, fontWeight: FontWeight.bold)),
-              Expanded(
-                child: Text(d, style: TextStyle(fontSize: 12, color: Color(0xFF444444))),
-              ),
-            ],
+        ...details.map(
+          (d) => Padding(
+            padding: EdgeInsets.only(left: 8, bottom: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '- ',
+                  style: TextStyle(color: color, fontWeight: FontWeight.bold),
+                ),
+                Expanded(
+                  child: Text(
+                    d,
+                    style: TextStyle(fontSize: 12, color: Color(0xFF444444)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -354,7 +362,11 @@ Widget _buildLegendItem(String label, Color color) {
       SizedBox(width: 8),
       Text(
         label,
-        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF444444)),
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: Color(0xFF444444),
+        ),
       ),
     ],
   );
@@ -372,7 +384,9 @@ dynamic build(BuildContext context) {
   print('RenderAnimatedSizeState.start = ${RenderAnimatedSizeState.start}');
   print('RenderAnimatedSizeState.stable = ${RenderAnimatedSizeState.stable}');
   print('RenderAnimatedSizeState.changed = ${RenderAnimatedSizeState.changed}');
-  print('RenderAnimatedSizeState.unstable = ${RenderAnimatedSizeState.unstable}');
+  print(
+    'RenderAnimatedSizeState.unstable = ${RenderAnimatedSizeState.unstable}',
+  );
 
   // Enum index values
   print('start index: ${RenderAnimatedSizeState.start.index}');
@@ -406,9 +420,15 @@ dynamic build(BuildContext context) {
   print('  unstable -> Red ($unstableColor)');
 
   // Equality checks
-  print('start == start: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.start}');
-  print('start == stable: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.stable}');
-  print('changed == unstable: ${RenderAnimatedSizeState.changed == RenderAnimatedSizeState.unstable}');
+  print(
+    'start == start: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.start}',
+  );
+  print(
+    'start == stable: ${RenderAnimatedSizeState.start == RenderAnimatedSizeState.stable}',
+  );
+  print(
+    'changed == unstable: ${RenderAnimatedSizeState.changed == RenderAnimatedSizeState.unstable}',
+  );
 
   // Demonstrate AnimatedSize configurations
   print('--- AnimatedSize Configuration Demos ---');
@@ -433,7 +453,7 @@ dynamic build(BuildContext context) {
         _buildHeader(
           'RenderAnimatedSizeState',
           'Enum representing the animation state of RenderAnimatedSize\n'
-          'Values: start, stable, changed, unstable',
+              'Values: start, stable, changed, unstable',
         ),
         SizedBox(height: 20),
 
@@ -547,29 +567,39 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12),
 
         _buildTransitionArrow(
-          'start', 'stable',
+          'start',
+          'stable',
           'First layout completes',
-          startColor, stableColor,
+          startColor,
+          stableColor,
         ),
         _buildTransitionArrow(
-          'stable', 'changed',
+          'stable',
+          'changed',
           'Child size differs from current',
-          stableColor, changedColor,
+          stableColor,
+          changedColor,
         ),
         _buildTransitionArrow(
-          'changed', 'stable',
+          'changed',
+          'stable',
           'Animation completes, size settled',
-          changedColor, stableColor,
+          changedColor,
+          stableColor,
         ),
         _buildTransitionArrow(
-          'changed', 'unstable',
+          'changed',
+          'unstable',
           'Child changes size again mid-animation',
-          changedColor, unstableColor,
+          changedColor,
+          unstableColor,
         ),
         _buildTransitionArrow(
-          'unstable', 'changed',
+          'unstable',
+          'changed',
           'New animation begins with latest size',
-          unstableColor, changedColor,
+          unstableColor,
+          changedColor,
         ),
 
         SizedBox(height: 8),
@@ -600,11 +630,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: startColor, shape: BoxShape.circle),
-                    child: Center(child: Text('1', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                    decoration: BoxDecoration(
+                      color: startColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('Widget created -> state = start', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'Widget created -> state = start',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6),
@@ -614,11 +661,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: stableColor, shape: BoxShape.circle),
-                    child: Center(child: Text('2', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                    decoration: BoxDecoration(
+                      color: stableColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '2',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('First layout done -> state = stable', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'First layout done -> state = stable',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6),
@@ -628,11 +692,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: changedColor, shape: BoxShape.circle),
-                    child: Center(child: Text('3', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                    decoration: BoxDecoration(
+                      color: changedColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '3',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('Child resizes -> state = changed (animating)', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'Child resizes -> state = changed (animating)',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6),
@@ -642,11 +723,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: stableColor, shape: BoxShape.circle),
-                    child: Center(child: Text('4a', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    decoration: BoxDecoration(
+                      color: stableColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '4a',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('Animation completes -> state = stable', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'Animation completes -> state = stable',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6),
@@ -656,11 +754,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: unstableColor, shape: BoxShape.circle),
-                    child: Center(child: Text('4b', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    decoration: BoxDecoration(
+                      color: unstableColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '4b',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('Child resizes again mid-animation -> state = unstable', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'Child resizes again mid-animation -> state = unstable',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6),
@@ -670,11 +785,28 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28,
                     height: 28,
-                    decoration: BoxDecoration(color: changedColor, shape: BoxShape.circle),
-                    child: Center(child: Text('5', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                    decoration: BoxDecoration(
+                      color: changedColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '5',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(child: Text('Restarts with new target -> state = changed', style: TextStyle(fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      'Restarts with new target -> state = changed',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -686,7 +818,10 @@ dynamic build(BuildContext context) {
         // ============================================================
         // SECTION 3: AnimatedSize with Different Curves
         // ============================================================
-        _buildSectionTitle('AnimatedSize with Different Curves', Icons.show_chart),
+        _buildSectionTitle(
+          'AnimatedSize with Different Curves',
+          Icons.show_chart,
+        ),
         Text(
           'AnimatedSize uses curves to control the animation easing. '
           'Different curves produce visually distinct size transitions.',
@@ -696,43 +831,61 @@ dynamic build(BuildContext context) {
 
         _buildAnimatedSizeDemo(
           'Curves.easeInOut (default feel)',
-          200, 60, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.center,
+          200,
+          60,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFF42A5F5),
         ),
 
         _buildAnimatedSizeDemo(
           'Curves.bounceOut',
-          180, 55, Duration(milliseconds: 800),
-          Curves.bounceOut, Alignment.center,
+          180,
+          55,
+          Duration(milliseconds: 800),
+          Curves.bounceOut,
+          Alignment.center,
           Color(0xFF66BB6A),
         ),
 
         _buildAnimatedSizeDemo(
           'Curves.elasticOut',
-          220, 65, Duration(milliseconds: 1000),
-          Curves.elasticOut, Alignment.center,
+          220,
+          65,
+          Duration(milliseconds: 1000),
+          Curves.elasticOut,
+          Alignment.center,
           Color(0xFFAB47BC),
         ),
 
         _buildAnimatedSizeDemo(
           'Curves.fastOutSlowIn',
-          190, 50, Duration(milliseconds: 400),
-          Curves.fastOutSlowIn, Alignment.center,
+          190,
+          50,
+          Duration(milliseconds: 400),
+          Curves.fastOutSlowIn,
+          Alignment.center,
           Color(0xFFFF7043),
         ),
 
         _buildAnimatedSizeDemo(
           'Curves.decelerate',
-          210, 70, Duration(milliseconds: 600),
-          Curves.decelerate, Alignment.center,
+          210,
+          70,
+          Duration(milliseconds: 600),
+          Curves.decelerate,
+          Alignment.center,
           Color(0xFF26C6DA),
         ),
 
         _buildAnimatedSizeDemo(
           'Curves.linear',
-          170, 45, Duration(milliseconds: 300),
-          Curves.linear, Alignment.center,
+          170,
+          45,
+          Duration(milliseconds: 300),
+          Curves.linear,
+          Alignment.center,
           Color(0xFFEF5350),
         ),
 
@@ -750,12 +903,19 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Curve Characteristics',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF6A1B9A)),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF6A1B9A),
+                ),
               ),
               SizedBox(height: 8),
               _buildInfoRow('easeInOut', 'Smooth start and end, natural feel'),
               _buildInfoRow('bounceOut', 'Bounces at the end, playful effect'),
-              _buildInfoRow('elasticOut', 'Overshoots then settles, spring-like'),
+              _buildInfoRow(
+                'elasticOut',
+                'Overshoots then settles, spring-like',
+              ),
               _buildInfoRow('fastOutSlowIn', 'Quick start, gradual stop'),
               _buildInfoRow('decelerate', 'Starts fast, slows to stop'),
               _buildInfoRow('linear', 'Constant speed throughout'),
@@ -768,7 +928,10 @@ dynamic build(BuildContext context) {
         // ============================================================
         // SECTION 4: AnimatedSize with Different Durations
         // ============================================================
-        _buildSectionTitle('AnimatedSize with Different Durations', Icons.timer),
+        _buildSectionTitle(
+          'AnimatedSize with Different Durations',
+          Icons.timer,
+        ),
         Text(
           'Duration controls how long the size animation takes. '
           'Shorter durations feel snappier, longer durations feel smoother.',
@@ -778,36 +941,51 @@ dynamic build(BuildContext context) {
 
         _buildAnimatedSizeDemo(
           '100ms - Very fast',
-          160, 40, Duration(milliseconds: 100),
-          Curves.easeInOut, Alignment.center,
+          160,
+          40,
+          Duration(milliseconds: 100),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFFEF5350),
         ),
 
         _buildAnimatedSizeDemo(
           '300ms - Typical UI',
-          180, 50, Duration(milliseconds: 300),
-          Curves.easeInOut, Alignment.center,
+          180,
+          50,
+          Duration(milliseconds: 300),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFFFFA726),
         ),
 
         _buildAnimatedSizeDemo(
           '500ms - Noticeable',
-          200, 60, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.center,
+          200,
+          60,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFF66BB6A),
         ),
 
         _buildAnimatedSizeDemo(
           '1000ms - Slow and dramatic',
-          220, 70, Duration(milliseconds: 1000),
-          Curves.easeInOut, Alignment.center,
+          220,
+          70,
+          Duration(milliseconds: 1000),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFF42A5F5),
         ),
 
         _buildAnimatedSizeDemo(
           '2000ms - Very slow',
-          240, 80, Duration(milliseconds: 2000),
-          Curves.easeInOut, Alignment.center,
+          240,
+          80,
+          Duration(milliseconds: 2000),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFF7E57C2),
         ),
 
@@ -841,7 +1019,10 @@ dynamic build(BuildContext context) {
         // ============================================================
         // SECTION 5: AnimatedSize with Different Alignments
         // ============================================================
-        _buildSectionTitle('AnimatedSize with Different Alignments', Icons.format_align_center),
+        _buildSectionTitle(
+          'AnimatedSize with Different Alignments',
+          Icons.format_align_center,
+        ),
         Text(
           'Alignment determines where the child is positioned within '
           'the animated size boundary during transitions.',
@@ -851,50 +1032,71 @@ dynamic build(BuildContext context) {
 
         _buildAnimatedSizeDemo(
           'Alignment.topLeft',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.topLeft,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.topLeft,
           Color(0xFF42A5F5),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.topCenter',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.topCenter,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.topCenter,
           Color(0xFF66BB6A),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.topRight',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.topRight,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.topRight,
           Color(0xFFFFA726),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.center (default)',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.center,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.center,
           Color(0xFFAB47BC),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.bottomLeft',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.bottomLeft,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.bottomLeft,
           Color(0xFFEF5350),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.bottomCenter',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.bottomCenter,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.bottomCenter,
           Color(0xFF26C6DA),
         ),
 
         _buildAnimatedSizeDemo(
           'Alignment.bottomRight',
-          150, 50, Duration(milliseconds: 500),
-          Curves.easeInOut, Alignment.bottomRight,
+          150,
+          50,
+          Duration(milliseconds: 500),
+          Curves.easeInOut,
+          Alignment.bottomRight,
           Color(0xFF8D6E63),
         ),
 
@@ -912,7 +1114,11 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Alignment Grid',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF283593)),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF283593),
+                ),
               ),
               SizedBox(height: 10),
               // Top row
@@ -965,7 +1171,8 @@ dynamic build(BuildContext context) {
         _buildContentSizeDemo(
           'Small Content',
           'Compact widget inside AnimatedSize',
-          80, 40,
+          80,
+          40,
           Color(0xFF42A5F5),
         ),
 
@@ -973,8 +1180,9 @@ dynamic build(BuildContext context) {
         _buildContentSizeDemo(
           'Medium Content',
           'A medium-sized child widget that demonstrates how AnimatedSize '
-          'adapts to moderately sized content',
-          200, 80,
+              'adapts to moderately sized content',
+          200,
+          80,
           Color(0xFF66BB6A),
         ),
 
@@ -982,9 +1190,10 @@ dynamic build(BuildContext context) {
         _buildContentSizeDemo(
           'Large Content',
           'A significantly larger child widget demonstrating how AnimatedSize '
-          'handles bigger content. This shows the widget at a larger dimension '
-          'to illustrate the full range of size animation capabilities.',
-          280, 120,
+              'handles bigger content. This shows the widget at a larger dimension '
+              'to illustrate the full range of size animation capabilities.',
+          280,
+          120,
           Color(0xFFFFA726),
         ),
 
@@ -992,7 +1201,8 @@ dynamic build(BuildContext context) {
         _buildContentSizeDemo(
           'Tall Thin Content',
           'Narrow but tall content',
-          100, 150,
+          100,
+          150,
           Color(0xFFAB47BC),
         ),
 
@@ -1000,7 +1210,8 @@ dynamic build(BuildContext context) {
         _buildContentSizeDemo(
           'Wide Short Content',
           'A wider but shorter widget',
-          300, 35,
+          300,
+          35,
           Color(0xFFEF5350),
         ),
 
@@ -1054,7 +1265,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 10),
               Text(
                 'Usage in Code:',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF444444)),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF444444),
+                ),
               ),
               SizedBox(height: 6),
               Container(
@@ -1069,19 +1284,35 @@ dynamic build(BuildContext context) {
                   children: [
                     Text(
                       'RenderAnimatedSizeState.start',
-                      style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: startColor),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: startColor,
+                      ),
                     ),
                     Text(
                       'RenderAnimatedSizeState.stable',
-                      style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: stableColor),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: stableColor,
+                      ),
                     ),
                     Text(
                       'RenderAnimatedSizeState.changed',
-                      style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: changedColor),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: changedColor,
+                      ),
                     ),
                     Text(
                       'RenderAnimatedSizeState.unstable',
-                      style: TextStyle(fontSize: 12, fontFamily: 'monospace', color: unstableColor),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: unstableColor,
+                      ),
                     ),
                   ],
                 ),
@@ -1124,7 +1355,7 @@ dynamic build(BuildContext context) {
           'T=10',
           'Child Resized',
           'Child reports new intrinsic size, transitions to changed '
-          'and starts animation toward new size',
+              'and starts animation toward new size',
           changedColor,
           Icons.open_with,
           false,
@@ -1133,7 +1364,7 @@ dynamic build(BuildContext context) {
           'T=15',
           'Animation Running',
           'AnimationController is active, interpolating between '
-          'old and new size using configured curve and duration',
+              'old and new size using configured curve and duration',
           changedColor,
           Icons.play_arrow,
           false,
@@ -1142,7 +1373,7 @@ dynamic build(BuildContext context) {
           'T=20',
           'Animation Done',
           'Size reaches target, animation controller completes, '
-          'state returns to stable',
+              'state returns to stable',
           stableColor,
           Icons.stop,
           false,
@@ -1151,7 +1382,7 @@ dynamic build(BuildContext context) {
           'T=30',
           'Rapid Resizing',
           'Child changes size while already animating, '
-          'transitions to unstable',
+              'transitions to unstable',
           unstableColor,
           Icons.warning,
           false,
@@ -1160,7 +1391,7 @@ dynamic build(BuildContext context) {
           'T=31',
           'Recovery',
           'New animation starts with latest target, '
-          'returns to changed state',
+              'returns to changed state',
           changedColor,
           Icons.refresh,
           false,
@@ -1169,7 +1400,7 @@ dynamic build(BuildContext context) {
           'T=41',
           'Final Stable',
           'Animation completes without interruption, '
-          'back to stable. Widget is at rest.',
+              'back to stable. Widget is at rest.',
           stableColor,
           Icons.done_all,
           true,
@@ -1202,7 +1433,10 @@ dynamic build(BuildContext context) {
               height: 60,
               color: Color(0xFF42A5F5).withAlpha(30),
               child: Center(
-                child: Text('Expandable area', style: TextStyle(color: Color(0xFF42A5F5))),
+                child: Text(
+                  'Expandable area',
+                  style: TextStyle(color: Color(0xFF42A5F5)),
+                ),
               ),
             ),
           ),
@@ -1223,17 +1457,23 @@ dynamic build(BuildContext context) {
                 Container(
                   height: 32,
                   color: Color(0xFF66BB6A).withAlpha(20),
-                  child: Center(child: Text('Item 1', style: TextStyle(fontSize: 12))),
+                  child: Center(
+                    child: Text('Item 1', style: TextStyle(fontSize: 12)),
+                  ),
                 ),
                 Container(
                   height: 32,
                   color: Color(0xFF66BB6A).withAlpha(40),
-                  child: Center(child: Text('Item 2', style: TextStyle(fontSize: 12))),
+                  child: Center(
+                    child: Text('Item 2', style: TextStyle(fontSize: 12)),
+                  ),
                 ),
                 Container(
                   height: 32,
                   color: Color(0xFF66BB6A).withAlpha(60),
-                  child: Center(child: Text('Item 3', style: TextStyle(fontSize: 12))),
+                  child: Center(
+                    child: Text('Item 3', style: TextStyle(fontSize: 12)),
+                  ),
                 ),
               ],
             ),
@@ -1262,7 +1502,10 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.image, color: Color(0xFFFFA726), size: 32),
                     SizedBox(height: 4),
-                    Text('Image placeholder', style: TextStyle(fontSize: 11, color: Color(0xFFFFA726))),
+                    Text(
+                      'Image placeholder',
+                      style: TextStyle(fontSize: 11, color: Color(0xFFFFA726)),
+                    ),
                   ],
                 ),
               ),
@@ -1294,7 +1537,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Values:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF00695C)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Color(0xFF00695C),
+                ),
               ),
               SizedBox(height: 6),
               _buildInfoRow('start', 'Initial state, no layout yet'),
@@ -1305,7 +1552,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Properties (inherited from Enum):',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF00695C)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Color(0xFF00695C),
+                ),
               ),
               SizedBox(height: 6),
               _buildInfoRow('index', 'Zero-based position of the value'),
@@ -1316,11 +1567,21 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Used by:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF00695C)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Color(0xFF00695C),
+                ),
               ),
               SizedBox(height: 6),
-              _buildInfoRow('RenderAnimatedSize', 'The render object that tracks this state'),
-              _buildInfoRow('AnimatedSize', 'Widget wrapper for RenderAnimatedSize'),
+              _buildInfoRow(
+                'RenderAnimatedSize',
+                'The render object that tracks this state',
+              ),
+              _buildInfoRow(
+                'AnimatedSize',
+                'Widget wrapper for RenderAnimatedSize',
+              ),
             ],
           ),
         ),
@@ -1331,7 +1592,7 @@ dynamic build(BuildContext context) {
         _buildHeader(
           'Demo Complete',
           'RenderAnimatedSizeState: start | stable | changed | unstable\n'
-          'Four states governing AnimatedSize animation lifecycle',
+              'Four states governing AnimatedSize animation lifecycle',
         ),
 
         SizedBox(height: 16),
@@ -1386,7 +1647,11 @@ Widget _buildContentSizeDemo(
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Color(0xFF00695C)),
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF00695C),
+          ),
         ),
         SizedBox(height: 4),
         Text(
@@ -1449,11 +1714,7 @@ Widget _buildTimelineEvent(
             child: Center(child: Icon(icon, color: Colors.white, size: 16)),
           ),
           if (!isTerminal)
-            Container(
-              width: 2,
-              height: 40,
-              color: color.withAlpha(80),
-            ),
+            Container(width: 2, height: 40, color: color.withAlpha(80)),
         ],
       ),
       SizedBox(width: 12),
@@ -1480,7 +1741,11 @@ Widget _buildTimelineEvent(
                     ),
                     child: Text(
                       time,
-                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      ),
                     ),
                   ),
                   SizedBox(width: 8),

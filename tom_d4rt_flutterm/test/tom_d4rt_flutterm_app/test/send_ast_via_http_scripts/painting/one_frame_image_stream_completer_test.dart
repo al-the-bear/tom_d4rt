@@ -343,10 +343,7 @@ Widget buildLifecycleStep(int step, String title, String description) {
         Container(
           width: 32,
           height: 32,
-          decoration: BoxDecoration(
-            color: Colors.teal,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: Colors.teal, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$step',
@@ -470,19 +467,19 @@ Widget buildFeatureCard(String feature, bool hasFeature) {
 
 void demonstrateOneFrameImageStreamCompleterConstructor() {
   print('\n=== OneFrameImageStreamCompleter Constructor Demo ===');
-  
+
   print('\nConstructor signature:');
   print('OneFrameImageStreamCompleter(');
   print('  Future<ImageInfo> image, {');
   print('  InformationCollector? informationCollector,');
   print('})');
-  
+
   print('\nKey characteristics:');
   print('- Takes a Future<ImageInfo> as the primary parameter');
   print('- Future resolves to a single image frame');
   print('- No codec parameter needed (unlike MultiFrame)');
   print('- Simpler construction for static images');
-  
+
   print('\nImageInfo contains:');
   print('- ui.Image image: The decoded image data');
   print('- double scale: The intended display scale');
@@ -491,12 +488,12 @@ void demonstrateOneFrameImageStreamCompleterConstructor() {
 
 void demonstrateImageFutureParameter() {
   print('\n=== Image Future Parameter Demo ===');
-  
+
   print('\nThe Future<ImageInfo> parameter:');
   print('- Represents async image loading operation');
   print('- Resolves when image bytes are decoded');
   print('- Contains the final ui.Image and metadata');
-  
+
   print('\nCreating ImageInfo:');
   print('Future<ImageInfo> loadImage() async {');
   print('  final bytes = await fetchBytes();');
@@ -504,12 +501,12 @@ void demonstrateImageFutureParameter() {
   print('  final frame = await codec.getNextFrame();');
   print('  return ImageInfo(image: frame.image);');
   print('}');
-  
+
   print('\nFuture states handled:');
   print('1. Pending: Listeners wait for completion');
   print('2. Completed: All listeners notified with ImageInfo');
   print('3. Error: Error forwarded to listeners via onError');
-  
+
   print('\nWhen Future completes:');
   print('- setImage() is called internally');
   print('- All registered listeners receive the image');
@@ -518,25 +515,25 @@ void demonstrateImageFutureParameter() {
 
 void demonstrateScaleParameter() {
   print('\n=== Scale Parameter Demo ===');
-  
+
   print('\nImageInfo scale property:');
   print('- Indicates device pixel ratio for the image');
   print('- 1.0 = standard density');
   print('- 2.0 = @2x retina/high-DPI');
   print('- 3.0 = @3x extra-high density');
-  
+
   print('\nScale affects rendering:');
   print('- Logical size = physical size / scale');
   print('- 200x200 image at 2.0 scale = 100x100 logical');
   print('- Ensures crisp display on high-DPI screens');
-  
+
   print('\nCommon scale values:');
   print('- 1.0: MDPI Android, standard desktop');
   print('- 1.5: HDPI Android');
   print('- 2.0: @2x iOS, XHDPI Android');
   print('- 3.0: @3x iOS, XXHDPI Android');
   print('- 4.0: XXXHDPI Android');
-  
+
   print('\nSetting scale in ImageInfo:');
   print('ImageInfo(');
   print('  image: decodedImage,');
@@ -546,25 +543,25 @@ void demonstrateScaleParameter() {
 
 void demonstrateDebugLabel() {
   print('\n=== Debug Label Demo ===');
-  
+
   print('\nPurpose of debugLabel:');
   print('- Identifies images in debug output');
   print('- Appears in flutter inspector');
   print('- Helps trace image loading issues');
   print('- Optional but recommended for debugging');
-  
+
   print('\nSetting debugLabel:');
   print('ImageInfo(');
   print('  image: decodedImage,');
   print('  debugLabel: "profile_avatar"');
   print(')');
-  
+
   print('\nEffective labeling patterns:');
   print('- Include source: "network:example.com/img.png"');
   print('- Include asset path: "asset:images/logo.png"');
   print('- Include context: "user_123_avatar"');
   print('- Include size: "thumbnail_64x64"');
-  
+
   print('\nWhere debugLabel appears:');
   print('- ImageStreamCompleter.debugLabel property');
   print('- DevTools image list');
@@ -574,28 +571,28 @@ void demonstrateDebugLabel() {
 
 void demonstrateSingleVsMultiFrameComparison() {
   print('\n=== Single Frame vs Multi-Frame Comparison ===');
-  
+
   print('\nOneFrameImageStreamCompleter:');
   print('- For static images (JPEG, PNG, BMP, WebP static)');
   print('- Single Future<ImageInfo>');
   print('- No animation support');
   print('- Simpler memory management');
   print('- Notifies listeners once');
-  
+
   print('\nMultiFrameImageStreamCompleter:');
   print('- For animated images (GIF, APNG, WebP animated)');
   print('- Uses ui.Codec for frame iteration');
   print('- Manages frame timing');
   print('- Continuous listener notification');
   print('- More complex lifecycle');
-  
+
   print('\nWhen to use OneFrame:');
   print('- JPEG photographs');
   print('- PNG icons and graphics');
   print('- BMP legacy images');
   print('- Static WebP images');
   print('- SVG rasterized outputs');
-  
+
   print('\nWhen to use MultiFrame:');
   print('- Animated GIFs');
   print('- Animated PNGs (APNG)');
@@ -605,20 +602,20 @@ void demonstrateSingleVsMultiFrameComparison() {
 
 void demonstrateErrorHandling() {
   print('\n=== Error Handling Demo ===');
-  
+
   print('\nError scenarios:');
   print('1. Network failure during fetch');
   print('2. Invalid/corrupted image bytes');
   print('3. Unsupported image format');
   print('4. Memory allocation failure');
   print('5. Codec initialization error');
-  
+
   print('\nError propagation:');
   print('- Future rejects with error');
   print('- OneFrameImageStreamCompleter catches it');
   print('- Calls reportError() internally');
   print('- Listeners onError callback invoked');
-  
+
   print('\nHandling errors with InformationCollector:');
   print('OneFrameImageStreamCompleter(');
   print('  imageFuture,');
@@ -627,13 +624,13 @@ void demonstrateErrorHandling() {
   print('    IntProperty("retry", retryCount),');
   print('  ],');
   print(')');
-  
+
   print('\nListening for errors:');
   print('stream.addListener(ImageStreamListener(');
   print('  (image, sync) => handleImage(image),');
   print('  onError: (error, stack) => handleError(error),');
   print('))');
-  
+
   print('\nRecovery strategies:');
   print('- Retry with exponential backoff');
   print('- Fall back to placeholder image');
@@ -814,10 +811,7 @@ Widget buildDebugLabelSection() {
         'Purpose',
         'Identifies images in DevTools and error messages',
       ),
-      buildInfoCard(
-        'Type',
-        'String? - optional identifier string',
-      ),
+      buildInfoCard('Type', 'String? - optional identifier string'),
       SizedBox(height: 12),
       Text(
         'Effective Label Patterns:',
@@ -1113,16 +1107,16 @@ Widget buildBestPracticesSection() {
 dynamic build(BuildContext context) {
   print('=== OneFrameImageStreamCompleter Deep Demo ===');
   print('Testing static image loading completer');
-  
+
   demonstrateOneFrameImageStreamCompleterConstructor();
   demonstrateImageFutureParameter();
   demonstrateScaleParameter();
   demonstrateDebugLabel();
   demonstrateSingleVsMultiFrameComparison();
   demonstrateErrorHandling();
-  
+
   print('\n=== Creating Visual Demo ===');
-  
+
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
     child: Column(
@@ -1155,10 +1149,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'Static Image Loading for Flutter',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 8),
@@ -1170,10 +1161,7 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   'painting library',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
               ),
             ],
@@ -1200,18 +1188,12 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Demo Complete',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
                 'OneFrameImageStreamCompleter handles single-frame static images with simple async loading, scale support, and comprehensive error handling.',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
                 textAlign: TextAlign.center,
               ),
             ],

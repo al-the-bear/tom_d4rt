@@ -96,7 +96,9 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('SingleChildScrollView with BouncingScrollPhysics created: $physicsScrollView');
+  print(
+    'SingleChildScrollView with BouncingScrollPhysics created: $physicsScrollView',
+  );
 
   // Test SingleChildScrollView with ClampingScrollPhysics
   final clampingScrollView = SizedBox(
@@ -112,7 +114,9 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('SingleChildScrollView with ClampingScrollPhysics created: $clampingScrollView');
+  print(
+    'SingleChildScrollView with ClampingScrollPhysics created: $clampingScrollView',
+  );
 
   // Test SingleChildScrollView with primary
   final primaryScrollView = SizedBox(

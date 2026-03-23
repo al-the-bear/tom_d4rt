@@ -38,7 +38,8 @@ class D4rtCustomPainter extends CustomPainter {
   final bool? Function(Offset)? onHitTest;
 
   /// Callback for [CustomPainter.semanticsBuilder].
-  final List<CustomPainterSemantics> Function(Size)? Function()? onSemanticsBuilder;
+  final List<CustomPainterSemantics> Function(Size)? Function()?
+  onSemanticsBuilder;
 
   /// Creates a [D4rtCustomPainter] with callback implementations.
   D4rtCustomPainter({
@@ -52,32 +53,36 @@ class D4rtCustomPainter extends CustomPainter {
   });
 
   @override
-  void paint(Canvas canvas, Size size) =>
-      onPaint(canvas, size);
+  void paint(Canvas canvas, Size size) => onPaint(canvas, size);
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) =>
-      onShouldRepaint(oldDelegate);
+  bool shouldRepaint(CustomPainter oldDelegate) => onShouldRepaint(oldDelegate);
 
   @override
-  void addListener(void Function() listener) =>
-      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+  void addListener(void Function() listener) => onAddListener != null
+      ? onAddListener!(listener)
+      : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
-      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+  void removeListener(void Function() listener) => onRemoveListener != null
+      ? onRemoveListener!(listener)
+      : super.removeListener(listener);
 
   @override
   bool shouldRebuildSemantics(CustomPainter oldDelegate) =>
-      onShouldRebuildSemantics != null ? onShouldRebuildSemantics!(oldDelegate) : super.shouldRebuildSemantics(oldDelegate);
+      onShouldRebuildSemantics != null
+      ? onShouldRebuildSemantics!(oldDelegate)
+      : super.shouldRebuildSemantics(oldDelegate);
 
   @override
   bool? hitTest(Offset position) =>
       onHitTest != null ? onHitTest!(position) : super.hitTest(position);
 
   @override
-  List<CustomPainterSemantics> Function(Size)? get semanticsBuilder => onSemanticsBuilder != null ? onSemanticsBuilder!() : super.semanticsBuilder;
-
+  List<CustomPainterSemantics> Function(Size)? get semanticsBuilder =>
+      onSemanticsBuilder != null
+      ? onSemanticsBuilder!()
+      : super.semanticsBuilder;
 }
 
 /// D4rt proxy for [CustomClipper].
@@ -111,25 +116,25 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   });
 
   @override
-  T getClip(Size size) =>
-      onGetClip(size);
+  T getClip(Size size) => onGetClip(size);
 
   @override
-  bool shouldReclip(CustomClipper<T> oldClipper) =>
-      onShouldReclip(oldClipper);
+  bool shouldReclip(CustomClipper<T> oldClipper) => onShouldReclip(oldClipper);
 
   @override
-  void addListener(void Function() listener) =>
-      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+  void addListener(void Function() listener) => onAddListener != null
+      ? onAddListener!(listener)
+      : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
-      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+  void removeListener(void Function() listener) => onRemoveListener != null
+      ? onRemoveListener!(listener)
+      : super.removeListener(listener);
 
   @override
-  Rect getApproximateClipRect(Size size) =>
-      onGetApproximateClipRect != null ? onGetApproximateClipRect!(size) : super.getApproximateClipRect(size);
-
+  Rect getApproximateClipRect(Size size) => onGetApproximateClipRect != null
+      ? onGetApproximateClipRect!(size)
+      : super.getApproximateClipRect(size);
 }
 
 /// D4rt proxy for [FlowDelegate].
@@ -163,12 +168,10 @@ class D4rtFlowDelegate extends FlowDelegate {
   });
 
   @override
-  void paintChildren(FlowPaintingContext context) =>
-      onPaintChildren(context);
+  void paintChildren(FlowPaintingContext context) => onPaintChildren(context);
 
   @override
-  bool shouldRepaint(FlowDelegate oldDelegate) =>
-      onShouldRepaint(oldDelegate);
+  bool shouldRepaint(FlowDelegate oldDelegate) => onShouldRepaint(oldDelegate);
 
   @override
   Size getSize(BoxConstraints constraints) =>
@@ -176,12 +179,14 @@ class D4rtFlowDelegate extends FlowDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) =>
-      onGetConstraintsForChild != null ? onGetConstraintsForChild!(i, constraints) : super.getConstraintsForChild(i, constraints);
+      onGetConstraintsForChild != null
+      ? onGetConstraintsForChild!(i, constraints)
+      : super.getConstraintsForChild(i, constraints);
 
   @override
-  bool shouldRelayout(FlowDelegate oldDelegate) =>
-      onShouldRelayout != null ? onShouldRelayout!(oldDelegate) : super.shouldRelayout(oldDelegate);
-
+  bool shouldRelayout(FlowDelegate oldDelegate) => onShouldRelayout != null
+      ? onShouldRelayout!(oldDelegate)
+      : super.shouldRelayout(oldDelegate);
 }
 
 /// D4rt proxy for [MultiChildLayoutDelegate].
@@ -219,8 +224,7 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
   });
 
   @override
-  void performLayout(Size size) =>
-      onPerformLayout(size);
+  void performLayout(Size size) => onPerformLayout(size);
 
   @override
   bool shouldRelayout(MultiChildLayoutDelegate oldDelegate) =>
@@ -232,16 +236,18 @@ class D4rtMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
 
   @override
   Size layoutChild(Object childId, BoxConstraints constraints) =>
-      onLayoutChild != null ? onLayoutChild!(childId, constraints) : super.layoutChild(childId, constraints);
+      onLayoutChild != null
+      ? onLayoutChild!(childId, constraints)
+      : super.layoutChild(childId, constraints);
 
   @override
-  void positionChild(Object childId, Offset offset) =>
-      onPositionChild != null ? onPositionChild!(childId, offset) : super.positionChild(childId, offset);
+  void positionChild(Object childId, Offset offset) => onPositionChild != null
+      ? onPositionChild!(childId, offset)
+      : super.positionChild(childId, offset);
 
   @override
   Size getSize(BoxConstraints constraints) =>
       onGetSize != null ? onGetSize!(constraints) : super.getSize(constraints);
-
 }
 
 /// D4rt proxy for [SingleChildLayoutDelegate].
@@ -280,12 +286,15 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
-      onGetConstraintsForChild != null ? onGetConstraintsForChild!(constraints) : super.getConstraintsForChild(constraints);
+      onGetConstraintsForChild != null
+      ? onGetConstraintsForChild!(constraints)
+      : super.getConstraintsForChild(constraints);
 
   @override
   Offset getPositionForChild(Size size, Size childSize) =>
-      onGetPositionForChild != null ? onGetPositionForChild!(size, childSize) : super.getPositionForChild(size, childSize);
-
+      onGetPositionForChild != null
+      ? onGetPositionForChild!(size, childSize)
+      : super.getPositionForChild(size, childSize);
 }
 
 /// D4rt proxy for [SliverPersistentHeaderDelegate].
@@ -293,7 +302,8 @@ class D4rtSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
 /// Delegates abstract methods to callback functions, enabling
 /// D4rt scripts to implement [SliverPersistentHeaderDelegate] via named
 /// function parameters.
-class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+class D4rtSliverPersistentHeaderDelegate
+    extends SliverPersistentHeaderDelegate {
   /// Callback for [SliverPersistentHeaderDelegate.build].
   final Widget Function(BuildContext, double, bool) onBuild;
 
@@ -313,10 +323,12 @@ class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate 
   final FloatingHeaderSnapConfiguration? Function()? onSnapConfiguration;
 
   /// Callback for [SliverPersistentHeaderDelegate.stretchConfiguration].
-  final OverScrollHeaderStretchConfiguration? Function()? onStretchConfiguration;
+  final OverScrollHeaderStretchConfiguration? Function()?
+  onStretchConfiguration;
 
   /// Callback for [SliverPersistentHeaderDelegate.showOnScreenConfiguration].
-  final PersistentHeaderShowOnScreenConfiguration? Function()? onShowOnScreenConfiguration;
+  final PersistentHeaderShowOnScreenConfiguration? Function()?
+  onShowOnScreenConfiguration;
 
   /// Creates a [D4rtSliverPersistentHeaderDelegate] with callback implementations.
   D4rtSliverPersistentHeaderDelegate({
@@ -331,8 +343,11 @@ class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate 
   });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) =>
-      onBuild(context, shrinkOffset, overlapsContent);
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) => onBuild(context, shrinkOffset, overlapsContent);
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) =>
@@ -348,14 +363,22 @@ class D4rtSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate 
   TickerProvider? get vsync => onVsync != null ? onVsync!() : super.vsync;
 
   @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => onSnapConfiguration != null ? onSnapConfiguration!() : super.snapConfiguration;
+  FloatingHeaderSnapConfiguration? get snapConfiguration =>
+      onSnapConfiguration != null
+      ? onSnapConfiguration!()
+      : super.snapConfiguration;
 
   @override
-  OverScrollHeaderStretchConfiguration? get stretchConfiguration => onStretchConfiguration != null ? onStretchConfiguration!() : super.stretchConfiguration;
+  OverScrollHeaderStretchConfiguration? get stretchConfiguration =>
+      onStretchConfiguration != null
+      ? onStretchConfiguration!()
+      : super.stretchConfiguration;
 
   @override
-  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration => onShowOnScreenConfiguration != null ? onShowOnScreenConfiguration!() : super.showOnScreenConfiguration;
-
+  PersistentHeaderShowOnScreenConfiguration? get showOnScreenConfiguration =>
+      onShowOnScreenConfiguration != null
+      ? onShowOnScreenConfiguration!()
+      : super.showOnScreenConfiguration;
 }
 
 /// D4rt proxy for [DataTableSource].
@@ -405,8 +428,7 @@ class D4rtDataTableSource extends DataTableSource {
   });
 
   @override
-  DataRow? getRow(int index) =>
-      onGetRow(index);
+  DataRow? getRow(int index) => onGetRow(index);
 
   @override
   int get rowCount => onRowCount();
@@ -418,24 +440,26 @@ class D4rtDataTableSource extends DataTableSource {
   int get selectedRowCount => onSelectedRowCount();
 
   @override
-  void addListener(void Function() listener) =>
-      onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
+  void addListener(void Function() listener) => onAddListener != null
+      ? onAddListener!(listener)
+      : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
-      onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
+  void removeListener(void Function() listener) => onRemoveListener != null
+      ? onRemoveListener!(listener)
+      : super.removeListener(listener);
 
   @override
-  void dispose() =>
-      onDispose != null ? onDispose!() : super.dispose();
+  void dispose() => onDispose != null ? onDispose!() : super.dispose();
 
   @override
-  void notifyListeners() =>
-      onNotifyListeners != null ? onNotifyListeners!() : super.notifyListeners();
+  void notifyListeners() => onNotifyListeners != null
+      ? onNotifyListeners!()
+      : super.notifyListeners();
 
   @override
-  bool get hasListeners => onHasListeners != null ? onHasListeners!() : super.hasListeners;
-
+  bool get hasListeners =>
+      onHasListeners != null ? onHasListeners!() : super.hasListeners;
 }
 
 // =========================================================================
@@ -455,10 +479,15 @@ void registerProxyFactories() {
       onPaint: (Canvas canvas, Size size) {
         final method = instance.klass.findInstanceMethod('paint');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [canvas, size], {});
+          final result = method.bind(instance).call(visitor, [
+            canvas,
+            size,
+          ], {});
           return;
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement paint');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement paint',
+        );
       },
       onShouldRepaint: (CustomPainter oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRepaint');
@@ -466,61 +495,97 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldDelegate], {});
           return D4.extractBridgedArg<bool>(result, 'shouldRepaint');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRepaint');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldRepaint',
+        );
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('addListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
-          }
+              final method = instance.klass.findInstanceMethod('addListener');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement addListener',
+              );
+            }
           : null,
-      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+      onRemoveListener:
+          instance.klass.findInstanceMethod('removeListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('removeListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'removeListener',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement removeListener',
+              );
+            }
           : null,
-      onShouldRebuildSemantics: instance.klass.findInstanceMethod('shouldRebuildSemantics') != null
+      onShouldRebuildSemantics:
+          instance.klass.findInstanceMethod('shouldRebuildSemantics') != null
           ? (CustomPainter oldDelegate) {
-        final method = instance.klass.findInstanceMethod('shouldRebuildSemantics');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
-          return D4.extractBridgedArg<bool>(result, 'shouldRebuildSemantics');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRebuildSemantics');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'shouldRebuildSemantics',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  oldDelegate,
+                ], {});
+                return D4.extractBridgedArg<bool>(
+                  result,
+                  'shouldRebuildSemantics',
+                );
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement shouldRebuildSemantics',
+              );
+            }
           : null,
       onHitTest: instance.klass.findInstanceMethod('hitTest') != null
           ? (Offset position) {
-        final method = instance.klass.findInstanceMethod('hitTest');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [position], {});
-          return D4.extractBridgedArg<bool?>(result, 'hitTest');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement hitTest');
-          }
+              final method = instance.klass.findInstanceMethod('hitTest');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  position,
+                ], {});
+                return D4.extractBridgedArg<bool?>(result, 'hitTest');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement hitTest',
+              );
+            }
           : null,
-      onSemanticsBuilder: instance.klass.findInstanceGetter('semanticsBuilder') != null
+      onSemanticsBuilder:
+          instance.klass.findInstanceGetter('semanticsBuilder') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('semanticsBuilder');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(result, 'semanticsBuilder');
-        }
-        try {
-          final field = instance.getField('semanticsBuilder');
-          return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(field, 'semanticsBuilder');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement semanticsBuilder');
-          }
+              final getter = instance.klass.findInstanceGetter(
+                'semanticsBuilder',
+              );
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4.extractBridgedArg<
+                  List<CustomPainterSemantics> Function(Size)?
+                >(result, 'semanticsBuilder');
+              }
+              try {
+                final field = instance.getField('semanticsBuilder');
+                return D4.extractBridgedArg<
+                  List<CustomPainterSemantics> Function(Size)?
+                >(field, 'semanticsBuilder');
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement semanticsBuilder',
+              );
+            }
           : null,
     );
   });
@@ -534,7 +599,9 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [size], {});
           return D4.extractBridgedArg<dynamic>(result, 'getClip');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getClip');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement getClip',
+        );
       },
       onShouldReclip: (CustomClipper<dynamic> oldClipper) {
         final method = instance.klass.findInstanceMethod('shouldReclip');
@@ -542,37 +609,58 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldClipper], {});
           return D4.extractBridgedArg<bool>(result, 'shouldReclip');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldReclip');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldReclip',
+        );
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('addListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
-          }
+              final method = instance.klass.findInstanceMethod('addListener');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement addListener',
+              );
+            }
           : null,
-      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+      onRemoveListener:
+          instance.klass.findInstanceMethod('removeListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('removeListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'removeListener',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement removeListener',
+              );
+            }
           : null,
-      onGetApproximateClipRect: instance.klass.findInstanceMethod('getApproximateClipRect') != null
+      onGetApproximateClipRect:
+          instance.klass.findInstanceMethod('getApproximateClipRect') != null
           ? (Size size) {
-        final method = instance.klass.findInstanceMethod('getApproximateClipRect');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [size], {});
-          return D4.extractBridgedArg<Rect>(result, 'getApproximateClipRect');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getApproximateClipRect');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'getApproximateClipRect',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [size], {});
+                return D4.extractBridgedArg<Rect>(
+                  result,
+                  'getApproximateClipRect',
+                );
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getApproximateClipRect',
+              );
+            }
           : null,
     );
   });
@@ -586,7 +674,9 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [context], {});
           return;
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement paintChildren');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement paintChildren',
+        );
       },
       onShouldRepaint: (FlowDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRepaint');
@@ -594,37 +684,61 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldDelegate], {});
           return D4.extractBridgedArg<bool>(result, 'shouldRepaint');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRepaint');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldRepaint',
+        );
       },
       onGetSize: instance.klass.findInstanceMethod('getSize') != null
           ? (BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('getSize');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [constraints], {});
-          return D4.extractBridgedArg<Size>(result, 'getSize');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
-          }
+              final method = instance.klass.findInstanceMethod('getSize');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<Size>(result, 'getSize');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getSize',
+              );
+            }
           : null,
-      onGetConstraintsForChild: instance.klass.findInstanceMethod('getConstraintsForChild') != null
+      onGetConstraintsForChild:
+          instance.klass.findInstanceMethod('getConstraintsForChild') != null
           ? (int i, BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('getConstraintsForChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [i, constraints], {});
-          return D4.extractBridgedArg<BoxConstraints>(result, 'getConstraintsForChild');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getConstraintsForChild');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'getConstraintsForChild',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  i,
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<BoxConstraints>(
+                  result,
+                  'getConstraintsForChild',
+                );
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getConstraintsForChild',
+              );
+            }
           : null,
-      onShouldRelayout: instance.klass.findInstanceMethod('shouldRelayout') != null
+      onShouldRelayout:
+          instance.klass.findInstanceMethod('shouldRelayout') != null
           ? (FlowDelegate oldDelegate) {
-        final method = instance.klass.findInstanceMethod('shouldRelayout');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
-          return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'shouldRelayout',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  oldDelegate,
+                ], {});
+                return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement shouldRelayout',
+              );
+            }
           : null,
     );
   });
@@ -638,7 +752,9 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [size], {});
           return;
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement performLayout');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement performLayout',
+        );
       },
       onShouldRelayout: (MultiChildLayoutDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRelayout');
@@ -646,47 +762,68 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldDelegate], {});
           return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldRelayout',
+        );
       },
       onHasChild: instance.klass.findInstanceMethod('hasChild') != null
           ? (Object childId) {
-        final method = instance.klass.findInstanceMethod('hasChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [childId], {});
-          return D4.extractBridgedArg<bool>(result, 'hasChild');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement hasChild');
-          }
+              final method = instance.klass.findInstanceMethod('hasChild');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  childId,
+                ], {});
+                return D4.extractBridgedArg<bool>(result, 'hasChild');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement hasChild',
+              );
+            }
           : null,
       onLayoutChild: instance.klass.findInstanceMethod('layoutChild') != null
           ? (Object childId, BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('layoutChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [childId, constraints], {});
-          return D4.extractBridgedArg<Size>(result, 'layoutChild');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement layoutChild');
-          }
+              final method = instance.klass.findInstanceMethod('layoutChild');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  childId,
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<Size>(result, 'layoutChild');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement layoutChild',
+              );
+            }
           : null,
-      onPositionChild: instance.klass.findInstanceMethod('positionChild') != null
+      onPositionChild:
+          instance.klass.findInstanceMethod('positionChild') != null
           ? (Object childId, Offset offset) {
-        final method = instance.klass.findInstanceMethod('positionChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [childId, offset], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement positionChild');
-          }
+              final method = instance.klass.findInstanceMethod('positionChild');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  childId,
+                  offset,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement positionChild',
+              );
+            }
           : null,
       onGetSize: instance.klass.findInstanceMethod('getSize') != null
           ? (BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('getSize');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [constraints], {});
-          return D4.extractBridgedArg<Size>(result, 'getSize');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
-          }
+              final method = instance.klass.findInstanceMethod('getSize');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<Size>(result, 'getSize');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getSize',
+              );
+            }
           : null,
     );
   });
@@ -700,51 +837,87 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldDelegate], {});
           return D4.extractBridgedArg<bool>(result, 'shouldRelayout');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRelayout');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldRelayout',
+        );
       },
       onGetSize: instance.klass.findInstanceMethod('getSize') != null
           ? (BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('getSize');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [constraints], {});
-          return D4.extractBridgedArg<Size>(result, 'getSize');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getSize');
-          }
+              final method = instance.klass.findInstanceMethod('getSize');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<Size>(result, 'getSize');
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getSize',
+              );
+            }
           : null,
-      onGetConstraintsForChild: instance.klass.findInstanceMethod('getConstraintsForChild') != null
+      onGetConstraintsForChild:
+          instance.klass.findInstanceMethod('getConstraintsForChild') != null
           ? (BoxConstraints constraints) {
-        final method = instance.klass.findInstanceMethod('getConstraintsForChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [constraints], {});
-          return D4.extractBridgedArg<BoxConstraints>(result, 'getConstraintsForChild');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getConstraintsForChild');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'getConstraintsForChild',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  constraints,
+                ], {});
+                return D4.extractBridgedArg<BoxConstraints>(
+                  result,
+                  'getConstraintsForChild',
+                );
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getConstraintsForChild',
+              );
+            }
           : null,
-      onGetPositionForChild: instance.klass.findInstanceMethod('getPositionForChild') != null
+      onGetPositionForChild:
+          instance.klass.findInstanceMethod('getPositionForChild') != null
           ? (Size size, Size childSize) {
-        final method = instance.klass.findInstanceMethod('getPositionForChild');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [size, childSize], {});
-          return D4.extractBridgedArg<Offset>(result, 'getPositionForChild');
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getPositionForChild');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'getPositionForChild',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  size,
+                  childSize,
+                ], {});
+                return D4.extractBridgedArg<Offset>(
+                  result,
+                  'getPositionForChild',
+                );
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement getPositionForChild',
+              );
+            }
           : null,
     );
   });
 
   // Register factory for SliverPersistentHeaderDelegate
-  D4.registerInterfaceProxy('SliverPersistentHeaderDelegate', (visitor, instance) {
+  D4.registerInterfaceProxy('SliverPersistentHeaderDelegate', (
+    visitor,
+    instance,
+  ) {
     return D4rtSliverPersistentHeaderDelegate(
       onBuild: (BuildContext context, double shrinkOffset, bool overlapsContent) {
         final method = instance.klass.findInstanceMethod('build');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [context, shrinkOffset, overlapsContent], {});
+          final result = method.bind(instance).call(visitor, [
+            context,
+            shrinkOffset,
+            overlapsContent,
+          ], {});
           return D4.extractBridgedArg<Widget>(result, 'build');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement build');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement build',
+        );
       },
       onShouldRebuild: (SliverPersistentHeaderDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRebuild');
@@ -752,7 +925,9 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [oldDelegate], {});
           return D4.extractBridgedArg<bool>(result, 'shouldRebuild');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRebuild');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement shouldRebuild',
+        );
       },
       onMinExtent: () {
         final getter = instance.klass.findInstanceGetter('minExtent');
@@ -764,7 +939,9 @@ void registerProxyFactories() {
           final field = instance.getField('minExtent');
           return D4.extractBridgedArg<double>(field, 'minExtent');
         } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement minExtent');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement minExtent',
+        );
       },
       onMaxExtent: () {
         final getter = instance.klass.findInstanceGetter('maxExtent');
@@ -776,63 +953,100 @@ void registerProxyFactories() {
           final field = instance.getField('maxExtent');
           return D4.extractBridgedArg<double>(field, 'maxExtent');
         } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement maxExtent');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement maxExtent',
+        );
       },
       onVsync: instance.klass.findInstanceGetter('vsync') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('vsync');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<TickerProvider?>(result, 'vsync');
-        }
-        try {
-          final field = instance.getField('vsync');
-          return D4.extractBridgedArg<TickerProvider?>(field, 'vsync');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement vsync');
-          }
+              final getter = instance.klass.findInstanceGetter('vsync');
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4.extractBridgedArg<TickerProvider?>(result, 'vsync');
+              }
+              try {
+                final field = instance.getField('vsync');
+                return D4.extractBridgedArg<TickerProvider?>(field, 'vsync');
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement vsync',
+              );
+            }
           : null,
-      onSnapConfiguration: instance.klass.findInstanceGetter('snapConfiguration') != null
+      onSnapConfiguration:
+          instance.klass.findInstanceGetter('snapConfiguration') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('snapConfiguration');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(result, 'snapConfiguration');
-        }
-        try {
-          final field = instance.getField('snapConfiguration');
-          return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(field, 'snapConfiguration');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement snapConfiguration');
-          }
+              final getter = instance.klass.findInstanceGetter(
+                'snapConfiguration',
+              );
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(
+                  result,
+                  'snapConfiguration',
+                );
+              }
+              try {
+                final field = instance.getField('snapConfiguration');
+                return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(
+                  field,
+                  'snapConfiguration',
+                );
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement snapConfiguration',
+              );
+            }
           : null,
-      onStretchConfiguration: instance.klass.findInstanceGetter('stretchConfiguration') != null
+      onStretchConfiguration:
+          instance.klass.findInstanceGetter('stretchConfiguration') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('stretchConfiguration');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<OverScrollHeaderStretchConfiguration?>(result, 'stretchConfiguration');
-        }
-        try {
-          final field = instance.getField('stretchConfiguration');
-          return D4.extractBridgedArg<OverScrollHeaderStretchConfiguration?>(field, 'stretchConfiguration');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement stretchConfiguration');
-          }
+              final getter = instance.klass.findInstanceGetter(
+                'stretchConfiguration',
+              );
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4
+                    .extractBridgedArg<OverScrollHeaderStretchConfiguration?>(
+                      result,
+                      'stretchConfiguration',
+                    );
+              }
+              try {
+                final field = instance.getField('stretchConfiguration');
+                return D4
+                    .extractBridgedArg<OverScrollHeaderStretchConfiguration?>(
+                      field,
+                      'stretchConfiguration',
+                    );
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement stretchConfiguration',
+              );
+            }
           : null,
-      onShowOnScreenConfiguration: instance.klass.findInstanceGetter('showOnScreenConfiguration') != null
+      onShowOnScreenConfiguration:
+          instance.klass.findInstanceGetter('showOnScreenConfiguration') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('showOnScreenConfiguration');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<PersistentHeaderShowOnScreenConfiguration?>(result, 'showOnScreenConfiguration');
-        }
-        try {
-          final field = instance.getField('showOnScreenConfiguration');
-          return D4.extractBridgedArg<PersistentHeaderShowOnScreenConfiguration?>(field, 'showOnScreenConfiguration');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement showOnScreenConfiguration');
-          }
+              final getter = instance.klass.findInstanceGetter(
+                'showOnScreenConfiguration',
+              );
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4.extractBridgedArg<
+                  PersistentHeaderShowOnScreenConfiguration?
+                >(result, 'showOnScreenConfiguration');
+              }
+              try {
+                final field = instance.getField('showOnScreenConfiguration');
+                return D4.extractBridgedArg<
+                  PersistentHeaderShowOnScreenConfiguration?
+                >(field, 'showOnScreenConfiguration');
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement showOnScreenConfiguration',
+              );
+            }
           : null,
     );
   });
@@ -846,7 +1060,9 @@ void registerProxyFactories() {
           final result = method.bind(instance).call(visitor, [index], {});
           return D4.extractBridgedArg<DataRow?>(result, 'getRow');
         }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement getRow');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement getRow',
+        );
       },
       onRowCount: () {
         final getter = instance.klass.findInstanceGetter('rowCount');
@@ -858,10 +1074,14 @@ void registerProxyFactories() {
           final field = instance.getField('rowCount');
           return D4.extractBridgedArg<int>(field, 'rowCount');
         } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement rowCount');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement rowCount',
+        );
       },
       onIsRowCountApproximate: () {
-        final getter = instance.klass.findInstanceGetter('isRowCountApproximate');
+        final getter = instance.klass.findInstanceGetter(
+          'isRowCountApproximate',
+        );
         if (getter != null) {
           final result = getter.bind(instance).call(visitor, [], {});
           return D4.extractBridgedArg<bool>(result, 'isRowCountApproximate');
@@ -870,7 +1090,9 @@ void registerProxyFactories() {
           final field = instance.getField('isRowCountApproximate');
           return D4.extractBridgedArg<bool>(field, 'isRowCountApproximate');
         } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement isRowCountApproximate');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement isRowCountApproximate',
+        );
       },
       onSelectedRowCount: () {
         final getter = instance.klass.findInstanceGetter('selectedRowCount');
@@ -882,64 +1104,84 @@ void registerProxyFactories() {
           final field = instance.getField('selectedRowCount');
           return D4.extractBridgedArg<int>(field, 'selectedRowCount');
         } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement selectedRowCount');
+        throw StateError(
+          'Interpreted class ${instance.klass.name} does not implement selectedRowCount',
+        );
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('addListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement addListener');
-          }
+              final method = instance.klass.findInstanceMethod('addListener');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement addListener',
+              );
+            }
           : null,
-      onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
+      onRemoveListener:
+          instance.klass.findInstanceMethod('removeListener') != null
           ? (void Function() listener) {
-        final method = instance.klass.findInstanceMethod('removeListener');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement removeListener');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'removeListener',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [
+                  listener,
+                ], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement removeListener',
+              );
+            }
           : null,
       onDispose: instance.klass.findInstanceMethod('dispose') != null
           ? () {
-        final method = instance.klass.findInstanceMethod('dispose');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement dispose');
-          }
+              final method = instance.klass.findInstanceMethod('dispose');
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement dispose',
+              );
+            }
           : null,
-      onNotifyListeners: instance.klass.findInstanceMethod('notifyListeners') != null
+      onNotifyListeners:
+          instance.klass.findInstanceMethod('notifyListeners') != null
           ? () {
-        final method = instance.klass.findInstanceMethod('notifyListeners');
-        if (method != null) {
-          final result = method.bind(instance).call(visitor, [], {});
-          return;
-        }
-        throw StateError('Interpreted class ${instance.klass.name} does not implement notifyListeners');
-          }
+              final method = instance.klass.findInstanceMethod(
+                'notifyListeners',
+              );
+              if (method != null) {
+                final result = method.bind(instance).call(visitor, [], {});
+                return;
+              }
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement notifyListeners',
+              );
+            }
           : null,
       onHasListeners: instance.klass.findInstanceGetter('hasListeners') != null
           ? () {
-        final getter = instance.klass.findInstanceGetter('hasListeners');
-        if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
-          return D4.extractBridgedArg<bool>(result, 'hasListeners');
-        }
-        try {
-          final field = instance.getField('hasListeners');
-          return D4.extractBridgedArg<bool>(field, 'hasListeners');
-        } catch (_) {}
-        throw StateError('Interpreted class ${instance.klass.name} does not implement hasListeners');
-          }
+              final getter = instance.klass.findInstanceGetter('hasListeners');
+              if (getter != null) {
+                final result = getter.bind(instance).call(visitor, [], {});
+                return D4.extractBridgedArg<bool>(result, 'hasListeners');
+              }
+              try {
+                final field = instance.getField('hasListeners');
+                return D4.extractBridgedArg<bool>(field, 'hasListeners');
+              } catch (_) {}
+              throw StateError(
+                'Interpreted class ${instance.klass.name} does not implement hasListeners',
+              );
+            }
           : null,
     );
   });
-
 }
-

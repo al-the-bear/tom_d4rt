@@ -50,13 +50,24 @@ dynamic build(BuildContext context) {
         // Section 4: Settings toggle rows
         _buildSectionTitle('4. Settings-Style Toggle Rows'),
         SizedBox(height: 8.0),
-        _buildSettingsToggles(settingWifi, settingBluetooth, settingLocation, settingNfc),
+        _buildSettingsToggles(
+          settingWifi,
+          settingBluetooth,
+          settingLocation,
+          settingNfc,
+        ),
         SizedBox(height: 24.0),
 
         // Section 5: Interactive children
         _buildSectionTitle('5. MergeSemantics with Interactive Children'),
         SizedBox(height: 8.0),
-        _buildInteractiveChildren(checkboxA, checkboxB, checkboxC, favoriteStarred, bookmarkActive),
+        _buildInteractiveChildren(
+          checkboxA,
+          checkboxB,
+          checkboxC,
+          favoriteStarred,
+          bookmarkActive,
+        ),
         SizedBox(height: 24.0),
 
         // Section 6: Semantics labels for comparison
@@ -186,7 +197,10 @@ Widget _buildBasicIconTextMerged() {
               children: [
                 Icon(Icons.email, color: Color(0xFF6A1B9A), size: 28.0),
                 SizedBox(width: 10.0),
-                Text('Inbox Messages', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600)),
+                Text(
+                  'Inbox Messages',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -197,7 +211,10 @@ Widget _buildBasicIconTextMerged() {
               children: [
                 Icon(Icons.phone, color: Color(0xFF388E3C), size: 28.0),
                 SizedBox(width: 10.0),
-                Text('Recent Calls', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600)),
+                Text(
+                  'Recent Calls',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -206,9 +223,16 @@ Widget _buildBasicIconTextMerged() {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.calendar_today, color: Color(0xFFE65100), size: 28.0),
+                Icon(
+                  Icons.calendar_today,
+                  color: Color(0xFFE65100),
+                  size: 28.0,
+                ),
                 SizedBox(width: 10.0),
-                Text('Upcoming Events', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600)),
+                Text(
+                  'Upcoming Events',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -231,7 +255,10 @@ Widget _buildListTileMerged() {
               backgroundColor: Color(0xFF6A1B9A),
               child: Icon(Icons.person, color: Colors.white),
             ),
-            title: Text('Alice Johnson', style: TextStyle(fontWeight: FontWeight.w600)),
+            title: Text(
+              'Alice Johnson',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
             subtitle: Text('Senior Developer - Engineering Team'),
             trailing: Icon(Icons.chevron_right, color: Colors.grey),
           ),
@@ -243,7 +270,10 @@ Widget _buildListTileMerged() {
               backgroundColor: Color(0xFF1565C0),
               child: Icon(Icons.person, color: Colors.white),
             ),
-            title: Text('Bob Martinez', style: TextStyle(fontWeight: FontWeight.w600)),
+            title: Text(
+              'Bob Martinez',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
             subtitle: Text('Product Manager - Growth Team'),
             trailing: Icon(Icons.chevron_right, color: Colors.grey),
           ),
@@ -255,7 +285,10 @@ Widget _buildListTileMerged() {
               backgroundColor: Color(0xFF2E7D32),
               child: Icon(Icons.person, color: Colors.white),
             ),
-            title: Text('Carol Chen', style: TextStyle(fontWeight: FontWeight.w600)),
+            title: Text(
+              'Carol Chen',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
             subtitle: Text('UX Designer - Design Team'),
             trailing: Icon(Icons.chevron_right, color: Colors.grey),
           ),
@@ -287,21 +320,51 @@ Widget _buildBeforeAfterComparison() {
                     color: Color(0xFFE65100),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Text('UNMERGED', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.0)),
+                  child: Text(
+                    'UNMERGED',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.0,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 10.0),
-                Text('Each child announced separately:', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                Text(
+                  'Each child announced separately:',
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                ),
                 SizedBox(height: 8.0),
                 // No MergeSemantics - each is separate
                 Row(
                   children: [
-                    Semantics(label: 'Warning icon', child: Icon(Icons.warning, color: Color(0xFFE65100), size: 24.0)),
+                    Semantics(
+                      label: 'Warning icon',
+                      child: Icon(
+                        Icons.warning,
+                        color: Color(0xFFE65100),
+                        size: 24.0,
+                      ),
+                    ),
                     SizedBox(width: 8.0),
-                    Semantics(label: 'Battery low text', child: Text('Battery Low', style: TextStyle(fontSize: 15.0))),
+                    Semantics(
+                      label: 'Battery low text',
+                      child: Text(
+                        'Battery Low',
+                        style: TextStyle(fontSize: 15.0),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 6.0),
-                Text('Reader: "Warning icon" then "Battery low text"', style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFFBF360C))),
+                Text(
+                  'Reader: "Warning icon" then "Battery low text"',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFBF360C),
+                  ),
+                ),
               ],
             ),
           ),
@@ -324,10 +387,20 @@ Widget _buildBeforeAfterComparison() {
                     color: Color(0xFF2E7D32),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Text('MERGED', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.0)),
+                  child: Text(
+                    'MERGED',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.0,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 10.0),
-                Text('All children read as one item:', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                Text(
+                  'All children read as one item:',
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                ),
                 SizedBox(height: 8.0),
                 // With MergeSemantics - read as one
                 MergeSemantics(
@@ -340,7 +413,14 @@ Widget _buildBeforeAfterComparison() {
                   ),
                 ),
                 SizedBox(height: 6.0),
-                Text('Reader: "Warning, Battery Low"', style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+                Text(
+                  'Reader: "Warning, Battery Low"',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFF1B5E20),
+                  ),
+                ),
               ],
             ),
           ),
@@ -351,7 +431,12 @@ Widget _buildBeforeAfterComparison() {
 }
 
 // Section 4: Settings-style toggle rows
-Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc) {
+Widget _buildSettingsToggles(
+  bool wifi,
+  bool bluetooth,
+  bool location,
+  bool nfc,
+) {
   print('[MergeSemantics] Building settings toggles');
   print('[MergeSemantics] wifi=$wifi bt=$bluetooth');
   return Card(
@@ -367,9 +452,20 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Icon(Icons.wifi, color: Color(0xFF1565C0), size: 26.0),
                 SizedBox(width: 14.0),
                 Expanded(
-                  child: Text('Wi-Fi', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+                  child: Text(
+                    'Wi-Fi',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-                Switch(value: wifi, onChanged: (v) { print('[MergeSemantics] WiFi toggled: $v'); }),
+                Switch(
+                  value: wifi,
+                  onChanged: (v) {
+                    print('[MergeSemantics] WiFi toggled: $v');
+                  },
+                ),
               ],
             ),
           ),
@@ -384,9 +480,20 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Icon(Icons.bluetooth, color: Color(0xFF0277BD), size: 26.0),
                 SizedBox(width: 14.0),
                 Expanded(
-                  child: Text('Bluetooth', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+                  child: Text(
+                    'Bluetooth',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-                Switch(value: bluetooth, onChanged: (v) { print('[MergeSemantics] Bluetooth toggled: $v'); }),
+                Switch(
+                  value: bluetooth,
+                  onChanged: (v) {
+                    print('[MergeSemantics] Bluetooth toggled: $v');
+                  },
+                ),
               ],
             ),
           ),
@@ -401,9 +508,20 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Icon(Icons.location_on, color: Color(0xFF2E7D32), size: 26.0),
                 SizedBox(width: 14.0),
                 Expanded(
-                  child: Text('Location Services', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+                  child: Text(
+                    'Location Services',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-                Switch(value: location, onChanged: (v) { print('[MergeSemantics] Location toggled: $v'); }),
+                Switch(
+                  value: location,
+                  onChanged: (v) {
+                    print('[MergeSemantics] Location toggled: $v');
+                  },
+                ),
               ],
             ),
           ),
@@ -418,9 +536,20 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
                 Icon(Icons.nfc, color: Color(0xFF6A1B9A), size: 26.0),
                 SizedBox(width: 14.0),
                 Expanded(
-                  child: Text('NFC', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500)),
+                  child: Text(
+                    'NFC',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-                Switch(value: nfc, onChanged: (v) { print('[MergeSemantics] NFC toggled: $v'); }),
+                Switch(
+                  value: nfc,
+                  onChanged: (v) {
+                    print('[MergeSemantics] NFC toggled: $v');
+                  },
+                ),
               ],
             ),
           ),
@@ -431,7 +560,13 @@ Widget _buildSettingsToggles(bool wifi, bool bluetooth, bool location, bool nfc)
 }
 
 // Section 5: Interactive children merged
-Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bookmark) {
+Widget _buildInteractiveChildren(
+  bool cbA,
+  bool cbB,
+  bool cbC,
+  bool fav,
+  bool bookmark,
+) {
   print('[MergeSemantics] Building interactive children');
   return Card(
     elevation: 3.0,
@@ -440,37 +575,64 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Checkboxes merged with labels:', style: TextStyle(fontSize: 14.0, color: Colors.grey)),
+          Text(
+            'Checkboxes merged with labels:',
+            style: TextStyle(fontSize: 14.0, color: Colors.grey),
+          ),
           SizedBox(height: 8.0),
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbA, onChanged: (v) { print('[MergeSemantics] Checkbox A: $v'); }),
+                Checkbox(
+                  value: cbA,
+                  onChanged: (v) {
+                    print('[MergeSemantics] Checkbox A: $v');
+                  },
+                ),
                 SizedBox(width: 4.0),
-                Text('Accept Terms of Service', style: TextStyle(fontSize: 15.0)),
+                Text(
+                  'Accept Terms of Service',
+                  style: TextStyle(fontSize: 15.0),
+                ),
               ],
             ),
           ),
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbB, onChanged: (v) { print('[MergeSemantics] Checkbox B: $v'); }),
+                Checkbox(
+                  value: cbB,
+                  onChanged: (v) {
+                    print('[MergeSemantics] Checkbox B: $v');
+                  },
+                ),
                 SizedBox(width: 4.0),
-                Text('Subscribe to newsletter', style: TextStyle(fontSize: 15.0)),
+                Text(
+                  'Subscribe to newsletter',
+                  style: TextStyle(fontSize: 15.0),
+                ),
               ],
             ),
           ),
           MergeSemantics(
             child: Row(
               children: [
-                Checkbox(value: cbC, onChanged: (v) { print('[MergeSemantics] Checkbox C: $v'); }),
+                Checkbox(
+                  value: cbC,
+                  onChanged: (v) {
+                    print('[MergeSemantics] Checkbox C: $v');
+                  },
+                ),
                 SizedBox(width: 4.0),
                 Text('Enable notifications', style: TextStyle(fontSize: 15.0)),
               ],
             ),
           ),
           SizedBox(height: 16.0),
-          Text('Icon buttons merged with labels:', style: TextStyle(fontSize: 14.0, color: Colors.grey)),
+          Text(
+            'Icon buttons merged with labels:',
+            style: TextStyle(fontSize: 14.0, color: Colors.grey),
+          ),
           SizedBox(height: 8.0),
           Row(
             children: [
@@ -478,8 +640,14 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
                 child: Column(
                   children: [
                     IconButton(
-                      icon: Icon(fav ? Icons.star : Icons.star_border, color: Color(0xFFFFA000), size: 30.0),
-                      onPressed: () { print('[MergeSemantics] Favorite toggled'); },
+                      icon: Icon(
+                        fav ? Icons.star : Icons.star_border,
+                        color: Color(0xFFFFA000),
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        print('[MergeSemantics] Favorite toggled');
+                      },
                     ),
                     Text('Favorite', style: TextStyle(fontSize: 12.0)),
                   ],
@@ -490,8 +658,14 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
                 child: Column(
                   children: [
                     IconButton(
-                      icon: Icon(bookmark ? Icons.bookmark : Icons.bookmark_border, color: Color(0xFF1565C0), size: 30.0),
-                      onPressed: () { print('[MergeSemantics] Bookmark toggled'); },
+                      icon: Icon(
+                        bookmark ? Icons.bookmark : Icons.bookmark_border,
+                        color: Color(0xFF1565C0),
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        print('[MergeSemantics] Bookmark toggled');
+                      },
                     ),
                     Text('Bookmark', style: TextStyle(fontSize: 12.0)),
                   ],
@@ -502,8 +676,14 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
                 child: Column(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.share, color: Color(0xFF2E7D32), size: 30.0),
-                      onPressed: () { print('[MergeSemantics] Share pressed'); },
+                      icon: Icon(
+                        Icons.share,
+                        color: Color(0xFF2E7D32),
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        print('[MergeSemantics] Share pressed');
+                      },
                     ),
                     Text('Share', style: TextStyle(fontSize: 12.0)),
                   ],
@@ -514,8 +694,14 @@ Widget _buildInteractiveChildren(bool cbA, bool cbB, bool cbC, bool fav, bool bo
                 child: Column(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.delete_outline, color: Color(0xFFC62828), size: 30.0),
-                      onPressed: () { print('[MergeSemantics] Delete pressed'); },
+                      icon: Icon(
+                        Icons.delete_outline,
+                        color: Color(0xFFC62828),
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        print('[MergeSemantics] Delete pressed');
+                      },
                     ),
                     Text('Delete', style: TextStyle(fontSize: 12.0)),
                   ],
@@ -539,7 +725,10 @@ Widget _buildSemanticsLabelsComparison() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Using Semantics widget with explicit labels:', style: TextStyle(fontSize: 14.0, color: Colors.grey)),
+          Text(
+            'Using Semantics widget with explicit labels:',
+            style: TextStyle(fontSize: 14.0, color: Colors.grey),
+          ),
           SizedBox(height: 12.0),
           // Explicit Semantics label
           Semantics(
@@ -548,7 +737,10 @@ Widget _buildSemanticsLabelsComparison() {
               children: [
                 Icon(Icons.download, color: Color(0xFF1565C0), size: 24.0),
                 SizedBox(width: 8.0),
-                Text('45 MB/s', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600)),
+                Text(
+                  '45 MB/s',
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -559,8 +751,14 @@ Widget _buildSemanticsLabelsComparison() {
               children: [
                 Icon(Icons.upload, color: Color(0xFF2E7D32), size: 24.0),
                 SizedBox(width: 8.0),
-                Text('Upload: ', style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-                Text('12 MB/s', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600)),
+                Text(
+                  'Upload: ',
+                  style: TextStyle(fontSize: 16.0, color: Colors.grey),
+                ),
+                Text(
+                  '12 MB/s',
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),
@@ -574,12 +772,27 @@ Widget _buildSemanticsLabelsComparison() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Comparison Notes:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+                Text(
+                  'Comparison Notes:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                ),
                 SizedBox(height: 6.0),
-                Text('- Semantics(label:) gives full control over announcement', style: TextStyle(fontSize: 12.0)),
-                Text('- MergeSemantics concatenates child labels automatically', style: TextStyle(fontSize: 12.0)),
-                Text('- Use Semantics for custom descriptions of complex widgets', style: TextStyle(fontSize: 12.0)),
-                Text('- Use MergeSemantics when children already have good labels', style: TextStyle(fontSize: 12.0)),
+                Text(
+                  '- Semantics(label:) gives full control over announcement',
+                  style: TextStyle(fontSize: 12.0),
+                ),
+                Text(
+                  '- MergeSemantics concatenates child labels automatically',
+                  style: TextStyle(fontSize: 12.0),
+                ),
+                Text(
+                  '- Use Semantics for custom descriptions of complex widgets',
+                  style: TextStyle(fontSize: 12.0),
+                ),
+                Text(
+                  '- Use MergeSemantics when children already have good labels',
+                  style: TextStyle(fontSize: 12.0),
+                ),
               ],
             ),
           ),
@@ -596,7 +809,10 @@ Widget _buildPracticalPatterns() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       // Accessible list items
-      Text('Accessible List Items:', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600)),
+      Text(
+        'Accessible List Items:',
+        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+      ),
       SizedBox(height: 8.0),
       Card(
         elevation: 2.0,
@@ -657,7 +873,10 @@ Widget _buildPracticalPatterns() {
       ),
       SizedBox(height: 16.0),
       // Accessible badge rows
-      Text('Accessible Badge Rows:', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600)),
+      Text(
+        'Accessible Badge Rows:',
+        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+      ),
       SizedBox(height: 8.0),
       MergeSemantics(
         child: Container(
@@ -670,7 +889,10 @@ Widget _buildPracticalPatterns() {
             children: [
               Icon(Icons.verified, color: Color(0xFF1565C0), size: 22.0),
               SizedBox(width: 10.0),
-              Text('Verified Account', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500)),
+              Text(
+                'Verified Account',
+                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+              ),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
@@ -678,7 +900,10 @@ Widget _buildPracticalPatterns() {
                   color: Color(0xFF1565C0),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: Text('Active', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                child: Text(
+                  'Active',
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
+                ),
               ),
             ],
           ),
@@ -696,7 +921,10 @@ Widget _buildPracticalPatterns() {
             children: [
               Icon(Icons.security, color: Color(0xFFC62828), size: 22.0),
               SizedBox(width: 10.0),
-              Text('Two-Factor Auth', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500)),
+              Text(
+                'Two-Factor Auth',
+                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+              ),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
@@ -704,7 +932,10 @@ Widget _buildPracticalPatterns() {
                   color: Color(0xFFC62828),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                child: Text('Disabled', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                child: Text(
+                  'Disabled',
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
+                ),
               ),
             ],
           ),
@@ -724,7 +955,10 @@ Widget _buildSemanticsDiagram() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Without MergeSemantics:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0)),
+          Text(
+            'Without MergeSemantics:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          ),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -737,17 +971,55 @@ Widget _buildSemanticsDiagram() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('SemanticsNode (Row)', style: TextStyle(fontFamily: 'monospace', fontSize: 13.0, fontWeight: FontWeight.bold)),
-                Text('  |-- SemanticsNode: "star icon"', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: Color(0xFFE65100))),
-                Text('  |-- SemanticsNode: "Rating"', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: Color(0xFFE65100))),
-                Text('  |-- SemanticsNode: "4.5"', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: Color(0xFFE65100))),
+                Text(
+                  'SemanticsNode (Row)',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '  |-- SemanticsNode: "star icon"',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    color: Color(0xFFE65100),
+                  ),
+                ),
+                Text(
+                  '  |-- SemanticsNode: "Rating"',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    color: Color(0xFFE65100),
+                  ),
+                ),
+                Text(
+                  '  |-- SemanticsNode: "4.5"',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    color: Color(0xFFE65100),
+                  ),
+                ),
                 SizedBox(height: 4.0),
-                Text('=> 3 separate announcements', style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFFBF360C))),
+                Text(
+                  '=> 3 separate announcements',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFBF360C),
+                  ),
+                ),
               ],
             ),
           ),
           SizedBox(height: 16.0),
-          Text('With MergeSemantics:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0)),
+          Text(
+            'With MergeSemantics:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          ),
           SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -760,16 +1032,40 @@ Widget _buildSemanticsDiagram() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('SemanticsNode (MergeSemantics)', style: TextStyle(fontFamily: 'monospace', fontSize: 13.0, fontWeight: FontWeight.bold)),
-                Text('  |-- merged: "star icon, Rating, 4.5"', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: Color(0xFF2E7D32))),
+                Text(
+                  'SemanticsNode (MergeSemantics)',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '  |-- merged: "star icon, Rating, 4.5"',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    color: Color(0xFF2E7D32),
+                  ),
+                ),
                 SizedBox(height: 4.0),
-                Text('=> 1 combined announcement', style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+                Text(
+                  '=> 1 combined announcement',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFF1B5E20),
+                  ),
+                ),
               ],
             ),
           ),
           SizedBox(height: 16.0),
           // Live example of the diagram
-          Text('Live example:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0)),
+          Text(
+            'Live example:',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+          ),
           SizedBox(height: 8.0),
           MergeSemantics(
             child: Row(
@@ -777,9 +1073,18 @@ Widget _buildSemanticsDiagram() {
               children: [
                 Icon(Icons.star, color: Color(0xFFFFA000), size: 22.0),
                 SizedBox(width: 6.0),
-                Text('Rating: ', style: TextStyle(fontSize: 15.0, color: Colors.grey)),
-                Text('4.5', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold)),
-                Text(' / 5.0', style: TextStyle(fontSize: 13.0, color: Colors.grey)),
+                Text(
+                  'Rating: ',
+                  style: TextStyle(fontSize: 15.0, color: Colors.grey),
+                ),
+                Text(
+                  '4.5',
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  ' / 5.0',
+                  style: TextStyle(fontSize: 13.0, color: Colors.grey),
+                ),
               ],
             ),
           ),
@@ -813,22 +1118,46 @@ Widget _buildAccessibleCards() {
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Icon(Icons.headphones, color: Colors.white, size: 36.0),
+                  child: Icon(
+                    Icons.headphones,
+                    color: Colors.white,
+                    size: 36.0,
+                  ),
                 ),
                 SizedBox(width: 14.0),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Premium Headphones', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Premium Headphones',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
-                      Text('Noise cancelling, 30hr battery', style: TextStyle(fontSize: 13.0, color: Colors.grey)),
+                      Text(
+                        'Noise cancelling, 30hr battery',
+                        style: TextStyle(fontSize: 13.0, color: Colors.grey),
+                      ),
                       SizedBox(height: 6.0),
-                      Text('\$299.99', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+                      Text(
+                        '\$299.99',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2E7D32),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Icon(Icons.add_shopping_cart, color: Color(0xFF6A1B9A), size: 28.0),
+                Icon(
+                  Icons.add_shopping_cart,
+                  color: Color(0xFF6A1B9A),
+                  size: 28.0,
+                ),
               ],
             ),
           ),
@@ -851,20 +1180,36 @@ Widget _buildAccessibleCards() {
                     color: Color(0xFFFFB300),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.notifications_active, color: Colors.white, size: 26.0),
+                  child: Icon(
+                    Icons.notifications_active,
+                    color: Colors.white,
+                    size: 26.0,
+                  ),
                 ),
                 SizedBox(width: 14.0),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('System Update Available', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold)),
+                      Text(
+                        'System Update Available',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
-                      Text('Version 3.2.1 is ready to install', style: TextStyle(fontSize: 13.0, color: Colors.grey)),
+                      Text(
+                        'Version 3.2.1 is ready to install',
+                        style: TextStyle(fontSize: 13.0, color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
-                Text('2m ago', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                Text(
+                  '2m ago',
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                ),
               ],
             ),
           ),
@@ -887,16 +1232,29 @@ Widget _buildAccessibleCards() {
                     color: Color(0xFF2E7D32),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.check_circle_outline, color: Colors.white, size: 26.0),
+                  child: Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.white,
+                    size: 26.0,
+                  ),
                 ),
                 SizedBox(width: 14.0),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Backup Complete', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Backup Complete',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
-                      Text('All 1,247 files backed up successfully', style: TextStyle(fontSize: 13.0, color: Colors.grey)),
+                      Text(
+                        'All 1,247 files backed up successfully',
+                        style: TextStyle(fontSize: 13.0, color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -920,13 +1278,20 @@ Widget _buildAccessibleFormRows() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Form fields with merged semantics:', style: TextStyle(fontSize: 14.0, color: Colors.grey)),
+          Text(
+            'Form fields with merged semantics:',
+            style: TextStyle(fontSize: 14.0, color: Colors.grey),
+          ),
           SizedBox(height: 12.0),
           // Username row
           MergeSemantics(
             child: Row(
               children: [
-                Icon(Icons.person_outline, color: Color(0xFF6A1B9A), size: 24.0),
+                Icon(
+                  Icons.person_outline,
+                  color: Color(0xFF6A1B9A),
+                  size: 24.0,
+                ),
                 SizedBox(width: 12.0),
                 Expanded(
                   child: TextField(
@@ -934,7 +1299,10 @@ Widget _buildAccessibleFormRows() {
                       labelText: 'Username',
                       hintText: 'Enter your username',
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 10.0,
+                      ),
                     ),
                   ),
                 ),
@@ -946,7 +1314,11 @@ Widget _buildAccessibleFormRows() {
           MergeSemantics(
             child: Row(
               children: [
-                Icon(Icons.email_outlined, color: Color(0xFF1565C0), size: 24.0),
+                Icon(
+                  Icons.email_outlined,
+                  color: Color(0xFF1565C0),
+                  size: 24.0,
+                ),
                 SizedBox(width: 12.0),
                 Expanded(
                   child: TextField(
@@ -954,7 +1326,10 @@ Widget _buildAccessibleFormRows() {
                       labelText: 'Email Address',
                       hintText: 'example@mail.com',
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 10.0,
+                      ),
                     ),
                   ),
                 ),
@@ -966,7 +1341,11 @@ Widget _buildAccessibleFormRows() {
           MergeSemantics(
             child: Row(
               children: [
-                Icon(Icons.phone_outlined, color: Color(0xFF2E7D32), size: 24.0),
+                Icon(
+                  Icons.phone_outlined,
+                  color: Color(0xFF2E7D32),
+                  size: 24.0,
+                ),
                 SizedBox(width: 12.0),
                 Expanded(
                   child: TextField(
@@ -974,7 +1353,10 @@ Widget _buildAccessibleFormRows() {
                       labelText: 'Phone Number',
                       hintText: '+1 (555) 000-0000',
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 10.0,
+                      ),
                     ),
                   ),
                 ),
@@ -995,9 +1377,20 @@ Widget _buildAccessibleFormRows() {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.lightbulb_outline, color: Color(0xFF6A1B9A), size: 20.0),
+                    Icon(
+                      Icons.lightbulb_outline,
+                      color: Color(0xFF6A1B9A),
+                      size: 20.0,
+                    ),
                     SizedBox(width: 8.0),
-                    Text('Accessibility Tip', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0, color: Color(0xFF6A1B9A))),
+                    Text(
+                      'Accessibility Tip',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13.0,
+                        color: Color(0xFF6A1B9A),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 8.0),
@@ -1037,7 +1430,11 @@ Widget _buildFooter() {
         SizedBox(height: 10.0),
         Text(
           'MergeSemantics Deep Demo Complete',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         SizedBox(height: 6.0),
         Text(

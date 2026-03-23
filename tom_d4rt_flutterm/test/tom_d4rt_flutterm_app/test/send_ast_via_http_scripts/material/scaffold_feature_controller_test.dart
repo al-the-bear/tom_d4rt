@@ -177,7 +177,11 @@ Widget buildVisualScaffoldDemo() {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.layers, color: Colors.grey.shade400, size: 32),
+                        Icon(
+                          Icons.layers,
+                          color: Colors.grey.shade400,
+                          size: 32,
+                        ),
                         SizedBox(height: 8),
                         Text(
                           'Body Content',
@@ -225,7 +229,10 @@ Widget buildVisualScaffoldDemo() {
                       ),
                       Spacer(),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.teal.shade400,
                           borderRadius: BorderRadius.circular(4),
@@ -588,7 +595,11 @@ Widget buildBottomSheetAreasDemo() {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 20),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 20,
+              ),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -606,7 +617,7 @@ Widget buildBottomSheetAreasDemo() {
 
 Widget buildSnackbarAreasDemo() {
   print('Building snackbar areas demo');
-  
+
   List<Map<String, dynamic>> snackbarTypes = [
     {
       'name': 'Fixed',
@@ -621,7 +632,7 @@ Widget buildSnackbarAreasDemo() {
       'behavior': 'SnackBarBehavior.floating',
     },
   ];
-  
+
   List<Widget> snackbarWidgets = [];
   int i = 0;
   for (i = 0; i < snackbarTypes.length; i = i + 1) {
@@ -660,8 +671,8 @@ Widget buildSnackbarAreasDemo() {
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: BoxDecoration(
                     color: info['color'] as Color,
-                    borderRadius: i == 1 
-                        ? BorderRadius.circular(6) 
+                    borderRadius: i == 1
+                        ? BorderRadius.circular(6)
                         : BorderRadius.only(
                             bottomLeft: Radius.circular(8),
                             bottomRight: Radius.circular(8),
@@ -710,7 +721,7 @@ Widget buildSnackbarAreasDemo() {
       snackbarWidgets.add(SizedBox(width: 12));
     }
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -750,7 +761,11 @@ Widget buildSnackbarAreasDemo() {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(Icons.arrow_downward, size: 14, color: Colors.grey.shade600),
+                  Icon(
+                    Icons.arrow_downward,
+                    size: 14,
+                    color: Colors.grey.shade600,
+                  ),
                   SizedBox(width: 6),
                   Text(
                     'Fixed: Full width, no margin',
@@ -779,7 +794,7 @@ Widget buildSnackbarAreasDemo() {
 
 Widget buildFeatureControllerConceptDemo() {
   print('Building feature controller concept demo');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -847,11 +862,17 @@ Widget buildFeatureControllerConceptDemo() {
                       children: [
                         Text(
                           'Widget Type',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           'The widget being controlled (SnackBar, BottomSheet)',
-                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ],
                     ),
@@ -886,11 +907,17 @@ Widget buildFeatureControllerConceptDemo() {
                       children: [
                         Text(
                           'Reason Type',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           'Closure reason (SnackBarClosedReason, etc)',
-                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ],
                     ),
@@ -962,10 +989,7 @@ Widget buildTypeSpecializationRow(String type, String desc, Color dotColor) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -994,7 +1018,7 @@ Widget buildTypeSpecializationRow(String type, String desc, Color dotColor) {
 
 Widget buildControllerLifecycleDemo() {
   print('Building controller lifecycle demo');
-  
+
   List<Map<String, dynamic>> lifecycleSteps = [
     {
       'step': '1',
@@ -1032,13 +1056,13 @@ Widget buildControllerLifecycleDemo() {
       'color': Colors.purple,
     },
   ];
-  
+
   List<Widget> stepWidgets = [];
   int i = 0;
   for (i = 0; i < lifecycleSteps.length; i = i + 1) {
     Map<String, dynamic> step = lifecycleSteps[i];
     MaterialColor stepColor = step['color'] as MaterialColor;
-    
+
     stepWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -1092,10 +1116,7 @@ Widget buildControllerLifecycleDemo() {
                   ),
                   Text(
                     step['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -1104,7 +1125,7 @@ Widget buildControllerLifecycleDemo() {
         ),
       ),
     );
-    
+
     if (i < lifecycleSteps.length - 1) {
       stepWidgets.add(
         Padding(
@@ -1121,7 +1142,7 @@ Widget buildControllerLifecycleDemo() {
       );
     }
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1151,7 +1172,7 @@ Widget buildControllerLifecycleDemo() {
 
 Widget buildControllerMethodsDemo() {
   print('Building controller methods demo');
-  
+
   List<Map<String, dynamic>> methods = [
     {
       'name': 'close()',
@@ -1175,13 +1196,13 @@ Widget buildControllerMethodsDemo() {
       'color': Colors.green,
     },
   ];
-  
+
   List<Widget> methodWidgets = [];
   int i = 0;
   for (i = 0; i < methods.length; i = i + 1) {
     Map<String, dynamic> method = methods[i];
     MaterialColor methodColor = method['color'] as MaterialColor;
-    
+
     methodWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -1224,7 +1245,10 @@ Widget buildControllerMethodsDemo() {
                       ),
                       SizedBox(width: 8),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(4),
@@ -1243,10 +1267,7 @@ Widget buildControllerMethodsDemo() {
                   SizedBox(height: 4),
                   Text(
                     method['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -1256,7 +1277,7 @@ Widget buildControllerMethodsDemo() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1286,7 +1307,7 @@ Widget buildControllerMethodsDemo() {
 
 Widget buildUsageExamplesDemo() {
   print('Building usage examples demo');
-  
+
   String snackbarExample = '''ScaffoldMessenger.of(context)
   .showSnackBar(SnackBar(
     content: Text('Message'),
@@ -1295,7 +1316,7 @@ Widget buildUsageExamplesDemo() {
       onPressed: () {},
     ),
   ));''';
-  
+
   String bottomSheetExample = '''Scaffold.of(context)
   .showBottomSheet((ctx) => Container(
     height: 200,
@@ -1303,20 +1324,20 @@ Widget buildUsageExamplesDemo() {
       child: Text('Bottom Sheet'),
     ),
   ));''';
-  
+
   String closeExample = '''final controller = ScaffoldMessenger
   .of(context).showSnackBar(...);
 
 // Later, to dismiss:
 controller.close();''';
-  
+
   String closedFutureExample = '''controller.closed.then((reason) {
   if (reason == SnackBarClosedReason
         .action) {
     // Handle action tap
   }
 });''';
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1349,16 +1370,32 @@ controller.close();''';
 
 Widget buildClosedReasonDemo() {
   print('Building closed reason demo');
-  
+
   List<Map<String, dynamic>> reasons = [
-    {'name': 'action', 'desc': 'User tapped the action button', 'icon': Icons.touch_app},
-    {'name': 'dismiss', 'desc': 'User dismissed via swipe', 'icon': Icons.swipe},
+    {
+      'name': 'action',
+      'desc': 'User tapped the action button',
+      'icon': Icons.touch_app,
+    },
+    {
+      'name': 'dismiss',
+      'desc': 'User dismissed via swipe',
+      'icon': Icons.swipe,
+    },
     {'name': 'swipe', 'desc': 'User swiped to dismiss', 'icon': Icons.gesture},
-    {'name': 'hide', 'desc': 'Hidden by ScaffoldMessenger', 'icon': Icons.visibility_off},
-    {'name': 'remove', 'desc': 'Removed by caller', 'icon': Icons.delete_outline},
+    {
+      'name': 'hide',
+      'desc': 'Hidden by ScaffoldMessenger',
+      'icon': Icons.visibility_off,
+    },
+    {
+      'name': 'remove',
+      'desc': 'Removed by caller',
+      'icon': Icons.delete_outline,
+    },
     {'name': 'timeout', 'desc': 'Duration expired', 'icon': Icons.timer_off},
   ];
-  
+
   List<Widget> reasonWidgets = [];
   int i = 0;
   for (i = 0; i < reasons.length; i = i + 1) {
@@ -1374,7 +1411,11 @@ Widget buildClosedReasonDemo() {
         ),
         child: Row(
           children: [
-            Icon(reason['icon'] as IconData, size: 16, color: Colors.grey.shade600),
+            Icon(
+              reason['icon'] as IconData,
+              size: 16,
+              color: Colors.grey.shade600,
+            ),
             SizedBox(width: 10),
             Text(
               reason['name'] as String,
@@ -1396,7 +1437,7 @@ Widget buildClosedReasonDemo() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1426,7 +1467,7 @@ Widget buildClosedReasonDemo() {
 
 Widget buildInteractionDiagramDemo() {
   print('Building interaction diagram demo');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1469,7 +1510,11 @@ Widget buildInteractionDiagramDemo() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildComponentBox('ScaffoldMessenger', Colors.teal, Icons.message),
+                  _buildComponentBox(
+                    'ScaffoldMessenger',
+                    Colors.teal,
+                    Icons.message,
+                  ),
                 ],
               ),
               SizedBox(height: 8),
@@ -1478,20 +1523,42 @@ Widget buildInteractionDiagramDemo() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildComponentBox('ScaffoldFeatureController', Colors.orange, Icons.settings_remote),
+                  _buildComponentBox(
+                    'ScaffoldFeatureController',
+                    Colors.orange,
+                    Icons.settings_remote,
+                  ),
                 ],
               ),
               SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.subdirectory_arrow_right, color: Colors.grey.shade400, size: 16),
+                  Icon(
+                    Icons.subdirectory_arrow_right,
+                    color: Colors.grey.shade400,
+                    size: 16,
+                  ),
                   SizedBox(width: 4),
-                  _buildComponentBox('SnackBar', Colors.grey, Icons.notifications, small: true),
+                  _buildComponentBox(
+                    'SnackBar',
+                    Colors.grey,
+                    Icons.notifications,
+                    small: true,
+                  ),
                   SizedBox(width: 12),
-                  Icon(Icons.subdirectory_arrow_right, color: Colors.grey.shade400, size: 16),
+                  Icon(
+                    Icons.subdirectory_arrow_right,
+                    color: Colors.grey.shade400,
+                    size: 16,
+                  ),
                   SizedBox(width: 4),
-                  _buildComponentBox('BottomSheet', Colors.indigo, Icons.view_agenda, small: true),
+                  _buildComponentBox(
+                    'BottomSheet',
+                    Colors.indigo,
+                    Icons.view_agenda,
+                    small: true,
+                  ),
                 ],
               ),
             ],
@@ -1502,12 +1569,17 @@ Widget buildInteractionDiagramDemo() {
   );
 }
 
-Widget _buildComponentBox(String name, MaterialColor color, IconData icon, {bool small = false}) {
+Widget _buildComponentBox(
+  String name,
+  MaterialColor color,
+  IconData icon, {
+  bool small = false,
+}) {
   double size = small ? 80.0 : 120.0;
   double iconSize = small ? 18.0 : 24.0;
   double fontSize = small ? 9.0 : 11.0;
   double padding = small ? 6.0 : 10.0;
-  
+
   return Container(
     width: size,
     padding: EdgeInsets.all(padding),
@@ -1537,11 +1609,12 @@ Widget _buildComponentBox(String name, MaterialColor color, IconData icon, {bool
 
 Widget buildBestPracticesDemo() {
   print('Building best practices demo');
-  
+
   List<Map<String, dynamic>> practices = [
     {
       'title': 'Store controller reference',
-      'desc': 'Keep the returned controller if you need to close programmatically',
+      'desc':
+          'Keep the returned controller if you need to close programmatically',
       'good': true,
     },
     {
@@ -1560,13 +1633,13 @@ Widget buildBestPracticesDemo() {
       'good': false,
     },
   ];
-  
+
   List<Widget> practiceWidgets = [];
   int i = 0;
   for (i = 0; i < practices.length; i = i + 1) {
     Map<String, dynamic> practice = practices[i];
     bool isGood = practice['good'] as bool;
-    
+
     practiceWidgets.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 4),
@@ -1595,14 +1668,18 @@ Widget buildBestPracticesDemo() {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
-                      color: isGood ? Colors.green.shade800 : Colors.red.shade800,
+                      color: isGood
+                          ? Colors.green.shade800
+                          : Colors.red.shade800,
                     ),
                   ),
                   Text(
                     practice['desc'] as String,
                     style: TextStyle(
                       fontSize: 11,
-                      color: isGood ? Colors.green.shade700 : Colors.red.shade700,
+                      color: isGood
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
                     ),
                   ),
                 ],
@@ -1613,7 +1690,7 @@ Widget buildBestPracticesDemo() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1644,8 +1721,10 @@ Widget buildBestPracticesDemo() {
 dynamic build(BuildContext context) {
   print('ScaffoldFeatureController deep demo executing');
   print('Testing scaffold feature controller concepts');
-  print('Sections: Visual scaffold, bottom sheets, snackbars, type definitions, lifecycle');
-  
+  print(
+    'Sections: Visual scaffold, bottom sheets, snackbars, type definitions, lifecycle',
+  );
+
   return SingleChildScrollView(
     padding: EdgeInsets.all(16),
     child: Column(
@@ -1691,41 +1770,47 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         buildSectionHeader('Visual Scaffold Layout'),
-        buildInfoCard('Purpose', 'Manages overlay features on the Scaffold widget'),
-        buildInfoCard('Features Controlled', 'SnackBars, persistent bottom sheets, modal bottom sheets'),
+        buildInfoCard(
+          'Purpose',
+          'Manages overlay features on the Scaffold widget',
+        ),
+        buildInfoCard(
+          'Features Controlled',
+          'SnackBars, persistent bottom sheets, modal bottom sheets',
+        ),
         buildInfoCard('Type', 'Generic class ScaffoldFeatureController<T, U>'),
         buildVisualScaffoldDemo(),
-        
+
         buildSectionHeader('Bottom Sheet Areas'),
         buildBottomSheetAreasDemo(),
         buildCodeSnippet(
           'Persistent Bottom Sheet',
           'final controller = Scaffold.of(context).showBottomSheet(\n'
-          '  (ctx) => Container(\n'
-          '    height: 200,\n'
-          '    child: Text(\'Content\'),\n'
-          '  ),\n'
-          ');',
+              '  (ctx) => Container(\n'
+              '    height: 200,\n'
+              '    child: Text(\'Content\'),\n'
+              '  ),\n'
+              ');',
         ),
-        
+
         buildSectionHeader('SnackBar Areas'),
         buildSnackbarAreasDemo(),
         buildClosedReasonDemo(),
-        
+
         buildSectionHeader('Feature Controller Concept'),
         buildFeatureControllerConceptDemo(),
         buildControllerMethodsDemo(),
-        
+
         buildSectionHeader('Controller Lifecycle'),
         buildControllerLifecycleDemo(),
         buildInteractionDiagramDemo(),
-        
+
         buildSectionHeader('Usage & Best Practices'),
         buildUsageExamplesDemo(),
         buildBestPracticesDemo(),
-        
+
         SizedBox(height: 16),
         Container(
           padding: EdgeInsets.all(12),
@@ -1742,16 +1827,13 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'ScaffoldFeatureController is the unified interface for controlling any '
                   'Scaffold-managed overlay feature, providing close() and closed Future.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.teal.shade800,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.teal.shade800),
                 ),
               ),
             ],
           ),
         ),
-        
+
         SizedBox(height: 24),
       ],
     ),

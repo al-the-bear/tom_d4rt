@@ -529,10 +529,7 @@ Widget _buildSliverGridSection(BuildContext context) {
                   children: [
                     Icon(icon, color: Color(0xFF00838F), size: 28.0),
                     SizedBox(height: 4.0),
-                    Text(
-                      'Grid $index',
-                      style: TextStyle(fontSize: 11.0),
-                    ),
+                    Text('Grid $index', style: TextStyle(fontSize: 11.0)),
                   ],
                 ),
               );

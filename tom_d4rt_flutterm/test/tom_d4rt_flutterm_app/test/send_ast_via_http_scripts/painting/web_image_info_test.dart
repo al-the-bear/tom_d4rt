@@ -412,11 +412,7 @@ Widget buildScaleExampleCard(
             ],
           ),
         ),
-        Icon(
-          Icons.devices,
-          color: color,
-          size: 22,
-        ),
+        Icon(Icons.devices, color: color, size: 22),
       ],
     ),
   );
@@ -478,7 +474,8 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  children.add(buildCodeBlock('''// WebImageInfo class signature (web platform)
+  children.add(
+    buildCodeBlock('''// WebImageInfo class signature (web platform)
 class WebImageInfo implements ImageInfo {
   final ui.Image image;
   final double scale;
@@ -486,7 +483,8 @@ class WebImageInfo implements ImageInfo {
   
   // Web-specific: may wrap HTML <img> element
   // Browser handles actual pixel data
-}'''));
+}'''),
+  );
 
   print('WebImageInfo wraps HTML image elements on web');
   print('Browser manages actual image decoding and caching');
@@ -538,7 +536,7 @@ class WebImageInfo implements ImageInfo {
       'image',
       'ui.Image',
       'The decoded image data. On web, this wraps browser-managed '
-      'image resources rather than raw pixel buffers.',
+          'image resources rather than raw pixel buffers.',
       Colors.blue,
     ),
   );
@@ -546,7 +544,8 @@ class WebImageInfo implements ImageInfo {
   print('The image property holds decoded image data');
   print('On web, browser manages the underlying pixel data');
 
-  children.add(buildCodeBlock('''// Accessing the image property
+  children.add(
+    buildCodeBlock('''// Accessing the image property
 void processWebImage(WebImageInfo info) {
   ui.Image img = info.image;
   
@@ -559,7 +558,8 @@ void processWebImage(WebImageInfo info) {
   
   // Important: dispose when done
   img.dispose();
-}'''));
+}'''),
+  );
 
   children.add(
     Container(
@@ -653,10 +653,7 @@ void processWebImage(WebImageInfo info) {
             Spacer(),
             Text(
               '${((size['width'] as int) * (size['height'] as int) * 4 / 1024 / 1024).toStringAsFixed(1)} MB',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
           ],
         ),
@@ -675,7 +672,7 @@ void processWebImage(WebImageInfo info) {
       'scale',
       'double',
       'The linear scale factor for the image. A scale of 2.0 means the '
-      'image should be displayed at half its pixel dimensions.',
+          'image should be displayed at half its pixel dimensions.',
       Colors.orange,
     ),
   );
@@ -683,7 +680,8 @@ void processWebImage(WebImageInfo info) {
   print('Scale determines how image pixels map to logical pixels');
   print('Higher scale = higher density display support');
 
-  children.add(buildCodeBlock('''// Understanding scale property
+  children.add(
+    buildCodeBlock('''// Understanding scale property
 void calculateDisplaySize(WebImageInfo info) {
   int pixelWidth = info.image.width;
   int pixelHeight = info.image.height;
@@ -696,34 +694,43 @@ void calculateDisplaySize(WebImageInfo info) {
   print("Pixel: \${pixelWidth}x\${pixelHeight}");
   print("Display: \${displayWidth}x\${displayHeight}");
   print("Scale: \${scale}x");
-}'''));
+}'''),
+  );
 
   // Scale examples
   children.add(SizedBox(height: 8));
-  children.add(buildScaleExampleCard(
-    1.0,
-    'Standard Display',
-    '1 image pixel = 1 logical pixel',
-    Colors.green,
-  ));
-  children.add(buildScaleExampleCard(
-    2.0,
-    'Retina / HiDPI',
-    '2 image pixels = 1 logical pixel',
-    Colors.blue,
-  ));
-  children.add(buildScaleExampleCard(
-    3.0,
-    'Super Retina',
-    '3 image pixels = 1 logical pixel',
-    Colors.purple,
-  ));
-  children.add(buildScaleExampleCard(
-    4.0,
-    'Ultra HD Display',
-    '4 image pixels = 1 logical pixel',
-    Colors.indigo,
-  ));
+  children.add(
+    buildScaleExampleCard(
+      1.0,
+      'Standard Display',
+      '1 image pixel = 1 logical pixel',
+      Colors.green,
+    ),
+  );
+  children.add(
+    buildScaleExampleCard(
+      2.0,
+      'Retina / HiDPI',
+      '2 image pixels = 1 logical pixel',
+      Colors.blue,
+    ),
+  );
+  children.add(
+    buildScaleExampleCard(
+      3.0,
+      'Super Retina',
+      '3 image pixels = 1 logical pixel',
+      Colors.purple,
+    ),
+  );
+  children.add(
+    buildScaleExampleCard(
+      4.0,
+      'Ultra HD Display',
+      '4 image pixels = 1 logical pixel',
+      Colors.indigo,
+    ),
+  );
 
   print('Scale 1.0 = standard resolution');
   print('Scale 2.0 = Retina/HiDPI displays');
@@ -759,10 +766,7 @@ void calculateDisplaySize(WebImageInfo info) {
                   'Always provide images at appropriate scales for web. '
                   'Use srcset in HTML or AssetImage with resolution-aware '
                   'asset variants to serve optimal images per device.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -778,37 +782,44 @@ void calculateDisplaySize(WebImageInfo info) {
   children.add(buildSectionHeader('4. Web Platform Considerations'));
   print('\n--- Web Platform Considerations ---');
 
-  children.add(buildPlatformComparisonCard(
-    'Flutter Web (CanvasKit)',
-    'WebImageInfo',
-    'Uses WASM-based Skia rendering. Images decoded via browser APIs then '
-    'uploaded to GPU via WebGL.',
-    Icons.web,
-    Colors.blue,
-  ));
+  children.add(
+    buildPlatformComparisonCard(
+      'Flutter Web (CanvasKit)',
+      'WebImageInfo',
+      'Uses WASM-based Skia rendering. Images decoded via browser APIs then '
+          'uploaded to GPU via WebGL.',
+      Icons.web,
+      Colors.blue,
+    ),
+  );
 
-  children.add(buildPlatformComparisonCard(
-    'Flutter Web (HTML)',
-    'WebImageInfo',
-    'Uses HTML elements directly. <img> tags handle rendering. '
-    'More compatible but less consistent.',
-    Icons.code,
-    Colors.teal,
-  ));
+  children.add(
+    buildPlatformComparisonCard(
+      'Flutter Web (HTML)',
+      'WebImageInfo',
+      'Uses HTML elements directly. <img> tags handle rendering. '
+          'More compatible but less consistent.',
+      Icons.code,
+      Colors.teal,
+    ),
+  );
 
-  children.add(buildPlatformComparisonCard(
-    'Native Platforms',
-    'ImageInfo',
-    'Standard ImageInfo with direct pixel buffer access. '
-    'Skia handles all rendering natively.',
-    Icons.phone_android,
-    Colors.green,
-  ));
+  children.add(
+    buildPlatformComparisonCard(
+      'Native Platforms',
+      'ImageInfo',
+      'Standard ImageInfo with direct pixel buffer access. '
+          'Skia handles all rendering natively.',
+      Icons.phone_android,
+      Colors.green,
+    ),
+  );
 
   print('CanvasKit renderer uses WebGL for high-fidelity rendering');
   print('HTML renderer uses native browser elements');
 
-  children.add(buildCodeBlock('''// Platform-aware image handling
+  children.add(
+    buildCodeBlock('''// Platform-aware image handling
 import "package:flutter/foundation.dart" show kIsWeb;
 
 void handleImageLoad(ImageInfo info) {
@@ -821,7 +832,8 @@ void handleImageLoad(ImageInfo info) {
     print("Native: Manual memory management");
     info.image.dispose();
   }
-}'''));
+}'''),
+  );
 
   // CORS considerations
   children.add(
@@ -869,10 +881,30 @@ Access-Control-Allow-Origin: https://yourapp.com'''),
 
   // Browser differences table
   List<Map<String, String>> browserFeatures = [
-    {'browser': 'Chrome', 'webp': 'Yes', 'avif': 'Yes', 'notes': 'Full support'},
-    {'browser': 'Firefox', 'webp': 'Yes', 'avif': 'Yes', 'notes': 'Full support'},
-    {'browser': 'Safari', 'webp': 'Yes', 'avif': 'iOS 16+', 'notes': 'Partial AVIF'},
-    {'browser': 'Edge', 'webp': 'Yes', 'avif': 'Yes', 'notes': 'Chromium-based'},
+    {
+      'browser': 'Chrome',
+      'webp': 'Yes',
+      'avif': 'Yes',
+      'notes': 'Full support',
+    },
+    {
+      'browser': 'Firefox',
+      'webp': 'Yes',
+      'avif': 'Yes',
+      'notes': 'Full support',
+    },
+    {
+      'browser': 'Safari',
+      'webp': 'Yes',
+      'avif': 'iOS 16+',
+      'notes': 'Partial AVIF',
+    },
+    {
+      'browser': 'Edge',
+      'webp': 'Yes',
+      'avif': 'Yes',
+      'notes': 'Chromium-based',
+    },
   ];
 
   children.add(SizedBox(height: 10));
@@ -907,10 +939,32 @@ Access-Control-Allow-Origin: https://yourapp.com'''),
             ),
             child: Row(
               children: [
-                Expanded(child: Text('Browser', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                SizedBox(width: 50, child: Text('WebP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                SizedBox(width: 60, child: Text('AVIF', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                Expanded(child: Text('Notes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                Expanded(
+                  child: Text(
+                    'Browser',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ),
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    'WebP',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ),
+                SizedBox(
+                  width: 60,
+                  child: Text(
+                    'AVIF',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Notes',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ),
               ],
             ),
           ),
@@ -922,10 +976,38 @@ Access-Control-Allow-Origin: https://yourapp.com'''),
               ),
               child: Row(
                 children: [
-                  Expanded(child: Text(row['browser'] ?? '', style: TextStyle(fontSize: 12))),
-                  SizedBox(width: 50, child: Text(row['webp'] ?? '', style: TextStyle(fontSize: 12, color: Colors.green.shade700))),
-                  SizedBox(width: 60, child: Text(row['avif'] ?? '', style: TextStyle(fontSize: 12))),
-                  Expanded(child: Text(row['notes'] ?? '', style: TextStyle(fontSize: 12, color: Colors.grey.shade600))),
+                  Expanded(
+                    child: Text(
+                      row['browser'] ?? '',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    child: Text(
+                      row['webp'] ?? '',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60,
+                    child: Text(
+                      row['avif'] ?? '',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      row['notes'] ?? '',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -941,46 +1023,55 @@ Access-Control-Allow-Origin: https://yourapp.com'''),
   children.add(buildSectionHeader('5. Memory Management'));
   print('\n--- Memory Management ---');
 
-  children.add(buildMemoryInfoCard(
-    'Browser GC',
-    'Automatic',
-    'JavaScript garbage collector manages web image memory. '
-    'No manual disposal required for browser-backed images.',
-    Icons.memory,
-    Colors.green,
-  ));
+  children.add(
+    buildMemoryInfoCard(
+      'Browser GC',
+      'Automatic',
+      'JavaScript garbage collector manages web image memory. '
+          'No manual disposal required for browser-backed images.',
+      Icons.memory,
+      Colors.green,
+    ),
+  );
 
-  children.add(buildMemoryInfoCard(
-    'GPU Memory',
-    'WebGL Managed',
-    'CanvasKit uploads textures to GPU via WebGL. Browser manages '
-    'texture eviction based on memory pressure.',
-    Icons.graphic_eq,
-    Colors.blue,
-  ));
+  children.add(
+    buildMemoryInfoCard(
+      'GPU Memory',
+      'WebGL Managed',
+      'CanvasKit uploads textures to GPU via WebGL. Browser manages '
+          'texture eviction based on memory pressure.',
+      Icons.graphic_eq,
+      Colors.blue,
+    ),
+  );
 
-  children.add(buildMemoryInfoCard(
-    'Image Cache',
-    'Browser Cache',
-    'HTTP cache headers control image persistence. Cache-Control '
-    'and ETag headers determine revalidation.',
-    Icons.cached,
-    Colors.purple,
-  ));
+  children.add(
+    buildMemoryInfoCard(
+      'Image Cache',
+      'Browser Cache',
+      'HTTP cache headers control image persistence. Cache-Control '
+          'and ETag headers determine revalidation.',
+      Icons.cached,
+      Colors.purple,
+    ),
+  );
 
-  children.add(buildMemoryInfoCard(
-    'Disposal',
-    'Still Recommended',
-    'While browser GC helps, calling dispose() explicitly helps '
-    'release resources sooner, especially for large images.',
-    Icons.delete_sweep,
-    Colors.orange,
-  ));
+  children.add(
+    buildMemoryInfoCard(
+      'Disposal',
+      'Still Recommended',
+      'While browser GC helps, calling dispose() explicitly helps '
+          'release resources sooner, especially for large images.',
+      Icons.delete_sweep,
+      Colors.orange,
+    ),
+  );
 
   print('Browser garbage collection handles most cleanup');
   print('Explicit disposal still recommended for large images');
 
-  children.add(buildCodeBlock('''// Memory-conscious image handling on web
+  children.add(
+    buildCodeBlock('''// Memory-conscious image handling on web
 class WebImageHandler {
   List<ui.Image> _loadedImages = [];
   
@@ -1000,7 +1091,8 @@ class WebImageHandler {
   }
   
   int get activeImageCount => _loadedImages.length;
-}'''));
+}'''),
+  );
 
   // Memory pressure handling
   children.add(
@@ -1034,7 +1126,10 @@ class WebImageHandler {
             ],
           ),
           SizedBox(height: 10),
-          buildInfoCard('Tab Memory Limit', '~1-4 GB per tab (browser dependent)'),
+          buildInfoCard(
+            'Tab Memory Limit',
+            '~1-4 GB per tab (browser dependent)',
+          ),
           buildInfoCard('Warning Signs', 'Slow rendering, dropped frames'),
           buildInfoCard('Mitigation', 'Lazy loading, image resizing, caching'),
           buildInfoCard('Monitoring', 'Performance DevTools, memory timeline'),
@@ -1049,50 +1144,61 @@ class WebImageHandler {
   children.add(buildSectionHeader('6. Web-Specific Constraints'));
   print('\n--- Web-Specific Constraints ---');
 
-  children.add(buildConstraintCard(
-    'Same-Origin Policy',
-    'Images from different origins cannot be manipulated pixel-by-pixel '
-    'without CORS headers. Drawing tainted canvas fails.',
-    'Configure server CORS headers, or proxy images through your backend.',
-    Colors.red,
-  ));
+  children.add(
+    buildConstraintCard(
+      'Same-Origin Policy',
+      'Images from different origins cannot be manipulated pixel-by-pixel '
+          'without CORS headers. Drawing tainted canvas fails.',
+      'Configure server CORS headers, or proxy images through your backend.',
+      Colors.red,
+    ),
+  );
 
-  children.add(buildConstraintCard(
-    'No Direct Pixel Access',
-    'Unlike native, cannot directly read pixel buffers. Must use canvas '
-    'getImageData which is slower and has CORS restrictions.',
-    'Process images server-side when pixel manipulation is required.',
-    Colors.orange,
-  ));
+  children.add(
+    buildConstraintCard(
+      'No Direct Pixel Access',
+      'Unlike native, cannot directly read pixel buffers. Must use canvas '
+          'getImageData which is slower and has CORS restrictions.',
+      'Process images server-side when pixel manipulation is required.',
+      Colors.orange,
+    ),
+  );
 
-  children.add(buildConstraintCard(
-    'Async Decoding Only',
-    'All image decoding is asynchronous. No synchronous image load APIs '
-    'available in browser environment.',
-    'Design UI to handle loading states gracefully with placeholders.',
-    Colors.yellow.shade700,
-  ));
+  children.add(
+    buildConstraintCard(
+      'Async Decoding Only',
+      'All image decoding is asynchronous. No synchronous image load APIs '
+          'available in browser environment.',
+      'Design UI to handle loading states gracefully with placeholders.',
+      Colors.yellow.shade700,
+    ),
+  );
 
-  children.add(buildConstraintCard(
-    'Format Limitations',
-    'Some image formats may not be supported across all browsers. Older '
-    'browsers lack WebP/AVIF support.',
-    'Provide fallback formats (JPEG/PNG) using picture element or checks.',
-    Colors.blue,
-  ));
+  children.add(
+    buildConstraintCard(
+      'Format Limitations',
+      'Some image formats may not be supported across all browsers. Older '
+          'browsers lack WebP/AVIF support.',
+      'Provide fallback formats (JPEG/PNG) using picture element or checks.',
+      Colors.blue,
+    ),
+  );
 
-  children.add(buildConstraintCard(
-    'Memory Fragmentation',
-    'Long-running web apps may experience memory fragmentation. Browser '
-    'cannot compact JavaScript heap like native.',
-    'Periodic page refresh for long sessions, or use service workers.',
-    Colors.purple,
-  ));
+  children.add(
+    buildConstraintCard(
+      'Memory Fragmentation',
+      'Long-running web apps may experience memory fragmentation. Browser '
+          'cannot compact JavaScript heap like native.',
+      'Periodic page refresh for long sessions, or use service workers.',
+      Colors.purple,
+    ),
+  );
 
   print('Web has unique constraints: CORS, async-only, format support');
   print('Plan for graceful degradation and fallbacks');
 
-  children.add(buildCodeBlock('''// Handling web constraints gracefully
+  children.add(
+    buildCodeBlock('''// Handling web constraints gracefully
 Future<ui.Image?> loadImageSafely(String url) async {
   try {
     // Use NetworkImage with error handling
@@ -1118,7 +1224,8 @@ Future<ui.Image?> loadImageSafely(String url) async {
     print("Caught exception: \$e");
     return null;
   }
-}'''));
+}'''),
+  );
 
   // Summary tips
   children.add(

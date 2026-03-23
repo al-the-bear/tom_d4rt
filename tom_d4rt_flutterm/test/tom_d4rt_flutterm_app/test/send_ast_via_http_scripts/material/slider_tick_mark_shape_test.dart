@@ -80,7 +80,9 @@ Widget buildSliderWithTickMarks(
         SizedBox(height: 12),
         SliderTheme(
           data: SliderThemeData(
-            tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: tickMarkRadius),
+            tickMarkShape: RoundSliderTickMarkShape(
+              tickMarkRadius: tickMarkRadius,
+            ),
             activeTrackColor: activeColor,
             inactiveTrackColor: activeColor.withAlpha(60),
             activeTickMarkColor: Colors.white,
@@ -239,7 +241,9 @@ Widget buildTickMarkRadiusComparison() {
             Expanded(
               child: SliderTheme(
                 data: SliderThemeData(
-                  tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: radii[i]),
+                  tickMarkShape: RoundSliderTickMarkShape(
+                    tickMarkRadius: radii[i],
+                  ),
                   activeTrackColor: radiusColors[i],
                   inactiveTrackColor: radiusColors[i].withAlpha(60),
                   activeTickMarkColor: Colors.white,
@@ -822,10 +826,7 @@ Widget buildRoundSliderTickMarkShapeDetails() {
                   SizedBox(width: 8),
                   Text(
                     'double',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -917,11 +918,7 @@ Widget buildSliderTickMarkOverview() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.linear_scale,
-              color: Colors.white,
-              size: 28,
-            ),
+            Icon(Icons.linear_scale, color: Colors.white, size: 28),
             SizedBox(width: 12),
             Text(
               'SliderTickMarkShape',
@@ -936,10 +933,7 @@ Widget buildSliderTickMarkOverview() {
         SizedBox(height: 12),
         Text(
           'Base class for painting tick marks on a slider track',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.white.withAlpha(230),
-          ),
+          style: TextStyle(fontSize: 15, color: Colors.white.withAlpha(230)),
         ),
         SizedBox(height: 16),
         Container(
@@ -1053,10 +1047,7 @@ Widget buildSliderTickMarkOverview() {
               ),
               child: Text(
                 'Material Components',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 11),
               ),
             ),
           ],
@@ -1207,17 +1198,16 @@ Widget buildTickMarkTrackHeightRelation() {
                 SizedBox(width: 12),
                 Text(
                   'Tick: ${tickRadii[h]}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
               ],
             ),
             SizedBox(height: 8),
             SliderTheme(
               data: SliderThemeData(
-                tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: tickRadii[h]),
+                tickMarkShape: RoundSliderTickMarkShape(
+                  tickMarkRadius: tickRadii[h],
+                ),
                 activeTrackColor: Colors.teal,
                 inactiveTrackColor: Colors.teal.withAlpha(60),
                 activeTickMarkColor: Colors.white,
@@ -1268,14 +1258,8 @@ Widget buildTickMarkTrackHeightRelation() {
 
 Widget buildSliderTickMarkShapeMethodsTable() {
   print('Building methods table');
-  List<String> methodNames = [
-    'paint()',
-    'getPreferredSize()',
-  ];
-  List<String> methodReturns = [
-    'void',
-    'Size',
-  ];
+  List<String> methodNames = ['paint()', 'getPreferredSize()'];
+  List<String> methodReturns = ['void', 'Size'];
   List<String> methodDescriptions = [
     'Paints the tick mark on the canvas at the specified position',
     'Returns the size used for layout calculations',
@@ -1309,16 +1293,15 @@ Widget buildSliderTickMarkShapeMethodsTable() {
                       fontFamily: 'monospace',
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
-                      color: m == 0 ? Colors.blue.shade800 : Colors.green.shade800,
+                      color: m == 0
+                          ? Colors.blue.shade800
+                          : Colors.green.shade800,
                     ),
                   ),
                   SizedBox(height: 2),
                   Text(
                     methodReturns[m],
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -1515,9 +1498,15 @@ dynamic build(BuildContext context) {
         children: [
           buildSliderTickMarkOverview(),
           buildSectionHeader('SliderTickMarkShape Overview'),
-          buildInfoCard('Class Type', 'Abstract base class for tick mark painting'),
+          buildInfoCard(
+            'Class Type',
+            'Abstract base class for tick mark painting',
+          ),
           buildInfoCard('Package', 'flutter/material.dart'),
-          buildInfoCard('Purpose', 'Defines visual representation of slider tick marks'),
+          buildInfoCard(
+            'Purpose',
+            'Defines visual representation of slider tick marks',
+          ),
           buildInfoCard('Default Implementation', 'RoundSliderTickMarkShape'),
           buildSliderTickMarkShapeMethodsTable(),
           buildNoTickMarksVsTickMarks(),
@@ -1546,8 +1535,14 @@ dynamic build(BuildContext context) {
           ),
           buildSectionHeader('Tick Mark Radius'),
           buildTickMarkRadiusComparison(),
-          buildInfoCard('Small Radius (1-2)', 'Subtle, minimalistic appearance'),
-          buildInfoCard('Medium Radius (3-4)', 'Good visibility, standard look'),
+          buildInfoCard(
+            'Small Radius (1-2)',
+            'Subtle, minimalistic appearance',
+          ),
+          buildInfoCard(
+            'Medium Radius (3-4)',
+            'Good visibility, standard look',
+          ),
           buildInfoCard('Large Radius (5-6)', 'Prominent, bold tick marks'),
           buildTickMarkTrackHeightRelation(),
           buildSectionHeader('Active vs Inactive Colors'),

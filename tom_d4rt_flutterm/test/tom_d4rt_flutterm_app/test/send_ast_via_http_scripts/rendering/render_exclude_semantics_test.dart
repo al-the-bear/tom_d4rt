@@ -724,9 +724,7 @@ Widget _buildAccessibilityTreeVisualization() {
 
 // Helper for tree node visualization
 Widget _buildTreeNode(String label, int depth, bool isVisible) {
-  print(
-    '[TreeNode] depth=$depth visible=$isVisible -> $label',
-  );
+  print('[TreeNode] depth=$depth visible=$isVisible -> $label');
   String indent = '';
   for (int i = 0; i < depth; i++) {
     indent = '$indent  ';

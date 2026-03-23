@@ -139,7 +139,12 @@ Widget buildScaffoldOfUsageSection() {
   );
 }
 
-Widget _buildUsageNote(IconData icon, String title, String message, Color color) {
+Widget _buildUsageNote(
+  IconData icon,
+  String title,
+  String message,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -377,10 +382,7 @@ Widget _buildKeyAdvantages() {
             ),
             SizedBox(width: 12),
             Expanded(
-              child: Text(
-                advantages[a],
-                style: TextStyle(fontSize: 13),
-              ),
+              child: Text(advantages[a], style: TextStyle(fontSize: 13)),
             ),
           ],
         ),
@@ -635,15 +637,15 @@ Widget buildBottomSheetControlSection() {
           'showBottomSheet',
           'Displays a persistent bottom sheet that stays until explicitly closed.',
           'PersistentBottomSheetController controller =\n'
-          '  scaffoldState.showBottomSheet(\n'
-          '    (context) => Container(\n'
-          '      height: 200,\n'
-          '      color: Colors.white,\n'
-          '      child: Center(\n'
-          '        child: Text("Persistent Sheet"),\n'
-          '      ),\n'
-          '    ),\n'
-          '  );',
+              '  scaffoldState.showBottomSheet(\n'
+              '    (context) => Container(\n'
+              '      height: 200,\n'
+              '      color: Colors.white,\n'
+              '      child: Center(\n'
+              '        child: Text("Persistent Sheet"),\n'
+              '      ),\n'
+              '    ),\n'
+              '  );',
           Colors.purple,
         ),
         SizedBox(height: 8),
@@ -1116,14 +1118,7 @@ Widget buildScaffoldStatePropertiesTable() {
     'hasAppBar',
     'hasFloatingActionButton',
   ];
-  List<String> propTypes = [
-    'bool',
-    'bool',
-    'bool',
-    'bool',
-    'bool',
-    'bool',
-  ];
+  List<String> propTypes = ['bool', 'bool', 'bool', 'bool', 'bool', 'bool'];
   List<String> propDescs = [
     'True if left drawer is currently open',
     'True if right drawer is currently open',
@@ -1159,10 +1154,7 @@ Widget buildScaffoldStatePropertiesTable() {
               width: 50,
               child: Text(
                 propTypes[p],
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
               ),
             ),
             Expanded(
@@ -1347,12 +1339,7 @@ Widget buildBestPracticesSection() {
               child: Icon(Icons.check, color: Colors.white, size: 16),
             ),
             SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                practices[b],
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
+            Expanded(child: Text(practices[b], style: TextStyle(fontSize: 13))),
           ],
         ),
       ),
@@ -1403,7 +1390,10 @@ dynamic build(BuildContext context) {
               'Purpose',
               'State class that provides access to Scaffold features like drawers and bottom sheets',
             ),
-            buildInfoCard('Access Via', 'Scaffold.of(context) or GlobalKey<ScaffoldState>'),
+            buildInfoCard(
+              'Access Via',
+              'Scaffold.of(context) or GlobalKey<ScaffoldState>',
+            ),
             buildInfoCard(
               'Key Methods',
               'openDrawer, openEndDrawer, closeDrawer, closeEndDrawer, showBottomSheet',

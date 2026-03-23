@@ -277,7 +277,9 @@ Widget buildActiveInactiveColorDemo() {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: (cfg['activeColor'] as Color).withAlpha(100)),
+          border: Border.all(
+            color: (cfg['activeColor'] as Color).withAlpha(100),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +330,9 @@ Widget buildActiveInactiveColorDemo() {
                 inactiveTrackColor: (cfg['activeColor'] as Color).withAlpha(60),
                 activeTickMarkColor: cfg['activeTick'] as Color,
                 inactiveTickMarkColor: cfg['inactiveTick'] as Color,
-                rangeThumbShape: RoundRangeSliderThumbShape(enabledThumbRadius: 9),
+                rangeThumbShape: RoundRangeSliderThumbShape(
+                  enabledThumbRadius: 9,
+                ),
                 trackHeight: 6,
               ),
               child: RangeSlider(
@@ -565,11 +569,7 @@ Widget buildTickMarkShapeComparison() {
                 color: itemColor.withAlpha(40),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                info['icon'] as IconData,
-                color: itemColor,
-                size: 28,
-              ),
+              child: Icon(info['icon'] as IconData, color: itemColor, size: 28),
             ),
             SizedBox(width: 14),
             Expanded(

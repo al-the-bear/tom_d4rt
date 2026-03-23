@@ -112,20 +112,16 @@ class ProductSearchDelegate extends SearchDelegate<String> {
   List<String> products;
   List<String> searchHistory;
 
-  ProductSearchDelegate({
-    List<String>? products,
-    List<String>? searchHistory,
-  })  : products = products ?? [],
-        searchHistory = searchHistory ?? [];
+  ProductSearchDelegate({List<String>? products, List<String>? searchHistory})
+    : products = products ?? [],
+      searchHistory = searchHistory ?? [];
 
   @override
   String get searchFieldLabel => 'Search products...';
 
   @override
-  TextStyle get searchFieldStyle => TextStyle(
-        fontSize: 16,
-        color: Colors.grey.shade800,
-      );
+  TextStyle get searchFieldStyle =>
+      TextStyle(fontSize: 16, color: Colors.grey.shade800);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -227,9 +223,11 @@ class ProductSearchDelegate extends SearchDelegate<String> {
     List<String> suggestions = query.isEmpty
         ? searchHistory
         : products
-            .where(
-                (product) => product.toLowerCase().startsWith(query.toLowerCase()))
-            .toList();
+              .where(
+                (product) =>
+                    product.toLowerCase().startsWith(query.toLowerCase()),
+              )
+              .toList();
 
     return ListView.builder(
       itemCount: suggestions.length,
@@ -273,7 +271,7 @@ class CitySearchDelegate extends SearchDelegate<String> {
   List<Map<String, dynamic>> cities;
 
   CitySearchDelegate({List<Map<String, dynamic>>? cities})
-      : cities = cities ?? [];
+    : cities = cities ?? [];
 
   @override
   String get searchFieldLabel => 'Search cities...';
@@ -315,10 +313,11 @@ class CitySearchDelegate extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     print('CitySearchDelegate.buildResults for query: $query');
     List<Map<String, dynamic>> results = cities
-        .where((city) => city['name']
-            .toString()
-            .toLowerCase()
-            .contains(query.toLowerCase()))
+        .where(
+          (city) => city['name'].toString().toLowerCase().contains(
+            query.toLowerCase(),
+          ),
+        )
         .toList();
 
     return ListView.builder(
@@ -364,10 +363,11 @@ class CitySearchDelegate extends SearchDelegate<String> {
     }
 
     List<Map<String, dynamic>> suggestions = cities
-        .where((city) => city['name']
-            .toString()
-            .toLowerCase()
-            .startsWith(query.toLowerCase()))
+        .where(
+          (city) => city['name'].toString().toLowerCase().startsWith(
+            query.toLowerCase(),
+          ),
+        )
         .take(5)
         .toList();
 
@@ -401,10 +401,8 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
   String get searchFieldLabel => 'Search contacts by name or email';
 
   @override
-  TextStyle get searchFieldStyle => TextStyle(
-        fontSize: 15,
-        fontStyle: FontStyle.italic,
-      );
+  TextStyle get searchFieldStyle =>
+      TextStyle(fontSize: 15, fontStyle: FontStyle.italic);
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -499,10 +497,13 @@ class ContactSearchDelegate extends SearchDelegate<Map<String, String>> {
     List<Map<String, String>> suggestions = query.isEmpty
         ? contacts.take(10).toList()
         : contacts
-            .where((c) =>
-                (c['name'] ?? '').toLowerCase().startsWith(query.toLowerCase()))
-            .take(5)
-            .toList();
+              .where(
+                (c) => (c['name'] ?? '').toLowerCase().startsWith(
+                  query.toLowerCase(),
+                ),
+              )
+              .take(5)
+              .toList();
 
     return ListView.builder(
       itemCount: suggestions.length,
@@ -645,25 +646,27 @@ Widget buildMethodSignatureCard(
             ),
           ),
           SizedBox(height: 4),
-          ...parameters.map((param) => Padding(
-                padding: EdgeInsets.only(left: 8, top: 2),
-                child: Row(
-                  children: [
-                    Icon(Icons.arrow_right, size: 16, color: Colors.grey),
-                    SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        param,
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 12,
-                          color: Colors.grey.shade700,
-                        ),
+          ...parameters.map(
+            (param) => Padding(
+              padding: EdgeInsets.only(left: 8, top: 2),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_right, size: 16, color: Colors.grey),
+                  SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      param,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        color: Colors.grey.shade700,
                       ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ],
     ),
@@ -1076,10 +1079,22 @@ Widget buildAbstractClassExplanation() {
                 ),
               ),
               SizedBox(height: 8),
-              _buildRequiredMethodItem('buildLeading()', 'Widget for leading icon'),
-              _buildRequiredMethodItem('buildActions()', 'List of action widgets'),
-              _buildRequiredMethodItem('buildResults()', 'Search results widget'),
-              _buildRequiredMethodItem('buildSuggestions()', 'Suggestions widget'),
+              _buildRequiredMethodItem(
+                'buildLeading()',
+                'Widget for leading icon',
+              ),
+              _buildRequiredMethodItem(
+                'buildActions()',
+                'List of action widgets',
+              ),
+              _buildRequiredMethodItem(
+                'buildResults()',
+                'Search results widget',
+              ),
+              _buildRequiredMethodItem(
+                'buildSuggestions()',
+                'Suggestions widget',
+              ),
             ],
           ),
         ),
@@ -1164,7 +1179,11 @@ Widget buildDelegateComparisonTable() {
         ),
         _buildTableRow('ProductSearch', 'E-commerce product search', 'String'),
         _buildTableRow('CitySearch', 'Location/city picker', 'String'),
-        _buildTableRow('ContactSearch', 'Contact selection', 'Map<String, String>'),
+        _buildTableRow(
+          'ContactSearch',
+          'Contact selection',
+          'Map<String, String>',
+        ),
         _buildTableRow('DocumentSearch', 'File/document search', 'Document'),
         _buildTableRow('UserSearch', 'User lookup', 'User'),
       ],
@@ -1233,11 +1252,7 @@ Widget buildSearchDelegateDeepDemo() {
     'Xbox Series X',
   ];
 
-  List<String> searchHistory = [
-    'iPhone',
-    'MacBook',
-    'headphones',
-  ];
+  List<String> searchHistory = ['iPhone', 'MacBook', 'headphones'];
 
   List<Map<String, dynamic>> sampleCities = [
     {'name': 'New York', 'population': 8336817},
@@ -1248,9 +1263,17 @@ Widget buildSearchDelegateDeepDemo() {
   ];
 
   List<Map<String, String>> sampleContacts = [
-    {'name': 'Alice Johnson', 'email': 'alice@example.com', 'phone': '+1234567890'},
+    {
+      'name': 'Alice Johnson',
+      'email': 'alice@example.com',
+      'phone': '+1234567890',
+    },
     {'name': 'Bob Smith', 'email': 'bob@example.com', 'phone': '+1234567891'},
-    {'name': 'Carol Williams', 'email': 'carol@example.com', 'phone': '+1234567892'},
+    {
+      'name': 'Carol Williams',
+      'email': 'carol@example.com',
+      'phone': '+1234567892',
+    },
   ];
 
   ProductSearchDelegate productDelegate = ProductSearchDelegate(
@@ -1258,9 +1281,7 @@ Widget buildSearchDelegateDeepDemo() {
     searchHistory: searchHistory,
   );
 
-  CitySearchDelegate cityDelegate = CitySearchDelegate(
-    cities: sampleCities,
-  );
+  CitySearchDelegate cityDelegate = CitySearchDelegate(cities: sampleCities);
 
   ContactSearchDelegate contactDelegate = ContactSearchDelegate(
     contacts: sampleContacts,
@@ -1269,9 +1290,15 @@ Widget buildSearchDelegateDeepDemo() {
     },
   );
 
-  print('ProductSearchDelegate searchFieldLabel: ${productDelegate.searchFieldLabel}');
-  print('CitySearchDelegate searchFieldLabel: ${cityDelegate.searchFieldLabel}');
-  print('ContactSearchDelegate searchFieldLabel: ${contactDelegate.searchFieldLabel}');
+  print(
+    'ProductSearchDelegate searchFieldLabel: ${productDelegate.searchFieldLabel}',
+  );
+  print(
+    'CitySearchDelegate searchFieldLabel: ${cityDelegate.searchFieldLabel}',
+  );
+  print(
+    'ContactSearchDelegate searchFieldLabel: ${contactDelegate.searchFieldLabel}',
+  );
 
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -1512,7 +1539,9 @@ Widget buildSearchDelegateDeepDemo() {
               Colors.indigo,
               () {
                 print('Product search demo tapped');
-                print('Would call: showSearch(context: ctx, delegate: productDelegate)');
+                print(
+                  'Would call: showSearch(context: ctx, delegate: productDelegate)',
+                );
               },
             ),
             buildSearchDelegateDemoCard(
@@ -1522,7 +1551,9 @@ Widget buildSearchDelegateDeepDemo() {
               Colors.blue,
               () {
                 print('City search demo tapped');
-                print('Would call: showSearch(context: ctx, delegate: cityDelegate)');
+                print(
+                  'Would call: showSearch(context: ctx, delegate: cityDelegate)',
+                );
               },
             ),
             buildSearchDelegateDemoCard(
@@ -1532,17 +1563,34 @@ Widget buildSearchDelegateDeepDemo() {
               Colors.teal,
               () {
                 print('Contact search demo tapped');
-                print('Would call: showSearch(context: ctx, delegate: contactDelegate)');
+                print(
+                  'Would call: showSearch(context: ctx, delegate: contactDelegate)',
+                );
               },
             ),
 
             SizedBox(height: 16),
             buildSectionHeader('Additional Properties & Methods'),
-            buildInfoCard('transitionAnimation', 'Animation<double> for search transition effects'),
-            buildInfoCard('close(context, result)', 'Closes search and returns result to caller'),
-            buildInfoCard('keyboardType', 'TextInputType for the search field keyboard'),
-            buildInfoCard('textInputAction', 'TextInputAction for the search field'),
-            buildInfoCard('appBarTheme(context)', 'Override to customize the search app bar theme'),
+            buildInfoCard(
+              'transitionAnimation',
+              'Animation<double> for search transition effects',
+            ),
+            buildInfoCard(
+              'close(context, result)',
+              'Closes search and returns result to caller',
+            ),
+            buildInfoCard(
+              'keyboardType',
+              'TextInputType for the search field keyboard',
+            ),
+            buildInfoCard(
+              'textInputAction',
+              'TextInputAction for the search field',
+            ),
+            buildInfoCard(
+              'appBarTheme(context)',
+              'Override to customize the search app bar theme',
+            ),
 
             SizedBox(height: 16),
             buildSectionHeader('Best Practices'),

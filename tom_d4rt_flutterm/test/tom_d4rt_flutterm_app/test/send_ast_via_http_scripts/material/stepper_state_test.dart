@@ -139,11 +139,7 @@ Widget _buildFeatureChip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: color),
     ),
   );
 }
@@ -320,10 +316,7 @@ Widget buildStepsListDemo() {
               child: Center(
                 child: Text(
                   '${idx + 1}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: c,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: c),
                 ),
               ),
             ),
@@ -334,17 +327,11 @@ Widget buildStepsListDemo() {
                 children: [
                   Text(
                     cfg['title'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     'State: ${(cfg['state'] as StepState).toString().split('.').last}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -390,7 +377,11 @@ Widget buildStepsListDemo() {
 Widget buildCurrentStepDemo() {
   print('Building current step demo');
   List<int> stepIndices = [0, 1, 2];
-  List<String> stepLabels = ['First Step Active', 'Second Step Active', 'Third Step Active'];
+  List<String> stepLabels = [
+    'First Step Active',
+    'Second Step Active',
+    'Third Step Active',
+  ];
   List<MaterialColor> stepColors = [Colors.indigo, Colors.teal, Colors.orange];
 
   List<Widget> demos = [];
@@ -505,9 +496,7 @@ Widget buildStepperTypeDemo() {
       title: Text('Select'),
       content: SizedBox(
         height: 50,
-        child: Center(
-          child: Text('Choose your preferences'),
-        ),
+        child: Center(child: Text('Choose your preferences')),
       ),
       isActive: true,
       state: StepState.complete,
@@ -516,9 +505,7 @@ Widget buildStepperTypeDemo() {
       title: Text('Configure'),
       content: SizedBox(
         height: 50,
-        child: Center(
-          child: Text('Set up your options'),
-        ),
+        child: Center(child: Text('Set up your options')),
       ),
       isActive: true,
       state: StepState.editing,
@@ -527,9 +514,7 @@ Widget buildStepperTypeDemo() {
       title: Text('Finish'),
       content: SizedBox(
         height: 50,
-        child: Center(
-          child: Text('Complete setup'),
-        ),
+        child: Center(child: Text('Complete setup')),
       ),
       isActive: false,
     ),
@@ -751,10 +736,7 @@ Widget buildCallbacksDemo() {
                   SizedBox(height: 4),
                   Text(
                     cb['description'] as String,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -778,10 +760,7 @@ Widget buildCallbacksDemo() {
       children: [
         Text(
           'Navigation Callbacks',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
         Text(
@@ -883,7 +862,10 @@ Widget buildControlsBuilderDemo() {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple.shade600,
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
                     ),
                   ),
                   SizedBox(width: 12),
@@ -894,7 +876,10 @@ Widget buildControlsBuilderDemo() {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.purple.shade600,
                       side: BorderSide(color: Colors.purple.shade300),
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
                     ),
                   ),
                 ],
@@ -944,10 +929,7 @@ Widget _buildCodeLine(String name, String type) {
             color: Colors.purple.shade700,
           ),
         ),
-        Text(
-          ': ',
-          style: TextStyle(fontSize: 12),
-        ),
+        Text(': ', style: TextStyle(fontSize: 12)),
         Text(
           type,
           style: TextStyle(
@@ -989,17 +971,10 @@ Widget buildConnectorColorDemo() {
             Container(
               width: 24,
               height: 24,
-              decoration: BoxDecoration(
-                color: cc,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: cc, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
-            Container(
-              width: 60,
-              height: 3,
-              color: cc,
-            ),
+            Container(width: 60, height: 3, color: cc),
             SizedBox(width: 8),
             Container(
               width: 24,
@@ -1010,11 +985,7 @@ Widget buildConnectorColorDemo() {
               ),
             ),
             SizedBox(width: 8),
-            Container(
-              width: 60,
-              height: 3,
-              color: cc.withAlpha(80),
-            ),
+            Container(width: 60, height: 3, color: cc.withAlpha(80)),
             SizedBox(width: 8),
             Container(
               width: 24,
@@ -1027,10 +998,7 @@ Widget buildConnectorColorDemo() {
             SizedBox(width: 16),
             Text(
               colorNames[j],
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: cc,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: cc),
             ),
           ],
         ),
@@ -1051,10 +1019,7 @@ Widget buildConnectorColorDemo() {
       children: [
         Text(
           'Connector Color Options',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
         Text(
@@ -1187,10 +1152,7 @@ Widget buildElevationDemo() {
       children: [
         Text(
           'Stepper Elevation',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
         Text(
@@ -1284,10 +1246,7 @@ Widget buildStepStateGrid() {
                   ),
                   Text(
                     st['description'] as String,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -1311,10 +1270,7 @@ Widget buildStepStateGrid() {
       children: [
         Text(
           'Step States',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
         Text(
@@ -1334,15 +1290,18 @@ Widget buildUsageTips() {
   List<Map<String, String>> tips = [
     {
       'title': 'Track currentStep in State',
-      'content': 'Store currentStep in your StatefulWidget state and update it in callbacks',
+      'content':
+          'Store currentStep in your StatefulWidget state and update it in callbacks',
     },
     {
       'title': 'Validate Before Continue',
-      'content': 'Check form validity in onStepContinue before incrementing step',
+      'content':
+          'Check form validity in onStepContinue before incrementing step',
     },
     {
       'title': 'Use Step.state Wisely',
-      'content': 'Set appropriate StepState for completed, editing, or error steps',
+      'content':
+          'Set appropriate StepState for completed, editing, or error steps',
     },
     {
       'title': 'Custom Controls for Branding',
@@ -1350,7 +1309,8 @@ Widget buildUsageTips() {
     },
     {
       'title': 'Consider Accessibility',
-      'content': 'Steps support screen readers - ensure meaningful titles and subtitles',
+      'content':
+          'Steps support screen readers - ensure meaningful titles and subtitles',
     },
   ];
 
@@ -1394,18 +1354,12 @@ Widget buildUsageTips() {
                 children: [
                   Text(
                     tips[t]['title'] ?? '',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   SizedBox(height: 2),
                   Text(
                     tips[t]['content'] ?? '',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
                   ),
                 ],
               ),
@@ -1445,7 +1399,10 @@ dynamic build(BuildContext context) {
             buildStepperOverview(),
             buildInfoCard('Widget', 'Stepper'),
             buildInfoCard('State Class', 'StepperState'),
-            buildInfoCard('Purpose', 'Display progress through a sequence of steps'),
+            buildInfoCard(
+              'Purpose',
+              'Display progress through a sequence of steps',
+            ),
             buildInfoCard('Mixin', 'TickerProviderStateMixin for animations'),
 
             buildSectionHeader('2. Steps List'),
@@ -1455,23 +1412,35 @@ dynamic build(BuildContext context) {
             buildSectionHeader('3. Current Step'),
             buildInfoCard('Property', 'currentStep (int)'),
             buildInfoCard('Default', '0 (first step)'),
-            buildInfoCard('Usage', 'Controls which step is expanded and active'),
+            buildInfoCard(
+              'Usage',
+              'Controls which step is expanded and active',
+            ),
             buildCurrentStepDemo(),
 
             buildSectionHeader('4. Type (Horizontal/Vertical)'),
             buildInfoCard('Property', 'type (StepperType)'),
-            buildInfoCard('Values', 'StepperType.horizontal, StepperType.vertical'),
+            buildInfoCard(
+              'Values',
+              'StepperType.horizontal, StepperType.vertical',
+            ),
             buildStepperTypeDemo(),
 
             buildSectionHeader('5. onStepContinue'),
             buildInfoCard('Type', 'VoidCallback?'),
             buildInfoCard('Called', 'When Continue button is pressed'),
-            buildInfoCard('Common Use', 'Increment currentStep after validation'),
+            buildInfoCard(
+              'Common Use',
+              'Increment currentStep after validation',
+            ),
 
             buildSectionHeader('6. onStepCancel'),
             buildInfoCard('Type', 'VoidCallback?'),
             buildInfoCard('Called', 'When Cancel button is pressed'),
-            buildInfoCard('Common Use', 'Decrement currentStep or show confirmation'),
+            buildInfoCard(
+              'Common Use',
+              'Decrement currentStep or show confirmation',
+            ),
 
             buildSectionHeader('7. onStepTapped'),
             buildInfoCard('Type', 'ValueChanged<int>?'),

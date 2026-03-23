@@ -819,10 +819,7 @@ Widget _buildComparisonItem(
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
             Text(
@@ -1134,7 +1131,9 @@ Widget buildTrackSizeVariations() {
                   fontSize: 12,
                 ),
                 trackHeight: trackHeights[z],
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: thumbRadii[z]),
+                thumbShape: RoundSliderThumbShape(
+                  enabledThumbRadius: thumbRadii[z],
+                ),
               ),
               child: Slider(
                 value: values[z],

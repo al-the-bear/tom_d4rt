@@ -102,10 +102,7 @@ Widget buildBasicSearchAnchor(String label, SearchController controller) {
               hintText: 'Search fruits...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<String> filtered = [];
             int i = 0;
@@ -189,10 +186,7 @@ Widget buildSearchAnchorWithViewLeading(SearchController controller) {
               hintText: 'Search cities...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -276,10 +270,7 @@ Widget buildSearchAnchorWithViewTrailing(SearchController controller) {
               hintText: 'Search contacts...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -362,10 +353,7 @@ Widget buildSearchAnchorWithHintText(SearchController controller) {
               hintText: 'Search products...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -379,7 +367,10 @@ Widget buildSearchAnchorWithHintText(SearchController controller) {
                     subtitle: Text('Electronics'),
                     trailing: Text(
                       '\$${(i + 1) * 100}',
-                      style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     onTap: () {
                       ctrl.closeView(product);
@@ -441,10 +432,7 @@ Widget buildSearchAnchorWithCustomBuilder(SearchController controller) {
               label: Text('Search Movies'),
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -520,10 +508,7 @@ Widget buildSearchAnchorWithIconBuilder(SearchController controller) {
                 },
               );
             },
-            suggestionsBuilder: (
-              BuildContext context,
-              SearchController ctrl,
-            ) {
+            suggestionsBuilder: (BuildContext context, SearchController ctrl) {
               String query = ctrl.text.toLowerCase();
               List<Widget> suggestions = [];
               int i = 0;
@@ -604,10 +589,7 @@ Widget buildSearchAnchorFullScreen(SearchController controller) {
               hintText: 'Search recipes...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -693,10 +675,7 @@ Widget buildSearchAnchorWithBackgroundColor(SearchController controller) {
               hintText: 'Search playlists...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -785,10 +764,7 @@ Widget buildSearchAnchorWithElevation(SearchController controller) {
               hintText: 'Search files...',
             );
           },
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -1003,10 +979,7 @@ Widget buildSearchControllerInfo() {
             ),
             SizedBox(width: 12),
             Expanded(
-              child: Text(
-                descriptions[m],
-                style: TextStyle(fontSize: 13),
-              ),
+              child: Text(descriptions[m], style: TextStyle(fontSize: 13)),
             ),
           ],
         ),
@@ -1066,10 +1039,7 @@ Widget buildMaterialDesignGuidelines() {
             Icon(Icons.check_circle, color: Colors.green, size: 18),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                guidelines[g],
-                style: TextStyle(fontSize: 13),
-              ),
+              child: Text(guidelines[g], style: TextStyle(fontSize: 13)),
             ),
           ],
         ),
@@ -1147,10 +1117,7 @@ Widget buildSearchAnchorBarVariant(SearchController controller) {
           searchController: controller,
           barHintText: 'Search books...',
           barLeading: Icon(Icons.menu_book, color: Colors.brown),
-          suggestionsBuilder: (
-            BuildContext context,
-            SearchController ctrl,
-          ) {
+          suggestionsBuilder: (BuildContext context, SearchController ctrl) {
             String query = ctrl.text.toLowerCase();
             List<Widget> suggestions = [];
             int i = 0;
@@ -1234,10 +1201,7 @@ Widget buildSuggestionBuildingPatterns() {
                 children: [
                   Text(
                     patterns[p],
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 2),
                   Text(
@@ -1394,12 +1358,7 @@ Widget buildAccessibilityFeatures() {
           children: [
             Icon(Icons.accessibility_new, color: Colors.blue, size: 18),
             SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                features[f],
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
+            Expanded(child: Text(features[f], style: TextStyle(fontSize: 13))),
           ],
         ),
       ),

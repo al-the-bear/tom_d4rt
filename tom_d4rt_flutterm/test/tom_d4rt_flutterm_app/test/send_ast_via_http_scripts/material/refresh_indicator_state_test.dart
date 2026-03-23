@@ -95,7 +95,10 @@ Widget buildRefreshableListView(
                     ),
                     Text(
                       'Displacement: ${displacement.toInt()}px | Stroke: ${strokeWidth}px',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -166,10 +169,7 @@ Widget buildRefreshableListView(
                           ],
                         ),
                       ),
-                      Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey.shade400,
-                      ),
+                      Icon(Icons.chevron_right, color: Colors.grey.shade400),
                     ],
                   ),
                 );
@@ -203,11 +203,7 @@ Widget buildCustomScrollViewDemo(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.grid_view,
-                color: primaryColor,
-                size: 28,
-              ),
+              Icon(Icons.grid_view, color: primaryColor, size: 28),
               SizedBox(height: 4),
               Text(
                 'Grid ${i + 1}',
@@ -261,7 +257,10 @@ Widget buildCustomScrollViewDemo(
                     ),
                     Text(
                       'Edge Offset: ${edgeOffset.toInt()}px | CustomScrollView',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -924,7 +923,11 @@ Widget buildTriggerModeComparison() {
           ),
           child: Row(
             children: [
-              Icon(Icons.vertical_align_top, color: Colors.green.shade700, size: 28),
+              Icon(
+                Icons.vertical_align_top,
+                color: Colors.green.shade700,
+                size: 28,
+              ),
               SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -940,7 +943,10 @@ Widget buildTriggerModeComparison() {
                     ),
                     Text(
                       'Triggered only when scrolled to the top edge',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -974,7 +980,10 @@ Widget buildTriggerModeComparison() {
                     ),
                     Text(
                       'Can be triggered from any scroll position',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -1103,14 +1112,13 @@ Widget buildStateMethodsReference() {
 
 dynamic build(BuildContext context) {
   print('RefreshIndicatorState deep demo test executing');
-  print('Testing RefreshIndicatorState - State class for RefreshIndicator widget');
+  print(
+    'Testing RefreshIndicatorState - State class for RefreshIndicator widget',
+  );
 
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
     home: Scaffold(
       appBar: AppBar(
         title: Text('RefreshIndicatorState Demo'),
@@ -1203,10 +1211,7 @@ dynamic build(BuildContext context) {
               'Tip 1',
               'Use GlobalKey<RefreshIndicatorState> for programmatic access',
             ),
-            buildInfoCard(
-              'Tip 2',
-              'onRefresh callback must return a Future',
-            ),
+            buildInfoCard('Tip 2', 'onRefresh callback must return a Future'),
             buildInfoCard(
               'Tip 3',
               'Customize displacement for different visual effects',

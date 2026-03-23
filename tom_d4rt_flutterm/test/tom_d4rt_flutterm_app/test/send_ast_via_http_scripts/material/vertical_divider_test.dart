@@ -84,10 +84,7 @@ Widget buildBasicVerticalDividerInRow(String label, double width) {
               children: [
                 Expanded(
                   child: Center(
-                    child: Text(
-                      'Left Content',
-                      style: TextStyle(fontSize: 14),
-                    ),
+                    child: Text('Left Content', style: TextStyle(fontSize: 14)),
                   ),
                 ),
                 VerticalDivider(width: width),
@@ -145,20 +142,11 @@ Widget buildVerticalDividerWithThickness(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(
-                  width: 80,
-                  child: Center(child: Text('Item A')),
-                ),
+                SizedBox(width: 80, child: Center(child: Text('Item A'))),
                 VerticalDivider(thickness: thickness, color: color),
-                SizedBox(
-                  width: 80,
-                  child: Center(child: Text('Item B')),
-                ),
+                SizedBox(width: 80, child: Center(child: Text('Item B'))),
                 VerticalDivider(thickness: thickness, color: color),
-                SizedBox(
-                  width: 80,
-                  child: Center(child: Text('Item C')),
-                ),
+                SizedBox(width: 80, child: Center(child: Text('Item C'))),
               ],
             ),
           ),
@@ -461,20 +449,14 @@ Widget buildButtonBarWithDividers(String label) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text('Cancel'),
-                ),
+                TextButton(onPressed: () {}, child: Text('Cancel')),
                 VerticalDivider(
                   color: Colors.grey.shade400,
                   thickness: 1,
                   indent: 8,
                   endIndent: 8,
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text('Reset'),
-                ),
+                TextButton(onPressed: () {}, child: Text('Reset')),
                 VerticalDivider(
                   color: Colors.grey.shade400,
                   thickness: 1,
@@ -546,10 +528,7 @@ Widget buildVerticalDividerWithCustomHeight(
                     ),
                   ),
                 ),
-                VerticalDivider(
-                  color: Colors.grey.shade700,
-                  thickness: 1,
-                ),
+                VerticalDivider(color: Colors.grey.shade700, thickness: 1),
                 Expanded(
                   child: Center(
                     child: Column(
@@ -562,10 +541,7 @@ Widget buildVerticalDividerWithCustomHeight(
                     ),
                   ),
                 ),
-                VerticalDivider(
-                  color: Colors.grey.shade700,
-                  thickness: 1,
-                ),
+                VerticalDivider(color: Colors.grey.shade700, thickness: 1),
                 Expanded(
                   child: Center(
                     child: Column(
@@ -728,13 +704,7 @@ Widget buildNavigationBarWithDividers() {
 Widget _buildNavItem(String text) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 12),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-      ),
-    ),
+    child: Text(text, style: TextStyle(color: Colors.white, fontSize: 14)),
   );
 }
 
@@ -790,10 +760,7 @@ Widget _buildThicknessLabel(String text) {
     child: Center(
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 12,
-          color: Colors.amber.shade900,
-        ),
+        style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
       ),
     ),
   );
@@ -940,9 +907,7 @@ Widget buildFormFieldSeparators() {
           child: IntrinsicHeight(
             child: Row(
               children: [
-                Expanded(
-                  child: _buildFormField('First Name', Icons.person),
-                ),
+                Expanded(child: _buildFormField('First Name', Icons.person)),
                 VerticalDivider(
                   color: Colors.grey.shade300,
                   thickness: 1,
@@ -966,19 +931,14 @@ Widget buildFormFieldSeparators() {
           child: IntrinsicHeight(
             child: Row(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: _buildFormField('Email', Icons.email),
-                ),
+                Expanded(flex: 2, child: _buildFormField('Email', Icons.email)),
                 VerticalDivider(
                   color: Colors.grey.shade300,
                   thickness: 1,
                   indent: 4,
                   endIndent: 4,
                 ),
-                Expanded(
-                  child: _buildFormField('Phone', Icons.phone),
-                ),
+                Expanded(child: _buildFormField('Phone', Icons.phone)),
               ],
             ),
           ),
@@ -1062,20 +1022,9 @@ Widget main() {
             buildBasicVerticalDividerInRow('Width: 60', 60),
 
             buildSectionHeader('3. Thickness Property'),
-            buildInfoCard(
-              'Thickness',
-              'The actual width of the line drawn',
-            ),
-            buildVerticalDividerWithThickness(
-              'Thickness: 1px',
-              1,
-              Colors.red,
-            ),
-            buildVerticalDividerWithThickness(
-              'Thickness: 2px',
-              2,
-              Colors.blue,
-            ),
+            buildInfoCard('Thickness', 'The actual width of the line drawn'),
+            buildVerticalDividerWithThickness('Thickness: 1px', 1, Colors.red),
+            buildVerticalDividerWithThickness('Thickness: 2px', 2, Colors.blue),
             buildVerticalDividerWithThickness(
               'Thickness: 4px',
               4,
@@ -1084,14 +1033,8 @@ Widget main() {
             buildDividerThicknessVariations(),
 
             buildSectionHeader('4. Indent Properties'),
-            buildInfoCard(
-              'indent',
-              'Space at the top of the divider',
-            ),
-            buildInfoCard(
-              'endIndent',
-              'Space at the bottom of the divider',
-            ),
+            buildInfoCard('indent', 'Space at the top of the divider'),
+            buildInfoCard('endIndent', 'Space at the bottom of the divider'),
             buildVerticalDividerWithIndent('No Indent', 0, 0),
             buildVerticalDividerWithIndent('Top Indent: 20', 20, 0),
             buildVerticalDividerWithIndent('Bottom Indent: 20', 0, 20),
@@ -1099,10 +1042,7 @@ Widget main() {
             buildVerticalDividerWithIndent('Large Indents: 30', 30, 30),
 
             buildSectionHeader('5. Color Customization'),
-            buildInfoCard(
-              'color',
-              'Sets the color of the divider line',
-            ),
+            buildInfoCard('color', 'Sets the color of the divider line'),
             buildColoredVerticalDivider('Red Divider', Colors.red, 24),
             buildColoredVerticalDivider('Blue Divider', Colors.blue, 24),
             buildColoredVerticalDivider('Green Divider', Colors.green, 24),
@@ -1126,22 +1066,24 @@ Widget main() {
             buildButtonBarWithDividers('Dialog Actions'),
 
             buildSectionHeader('8. Toolbar Layouts'),
-            buildToolbarWithDividers(
-              'Edit Toolbar',
-              [Icons.undo, Icons.redo, Icons.cut, Icons.copy, Icons.paste],
-            ),
-            buildToolbarWithDividers(
-              'Format Toolbar',
-              [
-                Icons.format_bold,
-                Icons.format_italic,
-                Icons.format_underline,
-              ],
-            ),
-            buildToolbarWithDividers(
-              'Media Toolbar',
-              [Icons.image, Icons.videocam, Icons.audiotrack, Icons.link],
-            ),
+            buildToolbarWithDividers('Edit Toolbar', [
+              Icons.undo,
+              Icons.redo,
+              Icons.cut,
+              Icons.copy,
+              Icons.paste,
+            ]),
+            buildToolbarWithDividers('Format Toolbar', [
+              Icons.format_bold,
+              Icons.format_italic,
+              Icons.format_underline,
+            ]),
+            buildToolbarWithDividers('Media Toolbar', [
+              Icons.image,
+              Icons.videocam,
+              Icons.audiotrack,
+              Icons.link,
+            ]),
             buildNavigationBarWithDividers(),
 
             buildSectionHeader('9. Different Heights'),

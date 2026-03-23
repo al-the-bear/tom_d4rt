@@ -576,10 +576,7 @@ Widget buildScalePropertySection() {
                 children: [
                   Text(
                     'Scale: ${scales[s]}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   Text(
                     descriptions[s],
@@ -740,24 +737,24 @@ Widget buildEqualitySection() {
         _buildComparisonExampleCard(
           'Equal Keys',
           'key1(bundle: rootBundle, name: "logo.png", scale: 2.0)\n'
-          'key2(bundle: rootBundle, name: "logo.png", scale: 2.0)\n'
-          'Result: key1 == key2 is TRUE',
+              'key2(bundle: rootBundle, name: "logo.png", scale: 2.0)\n'
+              'Result: key1 == key2 is TRUE',
           Colors.green,
           Icons.check_circle,
         ),
         _buildComparisonExampleCard(
           'Different Scale',
           'key1(bundle: rootBundle, name: "logo.png", scale: 1.0)\n'
-          'key2(bundle: rootBundle, name: "logo.png", scale: 2.0)\n'
-          'Result: key1 == key2 is FALSE',
+              'key2(bundle: rootBundle, name: "logo.png", scale: 2.0)\n'
+              'Result: key1 == key2 is FALSE',
           Colors.red,
           Icons.cancel,
         ),
         _buildComparisonExampleCard(
           'Different Name',
           'key1(bundle: rootBundle, name: "logo.png", scale: 1.0)\n'
-          'key2(bundle: rootBundle, name: "icon.png", scale: 1.0)\n'
-          'Result: key1 == key2 is FALSE',
+              'key2(bundle: rootBundle, name: "icon.png", scale: 1.0)\n'
+              'Result: key1 == key2 is FALSE',
           Colors.red,
           Icons.cancel,
         ),
@@ -1136,10 +1133,7 @@ Widget _buildProviderFlowStep(
         Container(
           width: 32,
           height: 32,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               step,
@@ -1158,10 +1152,7 @@ Widget _buildProviderFlowStep(
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               Text(
                 description,
@@ -1407,10 +1398,7 @@ Widget _buildKeyPart(String name, String type, MaterialColor color) {
             color: color.shade800,
           ),
         ),
-        Text(
-          type,
-          style: TextStyle(fontSize: 10, color: color.shade600),
-        ),
+        Text(type, style: TextStyle(fontSize: 10, color: color.shade600)),
       ],
     ),
   );
@@ -1437,7 +1425,10 @@ Widget buildKeyComparisonDemos() {
                 color: Colors.deepPurple.shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(Icons.compare_arrows, color: Colors.deepPurple.shade700),
+              child: Icon(
+                Icons.compare_arrows,
+                color: Colors.deepPurple.shade700,
+              ),
             ),
             SizedBox(width: 12),
             Text(
@@ -1596,10 +1587,7 @@ Widget _buildComparisonDemo(
           children: [
             Text(
               'Result: ',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -1636,10 +1624,25 @@ Widget _buildComparisonDemo(
 
 Widget buildResolutionAwareSection() {
   print('Building resolution aware section');
-  List<String> devices = ['iPhone SE', 'iPhone 14', 'iPhone 14 Pro Max', 'iPad Pro'];
+  List<String> devices = [
+    'iPhone SE',
+    'iPhone 14',
+    'iPhone 14 Pro Max',
+    'iPad Pro',
+  ];
   List<double> pixelRatios = [2.0, 3.0, 3.0, 2.0];
-  List<String> selectedVariants = ['2.0x/logo.png', '3.0x/logo.png', '3.0x/logo.png', '2.0x/logo.png'];
-  List<IconData> deviceIcons = [Icons.phone_iphone, Icons.phone_iphone, Icons.phone_iphone, Icons.tablet_mac];
+  List<String> selectedVariants = [
+    '2.0x/logo.png',
+    '3.0x/logo.png',
+    '3.0x/logo.png',
+    '2.0x/logo.png',
+  ];
+  List<IconData> deviceIcons = [
+    Icons.phone_iphone,
+    Icons.phone_iphone,
+    Icons.phone_iphone,
+    Icons.tablet_mac,
+  ];
 
   List<Widget> deviceCards = [];
   int d = 0;
@@ -1663,10 +1666,7 @@ Widget buildResolutionAwareSection() {
                 children: [
                   Text(
                     devices[d],
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   Text(
                     'Pixel Ratio: ${pixelRatios[d]}x',
@@ -1877,14 +1877,8 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSectionHeader('1. Overview'),
-            buildInfoCard(
-              'Class',
-              'AssetBundleImageKey',
-            ),
-            buildInfoCard(
-              'Library',
-              'package:flutter/painting.dart',
-            ),
+            buildInfoCard('Class', 'AssetBundleImageKey'),
+            buildInfoCard('Library', 'package:flutter/painting.dart'),
             buildInfoCard(
               'Purpose',
               'Key identifying an image in an AssetBundle for caching',
@@ -1944,10 +1938,7 @@ dynamic build(BuildContext context) {
               'Tip 4',
               'Use ImageCache.clear() sparingly as it invalidates all keys',
             ),
-            buildInfoCard(
-              'Tip 5',
-              'Keys are compared by value, not identity',
-            ),
+            buildInfoCard('Tip 5', 'Keys are compared by value, not identity'),
             buildInfoCard(
               'Tip 6',
               'Bundle identity matters - different bundles = different keys',

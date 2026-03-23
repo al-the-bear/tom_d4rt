@@ -349,11 +349,7 @@ Widget buildPressedElevationDemo() {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.touch_app,
-                  color: elevColors[e].shade700,
-                  size: 20,
-                ),
+                Icon(Icons.touch_app, color: elevColors[e].shade700, size: 20),
                 SizedBox(width: 8),
                 Text(
                   'Pressed Elevation: ${elevations[e].toStringAsFixed(1)}',
@@ -449,11 +445,7 @@ Widget buildElevationDemo() {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.layers,
-                  color: baseColors[ev].shade700,
-                  size: 20,
-                ),
+                Icon(Icons.layers, color: baseColors[ev].shade700, size: 20),
                 SizedBox(width: 8),
                 Text(
                   'Elevation: ${elevVals[ev].toStringAsFixed(1)}',
@@ -818,9 +810,7 @@ Widget buildSliderThemeConfiguration() {
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.indigo.shade100,
-          ),
+          decoration: BoxDecoration(color: Colors.indigo.shade100),
           child: Text(
             'SliderTheme Configuration Properties',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -856,9 +846,7 @@ Widget buildThumbAnatomyDisplay() {
               SizedBox(
                 width: 80,
                 height: 80,
-                child: CustomPaint(
-                  painter: _RoundThumbPainter(Colors.indigo),
-                ),
+                child: CustomPaint(painter: _RoundThumbPainter(Colors.indigo)),
               ),
               SizedBox(height: 8),
               Text(
@@ -1236,20 +1224,8 @@ dynamic build(BuildContext context) {
               70.0,
               10.0,
             ),
-            buildBasicRangeSlider(
-              'Teal Theme',
-              Colors.teal,
-              30.0,
-              80.0,
-              12.0,
-            ),
-            buildBasicRangeSlider(
-              'Pink Theme',
-              Colors.pink,
-              15.0,
-              65.0,
-              8.0,
-            ),
+            buildBasicRangeSlider('Teal Theme', Colors.teal, 30.0, 80.0, 12.0),
+            buildBasicRangeSlider('Pink Theme', Colors.pink, 15.0, 65.0, 8.0),
 
             buildSectionHeader('3. Enabled Thumb Radius'),
             buildThumbRadiusComparison(),

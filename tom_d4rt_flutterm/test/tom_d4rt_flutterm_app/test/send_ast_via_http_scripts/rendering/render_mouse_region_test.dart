@@ -20,7 +20,9 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // Section 1: Basic MouseRegion with enter/hover/exit
-          _buildSectionTitle('1. Basic MouseRegion — onEnter / onHover / onExit'),
+          _buildSectionTitle(
+            '1. Basic MouseRegion — onEnter / onHover / onExit',
+          ),
           _buildBasicMouseRegion(),
           SizedBox(height: 24.0),
 
@@ -67,10 +69,7 @@ dynamic build(BuildContext context) {
           Center(
             child: Text(
               'End of RenderMouseRegion Deep Demo',
-              style: TextStyle(
-                color: Colors.white38,
-                fontSize: 12.0,
-              ),
+              style: TextStyle(color: Colors.white38, fontSize: 12.0),
             ),
           ),
           SizedBox(height: 16.0),
@@ -107,10 +106,7 @@ Widget _buildHeader() {
         SizedBox(height: 8.0),
         Text(
           'MouseRegion — enter, hover, exit, cursor, opaque, hitTest, nesting',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 14.0,
-          ),
+          style: TextStyle(color: Colors.white70, fontSize: 14.0),
         ),
       ],
     ),
@@ -267,11 +263,7 @@ Widget _buildCursorCatalog() {
     );
   }
 
-  return Wrap(
-    spacing: 8.0,
-    runSpacing: 8.0,
-    children: tiles,
-  );
+  return Wrap(spacing: 8.0, runSpacing: 8.0, children: tiles);
 }
 
 // Section 3: Opaque parameter comparison
@@ -289,7 +281,9 @@ Widget _buildOpaqueDemo() {
         children: [
           MouseRegion(
             onEnter: (PointerEnterEvent event) {
-              print('Opaque demo: BACK region entered (should NOT fire when opaque front is present)');
+              print(
+                'Opaque demo: BACK region entered (should NOT fire when opaque front is present)',
+              );
             },
             child: Container(
               width: 300.0,
@@ -316,7 +310,10 @@ Widget _buildOpaqueDemo() {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 alignment: Alignment.center,
-                child: Text('Front (opaque: true)', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                child: Text(
+                  'Front (opaque: true)',
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
+                ),
               ),
             ),
           ),
@@ -332,7 +329,9 @@ Widget _buildOpaqueDemo() {
         children: [
           MouseRegion(
             onEnter: (PointerEnterEvent event) {
-              print('Opaque demo: BACK region entered (can fire when front is opaque: false)');
+              print(
+                'Opaque demo: BACK region entered (can fire when front is opaque: false)',
+              );
             },
             child: Container(
               width: 300.0,
@@ -359,7 +358,10 @@ Widget _buildOpaqueDemo() {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 alignment: Alignment.center,
-                child: Text('Front (opaque: false)', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                child: Text(
+                  'Front (opaque: false)',
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
+                ),
               ),
             ),
           ),
@@ -375,16 +377,28 @@ Widget _buildHitTestBehaviorDemo() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildHitTestTile('deferToChild', HitTestBehavior.deferToChild, Color(0xFF00695C)),
+      _buildHitTestTile(
+        'deferToChild',
+        HitTestBehavior.deferToChild,
+        Color(0xFF00695C),
+      ),
       SizedBox(height: 10.0),
       _buildHitTestTile('opaque', HitTestBehavior.opaque, Color(0xFF4E342E)),
       SizedBox(height: 10.0),
-      _buildHitTestTile('translucent', HitTestBehavior.translucent, Color(0xFF37474F)),
+      _buildHitTestTile(
+        'translucent',
+        HitTestBehavior.translucent,
+        Color(0xFF37474F),
+      ),
     ],
   );
 }
 
-Widget _buildHitTestTile(String label, HitTestBehavior behavior, Color bgColor) {
+Widget _buildHitTestTile(
+  String label,
+  HitTestBehavior behavior,
+  Color bgColor,
+) {
   return MouseRegion(
     hitTestBehavior: behavior,
     cursor: SystemMouseCursors.click,
@@ -410,15 +424,19 @@ Widget _buildHitTestTile(String label, HitTestBehavior behavior, Color bgColor) 
         children: [
           Text(
             'HitTestBehavior.$label',
-            style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 4.0),
           Text(
             label == 'deferToChild'
                 ? 'Only child receives hit test events'
                 : label == 'opaque'
-                    ? 'Region absorbs all events even in empty areas'
-                    : 'Region receives events but also passes them through',
+                ? 'Region absorbs all events even in empty areas'
+                : 'Region receives events but also passes them through',
             style: TextStyle(color: Colors.white54, fontSize: 12.0),
           ),
         ],
@@ -463,7 +481,10 @@ Widget _buildNestedMouseRegions() {
             ),
             child: Column(
               children: [
-                Text('Outer — grab cursor', style: TextStyle(color: Colors.white54, fontSize: 12.0)),
+                Text(
+                  'Outer — grab cursor',
+                  style: TextStyle(color: Colors.white54, fontSize: 12.0),
+                ),
                 SizedBox(height: 12.0),
                 MouseRegion(
                   cursor: SystemMouseCursors.text,
@@ -483,7 +504,13 @@ Widget _buildNestedMouseRegions() {
                     ),
                     child: Column(
                       children: [
-                        Text('Middle — text cursor', style: TextStyle(color: Colors.white54, fontSize: 12.0)),
+                        Text(
+                          'Middle — text cursor',
+                          style: TextStyle(
+                            color: Colors.white54,
+                            fontSize: 12.0,
+                          ),
+                        ),
                         SizedBox(height: 12.0),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
@@ -494,14 +521,21 @@ Widget _buildNestedMouseRegions() {
                             print('Nested: exited INNERMOST');
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 24.0,
+                              vertical: 14.0,
+                            ),
                             decoration: BoxDecoration(
                               color: Color(0xFFE43F5A),
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                             child: Text(
                               'Innermost — click cursor (wins)',
-                              style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
@@ -516,7 +550,11 @@ Widget _buildNestedMouseRegions() {
         SizedBox(height: 12.0),
         Text(
           'The innermost cursor takes priority over parent cursors',
-          style: TextStyle(color: Colors.white38, fontSize: 11.0, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: Colors.white38,
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -566,7 +604,9 @@ Widget _buildWithInkWellAndGesture() {
       MouseRegion(
         cursor: SystemMouseCursors.grab,
         onHover: (PointerHoverEvent event) {
-          print('MouseRegion+GestureDetector: hovering at ${event.localPosition}');
+          print(
+            'MouseRegion+GestureDetector: hovering at ${event.localPosition}',
+          );
         },
         child: GestureDetector(
           onTap: () {
@@ -591,7 +631,11 @@ Widget _buildWithInkWellAndGesture() {
               children: [
                 Text(
                   'MouseRegion wrapping GestureDetector',
-                  style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 SizedBox(height: 4.0),
                 Text(
@@ -670,7 +714,11 @@ Widget _buildCustomHoverEffects() {
             children: [
               Text(
                 'Hover Elevation Card',
-                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 6.0),
               Text(
@@ -685,13 +733,37 @@ Widget _buildCustomHoverEffects() {
       // Row of hover buttons
       Row(
         children: [
-          Expanded(child: _buildHoverButton('Primary', Color(0xFF1565C0), SystemMouseCursors.click)),
+          Expanded(
+            child: _buildHoverButton(
+              'Primary',
+              Color(0xFF1565C0),
+              SystemMouseCursors.click,
+            ),
+          ),
           SizedBox(width: 8.0),
-          Expanded(child: _buildHoverButton('Secondary', Color(0xFF6A1B9A), SystemMouseCursors.click)),
+          Expanded(
+            child: _buildHoverButton(
+              'Secondary',
+              Color(0xFF6A1B9A),
+              SystemMouseCursors.click,
+            ),
+          ),
           SizedBox(width: 8.0),
-          Expanded(child: _buildHoverButton('Danger', Color(0xFFC62828), SystemMouseCursors.forbidden)),
+          Expanded(
+            child: _buildHoverButton(
+              'Danger',
+              Color(0xFFC62828),
+              SystemMouseCursors.forbidden,
+            ),
+          ),
           SizedBox(width: 8.0),
-          Expanded(child: _buildHoverButton('Disabled', Color(0xFF424242), SystemMouseCursors.basic)),
+          Expanded(
+            child: _buildHoverButton(
+              'Disabled',
+              Color(0xFF424242),
+              SystemMouseCursors.basic,
+            ),
+          ),
         ],
       ),
       SizedBox(height: 12.0),
@@ -738,7 +810,11 @@ Widget _buildHoverButton(String label, Color color, MouseCursor cursor) {
       alignment: Alignment.center,
       child: Text(
         label,
-        style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 13.0,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     ),
   );
@@ -760,25 +836,79 @@ Widget _buildCursorZones() {
         // Top row of zones
         Row(
           children: [
-            Expanded(child: _buildZoneTile('Resize NW', SystemMouseCursors.resizeUpLeftDownRight, Color(0xFF0F3460))),
-            Expanded(child: _buildZoneTile('Resize N', SystemMouseCursors.resizeUp, Color(0xFF16213E))),
-            Expanded(child: _buildZoneTile('Resize NE', SystemMouseCursors.resizeUpRightDownLeft, Color(0xFF0F3460))),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize NW',
+                SystemMouseCursors.resizeUpLeftDownRight,
+                Color(0xFF0F3460),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize N',
+                SystemMouseCursors.resizeUp,
+                Color(0xFF16213E),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize NE',
+                SystemMouseCursors.resizeUpRightDownLeft,
+                Color(0xFF0F3460),
+              ),
+            ),
           ],
         ),
         // Middle row
         Row(
           children: [
-            Expanded(child: _buildZoneTile('Resize W', SystemMouseCursors.resizeLeft, Color(0xFF16213E))),
-            Expanded(child: _buildZoneTile('Move', SystemMouseCursors.move, Color(0xFFE94560))),
-            Expanded(child: _buildZoneTile('Resize E', SystemMouseCursors.resizeRight, Color(0xFF16213E))),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize W',
+                SystemMouseCursors.resizeLeft,
+                Color(0xFF16213E),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Move',
+                SystemMouseCursors.move,
+                Color(0xFFE94560),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize E',
+                SystemMouseCursors.resizeRight,
+                Color(0xFF16213E),
+              ),
+            ),
           ],
         ),
         // Bottom row
         Row(
           children: [
-            Expanded(child: _buildZoneTile('Resize SW', SystemMouseCursors.resizeUpRightDownLeft, Color(0xFF0F3460))),
-            Expanded(child: _buildZoneTile('Resize S', SystemMouseCursors.resizeDown, Color(0xFF16213E))),
-            Expanded(child: _buildZoneTile('Resize SE', SystemMouseCursors.resizeUpLeftDownRight, Color(0xFF0F3460))),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize SW',
+                SystemMouseCursors.resizeUpRightDownLeft,
+                Color(0xFF0F3460),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize S',
+                SystemMouseCursors.resizeDown,
+                Color(0xFF16213E),
+              ),
+            ),
+            Expanded(
+              child: _buildZoneTile(
+                'Resize SE',
+                SystemMouseCursors.resizeUpLeftDownRight,
+                Color(0xFF0F3460),
+              ),
+            ),
           ],
         ),
       ],
@@ -823,7 +953,10 @@ Widget _buildPracticalPatterns() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       // Pattern: toolbar with hover feedback
-      Text('Toolbar with cursor feedback:', style: TextStyle(color: Colors.white60, fontSize: 12.0)),
+      Text(
+        'Toolbar with cursor feedback:',
+        style: TextStyle(color: Colors.white60, fontSize: 12.0),
+      ),
       SizedBox(height: 8.0),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
@@ -837,14 +970,25 @@ Widget _buildPracticalPatterns() {
             _buildToolbarItem(Icons.zoom_in, 'Zoom', SystemMouseCursors.zoomIn),
             _buildToolbarItem(Icons.pan_tool, 'Pan', SystemMouseCursors.grab),
             _buildToolbarItem(Icons.crop, 'Crop', SystemMouseCursors.precise),
-            _buildToolbarItem(Icons.text_fields, 'Text', SystemMouseCursors.text),
-            _buildToolbarItem(Icons.delete, 'Delete', SystemMouseCursors.forbidden),
+            _buildToolbarItem(
+              Icons.text_fields,
+              'Text',
+              SystemMouseCursors.text,
+            ),
+            _buildToolbarItem(
+              Icons.delete,
+              'Delete',
+              SystemMouseCursors.forbidden,
+            ),
           ],
         ),
       ),
       SizedBox(height: 16.0),
       // Pattern: data grid with resizable columns
-      Text('Data grid header with resize cursors:', style: TextStyle(color: Colors.white60, fontSize: 12.0)),
+      Text(
+        'Data grid header with resize cursors:',
+        style: TextStyle(color: Colors.white60, fontSize: 12.0),
+      ),
       SizedBox(height: 8.0),
       Row(
         children: [
@@ -859,7 +1003,10 @@ Widget _buildPracticalPatterns() {
       ),
       SizedBox(height: 16.0),
       // Pattern: split pane handle
-      Text('Split pane drag handle:', style: TextStyle(color: Colors.white60, fontSize: 12.0)),
+      Text(
+        'Split pane drag handle:',
+        style: TextStyle(color: Colors.white60, fontSize: 12.0),
+      ),
       SizedBox(height: 8.0),
       Row(
         children: [
@@ -874,7 +1021,10 @@ Widget _buildPracticalPatterns() {
                 ),
               ),
               alignment: Alignment.center,
-              child: Text('Left pane', style: TextStyle(color: Colors.white54, fontSize: 12.0)),
+              child: Text(
+                'Left pane',
+                style: TextStyle(color: Colors.white54, fontSize: 12.0),
+              ),
             ),
           ),
           MouseRegion(
@@ -902,14 +1052,20 @@ Widget _buildPracticalPatterns() {
                 ),
               ),
               alignment: Alignment.center,
-              child: Text('Right pane', style: TextStyle(color: Colors.white54, fontSize: 12.0)),
+              child: Text(
+                'Right pane',
+                style: TextStyle(color: Colors.white54, fontSize: 12.0),
+              ),
             ),
           ),
         ],
       ),
       SizedBox(height: 16.0),
       // Pattern: progress bar with tooltip-like hover
-      Text('Progress bar with hover zone:', style: TextStyle(color: Colors.white60, fontSize: 12.0)),
+      Text(
+        'Progress bar with hover zone:',
+        style: TextStyle(color: Colors.white60, fontSize: 12.0),
+      ),
       SizedBox(height: 8.0),
       MouseRegion(
         cursor: SystemMouseCursors.click,
@@ -948,13 +1104,12 @@ Widget _buildPracticalPatterns() {
       ),
       SizedBox(height: 16.0),
       // Pattern: color picker cells
-      Text('Color picker with help cursor:', style: TextStyle(color: Colors.white60, fontSize: 12.0)),
-      SizedBox(height: 8.0),
-      Wrap(
-        spacing: 4.0,
-        runSpacing: 4.0,
-        children: _buildColorPickerCells(),
+      Text(
+        'Color picker with help cursor:',
+        style: TextStyle(color: Colors.white60, fontSize: 12.0),
       ),
+      SizedBox(height: 8.0),
+      Wrap(spacing: 4.0, runSpacing: 4.0, children: _buildColorPickerCells()),
     ],
   );
 }
@@ -995,7 +1150,11 @@ Widget _buildGridHeader({required String label, int flex = 1}) {
         padding: EdgeInsets.only(left: 8.0),
         child: Text(
           label,
-          style: TextStyle(color: Colors.white70, fontSize: 12.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     ),
@@ -1008,11 +1167,7 @@ Widget _buildGridDivider() {
     onEnter: (PointerEnterEvent event) {
       print('Grid divider: entered — would start column resize');
     },
-    child: Container(
-      width: 4.0,
-      height: 36.0,
-      color: Color(0xFF555555),
-    ),
+    child: Container(width: 4.0, height: 36.0, color: Color(0xFF555555)),
   );
 }
 

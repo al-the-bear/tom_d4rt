@@ -49,19 +49,16 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildTimeDisplay(
-  String label,
-  TimeOfDay time,
-  Color accentColor,
-) {
+Widget buildTimeDisplay(String label, TimeOfDay time, Color accentColor) {
   print('Building time display: $label - ${time.hour}:${time.minute}');
   String periodText = time.period == DayPeriod.am ? 'AM' : 'PM';
   int displayHour = time.hourOfPeriod;
   if (displayHour == 0) {
     displayHour = 12;
   }
-  String formattedMinute =
-      time.minute < 10 ? '0${time.minute}' : '${time.minute}';
+  String formattedMinute = time.minute < 10
+      ? '0${time.minute}'
+      : '${time.minute}';
 
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -87,11 +84,7 @@ Widget buildTimeDisplay(
             color: accentColor.withAlpha(30),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(
-            Icons.access_time,
-            color: accentColor,
-            size: 32,
-          ),
+          child: Icon(Icons.access_time, color: accentColor, size: 32),
         ),
         SizedBox(width: 16),
         Expanded(
@@ -100,10 +93,7 @@ Widget buildTimeDisplay(
             children: [
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
               ),
               SizedBox(height: 4),
               Row(
@@ -142,18 +132,12 @@ Widget buildTimeDisplay(
           children: [
             Text(
               '24h: ${time.hour}:$formattedMinute',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade500,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
             ),
             SizedBox(height: 2),
             Text(
               'Hour: ${time.hour}, Min: ${time.minute}',
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey.shade400,
-              ),
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
             ),
           ],
         ),
@@ -257,10 +241,7 @@ Widget buildFormatComparisonCard(TimeOfDay time, String description) {
         SizedBox(height: 8),
         Text(
           'periodOffset: ${time.periodOffset} | hourOfPeriod: ${time.hourOfPeriod}',
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.grey.shade500,
-          ),
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
         ),
       ],
     ),
@@ -354,10 +335,12 @@ Widget buildHourGrid() {
       int hour = row * 6 + col;
       TimeOfDay time = TimeOfDay(hour: hour, minute: 0);
       String period = time.period == DayPeriod.am ? 'AM' : 'PM';
-      Color bgColor =
-          hour < 12 ? Colors.amber.shade100 : Colors.deepPurple.shade100;
-      Color textColor =
-          hour < 12 ? Colors.amber.shade800 : Colors.deepPurple.shade800;
+      Color bgColor = hour < 12
+          ? Colors.amber.shade100
+          : Colors.deepPurple.shade100;
+      Color textColor = hour < 12
+          ? Colors.amber.shade800
+          : Colors.deepPurple.shade800;
 
       cells.add(
         Expanded(
@@ -458,20 +441,14 @@ Widget buildMinuteRangeDisplay() {
                   ),
                   Text(
                     'Formatted: :$formatted',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
             ),
             Text(
               '9:$formatted AM',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.teal.shade600,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.teal.shade600),
             ),
           ],
         ),
@@ -607,8 +584,7 @@ Widget buildTimeComparisonScenarios() {
     TimeOfDay periodTime = dayPeriods[idx][1] as TimeOfDay;
     MaterialColor periodColor = dayPeriods[idx][2] as MaterialColor;
 
-    String periodLabel =
-        periodTime.period == DayPeriod.am ? 'AM' : 'PM';
+    String periodLabel = periodTime.period == DayPeriod.am ? 'AM' : 'PM';
     int displayHour = periodTime.hourOfPeriod;
     if (displayHour == 0) {
       displayHour = 12;
@@ -624,11 +600,7 @@ Widget buildTimeComparisonScenarios() {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.schedule,
-              color: periodColor,
-              size: 24,
-            ),
+            Icon(Icons.schedule, color: periodColor, size: 24),
             SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -642,10 +614,7 @@ Widget buildTimeComparisonScenarios() {
             ),
             Text(
               '$displayHour:00 $periodLabel',
-              style: TextStyle(
-                fontSize: 14,
-                color: periodColor.shade700,
-              ),
+              style: TextStyle(fontSize: 14, color: periodColor.shade700),
             ),
           ],
         ),
@@ -653,10 +622,7 @@ Widget buildTimeComparisonScenarios() {
     );
   }
 
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: items,
-  );
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: items);
 }
 
 Widget buildDefaultValuesSection() {
@@ -769,10 +735,7 @@ Widget buildDefaultValuesSection() {
                 ),
                 Text(
                   'hour: ${time.hour}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade500,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
                 ),
               ],
             ),
@@ -834,14 +797,12 @@ Widget buildLocalizationDemo(BuildContext context) {
     String label = labels[i];
     MaterialColor color = colors[i];
 
-    String formatted12 = MaterialLocalizations.of(context).formatTimeOfDay(
-      time,
-      alwaysUse24HourFormat: false,
-    );
-    String formatted24 = MaterialLocalizations.of(context).formatTimeOfDay(
-      time,
-      alwaysUse24HourFormat: true,
-    );
+    String formatted12 = MaterialLocalizations.of(
+      context,
+    ).formatTimeOfDay(time, alwaysUse24HourFormat: false);
+    String formatted24 = MaterialLocalizations.of(
+      context,
+    ).formatTimeOfDay(time, alwaysUse24HourFormat: true);
 
     items.add(
       Container(
@@ -1002,10 +963,7 @@ Widget buildPropertyRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey.shade700,
-            ),
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
         ),
       ],
@@ -1109,10 +1067,7 @@ Widget buildLegendItem(Color color, String label) {
         ),
       ),
       SizedBox(width: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
-      ),
+      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey.shade700)),
     ],
   );
 }
@@ -1279,11 +1234,21 @@ Widget buildSpecialTimesSection() {
   List<Widget> items = [];
 
   List<List<dynamic>> specialTimes = [
-    ['Midnight', TimeOfDay(hour: 0, minute: 0), Icons.dark_mode, Colors.blueGrey],
+    [
+      'Midnight',
+      TimeOfDay(hour: 0, minute: 0),
+      Icons.dark_mode,
+      Colors.blueGrey,
+    ],
     ['Dawn', TimeOfDay(hour: 5, minute: 30), Icons.wb_twilight, Colors.purple],
     ['Sunrise', TimeOfDay(hour: 6, minute: 45), Icons.wb_sunny, Colors.orange],
     ['Noon', TimeOfDay(hour: 12, minute: 0), Icons.light_mode, Colors.amber],
-    ['Sunset', TimeOfDay(hour: 18, minute: 30), Icons.wb_twilight, Colors.deepOrange],
+    [
+      'Sunset',
+      TimeOfDay(hour: 18, minute: 30),
+      Icons.wb_twilight,
+      Colors.deepOrange,
+    ],
     ['Dusk', TimeOfDay(hour: 19, minute: 45), Icons.nights_stay, Colors.indigo],
   ];
 
@@ -1346,10 +1311,7 @@ Widget buildSpecialTimesSection() {
                 ),
                 Text(
                   '${time.hour}:$m (24h)',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -1388,10 +1350,7 @@ dynamic build(BuildContext context) {
               'Purpose',
               'Restorable property that holds a TimeOfDay value',
             ),
-            buildInfoCard(
-              'Extends',
-              'RestorableValue<TimeOfDay>',
-            ),
+            buildInfoCard('Extends', 'RestorableValue<TimeOfDay>'),
             buildInfoCard(
               'Use Case',
               'Preserve selected time across app restarts',
@@ -1433,10 +1392,7 @@ dynamic build(BuildContext context) {
               TimeOfDay(hour: 6, minute: 30),
               'Early Morning',
             ),
-            buildFormatComparisonCard(
-              TimeOfDay(hour: 12, minute: 0),
-              'Noon',
-            ),
+            buildFormatComparisonCard(TimeOfDay(hour: 12, minute: 0), 'Noon'),
             buildFormatComparisonCard(
               TimeOfDay(hour: 15, minute: 45),
               'Afternoon',
@@ -1449,14 +1405,8 @@ dynamic build(BuildContext context) {
             buildSectionHeader('4. Period Offset Values'),
             buildPeriodOffsetDisplay(),
             SizedBox(height: 12),
-            buildInfoCard(
-              'AM Period',
-              'periodOffset = 0, hours 0-11',
-            ),
-            buildInfoCard(
-              'PM Period',
-              'periodOffset = 12, hours 12-23',
-            ),
+            buildInfoCard('AM Period', 'periodOffset = 0, hours 0-11'),
+            buildInfoCard('PM Period', 'periodOffset = 12, hours 12-23'),
 
             buildSectionHeader('5. Hour/Minute Ranges'),
             Text(
@@ -1510,14 +1460,8 @@ dynamic build(BuildContext context) {
               'toMinutes',
               'Convert to total minutes: hour * 60 + minute',
             ),
-            buildInfoCard(
-              'hourOfPeriod',
-              'Hour in 12-hour format (0-11)',
-            ),
-            buildInfoCard(
-              'period',
-              'DayPeriod.am or DayPeriod.pm',
-            ),
+            buildInfoCard('hourOfPeriod', 'Hour in 12-hour format (0-11)'),
+            buildInfoCard('period', 'DayPeriod.am or DayPeriod.pm'),
             buildInfoCard(
               'replacing',
               'Use replacing() to create modified copies',

@@ -7,7 +7,10 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      const Text('Drop Range Slider Indicator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+      const Text(
+        'Drop Range Slider Indicator',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      ),
       const SizedBox(height: 16),
       // Slider visualization
       Container(
@@ -34,10 +37,40 @@ dynamic build(BuildContext context) {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(2))),
-                  Positioned(left: 40, right: 40, child: Container(height: 4, color: Colors.blue)),
-                  Positioned(left: 35, child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
-                  Positioned(right: 35, child: Container(width: 16, height: 16, decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle))),
+                  Container(
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  Positioned(
+                    left: 40,
+                    right: 40,
+                    child: Container(height: 4, color: Colors.blue),
+                  ),
+                  Positioned(
+                    left: 35,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 35,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -45,7 +78,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       const SizedBox(height: 12),
-      const Text('Teardrop shape points to thumb', style: TextStyle(fontSize: 11, color: Colors.grey)),
+      const Text(
+        'Teardrop shape points to thumb',
+        style: TextStyle(fontSize: 11, color: Colors.grey),
+      ),
     ],
   );
 }
@@ -60,13 +96,20 @@ class _DropIndicator extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-          child: Text('$value', style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            '$value',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        CustomPaint(
-          size: const Size(10, 6),
-          painter: _TrianglePainter(color),
-        ),
+        CustomPaint(size: const Size(10, 6), painter: _TrianglePainter(color)),
       ],
     );
   }
@@ -84,6 +127,7 @@ class _TrianglePainter extends CustomPainter {
       ..close();
     canvas.drawPath(path, Paint()..color = color);
   }
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

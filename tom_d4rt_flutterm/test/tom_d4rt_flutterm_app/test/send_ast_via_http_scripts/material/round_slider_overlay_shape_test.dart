@@ -443,11 +443,7 @@ Widget buildOverlayAnimationConcept() {
                 color: stateColors[i].withAlpha(30),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                stateIcons[i],
-                color: stateColors[i],
-                size: 24,
-              ),
+              child: Icon(stateIcons[i], color: stateColors[i], size: 24),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -699,9 +695,7 @@ Widget buildOverlayProperties() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: rowColor,
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
-          ),
+          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

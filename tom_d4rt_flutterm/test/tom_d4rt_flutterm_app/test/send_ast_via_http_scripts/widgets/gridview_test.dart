@@ -122,7 +122,9 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('GridView with horizontal scrollDirection created: $horizontalGridView');
+  print(
+    'GridView with horizontal scrollDirection created: $horizontalGridView',
+  );
 
   print('GridView test completed');
 

@@ -78,7 +78,14 @@ Widget buildSectionHeader(String title) {
       color: Color(0xFF4A148C),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -91,11 +98,21 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -111,10 +128,12 @@ Widget _buildOverview() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('FloatingActionButtonAnimator controls how the FAB animates when it '
-            'moves between FloatingActionButtonLocations. The default scaling '
-            'animator shrinks the FAB to zero, then grows it at the new position.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'FloatingActionButtonAnimator controls how the FAB animates when it '
+          'moves between FloatingActionButtonLocations. The default scaling '
+          'animator shrinks the FAB to zero, then grows it at the new position.',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Container(
           height: 100,
@@ -130,7 +149,8 @@ Widget _buildOverview() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 48, height: 48,
+                    width: 48,
+                    height: 48,
                     decoration: BoxDecoration(
                       color: Color(0xFF4A148C),
                       shape: BoxShape.circle,
@@ -145,14 +165,18 @@ Widget _buildOverview() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.arrow_forward, color: Color(0xFF9E9E9E)),
-                  Text('animate', style: TextStyle(fontSize: 9, color: Color(0xFF9E9E9E))),
+                  Text(
+                    'animate',
+                    style: TextStyle(fontSize: 9, color: Color(0xFF9E9E9E)),
+                  ),
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 12, height: 12,
+                    width: 12,
+                    height: 12,
                     decoration: BoxDecoration(
                       color: Color(0xFF4A148C).withOpacity(0.3),
                       shape: BoxShape.circle,
@@ -166,14 +190,18 @@ Widget _buildOverview() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.arrow_forward, color: Color(0xFF9E9E9E)),
-                  Text('animate', style: TextStyle(fontSize: 9, color: Color(0xFF9E9E9E))),
+                  Text(
+                    'animate',
+                    style: TextStyle(fontSize: 9, color: Color(0xFF9E9E9E)),
+                  ),
                 ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 48, height: 48,
+                    width: 48,
+                    height: 48,
                     decoration: BoxDecoration(
                       color: Color(0xFF4A148C),
                       shape: BoxShape.circle,
@@ -190,7 +218,10 @@ Widget _buildOverview() {
         SizedBox(height: 8),
         buildInfoCard('Class:', 'FloatingActionButtonAnimator (abstract)'),
         buildInfoCard('Default:', 'FloatingActionButtonAnimator.scaling'),
-        buildInfoCard('Usage:', 'Set via ThemeData.floatingActionButtonAnimator'),
+        buildInfoCard(
+          'Usage:',
+          'Set via ThemeData.floatingActionButtonAnimator',
+        ),
       ],
     ),
   );
@@ -211,26 +242,42 @@ Widget _buildScalingAnimator() {
     double minSize = 4.0;
     double displaySize = size > minSize ? size : minSize;
 
-    items.add(Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 44, height: 44,
-          child: Center(
-            child: Container(
-              width: displaySize, height: displaySize,
-              decoration: BoxDecoration(
-                color: Color(0xFF4A148C).withOpacity(scale > 0.01 ? 1.0 : 0.2),
-                shape: BoxShape.circle,
+    items.add(
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 44,
+            height: 44,
+            child: Center(
+              child: Container(
+                width: displaySize,
+                height: displaySize,
+                decoration: BoxDecoration(
+                  color: Color(
+                    0xFF4A148C,
+                  ).withOpacity(scale > 0.01 ? 1.0 : 0.2),
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: 2),
-        Text('${(scale * 100).toStringAsFixed(0)}%', style: TextStyle(fontSize: 8)),
-        Text(label, style: TextStyle(fontSize: 7, fontWeight: FontWeight.bold, color: Color(0xFF4A148C))),
-      ],
-    ));
+          SizedBox(height: 2),
+          Text(
+            '${(scale * 100).toStringAsFixed(0)}%',
+            style: TextStyle(fontSize: 8),
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 7,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF4A148C),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   return Container(
@@ -243,9 +290,11 @@ Widget _buildScalingAnimator() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('The scaling animator shrinks the FAB to 0 at the old position, '
-            'then grows it from 0 at the new position.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'The scaling animator shrinks the FAB to 0 at the old position, '
+          'then grows it from 0 at the new position.',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Container(
           height: 80,
@@ -261,8 +310,14 @@ Widget _buildScalingAnimator() {
           ),
         ),
         SizedBox(height: 8),
-        buildInfoCard('Phase 1:', 'Scale from 1.0 to 0.0 (shrink at old location)'),
-        buildInfoCard('Phase 2:', 'Scale from 0.0 to 1.0 (grow at new location)'),
+        buildInfoCard(
+          'Phase 1:',
+          'Scale from 1.0 to 0.0 (shrink at old location)',
+        ),
+        buildInfoCard(
+          'Phase 2:',
+          'Scale from 0.0 to 1.0 (grow at new location)',
+        ),
       ],
     ),
   );
@@ -280,8 +335,10 @@ Widget _buildScaleAnimationPhases() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Two distinct phases during a location transition:',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'Two distinct phases during a location transition:',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(12),
@@ -301,15 +358,27 @@ Widget _buildScaleAnimationPhases() {
                       color: Color(0xFF1565C0),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text('Phase 1: Exit', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Phase 1: Exit',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8),
-                  Text('0% -> 40% of total duration', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+                  Text(
+                    '0% -> 40% of total duration',
+                    style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
-              Text('FAB scales down from full size to zero at the OLD position',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF424242))),
+              Text(
+                'FAB scales down from full size to zero at the OLD position',
+                style: TextStyle(fontSize: 12, color: Color(0xFF424242)),
+              ),
               SizedBox(height: 4),
               Row(
                 children: [
@@ -323,7 +392,10 @@ Widget _buildScaleAnimationPhases() {
                   SizedBox(width: 4),
                   _buildPhaseCircle(4, Color(0xFF1565C0)),
                   SizedBox(width: 8),
-                  Text('disappears', style: TextStyle(fontSize: 10, color: Color(0xFF1565C0))),
+                  Text(
+                    'disappears',
+                    style: TextStyle(fontSize: 10, color: Color(0xFF1565C0)),
+                  ),
                 ],
               ),
             ],
@@ -348,15 +420,27 @@ Widget _buildScaleAnimationPhases() {
                       color: Color(0xFF2E7D32),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text('Phase 2: Enter', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Phase 2: Enter',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8),
-                  Text('60% -> 100% of total duration', style: TextStyle(fontSize: 11, color: Color(0xFF616161))),
+                  Text(
+                    '60% -> 100% of total duration',
+                    style: TextStyle(fontSize: 11, color: Color(0xFF616161)),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
-              Text('FAB scales up from zero to full size at the NEW position',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF424242))),
+              Text(
+                'FAB scales up from zero to full size at the NEW position',
+                style: TextStyle(fontSize: 12, color: Color(0xFF424242)),
+              ),
               SizedBox(height: 4),
               Row(
                 children: [
@@ -370,7 +454,10 @@ Widget _buildScaleAnimationPhases() {
                   SizedBox(width: 4),
                   _buildPhaseCircle(40, Color(0xFF2E7D32)),
                   SizedBox(width: 8),
-                  Text('fully visible', style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32))),
+                  Text(
+                    'fully visible',
+                    style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32)),
+                  ),
                 ],
               ),
             ],
@@ -383,8 +470,14 @@ Widget _buildScaleAnimationPhases() {
             color: Color(0xFFFFF8E1),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text('40%-60% gap = both FABs invisible (transition window)',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFE65100))),
+          child: Text(
+            '40%-60% gap = both FABs invisible (transition window)',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFE65100),
+            ),
+          ),
         ),
       ],
     ),
@@ -393,7 +486,8 @@ Widget _buildScaleAnimationPhases() {
 
 Widget _buildPhaseCircle(double size, Color color) {
   return Container(
-    width: size, height: size,
+    width: size,
+    height: size,
     decoration: BoxDecoration(
       color: color.withOpacity(0.6),
       shape: BoxShape.circle,
@@ -406,11 +500,31 @@ Widget _buildAnimationTimeline() {
   List<Widget> items = [];
 
   List<double> times = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
-  List<String> phases = ['Exit', 'Exit', 'Exit', 'Exit', 'Exit', 'Gap', 'Enter', 'Enter', 'Enter', 'Enter', 'Enter'];
+  List<String> phases = [
+    'Exit',
+    'Exit',
+    'Exit',
+    'Exit',
+    'Exit',
+    'Gap',
+    'Enter',
+    'Enter',
+    'Enter',
+    'Enter',
+    'Enter',
+  ];
   List<Color> phaseColors = [
-    Color(0xFF1565C0), Color(0xFF1565C0), Color(0xFF1565C0), Color(0xFF1565C0), Color(0xFF1565C0),
+    Color(0xFF1565C0),
+    Color(0xFF1565C0),
+    Color(0xFF1565C0),
+    Color(0xFF1565C0),
+    Color(0xFF1565C0),
     Color(0xFF757575),
-    Color(0xFF2E7D32), Color(0xFF2E7D32), Color(0xFF2E7D32), Color(0xFF2E7D32), Color(0xFF2E7D32),
+    Color(0xFF2E7D32),
+    Color(0xFF2E7D32),
+    Color(0xFF2E7D32),
+    Color(0xFF2E7D32),
+    Color(0xFF2E7D32),
   ];
 
   int i = 0;
@@ -421,53 +535,64 @@ Widget _buildAnimationTimeline() {
 
     print('  Timeline t=${t.toStringAsFixed(1)}: $phase');
 
-    items.add(Container(
-      margin: EdgeInsets.only(bottom: 2),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: phaseColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: phaseColor.withOpacity(0.3)),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 40,
-            child: Text('t=${t.toStringAsFixed(1)}',
-                style: TextStyle(fontFamily: 'monospace', fontSize: 10, fontWeight: FontWeight.bold)),
-          ),
-          SizedBox(width: 8),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
-            decoration: BoxDecoration(
-              color: phaseColor,
-              borderRadius: BorderRadius.circular(3),
-            ),
-            child: Text(phase, style: TextStyle(color: Colors.white, fontSize: 9)),
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Container(
-              height: 8,
-              decoration: BoxDecoration(
-                color: Color(0xFFEEEEEE),
-                borderRadius: BorderRadius.circular(4),
+    items.add(
+      Container(
+        margin: EdgeInsets.only(bottom: 2),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: phaseColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: phaseColor.withOpacity(0.3)),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 40,
+              child: Text(
+                't=${t.toStringAsFixed(1)}',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: FractionallySizedBox(
-                widthFactor: t,
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: phaseColor,
-                    borderRadius: BorderRadius.circular(4),
+            ),
+            SizedBox(width: 8),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+              decoration: BoxDecoration(
+                color: phaseColor,
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(
+                phase,
+                style: TextStyle(color: Colors.white, fontSize: 9),
+              ),
+            ),
+            SizedBox(width: 8),
+            Expanded(
+              child: Container(
+                height: 8,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: FractionallySizedBox(
+                  widthFactor: t,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: phaseColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -480,8 +605,10 @@ Widget _buildAnimationTimeline() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Animation timeline from t=0.0 to t=1.0 (200ms default)',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'Animation timeline from t=0.0 to t=1.0 (200ms default)',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Column(children: items),
       ],
@@ -511,52 +638,67 @@ Widget _buildScaleFactorProgression() {
     }
 
     double barWidth = scale;
-    Color barColor = t <= 0.4 ? Color(0xFF1565C0) : (t < 0.6 ? Color(0xFF757575) : Color(0xFF2E7D32));
+    Color barColor = t <= 0.4
+        ? Color(0xFF1565C0)
+        : (t < 0.6 ? Color(0xFF757575) : Color(0xFF2E7D32));
 
-    items.add(Container(
-      margin: EdgeInsets.only(bottom: 3),
-      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30,
-            child: Text('${(t * 100).toStringAsFixed(0)}%',
-                style: TextStyle(fontFamily: 'monospace', fontSize: 9, fontWeight: FontWeight.bold)),
-          ),
-          SizedBox(width: 4),
-          Expanded(
-            child: Container(
-              height: 12,
-              decoration: BoxDecoration(
-                color: Color(0xFFEEEEEE),
-                borderRadius: BorderRadius.circular(6),
+    items.add(
+      Container(
+        margin: EdgeInsets.only(bottom: 3),
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 30,
+              child: Text(
+                '${(t * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: FractionallySizedBox(
-                widthFactor: barWidth > 0.02 ? barWidth : 0.02,
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: barColor,
-                    borderRadius: BorderRadius.circular(6),
+            ),
+            SizedBox(width: 4),
+            Expanded(
+              child: Container(
+                height: 12,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: FractionallySizedBox(
+                  widthFactor: barWidth > 0.02 ? barWidth : 0.02,
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: barColor,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 8),
-          SizedBox(
-            width: 40,
-            child: Text(scale.toStringAsFixed(2),
-                style: TextStyle(fontFamily: 'monospace', fontSize: 9)),
-          ),
-          SizedBox(width: 4),
-          SizedBox(
-            width: 70,
-            child: Text(location, style: TextStyle(fontSize: 8, color: Color(0xFF757575))),
-          ),
-        ],
+            SizedBox(width: 8),
+            SizedBox(
+              width: 40,
+              child: Text(
+                scale.toStringAsFixed(2),
+                style: TextStyle(fontFamily: 'monospace', fontSize: 9),
+              ),
+            ),
+            SizedBox(width: 4),
+            SizedBox(
+              width: 70,
+              child: Text(
+                location,
+                style: TextStyle(fontSize: 8, color: Color(0xFF757575)),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -569,8 +711,10 @@ Widget _buildScaleFactorProgression() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Scale factor at each animation step (exit 0-40%, gap 40-60%, enter 60-100%)',
-            style: TextStyle(fontSize: 12, color: Color(0xFF424242))),
+        Text(
+          'Scale factor at each animation step (exit 0-40%, gap 40-60%, enter 60-100%)',
+          style: TextStyle(fontSize: 12, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Column(children: items),
       ],
@@ -583,7 +727,16 @@ Widget _buildFabAppearanceDuringAnimation() {
   List<Widget> items = [];
 
   List<double> scaleValues = [1.0, 0.6, 0.2, 0.0, 0.0, 0.2, 0.6, 1.0];
-  List<String> momentLabels = ['t=0.0', 't=0.15', 't=0.35', 't=0.4', 't=0.6', 't=0.65', 't=0.85', 't=1.0'];
+  List<String> momentLabels = [
+    't=0.0',
+    't=0.15',
+    't=0.35',
+    't=0.4',
+    't=0.6',
+    't=0.65',
+    't=0.85',
+    't=1.0',
+  ];
   List<String> descriptions = [
     'Full size at old position',
     'Shrinking at old position',
@@ -607,42 +760,67 @@ Widget _buildFabAppearanceDuringAnimation() {
 
     print('  FAB at $momentLabel: scale=$s');
 
-    items.add(Container(
-      margin: EdgeInsets.only(bottom: 6),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 56, height: 56,
-            child: Center(
-              child: Container(
-                width: effectiveSize, height: effectiveSize,
-                decoration: BoxDecoration(
-                  color: Color(0xFF4A148C).withOpacity(effectiveOpacity),
-                  shape: BoxShape.circle,
+    items.add(
+      Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFFFFFFFF),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 56,
+              height: 56,
+              child: Center(
+                child: Container(
+                  width: effectiveSize,
+                  height: effectiveSize,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4A148C).withOpacity(effectiveOpacity),
+                    shape: BoxShape.circle,
+                  ),
+                  child: s > 0.4
+                      ? Center(
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: effectiveSize * 0.5,
+                          ),
+                        )
+                      : SizedBox(),
                 ),
-                child: s > 0.4 ? Center(child: Icon(Icons.add, color: Colors.white, size: effectiveSize * 0.5)) : SizedBox(),
               ),
             ),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(momentLabel, style: TextStyle(fontFamily: 'monospace', fontSize: 11, fontWeight: FontWeight.bold)),
-                Text('scale: ${s.toStringAsFixed(1)}', style: TextStyle(fontSize: 10, color: Color(0xFF616161))),
-                Text(desc, style: TextStyle(fontSize: 10, color: Color(0xFF424242))),
-              ],
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    momentLabel,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'scale: ${s.toStringAsFixed(1)}',
+                    style: TextStyle(fontSize: 10, color: Color(0xFF616161)),
+                  ),
+                  Text(
+                    desc,
+                    style: TextStyle(fontSize: 10, color: Color(0xFF424242)),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -655,8 +833,10 @@ Widget _buildFabAppearanceDuringAnimation() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('How the FAB looks at each moment during the transition',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'How the FAB looks at each moment during the transition',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Column(children: items),
       ],
@@ -676,8 +856,10 @@ Widget _buildRotationVsScaling() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('The default animator uses scaling. Custom animators can use rotation.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'The default animator uses scaling. Custom animators can use rotation.',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Row(
           children: [
@@ -691,7 +873,14 @@ Widget _buildRotationVsScaling() {
                 ),
                 child: Column(
                   children: [
-                    Text('Scaling (Default)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFF4A148C))),
+                    Text(
+                      'Scaling (Default)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: Color(0xFF4A148C),
+                      ),
+                    ),
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -703,8 +892,11 @@ Widget _buildRotationVsScaling() {
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text('Size changes\nNo rotation', textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: Color(0xFF616161))),
+                    Text(
+                      'Size changes\nNo rotation',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 10, color: Color(0xFF616161)),
+                    ),
                   ],
                 ),
               ),
@@ -720,20 +912,58 @@ Widget _buildRotationVsScaling() {
                 ),
                 child: Column(
                   children: [
-                    Text('Rotation (Custom)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFFE65100))),
+                    Text(
+                      'Rotation (Custom)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: Color(0xFFE65100),
+                      ),
+                    ),
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Transform.rotate(angle: 0.0, child: Icon(Icons.add, color: Color(0xFFE65100), size: 28)),
-                        Transform.rotate(angle: 0.8, child: Icon(Icons.add, color: Color(0xFFE65100), size: 28)),
-                        Transform.rotate(angle: 1.6, child: Icon(Icons.add, color: Color(0xFFE65100), size: 28)),
-                        Transform.rotate(angle: 2.4, child: Icon(Icons.add, color: Color(0xFFE65100), size: 28)),
+                        Transform.rotate(
+                          angle: 0.0,
+                          child: Icon(
+                            Icons.add,
+                            color: Color(0xFFE65100),
+                            size: 28,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: 0.8,
+                          child: Icon(
+                            Icons.add,
+                            color: Color(0xFFE65100),
+                            size: 28,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: 1.6,
+                          child: Icon(
+                            Icons.add,
+                            color: Color(0xFFE65100),
+                            size: 28,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: 2.4,
+                          child: Icon(
+                            Icons.add,
+                            color: Color(0xFFE65100),
+                            size: 28,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text('Size stays same\nIcon rotates', textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 10, color: Color(0xFF616161))),
+                    Text(
+                      'Size stays same\nIcon rotates',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 10, color: Color(0xFF616161)),
+                    ),
                   ],
                 ),
               ),
@@ -742,7 +972,10 @@ Widget _buildRotationVsScaling() {
         ),
         SizedBox(height: 8),
         buildInfoCard('Default:', 'FloatingActionButtonAnimator.scaling'),
-        buildInfoCard('Custom:', 'Extend FloatingActionButtonAnimator, override getScaleAnimation/getRotationAnimation'),
+        buildInfoCard(
+          'Custom:',
+          'Extend FloatingActionButtonAnimator, override getScaleAnimation/getRotationAnimation',
+        ),
       ],
     ),
   );
@@ -752,9 +985,27 @@ Widget _buildAnimatorWithLocationChanges() {
   print('Building animator with location changes');
   List<Widget> rows = [];
 
-  List<String> fromLocs = ['endFloat', 'endFloat', 'centerFloat', 'endDocked', 'centerDocked'];
-  List<String> toLocs = ['centerFloat', 'endDocked', 'centerDocked', 'endFloat', 'startFloat'];
-  List<String> moveDescs = ['Horizontal (ends to center)', 'Vertical (float to dock)', 'Combined move', 'Vertical (dock to float)', 'Large horizontal move'];
+  List<String> fromLocs = [
+    'endFloat',
+    'endFloat',
+    'centerFloat',
+    'endDocked',
+    'centerDocked',
+  ];
+  List<String> toLocs = [
+    'centerFloat',
+    'endDocked',
+    'centerDocked',
+    'endFloat',
+    'startFloat',
+  ];
+  List<String> moveDescs = [
+    'Horizontal (ends to center)',
+    'Vertical (float to dock)',
+    'Combined move',
+    'Vertical (dock to float)',
+    'Large horizontal move',
+  ];
 
   int i = 0;
   for (; i < 5; i = i + 1) {
@@ -764,40 +1015,53 @@ Widget _buildAnimatorWithLocationChanges() {
 
     print('  Location change: $fromLoc -> $toLoc');
 
-    rows.add(Container(
-      margin: EdgeInsets.only(bottom: 6),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Color(0xFFE0E0E0)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: Color(0xFF1565C0),
-              borderRadius: BorderRadius.circular(3),
+    rows.add(
+      Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Color(0xFFFFFFFF),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: Color(0xFFE0E0E0)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Color(0xFF1565C0),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(
+                fromLoc,
+                style: TextStyle(color: Colors.white, fontSize: 9),
+              ),
             ),
-            child: Text(fromLoc, style: TextStyle(color: Colors.white, fontSize: 9)),
-          ),
-          SizedBox(width: 4),
-          Icon(Icons.arrow_forward, size: 14, color: Color(0xFF9E9E9E)),
-          SizedBox(width: 4),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: Color(0xFF2E7D32),
-              borderRadius: BorderRadius.circular(3),
+            SizedBox(width: 4),
+            Icon(Icons.arrow_forward, size: 14, color: Color(0xFF9E9E9E)),
+            SizedBox(width: 4),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Color(0xFF2E7D32),
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Text(
+                toLoc,
+                style: TextStyle(color: Colors.white, fontSize: 9),
+              ),
             ),
-            child: Text(toLoc, style: TextStyle(color: Colors.white, fontSize: 9)),
-          ),
-          SizedBox(width: 8),
-          Expanded(child: Text(moveDesc, style: TextStyle(fontSize: 10, color: Color(0xFF616161)))),
-        ],
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                moveDesc,
+                style: TextStyle(fontSize: 10, color: Color(0xFF616161)),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -810,12 +1074,17 @@ Widget _buildAnimatorWithLocationChanges() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Animator triggers on location changes (scale down + up)',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'Animator triggers on location changes (scale down + up)',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Column(children: rows),
         SizedBox(height: 8),
-        buildInfoCard('Note:', 'Same animation plays regardless of distance between locations'),
+        buildInfoCard(
+          'Note:',
+          'Same animation plays regardless of distance between locations',
+        ),
       ],
     ),
   );
@@ -841,24 +1110,29 @@ Widget _buildAnimationCurve() {
     double barHeight = 60.0 * scale;
     double minBar = 2.0;
     double effectiveBar = barHeight > minBar ? barHeight : minBar;
-    Color col = t <= 0.4 ? Color(0xFF1565C0) : (t < 0.6 ? Color(0xFF757575) : Color(0xFF2E7D32));
+    Color col = t <= 0.4
+        ? Color(0xFF1565C0)
+        : (t < 0.6 ? Color(0xFF757575) : Color(0xFF2E7D32));
 
-    items.add(Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: 10, height: effectiveBar,
-            decoration: BoxDecoration(
-              color: col,
-              borderRadius: BorderRadius.circular(2),
+    items.add(
+      Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              width: 10,
+              height: effectiveBar,
+              decoration: BoxDecoration(
+                color: col,
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-          ),
-          SizedBox(height: 2),
-          Text((t * 100).toStringAsFixed(0), style: TextStyle(fontSize: 6)),
-        ],
+            SizedBox(height: 2),
+            Text((t * 100).toStringAsFixed(0), style: TextStyle(fontSize: 6)),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -871,8 +1145,10 @@ Widget _buildAnimationCurve() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Scale value over time (bar chart visualization)',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'Scale value over time (bar chart visualization)',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
         Container(
           height: 90,
@@ -892,9 +1168,18 @@ Widget _buildAnimationCurve() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('t=0.0', style: TextStyle(fontSize: 9)),
-            Text('Exit phase', style: TextStyle(fontSize: 9, color: Color(0xFF1565C0))),
-            Text('Gap', style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
-            Text('Enter phase', style: TextStyle(fontSize: 9, color: Color(0xFF2E7D32))),
+            Text(
+              'Exit phase',
+              style: TextStyle(fontSize: 9, color: Color(0xFF1565C0)),
+            ),
+            Text(
+              'Gap',
+              style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
+            ),
+            Text(
+              'Enter phase',
+              style: TextStyle(fontSize: 9, color: Color(0xFF2E7D32)),
+            ),
             Text('t=1.0', style: TextStyle(fontSize: 9)),
           ],
         ),
@@ -915,20 +1200,38 @@ Widget _buildCustomAnimatorArchitecture() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Methods to override when creating a custom animator:',
-            style: TextStyle(fontSize: 13, color: Color(0xFF424242))),
+        Text(
+          'Methods to override when creating a custom animator:',
+          style: TextStyle(fontSize: 13, color: Color(0xFF424242)),
+        ),
         SizedBox(height: 12),
-        _buildMethodCard('getScaleAnimation', 'Animation<double>',
-            'Controls the scale transform applied to the FAB', Color(0xFF1565C0)),
+        _buildMethodCard(
+          'getScaleAnimation',
+          'Animation<double>',
+          'Controls the scale transform applied to the FAB',
+          Color(0xFF1565C0),
+        ),
         SizedBox(height: 6),
-        _buildMethodCard('getRotationAnimation', 'Animation<double>',
-            'Controls the rotation transform applied to the FAB', Color(0xFF2E7D32)),
+        _buildMethodCard(
+          'getRotationAnimation',
+          'Animation<double>',
+          'Controls the rotation transform applied to the FAB',
+          Color(0xFF2E7D32),
+        ),
         SizedBox(height: 6),
-        _buildMethodCard('getOffset', 'Offset',
-            'Returns the position offset during animation', Color(0xFF4A148C)),
+        _buildMethodCard(
+          'getOffset',
+          'Offset',
+          'Returns the position offset during animation',
+          Color(0xFF4A148C),
+        ),
         SizedBox(height: 6),
-        _buildMethodCard('getAnimationRestart', 'AnimationController',
-            'Controls when the entrance animation replays', Color(0xFFE65100)),
+        _buildMethodCard(
+          'getAnimationRestart',
+          'AnimationController',
+          'Controls when the entrance animation replays',
+          Color(0xFFE65100),
+        ),
         SizedBox(height: 12),
         Container(
           padding: EdgeInsets.all(10),
@@ -940,12 +1243,34 @@ Widget _buildCustomAnimatorArchitecture() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ThemeData(', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-              Text('  floatingActionButtonTheme:', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-              Text('    FloatingActionButtonThemeData(', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-              Text('      // Animator set via ThemeData', style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF757575))),
-              Text('    ),', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-              Text(')', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+              Text(
+                'ThemeData(',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+              ),
+              Text(
+                '  floatingActionButtonTheme:',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+              ),
+              Text(
+                '    FloatingActionButtonThemeData(',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+              ),
+              Text(
+                '      // Animator set via ThemeData',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFF757575),
+                ),
+              ),
+              Text(
+                '    ),',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+              ),
+              Text(
+                ')',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+              ),
             ],
           ),
         ),
@@ -954,7 +1279,12 @@ Widget _buildCustomAnimatorArchitecture() {
   );
 }
 
-Widget _buildMethodCard(String name, String returnType, String description, Color color) {
+Widget _buildMethodCard(
+  String name,
+  String returnType,
+  String description,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -970,15 +1300,28 @@ Widget _buildMethodCard(String name, String returnType, String description, Colo
             color: color,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(returnType, style: TextStyle(color: Colors.white, fontSize: 8)),
+          child: Text(
+            returnType,
+            style: TextStyle(color: Colors.white, fontSize: 8),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: color)),
-              Text(description, style: TextStyle(fontSize: 10, color: Color(0xFF616161))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: color,
+                ),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 10, color: Color(0xFF616161)),
+              ),
             ],
           ),
         ),
@@ -991,41 +1334,101 @@ Widget _buildPropertiesReference() {
   print('Building properties reference');
   List<Widget> items = [];
 
-  items.add(buildInfoCard('scaling:', 'Static constant - the default scaling animator'));
-  items.add(buildInfoCard('getScaleAnimation:', 'Returns scale animation (0.0 to 1.0)'));
-  items.add(buildInfoCard('getRotationAnimation:', 'Returns rotation animation (radians)'));
-  items.add(buildInfoCard('getOffset:', 'Returns positional offset during transition'));
-  items.add(buildInfoCard('getAnimationRestart:', 'Controls entrance animation replay'));
+  items.add(
+    buildInfoCard('scaling:', 'Static constant - the default scaling animator'),
+  );
+  items.add(
+    buildInfoCard('getScaleAnimation:', 'Returns scale animation (0.0 to 1.0)'),
+  );
+  items.add(
+    buildInfoCard(
+      'getRotationAnimation:',
+      'Returns rotation animation (radians)',
+    ),
+  );
+  items.add(
+    buildInfoCard('getOffset:', 'Returns positional offset during transition'),
+  );
+  items.add(
+    buildInfoCard('getAnimationRestart:', 'Controls entrance animation replay'),
+  );
   items.add(SizedBox(height: 12));
-  items.add(Text('Usage in Scaffold:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF4A148C))));
+  items.add(
+    Text(
+      'Usage in Scaffold:',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+        color: Color(0xFF4A148C),
+      ),
+    ),
+  );
   items.add(SizedBox(height: 8));
-  items.add(Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Color(0xFFF5F5F5),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Color(0xFFE0E0E0)),
+  items.add(
+    Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Color(0xFFE0E0E0)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '// Default behavior (no custom animator needed):',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: Color(0xFF757575),
+            ),
+          ),
+          Text(
+            'Scaffold(',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text(
+            '  floatingActionButton: FloatingActionButton(',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text(
+            '    onPressed: () {},',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text(
+            '    child: Icon(Icons.add),',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text('  ),', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+          Text(
+            '  floatingActionButtonLocation:',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text(
+            '    FloatingActionButtonLocation.endFloat,',
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
+          Text(
+            '  // Animator is from ThemeData',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: Color(0xFF757575),
+            ),
+          ),
+          Text(')', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
+        ],
+      ),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('// Default behavior (no custom animator needed):',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF757575))),
-        Text('Scaffold(', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('  floatingActionButton: FloatingActionButton(', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('    onPressed: () {},', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('    child: Icon(Icons.add),', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('  ),', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('  floatingActionButtonLocation:', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('    FloatingActionButtonLocation.endFloat,', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-        Text('  // Animator is from ThemeData', style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: Color(0xFF757575))),
-        Text(')', style: TextStyle(fontFamily: 'monospace', fontSize: 11)),
-      ],
-    ),
-  ));
+  );
   items.add(SizedBox(height: 8));
   items.add(buildInfoCard('Duration:', 'Default animation duration is 200ms'));
-  items.add(buildInfoCard('Trigger:', 'Changing floatingActionButtonLocation triggers animation'));
+  items.add(
+    buildInfoCard(
+      'Trigger:',
+      'Changing floatingActionButtonLocation triggers animation',
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),

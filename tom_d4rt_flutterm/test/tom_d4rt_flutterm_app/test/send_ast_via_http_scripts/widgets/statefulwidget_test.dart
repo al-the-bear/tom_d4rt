@@ -150,7 +150,9 @@ dynamic build(BuildContext context) {
 
   // Test GlobalKey<State> usage
   final stateKey = GlobalKey<_StatefulDemoState>();
-  print('GlobalKey<_StatefulDemoState> created for external state access: $stateKey');
+  print(
+    'GlobalKey<_StatefulDemoState> created for external state access: $stateKey',
+  );
 
   print('');
   print('StatefulWidget test completed');

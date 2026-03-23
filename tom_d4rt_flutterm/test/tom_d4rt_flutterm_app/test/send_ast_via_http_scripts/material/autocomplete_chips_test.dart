@@ -25,16 +25,16 @@ dynamic build(BuildContext context) {
   print('--- AutocompleteOptionsBuilder Tests ---');
   // AutocompleteOptionsBuilder<T> = Iterable<T> Function(TextEditingValue)
   Iterable<String> optionsBuilder(TextEditingValue textEditingValue) {
-        final options = ['Apple', 'Banana', 'Cherry'];
-        if (textEditingValue.text.isEmpty) {
-          return options;
-        }
-        return options.where(
-          (String option) => option.toLowerCase().contains(
-            textEditingValue.text.toLowerCase(),
-          ),
-        );
-      }
+    final options = ['Apple', 'Banana', 'Cherry'];
+    if (textEditingValue.text.isEmpty) {
+      return options;
+    }
+    return options.where(
+      (String option) =>
+          option.toLowerCase().contains(textEditingValue.text.toLowerCase()),
+    );
+  }
+
   print('AutocompleteOptionsBuilder type: ${optionsBuilder.runtimeType}');
   final testResult = optionsBuilder(TextEditingValue(text: 'a'));
   print('AutocompleteOptionsBuilder result for "a": $testResult');
@@ -43,34 +43,34 @@ dynamic build(BuildContext context) {
   print('--- AutocompleteFieldViewBuilder Tests ---');
   // AutocompleteFieldViewBuilder = Widget Function(BuildContext, TextEditingController, FocusNode, VoidCallback)
   Widget fieldViewBuilder(
-        BuildContext ctx,
-        TextEditingController controller,
-        FocusNode focusNode,
-        VoidCallback onFieldSubmitted,
-      ) {
-        return TextField(controller: controller, focusNode: focusNode);
-      }
+    BuildContext ctx,
+    TextEditingController controller,
+    FocusNode focusNode,
+    VoidCallback onFieldSubmitted,
+  ) {
+    return TextField(controller: controller, focusNode: focusNode);
+  }
+
   print('AutocompleteFieldViewBuilder type: ${fieldViewBuilder.runtimeType}');
 
   // ========== AutocompleteOptionsViewBuilder ==========
   print('--- AutocompleteOptionsViewBuilder Tests ---');
   // AutocompleteOptionsViewBuilder<T> = Widget Function(BuildContext, AutocompleteOnSelected<T>, Iterable<T>)
   Widget optionsViewBuilder(
-        BuildContext ctx,
-        AutocompleteOnSelected<String> onSelected,
-        Iterable<String> options,
-      ) {
-        return ListView(
-          children: options
-              .map(
-                (String option) => ListTile(
-                  title: Text(option),
-                  onTap: () => onSelected(option),
-                ),
-              )
-              .toList(),
-        );
-      }
+    BuildContext ctx,
+    AutocompleteOnSelected<String> onSelected,
+    Iterable<String> options,
+  ) {
+    return ListView(
+      children: options
+          .map(
+            (String option) =>
+                ListTile(title: Text(option), onTap: () => onSelected(option)),
+          )
+          .toList(),
+    );
+  }
+
   print(
     'AutocompleteOptionsViewBuilder type: ${optionsViewBuilder.runtimeType}',
   );
@@ -81,6 +81,7 @@ dynamic build(BuildContext context) {
   void onSelected(String selection) {
     print('Selected: $selection');
   }
+
   print('AutocompleteOnSelected type: ${onSelected.runtimeType}');
 
   // ========== TappableChipAttributes ==========

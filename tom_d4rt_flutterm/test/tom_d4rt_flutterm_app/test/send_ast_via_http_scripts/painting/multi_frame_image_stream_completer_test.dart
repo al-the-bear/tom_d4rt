@@ -211,12 +211,7 @@ Widget buildTimelineEvent(String time, String event, IconData icon) {
           child: Icon(icon, size: 16, color: Colors.deepPurple.shade700),
         ),
         SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            event,
-            style: TextStyle(fontSize: 13),
-          ),
-        ),
+        Expanded(child: Text(event, style: TextStyle(fontSize: 13))),
       ],
     ),
   );
@@ -288,7 +283,11 @@ Widget buildComparisonTable() {
         ),
         _buildComparisonRow('Frame Count', 'Multiple', 'Single'),
         _buildComparisonRow('Animation', 'Yes (timing)', 'No'),
-        _buildComparisonRow('Codec Source', 'Stream<Codec>', 'Future<ImageInfo>'),
+        _buildComparisonRow(
+          'Codec Source',
+          'Stream<Codec>',
+          'Future<ImageInfo>',
+        ),
         _buildComparisonRow('Use Case', 'GIF, APNG, WebP', 'PNG, JPEG, BMP'),
         _buildComparisonRow('Memory', 'Higher (frames)', 'Lower'),
         _buildComparisonRow('Complexity', 'Higher', 'Simple'),
@@ -305,10 +304,7 @@ Widget _buildComparisonRow(String feature, String multi, String one) {
     ),
     child: Row(
       children: [
-        Expanded(
-          flex: 2,
-          child: Text(feature, style: TextStyle(fontSize: 12)),
-        ),
+        Expanded(flex: 2, child: Text(feature, style: TextStyle(fontSize: 12))),
         Expanded(
           flex: 2,
           child: Text(
@@ -452,10 +448,14 @@ dynamic build(BuildContext context) {
   for (var frame in simulatedFrames) {
     int duration = frame['durationMs'] as int;
     totalDuration += duration;
-    print('  Frame ${frame['index']}: ${duration}ms, ${frame['width']}x${frame['height']}');
+    print(
+      '  Frame ${frame['index']}: ${duration}ms, ${frame['width']}x${frame['height']}',
+    );
   }
   print('  Total animation duration: ${totalDuration}ms');
-  print('  Frames per second: ${(1000 / (totalDuration / simulatedFrames.length)).toStringAsFixed(1)}');
+  print(
+    '  Frames per second: ${(1000 / (totalDuration / simulatedFrames.length)).toStringAsFixed(1)}',
+  );
 
   print('\nSection 7: Frame Timing');
   print('Frame timing controls animation playback:');
@@ -523,10 +523,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'Animated Image Frame Manager',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.white70),
               ),
             ],
           ),
@@ -535,7 +532,10 @@ dynamic build(BuildContext context) {
         buildSectionHeader('1. Constructor Overview'),
         buildInfoCard('Class', 'MultiFrameImageStreamCompleter'),
         buildInfoCard('Extends', 'ImageStreamCompleter'),
-        buildInfoCard('Purpose', 'Manages decoding and timing of animated image frames'),
+        buildInfoCard(
+          'Purpose',
+          'Manages decoding and timing of animated image frames',
+        ),
         buildInfoCard('Use Case', 'GIF, APNG, animated WebP images'),
 
         SizedBox(height: 8),
@@ -544,11 +544,31 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
         ),
         SizedBox(height: 4),
-        buildPropertyRow('codec', 'Future<ui.Codec>', 'Required. Decoded image codec with frame data'),
-        buildPropertyRow('scale', 'double', 'Required. Display scale factor (1.0, 2.0, 3.0)'),
-        buildPropertyRow('debugLabel', 'String?', 'Optional label for debugging'),
-        buildPropertyRow('chunkEvents', 'Stream<ImageChunkEvent>?', 'Optional loading progress stream'),
-        buildPropertyRow('informationCollector', 'InformationCollector?', 'Debug information collector'),
+        buildPropertyRow(
+          'codec',
+          'Future<ui.Codec>',
+          'Required. Decoded image codec with frame data',
+        ),
+        buildPropertyRow(
+          'scale',
+          'double',
+          'Required. Display scale factor (1.0, 2.0, 3.0)',
+        ),
+        buildPropertyRow(
+          'debugLabel',
+          'String?',
+          'Optional label for debugging',
+        ),
+        buildPropertyRow(
+          'chunkEvents',
+          'Stream<ImageChunkEvent>?',
+          'Optional loading progress stream',
+        ),
+        buildPropertyRow(
+          'informationCollector',
+          'InformationCollector?',
+          'Debug information collector',
+        ),
 
         buildSectionHeader('2. Codec Parameter Details'),
         Container(
@@ -566,10 +586,26 @@ dynamic build(BuildContext context) {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               SizedBox(height: 8),
-              _buildCodecProperty('frameCount', 'int', 'Number of frames in animation'),
-              _buildCodecProperty('repetitionCount', 'int', 'Loop count (-1 = infinite)'),
-              _buildCodecProperty('getNextFrame()', 'Future<FrameInfo>', 'Decodes next frame'),
-              _buildCodecProperty('dispose()', 'void', 'Releases native resources'),
+              _buildCodecProperty(
+                'frameCount',
+                'int',
+                'Number of frames in animation',
+              ),
+              _buildCodecProperty(
+                'repetitionCount',
+                'int',
+                'Loop count (-1 = infinite)',
+              ),
+              _buildCodecProperty(
+                'getNextFrame()',
+                'Future<FrameInfo>',
+                'Decodes next frame',
+              ),
+              _buildCodecProperty(
+                'dispose()',
+                'void',
+                'Releases native resources',
+              ),
             ],
           ),
         ),
@@ -606,8 +642,14 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 8),
               _buildScaleExample('1.0', '256x256 image -> 256x256 display'),
-              _buildScaleExample('2.0', '256x256 image -> 128x128 display (2x density)'),
-              _buildScaleExample('3.0', '256x256 image -> 85x85 display (3x density)'),
+              _buildScaleExample(
+                '2.0',
+                '256x256 image -> 128x128 display (2x density)',
+              ),
+              _buildScaleExample(
+                '3.0',
+                '256x256 image -> 85x85 display (3x density)',
+              ),
               _buildScaleExample('0.5', '256x256 image -> 512x512 display'),
             ],
           ),
@@ -649,15 +691,26 @@ dynamic build(BuildContext context) {
 
         buildSectionHeader('5. ChunkEvents Parameter'),
         buildInfoCard('Type', 'Stream<ImageChunkEvent>?'),
-        buildInfoCard('Purpose', 'Reports download progress for network images'),
+        buildInfoCard(
+          'Purpose',
+          'Reports download progress for network images',
+        ),
 
         SizedBox(height: 8),
         Text(
           'ImageChunkEvent Properties:',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
-        buildPropertyRow('cumulativeBytesLoaded', 'int', 'Bytes downloaded so far'),
-        buildPropertyRow('expectedTotalBytes', 'int?', 'Total size if known from headers'),
+        buildPropertyRow(
+          'cumulativeBytesLoaded',
+          'int',
+          'Bytes downloaded so far',
+        ),
+        buildPropertyRow(
+          'expectedTotalBytes',
+          'int?',
+          'Total size if known from headers',
+        ),
 
         SizedBox(height: 12),
         Container(
@@ -732,19 +785,54 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         SizedBox(height: 8),
-        buildTimelineEvent('0ms', 'Completer instantiated with codec Future', Icons.start),
-        buildTimelineEvent('45ms', 'Codec Future resolves, UI.Codec ready', Icons.check_circle),
-        buildTimelineEvent('46ms', 'getNextFrame() called for Frame 0', Icons.download),
-        buildTimelineEvent('52ms', 'Frame 0 decoded, ImageInfo created', Icons.image),
-        buildTimelineEvent('53ms', 'setImage() notifies all listeners', Icons.notifications_active),
-        buildTimelineEvent('153ms', 'Timer fires, decode Frame 1 (100ms later)', Icons.timer),
-        buildTimelineEvent('160ms', 'Frame 1 ready, listeners notified', Icons.notifications),
-        buildTimelineEvent('310ms', 'Frame 2 ready (150ms duration)', Icons.notifications),
+        buildTimelineEvent(
+          '0ms',
+          'Completer instantiated with codec Future',
+          Icons.start,
+        ),
+        buildTimelineEvent(
+          '45ms',
+          'Codec Future resolves, UI.Codec ready',
+          Icons.check_circle,
+        ),
+        buildTimelineEvent(
+          '46ms',
+          'getNextFrame() called for Frame 0',
+          Icons.download,
+        ),
+        buildTimelineEvent(
+          '52ms',
+          'Frame 0 decoded, ImageInfo created',
+          Icons.image,
+        ),
+        buildTimelineEvent(
+          '53ms',
+          'setImage() notifies all listeners',
+          Icons.notifications_active,
+        ),
+        buildTimelineEvent(
+          '153ms',
+          'Timer fires, decode Frame 1 (100ms later)',
+          Icons.timer,
+        ),
+        buildTimelineEvent(
+          '160ms',
+          'Frame 1 ready, listeners notified',
+          Icons.notifications,
+        ),
+        buildTimelineEvent(
+          '310ms',
+          'Frame 2 ready (150ms duration)',
+          Icons.notifications,
+        ),
 
         buildSectionHeader('7. Frame Timing'),
         buildInfoCard('Timing Source', 'FrameInfo.duration from codec'),
         buildInfoCard('Scheduler', 'Timer-based with vsync alignment'),
-        buildInfoCard('Variable Timing', 'Each frame can have different duration'),
+        buildInfoCard(
+          'Variable Timing',
+          'Each frame can have different duration',
+        ),
 
         SizedBox(height: 8),
         Container(
@@ -772,7 +860,10 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('0ms', style: TextStyle(fontSize: 10)),
-                  Text('Time', style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic)),
+                  Text(
+                    'Time',
+                    style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+                  ),
                   Text('650ms', style: TextStyle(fontSize: 10)),
                 ],
               ),
@@ -870,8 +961,14 @@ dynamic build(BuildContext context) {
               _buildMemoryItem(Icons.memory, 'Codec loaded into memory'),
               _buildMemoryItem(Icons.image, 'Frame decoded on demand'),
               _buildMemoryItem(Icons.cached, 'Current frame cached'),
-              _buildMemoryItem(Icons.delete_outline, 'Previous frames released'),
-              _buildMemoryItem(Icons.cleaning_services, 'Codec disposed on removeListener'),
+              _buildMemoryItem(
+                Icons.delete_outline,
+                'Previous frames released',
+              ),
+              _buildMemoryItem(
+                Icons.cleaning_services,
+                'Codec disposed on removeListener',
+              ),
             ],
           ),
         ),
@@ -890,10 +987,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'MultiFrameImageStreamCompleter Demo Complete',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               SizedBox(height: 4),
               Text(
@@ -916,8 +1010,12 @@ Widget _buildCodecProperty(String name, String type, String desc) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(width: 8, height: 8, margin: EdgeInsets.only(top: 4, right: 8),
-          decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle)),
+        Container(
+          width: 8,
+          height: 8,
+          margin: EdgeInsets.only(top: 4, right: 8),
+          decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+        ),
         Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
         Text(' -> ', style: TextStyle(fontSize: 12)),
         Text(type, style: TextStyle(fontSize: 12, color: Colors.blue.shade700)),
@@ -940,7 +1038,11 @@ Widget _buildScaleExample(String scale, String result) {
             color: Colors.deepPurple.shade100,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(scale, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+          child: Text(
+            scale,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(width: 12),
         Icon(Icons.arrow_forward, size: 16, color: Colors.grey),
@@ -958,7 +1060,10 @@ Widget _buildStatRow(String label, String value) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label, style: TextStyle(fontSize: 12)),
-        Text(value, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(
+          value,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
       ],
     ),
   );
@@ -970,10 +1075,7 @@ Widget _buildTimingBar(String label, double start, double end, Color color) {
     margin: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        SizedBox(
-          width: 60,
-          child: Text(label, style: TextStyle(fontSize: 10)),
-        ),
+        SizedBox(width: 60, child: Text(label, style: TextStyle(fontSize: 10))),
         Expanded(
           child: Stack(
             children: [

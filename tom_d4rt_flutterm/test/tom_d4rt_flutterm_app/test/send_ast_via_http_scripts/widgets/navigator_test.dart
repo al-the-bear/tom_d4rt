@@ -91,7 +91,9 @@ dynamic build(BuildContext context) {
     maintainState: true,
     fullscreenDialog: false,
   );
-  print('MaterialPageRoute created with settings=/material-route: $materialRoute');
+  print(
+    'MaterialPageRoute created with settings=/material-route: $materialRoute',
+  );
 
   // Test MaterialPageRoute as fullscreen dialog
   final dialogRoute = MaterialPageRoute(
@@ -151,7 +153,9 @@ dynamic build(BuildContext context) {
     },
     initialRoute: '/',
   );
-  print('Navigator with onGenerateRoute and onUnknownRoute created: $generatedRoutes');
+  print(
+    'Navigator with onGenerateRoute and onUnknownRoute created: $generatedRoutes',
+  );
 
   // Test Navigator with observers
   final withObservers = Navigator(

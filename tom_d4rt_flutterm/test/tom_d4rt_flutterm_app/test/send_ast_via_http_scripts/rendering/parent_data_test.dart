@@ -117,10 +117,7 @@ Widget _buildMainHeader(String title, String subtitle, IconData icon) {
         SizedBox(height: 8),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: _white.withAlpha(220),
-          ),
+          style: TextStyle(fontSize: 14, color: _white.withAlpha(220)),
           textAlign: TextAlign.center,
         ),
       ],
@@ -166,7 +163,12 @@ Widget _buildSectionTitle(String title, IconData icon, Color color) {
   );
 }
 
-Widget _buildInfoCard(String title, String content, IconData icon, Color accent) {
+Widget _buildInfoCard(
+  String title,
+  String content,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     padding: EdgeInsets.all(16),
@@ -211,11 +213,7 @@ Widget _buildInfoCard(String title, String content, IconData icon, Color accent)
         SizedBox(height: 12),
         Text(
           content,
-          style: TextStyle(
-            fontSize: 13,
-            color: _grey700,
-            height: 1.5,
-          ),
+          style: TextStyle(fontSize: 13, color: _grey700, height: 1.5),
         ),
       ],
     ),
@@ -370,10 +368,7 @@ Widget _buildPropertyRow(String name, String type, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 12,
-              color: _grey700,
-            ),
+            style: TextStyle(fontSize: 12, color: _grey700),
           ),
         ),
       ],
@@ -391,16 +386,17 @@ Widget _buildHighlightBox(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 12,
-        color: color,
-        fontWeight: FontWeight.w500,
-      ),
+      style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500),
     ),
   );
 }
 
-Widget _buildNumberedStep(int number, String title, String description, Color color) {
+Widget _buildNumberedStep(
+  int number,
+  String title,
+  String description,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     child: Row(
@@ -409,10 +405,7 @@ Widget _buildNumberedStep(int number, String title, String description, Color co
         Container(
           width: 32,
           height: 32,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '\$number',
@@ -440,11 +433,7 @@ Widget _buildNumberedStep(int number, String title, String description, Color co
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _grey600,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12, color: _grey600, height: 1.4),
               ),
             ],
           ),
@@ -454,7 +443,12 @@ Widget _buildNumberedStep(int number, String title, String description, Color co
   );
 }
 
-Widget _buildTreeNode(String label, Color color, {List<Widget>? children, IconData? icon}) {
+Widget _buildTreeNode(
+  String label,
+  Color color, {
+  List<Widget>? children,
+  IconData? icon,
+}) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     child: Column(
@@ -489,7 +483,9 @@ Widget _buildTreeNode(String label, Color color, {List<Widget>? children, IconDa
             margin: EdgeInsets.only(left: 20, top: 8),
             padding: EdgeInsets.only(left: 12),
             decoration: BoxDecoration(
-              border: Border(left: BorderSide(color: color.withAlpha(100), width: 2)),
+              border: Border(
+                left: BorderSide(color: color.withAlpha(100), width: 2),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -513,24 +509,22 @@ Widget _buildOverviewSection() {
       _buildInfoCard(
         'What is ParentData?',
         'ParentData is the base class for data that a parent render object '
-        'attaches to its children. It provides a standardized way for parents '
-        'to store layout-related information about each child, such as position '
-        'offsets, flex values, or positioning constraints.',
+            'attaches to its children. It provides a standardized way for parents '
+            'to store layout-related information about each child, such as position '
+            'offsets, flex values, or positioning constraints.',
         Icons.info_outline,
         _indigo600,
       ),
       _buildInfoCard(
         'How ParentData Works',
         'When a child render object is adopted by a parent, the parent calls '
-        'setupParentData() to initialize the child\'s parentData property. '
-        'The parent then uses this data during layout and painting phases to '
-        'determine how to position and render the child.',
+            'setupParentData() to initialize the child\'s parentData property. '
+            'The parent then uses this data during layout and painting phases to '
+            'determine how to position and render the child.',
         Icons.settings,
         _teal600,
       ),
-      _buildCodeBlock(
-        'ParentData Base Class',
-        '''class ParentData {
+      _buildCodeBlock('ParentData Base Class', '''class ParentData {
   // Called when the child is removed from parent
   @protected
   @mustCallSuper
@@ -539,9 +533,7 @@ Widget _buildOverviewSection() {
   // String representation for debugging
   @override
   String toString() => '<\\\$runtimeType>';
-}''',
-        _indigo700,
-      ),
+}''', _indigo700),
       _buildDiagramContainer(
         'ParentData Lifecycle',
         _buildAsciiDiagram('''
@@ -570,9 +562,9 @@ Widget _buildOverviewSection() {
       _buildInfoCard(
         'Key Responsibilities',
         '• Store layout information set by parent\n'
-        '• Provide detach() for cleanup when removed\n'
-        '• Enable communication between parent and child\n'
-        '• Support specific layout protocols (box, sliver)',
+            '• Provide detach() for cleanup when removed\n'
+            '• Enable communication between parent and child\n'
+            '• Support specific layout protocols (box, sliver)',
         Icons.checklist,
         _green700,
       ),
@@ -592,15 +584,13 @@ Widget _buildDetachSection() {
       _buildInfoCard(
         'Purpose of detach()',
         'The detach() method is called when a child render object is being '
-        'removed from its parent. It provides an opportunity to clean up any '
-        'resources, remove listeners, or sever connections that were established '
-        'when the parent data was set up.',
+            'removed from its parent. It provides an opportunity to clean up any '
+            'resources, remove listeners, or sever connections that were established '
+            'when the parent data was set up.',
         Icons.cleaning_services,
         _red600,
       ),
-      _buildCodeBlock(
-        'detach() Implementation',
-        '''// Base implementation
+      _buildCodeBlock('detach() Implementation', '''// Base implementation
 void detach() {
   // Override in subclasses to cleanup
 }
@@ -617,9 +607,7 @@ mixin ContainerParentDataMixin<T extends RenderObject>
     // Allows garbage collection
     super.detach();
   }
-}''',
-        _red700,
-      ),
+}''', _red700),
       _buildDiagramContainer(
         'detach() Call Sequence',
         Column(
@@ -679,9 +667,9 @@ AFTER REMOVING Child B:
       _buildInfoCard(
         'Best Practices',
         '• Always call super.detach() in overrides\n'
-        '• Remove any listeners attached to parent\n'
-        '• Clear cached references to parent objects\n'
-        '• Do not access parent after detach() returns',
+            '• Remove any listeners attached to parent\n'
+            '• Clear cached references to parent objects\n'
+            '• Do not access parent after detach() returns',
         Icons.verified,
         _green700,
       ),
@@ -697,13 +685,17 @@ Widget _buildHierarchySection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('Rendering Layer Hierarchy', Icons.account_tree, _teal700),
+      _buildSectionTitle(
+        'Rendering Layer Hierarchy',
+        Icons.account_tree,
+        _teal700,
+      ),
       _buildInfoCard(
         'ParentData Type System',
         'Flutter\'s rendering layer defines a hierarchy of ParentData types, '
-        'each adding specific functionality for different layout protocols. '
-        'The base ParentData class is minimal, with subclasses adding offset, '
-        'sibling navigation, flex values, and positioning constraints.',
+            'each adding specific functionality for different layout protocols. '
+            'The base ParentData class is minimal, with subclasses adding offset, '
+            'sibling navigation, flex values, and positioning constraints.',
         Icons.layers,
         _teal600,
       ),
@@ -724,10 +716,26 @@ Widget _buildHierarchySection() {
                   _amber700,
                   icon: Icons.view_list,
                   children: [
-                    _buildTreeNode('FlexParentData', _green600, icon: Icons.swap_horiz),
-                    _buildTreeNode('StackParentData', _red600, icon: Icons.layers),
-                    _buildTreeNode('FlowParentData', _indigo500, icon: Icons.air),
-                    _buildTreeNode('WrapParentData', _teal500, icon: Icons.wrap_text),
+                    _buildTreeNode(
+                      'FlexParentData',
+                      _green600,
+                      icon: Icons.swap_horiz,
+                    ),
+                    _buildTreeNode(
+                      'StackParentData',
+                      _red600,
+                      icon: Icons.layers,
+                    ),
+                    _buildTreeNode(
+                      'FlowParentData',
+                      _indigo500,
+                      icon: Icons.air,
+                    ),
+                    _buildTreeNode(
+                      'WrapParentData',
+                      _teal500,
+                      icon: Icons.wrap_text,
+                    ),
                   ],
                 ),
                 _buildTreeNode(
@@ -790,12 +798,36 @@ Widget _buildHierarchySection() {
               ),
             ),
             _buildPropertyRow('ParentData', 'base', 'detach() method only'),
-            _buildPropertyRow('BoxParentData', 'Offset', 'offset for painting position'),
-            _buildPropertyRow('Container...', 'T?, T?', 'previousSibling, nextSibling'),
-            _buildPropertyRow('FlexParentData', 'int, FlexFit', 'flex factor and fit mode'),
-            _buildPropertyRow('StackParentData', 'double?*6', 'left, top, right, bottom, width, height'),
-            _buildPropertyRow('SliverLogical...', 'double', 'layoutOffset for scroll position'),
-            _buildPropertyRow('SliverPhysical...', 'Offset', 'paintOffset for painting'),
+            _buildPropertyRow(
+              'BoxParentData',
+              'Offset',
+              'offset for painting position',
+            ),
+            _buildPropertyRow(
+              'Container...',
+              'T?, T?',
+              'previousSibling, nextSibling',
+            ),
+            _buildPropertyRow(
+              'FlexParentData',
+              'int, FlexFit',
+              'flex factor and fit mode',
+            ),
+            _buildPropertyRow(
+              'StackParentData',
+              'double?*6',
+              'left, top, right, bottom, width, height',
+            ),
+            _buildPropertyRow(
+              'SliverLogical...',
+              'double',
+              'layoutOffset for scroll position',
+            ),
+            _buildPropertyRow(
+              'SliverPhysical...',
+              'Offset',
+              'paintOffset for painting',
+            ),
           ],
         ),
       ),
@@ -844,14 +876,12 @@ Widget _buildStackExamplesSection() {
       _buildInfoCard(
         'StackParentData Overview',
         'StackParentData extends ContainerBoxParentData and adds positioning '
-        'constraints: left, top, right, bottom, width, and height. The Positioned '
-        'widget is a ParentDataWidget that sets these values on StackParentData.',
+            'constraints: left, top, right, bottom, width, and height. The Positioned '
+            'widget is a ParentDataWidget that sets these values on StackParentData.',
         Icons.dashboard,
         _amber600,
       ),
-      _buildCodeBlock(
-        'StackParentData Structure',
-        '''class StackParentData 
+      _buildCodeBlock('StackParentData Structure', '''class StackParentData 
     extends ContainerBoxParentData<RenderBox> {
   // Positioning constraints
   double? top;
@@ -871,9 +901,7 @@ Widget _buildStackExamplesSection() {
   RelativeRect get rect => RelativeRect.fromLTRB(
     left ?? 0, top ?? 0, right ?? 0, bottom ?? 0
   );
-}''',
-        _amber700,
-      ),
+}''', _amber700),
       _buildDiagramContainer(
         'Stack Layout Example',
         Container(
@@ -1006,9 +1034,7 @@ Widget _buildStackExamplesSection() {
           ),
         ),
       ),
-      _buildCodeBlock(
-        'Positioned Widget Usage',
-        '''Stack(
+      _buildCodeBlock('Positioned Widget Usage', '''Stack(
   children: [
     // Non-positioned child fills available space
     Container(color: Colors.grey),
@@ -1038,9 +1064,7 @@ Widget _buildStackExamplesSection() {
       child: Box(),
     ),
   ],
-)''',
-        _amber700,
-      ),
+)''', _amber700),
       _buildAsciiDiagram('''
 Stack Layout Algorithm:
 1. Non-positioned children given loose constraints
@@ -1064,8 +1088,8 @@ Stack Layout Algorithm:
       _buildInfoCard(
         'Positioned.fill Shorthand',
         'The Positioned.fill constructor creates a child that fills the Stack '
-        'by setting left, top, right, and bottom all to 0.0. This is useful for '
-        'background layers or overlay content that should cover the entire Stack.',
+            'by setting left, top, right, and bottom all to 0.0. This is useful for '
+            'background layers or overlay content that should cover the entire Stack.',
         Icons.fullscreen,
         _teal600,
       ),
@@ -1085,15 +1109,13 @@ Widget _buildFlexLayoutSection() {
       _buildInfoCard(
         'FlexParentData Overview',
         'FlexParentData extends ContainerBoxParentData and adds flex and fit '
-        'properties. The flex value determines how much of the remaining space '
-        'a child receives, while fit determines whether the child must fill '
-        'that space (tight) or can be smaller (loose).',
+            'properties. The flex value determines how much of the remaining space '
+            'a child receives, while fit determines whether the child must fill '
+            'that space (tight) or can be smaller (loose).',
         Icons.tune,
         _green600,
       ),
-      _buildCodeBlock(
-        'FlexParentData Structure',
-        '''class FlexParentData 
+      _buildCodeBlock('FlexParentData Structure', '''class FlexParentData 
     extends ContainerBoxParentData<RenderBox> {
   // Flex factor (0 = inflexible)
   int flex = 0;
@@ -1108,9 +1130,7 @@ enum FlexFit {
   
   // Child CAN be smaller than allocated
   loose,
-}''',
-        _green700,
-      ),
+}''', _green700),
       _buildDiagramContainer(
         'Row with Flexible Children',
         Column(
@@ -1230,7 +1250,10 @@ Phase 3: Allocate to flexible children
               margin: EdgeInsets.only(bottom: 8),
               child: Row(
                 children: [
-                  Text('FlexFit.tight:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'FlexFit.tight:',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
             ),
@@ -1266,7 +1289,10 @@ Phase 3: Allocate to flexible children
               margin: EdgeInsets.only(bottom: 8),
               child: Row(
                 children: [
-                  Text('FlexFit.loose:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(
+                    'FlexFit.loose:',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
             ),
@@ -1334,9 +1360,9 @@ Row(
       _buildInfoCard(
         'MainAxisSize Interaction',
         'When a Flex (Row/Column) has MainAxisSize.min, it shrinks to fit its '
-        'children. Flexible children with loose fit will be given their intrinsic '
-        'size rather than filling remaining space. This interaction between '
-        'MainAxisSize and FlexFit is important for responsive layouts.',
+            'children. Flexible children with loose fit will be given their intrinsic '
+            'size rather than filling remaining space. This interaction between '
+            'MainAxisSize and FlexFit is important for responsive layouts.',
         Icons.compress,
         _teal600,
       ),
@@ -1352,12 +1378,16 @@ Widget _buildCustomParentDataSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionTitle('Custom ParentData Concepts', Icons.build_circle, _indigo600),
+      _buildSectionTitle(
+        'Custom ParentData Concepts',
+        Icons.build_circle,
+        _indigo600,
+      ),
       _buildInfoCard(
         'Creating Custom ParentData',
         'You can create custom ParentData classes for specialized layout needs. '
-        'This involves defining the ParentData class, creating a ParentDataWidget '
-        'to set values, and implementing a custom RenderObject that uses the data.',
+            'This involves defining the ParentData class, creating a ParentDataWidget '
+            'to set values, and implementing a custom RenderObject that uses the data.',
         Icons.architecture,
         _indigo500,
       ),
@@ -1513,10 +1543,10 @@ Layout order: priority 1 → priority 2 → priority 3
       _buildInfoCard(
         'Key Implementation Points',
         '• Override setupParentData() to create your ParentData type\n'
-        '• ParentDataWidget.applyParentData() sets values on render objects\n'
-        '• Call markNeedsLayout() when layout-affecting data changes\n'
-        '• Call markNeedsPaint() when paint-only data changes\n'
-        '• Use debugTypicalAncestorWidgetClass for error messages',
+            '• ParentDataWidget.applyParentData() sets values on render objects\n'
+            '• Call markNeedsLayout() when layout-affecting data changes\n'
+            '• Call markNeedsPaint() when paint-only data changes\n'
+            '• Use debugTypicalAncestorWidgetClass for error messages',
         Icons.lightbulb,
         _amber600,
       ),
@@ -1680,10 +1710,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'All ParentData concepts demonstrated successfully',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: _grey600,
-                ),
+                style: TextStyle(fontSize: 14, color: _grey600),
                 textAlign: TextAlign.center,
               ),
             ],

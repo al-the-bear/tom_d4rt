@@ -288,7 +288,9 @@ class _CardStackDelegate extends MultiChildLayoutDelegate {
         double x = i * overlapOffset;
         double y = i * (overlapOffset * 0.5);
         positionChild(ids[i], Offset(x, y));
-        print('    Positioned ${ids[i]} at ($x, $y), size: $childSize, overlap chain');
+        print(
+          '    Positioned ${ids[i]} at ($x, $y), size: $childSize, overlap chain',
+        );
       }
     }
   }

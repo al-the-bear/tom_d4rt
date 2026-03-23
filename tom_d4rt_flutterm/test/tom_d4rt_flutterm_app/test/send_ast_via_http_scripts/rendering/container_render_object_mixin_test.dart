@@ -614,7 +614,7 @@ Widget _buildConceptSection() {
       ),
       _buildHighlightBox(
         'ContainerRenderObjectMixin requires ContainerParentDataMixin on the '
-            'parent data to store the previous/next sibling references.',
+        'parent data to store the previous/next sibling references.',
         _kAmber100,
         _kDeepPurple800,
       ),
@@ -626,15 +626,12 @@ Widget _buildConceptSection() {
             'manages these pointers automatically when children are added or removed.',
         Icons.data_object,
       ),
-      _buildDiagramBox(
-        'Child List Structure',
-        [
-          'firstChild points to head of list',
-          'Each child has nextSibling pointer',
-          'Each child has previousSibling pointer',
-          'lastChild points to tail of list',
-        ],
-      ),
+      _buildDiagramBox('Child List Structure', [
+        'firstChild points to head of list',
+        'Each child has nextSibling pointer',
+        'Each child has previousSibling pointer',
+        'lastChild points to tail of list',
+      ]),
     ],
   );
 }
@@ -647,7 +644,10 @@ Widget _buildFirstLastChildSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionHeader('firstChild / lastChild Properties', Icons.first_page),
+      _buildSectionHeader(
+        'firstChild / lastChild Properties',
+        Icons.first_page,
+      ),
       _buildConceptCard(
         'Accessing List Endpoints',
         'The firstChild and lastChild properties provide direct access to the '
@@ -700,7 +700,7 @@ Widget _buildFirstLastChildSection() {
       ),
       _buildHighlightBox(
         'Always check for null when accessing firstChild or lastChild, as the '
-            'container might be empty.',
+        'container might be empty.',
         _kDeepPurple100,
         _kDeepPurple800,
       ),
@@ -737,9 +737,7 @@ Widget _buildChildCountSection() {
         'The total number of children currently in the container. Always >= 0. '
             'Updated automatically by insert/remove operations.',
       ),
-      _buildCodeDisplay(
-        'Using childCount in Layout',
-        '''@override
+      _buildCodeDisplay('Using childCount in Layout', '''@override
 void performLayout() {
   if (childCount == 0) {
     size = constraints.smallest;
@@ -768,11 +766,10 @@ void performLayout() {
   }
   
   size = Size(availableWidth, maxChildHeight);
-}''',
-      ),
+}'''),
       _buildHighlightBox(
         'childCount is always synchronized with the actual number of children. '
-            'You never need to manually count children.',
+        'You never need to manually count children.',
         _kAmber100,
         _kDeepPurple800,
       ),
@@ -784,9 +781,7 @@ void performLayout() {
             'validate state during debugging.',
         Icons.checklist,
       ),
-      _buildCodeDisplay(
-        'Conditional Layout Based on childCount',
-        '''@override
+      _buildCodeDisplay('Conditional Layout Based on childCount', '''@override
 void performLayout() {
   switch (childCount) {
     case 0:
@@ -801,8 +796,7 @@ void performLayout() {
     default:
       layoutManyChildren();
   }
-}''',
-      ),
+}'''),
     ],
   );
 }
@@ -858,9 +852,7 @@ Widget _buildChildManipulationSection() {
           'after: The sibling after which to place the child (null = move to start)',
         ],
       ),
-      _buildCodeDisplay(
-        'Inserting Children',
-        '''// Add child at the end
+      _buildCodeDisplay('Inserting Children', '''// Add child at the end
 void addChild(RenderBox child) {
   adoptChild(child);
   add(child); // Appends to end of list
@@ -879,11 +871,8 @@ void prependChild(RenderBox child) {
   adoptChild(child);
   insert(child, after: null); // null = insert at start
   markNeedsLayout();
-}''',
-      ),
-      _buildCodeDisplay(
-        'Removing Children',
-        '''// Remove a specific child
+}'''),
+      _buildCodeDisplay('Removing Children', '''// Remove a specific child
 void removeChild(RenderBox child) {
   remove(child);
   dropChild(child);
@@ -901,11 +890,8 @@ void removeAllChildren() {
     child = next;
   }
   markNeedsLayout();
-}''',
-      ),
-      _buildCodeDisplay(
-        'Moving Children',
-        '''// Move child to end of list
+}'''),
+      _buildCodeDisplay('Moving Children', '''// Move child to end of list
 void moveToEnd(RenderBox child) {
   move(child, after: lastChild);
   markNeedsLayout();
@@ -925,11 +911,10 @@ void swapChildren(RenderBox a, RenderBox b) {
   move(a, after: b);
   move(b, after: beforeA);
   markNeedsLayout();
-}''',
-      ),
+}'''),
       _buildHighlightBox(
         'Remember to call adoptChild before insert/add and dropChild after '
-            'remove. These manage the render tree relationships.',
+        'remove. These manage the render tree relationships.',
         _kAmber200,
         _kDeepPurple900,
       ),
@@ -969,9 +954,7 @@ Widget _buildVisitChildrenSection() {
             'in custom render objects to include all children.',
         ['visitor: A function that takes a RenderObject and returns void'],
       ),
-      _buildCodeDisplay(
-        'Standard visitChildren Implementation',
-        '''@override
+      _buildCodeDisplay('Standard visitChildren Implementation', '''@override
 void visitChildren(RenderObjectVisitor visitor) {
   RenderBox? child = firstChild;
   while (child != null) {
@@ -980,8 +963,7 @@ void visitChildren(RenderObjectVisitor visitor) {
         as ContainerBoxParentData<RenderBox>;
     child = pd.nextSibling;
   }
-}''',
-      ),
+}'''),
       _buildCodeDisplay(
         'Using visitChildren for Various Tasks',
         '''// Collect all children into a list
@@ -1015,7 +997,7 @@ double getTotalHeight() {
       ),
       _buildHighlightBox(
         'The default implementation in ContainerRenderObjectMixin handles '
-            'iteration automatically. You rarely need to override visitChildren.',
+        'iteration automatically. You rarely need to override visitChildren.',
         _kDeepPurple100,
         _kDeepPurple800,
       ),
@@ -1044,15 +1026,12 @@ class RenderTwoSlots extends RenderBox {
   }
 }''',
       ),
-      _buildDiagramBox(
-        'visitChildren Flow',
-        [
-          'Start at firstChild',
-          'Call visitor function with current child',
-          'Get nextSibling from parentData',
-          'Repeat until nextSibling is null',
-        ],
-      ),
+      _buildDiagramBox('visitChildren Flow', [
+        'Start at firstChild',
+        'Call visitor function with current child',
+        'Get nextSibling from parentData',
+        'Repeat until nextSibling is null',
+      ]),
     ],
   );
 }
@@ -1117,8 +1096,8 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12),
                 Text(
                   'A mixin that provides child management infrastructure for '
-                      'render objects with multiple children. Uses a doubly-linked '
-                      'list for efficient O(1) insertion and removal.',
+                  'render objects with multiple children. Uses a doubly-linked '
+                  'list for efficient O(1) insertion and removal.',
                   style: TextStyle(
                     fontSize: 13,
                     color: _kDeepPurple100,
@@ -1163,7 +1142,11 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.play_circle_fill, color: _kDeepPurple600, size: 24),
+                    Icon(
+                      Icons.play_circle_fill,
+                      color: _kDeepPurple600,
+                      size: 24,
+                    ),
                     SizedBox(width: 10),
                     Text(
                       'Live Demo',
@@ -1178,7 +1161,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12),
                 Text(
                   'The DemoContainerWidget below uses ContainerRenderObjectMixin '
-                      'to manage its children:',
+                  'to manage its children:',
                   style: TextStyle(fontSize: 12, color: _kDeepPurple700),
                 ),
                 SizedBox(height: 12),
@@ -1253,7 +1236,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12),
                 _buildSummaryItem(
                   'ContainerRenderObjectMixin provides a doubly-linked list '
-                      'structure for managing children',
+                  'structure for managing children',
                 ),
                 _buildSummaryItem(
                   'firstChild and lastChild give O(1) access to list endpoints',

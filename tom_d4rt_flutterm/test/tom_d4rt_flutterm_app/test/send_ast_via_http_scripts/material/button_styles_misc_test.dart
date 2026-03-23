@@ -36,7 +36,9 @@ dynamic build(BuildContext context) {
     'ElevatedButton is ButtonStyleButton: true (ElevatedButton is always a ButtonStyleButton)',
   );
   final textButton = TextButton(onPressed: () {}, child: Text('Text'));
-  print('TextButton is ButtonStyleButton: true (TextButton is always a ButtonStyleButton)');
+  print(
+    'TextButton is ButtonStyleButton: true (TextButton is always a ButtonStyleButton)',
+  );
   final outlinedButton = OutlinedButton(
     onPressed: () {},
     child: Text('Outlined'),
@@ -90,6 +92,7 @@ dynamic build(BuildContext context) {
   void onSelected(String value) {
     print('Selected: $value');
   }
+
   print('PopupMenuItemSelected callback type: ${onSelected.runtimeType}');
   // Create a PopupMenuButton that uses the callback type
   final popupMenu = PopupMenuButton<String>(

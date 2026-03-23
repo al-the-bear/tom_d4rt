@@ -169,10 +169,7 @@ Widget _buildStretchIndicator(double offset, Color color, String label) {
           ),
         ),
         SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 11, color: color),
-        ),
+        Text(label, style: TextStyle(fontSize: 11, color: color)),
       ],
     ),
   );
@@ -285,7 +282,12 @@ Widget _buildConfigurationOverviewSection() {
   );
 }
 
-Widget _buildFeatureCard(String title, String description, IconData icon, Color color) {
+Widget _buildFeatureCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -309,10 +311,7 @@ Widget _buildFeatureCard(String title, String description, IconData icon, Color 
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            color: Color(0xFF546E7A),
-            fontSize: 11,
-          ),
+          style: TextStyle(color: Color(0xFF546E7A), fontSize: 11),
         ),
       ],
     ),
@@ -395,8 +394,8 @@ Widget _buildOffsetDemo(double offset, String label) {
   Color color = offset <= 50
       ? Color(0xFF4CAF50)
       : offset <= 100
-          ? Color(0xFFFFC107)
-          : Color(0xFFF44336);
+      ? Color(0xFFFFC107)
+      : Color(0xFFF44336);
   return Column(
     children: [
       Container(
@@ -474,20 +473,18 @@ Widget _buildTimelinePoint(String value, String label, Color color) {
       Container(
         width: 12,
         height: 12,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       SizedBox(height: 4),
       Text(
         value,
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 10,
+          color: color,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      Text(
-        label,
-        style: TextStyle(fontSize: 9, color: Color(0xFF757575)),
-      ),
+      Text(label, style: TextStyle(fontSize: 9, color: Color(0xFF757575))),
     ],
   );
 }
@@ -552,7 +549,10 @@ Widget _buildOnStretchTriggerSection() {
         _buildInfoRow('Callback Type', 'AsyncCallback? (nullable)'),
         _buildInfoRow('Return Type', 'Future<void>'),
         _buildInfoRow('Invocation', 'Once per stretch threshold crossing'),
-        _buildInfoRow('Common Uses', 'Refresh data, animations, haptic feedback'),
+        _buildInfoRow(
+          'Common Uses',
+          'Refresh data, animations, haptic feedback',
+        ),
         SizedBox(height: 16),
         _buildCallbackUseCasesGrid(),
       ],
@@ -653,7 +653,12 @@ Widget _buildCallbackUseCasesGrid() {
   );
 }
 
-Widget _buildUseCaseCard(String title, String subtitle, IconData icon, Color color) {
+Widget _buildUseCaseCard(
+  String title,
+  String subtitle,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -679,10 +684,7 @@ Widget _buildUseCaseCard(String title, String subtitle, IconData icon, Color col
               ),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: Color(0xFF757575),
-                  fontSize: 9,
-                ),
+                style: TextStyle(color: Color(0xFF757575), fontSize: 9),
               ),
             ],
           ),
@@ -785,10 +787,7 @@ Widget _buildStretchStatesDiagram() {
               Expanded(
                 child: Text(
                   'Stretch occurs when user pulls beyond expanded height at scroll position 0',
-                  style: TextStyle(
-                    color: Color(0xFF880E4F),
-                    fontSize: 11,
-                  ),
+                  style: TextStyle(color: Color(0xFF880E4F), fontSize: 11),
                 ),
               ),
             ],
@@ -867,15 +866,27 @@ Widget _buildSliverAppBarIntegrationDiagram() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildIntegrationBox('SliverAppBar', Icons.view_day, Color(0xFF1976D2)),
+            _buildIntegrationBox(
+              'SliverAppBar',
+              Icons.view_day,
+              Color(0xFF1976D2),
+            ),
             SizedBox(width: 8),
             Icon(Icons.arrow_forward, color: Color(0xFF64B5F6)),
             SizedBox(width: 8),
-            _buildIntegrationBox('RenderSliver\nPersistentHeader', Icons.layers, Color(0xFF388E3C)),
+            _buildIntegrationBox(
+              'RenderSliver\nPersistentHeader',
+              Icons.layers,
+              Color(0xFF388E3C),
+            ),
             SizedBox(width: 8),
             Icon(Icons.arrow_forward, color: Color(0xFF81C784)),
             SizedBox(width: 8),
-            _buildIntegrationBox('OverScroll\nStretchConfig', Icons.tune, Color(0xFF7B1FA2)),
+            _buildIntegrationBox(
+              'OverScroll\nStretchConfig',
+              Icons.tune,
+              Color(0xFF7B1FA2),
+            ),
           ],
         ),
       ],
@@ -1016,7 +1027,12 @@ Widget _buildTableHeader() {
   );
 }
 
-Widget _buildTableRow(String config, String offset, String callback, Color color) {
+Widget _buildTableRow(
+  String config,
+  String offset,
+  String callback,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(
@@ -1031,10 +1047,7 @@ Widget _buildTableRow(String config, String offset, String callback, Color color
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               SizedBox(width: 8),
               Text(
@@ -1095,7 +1108,13 @@ Widget _buildConfigurationCards() {
   );
 }
 
-Widget _buildConfigCard(String title, String description, IconData icon, Color color, String bestFor) {
+Widget _buildConfigCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+  String bestFor,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1130,10 +1149,7 @@ Widget _buildConfigCard(String title, String description, IconData icon, Color c
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  color: Color(0xFF546E7A),
-                  fontSize: 11,
-                ),
+                style: TextStyle(color: Color(0xFF546E7A), fontSize: 11),
               ),
               SizedBox(height: 4),
               Text(
@@ -1321,7 +1337,10 @@ Widget _buildStretchVisualization() {
             height: 40,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF0288D1).withAlpha(180), Color(0xFF0288D1).withAlpha(50)],
+                colors: [
+                  Color(0xFF0288D1).withAlpha(180),
+                  Color(0xFF0288D1).withAlpha(50),
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -1330,7 +1349,11 @@ Widget _buildStretchVisualization() {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.expand_more, color: Colors.white.withAlpha(200), size: 20),
+                  Icon(
+                    Icons.expand_more,
+                    color: Colors.white.withAlpha(200),
+                    size: 20,
+                  ),
                   Text(
                     'Stretch Zone',
                     style: TextStyle(
@@ -1338,7 +1361,11 @@ Widget _buildStretchVisualization() {
                       fontSize: 12,
                     ),
                   ),
-                  Icon(Icons.expand_more, color: Colors.white.withAlpha(200), size: 20),
+                  Icon(
+                    Icons.expand_more,
+                    color: Colors.white.withAlpha(200),
+                    size: 20,
+                  ),
                 ],
               ),
             ),
@@ -1402,8 +1429,14 @@ Widget _buildStretchPhysicsInfo() {
         ),
         SizedBox(height: 12),
         _buildPhysicsRow('Overscroll Source', 'BouncingScrollPhysics'),
-        _buildPhysicsRow('Stretch Factor', 'Proportional to overscroll distance'),
-        _buildPhysicsRow('Release Behavior', 'Spring animation to original size'),
+        _buildPhysicsRow(
+          'Stretch Factor',
+          'Proportional to overscroll distance',
+        ),
+        _buildPhysicsRow(
+          'Release Behavior',
+          'Spring animation to original size',
+        ),
         _buildPhysicsRow('Trigger Timing', 'Peak stretch, before release'),
       ],
     ),
@@ -1430,10 +1463,7 @@ Widget _buildPhysicsRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: Color(0xFF78909C),
-              fontSize: 11,
-            ),
+            style: TextStyle(color: Color(0xFF78909C), fontSize: 11),
           ),
         ),
       ],
@@ -1493,9 +1523,7 @@ Widget _buildProgressBar(String label, double progress, Color color) {
             widthFactor: progress,
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [color.withAlpha(200), color],
-                ),
+                gradient: LinearGradient(colors: [color.withAlpha(200), color]),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
@@ -1529,9 +1557,21 @@ Widget _buildStretchAnimationPhases() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildPhaseIndicator('1. Pull', Icons.pan_tool, Color(0xFF5C6BC0)),
-            _buildPhaseIndicator('2. Stretch', Icons.open_with, Color(0xFF7986CB)),
-            _buildPhaseIndicator('3. Trigger', Icons.flash_on, Color(0xFFFFB74D)),
-            _buildPhaseIndicator('4. Release', Icons.keyboard_return, Color(0xFF4DB6AC)),
+            _buildPhaseIndicator(
+              '2. Stretch',
+              Icons.open_with,
+              Color(0xFF7986CB),
+            ),
+            _buildPhaseIndicator(
+              '3. Trigger',
+              Icons.flash_on,
+              Color(0xFFFFB74D),
+            ),
+            _buildPhaseIndicator(
+              '4. Release',
+              Icons.keyboard_return,
+              Color(0xFF4DB6AC),
+            ),
           ],
         ),
       ],
@@ -1550,9 +1590,7 @@ Widget _buildPhaseIndicator(String label, IconData icon, Color color) {
           shape: BoxShape.circle,
           border: Border.all(color: color, width: 2),
         ),
-        child: Center(
-          child: Icon(icon, color: color, size: 20),
-        ),
+        child: Center(child: Icon(icon, color: color, size: 20)),
       ),
       SizedBox(height: 6),
       Text(

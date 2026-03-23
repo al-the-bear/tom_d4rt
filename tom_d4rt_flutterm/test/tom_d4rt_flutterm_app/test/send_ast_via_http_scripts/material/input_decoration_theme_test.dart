@@ -245,9 +245,7 @@ dynamic build(BuildContext context) {
   ThemeData contextTheme = Theme.of(context);
   InputDecorationThemeData currentInputTheme =
       contextTheme.inputDecorationTheme;
-  print(
-    'Context inputDecorationTheme filled: ${currentInputTheme.filled}',
-  );
+  print('Context inputDecorationTheme filled: ${currentInputTheme.filled}');
   print(
     'Context inputDecorationTheme floatingLabelBehavior: ${currentInputTheme.floatingLabelBehavior}',
   );

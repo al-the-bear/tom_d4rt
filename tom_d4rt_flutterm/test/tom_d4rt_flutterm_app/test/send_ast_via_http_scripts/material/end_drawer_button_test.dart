@@ -74,7 +74,14 @@ Widget buildSectionHeader(String title) {
       color: Colors.teal.shade700,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -87,11 +94,21 @@ Widget buildInfoCard(String label, String value) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Row(children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      SizedBox(width: 8),
-      Expanded(child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700))),
-    ]),
+    child: Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -107,8 +124,10 @@ Widget _buildAppBarContext() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('AppBar with EndDrawerButton (actions area)',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'AppBar with EndDrawerButton (actions area)',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
         Container(
           height: 56,
@@ -122,8 +141,14 @@ Widget _buildAppBarContext() {
               Icon(Icons.menu, color: Color(0xFFFFFFFF), size: 24),
               SizedBox(width: 16),
               Expanded(
-                child: Text('My Application',
-                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'My Application',
+                  style: TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(8),
@@ -131,7 +156,11 @@ Widget _buildAppBarContext() {
                   color: Color(0xFFFFFFFF).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Icon(Icons.menu_open, color: Color(0xFFFFFFFF), size: 24),
+                child: Icon(
+                  Icons.menu_open,
+                  color: Color(0xFFFFFFFF),
+                  size: 24,
+                ),
               ),
             ],
           ),
@@ -141,9 +170,15 @@ Widget _buildAppBarContext() {
           children: [
             Icon(Icons.arrow_back, color: Color(0xFF1565C0), size: 16),
             SizedBox(width: 4),
-            Text('Leading (DrawerButton)', style: TextStyle(fontSize: 11, color: Color(0xFF1565C0))),
+            Text(
+              'Leading (DrawerButton)',
+              style: TextStyle(fontSize: 11, color: Color(0xFF1565C0)),
+            ),
             Expanded(child: SizedBox()),
-            Text('Actions (EndDrawerButton)', style: TextStyle(fontSize: 11, color: Color(0xFF1565C0))),
+            Text(
+              'Actions (EndDrawerButton)',
+              style: TextStyle(fontSize: 11, color: Color(0xFF1565C0)),
+            ),
             SizedBox(width: 4),
             Icon(Icons.arrow_forward, color: Color(0xFF1565C0), size: 16),
           ],
@@ -151,7 +186,10 @@ Widget _buildAppBarContext() {
         SizedBox(height: 12),
         buildInfoCard('Position:', 'AppBar actions list (trailing end)'),
         buildInfoCard('Purpose:', 'Opens the end drawer (Scaffold.endDrawer)'),
-        buildInfoCard('Auto-added:', 'When Scaffold has an endDrawer and no custom actions'),
+        buildInfoCard(
+          'Auto-added:',
+          'When Scaffold has an endDrawer and no custom actions',
+        ),
       ],
     ),
   );
@@ -168,8 +206,10 @@ Widget _buildDrawerButtonComparison() {
     ),
     child: Column(
       children: [
-        Text('DrawerButton vs EndDrawerButton',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        Text(
+          'DrawerButton vs EndDrawerButton',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         SizedBox(height: 16),
         Row(
           children: [
@@ -185,11 +225,23 @@ Widget _buildDrawerButtonComparison() {
                   children: [
                     Icon(Icons.menu, size: 40, color: Color(0xFF4CAF50)),
                     SizedBox(height: 8),
-                    Text('DrawerButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                    Text(
+                      'DrawerButton',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('Opens LEFT drawer', style: TextStyle(fontSize: 11, color: Color(0xFF666666))),
+                    Text(
+                      'Opens LEFT drawer',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF666666)),
+                    ),
                     SizedBox(height: 4),
-                    Text('Leading position', style: TextStyle(fontSize: 11, color: Color(0xFF666666))),
+                    Text(
+                      'Leading position',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF666666)),
+                    ),
                     SizedBox(height: 8),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -197,7 +249,13 @@ Widget _buildDrawerButtonComparison() {
                         color: Color(0xFF4CAF50),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text('Scaffold.drawer', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                      child: Text(
+                        'Scaffold.drawer',
+                        style: TextStyle(
+                          color: Color(0xFFFFFFFF),
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -208,7 +266,13 @@ Widget _buildDrawerButtonComparison() {
               children: [
                 Icon(Icons.compare_arrows, color: Color(0xFF757575), size: 24),
                 SizedBox(height: 4),
-                Text('vs', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF757575))),
+                Text(
+                  'vs',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF757575),
+                  ),
+                ),
               ],
             ),
             SizedBox(width: 12),
@@ -224,11 +288,23 @@ Widget _buildDrawerButtonComparison() {
                   children: [
                     Icon(Icons.menu_open, size: 40, color: Color(0xFF2196F3)),
                     SizedBox(height: 8),
-                    Text('EndDrawerButton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                    Text(
+                      'EndDrawerButton',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('Opens RIGHT drawer', style: TextStyle(fontSize: 11, color: Color(0xFF666666))),
+                    Text(
+                      'Opens RIGHT drawer',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF666666)),
+                    ),
                     SizedBox(height: 4),
-                    Text('Actions position', style: TextStyle(fontSize: 11, color: Color(0xFF666666))),
+                    Text(
+                      'Actions position',
+                      style: TextStyle(fontSize: 11, color: Color(0xFF666666)),
+                    ),
                     SizedBox(height: 8),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -236,7 +312,13 @@ Widget _buildDrawerButtonComparison() {
                         color: Color(0xFF2196F3),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text('Scaffold.endDrawer', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                      child: Text(
+                        'Scaffold.endDrawer',
+                        style: TextStyle(
+                          color: Color(0xFFFFFFFF),
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -245,7 +327,10 @@ Widget _buildDrawerButtonComparison() {
           ],
         ),
         SizedBox(height: 12),
-        buildInfoCard('Key Difference:', 'DrawerButton targets Scaffold.drawer, EndDrawerButton targets Scaffold.endDrawer'),
+        buildInfoCard(
+          'Key Difference:',
+          'DrawerButton targets Scaffold.drawer, EndDrawerButton targets Scaffold.endDrawer',
+        ),
       ],
     ),
   );
@@ -255,33 +340,73 @@ Widget _buildStylingVariants() {
   print('Building styling variants');
   List<Widget> variants = [];
 
-  variants.add(_buildVariantRow(
-    Icons.menu_open, 'Default EndDrawerButton', 'Standard material icon button style',
-    Color(0xFFF5F5F5), Color(0xFFE0E0E0), Color(0xFF424242), Color(0xFF424242),
-    'DEFAULT', Color(0xFF9E9E9E),
-  ));
-  variants.add(_buildVariantRow(
-    Icons.menu_open, 'Blue Themed', 'Matches blue AppBar theme',
-    Color(0xFFE3F2FD), Color(0xFF90CAF9), Color(0xFF1565C0), Color(0xFF42A5F5),
-    'BLUE', Color(0xFF1565C0),
-  ));
-  variants.add(_buildVariantRow(
-    Icons.menu_open, 'Dark Theme', 'For dark-themed applications',
-    Color(0xFF212121), Color(0xFF424242), Color(0xFFE0E0E0), Color(0xFF9E9E9E),
-    'DARK', Color(0xFF616161),
-  ));
-  variants.add(_buildVariantRow(
-    Icons.menu_open, 'Pink Accent', 'Custom accent color theme',
-    Color(0xFFFCE4EC), Color(0xFFF48FB1), Color(0xFFE91E63), Color(0xFFF06292),
-    'ACCENT', Color(0xFFE91E63),
-  ));
+  variants.add(
+    _buildVariantRow(
+      Icons.menu_open,
+      'Default EndDrawerButton',
+      'Standard material icon button style',
+      Color(0xFFF5F5F5),
+      Color(0xFFE0E0E0),
+      Color(0xFF424242),
+      Color(0xFF424242),
+      'DEFAULT',
+      Color(0xFF9E9E9E),
+    ),
+  );
+  variants.add(
+    _buildVariantRow(
+      Icons.menu_open,
+      'Blue Themed',
+      'Matches blue AppBar theme',
+      Color(0xFFE3F2FD),
+      Color(0xFF90CAF9),
+      Color(0xFF1565C0),
+      Color(0xFF42A5F5),
+      'BLUE',
+      Color(0xFF1565C0),
+    ),
+  );
+  variants.add(
+    _buildVariantRow(
+      Icons.menu_open,
+      'Dark Theme',
+      'For dark-themed applications',
+      Color(0xFF212121),
+      Color(0xFF424242),
+      Color(0xFFE0E0E0),
+      Color(0xFF9E9E9E),
+      'DARK',
+      Color(0xFF616161),
+    ),
+  );
+  variants.add(
+    _buildVariantRow(
+      Icons.menu_open,
+      'Pink Accent',
+      'Custom accent color theme',
+      Color(0xFFFCE4EC),
+      Color(0xFFF48FB1),
+      Color(0xFFE91E63),
+      Color(0xFFF06292),
+      'ACCENT',
+      Color(0xFFE91E63),
+    ),
+  );
 
   return Column(children: variants);
 }
 
-Widget _buildVariantRow(IconData icon, String title, String subtitle,
-    Color bgColor, Color borderColor, Color textColor, Color subColor,
-    String badge, Color badgeColor) {
+Widget _buildVariantRow(
+  IconData icon,
+  String title,
+  String subtitle,
+  Color bgColor,
+  Color borderColor,
+  Color textColor,
+  Color subColor,
+  String badge,
+  Color badgeColor,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(12),
@@ -305,7 +430,14 @@ Widget _buildVariantRow(IconData icon, String title, String subtitle,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: textColor)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: textColor,
+                ),
+              ),
               Text(subtitle, style: TextStyle(fontSize: 11, color: subColor)),
             ],
           ),
@@ -316,7 +448,14 @@ Widget _buildVariantRow(IconData icon, String title, String subtitle,
             color: badgeColor,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(badge, style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 9, fontWeight: FontWeight.bold)),
+          child: Text(
+            badge,
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
     ),
@@ -335,8 +474,10 @@ Widget _buildScaffoldEndDrawerLayout() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Scaffold Layout with EndDrawer',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Scaffold Layout with EndDrawer',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
         Container(
           height: 200,
@@ -356,21 +497,35 @@ Widget _buildScaffoldEndDrawerLayout() {
                       height: 40,
                       decoration: BoxDecoration(
                         color: Color(0xFF1565C0),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(6)),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(6),
+                        ),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: Row(
                         children: [
                           Icon(Icons.menu, color: Color(0xFFFFFFFF), size: 16),
                           SizedBox(width: 8),
-                          Expanded(child: Text('AppBar', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11))),
+                          Expanded(
+                            child: Text(
+                              'AppBar',
+                              style: TextStyle(
+                                color: Color(0xFFFFFFFF),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
                           Container(
                             padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               color: Color(0xFFFFFFFF).withValues(alpha: 0.3),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Icon(Icons.menu_open, color: Color(0xFFFFFFFF), size: 12),
+                            child: Icon(
+                              Icons.menu_open,
+                              color: Color(0xFFFFFFFF),
+                              size: 12,
+                            ),
                           ),
                         ],
                       ),
@@ -379,7 +534,13 @@ Widget _buildScaffoldEndDrawerLayout() {
                       child: Container(
                         color: Color(0xFFFAFAFA),
                         child: Center(
-                          child: Text('Body Content', style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 12)),
+                          child: Text(
+                            'Body Content',
+                            style: TextStyle(
+                              color: Color(0xFF9E9E9E),
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -401,11 +562,20 @@ Widget _buildScaffoldEndDrawerLayout() {
                   children: [
                     Icon(Icons.person, color: Color(0xFFFFFFFF), size: 20),
                     SizedBox(height: 4),
-                    Text('End', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
-                    Text('Drawer', style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10)),
+                    Text(
+                      'End',
+                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10),
+                    ),
+                    Text(
+                      'Drawer',
+                      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10),
+                    ),
                     SizedBox(height: 8),
                     Icon(Icons.arrow_back, color: Color(0xFF90CAF9), size: 14),
-                    Text('slides in', style: TextStyle(color: Color(0xFF90CAF9), fontSize: 8)),
+                    Text(
+                      'slides in',
+                      style: TextStyle(color: Color(0xFF90CAF9), fontSize: 8),
+                    ),
                   ],
                 ),
               ),
@@ -413,8 +583,14 @@ Widget _buildScaffoldEndDrawerLayout() {
           ),
         ),
         SizedBox(height: 12),
-        buildInfoCard('EndDrawer:', 'Slides in from the RIGHT side of the screen'),
-        buildInfoCard('Trigger:', 'EndDrawerButton or Scaffold.of(context).openEndDrawer()'),
+        buildInfoCard(
+          'EndDrawer:',
+          'Slides in from the RIGHT side of the screen',
+        ),
+        buildInfoCard(
+          'Trigger:',
+          'EndDrawerButton or Scaffold.of(context).openEndDrawer()',
+        ),
       ],
     ),
   );
@@ -424,11 +600,51 @@ Widget _buildIconTooltipConfig() {
   print('Building icon and tooltip configuration');
   List<Widget> configs = [];
 
-  configs.add(_buildConfigRow(Icons.menu_open, 'Default Icon', 'Icons.menu_open', Color(0xFF424242), 'Open navigation menu'));
-  configs.add(_buildConfigRow(Icons.settings, 'Settings Drawer', 'Icons.settings', Color(0xFF1565C0), 'Open settings'));
-  configs.add(_buildConfigRow(Icons.filter_list, 'Filter Drawer', 'Icons.filter_list', Color(0xFF00897B), 'Open filters'));
-  configs.add(_buildConfigRow(Icons.notifications, 'Notification Drawer', 'Icons.notifications', Color(0xFFE65100), 'View notifications'));
-  configs.add(_buildConfigRow(Icons.chat, 'Chat Panel', 'Icons.chat', Color(0xFF6A1B9A), 'Open chat panel'));
+  configs.add(
+    _buildConfigRow(
+      Icons.menu_open,
+      'Default Icon',
+      'Icons.menu_open',
+      Color(0xFF424242),
+      'Open navigation menu',
+    ),
+  );
+  configs.add(
+    _buildConfigRow(
+      Icons.settings,
+      'Settings Drawer',
+      'Icons.settings',
+      Color(0xFF1565C0),
+      'Open settings',
+    ),
+  );
+  configs.add(
+    _buildConfigRow(
+      Icons.filter_list,
+      'Filter Drawer',
+      'Icons.filter_list',
+      Color(0xFF00897B),
+      'Open filters',
+    ),
+  );
+  configs.add(
+    _buildConfigRow(
+      Icons.notifications,
+      'Notification Drawer',
+      'Icons.notifications',
+      Color(0xFFE65100),
+      'View notifications',
+    ),
+  );
+  configs.add(
+    _buildConfigRow(
+      Icons.chat,
+      'Chat Panel',
+      'Icons.chat',
+      Color(0xFF6A1B9A),
+      'Open chat panel',
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -440,18 +656,29 @@ Widget _buildIconTooltipConfig() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Custom Icon & Tooltip Examples',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Custom Icon & Tooltip Examples',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
         Column(children: configs),
         SizedBox(height: 8),
-        buildInfoCard('Note:', 'EndDrawerButton can use custom child widget via IconButton style'),
+        buildInfoCard(
+          'Note:',
+          'EndDrawerButton can use custom child widget via IconButton style',
+        ),
       ],
     ),
   );
 }
 
-Widget _buildConfigRow(IconData icon, String label, String iconName, Color color, String tooltip) {
+Widget _buildConfigRow(
+  IconData icon,
+  String label,
+  String iconName,
+  Color color,
+  String tooltip,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 8),
     padding: EdgeInsets.all(10),
@@ -475,8 +702,18 @@ Widget _buildConfigRow(IconData icon, String label, String iconName, Color color
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-              Text(iconName, style: TextStyle(fontSize: 11, color: Color(0xFF757575), fontFamily: 'monospace')),
+              Text(
+                label,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+              Text(
+                iconName,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFF757575),
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
         ),
@@ -486,7 +723,10 @@ Widget _buildConfigRow(IconData icon, String label, String iconName, Color color
             color: Color(0xFFEEEEEE),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(tooltip, style: TextStyle(fontSize: 9, color: Color(0xFF616161))),
+          child: Text(
+            tooltip,
+            style: TextStyle(fontSize: 9, color: Color(0xFF616161)),
+          ),
         ),
       ],
     ),
@@ -497,30 +737,58 @@ Widget _buildThemedContexts() {
   print('Building themed contexts');
   List<Widget> themes = [];
 
-  themes.add(_buildThemePreview(
-    'Light Theme', Color(0xFF1976D2), Color(0xFFFAFAFA),
-    Color(0xFFFFFFFF), Color(0xFFFFFFFF), Color(0xFF000000),
-    'White icon on blue AppBar', 'Standard material light theme',
-  ));
+  themes.add(
+    _buildThemePreview(
+      'Light Theme',
+      Color(0xFF1976D2),
+      Color(0xFFFAFAFA),
+      Color(0xFFFFFFFF),
+      Color(0xFFFFFFFF),
+      Color(0xFF000000),
+      'White icon on blue AppBar',
+      'Standard material light theme',
+    ),
+  );
 
-  themes.add(_buildThemePreview(
-    'Dark Theme', Color(0xFF212121), Color(0xFF303030),
-    Color(0xFFE0E0E0), Color(0xFFBB86FC), Color(0xFFE0E0E0),
-    'Purple accent on dark surface', 'Material dark theme variant',
-  ));
+  themes.add(
+    _buildThemePreview(
+      'Dark Theme',
+      Color(0xFF212121),
+      Color(0xFF303030),
+      Color(0xFFE0E0E0),
+      Color(0xFFBB86FC),
+      Color(0xFFE0E0E0),
+      'Purple accent on dark surface',
+      'Material dark theme variant',
+    ),
+  );
 
-  themes.add(_buildThemePreview(
-    'High Contrast', Color(0xFF000000), Color(0xFFFFFFFF),
-    Color(0xFFFFFF00), Color(0xFFFFFF00), Color(0xFF000000),
-    'Yellow icon on black background', 'Accessibility-focused high contrast',
-  ));
+  themes.add(
+    _buildThemePreview(
+      'High Contrast',
+      Color(0xFF000000),
+      Color(0xFFFFFFFF),
+      Color(0xFFFFFF00),
+      Color(0xFFFFFF00),
+      Color(0xFF000000),
+      'Yellow icon on black background',
+      'Accessibility-focused high contrast',
+    ),
+  );
 
   return Column(children: themes);
 }
 
-Widget _buildThemePreview(String themeName, Color barColor, Color bodyColor,
-    Color barTextColor, Color iconColor, Color bodyTextColor,
-    String desc1, String desc2) {
+Widget _buildThemePreview(
+  String themeName,
+  Color barColor,
+  Color bodyColor,
+  Color barTextColor,
+  Color iconColor,
+  Color bodyTextColor,
+  String desc1,
+  String desc2,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 12),
     decoration: BoxDecoration(
@@ -541,7 +809,14 @@ Widget _buildThemePreview(String themeName, Color barColor, Color bodyColor,
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: Row(
             children: [
-              Text(themeName, style: TextStyle(color: barTextColor, fontSize: 14, fontWeight: FontWeight.bold)),
+              Text(
+                themeName,
+                style: TextStyle(
+                  color: barTextColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Expanded(child: SizedBox()),
               Icon(Icons.menu_open, color: iconColor, size: 22),
             ],
@@ -560,7 +835,10 @@ Widget _buildThemePreview(String themeName, Color barColor, Color bodyColor,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(desc1, style: TextStyle(fontSize: 12, color: bodyTextColor)),
-              Text(desc2, style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+              Text(
+                desc2,
+                style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+              ),
             ],
           ),
         ),
@@ -581,8 +859,10 @@ Widget _buildPlacementGuide() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('EndDrawerButton Placement in Widget Tree',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'EndDrawerButton Placement in Widget Tree',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 16),
         _buildTreeNode('Scaffold', 0, Color(0xFF1B5E20)),
         _buildTreeNode('appBar: AppBar', 1, Color(0xFF2E7D32)),
@@ -629,7 +909,14 @@ Widget _buildTreeNode(String label, int indent, Color color) {
     padding: EdgeInsets.only(bottom: 4),
     child: Row(
       children: [
-        Text(prefix, style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF757575))),
+        Text(
+          prefix,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: Color(0xFF757575),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
@@ -637,7 +924,14 @@ Widget _buildTreeNode(String label, int indent, Color color) {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: color),
           ),
-          child: Text(label, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: color,
+            ),
+          ),
         ),
       ],
     ),
@@ -647,12 +941,54 @@ Widget _buildTreeNode(String label, int indent, Color color) {
 Widget _buildPropertiesReference() {
   print('Building properties reference');
   List<Widget> rows = [];
-  rows.add(_buildPropertyRow('style', 'ButtonStyle', 'Custom button styling', Color(0xFF1565C0)));
-  rows.add(_buildPropertyRow('onPressed', 'VoidCallback', 'Override default open behavior', Color(0xFF00897B)));
-  rows.add(_buildPropertyRow('child', 'Widget', 'Custom child widget (icon)', Color(0xFFE65100)));
-  rows.add(_buildPropertyRow('tooltip', 'String', 'Accessibility tooltip text', Color(0xFF6A1B9A)));
-  rows.add(_buildPropertyRow('splashRadius', 'double', 'Splash effect radius', Color(0xFFC62828)));
-  rows.add(_buildPropertyRow('padding', 'EdgeInsetsGeometry', 'Button hit area padding', Color(0xFF283593)));
+  rows.add(
+    _buildPropertyRow(
+      'style',
+      'ButtonStyle',
+      'Custom button styling',
+      Color(0xFF1565C0),
+    ),
+  );
+  rows.add(
+    _buildPropertyRow(
+      'onPressed',
+      'VoidCallback',
+      'Override default open behavior',
+      Color(0xFF00897B),
+    ),
+  );
+  rows.add(
+    _buildPropertyRow(
+      'child',
+      'Widget',
+      'Custom child widget (icon)',
+      Color(0xFFE65100),
+    ),
+  );
+  rows.add(
+    _buildPropertyRow(
+      'tooltip',
+      'String',
+      'Accessibility tooltip text',
+      Color(0xFF6A1B9A),
+    ),
+  );
+  rows.add(
+    _buildPropertyRow(
+      'splashRadius',
+      'double',
+      'Splash effect radius',
+      Color(0xFFC62828),
+    ),
+  );
+  rows.add(
+    _buildPropertyRow(
+      'padding',
+      'EdgeInsetsGeometry',
+      'Button hit area padding',
+      Color(0xFF283593),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -665,9 +1001,27 @@ Widget _buildPropertiesReference() {
       children: [
         Row(
           children: [
-            Expanded(flex: 2, child: Text('Property', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 2, child: Text('Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-            Expanded(flex: 3, child: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+            Expanded(
+              flex: 2,
+              child: Text(
+                'Property',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                'Type',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Description',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFBDBDBD)),
@@ -685,9 +1039,36 @@ Widget _buildPropertyRow(String name, String type, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Expanded(flex: 2, child: Text(name, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: color, fontWeight: FontWeight.bold))),
-        Expanded(flex: 2, child: Text(type, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF616161)))),
-        Expanded(flex: 3, child: Text(desc, style: TextStyle(fontSize: 11, color: Color(0xFF757575)))),
+        Expanded(
+          flex: 2,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(
+            type,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFF616161),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
+        ),
       ],
     ),
   );
@@ -697,17 +1078,59 @@ Widget _buildBehaviorFlow() {
   print('Building behavior flow');
   List<Widget> steps = [];
 
-  steps.add(_buildFlowStep('1', 'User taps EndDrawerButton', Icons.touch_app, Color(0xFF1565C0)));
+  steps.add(
+    _buildFlowStep(
+      '1',
+      'User taps EndDrawerButton',
+      Icons.touch_app,
+      Color(0xFF1565C0),
+    ),
+  );
   steps.add(_buildFlowArrow());
-  steps.add(_buildFlowStep('2', 'Scaffold.of(context).openEndDrawer()', Icons.code, Color(0xFF00897B)));
+  steps.add(
+    _buildFlowStep(
+      '2',
+      'Scaffold.of(context).openEndDrawer()',
+      Icons.code,
+      Color(0xFF00897B),
+    ),
+  );
   steps.add(_buildFlowArrow());
-  steps.add(_buildFlowStep('3', 'ScaffoldState begins animation', Icons.animation, Color(0xFFE65100)));
+  steps.add(
+    _buildFlowStep(
+      '3',
+      'ScaffoldState begins animation',
+      Icons.animation,
+      Color(0xFFE65100),
+    ),
+  );
   steps.add(_buildFlowArrow());
-  steps.add(_buildFlowStep('4', 'EndDrawer slides in from right', Icons.arrow_back, Color(0xFF6A1B9A)));
+  steps.add(
+    _buildFlowStep(
+      '4',
+      'EndDrawer slides in from right',
+      Icons.arrow_back,
+      Color(0xFF6A1B9A),
+    ),
+  );
   steps.add(_buildFlowArrow());
-  steps.add(_buildFlowStep('5', 'Barrier/scrim appears behind drawer', Icons.layers, Color(0xFFC62828)));
+  steps.add(
+    _buildFlowStep(
+      '5',
+      'Barrier/scrim appears behind drawer',
+      Icons.layers,
+      Color(0xFFC62828),
+    ),
+  );
   steps.add(_buildFlowArrow());
-  steps.add(_buildFlowStep('6', 'onEndDrawerChanged callback fired', Icons.notifications_active, Color(0xFF283593)));
+  steps.add(
+    _buildFlowStep(
+      '6',
+      'onEndDrawerChanged callback fired',
+      Icons.notifications_active,
+      Color(0xFF283593),
+    ),
+  );
 
   return Container(
     padding: EdgeInsets.all(16),
@@ -731,14 +1154,29 @@ Widget _buildFlowStep(String number, String label, IconData icon, Color color) {
     child: Row(
       children: [
         Container(
-          width: 28, height: 28,
+          width: 28,
+          height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Center(child: Text(number, style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.bold, fontSize: 14))),
+          child: Center(
+            child: Text(
+              number,
+              style: TextStyle(
+                color: Color(0xFFFFFFFF),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
         ),
         SizedBox(width: 12),
         Icon(icon, color: color, size: 20),
         SizedBox(width: 8),
-        Expanded(child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold))),
+        Expanded(
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+          ),
+        ),
       ],
     ),
   );
@@ -747,7 +1185,9 @@ Widget _buildFlowStep(String number, String label, IconData icon, Color color) {
 Widget _buildFlowArrow() {
   return SizedBox(
     height: 24,
-    child: Center(child: Icon(Icons.arrow_downward, color: Color(0xFF9E9E9E), size: 18)),
+    child: Center(
+      child: Icon(Icons.arrow_downward, color: Color(0xFF9E9E9E), size: 18),
+    ),
   );
 }
 
@@ -772,11 +1212,17 @@ Widget _buildSizeComparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Button Touch Target Sizes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Button Touch Target Sizes',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         SizedBox(height: 12),
         Column(children: sizes),
         SizedBox(height: 12),
-        buildInfoCard('Minimum recommended:', '48x48 for accessibility compliance'),
+        buildInfoCard(
+          'Minimum recommended:',
+          '48x48 for accessibility compliance',
+        ),
       ],
     ),
   );
@@ -786,20 +1232,29 @@ Widget _buildSizeBox(String label, double size, Color color) {
   return Row(
     children: [
       Container(
-        width: size, height: size,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(size / 4),
           border: Border.all(color: color, width: 2),
         ),
-        child: Center(child: Icon(Icons.menu_open, color: color, size: size * 0.5)),
+        child: Center(
+          child: Icon(Icons.menu_open, color: color, size: size * 0.5),
+        ),
       ),
       SizedBox(width: 16),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-          Text('${size.toInt()}x${size.toInt()} logical pixels', style: TextStyle(fontSize: 11, color: Color(0xFF757575))),
+          Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
+          Text(
+            '${size.toInt()}x${size.toInt()} logical pixels',
+            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+          ),
         ],
       ),
     ],

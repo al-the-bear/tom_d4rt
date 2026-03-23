@@ -481,9 +481,7 @@ Widget buildRectangularIndicatorAnatomy() {
               SizedBox(
                 width: 64,
                 height: 32,
-                child: CustomPaint(
-                  painter: _RectShapePainter(Colors.indigo),
-                ),
+                child: CustomPaint(painter: _RectShapePainter(Colors.indigo)),
               ),
               SizedBox(height: 8),
               Text(
@@ -622,8 +620,7 @@ Widget buildSliderColorShowcase() {
             Expanded(
               child: SliderTheme(
                 data: SliderThemeData(
-                  valueIndicatorShape:
-                      RectangularSliderValueIndicatorShape(),
+                  valueIndicatorShape: RectangularSliderValueIndicatorShape(),
                   activeTrackColor: colors[c],
                   inactiveTrackColor: colors[c].withAlpha(50),
                   thumbColor: colors[c],

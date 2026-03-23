@@ -72,35 +72,35 @@ Widget buildCodeBlock(String code) {
 
 Widget buildHandleCreationSection() {
   print('Building handle creation section');
-  
+
   List<String> stepTitles = [
     'Step 1: Create ImageStreamCompleter',
     'Step 2: Obtain Handle via keepAlive()',
     'Step 3: Store Handle Reference',
     'Step 4: Use Completer via Handle',
   ];
-  
+
   List<String> stepDescriptions = [
     'First create an ImageStreamCompleter (or subclass like OneFrameImageStreamCompleter or MultiFrameImageStreamCompleter)',
     'Call keepAlive() on the completer to get an ImageStreamCompleterHandle that maintains a reference',
     'Store the handle in your state to keep the completer alive as long as needed',
     'Access the underlying completer via the handle.completer property',
   ];
-  
+
   List<String> codeExamples = [
     'OneFrameImageStreamCompleter completer = OneFrameImageStreamCompleter(imageFuture);',
     'ImageStreamCompleterHandle handle = completer.keepAlive();',
     'this._handle = completer.keepAlive();',
     'ImageStreamCompleter c = handle.completer;',
   ];
-  
+
   List<IconData> stepIcons = [
     Icons.create_new_folder,
     Icons.link,
     Icons.save,
     Icons.touch_app,
   ];
-  
+
   List<Widget> stepWidgets = [];
   int idx = 0;
   for (idx = 0; idx < stepTitles.length; idx = idx + 1) {
@@ -125,11 +125,7 @@ Widget buildHandleCreationSection() {
                     color: Colors.deepPurple.shade600,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(
-                    stepIcons[idx],
-                    color: Colors.white,
-                    size: 22,
-                  ),
+                  child: Icon(stepIcons[idx], color: Colors.white, size: 22),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -171,7 +167,7 @@ Widget buildHandleCreationSection() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -201,7 +197,7 @@ Widget buildHandleCreationSection() {
 
 Widget buildDisposeMethodSection() {
   print('Building dispose method section');
-  
+
   List<String> disposeRules = [
     'Always call dispose() when the handle is no longer needed',
     'dispose() decrements the internal reference count',
@@ -210,7 +206,7 @@ Widget buildDisposeMethodSection() {
     'Failing to dispose causes memory leaks',
     'dispose() is idempotent - safe to call multiple times',
   ];
-  
+
   List<IconData> ruleIcons = [
     Icons.rule,
     Icons.remove_circle,
@@ -219,7 +215,7 @@ Widget buildDisposeMethodSection() {
     Icons.warning,
     Icons.repeat_one,
   ];
-  
+
   List<Color> ruleColors = [
     Colors.blue,
     Colors.orange,
@@ -228,7 +224,7 @@ Widget buildDisposeMethodSection() {
     Colors.amber,
     Colors.teal,
   ];
-  
+
   List<Widget> ruleWidgets = [];
   int r = 0;
   for (r = 0; r < disposeRules.length; r = r + 1) {
@@ -250,11 +246,7 @@ Widget buildDisposeMethodSection() {
                 color: ruleColors[r],
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                ruleIcons[r],
-                color: Colors.white,
-                size: 20,
-              ),
+              child: Icon(ruleIcons[r], color: Colors.white, size: 20),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -268,7 +260,7 @@ Widget buildDisposeMethodSection() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -291,7 +283,9 @@ Widget buildDisposeMethodSection() {
           ],
         ),
         SizedBox(height: 12),
-        buildCodeBlock('void dispose() {\n  // Release the reference to completer\n  handle.dispose();\n}'),
+        buildCodeBlock(
+          'void dispose() {\n  // Release the reference to completer\n  handle.dispose();\n}',
+        ),
         SizedBox(height: 12),
         Text(
           'Key Rules for dispose()',
@@ -310,7 +304,7 @@ Widget buildDisposeMethodSection() {
 
 Widget buildDisposePatternExample() {
   print('Building dispose pattern example');
-  
+
   String correctPattern = '''
 class MyImageWidget extends StatefulWidget {
   @override
@@ -456,7 +450,7 @@ class BadWidget extends StatefulWidget {
 
 Widget buildCompleterPropertySection() {
   print('Building completer property section');
-  
+
   List<String> propertyFacts = [
     'Property name: completer',
     'Return type: ImageStreamCompleter',
@@ -465,7 +459,7 @@ Widget buildCompleterPropertySection() {
     'Returns the underlying completer instance',
     'Safe to use for adding listeners',
   ];
-  
+
   List<Widget> factWidgets = [];
   int f = 0;
   for (f = 0; f < propertyFacts.length; f = f + 1) {
@@ -475,9 +469,7 @@ Widget buildCompleterPropertySection() {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
           color: factColor,
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
-          ),
+          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
         ),
         child: Row(
           children: [
@@ -511,7 +503,7 @@ Widget buildCompleterPropertySection() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
@@ -556,21 +548,21 @@ Widget buildCompleterPropertySection() {
 
 Widget buildCompleterUsageExamples() {
   print('Building completer usage examples');
-  
+
   List<String> usageTitles = [
     'Adding Image Listener',
     'Adding Error Listener',
     'Getting Current Image',
     'Checking Loading Status',
   ];
-  
+
   List<String> usageCodes = [
     'handle.completer.addListener(\n  ImageStreamListener((ImageInfo info, bool sync) {\n    setState(() { _image = info.image; });\n  })\n);',
     'handle.completer.addOnLastListenerRemovedCallback(() {\n  print("No more listeners");\n});',
     'ImageInfo? current = handle.completer.currentImage;',
     'bool hasListeners = handle.completer.hasListeners;',
   ];
-  
+
   List<Widget> usageWidgets = [];
   int u = 0;
   for (u = 0; u < usageTitles.length; u = u + 1) {
@@ -616,7 +608,7 @@ Widget buildCompleterUsageExamples() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -646,35 +638,35 @@ Widget buildCompleterUsageExamples() {
 
 Widget buildLifecycleDiagram() {
   print('Building lifecycle diagram');
-  
+
   List<String> lifecycleStages = [
     'Creation',
     'Active',
     'Disposed',
     'Garbage Collected',
   ];
-  
+
   List<String> stageDescriptions = [
     'keepAlive() called on completer',
     'Handle in use, completer kept alive',
     'dispose() called, reference released',
     'No references remain, memory freed',
   ];
-  
+
   List<Color> stageColors = [
     Colors.blue,
     Colors.green,
     Colors.orange,
     Colors.grey,
   ];
-  
+
   List<IconData> stageIcons = [
     Icons.add_circle,
     Icons.play_circle,
     Icons.pause_circle,
     Icons.delete_forever,
   ];
-  
+
   List<Widget> stageWidgets = [];
   int s = 0;
   for (s = 0; s < lifecycleStages.length; s = s + 1) {
@@ -690,11 +682,7 @@ Widget buildLifecycleDiagram() {
                   color: stageColors[s],
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  stageIcons[s],
-                  color: Colors.white,
-                  size: 28,
-                ),
+                child: Icon(stageIcons[s], color: Colors.white, size: 28),
               ),
               if (s < lifecycleStages.length - 1)
                 Container(
@@ -707,7 +695,9 @@ Widget buildLifecycleDiagram() {
           SizedBox(width: 16),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(bottom: s < lifecycleStages.length - 1 ? 20 : 0),
+              margin: EdgeInsets.only(
+                bottom: s < lifecycleStages.length - 1 ? 20 : 0,
+              ),
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: stageColors[s].withAlpha(30),
@@ -738,7 +728,7 @@ Widget buildLifecycleDiagram() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -768,35 +758,35 @@ Widget buildLifecycleDiagram() {
 
 Widget buildLifecycleScenarios() {
   print('Building lifecycle scenarios');
-  
+
   List<String> scenarioTitles = [
     'Short-lived Image Loading',
     'Cached Image Reference',
     'Multiple Handles on Same Completer',
     'Handle in Widget State',
   ];
-  
+
   List<String> scenarioDescriptions = [
     'Load image, display it, dispose handle immediately after image received',
     'Keep handle alive for duration of cache entry existence',
     'Multiple widgets can each have their own handle to same completer',
     'Handle stored in State, disposed in State.dispose()',
   ];
-  
+
   List<String> scenarioTimelines = [
     'Create → Use → Dispose (seconds)',
     'Create → Use → Dispose (minutes/hours)',
     'Create handles → Use concurrently → Dispose independently',
     'initState → build → dispose',
   ];
-  
+
   List<Color> scenarioColors = [
     Colors.cyan,
     Colors.purple,
     Colors.orange,
     Colors.teal,
   ];
-  
+
   List<Widget> scenarioWidgets = [];
   int sc = 0;
   for (sc = 0; sc < scenarioTitles.length; sc = sc + 1) {
@@ -876,7 +866,7 @@ Widget buildLifecycleScenarios() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -906,7 +896,7 @@ Widget buildLifecycleScenarios() {
 
 Widget buildHandleVsListenerComparison() {
   print('Building handle vs listener comparison');
-  
+
   List<String> aspectNames = [
     'Purpose',
     'Keeps Completer Alive',
@@ -917,7 +907,7 @@ Widget buildHandleVsListenerComparison() {
     'Multiple Instances',
     'Error Handling',
   ];
-  
+
   List<String> handleValues = [
     'Reference retention',
     'Yes - primary purpose',
@@ -928,7 +918,7 @@ Widget buildHandleVsListenerComparison() {
     'Each handle increments ref count',
     'Does not handle errors directly',
   ];
-  
+
   List<String> listenerValues = [
     'Receive image data',
     'Yes - while attached',
@@ -939,7 +929,7 @@ Widget buildHandleVsListenerComparison() {
     'Multiple listeners supported',
     'Can have onError callback',
   ];
-  
+
   List<Widget> comparisonRows = [];
   int a = 0;
   for (a = 0; a < aspectNames.length; a = a + 1) {
@@ -971,7 +961,10 @@ Widget buildHandleVsListenerComparison() {
                 ),
                 child: Text(
                   handleValues[a],
-                  style: TextStyle(fontSize: 10, color: Colors.deepPurple.shade800),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.deepPurple.shade800,
+                  ),
                 ),
               ),
             ),
@@ -994,7 +987,7 @@ Widget buildHandleVsListenerComparison() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
@@ -1070,7 +1063,7 @@ Widget buildHandleVsListenerComparison() {
 
 Widget buildWhenToUseHandle() {
   print('Building when to use handle section');
-  
+
   List<String> useCases = [
     'Image caching - keep completer alive for cache duration',
     'Preloading images - load before widget needs them',
@@ -1079,7 +1072,7 @@ Widget buildWhenToUseHandle() {
     'Lazy loading galleries - prepare images before scrolling to them',
     'Animation frames - keep frame completers alive during animation',
   ];
-  
+
   List<IconData> useCaseIcons = [
     Icons.cached,
     Icons.download,
@@ -1088,7 +1081,7 @@ Widget buildWhenToUseHandle() {
     Icons.photo_library,
     Icons.animation,
   ];
-  
+
   List<Widget> useCaseWidgets = [];
   int uc = 0;
   for (uc = 0; uc < useCases.length; uc = uc + 1) {
@@ -1110,11 +1103,7 @@ Widget buildWhenToUseHandle() {
                 color: Colors.green.shade600,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                useCaseIcons[uc],
-                color: Colors.white,
-                size: 20,
-              ),
+              child: Icon(useCaseIcons[uc], color: Colors.white, size: 20),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -1128,7 +1117,7 @@ Widget buildWhenToUseHandle() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1159,7 +1148,7 @@ Widget buildWhenToUseHandle() {
 
 Widget buildWhenToUseListener() {
   print('Building when to use listener section');
-  
+
   List<String> listenerCases = [
     'Displaying images - need to receive and show ImageInfo',
     'Progress monitoring - track loading progress',
@@ -1168,7 +1157,7 @@ Widget buildWhenToUseListener() {
     'Conditional rendering - show placeholder until loaded',
     'Multi-frame images - receive each frame update',
   ];
-  
+
   List<IconData> listenerIcons = [
     Icons.image,
     Icons.hourglass_bottom,
@@ -1177,7 +1166,7 @@ Widget buildWhenToUseListener() {
     Icons.view_carousel,
     Icons.movie,
   ];
-  
+
   List<Widget> listenerWidgets = [];
   int lc = 0;
   for (lc = 0; lc < listenerCases.length; lc = lc + 1) {
@@ -1199,11 +1188,7 @@ Widget buildWhenToUseListener() {
                 color: Colors.blue.shade600,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                listenerIcons[lc],
-                color: Colors.white,
-                size: 20,
-              ),
+              child: Icon(listenerIcons[lc], color: Colors.white, size: 20),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -1217,7 +1202,7 @@ Widget buildWhenToUseListener() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1248,7 +1233,7 @@ Widget buildWhenToUseListener() {
 
 Widget buildCombinedUsageExample() {
   print('Building combined usage example');
-  
+
   String combinedCode = '''
 class ImageCacheWidget extends StatefulWidget {
   ImageProvider provider;
@@ -1346,28 +1331,28 @@ class _ImageCacheWidgetState extends State<ImageCacheWidget> {
 
 Widget buildApiReferenceTable() {
   print('Building API reference table');
-  
+
   List<String> memberNames = [
     'keepAlive()',
     'dispose()',
     'completer',
     'ImageStreamCompleterHandle()',
   ];
-  
+
   List<String> memberTypes = [
     'Method on ImageStreamCompleter',
     'Method on Handle',
     'Property on Handle',
     'Internal Constructor',
   ];
-  
+
   List<String> memberDescriptions = [
     'Creates and returns a new handle for the completer',
     'Releases the reference to the completer',
     'Gets the underlying ImageStreamCompleter',
     'Not callable directly, use keepAlive() instead',
   ];
-  
+
   List<Widget> tableRows = [];
   int m = 0;
   for (m = 0; m < memberNames.length; m = m + 1) {
@@ -1411,7 +1396,7 @@ Widget buildApiReferenceTable() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
@@ -1449,7 +1434,7 @@ Widget buildApiReferenceTable() {
 
 Widget buildBestPracticesTips() {
   print('Building best practices tips');
-  
+
   List<String> tips = [
     'Always store handles in State, not local variables',
     'Dispose handles in widget dispose() method',
@@ -1460,7 +1445,7 @@ Widget buildBestPracticesTips() {
     'Consider using handle in cache implementations',
     'Combine with ImageStreamListener for full functionality',
   ];
-  
+
   List<Widget> tipWidgets = [];
   int t = 0;
   for (t = 0; t < tips.length; t = t + 1) {
@@ -1505,7 +1490,7 @@ Widget buildBestPracticesTips() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1536,7 +1521,7 @@ Widget buildBestPracticesTips() {
 
 Widget buildCommonMistakesSection() {
   print('Building common mistakes section');
-  
+
   List<String> mistakeDescriptions = [
     'Forgetting to dispose the handle - causes memory leaks',
     'Using handle after dispose - throws exception',
@@ -1545,7 +1530,7 @@ Widget buildCommonMistakesSection() {
     'Assuming listener keeps completer alive - it does not',
     'Disposing handle while listener still expects updates',
   ];
-  
+
   List<String> solutionDescriptions = [
     'Always dispose in State.dispose() or when done',
     'Set handle to null after dispose, check before use',
@@ -1554,7 +1539,7 @@ Widget buildCommonMistakesSection() {
     'Use handle to ensure completer survival',
     'Remove listeners before disposing handle',
   ];
-  
+
   List<Widget> mistakeWidgets = [];
   int mi = 0;
   for (mi = 0; mi < mistakeDescriptions.length; mi = mi + 1) {
@@ -1584,7 +1569,10 @@ Widget buildCommonMistakesSection() {
                   Expanded(
                     child: Text(
                       mistakeDescriptions[mi],
-                      style: TextStyle(fontSize: 12, color: Colors.red.shade800),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.red.shade800,
+                      ),
                     ),
                   ),
                 ],
@@ -1607,7 +1595,10 @@ Widget buildCommonMistakesSection() {
                   Expanded(
                     child: Text(
                       solutionDescriptions[mi],
-                      style: TextStyle(fontSize: 12, color: Colors.green.shade800),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.green.shade800,
+                      ),
                     ),
                   ),
                 ],
@@ -1618,7 +1609,7 @@ Widget buildCommonMistakesSection() {
       ),
     );
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -1649,7 +1640,7 @@ Widget buildCommonMistakesSection() {
 
 dynamic build(BuildContext context) {
   print('ImageStreamCompleterHandle deep demo test executing');
-  
+
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
@@ -1678,37 +1669,37 @@ dynamic build(BuildContext context) {
               'Created Via',
               'ImageStreamCompleter.keepAlive() method',
             ),
-            
+
             buildSectionHeader('2. Handle Creation'),
             buildHandleCreationSection(),
-            
+
             buildSectionHeader('3. The dispose() Method'),
             buildDisposeMethodSection(),
             buildDisposePatternExample(),
-            
+
             buildSectionHeader('4. The completer Property'),
             buildCompleterPropertySection(),
             buildCompleterUsageExamples(),
-            
+
             buildSectionHeader('5. Lifecycle Demonstration'),
             buildLifecycleDiagram(),
             buildLifecycleScenarios(),
-            
+
             buildSectionHeader('6. Handle vs Listener Comparison'),
             buildHandleVsListenerComparison(),
             buildWhenToUseHandle(),
             buildWhenToUseListener(),
             buildCombinedUsageExample(),
-            
+
             buildSectionHeader('7. API Reference'),
             buildApiReferenceTable(),
-            
+
             buildSectionHeader('8. Best Practices'),
             buildBestPracticesTips(),
-            
+
             buildSectionHeader('9. Common Mistakes'),
             buildCommonMistakesSection(),
-            
+
             buildSectionHeader('10. Summary'),
             buildInfoCard(
               'Key Point 1',
@@ -1734,14 +1725,14 @@ dynamic build(BuildContext context) {
               'Key Point 6',
               'Handles prevent garbage collection until disposed',
             ),
-            
+
             SizedBox(height: 32),
           ],
         ),
       ),
     ),
   );
-  
+
   print('ImageStreamCompleterHandle deep demo completed');
   return result;
 }

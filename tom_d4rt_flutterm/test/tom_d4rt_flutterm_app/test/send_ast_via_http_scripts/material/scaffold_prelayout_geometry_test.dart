@@ -153,9 +153,15 @@ Widget buildScaffoldDiagram() {
           ),
         ),
         SizedBox(height: 16),
-        _buildLegendItem(Colors.indigo.shade200, 'App Bar (affects contentTop)'),
+        _buildLegendItem(
+          Colors.indigo.shade200,
+          'App Bar (affects contentTop)',
+        ),
         _buildLegendItem(Colors.green.shade200, 'Content Area'),
-        _buildLegendItem(Colors.orange.shade200, 'Bottom Sheet (bottomSheetSize)'),
+        _buildLegendItem(
+          Colors.orange.shade200,
+          'Bottom Sheet (bottomSheetSize)',
+        ),
         _buildLegendItem(Colors.purple.shade400, 'FAB Position Zone'),
         _buildLegendItem(Colors.blue.shade300, 'Bottom Navigation'),
       ],
@@ -504,11 +510,7 @@ Widget buildContentBoundsSection() {
                         ),
                       ),
                     ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.green.shade100,
-                    ),
-                  ),
+                  Expanded(child: Container(color: Colors.green.shade100)),
                   if (hasBottomNav)
                     Container(
                       height: 10,
@@ -836,12 +838,36 @@ Widget _buildRelationshipRow(String prop, String description, Color color) {
 Widget buildFabPositionExamples() {
   print('Building FAB position examples');
   List<Map<String, dynamic>> positions = [
-    {'location': 'endFloat', 'icon': Icons.add, 'desc': 'Bottom right floating'},
-    {'location': 'centerFloat', 'icon': Icons.sync, 'desc': 'Bottom center floating'},
-    {'location': 'endDocked', 'icon': Icons.send, 'desc': 'Docked to bottom nav end'},
-    {'location': 'centerDocked', 'icon': Icons.play_arrow, 'desc': 'Docked center notch'},
-    {'location': 'startFloat', 'icon': Icons.menu, 'desc': 'Bottom left floating'},
-    {'location': 'miniStartFloat', 'icon': Icons.chevron_left, 'desc': 'Mini FAB left'},
+    {
+      'location': 'endFloat',
+      'icon': Icons.add,
+      'desc': 'Bottom right floating',
+    },
+    {
+      'location': 'centerFloat',
+      'icon': Icons.sync,
+      'desc': 'Bottom center floating',
+    },
+    {
+      'location': 'endDocked',
+      'icon': Icons.send,
+      'desc': 'Docked to bottom nav end',
+    },
+    {
+      'location': 'centerDocked',
+      'icon': Icons.play_arrow,
+      'desc': 'Docked center notch',
+    },
+    {
+      'location': 'startFloat',
+      'icon': Icons.menu,
+      'desc': 'Bottom left floating',
+    },
+    {
+      'location': 'miniStartFloat',
+      'icon': Icons.chevron_left,
+      'desc': 'Mini FAB left',
+    },
   ];
 
   List<Widget> posCards = [];
@@ -964,15 +990,36 @@ Widget buildGeometryUsageExample() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCodeLine('Offset getOffset(ScaffoldPrelayoutGeometry geometry) {', Colors.blue.shade300),
-              _buildCodeLine('  double fabX = geometry.scaffoldSize.width', Colors.white),
-              _buildCodeLine('      - geometry.floatingActionButtonSize.width / 2', Colors.white),
+              _buildCodeLine(
+                'Offset getOffset(ScaffoldPrelayoutGeometry geometry) {',
+                Colors.blue.shade300,
+              ),
+              _buildCodeLine(
+                '  double fabX = geometry.scaffoldSize.width',
+                Colors.white,
+              ),
+              _buildCodeLine(
+                '      - geometry.floatingActionButtonSize.width / 2',
+                Colors.white,
+              ),
               _buildCodeLine('      - 16.0;', Colors.white),
-              _buildCodeLine('  double fabY = geometry.contentBottom', Colors.white),
-              _buildCodeLine('      - geometry.bottomSheetSize.height', Colors.white),
-              _buildCodeLine('      - geometry.floatingActionButtonSize.height', Colors.white),
+              _buildCodeLine(
+                '  double fabY = geometry.contentBottom',
+                Colors.white,
+              ),
+              _buildCodeLine(
+                '      - geometry.bottomSheetSize.height',
+                Colors.white,
+              ),
+              _buildCodeLine(
+                '      - geometry.floatingActionButtonSize.height',
+                Colors.white,
+              ),
               _buildCodeLine('      - 16.0;', Colors.white),
-              _buildCodeLine('  return Offset(fabX, fabY);', Colors.green.shade300),
+              _buildCodeLine(
+                '  return Offset(fabX, fabY);',
+                Colors.green.shade300,
+              ),
               _buildCodeLine('}', Colors.blue.shade300),
             ],
           ),
@@ -1061,9 +1108,7 @@ Widget buildMiniVsRegularFab() {
         SizedBox(height: 16),
         Row(
           children: [
-            Expanded(
-              child: _buildFabSizeCard('Mini FAB', 40.0, Colors.teal),
-            ),
+            Expanded(child: _buildFabSizeCard('Mini FAB', 40.0, Colors.teal)),
             SizedBox(width: 12),
             Expanded(
               child: _buildFabSizeCard('Regular FAB', 56.0, Colors.indigo),
@@ -1100,15 +1145,8 @@ Widget _buildFabSizeCard(String label, double size, Color color) {
         Container(
           width: size,
           height: size,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: size * 0.45,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Icon(Icons.add, color: Colors.white, size: size * 0.45),
         ),
         SizedBox(height: 8),
         Text(
@@ -1154,10 +1192,7 @@ dynamic build(BuildContext context) {
               'Used By',
               'FloatingActionButtonLocation.getOffset()',
             ),
-            buildInfoCard(
-              'Package',
-              'flutter/material.dart',
-            ),
+            buildInfoCard('Package', 'flutter/material.dart'),
 
             buildSectionHeader('2. Visual Scaffold Geometry'),
             buildScaffoldDiagram(),
@@ -1336,12 +1371,19 @@ class _ScaffoldGeometryPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     contentText.layout();
-    contentText.paint(canvas, Offset(size.width / 2 - 45, size.height / 2 - 40));
+    contentText.paint(
+      canvas,
+      Offset(size.width / 2 - 45, size.height / 2 - 40),
+    );
 
     Paint contentTopLine = Paint();
     contentTopLine.color = Colors.green.shade600;
     contentTopLine.strokeWidth = 2;
-    canvas.drawLine(Offset(10, 54), Offset(size.width - 10, 54), contentTopLine);
+    canvas.drawLine(
+      Offset(10, 54),
+      Offset(size.width - 10, 54),
+      contentTopLine,
+    );
 
     TextPainter topLabel = TextPainter(
       text: TextSpan(
@@ -1354,7 +1396,11 @@ class _ScaffoldGeometryPainter extends CustomPainter {
     topLabel.paint(canvas, Offset(10, 56));
 
     double contentBottomY = size.height - 114;
-    canvas.drawLine(Offset(10, contentBottomY), Offset(size.width - 10, contentBottomY), contentTopLine);
+    canvas.drawLine(
+      Offset(10, contentBottomY),
+      Offset(size.width - 10, contentBottomY),
+      contentTopLine,
+    );
 
     TextPainter bottomLabel = TextPainter(
       text: TextSpan(
@@ -1480,7 +1526,11 @@ class _RelationshipsPainter extends CustomPainter {
     TextPainter scaffoldLabel = TextPainter(
       text: TextSpan(
         text: 'scaffoldSize',
-        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.indigo),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          color: Colors.indigo,
+        ),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -1711,7 +1761,11 @@ class _SnackBarInteractionPainter extends CustomPainter {
     arrowPaint.color = Colors.red;
     arrowPaint.strokeWidth = 2;
     arrowPaint.style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(size.width - 70, fab1Y - 10), Offset(size.width - 70, fab2Y + 10), arrowPaint);
+    canvas.drawLine(
+      Offset(size.width - 70, fab1Y - 10),
+      Offset(size.width - 70, fab2Y + 10),
+      arrowPaint,
+    );
 
     Path arrowHead = Path();
     arrowHead.moveTo(size.width - 75, fab2Y + 18);

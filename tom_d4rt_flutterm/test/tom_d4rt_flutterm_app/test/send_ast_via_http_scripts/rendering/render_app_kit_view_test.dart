@@ -11,9 +11,12 @@ List<String> hitTestBehaviors = ['opaque', 'translucent', 'transparent'];
 
 // Descriptions for each hit test behavior
 Map<String, String> hitTestDescriptions = {
-  'opaque': 'Absorbs all hit events. Flutter widgets behind the platform view receive no events.',
-  'translucent': 'Allows hit events to pass through to Flutter widgets behind the platform view.',
-  'transparent': 'The platform view is invisible to hit testing. All events go to Flutter widgets.',
+  'opaque':
+      'Absorbs all hit events. Flutter widgets behind the platform view receive no events.',
+  'translucent':
+      'Allows hit events to pass through to Flutter widgets behind the platform view.',
+  'transparent':
+      'The platform view is invisible to hit testing. All events go to Flutter widgets.',
 };
 
 // Icons mapped to hit test behaviors
@@ -191,54 +194,58 @@ Widget buildPlaceholderSection() {
   print('Building placeholder containers section');
   List<Widget> children = [];
 
-  children.add(buildSectionTitle(
-    'Native View Placeholders',
-    Icons.desktop_mac,
-    Colors.indigo,
-  ));
-
-  children.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'UiKitView (iOS) and AppKitView (macOS) embed native platform views. '
-          'These placeholders represent where native views would render.',
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
-        ),
-        SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            buildPlatformViewPlaceholder(
-              'AppKitView\n(macOS NSView)',
-              130,
-              100,
-              Colors.blue,
-              Icons.desktop_mac,
-            ),
-            buildPlatformViewPlaceholder(
-              'UiKitView\n(iOS UIView)',
-              130,
-              100,
-              Colors.purple,
-              Icons.phone_iphone,
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Center(
-          child: buildPlatformViewPlaceholder(
-            'AndroidView\n(Android View)',
-            130,
-            100,
-            Colors.green,
-            Icons.android,
-          ),
-        ),
-      ],
+  children.add(
+    buildSectionTitle(
+      'Native View Placeholders',
+      Icons.desktop_mac,
+      Colors.indigo,
     ),
-  ));
+  );
+
+  children.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'UiKitView (iOS) and AppKitView (macOS) embed native platform views. '
+            'These placeholders represent where native views would render.',
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+          ),
+          SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildPlatformViewPlaceholder(
+                'AppKitView\n(macOS NSView)',
+                130,
+                100,
+                Colors.blue,
+                Icons.desktop_mac,
+              ),
+              buildPlatformViewPlaceholder(
+                'UiKitView\n(iOS UIView)',
+                130,
+                100,
+                Colors.purple,
+                Icons.phone_iphone,
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Center(
+            child: buildPlatformViewPlaceholder(
+              'AndroidView\n(Android View)',
+              130,
+              100,
+              Colors.green,
+              Icons.android,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,118 +259,135 @@ Widget buildLayoutConfigSection() {
   List<Widget> items = [];
 
   // Fixed size platform view
-  items.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Fixed Size (200 x 150)',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Center(
-          child: buildPlatformViewPlaceholder(
-            'Fixed Size\nPlatformView',
-            200,
-            150,
-            Colors.teal,
-            Icons.crop_square,
+  items.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Fixed Size (200 x 150)',
+            style: TextStyle(fontWeight: FontWeight.w600),
           ),
-        ),
-      ],
+          SizedBox(height: 8),
+          Center(
+            child: buildPlatformViewPlaceholder(
+              'Fixed Size\nPlatformView',
+              200,
+              150,
+              Colors.teal,
+              Icons.crop_square,
+            ),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
 
   // Expanded platform view
-  items.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Expanded (fills available width)',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Container(
-          width: double.infinity,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.teal.shade50,
-            border: Border.all(color: Colors.teal, width: 2),
-            borderRadius: BorderRadius.circular(8),
+  items.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Expanded (fills available width)',
+            style: TextStyle(fontWeight: FontWeight.w600),
           ),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.open_in_full, color: Colors.teal),
-                SizedBox(width: 8),
-                Text('Expanded PlatformView',
-                    style: TextStyle(color: Colors.teal)),
-              ],
+          SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.teal.shade50,
+              border: Border.all(color: Colors.teal, width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.open_in_full, color: Colors.teal),
+                  SizedBox(width: 8),
+                  Text(
+                    'Expanded PlatformView',
+                    style: TextStyle(color: Colors.teal),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
-  ));
+  );
 
   // Aspect ratio constrained views
-  items.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Aspect Ratio Constrained',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade50,
-                    border: Border.all(color: Colors.orange, width: 2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text('16:9',
+  items.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Aspect Ratio Constrained',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade50,
+                      border: Border.all(color: Colors.orange, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '16:9',
                         style: TextStyle(
-                            color: Colors.orange, fontWeight: FontWeight.bold)),
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 4 / 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange.shade50,
-                    border: Border.all(color: Colors.deepOrange, width: 2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: Text('4:3',
+              SizedBox(width: 12),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepOrange.shade50,
+                      border: Border.all(color: Colors.deepOrange, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '4:3',
                         style: TextStyle(
-                            color: Colors.deepOrange,
-                            fontWeight: FontWeight.bold)),
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     ),
-  ));
+  );
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      buildSectionTitle(
-        'Layout Configurations',
-        Icons.view_quilt,
-        Colors.teal,
-      ),
+      buildSectionTitle('Layout Configurations', Icons.view_quilt, Colors.teal),
       Column(children: items),
     ],
   );
@@ -382,79 +406,87 @@ Widget buildHitTestSection() {
 
     print('  Hit test behavior: $behavior');
 
-    cards.add(buildCard(
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(24),
+    cards.add(
+      buildCard(
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Icon(icon, color: color, size: 24),
             ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'PlatformViewHitTestBehavior.$behavior',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                    fontSize: 14,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-                ),
-                SizedBox(height: 8),
-                // Visual demonstration
-                Stack(
-                  children: [
-                    Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade50,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: Colors.blue.shade200),
-                      ),
-                      child: Center(
-                        child: Text('Flutter Widget (behind)',
-                            style: TextStyle(
-                                color: Colors.blue.shade400, fontSize: 11)),
-                      ),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'PlatformViewHitTestBehavior.$behavior',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: color,
+                      fontSize: 14,
                     ),
-                    Positioned(
-                      top: 10,
-                      left: 20,
-                      right: 20,
-                      bottom: 10,
-                      child: Container(
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  ),
+                  SizedBox(height: 8),
+                  // Visual demonstration
+                  Stack(
+                    children: [
+                      Container(
+                        height: 60,
                         decoration: BoxDecoration(
-                          color: color.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: color),
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(color: Colors.blue.shade200),
                         ),
                         child: Center(
-                          child: Text('Platform View ($behavior)',
-                              style: TextStyle(color: color, fontSize: 10)),
+                          child: Text(
+                            'Flutter Widget (behind)',
+                            style: TextStyle(
+                              color: Colors.blue.shade400,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Positioned(
+                        top: 10,
+                        left: 20,
+                        right: 20,
+                        bottom: 10,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: color.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: color),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Platform View ($behavior)',
+                              style: TextStyle(color: color, fontSize: 10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Column(
@@ -484,49 +516,54 @@ Widget buildGestureRecognizersSection() {
     Color cardColor = Colors.primaries[i % Colors.primaries.length].shade50;
     Color accentColor = Colors.primaries[i % Colors.primaries.length];
 
-    cards.add(buildCard(
-      Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [accentColor, accentColor.withValues(alpha: 0.6)],
+    cards.add(
+      buildCard(
+        Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [accentColor, accentColor.withValues(alpha: 0.6)],
+                ),
+                borderRadius: BorderRadius.circular(22),
               ),
-              borderRadius: BorderRadius.circular(22),
+              child: Icon(icon, color: Colors.white, size: 22),
             ),
-            child: Icon(icon, color: Colors.white, size: 22),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(mode,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
-                SizedBox(height: 4),
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: cardColor,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: accentColor.withValues(alpha: 0.4)),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    mode,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                   ),
-                  child: Center(
-                    child: Text(
-                      'Platform view area',
-                      style: TextStyle(fontSize: 11, color: accentColor),
+                  SizedBox(height: 4),
+                  Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(
+                        color: accentColor.withValues(alpha: 0.4),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Platform view area',
+                        style: TextStyle(fontSize: 11, color: accentColor),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Column(
@@ -585,10 +622,14 @@ Widget buildIntrinsicSizingSection() {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.fit_screen, color: Colors.amber.shade700),
-            Text('Intrinsic size',
-                style: TextStyle(fontSize: 11, color: Colors.amber.shade700)),
-            Text('(wraps content)',
-                style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(
+              'Intrinsic size',
+              style: TextStyle(fontSize: 11, color: Colors.amber.shade700),
+            ),
+            Text(
+              '(wraps content)',
+              style: TextStyle(fontSize: 10, color: Colors.grey),
+            ),
           ],
         ),
       );
@@ -602,8 +643,10 @@ Widget buildIntrinsicSizingSection() {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text('Expanded width, height: ${h.toInt()}',
-              style: TextStyle(fontSize: 11, color: Colors.cyan.shade700)),
+          child: Text(
+            'Expanded width, height: ${h.toInt()}',
+            style: TextStyle(fontSize: 11, color: Colors.cyan.shade700),
+          ),
         ),
       );
     } else {
@@ -616,22 +659,29 @@ Widget buildIntrinsicSizingSection() {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text('${w.toInt()} x ${h.toInt()}',
-              style: TextStyle(fontSize: 11, color: Colors.lime.shade800)),
+          child: Text(
+            '${w.toInt()} x ${h.toInt()}',
+            style: TextStyle(fontSize: 11, color: Colors.lime.shade800),
+          ),
         ),
       );
     }
 
-    items.add(buildCard(
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(mode, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
-          SizedBox(height: 8),
-          Center(child: viewWidget),
-        ],
+    items.add(
+      buildCard(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              mode,
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+            ),
+            SizedBox(height: 8),
+            Center(child: viewWidget),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   return Column(
@@ -660,325 +710,391 @@ Widget buildCompositionSection() {
   List<Widget> demos = [];
 
   // Flutter above platform view
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Flutter Above Platform View',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Stack(
-          children: [
-            Container(
-              height: 100,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                border: Border.all(color: Colors.grey.shade500, width: 2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.desktop_windows, color: Colors.grey.shade500),
-                    Text('Native Platform View',
-                        style: TextStyle(
-                            color: Colors.grey.shade500, fontSize: 11)),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text('Flutter FAB',
-                    style: TextStyle(color: Colors.white, fontSize: 11)),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ));
-
-  // Flutter below platform view
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Flutter Below Platform View',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Stack(
-          children: [
-            Container(
-              height: 100,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text('Flutter Background Layer',
-                    style: TextStyle(color: Colors.blue.shade300, fontSize: 12)),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 15),
-                width: 200,
-                height: 70,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  border: Border.all(color: Colors.grey.shade600, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text('Platform View (above)',
-                      style: TextStyle(
-                          color: Colors.grey.shade700, fontSize: 11)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ));
-
-  // Flutter alongside in row
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Flutter Alongside (Row)',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade100,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text('Flutter\nWidget',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.blue, fontSize: 11)),
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              flex: 2,
-              child: Container(
-                height: 80,
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Flutter Above Platform View',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Stack(
+            children: [
+              Container(
+                height: 100,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade200,
                   border: Border.all(color: Colors.grey.shade500, width: 2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
-                  child: Text('Native Platform View',
-                      style: TextStyle(
-                          color: Colors.grey.shade600, fontSize: 11)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.desktop_windows, color: Colors.grey.shade500),
+                      Text(
+                        'Native Platform View',
+                        style: TextStyle(
+                          color: Colors.grey.shade500,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Container(
-                height: 80,
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    'Flutter FAB',
+                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+
+  // Flutter below platform view
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Flutter Below Platform View',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Stack(
+            children: [
+              Container(
+                height: 100,
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.green.shade100,
+                  color: Colors.blue.shade50,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
-                  child: Text('Flutter\nWidget',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.green, fontSize: 11)),
+                  child: Text(
+                    'Flutter Background Layer',
+                    style: TextStyle(color: Colors.blue.shade300, fontSize: 12),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 15),
+                  width: 200,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    border: Border.all(color: Colors.grey.shade600, width: 2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Platform View (above)',
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
-  ));
+  );
+
+  // Flutter alongside in row
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Flutter Alongside (Row)',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade100,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Flutter\nWidget',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.blue, fontSize: 11),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    border: Border.all(color: Colors.grey.shade500, width: 2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Native Platform View',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade100,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Flutter\nWidget',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.green, fontSize: 11),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 
   // Flutter alongside in column
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Flutter Alongside (Column)',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Container(
-          height: 40,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.purple.shade100,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Flutter Alongside (Column)',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.purple.shade100,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Flutter Header',
+                style: TextStyle(color: Colors.purple, fontSize: 11),
+              ),
             ),
           ),
-          child: Center(
-            child: Text('Flutter Header',
-                style: TextStyle(color: Colors.purple, fontSize: 11)),
-          ),
-        ),
-        Container(
-          height: 60,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            border: Border.all(color: Colors.grey.shade500, width: 2),
-          ),
-          child: Center(
-            child: Text('Native Platform View',
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 11)),
-          ),
-        ),
-        Container(
-          height: 40,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.purple.shade100,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(8),
+          Container(
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              border: Border.all(color: Colors.grey.shade500, width: 2),
+            ),
+            child: Center(
+              child: Text(
+                'Native Platform View',
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 11),
+              ),
             ),
           ),
-          child: Center(
-            child: Text('Flutter Footer',
-                style: TextStyle(color: Colors.purple, fontSize: 11)),
+          Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.purple.shade100,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Flutter Footer',
+                style: TextStyle(color: Colors.purple, fontSize: 11),
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
-  ));
+  );
 
   // Overlapping stack
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Overlapping Stack Composition',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Stack(
-          children: [
-            Container(
-              height: 120,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.indigo.shade100, Colors.indigo.shade200],
-                ),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text('Flutter gradient background',
-                      style: TextStyle(
-                          color: Colors.indigo.shade400, fontSize: 11)),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 20,
-              top: 30,
-              child: Container(
-                width: 140,
-                height: 70,
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Overlapping Stack Composition',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Stack(
+            children: [
+              Container(
+                height: 120,
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  border: Border.all(color: Colors.grey.shade600, width: 2),
-                  borderRadius: BorderRadius.circular(6),
+                  gradient: LinearGradient(
+                    colors: [Colors.indigo.shade100, Colors.indigo.shade200],
+                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Center(
-                  child: Text('Platform View A',
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Flutter gradient background',
                       style: TextStyle(
-                          color: Colors.grey.shade700, fontSize: 10)),
+                        color: Colors.indigo.shade400,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              right: 20,
-              top: 40,
-              child: Container(
-                width: 120,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                  border: Border.all(color: Colors.grey.shade700, width: 2),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Center(
-                  child: Text('Platform View B',
-                      style: TextStyle(color: Colors.white, fontSize: 10)),
+              Positioned(
+                left: 20,
+                top: 30,
+                child: Container(
+                  width: 140,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    border: Border.all(color: Colors.grey.shade600, width: 2),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Platform View A',
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+              Positioned(
+                right: 20,
+                top: 40,
+                child: Container(
+                  width: 120,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade400,
+                    border: Border.all(color: Colors.grey.shade700, width: 2),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Platform View B',
+                      style: TextStyle(color: Colors.white, fontSize: 10),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
-  ));
+  );
 
   // Clipped platform view
-  demos.add(buildCard(
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Clipped Platform View',
-            style: TextStyle(fontWeight: FontWeight.w600)),
-        SizedBox(height: 8),
-        Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                border: Border.all(color: Colors.grey.shade500, width: 2),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.crop, color: Colors.grey.shade500, size: 24),
-                    Text('Clipped',
+  demos.add(
+    buildCard(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Clipped Platform View',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  border: Border.all(color: Colors.grey.shade500, width: 2),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.crop, color: Colors.grey.shade500, size: 24),
+                      Text(
+                        'Clipped',
                         style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 10)),
-                  ],
+                          color: Colors.grey.shade600,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: 4),
-        Center(
-          child: Text('ClipRRect with border radius 50',
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
-        ),
-      ],
+          SizedBox(height: 4),
+          Center(
+            child: Text(
+              'ClipRRect with border radius 50',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            ),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1045,7 +1161,9 @@ Widget buildSummaryPanel() {
                     child: Text(
                       row[1],
                       style: TextStyle(
-                          fontSize: 12, color: Colors.grey.shade600),
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ),
                 ],
@@ -1071,15 +1189,15 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Main header
-        buildGradientHeader(
-          'RenderAppKitView / RenderUiKitView',
-          [Colors.blueGrey.shade800, Colors.blueGrey.shade500],
-        ),
+        buildGradientHeader('RenderAppKitView / RenderUiKitView', [
+          Colors.blueGrey.shade800,
+          Colors.blueGrey.shade500,
+        ]),
         SizedBox(height: 8),
-        buildGradientHeader(
-          'Platform View Embedding Deep Demo',
-          [Colors.indigo.shade600, Colors.purple.shade400],
-        ),
+        buildGradientHeader('Platform View Embedding Deep Demo', [
+          Colors.indigo.shade600,
+          Colors.purple.shade400,
+        ]),
         SizedBox(height: 8),
         buildCard(
           Column(
@@ -1101,9 +1219,10 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'These placeholders show where native views would render on actual hardware.',
                       style: TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.blue.shade600),
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.blue.shade600,
+                      ),
                     ),
                   ),
                 ],
@@ -1136,10 +1255,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24),
 
         // Footer
-        buildGradientHeader(
-          'End of RenderAppKitView Demo',
-          [Colors.grey.shade600, Colors.grey.shade400],
-        ),
+        buildGradientHeader('End of RenderAppKitView Demo', [
+          Colors.grey.shade600,
+          Colors.grey.shade400,
+        ]),
         SizedBox(height: 32),
       ],
     ),

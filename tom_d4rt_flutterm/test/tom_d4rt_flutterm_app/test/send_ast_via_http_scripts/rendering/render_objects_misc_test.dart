@@ -78,7 +78,6 @@ Widget _buildLabel(String text) {
   );
 }
 
-
 Widget _buildSizedBoxSection() {
   print('[render_objects_misc] Building SizedBox section');
   // SizedBox with various explicit width/height combos

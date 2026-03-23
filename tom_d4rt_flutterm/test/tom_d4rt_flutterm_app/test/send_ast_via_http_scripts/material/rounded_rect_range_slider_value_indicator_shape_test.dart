@@ -204,8 +204,9 @@ Widget buildIndicatorColorVariations() {
                     RoundedRectRangeSliderValueIndicatorShape(),
                 activeTrackColor: indicatorColors[i],
                 inactiveTrackColor: indicatorColors[i].withAlpha(50),
-                rangeThumbShape:
-                    RoundRangeSliderThumbShape(enabledThumbRadius: 8),
+                rangeThumbShape: RoundRangeSliderThumbShape(
+                  enabledThumbRadius: 8,
+                ),
                 valueIndicatorColor: indicatorColors[i],
                 valueIndicatorTextStyle: TextStyle(
                   color: Colors.white,
@@ -306,8 +307,9 @@ Widget buildShowLabelsComparison() {
                       RoundedRectRangeSliderValueIndicatorShape(),
                   activeTrackColor: Colors.teal,
                   inactiveTrackColor: Colors.teal.withAlpha(50),
-                  rangeThumbShape:
-                      RoundRangeSliderThumbShape(enabledThumbRadius: 10),
+                  rangeThumbShape: RoundRangeSliderThumbShape(
+                    enabledThumbRadius: 10,
+                  ),
                   valueIndicatorColor: Colors.teal.shade700,
                   valueIndicatorTextStyle: TextStyle(
                     color: Colors.white,
@@ -352,8 +354,9 @@ Widget buildShowLabelsComparison() {
                       RoundedRectRangeSliderValueIndicatorShape(),
                   activeTrackColor: Colors.grey.shade600,
                   inactiveTrackColor: Colors.grey.shade300,
-                  rangeThumbShape:
-                      RoundRangeSliderThumbShape(enabledThumbRadius: 10),
+                  rangeThumbShape: RoundRangeSliderThumbShape(
+                    enabledThumbRadius: 10,
+                  ),
                   valueIndicatorColor: Colors.grey.shade700,
                   trackHeight: 4,
                 ),
@@ -392,8 +395,9 @@ Widget buildShowLabelsComparison() {
                       RoundedRectRangeSliderValueIndicatorShape(),
                   activeTrackColor: Colors.amber.shade700,
                   inactiveTrackColor: Colors.amber.shade200,
-                  rangeThumbShape:
-                      RoundRangeSliderThumbShape(enabledThumbRadius: 10),
+                  rangeThumbShape: RoundRangeSliderThumbShape(
+                    enabledThumbRadius: 10,
+                  ),
                   valueIndicatorColor: Colors.amber.shade800,
                   valueIndicatorTextStyle: TextStyle(
                     color: Colors.white,
@@ -729,13 +733,25 @@ Widget buildIndicatorShapeAnatomy() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildAnatomyItem('Shape', 'Rounded rectangle', Icons.crop_square),
+                  buildAnatomyItem(
+                    'Shape',
+                    'Rounded rectangle',
+                    Icons.crop_square,
+                  ),
                   SizedBox(height: 8),
-                  buildAnatomyItem('Corners', 'Rounded edges', Icons.rounded_corner),
+                  buildAnatomyItem(
+                    'Corners',
+                    'Rounded edges',
+                    Icons.rounded_corner,
+                  ),
                   SizedBox(height: 8),
                   buildAnatomyItem('Text', 'Centered value', Icons.text_fields),
                   SizedBox(height: 8),
-                  buildAnatomyItem('Pointer', 'Bottom arrow', Icons.arrow_downward),
+                  buildAnatomyItem(
+                    'Pointer',
+                    'Bottom arrow',
+                    Icons.arrow_downward,
+                  ),
                 ],
               ),
             ),
@@ -774,12 +790,7 @@ Widget buildAnatomyItem(String label, String value, IconData icon) {
 
 Widget buildTextStyleVariations() {
   print('Building text style variations');
-  List<String> styleNames = [
-    'Default',
-    'Bold Large',
-    'Light Small',
-    'Italic',
-  ];
+  List<String> styleNames = ['Default', 'Bold Large', 'Light Small', 'Italic'];
   List<TextStyle> textStyles = [
     TextStyle(color: Colors.white, fontSize: 12),
     TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
@@ -823,8 +834,9 @@ Widget buildTextStyleVariations() {
                     RoundedRectRangeSliderValueIndicatorShape(),
                 activeTrackColor: styleColors[s],
                 inactiveTrackColor: styleColors[s].withAlpha(50),
-                rangeThumbShape:
-                    RoundRangeSliderThumbShape(enabledThumbRadius: 9),
+                rangeThumbShape: RoundRangeSliderThumbShape(
+                  enabledThumbRadius: 9,
+                ),
                 valueIndicatorColor: styleColors[s],
                 valueIndicatorTextStyle: textStyles[s],
                 trackHeight: 4,
@@ -1016,10 +1028,7 @@ Widget buildUseCaseCard(
             min: minVal,
             max: maxVal,
             divisions: ((maxVal - minVal) / 5).toInt(),
-            labels: RangeLabels(
-              '${startVal.toInt()}',
-              '${endVal.toInt()}',
-            ),
+            labels: RangeLabels('${startVal.toInt()}', '${endVal.toInt()}'),
             onChanged: (RangeValues vals) {},
           ),
         ),
@@ -1281,7 +1290,11 @@ class _RoundedRectIndicatorPainter extends CustomPainter {
     double radius = 6;
 
     RRect rRect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset(cx, cy), width: rectWidth, height: rectHeight),
+      Rect.fromCenter(
+        center: Offset(cx, cy),
+        width: rectWidth,
+        height: rectHeight,
+      ),
       Radius.circular(radius),
     );
     canvas.drawRRect(rRect, paint);

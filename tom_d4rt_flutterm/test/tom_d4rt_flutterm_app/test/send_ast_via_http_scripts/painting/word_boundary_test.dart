@@ -147,10 +147,7 @@ Widget buildWordBoundaryCard(
             color: Colors.grey.shade50,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            'Full text: "$text"',
-            style: TextStyle(fontSize: 12),
-          ),
+          child: Text('Full text: "$text"', style: TextStyle(fontSize: 12)),
         ),
       ],
     ),
@@ -285,10 +282,7 @@ Widget buildWhitespaceCard(
           ),
           child: Text(
             '"$text"',
-            style: TextStyle(
-              fontSize: 13,
-              fontFamily: 'monospace',
-            ),
+            style: TextStyle(fontSize: 13, fontFamily: 'monospace'),
           ),
         ),
         SizedBox(height: 8),
@@ -304,18 +298,12 @@ Widget buildWhitespaceCard(
               children: [
                 Text(
                   'Word ${wordInfo['index']}:',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                 ),
                 SizedBox(width: 8),
                 Text(
                   '"${wordInfo['word']}"',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Text(
@@ -391,10 +379,7 @@ Widget buildOffsetCard(
                     SizedBox(height: 4),
                     Text(
                       'Offset: $leadingOffset',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                      ),
+                      style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -434,10 +419,7 @@ Widget buildOffsetCard(
                     SizedBox(height: 4),
                     Text(
                       'Offset: $trailingOffset',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                      ),
+                      style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -649,10 +631,7 @@ Widget buildScenarioCard(
             children: [
               Text(
                 'Example: $example',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                ),
+                style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
               ),
               SizedBox(height: 4),
               Text(
@@ -741,10 +720,18 @@ dynamic build(BuildContext context) {
   var foxRange = TextRange(start: 16, end: 19);
 
   print('\nSentence: "$sentenceText"');
-  print('Word "The" range: $theRange -> "${theRange.textInside(sentenceText)}"');
-  print('Word "quick" range: $quickRange -> "${quickRange.textInside(sentenceText)}"');
-  print('Word "brown" range: $brownRange -> "${brownRange.textInside(sentenceText)}"');
-  print('Word "fox" range: $foxRange -> "${foxRange.textInside(sentenceText)}"');
+  print(
+    'Word "The" range: $theRange -> "${theRange.textInside(sentenceText)}"',
+  );
+  print(
+    'Word "quick" range: $quickRange -> "${quickRange.textInside(sentenceText)}"',
+  );
+  print(
+    'Word "brown" range: $brownRange -> "${brownRange.textInside(sentenceText)}"',
+  );
+  print(
+    'Word "fox" range: $foxRange -> "${foxRange.textInside(sentenceText)}"',
+  );
 
   // Section 3: Leading and Trailing Offsets
   print('\n=== SECTION 3: LEADING AND TRAILING OFFSETS ===');
@@ -894,10 +881,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'Text word boundary concept for selection',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.white70),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -937,15 +921,33 @@ dynamic build(BuildContext context) {
           Icons.touch_app,
         ),
 
-        buildPropertyRow('textBoundaryAt', 'Method', 'Gets word range at position'),
-        buildPropertyRow('getLeadingTextBoundaryAt', 'Method', 'Gets start of word'),
-        buildPropertyRow('getTrailingTextBoundaryAt', 'Method', 'Gets end of word'),
+        buildPropertyRow(
+          'textBoundaryAt',
+          'Method',
+          'Gets word range at position',
+        ),
+        buildPropertyRow(
+          'getLeadingTextBoundaryAt',
+          'Method',
+          'Gets start of word',
+        ),
+        buildPropertyRow(
+          'getTrailingTextBoundaryAt',
+          'Method',
+          'Gets end of word',
+        ),
 
         // Section 2: TextRange with Word Selection
         buildSectionHeader('2. TextRange with Word Selection'),
 
-        buildInfoCard('TextRange', 'Represents a range of text with start and end offsets'),
-        buildInfoCard('Usage', 'WordBoundary returns TextRange for word extents'),
+        buildInfoCard(
+          'TextRange',
+          'Represents a range of text with start and end offsets',
+        ),
+        buildInfoCard(
+          'Usage',
+          'WordBoundary returns TextRange for word extents',
+        ),
 
         buildWordBoundaryCard(simpleText, 0, 5, 'Hello', Colors.blue),
         buildWordBoundaryCard(simpleText, 6, 11, 'World', Colors.green),
@@ -976,11 +978,19 @@ dynamic build(BuildContext context) {
         buildWordBoundaryCard(sentenceText, 10, 15, 'brown', Colors.teal),
         buildWordBoundaryCard(sentenceText, 16, 19, 'fox', Colors.pink),
 
-        buildPropertyRow('start', 'int', 'Beginning offset of range (inclusive)'),
+        buildPropertyRow(
+          'start',
+          'int',
+          'Beginning offset of range (inclusive)',
+        ),
         buildPropertyRow('end', 'int', 'Ending offset of range (exclusive)'),
         buildPropertyRow('isValid', 'bool', 'True if start >= 0 and end >= 0'),
         buildPropertyRow('isNormalized', 'bool', 'True if start <= end'),
-        buildPropertyRow('isCollapsed', 'bool', 'True if start == end (cursor)'),
+        buildPropertyRow(
+          'isCollapsed',
+          'bool',
+          'True if start == end (cursor)',
+        ),
 
         // Section 3: Leading and Trailing Offsets
         buildSectionHeader('3. Leading and Trailing Offsets'),
@@ -1031,7 +1041,11 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.amber.shade700, size: 20),
+                  Icon(
+                    Icons.info_outline,
+                    color: Colors.amber.shade700,
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Offset Calculation',
@@ -1063,50 +1077,30 @@ dynamic build(BuildContext context) {
         // Section 4: Whitespace Handling
         buildSectionHeader('4. Whitespace Handling'),
 
-        buildWhitespaceCard(
-          'Single Space Separation',
-          singleSpaceText,
-          [
-            {'index': 1, 'word': 'one', 'start': 0, 'end': 3},
-            {'index': 2, 'word': 'two', 'start': 4, 'end': 7},
-            {'index': 3, 'word': 'three', 'start': 8, 'end': 13},
-          ],
-        ),
+        buildWhitespaceCard('Single Space Separation', singleSpaceText, [
+          {'index': 1, 'word': 'one', 'start': 0, 'end': 3},
+          {'index': 2, 'word': 'two', 'start': 4, 'end': 7},
+          {'index': 3, 'word': 'three', 'start': 8, 'end': 13},
+        ]),
 
-        buildWhitespaceCard(
-          'Multiple Spaces',
-          multiSpaceText,
-          [
-            {'index': 1, 'word': 'one', 'start': 0, 'end': 3},
-            {'index': 2, 'word': 'two', 'start': 5, 'end': 8},
-            {'index': 3, 'word': 'three', 'start': 11, 'end': 16},
-          ],
-        ),
+        buildWhitespaceCard('Multiple Spaces', multiSpaceText, [
+          {'index': 1, 'word': 'one', 'start': 0, 'end': 3},
+          {'index': 2, 'word': 'two', 'start': 5, 'end': 8},
+          {'index': 3, 'word': 'three', 'start': 11, 'end': 16},
+        ]),
 
-        buildWhitespaceCard(
-          'Leading Whitespace',
-          leadingSpaceText,
-          [
-            {'index': 1, 'word': 'leading', 'start': 3, 'end': 10},
-          ],
-        ),
+        buildWhitespaceCard('Leading Whitespace', leadingSpaceText, [
+          {'index': 1, 'word': 'leading', 'start': 3, 'end': 10},
+        ]),
 
-        buildWhitespaceCard(
-          'Trailing Whitespace',
-          trailingSpaceText,
-          [
-            {'index': 1, 'word': 'trailing', 'start': 0, 'end': 8},
-          ],
-        ),
+        buildWhitespaceCard('Trailing Whitespace', trailingSpaceText, [
+          {'index': 1, 'word': 'trailing', 'start': 0, 'end': 8},
+        ]),
 
-        buildWhitespaceCard(
-          'Newline Separation',
-          'line1\\nline2',
-          [
-            {'index': 1, 'word': 'line1', 'start': 0, 'end': 5},
-            {'index': 2, 'word': 'line2', 'start': 6, 'end': 11},
-          ],
-        ),
+        buildWhitespaceCard('Newline Separation', 'line1\\nline2', [
+          {'index': 1, 'word': 'line1', 'start': 0, 'end': 5},
+          {'index': 2, 'word': 'line2', 'start': 6, 'end': 11},
+        ]),
 
         Container(
           margin: EdgeInsets.symmetric(vertical: 8),
@@ -1132,11 +1126,26 @@ dynamic build(BuildContext context) {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  Chip(label: Text('Space'), backgroundColor: Colors.green.shade100),
-                  Chip(label: Text('Tab \\t'), backgroundColor: Colors.green.shade100),
-                  Chip(label: Text('Newline \\n'), backgroundColor: Colors.green.shade100),
-                  Chip(label: Text('Carriage Return \\r'), backgroundColor: Colors.green.shade100),
-                  Chip(label: Text('Form Feed \\f'), backgroundColor: Colors.green.shade100),
+                  Chip(
+                    label: Text('Space'),
+                    backgroundColor: Colors.green.shade100,
+                  ),
+                  Chip(
+                    label: Text('Tab \\t'),
+                    backgroundColor: Colors.green.shade100,
+                  ),
+                  Chip(
+                    label: Text('Newline \\n'),
+                    backgroundColor: Colors.green.shade100,
+                  ),
+                  Chip(
+                    label: Text('Carriage Return \\r'),
+                    backgroundColor: Colors.green.shade100,
+                  ),
+                  Chip(
+                    label: Text('Form Feed \\f'),
+                    backgroundColor: Colors.green.shade100,
+                  ),
                 ],
               ),
             ],
@@ -1171,10 +1180,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8),
-              Text(
-                'Full text: "$selText"',
-                style: TextStyle(fontSize: 12),
-              ),
+              Text('Full text: "$selText"', style: TextStyle(fontSize: 12)),
               SizedBox(height: 6),
               Container(
                 padding: EdgeInsets.all(10),
@@ -1237,7 +1243,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Text('TextRange.collapsed(5)', style: TextStyle(fontSize: 12)),
+                  Text(
+                    'TextRange.collapsed(5)',
+                    style: TextStyle(fontSize: 12),
+                  ),
                   Spacer(),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -1247,10 +1256,7 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       'isCollapsed: true',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                      ),
+                      style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
                     ),
                   ),
                 ],
@@ -1351,8 +1357,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12),
-              buildInfoCard('WordBoundary', 'Extends TextBoundary for word detection'),
-              buildInfoCard('TextRange', 'Holds start/end offsets for word extent'),
+              buildInfoCard(
+                'WordBoundary',
+                'Extends TextBoundary for word detection',
+              ),
+              buildInfoCard(
+                'TextRange',
+                'Holds start/end offsets for word extent',
+              ),
               buildInfoCard('Leading Offset', 'Index where word starts'),
               buildInfoCard('Trailing Offset', 'Index after word ends'),
               buildInfoCard('Whitespace', 'Acts as word separator'),

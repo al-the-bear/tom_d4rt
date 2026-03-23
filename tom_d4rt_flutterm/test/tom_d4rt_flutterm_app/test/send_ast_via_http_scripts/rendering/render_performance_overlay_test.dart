@@ -52,18 +52,12 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         Text(
           'Flutter Performance Overlay Demo',
-          style: TextStyle(
-            fontSize: 16.0,
-            color: Color(0xBBFFFFFF),
-          ),
+          style: TextStyle(fontSize: 16.0, color: Color(0xBBFFFFFF)),
         ),
         SizedBox(height: 8.0),
         Text(
           'Visualizes rasterizer and UI thread frame timings as bar charts',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Color(0x99FFFFFF),
-          ),
+          style: TextStyle(fontSize: 13.0, color: Color(0x99FFFFFF)),
         ),
       ],
     ),
@@ -105,10 +99,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   subtitle,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xBBFFFFFF),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xBBFFFFFF)),
                 ),
               ],
             ),
@@ -127,9 +118,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(8.0),
-        border: Border(
-          left: BorderSide(color: borderColor, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: borderColor, width: 4.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,10 +134,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             description,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Color(0xFF616161),
-            ),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
           ),
         ],
       ),
@@ -221,12 +207,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 60.0,
-          child: PerformanceOverlay(
-            optionsMask: 1,
-          ),
-        ),
+        SizedBox(height: 60.0, child: PerformanceOverlay(optionsMask: 1)),
       ],
     ),
   );
@@ -255,12 +236,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 60.0,
-          child: PerformanceOverlay(
-            optionsMask: 2,
-          ),
-        ),
+        SizedBox(height: 60.0, child: PerformanceOverlay(optionsMask: 2)),
       ],
     ),
   );
@@ -289,12 +265,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 60.0,
-          child: PerformanceOverlay(
-            optionsMask: 4,
-          ),
-        ),
+        SizedBox(height: 60.0, child: PerformanceOverlay(optionsMask: 4)),
       ],
     ),
   );
@@ -343,12 +314,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 80.0,
-          child: PerformanceOverlay(
-            optionsMask: 15,
-          ),
-        ),
+        SizedBox(height: 80.0, child: PerformanceOverlay(optionsMask: 15)),
       ],
     ),
   );
@@ -376,12 +342,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 80.0,
-          child: PerformanceOverlay(
-            optionsMask: 15,
-          ),
-        ),
+        SizedBox(height: 80.0, child: PerformanceOverlay(optionsMask: 15)),
       ],
     ),
   );
@@ -429,12 +390,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 80.0,
-          child: PerformanceOverlay(
-            optionsMask: 15,
-          ),
-        ),
+        SizedBox(height: 80.0, child: PerformanceOverlay(optionsMask: 15)),
       ],
     ),
   );
@@ -491,12 +447,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 80.0,
-          child: PerformanceOverlay(
-            optionsMask: 15,
-          ),
-        ),
+        SizedBox(height: 80.0, child: PerformanceOverlay(optionsMask: 15)),
       ],
     ),
   );
@@ -552,11 +503,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Row(
           children: [
-            Container(
-              width: 16.0,
-              height: 16.0,
-              color: accentColor,
-            ),
+            Container(width: 16.0, height: 16.0, color: accentColor),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
@@ -569,11 +516,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         Row(
           children: [
-            Container(
-              width: 16.0,
-              height: 16.0,
-              color: warningColor,
-            ),
+            Container(width: 16.0, height: 16.0, color: warningColor),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
@@ -593,8 +536,8 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             'The UI thread handles widget build, layout, and paint. '
-                'The rasterizer thread takes the scene and renders it to pixels '
-                'on the GPU. Both must complete within 16ms for 60fps.',
+            'The rasterizer thread takes the scene and renders it to pixels '
+            'on the GPU. Both must complete within 16ms for 60fps.',
             style: TextStyle(fontSize: 12.0, color: Color(0xFF795548)),
           ),
         ),
@@ -716,8 +659,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         Text(
           '60fps target: 16.67ms per frame\n'
-              '120fps target: 8.33ms per frame\n'
-              'Horizontal lines in the overlay mark these thresholds',
+          '120fps target: 8.33ms per frame\n'
+          'Horizontal lines in the overlay mark these thresholds',
           style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
         ),
       ],
@@ -770,11 +713,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'MaterialApp(\n'
-              '  showPerformanceOverlay: true,\n'
-              '  // Shows overlay on top of entire app\n'
-              '  // Covers both UI and rasterizer graphs\n'
-              '  home: MyHomePage(),\n'
-              ')',
+          '  showPerformanceOverlay: true,\n'
+          '  // Shows overlay on top of entire app\n'
+          '  // Covers both UI and rasterizer graphs\n'
+          '  home: MyHomePage(),\n'
+          ')',
           style: TextStyle(
             fontSize: 12.0,
             fontFamily: 'monospace',
@@ -843,10 +786,7 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 8.0),
-        SizedBox(
-          height: 80.0,
-          child: PerformanceOverlay.allEnabled(),
-        ),
+        SizedBox(height: 80.0, child: PerformanceOverlay.allEnabled()),
         SizedBox(height: 8.0),
         Text(
           'Only shows in debug builds - use kDebugMode or assert-based flags',
@@ -877,18 +817,18 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'Stack(\n'
-              '  children: [\n'
-              '    MyAppContent(),\n'
-              '    if (showOverlay)\n'
-              '      Positioned(\n'
-              '        top: 0, left: 0, right: 0,\n'
-              '        height: 100,\n'
-              '        child: PerformanceOverlay(\n'
-              '          optionsMask: 15,\n'
-              '        ),\n'
-              '      ),\n'
-              '  ],\n'
-              ')',
+          '  children: [\n'
+          '    MyAppContent(),\n'
+          '    if (showOverlay)\n'
+          '      Positioned(\n'
+          '        top: 0, left: 0, right: 0,\n'
+          '        height: 100,\n'
+          '        child: PerformanceOverlay(\n'
+          '          optionsMask: 15,\n'
+          '        ),\n'
+          '      ),\n'
+          '  ],\n'
+          ')',
           style: TextStyle(
             fontSize: 12.0,
             fontFamily: 'monospace',
@@ -953,12 +893,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 4.0),
-        SizedBox(
-          height: 120.0,
-          child: PerformanceOverlay(
-            optionsMask: 15,
-          ),
-        ),
+        SizedBox(height: 120.0, child: PerformanceOverlay(optionsMask: 15)),
       ],
     ),
   );
@@ -988,9 +923,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'optionsMask: 15 - All statistics and visualizations\n'
-              'rasterizerThreshold: 1 - Repeat each frame once\n'
-              'checkerboardRasterCacheImages: true - Show cached images\n'
-              'checkerboardOffscreenLayers: true - Show offscreen compositing',
+          'rasterizerThreshold: 1 - Repeat each frame once\n'
+          'checkerboardRasterCacheImages: true - Show cached images\n'
+          'checkerboardOffscreenLayers: true - Show offscreen compositing',
           style: TextStyle(
             fontSize: 12.0,
             color: Color(0xFF424242),
@@ -1026,10 +961,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'Performance overlay is a debug-time tool for frame timing analysis',
-          style: TextStyle(
-            fontSize: 11.0,
-            color: Color(0xFF78909C),
-          ),
+          style: TextStyle(fontSize: 11.0, color: Color(0xFF78909C)),
         ),
       ],
     ),

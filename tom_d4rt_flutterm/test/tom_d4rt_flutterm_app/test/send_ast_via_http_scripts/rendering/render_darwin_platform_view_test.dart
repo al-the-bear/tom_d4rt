@@ -135,7 +135,9 @@ Widget _buildNativeViewPlaceholders() {
     },
   ];
 
-  print('RenderDarwinPlatformView demo: rendering ${nativeViews.length} native view types');
+  print(
+    'RenderDarwinPlatformView demo: rendering ${nativeViews.length} native view types',
+  );
 
   return Padding(
     padding: EdgeInsets.all(16),
@@ -244,7 +246,9 @@ Widget _buildCompositionLayers() {
             children: layers.map((layer) {
               double topOffset = (3 - layer['zIndex']) * 65.0 + 10;
               double leftOffset = (3 - layer['zIndex']) * 12.0 + 8;
-              print('RenderDarwinPlatformView demo: layer z=${layer['zIndex']} -> ${layer['label']}');
+              print(
+                'RenderDarwinPlatformView demo: layer z=${layer['zIndex']} -> ${layer['label']}',
+              );
               return Positioned(
                 top: topOffset,
                 left: leftOffset,
@@ -284,7 +288,10 @@ Widget _buildCompositionLayers() {
                       SizedBox(height: 4),
                       Text(
                         layer['desc'],
-                        style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 10),
+                        style: TextStyle(
+                          color: Color(0xBBFFFFFF),
+                          fontSize: 10,
+                        ),
                       ),
                     ],
                   ),
@@ -346,7 +353,9 @@ Widget _buildHitTestPassthrough() {
           ),
           child: Column(
             children: regions.map((region) {
-              print('RenderDarwinPlatformView demo: hit region - ${region['label']} accepts=${region['accepts']}');
+              print(
+                'RenderDarwinPlatformView demo: hit region - ${region['label']} accepts=${region['accepts']}',
+              );
               return Container(
                 margin: EdgeInsets.only(bottom: 8),
                 padding: EdgeInsets.all(10),
@@ -460,8 +469,12 @@ Widget _buildSizingModes() {
         SizedBox(height: 12),
         Column(
           children: modes.map((mode) {
-            print('RenderDarwinPlatformView demo: sizing mode - ${mode['mode']}');
-            double displayW = mode['w'] == double.infinity ? double.infinity : mode['w'];
+            print(
+              'RenderDarwinPlatformView demo: sizing mode - ${mode['mode']}',
+            );
+            double displayW = mode['w'] == double.infinity
+                ? double.infinity
+                : mode['w'];
             return Container(
               width: displayW,
               height: mode['h'],
@@ -572,8 +585,14 @@ Widget _buildPaintingPipelineInteraction() {
   );
 }
 
-Widget _buildPipelineStageRow(Map<String, dynamic> stage, int index, int total) {
-  print('RenderDarwinPlatformView demo: pipeline stage $index - ${stage['stage']}');
+Widget _buildPipelineStageRow(
+  Map<String, dynamic> stage,
+  int index,
+  int total,
+) {
+  print(
+    'RenderDarwinPlatformView demo: pipeline stage $index - ${stage['stage']}',
+  );
   return Column(
     children: [
       Container(
@@ -628,11 +647,7 @@ Widget _buildPipelineStageRow(Map<String, dynamic> stage, int index, int total) 
         ),
       ),
       if (index < total - 1)
-        Container(
-          height: 20,
-          width: 2,
-          color: Color(0xFF616161),
-        ),
+        Container(height: 20, width: 2, color: Color(0xFF616161)),
     ],
   );
 }
@@ -702,7 +717,11 @@ Widget _buildGestureDisambiguation() {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(zones[0]['icon'], color: Colors.white, size: 18),
+                            Icon(
+                              zones[0]['icon'],
+                              color: Colors.white,
+                              size: 18,
+                            ),
                             SizedBox(height: 4),
                             Text(
                               'Flutter',
@@ -728,7 +747,11 @@ Widget _buildGestureDisambiguation() {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(zones[2]['icon'], color: Colors.white, size: 18),
+                            Icon(
+                              zones[2]['icon'],
+                              color: Colors.white,
+                              size: 18,
+                            ),
                             SizedBox(height: 4),
                             Text(
                               'Shared',
@@ -757,7 +780,11 @@ Widget _buildGestureDisambiguation() {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(zones[1]['icon'], color: Colors.white, size: 18),
+                            Icon(
+                              zones[1]['icon'],
+                              color: Colors.white,
+                              size: 18,
+                            ),
                             SizedBox(height: 4),
                             Text(
                               'Native',
@@ -778,7 +805,9 @@ Widget _buildGestureDisambiguation() {
               // Detail list
               Column(
                 children: zones.map((zone) {
-                  print('RenderDarwinPlatformView demo: gesture zone - ${zone['zone']}');
+                  print(
+                    'RenderDarwinPlatformView demo: gesture zone - ${zone['zone']}',
+                  );
                   return Container(
                     margin: EdgeInsets.only(bottom: 6),
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -901,7 +930,9 @@ Widget _buildLifecycleStages() {
 }
 
 Widget _buildLifecycleRow(Map<String, dynamic> item, int index, int total) {
-  print('RenderDarwinPlatformView demo: lifecycle $index - ${item['stage']} (${item['status']})');
+  print(
+    'RenderDarwinPlatformView demo: lifecycle $index - ${item['stage']} (${item['status']})',
+  );
 
   Color statusColor;
   if (item['status'] == 'init') {
@@ -944,11 +975,7 @@ Widget _buildLifecycleRow(Map<String, dynamic> item, int index, int total) {
               ),
             ),
             if (index < total - 1)
-              Container(
-                width: 2,
-                height: 36,
-                color: Color(0xFF616161),
-              ),
+              Container(width: 2, height: 36, color: Color(0xFF616161)),
           ],
         ),
       ),
@@ -1012,16 +1039,8 @@ Widget _buildAppKitVsUiKitComparison() {
   print('RenderDarwinPlatformView demo: AppKitView vs UiKitView comparison');
 
   List<Map<String, dynamic>> features = [
-    {
-      'feature': 'Platform',
-      'appkit': 'macOS (AppKit)',
-      'uikit': 'iOS (UIKit)',
-    },
-    {
-      'feature': 'Base View',
-      'appkit': 'NSView',
-      'uikit': 'UIView',
-    },
+    {'feature': 'Platform', 'appkit': 'macOS (AppKit)', 'uikit': 'iOS (UIKit)'},
+    {'feature': 'Base View', 'appkit': 'NSView', 'uikit': 'UIView'},
     {
       'feature': 'Rendering',
       'appkit': 'CALayer compositing',
@@ -1222,15 +1241,15 @@ Widget _buildAppKitVsUiKitComparison() {
 }
 
 Widget _buildComparisonRow(Map<String, dynamic> feature, int index) {
-  print('RenderDarwinPlatformView demo: comparing ${feature['feature']}: ${feature['appkit']} vs ${feature['uikit']}');
+  print(
+    'RenderDarwinPlatformView demo: comparing ${feature['feature']}: ${feature['appkit']} vs ${feature['uikit']}',
+  );
 
   Color rowBg = index % 2 == 0 ? Color(0xFF1E1E2E) : Color(0xFF252538);
 
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-    decoration: BoxDecoration(
-      color: rowBg,
-    ),
+    decoration: BoxDecoration(color: rowBg),
     child: Row(
       children: [
         Expanded(

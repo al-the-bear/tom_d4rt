@@ -141,7 +141,11 @@ Widget _buildInfoCard(String title, String description, IconData icon) {
               SizedBox(height: 6),
               Text(
                 description,
-                style: TextStyle(fontSize: 13, color: _kPrimary700, height: 1.4),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: _kPrimary700,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -357,7 +361,10 @@ class _HitTestPathPainter extends CustomPainter {
       textPainter.layout(maxWidth: boxWidth - 10);
       textPainter.paint(
         canvas,
-        Offset(x + (boxWidth - textPainter.width) / 2, y + (boxHeight - textPainter.height) / 2),
+        Offset(
+          x + (boxWidth - textPainter.width) / 2,
+          y + (boxHeight - textPainter.height) / 2,
+        ),
       );
 
       if (i < pathItems.length - 1) {
@@ -419,11 +426,22 @@ class _TransformVisualizationPainter extends CustomPainter {
 
     double scaleX = size.width / 200;
     double scaleY = size.height / 200;
-    Offset scaledOriginal = Offset(originalPosition.dx * scaleX, originalPosition.dy * scaleY);
-    Offset scaledTransformed = Offset(transformedPosition.dx * scaleX, transformedPosition.dy * scaleY);
+    Offset scaledOriginal = Offset(
+      originalPosition.dx * scaleX,
+      originalPosition.dy * scaleY,
+    );
+    Offset scaledTransformed = Offset(
+      transformedPosition.dx * scaleX,
+      transformedPosition.dy * scaleY,
+    );
 
     canvas.drawCircle(scaledOriginal, 12, originalPaint);
-    _drawLabel(canvas, 'Original', scaledOriginal + Offset(15, -8), _kSecondary800);
+    _drawLabel(
+      canvas,
+      'Original',
+      scaledOriginal + Offset(15, -8),
+      _kSecondary800,
+    );
 
     var arrowPaint = Paint()
       ..color = _kError400
@@ -432,16 +450,30 @@ class _TransformVisualizationPainter extends CustomPainter {
     canvas.drawLine(scaledOriginal, scaledTransformed, arrowPaint);
 
     canvas.drawCircle(scaledTransformed, 12, transformedPaint);
-    _drawLabel(canvas, 'Transformed', scaledTransformed + Offset(15, -8), _kPrimary800);
+    _drawLabel(
+      canvas,
+      'Transformed',
+      scaledTransformed + Offset(15, -8),
+      _kPrimary800,
+    );
 
-    _drawLabel(canvas, transformType, Offset(size.width / 2 - 40, size.height - 20), Colors.grey.shade700);
+    _drawLabel(
+      canvas,
+      transformType,
+      Offset(size.width / 2 - 40, size.height - 20),
+      Colors.grey.shade700,
+    );
   }
 
   void _drawLabel(Canvas canvas, String text, Offset position, Color color) {
     var textPainter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w500),
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -480,8 +512,12 @@ class _CoordinateSystemPainter extends CustomPainter {
     canvas.drawLine(Offset(0, 0), Offset(size.width, 0), axisPaint);
     canvas.drawLine(Offset(0, 0), Offset(0, size.height), axisPaint);
 
-    var childRect = Rect.fromLTWH(size.width * 0.3, size.height * 0.3,
-        size.width * 0.5, size.height * 0.4);
+    var childRect = Rect.fromLTWH(
+      size.width * 0.3,
+      size.height * 0.3,
+      size.width * 0.5,
+      size.height * 0.4,
+    );
     canvas.drawRect(childRect, fillPaint);
 
     var childBorderPaint = Paint()
@@ -491,14 +527,23 @@ class _CoordinateSystemPainter extends CustomPainter {
     canvas.drawRect(childRect, childBorderPaint);
 
     _drawLabel(canvas, 'Parent (0,0)', Offset(5, 5), _kPrimary800);
-    _drawLabel(canvas, 'Child', Offset(childRect.left + 10, childRect.top + 10), _kPrimary700);
+    _drawLabel(
+      canvas,
+      'Child',
+      Offset(childRect.left + 10, childRect.top + 10),
+      _kPrimary700,
+    );
   }
 
   void _drawLabel(Canvas canvas, String text, Offset position, Color color) {
     var textPainter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: color,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -524,7 +569,9 @@ Widget _buildCreationSection() {
   var resultWithEntry = BoxHitTestResult();
   var mockBox = _MockRenderBox(name: 'TestBox', boxSize: Size(100, 100));
   resultWithEntry.add(BoxHitTestEntry(mockBox, Offset(50, 50)));
-  print('Created result with one entry: ${resultWithEntry.path.length} entries');
+  print(
+    'Created result with one entry: ${resultWithEntry.path.length} entries',
+  );
 
   var parentResult = HitTestResult();
   var wrappedResult = BoxHitTestResult.wrap(parentResult);
@@ -533,7 +580,10 @@ Widget _buildCreationSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildSectionHeader('1. BoxHitTestResult Creation', Icons.add_box_outlined),
+      _buildSectionHeader(
+        '1. BoxHitTestResult Creation',
+        Icons.add_box_outlined,
+      ),
       _buildInfoCard(
         'What is BoxHitTestResult?',
         'BoxHitTestResult is a specialized HitTestResult that collects BoxHitTestEntry objects during hit testing of RenderBox widgets. It provides coordinate transformation methods essential for nested hit testing.',
@@ -569,8 +619,14 @@ print(result.path.length);  // 1''',
       ),
       _buildResultCard('Result After Adding Entry', [
         _buildPropertyDisplay('path.length', '${resultWithEntry.path.length}'),
-        _buildPropertyDisplay('path.isNotEmpty', '${resultWithEntry.path.isNotEmpty}'),
-        _buildPropertyDisplay('First entry type', '${resultWithEntry.path.first.runtimeType}'),
+        _buildPropertyDisplay(
+          'path.isNotEmpty',
+          '${resultWithEntry.path.isNotEmpty}',
+        ),
+        _buildPropertyDisplay(
+          'First entry type',
+          '${resultWithEntry.path.first.runtimeType}',
+        ),
       ]),
       _buildSubsectionHeader('Wrap Constructor'),
       _buildCodeBlock(
@@ -626,9 +682,7 @@ Widget _buildAddMethodSection() {
         Icons.playlist_add,
       ),
       _buildSubsectionHeader('Basic Usage'),
-      _buildCodeBlock(
-        'Adding Entries',
-        '''final result = BoxHitTestResult();
+      _buildCodeBlock('Adding Entries', '''final result = BoxHitTestResult();
 
 // Create entries with target and local position
 result.add(BoxHitTestEntry(renderBox1, Offset(10, 10)));
@@ -636,13 +690,18 @@ result.add(BoxHitTestEntry(renderBox2, Offset(20, 20)));
 result.add(BoxHitTestEntry(renderBox3, Offset(30, 30)));
 
 // Path now contains 3 entries
-print(result.path.length);  // 3''',
-      ),
+print(result.path.length);  // 3'''),
       _buildResultCard('After Adding 3 Entries', [
         _buildPropertyDisplay('path.length', '${result.path.length}'),
-        _buildPropertyDisplay('Entry 0 (first hit)', 'BoxHitTestEntry @ (10, 10)'),
+        _buildPropertyDisplay(
+          'Entry 0 (first hit)',
+          'BoxHitTestEntry @ (10, 10)',
+        ),
         _buildPropertyDisplay('Entry 1', 'BoxHitTestEntry @ (20, 20)'),
-        _buildPropertyDisplay('Entry 2 (last hit)', 'BoxHitTestEntry @ (30, 30)'),
+        _buildPropertyDisplay(
+          'Entry 2 (last hit)',
+          'BoxHitTestEntry @ (30, 30)',
+        ),
       ]),
       _buildSubsectionHeader('Entry Order Visualization'),
       Container(
@@ -719,17 +778,14 @@ Widget _buildAddWithPaintOffsetSection() {
         Icons.straighten,
       ),
       _buildSubsectionHeader('How It Works'),
-      _buildCodeBlock(
-        'Method Signature',
-        '''bool addWithPaintOffset({
+      _buildCodeBlock('Method Signature', '''bool addWithPaintOffset({
   required Offset? offset,
   required Offset position,
   required BoxHitTest hitTest,
 })
 
 // If offset is null, position is passed unchanged
-// Otherwise: childPosition = position - offset''',
-      ),
+// Otherwise: childPosition = position - offset'''),
       _buildSubsectionHeader('Visual Demonstration'),
       Container(
         height: 180,
@@ -755,9 +811,7 @@ Widget _buildAddWithPaintOffsetSection() {
         _buildPropertyDisplay('Hit Detected', '$hasHit'),
       ]),
       _buildSubsectionHeader('Practical Example'),
-      _buildCodeBlock(
-        'Using in RenderBox.hitTest',
-        '''@override
+      _buildCodeBlock('Using in RenderBox.hitTest', '''@override
 bool hitTest(BoxHitTestResult result, {required Offset position}) {
   // Test child that is painted at offset (50, 30)
   bool isHit = result.addWithPaintOffset(
@@ -773,8 +827,7 @@ bool hitTest(BoxHitTestResult result, {required Offset position}) {
     return true;
   }
   return false;
-}''',
-      ),
+}'''),
       _buildInfoCard(
         'Null Offset Handling',
         'If the offset parameter is null, the position is passed directly to the hit test callback without transformation. This is useful for conditional offsetting.',
@@ -792,7 +845,10 @@ Widget _buildAddWithPaintTransformSection() {
   print('=== addWithPaintTransform Section ===');
 
   var result = BoxHitTestResult();
-  var childBox = _MockRenderBox(name: 'TransformedChild', boxSize: Size(100, 100));
+  var childBox = _MockRenderBox(
+    name: 'TransformedChild',
+    boxSize: Size(100, 100),
+  );
 
   Matrix4 transform = Matrix4.identity()
     ..setEntry(0, 0, 2.0)
@@ -831,9 +887,7 @@ Widget _buildAddWithPaintTransformSection() {
         Icons.grid_on,
       ),
       _buildSubsectionHeader('Method Overview'),
-      _buildCodeBlock(
-        'Method Signature',
-        '''bool addWithPaintTransform({
+      _buildCodeBlock('Method Signature', '''bool addWithPaintTransform({
   required Matrix4? transform,
   required Offset position,
   required BoxHitTest hitTest,
@@ -842,8 +896,7 @@ Widget _buildAddWithPaintTransformSection() {
 // 1. Computes inverse of transform
 // 2. Transforms position using inverse
 // 3. Calls hitTest with transformed position
-// 4. Adds transform to result path for event routing''',
-      ),
+// 4. Adds transform to result path for event routing'''),
       _buildSubsectionHeader('Transform Matrix Example'),
       _buildResultCard('Scale + Rotate Transform', [
         _buildPropertyDisplay('Scale', '2.0x in both axes'),
@@ -852,9 +905,7 @@ Widget _buildAddWithPaintTransformSection() {
         _buildPropertyDisplay('Has Hit', '$hasHit'),
         _buildPropertyDisplay('Entries Added', '${result.path.length}'),
       ]),
-      _buildCodeBlock(
-        'Practical Usage - Rotated Child',
-        '''@override
+      _buildCodeBlock('Practical Usage - Rotated Child', '''@override
 bool hitTest(BoxHitTestResult result, {required Offset position}) {
   // Child is painted with rotation and scale
   final Matrix4 transform = Matrix4.identity()
@@ -870,8 +921,7 @@ bool hitTest(BoxHitTestResult result, {required Offset position}) {
       return child?.hitTest(result, position: local) ?? false;
     },
   );
-}''',
-      ),
+}'''),
       _buildInfoCard(
         'Transform Invertibility',
         'If the transform matrix is not invertible (determinant is 0), the hit test returns false immediately. This can happen with degenerate transforms like scale(0, 0).',
@@ -904,7 +954,10 @@ Widget _buildPathPropertySection() {
   var boxes = <_MockRenderBox>[];
 
   for (int i = 0; i < 5; i++) {
-    var box = _MockRenderBox(name: 'PathBox$i', boxSize: Size(100 - i * 10, 100 - i * 10));
+    var box = _MockRenderBox(
+      name: 'PathBox$i',
+      boxSize: Size(100 - i * 10, 100 - i * 10),
+    );
     boxes.add(box);
     result.add(BoxHitTestEntry(box, Offset(10.0 * i, 10.0 * i)));
     print('Added PathBox$i to path');
@@ -915,7 +968,9 @@ Widget _buildPathPropertySection() {
 
   int index = 0;
   for (var entry in result.path) {
-    print('Path[$index]: ${entry.runtimeType}, target: ${(entry as BoxHitTestEntry).target}');
+    print(
+      'Path[$index]: ${entry.runtimeType}, target: ${(entry as BoxHitTestEntry).target}',
+    );
     index++;
   }
 
@@ -929,16 +984,13 @@ Widget _buildPathPropertySection() {
         Icons.linear_scale,
       ),
       _buildSubsectionHeader('Path Structure'),
-      _buildCodeBlock(
-        'Path Property',
-        '''// Returns all entries in hit order
+      _buildCodeBlock('Path Property', '''// Returns all entries in hit order
 Iterable<HitTestEntry> get path;
 
 // path is read-only - modifications go through add methods
 print(result.path.length);
 print(result.path.first);
-print(result.path.last);''',
-      ),
+print(result.path.last);'''),
       _buildResultCard('Path Contents (5 Entries)', [
         _buildPropertyDisplay('path.length', '${result.path.length}'),
         _buildPropertyDisplay('Entry 0', 'PathBox0 @ (0, 0)'),
@@ -1028,11 +1080,17 @@ Widget _buildHitTestEntrySection() {
 }''',
       ),
       _buildResultCard('Example Entry', [
-        _buildPropertyDisplay('target.runtimeType', '${entry.target.runtimeType}'),
+        _buildPropertyDisplay(
+          'target.runtimeType',
+          '${entry.target.runtimeType}',
+        ),
         _buildPropertyDisplay('localPosition', '${entry.localPosition}'),
         _buildPropertyDisplay('localPosition.dx', '${entry.localPosition.dx}'),
         _buildPropertyDisplay('localPosition.dy', '${entry.localPosition.dy}'),
-        _buildPropertyDisplay('transform', '${entry.transform ?? "null (identity)"}'),
+        _buildPropertyDisplay(
+          'transform',
+          '${entry.transform ?? "null (identity)"}',
+        ),
       ]),
       _buildSubsectionHeader('Entry Creation'),
       _buildCodeBlock(
@@ -1060,9 +1118,7 @@ result.addWithPaintOffset(
         'The transform property accumulates all transforms applied during hit testing. This is used to convert global positions back to local coordinates when handling events.',
         Icons.transform,
       ),
-      _buildCodeBlock(
-        'Using Entry Transform',
-        '''// Get entry from path
+      _buildCodeBlock('Using Entry Transform', '''// Get entry from path
 final entry = result.path.first as BoxHitTestEntry;
 
 // Access the accumulated transform
@@ -1075,8 +1131,7 @@ if (transform != null) {
     Matrix4.tryInvert(transform)!,
     global,
   );
-}''',
-      ),
+}'''),
       _buildSubsectionHeader('Coordinate System'),
       Container(
         height: 160,
@@ -1142,9 +1197,18 @@ print(boxResult.path.length);     // 1''',
       ),
       _buildResultCard('Shared Path Demonstration', [
         _buildPropertyDisplay('After 2 entries:', ''),
-        _buildPropertyDisplay('  original.path.length', '${originalResult.path.length}'),
-        _buildPropertyDisplay('  wrapped.path.length', '${wrappedResult.path.length}'),
-        _buildPropertyDisplay('Same underlying path?', 'Yes - shared reference'),
+        _buildPropertyDisplay(
+          '  original.path.length',
+          '${originalResult.path.length}',
+        ),
+        _buildPropertyDisplay(
+          '  wrapped.path.length',
+          '${wrappedResult.path.length}',
+        ),
+        _buildPropertyDisplay(
+          'Same underlying path?',
+          'Yes - shared reference',
+        ),
       ]),
       _buildSubsectionHeader('Use Cases'),
       _buildCodeBlock(
@@ -1397,10 +1461,19 @@ Widget _buildSummarySection() {
     children: [
       _buildSectionHeader('Summary', Icons.summarize),
       _buildResultCard('Key Takeaways', [
-        _buildPropertyDisplay('Purpose', 'Collect hit test entries for RenderBox'),
+        _buildPropertyDisplay(
+          'Purpose',
+          'Collect hit test entries for RenderBox',
+        ),
         _buildPropertyDisplay('add()', 'Directly add BoxHitTestEntry'),
-        _buildPropertyDisplay('addWithPaintOffset()', 'Subtract offset before testing'),
-        _buildPropertyDisplay('addWithPaintTransform()', 'Apply inverse matrix transform'),
+        _buildPropertyDisplay(
+          'addWithPaintOffset()',
+          'Subtract offset before testing',
+        ),
+        _buildPropertyDisplay(
+          'addWithPaintTransform()',
+          'Apply inverse matrix transform',
+        ),
         _buildPropertyDisplay('path', 'Iterate entries front-to-back'),
         _buildPropertyDisplay('wrap()', 'Share path with parent result'),
       ]),
@@ -1438,9 +1511,15 @@ Widget _buildSummarySection() {
       ),
       _buildSubsectionHeader('Related Classes'),
       _buildResultCard('Hit Test Family', [
-        _buildPropertyDisplay('HitTestResult', 'Base class for all hit test results'),
+        _buildPropertyDisplay(
+          'HitTestResult',
+          'Base class for all hit test results',
+        ),
         _buildPropertyDisplay('BoxHitTestResult', 'For RenderBox hit testing'),
-        _buildPropertyDisplay('SliverHitTestResult', 'For RenderSliver hit testing'),
+        _buildPropertyDisplay(
+          'SliverHitTestResult',
+          'For RenderSliver hit testing',
+        ),
         _buildPropertyDisplay('HitTestEntry', 'Base entry in hit path'),
         _buildPropertyDisplay('BoxHitTestEntry', 'Entry with localPosition'),
       ]),

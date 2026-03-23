@@ -170,27 +170,25 @@ Widget buildCreatingSearchController() {
                     label: Text('Users'),
                   );
                 },
-                suggestionsBuilder: (
-                  BuildContext context,
-                  SearchController ctrl,
-                ) {
-                  return [
-                    ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('Alice'),
-                      onTap: () {
-                        ctrl.closeView('Alice');
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('Bob'),
-                      onTap: () {
-                        ctrl.closeView('Bob');
-                      },
-                    ),
-                  ];
-                },
+                suggestionsBuilder:
+                    (BuildContext context, SearchController ctrl) {
+                      return [
+                        ListTile(
+                          leading: Icon(Icons.person),
+                          title: Text('Alice'),
+                          onTap: () {
+                            ctrl.closeView('Alice');
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.person),
+                          title: Text('Bob'),
+                          onTap: () {
+                            ctrl.closeView('Bob');
+                          },
+                        ),
+                      ];
+                    },
               ),
             ),
             SizedBox(width: 16),
@@ -206,27 +204,25 @@ Widget buildCreatingSearchController() {
                     label: Text('Tags'),
                   );
                 },
-                suggestionsBuilder: (
-                  BuildContext context,
-                  SearchController ctrl,
-                ) {
-                  return [
-                    ListTile(
-                      leading: Icon(Icons.label),
-                      title: Text('Flutter'),
-                      onTap: () {
-                        ctrl.closeView('Flutter');
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.label),
-                      title: Text('Dart'),
-                      onTap: () {
-                        ctrl.closeView('Dart');
-                      },
-                    ),
-                  ];
-                },
+                suggestionsBuilder:
+                    (BuildContext context, SearchController ctrl) {
+                      return [
+                        ListTile(
+                          leading: Icon(Icons.label),
+                          title: Text('Flutter'),
+                          onTap: () {
+                            ctrl.closeView('Flutter');
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.label),
+                          title: Text('Dart'),
+                          onTap: () {
+                            ctrl.closeView('Dart');
+                          },
+                        ),
+                      ];
+                    },
               ),
             ),
           ],
@@ -480,7 +476,10 @@ Widget buildOpenViewDemo() {
                 String task = tasks[i];
                 suggestions.add(
                   ListTile(
-                    leading: Icon(Icons.check_circle_outline, color: Colors.blue),
+                    leading: Icon(
+                      Icons.check_circle_outline,
+                      color: Colors.blue,
+                    ),
                     title: Text(task),
                     onTap: () {
                       ctrl.closeView(task);
@@ -736,7 +735,11 @@ Widget buildCloseViewDemo() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.compare_arrows, color: Colors.purple.shade700, size: 20),
+                  Icon(
+                    Icons.compare_arrows,
+                    color: Colors.purple.shade700,
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'closeView Behavior:',
@@ -891,10 +894,7 @@ Widget buildIsOpenDemo() {
                 'Conditional UI',
                 'Show/hide elements based on search state',
               ),
-              _buildUsageRow(
-                'Analytics',
-                'Track when users open/close search',
-              ),
+              _buildUsageRow('Analytics', 'Track when users open/close search'),
               _buildUsageRow(
                 'State Management',
                 'Sync search state with app state',
@@ -1064,7 +1064,11 @@ Widget buildValuePropertyDemo() {
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
-              _buildValuePropertyRow('text', 'String', 'The current text content'),
+              _buildValuePropertyRow(
+                'text',
+                'String',
+                'The current text content',
+              ),
               _buildValuePropertyRow(
                 'selection',
                 'TextSelection',
@@ -1402,7 +1406,10 @@ Widget buildAddRemoveListenerDemo() {
                   onTap: () {
                     ctrl.openView();
                   },
-                  leading: Icon(Icons.notifications, color: Colors.amber.shade700),
+                  leading: Icon(
+                    Icons.notifications,
+                    color: Colors.amber.shade700,
+                  ),
                   hintText: 'Type to trigger listener...',
                 );
               },
@@ -1527,12 +1534,7 @@ Widget _buildListenerUseCase(IconData icon, String title, String desc) {
 
 Widget buildSearchControllerPropertiesTable() {
   print('Building SearchController properties table');
-  List<String> propNames = [
-    'text',
-    'value',
-    'selection',
-    'isOpen',
-  ];
+  List<String> propNames = ['text', 'value', 'selection', 'isOpen'];
   List<String> propTypes = [
     'String',
     'TextEditingValue',
@@ -1746,12 +1748,7 @@ Widget buildBestPracticesSection() {
               ),
             ),
             SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                practices[p],
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
+            Expanded(child: Text(practices[p], style: TextStyle(fontSize: 13))),
           ],
         ),
       ),
@@ -1918,10 +1915,7 @@ Widget main() {
           children: [
             buildSectionHeader('1. Overview'),
             buildInfoCard('Class', 'SearchController'),
-            buildInfoCard(
-              'Extends',
-              'TextEditingController',
-            ),
+            buildInfoCard('Extends', 'TextEditingController'),
             buildInfoCard('Package', 'flutter/material.dart'),
             buildInfoCard(
               'Purpose',

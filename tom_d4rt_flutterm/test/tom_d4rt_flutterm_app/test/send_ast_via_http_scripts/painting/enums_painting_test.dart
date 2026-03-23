@@ -110,7 +110,11 @@ Widget buildBoxFitDemo(BoxFit fit, String label) {
               height: 80,
               color: Colors.purple.shade200,
               child: Center(
-                child: Icon(Icons.image, color: Colors.purple.shade700, size: 40),
+                child: Icon(
+                  Icons.image,
+                  color: Colors.purple.shade700,
+                  size: 40,
+                ),
               ),
             ),
           ),
@@ -332,11 +336,20 @@ Widget buildTextDirectionDemo(TextDirection direction, String label) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('1', style: TextStyle(fontSize: 16, color: Colors.amber.shade900)),
+              Text(
+                '1',
+                style: TextStyle(fontSize: 16, color: Colors.amber.shade900),
+              ),
               Icon(Icons.arrow_right_alt, color: Colors.amber.shade700),
-              Text('2', style: TextStyle(fontSize: 16, color: Colors.amber.shade900)),
+              Text(
+                '2',
+                style: TextStyle(fontSize: 16, color: Colors.amber.shade900),
+              ),
               Icon(Icons.arrow_right_alt, color: Colors.amber.shade700),
-              Text('3', style: TextStyle(fontSize: 16, color: Colors.amber.shade900)),
+              Text(
+                '3',
+                style: TextStyle(fontSize: 16, color: Colors.amber.shade900),
+              ),
             ],
           ),
         ),
@@ -416,7 +429,11 @@ Widget buildFilterQualityDemo(FilterQuality quality, String label) {
   );
 }
 
-Widget buildRenderComparisonDemo(RenderComparison comparison, String label, String description) {
+Widget buildRenderComparisonDemo(
+  RenderComparison comparison,
+  String label,
+  String description,
+) {
   Color badgeColor;
   switch (comparison) {
     case RenderComparison.identical:
@@ -570,10 +587,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'Visual demonstrations of Flutter painting enumerations',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.white70),
               ),
             ],
           ),
@@ -581,7 +595,11 @@ dynamic build(BuildContext context) {
 
         // Section: BoxFit
         buildSectionHeader('BoxFit Enum'),
-        buildEnumCard('BoxFit', 'Overview', 'Controls how an image or content is fitted within a container'),
+        buildEnumCard(
+          'BoxFit',
+          'Overview',
+          'Controls how an image or content is fitted within a container',
+        ),
         buildSubHeader('BoxFit Values Visualized'),
         Wrap(
           spacing: 8,
@@ -596,17 +614,33 @@ dynamic build(BuildContext context) {
             buildBoxFitDemo(BoxFit.scaleDown, 'scaleDown'),
           ],
         ),
-        buildEnumCard('BoxFit', 'fill', 'Stretches to fill entire space, may distort'),
-        buildEnumCard('BoxFit', 'contain', 'Scales to fit while maintaining aspect ratio'),
+        buildEnumCard(
+          'BoxFit',
+          'fill',
+          'Stretches to fill entire space, may distort',
+        ),
+        buildEnumCard(
+          'BoxFit',
+          'contain',
+          'Scales to fit while maintaining aspect ratio',
+        ),
         buildEnumCard('BoxFit', 'cover', 'Covers entire space, may clip'),
         buildEnumCard('BoxFit', 'fitWidth', 'Fits width, may overflow height'),
         buildEnumCard('BoxFit', 'fitHeight', 'Fits height, may overflow width'),
         buildEnumCard('BoxFit', 'none', 'No scaling, centered alignment'),
-        buildEnumCard('BoxFit', 'scaleDown', 'Like contain but never scales up'),
+        buildEnumCard(
+          'BoxFit',
+          'scaleDown',
+          'Like contain but never scales up',
+        ),
 
         // Section: ImageRepeat
         buildSectionHeader('ImageRepeat Enum'),
-        buildEnumCard('ImageRepeat', 'Overview', 'Defines how images repeat to fill available space'),
+        buildEnumCard(
+          'ImageRepeat',
+          'Overview',
+          'Defines how images repeat to fill available space',
+        ),
         buildSubHeader('ImageRepeat Values'),
         Wrap(
           spacing: 8,
@@ -618,14 +652,26 @@ dynamic build(BuildContext context) {
             buildImageRepeatDemo(ImageRepeat.repeatY, 'repeatY'),
           ],
         ),
-        buildEnumCard('ImageRepeat', 'noRepeat', 'Image displayed once, no tiling'),
-        buildEnumCard('ImageRepeat', 'repeat', 'Image tiles in both directions'),
+        buildEnumCard(
+          'ImageRepeat',
+          'noRepeat',
+          'Image displayed once, no tiling',
+        ),
+        buildEnumCard(
+          'ImageRepeat',
+          'repeat',
+          'Image tiles in both directions',
+        ),
         buildEnumCard('ImageRepeat', 'repeatX', 'Image tiles horizontally'),
         buildEnumCard('ImageRepeat', 'repeatY', 'Image tiles vertically'),
 
         // Section: Axis
         buildSectionHeader('Axis Enum'),
-        buildEnumCard('Axis', 'Overview', 'Represents the two directions of layout'),
+        buildEnumCard(
+          'Axis',
+          'Overview',
+          'Represents the two directions of layout',
+        ),
         buildSubHeader('Axis Values Visualized'),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -634,12 +680,20 @@ dynamic build(BuildContext context) {
             buildAxisDemo(Axis.vertical, 'vertical'),
           ],
         ),
-        buildEnumCard('Axis', 'horizontal', 'Left-to-right or right-to-left layout'),
+        buildEnumCard(
+          'Axis',
+          'horizontal',
+          'Left-to-right or right-to-left layout',
+        ),
         buildEnumCard('Axis', 'vertical', 'Top-to-bottom layout'),
 
         // Section: AxisDirection
         buildSectionHeader('AxisDirection Enum'),
-        buildEnumCard('AxisDirection', 'Overview', 'Indicates direction of travel along an axis'),
+        buildEnumCard(
+          'AxisDirection',
+          'Overview',
+          'Indicates direction of travel along an axis',
+        ),
         buildSubHeader('AxisDirection Values'),
         Wrap(
           spacing: 8,
@@ -658,7 +712,11 @@ dynamic build(BuildContext context) {
 
         // Section: BorderStyle
         buildSectionHeader('BorderStyle Enum'),
-        buildEnumCard('BorderStyle', 'Overview', 'Defines visual style of borders'),
+        buildEnumCard(
+          'BorderStyle',
+          'Overview',
+          'Defines visual style of borders',
+        ),
         buildSubHeader('BorderStyle Values'),
         Wrap(
           spacing: 8,
@@ -673,7 +731,11 @@ dynamic build(BuildContext context) {
 
         // Section: TextAlign
         buildSectionHeader('TextAlign Enum'),
-        buildEnumCard('TextAlign', 'Overview', 'Controls horizontal text alignment'),
+        buildEnumCard(
+          'TextAlign',
+          'Overview',
+          'Controls horizontal text alignment',
+        ),
         buildSubHeader('TextAlign Values'),
         buildTextAlignDemo(TextAlign.left, 'TextAlign.left'),
         buildTextAlignDemo(TextAlign.right, 'TextAlign.right'),
@@ -685,12 +747,20 @@ dynamic build(BuildContext context) {
         buildEnumCard('TextAlign', 'right', 'Align text to the right edge'),
         buildEnumCard('TextAlign', 'center', 'Center text horizontally'),
         buildEnumCard('TextAlign', 'justify', 'Stretch lines to fill width'),
-        buildEnumCard('TextAlign', 'start', 'Align based on text direction start'),
+        buildEnumCard(
+          'TextAlign',
+          'start',
+          'Align based on text direction start',
+        ),
         buildEnumCard('TextAlign', 'end', 'Align based on text direction end'),
 
         // Section: TextDirection
         buildSectionHeader('TextDirection Enum'),
-        buildEnumCard('TextDirection', 'Overview', 'Indicates reading direction of text'),
+        buildEnumCard(
+          'TextDirection',
+          'Overview',
+          'Indicates reading direction of text',
+        ),
         buildSubHeader('TextDirection Values'),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -700,24 +770,48 @@ dynamic build(BuildContext context) {
           ],
         ),
         buildEnumCard('TextDirection', 'ltr', 'Left-to-right (English, etc.)'),
-        buildEnumCard('TextDirection', 'rtl', 'Right-to-left (Arabic, Hebrew, etc.)'),
+        buildEnumCard(
+          'TextDirection',
+          'rtl',
+          'Right-to-left (Arabic, Hebrew, etc.)',
+        ),
 
         // Section: TextOverflow
         buildSectionHeader('TextOverflow Enum'),
-        buildEnumCard('TextOverflow', 'Overview', 'Controls how text handles overflow'),
+        buildEnumCard(
+          'TextOverflow',
+          'Overview',
+          'Controls how text handles overflow',
+        ),
         buildSubHeader('TextOverflow Values'),
         buildTextOverflowDemo(TextOverflow.clip, 'TextOverflow.clip'),
         buildTextOverflowDemo(TextOverflow.fade, 'TextOverflow.fade'),
         buildTextOverflowDemo(TextOverflow.ellipsis, 'TextOverflow.ellipsis'),
         buildTextOverflowDemo(TextOverflow.visible, 'TextOverflow.visible'),
-        buildEnumCard('TextOverflow', 'clip', 'Clips overflow without indication'),
+        buildEnumCard(
+          'TextOverflow',
+          'clip',
+          'Clips overflow without indication',
+        ),
         buildEnumCard('TextOverflow', 'fade', 'Fades out text that overflows'),
-        buildEnumCard('TextOverflow', 'ellipsis', 'Shows ... at overflow point'),
-        buildEnumCard('TextOverflow', 'visible', 'Renders overflow outside bounds'),
+        buildEnumCard(
+          'TextOverflow',
+          'ellipsis',
+          'Shows ... at overflow point',
+        ),
+        buildEnumCard(
+          'TextOverflow',
+          'visible',
+          'Renders overflow outside bounds',
+        ),
 
         // Section: FilterQuality
         buildSectionHeader('FilterQuality Enum'),
-        buildEnumCard('FilterQuality', 'Overview', 'Quality level for image sampling'),
+        buildEnumCard(
+          'FilterQuality',
+          'Overview',
+          'Quality level for image sampling',
+        ),
         buildSubHeader('FilterQuality Values'),
         Wrap(
           spacing: 8,
@@ -736,7 +830,11 @@ dynamic build(BuildContext context) {
 
         // Section: RenderComparison
         buildSectionHeader('RenderComparison Enum'),
-        buildEnumCard('RenderComparison', 'Overview', 'Result of comparing render objects'),
+        buildEnumCard(
+          'RenderComparison',
+          'Overview',
+          'Result of comparing render objects',
+        ),
         buildSubHeader('RenderComparison Values'),
         buildRenderComparisonDemo(
           RenderComparison.identical,
@@ -758,10 +856,26 @@ dynamic build(BuildContext context) {
           'layout',
           'Requires full layout recalculation',
         ),
-        buildEnumCard('RenderComparison', 'identical', 'No difference between objects'),
-        buildEnumCard('RenderComparison', 'metadata', 'Differences in semantic info only'),
-        buildEnumCard('RenderComparison', 'paint', 'Visual difference requiring repaint'),
-        buildEnumCard('RenderComparison', 'layout', 'Size/position changed, needs layout'),
+        buildEnumCard(
+          'RenderComparison',
+          'identical',
+          'No difference between objects',
+        ),
+        buildEnumCard(
+          'RenderComparison',
+          'metadata',
+          'Differences in semantic info only',
+        ),
+        buildEnumCard(
+          'RenderComparison',
+          'paint',
+          'Visual difference requiring repaint',
+        ),
+        buildEnumCard(
+          'RenderComparison',
+          'layout',
+          'Size/position changed, needs layout',
+        ),
 
         // Summary section
         buildSectionHeader('Summary'),
@@ -786,16 +900,52 @@ dynamic build(BuildContext context) {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  _buildEnumBadge('BoxFit', BoxFit.values.length, Colors.purple),
-                  _buildEnumBadge('ImageRepeat', ImageRepeat.values.length, Colors.indigo),
+                  _buildEnumBadge(
+                    'BoxFit',
+                    BoxFit.values.length,
+                    Colors.purple,
+                  ),
+                  _buildEnumBadge(
+                    'ImageRepeat',
+                    ImageRepeat.values.length,
+                    Colors.indigo,
+                  ),
                   _buildEnumBadge('Axis', Axis.values.length, Colors.teal),
-                  _buildEnumBadge('AxisDirection', AxisDirection.values.length, Colors.orange),
-                  _buildEnumBadge('BorderStyle', BorderStyle.values.length, Colors.blue),
-                  _buildEnumBadge('TextAlign', TextAlign.values.length, Colors.green),
-                  _buildEnumBadge('TextDirection', TextDirection.values.length, Colors.amber),
-                  _buildEnumBadge('TextOverflow', TextOverflow.values.length, Colors.red),
-                  _buildEnumBadge('FilterQuality', FilterQuality.values.length, Colors.cyan),
-                  _buildEnumBadge('RenderComparison', RenderComparison.values.length, Colors.pink),
+                  _buildEnumBadge(
+                    'AxisDirection',
+                    AxisDirection.values.length,
+                    Colors.orange,
+                  ),
+                  _buildEnumBadge(
+                    'BorderStyle',
+                    BorderStyle.values.length,
+                    Colors.blue,
+                  ),
+                  _buildEnumBadge(
+                    'TextAlign',
+                    TextAlign.values.length,
+                    Colors.green,
+                  ),
+                  _buildEnumBadge(
+                    'TextDirection',
+                    TextDirection.values.length,
+                    Colors.amber,
+                  ),
+                  _buildEnumBadge(
+                    'TextOverflow',
+                    TextOverflow.values.length,
+                    Colors.red,
+                  ),
+                  _buildEnumBadge(
+                    'FilterQuality',
+                    FilterQuality.values.length,
+                    Colors.cyan,
+                  ),
+                  _buildEnumBadge(
+                    'RenderComparison',
+                    RenderComparison.values.length,
+                    Colors.pink,
+                  ),
                 ],
               ),
             ],

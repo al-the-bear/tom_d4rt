@@ -71,10 +71,7 @@ Widget buildShapePreview(String label, ShapeBorder shape, Color fillColor) {
           child: Container(
             width: 120,
             height: 80,
-            decoration: ShapeDecoration(
-              color: fillColor,
-              shape: shape,
-            ),
+            decoration: ShapeDecoration(color: fillColor, shape: shape),
           ),
         ),
         SizedBox(height: 8),
@@ -187,14 +184,19 @@ Widget buildAnimationTimeline(
                       width: 70,
                       height: 50,
                       decoration: ShapeDecoration(
-                        color: fillColor.withAlpha((255 * (0.4 + t * 0.6)).toInt()),
+                        color: fillColor.withAlpha(
+                          (255 * (0.4 + t * 0.6)).toInt(),
+                        ),
                         shape: shape ?? RoundedRectangleBorder(),
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       't=${t.toStringAsFixed(1)}',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -387,10 +389,7 @@ Widget buildContinuousCornersDemo(
           child: Container(
             width: 120,
             height: 80,
-            decoration: ShapeDecoration(
-              color: color,
-              shape: shape,
-            ),
+            decoration: ShapeDecoration(color: color, shape: shape),
           ),
         ),
       ],
@@ -429,10 +428,7 @@ Widget buildBeveledBorderDemo(
           child: Container(
             width: 130,
             height: 85,
-            decoration: ShapeDecoration(
-              color: color,
-              shape: shape,
-            ),
+            decoration: ShapeDecoration(color: color, shape: shape),
           ),
         ),
         SizedBox(height: 6),
@@ -537,66 +533,78 @@ Widget buildInterpolationProgressBar(double t, Color color) {
 Widget main() {
   print('ShapeBorderTween Deep Demo - Starting');
   print('Demonstrating animation between ShapeBorder values');
-  
+
   // Create various shape borders
   RoundedRectangleBorder roundedRect = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
     side: BorderSide(color: Colors.blue, width: 2),
   );
-  
+
   CircleBorder circleBorder = CircleBorder(
     side: BorderSide(color: Colors.purple, width: 2),
   );
-  
+
   StadiumBorder stadiumBorder = StadiumBorder(
     side: BorderSide(color: Colors.green, width: 2),
   );
-  
+
   BeveledRectangleBorder beveledRect = BeveledRectangleBorder(
     borderRadius: BorderRadius.circular(12),
     side: BorderSide(color: Colors.orange, width: 2),
   );
-  
+
   RoundedRectangleBorder smallRounded = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4),
   );
-  
+
   RoundedRectangleBorder largeRounded = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(32),
   );
-  
+
   // Create tweens
   ShapeBorderTween roundedToCircleTween = ShapeBorderTween(
     begin: roundedRect,
     end: circleBorder,
   );
-  
+
   ShapeBorderTween stadiumTween = ShapeBorderTween(
     begin: smallRounded,
     end: stadiumBorder,
   );
-  
+
   ShapeBorderTween beveledTween = ShapeBorderTween(
     begin: roundedRect,
     end: beveledRect,
   );
-  
+
   ShapeBorderTween cornerRadiusTween = ShapeBorderTween(
     begin: smallRounded,
     end: largeRounded,
   );
-  
+
   ShapeBorderTween circleToBevelTween = ShapeBorderTween(
     begin: circleBorder,
     end: beveledRect,
   );
-  
+
   List<double> standardTValues = [0.0, 0.25, 0.5, 0.75, 1.0];
-  List<double> detailedTValues = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
-  
+  List<double> detailedTValues = [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+  ];
+
   print('Created ${standardTValues.length} standard t-values');
   print('Created ${detailedTValues.length} detailed t-values');
-  
+
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(
@@ -614,21 +622,49 @@ Widget main() {
           children: [
             // Section 1: ShapeBorderTween basics
             buildSectionHeader('ShapeBorderTween Basics'),
-            buildInfoCard('Class', 'ShapeBorderTween extends Tween<ShapeBorder?>'),
-            buildInfoCard('Purpose', 'Interpolates between two ShapeBorder values'),
-            buildInfoCard('Key Method', 'lerp(double t) - returns interpolated shape'),
+            buildInfoCard(
+              'Class',
+              'ShapeBorderTween extends Tween<ShapeBorder?>',
+            ),
+            buildInfoCard(
+              'Purpose',
+              'Interpolates between two ShapeBorder values',
+            ),
+            buildInfoCard(
+              'Key Method',
+              'lerp(double t) - returns interpolated shape',
+            ),
             buildInfoCard('Range', 't from 0.0 (begin) to 1.0 (end)'),
             SizedBox(height: 8),
-            buildShapePreview('RoundedRectangleBorder', roundedRect, Colors.blue.shade100),
-            buildShapePreview('CircleBorder', circleBorder, Colors.purple.shade100),
-            buildShapePreview('StadiumBorder', stadiumBorder, Colors.green.shade100),
-            buildShapePreview('BeveledRectangleBorder', beveledRect, Colors.orange.shade100),
-            
+            buildShapePreview(
+              'RoundedRectangleBorder',
+              roundedRect,
+              Colors.blue.shade100,
+            ),
+            buildShapePreview(
+              'CircleBorder',
+              circleBorder,
+              Colors.purple.shade100,
+            ),
+            buildShapePreview(
+              'StadiumBorder',
+              stadiumBorder,
+              Colors.green.shade100,
+            ),
+            buildShapePreview(
+              'BeveledRectangleBorder',
+              beveledRect,
+              Colors.orange.shade100,
+            ),
+
             // Section 2: Lerp between RoundedRectangleBorder and CircleBorder
             buildSectionHeader('RoundedRectangle to Circle Lerp'),
             buildInfoCard('Begin', 'RoundedRectangleBorder with 16px radius'),
             buildInfoCard('End', 'CircleBorder'),
-            buildInfoCard('Interpolation', 'Shape morphs between rectangle and circle'),
+            buildInfoCard(
+              'Interpolation',
+              'Shape morphs between rectangle and circle',
+            ),
             SizedBox(height: 8),
             buildBeginEndComparison(
               'Rounded to Circle Transition',
@@ -636,43 +672,102 @@ Widget main() {
               Colors.blue.shade200,
               Colors.purple.shade200,
             ),
-            buildTweenDemo('At t=0.0 (begin)', roundedToCircleTween, 0.0, Colors.blue.shade100),
-            buildTweenDemo('At t=0.25', roundedToCircleTween, 0.25, Colors.blue.shade200),
-            buildTweenDemo('At t=0.5 (middle)', roundedToCircleTween, 0.5, Colors.indigo.shade200),
-            buildTweenDemo('At t=0.75', roundedToCircleTween, 0.75, Colors.purple.shade100),
-            buildTweenDemo('At t=1.0 (end)', roundedToCircleTween, 1.0, Colors.purple.shade200),
+            buildTweenDemo(
+              'At t=0.0 (begin)',
+              roundedToCircleTween,
+              0.0,
+              Colors.blue.shade100,
+            ),
+            buildTweenDemo(
+              'At t=0.25',
+              roundedToCircleTween,
+              0.25,
+              Colors.blue.shade200,
+            ),
+            buildTweenDemo(
+              'At t=0.5 (middle)',
+              roundedToCircleTween,
+              0.5,
+              Colors.indigo.shade200,
+            ),
+            buildTweenDemo(
+              'At t=0.75',
+              roundedToCircleTween,
+              0.75,
+              Colors.purple.shade100,
+            ),
+            buildTweenDemo(
+              'At t=1.0 (end)',
+              roundedToCircleTween,
+              1.0,
+              Colors.purple.shade200,
+            ),
             buildAnimationTimeline(
               'Full Timeline: Rounded to Circle',
               roundedToCircleTween,
               Colors.indigo.shade300,
               detailedTValues,
             ),
-            
+
             // Section 3: Tweening StadiumBorder
             buildSectionHeader('Tweening StadiumBorder'),
-            buildInfoCard('Stadium Shape', 'Pill-shaped border with circular ends'),
-            buildInfoCard('Transition', 'Small rounded corners to stadium shape'),
+            buildInfoCard(
+              'Stadium Shape',
+              'Pill-shaped border with circular ends',
+            ),
+            buildInfoCard(
+              'Transition',
+              'Small rounded corners to stadium shape',
+            ),
             buildInfoCard('Use Case', 'Button shape animations'),
             SizedBox(height: 8),
-            buildShapePreview('Initial Small Rounded', smallRounded, Colors.grey.shade200),
-            buildShapePreview('Target Stadium', stadiumBorder, Colors.green.shade200),
+            buildShapePreview(
+              'Initial Small Rounded',
+              smallRounded,
+              Colors.grey.shade200,
+            ),
+            buildShapePreview(
+              'Target Stadium',
+              stadiumBorder,
+              Colors.green.shade200,
+            ),
             buildStadiumTweenDemo(
               'Stadium Tween Progress',
               stadiumTween,
               standardTValues,
               Colors.green.shade300,
             ),
-            buildTweenDemo('Stadium at t=0.0', stadiumTween, 0.0, Colors.grey.shade200),
-            buildTweenDemo('Stadium at t=0.33', stadiumTween, 0.33, Colors.green.shade100),
-            buildTweenDemo('Stadium at t=0.66', stadiumTween, 0.66, Colors.green.shade200),
-            buildTweenDemo('Stadium at t=1.0', stadiumTween, 1.0, Colors.green.shade300),
+            buildTweenDemo(
+              'Stadium at t=0.0',
+              stadiumTween,
+              0.0,
+              Colors.grey.shade200,
+            ),
+            buildTweenDemo(
+              'Stadium at t=0.33',
+              stadiumTween,
+              0.33,
+              Colors.green.shade100,
+            ),
+            buildTweenDemo(
+              'Stadium at t=0.66',
+              stadiumTween,
+              0.66,
+              Colors.green.shade200,
+            ),
+            buildTweenDemo(
+              'Stadium at t=1.0',
+              stadiumTween,
+              1.0,
+              Colors.green.shade300,
+            ),
             buildAnimationTimeline(
               'Stadium Transition Timeline',
               stadiumTween,
               Colors.green.shade400,
               standardTValues,
             ),
-            
+
             // Section 4: BeveledRectangleBorder interpolation
             buildSectionHeader('BeveledRectangleBorder Interpolation'),
             buildInfoCard('Beveled Shape', 'Rectangle with cut corners'),
@@ -703,21 +798,42 @@ Widget main() {
               Colors.blue.shade200,
               Colors.orange.shade200,
             ),
-            buildTweenDemo('Beveled at t=0.0', beveledTween, 0.0, Colors.blue.shade100),
-            buildTweenDemo('Beveled at t=0.5', beveledTween, 0.5, Colors.amber.shade100),
-            buildTweenDemo('Beveled at t=1.0', beveledTween, 1.0, Colors.orange.shade200),
+            buildTweenDemo(
+              'Beveled at t=0.0',
+              beveledTween,
+              0.0,
+              Colors.blue.shade100,
+            ),
+            buildTweenDemo(
+              'Beveled at t=0.5',
+              beveledTween,
+              0.5,
+              Colors.amber.shade100,
+            ),
+            buildTweenDemo(
+              'Beveled at t=1.0',
+              beveledTween,
+              1.0,
+              Colors.orange.shade200,
+            ),
             buildAnimationTimeline(
               'Beveled Border Timeline',
               beveledTween,
               Colors.orange.shade400,
               standardTValues,
             ),
-            
+
             // Section 5: begin/end properties
             buildSectionHeader('Begin/End Properties'),
-            buildInfoCard('begin property', 'Starting ShapeBorder (null allowed)'),
+            buildInfoCard(
+              'begin property',
+              'Starting ShapeBorder (null allowed)',
+            ),
             buildInfoCard('end property', 'Ending ShapeBorder (null allowed)'),
-            buildInfoCard('Null handling', 'lerp returns null if both are null'),
+            buildInfoCard(
+              'Null handling',
+              'lerp returns null if both are null',
+            ),
             buildInfoCard('Type check', 'begin.runtimeType shows actual type'),
             SizedBox(height: 8),
             Container(
@@ -736,12 +852,30 @@ Widget main() {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 12),
-                  buildInfoCard('roundedToCircle.begin', '${roundedToCircleTween.begin?.runtimeType}'),
-                  buildInfoCard('roundedToCircle.end', '${roundedToCircleTween.end?.runtimeType}'),
-                  buildInfoCard('stadiumTween.begin', '${stadiumTween.begin?.runtimeType}'),
-                  buildInfoCard('stadiumTween.end', '${stadiumTween.end?.runtimeType}'),
-                  buildInfoCard('beveledTween.begin', '${beveledTween.begin?.runtimeType}'),
-                  buildInfoCard('beveledTween.end', '${beveledTween.end?.runtimeType}'),
+                  buildInfoCard(
+                    'roundedToCircle.begin',
+                    '${roundedToCircleTween.begin?.runtimeType}',
+                  ),
+                  buildInfoCard(
+                    'roundedToCircle.end',
+                    '${roundedToCircleTween.end?.runtimeType}',
+                  ),
+                  buildInfoCard(
+                    'stadiumTween.begin',
+                    '${stadiumTween.begin?.runtimeType}',
+                  ),
+                  buildInfoCard(
+                    'stadiumTween.end',
+                    '${stadiumTween.end?.runtimeType}',
+                  ),
+                  buildInfoCard(
+                    'beveledTween.begin',
+                    '${beveledTween.begin?.runtimeType}',
+                  ),
+                  buildInfoCard(
+                    'beveledTween.end',
+                    '${beveledTween.end?.runtimeType}',
+                  ),
                 ],
               ),
             ),
@@ -751,7 +885,7 @@ Widget main() {
               Colors.purple.shade200,
               Colors.orange.shade200,
             ),
-            
+
             // Section 6: transform method
             buildSectionHeader('Transform Method'),
             buildInfoCard('Method', 'transform(double t) -> ShapeBorder?'),
@@ -759,11 +893,36 @@ Widget main() {
             buildInfoCard('Use with', 'Animation.drive() or direct calls'),
             buildInfoCard('Clamping', 'Values outside 0-1 extrapolate'),
             SizedBox(height: 8),
-            buildTransformDemo('transform(0.0)', roundedToCircleTween, 0.0, Colors.blue.shade100),
-            buildTransformDemo('transform(0.25)', roundedToCircleTween, 0.25, Colors.blue.shade200),
-            buildTransformDemo('transform(0.5)', roundedToCircleTween, 0.5, Colors.indigo.shade200),
-            buildTransformDemo('transform(0.75)', roundedToCircleTween, 0.75, Colors.purple.shade100),
-            buildTransformDemo('transform(1.0)', roundedToCircleTween, 1.0, Colors.purple.shade200),
+            buildTransformDemo(
+              'transform(0.0)',
+              roundedToCircleTween,
+              0.0,
+              Colors.blue.shade100,
+            ),
+            buildTransformDemo(
+              'transform(0.25)',
+              roundedToCircleTween,
+              0.25,
+              Colors.blue.shade200,
+            ),
+            buildTransformDemo(
+              'transform(0.5)',
+              roundedToCircleTween,
+              0.5,
+              Colors.indigo.shade200,
+            ),
+            buildTransformDemo(
+              'transform(0.75)',
+              roundedToCircleTween,
+              0.75,
+              Colors.purple.shade100,
+            ),
+            buildTransformDemo(
+              'transform(1.0)',
+              roundedToCircleTween,
+              1.0,
+              Colors.purple.shade200,
+            ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 8),
               padding: EdgeInsets.all(16),
@@ -791,19 +950,47 @@ Widget main() {
                 ],
               ),
             ),
-            
+
             // Section 7: Continuous corners
             buildSectionHeader('Continuous Corners'),
             buildInfoCard('Concept', 'Smooth corner radius transitions'),
-            buildInfoCard('Implementation', 'BorderRadius.circular() for uniform'),
+            buildInfoCard(
+              'Implementation',
+              'BorderRadius.circular() for uniform',
+            ),
             buildInfoCard('iOS Style', 'Squircle-like continuous curves'),
             buildInfoCard('Animation', 'Radius lerps linearly by default'),
             SizedBox(height: 8),
-            buildContinuousCornersDemo('Sharp corners (radius 0)', 0, 0.0, Colors.red.shade100),
-            buildContinuousCornersDemo('Small corners (radius 8)', 8, 0.3, Colors.orange.shade100),
-            buildContinuousCornersDemo('Medium corners (radius 16)', 16, 0.5, Colors.yellow.shade200),
-            buildContinuousCornersDemo('Large corners (radius 24)', 24, 0.7, Colors.green.shade100),
-            buildContinuousCornersDemo('Very large corners (radius 32)', 32, 1.0, Colors.blue.shade100),
+            buildContinuousCornersDemo(
+              'Sharp corners (radius 0)',
+              0,
+              0.0,
+              Colors.red.shade100,
+            ),
+            buildContinuousCornersDemo(
+              'Small corners (radius 8)',
+              8,
+              0.3,
+              Colors.orange.shade100,
+            ),
+            buildContinuousCornersDemo(
+              'Medium corners (radius 16)',
+              16,
+              0.5,
+              Colors.yellow.shade200,
+            ),
+            buildContinuousCornersDemo(
+              'Large corners (radius 24)',
+              24,
+              0.7,
+              Colors.green.shade100,
+            ),
+            buildContinuousCornersDemo(
+              'Very large corners (radius 32)',
+              32,
+              1.0,
+              Colors.blue.shade100,
+            ),
             buildBeginEndComparison(
               'Corner Radius Transition',
               cornerRadiusTween,
@@ -920,7 +1107,7 @@ Widget main() {
                 ],
               ),
             ),
-            
+
             // Summary section
             buildSectionHeader('Summary'),
             Container(
@@ -934,12 +1121,21 @@ Widget main() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildInfoCard('ShapeBorderTween', 'Animates between ShapeBorder values'),
-                  buildInfoCard('Supported Shapes', 'RoundedRectangle, Circle, Stadium, Beveled'),
+                  buildInfoCard(
+                    'ShapeBorderTween',
+                    'Animates between ShapeBorder values',
+                  ),
+                  buildInfoCard(
+                    'Supported Shapes',
+                    'RoundedRectangle, Circle, Stadium, Beveled',
+                  ),
                   buildInfoCard('Key Methods', 'lerp(), transform()'),
                   buildInfoCard('Properties', 'begin, end (both nullable)'),
                   buildInfoCard('t Range', '0.0 (start) to 1.0 (end)'),
-                  buildInfoCard('Integration', 'Works with AnimationController'),
+                  buildInfoCard(
+                    'Integration',
+                    'Works with AnimationController',
+                  ),
                 ],
               ),
             ),
