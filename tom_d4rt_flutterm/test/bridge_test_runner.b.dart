@@ -2,7 +2,7 @@
 // Test runner for flutter_material_bridges
 // Generated: 2026-03-23T11:09:07.710723
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 //
 // Usage:
