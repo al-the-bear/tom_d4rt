@@ -171,6 +171,18 @@ cd example && dart analyze lib/d4rt_bridges/
 dart run run_examples.dart all
 ```
 
+## Recompiling the d4rtgen Binary
+
+After making source changes to tom_d4rt_generator, recompile the binary with:
+
+```bash
+# From the tom_d4rt_generator directory:
+buildkit -R --project tom_d4rt_generator build
+```
+
+This compiles the d4rtgen binary and places it in the tom_binaries repository.
+After recompiling, you can run `d4rtgen` from any project to use the updated generator.
+
 ## Build Runner Integration
 
 The package can also be used via build_runner:

@@ -8,11 +8,16 @@ The `d4rtgen` tool uses the Dart analyzer to parse source files. The analyzer re
 
 ## SDK Path Detection
 
-When running `d4rtgen`, the SDK path is resolved in this order:
+When running `d4rtgen`, the SDK path is resolved by the shared `getSdkPath()` function in `lib/src/sdk_utils.dart`. Resolution order:
 
-1. **`DART_SDK` environment variable** (recommended for compiled binaries)
-2. **Derive from `dart` executable in PATH**
-3. **Analyzer default** (uses `Platform.resolvedExecutable` — fails for compiled binaries)
+1. **`DART_SDK` environment variable**
+2. **`DART_HOME` environment variable**
+3. **`Platform.resolvedExecutable`** (works when running via `dart run`)
+4. **`dart` executable in PATH** (resolve symlinks — key fallback for compiled binaries)
+5. **`flutter` executable in PATH** → derive `bin/cache/dart-sdk`
+6. **Fall back to `null`** (let analyzer use its default)
+
+This is shared between the bridge generator and proxy generator via `sdk_utils.dart`.
 
 ## The Problem with Compiled Binaries
 
