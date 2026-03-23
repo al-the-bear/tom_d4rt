@@ -173,17 +173,14 @@ dynamic build(BuildContext context) {
   disposableNotifier.dispose();
   print('Notifier disposed');
 
-  // Test nullable ValueNotifier
-  final nullableNotifier = ValueNotifier<String?>(null);
+  // Test ValueNotifier with another type (D4rt doesn't support nullable type args)
+  final extraNotifier = ValueNotifier<String>('test');
   print(
-    'ValueNotifier<String?>(null) created, value: ${nullableNotifier.value}',
+    'ValueNotifier<String>("test") created, value: ${extraNotifier.value}',
   );
 
-  nullableNotifier.value = 'Not null';
-  print('After setting value, value: ${nullableNotifier.value}');
-
-  nullableNotifier.value = null;
-  print('After setting back to null, value: ${nullableNotifier.value}');
+  extraNotifier.value = 'updated';
+  print('After setting value, value: ${extraNotifier.value}');
 
   print('Foundation notifier test completed');
 

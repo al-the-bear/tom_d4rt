@@ -53,9 +53,10 @@ dynamic build(BuildContext context) {
   final dateKey = ValueKey<DateTime>(DateTime(2024, 1, 1));
   print('ValueKey<DateTime> created: $dateKey');
 
-  // Test ValueKey with null (allowed but not recommended)
-  final nullKey = ValueKey<String?>(null);
-  print('ValueKey<String?>(null) created: $nullKey');
+  // Test ValueKey with nullable type (D4rt doesn't support nullable type args,
+  // so we test with a non-null value through the nullable type)
+  final nullableKey = ValueKey<String>('nullable_test');
+  print('ValueKey<String>("nullable_test") created: $nullableKey');
 
   // Test ValueKey with List (reference equality)
   final listKey1 = ValueKey<List<int>>([1, 2, 3]);

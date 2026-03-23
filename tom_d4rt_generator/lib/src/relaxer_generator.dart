@@ -26,6 +26,7 @@ import 'bridge_generator.dart'
     show
         ClassInfo,
         ConstructorInfo,
+        FunctionTypeInfo,
         GenericExtractionSite,
         MemberInfo,
         ParameterInfo;
@@ -1608,6 +1609,8 @@ void _writeRC2Case(
     final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
     final hasTypeParam = containsTypeParam(p.type);
     final isNullable = p.type.endsWith('?') || !p.isRequired;
+    // GEN-075: Use actual type nullability for coercion (not optional-ness)
+    final isTypeNullable = p.type.endsWith('?');
 
     if (hasTypeParam) {
       if (isExactTypeParam) {
@@ -1617,9 +1620,40 @@ void _writeRC2Case(
         } else {
           args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
         }
+      } else if (_rc2IsListType(p.type)) {
+        // GEN-075: List/Iterable containing type param → D4.coerceList
+        final substitutedType = substituteTypeParam(p.type);
+        final elementType = _rc2ExtractListElementType(substitutedType);
+        args.add(
+          isTypeNullable
+              ? 'D4.coerceListOrNull<$elementType>($safeName, \'${p.name}\')'
+              : 'D4.coerceList<$elementType>($safeName, \'${p.name}\')',
+        );
+      } else if (_rc2IsSetType(p.type)) {
+        // GEN-075: Set containing type param → D4.coerceSet
+        final substitutedType = substituteTypeParam(p.type);
+        final elementType = _rc2ExtractSetElementType(substitutedType);
+        args.add(
+          isTypeNullable
+              ? 'D4.coerceSetOrNull<$elementType>($safeName, \'${p.name}\')'
+              : 'D4.coerceSet<$elementType>($safeName, \'${p.name}\')',
+        );
+      } else if (_rc2IsMapType(p.type)) {
+        // GEN-075: Map containing type param → D4.coerceMap
+        final substitutedType = substituteTypeParam(p.type);
+        final (keyType, valueType) = _rc2ExtractMapTypeArgs(substitutedType);
+        args.add(
+          isTypeNullable
+              ? 'D4.coerceMapOrNull<$keyType, $valueType>($safeName, \'${p.name}\')'
+              : 'D4.coerceMap<$keyType, $valueType>($safeName, \'${p.name}\')',
+        );
+      } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
+        // GEN-075: Function type with known signature → generate wrapper
+        args.add(_rc2GenerateFunctionWrapper(
+          safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg,
+        ));
       } else if (isInlineFunctionType(p.type)) {
-        // Inline function type (e.g., void Function(T)?) — cast to dynamic
-        // to bypass static type checking since we can't match the typedef form
+        // Inline function type without signature info → cast to dynamic (fallback)
         args.add('$safeName as dynamic');
       } else {
         // Contains type param (e.g., MessageCodec<T>) — substitute and cast
@@ -1632,7 +1666,13 @@ void _writeRC2Case(
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
-      args.add(needsAssert ? '$safeName!' : safeName);
+      if (needsAssert && p.defaultValue != null && !p.isRequired &&
+          !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
+        // GEN-075: Use default value fallback for optional non-nullable params
+        args.add('$safeName ?? ${p.defaultValue}');
+      } else {
+        args.add(needsAssert ? '$safeName!' : safeName);
+      }
     }
   }
 
@@ -1643,6 +1683,8 @@ void _writeRC2Case(
     final isExactTypeParam = p.type.replaceAll('?', '') == typeParamName;
     final hasTypeParam = containsTypeParam(p.type);
     final isNullable = p.type.endsWith('?') || !p.isRequired;
+    // GEN-075: Use actual type nullability for coercion (not optional-ness)
+    final isTypeNullable = p.type.endsWith('?');
 
     if (hasTypeParam) {
       if (isExactTypeParam) {
@@ -1655,9 +1697,40 @@ void _writeRC2Case(
             '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
           );
         }
+      } else if (_rc2IsListType(p.type)) {
+        // GEN-075: List/Iterable containing type param → D4.coerceList
+        final substitutedType = substituteTypeParam(p.type);
+        final elementType = _rc2ExtractListElementType(substitutedType);
+        namedArgParts.add(
+          isTypeNullable
+              ? '${p.name}: D4.coerceListOrNull<$elementType>($safeName, \'${p.name}\')'
+              : '${p.name}: D4.coerceList<$elementType>($safeName, \'${p.name}\')',
+        );
+      } else if (_rc2IsSetType(p.type)) {
+        // GEN-075: Set containing type param → D4.coerceSet
+        final substitutedType = substituteTypeParam(p.type);
+        final elementType = _rc2ExtractSetElementType(substitutedType);
+        namedArgParts.add(
+          isTypeNullable
+              ? '${p.name}: D4.coerceSetOrNull<$elementType>($safeName, \'${p.name}\')'
+              : '${p.name}: D4.coerceSet<$elementType>($safeName, \'${p.name}\')',
+        );
+      } else if (_rc2IsMapType(p.type)) {
+        // GEN-075: Map containing type param → D4.coerceMap
+        final substitutedType = substituteTypeParam(p.type);
+        final (keyType, valueType) = _rc2ExtractMapTypeArgs(substitutedType);
+        namedArgParts.add(
+          isTypeNullable
+              ? '${p.name}: D4.coerceMapOrNull<$keyType, $valueType>($safeName, \'${p.name}\')'
+              : '${p.name}: D4.coerceMap<$keyType, $valueType>($safeName, \'${p.name}\')',
+        );
+      } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
+        // GEN-075: Function type with known signature → generate wrapper
+        namedArgParts.add(
+          '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg)}',
+        );
       } else if (isInlineFunctionType(p.type)) {
-        // Inline function type (e.g., void Function(T)?) — cast to dynamic
-        // to bypass static type checking since we can't match the typedef form
+        // Inline function type without signature info → cast to dynamic (fallback)
         namedArgParts.add('${p.name}: $safeName as dynamic');
       } else {
         // Contains type param (e.g., MessageCodec<T>) — substitute and cast
@@ -1672,7 +1745,13 @@ void _writeRC2Case(
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
-      namedArgParts.add('${p.name}: ${needsAssert ? '$safeName!' : safeName}');
+      if (needsAssert && p.defaultValue != null && !p.isRequired &&
+          !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
+        // GEN-075: Use default value fallback for optional non-nullable params
+        namedArgParts.add('${p.name}: $safeName ?? ${p.defaultValue}');
+      } else {
+        namedArgParts.add('${p.name}: ${needsAssert ? '$safeName!' : safeName}');
+      }
     }
   }
 
@@ -1715,4 +1794,154 @@ String _rc2SafeName(String name) {
   const keywords = {'default', 'class', 'abstract', 'switch', 'case', 'new'};
   if (keywords.contains(name)) return '$name\$';
   return name;
+}
+
+// =============================================================================
+// GEN-075: RC-2 type detection and coercion helpers
+// =============================================================================
+
+/// Checks if a type is a List or Iterable type (e.g., `List<Widget>`, `Iterable<T>`).
+bool _rc2IsListType(String type) {
+  final baseType =
+      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  return (baseType.startsWith('List<') || baseType.startsWith('Iterable<')) &&
+      baseType.endsWith('>');
+}
+
+/// Checks if a type is a Set type (e.g., `Set<WidgetState>`).
+bool _rc2IsSetType(String type) {
+  final baseType =
+      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  return baseType.startsWith('Set<') && baseType.endsWith('>');
+}
+
+/// Checks if a type is a Map type (e.g., `Map<String, int>`).
+bool _rc2IsMapType(String type) {
+  final baseType =
+      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  return baseType.startsWith('Map<') && baseType.endsWith('>');
+}
+
+/// Extracts the element type from a List or Iterable type.
+/// E.g., `List<TweenSequenceItem<double>>` → `TweenSequenceItem<double>`.
+String _rc2ExtractListElementType(String listType) {
+  final baseType =
+      listType.endsWith('?') ? listType.substring(0, listType.length - 1) : listType;
+  final prefixLen = baseType.startsWith('Iterable<') ? 9 : 5;
+  return baseType.substring(prefixLen, baseType.length - 1);
+}
+
+/// Extracts the element type from a Set type.
+/// E.g., `Set<WidgetState>` → `WidgetState`.
+String _rc2ExtractSetElementType(String setType) {
+  final baseType =
+      setType.endsWith('?') ? setType.substring(0, setType.length - 1) : setType;
+  return baseType.substring(4, baseType.length - 1);
+}
+
+/// Extracts key and value types from a Map type, handling nested generics.
+/// E.g., `Map<TargetPlatform, PageTransitionsBuilder>` → `('TargetPlatform', 'PageTransitionsBuilder')`.
+(String, String) _rc2ExtractMapTypeArgs(String mapType) {
+  final baseType =
+      mapType.endsWith('?') ? mapType.substring(0, mapType.length - 1) : mapType;
+  final argsStr = baseType.substring(4, baseType.length - 1);
+  // Parse two type arguments, respecting nested angle brackets
+  var depth = 0;
+  var splitIndex = -1;
+  for (var i = 0; i < argsStr.length; i++) {
+    final char = argsStr[i];
+    if (char == '<') {
+      depth++;
+    } else if (char == '>') {
+      depth--;
+    } else if (char == ',' && depth == 0) {
+      splitIndex = i;
+      break;
+    }
+  }
+  if (splitIndex == -1) return ('Object', 'Object');
+  return (
+    argsStr.substring(0, splitIndex).trim(),
+    argsStr.substring(splitIndex + 1).trim(),
+  );
+}
+
+/// Generates a wrapper closure expression for an inline function type
+/// in an RC-2 generic constructor factory.
+///
+/// Generates a properly-typed closure that dispatches to
+/// `D4.callInterpreterCallback` so that `InterpretedFunction` values
+/// are wrapped with the correct Dart function signature.
+String _rc2GenerateFunctionWrapper(
+  String safeName,
+  FunctionTypeInfo funcInfo,
+  bool isNullable,
+  String typeParamName,
+  String typeArg,
+) {
+  // Substitute type param with concrete type arg
+  String substitute(String type) {
+    return type.replaceAll(RegExp('\\b$typeParamName\\b'), typeArg);
+  }
+
+  // Generate positional parameter list
+  final paramList = <String>[];
+  final argList = <String>[];
+  for (var i = 0; i < funcInfo.positionalParamTypes.length; i++) {
+    final paramType = substitute(funcInfo.positionalParamTypes[i]);
+    final paramName = 'p$i';
+    paramList.add('$paramType $paramName');
+    argList.add(paramName);
+  }
+
+  // Handle named parameters
+  if (funcInfo.namedParamTypes.isNotEmpty) {
+    final namedParams = <String>[];
+    for (final entry in funcInfo.namedParamTypes.entries) {
+      final paramType = substitute(entry.value);
+      final isRequired = funcInfo.namedParamRequired[entry.key] ?? false;
+      if (isRequired) {
+        namedParams.add('required $paramType ${entry.key}');
+      } else if (paramType.endsWith('?')) {
+        namedParams.add('$paramType ${entry.key}');
+      } else {
+        // Non-nullable, non-required: fall back to required (safest)
+        namedParams.add('required $paramType ${entry.key}');
+      }
+    }
+    paramList.add('{${namedParams.join(', ')}}');
+  }
+
+  final paramsStr = paramList.join(', ');
+  final argsStr = argList.isNotEmpty ? '[${argList.join(', ')}]' : '[]';
+
+  // Generate named args map if there are named parameters
+  String namedArgsExpr = '';
+  if (funcInfo.namedParamTypes.isNotEmpty) {
+    final namedArgEntries = funcInfo.namedParamTypes.keys
+        .map((name) => "'$name': $name")
+        .join(', ');
+    namedArgsExpr = ', {$namedArgEntries}';
+  }
+
+  // Build the call expression
+  final callExpr =
+      'D4.callInterpreterCallback(visitor, $safeName, $argsStr$namedArgsExpr)';
+
+  // Build wrapper body based on return type
+  final returnType = substitute(funcInfo.returnType);
+  String wrapperBody;
+  if (funcInfo.isVoid) {
+    wrapperBody = '{ $callExpr; }';
+  } else {
+    wrapperBody = '{ return $callExpr as $returnType; }';
+  }
+
+  final wrapper = '($paramsStr) $wrapperBody';
+
+  if (isNullable) {
+    return '$safeName == null ? null : $wrapper';
+  } else {
+    return wrapper;
+  }
 }
