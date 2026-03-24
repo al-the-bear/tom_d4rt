@@ -8181,19 +8181,18 @@ class BridgeGenerator {
         // Uses allSupertypeNames.length as specificity metric: classes with
         // more supertypes are deeper in the hierarchy (more specific).
         // This correctly handles extends, with, and implements relationships.
-        final filteredEntries =
-            _classLookup.entries.where((entry) {
-              if (entry.key == cls.name) return false;
-              if (const {
-                'int',
-                'double',
-                'String',
-                'bool',
-                'num',
-              }.contains(entry.key))
-                return false;
-              return true;
-            }).toList();
+        final filteredEntries = _classLookup.entries.where((entry) {
+          if (entry.key == cls.name) return false;
+          if (const {
+            'int',
+            'double',
+            'String',
+            'bool',
+            'num',
+          }.contains(entry.key))
+            return false;
+          return true;
+        }).toList();
         // GEN-075-FIX: Collect all class names in the switch for sealed
         // exhaustiveness check below.
         final switchClassNames = filteredEntries.map((e) => e.key).toSet();

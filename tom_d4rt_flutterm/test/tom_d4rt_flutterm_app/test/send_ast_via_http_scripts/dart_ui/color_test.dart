@@ -255,7 +255,9 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: lerpColors[i].withValues(alpha: 0.4),
+                                      color: lerpColors[i].withValues(
+                                        alpha: 0.4,
+                                      ),
                                       blurRadius: 4,
                                       offset: Offset(0, 2),
                                     ),

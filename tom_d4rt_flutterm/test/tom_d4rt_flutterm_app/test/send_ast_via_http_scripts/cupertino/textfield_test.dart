@@ -5,19 +5,35 @@
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║               CUPERTINO TEXT FIELD DEEP DEMO                      ║');
-  print('║       iOS-Style Text Input with Cupertino Design                  ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║               CUPERTINO TEXT FIELD DEEP DEMO                      ║',
+  );
+  print(
+    '║       iOS-Style Text Input with Cupertino Design                  ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: CUPERTINO TEXT FIELD FUNDAMENTALS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 1: CUPERTINO TEXT FIELD FUNDAMENTALS                      │');
-  print('│ Understanding iOS-style text input                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 1: CUPERTINO TEXT FIELD FUNDAMENTALS                      │',
+  );
+  print(
+    '│ Understanding iOS-style text input                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('CupertinoTextField provides:');
@@ -32,40 +48,82 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: DEFAULT TEXT FIELD
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 2: DEFAULT TEXT FIELD                                     │');
-  print('│ Basic configuration and properties                                │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 2: DEFAULT TEXT FIELD                                     │',
+  );
+  print(
+    '│ Basic configuration and properties                                │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final defaultField = CupertinoTextField(
     placeholder: 'Enter text',
     padding: EdgeInsets.all(12.0),
   );
-  
+
   print('Default CupertinoTextField properties:');
-  print('┌──────────────────────────┬──────────────────────────────────────────┐');
-  print('│      Property            │   Value                                  │');
-  print('├──────────────────────────┼──────────────────────────────────────────┤');
-  print('│ runtimeType              │ ${defaultField.runtimeType.toString().padRight(40)} │');
-  print('│ placeholder              │ ${defaultField.placeholder.toString().padRight(40)} │');
-  print('│ padding                  │ ${defaultField.padding.toString().padRight(40)} │');
-  print('│ obscureText              │ ${defaultField.obscureText.toString().padRight(40)} │');
-  print('│ autocorrect              │ ${defaultField.autocorrect.toString().padRight(40)} │');
-  print('│ maxLines                 │ ${defaultField.maxLines.toString().padRight(40)} │');
-  print('│ enabled                  │ ${defaultField.enabled.toString().padRight(40)} │');
-  print('│ readOnly                 │ ${defaultField.readOnly.toString().padRight(40)} │');
-  print('│ textAlign                │ ${defaultField.textAlign.toString().padRight(40)} │');
-  print('└──────────────────────────┴──────────────────────────────────────────┘');
+  print(
+    '┌──────────────────────────┬──────────────────────────────────────────┐',
+  );
+  print(
+    '│      Property            │   Value                                  │',
+  );
+  print(
+    '├──────────────────────────┼──────────────────────────────────────────┤',
+  );
+  print(
+    '│ runtimeType              │ ${defaultField.runtimeType.toString().padRight(40)} │',
+  );
+  print(
+    '│ placeholder              │ ${defaultField.placeholder.toString().padRight(40)} │',
+  );
+  print(
+    '│ padding                  │ ${defaultField.padding.toString().padRight(40)} │',
+  );
+  print(
+    '│ obscureText              │ ${defaultField.obscureText.toString().padRight(40)} │',
+  );
+  print(
+    '│ autocorrect              │ ${defaultField.autocorrect.toString().padRight(40)} │',
+  );
+  print(
+    '│ maxLines                 │ ${defaultField.maxLines.toString().padRight(40)} │',
+  );
+  print(
+    '│ enabled                  │ ${defaultField.enabled.toString().padRight(40)} │',
+  );
+  print(
+    '│ readOnly                 │ ${defaultField.readOnly.toString().padRight(40)} │',
+  );
+  print(
+    '│ textAlign                │ ${defaultField.textAlign.toString().padRight(40)} │',
+  );
+  print(
+    '└──────────────────────────┴──────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: SHOW SECURE ENTRY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 3: SECURE TEXT ENTRY                                      │');
-  print('│ Password and secure input configuration                           │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 3: SECURE TEXT ENTRY                                      │',
+  );
+  print(
+    '│ Password and secure input configuration                           │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final passwordField = CupertinoTextField(
@@ -76,15 +134,23 @@ dynamic build(BuildContext context) {
     autocorrect: false,
     prefix: Padding(
       padding: EdgeInsets.only(left: 8),
-      child: Icon(CupertinoIcons.lock, size: 18, color: CupertinoColors.systemGrey),
+      child: Icon(
+        CupertinoIcons.lock,
+        size: 18,
+        color: CupertinoColors.systemGrey,
+      ),
     ),
     suffix: Padding(
       padding: EdgeInsets.only(right: 8),
-      child: Icon(CupertinoIcons.eye, size: 18, color: CupertinoColors.systemGrey),
+      child: Icon(
+        CupertinoIcons.eye,
+        size: 18,
+        color: CupertinoColors.systemGrey,
+      ),
     ),
     clearButtonMode: OverlayVisibilityMode.editing,
   );
-  
+
   print('Password field configuration:');
   print('  • obscureText: ${passwordField.obscureText}');
   print('  • autocorrect: ${passwordField.autocorrect}');
@@ -104,17 +170,25 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: BORDERLESS VARIANT
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 4: BORDERLESS VARIANT                                     │');
-  print('│ Inline text field without border                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 4: BORDERLESS VARIANT                                     │',
+  );
+  print(
+    '│ Inline text field without border                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final borderlessField = CupertinoTextField.borderless(
     placeholder: 'Borderless text entry',
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
   );
-  
+
   print('CupertinoTextField.borderless properties:');
   print('  • runtimeType: ${borderlessField.runtimeType}');
   print('  • placeholder: ${borderlessField.placeholder}');
@@ -132,16 +206,24 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: TEXT EDITING CONTROLLER
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 5: TEXT EDITING CONTROLLER                                │');
-  print('│ Programmatic text control                                         │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 5: TEXT EDITING CONTROLLER                                │',
+  );
+  print(
+    '│ Programmatic text control                                         │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   final controller1 = TextEditingController(text: 'Initial value');
   final controlledField = CupertinoTextField(controller: controller1);
-  
-  print('TextEditingController usage: [${controlledField.hashCode }]');
+
+  print('TextEditingController usage: [${controlledField.hashCode}]');
   print('  • Initial text: "${controller1.text}"');
   print('  • Get text: controller.text');
   print('  • Set text: controller.text = "new value"');
@@ -150,25 +232,51 @@ dynamic build(BuildContext context) {
   print('');
 
   print('Controller methods:');
-  print('┌────────────────────────┬────────────────────────────────────────────┐');
-  print('│      Method            │   Description                              │');
-  print('├────────────────────────┼────────────────────────────────────────────┤');
-  print('│ text                   │ Get/set current text                       │');
-  print('│ selection              │ Get/set text selection                     │');
-  print('│ clear()                │ Clear all text                             │');
-  print('│ dispose()              │ Clean up resources                         │');
-  print('│ addListener()          │ Listen for changes                         │');
-  print('└────────────────────────┴────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│      Method            │   Description                              │',
+  );
+  print(
+    '├────────────────────────┼────────────────────────────────────────────┤',
+  );
+  print(
+    '│ text                   │ Get/set current text                       │',
+  );
+  print(
+    '│ selection              │ Get/set text selection                     │',
+  );
+  print(
+    '│ clear()                │ Clear all text                             │',
+  );
+  print(
+    '│ dispose()              │ Clean up resources                         │',
+  );
+  print(
+    '│ addListener()          │ Listen for changes                         │',
+  );
+  print(
+    '└────────────────────────┴────────────────────────────────────────────┘',
+  );
   print('');
   controller1.dispose();
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: PREFIX AND SUFFIX
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 6: PREFIX AND SUFFIX                                      │');
-  print('│ Adding icons and widgets to text field                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 6: PREFIX AND SUFFIX                                      │',
+  );
+  print(
+    '│ Adding icons and widgets to text field                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Prefix/suffix widgets:');
@@ -202,34 +310,74 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: KEYBOARD TYPES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 7: KEYBOARD TYPES                                         │');
-  print('│ Input type and keyboard configuration                             │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 7: KEYBOARD TYPES                                         │',
+  );
+  print(
+    '│ Input type and keyboard configuration                             │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('TextInputType options:');
-  print('┌────────────────────────┬────────────────────────────────────────────┐');
-  print('│      Type              │   Keyboard shown                           │');
-  print('├────────────────────────┼────────────────────────────────────────────┤');
-  print('│ text                   │ Default alphabetic keyboard                │');
-  print('│ number                 │ Numeric keypad                             │');
-  print('│ phone                  │ Phone dial pad                             │');
-  print('│ emailAddress           │ Email with @ and .com                      │');
-  print('│ url                    │ URL with / and .com                        │');
-  print('│ visiblePassword        │ Text without autocorrect                   │');
-  print('│ datetime               │ Date/time input                            │');
-  print('│ multiline              │ Return key allows new lines                │');
-  print('└────────────────────────┴────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────┬────────────────────────────────────────────┐',
+  );
+  print(
+    '│      Type              │   Keyboard shown                           │',
+  );
+  print(
+    '├────────────────────────┼────────────────────────────────────────────┤',
+  );
+  print(
+    '│ text                   │ Default alphabetic keyboard                │',
+  );
+  print(
+    '│ number                 │ Numeric keypad                             │',
+  );
+  print(
+    '│ phone                  │ Phone dial pad                             │',
+  );
+  print(
+    '│ emailAddress           │ Email with @ and .com                      │',
+  );
+  print(
+    '│ url                    │ URL with / and .com                        │',
+  );
+  print(
+    '│ visiblePassword        │ Text without autocorrect                   │',
+  );
+  print(
+    '│ datetime               │ Date/time input                            │',
+  );
+  print(
+    '│ multiline              │ Return key allows new lines                │',
+  );
+  print(
+    '└────────────────────────┴────────────────────────────────────────────┘',
+  );
   print('');
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: STYLING OPTIONS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 8: STYLING OPTIONS                                        │');
-  print('│ Customizing appearance                                            │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 8: STYLING OPTIONS                                        │',
+  );
+  print(
+    '│ Customizing appearance                                            │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Decoration options:');
@@ -254,22 +402,48 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 9: CALLBACKS
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 9: CALLBACKS                                              │');
-  print('│ Event handling and state changes                                  │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 9: CALLBACKS                                              │',
+  );
+  print(
+    '│ Event handling and state changes                                  │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('Available callbacks:');
-  print('┌─────────────────────────┬───────────────────────────────────────────┐');
-  print('│      Callback           │   When triggered                          │');
-  print('├─────────────────────────┼───────────────────────────────────────────┤');
-  print('│ onChanged               │ Text content changes                      │');
-  print('│ onSubmitted             │ Submit/return pressed                     │');
-  print('│ onEditingComplete       │ Input complete (keyboard done)            │');
-  print('│ onTap                   │ Field tapped                              │');
-  print('│ onTapOutside            │ Tap outside field area                    │');
-  print('└─────────────────────────┴───────────────────────────────────────────┘');
+  print(
+    '┌─────────────────────────┬───────────────────────────────────────────┐',
+  );
+  print(
+    '│      Callback           │   When triggered                          │',
+  );
+  print(
+    '├─────────────────────────┼───────────────────────────────────────────┤',
+  );
+  print(
+    '│ onChanged               │ Text content changes                      │',
+  );
+  print(
+    '│ onSubmitted             │ Submit/return pressed                     │',
+  );
+  print(
+    '│ onEditingComplete       │ Input complete (keyboard done)            │',
+  );
+  print(
+    '│ onTap                   │ Field tapped                              │',
+  );
+  print(
+    '│ onTapOutside            │ Tap outside field area                    │',
+  );
+  print(
+    '└─────────────────────────┴───────────────────────────────────────────┘',
+  );
   print('');
 
   print('Example usage:');
@@ -283,10 +457,18 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 10: PRACTICAL USE CASES
   // ═══════════════════════════════════════════════════════════════════════════
-  print('┌────────────────────────────────────────────────────────────────────┐');
-  print('│ SECTION 10: PRACTICAL USE CASES                                   │');
-  print('│ Real-world implementations                                        │');
-  print('└────────────────────────────────────────────────────────────────────┘');
+  print(
+    '┌────────────────────────────────────────────────────────────────────┐',
+  );
+  print(
+    '│ SECTION 10: PRACTICAL USE CASES                                   │',
+  );
+  print(
+    '│ Real-world implementations                                        │',
+  );
+  print(
+    '└────────────────────────────────────────────────────────────────────┘',
+  );
   print('');
 
   print('1. Search Field');
@@ -331,9 +513,15 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
   // SUMMARY
   // ═══════════════════════════════════════════════════════════════════════════
-  print('╔════════════════════════════════════════════════════════════════════╗');
-  print('║           CUPERTINO TEXT FIELD SUMMARY                            ║');
-  print('╚════════════════════════════════════════════════════════════════════╝');
+  print(
+    '╔════════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║           CUPERTINO TEXT FIELD SUMMARY                            ║',
+  );
+  print(
+    '╚════════════════════════════════════════════════════════════════════╝',
+  );
   print('');
   print('CupertinoTextField key features:');
   print('  • iOS-native text input styling');
@@ -407,7 +595,13 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Basic text entry', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'Basic text entry',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'Enter text here...',
@@ -430,7 +624,13 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Password with prefix/suffix', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'Password with prefix/suffix',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'Password',
@@ -438,11 +638,19 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.all(12),
                     prefix: Padding(
                       padding: EdgeInsets.only(left: 8),
-                      child: Icon(CupertinoIcons.lock, size: 18, color: CupertinoColors.systemGrey),
+                      child: Icon(
+                        CupertinoIcons.lock,
+                        size: 18,
+                        color: CupertinoColors.systemGrey,
+                      ),
                     ),
                     suffix: Padding(
                       padding: EdgeInsets.only(right: 8),
-                      child: Icon(CupertinoIcons.eye, size: 18, color: CupertinoColors.systemGrey),
+                      child: Icon(
+                        CupertinoIcons.eye,
+                        size: 18,
+                        color: CupertinoColors.systemGrey,
+                      ),
                     ),
                   ),
                 ],
@@ -462,14 +670,24 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('With search icon and clear button', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'With search icon and clear button',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'Search',
                     padding: EdgeInsets.all(12),
                     prefix: Padding(
                       padding: EdgeInsets.only(left: 8),
-                      child: Icon(CupertinoIcons.search, size: 18, color: CupertinoColors.systemGrey),
+                      child: Icon(
+                        CupertinoIcons.search,
+                        size: 18,
+                        color: CupertinoColors.systemGrey,
+                      ),
                     ),
                     clearButtonMode: OverlayVisibilityMode.editing,
                   ),
@@ -490,7 +708,13 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('CupertinoTextField.borderless', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'CupertinoTextField.borderless',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   Container(
                     color: Color(0xFFF5F5F5),
@@ -516,7 +740,13 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Email keyboard type', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'Email keyboard type',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'email@example.com',
@@ -525,7 +755,13 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.all(12),
                     prefix: Padding(
                       padding: EdgeInsets.only(left: 8),
-                      child: Text('@', style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 16)),
+                      child: Text(
+                        '@',
+                        style: TextStyle(
+                          color: CupertinoColors.systemGrey,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                     prefixMode: OverlayVisibilityMode.always,
                   ),
@@ -546,7 +782,13 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Multi-line text area', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
+                  Text(
+                    'Multi-line text area',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'Enter description...',
@@ -638,13 +880,7 @@ Widget _buildSummaryStat(String label, String value) {
           color: Color(0xFF4DD0E1),
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Color(0xFF90A4AE),
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Color(0xFF90A4AE))),
     ],
   );
 }

@@ -782,7 +782,12 @@ Widget _composeBox(String label, String name, Color color) {
   );
 }
 
-Widget _colorFilterRow(String label, Color filterColor, BlendMode mode, String modeName) {
+Widget _colorFilterRow(
+  String label,
+  Color filterColor,
+  BlendMode mode,
+  String modeName,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(

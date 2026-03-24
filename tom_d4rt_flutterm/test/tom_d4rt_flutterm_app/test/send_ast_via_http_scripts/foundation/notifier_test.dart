@@ -175,9 +175,7 @@ dynamic build(BuildContext context) {
 
   // Test ValueNotifier with another type (D4rt doesn't support nullable type args)
   final extraNotifier = ValueNotifier<String>('test');
-  print(
-    'ValueNotifier<String>("test") created, value: ${extraNotifier.value}',
-  );
+  print('ValueNotifier<String>("test") created, value: ${extraNotifier.value}');
 
   extraNotifier.value = 'updated';
   print('After setting value, value: ${extraNotifier.value}');

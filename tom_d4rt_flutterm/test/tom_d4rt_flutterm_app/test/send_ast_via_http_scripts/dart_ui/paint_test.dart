@@ -412,7 +412,10 @@ dynamic build(BuildContext context) {
                       0.7,
                       0.85,
                     ).toColor();
-                    return _blendModeChip(blendModes[i].toString().split('.').last, color);
+                    return _blendModeChip(
+                      blendModes[i].toString().split('.').last,
+                      color,
+                    );
                   }),
                 ),
               ),
@@ -428,7 +431,10 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: List.generate(FilterQuality.values.length, (i) {
-                    return _filterQualityRow(FilterQuality.values[i].toString().split('.').last, i);
+                    return _filterQualityRow(
+                      FilterQuality.values[i].toString().split('.').last,
+                      i,
+                    );
                   }),
                 ),
               ),

@@ -1701,9 +1701,15 @@ void _writeRC2Case(
         );
       } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
         // GEN-075: Function type with known signature → generate wrapper
-        args.add(_rc2GenerateFunctionWrapper(
-          safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg,
-        ));
+        args.add(
+          _rc2GenerateFunctionWrapper(
+            safeName,
+            p.functionTypeInfo!,
+            isTypeNullable,
+            typeParamName,
+            typeArg,
+          ),
+        );
       } else if (isInlineFunctionType(p.type)) {
         // Inline function type without signature info → cast to dynamic (fallback)
         args.add('$safeName as dynamic');
@@ -1719,7 +1725,8 @@ void _writeRC2Case(
       // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
       if (isTypeNullable) {
         args.add('($safeName as num?)?.toDouble()');
-      } else if (p.defaultValue != null && !p.isRequired &&
+      } else if (p.defaultValue != null &&
+          !p.isRequired &&
           !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
         args.add('($safeName as num?)?.toDouble() ?? ${p.defaultValue}');
       } else {
@@ -1727,13 +1734,21 @@ void _writeRC2Case(
       }
     } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
       // GEN-075: Non-type-param function type → generate wrapper
-      args.add(_rc2GenerateFunctionWrapper(
-        safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__',
-      ));
+      args.add(
+        _rc2GenerateFunctionWrapper(
+          safeName,
+          p.functionTypeInfo!,
+          isTypeNullable,
+          '__none__',
+          '__none__',
+        ),
+      );
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
-      if (needsAssert && p.defaultValue != null && !p.isRequired &&
+      if (needsAssert &&
+          p.defaultValue != null &&
+          !p.isRequired &&
           !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
         // GEN-075: Use default value fallback for optional non-nullable params
         args.add('$safeName ?? ${p.defaultValue}');
@@ -1831,9 +1846,12 @@ void _writeRC2Case(
       // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
       if (isTypeNullable) {
         namedArgParts.add('${p.name}: ($safeName as num?)?.toDouble()');
-      } else if (p.defaultValue != null && !p.isRequired &&
+      } else if (p.defaultValue != null &&
+          !p.isRequired &&
           !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
-        namedArgParts.add('${p.name}: ($safeName as num?)?.toDouble() ?? ${p.defaultValue}');
+        namedArgParts.add(
+          '${p.name}: ($safeName as num?)?.toDouble() ?? ${p.defaultValue}',
+        );
       } else {
         namedArgParts.add('${p.name}: ($safeName as num).toDouble()');
       }
@@ -1845,12 +1863,16 @@ void _writeRC2Case(
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
-      if (needsAssert && p.defaultValue != null && !p.isRequired &&
+      if (needsAssert &&
+          p.defaultValue != null &&
+          !p.isRequired &&
           !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
         // GEN-075: Use default value fallback for optional non-nullable params
         namedArgParts.add('${p.name}: $safeName ?? ${p.defaultValue}');
       } else {
-        namedArgParts.add('${p.name}: ${needsAssert ? '$safeName!' : safeName}');
+        namedArgParts.add(
+          '${p.name}: ${needsAssert ? '$safeName!' : safeName}',
+        );
       }
     }
   }
@@ -1910,61 +1932,69 @@ String _rc2SafeName(String name) {
 
 /// Checks if a type is a List or Iterable type (e.g., `List<Widget>`, `Iterable<T>`).
 bool _rc2IsListType(String type) {
-  final baseType =
-      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  final baseType = type.endsWith('?')
+      ? type.substring(0, type.length - 1)
+      : type;
   return (baseType.startsWith('List<') || baseType.startsWith('Iterable<')) &&
       baseType.endsWith('>');
 }
 
 /// Checks if a type is a Set type (e.g., `Set<WidgetState>`).
 bool _rc2IsSetType(String type) {
-  final baseType =
-      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  final baseType = type.endsWith('?')
+      ? type.substring(0, type.length - 1)
+      : type;
   return baseType.startsWith('Set<') && baseType.endsWith('>');
 }
 
 /// Checks if a type is a Map type (e.g., `Map<String, int>`).
 bool _rc2IsMapType(String type) {
-  final baseType =
-      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  final baseType = type.endsWith('?')
+      ? type.substring(0, type.length - 1)
+      : type;
   return baseType.startsWith('Map<') && baseType.endsWith('>');
 }
 
 /// Checks if a type is a Future type (e.g., `Future<String>?`).
 bool _rc2IsFutureType(String type) {
-  final baseType =
-      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  final baseType = type.endsWith('?')
+      ? type.substring(0, type.length - 1)
+      : type;
   return baseType.startsWith('Future<') && baseType.endsWith('>');
 }
 
 /// Checks if a type is a Stream type (e.g., `Stream<String>?`).
 bool _rc2IsStreamType(String type) {
-  final baseType =
-      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  final baseType = type.endsWith('?')
+      ? type.substring(0, type.length - 1)
+      : type;
   return baseType.startsWith('Stream<') && baseType.endsWith('>');
 }
 
 /// Extracts the inner type from a Future type.
 /// E.g., `Future<String>?` → `String`.
 String _rc2ExtractFutureInnerType(String futureType) {
-  final baseType =
-      futureType.endsWith('?') ? futureType.substring(0, futureType.length - 1) : futureType;
+  final baseType = futureType.endsWith('?')
+      ? futureType.substring(0, futureType.length - 1)
+      : futureType;
   return baseType.substring(7, baseType.length - 1); // 'Future<'.length == 7
 }
 
 /// Extracts the inner type from a Stream type.
 /// E.g., `Stream<String>?` → `String`.
 String _rc2ExtractStreamInnerType(String streamType) {
-  final baseType =
-      streamType.endsWith('?') ? streamType.substring(0, streamType.length - 1) : streamType;
+  final baseType = streamType.endsWith('?')
+      ? streamType.substring(0, streamType.length - 1)
+      : streamType;
   return baseType.substring(7, baseType.length - 1); // 'Stream<'.length == 7
 }
 
 /// Extracts the element type from a List or Iterable type.
 /// E.g., `List<TweenSequenceItem<double>>` → `TweenSequenceItem<double>`.
 String _rc2ExtractListElementType(String listType) {
-  final baseType =
-      listType.endsWith('?') ? listType.substring(0, listType.length - 1) : listType;
+  final baseType = listType.endsWith('?')
+      ? listType.substring(0, listType.length - 1)
+      : listType;
   final prefixLen = baseType.startsWith('Iterable<') ? 9 : 5;
   return baseType.substring(prefixLen, baseType.length - 1);
 }
@@ -1972,16 +2002,18 @@ String _rc2ExtractListElementType(String listType) {
 /// Extracts the element type from a Set type.
 /// E.g., `Set<WidgetState>` → `WidgetState`.
 String _rc2ExtractSetElementType(String setType) {
-  final baseType =
-      setType.endsWith('?') ? setType.substring(0, setType.length - 1) : setType;
+  final baseType = setType.endsWith('?')
+      ? setType.substring(0, setType.length - 1)
+      : setType;
   return baseType.substring(4, baseType.length - 1);
 }
 
 /// Extracts key and value types from a Map type, handling nested generics.
 /// E.g., `Map<TargetPlatform, PageTransitionsBuilder>` → `('TargetPlatform', 'PageTransitionsBuilder')`.
 (String, String) _rc2ExtractMapTypeArgs(String mapType) {
-  final baseType =
-      mapType.endsWith('?') ? mapType.substring(0, mapType.length - 1) : mapType;
+  final baseType = mapType.endsWith('?')
+      ? mapType.substring(0, mapType.length - 1)
+      : mapType;
   final argsStr = baseType.substring(4, baseType.length - 1);
   // Parse two type arguments, respecting nested angle brackets
   var depth = 0;
