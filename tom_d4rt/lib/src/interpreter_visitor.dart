@@ -921,8 +921,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
     } else if (prefixValue is Callable) {
       // Handle property access on function types (InterpretedFunction, NativeFunction, etc.)
-      Logger.debug(
-          "[PrefixedIdentifier] Access on Callable: .$memberName");
+      Logger.debug("[PrefixedIdentifier] Access on Callable: .$memberName");
       switch (memberName) {
         case 'hashCode':
           return prefixValue.hashCode;
@@ -8371,9 +8370,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               if (nativeObject is Future || nativeObject is Stream) {
                 return nativeObject;
               }
-              final bridgedInstance =
-                  BridgedInstance(bridgedClass, nativeObject,
-                      typeArguments: evaluatedTypeArguments ?? const []);
+              final bridgedInstance = BridgedInstance(
+                  bridgedClass, nativeObject,
+                  typeArguments: evaluatedTypeArguments ?? const []);
               Logger.debug(
                 "[InstanceCreation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
               );

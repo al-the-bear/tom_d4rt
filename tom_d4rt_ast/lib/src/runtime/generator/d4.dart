@@ -120,7 +120,7 @@ class D4 {
   ///
   /// Example: 'ValueNotifier' → [foundationFactory, widgetsFactory, userFactory]
   static final Map<String, List<GenericTypeWrapperFactory>>
-      _genericTypeWrappers = {};
+  _genericTypeWrappers = {};
 
   // ==========================================================================
   // RC-1: Interface Proxy Registration
@@ -224,10 +224,15 @@ class D4 {
       // Chain: try new factory first, fall back to existing
       _genericConstructors[key] =
           (visitor, positionalArgs, namedArgs, typeArgs) {
-        final result = factory(visitor, positionalArgs, namedArgs, typeArgs);
-        if (result != null) return result;
-        return existing(visitor, positionalArgs, namedArgs, typeArgs);
-      };
+            final result = factory(
+              visitor,
+              positionalArgs,
+              namedArgs,
+              typeArgs,
+            );
+            if (result != null) return result;
+            return existing(visitor, positionalArgs, namedArgs, typeArgs);
+          };
     } else {
       _genericConstructors[key] = factory;
     }
@@ -427,8 +432,10 @@ class D4 {
         // the non-nullable form (e.g., 'Color'). The wrapper created with
         // non-nullable T will still be assignable to the nullable target.
         if (innerTypeArg.endsWith('?')) {
-          final nonNullableArg =
-              innerTypeArg.substring(0, innerTypeArg.length - 1);
+          final nonNullableArg = innerTypeArg.substring(
+            0,
+            innerTypeArg.length - 1,
+          );
           final wrapped2 = factory(value, nonNullableArg);
           if (wrapped2 is T) return wrapped2;
         }
@@ -803,7 +810,8 @@ class D4 {
       final tStr = T.toString();
       final unwrappedTypeStr = unwrapped.runtimeType.toString();
       // Check if T is "SomeType?" and unwrapped is "SomeType"
-      if (tStr.endsWith('?') && tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
+      if (tStr.endsWith('?') &&
+          tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
         // The types match semantically, force the return through dynamic
         final dynamic temp = unwrapped;
         return temp as T;
@@ -859,8 +867,10 @@ class D4 {
             // the non-nullable form. The wrapper created with non-nullable T
             // will still be assignable to the nullable target.
             if (innerTypeArg.endsWith('?')) {
-              final nonNullableArg =
-                  innerTypeArg.substring(0, innerTypeArg.length - 1);
+              final nonNullableArg = innerTypeArg.substring(
+                0,
+                innerTypeArg.length - 1,
+              );
               final wrapped2 = factory(unwrapped, nonNullableArg);
               if (wrapped2 is T) return wrapped2;
             }
@@ -893,21 +903,21 @@ class D4 {
         final prefixLen = tStr.startsWith('List<') ? 5 : 9;
         final elementType = tStr.substring(prefixLen, tStr.length - 1);
         final result = switch (elementType) {
-              'int' => unwrappedList.cast<int>().toList(),
-              'double' =>
-                unwrappedList
-                    .map((e) => e is int ? e.toDouble() : e)
-                    .cast<double>()
-                    .toList(),
-              'String' => unwrappedList.cast<String>().toList(),
-              'num' => unwrappedList.cast<num>().toList(),
-              'bool' => unwrappedList.cast<bool>().toList(),
-              'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
-              // ENG-001: For non-primitive types, use coerceList which handles
-              // BridgedInstance/InterpretedInstance/BridgedEnumValue unwrapping
-              // and produces a properly typed List<T> via element casting.
-              _ => unwrappedList,
-            };
+          'int' => unwrappedList.cast<int>().toList(),
+          'double' =>
+            unwrappedList
+                .map((e) => e is int ? e.toDouble() : e)
+                .cast<double>()
+                .toList(),
+          'String' => unwrappedList.cast<String>().toList(),
+          'num' => unwrappedList.cast<num>().toList(),
+          'bool' => unwrappedList.cast<bool>().toList(),
+          'Object' || 'dynamic' => unwrappedList.cast<Object>().toList(),
+          // ENG-001: For non-primitive types, use coerceList which handles
+          // BridgedInstance/InterpretedInstance/BridgedEnumValue unwrapping
+          // and produces a properly typed List<T> via element casting.
+          _ => unwrappedList,
+        };
         // ENG-001: Try typed cast; if it fails, try coerceList which creates
         // a properly-typed list using per-element casting.
         try {
@@ -930,19 +940,19 @@ class D4 {
         final unwrappedSet = source.map(_unwrapElement).toSet();
         final elementType = tStr.substring(4, tStr.length - 1);
         final result = switch (elementType) {
-              'int' => unwrappedSet.cast<int>().toSet(),
-              'double' =>
-                unwrappedSet
-                    .map((e) => e is int ? e.toDouble() : e)
-                    .cast<double>()
-                    .toSet(),
-              'String' => unwrappedSet.cast<String>().toSet(),
-              'num' => unwrappedSet.cast<num>().toSet(),
-              'bool' => unwrappedSet.cast<bool>().toSet(),
-              'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
-              // ENG-001: For non-primitive types, return unwrapped and try cast
-              _ => unwrappedSet,
-            };
+          'int' => unwrappedSet.cast<int>().toSet(),
+          'double' =>
+            unwrappedSet
+                .map((e) => e is int ? e.toDouble() : e)
+                .cast<double>()
+                .toSet(),
+          'String' => unwrappedSet.cast<String>().toSet(),
+          'num' => unwrappedSet.cast<num>().toSet(),
+          'bool' => unwrappedSet.cast<bool>().toSet(),
+          'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
+          // ENG-001: For non-primitive types, return unwrapped and try cast
+          _ => unwrappedSet,
+        };
         try {
           return result as T;
         } catch (_) {
@@ -959,8 +969,7 @@ class D4 {
         // ENG-001: Try unwrapping map keys and values first
         final unwrappedMap = <Object?, Object?>{};
         for (final entry in unwrapped.entries) {
-          unwrappedMap[_unwrapElement(entry.key)] =
-              _unwrapElement(entry.value);
+          unwrappedMap[_unwrapElement(entry.key)] = _unwrapElement(entry.value);
         }
         try {
           return unwrappedMap as T;

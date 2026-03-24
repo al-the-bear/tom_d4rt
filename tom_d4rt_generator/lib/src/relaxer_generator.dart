@@ -375,12 +375,13 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   // to re-type them. Without this, Fix A cannot handle these classes.
   // -------------------------------------------------------------------------
   final existingTargetNames = targets.map((t) => t.baseTypeName).toSet();
-  final allConcreteBridgedTypes = globalClassLookup.entries
-      .where((e) => !e.value.isAbstract && !e.value.isSealed)
-      .where((e) => _isTypeInScope(e.value, inScopePackagePrefixes))
-      .map((e) => e.key)
-      .toList()
-    ..sort();
+  final allConcreteBridgedTypes =
+      globalClassLookup.entries
+          .where((e) => !e.value.isAbstract && !e.value.isSealed)
+          .where((e) => _isTypeInScope(e.value, inScopePackagePrefixes))
+          .map((e) => e.key)
+          .toList()
+        ..sort();
 
   for (final className in gen075Classes) {
     if (existingTargetNames.contains(className)) continue;
@@ -394,8 +395,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
     // Build eligible type args: primitives + concrete bridged types satisfying
     // the type parameter bound, matching RC-2 constructor coverage.
     final typeParamBound = classInfo.typeParameters.values.first;
-    final isUnbounded =
-        typeParamBound == null || typeParamBound == 'Object?';
+    final isUnbounded = typeParamBound == null || typeParamBound == 'Object?';
     final eligibleTypeArgs = <String>{};
 
     // Always include primitives for unbounded type params
@@ -964,12 +964,13 @@ void _writeExtendsDelegation(
     // Parent classes may declare the setter with a wider type (e.g., V? vs V).
     // covariant tells Dart the narrowing is valid — safe because the wrapper
     // forwards to _inner which has the correct runtime types.
-    final covariantPrefix =
-        castType.contains('V') ? 'covariant ' : '';
+    final covariantPrefix = castType.contains('V') ? 'covariant ' : '';
     buf.writeln();
     buf.writeln('  @override');
     if (isChangeNotifier) {
-      buf.writeln('  set ${setter.name}($covariantPrefix$castType ${param.name}) {');
+      buf.writeln(
+        '  set ${setter.name}($covariantPrefix$castType ${param.name}) {',
+      );
       buf.writeln('    if (!_syncing) {');
       buf.writeln('      _syncing = true;');
       buf.writeln('      _inner.${setter.name} = ${param.name};');

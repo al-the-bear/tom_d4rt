@@ -7,20 +7,15 @@
 /// - Construct generic classes with type arguments (RC-2: GlobalKey)
 library;
 
-import 'dart:ui' as ui
-    show
-        FontStyle,
-        FontWeight,
-        StrutStyle,
-        TextLeadingDistribution,
-        TextStyle;
+import 'dart:ui'
+    as ui
+    show FontStyle, FontWeight, StrutStyle, TextLeadingDistribution, TextStyle;
 
 import 'package:flutter/foundation.dart'
     show ChangeNotifier, Key, ValueKey, ValueNotifier;
 import 'package:flutter/material.dart'
     show DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
-import 'package:flutter/painting.dart' as painting
-    show StrutStyle, TextStyle;
+import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
@@ -171,7 +166,12 @@ void _registerTypeCoercions() {
 void _registerGenericConstructors() {
   // GlobalKey<T> — Generic constructors that need type args.
   // Script: GlobalKey<NavigatorState>() → must create native GlobalKey<NavigatorState>
-  D4.registerGenericConstructor('GlobalKey', '', (visitor, positional, named, typeArgs) {
+  D4.registerGenericConstructor('GlobalKey', '', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
     final debugLabel = D4.extractBridgedArgOrNull<String>(
       named['debugLabel'],
       'debugLabel',
@@ -188,18 +188,23 @@ void _registerGenericConstructors() {
   });
 
   // ValueKey<T> — when scripts use ValueKey<String>('key')
-  D4.registerGenericConstructor('ValueKey', '', (visitor, positional, named, typeArgs) {
+  D4.registerGenericConstructor('ValueKey', '', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
     final value = positional.isNotEmpty ? positional[0] : null;
     final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
     // Handle nullable type arguments: String? resolves to name 'String' but
     // value may be null. Use safe pattern matching instead of hard casts.
     return switch (typeName) {
-      'String' => value is String
-          ? ValueKey<String>(value)
-          : ValueKey<String?>(value as String?),
-      'int' => value is int
-          ? ValueKey<int>(value)
-          : ValueKey<int?>(value as int?),
+      'String' =>
+        value is String
+            ? ValueKey<String>(value)
+            : ValueKey<String?>(value as String?),
+      'int' =>
+        value is int ? ValueKey<int>(value) : ValueKey<int?>(value as int?),
       _ => ValueKey(value),
     };
   });
@@ -208,24 +213,32 @@ void _registerGenericConstructors() {
   // Without this, the bridge uses GEN-075 runtime-value-based inference
   // (e.g., ValueNotifier<dynamic>('start') creates ValueNotifier<String>
   // because 'start' is String), then .value = 42 fails.
-  D4.registerGenericConstructor('ValueNotifier', '',
-      (visitor, positional, named, typeArgs) {
+  D4.registerGenericConstructor('ValueNotifier', '', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
     final value = positional.isNotEmpty ? positional[0] : null;
     final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name : null;
     return switch (typeName) {
       'dynamic' || 'Object' || 'Object?' => ValueNotifier<dynamic>(value),
-      'String' => value is String
-          ? ValueNotifier<String>(value)
-          : ValueNotifier<String?>(value as String?),
-      'int' => value is int
-          ? ValueNotifier<int>(value)
-          : ValueNotifier<int?>(value as int?),
-      'double' => value is double
-          ? ValueNotifier<double>(value)
-          : ValueNotifier<double?>(value as double?),
-      'bool' => value is bool
-          ? ValueNotifier<bool>(value)
-          : ValueNotifier<bool?>(value as bool?),
+      'String' =>
+        value is String
+            ? ValueNotifier<String>(value)
+            : ValueNotifier<String?>(value as String?),
+      'int' =>
+        value is int
+            ? ValueNotifier<int>(value)
+            : ValueNotifier<int?>(value as int?),
+      'double' =>
+        value is double
+            ? ValueNotifier<double>(value)
+            : ValueNotifier<double?>(value as double?),
+      'bool' =>
+        value is bool
+            ? ValueNotifier<bool>(value)
+            : ValueNotifier<bool?>(value as bool?),
       _ => null, // Fall through to regular bridge constructor
     };
   });
@@ -241,28 +254,44 @@ void _registerGenericConstructors() {
   // TextPainter etc. expect painting.StrutStyle. Since painting.StrutStyle
   // has full getters, we always create it here. The existing painting→dart:ui
   // coercion handles the reverse direction when dart:ui APIs need it.
-  D4.registerGenericConstructor('StrutStyle', '',
-      (visitor, positional, named, typeArgs) {
+  D4.registerGenericConstructor('StrutStyle', '', (
+    visitor,
+    positional,
+    named,
+    typeArgs,
+  ) {
     return painting.StrutStyle(
       fontFamily: D4.extractBridgedArgOrNull<String>(
-          named['fontFamily'], 'fontFamily'),
+        named['fontFamily'],
+        'fontFamily',
+      ),
       fontFamilyFallback: D4.coerceListOrNull<String>(
-          named['fontFamilyFallback'], 'fontFamilyFallback'),
+        named['fontFamilyFallback'],
+        'fontFamilyFallback',
+      ),
       fontSize: D4.extractBridgedArgOrNull<double>(
-          named['fontSize'], 'fontSize'),
-      height:
-          D4.extractBridgedArgOrNull<double>(named['height'], 'height'),
-      leadingDistribution:
-          D4.extractBridgedArgOrNull<ui.TextLeadingDistribution>(
-              named['leadingDistribution'], 'leadingDistribution'),
-      leading:
-          D4.extractBridgedArgOrNull<double>(named['leading'], 'leading'),
+        named['fontSize'],
+        'fontSize',
+      ),
+      height: D4.extractBridgedArgOrNull<double>(named['height'], 'height'),
+      leadingDistribution: D4
+          .extractBridgedArgOrNull<ui.TextLeadingDistribution>(
+            named['leadingDistribution'],
+            'leadingDistribution',
+          ),
+      leading: D4.extractBridgedArgOrNull<double>(named['leading'], 'leading'),
       fontWeight: D4.extractBridgedArgOrNull<ui.FontWeight>(
-          named['fontWeight'], 'fontWeight'),
+        named['fontWeight'],
+        'fontWeight',
+      ),
       fontStyle: D4.extractBridgedArgOrNull<ui.FontStyle>(
-          named['fontStyle'], 'fontStyle'),
+        named['fontStyle'],
+        'fontStyle',
+      ),
       forceStrutHeight: D4.extractBridgedArgOrNull<bool>(
-          named['forceStrutHeight'], 'forceStrutHeight'),
+        named['forceStrutHeight'],
+        'forceStrutHeight',
+      ),
     );
   });
 }
@@ -277,11 +306,7 @@ class _InterpretedStatelessWidget extends StatelessWidget {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
-  const _InterpretedStatelessWidget(
-    this._visitor,
-    this._instance, {
-    super.key,
-  });
+  const _InterpretedStatelessWidget(this._visitor, this._instance, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -303,11 +328,7 @@ class _InterpretedStatefulWidget extends StatefulWidget {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
-  const _InterpretedStatefulWidget(
-    this._visitor,
-    this._instance, {
-    super.key,
-  });
+  const _InterpretedStatefulWidget(this._visitor, this._instance, {super.key});
 
   @override
   State<_InterpretedStatefulWidget> createState() {
@@ -341,7 +362,11 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
-  _InterpretedState(this._visitor, this._stateInstance, _InterpretedStatefulWidget parentWidget);
+  _InterpretedState(
+    this._visitor,
+    this._stateInstance,
+    _InterpretedStatefulWidget parentWidget,
+  );
 
   @override
   void initState() {
@@ -406,8 +431,13 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
 /// methods that the bridge generator skips but interpreted subclasses need.
 void _registerSupplementaryMethods() {
   // ChangeNotifier.notifyListeners — @protected, not in generated bridge
-  D4.registerSupplementaryMethod('ChangeNotifier', 'notifyListeners',
-      (visitor, target, positionalArgs, namedArgs, typeArgs) {
+  D4.registerSupplementaryMethod('ChangeNotifier', 'notifyListeners', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     final cn = target as ChangeNotifier;
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
@@ -416,8 +446,13 @@ void _registerSupplementaryMethods() {
   });
 
   // ChangeNotifier.hasListeners — @protected getter
-  D4.registerSupplementaryMethod('ChangeNotifier', 'hasListeners',
-      (visitor, target, positionalArgs, namedArgs, typeArgs) {
+  D4.registerSupplementaryMethod('ChangeNotifier', 'hasListeners', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     final cn = target as ChangeNotifier;
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
@@ -440,131 +475,131 @@ void _registerSupplementaryMethods() {
 /// `DropdownMenuItem<String>` inside `DropdownButton<String>.items`.
 void _registerGenericWidgetReCreators() {
   // DropdownMenuItem<T> — Re-create with correct type parameter.
-  D4.registerGenericTypeWrapper(
-    'DropdownMenuItem',
-    (Object value, String innerTypeArg) {
-      if (value is! DropdownMenuItem) return null;
-      final v = value;
-      return switch (innerTypeArg) {
-        'dynamic' || 'Object' || 'Object?' => DropdownMenuItem<dynamic>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value,
-            enabled: v.enabled,
-            alignment: v.alignment,
-            child: v.child,
-          ),
-        'String' => DropdownMenuItem<String>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value as String?,
-            enabled: v.enabled,
-            alignment: v.alignment,
-            child: v.child,
-          ),
-        'int' => DropdownMenuItem<int>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value as int?,
-            enabled: v.enabled,
-            alignment: v.alignment,
-            child: v.child,
-          ),
-        'double' => DropdownMenuItem<double>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value as double?,
-            enabled: v.enabled,
-            alignment: v.alignment,
-            child: v.child,
-          ),
-        'bool' => DropdownMenuItem<bool>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value as bool?,
-            enabled: v.enabled,
-            alignment: v.alignment,
-            child: v.child,
-          ),
-        'num' => DropdownMenuItem<num>(
-            key: v.key,
-            onTap: v.onTap,
-            value: v.value as num?,
-            enabled: v.enabled,
-            alignment: v.alignment,
-child: v.child,
-          ),
-        _ => null,
-      };
-    },
-  );
+  D4.registerGenericTypeWrapper('DropdownMenuItem', (
+    Object value,
+    String innerTypeArg,
+  ) {
+    if (value is! DropdownMenuItem) return null;
+    final v = value;
+    return switch (innerTypeArg) {
+      'dynamic' || 'Object' || 'Object?' => DropdownMenuItem<dynamic>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      'String' => DropdownMenuItem<String>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value as String?,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      'int' => DropdownMenuItem<int>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value as int?,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      'double' => DropdownMenuItem<double>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value as double?,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      'bool' => DropdownMenuItem<bool>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value as bool?,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      'num' => DropdownMenuItem<num>(
+        key: v.key,
+        onTap: v.onTap,
+        value: v.value as num?,
+        enabled: v.enabled,
+        alignment: v.alignment,
+        child: v.child,
+      ),
+      _ => null,
+    };
+  });
 
   // DropdownMenuEntry<T> — Re-create with correct type parameter.
   // Same pattern as DropdownMenuItem: script creates DropdownMenuEntry without
   // type args → bridge constructor produces DropdownMenuEntry<dynamic> →
   // coerceList<DropdownMenuEntry<String>> fails (invariant generics).
-  D4.registerGenericTypeWrapper(
-    'DropdownMenuEntry',
-    (Object value, String innerTypeArg) {
-      if (value is! DropdownMenuEntry) return null;
-      final v = value;
-      return switch (innerTypeArg) {
-        'dynamic' || 'Object' || 'Object?' => DropdownMenuEntry<dynamic>(
-            value: v.value,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        'String' => DropdownMenuEntry<String>(
-            value: v.value as String,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        'int' => DropdownMenuEntry<int>(
-            value: v.value as int,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        'double' => DropdownMenuEntry<double>(
-            value: v.value as double,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        'bool' => DropdownMenuEntry<bool>(
-            value: v.value as bool,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        'num' => DropdownMenuEntry<num>(
-            value: v.value as num,
-            label: v.label,
-            labelWidget: v.labelWidget,
-            leadingIcon: v.leadingIcon,
-            trailingIcon: v.trailingIcon,
-            enabled: v.enabled,
-            style: v.style,
-          ),
-        _ => null,
-      };
-    },
-  );
+  D4.registerGenericTypeWrapper('DropdownMenuEntry', (
+    Object value,
+    String innerTypeArg,
+  ) {
+    if (value is! DropdownMenuEntry) return null;
+    final v = value;
+    return switch (innerTypeArg) {
+      'dynamic' || 'Object' || 'Object?' => DropdownMenuEntry<dynamic>(
+        value: v.value,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      'String' => DropdownMenuEntry<String>(
+        value: v.value as String,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      'int' => DropdownMenuEntry<int>(
+        value: v.value as int,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      'double' => DropdownMenuEntry<double>(
+        value: v.value as double,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      'bool' => DropdownMenuEntry<bool>(
+        value: v.value as bool,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      'num' => DropdownMenuEntry<num>(
+        value: v.value as num,
+        label: v.label,
+        labelWidget: v.labelWidget,
+        leadingIcon: v.leadingIcon,
+        trailingIcon: v.trailingIcon,
+        enabled: v.enabled,
+        style: v.style,
+      ),
+      _ => null,
+    };
+  });
 }

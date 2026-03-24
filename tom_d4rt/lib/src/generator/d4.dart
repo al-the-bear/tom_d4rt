@@ -792,7 +792,8 @@ class D4 {
       final tStr = T.toString();
       final unwrappedTypeStr = unwrapped.runtimeType.toString();
       // Check if T is "SomeType?" and unwrapped is "SomeType"
-      if (tStr.endsWith('?') && tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
+      if (tStr.endsWith('?') &&
+          tStr.substring(0, tStr.length - 1) == unwrappedTypeStr) {
         // The types match semantically, force the return through dynamic
         final dynamic temp = unwrapped;
         return temp as T;
@@ -910,8 +911,7 @@ class D4 {
         // ENG-001: Try unwrapping map keys and values first
         final unwrappedMap = <Object?, Object?>{};
         for (final entry in unwrapped.entries) {
-          unwrappedMap[_unwrapElement(entry.key)] =
-              _unwrapElement(entry.value);
+          unwrappedMap[_unwrapElement(entry.key)] = _unwrapElement(entry.value);
         }
         try {
           return unwrappedMap as T;

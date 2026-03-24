@@ -8973,7 +8973,8 @@ class BridgeGenerator {
     final isVoid = method.returnType == 'void';
     // GEN-092: Use dynamic dispatch when method has function-typed params
     // that reference class type parameters (avoids function type mismatch)
-    final callTarget = _requiresDynamicMemberDispatch(method.name) ||
+    final callTarget =
+        _requiresDynamicMemberDispatch(method.name) ||
             _methodHasFunctionParamsReferencingClassTypeParams(
               method.parameters,
               cls.typeParameters,
