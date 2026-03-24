@@ -137,10 +137,33 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // -------------------------------------------------------------------------
   // Step 2: Build RelaxerTarget list from pre-collected extraction data
   // -------------------------------------------------------------------------
+  // Build set of in-scope package prefixes from module barrel URIs.
+  // Types from external packages (package:meta, package:vector_math, etc.)
+  // are not importable in the generated relaxer file and must be excluded.
+  final inScopePackagePrefixes = <String>{};
+  for (final module in config.modules) {
+    final barrel = module.barrelImport;
+    if (barrel == null) continue;
+    if (barrel.startsWith('dart:')) {
+      // dart: core libraries are always in scope
+      final colonEnd = barrel.indexOf('/', 5);
+      inScopePackagePrefixes.add(
+        colonEnd > 0 ? barrel.substring(0, colonEnd + 1) : barrel,
+      );
+    } else if (barrel.startsWith('package:')) {
+      // Extract package name: 'package:flutter/material.dart' → 'package:flutter/'
+      final slashIdx = barrel.indexOf('/');
+      if (slashIdx > 0) {
+        inScopePackagePrefixes.add(barrel.substring(0, slashIdx + 1));
+      }
+    }
+  }
+
   final targets = _buildRelaxerTargets(
     genericExtractionSites,
     globalClassLookup,
     gen075Classes,
+    inScopePackagePrefixes,
     warn,
   );
 
@@ -200,11 +223,17 @@ Future<RelaxerGenerationResult> generateRelaxers({
       if (typeArgs.isEmpty) continue;
 
       final funcName = _factoryFunctionName(target.baseTypeName, moduleName);
+      // Check if the type parameter bound allows nullable type args.
+      // If the bound is non-null and not 'Object?', then T? won't satisfy
+      // `extends Bound` and we must NOT emit nullable factory variants.
+      final bound = target.classInfo!.typeParameters.values.first;
+      final nullableArgsOk = bound == null || bound == 'Object?';
       final code = _generateFactoryFunction(
         target.baseTypeName,
         moduleName,
         typeArgs,
         funcName,
+        allowNullableVariants: nullableArgsOk,
       );
       if (code.isEmpty)
         continue; // All type args were filtered (e.g., self-referential bounds)
@@ -289,10 +318,14 @@ Future<RelaxerGenerationResult> generateRelaxers({
 ///
 /// Groups extractions by base type, resolves ClassInfo from the global lookup,
 /// and marks classes with GEN-075 constructor switches.
+///
+/// [inScopePackagePrefixes] limits type args in Step 2b/2c to types whose
+/// sourceFile matches a module barrel package (e.g., 'package:flutter/').
 List<_RelaxerTarget> _buildRelaxerTargets(
   List<GenericExtractionSite> extractions,
   Map<String, ClassInfo> globalClassLookup,
   Set<String> gen075Classes,
+  Set<String> inScopePackagePrefixes,
   void Function(String) warn,
 ) {
   // Group by base type → module → Set<typeArg>
@@ -330,6 +363,122 @@ List<_RelaxerTarget> _buildRelaxerTargets(
         moduleTypeArgs: moduleTypeArgs,
       ),
     );
+  }
+
+  // -------------------------------------------------------------------------
+  // Step 2b: Add gen075/RC-2 classes that aren't already targets.
+  //
+  // These classes have RC-2 generic constructors and can be constructed with
+  // erased type args (e.g., ButtonSegment<dynamic>). When such objects are
+  // later passed into typed collection parameters (List<ButtonSegment<String>>),
+  // the GEN-079 wrapper resolution in D4.coerceList needs a registered factory
+  // to re-type them. Without this, Fix A cannot handle these classes.
+  // -------------------------------------------------------------------------
+  final existingTargetNames = targets.map((t) => t.baseTypeName).toSet();
+  final allConcreteBridgedTypes = globalClassLookup.entries
+      .where((e) => !e.value.isAbstract && !e.value.isSealed)
+      .where((e) => _isTypeInScope(e.value, inScopePackagePrefixes))
+      .map((e) => e.key)
+      .toList()
+    ..sort();
+
+  for (final className in gen075Classes) {
+    if (existingTargetNames.contains(className)) continue;
+    if (_dartCoreGenericTypes.contains(className)) continue;
+
+    final classInfo = globalClassLookup[className];
+    if (classInfo == null) continue;
+    if (classInfo.typeParameters.length != 1) continue;
+    if (classInfo.isAbstract || classInfo.isSealed) continue;
+
+    // Build eligible type args: primitives + concrete bridged types satisfying
+    // the type parameter bound, matching RC-2 constructor coverage.
+    final typeParamBound = classInfo.typeParameters.values.first;
+    final isUnbounded =
+        typeParamBound == null || typeParamBound == 'Object?';
+    final eligibleTypeArgs = <String>{};
+
+    // Always include primitives for unbounded type params
+    if (isUnbounded) {
+      eligibleTypeArgs.addAll(_rc2PrimitiveTypes);
+      eligibleTypeArgs.addAll(const ['dynamic', 'Object', 'Object?']);
+    }
+
+    // Add concrete bridged types that satisfy the bound
+    for (final typeName in allConcreteBridgedTypes) {
+      if (typeName == className) continue;
+      if (!isUnbounded &&
+          !_rc2SatisfiesBound(typeName, typeParamBound!, globalClassLookup)) {
+        continue;
+      }
+      eligibleTypeArgs.add(typeName);
+    }
+
+    if (eligibleTypeArgs.isEmpty) continue;
+
+    targets.add(
+      _RelaxerTarget(
+        baseTypeName: className,
+        classInfo: classInfo,
+        hasConstructorSwitch: true,
+        moduleTypeArgs: {'rc2': eligibleTypeArgs},
+      ),
+    );
+  }
+
+  // -------------------------------------------------------------------------
+  // Step 2c: Expand existing targets with type args from RC-2 constructor
+  // nested generics.
+  //
+  // When a gen075 class has a constructor param like `Animatable<T>`, and
+  // the class handles T=Color (etc.), we need the Animatable relaxer factory
+  // to have a 'Color' case. Without this, D4.extractBridgedArg can't
+  // create $RelaxedAnimatable<Color> for the ColorTween→Animatable<Color>
+  // nullability mismatch (Fix D, failure #8).
+  // -------------------------------------------------------------------------
+  final targetByName = {for (final t in targets) t.baseTypeName: t};
+
+  for (final className in gen075Classes) {
+    final classInfo = globalClassLookup[className];
+    if (classInfo == null) continue;
+    if (classInfo.typeParameters.length != 1) continue;
+
+    final typeParamName = classInfo.typeParameters.keys.first;
+    final tPattern = RegExp('\\b${RegExp.escape(typeParamName)}\\b');
+
+    // Scan all constructor params for nested generic references
+    for (final ctor in classInfo.constructors) {
+      if (ctor.isFactory) continue;
+      for (final param in ctor.parameters) {
+        final pType = param.type.replaceAll('?', '');
+        // Skip exact T match (handled by direct cast, not nested generic)
+        if (pType == typeParamName) continue;
+        // Check if param type contains T in a nested generic position
+        if (!tPattern.hasMatch(pType)) continue;
+        // Must be a generic type (contains <...>)
+        if (!pType.contains('<')) continue;
+
+        // Extract the nested base type (e.g., Animatable<T> → Animatable)
+        final nestedBaseType = pType.substring(0, pType.indexOf('<'));
+        if (_dartCoreGenericTypes.contains(nestedBaseType)) continue;
+
+        final existingTarget = targetByName[nestedBaseType];
+        if (existingTarget == null) continue;
+
+        // Add all concrete bridged types to this target's rc2 module,
+        // ensuring the factory covers all types the gen075 class handles.
+        var rc2Set = existingTarget.moduleTypeArgs['rc2'];
+        if (rc2Set == null) {
+          rc2Set = <String>{};
+          existingTarget.moduleTypeArgs['rc2'] = rc2Set;
+        }
+        rc2Set.addAll(_rc2PrimitiveTypes);
+        for (final typeName in allConcreteBridgedTypes) {
+          rc2Set.add(typeName);
+        }
+        break; // One param is enough to trigger expansion for this class
+      }
+    }
   }
 
   // Sort by name for deterministic output
@@ -398,6 +547,11 @@ void _writeImports(StringBuffer buffer, BridgeConfig config) {
 
   dartImports.sort();
   packageImports.sort();
+
+  // Always include dart:async for FutureOr used in method delegates
+  if (!dartImports.contains('dart:async')) {
+    dartImports.insert(0, 'dart:async');
+  }
 
   for (final uri in dartImports) {
     buffer.writeln("import '$uri';");
@@ -806,10 +960,16 @@ void _writeExtendsDelegation(
   for (final setter in tSetters) {
     final param = setter.parameters.first;
     final castType = _replaceTypeParam(param.type, typeParamName, 'V');
+    // Add covariant when the setter parameter involves the type param V.
+    // Parent classes may declare the setter with a wider type (e.g., V? vs V).
+    // covariant tells Dart the narrowing is valid — safe because the wrapper
+    // forwards to _inner which has the correct runtime types.
+    final covariantPrefix =
+        castType.contains('V') ? 'covariant ' : '';
     buf.writeln();
     buf.writeln('  @override');
     if (isChangeNotifier) {
-      buf.writeln('  set ${setter.name}($castType ${param.name}) {');
+      buf.writeln('  set ${setter.name}($covariantPrefix$castType ${param.name}) {');
       buf.writeln('    if (!_syncing) {');
       buf.writeln('      _syncing = true;');
       buf.writeln('      _inner.${setter.name} = ${param.name};');
@@ -819,7 +979,7 @@ void _writeExtendsDelegation(
       buf.writeln('  }');
     } else {
       buf.writeln(
-        '  set ${setter.name}($castType ${param.name}) { _inner.${setter.name} = ${param.name}; }',
+        '  set ${setter.name}($covariantPrefix$castType ${param.name}) { _inner.${setter.name} = ${param.name}; }',
       );
     }
   }
@@ -962,8 +1122,9 @@ String _generateFactoryFunction(
   String baseTypeName,
   String moduleName,
   Set<String> typeArgs,
-  String funcName,
-) {
+  String funcName, {
+  bool allowNullableVariants = false,
+}) {
   final wrapperName = '\$Relaxed$baseTypeName';
   // Filter out type args that reference the base type itself (self-referential
   // bounds like ThemeExtension<ThemeExtension<T>> produce invalid factory cases).
@@ -986,6 +1147,14 @@ String _generateFactoryFunction(
 
   for (final arg in sortedArgs) {
     buf.writeln("    '$arg' => $wrapperName<$arg>(value),");
+    // GEN-079b: Also generate nullable variant so that e.g.
+    // WidgetStateProperty<Color?> resolves through WidgetStateProperty<Color?>
+    // rather than failing because only 'Color' (non-nullable) is in the switch.
+    // Only safe when the wrapper's type param has no upper bound (or Object?),
+    // otherwise T? violates `extends Bound`.
+    if (allowNullableVariants && !arg.endsWith('?') && !arg.endsWith('>')) {
+      buf.writeln("    '$arg?' => $wrapperName<$arg?>(value),");
+    }
   }
 
   buf.writeln('    _ => null,');
@@ -1500,6 +1669,15 @@ void _writeGenericConstructorFactory(
           '  final $safeName = positional.length > $i '
           '? positional[$i] : null;',
         );
+      } else if (p.type.contains('<')) {
+        // GEN-079c: Generic types need D4.extractBridgedArg for wrapper
+        // resolution (invariant generics: WidgetStatePropertyAll<dynamic>
+        // can't be cast to WidgetStateProperty<Color?>? directly).
+        final castType = _rc2NullableCast(p.type);
+        buffer.writeln(
+          '  final $safeName = positional.length > $i '
+          '? D4.extractBridgedArg<$castType>(positional[$i], \x27${p.name}\x27) : null;',
+        );
       } else {
         final castType = _rc2NullableCast(p.type);
         buffer.writeln(
@@ -1531,6 +1709,14 @@ void _writeGenericConstructorFactory(
         buffer.writeln(
           "  final $safeName = named.containsKey('${p.name}') "
           "? named['${p.name}'] : null;",
+        );
+      } else if (p.type.contains('<')) {
+        // GEN-079c: Generic types need D4.extractBridgedArg for wrapper
+        // resolution (invariant generics).
+        final castType = _rc2NullableCast(p.type);
+        buffer.writeln(
+          "  final $safeName = named.containsKey('${p.name}') "
+          "? D4.extractBridgedArg<$castType>(named['${p.name}'], '${p.name}') : null;",
         );
       } else {
         final castType = _rc2NullableCast(p.type);
@@ -1714,12 +1900,23 @@ void _writeRC2Case(
         // Inline function type without signature info → cast to dynamic (fallback)
         args.add('$safeName as dynamic');
       } else {
-        // Contains type param (e.g., MessageCodec<T>) — substitute and cast
+        // Contains type param (e.g., Animatable<T>) — substitute and use
+        // extractBridgedArg for GEN-079 wrapper resolution. Raw `as` casts
+        // fail when nullability differs (e.g., Animatable<Color?> vs
+        // Animatable<Color>). extractBridgedArg handles this via wrapper
+        // factories that create properly typed proxies.
         final substitutedType = substituteTypeParam(p.type);
-        final castType = _rc2NullableCast(substitutedType);
-        args.add(
-          isNullable ? '$safeName as $castType' : '($safeName as $castType)!',
-        );
+        if (isNullable) {
+          args.add(
+            'D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
+          );
+        } else {
+          // For non-nullable required params, extract as nullable then assert
+          final nullableType = _rc2NullableCast(substitutedType);
+          args.add(
+            'D4.extractBridgedArg<$nullableType>($safeName, \'${p.name}\')!',
+          );
+        }
       }
     } else if (p.type == 'double' || p.type == 'double?') {
       // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
@@ -1833,14 +2030,19 @@ void _writeRC2Case(
         // Inline function type without signature info → cast to dynamic (fallback)
         namedArgParts.add('${p.name}: $safeName as dynamic');
       } else {
-        // Contains type param (e.g., MessageCodec<T>) — substitute and cast
+        // Contains type param (e.g., Animatable<T>) — substitute and use
+        // extractBridgedArg for GEN-079 wrapper resolution (see Fix D).
         final substitutedType = substituteTypeParam(p.type);
-        final castType = _rc2NullableCast(substitutedType);
-        namedArgParts.add(
-          isNullable
-              ? '${p.name}: $safeName as $castType'
-              : '${p.name}: ($safeName as $castType)!',
-        );
+        if (isNullable) {
+          namedArgParts.add(
+            '${p.name}: D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
+          );
+        } else {
+          final nullableType = _rc2NullableCast(substitutedType);
+          namedArgParts.add(
+            '${p.name}: D4.extractBridgedArg<$nullableType>($safeName, \'${p.name}\')!',
+          );
+        }
       }
     } else if (p.type == 'double' || p.type == 'double?') {
       // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
@@ -1911,6 +2113,21 @@ bool _rc2SatisfiesBound(
 /// NOT inline: `OnInvokeCallback<T>`, `ValueGetter<T>` (these are typedef names).
 bool _rc2IsInlineFunctionType(String type) {
   return RegExp(r'\bFunction\s*[<(]').hasMatch(type);
+}
+
+/// Checks if a [ClassInfo]'s source file is from an in-scope package.
+///
+/// Types from external packages (e.g., package:meta, package:vector_math)
+/// cannot be used as type arguments in the generated relaxer file because
+/// they're not imported. Only types from the module's own packages or
+/// dart:core are safe to use.
+bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) {
+  final src = classInfo.sourceFile;
+  if (src.startsWith('dart:')) return true; // dart:core, dart:ui, etc.
+  for (final prefix in inScopePackagePrefixes) {
+    if (src.startsWith(prefix)) return true;
+  }
+  return false;
 }
 
 /// Makes a type nullable for safe null-coalescing casts.

@@ -17,7 +17,8 @@ import 'dart:ui' as ui
 
 import 'package:flutter/foundation.dart'
     show ChangeNotifier, Key, ValueKey, ValueNotifier;
-import 'package:flutter/material.dart' show ScaffoldState;
+import 'package:flutter/material.dart'
+    show DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
 import 'package:flutter/painting.dart' as painting
     show StrutStyle, TextStyle;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
@@ -46,6 +47,7 @@ void registerD4rtRuntimeExtensions() {
   _registerTypeCoercions();
   _registerGenericConstructors();
   _registerSupplementaryMethods();
+  _registerGenericWidgetReCreators();
 }
 
 // =============================================================================
@@ -421,4 +423,148 @@ void _registerSupplementaryMethods() {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     return cn.hasListeners;
   });
+}
+
+// =============================================================================
+// Generic Widget Re-Creators
+// =============================================================================
+
+/// Registers `registerGenericTypeWrapper` factories for generic Widget classes
+/// that cannot be wrapped via relaxer subclasses (since widgets are immutable
+/// and have complex rendering). Instead, these factories RE-CREATE the widget
+/// instance with the correct type parameter by reading accessible getters.
+///
+/// This is needed when D4rt scripts create e.g. `DropdownMenuItem(value: 'x')`
+/// without explicit type args — the bridge constructor produces
+/// `DropdownMenuItem<Object>` which then fails assignment to
+/// `DropdownMenuItem<String>` inside `DropdownButton<String>.items`.
+void _registerGenericWidgetReCreators() {
+  // DropdownMenuItem<T> — Re-create with correct type parameter.
+  D4.registerGenericTypeWrapper(
+    'DropdownMenuItem',
+    (Object value, String innerTypeArg) {
+      if (value is! DropdownMenuItem) return null;
+      final v = value;
+      return switch (innerTypeArg) {
+        'dynamic' || 'Object' || 'Object?' => DropdownMenuItem<dynamic>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value,
+            enabled: v.enabled,
+            alignment: v.alignment,
+            child: v.child,
+          ),
+        'String' => DropdownMenuItem<String>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value as String?,
+            enabled: v.enabled,
+            alignment: v.alignment,
+            child: v.child,
+          ),
+        'int' => DropdownMenuItem<int>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value as int?,
+            enabled: v.enabled,
+            alignment: v.alignment,
+            child: v.child,
+          ),
+        'double' => DropdownMenuItem<double>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value as double?,
+            enabled: v.enabled,
+            alignment: v.alignment,
+            child: v.child,
+          ),
+        'bool' => DropdownMenuItem<bool>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value as bool?,
+            enabled: v.enabled,
+            alignment: v.alignment,
+            child: v.child,
+          ),
+        'num' => DropdownMenuItem<num>(
+            key: v.key,
+            onTap: v.onTap,
+            value: v.value as num?,
+            enabled: v.enabled,
+            alignment: v.alignment,
+child: v.child,
+          ),
+        _ => null,
+      };
+    },
+  );
+
+  // DropdownMenuEntry<T> — Re-create with correct type parameter.
+  // Same pattern as DropdownMenuItem: script creates DropdownMenuEntry without
+  // type args → bridge constructor produces DropdownMenuEntry<dynamic> →
+  // coerceList<DropdownMenuEntry<String>> fails (invariant generics).
+  D4.registerGenericTypeWrapper(
+    'DropdownMenuEntry',
+    (Object value, String innerTypeArg) {
+      if (value is! DropdownMenuEntry) return null;
+      final v = value;
+      return switch (innerTypeArg) {
+        'dynamic' || 'Object' || 'Object?' => DropdownMenuEntry<dynamic>(
+            value: v.value,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        'String' => DropdownMenuEntry<String>(
+            value: v.value as String,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        'int' => DropdownMenuEntry<int>(
+            value: v.value as int,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        'double' => DropdownMenuEntry<double>(
+            value: v.value as double,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        'bool' => DropdownMenuEntry<bool>(
+            value: v.value as bool,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        'num' => DropdownMenuEntry<num>(
+            value: v.value as num,
+            label: v.label,
+            labelWidget: v.labelWidget,
+            leadingIcon: v.leadingIcon,
+            trailingIcon: v.trailingIcon,
+            enabled: v.enabled,
+            style: v.style,
+          ),
+        _ => null,
+      };
+    },
+  );
 }

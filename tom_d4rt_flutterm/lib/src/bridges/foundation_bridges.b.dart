@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-03-24T09:12:02.120183
+// Generated: 2026-03-24T16:26:47.068727
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -910,7 +910,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -919,7 +919,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'expand': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -928,7 +928,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
+        return (t as dynamic).expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
       },
       'take': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -943,7 +943,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -958,7 +958,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1001,7 +1001,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
+        (t as dynamic).forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
@@ -1011,7 +1011,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1021,7 +1021,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1030,7 +1030,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1044,7 +1044,7 @@ BridgedClass _createCachingIterableBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1058,7 +1058,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1068,7 +1068,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -1078,7 +1078,7 @@ BridgedClass _createCachingIterableBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable');
@@ -6315,7 +6315,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6324,7 +6324,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6337,7 +6337,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
+        return (t as dynamic).expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6346,7 +6346,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
+        (t as dynamic).forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
@@ -6356,7 +6356,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6366,7 +6366,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6375,7 +6375,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6389,7 +6389,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6408,7 +6408,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6423,7 +6423,7 @@ BridgedClass _createObserverListBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6433,7 +6433,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6443,7 +6443,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6453,7 +6453,7 @@ BridgedClass _createObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList');
@@ -6583,7 +6583,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return (t as dynamic).map((dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6592,7 +6592,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).where((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6605,7 +6605,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
+        return (t as dynamic).expand((dynamic p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6614,7 +6614,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
+        (t as dynamic).forEach((dynamic p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
@@ -6624,7 +6624,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).reduce((dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6634,7 +6634,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return (t as dynamic).fold(initialValue, (dynamic p0, dynamic p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6643,7 +6643,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).every((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6657,7 +6657,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).any((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'toSet': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6676,7 +6676,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).takeWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6691,7 +6691,7 @@ BridgedClass _createHashedObserverListBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return (t as dynamic).skipWhile((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6701,7 +6701,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).firstWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6711,7 +6711,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).lastWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -6721,7 +6721,7 @@ BridgedClass _createHashedObserverListBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
+        return (t as dynamic).singleWhere((dynamic p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, orElseRaw, [])); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.HashedObserverList>(target, 'HashedObserverList');
@@ -7152,14 +7152,14 @@ BridgedClass _createSynchronousFutureBridge() {
         }
         final onValueRaw = positional[0];
         final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then((dynamic p0) { return D4.callInterpreterCallback(visitor!, onValueRaw, [p0]) as FutureOr<Object>; }, onError: onError);
+        return (t as dynamic).then((dynamic p0) { return D4.callInterpreterCallback(visitor!, onValueRaw, [p0]) as FutureOr<Object>; }, onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');
         D4.requireMinArgs(positional, 1, 'timeout');
         final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
         final onTimeoutRaw = named['onTimeout'];
-        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onTimeoutRaw, []) as FutureOr<Object>; });
+        return (t as dynamic).timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onTimeoutRaw, []) as FutureOr<Object>; });
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.SynchronousFuture>(target, 'SynchronousFuture');

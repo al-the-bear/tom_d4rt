@@ -7845,6 +7845,40 @@ class BridgeGenerator {
     return restrictedMembers.contains(memberName);
   }
 
+  /// GEN-092: Checks if any method parameter has a function type whose
+  /// signature references class-level type parameters. Such methods need
+  /// dynamic dispatch (`(t as dynamic).method(...)`) because:
+  /// - Class type params resolve to `dynamic` at code-gen time
+  /// - Generated wrappers produce e.g. `(dynamic) => Future<dynamic>`
+  /// - But the native method expects e.g. `(String?) => Future<String>`
+  /// - Dart's function subtyping is strict (invariant generics, contravariant params)
+  bool _methodHasFunctionParamsReferencingClassTypeParams(
+    List<ParameterInfo> params,
+    Map<String, String?> classTypeParams,
+  ) {
+    if (classTypeParams.isEmpty) return false;
+
+    // Build regex that matches any class type param as a whole word
+    final typeParamPattern = RegExp(
+      classTypeParams.keys.map(RegExp.escape).join('|'),
+    );
+
+    for (final param in params) {
+      final funcInfo = param.functionTypeInfo;
+      if (funcInfo == null) continue;
+
+      // Check return type and all parameter types
+      if (typeParamPattern.hasMatch(funcInfo.returnType)) return true;
+      for (final pType in funcInfo.positionalParamTypes) {
+        if (typeParamPattern.hasMatch(pType)) return true;
+      }
+      for (final nType in funcInfo.namedParamTypes.values) {
+        if (typeParamPattern.hasMatch(nType)) return true;
+      }
+    }
+    return false;
+  }
+
   /// Generates constructor body code.
   /// Returns false if the constructor cannot be bridged.
   /// Generates positional dispatch loop for unwrappable positional defaults.
@@ -7958,7 +7992,7 @@ class BridgeGenerator {
             buffer.writeln("          final $localName = $wrapperExpr;");
           } else {
             // Standard extraction for non-function types
-            // Check for List types - need coercion (handles BridgedEnumValue unwrapping)
+            // Check for collection types - need coercion (handles BridgedEnumValue unwrapping)
             if (_isListType(param.type)) {
               final elementType = _getListElementType(
                 param.type,
@@ -7969,6 +8003,29 @@ class BridgeGenerator {
               final coerceMethod = 'D4.coerceList';
               buffer.writeln(
                 "          final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');",
+              );
+            } else if (_isMapType(param.type)) {
+              // GEN-079: Map types need coercion to unwrap BridgedEnumValue keys
+              // and BridgedInstance values into properly typed Map<K,V>.
+              final (keyType, valueType) = _getMapTypeArgs(
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: typeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              buffer.writeln(
+                "          final $localName = D4.coerceMap<$keyType, $valueType>(named['${param.name}'], '${param.name}');",
+              );
+            } else if (_isSetType(param.type)) {
+              // GEN-079: Set types need coercion similar to lists.
+              final elementType = _getSetElementType(
+                param.type,
+                typeToUri: param.typeToUri,
+                classTypeParams: typeParams,
+                sourceFilePath: sourceFilePath,
+              );
+              buffer.writeln(
+                "          final $localName = D4.coerceSet<$elementType>(named['${param.name}'], '${param.name}');",
               );
             } else {
               final resolvedType = _getTypeArgument(
@@ -8914,7 +8971,13 @@ class BridgeGenerator {
     }
 
     final isVoid = method.returnType == 'void';
-    final callTarget = _requiresDynamicMemberDispatch(method.name)
+    // GEN-092: Use dynamic dispatch when method has function-typed params
+    // that reference class type parameters (avoids function type mismatch)
+    final callTarget = _requiresDynamicMemberDispatch(method.name) ||
+            _methodHasFunctionParamsReferencingClassTypeParams(
+              method.parameters,
+              cls.typeParameters,
+            )
         ? '(t as dynamic)'
         : 't';
     if (useCombinatorial) {

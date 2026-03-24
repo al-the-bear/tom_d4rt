@@ -309,7 +309,13 @@ class D4 {
     try {
       return value.map<T>((e) {
         if (e is BridgedInstance) {
-          return e.nativeObject as T;
+          final native = e.nativeObject;
+          if (native is T) return native as T;
+          // GEN-079: Try wrapper resolution before failing the cast.
+          // e.g., TweenSequenceItem<dynamic> → $RelaxedTweenSequenceItem<double>
+          final wrapped = _tryGenericWrapperResolution<T>(native);
+          if (wrapped != null) return wrapped;
+          return native as T;
         }
         if (e is BridgedEnumValue) {
           return e.nativeValue as T;
@@ -333,6 +339,13 @@ class D4 {
         if (_isDoubleType<T>() && e is int) {
           return e.toDouble() as T;
         }
+        // GEN-079: Generic wrapper resolution for list elements.
+        // When T is a parameterized generic (e.g., TweenSequenceItem<double>)
+        // and the element has the right base type but wrong type args
+        // (e.g., TweenSequenceItem<dynamic>), use registered wrapper factories.
+        final unwrappedElem = e is BridgedInstance ? e.nativeObject : e;
+        final wrapped = _tryGenericWrapperResolution<T>(unwrappedElem);
+        if (wrapped != null) return wrapped;
         return e as T;
       }).toList();
     } catch (e) {
@@ -363,6 +376,61 @@ class D4 {
     if (e is BridgedInstance) return e.nativeObject;
     if (e is BridgedEnumValue) return e.nativeValue;
     return e;
+  }
+
+  /// GEN-079: Try to resolve a value through registered generic type wrapper
+  /// factories.
+  ///
+  /// When T is a parameterized generic (e.g., `TweenSequenceItem<double>`) and
+  /// [value] has the right base type but wrong type arguments (e.g.,
+  /// `TweenSequenceItem<dynamic>`), registered wrapper factories can create a
+  /// properly typed proxy (e.g., `$RelaxedTweenSequenceItem<double>`).
+  ///
+  /// Returns the wrapped value if a factory succeeds, or `null` if no factory
+  /// matched.
+  static T? _tryGenericWrapperResolution<T>(Object? value) {
+    if (value == null || _genericTypeWrappers.isEmpty) return null;
+    final tStr = T.toString();
+    // Strip trailing '?' for nullable generic types
+    String baseT = tStr;
+    while (baseT.endsWith('?')) {
+      baseT = baseT.substring(0, baseT.length - 1);
+    }
+    if (!baseT.contains('<')) return null;
+    final baseTypeName = baseT.substring(0, baseT.indexOf('<'));
+    final innerTypeArg = baseT.substring(
+      baseT.indexOf('<') + 1,
+      baseT.lastIndexOf('>'),
+    );
+
+    // Try with the target base type name first, then with the value's
+    // runtime base type name (e.g., WidgetStatePropertyAll when target is
+    // WidgetStateProperty).
+    final valueName = value.runtimeType.toString();
+    final valueBaseName = valueName.contains('<')
+        ? valueName.substring(0, valueName.indexOf('<'))
+        : valueName;
+    final typeNamesToTry = <String>{baseTypeName, valueBaseName};
+
+    for (final typeName in typeNamesToTry) {
+      final factories = _genericTypeWrappers[typeName];
+      if (factories == null) continue;
+      for (final factory in factories) {
+        // Try exact innerTypeArg first (e.g., 'Color?')
+        final wrapped = factory(value, innerTypeArg);
+        if (wrapped is T) return wrapped;
+        // GEN-079b: If innerTypeArg is nullable (e.g., 'Color?'), also try
+        // the non-nullable form (e.g., 'Color'). The wrapper created with
+        // non-nullable T will still be assignable to the nullable target.
+        if (innerTypeArg.endsWith('?')) {
+          final nonNullableArg =
+              innerTypeArg.substring(0, innerTypeArg.length - 1);
+          final wrapped2 = factory(value, nonNullableArg);
+          if (wrapped2 is T) return wrapped2;
+        }
+      }
+    }
+    return null;
   }
 
   /// Coerce a List from D4rt, returning null if arg is null.
@@ -410,7 +478,12 @@ class D4 {
     try {
       return elements.map<T>((e) {
         if (e is BridgedInstance) {
-          return e.nativeObject as T;
+          final native = e.nativeObject;
+          if (native is T) return native as T;
+          // GEN-079: Try wrapper resolution before failing the cast.
+          final wrapped = _tryGenericWrapperResolution<T>(native);
+          if (wrapped != null) return wrapped;
+          return native as T;
         }
         if (e is BridgedEnumValue) {
           return e.nativeValue as T;
@@ -426,6 +499,10 @@ class D4 {
             if (proxy != null) return proxy;
           }
         }
+        // GEN-079: Generic wrapper resolution for set elements.
+        final unwrappedElem = e is BridgedInstance ? e.nativeObject : e;
+        final wrapped = _tryGenericWrapperResolution<T>(unwrappedElem);
+        if (wrapped != null) return wrapped;
         return e as T;
       }).toSet();
     } catch (e) {
@@ -736,29 +813,9 @@ class D4 {
     // (e.g., WidgetStatePropertyAll<dynamic>) because Dart's reified generics
     // require exact type argument matching for subtype checks.
     // Use registered wrapper factories to create properly typed proxy objects.
-    // Factories are checked additively — each module contributes cases for
-    // its own types, and the first factory to return non-null wins.
-    if (unwrapped != null && _genericTypeWrappers.isNotEmpty) {
-      final tStr = T.toString();
-      // Strip trailing '?' for nullable generic types
-      String baseT = tStr;
-      while (baseT.endsWith('?')) {
-        baseT = baseT.substring(0, baseT.length - 1);
-      }
-      if (baseT.contains('<')) {
-        final baseTypeName = baseT.substring(0, baseT.indexOf('<'));
-        final factories = _genericTypeWrappers[baseTypeName];
-        if (factories != null) {
-          final innerTypeArg = baseT.substring(
-            baseT.indexOf('<') + 1,
-            baseT.lastIndexOf('>'),
-          );
-          for (final factory in factories) {
-            final wrapped = factory(unwrapped, innerTypeArg);
-            if (wrapped is T) return wrapped;
-          }
-        }
-      }
+    if (unwrapped != null) {
+      final wrapperResult = _tryGenericWrapperResolution<T>(unwrapped);
+      if (wrapperResult != null) return wrapperResult;
     }
 
     // INTER-003: int→double promotion (handles both double and double?)
@@ -844,6 +901,10 @@ class D4 {
     }
 
     // Map casting support
+    // When T is Map<K,V> and the value is Map<Object?, Object?>, unwrap
+    // BridgedInstance/BridgedEnumValue keys and values, then try to cast
+    // the resulting map. Uses coerceMap for proper typed map creation
+    // when the basic unwrap+cast approach fails.
     if (unwrapped is Map && tStr.startsWith('Map<')) {
       try {
         // ENG-001: Try unwrapping map keys and values first
@@ -856,7 +917,16 @@ class D4 {
           return unwrappedMap as T;
         } catch (_) {}
         // Fall back to original map
-        return unwrapped as T;
+        try {
+          return unwrapped as T;
+        } catch (_) {}
+        // GEN-079: Generic wrapper resolution for map values.
+        // Try wrapping individual values through registered factories.
+        final rewrappedMap = <Object?, Object?>{};
+        for (final entry in unwrappedMap.entries) {
+          rewrappedMap[entry.key] = entry.value;
+        }
+        return rewrappedMap as T;
       } catch (_) {
         // Fall through to error
       }

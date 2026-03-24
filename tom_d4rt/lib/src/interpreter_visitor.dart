@@ -8372,7 +8372,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 return nativeObject;
               }
               final bridgedInstance =
-                  BridgedInstance(bridgedClass, nativeObject);
+                  BridgedInstance(bridgedClass, nativeObject,
+                      typeArguments: evaluatedTypeArguments ?? const []);
               Logger.debug(
                 "[InstanceCreation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
               );
@@ -8424,7 +8425,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         // Wrap the native object in BridgedInstance
-        final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
+        final bridgedInstance = BridgedInstance(bridgedClass, nativeObject,
+            typeArguments: evaluatedTypeArguments ?? const []);
         Logger.debug(
             "[InstanceCreation]   Successfully created BridgedInstance wrapping native object: \${nativeObject.runtimeType}");
         return bridgedInstance;

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-03-24T09:11:56.115893
+// Generated: 2026-03-24T16:26:40.938102
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -7219,7 +7219,7 @@ BridgedClass _createImageProviderBridge() {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
         final configuration = D4.getRequiredNamedArg<$flutter_34.ImageConfiguration>(named, 'configuration', 'obtainCacheStatus');
         final handleErrorRaw = named['handleError'];
-        return t.obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
+        return (t as dynamic).obtainCacheStatus(configuration: configuration, handleError: handleErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
       },
       'resolveStreamForKey': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
@@ -7231,7 +7231,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('resolveStreamForKey: Missing required argument "handleError" at position 3');
         }
         final handleErrorRaw = positional[3];
-        t.resolveStreamForKey(configuration, stream, key, (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
+        (t as dynamic).resolveStreamForKey(configuration, stream, key, (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, handleErrorRaw, [p0, p1]); });
         return null;
       },
       'evict': (visitor, target, positional, named, typeArgs) {
@@ -7264,7 +7264,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
