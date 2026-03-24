@@ -92,11 +92,11 @@ dynamic build(BuildContext context) {
     final angle = -math.pi / 2 + (i * math.pi / 4);
     compassOffsets[directions[i]] = Offset.fromDirection(angle, 60.0);
   }
-  for (final entry in compassOffsets.entries) {
+  compassOffsets.forEach((key, value) {
     print(
-      '${entry.key}: dx=${entry.value.dx.toStringAsFixed(1)}, dy=${entry.value.dy.toStringAsFixed(1)}',
+      '$key: dx=${value.dx.toStringAsFixed(1)}, dy=${value.dy.toStringAsFixed(1)}',
     );
-  }
+  });
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: EQUALITY & HASHCODE
@@ -455,12 +455,12 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     // Compass direction dots
-                    ...compassOffsets.entries.map((entry) {
-                      final cx = 160.0 + entry.value.dx;
-                      final cy = 110.0 + entry.value.dy;
-                      final hue =
-                          (compassOffsets.keys.toList().indexOf(entry.key) *
-                          45.0);
+                    ...List.generate(directions.length, (idx) {
+                      final key = directions[idx];
+                      final value = compassOffsets[key]!;
+                      final cx = 160.0 + value.dx;
+                      final cy = 110.0 + value.dy;
+                      final hue = (idx * 45.0);
                       return Positioned(
                         left: cx - 16,
                         top: cy - 16,
@@ -485,7 +485,7 @@ dynamic build(BuildContext context) {
                           ),
                           child: Center(
                             child: Text(
-                              entry.key,
+                              key,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 10,
@@ -530,9 +530,8 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     // Lerp points
-                    ...lerpPoints.asMap().entries.map((entry) {
-                      final i = entry.key;
-                      final pt = entry.value;
+                    ...List.generate(lerpPoints.length, (i) {
+                      final pt = lerpPoints[i];
                       final t = lerpSteps[i];
                       return Positioned(
                         left: pt.dx - 12,

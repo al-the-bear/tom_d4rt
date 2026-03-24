@@ -18,7 +18,7 @@ dynamic build(BuildContext context) {
         height: 60.0,
         child: Center(
           child: Text(
-            'Max: ${constraints.maxWidth.toInt()}x${constraints.maxHeight.toInt()}',
+            'Max: ${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'inf'}x${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'inf'}',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -119,7 +119,7 @@ dynamic build(BuildContext context) {
           color: Colors.purple,
           child: Center(
             child: Text(
-              '${constraints.maxWidth.toInt()}x${constraints.maxHeight.toInt()}',
+              '${constraints.maxWidth.isFinite ? constraints.maxWidth.toInt() : 'inf'}x${constraints.maxHeight.isFinite ? constraints.maxHeight.toInt() : 'inf'}',
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -101,9 +101,9 @@ dynamic build(BuildContext context) {
   };
 
   print('\n--- Aspect Ratios ---');
-  for (final e in aspects.entries) {
-    print('${e.key}: ${e.value.aspectRatio.toStringAsFixed(3)}');
-  }
+  aspects.forEach((key, value) {
+    print('$key: ${value.aspectRatio.toStringAsFixed(3)}');
+  });
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: EQUALITY
@@ -554,13 +554,16 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
-        ...aspects.entries.toList().asMap().entries.map(
-          (e) => aspectBar(
-            e.value.key,
-            e.value.value,
-            aspectColors[e.key % aspectColors.length],
-          ),
-        ),
+        ...(() {
+          final keys = aspects.keys.toList();
+          return List.generate(keys.length, (i) {
+            return aspectBar(
+              keys[i],
+              aspects[keys[i]]!,
+              aspectColors[i % aspectColors.length],
+            );
+          });
+        })(),
         SizedBox(height: 16),
 
         // Section 4: Flipped

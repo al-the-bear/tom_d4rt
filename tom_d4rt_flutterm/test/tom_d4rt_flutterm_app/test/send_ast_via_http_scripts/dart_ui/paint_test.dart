@@ -359,17 +359,17 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Column(
-                  children: StrokeCap.values.asMap().entries.map((entry) {
+                  children: List.generate(StrokeCap.values.length, (i) {
                     final colors = [
                       Color(0xFF1565C0),
                       Color(0xFF6A1B9A),
                       Color(0xFF00695C),
                     ];
                     return _strokeCapRow(
-                      entry.value.name,
-                      colors[entry.key % 3],
+                      StrokeCap.values[i].toString().split('.').last,
+                      colors[i % 3],
                     );
-                  }).toList(),
+                  }),
                 ),
               ),
 
@@ -383,17 +383,17 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Column(
-                  children: StrokeJoin.values.asMap().entries.map((entry) {
+                  children: List.generate(StrokeJoin.values.length, (i) {
                     final colors = [
                       Color(0xFFBF360C),
                       Color(0xFFC62828),
                       Color(0xFFE65100),
                     ];
                     return _strokeJoinRow(
-                      entry.value.name,
-                      colors[entry.key % 3],
+                      StrokeJoin.values[i].toString().split('.').last,
+                      colors[i % 3],
                     );
-                  }).toList(),
+                  }),
                 ),
               ),
 
@@ -404,16 +404,16 @@ dynamic build(BuildContext context) {
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: blendModes.asMap().entries.map((entry) {
-                    final hue = (entry.key * 30.0) % 360;
+                  children: List.generate(blendModes.length, (i) {
+                    final hue = (i * 30.0) % 360;
                     final color = HSVColor.fromAHSV(
                       1.0,
                       hue,
                       0.7,
                       0.85,
                     ).toColor();
-                    return _blendModeChip(entry.value.name, color);
-                  }).toList(),
+                    return _blendModeChip(blendModes[i].toString().split('.').last, color);
+                  }),
                 ),
               ),
 
@@ -427,9 +427,9 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Column(
-                  children: FilterQuality.values.asMap().entries.map((entry) {
-                    return _filterQualityRow(entry.value.name, entry.key);
-                  }).toList(),
+                  children: List.generate(FilterQuality.values.length, (i) {
+                    return _filterQualityRow(FilterQuality.values[i].toString().split('.').last, i);
+                  }),
                 ),
               ),
 

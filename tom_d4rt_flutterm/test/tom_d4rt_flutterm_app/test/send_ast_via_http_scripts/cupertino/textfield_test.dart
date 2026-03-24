@@ -550,7 +550,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8),
                   CupertinoTextField(
                     placeholder: 'Enter description...',
-                    maxLines: null,
+                    maxLines: 5,
                     minLines: 3,
                     padding: EdgeInsets.all(12),
                   ),

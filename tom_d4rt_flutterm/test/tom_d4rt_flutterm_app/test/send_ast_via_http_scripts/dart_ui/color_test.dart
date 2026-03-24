@@ -50,10 +50,9 @@ dynamic build(BuildContext context) {
     'White': Color(0xFFFFFFFF),
     'Black': Color(0xFF000000),
   };
-  for (final entry in colors.entries) {
-    final col = entry.value;
-    print('${entry.key}: a=${col.a}, r=${col.r}, g=${col.g}, b=${col.b}');
-  }
+  colors.forEach((key, col) {
+    print('$key: a=${col.a}, r=${col.r}, g=${col.g}, b=${col.b}');
+  });
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: withValues
@@ -108,9 +107,9 @@ dynamic build(BuildContext context) {
     'Transparent': Color(0x00000000),
     'Half alpha red': Color(0x80FF0000),
   };
-  for (final entry in specials.entries) {
-    print('${entry.key}: ${entry.value}');
-  }
+  specials.forEach((key, value) {
+    print('$key: $value');
+  });
 
   print('Color demo complete');
 
@@ -226,8 +225,8 @@ dynamic build(BuildContext context) {
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: colors.entries.map((entry) {
-                    return _colorSwatch(entry.key, entry.value);
+                  children: colors.keys.map((key) {
+                    return _colorSwatch(key, colors[key]!);
                   }).toList(),
                 ),
               ),
@@ -244,7 +243,7 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     Row(
-                      children: lerpColors.asMap().entries.map((entry) {
+                      children: List.generate(lerpColors.length, (i) {
                         return Expanded(
                           child: Column(
                             children: [
@@ -252,11 +251,11 @@ dynamic build(BuildContext context) {
                                 height: 50,
                                 margin: EdgeInsets.symmetric(horizontal: 2),
                                 decoration: BoxDecoration(
-                                  color: entry.value,
+                                  color: lerpColors[i],
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: entry.value.withValues(alpha: 0.4),
+                                      color: lerpColors[i].withValues(alpha: 0.4),
                                       blurRadius: 4,
                                       offset: Offset(0, 2),
                                     ),
@@ -265,7 +264,7 @@ dynamic build(BuildContext context) {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                '${lerpSteps[entry.key]}',
+                                '${lerpSteps[i]}',
                                 style: TextStyle(fontSize: 10),
                               ),
                             ],
@@ -305,17 +304,17 @@ dynamic build(BuildContext context) {
                         border: Border.all(color: Color(0xFFE0E0E0)),
                       ),
                       child: Row(
-                        children: alphaColors.asMap().entries.map((entry) {
+                        children: List.generate(alphaColors.length, (i) {
                           return Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                color: entry.value,
-                                borderRadius: entry.key == 0
+                                color: alphaColors[i],
+                                borderRadius: i == 0
                                     ? BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         bottomLeft: Radius.circular(8),
                                       )
-                                    : entry.key == alphaColors.length - 1
+                                    : i == alphaColors.length - 1
                                     ? BorderRadius.only(
                                         topRight: Radius.circular(8),
                                         bottomRight: Radius.circular(8),
@@ -324,7 +323,7 @@ dynamic build(BuildContext context) {
                               ),
                             ),
                           );
-                        }).toList(),
+                        }),
                       ),
                     ),
                     SizedBox(height: 8),
@@ -410,8 +409,8 @@ dynamic build(BuildContext context) {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
-                  children: specials.entries.map((entry) {
-                    return _specialValueRow(entry.key, entry.value);
+                  children: specials.keys.map((key) {
+                    return _specialValueRow(key, specials[key]!);
                   }).toList(),
                 ),
               ),

@@ -1485,11 +1485,28 @@ void _writeGenericConstructorFactory(
   for (var i = 0; i < positionalParams.length; i++) {
     final p = positionalParams[i];
     if (!isTypeParamTyped(p)) {
-      final castType = _rc2NullableCast(p.type);
-      buffer.writeln(
-        '  final ${_rc2SafeName(p.name)} = positional.length > $i '
-        '? positional[$i] as $castType : null;',
-      );
+      final safeName = _rc2SafeName(p.name);
+      final baseType = p.type.replaceAll('?', '');
+      if (baseType == 'double') {
+        // GEN-075: int→double coercion for extraction
+        buffer.writeln(
+          '  final $safeName = positional.length > $i '
+          '? (positional[$i] as num?)?.toDouble() : null;',
+        );
+      } else if (_rc2IsInlineFunctionType(p.type)) {
+        // GEN-075: Function types can't be cast from InterpretedFunction —
+        // extract as dynamic, wrapper applied in constructor call below
+        buffer.writeln(
+          '  final $safeName = positional.length > $i '
+          '? positional[$i] : null;',
+        );
+      } else {
+        final castType = _rc2NullableCast(p.type);
+        buffer.writeln(
+          '  final $safeName = positional.length > $i '
+          '? positional[$i] as $castType : null;',
+        );
+      }
     } else {
       // Type-param-typed positional: extract as dynamic
       buffer.writeln(
@@ -1500,11 +1517,28 @@ void _writeGenericConstructorFactory(
   }
   for (final p in namedParams) {
     if (!isTypeParamTyped(p)) {
-      final castType = _rc2NullableCast(p.type);
-      buffer.writeln(
-        "  final ${_rc2SafeName(p.name)} = named.containsKey('${p.name}') "
-        "? named['${p.name}'] as $castType : null;",
-      );
+      final safeName = _rc2SafeName(p.name);
+      final baseType = p.type.replaceAll('?', '');
+      if (baseType == 'double') {
+        // GEN-075: int→double coercion for extraction
+        buffer.writeln(
+          "  final $safeName = named.containsKey('${p.name}') "
+          "? (named['${p.name}'] as num?)?.toDouble() : null;",
+        );
+      } else if (_rc2IsInlineFunctionType(p.type)) {
+        // GEN-075: Function types can't be cast from InterpretedFunction —
+        // extract as dynamic, wrapper applied in constructor call below
+        buffer.writeln(
+          "  final $safeName = named.containsKey('${p.name}') "
+          "? named['${p.name}'] : null;",
+        );
+      } else {
+        final castType = _rc2NullableCast(p.type);
+        buffer.writeln(
+          "  final $safeName = named.containsKey('${p.name}') "
+          "? named['${p.name}'] as $castType : null;",
+        );
+      }
     } else {
       buffer.writeln(
         "  final ${_rc2SafeName(p.name)} = named.containsKey('${p.name}') "
@@ -1647,6 +1681,24 @@ void _writeRC2Case(
               ? 'D4.coerceMapOrNull<$keyType, $valueType>($safeName, \'${p.name}\')'
               : 'D4.coerceMap<$keyType, $valueType>($safeName, \'${p.name}\')',
         );
+      } else if (_rc2IsFutureType(p.type)) {
+        // GEN-075: Future containing type param → .then() coercion
+        final substitutedType = substituteTypeParam(p.type);
+        final innerType = _rc2ExtractFutureInnerType(substitutedType);
+        args.add(
+          isTypeNullable
+              ? '($safeName as Future?)?.then<$innerType>((v) => v as $innerType)'
+              : '($safeName as Future).then<$innerType>((v) => v as $innerType)',
+        );
+      } else if (_rc2IsStreamType(p.type)) {
+        // GEN-075: Stream containing type param → .map() coercion
+        final substitutedType = substituteTypeParam(p.type);
+        final innerType = _rc2ExtractStreamInnerType(substitutedType);
+        args.add(
+          isTypeNullable
+              ? '($safeName as Stream?)?.map<$innerType>((v) => v as $innerType)'
+              : '($safeName as Stream).map<$innerType>((v) => v as $innerType)',
+        );
       } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
         // GEN-075: Function type with known signature → generate wrapper
         args.add(_rc2GenerateFunctionWrapper(
@@ -1663,6 +1715,21 @@ void _writeRC2Case(
           isNullable ? '$safeName as $castType' : '($safeName as $castType)!',
         );
       }
+    } else if (p.type == 'double' || p.type == 'double?') {
+      // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
+      if (isTypeNullable) {
+        args.add('($safeName as num?)?.toDouble()');
+      } else if (p.defaultValue != null && !p.isRequired &&
+          !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
+        args.add('($safeName as num?)?.toDouble() ?? ${p.defaultValue}');
+      } else {
+        args.add('($safeName as num).toDouble()');
+      }
+    } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
+      // GEN-075: Non-type-param function type → generate wrapper
+      args.add(_rc2GenerateFunctionWrapper(
+        safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__',
+      ));
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
@@ -1724,6 +1791,24 @@ void _writeRC2Case(
               ? '${p.name}: D4.coerceMapOrNull<$keyType, $valueType>($safeName, \'${p.name}\')'
               : '${p.name}: D4.coerceMap<$keyType, $valueType>($safeName, \'${p.name}\')',
         );
+      } else if (_rc2IsFutureType(p.type)) {
+        // GEN-075: Future containing type param → .then() coercion
+        final substitutedType = substituteTypeParam(p.type);
+        final innerType = _rc2ExtractFutureInnerType(substitutedType);
+        namedArgParts.add(
+          isTypeNullable
+              ? '${p.name}: ($safeName as Future?)?.then<$innerType>((v) => v as $innerType)'
+              : '${p.name}: ($safeName as Future).then<$innerType>((v) => v as $innerType)',
+        );
+      } else if (_rc2IsStreamType(p.type)) {
+        // GEN-075: Stream containing type param → .map() coercion
+        final substitutedType = substituteTypeParam(p.type);
+        final innerType = _rc2ExtractStreamInnerType(substitutedType);
+        namedArgParts.add(
+          isTypeNullable
+              ? '${p.name}: ($safeName as Stream?)?.map<$innerType>((v) => v as $innerType)'
+              : '${p.name}: ($safeName as Stream).map<$innerType>((v) => v as $innerType)',
+        );
       } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
         // GEN-075: Function type with known signature → generate wrapper
         namedArgParts.add(
@@ -1742,6 +1827,21 @@ void _writeRC2Case(
               : '${p.name}: ($safeName as $castType)!',
         );
       }
+    } else if (p.type == 'double' || p.type == 'double?') {
+      // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
+      if (isTypeNullable) {
+        namedArgParts.add('${p.name}: ($safeName as num?)?.toDouble()');
+      } else if (p.defaultValue != null && !p.isRequired &&
+          !RegExp(r'\b_').hasMatch(p.defaultValue!)) {
+        namedArgParts.add('${p.name}: ($safeName as num?)?.toDouble() ?? ${p.defaultValue}');
+      } else {
+        namedArgParts.add('${p.name}: ($safeName as num).toDouble()');
+      }
+    } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
+      // GEN-075: Non-type-param function type → generate wrapper
+      namedArgParts.add(
+        '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__')}',
+      );
     } else {
       // Non-type-param-typed: add ! if param type is non-nullable
       final needsAssert = !p.type.endsWith('?');
@@ -1783,6 +1883,14 @@ bool _rc2SatisfiesBound(
   return false;
 }
 
+/// Checks if [type] is an inline function type (not castable via `as`).
+///
+/// Inline: `void Function(bool, T?)?`, `Object? Function(T)`.
+/// NOT inline: `OnInvokeCallback<T>`, `ValueGetter<T>` (these are typedef names).
+bool _rc2IsInlineFunctionType(String type) {
+  return RegExp(r'\bFunction\s*[<(]').hasMatch(type);
+}
+
 /// Makes a type nullable for safe null-coalescing casts.
 String _rc2NullableCast(String type) {
   if (type.endsWith('?')) return type;
@@ -1820,6 +1928,36 @@ bool _rc2IsMapType(String type) {
   final baseType =
       type.endsWith('?') ? type.substring(0, type.length - 1) : type;
   return baseType.startsWith('Map<') && baseType.endsWith('>');
+}
+
+/// Checks if a type is a Future type (e.g., `Future<String>?`).
+bool _rc2IsFutureType(String type) {
+  final baseType =
+      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  return baseType.startsWith('Future<') && baseType.endsWith('>');
+}
+
+/// Checks if a type is a Stream type (e.g., `Stream<String>?`).
+bool _rc2IsStreamType(String type) {
+  final baseType =
+      type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+  return baseType.startsWith('Stream<') && baseType.endsWith('>');
+}
+
+/// Extracts the inner type from a Future type.
+/// E.g., `Future<String>?` → `String`.
+String _rc2ExtractFutureInnerType(String futureType) {
+  final baseType =
+      futureType.endsWith('?') ? futureType.substring(0, futureType.length - 1) : futureType;
+  return baseType.substring(7, baseType.length - 1); // 'Future<'.length == 7
+}
+
+/// Extracts the inner type from a Stream type.
+/// E.g., `Stream<String>?` → `String`.
+String _rc2ExtractStreamInnerType(String streamType) {
+  final baseType =
+      streamType.endsWith('?') ? streamType.substring(0, streamType.length - 1) : streamType;
+  return baseType.substring(7, baseType.length - 1); // 'Stream<'.length == 7
 }
 
 /// Extracts the element type from a List or Iterable type.

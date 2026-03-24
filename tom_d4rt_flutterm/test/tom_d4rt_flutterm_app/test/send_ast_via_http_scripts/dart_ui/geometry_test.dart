@@ -199,15 +199,15 @@ dynamic build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: sz.width * 0.5,
-          height: sz.height * 0.5,
+          width: sz.width.isFinite ? sz.width * 0.5 : 50.0,
+          height: sz.height.isFinite ? sz.height * 0.5 : 50.0,
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.3),
             border: Border.all(color: color, width: 1.5),
           ),
           child: Center(
             child: Text(
-              '${sz.width.toInt()}×${sz.height.toInt()}',
+              '${sz.width.isFinite ? sz.width.toInt().toString() : "\u221E"}\u00D7${sz.height.isFinite ? sz.height.toInt().toString() : "\u221E"}',
               style: TextStyle(fontSize: 9, color: color),
             ),
           ),

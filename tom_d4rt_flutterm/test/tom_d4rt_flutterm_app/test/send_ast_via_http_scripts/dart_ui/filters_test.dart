@@ -430,26 +430,31 @@ dynamic build(BuildContext context) {
                       'Red + colorBurn',
                       Colors.red,
                       BlendMode.colorBurn,
+                      'colorBurn',
                     ),
                     _colorFilterRow(
                       'Blue + srcATop',
                       Colors.blue,
                       BlendMode.srcATop,
+                      'srcATop',
                     ),
                     _colorFilterRow(
                       'Green + overlay',
                       Colors.green,
                       BlendMode.overlay,
+                      'overlay',
                     ),
                     _colorFilterRow(
                       'Orange + multiply',
                       Colors.orange,
                       BlendMode.multiply,
+                      'multiply',
                     ),
                     _colorFilterRow(
                       'Purple + screen',
                       Colors.purple,
                       BlendMode.screen,
+                      'screen',
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -777,7 +782,7 @@ Widget _composeBox(String label, String name, Color color) {
   );
 }
 
-Widget _colorFilterRow(String label, Color filterColor, BlendMode mode) {
+Widget _colorFilterRow(String label, Color filterColor, BlendMode mode, String modeName) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(
@@ -799,7 +804,7 @@ Widget _colorFilterRow(String label, Color filterColor, BlendMode mode) {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
-            mode.name,
+            modeName,
             style: TextStyle(fontSize: 9, color: filterColor),
           ),
         ),
