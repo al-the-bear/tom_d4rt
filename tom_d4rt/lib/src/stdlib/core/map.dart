@@ -9,6 +9,8 @@ class MapCore {
           'UnmodifiableMapView',
           '_UnmodifiableMapView',
           '_CompactLinkedHashMap',
+          'ListMapView', // List.asMap() return type
+          '_MapView', // Internal MapView implementation
         ],
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

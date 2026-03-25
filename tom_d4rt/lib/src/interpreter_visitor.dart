@@ -974,6 +974,28 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[PrefixedIdentifier] Error finding extension '$memberName' (fallback): ${findError.message}. Trying Stdlib...");
       }
 
+      // Fix I: Generic Enum property getter — handles raw native enums
+      // not wrapped in BridgedEnumValue (e.g., returned by bridge getters).
+      // All Dart enums implement the Enum interface with .name and .index.
+      if (prefixValue is Enum) {
+        switch (memberName) {
+          case 'name':
+            return (prefixValue as Enum).name;
+          case 'index':
+            return (prefixValue as Enum).index;
+          case 'hashCode':
+            return prefixValue.hashCode;
+          case 'runtimeType':
+            return prefixValue.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (_, args, __, ___) => prefixValue.toString(),
+              arity: 0,
+              name: 'toString',
+            );
+        }
+      }
+
       throw RuntimeD4rtException(
           "Cannot access property '$memberName' on target of type ${prefixValue?.runtimeType}.");
     }
@@ -1119,6 +1141,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeD4rtException(
               "Error executing class operator '$operatorName': $e");
         }
+      }
+    }
+
+    // Fix J: Intercept enum equality BEFORE toBridgedInstance wraps them incorrectly
+    if ((operatorName == '==' || operatorName == '!=') &&
+        (leftOperandValue is Enum ||
+            leftOperandValue is BridgedEnumValue ||
+            rightOperandValue is Enum ||
+            rightOperandValue is BridgedEnumValue)) {
+      // Unwrap BridgedEnumValue to native enum for comparison
+      final leftNative = leftOperandValue is BridgedEnumValue
+          ? leftOperandValue.nativeValue
+          : leftOperandValue;
+      final rightNative = rightOperandValue is BridgedEnumValue
+          ? rightOperandValue.nativeValue
+          : rightOperandValue;
+      if (operatorName == '==') {
+        return leftNative == rightNative;
+      } else {
+        return leftNative != rightNative;
       }
     }
 
@@ -3683,6 +3725,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
       }
 
+      // Fix I: Check if the nativeObject is actually an Enum
+      if (bridgedInstance.nativeObject is Enum) {
+        final enumObj = bridgedInstance.nativeObject as Enum;
+        switch (propertyName) {
+          case 'name':
+            return enumObj.name;
+          case 'index':
+            return enumObj.index;
+          case 'hashCode':
+            return enumObj.hashCode;
+          case 'runtimeType':
+            return enumObj.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (visitor, args, namedArgs, typeArgs) => enumObj.toString(),
+              arity: 0,
+              name: 'toString',
+            );
+        }
+      }
+
       throw RuntimeD4rtException(
           "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.");
     } else if (target is InterpretedRecord) {
@@ -3798,6 +3861,26 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         } catch (e) {
           throw RuntimeD4rtException(
               "Undefined property '$propertyName' on bridged enum value '${bridgedEnumValue.name}'.");
+        }
+      }
+
+      // Fix I: Generic Enum property access for raw Enum targets
+      if (target is Enum) {
+        switch (propertyName) {
+          case 'name':
+            return (target as Enum).name;
+          case 'index':
+            return (target as Enum).index;
+          case 'hashCode':
+            return target.hashCode;
+          case 'runtimeType':
+            return target.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (visitor, args, namedArgs, typeArgs) => target.toString(),
+              arity: 0,
+              name: 'toString',
+            );
         }
       }
 

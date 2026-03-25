@@ -1,3 +1,19 @@
+## 1.8.19
+
+### Fixes
+- **ENV-001**: Fixed generic type matching in `environment.dart` — extract base type name before `<` for accurate BridgedClass resolution, preventing false matches like `ListMapView<int>` matching `View` bridge
+- **ENV-002**: Added `endsWith` suffix match fallback for generic types — types like `CastList<T>`, `ListIterator<T>`, `CastStream<T>`, `EfficientLengthFollowedByIterable<T>` now correctly resolve to their parent bridge (`List`, `Iterator`, `Stream`, `Iterable`)
+- **RT-001**: Fixed `InterpretedClass.isSubtypeOf()` — walks `InterpretedClass.superclass` chain checking `bridgedSuperclass` and `bridgedMixins` at each level instead of broken `BridgedClass.bridgedSuperclass` chain
+- **BT-001**: Enum `.name`/`.index` fallback in `BridgedInstance.get()` — checks `nativeObject is Enum` before throwing on missing property
+- **IV-001**: Enum property access fix in `visitPrefixedIdentifier` and `visitPropertyAccess` — properly handles `.name`, `.index` on enum values
+- **IV-002**: Enum equality intercept before `toBridgedInstance` wrapping — prevents wrapping from breaking `==` comparisons
+- **D4-001**: Null-safe `superObj` check in `extractBridgedArg`
+
+### Improvements
+- Added 16 list transformation iterable type names to `Iterable` bridge (`MappedListIterable`, `WhereIterable`, `CastIterable`, etc.)
+- Added `ListMapView`, `_MapView` to `Map` bridge nativeNames
+- Added `LinkedHashSet`, `_SetBase` to `Set` bridge nativeNames
+
 ## 1.8.18
 
 ### Features

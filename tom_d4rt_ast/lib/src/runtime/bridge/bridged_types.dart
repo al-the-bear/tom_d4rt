@@ -246,6 +246,19 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
       return BridgedMethodCallable(this, methodAdapter, name);
     }
 
+    // RC-7: If the wrapped native object is an Enum, handle .name and .index
+    // This covers cases where a bridged getter returns a native enum value
+    // wrapped in BridgedInstance (e.g., paint.blendMode returns BlendMode.srcOver
+    // as a BridgedInstance, then .name is requested).
+    if (nativeObject is Enum) {
+      switch (name) {
+        case 'name':
+          return (nativeObject as Enum).name;
+        case 'index':
+          return (nativeObject as Enum).index;
+      }
+    }
+
     // This should be handled by visitors (PrefixedIdentifier, PropertyAccess)
     // for them to have access to the visitor if necessary.
     // The logic here is simplified and could be incorrect if a getter

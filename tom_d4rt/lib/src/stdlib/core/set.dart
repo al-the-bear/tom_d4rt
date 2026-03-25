@@ -9,6 +9,8 @@ class SetCore {
           'UnmodifiableSetView',
           '_UnmodifiableSetView',
           '_CompactLinkedHashSet',
+          'LinkedHashSet', // Explicit LinkedHashSet
+          '_SetBase', // Internal Set base type
         ],
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

@@ -233,9 +233,23 @@ class Environment {
                     false))
             ?.value;
       } else if (bridgedClass == null && nativeTypeName.contains('<')) {
+        // Extract the base type name before '<' for accurate matching.
+        // Using contains() was too broad — e.g., 'ListMapView<int>'.contains('View<')
+        // would falsely match the Flutter View widget bridge.
+        final baseTypeName =
+            nativeTypeName.substring(0, nativeTypeName.indexOf('<'));
         bridgedClass = current._bridgedClassesLookupByType.entries
-            .firstWhereOrNull(
-                (e) => nativeTypeName.contains('${e.value.name}<'))
+            .firstWhereOrNull((e) =>
+                baseTypeName == e.value.name ||
+                (e.value.nativeNames?.contains(baseTypeName) ?? false))
+            ?.value;
+        // Suffix match fallback: e.g., CastList → List, ListIterator → Iterator
+        // Handles types that embed the bridge name as a suffix.
+        bridgedClass ??= current._bridgedClassesLookupByType.entries
+            .firstWhereOrNull((e) =>
+                e.value.name.length >= 3 &&
+                baseTypeName.endsWith(e.value.name) &&
+                baseTypeName.length > e.value.name.length)
             ?.value;
       }
       bridgedClass ??= current._bridgedClassesLookupByType.entries

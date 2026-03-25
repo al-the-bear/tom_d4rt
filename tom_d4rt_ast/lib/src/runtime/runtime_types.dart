@@ -908,7 +908,7 @@ class InterpretedClass implements Callable, RuntimeType {
 
   /// Checks if this class is a subtype of the [other] class.
   /// This considers inheritance (extends), mixin application (with),
-  /// and interface implementation (implements).
+  /// interface implementation (implements), and bridged superclass chains.
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
     if (other is InterpretedClass) {
@@ -937,15 +937,39 @@ class InterpretedClass implements Callable, RuntimeType {
         if (superclass!.isSubtypeOf(other)) return true;
       }
 
-      // Check mixins' superclasses, mixins, and interfaces (transitive)
-      // This requires iterating through the mixin application chain implicitly handled above
-
-      // Check interfaces' superclasses, mixins, and interfaces (transitive)
-      // This requires iterating through the interface implementation chain implicitly handled above
-
       // Default case: not a subtype
       return false;
     }
+
+    // RC-7: Check bridged superclass chain when comparing against a BridgedClass.
+    // An interpreted class extending a bridged class (e.g., MyWidget extends
+    // StatelessWidget) must be recognized as a subtype of Widget, etc.
+    if (other is BridgedClass) {
+      // Walk up the interpreted superclass chain checking bridged superclasses
+      InterpretedClass? current = this;
+      while (current != null) {
+        final bridgedSuper = current.bridgedSuperclass;
+        if (bridgedSuper != null) {
+          // Check if the bridged superclass matches or is a subtype of other
+          if (bridgedSuper.name == other.name) return true;
+          if (bridgedSuper.isSubtypeOf(other)) return true;
+        }
+
+        // Also check bridged mixins at each level
+        for (final bridgedMixin in current.bridgedMixins) {
+          if (bridgedMixin.name == other.name) return true;
+          if (bridgedMixin.isSubtypeOf(other)) return true;
+        }
+
+        current = current.superclass;
+      }
+
+      // Check interpreted mixins' bridged superclass chains
+      for (final mixin in mixins) {
+        if (mixin.isSubtypeOf(other)) return true;
+      }
+    }
+
     return false;
   }
 }

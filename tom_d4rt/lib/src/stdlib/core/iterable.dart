@@ -17,6 +17,23 @@ class IterableCore {
           '_AllMatchesIterable',
           '_SyncGeneratorIterable', // D4rt interpreter sync* generator
           '_SyncStarIterable', // Dart SDK sync* generator (from bridged code)
+          // List transformation iterables (returned by .map(), .where(), etc.)
+          'MappedListIterable',
+          'MappedIterable',
+          'WhereIterable',
+          'WhereTypeIterable',
+          'ExpandIterable',
+          'TakeIterable',
+          'TakeWhileIterable',
+          'SkipIterable',
+          'SkipWhileIterable',
+          'FollowedByIterable',
+          'ReversedListIterable',
+          'SubListIterable',
+          'CastIterable',
+          'EfficientLengthMappedIterable',
+          'EfficientLengthSkipIterable',
+          'EfficientLengthTakeIterable',
         ],
         staticMethods: {
           'generate': (visitor, positionalArgs, namedArgs, _) {

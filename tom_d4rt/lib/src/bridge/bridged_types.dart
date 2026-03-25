@@ -247,6 +247,15 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     // The logic here is simplified and could be incorrect if a getter
     // would need to be returned as a value.
 
+    // RC-7: Enum property fallback. If the wrapped native object is an Enum,
+    // provide access to standard enum properties (.name, .index) even when
+    // the bridge doesn't define custom getters for them.
+    if (nativeObject is Enum) {
+      final enumObj = nativeObject as Enum;
+      if (name == 'name') return enumObj.name;
+      if (name == 'index') return enumObj.index;
+    }
+
     // 3. If neither method nor getter found, throw an error
     throw RuntimeD4rtException(
         "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'");

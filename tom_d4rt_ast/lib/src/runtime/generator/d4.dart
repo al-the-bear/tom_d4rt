@@ -987,8 +987,11 @@ class D4 {
     // holds the native object in bridgedSuperObject.
     if (arg is InterpretedInstance) {
       final superObj = arg.bridgedSuperObject;
-      if (superObj is T) {
-        return superObj;
+      // RC-7: Check superObj != null before returning, otherwise a null
+      // bridgedSuperObject (from abstract classes like CustomPainter) would
+      // match nullable T (e.g., CustomPainter?) and skip proxy resolution.
+      if (superObj != null && superObj is T) {
+        return superObj as T;
       }
       // RC-1: Try registered interface proxy factories.
       // For abstract classes/interfaces (CustomClipper, TickerProvider),
