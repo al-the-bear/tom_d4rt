@@ -1282,6 +1282,8 @@ dynamic build(BuildContext context) {
 }
 
 class _BoxHitTestResultDemoApp extends StatelessWidget {
+  const _BoxHitTestResultDemoApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -1298,6 +1300,8 @@ class _BoxHitTestResultDemoApp extends StatelessWidget {
 }
 
 class _BoxHitTestResultDemoScreen extends StatelessWidget {
+  const _BoxHitTestResultDemoScreen();
+
   @override
   Widget build(BuildContext context) {
     print('Building BoxHitTestResultDemoScreen');

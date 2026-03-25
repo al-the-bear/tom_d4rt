@@ -66,6 +66,11 @@ dynamic build(BuildContext context) {
           // Section 8: Nested IgnorePointer scenarios
           _buildSectionTitle('8. Nested IgnorePointer'),
           _buildNestedSection(context),
+          SizedBox(height: 24.0),
+
+          // Section 9: Interaction audit matrix
+          _buildSectionTitle('9. Interaction Audit Matrix'),
+          _buildInteractionAuditSection(context),
           SizedBox(height: 32.0),
 
           _buildFooter(),
@@ -1042,6 +1047,77 @@ Widget _buildNestedSection(BuildContext context) {
         ),
       ),
     ],
+  );
+}
+
+Widget _buildInteractionAuditSection(BuildContext context) {
+  print('[s9] Interaction audit matrix');
+  return _buildCard(
+    'Audit common pass-through patterns before release',
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Checklist: verify visible state, hit-test behavior, and semantics impact together.',
+          style: TextStyle(color: Color(0xAAFFFFFF), fontSize: 12.0),
+        ),
+        SizedBox(height: 10.0),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Color(0x223F51B5),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.visibility, color: Color(0xFF90CAF9)),
+                    SizedBox(height: 4),
+                    Text('Visible layer', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Color(0x224CAF50),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.touch_app, color: Color(0xFFA5D6A7)),
+                    SizedBox(height: 4),
+                    Text('Receives tap', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(width: 8.0),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Color(0x22EF5350),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: [
+                    Icon(Icons.record_voice_over, color: Color(0xFFFFCDD2)),
+                    SizedBox(height: 4),
+                    Text('In semantics', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }
 

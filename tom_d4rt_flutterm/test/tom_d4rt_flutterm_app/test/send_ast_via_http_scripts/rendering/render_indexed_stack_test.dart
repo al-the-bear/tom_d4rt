@@ -67,6 +67,11 @@ dynamic build(BuildContext context) {
         // Section 10: Decorated children
         _buildSectionTitle('10. Decorated Children Gallery'),
         _buildDecoratedChildren(context),
+        SizedBox(height: 24),
+
+        // Section 11: State flow audit
+        _buildSectionTitle('11. State Flow Audit'),
+        _buildStateFlowAudit(context),
         SizedBox(height: 32),
       ],
     ),
@@ -1768,6 +1773,35 @@ Widget _buildTakeawayItem(String text) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget _buildStateFlowAudit(BuildContext context) {
+  print('[audit] Building IndexedStack state-flow audit');
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    child: Container(
+      padding: EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Color(0xFFE8EAF6),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Color(0xFFC5CAE9)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'State Flow Checklist',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF1A237E)),
+          ),
+          SizedBox(height: 8),
+          _buildTakeawayItem('Keep form/page state alive while switching index values'),
+          _buildTakeawayItem('Use null index intentionally when all child views must hide'),
+          _buildTakeawayItem('Audit largest-child sizing effects in responsive layouts'),
+          _buildTakeawayItem('Prefer IndexedStack for tab/wizard flows requiring state retention'),
+        ],
+      ),
     ),
   );
 }

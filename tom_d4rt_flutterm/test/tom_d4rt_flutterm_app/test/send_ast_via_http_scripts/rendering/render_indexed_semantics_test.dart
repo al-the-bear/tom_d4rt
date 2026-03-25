@@ -1016,6 +1016,32 @@ Widget _buildIndexMappingVisualization() {
   );
 }
 
+Widget _buildIndexContinuityChecklist() {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Color(0xFFF3E5F5),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: Color(0xFFE1BEE7)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Index Continuity Checklist',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF6A1B9A)),
+        ),
+        SizedBox(height: 8),
+        Text('• Keep semantic indices stable when filtering/reordering lists.'),
+        Text('• Skip decorative separators or map them explicitly to null semantics.'),
+        Text('• Pair IndexedSemantics with clear labels for context-rich announcements.'),
+        Text('• Validate final order with screen reader traversal, not visual order only.'),
+      ],
+    ),
+  );
+}
+
 // -- Entry point
 dynamic build(BuildContext context) {
   print('[RenderIndexedSemantics] Building deep demo');
@@ -1090,6 +1116,10 @@ dynamic build(BuildContext context) {
         // Section 8
         _buildSectionTitle('8. Index Mapping Visualization', Color(0xFF795548)),
         _buildIndexMappingVisualization(),
+
+        // Section 9
+        _buildSectionTitle('9. Index Continuity Checklist', Color(0xFF6A1B9A)),
+        _buildIndexContinuityChecklist(),
 
         SizedBox(height: 32),
 

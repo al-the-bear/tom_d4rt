@@ -85,6 +85,12 @@ dynamic build(BuildContext context) {
             _buildSectionTitle('10. Status Bar Style Inline Layout'),
             SizedBox(height: 10),
             _buildStatusBarSection(context),
+            SizedBox(height: 28),
+
+            // Section 11: Inline accessibility and typography guardrails
+            _buildSectionTitle('11. Inline Accessibility Guardrails'),
+            SizedBox(height: 10),
+            _buildInlineAccessibilityGuardrails(context),
             SizedBox(height: 36),
           ],
         ),
@@ -1348,6 +1354,31 @@ Widget _buildStatusBarSection(BuildContext context) {
             ],
           ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget _buildInlineAccessibilityGuardrails(BuildContext context) {
+  return Container(
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Color(0xFF111827),
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Color(0xFF374151)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Inline Span Guardrails',
+          style: TextStyle(color: Colors.tealAccent, fontSize: 15, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 10),
+        Text('• Keep inline widgets sized to surrounding line metrics to avoid clipping.'),
+        Text('• Pair decorative WidgetSpan items with text alternatives when needed.'),
+        Text('• Validate baseline alignment for mixed icon/chip typography compositions.'),
+        Text('• Test SelectableText behavior when multiple WidgetSpans share one paragraph.'),
       ],
     ),
   );

@@ -1014,6 +1014,34 @@ Widget _buildTakeawayItem(String number, String text) {
   );
 }
 
+Widget _buildBaselineDebugChecklist() {
+  return _buildCard(
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.fact_check_outlined, size: 20, color: Color(0xFF1E88E5)),
+            SizedBox(width: 8),
+            Text(
+              'Baseline Debug Checklist',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFF0D47A1)),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        _buildTakeawayItem('A', 'Confirm baseline alignment is intentional for this row/column'),
+        SizedBox(height: 6),
+        _buildTakeawayItem('B', 'Ignore decorative children that should not align with text glyph baselines'),
+        SizedBox(height: 6),
+        _buildTakeawayItem('C', 'Compare alphabetic vs ideographic behavior with localized content'),
+        SizedBox(height: 6),
+        _buildTakeawayItem('D', 'Verify baseline stability under large text scale factors'),
+      ],
+    ),
+  );
+}
+
 dynamic build(BuildContext context) {
   print('=== RenderIgnoreBaseline Deep Demo ===');
   print('IgnoreBaseline: Makes child not participate in baseline alignment');
@@ -1046,6 +1074,8 @@ dynamic build(BuildContext context) {
         _buildBaselineTypesComparison(),
         _buildSectionTitle(Icons.layers, '8. Nested Baseline Ignore Scenarios'),
         _buildNestedBaselineIgnore(),
+        _buildSectionTitle(Icons.fact_check, '9. Baseline Debug Checklist'),
+        _buildBaselineDebugChecklist(),
         _buildSectionTitle(Icons.summarize, 'Summary'),
         _buildSummarySection(),
         SizedBox(height: 32),
