@@ -1,3 +1,8 @@
+## 1.8.24
+
+### Maintenance
+- Update dependency on tom_d4rt 1.8.19 (type matching, enum handling, isSubtypeOf, stdlib fixes)
+
 ## 1.8.23
 
 ### Bug Fixes
