@@ -62,7 +62,7 @@ dynamic build(BuildContext context) {
   // Test Tween
   final doubleTween = Tween<double>(begin: 0.0, end: 100.0);
   print('Tween<double>(0.0, 100.0): t=0.5 -> ${doubleTween.transform(0.5)}');
-  print('Tween lerp: ${doubleTween.lerp(0.5)}');
+  print('Tween midpoint via transform: ${doubleTween.transform(0.5)}');
 
   final intTween = IntTween(begin: 0, end: 100);
   print('IntTween(0, 100): t=0.5 -> ${intTween.transform(0.5)}');
@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
   print('RectTween: t=0.5 -> ${rectTween.lerp(0.5)}');
 
   final offsetTween = Tween<Offset>(begin: Offset.zero, end: Offset(100, 100));
-  print('Offset Tween: t=0.5 -> ${offsetTween.lerp(0.5)}');
+  print('Offset Tween: t=0.5 -> ${offsetTween.transform(0.5)}');
 
   // Test CurveTween
   final curveTween = CurveTween(curve: Curves.easeInOut);

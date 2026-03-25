@@ -63,8 +63,9 @@ dynamic build(BuildContext context) {
   print('--- InheritedNotifier Tests ---');
   // InheritedNotifier is abstract, but we can demonstrate via InheritedModel concept
   final changeNotifier = ChangeNotifier();
+  changeNotifier.dispose();
   print('ChangeNotifier created for InheritedNotifier pattern');
-  print('  hasListeners: ${changeNotifier.hasListeners}');
+  print('  listener attachment can be demonstrated without reading protected state');
 
   // ========== InheritedModel concept ==========
   print('--- InheritedModel Tests ---');

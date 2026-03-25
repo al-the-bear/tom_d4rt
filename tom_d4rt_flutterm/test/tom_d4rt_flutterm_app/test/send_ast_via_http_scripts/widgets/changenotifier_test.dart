@@ -106,8 +106,8 @@ dynamic build(BuildContext context) {
   counter.removeListener(removableListener);
   print('Removable listener removed');
 
-  // Test hasListeners
-  print('ValueNotifier hasListeners: ${counter.hasListeners}');
+  // hasListeners is a protected API, so avoid direct reads in this demo.
+  print('ValueNotifier listener cycle completed (add/remove demonstrated).');
 
   // Test dispose
   final disposableNotifier = ValueNotifier<int>(0);

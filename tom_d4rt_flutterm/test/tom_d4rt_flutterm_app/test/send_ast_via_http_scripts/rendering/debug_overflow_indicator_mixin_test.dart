@@ -146,7 +146,7 @@ Widget _buildDirectionCard(String direction, String description) {
     ),
     child: Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: Text(
             direction,

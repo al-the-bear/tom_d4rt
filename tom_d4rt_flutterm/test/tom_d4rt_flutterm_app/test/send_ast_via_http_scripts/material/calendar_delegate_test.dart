@@ -595,13 +595,15 @@ dynamic build(BuildContext context) {
                 headerBackgroundColor: Colors.deepOrange,
                 headerForegroundColor: Colors.white,
                 dayForegroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected))
+                  if (states.contains(WidgetState.selected)) {
                     return Colors.white;
+                  }
                   return Colors.black87;
                 }),
                 dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected))
+                  if (states.contains(WidgetState.selected)) {
                     return Colors.deepOrange;
+                  }
                   return null;
                 }),
                 todayForegroundColor: WidgetStateProperty.all(
@@ -644,8 +646,9 @@ dynamic build(BuildContext context) {
                 headerBackgroundColor: Colors.teal.shade700,
                 headerForegroundColor: Colors.white,
                 dayForegroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected))
+                  if (states.contains(WidgetState.selected)) {
                     return Colors.white;
+                  }
                   return Colors.grey.shade300;
                 }),
                 dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
