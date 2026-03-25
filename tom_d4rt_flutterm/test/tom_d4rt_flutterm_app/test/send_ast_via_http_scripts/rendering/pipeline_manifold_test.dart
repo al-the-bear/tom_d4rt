@@ -1,100 +1,136 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Deep demo for PipelineManifold from rendering
-//
-// PipelineManifold manages pipeline owner connections for rendering.
-// It serves as the connection point between pipeline owners and the
-// rendering system, coordinating visual updates, semantic changes,
-// and layout boundaries across multiple render trees.
-//
-// Key responsibilities:
-//   - Manages requestVisualUpdate flow
-//   - Coordinates semantic update propagation
-//   - Tracks layout boundary relationships
-//   - Maintains pipeline tree structure
-//   - Connects pipeline owners to the rendering system
-//
-// Related classes:
-//   - PipelineOwner: Owns a render tree and manages dirty nodes
-//   - RenderView: Root render object for a view
-//   - SemanticsOwner: Manages semantics for accessibility
-//   - RenderObject: Base class for render tree nodes
-//
-// Use cases:
-//   - Multi-window Flutter applications
-//   - Embedded Flutter views in native apps
-//   - Complex rendering scenarios with multiple views
-//   - Accessibility and semantics coordination
-//
-// This demo visualizes the PipelineManifold coordination architecture.
-
 import 'package:flutter/material.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════════
+const Color _kPrimary = Color(0xFF00695C);
+const Color _kAccent = Color(0xFF26A69A);
+const Color _kSurface = Color(0xFFE0F2F1);
 
-Widget _buildHeader(String title, String subtitle) {
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Pipeline Manifold demonstrates Flutter runtime behavior and visual composition patterns in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.blur_on_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
+
+dynamic build(BuildContext context) {
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
+
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Pipeline Manifold Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of PipelineManifold for D4rt interpreter scenarios.',
+              icon: Icons.blur_on_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
+      boxShadow: <BoxShadow>[
         BoxShadow(
-          color: Color(0xFF0D47A1).withAlpha(100),
-          blurRadius: 12,
-          offset: Offset(0, 6),
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
         ),
       ],
     ),
     child: Column(
-      children: [
-        Icon(Icons.account_tree, size: 48, color: Colors.white),
-        SizedBox(height: 12),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 12),
         Text(
           subtitle,
-          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(200)),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildSectionTitle(String title, IconData icon) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 12),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Color(0xFF1976D2).withAlpha(30),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: Color(0xFF0D47A1), size: 20),
-        ),
-        SizedBox(width: 12),
-        Text(
-          title,
           style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0D47A1),
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
           ),
         ),
       ],
@@ -102,1346 +138,504 @@ Widget _buildSectionTitle(String title, IconData icon) {
   );
 }
 
-Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 150,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF0D47A1),
-              fontSize: 13,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              color: valueColor ?? Color(0xFF1565C0),
-              fontSize: 13,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildDiagramBox(
-  String label,
-  Color color, {
-  IconData? icon,
-  double width = 100,
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
 }) {
   return Container(
-    width: width,
-    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color, width: 2),
-    ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
     child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (icon != null) Icon(icon, color: color, size: 20),
-        if (icon != null) SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
+                ),
+              )
+              .toList(),
         ),
       ],
     ),
   );
 }
 
-Widget _buildArrow({bool vertical = false, Color color = Colors.grey}) {
-  if (vertical) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(width: 2, height: 20, color: color),
-        Icon(Icons.arrow_drop_down, color: color, size: 20),
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'PipelineManifold is used when you need explicit control over Flutter runtime behavior and visual composition patterns.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
+            ],
+          ),
+        ),
       ],
-    );
-  }
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(width: 20, height: 2, color: color),
-      Icon(Icons.arrow_right, color: color, size: 20),
-    ],
+    ),
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 1: PIPELINE MANIFOLD OVERVIEW DIAGRAM
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildOverviewDiagramSection() {
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    padding: EdgeInsets.all(16),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
+  ];
+
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('PipelineManifold Overview', Icons.schema),
-        Text(
-          'PipelineManifold is the bridge between PipelineOwner instances and '
-          'the rendering infrastructure. It manages connections, coordinates '
-          'visual updates, and ensures proper synchronization across views.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE3F2FD),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'PipelineManifold Architecture',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0D47A1),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 20),
-              // Top layer - RendererBinding
-              _buildDiagramBox(
-                'RendererBinding',
-                Color(0xFF6A1B9A),
-                icon: Icons.merge_type,
-                width: 140,
-              ),
-              SizedBox(height: 8),
-              _buildArrow(vertical: true, color: Color(0xFF8E24AA)),
-              SizedBox(height: 4),
-              // Middle layer - PipelineManifold
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
               Container(
-                width: 200,
-                padding: EdgeInsets.all(16),
+                width: 28,
+                height: 28,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xFF0D47A1).withAlpha(80),
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Column(
-                  children: [
-                    Icon(Icons.account_tree, color: Colors.white, size: 28),
-                    SizedBox(height: 8),
-                    Text(
-                      'PipelineManifold',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Pipeline Connection Hub',
-                      style: TextStyle(
-                        color: Colors.white.withAlpha(200),
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
                 ),
               ),
-              SizedBox(height: 12),
-              // Connection lines
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
-                  SizedBox(width: 50),
-                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
-                  SizedBox(width: 50),
-                  _buildArrow(vertical: true, color: Color(0xFF1976D2)),
-                ],
-              ),
-              SizedBox(height: 4),
-              // Bottom layer - PipelineOwners
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildDiagramBox(
-                    'PipelineOwner\n(View 1)',
-                    Color(0xFF388E3C),
-                    icon: Icons.layers,
-                  ),
-                  _buildDiagramBox(
-                    'PipelineOwner\n(View 2)',
-                    Color(0xFF388E3C),
-                    icon: Icons.layers,
-                  ),
-                  _buildDiagramBox(
-                    'PipelineOwner\n(View 3)',
-                    Color(0xFF388E3C),
-                    icon: Icons.layers,
-                  ),
-                ],
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
               ),
             ],
           ),
-        ),
-        SizedBox(height: 16),
-        _buildInfoRow('Interface', 'Abstract class defining manifold contract'),
-        _buildInfoRow(
-          'Primary Purpose',
-          'Coordinate pipeline owners with rendering',
-        ),
-        _buildInfoRow(
-          'Implementation',
-          'RendererBinding mixin provides default',
-        ),
-        _buildInfoRow('Scope', 'Application-wide rendering coordination'),
-      ],
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 2: REQUEST VISUAL UPDATE CONCEPT
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildRequestVisualUpdateSection() {
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
   return Container(
-    padding: EdgeInsets.all(16),
+    padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('requestVisualUpdate Concept', Icons.refresh),
-        Text(
-          'The requestVisualUpdate method is the primary mechanism for '
-          'PipelineOwner to signal that visual changes need to be flushed. '
-          'It triggers the rendering pipeline to schedule a new frame.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Visual Update Flow',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFFF6F00),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 16),
-              _buildUpdateFlowStep(
-                '1',
-                'RenderObject marks dirty',
-                Icons.flag,
-                Color(0xFFE65100),
-              ),
-              _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep(
-                '2',
-                'PipelineOwner records node',
-                Icons.note_add,
-                Color(0xFFF57C00),
-              ),
-              _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep(
-                '3',
-                'requestVisualUpdate() called',
-                Icons.send,
-                Color(0xFFFFB300),
-              ),
-              _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep(
-                '4',
-                'onNeedVisualUpdate invoked',
-                Icons.notification_important,
-                Color(0xFFFFC107),
-              ),
-              _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep(
-                '5',
-                'Frame scheduled',
-                Icons.schedule,
-                Color(0xFFFFD54F),
-              ),
-              _buildFlowConnector(Color(0xFFFF9800)),
-              _buildUpdateFlowStep(
-                '6',
-                'Flush methods called',
-                Icons.cleaning_services,
-                Color(0xFFFFE082),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8F5E9),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.lightbulb, color: Color(0xFF2E7D32), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Key Insight',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                'requestVisualUpdate batches multiple dirty marks into a single frame. '
-                'No matter how many RenderObjects are marked dirty, only one frame '
-                'is scheduled until the next vsync.',
-                style: TextStyle(color: Color(0xFF388E3C), fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildInfoRow('Method', 'requestVisualUpdate()'),
-        _buildInfoRow('Callback', 'onNeedVisualUpdate - notifies binding'),
-        _buildInfoRow('Batching', 'Multiple calls coalesce into one frame'),
-        _buildInfoRow('Trigger', 'Any dirty state in PipelineOwner'),
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
       ],
     ),
   );
 }
 
-Widget _buildUpdateFlowStep(
-  String number,
-  String label,
-  IconData icon,
-  Color color,
-) {
+Widget _sectionTitle(String text, IconData icon, Color color) {
   return Row(
-    children: [
-      Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ),
-      ),
-      SizedBox(width: 12),
+    children: <Widget>[
       Icon(icon, color: color, size: 20),
-      SizedBox(width: 8),
-      Expanded(
-        child: Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF5D4037),
-            fontSize: 12,
-          ),
-        ),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
       ),
     ],
   );
 }
 
-Widget _buildFlowConnector(Color color) {
+Widget _buildBullet({required String text}) {
   return Padding(
-    padding: EdgeInsets.only(left: 13),
+    padding: const EdgeInsets.only(bottom: 8),
     child: Row(
-      children: [Container(width: 2, height: 10, color: color.withAlpha(150))],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 3: SEMANTIC UPDATES
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildSemanticUpdatesSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Semantic Updates', Icons.accessibility_new),
-        Text(
-          'PipelineManifold coordinates semantic updates for accessibility. '
-          'When semantics are enabled, it manages the SemanticsOwner and '
-          'ensures semantic information flows to the platform.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
         ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE1BEE7),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Semantics Pipeline',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF6A1B9A),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildSemanticNode(
-                    'RenderObject\nmarkNeedsSemanticsUpdate',
-                    Color(0xFF7B1FA2),
-                  ),
-                  Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
-                  _buildSemanticNode(
-                    'PipelineOwner\nsemantics dirty list',
-                    Color(0xFF8E24AA),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
-              Icon(Icons.arrow_downward, color: Color(0xFF9C27B0), size: 28),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildSemanticNode(
-                    'flushSemantics()\ncompute changes',
-                    Color(0xFFAB47BC),
-                  ),
-                  Icon(Icons.arrow_forward, color: Color(0xFF9C27B0)),
-                  _buildSemanticNode(
-                    'SemanticsOwner\nsend to platform',
-                    Color(0xFFBA68C8),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFF3E5F5),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.settings_accessibility,
-                    color: Color(0xFF6A1B9A),
-                    size: 18,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'Semantics Enablement',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF6A1B9A),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildSemanticInfoRow(
-                'ensureSemantics',
-                'Enables semantic collection',
-              ),
-              _buildSemanticInfoRow(
-                'SemanticsHandle',
-                'Keep-alive reference for semantics',
-              ),
-              _buildSemanticInfoRow(
-                'onSemanticsUpdate',
-                'Callback when semantics change',
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildInfoRow('Semantics Owner', 'Manages semantic tree for a view'),
-        _buildInfoRow(
-          'Semantic Nodes',
-          'Derived from RenderObject annotations',
-        ),
-        _buildInfoRow(
-          'Platform Bridge',
-          'Delivers to iOS/Android accessibility',
-        ),
-        _buildInfoRow(
-          'Update Frequency',
-          'Batched per frame with visual updates',
-        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
       ],
     ),
   );
 }
 
-Widget _buildSemanticNode(String label, Color color) {
-  return Container(
-    width: 120,
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: 2),
-      boxShadow: [
-        BoxShadow(
-          color: color.withAlpha(40),
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Text(
-      label,
-      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color),
-      textAlign: TextAlign.center,
-    ),
-  );
-}
-
-Widget _buildSemanticInfoRow(String name, String description) {
+Widget _checkRow(String text) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      children: [
-        Icon(Icons.chevron_right, size: 16, color: Color(0xFF9C27B0)),
-        Text(
-          name,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-            color: Color(0xFF6A1B9A),
-          ),
-        ),
-        Text(
-          ' - $description',
-          style: TextStyle(fontSize: 11, color: Color(0xFF8E24AA)),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 4: LAYOUT BOUNDARY VISUALIZATION
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildLayoutBoundarySection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Layout Boundary Visualization', Icons.crop_square),
-        Text(
-          'Layout boundaries define regions where layout changes are isolated. '
-          'These boundaries prevent layout invalidation from propagating through '
-          'the entire tree, improving performance significantly.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8F5E9),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Layout Boundary Tree',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2E7D32),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 16),
-              _buildLayoutBoundaryTree(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFFFF3E0),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.speed, color: Color(0xFFE65100), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Performance Impact',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFE65100),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildPerformanceRow(
-                'Without Boundary',
-                'Full tree relayout',
-                Color(0xFFD84315),
-              ),
-              _buildPerformanceRow(
-                'With Boundary',
-                'Subtree relayout only',
-                Color(0xFF388E3C),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: _buildBoundaryTypeCard(
-                'Relayout\nBoundary',
-                Color(0xFF43A047),
-                Icons.check_box,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: _buildBoundaryTypeCard(
-                'Repaint\nBoundary',
-                Color(0xFF1E88E5),
-                Icons.brush,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        _buildInfoRow('sizedByParent', 'Enables relayout boundary'),
-        _buildInfoRow('isRepaintBoundary', 'Enables repaint boundary'),
-        _buildInfoRow('markNeedsLayout', 'Stops at relayout boundary'),
-        _buildInfoRow('Layer isolation', 'Repaint boundary has own layer'),
-      ],
-    ),
-  );
-}
-
-Widget _buildLayoutBoundaryTree() {
-  return Column(
-    children: [
-      _buildTreeNode('RenderView (Root)', Color(0xFF1B5E20), true, 0),
-      _buildTreeConnector(),
-      _buildTreeNode('RenderFlex', Color(0xFF2E7D32), false, 1),
-      _buildTreeConnector(),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              _buildTreeNode('LayoutBoundary', Color(0xFF43A047), true, 2),
-              _buildTreeConnector(),
-              _buildTreeNode('Child A', Color(0xFF66BB6A), false, 3),
-            ],
-          ),
-          SizedBox(width: 20),
-          Column(
-            children: [
-              _buildTreeNode('LayoutBoundary', Color(0xFF43A047), true, 2),
-              _buildTreeConnector(),
-              _buildTreeNode('Child B', Color(0xFF66BB6A), false, 3),
-            ],
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-Widget _buildTreeNode(String label, Color color, bool isBoundary, int indent) {
-  return Container(
-    margin: EdgeInsets.only(left: indent * 8.0),
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-    decoration: BoxDecoration(
-      color: color.withAlpha(isBoundary ? 60 : 30),
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(
-        color: color,
-        width: isBoundary ? 2.5 : 1.5,
-        style: isBoundary ? BorderStyle.solid : BorderStyle.solid,
-      ),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (isBoundary) Icon(Icons.shield, color: color, size: 14),
-        if (isBoundary) SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: isBoundary ? FontWeight.bold : FontWeight.w500,
-            color: color,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildTreeConnector() {
-  return Container(width: 2, height: 12, color: Color(0xFF81C784));
-}
-
-Widget _buildPerformanceRow(String scenario, String result, Color color) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 3),
-    child: Row(
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        SizedBox(width: 8),
-        Text(
-          '$scenario: ',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-            color: Color(0xFF5D4037),
-          ),
-        ),
-        Text(
-          result,
-          style: TextStyle(
-            fontSize: 12,
-            color: color,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildBoundaryTypeCard(String label, Color color, IconData icon) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(25),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(100)),
-    ),
-    child: Column(
-      children: [
-        Icon(icon, color: color, size: 24),
-        SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 5: PIPELINE TREE STRUCTURE
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildPipelineTreeSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle(
-          'Pipeline Tree Structure',
-          Icons.account_tree_rounded,
-        ),
-        Text(
-          'The pipeline tree structure shows how PipelineManifold connects to '
-          'multiple PipelineOwner instances, each managing their own render '
-          'tree with dirty lists for layout, paint, and semantics.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Pipeline Ownership Hierarchy',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0D47A1),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(height: 20),
-              _buildPipelineHierarchy(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: _buildDirtyListCard(
-                'Layout\nDirty List',
-                Color(0xFFE53935),
-                Icons.grid_view,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: _buildDirtyListCard(
-                'Paint\nDirty List',
-                Color(0xFF8E24AA),
-                Icons.format_paint,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: _buildDirtyListCard(
-                'Semantics\nDirty List',
-                Color(0xFF1976D2),
-                Icons.accessibility,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFECEFF1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.sync, color: Color(0xFF455A64), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Flush Order',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF455A64),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              _buildFlushOrderRow('1', 'flushLayout', Color(0xFFE53935)),
-              _buildFlushOrderRow(
-                '2',
-                'flushCompositingBits',
-                Color(0xFFFF9800),
-              ),
-              _buildFlushOrderRow('3', 'flushPaint', Color(0xFF8E24AA)),
-              _buildFlushOrderRow('4', 'flushSemantics', Color(0xFF1976D2)),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildInfoRow('Root Node', 'RenderView serves as pipeline root'),
-        _buildInfoRow(
-          'Dirty Tracking',
-          'Each PipelineOwner tracks its dirty nodes',
-        ),
-        _buildInfoRow(
-          'Flush Coordination',
-          'Manifold coordinates flush across owners',
-        ),
-        _buildInfoRow('Isolation', 'Each owner flushes independently'),
-      ],
-    ),
-  );
-}
-
-Widget _buildPipelineHierarchy() {
-  return Column(
-    children: [
-      _buildPipelineBox('PipelineManifold', Color(0xFF0D47A1), Icons.hub, true),
-      SizedBox(height: 8),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(width: 60, height: 2, color: Color(0xFF1976D2)),
-          Container(width: 2, height: 20, color: Color(0xFF1976D2)),
-          Container(width: 60, height: 2, color: Color(0xFF1976D2)),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildOwnerColumn('Owner A', Color(0xFF388E3C)),
-          _buildOwnerColumn('Owner B', Color(0xFF7B1FA2)),
-        ],
-      ),
-    ],
-  );
-}
-
-Widget _buildPipelineBox(String label, Color color, IconData icon, bool large) {
-  return Container(
-    width: large ? 160 : 100,
-    padding: EdgeInsets.all(large ? 14 : 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(large ? 12 : 8),
-      border: Border.all(color: color, width: 2),
-      boxShadow: [
-        BoxShadow(
-          color: color.withAlpha(40),
-          blurRadius: 6,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: large ? 24 : 18),
-        SizedBox(height: 6),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: large ? 12 : 10,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildOwnerColumn(String name, Color color) {
-  return Column(
-    children: [
-      _buildPipelineBox('PipelineOwner\n$name', color, Icons.layers, false),
-      SizedBox(height: 6),
-      Container(width: 2, height: 15, color: color.withAlpha(150)),
-      SizedBox(height: 6),
-      _buildPipelineBox(
-        'RenderView',
-        color.withAlpha(180),
-        Icons.desktop_windows,
-        false,
-      ),
-      SizedBox(height: 4),
-      Container(width: 2, height: 10, color: color.withAlpha(100)),
-      SizedBox(height: 4),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: color.withAlpha(20),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text('Render Tree', style: TextStyle(fontSize: 9, color: color)),
-      ),
-    ],
-  );
-}
-
-Widget _buildDirtyListCard(String label, Color color, IconData icon) {
-  return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: color.withAlpha(20),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(80)),
-    ),
-    child: Column(
-      children: [
-        Icon(icon, color: color, size: 20),
-        SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildFlushOrderRow(String number, String name, Color color) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      children: [
-        Container(
-          width: 18,
-          height: 18,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              number,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 8),
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF37474F),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 6: API REFERENCE
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildApiReferenceSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('API Reference', Icons.api),
-        _buildApiGroup('Properties', [
-          ApiEntry(
-            'renderViews',
-            'Iterable<RenderView>',
-            'All active render views',
-          ),
-          ApiEntry(
-            'onNeedVisualUpdate',
-            'VoidCallback?',
-            'Visual update callback',
-          ),
-          ApiEntry(
-            'onSemanticsUpdate',
-            'SemanticsUpdateCallback?',
-            'Semantics callback',
-          ),
-        ], Color(0xFF1976D2)),
-        SizedBox(height: 12),
-        _buildApiGroup('Methods', [
-          ApiEntry('requestVisualUpdate()', 'void', 'Request frame scheduling'),
-          ApiEntry('ensureSemantics()', 'SemanticsHandle', 'Enable semantics'),
-          ApiEntry('attach(RenderView)', 'void', 'Attach a view'),
-          ApiEntry('detach(RenderView)', 'void', 'Detach a view'),
-        ], Color(0xFF388E3C)),
-        SizedBox(height: 12),
-        _buildApiGroup('Related Types', [
-          ApiEntry('PipelineOwner', 'class', 'Manages pipeline for a tree'),
-          ApiEntry('RenderView', 'class', 'Root render object'),
-          ApiEntry('SemanticsOwner', 'class', 'Manages semantics tree'),
-        ], Color(0xFFE65100)),
-      ],
-    ),
-  );
-}
-
-Widget _buildApiGroup(String title, List<ApiEntry> entries, Color color) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(15),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withAlpha(60)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.code, color: color, size: 16),
-            SizedBox(width: 6),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: color,
-                fontSize: 13,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8),
-        ...entries.map((entry) => _buildApiEntryRow(entry, color)),
-      ],
-    ),
-  );
-}
-
-Widget _buildApiEntryRow(ApiEntry entry, Color color) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 3),
+    padding: const EdgeInsets.only(bottom: 6),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 4,
-          height: 4,
-          margin: EdgeInsets.only(top: 6),
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    entry.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: Color(0xFF37474F),
-                    ),
-                  ),
-                  SizedBox(width: 6),
-                  Text(
-                    entry.type,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: color,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                entry.description,
-                style: TextStyle(fontSize: 11, color: Color(0xFF78909C)),
-              ),
-            ],
-          ),
-        ),
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
       ],
     ),
   );
 }
 
-class ApiEntry {
-  String name;
-  String type;
-  String description;
-
-  ApiEntry(this.name, this.type, this.description);
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
+  );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// MAIN BUILD FUNCTION
-// ═══════════════════════════════════════════════════════════════════════════════
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
 
-dynamic build(BuildContext context) {
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildHeader(
-          'PipelineManifold',
-          'Manages pipeline owner connections for rendering',
-        ),
-        SizedBox(height: 20),
-        _buildOverviewDiagramSection(),
-        SizedBox(height: 16),
-        _buildRequestVisualUpdateSection(),
-        SizedBox(height: 16),
-        _buildSemanticUpdatesSection(),
-        SizedBox(height: 16),
-        _buildLayoutBoundarySection(),
-        SizedBox(height: 16),
-        _buildPipelineTreeSection(),
-        SizedBox(height: 16),
-        _buildApiReferenceSection(),
-        SizedBox(height: 24),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Icon(Icons.check_circle, color: Color(0xFF0D47A1), size: 36),
-              SizedBox(height: 8),
-              Text(
-                'PipelineManifold Deep Demo Complete',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF0D47A1),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Pipeline owner connections and rendering coordination visualized',
-                style: TextStyle(fontSize: 12, color: Color(0xFF1976D2)),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+  final String title;
+  final String text;
+  final IconData icon;
 }

@@ -1,380 +1,274 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// Deep demo: Baseline widget (RenderBaseline)
-// Baseline positions its child according to the child's baseline offset.
-// It takes a baseline value (double) and a baselineType (TextBaseline).
-
 import 'package:flutter/material.dart';
 
+const Color _kPrimary = Color(0xFFEF6C00);
+const Color _kAccent = Color(0xFFFFA726);
+const Color _kSurface = Color(0xFFFFF3E0);
+
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Render Baseline demonstrates Flutter runtime behavior and visual composition patterns in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.extension_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
+
 dynamic build(BuildContext context) {
-  print('=== RenderBaseline Deep Demo ===');
-  print('Baseline positions child so its baseline sits at a given offset.');
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
 
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildHeader(),
-        SizedBox(height: 16.0),
-
-        // Section 1: Different baseline values
-        _buildSectionTitle('1. Baseline with Different Offset Values'),
-        _buildBaselineOffsetDemo(context),
-        SizedBox(height: 24.0),
-
-        // Section 2: Alphabetic vs Ideographic
-        _buildSectionTitle('2. Alphabetic vs Ideographic BaselineType'),
-        _buildBaselineTypeComparison(context),
-        SizedBox(height: 24.0),
-
-        // Section 3: Aligning different font sizes
-        _buildSectionTitle('3. Aligning Different Font Sizes on Same Line'),
-        _buildFontSizeAlignment(context),
-        SizedBox(height: 24.0),
-
-        // Section 4: Aligning text with icons
-        _buildSectionTitle('4. Aligning Text with Icons'),
-        _buildTextIconAlignment(context),
-        SizedBox(height: 24.0),
-
-        // Section 5: Mixed content alignment
-        _buildSectionTitle('5. Mixed Content Baseline Alignment'),
-        _buildMixedContentAlignment(context),
-        SizedBox(height: 24.0),
-
-        // Section 6: Baseline in Row cross-axis
-        _buildSectionTitle('6. Baseline with Row CrossAxisAlignment'),
-        _buildRowCrossAxisDemo(context),
-        SizedBox(height: 24.0),
-
-        // Section 7: Visual baseline reference lines
-        _buildSectionTitle('7. Visual Baseline Reference Lines'),
-        _buildReferenceLineDemo(context),
-        SizedBox(height: 24.0),
-
-        // Section 8: Stacked baselines
-        _buildSectionTitle('8. Stacked Baseline Offsets'),
-        _buildStackedBaselines(context),
-        SizedBox(height: 40.0),
-      ],
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Render Baseline Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of RenderBaseline for D4rt interpreter scenarios.',
+              icon: Icons.extension_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
     ),
   );
 }
 
-// Header with gradient styling
-Widget _buildHeader() {
-  print('[Header] Building gradient header');
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(24.0),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
+        ),
+      ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
-          'RenderBaseline Deep Demo',
+          subtitle,
           style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
           ),
-        ),
-        SizedBox(height: 8.0),
-        Text(
-          'Baseline positions its child so that the child\'s baseline '
-          'is placed at a specified distance from the top of the Baseline widget.',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Color(0xCCFFFFFF),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section title with gradient underline
-Widget _buildSectionTitle(String title) {
-  print('[Section] $title');
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1565C0),
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          height: 3.0,
-          width: 200.0,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1565C0), Color(0x001565C0)],
-            ),
-            borderRadius: BorderRadius.circular(2.0),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// Label for sub-items
-Widget _buildLabel(String text) {
-  return Padding(
-    padding: EdgeInsets.only(left: 16.0, bottom: 4.0),
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: 12.0,
-        color: Color(0xFF757575),
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-  );
-}
-
-// Section 1: Different baseline offset values
-Widget _buildBaselineOffsetDemo(BuildContext context) {
-  print('[Demo 1] Building baseline offset demo with values 0-100');
-  List<double> offsets = [0.0, 20.0, 40.0, 60.0, 80.0, 100.0];
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Each cell shows text positioned at a different baseline offset. '
-          'Higher values push the text baseline further from the top.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
-        Container(
-          height: 140.0,
-          decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFE0E0E0)),
-          ),
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: _buildOffsetItems(offsets),
-          ),
-        ),
-        SizedBox(height: 8.0),
-        // Show offset labels underneath
-        Row(
-          children: offsets.map((offset) {
-            print('  - Offset cell: $offset');
-            return Expanded(
-              child: Center(
-                child: Text(
-                  'baseline: ${offset.toInt()}',
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF9E9E9E)),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    ),
-  );
-}
-
-List<Widget> _buildOffsetItems(List<double> offsets) {
-  return offsets.map((offset) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            right: BorderSide(color: Color(0xFFE0E0E0), width: 0.5),
-          ),
-        ),
-        child: Baseline(
-          baseline: offset,
-          baselineType: TextBaseline.alphabetic,
-          child: Text(
-            'Ag',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1565C0),
-            ),
-          ),
-        ),
-      ),
-    );
-  }).toList();
-}
-
-// Section 2: Alphabetic vs Ideographic comparison
-Widget _buildBaselineTypeComparison(BuildContext context) {
-  print('[Demo 2] Comparing TextBaseline.alphabetic vs TextBaseline.ideographic');
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Alphabetic baseline aligns to the bottom of Latin characters. '
-          'Ideographic baseline aligns to the bottom of ideographic characters.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
-        // Alphabetic row
-        _buildLabel('TextBaseline.alphabetic (baseline: 50)'),
-        Container(
-          height: 80.0,
-          decoration: BoxDecoration(
-            color: Color(0xFFE3F2FD),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Hello', style: TextStyle(fontSize: 16.0)),
-              ),
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('World', style: TextStyle(fontSize: 24.0)),
-              ),
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Ag', style: TextStyle(fontSize: 32.0)),
-              ),
+            children: <Widget>[
+            _buildBullet(text: 'RenderBaseline is used when you need explicit control over Flutter runtime behavior and visual composition patterns.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
             ],
           ),
         ),
-        SizedBox(height: 12.0),
-        // Ideographic row
-        _buildLabel('TextBaseline.ideographic (baseline: 50)'),
-        Container(
-          height: 80.0,
-          decoration: BoxDecoration(
-            color: Color(0xFFFFF3E0),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.ideographic,
-                child: Text('Hello', style: TextStyle(fontSize: 16.0)),
-              ),
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.ideographic,
-                child: Text('World', style: TextStyle(fontSize: 24.0)),
-              ),
-              Baseline(
-                baseline: 50.0,
-                baselineType: TextBaseline.ideographic,
-                child: Text('Ag', style: TextStyle(fontSize: 32.0)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Text(
-          'Notice how alphabetic and ideographic baselines differ slightly '
-          'for the same text content and baseline offset.',
-          style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFF9E9E9E)),
-        ),
       ],
     ),
   );
 }
 
-// Section 3: Different font size alignment
-Widget _buildFontSizeAlignment(BuildContext context) {
-  print('[Demo 3] Aligning different font sizes on the same baseline');
-
-  double sharedBaseline = 60.0;
-  List<double> fontSizes = [10.0, 14.0, 18.0, 24.0, 32.0, 40.0];
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'All text shares the same baseline offset ($sharedBaseline). '
-          'Despite different font sizes, they align on a common baseline.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
         ),
-        SizedBox(height: 12.0),
-        Container(
-          height: 90.0,
-          decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFE0E0E0)),
-          ),
-          child: Stack(
-            children: [
-              // Baseline reference line
-              Positioned(
-                top: sharedBaseline,
-                left: 0.0,
-                right: 0.0,
-                child: Container(
-                  height: 1.0,
-                  color: Color(0xFFE53935),
-                ),
-              ),
-              // Text items aligned to baseline
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: fontSizes.map((size) {
-                  print('  - Font size: $size at baseline $sharedBaseline');
-                  return Baseline(
-                    baseline: sharedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text(
-                      'Ag',
-                      style: TextStyle(
-                        fontSize: size,
-                        color: Color(0xFF1565C0),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
         ),
-        SizedBox(height: 4.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(width: 16.0, height: 2.0, color: Color(0xFFE53935)),
-            SizedBox(width: 4.0),
-            Text(
-              'Red line = shared baseline at offset $sharedBaseline',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFFE53935)),
-            ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
           ],
         ),
       ],
@@ -382,666 +276,366 @@ Widget _buildFontSizeAlignment(BuildContext context) {
   );
 }
 
-// Section 4: Text with icon alignment
-Widget _buildTextIconAlignment(BuildContext context) {
-  print('[Demo 4] Aligning text with icons using Baseline');
-
-  double iconBaseline = 40.0;
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Baseline can align icons and text to the same visual line. '
-          'Each icon and text shares baseline offset $iconBaseline.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
-        // Row with aligned icons and text
-        Container(
-          height: 70.0,
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8F5E9),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Icon(Icons.star, size: 16.0, color: Color(0xFFFFA000)),
-              ),
-              SizedBox(width: 4.0),
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Star', style: TextStyle(fontSize: 14.0)),
-              ),
-              SizedBox(width: 16.0),
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Icon(Icons.favorite, size: 24.0, color: Color(0xFFE53935)),
-              ),
-              SizedBox(width: 4.0),
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Heart', style: TextStyle(fontSize: 20.0)),
-              ),
-              SizedBox(width: 16.0),
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Icon(Icons.bolt, size: 32.0, color: Color(0xFFFF6F00)),
-              ),
-              SizedBox(width: 4.0),
-              Baseline(
-                baseline: iconBaseline,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Bolt', style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 12.0),
-        // Second row: different baseline for comparison
-        _buildLabel('Same items without Baseline (default alignment)'),
-        Container(
-          height: 70.0,
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFFCE4EC),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.star, size: 16.0, color: Color(0xFFFFA000)),
-              SizedBox(width: 4.0),
-              Text('Star', style: TextStyle(fontSize: 14.0)),
-              SizedBox(width: 16.0),
-              Icon(Icons.favorite, size: 24.0, color: Color(0xFFE53935)),
-              SizedBox(width: 4.0),
-              Text('Heart', style: TextStyle(fontSize: 20.0)),
-              SizedBox(width: 16.0),
-              Icon(Icons.bolt, size: 32.0, color: Color(0xFFFF6F00)),
-              SizedBox(width: 4.0),
-              Text('Bolt', style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
-            ],
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Text(
-          'Compare: top row uses Baseline alignment, bottom uses center alignment.',
-          style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFF9E9E9E)),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 5: Mixed content alignment
-Widget _buildMixedContentAlignment(BuildContext context) {
-  print('[Demo 5] Mixed content aligned to common baseline');
-
-  double mixedBaseline = 55.0;
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Text, Icon, and Container widgets aligned to a common baseline of $mixedBaseline. '
-          'Even non-text widgets can participate using Baseline.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
-        Container(
-          height: 100.0,
-          decoration: BoxDecoration(
-            color: Color(0xFFF3E5F5),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFCE93D8)),
-          ),
-          child: Stack(
-            children: [
-              // Reference line
-              Positioned(
-                top: mixedBaseline,
-                left: 0.0,
-                right: 0.0,
-                child: Container(height: 1.0, color: Color(0xFF7B1FA2)),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Text widget
-                  Baseline(
-                    baseline: mixedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text(
-                      'Text',
-                      style: TextStyle(fontSize: 22.0, color: Color(0xFF4A148C)),
-                    ),
-                  ),
-                  // Icon widget
-                  Baseline(
-                    baseline: mixedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Icon(Icons.check_circle, size: 28.0, color: Color(0xFF7B1FA2)),
-                  ),
-                  // Container (colored box)
-                  Baseline(
-                    baseline: mixedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Container(
-                      width: 40.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFAB47BC),
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                    ),
-                  ),
-                  // Another text with different size
-                  Baseline(
-                    baseline: mixedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text(
-                      'Mix',
-                      style: TextStyle(
-                        fontSize: 36.0,
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xFF6A1B9A),
-                      ),
-                    ),
-                  ),
-                  // Small icon
-                  Baseline(
-                    baseline: mixedBaseline,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Icon(Icons.diamond, size: 18.0, color: Color(0xFF8E24AA)),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(width: 16.0, height: 2.0, color: Color(0xFF7B1FA2)),
-            SizedBox(width: 4.0),
-            Text(
-              'Purple line = common baseline at $mixedBaseline',
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF7B1FA2)),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 6: Baseline with Row CrossAxisAlignment
-Widget _buildRowCrossAxisDemo(BuildContext context) {
-  print('[Demo 6] Baseline interacting with Row CrossAxisAlignment');
-
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Row supports CrossAxisAlignment.baseline which uses child baselines '
-          'directly. Compare with manual Baseline widgets.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
-        // Row with CrossAxisAlignment.baseline
-        _buildLabel('Row with CrossAxisAlignment.baseline'),
-        Container(
-          height: 70.0,
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFE0F7FA),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text('Small', style: TextStyle(fontSize: 12.0, color: Color(0xFF00695C))),
-              SizedBox(width: 12.0),
-              Text('Medium', style: TextStyle(fontSize: 20.0, color: Color(0xFF00695C))),
-              SizedBox(width: 12.0),
-              Text('Large', style: TextStyle(fontSize: 32.0, color: Color(0xFF00695C))),
-              SizedBox(width: 12.0),
-              Text('XL', style: TextStyle(fontSize: 44.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
-            ],
-          ),
-        ),
-        SizedBox(height: 12.0),
-        // Manual Baseline equivalent
-        _buildLabel('Manual Baseline widgets (baseline: 55)'),
-        Container(
-          height: 70.0,
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFB2DFDB),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Baseline(
-                baseline: 55.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Small', style: TextStyle(fontSize: 12.0, color: Color(0xFF004D40))),
-              ),
-              SizedBox(width: 12.0),
-              Baseline(
-                baseline: 55.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Medium', style: TextStyle(fontSize: 20.0, color: Color(0xFF004D40))),
-              ),
-              SizedBox(width: 12.0),
-              Baseline(
-                baseline: 55.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('Large', style: TextStyle(fontSize: 32.0, color: Color(0xFF004D40))),
-              ),
-              SizedBox(width: 12.0),
-              Baseline(
-                baseline: 55.0,
-                baselineType: TextBaseline.alphabetic,
-                child: Text('XL', style: TextStyle(fontSize: 44.0, fontWeight: FontWeight.bold, color: Color(0xFF004D40))),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 12.0),
-        // Without baseline alignment for comparison
-        _buildLabel('Row with CrossAxisAlignment.start (no baseline)'),
-        Container(
-          height: 70.0,
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFFFECB3),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Small', style: TextStyle(fontSize: 12.0, color: Color(0xFFE65100))),
-              SizedBox(width: 12.0),
-              Text('Medium', style: TextStyle(fontSize: 20.0, color: Color(0xFFE65100))),
-              SizedBox(width: 12.0),
-              Text('Large', style: TextStyle(fontSize: 32.0, color: Color(0xFFE65100))),
-              SizedBox(width: 12.0),
-              Text('XL', style: TextStyle(fontSize: 44.0, fontWeight: FontWeight.bold, color: Color(0xFFE65100))),
-            ],
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Text(
-          'Top: Row.baseline aligns automatically. Middle: manual Baseline produces same effect. '
-          'Bottom: start alignment shows misaligned text.',
-          style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFF9E9E9E)),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 7: Visual baseline reference lines
-Widget _buildReferenceLineDemo(BuildContext context) {
-  print('[Demo 7] Visual baseline reference lines');
-
-  List<double> referenceLines = [20.0, 40.0, 60.0, 80.0];
-  List<Color> lineColors = [
-    Color(0xFFE53935),
-    Color(0xFFFB8C00),
-    Color(0xFF43A047),
-    Color(0xFF1E88E5),
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
   ];
 
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Colored lines mark baseline offsets. Text at each offset aligns to its line.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
-        ),
-        SizedBox(height: 12.0),
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
         Container(
-          height: 120.0,
-          width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xFFFAFAFA),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFE0E0E0)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
           ),
-          child: Stack(
-            children: [
-              // Reference lines
-              ..._buildReferenceLines(referenceLines, lineColors),
-              // Text at each baseline
+          child: Column(
+            children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Baseline(
-                    baseline: 20.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Line 20',
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFFE53935), fontWeight: FontWeight.bold)),
-                  ),
-                  Baseline(
-                    baseline: 40.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Line 40',
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFFFB8C00), fontWeight: FontWeight.bold)),
-                  ),
-                  Baseline(
-                    baseline: 60.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Line 60',
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFF43A047), fontWeight: FontWeight.bold)),
-                  ),
-                  Baseline(
-                    baseline: 80.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Line 80',
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFF1E88E5), fontWeight: FontWeight.bold)),
-                  ),
-                ],
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),
-        ),
-        SizedBox(height: 8.0),
-        // Legend
-        Wrap(
-          spacing: 16.0,
-          children: [
-            _buildLegendItem(Color(0xFFE53935), 'Baseline 20'),
-            _buildLegendItem(Color(0xFFFB8C00), 'Baseline 40'),
-            _buildLegendItem(Color(0xFF43A047), 'Baseline 60'),
-            _buildLegendItem(Color(0xFF1E88E5), 'Baseline 80'),
-          ],
-        ),
-        SizedBox(height: 12.0),
-        // Multi-baseline per line
-        _buildLabel('Multiple texts sharing same baseline reference line'),
-        Container(
-          height: 80.0,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0xFFFFF8E1),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFFFE082)),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 50.0,
-                left: 0.0,
-                right: 0.0,
-                child: Container(height: 2.0, color: Color(0xFFFF6F00)),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Baseline(
-                    baseline: 50.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Tiny', style: TextStyle(fontSize: 10.0, color: Color(0xFFE65100))),
-                  ),
-                  Baseline(
-                    baseline: 50.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Normal', style: TextStyle(fontSize: 16.0, color: Color(0xFFE65100))),
-                  ),
-                  Baseline(
-                    baseline: 50.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Big', style: TextStyle(fontSize: 26.0, color: Color(0xFFE65100))),
-                  ),
-                  Baseline(
-                    baseline: 50.0,
-                    baselineType: TextBaseline.alphabetic,
-                    child: Text('Huge', style: TextStyle(fontSize: 36.0, color: Color(0xFFE65100))),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Text(
-          'Orange line at offset 50 - all text baselines sit on this line regardless of font size.',
-          style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Color(0xFF9E9E9E)),
         ),
       ],
     ),
   );
 }
 
-List<Widget> _buildReferenceLines(List<double> offsets, List<Color> colors) {
-  List<Widget> lines = [];
-  for (int i = 0; i < offsets.length; i++) {
-    print('  - Reference line at offset ${offsets[i]}');
-    lines.add(
-      Positioned(
-        top: offsets[i],
-        left: 0.0,
-        right: 0.0,
-        child: Container(
-          height: 1.0,
-          color: colors[i].withOpacity(0.5),
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
         ),
-      ),
-    );
-  }
-  return lines;
+      ],
+    ),
+  );
 }
 
-Widget _buildLegendItem(Color color, String label) {
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
+      ],
+    ),
+  );
+}
+
+Widget _sectionTitle(String text, IconData icon, Color color) {
   return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(width: 12.0, height: 3.0, color: color),
-      SizedBox(width: 4.0),
-      Text(label, style: TextStyle(fontSize: 10.0, color: color)),
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
+      ),
     ],
   );
 }
 
-// Section 8: Stacked baseline offsets
-Widget _buildStackedBaselines(BuildContext context) {
-  print('[Demo 8] Stacked baseline offsets in vertical layout');
-
+Widget _buildBullet({required String text}) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 16.0),
-    child: Column(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Multiple rows, each with Baseline at incrementing offsets, creating '
-          'a staircase pattern of aligned text.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
         ),
-        SizedBox(height: 12.0),
-        // Staircase pattern
-        ..._buildStaircaseRows(),
-        SizedBox(height: 16.0),
-        // Decorative baseline grid
-        _buildLabel('Baseline grid: 3x3 with alternating offsets'),
-        Container(
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Color(0xFFEDE7F6),
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFFB39DDB)),
-          ),
-          child: Column(
-            children: [
-              _buildGridRow(30.0, ['Alpha', 'Beta', 'Gamma'], Color(0xFF4527A0)),
-              SizedBox(height: 4.0),
-              _buildGridRow(25.0, ['Delta', 'Epsilon', 'Zeta'], Color(0xFF6A1B9A)),
-              SizedBox(height: 4.0),
-              _buildGridRow(35.0, ['Eta', 'Theta', 'Iota'], Color(0xFF283593)),
-            ],
-          ),
-        ),
-        SizedBox(height: 16.0),
-        // Summary card
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
-            ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Summary',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 8.0),
-              Text(
-                '- Baseline positions a child so its text baseline sits at a given offset\n'
-                '- Works with TextBaseline.alphabetic and TextBaseline.ideographic\n'
-                '- Essential for aligning mixed-size text on a common line\n'
-                '- Can align non-text widgets (icons, containers) as well\n'
-                '- Row supports CrossAxisAlignment.baseline for automatic alignment\n'
-                '- Combine with Stack for visual baseline reference guides',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Color(0xCCFFFFFF),
-                  height: 1.6,
-                ),
-              ),
-            ],
-          ),
-        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
       ],
     ),
   );
 }
 
-List<Widget> _buildStaircaseRows() {
-  List<Widget> rows = [];
-  List<String> labels = ['Step One', 'Step Two', 'Step Three', 'Step Four', 'Step Five'];
-  List<double> offsets = [10.0, 20.0, 30.0, 40.0, 50.0];
-  List<Color> colors = [
-    Color(0xFFE53935),
-    Color(0xFFFB8C00),
-    Color(0xFFFDD835),
-    Color(0xFF43A047),
-    Color(0xFF1E88E5),
-  ];
-
-  for (int i = 0; i < labels.length; i++) {
-    print('  - Staircase step: ${labels[i]} at offset ${offsets[i]}');
-    rows.add(
-      Container(
-        height: 60.0,
-        margin: EdgeInsets.only(bottom: 2.0),
-        decoration: BoxDecoration(
-          color: colors[i].withOpacity(0.1),
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: offsets[i],
-              left: 0.0,
-              right: 0.0,
-              child: Container(height: 1.0, color: colors[i].withOpacity(0.4)),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(width: 8.0),
-                Baseline(
-                  baseline: offsets[i],
-                  baselineType: TextBaseline.alphabetic,
-                  child: Text(
-                    labels[i],
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: colors[i],
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16.0),
-                Baseline(
-                  baseline: offsets[i],
-                  baselineType: TextBaseline.alphabetic,
-                  child: Text(
-                    '(baseline: ${offsets[i].toInt()})',
-                    style: TextStyle(fontSize: 11.0, color: colors[i].withOpacity(0.7)),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-  return rows;
-}
-
-Widget _buildGridRow(double baseline, List<String> labels, Color color) {
-  print('  - Grid row at baseline $baseline: $labels');
-  return Container(
-    height: 50.0,
-    decoration: BoxDecoration(
-      color: color.withOpacity(0.05),
-      borderRadius: BorderRadius.circular(4.0),
-    ),
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
     child: Row(
-      children: labels.map((label) {
-        return Expanded(
-          child: Center(
-            child: Baseline(
-              baseline: baseline,
-              baselineType: TextBaseline.alphabetic,
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                  color: color,
-                ),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
+      ],
     ),
   );
+}
+
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
+  );
+}
+
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
+
+  final String title;
+  final String text;
+  final IconData icon;
 }

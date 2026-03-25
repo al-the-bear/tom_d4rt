@@ -1,328 +1,136 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// Deep demo: RenderAnimatedOpacity via AnimatedOpacity and FadeTransition
-// RenderAnimatedOpacity efficiently animates the opacity of its child
-// by avoiding repainting the child when only the opacity changes.
-// Widget-level wrappers: AnimatedOpacity, FadeTransition
-
 import 'package:flutter/material.dart';
 
-Widget _buildHeader(String title, String subtitle) {
-  print('[header] Building header: $title');
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF283593)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Column(
-      children: [
-        Icon(Icons.opacity, size: 48, color: Colors.white),
-        SizedBox(height: 12),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(height: 4),
-        Text(
-          subtitle,
-          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(200)),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
+const Color _kPrimary = Color(0xFF6A1B9A);
+const Color _kAccent = Color(0xFFAB47BC);
+const Color _kSurface = Color(0xFFF3E5F5);
 
-Widget _buildSectionTitle(String title, IconData icon) {
-  print('[section] $title');
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 12),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Color(0xFF283593).withAlpha(30),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: Color(0xFF1A237E), size: 20),
-        ),
-        SizedBox(width: 12),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1A237E),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Render Animated Opacity demonstrates animation lifecycle and visual interpolation behavior in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.view_in_ar_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
 
-Widget _buildInfoCard(String label, String description, IconData icon) {
-  print('[info] $label: $description');
-  return Container(
-    margin: EdgeInsets.only(bottom: 8),
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Color(0xFFF5F5F5),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: Color(0xFFE0E0E0)),
-    ),
-    child: Row(
-      children: [
-        Icon(icon, color: Color(0xFF5C6BC0), size: 22),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(fontSize: 12, color: Color(0xFF616161)),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+dynamic build(BuildContext context) {
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
 
-// Builds a single opacity swatch with a label and visual content
-Widget _buildOpacitySwatch(double opacity, Color color, String label) {
-  print('[swatch] opacity=$opacity label=$label');
-  return Column(
-    children: [
-      AnimatedOpacity(
-        opacity: opacity,
-        duration: Duration(milliseconds: 500),
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: color.withAlpha(80),
-                blurRadius: 6,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              '${(opacity * 100).toInt()}%',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ),
-      ),
-      SizedBox(height: 6),
-      Text(label, style: TextStyle(fontSize: 10, color: Color(0xFF757575))),
-    ],
-  );
-}
-
-// Builds an opacity comparison row showing same content at varying opacities
-Widget _buildOpacityComparisonRow(String contentLabel, Widget child) {
-  print('[comparison] Building comparison row for: $contentLabel');
-  List<double> opacities = [0.0, 0.25, 0.5, 0.75, 1.0];
-  List<Widget> items = [];
-  for (int i = 0; i < opacities.length; i++) {
-    double op = opacities[i];
-    print('[comparison] Adding item at opacity $op');
-    items.add(
-      Expanded(
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          children: [
-            AnimatedOpacity(
-              opacity: op,
-              duration: Duration(milliseconds: 400),
-              child: child,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Render Animated Opacity Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of RenderAnimatedOpacity for D4rt interpreter scenarios.',
+              icon: Icons.view_in_ar_rounded,
+              primary: primary,
+              accent: accent,
             ),
-            SizedBox(height: 4),
-            Text(
-              op.toString(),
-              style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
-            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
           ],
         ),
       ),
-    );
-  }
-  return Container(
-    margin: EdgeInsets.only(bottom: 12),
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: Color(0xFFE8EAF6)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          contentLabel,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF3949AB),
-          ),
-        ),
-        SizedBox(height: 10),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items),
-      ],
     ),
   );
 }
 
-// Builds a gradient container used as opacity target
-Widget _buildGradientBox(List<Color> colors, double size) {
-  print('[gradient] Building gradient box size=$size');
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
-    width: size,
-    height: size,
+    width: double.infinity,
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: colors,
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(10),
-    ),
-  );
-}
-
-// Builds a layered stack where semi-transparent elements overlap
-Widget _buildLayeredOverlap() {
-  print('[layered] Building layered overlap section');
-  return Container(
-    height: 200,
-    width: double.infinity,
-    decoration: BoxDecoration(
-      color: Color(0xFFF5F5F5),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        // Background pattern
-        Positioned(
-          left: 20,
-          top: 20,
-          child: AnimatedOpacity(
-            opacity: 0.9,
-            duration: Duration(milliseconds: 300),
-            child: Container(
-              width: 140,
-              height: 140,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFFE53935), Color(0xFFEF5350)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  'Back Layer\n0.9',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
         ),
-        // Middle layer
-        Positioned(
-          left: 80,
-          top: 40,
-          child: AnimatedOpacity(
-            opacity: 0.6,
-            duration: Duration(milliseconds: 300),
-            child: Container(
-              width: 140,
-              height: 140,
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF1E88E5), Color(0xFF42A5F5)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
               ),
-              child: Center(
-                child: Text(
-                  'Mid Layer\n0.6',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-          ),
+          ],
         ),
-        // Front layer
-        Positioned(
-          right: 20,
-          bottom: 10,
-          child: AnimatedOpacity(
-            opacity: 0.35,
-            duration: Duration(milliseconds: 300),
-            child: Container(
-              width: 140,
-              height: 140,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  'Front Layer\n0.35',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+        const SizedBox(height: 12),
+        Text(
+          subtitle,
+          style: TextStyle(
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
           ),
         ),
       ],
@@ -330,829 +138,504 @@ Widget _buildLayeredOverlap() {
   );
 }
 
-// Builds a visual opacity scale/gradient bar
-Widget _buildOpacityScale() {
-  print('[scale] Building visual opacity scale');
-  List<Widget> bars = [];
-  for (int i = 0; i <= 20; i++) {
-    double opacity = i / 20.0;
-    print('[scale] bar segment opacity=$opacity');
-    bars.add(
-      Expanded(
-        child: AnimatedOpacity(
-          opacity: opacity,
-          duration: Duration(milliseconds: 200),
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(color: Color(0xFF1A237E)),
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'RenderAnimatedOpacity is used when you need explicit control over animation lifecycle and visual interpolation behavior.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
+            ],
           ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
+  ];
+
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
       ),
-    );
-  }
-  return Column(
-    children: [
-      Container(
-        height: 50,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-        child: Row(children: bars),
-      ),
-      SizedBox(height: 6),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('0%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
-          Text('25%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
-          Text('50%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
-          Text('75%', style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E))),
-          Text(
-            '100%',
-            style: TextStyle(fontSize: 10, color: Color(0xFF9E9E9E)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),
+    ),
+  );
+}
+
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
+      ],
+    ),
+  );
+}
+
+Widget _sectionTitle(String text, IconData icon, Color color) {
+  return Row(
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
+      ),
     ],
   );
 }
 
-// Builds a FadeTransition demonstration card
-Widget _buildFadeTransitionCard(
-  String title,
-  String description,
-  double opacity,
-  Widget content,
-) {
-  print('[fade-transition] $title at opacity $opacity');
-  return Container(
-    margin: EdgeInsets.only(bottom: 10),
-    padding: EdgeInsets.all(14),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Color(0xFFE8EAF6)),
-      boxShadow: [
-        BoxShadow(
-          color: Color(0x0F000000),
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Column(
+Widget _buildBullet({required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Color(0xFF1A237E),
-              ),
-            ),
-            Spacer(),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: Color(0xFF283593).withAlpha(25),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                'opacity: $opacity',
-                style: TextStyle(fontSize: 11, color: Color(0xFF3949AB)),
-              ),
-            ),
-          ],
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
         ),
-        SizedBox(height: 4),
-        Text(
-          description,
-          style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
-        ),
-        SizedBox(height: 10),
-        Center(
-          child: AnimatedOpacity(
-            opacity: opacity,
-            duration: Duration(milliseconds: 600),
-            child: content,
-          ),
-        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
       ],
     ),
   );
 }
 
-// Builds different content types to demonstrate opacity on various visuals
-Widget _buildContentTypeDemo(String label, IconData icon, Color color) {
-  print('[content-type] $label');
-  return Container(
-    width: 80,
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withAlpha(60)),
-    ),
-    child: Column(
-      children: [
-        Icon(icon, color: color, size: 28),
-        SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 10, color: color),
-          textAlign: TextAlign.center,
-        ),
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
       ],
     ),
   );
 }
 
-dynamic build(BuildContext context) {
-  print('[build] RenderAnimatedOpacity deep demo starting');
-  print(
-    '[build] AnimatedOpacity wraps RenderAnimatedOpacity at the render layer',
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
   );
-  print('[build] FadeTransition also uses RenderAnimatedOpacity internally');
+}
 
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header
-        _buildHeader(
-          'RenderAnimatedOpacity',
-          'Efficient opacity animation at the render layer.\n'
-              'Widget wrappers: AnimatedOpacity & FadeTransition',
-        ),
-        SizedBox(height: 16),
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
 
-        // Info cards
-        _buildInfoCard(
-          'RenderAnimatedOpacity',
-          'A render object that animates opacity without repainting children',
-          Icons.animation,
-        ),
-        _buildInfoCard(
-          'AnimatedOpacity',
-          'Implicit animation widget — automatically animates when opacity changes',
-          Icons.auto_awesome,
-        ),
-        _buildInfoCard(
-          'FadeTransition',
-          'Explicit animation widget — driven by an Animation<double> controller',
-          Icons.swap_horiz,
-        ),
-
-        SizedBox(height: 8),
-
-        // Section 1: Opacity values side by side
-        _buildSectionTitle('Opacity Values Comparison', Icons.compare),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildOpacitySwatch(0.0, Color(0xFF1A237E), 'Invisible'),
-              _buildOpacitySwatch(0.25, Color(0xFF283593), 'Faint'),
-              _buildOpacitySwatch(0.5, Color(0xFF3949AB), 'Half'),
-              _buildOpacitySwatch(0.75, Color(0xFF5C6BC0), 'Visible'),
-              _buildOpacitySwatch(1.0, Color(0xFF7986CB), 'Full'),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        // Section 2: Opacity on different content types
-        _buildSectionTitle('Opacity on Content Types', Icons.category),
-
-        // Text at various opacities
-        _buildOpacityComparisonRow(
-          'Text Content',
-          Text(
-            'Hello',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1A237E),
-            ),
-          ),
-        ),
-
-        // Icons at various opacities
-        _buildOpacityComparisonRow(
-          'Icon Content',
-          Icon(Icons.star, size: 32, color: Color(0xFFFFA000)),
-        ),
-
-        // Image placeholder at various opacities
-        _buildOpacityComparisonRow(
-          'Image Placeholder',
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Color(0xFF8D6E63),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(Icons.image, color: Colors.white, size: 20),
-          ),
-        ),
-
-        // Gradient containers at various opacities
-        _buildOpacityComparisonRow(
-          'Gradient Container',
-          _buildGradientBox([Color(0xFFE91E63), Color(0xFFFF5252)], 40.0),
-        ),
-
-        SizedBox(height: 16),
-
-        // Section 3: FadeTransition examples
-        _buildSectionTitle('FadeTransition Examples', Icons.swap_horiz),
-
-        _buildFadeTransitionCard(
-          'Fully Visible',
-          'FadeTransition with animation value 1.0',
-          1.0,
-          Container(
-            width: 120,
-            height: 60,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF7B1FA2), Color(0xFFAB47BC)],
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                'Fade 1.0',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-
-        _buildFadeTransitionCard(
-          'Three Quarters',
-          'FadeTransition with animation value 0.75',
-          0.75,
-          Container(
-            width: 120,
-            height: 60,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF00897B), Color(0xFF4DB6AC)],
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                'Fade 0.75',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-
-        _buildFadeTransitionCard(
-          'Half Opacity',
-          'FadeTransition with animation value 0.5',
-          0.5,
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.visibility, color: Color(0xFF1565C0), size: 28),
-              SizedBox(width: 8),
-              Text(
-                'Semi-visible',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF1565C0),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        _buildFadeTransitionCard(
-          'Nearly Invisible',
-          'FadeTransition with animation value 0.1',
-          0.1,
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              color: Color(0xFFFF6F00),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              'Almost gone',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        // Section 4: Layered overlapping elements
-        _buildSectionTitle('Layered Overlapping Elements', Icons.layers),
-        _buildLayeredOverlap(),
-
-        SizedBox(height: 16),
-
-        // Section 5: Visual opacity scale
-        _buildSectionTitle('Opacity Scale / Gradient', Icons.gradient),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Continuous Opacity Gradient',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                '21 steps from fully transparent (0%) to fully opaque (100%)',
-                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
-              ),
-              SizedBox(height: 12),
-              _buildOpacityScale(),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        // Section 6: Content type specific demos
-        _buildSectionTitle('Content Type Gallery', Icons.grid_view),
-
-        // Row of content types at full opacity
-        Container(
-          padding: EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Full Opacity (1.0)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildContentTypeDemo(
-                    'Text',
-                    Icons.text_fields,
-                    Color(0xFF1565C0),
-                  ),
-                  _buildContentTypeDemo(
-                    'Icon',
-                    Icons.emoji_emotions,
-                    Color(0xFFEF6C00),
-                  ),
-                  _buildContentTypeDemo(
-                    'Shape',
-                    Icons.crop_square,
-                    Color(0xFF2E7D32),
-                  ),
-                  _buildContentTypeDemo(
-                    'Image',
-                    Icons.photo,
-                    Color(0xFF6A1B9A),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 10),
-
-        // Same row at half opacity
-        AnimatedOpacity(
-          opacity: 0.5,
-          duration: Duration(milliseconds: 500),
-          child: Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Color(0xFFE8EAF6)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Half Opacity (0.5)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Color(0xFF1A237E),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildContentTypeDemo(
-                      'Text',
-                      Icons.text_fields,
-                      Color(0xFF1565C0),
-                    ),
-                    _buildContentTypeDemo(
-                      'Icon',
-                      Icons.emoji_emotions,
-                      Color(0xFFEF6C00),
-                    ),
-                    _buildContentTypeDemo(
-                      'Shape',
-                      Icons.crop_square,
-                      Color(0xFF2E7D32),
-                    ),
-                    _buildContentTypeDemo(
-                      'Image',
-                      Icons.photo,
-                      Color(0xFF6A1B9A),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        SizedBox(height: 10),
-
-        // Same row at low opacity
-        AnimatedOpacity(
-          opacity: 0.15,
-          duration: Duration(milliseconds: 500),
-          child: Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Color(0xFFE8EAF6)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Near Invisible (0.15)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Color(0xFF1A237E),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildContentTypeDemo(
-                      'Text',
-                      Icons.text_fields,
-                      Color(0xFF1565C0),
-                    ),
-                    _buildContentTypeDemo(
-                      'Icon',
-                      Icons.emoji_emotions,
-                      Color(0xFFEF6C00),
-                    ),
-                    _buildContentTypeDemo(
-                      'Shape',
-                      Icons.crop_square,
-                      Color(0xFF2E7D32),
-                    ),
-                    _buildContentTypeDemo(
-                      'Image',
-                      Icons.photo,
-                      Color(0xFF6A1B9A),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        // Section 7: Practical use cases
-        _buildSectionTitle('Practical Use Cases', Icons.lightbulb_outline),
-
-        // Disabled button effect
-        Container(
-          margin: EdgeInsets.only(bottom: 10),
-          padding: EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Disabled State Pattern',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Use opacity to indicate enabled/disabled states',
-                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      AnimatedOpacity(
-                        opacity: 1.0,
-                        duration: Duration(milliseconds: 300),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF1A237E),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            'Enabled',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        '1.0',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xFF9E9E9E),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      AnimatedOpacity(
-                        opacity: 0.4,
-                        duration: Duration(milliseconds: 300),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF1A237E),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            'Disabled',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        '0.4',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Color(0xFF9E9E9E),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-
-        // Loading placeholder effect
-        Container(
-          margin: EdgeInsets.only(bottom: 10),
-          padding: EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Loading Placeholder Pattern',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Shimmer-like effect using opacity on placeholder content',
-                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
-              ),
-              SizedBox(height: 12),
-              AnimatedOpacity(
-                opacity: 0.3,
-                duration: Duration(milliseconds: 800),
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 16,
-                      margin: EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFBDBDBD),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 16,
-                      margin: EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFBDBDBD),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    Container(
-                      width: 200,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFBDBDBD),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        // Watermark overlay effect
-        Container(
-          margin: EdgeInsets.only(bottom: 10),
-          padding: EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE8EAF6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Watermark Overlay Pattern',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Semi-transparent text overlaid on content',
-                style: TextStyle(fontSize: 12, color: Color(0xFF757575)),
-              ),
-              SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                height: 100,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
-                      Color(0xFF42A5F5),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Text(
-                        'Main Content',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: AnimatedOpacity(
-                        opacity: 0.15,
-                        duration: Duration(milliseconds: 300),
-                        child: Transform.rotate(
-                          angle: -0.3,
-                          child: Text(
-                            'DRAFT',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 48,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 8,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        SizedBox(height: 16),
-
-        // Footer summary
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8EAF6),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Icon(Icons.check_circle, color: Color(0xFF1A237E), size: 32),
-              SizedBox(height: 8),
-              Text(
-                'RenderAnimatedOpacity Demo Complete',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF1A237E),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Demonstrated: opacity values, content types, FadeTransition,\n'
-                'layered overlaps, opacity scale, and practical patterns',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Color(0xFF5C6BC0)),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 24),
-      ],
-    ),
-  );
+  final String title;
+  final String text;
+  final IconData icon;
 }

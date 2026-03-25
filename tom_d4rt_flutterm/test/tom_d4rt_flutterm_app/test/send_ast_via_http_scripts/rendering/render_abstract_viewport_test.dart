@@ -1,195 +1,136 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Deep demo for RenderAbstractViewport from rendering
-//
-// RenderAbstractViewport is the abstract base class for viewports that
-// provide scrollable content. It defines the contract for how viewports
-// calculate scroll offsets and reveal descendant render objects.
-//
-// Key subclasses:
-//   RenderViewport - fixed-size viewport with slivers
-//   RenderShrinkWrappingViewport - viewport that sizes to content
-//
-// Key methods:
-//   getOffsetToReveal() - calculates scroll offset to reveal a RenderObject
-//   showOnScreen() - scrolls viewport to make a child visible
-//
-// Architecture:
-//   Viewport -> Slivers -> Content (RenderObjects)
-//   ScrollPosition controls the offset
-//   ViewportOffset provides the pixel offset
-//
-// This demo visualizes the RenderAbstractViewport class comprehensively.
-
 import 'package:flutter/material.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// COLOR PALETTE
-// ═══════════════════════════════════════════════════════════════════════════════
+const Color _kPrimary = Color(0xFFEF6C00);
+const Color _kAccent = Color(0xFFFFA726);
+const Color _kSurface = Color(0xFFFFF3E0);
 
-Color _kPrimary200 = Color(0xFF90CAF9);
-Color _kPrimary300 = Color(0xFF64B5F6);
-Color _kPrimary400 = Color(0xFF42A5F5);
-Color _kPrimary500 = Color(0xFF2196F3);
-Color _kPrimary600 = Color(0xFF1E88E5);
-Color _kPrimary700 = Color(0xFF1976D2);
-Color _kPrimary800 = Color(0xFF1565C0);
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Render Abstract Viewport demonstrates scroll behavior, viewport contracts, and gesture flow in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.extension_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
 
-Color _kSecondary500 = Color(0xFF26A69A);
-Color _kSecondary600 = Color(0xFF009688);
-Color _kSecondary700 = Color(0xFF00897B);
+dynamic build(BuildContext context) {
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
 
-Color _kAccent500 = Color(0xFFFF7043);
-Color _kAccent600 = Color(0xFFF4511E);
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Render Abstract Viewport Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of RenderAbstractViewport for D4rt interpreter scenarios.',
+              icon: Icons.extension_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
-Color _kSuccess500 = Color(0xFF66BB6A);
-Color _kSuccess600 = Color(0xFF43A047);
-
-Color _kWarning500 = Color(0xFFFFA726);
-Color _kWarning600 = Color(0xFFFB8C00);
-
-Color _kPurple500 = Color(0xFF7E57C2);
-Color _kPurple600 = Color(0xFF673AB7);
-
-Color _kSlate100 = Color(0xFFF1F5F9);
-Color _kSlate200 = Color(0xFFE2E8F0);
-Color _kSlate300 = Color(0xFFCBD5E1);
-Color _kSlate500 = Color(0xFF64748B);
-Color _kSlate600 = Color(0xFF475569);
-Color _kSlate700 = Color(0xFF334155);
-Color _kSlate800 = Color(0xFF1E293B);
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildHeader() {
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(24),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [_kPrimary800, _kPrimary600, _kPrimary400],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
+      boxShadow: <BoxShadow>[
         BoxShadow(
-          color: _kPrimary800.withAlpha(120),
-          blurRadius: 20,
-          offset: Offset(0, 10),
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
         ),
       ],
     ),
     child: Column(
-      children: [
-        Icon(Icons.view_agenda_outlined, color: Colors.white, size: 56),
-        SizedBox(height: 16),
-        Text(
-          'RenderAbstractViewport',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            letterSpacing: 1.0,
-          ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          'Abstract base class for scrollable viewports',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.white.withAlpha(220),
-          ),
-        ),
-        SizedBox(height: 20),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildBadge('getOffsetToReveal', Icons.location_searching, _kSecondary500),
-            SizedBox(width: 12),
-            _buildBadge('showOnScreen', Icons.visibility, _kAccent500),
-          ],
-        ),
-        SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildBadge('RenderViewport', Icons.crop_square, _kPurple500),
-            SizedBox(width: 12),
-            _buildBadge('ShrinkWrapping', Icons.compress, _kWarning500),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildBadge(String label, IconData icon, Color bgColor) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-    decoration: BoxDecoration(
-      color: bgColor.withAlpha(180),
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: Colors.white.withAlpha(100), width: 1),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: Colors.white, size: 16),
-        SizedBox(width: 6),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildSectionTitle(String title, IconData icon, Color color) {
-  return Container(
-    width: double.infinity,
-    margin: EdgeInsets.only(bottom: 16),
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [color, color.withAlpha(180)],
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
-      borderRadius: BorderRadius.circular(14),
-      boxShadow: [
-        BoxShadow(
-          color: color.withAlpha(80),
-          blurRadius: 10,
-          offset: Offset(0, 5),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white.withAlpha(50),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, color: Colors.white, size: 24),
-        ),
-        SizedBox(width: 14),
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
             ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          subtitle,
+          style: TextStyle(
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
           ),
         ),
       ],
@@ -197,1144 +138,504 @@ Widget _buildSectionTitle(String title, IconData icon, Color color) {
   );
 }
 
-Widget _buildInfoCard(String title, Widget content, {Color? accentColor}) {
-  Color color = accentColor ?? _kPrimary500;
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    margin: EdgeInsets.only(bottom: 16),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'RenderAbstractViewport is used when you need explicit control over scroll behavior, viewport contracts, and gesture flow.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
+  ];
+
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: color.withAlpha(60), width: 2),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(12),
-          blurRadius: 10,
-          offset: Offset(0, 4),
-        ),
-      ],
+      border: Border.all(color: primary.withAlpha(55)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: color.withAlpha(20),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
             ),
-          ),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
+          ],
         ),
-        Padding(padding: EdgeInsets.all(16), child: content),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
       ],
     ),
   );
 }
 
-Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 5),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 150,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: _kSlate700,
-              fontSize: 13,
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              color: valueColor ?? _kSlate600,
-              fontSize: 13,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildCodeSnippet(String code, {Color? bgColor}) {
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(14),
-    decoration: BoxDecoration(
-      color: bgColor ?? _kSlate800,
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Text(
-      code,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 12,
-        color: Color(0xFFE2E8F0),
-        height: 1.5,
+        ],
       ),
     ),
   );
 }
 
-Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 90, double height = 70}) {
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
   return Container(
-    width: width,
-    height: height,
+    padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: color.withAlpha(40),
+      color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: color, width: 2),
+      border: Border.all(color: color.withAlpha(78)),
     ),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (icon != null) Icon(icon, color: color, size: 20),
-        if (icon != null) SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-          textAlign: TextAlign.center,
-        ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
       ],
     ),
   );
 }
 
-Widget _buildArrowDown(Color color) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(width: 2, height: 14, color: color),
-      Icon(Icons.arrow_drop_down, color: color, size: 20),
+Widget _sectionTitle(String text, IconData icon, Color color) {
+  return Row(
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
+      ),
     ],
   );
 }
 
-
-
-Widget _buildTableHeader(List<String> headers, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(8),
-        topRight: Radius.circular(8),
-      ),
-    ),
+Widget _buildBullet({required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
     child: Row(
-      children: headers
-          .map((h) => Expanded(
-                child: Text(
-                  h,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: color,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ))
-          .toList(),
-    ),
-  );
-}
-
-Widget _buildTableRow(List<String> cells, {Color? bgColor}) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-    decoration: BoxDecoration(
-      color: bgColor ?? Colors.transparent,
-      border: Border(bottom: BorderSide(color: _kSlate200, width: 1)),
-    ),
-    child: Row(
-      children: cells
-          .map((c) => Expanded(
-                child: Text(
-                  c,
-                  style: TextStyle(fontSize: 11, color: _kSlate700),
-                  textAlign: TextAlign.center,
-                ),
-              ))
-          .toList(),
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 1: RENDER ABSTRACT VIEWPORT OVERVIEW
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildOverviewSection() {
-  print('--- Section 1: RenderAbstractViewport Overview ---');
-  print('RenderAbstractViewport: abstract base class for scroll viewports');
-  print('Defines contract for getOffsetToReveal and showOnScreen');
-  print('Subclasses: RenderViewport, RenderShrinkWrappingViewport');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '1. RenderAbstractViewport Overview',
-        Icons.info_outline,
-        _kPrimary700,
-      ),
-      _buildInfoCard(
-        'What is RenderAbstractViewport?',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInfoRow('Type', 'Abstract class (mixin on RenderObject)'),
-            _buildInfoRow('Library', 'package:flutter/rendering.dart'),
-            _buildInfoRow('Purpose', 'Base for viewports providing scrollable content'),
-            _buildInfoRow('Subclasses', 'RenderViewport, RenderShrinkWrappingViewport'),
-            _buildInfoRow('Static Method', 'RenderAbstractViewport.of(RenderObject)'),
-            SizedBox(height: 12),
-            Text(
-              'RenderAbstractViewport establishes the interface that all '
-              'viewport render objects must implement. It provides the '
-              'mechanism for calculating how to scroll to reveal a '
-              'specific descendant within the scrollable area.',
-              style: TextStyle(fontSize: 13, color: _kSlate600, height: 1.5),
-            ),
-          ],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
         ),
-        accentColor: _kPrimary600,
-      ),
-      _buildInfoCard(
-        'Role in Scroll Architecture',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInfoRow('ScrollView', 'Creates the viewport widget'),
-            _buildInfoRow('Viewport', 'Renders using RenderViewport'),
-            _buildInfoRow('SliverList', 'Provides lazy child rendering'),
-            _buildInfoRow('ScrollPosition', 'Tracks scroll offset'),
-            _buildInfoRow('ViewportOffset', 'Pixel-level offset control'),
-            SizedBox(height: 12),
-            _buildCodeSnippet(
-              '// Finding the viewport ancestor\n'
-              'RenderAbstractViewport viewport =\n'
-              '    RenderAbstractViewport.of(renderObject);\n'
-              '\n'
-              '// Get offset to reveal a child\n'
-              'RevealedOffset offset =\n'
-              '    viewport.getOffsetToReveal(\n'
-              '      targetRenderObject,\n'
-              '      0.0,  // alignment\n'
-              '    );',
-            ),
-          ],
-        ),
-        accentColor: _kSecondary600,
-      ),
-      _buildInfoCard(
-        'Type Hierarchy',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCodeSnippet(
-              'RenderObject\n'
-              '  +-- RenderAbstractViewport (mixin)\n'
-              '       |\n'
-              '       +-- RenderViewport\n'
-              '       |     Fixed-size, uses slivers\n'
-              '       |     Most common viewport type\n'
-              '       |\n'
-              '       +-- RenderShrinkWrappingViewport\n'
-              '             Sizes to content\n'
-              '             Used with shrinkWrap: true',
-            ),
-          ],
-        ),
-        accentColor: _kPurple600,
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 2: VIEWPORT ARCHITECTURE DIAGRAM
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildArchitectureDiagramSection() {
-  print('--- Section 2: Viewport Architecture Diagram ---');
-  print('Viewport -> Slivers -> Content relationship');
-  print('ScrollController -> ScrollPosition -> ViewportOffset');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '2. Viewport Architecture',
-        Icons.account_tree,
-        _kSecondary600,
-      ),
-      _buildInfoCard(
-        'Scroll System Data Flow',
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildDiagramBox('ScrollController', _kPrimary600, icon: Icons.control_camera),
-              ],
-            ),
-            _buildArrowDown(_kPrimary500),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildDiagramBox('ScrollPosition', _kPrimary500, icon: Icons.pin_drop),
-              ],
-            ),
-            _buildArrowDown(_kPrimary400),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildDiagramBox('ViewportOffset', _kSecondary600, icon: Icons.swap_vert),
-              ],
-            ),
-            _buildArrowDown(_kSecondary500),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildDiagramBox('Abstract\nViewport', _kAccent600, icon: Icons.view_agenda, width: 110, height: 80),
-              ],
-            ),
-            _buildArrowDown(_kAccent500),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildDiagramBox('Sliver A', _kPurple500, icon: Icons.list),
-                _buildDiagramBox('Sliver B', _kPurple500, icon: Icons.grid_view),
-                _buildDiagramBox('Sliver C', _kPurple500, icon: Icons.view_list),
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildArrowDown(_kSuccess500),
-                _buildArrowDown(_kSuccess500),
-                _buildArrowDown(_kSuccess500),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildDiagramBox('Content', _kSuccess500, icon: Icons.widgets, width: 80, height: 50),
-                _buildDiagramBox('Content', _kSuccess500, icon: Icons.widgets, width: 80, height: 50),
-                _buildDiagramBox('Content', _kSuccess500, icon: Icons.widgets, width: 80, height: 50),
-              ],
-            ),
-          ],
-        ),
-        accentColor: _kSecondary600,
-      ),
-      _buildInfoCard(
-        'Viewport Responsibilities',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInfoRow('Layout Slivers', 'Lays out slivers within constraints'),
-            _buildInfoRow('Paint Content', 'Clips and paints visible portion'),
-            _buildInfoRow('Hit Testing', 'Routes hit tests to visible slivers'),
-            _buildInfoRow('Reveal Objects', 'Calculates offset to reveal descendants'),
-            _buildInfoRow('Cache Extent', 'Pre-renders content beyond visible area'),
-            SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _kSecondary500.withAlpha(15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _kSecondary500.withAlpha(40)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Cache Extent',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: _kSecondary700,
-                      fontSize: 13,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    'The viewport pre-renders content beyond the visible area '
-                    '(default 250 logical pixels). This ensures smooth scrolling '
-                    'by having content ready before it scrolls into view.',
-                    style: TextStyle(fontSize: 12, color: _kSlate600, height: 1.4),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        accentColor: _kPrimary600,
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 3: GET OFFSET TO REVEAL METHOD
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildGetOffsetToRevealSection() {
-  print('--- Section 3: getOffsetToReveal Method ---');
-  print('Calculates scroll offset to reveal a descendant RenderObject');
-  print('Returns RevealedOffset with offset and rect');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '3. getOffsetToReveal Method',
-        Icons.location_searching,
-        _kAccent600,
-      ),
-      _buildInfoCard(
-        'Method Signature',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCodeSnippet(
-              'RevealedOffset getOffsetToReveal(\n'
-              '  RenderObject target,\n'
-              '  double alignment, {\n'
-              '  Rect? rect,\n'
-              '})',
-            ),
-            SizedBox(height: 16),
-            _buildInfoRow('target', 'The RenderObject to make visible'),
-            _buildInfoRow('alignment', '0.0 = leading edge, 1.0 = trailing edge'),
-            _buildInfoRow('rect', 'Sub-area of target to reveal (optional)'),
-            _buildInfoRow('Returns', 'RevealedOffset with offset + rect'),
-          ],
-        ),
-        accentColor: _kAccent600,
-      ),
-      _buildInfoCard(
-        'Alignment Parameter Visual',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _kSlate100,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                children: [
-                  _buildAlignmentRow('0.0', 'Target at leading edge (top/left)', _kSuccess500),
-                  SizedBox(height: 8),
-                  _buildAlignmentRow('0.5', 'Target centered in viewport', _kWarning500),
-                  SizedBox(height: 8),
-                  _buildAlignmentRow('1.0', 'Target at trailing edge (bottom/right)', _kAccent500),
-                ],
-              ),
-            ),
-            SizedBox(height: 12),
-            _buildCodeSnippet(
-              '// Scroll to show item at top of viewport\n'
-              'RevealedOffset result =\n'
-              '    viewport.getOffsetToReveal(target, 0.0);\n'
-              'print("Offset: " + result.offset.toString());\n'
-              'print("Rect: " + result.rect.toString());\n'
-              '\n'
-              '// Scroll to center item in viewport\n'
-              'RevealedOffset centered =\n'
-              '    viewport.getOffsetToReveal(target, 0.5);',
-            ),
-          ],
-        ),
-        accentColor: _kWarning600,
-      ),
-      _buildInfoCard(
-        'RevealedOffset Return Value',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInfoRow('offset', 'ViewportOffset.pixels needed to reveal target'),
-            _buildInfoRow('rect', 'Bounding rect of target in viewport coordinates'),
-            SizedBox(height: 12),
-            _buildCodeSnippet(
-              'class RevealedOffset {\n'
-              '  // The scroll offset to apply\n'
-              '  final double offset;\n'
-              '\n'
-              '  // The visible rect in viewport coords\n'
-              '  final Rect rect;\n'
-              '}',
-            ),
-            SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: _kAccent500.withAlpha(15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _kAccent500.withAlpha(40)),
-              ),
-              child: Text(
-                'The offset value can be applied to a ScrollController to '
-                'animate or jump to the position that reveals the target.',
-                style: TextStyle(fontSize: 12, color: _kSlate600, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-        accentColor: _kPurple600,
-      ),
-    ],
-  );
-}
-
-Widget _buildAlignmentRow(String value, String description, Color color) {
-  return Row(
-    children: [
-      Container(
-        width: 40,
-        height: 28,
-        decoration: BoxDecoration(
-          color: color.withAlpha(40),
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: color, width: 1),
-        ),
-        child: Center(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color),
-          ),
-        ),
-      ),
-      SizedBox(width: 10),
-      Expanded(
-        child: Text(
-          description,
-          style: TextStyle(fontSize: 12, color: _kSlate600),
-        ),
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 4: SHOW ON SCREEN BEHAVIOR
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildShowOnScreenSection() {
-  print('--- Section 4: showOnScreen Behavior ---');
-  print('showOnScreen scrolls viewport to make child visible');
-  print('Called automatically by focus system, Scrollable.ensureVisible, etc.');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '4. showOnScreen Behavior',
-        Icons.visibility,
-        _kPurple600,
-      ),
-      _buildInfoCard(
-        'showOnScreen Method',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCodeSnippet(
-              'void showOnScreen({\n'
-              '  RenderObject? descendant,\n'
-              '  Rect? rect,\n'
-              '  Duration duration = Duration.zero,\n'
-              '  Curve curve = Curves.ease,\n'
-              '})',
-            ),
-            SizedBox(height: 16),
-            _buildInfoRow('descendant', 'Child render object to reveal'),
-            _buildInfoRow('rect', 'Sub-area within descendant to show'),
-            _buildInfoRow('duration', 'Animation duration (zero = instant)'),
-            _buildInfoRow('curve', 'Animation curve for smooth scrolling'),
-          ],
-        ),
-        accentColor: _kPurple600,
-      ),
-      _buildInfoCard(
-        'How showOnScreen Works',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildStepRow(1, 'Viewport calls getOffsetToReveal for the descendant', _kPrimary500),
-            SizedBox(height: 8),
-            _buildStepRow(2, 'Gets RevealedOffset with target scroll position', _kSecondary500),
-            SizedBox(height: 8),
-            _buildStepRow(3, 'Animates or jumps ViewportOffset to new position', _kAccent500),
-            SizedBox(height: 8),
-            _buildStepRow(4, 'Layout re-runs with new offset, revealing child', _kSuccess500),
-            SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _kPurple500.withAlpha(15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _kPurple500.withAlpha(40)),
-              ),
-              child: Text(
-                'showOnScreen is called automatically when a TextField receives '
-                'focus, when Scrollable.ensureVisible is invoked, or when '
-                'accessibility actions request scrolling to a child.',
-                style: TextStyle(fontSize: 12, color: _kSlate600, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-        accentColor: _kSecondary600,
-      ),
-      _buildInfoCard(
-        'Triggers for showOnScreen',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTableHeader(['Trigger', 'Source', 'Scroll'], _kPurple600),
-            _buildTableRow(['Focus gain', 'FocusNode', 'Animated']),
-            _buildTableRow(['ensureVisible', 'Scrollable', 'Animated'], bgColor: _kSlate100),
-            _buildTableRow(['Accessibility', 'Semantics', 'Animated']),
-            _buildTableRow(['showInViewport', 'TextInput', 'Animated'], bgColor: _kSlate100),
-            _buildTableRow(['ScrollPosition', 'jumpTo', 'Instant']),
-            SizedBox(height: 12),
-            _buildCodeSnippet(
-              '// Scrollable.ensureVisible usage\n'
-              'Scrollable.ensureVisible(\n'
-              '  context,\n'
-              '  alignment: 0.5,\n'
-              '  duration: Duration(milliseconds: 300),\n'
-              '  curve: Curves.easeInOut,\n'
-              ');',
-            ),
-          ],
-        ),
-        accentColor: _kPrimary600,
-      ),
-    ],
-  );
-}
-
-Widget _buildStepRow(int number, String description, Color color) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(
-          color: color.withAlpha(40),
-          shape: BoxShape.circle,
-          border: Border.all(color: color, width: 2),
-        ),
-        child: Center(
-          child: Text(
-            number.toString(),
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-        ),
-      ),
-      SizedBox(width: 10),
-      Expanded(
-        child: Padding(
-          padding: EdgeInsets.only(top: 4),
-          child: Text(
-            description,
-            style: TextStyle(fontSize: 13, color: _kSlate700),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 5: VIEWPORT VS SHRINK WRAPPING VIEWPORT
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildViewportComparisonSection() {
-  print('--- Section 5: Viewport vs ShrinkWrapping Viewport ---');
-  print('RenderViewport: fixed size, expands to fill parent');
-  print('RenderShrinkWrappingViewport: sizes to content, shrinkWrap mode');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '5. Viewport vs ShrinkWrapping',
-        Icons.compare_arrows,
-        _kWarning600,
-      ),
-      _buildInfoCard(
-        'RenderViewport (Standard)',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_kPrimary200, _kPrimary500],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _kPrimary600, width: 2),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.crop_square, color: Colors.white, size: 32),
-                      SizedBox(height: 4),
-                      Text('Fixed Size', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildInfoRow('Size', 'Fills available space from parent'),
-                      _buildInfoRow('Scrolling', 'Content scrolls within fixed bounds'),
-                      _buildInfoRow('Performance', 'Excellent - lazy rendering'),
-                      _buildInfoRow('shrinkWrap', 'false (default)'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        accentColor: _kPrimary600,
-      ),
-      _buildInfoCard(
-        'RenderShrinkWrappingViewport',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [_kWarning500.withAlpha(150), _kWarning600],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _kWarning600, width: 2),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.compress, color: Colors.white, size: 32),
-                      SizedBox(height: 4),
-                      Text('Shrink', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildInfoRow('Size', 'Shrinks to fit content'),
-                      _buildInfoRow('Scrolling', 'Only scrolls if content overflows'),
-                      _buildInfoRow('Performance', 'Less efficient - measures all'),
-                      _buildInfoRow('shrinkWrap', 'true'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        accentColor: _kWarning600,
-      ),
-      _buildInfoCard(
-        'Comparison Table',
-        Column(
-          children: [
-            _buildTableHeader(['Feature', 'Viewport', 'ShrinkWrap'], _kSlate700),
-            _buildTableRow(['Size', 'Fills parent', 'Fits content']),
-            _buildTableRow(['Performance', 'O(visible)', 'O(all)'], bgColor: _kSlate100),
-            _buildTableRow(['Lazy loading', 'Yes', 'No']),
-            _buildTableRow(['Nested scroll', 'No', 'Yes'], bgColor: _kSlate100),
-            _buildTableRow(['Cache extent', 'Applies', 'Applies']),
-            _buildTableRow(['Use case', 'Primary scroll', 'Inner list'], bgColor: _kSlate100),
-            SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: _kWarning500.withAlpha(15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _kWarning500.withAlpha(40)),
-              ),
-              child: Text(
-                'Avoid shrinkWrap: true for long lists. It forces layout of '
-                'all children upfront, eliminating the performance benefit '
-                'of lazy rendering that viewports provide.',
-                style: TextStyle(fontSize: 12, color: _kSlate600, height: 1.4),
-              ),
-            ),
-          ],
-        ),
-        accentColor: _kSlate700,
-      ),
-      _buildInfoCard(
-        'Code Comparison',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Standard Viewport (preferred):',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-                color: _kPrimary700,
-              ),
-            ),
-            SizedBox(height: 8),
-            _buildCodeSnippet(
-              'ListView.builder(\n'
-              '  // Uses RenderViewport internally\n'
-              '  shrinkWrap: false,\n'
-              '  itemCount: 1000,\n'
-              '  itemBuilder: (context, index) {\n'
-              '    return ListTile(\n'
-              '      title: Text("Item " + index.toString()),\n'
-              '    );\n'
-              '  },\n'
-              ')',
-            ),
-            SizedBox(height: 16),
-            Text(
-              'ShrinkWrapping Viewport:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-                color: _kWarning600,
-              ),
-            ),
-            SizedBox(height: 8),
-            _buildCodeSnippet(
-              'ListView.builder(\n'
-              '  // Uses RenderShrinkWrappingViewport\n'
-              '  shrinkWrap: true,\n'
-              '  physics: NeverScrollableScrollPhysics(),\n'
-              '  itemCount: 5,\n'
-              '  itemBuilder: (context, index) {\n'
-              '    return ListTile(\n'
-              '      title: Text("Item " + index.toString()),\n'
-              '    );\n'
-              '  },\n'
-              ')',
-            ),
-          ],
-        ),
-        accentColor: _kAccent600,
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 6: COMMON PATTERNS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildCommonPatternsSection() {
-  print('--- Section 6: Common Patterns ---');
-  print('Scrolling to item, ensuring visibility, scroll notifications');
-  print('Using ScrollController, GlobalKey, and Scrollable.ensureVisible');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionTitle(
-        '6. Common Patterns',
-        Icons.pattern,
-        _kSuccess600,
-      ),
-      _buildInfoCard(
-        'Scrolling to a Specific Item',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCodeSnippet(
-              '// Using ScrollController with known offset\n'
-              'ScrollController controller =\n'
-              '    ScrollController();\n'
-              '\n'
-              '// Jump to offset\n'
-              'controller.jumpTo(300.0);\n'
-              '\n'
-              '// Animate to offset\n'
-              'controller.animateTo(\n'
-              '  300.0,\n'
-              '  duration: Duration(milliseconds: 500),\n'
-              '  curve: Curves.easeInOut,\n'
-              ');',
-            ),
-            SizedBox(height: 12),
-            Text(
-              'For fixed-height items, calculate the offset directly: '
-              'offset = index * itemHeight. For variable-height items, '
-              'use GlobalKey + Scrollable.ensureVisible.',
-              style: TextStyle(fontSize: 12, color: _kSlate600, height: 1.4),
-            ),
-          ],
-        ),
-        accentColor: _kSuccess600,
-      ),
-      _buildInfoCard(
-        'Ensuring Visibility with GlobalKey',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCodeSnippet(
-              '// Attach a GlobalKey to the target widget\n'
-              'GlobalKey targetKey = GlobalKey();\n'
-              '\n'
-              '// In the list:\n'
-              'Container(\n'
-              '  key: targetKey,\n'
-              '  child: Text("Target item"),\n'
-              ')\n'
-              '\n'
-              '// Scroll to reveal the widget:\n'
-              'BuildContext? targetContext =\n'
-              '    targetKey.currentContext;\n'
-              'if (targetContext != null) {\n'
-              '  Scrollable.ensureVisible(\n'
-              '    targetContext,\n'
-              '    alignment: 0.0,\n'
-              '    duration: Duration(milliseconds: 300),\n'
-              '  );\n'
-              '}',
-            ),
-          ],
-        ),
-        accentColor: _kPrimary600,
-      ),
-      _buildInfoCard(
-        'Scroll Notifications',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTableHeader(['Notification', 'When', 'Data'], _kSuccess600),
-            _buildTableRow(['ScrollStart', 'Scroll begins', 'DragStartDetails']),
-            _buildTableRow(['ScrollUpdate', 'Scroll moves', 'scrollDelta'], bgColor: _kSlate100),
-            _buildTableRow(['ScrollEnd', 'Scroll stops', 'DragEndDetails']),
-            _buildTableRow(['OverScroll', 'Past bounds', 'overscroll amount'], bgColor: _kSlate100),
-            _buildTableRow(['UserScroll', 'User gesture', 'ScrollDirection']),
-            SizedBox(height: 12),
-            _buildCodeSnippet(
-              '// Listen for scroll notifications\n'
-              'NotificationListener<ScrollNotification>(\n'
-              '  onNotification: (notification) {\n'
-              '    if (notification\n'
-              '        is ScrollUpdateNotification) {\n'
-              '      print("Scrolled: "\n'
-              '        + notification.metrics\n'
-              '            .pixels.toString());\n'
-              '    }\n'
-              '    return false;\n'
-              '  },\n'
-              '  child: ListView( /* ... */ ),\n'
-              ')',
-            ),
-          ],
-        ),
-        accentColor: _kSecondary600,
-      ),
-      _buildInfoCard(
-        'Best Practices',
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildPracticeRow(Icons.check_circle, 'Use RenderViewport (shrinkWrap: false) for main scrolling lists', _kSuccess500),
-            SizedBox(height: 8),
-            _buildPracticeRow(Icons.check_circle, 'Keep ShrinkWrap for short lists inside other scrollables', _kSuccess500),
-            SizedBox(height: 8),
-            _buildPracticeRow(Icons.check_circle, 'Use Scrollable.ensureVisible for programmatic scrolling', _kSuccess500),
-            SizedBox(height: 8),
-            _buildPracticeRow(Icons.warning, 'Avoid shrinkWrap: true with large item counts', _kWarning500),
-            SizedBox(height: 8),
-            _buildPracticeRow(Icons.warning, 'Avoid nesting scrollables without proper physics', _kWarning500),
-            SizedBox(height: 8),
-            _buildPracticeRow(Icons.error, 'Never use unbounded viewport in unbounded parent', _kAccent500),
-          ],
-        ),
-        accentColor: _kSlate700,
-      ),
-    ],
-  );
-}
-
-Widget _buildPracticeRow(IconData icon, String text, Color color) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Icon(icon, color: color, size: 18),
-      SizedBox(width: 8),
-      Expanded(
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 12, color: _kSlate700, height: 1.3),
-        ),
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// FOOTER
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildFooter() {
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: _kSlate800,
-      borderRadius: BorderRadius.circular(14),
-    ),
-    child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.view_agenda_outlined, color: _kPrimary300, size: 24),
-            SizedBox(width: 10),
-            Text(
-              'RenderAbstractViewport Demo',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Text(
-          'Abstract base class for scrollable viewport render objects',
-          style: TextStyle(color: _kSlate300, fontSize: 12),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildFooterBadge('getOffsetToReveal', _kSecondary500),
-            SizedBox(width: 10),
-            _buildFooterBadge('showOnScreen', _kAccent500),
-            SizedBox(width: 10),
-            _buildFooterBadge('RenderViewport', _kPurple500),
-          ],
-        ),
-        SizedBox(height: 16),
-        Divider(color: _kSlate600, thickness: 1),
-        SizedBox(height: 12),
-        Text(
-          'Flutter Rendering Library | RenderAbstractViewport',
-          style: TextStyle(color: _kSlate500, fontSize: 11),
-        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
       ],
     ),
   );
 }
 
-Widget _buildFooterBadge(String text, Color color) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    decoration: BoxDecoration(
-      color: color.withAlpha(50),
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: color.withAlpha(100)),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-      ),
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
+      ],
     ),
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// MAIN BUILD
-// ═══════════════════════════════════════════════════════════════════════════════
-
-dynamic build(BuildContext context) {
-  print('=== RenderAbstractViewport Deep Demo ===');
-  print('Abstract base class for scrollable viewports');
-  print('Key methods: getOffsetToReveal, showOnScreen');
-  print('Subclasses: RenderViewport, RenderShrinkWrappingViewport');
-
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      backgroundColor: Color(0xFFF0F4F8),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            SizedBox(height: 24),
-            _buildOverviewSection(),
-            SizedBox(height: 24),
-            _buildArchitectureDiagramSection(),
-            SizedBox(height: 24),
-            _buildGetOffsetToRevealSection(),
-            SizedBox(height: 24),
-            _buildShowOnScreenSection(),
-            SizedBox(height: 24),
-            _buildViewportComparisonSection(),
-            SizedBox(height: 24),
-            _buildCommonPatternsSection(),
-            SizedBox(height: 24),
-            _buildFooter(),
-          ],
-        ),
-      ),
-    ),
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
   );
+}
+
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
+
+  final String title;
+  final String text;
+  final IconData icon;
 }

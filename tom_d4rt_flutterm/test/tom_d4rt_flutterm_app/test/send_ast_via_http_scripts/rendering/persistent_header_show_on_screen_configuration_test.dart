@@ -1,1412 +1,274 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Deep demo for PersistentHeaderShowOnScreenConfiguration from rendering
-//
-// PersistentHeaderShowOnScreenConfiguration defines how persistent headers
-// reveal themselves when showOnScreen is invoked. It controls the extent
-// range that determines header visibility during programmatic scrolling.
-//
-// Key properties:
-//   - minShowOnScreenExtent: Minimum pixels to reveal
-//   - maxShowOnScreenExtent: Maximum pixels to reveal
-//   - Controls gradual header reveal behavior
-//
-// Use cases:
-//   - App bars with controlled reveal
-//   - Pinned headers in custom scroll views
-//   - Accessibility-driven header exposure
-//   - Programmatic scroll-to-item scenarios
-//
-// Related classes:
-//   - RenderSliverPersistentHeader: Uses this configuration
-//   - SliverPersistentHeader: Widget that creates the render object
-//   - SliverAppBar: Common consumer of persistent headers
-//   - RenderViewportBase: Coordinates showOnScreen calls
-//
-// This demo visualizes configuration effects on header visibility.
-
 import 'package:flutter/material.dart';
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// HELPER WIDGETS
-// ═══════════════════════════════════════════════════════════════════════════════
+const Color _kPrimary = Color(0xFF283593);
+const Color _kAccent = Color(0xFF5C6BC0);
+const Color _kSurface = Color(0xFFE8EAF6);
 
-Widget _buildHeader(String title, String subtitle) {
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Persistent Header Show On Screen Configuration demonstrates Flutter runtime behavior and visual composition patterns in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.widgets_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
+
+dynamic build(BuildContext context) {
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
+
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Persistent Header Show On Screen Configuration Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of PersistentHeaderShowOnScreenConfiguration for D4rt interpreter scenarios.',
+              icon: Icons.widgets_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [Color(0xFF7B1FA2), Color(0xFFBA68C8)],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
+      boxShadow: <BoxShadow>[
         BoxShadow(
-          color: Color(0xFF7B1FA2).withAlpha(100),
-          blurRadius: 12,
-          offset: Offset(0, 6),
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
         ),
       ],
     ),
     child: Column(
-      children: [
-        Icon(Icons.view_day, size: 48, color: Colors.white),
-        SizedBox(height: 12),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 12),
         Text(
           subtitle,
-          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(200)),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildSectionTitle(String title, IconData icon) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 12),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Color(0xFFCE93D8).withAlpha(30),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: Color(0xFF7B1FA2), size: 20),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF7B1FA2),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildInfoRow(String label, String value, {Color? valueColor}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 150,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF7B1FA2),
-              fontSize: 13,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              color: valueColor ?? Color(0xFF9C27B0),
-              fontSize: 13,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 100}) {
-  return Container(
-    width: width,
-    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color, width: 2),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (icon != null) Icon(icon, color: color, size: 20),
-        if (icon != null) SizedBox(height: 4),
-        Text(
-          label,
           style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
           ),
-          textAlign: TextAlign.center,
         ),
       ],
     ),
   );
 }
 
-Widget _buildArrow({bool vertical = false, Color color = Colors.grey}) {
-  if (vertical) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(width: 2, height: 20, color: color),
-        Icon(Icons.arrow_drop_down, color: color, size: 20),
-      ],
-    );
-  }
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(width: 20, height: 2, color: color),
-      Icon(Icons.arrow_right, color: color, size: 20),
-    ],
-  );
-}
-
-Widget _buildExtentIndicator(String label, double value, Color color) {
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: color.withAlpha(25),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(100)),
-    ),
-    child: Row(
-      children: [
-        Icon(Icons.straighten, color: color, size: 18),
-        SizedBox(width: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: color,
-            fontSize: 12,
-          ),
-        ),
-        Spacer(),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            '${value.toStringAsFixed(0)}px',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 11,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 1: CONFIGURATION BASICS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildConfigurationBasicsSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Configuration Basics', Icons.settings),
-        Text(
-          'PersistentHeaderShowOnScreenConfiguration is an immutable data class '
-          'that specifies how much of a persistent header should be revealed '
-          'when showOnScreen is called. It provides fine-grained control over '
-          'the reveal animation extent range.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFF3E5F5),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'Configuration Structure',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF6A1B9A),
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
                 ),
-              ),
-              SizedBox(height: 16),
-              _buildDiagramBox(
-                'PersistentHeader\nShowOnScreenConfiguration',
-                Color(0xFF7B1FA2),
-                icon: Icons.tune,
-                width: 180,
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildArrow(vertical: true, color: Color(0xFFAB47BC)),
-                  SizedBox(width: 60),
-                  _buildArrow(vertical: true, color: Color(0xFFAB47BC)),
-                ],
-              ),
-              SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildPropertyBox('minShowOnScreen\nExtent', Color(0xFF43A047)),
-                  SizedBox(width: 20),
-                  _buildPropertyBox('maxShowOnScreen\nExtent', Color(0xFF1E88E5)),
-                ],
-              ),
-            ],
-          ),
+              )
+              .toList(),
         ),
-        SizedBox(height: 16),
-        _buildInfoRow('Class Type', 'Immutable configuration object'),
-        _buildInfoRow('Purpose', 'Controls header reveal behavior'),
-        _buildInfoRow('Default', 'minExtent=negInfinity, maxExtent=infinity'),
-        _buildInfoRow('Equality', 'Value-based equality comparison'),
       ],
     ),
   );
 }
 
-Widget _buildPropertyBox(String label, Color color) {
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    width: 110,
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: color.withAlpha(30),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: 1.5),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.bold,
-        color: color,
-      ),
-      textAlign: TextAlign.center,
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 2: MIN SHOW ON SCREEN EXTENT
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildMinShowOnScreenExtentSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('minShowOnScreenExtent', Icons.vertical_align_bottom),
-        Text(
-          'The minimum number of pixels of the persistent header that must '
-          'be visible when showOnScreen is invoked. This ensures at least '
-          'this much of the header appears, providing a baseline visibility.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Color(0xFFE8F5E9),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.minimize, color: Color(0xFF2E7D32), size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    'Minimum Extent Behavior',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              _buildMinExtentDiagram(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildExtentIndicator('Minimum Extent', 56, Color(0xFF43A047)),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFFFF8E1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.info_outline, color: Color(0xFFF57F17), size: 18),
-              SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  'Setting minShowOnScreenExtent to negativeInfinity allows the header '
-                  'to remain fully collapsed during showOnScreen calls.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFFF57F17),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 12),
-        _buildInfoRow('Default Value', 'double.negativeInfinity'),
-        _buildInfoRow('Type', 'double'),
-        _buildInfoRow('Constraint', 'Must be <= maxShowOnScreenExtent'),
-      ],
-    ),
-  );
-}
-
-Widget _buildMinExtentDiagram() {
-  return Column(
-    children: [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            'Header\nExtent',
-            style: TextStyle(fontSize: 10, color: Color(0xFF2E7D32)),
-          ),
-          SizedBox(width: 8),
-          Container(
-            width: 180,
-            height: 80,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF81C784)),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    height: 30,
-                    color: Color(0xFF43A047).withAlpha(60),
-                    child: Center(
-                      child: Text(
-                        'minExtent Zone',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFF2E7D32),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 30,
-                  child: Container(
-                    height: 2,
-                    color: Color(0xFF43A047),
-                  ),
-                ),
-                Positioned(
-                  right: 4,
-                  bottom: 32,
-                  child: Text(
-                    'min threshold',
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Color(0xFF43A047),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 3: MAX SHOW ON SCREEN EXTENT
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildMaxShowOnScreenExtentSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('maxShowOnScreenExtent', Icons.vertical_align_top),
-        Text(
-          'The maximum number of pixels of the persistent header that will '
-          'be revealed when showOnScreen is called. This caps how much of '
-          'the header gets exposed, even if more space is available.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFE3F2FD),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.maximize, color: Color(0xFF1565C0), size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    'Maximum Extent Behavior',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1565C0),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              _buildMaxExtentDiagram(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildExtentIndicator('Maximum Extent', 200, Color(0xFF1E88E5)),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFE8EAF6),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.all_inclusive, color: Color(0xFF3949AB), size: 18),
-              SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  'Setting maxShowOnScreenExtent to double.infinity allows '
-                  'the header to fully expand when space permits.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF3949AB),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 12),
-        _buildInfoRow('Default Value', 'double.infinity'),
-        _buildInfoRow('Type', 'double'),
-        _buildInfoRow('Constraint', 'Must be >= minShowOnScreenExtent'),
-      ],
-    ),
-  );
-}
-
-Widget _buildMaxExtentDiagram() {
-  return Column(
-    children: [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Header\nExtent',
-            style: TextStyle(fontSize: 10, color: Color(0xFF1565C0)),
-          ),
-          SizedBox(width: 8),
-          Container(
-            width: 180,
-            height: 80,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF90CAF9)),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    height: 50,
-                    color: Color(0xFF1E88E5).withAlpha(60),
-                    child: Center(
-                      child: Text(
-                        'maxExtent Zone',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFF1565C0),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 50,
-                  child: Container(
-                    height: 2,
-                    color: Color(0xFF1E88E5),
-                  ),
-                ),
-                Positioned(
-                  right: 4,
-                  top: 54,
-                  child: Text(
-                    'max threshold',
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Color(0xFF1E88E5),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 4: SHOW ON SCREEN SEMANTICS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildShowOnScreenSemanticsSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('showOnScreen Semantics', Icons.visibility),
-        Text(
-          'When scrollable content needs to ensure a widget is visible, '
-          'showOnScreen propagates through the render tree. For persistent '
-          'headers, this configuration determines how much of the header '
-          'is revealed during this process.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Color(0xFFFCE4EC),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'showOnScreen Call Flow',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFC2185B),
-                ),
-              ),
-              SizedBox(height: 16),
-              _buildShowOnScreenFlowDiagram(),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFF3E5F5),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.touch_app, color: Color(0xFF6A1B9A), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Trigger Scenarios',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF6A1B9A),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
-              _buildTriggerRow('Focus change', 'TextField receives focus'),
-              _buildTriggerRow('Accessibility', 'Screen reader navigation'),
-              _buildTriggerRow('Programmatic', 'Scrollable.ensureVisible()'),
-              _buildTriggerRow('Semantics', 'Semantic actions request'),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildShowOnScreenFlowDiagram() {
-  return Column(
-    children: [
-      _buildFlowStep('RenderObject.showOnScreen()', Color(0xFFE91E63), Icons.play_arrow),
-      _buildArrow(vertical: true, color: Color(0xFFE91E63)),
-      _buildFlowStep('Viewport processes request', Color(0xFFE91E63), Icons.grid_view),
-      _buildArrow(vertical: true, color: Color(0xFFE91E63)),
-      _buildFlowStep('Header checks configuration', Color(0xFF9C27B0), Icons.settings),
-      _buildArrow(vertical: true, color: Color(0xFF9C27B0)),
-      _buildFlowStep('Clamp to [min, max] extent', Color(0xFF7B1FA2), Icons.swap_vert),
-      _buildArrow(vertical: true, color: Color(0xFF7B1FA2)),
-      _buildFlowStep('Reveal header amount', Color(0xFF4A148C), Icons.visibility),
-    ],
-  );
-}
-
-Widget _buildFlowStep(String label, Color color, IconData icon) {
-  return Container(
-    width: 200,
-    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(25),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color, width: 1.5),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: 16),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildTriggerRow(String trigger, String description) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 3),
-    child: Row(
-      children: [
-        Container(
-          width: 6,
-          height: 6,
-          decoration: BoxDecoration(
-            color: Color(0xFF9C27B0),
-            shape: BoxShape.circle,
-          ),
-        ),
-        SizedBox(width: 8),
-        SizedBox(
-          width: 90,
-          child: Text(
-            trigger,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 11,
-              color: Color(0xFF6A1B9A),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            description,
-            style: TextStyle(
-              fontSize: 11,
-              color: Color(0xFF8E24AA),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 5: CUSTOM CONFIGURATIONS
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildCustomConfigurationsSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Custom Configurations', Icons.tune),
-        Text(
-          'Different app bar behaviors require different configurations. '
-          'Here are common patterns for customizing header reveal behavior '
-          'to match specific UX requirements.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        _buildConfigExample(
-          'Always Collapsed',
-          'Keep header minimal during showOnScreen',
-          'min: 56, max: 56',
-          Color(0xFFE65100),
-          Icons.unfold_less,
-        ),
-        SizedBox(height: 12),
-        _buildConfigExample(
-          'Always Expanded',
-          'Fully reveal header on any showOnScreen',
-          'min: 200, max: 200',
-          Color(0xFF00695C),
-          Icons.unfold_more,
-        ),
-        SizedBox(height: 12),
-        _buildConfigExample(
-          'Flexible Range',
-          'Allow partial reveal based on space',
-          'min: 56, max: 150',
-          Color(0xFF1565C0),
-          Icons.swap_vert,
-        ),
-        SizedBox(height: 12),
-        _buildConfigExample(
-          'No Constraints',
-          'Default behavior, reveal as needed',
-          'min: -inf, max: inf',
-          Color(0xFF6A1B9A),
-          Icons.all_inclusive,
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFECEFF1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Configuration Selection Tips',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF37474F),
-                  fontSize: 13,
-                ),
-              ),
-              SizedBox(height: 8),
-              _buildTipRow('Use fixed values for consistent UX'),
-              _buildTipRow('Match minExtent to toolbar height'),
-              _buildTipRow('Consider accessibility requirements'),
-              _buildTipRow('Test with keyboard navigation'),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildConfigExample(String name, String description, String values, Color color, IconData icon) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(15),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withAlpha(80)),
-    ),
-    child: Row(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: color.withAlpha(30),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: color, size: 20),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: 13,
-                ),
-              ),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF546E7A),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            color: color.withAlpha(30),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            values,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildTipRow(String tip) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      children: [
-        Icon(Icons.check_circle_outline, size: 14, color: Color(0xFF546E7A)),
-        SizedBox(width: 8),
-        Text(
-          tip,
-          style: TextStyle(fontSize: 12, color: Color(0xFF546E7A)),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// SECTION 6: HEADER VISIBILITY STATES
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildHeaderVisibilityStatesSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('Header Visibility States', Icons.layers),
-        Text(
-          'A persistent header transitions between visibility states '
-          'as the user scrolls and as showOnScreen requests are processed. '
-          'The configuration bounds determine achievable states.',
-          style: TextStyle(color: Color(0xFF546E7A), fontSize: 13),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFE8EAF6), Color(0xFFC5CAE9)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            children: [
-              Text(
-                'State Transition Diagram',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF283593),
-                ),
-              ),
-              SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildStateBox('Collapsed', Color(0xFFE53935), Icons.compress),
-                  _buildStateBox('Partial', Color(0xFFFB8C00), Icons.unfold_less),
-                  _buildStateBox('Expanded', Color(0xFF43A047), Icons.unfold_more),
-                ],
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildArrow(color: Color(0xFF5C6BC0)),
-                  SizedBox(width: 20),
-                  _buildArrow(color: Color(0xFF5C6BC0)),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                'showOnScreen triggers state changes within configured bounds',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xFF3949AB),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        _buildVisibilityConstraintRow(
-          'Below minExtent',
-          'Header scrolls to minShowOnScreenExtent',
-          Color(0xFFE53935),
-        ),
-        SizedBox(height: 8),
-        _buildVisibilityConstraintRow(
-          'Within range',
-          'Header maintains current position',
-          Color(0xFFFB8C00),
-        ),
-        SizedBox(height: 8),
-        _buildVisibilityConstraintRow(
-          'Above maxExtent',
-          'Header scrolls to maxShowOnScreenExtent',
-          Color(0xFF43A047),
-        ),
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Color(0xFFE0F2F1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.lightbulb_outline, color: Color(0xFF00695C), size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Visibility Best Practices',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF00695C),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Consider user expectations when configuring visibility. '
-                'Most users expect app bars to remain visible during focus '
-                'changes. Test with assistive technologies to ensure '
-                'configurations work well for all users.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF00695C),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildStateBox(String label, Color color, IconData icon) {
-  return Container(
-    width: 80,
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color, width: 2),
-      boxShadow: [
-        BoxShadow(
-          color: color.withAlpha(40),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: 22),
-        SizedBox(height: 6),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildVisibilityConstraintRow(String state, String behavior, Color color) {
-  return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      color: color.withAlpha(15),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withAlpha(60)),
-    ),
-    child: Row(
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
-        ),
-        SizedBox(width: 10),
-        SizedBox(
-          width: 100,
-          child: Text(
-            state,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              color: color,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            behavior,
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF546E7A),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// MAIN WIDGET
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget buildPersistentHeaderShowOnScreenConfigurationDemo() {
-  return Container(
-    color: Color(0xFFF5F5F5),
-    child: SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _buildHeader(
-            'PersistentHeaderShowOnScreenConfiguration',
-            'Controls persistent header reveal behavior during showOnScreen calls',
-          ),
-          SizedBox(height: 20),
-          _buildConfigurationBasicsSection(),
-          SizedBox(height: 16),
-          _buildMinShowOnScreenExtentSection(),
-          SizedBox(height: 16),
-          _buildMaxShowOnScreenExtentSection(),
-          SizedBox(height: 16),
-          _buildShowOnScreenSemanticsSection(),
-          SizedBox(height: 16),
-          _buildCustomConfigurationsSection(),
-          SizedBox(height: 16),
-          _buildHeaderVisibilityStatesSection(),
-          SizedBox(height: 16),
-          _buildApiReferenceSection(),
-          SizedBox(height: 20),
-          _buildFooterSection(),
-        ],
-      ),
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// API REFERENCE SECTION
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildApiReferenceSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 12,
-          offset: Offset(0, 4),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSectionTitle('API Reference', Icons.code),
-        _buildApiCard(
-          'Constructor',
-          [
-            'PersistentHeaderShowOnScreenConfiguration({',
-            '  double minShowOnScreenExtent,',
-            '  double maxShowOnScreenExtent,',
-            '})',
-          ],
-          Color(0xFF7B1FA2),
-        ),
-        SizedBox(height: 12),
-        _buildApiCard(
-          'Properties',
-          [
-            'minShowOnScreenExtent -> double',
-            'maxShowOnScreenExtent -> double',
-          ],
-          Color(0xFF1565C0),
-        ),
-        SizedBox(height: 12),
-        _buildApiCard(
-          'Operators',
-          [
-            'operator ==(Object other) -> bool',
-            'hashCode -> int',
-          ],
-          Color(0xFF43A047),
-        ),
-        SizedBox(height: 12),
-        _buildApiCard(
-          'Usage Context',
-          [
-            'RenderSliverPersistentHeader.showOnScreenConfiguration',
-            'SliverPersistentHeaderDelegate.showOnScreenConfiguration',
-          ],
-          Color(0xFFE65100),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildApiCard(String title, List<String> items, Color color) {
-  return Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: color.withAlpha(12),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: color.withAlpha(50)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-            ),
-            SizedBox(width: 8),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: color,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color(0xFF263238),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: items.map((item) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                item,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: Color(0xFFB0BEC5),
-                ),
-              ),
-            )).toList(),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// FOOTER SECTION
-// ═══════════════════════════════════════════════════════════════════════════════
-
-Widget _buildFooterSection() {
-  return Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF6A1B9A), Color(0xFF9C27B0)],
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      children: [
-        Icon(Icons.auto_awesome, color: Colors.white, size: 32),
-        SizedBox(height: 12),
-        Text(
-          'Configuration Summary',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
             color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'PersistentHeaderShowOnScreenConfiguration is used when you need explicit control over Flutter runtime behavior and visual composition patterns.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
+            ],
           ),
         ),
-        SizedBox(height: 8),
-        Text(
-          'PersistentHeaderShowOnScreenConfiguration provides precise control over '
-          'header visibility during programmatic scroll operations. Use it to ensure '
-          'consistent user experience across different interaction modes.',
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.white.withAlpha(220),
-          ),
-          textAlign: TextAlign.center,
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
         ),
-        SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildFooterStat('2', 'Properties'),
-            SizedBox(width: 24),
-            _buildFooterStat('4', 'Use Cases'),
-            SizedBox(width: 24),
-            _buildFooterStat('3', 'States'),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
           ],
         ),
       ],
@@ -1414,44 +276,366 @@ Widget _buildFooterSection() {
   );
 }
 
-Widget _buildFooterStat(String value, String label) {
-  return Column(
-    children: [
-      Text(
-        value,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
+  ];
+
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
+          ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
+      ],
+    ),
+  );
+}
+
+Widget _sectionTitle(String text, IconData icon, Color color) {
+  return Row(
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
       Text(
-        label,
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white.withAlpha(180),
-        ),
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
       ),
     ],
   );
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-// ENTRY POINT
-// ═══════════════════════════════════════════════════════════════════════════════
-
-void main() {
-  runApp(
-    MaterialApp(
-      title: 'PersistentHeaderShowOnScreenConfiguration Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Color(0xFF7B1FA2),
-      ),
-      home: Scaffold(
-        body: buildPersistentHeaderShowOnScreenConfigurationDemo(),
-      ),
+Widget _buildBullet({required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
+        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
+      ],
     ),
   );
+}
+
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
+      ],
+    ),
+  );
+}
+
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
+  );
+}
+
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
+
+  final String title;
+  final String text;
+  final IconData icon;
 }

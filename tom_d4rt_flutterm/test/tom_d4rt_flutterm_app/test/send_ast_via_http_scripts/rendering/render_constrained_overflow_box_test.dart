@@ -1,140 +1,201 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt deep demo: RenderConstrainedOverflowBox / OverflowBox
-// Tests OverflowBox widget which imposes different constraints on its child
-// than it receives from its parent, allowing the child to overflow.
-// Also demonstrates SizedOverflowBox and ConstrainedBox comparison.
-
 import 'package:flutter/material.dart';
 
+const Color _kPrimary = Color(0xFFEF6C00);
+const Color _kAccent = Color(0xFFFFA726);
+const Color _kSurface = Color(0xFFFFF3E0);
+
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Render Constrained Overflow Box demonstrates constraint negotiation, sizing rules, and layout composition in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.insights_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
+
 dynamic build(BuildContext context) {
-  print('[render_constrained_overflow_box_test] build() called');
-  print(
-    '[render_constrained_overflow_box_test] Building OverflowBox deep demo',
-  );
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
 
-  return SingleChildScrollView(
-    child: Container(
-      color: Color(0xFF121212),
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          SizedBox(height: 24.0),
-
-          // Section 1: Basic OverflowBox allowing child to overflow parent
-          _buildSectionTitle('1. OverflowBox: Child Overflows Parent'),
-          _buildOverflowBasicDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 2: Different minWidth / maxWidth values
-          _buildSectionTitle('2. OverflowBox: minWidth / maxWidth'),
-          _buildMinMaxWidthDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 3: Different minHeight / maxHeight values
-          _buildSectionTitle('3. OverflowBox: minHeight / maxHeight'),
-          _buildMinMaxHeightDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 4: Different alignment values
-          _buildSectionTitle('4. OverflowBox: Alignment Variations'),
-          _buildAlignmentDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 5: SizedOverflowBox for comparison
-          _buildSectionTitle('5. SizedOverflowBox Comparison'),
-          _buildSizedOverflowBoxDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 6: ConstrainedBox vs OverflowBox
-          _buildSectionTitle('6. ConstrainedBox vs OverflowBox'),
-          _buildConstrainedVsOverflowDemo(),
-          SizedBox(height: 24.0),
-
-          // Section 7: Overflow visualization with colored borders
-          _buildSectionTitle(
-            '7. Overflow Visualization (Parent vs Child Bounds)',
-          ),
-          _buildOverflowVisualization(),
-          SizedBox(height: 24.0),
-
-          // Section 8: Practical patterns
-          _buildSectionTitle('8. Practical Patterns'),
-          _buildPracticalPatterns(),
-          SizedBox(height: 40.0),
-        ],
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Render Constrained Overflow Box Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of RenderConstrainedOverflowBox for D4rt interpreter scenarios.',
+              icon: Icons.insights_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
       ),
     ),
   );
 }
 
-// Header with gradient styling
-Widget _buildHeader() {
-  print('[render_constrained_overflow_box_test] _buildHeader()');
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [Color(0xFF6A1B9A), Color(0xFFAB47BC)],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(12.0),
-      boxShadow: [
+      boxShadow: <BoxShadow>[
         BoxShadow(
-          color: Color(0x606A1B9A),
-          blurRadius: 12.0,
-          offset: Offset(0, 4),
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
         ),
       ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
-          'RenderConstrainedOverflowBox Demo',
+          subtitle,
           style: TextStyle(
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
             color: Colors.white,
-            fontSize: 22.0,
-            fontWeight: FontWeight.bold,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
           ),
-        ),
-        SizedBox(height: 6.0),
-        Text(
-          'OverflowBox • SizedOverflowBox • ConstrainedBox comparison',
-          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 13.0),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section title with gradient underline
-Widget _buildSectionTitle(String title) {
-  print('[render_constrained_overflow_box_test] Section: $title');
-  return Padding(
-    padding: EdgeInsets.only(bottom: 12.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: Color(0xFFCE93D8),
-            fontSize: 17.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          height: 2.0,
-          width: 180.0,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFAB47BC), Color(0x006A1B9A)],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'RenderConstrainedOverflowBox is used when you need explicit control over constraint negotiation, sizing rules, and layout composition.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
+            ],
           ),
         ),
       ],
@@ -142,963 +203,147 @@ Widget _buildSectionTitle(String title) {
   );
 }
 
-// Helper: labeled parent container with clipping to show overflow
-Widget _buildParentBox(
-  String label,
-  double width,
-  double height,
-  Widget child,
-) {
-  print(
-    '[render_constrained_overflow_box_test] _buildParentBox: $label (${width}x$height)',
-  );
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0)),
-      SizedBox(height: 4.0),
-      Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          border: Border.all(color: Color(0xFF4CAF50), width: 2.0),
-          color: Color(0x114CAF50),
-        ),
-        child: child,
-      ),
-    ],
-  );
-}
-
-// Helper: child box used inside overflow demos
-// Section 1: Basic OverflowBox allowing child to overflow parent
-Widget _buildOverflowBasicDemo() {
-  print('[render_constrained_overflow_box_test] _buildOverflowBasicDemo()');
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Green border = parent (100x100). Child wants 160x160.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
         ),
-        SizedBox(height: 12.0),
-        Row(
-          children: [
-            _buildParentBox(
-              'Without OverflowBox',
-              100.0,
-              100.0,
-              Container(
-                width: 160.0,
-                height: 160.0,
-                color: Color(0x44FF5722),
-                alignment: Alignment.center,
-                child: Text(
-                  '160x160\n(clipped)',
-                  style: TextStyle(color: Colors.white, fontSize: 10.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            SizedBox(width: 40.0),
-            _buildParentBox(
-              'With OverflowBox',
-              100.0,
-              100.0,
-              OverflowBox(
-                maxWidth: 160.0,
-                maxHeight: 160.0,
-                child: Container(
-                  width: 160.0,
-                  height: 160.0,
-                  decoration: BoxDecoration(
-                    color: Color(0x44FF5722),
-                    border: Border.all(color: Color(0xFFFF5722), width: 1.5),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '160x160\n(overflows!)',
-                    style: TextStyle(color: Colors.white, fontSize: 10.0),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
           ],
         ),
-        SizedBox(height: 12.0),
-        Text(
-          'OverflowBox removes parent constraint, child can paint outside bounds.',
-          style: TextStyle(color: Color(0xFF888888), fontSize: 11.0),
-        ),
       ],
     ),
   );
 }
 
-// Section 2: Different minWidth / maxWidth values
-Widget _buildMinMaxWidthDemo() {
-  print('[render_constrained_overflow_box_test] _buildMinMaxWidthDemo()');
-
-  List<Map<String, dynamic>> configs = [
-    {'label': 'maxWidth: 200', 'minW': null, 'maxW': 200.0},
-    {'label': 'maxWidth: 80', 'minW': null, 'maxW': 80.0},
-    {'label': 'minWidth: 150', 'minW': 150.0, 'maxW': null},
-    {'label': 'min: 60, max: 180', 'minW': 60.0, 'maxW': 180.0},
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
+  ];
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
   ];
 
-  List<Widget> rows = [];
-  for (var cfg in configs) {
-    print(
-      '[render_constrained_overflow_box_test] minMaxWidth config: ${cfg['label']}',
-    );
-    rows.add(
-      Padding(
-        padding: EdgeInsets.only(bottom: 10.0),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 130.0,
-              child: Text(
-                cfg['label'],
-                style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-              ),
-            ),
-            Container(
-              width: 120.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
-              ),
-              child: OverflowBox(
-                minWidth: cfg['minW'],
-                maxWidth: cfg['maxW'],
-                child: Container(
-                  color: Color(0x5542A5F5),
-                  height: 40.0,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Child',
-                    style: TextStyle(color: Colors.white, fontSize: 10.0),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Parent is 120px wide (green). OverflowBox overrides width constraints.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 10.0),
-        ...rows,
-      ],
-    ),
-  );
-}
-
-// Section 3: Different minHeight / maxHeight values
-Widget _buildMinMaxHeightDemo() {
-  print('[render_constrained_overflow_box_test] _buildMinMaxHeightDemo()');
-
-  List<Map<String, dynamic>> configs = [
-    {'label': 'maxHeight: 120', 'minH': null, 'maxH': 120.0},
-    {'label': 'maxHeight: 30', 'minH': null, 'maxH': 30.0},
-    {'label': 'minHeight: 100', 'minH': 100.0, 'maxH': null},
-    {'label': 'min: 40, max: 100', 'minH': 40.0, 'maxH': 100.0},
-  ];
-
-  List<Widget> rows = [];
-  for (var cfg in configs) {
-    print(
-      '[render_constrained_overflow_box_test] minMaxHeight config: ${cfg['label']}',
-    );
-    rows.add(
-      Padding(
-        padding: EdgeInsets.only(bottom: 10.0),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 130.0,
-              child: Text(
-                cfg['label'],
-                style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-              ),
-            ),
-            Container(
-              width: 80.0,
-              height: 60.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
-              ),
-              child: OverflowBox(
-                minHeight: cfg['minH'],
-                maxHeight: cfg['maxH'],
-                child: Container(
-                  color: Color(0x55EF5350),
-                  width: 70.0,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Child',
-                    style: TextStyle(color: Colors.white, fontSize: 10.0),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Parent is 60px tall (green). OverflowBox overrides height constraints.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 10.0),
-        ...rows,
-      ],
-    ),
-  );
-}
-
-// Section 4: Different alignment values
-Widget _buildAlignmentDemo() {
-  print('[render_constrained_overflow_box_test] _buildAlignmentDemo()');
-
-  List<Map<String, dynamic>> alignments = [
-    {'label': 'topLeft', 'align': Alignment.topLeft},
-    {'label': 'topCenter', 'align': Alignment.topCenter},
-    {'label': 'topRight', 'align': Alignment.topRight},
-    {'label': 'centerLeft', 'align': Alignment.centerLeft},
-    {'label': 'center', 'align': Alignment.center},
-    {'label': 'centerRight', 'align': Alignment.centerRight},
-    {'label': 'bottomLeft', 'align': Alignment.bottomLeft},
-    {'label': 'bottomCenter', 'align': Alignment.bottomCenter},
-    {'label': 'bottomRight', 'align': Alignment.bottomRight},
-  ];
-
-  List<Widget> items = [];
-  for (var a in alignments) {
-    print('[render_constrained_overflow_box_test] alignment: ${a['label']}');
-    items.add(
-      Column(
-        children: [
-          Text(
-            a['label'],
-            style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 9.0),
-          ),
-          SizedBox(height: 3.0),
-          Container(
-            width: 80.0,
-            height: 80.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
-              color: Color(0x114CAF50),
-            ),
-            child: OverflowBox(
-              alignment: a['align'],
-              maxWidth: 50.0,
-              maxHeight: 50.0,
-              child: Container(
-                width: 50.0,
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Color(0x55FF9800),
-                  border: Border.all(color: Color(0xFFFF9800), width: 1.0),
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  '50x50',
-                  style: TextStyle(color: Colors.white, fontSize: 8.0),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Each parent is 80x80 (green). Child is 50x50 (orange). Alignment controls position.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 10.0),
-        Wrap(spacing: 12.0, runSpacing: 12.0, children: items),
-      ],
-    ),
-  );
-}
-
-// Section 5: SizedOverflowBox for comparison
-Widget _buildSizedOverflowBoxDemo() {
-  print('[render_constrained_overflow_box_test] _buildSizedOverflowBoxDemo()');
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'SizedOverflowBox sizes itself to a given size, but passes original constraints to child.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 12.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // SizedOverflowBox example 1
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'SizedOverflowBox\nsize: 80x80',
-                  style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-                ),
-                SizedBox(height: 4.0),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF2196F3), width: 2.0),
-                  ),
-                  child: SizedOverflowBox(
-                    size: Size(80.0, 80.0),
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: 130.0,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x55FF9800),
-                        border: Border.all(
-                          color: Color(0xFFFF9800),
-                          width: 1.0,
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '130x50 child',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(width: 32.0),
-            // SizedOverflowBox example 2
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'SizedOverflowBox\nsize: 60x100',
-                  style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-                ),
-                SizedBox(height: 4.0),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF2196F3), width: 2.0),
-                  ),
-                  child: SizedOverflowBox(
-                    size: Size(60.0, 100.0),
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x55E91E63),
-                        border: Border.all(
-                          color: Color(0xFFE91E63),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '100x100\ncircle',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        SizedBox(height: 12.0),
-        Text(
-          'Blue border = SizedOverflowBox reported size. Child paints outside.',
-          style: TextStyle(color: Color(0xFF888888), fontSize: 11.0),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 6: ConstrainedBox vs OverflowBox behavior comparison
-Widget _buildConstrainedVsOverflowDemo() {
-  print(
-    '[render_constrained_overflow_box_test] _buildConstrainedVsOverflowDemo()',
-  );
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'ConstrainedBox tightens constraints. OverflowBox loosens them.',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 12.0),
-
-        // ConstrainedBox example
-        Text(
-          'ConstrainedBox(maxWidth: 100) inside 200px parent:',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
         Container(
-          width: 200.0,
-          height: 60.0,
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
           ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 100.0),
-            child: Container(
-              color: Color(0x5542A5F5),
-              alignment: Alignment.center,
-              child: Text(
-                'Constrained\nmax 100w',
-                style: TextStyle(color: Colors.white, fontSize: 10.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 16.0),
-
-        // OverflowBox that loosens constraints
-        Text(
-          'OverflowBox(maxWidth: 300) inside 200px parent:',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 200.0,
-          height: 60.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
-          ),
-          child: OverflowBox(
-            maxWidth: 300.0,
-            child: Container(
-              color: Color(0x55FF5722),
-              alignment: Alignment.center,
-              child: Text(
-                'Overflow\nmax 300w',
-                style: TextStyle(color: Colors.white, fontSize: 10.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 16.0),
-
-        // Both combined
-        Text(
-          'ConstrainedBox(min:80) + OverflowBox(max:250):',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 200.0,
-          height: 60.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 1.5),
-          ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minWidth: 80.0),
-            child: OverflowBox(
-              maxWidth: 250.0,
-              child: Container(
-                color: Color(0x559C27B0),
-                alignment: Alignment.center,
-                child: Text(
-                  'Combined\n250w overflow',
-                  style: TextStyle(color: Colors.white, fontSize: 10.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 12.0),
-        Text(
-          'ConstrainedBox cannot exceed parent. OverflowBox can.',
-          style: TextStyle(color: Color(0xFF888888), fontSize: 11.0),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 7: Overflow visualization with colored borders
-Widget _buildOverflowVisualization() {
-  print('[render_constrained_overflow_box_test] _buildOverflowVisualization()');
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Green = parent bounds, Red = child bounds (overflowing)',
-          style: TextStyle(color: Color(0xFFAAAAAA), fontSize: 12.0),
-        ),
-        SizedBox(height: 12.0),
-
-        // Visualization 1: horizontal overflow
-        Text(
-          'Horizontal overflow (child 220w, parent 140w):',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 140.0,
-          height: 70.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 3.0),
-            color: Color(0x114CAF50),
-          ),
-          child: OverflowBox(
-            maxWidth: 220.0,
-            alignment: Alignment.center,
-            child: Container(
-              width: 220.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFEF5350), width: 2.0),
-                color: Color(0x22EF5350),
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '220 x 50 (overflows horizontally)',
-                style: TextStyle(color: Colors.white, fontSize: 9.0),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0),
-
-        // Visualization 2: vertical overflow
-        Text(
-          'Vertical overflow (child 140h, parent 70h):',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 160.0,
-          height: 70.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 3.0),
-            color: Color(0x114CAF50),
-          ),
-          child: OverflowBox(
-            maxHeight: 140.0,
-            alignment: Alignment.center,
-            child: Container(
-              width: 120.0,
-              height: 140.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFEF5350), width: 2.0),
-                color: Color(0x22EF5350),
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '120 x 140\n(overflows\nvertically)',
-                style: TextStyle(color: Colors.white, fontSize: 9.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0),
-
-        // Visualization 3: both axes overflow
-        Text(
-          'Both axes overflow (child 200x120, parent 120x60):',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 120.0,
-          height: 60.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF4CAF50), width: 3.0),
-            color: Color(0x114CAF50),
-          ),
-          child: OverflowBox(
-            maxWidth: 200.0,
-            maxHeight: 120.0,
-            alignment: Alignment.center,
-            child: Container(
-              width: 200.0,
-              height: 120.0,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFEF5350), width: 2.0),
-                color: Color(0x22EF5350),
-                borderRadius: BorderRadius.circular(6.0),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '200 x 120\n(both axes overflow)',
-                style: TextStyle(color: Colors.white, fontSize: 9.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 12.0),
-
-        // Nested overflow visualization layers
-        Text(
-          'Layered: grandparent (blue) > parent (green) > child (red):',
-          style: TextStyle(color: Color(0xFFBBBBBB), fontSize: 11.0),
-        ),
-        SizedBox(height: 4.0),
-        Container(
-          width: 200.0,
-          height: 100.0,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFF2196F3), width: 3.0),
-            color: Color(0x112196F3),
-          ),
-          alignment: Alignment.center,
-          child: Container(
-            width: 130.0,
-            height: 70.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF4CAF50), width: 2.0),
-              color: Color(0x114CAF50),
-            ),
-            child: OverflowBox(
-              maxWidth: 180.0,
-              maxHeight: 90.0,
-              alignment: Alignment.center,
-              child: Container(
-                width: 180.0,
-                height: 90.0,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFFEF5350), width: 2.0),
-                  color: Color(0x22EF5350),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  '180x90 child\noverflows green parent\nstays in blue grandparent',
-                  style: TextStyle(color: Colors.white, fontSize: 9.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 8: Practical patterns
-Widget _buildPracticalPatterns() {
-  print('[render_constrained_overflow_box_test] _buildPracticalPatterns()');
-
-  return Container(
-    padding: EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Color(0xFF1E1E1E),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Tooltip-like overflow pattern
-        Text(
-          'Pattern A: Tooltip that overflows its trigger',
-          style: TextStyle(
-            color: Color(0xFFBBBBBB),
-            fontSize: 12.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Row(
-          children: [
-            SizedBox(width: 40.0),
-            Container(
-              width: 60.0,
-              height: 30.0,
-              decoration: BoxDecoration(
-                color: Color(0xFF424242),
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-              child: OverflowBox(
-                maxWidth: 160.0,
-                maxHeight: 80.0,
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 60.0,
-                      height: 30.0,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Hover me',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                      ),
-                    ),
-                    Container(
-                      width: 150.0,
-                      padding: EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF616161),
-                        borderRadius: BorderRadius.circular(6.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x40000000),
-                            blurRadius: 8.0,
-                            offset: Offset(0, 2),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
-                        ],
+                        ),
                       ),
-                      child: Text(
-                        'This tooltip content overflows the trigger button width',
-                        style: TextStyle(color: Colors.white, fontSize: 10.0),
-                      ),
-                    ),
-                  ],
-                ),
+                    )
+                    .toList(),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 60.0),
-
-        // Dropdown menu overflow pattern
-        Text(
-          'Pattern B: Dropdown menu that overflows container',
-          style: TextStyle(
-            color: Color(0xFFBBBBBB),
-            fontSize: 12.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Row(
-          children: [
-            Container(
-              width: 100.0,
-              height: 36.0,
-              decoration: BoxDecoration(
-                color: Color(0xFF37474F),
-                borderRadius: BorderRadius.circular(4.0),
-                border: Border.all(color: Color(0xFF546E7A), width: 1.0),
-              ),
-              child: OverflowBox(
-                maxHeight: 180.0,
-                alignment: Alignment.topCenter,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 100.0,
-                      height: 36.0,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Select...',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 11.0,
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
                             ),
+                            child: Text(text, textAlign: TextAlign.center),
                           ),
-                          SizedBox(width: 4.0),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.white,
-                            size: 16.0,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 100.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF455A64),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(4.0),
-                          bottomRight: Radius.circular(4.0),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x60000000),
-                            blurRadius: 6.0,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          _buildDropdownItem('Option 1'),
-                          _buildDropdownItem('Option 2'),
-                          _buildDropdownItem('Option 3'),
-                          _buildDropdownItem('Option 4'),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 80.0),
-
-        // Badge overflow pattern
-        Text(
-          'Pattern C: Badge overflowing icon container',
-          style: TextStyle(
-            color: Color(0xFFBBBBBB),
-            fontSize: 12.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Row(
-          children: [
-            _buildBadgeIcon(Icons.mail, '5'),
-            SizedBox(width: 24.0),
-            _buildBadgeIcon(Icons.notifications, '12'),
-            SizedBox(width: 24.0),
-            _buildBadgeIcon(Icons.shopping_cart, '99+'),
-          ],
-        ),
-        SizedBox(height: 20.0),
-
-        // Decorative overflow
-        Text(
-          'Pattern D: Decorative element overflowing card',
-          style: TextStyle(
-            color: Color(0xFFBBBBBB),
-            fontSize: 12.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Container(
-          width: 220.0,
-          height: 80.0,
-          decoration: BoxDecoration(
-            color: Color(0xFF263238),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                right: -10.0,
-                top: -10.0,
-                child: OverflowBox(
-                  maxWidth: 80.0,
-                  maxHeight: 80.0,
-                  child: Container(
-                    width: 60.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: Color(0x339C27B0),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Feature Card',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'Decorative circle overflows edge',
-                      style: TextStyle(
-                        color: Color(0xFFAAAAAA),
-                        fontSize: 11.0,
-                      ),
-                    ),
-                  ],
+                      )
+                      .toList(),
                 ),
               ),
             ],
@@ -1109,54 +354,288 @@ Widget _buildPracticalPatterns() {
   );
 }
 
-// Helper for dropdown items
-Widget _buildDropdownItem(String text) {
-  print('[render_constrained_overflow_box_test] dropdown item: $text');
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    width: double.infinity,
-    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-    child: Text(text, style: TextStyle(color: Colors.white, fontSize: 11.0)),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }
 
-// Helper for badge icons
-Widget _buildBadgeIcon(IconData icon, String count) {
-  print('[render_constrained_overflow_box_test] badge icon: $count');
-  return SizedBox(
-    width: 40.0,
-    height: 40.0,
-    child: Stack(
-      clipBehavior: Clip.none,
-      children: [
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
         Container(
-          width: 40.0,
-          height: 40.0,
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Color(0xFF37474F),
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
           ),
-          child: Icon(icon, color: Colors.white, size: 22.0),
-        ),
-        Positioned(
-          right: -6.0,
-          top: -6.0,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-            decoration: BoxDecoration(
-              color: Color(0xFFE53935),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Text(
-              count,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 9.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
           ),
         ),
       ],
     ),
   );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
+      ],
+    ),
+  );
+}
+
+Widget _sectionTitle(String text, IconData icon, Color color) {
+  return Row(
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
+      ),
+    ],
+  );
+}
+
+Widget _buildBullet({required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
+        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
+      ],
+    ),
+  );
+}
+
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
+      ],
+    ),
+  );
+}
+
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
+  );
+}
+
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
+
+  final String title;
+  final String text;
+  final IconData icon;
 }

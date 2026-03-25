@@ -1,851 +1,200 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// Deep demo: RenderDarwinPlatformView concepts visualization
-// Demonstrates native macOS/iOS platform view embedding concepts
-// including composition layers, hit testing, sizing modes, and lifecycle
 import 'package:flutter/material.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderDarwinPlatformView demo: building visualization');
+const Color _kPrimary = Color(0xFF6A1B9A);
+const Color _kAccent = Color(0xFFAB47BC);
+const Color _kSurface = Color(0xFFF3E5F5);
 
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _buildHeader(),
-        _buildSectionTitle('1. Native macOS View Placeholders'),
-        _buildNativeViewPlaceholders(),
-        _buildSectionTitle('2. Platform View Composition Layers'),
-        _buildCompositionLayers(),
-        _buildSectionTitle('3. Hit Test Passthrough Behavior'),
-        _buildHitTestPassthrough(),
-        _buildSectionTitle('4. Platform View Sizing Modes'),
-        _buildSizingModes(),
-        _buildSectionTitle('5. Flutter Painting Pipeline Interaction'),
-        _buildPaintingPipelineInteraction(),
-        _buildSectionTitle('6. Gesture Disambiguation Areas'),
-        _buildGestureDisambiguation(),
-        _buildSectionTitle('7. Platform View Lifecycle Stages'),
-        _buildLifecycleStages(),
-        _buildSectionTitle('8. AppKitView vs UiKitView Rendering'),
-        _buildAppKitVsUiKitComparison(),
-        SizedBox(height: 32),
-      ],
+final List<_DemoPanelData> _kPanels = <_DemoPanelData>[
+  _DemoPanelData(
+    title: 'Purpose',
+    text:
+        'Render Darwin Platform View demonstrates platform-view integration and hybrid composition concerns in the D4rt interpreter runtime. This deep demo focuses on visual understanding rather than API-level assertions.',
+    icon: Icons.extension_rounded,
+  ),
+  _DemoPanelData(
+    title: 'When to use',
+    text:
+        'Use this pattern when you need to inspect behavior in realistic UI structures and quickly validate interpreter parity with native Flutter execution.',
+    icon: Icons.lightbulb_circle_rounded,
+  ),
+  _DemoPanelData(
+    title: 'How to read this demo',
+    text:
+        'Start with the overview, then scan each scenario card and compare visual output. Use the matrix section to understand variations and composition tradeoffs.',
+    icon: Icons.menu_book_rounded,
+  ),
+  _DemoPanelData(
+    title: 'Interpreter focus',
+    text:
+        'This script intentionally emphasizes rendering and interaction displays; assertions are minimal because Flutter framework correctness is already covered upstream.',
+    icon: Icons.integration_instructions_rounded,
+  ),
+];
+
+dynamic build(BuildContext context) {
+  final ThemeData theme = Theme.of(context);
+  final Color primary = _kPrimary;
+  final Color accent = _kAccent;
+  final Color surface = _kSurface;
+
+  return Scaffold(
+    backgroundColor: const Color(0xFFF7F9FC),
+    body: SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeader(
+              title: 'Render Darwin Platform View Deep Demo',
+              subtitle:
+                  'Visual and instructive exploration of RenderDarwinPlatformView for D4rt interpreter scenarios.',
+              icon: Icons.extension_rounded,
+              primary: primary,
+              accent: accent,
+            ),
+            const SizedBox(height: 20),
+            _buildOverviewCards(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildUsageSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildScenarioGallery(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildMatrixSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildIntegrationSection(primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 20),
+            _buildDebugSection(theme: theme, primary: primary, accent: accent, surface: surface),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
     ),
   );
 }
 
-Widget _buildHeader() {
-  print('RenderDarwinPlatformView demo: rendering header');
+Widget _buildHeader({
+  required String title,
+  required String subtitle,
+  required IconData icon,
+  required Color primary,
+  required Color accent,
+}) {
   return Container(
     width: double.infinity,
-    padding: EdgeInsets.all(24),
+    padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(22),
       gradient: LinearGradient(
-        colors: [Color(0xFF1A237E), Color(0xFF0D47A1), Color(0xFF01579B)],
+        colors: <Color>[primary, accent],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: primary.withAlpha(90),
+          blurRadius: 18,
+          offset: const Offset(0, 10),
+        ),
+      ],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(36),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: Colors.white, size: 30),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
         Text(
-          'RenderDarwinPlatformView',
+          subtitle,
           style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.white.withAlpha(232),
+            fontSize: 14,
+            height: 1.4,
           ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          'Native macOS/iOS view embedding in Flutter render pipeline',
-          style: TextStyle(fontSize: 14, color: Color(0xFFBBDEFB)),
-        ),
-        SizedBox(height: 4),
-        Text(
-          'Composition, hit testing, sizing, and lifecycle visualization',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90CAF9)),
         ),
       ],
     ),
   );
 }
 
-Widget _buildSectionTitle(String title) {
-  print('RenderDarwinPlatformView demo: section - $title');
+Widget _buildOverviewCards({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
   return Container(
-    width: double.infinity,
-    margin: EdgeInsets.only(top: 20),
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFF263238), Color(0xFF37474F)],
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
-    ),
-    child: Text(
-      title,
-      style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF80CBC4),
-      ),
-    ),
-  );
-}
-
-// Section 1: Native macOS view placeholders
-Widget _buildNativeViewPlaceholders() {
-  print('RenderDarwinPlatformView demo: native view placeholders');
-
-  List<Map<String, dynamic>> nativeViews = [
-    {
-      'name': 'NSView',
-      'desc': 'Base macOS view class',
-      'color': Color(0xFF1565C0),
-      'icon': Icons.crop_square,
-      'width': 180.0,
-      'height': 120.0,
-    },
-    {
-      'name': 'NSTextField',
-      'desc': 'Native text input field',
-      'color': Color(0xFF2E7D32),
-      'icon': Icons.text_fields,
-      'width': 200.0,
-      'height': 48.0,
-    },
-    {
-      'name': 'NSButton',
-      'desc': 'Native push button control',
-      'color': Color(0xFF6A1B9A),
-      'icon': Icons.smart_button,
-      'width': 140.0,
-      'height': 36.0,
-    },
-    {
-      'name': 'NSSlider',
-      'desc': 'Native slider control',
-      'color': Color(0xFFE65100),
-      'icon': Icons.tune,
-      'width': 220.0,
-      'height': 32.0,
-    },
-  ];
-
-  print(
-    'RenderDarwinPlatformView demo: rendering ${nativeViews.length} native view types',
-  );
-
-  return Padding(
-    padding: EdgeInsets.all(16),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(70)),
     child: Column(
-      children: [
-        Text(
-          'Placeholder containers representing native macOS views that would be rendered by the Darwin platform view layer',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Overview', Icons.auto_awesome_rounded, primary),
+        const SizedBox(height: 14),
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          children: nativeViews.map((view) {
-            return Container(
-              width: view['width'],
-              height: view['height'],
-              decoration: BoxDecoration(
-                color: view['color'],
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Color(0xFFFFFFFF), width: 1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x40000000),
-                    blurRadius: 4,
-                    offset: Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(view['icon'], color: Colors.white, size: 20),
-                  SizedBox(height: 4),
-                  Text(
-                    view['name'],
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  ),
-                  Text(
-                    view['desc'],
-                    style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 9),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 2: Platform view composition layers
-Widget _buildCompositionLayers() {
-  print('RenderDarwinPlatformView demo: composition layers');
-
-  List<Map<String, dynamic>> layers = [
-    {
-      'label': 'Flutter Overlay (above native)',
-      'color': Color(0x9900BCD4),
-      'desc': 'Flutter widgets rendered above the native view',
-      'zIndex': 3,
-    },
-    {
-      'label': 'Native Platform View',
-      'color': Color(0xCCFF6F00),
-      'desc': 'macOS NSView rendered by Core Animation layer',
-      'zIndex': 2,
-    },
-    {
-      'label': 'Flutter Background (below native)',
-      'color': Color(0x994CAF50),
-      'desc': 'Flutter widgets rendered below the native view',
-      'zIndex': 1,
-    },
-    {
-      'label': 'Rasterizer Base Layer',
-      'color': Color(0x66424242),
-      'desc': 'Skia/Impeller rasterization surface',
-      'zIndex': 0,
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text(
-          'Composition ordering: Flutter content is split around the native view layer',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
-        Container(
-          height: 280,
-          decoration: BoxDecoration(
-            color: Color(0xFF212121),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Color(0xFF616161), width: 1),
-          ),
-          child: Stack(
-            children: layers.map((layer) {
-              double topOffset = (3 - layer['zIndex']) * 65.0 + 10;
-              double leftOffset = (3 - layer['zIndex']) * 12.0 + 8;
-              print(
-                'RenderDarwinPlatformView demo: layer z=${layer['zIndex']} -> ${layer['label']}',
-              );
-              return Positioned(
-                top: topOffset,
-                left: leftOffset,
-                right: leftOffset,
-                child: Container(
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: layer['color'],
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: Color(0x66FFFFFF), width: 1),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'z=${layer['zIndex']}',
-                            style: TextStyle(
-                              color: Color(0xFFFFEB3B),
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            layer['label'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        layer['desc'],
-                        style: TextStyle(
-                          color: Color(0xBBFFFFFF),
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
+          children: _kPanels
+              .map(
+                (_DemoPanelData panel) => SizedBox(
+                  width: 320,
+                  child: _buildPanel(panel: panel, primary: primary, accent: accent),
                 ),
-              );
-            }).toList(),
-          ),
+              )
+              .toList(),
         ),
       ],
     ),
   );
 }
 
-// Section 3: Hit test passthrough behavior
-Widget _buildHitTestPassthrough() {
-  print('RenderDarwinPlatformView demo: hit test passthrough');
-
-  List<Map<String, dynamic>> regions = [
-    {
-      'label': 'Flutter-handled region',
-      'color': Color(0xFF1B5E20),
-      'accepts': true,
-      'desc': 'Taps go to Flutter GestureDetector',
-    },
-    {
-      'label': 'Native passthrough region',
-      'color': Color(0xFFBF360C),
-      'accepts': false,
-      'desc': 'Taps forwarded to NSView responder chain',
-    },
-    {
-      'label': 'Shared region (disambiguation)',
-      'color': Color(0xFF4A148C),
-      'accepts': true,
-      'desc': 'Arena decides Flutter vs native',
-    },
-    {
-      'label': 'Overlay intercept area',
-      'color': Color(0xFF0D47A1),
-      'accepts': true,
-      'desc': 'Flutter overlay captures before native',
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
+Widget _buildUsageSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(76)),
     child: Column(
-      children: [
-        Text(
-          'Hit test passthrough determines whether touch events reach Flutter or the native view',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('How and why to use it', Icons.school_rounded, accent),
+        const SizedBox(height: 12),
         Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Color(0xFF1A1A2E),
-            borderRadius: BorderRadius.circular(8),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: accent.withAlpha(80)),
           ),
           child: Column(
-            children: regions.map((region) {
-              print(
-                'RenderDarwinPlatformView demo: hit region - ${region['label']} accepts=${region['accepts']}',
-              );
-              return Container(
-                margin: EdgeInsets.only(bottom: 8),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: region['color'],
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      region['accepts'] ? Icons.touch_app : Icons.block,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            region['label'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            region['desc'],
-                            style: TextStyle(
-                              color: Color(0xBBFFFFFF),
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: Color(0x33FFFFFF),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        region['accepts'] ? 'FLUTTER' : 'NATIVE',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 4: Sizing modes for platform views
-Widget _buildSizingModes() {
-  print('RenderDarwinPlatformView demo: sizing modes');
-
-  List<Map<String, dynamic>> modes = [
-    {
-      'mode': 'Fixed Size',
-      'desc': 'Native view has explicit width/height constraints',
-      'w': 160.0,
-      'h': 80.0,
-      'color': Color(0xFF00695C),
-      'borderStyle': BorderStyle.solid,
-    },
-    {
-      'mode': 'Expanded',
-      'desc': 'Native view fills available parent space',
-      'w': double.infinity,
-      'h': 60.0,
-      'color': Color(0xFF283593),
-      'borderStyle': BorderStyle.solid,
-    },
-    {
-      'mode': 'Intrinsic',
-      'desc': 'Native view determines its own preferred size',
-      'w': 200.0,
-      'h': 50.0,
-      'color': Color(0xFF4E342E),
-      'borderStyle': BorderStyle.solid,
-    },
-    {
-      'mode': 'Aspect Ratio',
-      'desc': 'Width locked to aspect ratio of native content',
-      'w': 180.0,
-      'h': 101.0,
-      'color': Color(0xFF880E4F),
-      'borderStyle': BorderStyle.solid,
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text(
-          'Platform views support multiple sizing strategies controlled by the embedding layout',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
-        Column(
-          children: modes.map((mode) {
-            print(
-              'RenderDarwinPlatformView demo: sizing mode - ${mode['mode']}',
-            );
-            double displayW = mode['w'] == double.infinity
-                ? double.infinity
-                : mode['w'];
-            return Container(
-              width: displayW,
-              height: mode['h'],
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                color: mode['color'],
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(
-                  color: Color(0xFFFFD54F),
-                  width: 2,
-                  style: mode['borderStyle'],
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      mode['mode'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    Text(
-                      mode['desc'],
-                      style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 9),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      mode['w'] == double.infinity
-                          ? 'w: fill, h: ${mode['h']}'
-                          : 'w: ${mode['w']}, h: ${mode['h']}',
-                      style: TextStyle(color: Color(0xFFFFD54F), fontSize: 9),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    ),
-  );
-}
-
-// Section 5: Flutter painting pipeline interaction
-Widget _buildPaintingPipelineInteraction() {
-  print('RenderDarwinPlatformView demo: painting pipeline interaction');
-
-  List<Map<String, dynamic>> stages = [
-    {
-      'stage': 'Layout',
-      'detail': 'RenderBox constraints passed to platform view sizer',
-      'icon': Icons.straighten,
-      'color': Color(0xFF1565C0),
-    },
-    {
-      'stage': 'Compositing',
-      'detail': 'PlatformViewLayer inserted into compositing tree',
-      'icon': Icons.layers,
-      'color': Color(0xFF2E7D32),
-    },
-    {
-      'stage': 'Texture Upload',
-      'detail': 'IOSurface/CALayer content shared with Flutter engine',
-      'icon': Icons.upload,
-      'color': Color(0xFF6A1B9A),
-    },
-    {
-      'stage': 'Rasterization',
-      'detail': 'Native texture composited into final frame buffer',
-      'icon': Icons.image,
-      'color': Color(0xFFE65100),
-    },
-    {
-      'stage': 'Clipping',
-      'detail': 'ClipRect/ClipRRect applied around platform view bounds',
-      'icon': Icons.crop,
-      'color': Color(0xFF00838F),
-    },
-    {
-      'stage': 'Opacity',
-      'detail': 'Platform view alpha blended with Flutter content',
-      'icon': Icons.opacity,
-      'color': Color(0xFFC62828),
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text(
-          'How platform views integrate into Flutter paint and compositing pipeline',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
-        Column(
-          children: [
-            for (int i = 0; i < stages.length; i++)
-              _buildPipelineStageRow(stages[i], i, stages.length),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildPipelineStageRow(
-  Map<String, dynamic> stage,
-  int index,
-  int total,
-) {
-  print(
-    'RenderDarwinPlatformView demo: pipeline stage $index - ${stage['stage']}',
-  );
-  return Column(
-    children: [
-      Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: stage['color'],
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: Color(0x33FFFFFF),
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  (index + 1).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 12),
-            Icon(stage['icon'], color: Colors.white, size: 20),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    stage['stage'],
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Text(
-                    stage['detail'],
-                    style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 10),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      if (index < total - 1)
-        Container(height: 20, width: 2, color: Color(0xFF616161)),
-    ],
-  );
-}
-
-// Section 6: Gesture disambiguation areas
-Widget _buildGestureDisambiguation() {
-  print('RenderDarwinPlatformView demo: gesture disambiguation');
-
-  List<Map<String, dynamic>> zones = [
-    {
-      'zone': 'Flutter Exclusive Zone',
-      'gesture': 'Scroll, tap, long-press handled by Flutter',
-      'color': Color(0xFF1B5E20),
-      'icon': Icons.pan_tool,
-    },
-    {
-      'zone': 'Native Exclusive Zone',
-      'gesture': 'NSResponder chain handles all events',
-      'color': Color(0xFFB71C1C),
-      'icon': Icons.mouse,
-    },
-    {
-      'zone': 'Shared Disambiguation Zone',
-      'gesture': 'Gesture arena resolves Flutter vs native winner',
-      'color': Color(0xFFFF6F00),
-      'icon': Icons.compare_arrows,
-    },
-    {
-      'zone': 'Transparent Passthrough',
-      'gesture': 'Events ignored by both, fall through to parent',
-      'color': Color(0xFF37474F),
-      'icon': Icons.layers_clear,
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text(
-          'Gesture disambiguation determines which system handles user input in overlapping regions',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color(0xFF1A1A2E),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              // Visual grid showing zones
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: zones[0]['color'],
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                        ),
-                        border: Border.all(color: Color(0x44FFFFFF), width: 1),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              zones[0]['icon'],
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Flutter',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: zones[2]['color'],
-                        border: Border.all(color: Color(0x44FFFFFF), width: 1),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              zones[2]['icon'],
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Shared',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: zones[1]['color'],
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(6),
-                        ),
-                        border: Border.all(color: Color(0x44FFFFFF), width: 1),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              zones[1]['icon'],
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Native',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              // Detail list
-              Column(
-                children: zones.map((zone) {
-                  print(
-                    'RenderDarwinPlatformView demo: gesture zone - ${zone['zone']}',
-                  );
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 6),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: zone['color'],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(zone['icon'], color: Colors.white, size: 16),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                zone['zone'],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                ),
-                              ),
-                              Text(
-                                zone['gesture'],
-                                style: TextStyle(
-                                  color: Color(0xBBFFFFFF),
-                                  fontSize: 9,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+            _buildBullet(text: 'RenderDarwinPlatformView is used when you need explicit control over platform-view integration and hybrid composition concerns.'),
+            _buildBullet(text: 'Use small visual probes first, then compose with real app widgets to validate behavior.'),
+            _buildBullet(text: 'Prefer deterministic, visual examples so interpreter execution can be inspected quickly.'),
+            _buildBullet(text: 'Keep this demo as a reference while extending bridges and runtime registrations.'),
             ],
           ),
         ),
@@ -854,74 +203,72 @@ Widget _buildGestureDisambiguation() {
   );
 }
 
-// Section 7: Platform view lifecycle stages
-Widget _buildLifecycleStages() {
-  print('RenderDarwinPlatformView demo: lifecycle stages');
-
-  List<Map<String, dynamic>> lifecycle = [
-    {
-      'stage': 'Create',
-      'desc': 'PlatformViewFactory instantiates native NSView',
-      'color': Color(0xFF1565C0),
-      'status': 'init',
-    },
-    {
-      'stage': 'Attach',
-      'desc': 'Native view added to FlutterView hierarchy',
-      'color': Color(0xFF2E7D32),
-      'status': 'active',
-    },
-    {
-      'stage': 'Layout',
-      'desc': 'Size and position synced from Flutter constraints',
-      'color': Color(0xFF6A1B9A),
-      'status': 'active',
-    },
-    {
-      'stage': 'Render',
-      'desc': 'Native content composited into Flutter frame',
-      'color': Color(0xFFE65100),
-      'status': 'active',
-    },
-    {
-      'stage': 'Focus',
-      'desc': 'Keyboard focus transferred between Flutter and native',
-      'color': Color(0xFF00838F),
-      'status': 'interactive',
-    },
-    {
-      'stage': 'Resize',
-      'desc': 'Constraints change triggers native view resize',
-      'color': Color(0xFF558B2F),
-      'status': 'active',
-    },
-    {
-      'stage': 'Detach',
-      'desc': 'Native view removed from FlutterView hierarchy',
-      'color': Color(0xFFC62828),
-      'status': 'teardown',
-    },
-    {
-      'stage': 'Dispose',
-      'desc': 'Native resources freed, IOSurface released',
-      'color': Color(0xFF424242),
-      'status': 'dead',
-    },
-  ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
+Widget _buildScenarioGallery({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(76)),
     child: Column(
-      children: [
-        Text(
-          'Platform view lifecycle from creation through disposal',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Visual scenarios', Icons.view_carousel_rounded, primary),
+        const SizedBox(height: 14),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+
+        _buildScenarioCard(
+          title: 'Baseline Visual',
+          subtitle: 'Shows the default rendering contract and default values.',
+          index: 1,
+          primary: primary,
+          accent: accent,
+          surface: surface,
         ),
-        SizedBox(height: 12),
-        Column(
-          children: [
-            for (int i = 0; i < lifecycle.length; i++)
-              _buildLifecycleRow(lifecycle[i], i, lifecycle.length),
+        _buildScenarioCard(
+          title: 'Interactive Surface',
+          subtitle: 'Demonstrates pointer/gesture interaction and visual feedback.',
+          index: 2,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Constraint Stress',
+          subtitle: 'Demonstrates behavior under tight/loose constraints.',
+          index: 3,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Composition Mix',
+          subtitle: 'Shows interoperability with common parent/child widget patterns.',
+          index: 4,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'State Transition',
+          subtitle: 'Demonstrates dynamic updates and animation/state transitions.',
+          index: 5,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
+        _buildScenarioCard(
+          title: 'Production Pattern',
+          subtitle: 'Wraps the API in a realistic composition from app code.',
+          index: 6,
+          primary: primary,
+          accent: accent,
+          surface: surface,
+        ),
           ],
         ),
       ],
@@ -929,372 +276,366 @@ Widget _buildLifecycleStages() {
   );
 }
 
-Widget _buildLifecycleRow(Map<String, dynamic> item, int index, int total) {
-  print(
-    'RenderDarwinPlatformView demo: lifecycle $index - ${item['stage']} (${item['status']})',
-  );
-
-  Color statusColor;
-  if (item['status'] == 'init') {
-    statusColor = Color(0xFF64B5F6);
-  } else if (item['status'] == 'active') {
-    statusColor = Color(0xFF81C784);
-  } else if (item['status'] == 'interactive') {
-    statusColor = Color(0xFFFFD54F);
-  } else if (item['status'] == 'teardown') {
-    statusColor = Color(0xFFE57373);
-  } else {
-    statusColor = Color(0xFF757575);
-  }
-
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      // Timeline column
-      SizedBox(
-        width: 40,
-        child: Column(
-          children: [
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                color: item['color'],
-                shape: BoxShape.circle,
-                border: Border.all(color: Color(0xFFFFFFFF), width: 2),
-              ),
-              child: Center(
-                child: Text(
-                  (index + 1).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            if (index < total - 1)
-              Container(width: 2, height: 36, color: Color(0xFF616161)),
-          ],
-        ),
-      ),
-      // Content
-      Expanded(
-        child: Container(
-          margin: EdgeInsets.only(bottom: 8),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color(0xFF2A2A3E),
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: item['color'], width: 1),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item['stage'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      item['desc'],
-                      style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 10),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: statusColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  item['status'],
-                  style: TextStyle(
-                    color: Color(0xFF1A1A1A),
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-// Section 8: AppKitView vs UiKitView comparison
-Widget _buildAppKitVsUiKitComparison() {
-  print('RenderDarwinPlatformView demo: AppKitView vs UiKitView comparison');
-
-  List<Map<String, dynamic>> features = [
-    {'feature': 'Platform', 'appkit': 'macOS (AppKit)', 'uikit': 'iOS (UIKit)'},
-    {'feature': 'Base View', 'appkit': 'NSView', 'uikit': 'UIView'},
-    {
-      'feature': 'Rendering',
-      'appkit': 'CALayer compositing',
-      'uikit': 'IOSurface sharing',
-    },
-    {
-      'feature': 'Hit Testing',
-      'appkit': 'NSResponder chain',
-      'uikit': 'UIResponder chain',
-    },
-    {
-      'feature': 'Keyboard',
-      'appkit': 'NSTextInputClient',
-      'uikit': 'UITextInput protocol',
-    },
-    {
-      'feature': 'Gestures',
-      'appkit': 'NSGestureRecognizer',
-      'uikit': 'UIGestureRecognizer',
-    },
-    {
-      'feature': 'Focus',
-      'appkit': 'makeFirstResponder',
-      'uikit': 'becomeFirstResponder',
-    },
-    {
-      'feature': 'Accessibility',
-      'appkit': 'NSAccessibility',
-      'uikit': 'UIAccessibility',
-    },
+Widget _buildMatrixSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  const List<String> columns = <String>[
+    'Profile',
+    'Visual density',
+    'Interaction',
+    'Composition',
   ];
-
-  return Padding(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      children: [
-        Text(
-          'Comparison of macOS AppKitView and iOS UiKitView rendering approaches',
-          style: TextStyle(fontSize: 12, color: Color(0xFF90A4AE)),
-        ),
-        SizedBox(height: 12),
-        // Header row
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-          decoration: BoxDecoration(
-            color: Color(0xFF1A237E),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-            ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Feature',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'AppKitView (macOS)',
-                  style: TextStyle(
-                    color: Color(0xFF64B5F6),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'UiKitView (iOS)',
-                  style: TextStyle(
-                    color: Color(0xFF81C784),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Data rows
-        Column(
-          children: [
-            for (int i = 0; i < features.length; i++)
-              _buildComparisonRow(features[i], i),
-          ],
-        ),
-        SizedBox(height: 12),
-        // Visual rendering area comparison
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 100,
-                margin: EdgeInsets.only(right: 4),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF0D47A1), Color(0xFF1565C0)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Color(0xFF64B5F6), width: 2),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.desktop_mac, color: Colors.white, size: 28),
-                    SizedBox(height: 6),
-                    Text(
-                      'AppKitView',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'macOS native rendering',
-                      style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 9),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 100,
-                margin: EdgeInsets.only(left: 4),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF1B5E20), Color(0xFF2E7D32)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Color(0xFF81C784), width: 2),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.phone_iphone, color: Colors.white, size: 28),
-                    SizedBox(height: 6),
-                    Text(
-                      'UiKitView',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'iOS native rendering',
-                      style: TextStyle(color: Color(0xBBFFFFFF), fontSize: 9),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        // Summary note
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Color(0xFF263238),
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: Color(0xFF546E7A), width: 1),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.info_outline, color: Color(0xFF80CBC4), size: 18),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'RenderDarwinPlatformView unifies both AppKit and UIKit rendering through a shared compositing interface in the Flutter engine',
-                  style: TextStyle(color: Color(0xFF80CBC4), fontSize: 10),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildComparisonRow(Map<String, dynamic> feature, int index) {
-  print(
-    'RenderDarwinPlatformView demo: comparing ${feature['feature']}: ${feature['appkit']} vs ${feature['uikit']}',
-  );
-
-  Color rowBg = index % 2 == 0 ? Color(0xFF1E1E2E) : Color(0xFF252538);
+  const List<List<String>> rows = <List<String>>[
+    <String>['Minimal', 'Low', 'Static', 'Standalone'],
+    <String>['Balanced', 'Medium', 'Tap/hover', 'Nested'],
+    <String>['Rich', 'High', 'Dynamic', 'Integrated'],
+    <String>['Debug', 'High', 'Inspectable', 'Tooling'],
+  ];
 
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-    decoration: BoxDecoration(color: rowBg),
-    child: Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Text(
-            feature['feature'],
-            style: TextStyle(
-              color: Color(0xFFCFD8DC),
-              fontWeight: FontWeight.bold,
-              fontSize: 10,
-            ),
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(82)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Behavior matrix', Icons.table_chart_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: accent.withAlpha(75)),
           ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-            decoration: BoxDecoration(
-              color: Color(0x220D47A1),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              feature['appkit'],
-              style: TextStyle(color: Color(0xFF90CAF9), fontSize: 10),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-        SizedBox(width: 4),
-        Expanded(
-          flex: 3,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-            decoration: BoxDecoration(
-              color: Color(0x221B5E20),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              feature['uikit'],
-              style: TextStyle(color: Color(0xFFA5D6A7), fontSize: 10),
-              textAlign: TextAlign.center,
-            ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: columns
+                    .map(
+                      (String text) => Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          color: accent.withAlpha(35),
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              ...rows.map(
+                (List<String> row) => Row(
+                  children: row
+                      .map(
+                        (String text) => Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: accent.withAlpha(40)),
+                              ),
+                            ),
+                            child: Text(text, textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
           ),
         ),
       ],
     ),
   );
+}
+
+Widget _buildIntegrationSection({
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: primary.withAlpha(80)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Integration examples', Icons.extension_rounded, primary),
+        const SizedBox(height: 12),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _integrationCard(
+                title: 'Interpreter script mode',
+                points: const <String>[
+                  'Embed in `build(context)` scripts.',
+                  'Compose with local helper widgets.',
+                  'Keep visuals deterministic for snapshot review.',
+                ],
+                color: primary,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _integrationCard(
+                title: 'Runtime bridge mode',
+                points: const <String>[
+                  'Validate bridged constructor/method behavior.',
+                  'Observe nested composition with material widgets.',
+                  'Use this deep demo as migration baseline.',
+                ],
+                color: accent,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDebugSection({
+  required ThemeData theme,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final TextStyle? bodyStyle = theme.textTheme.bodyMedium;
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: _panelDecoration(surface: surface, border: accent.withAlpha(70)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _sectionTitle('Debug checklist', Icons.fact_check_rounded, accent),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: accent.withAlpha(72)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Runtime verification', style: bodyStyle?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              _checkRow('Header and overview cards render with gradients and icons.'),
+              _checkRow('Scenario gallery shows six distinct visual displays.'),
+              _checkRow('Matrix section remains legible in narrow and wide layouts.'),
+              _checkRow('Integration section explains usage in interpreter workflows.'),
+              _checkRow('No analyzer ignores are used in this script.'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPanel({
+  required _DemoPanelData panel,
+  required Color primary,
+  required Color accent,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: primary.withAlpha(55)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(panel.icon, color: accent, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                panel.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(panel.text, style: const TextStyle(height: 1.35)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioCard({
+  required String title,
+  required String subtitle,
+  required int index,
+  required Color primary,
+  required Color accent,
+  required Color surface,
+}) {
+  final Color chipColor = index.isEven ? accent : primary;
+  return SizedBox(
+    width: 340,
+    child: Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: chipColor.withAlpha(75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: chipColor.withAlpha(35),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(fontWeight: FontWeight.w700, color: chipColor),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(subtitle, style: const TextStyle(height: 1.35)),
+          const SizedBox(height: 12),
+          Container(
+            height: 72,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: <Color>[surface, chipColor.withAlpha(45)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(
+                4,
+                (int i) => Container(
+                  width: 26 + (i * 4),
+                  height: 18 + (i * 10),
+                  decoration: BoxDecoration(
+                    color: chipColor.withAlpha(80 + i * 30),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _integrationCard({
+  required String title,
+  required List<String> points,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: color.withAlpha(78)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 8),
+        ...points.map((String point) => _checkRow(point)),
+      ],
+    ),
+  );
+}
+
+Widget _sectionTitle(String text, IconData icon, Color color) {
+  return Row(
+    children: <Widget>[
+      Icon(icon, color: color, size: 20),
+      const SizedBox(width: 8),
+      Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w800, color: color, fontSize: 18),
+      ),
+    ],
+  );
+}
+
+Widget _buildBullet({required String text}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Icon(Icons.circle, size: 8),
+        ),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
+      ],
+    ),
+  );
+}
+
+Widget _checkRow(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Icon(Icons.check_circle_outline_rounded, size: 18),
+        const SizedBox(width: 8),
+        Expanded(child: Text(text)),
+      ],
+    ),
+  );
+}
+
+BoxDecoration _panelDecoration({required Color surface, required Color border}) {
+  return BoxDecoration(
+    color: surface,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: border),
+  );
+}
+
+class _DemoPanelData {
+  const _DemoPanelData({
+    required this.title,
+    required this.text,
+    required this.icon,
+  });
+
+  final String title;
+  final String text;
+  final IconData icon;
 }
