@@ -17,8 +17,7 @@ import 'package:flutter/foundation.dart'
 import 'package:flutter/material.dart'
     show ButtonSegment, DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
-import 'package:flutter/rendering.dart'
-    show BoxConstraints;
+import 'package:flutter/rendering.dart' show BoxConstraints;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
