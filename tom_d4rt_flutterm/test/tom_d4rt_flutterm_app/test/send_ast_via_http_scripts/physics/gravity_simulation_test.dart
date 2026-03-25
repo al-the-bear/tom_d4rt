@@ -46,7 +46,9 @@ dynamic build(BuildContext context) {
 
   // With initial velocity
   print('\nWith initial velocity:');
-  final simWithV = GravitySimulation(9.8, 100.0, -50.0, 500.0);
+  // GravitySimulation(acceleration, distance, endDistance, velocity)
+  // endDistance must be >= 0, so we use 500.0 as end and -50.0 as velocity
+  final simWithV = GravitySimulation(9.8, 100.0, 500.0, -50.0);
   print('x0: 100.0, v0: -50.0 (upward throw)');
   print('x(0.0): ${simWithV.x(0.0).toStringAsFixed(2)}');
   print('x(2.0): ${simWithV.x(2.0).toStringAsFixed(2)}');

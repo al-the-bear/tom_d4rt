@@ -133,10 +133,7 @@ Widget buildActionShowcase(
               SizedBox(height: 2),
               Text(
                 'Action: $actionLabel',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -203,10 +200,7 @@ Widget buildColorSwatch(String name, Color color, Color textOnColor) {
   );
 }
 
-Widget buildSnackBarActionRow(
-  String description,
-  SnackBarAction action,
-) {
+Widget buildSnackBarActionRow(String description, SnackBarAction action) {
   print('Building action row: $description');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -231,13 +225,10 @@ Widget buildSnackBarActionRow(
 }
 
 Widget buildPaddedContainer(Widget child, EdgeInsets padding) {
-  return Padding(
-    padding: padding,
-    child: child,
-  );
+  return Padding(padding: padding, child: child);
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('SnackBarAction Deep Demo');
   print('========================');
   print('Demonstrating SnackBarAction widget features');
@@ -632,7 +623,10 @@ Widget main() {
                     children: [
                       Text(
                         'Disabled Color Examples',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 12),
                       buildActionShowcase(
@@ -646,32 +640,59 @@ Widget main() {
                       SizedBox(height: 8),
                       Row(
                         children: [
-                          buildColorSwatch('Active', Colors.amber, Colors.black),
-                          buildColorSwatch('Disabled', Colors.grey, Colors.white),
+                          buildColorSwatch(
+                            'Active',
+                            Colors.amber,
+                            Colors.black,
+                          ),
+                          buildColorSwatch(
+                            'Disabled',
+                            Colors.grey,
+                            Colors.white,
+                          ),
                         ],
                       ),
                       SizedBox(height: 16),
                       Text(
                         'Color Combinations',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Row(
                         children: [
-                          buildColorSwatch('Yellow', Colors.yellow, Colors.black),
-                          buildColorSwatch('Grey.400', Colors.grey.shade400, Colors.black),
+                          buildColorSwatch(
+                            'Yellow',
+                            Colors.yellow,
+                            Colors.black,
+                          ),
+                          buildColorSwatch(
+                            'Grey.400',
+                            Colors.grey.shade400,
+                            Colors.black,
+                          ),
                         ],
                       ),
                       Row(
                         children: [
                           buildColorSwatch('Cyan', Colors.cyan, Colors.black),
-                          buildColorSwatch('Grey.500', Colors.grey.shade500, Colors.white),
+                          buildColorSwatch(
+                            'Grey.500',
+                            Colors.grey.shade500,
+                            Colors.white,
+                          ),
                         ],
                       ),
                       Row(
                         children: [
                           buildColorSwatch('Green', Colors.green, Colors.white),
-                          buildColorSwatch('Grey.600', Colors.grey.shade600, Colors.white),
+                          buildColorSwatch(
+                            'Grey.600',
+                            Colors.grey.shade600,
+                            Colors.white,
+                          ),
                         ],
                       ),
                     ],
@@ -914,7 +935,9 @@ Widget main() {
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(width: 16),
@@ -941,7 +964,10 @@ Widget main() {
                         CircleAvatar(
                           radius: 16,
                           backgroundColor: Colors.blue,
-                          child: Text('JD', style: TextStyle(fontSize: 12, color: Colors.white)),
+                          child: Text(
+                            'JD',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
                         ),
                         SizedBox(width: 12),
                         Expanded(child: Text('John Doe sent you a message')),
@@ -965,14 +991,20 @@ Widget main() {
                     content: Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
                             '3',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         SizedBox(width: 12),
@@ -1209,11 +1241,26 @@ Widget main() {
                         ),
                       ),
                       SizedBox(height: 12),
-                      buildInfoCard('label', 'Required - Text displayed on action button'),
-                      buildInfoCard('onPressed', 'Required - Callback executed on tap'),
-                      buildInfoCard('textColor', 'Optional - Custom text color for enabled state'),
-                      buildInfoCard('disabledTextColor', 'Optional - Color when action is disabled'),
-                      buildInfoCard('backgroundColor', 'Optional - Background color of action button'),
+                      buildInfoCard(
+                        'label',
+                        'Required - Text displayed on action button',
+                      ),
+                      buildInfoCard(
+                        'onPressed',
+                        'Required - Callback executed on tap',
+                      ),
+                      buildInfoCard(
+                        'textColor',
+                        'Optional - Custom text color for enabled state',
+                      ),
+                      buildInfoCard(
+                        'disabledTextColor',
+                        'Optional - Color when action is disabled',
+                      ),
+                      buildInfoCard(
+                        'backgroundColor',
+                        'Optional - Background color of action button',
+                      ),
                     ],
                   ),
                 ),
@@ -1235,11 +1282,21 @@ Widget main() {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Text('• Use short, action-oriented labels (UNDO, RETRY, VIEW)'),
-                      Text('• Ensure sufficient color contrast for accessibility'),
-                      Text('• Keep SnackBar duration appropriate for action importance'),
-                      Text('• Consider combining with close icon for multiple dismiss options'),
-                      Text('• Test action visibility on various SnackBar backgrounds'),
+                      Text(
+                        '• Use short, action-oriented labels (UNDO, RETRY, VIEW)',
+                      ),
+                      Text(
+                        '• Ensure sufficient color contrast for accessibility',
+                      ),
+                      Text(
+                        '• Keep SnackBar duration appropriate for action importance',
+                      ),
+                      Text(
+                        '• Consider combining with close icon for multiple dismiss options',
+                      ),
+                      Text(
+                        '• Test action visibility on various SnackBar backgrounds',
+                      ),
                       Text('• Use consistent styling across your application'),
                     ],
                   ),

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for tom_dcli_exec
-// Generated: 2026-03-12T18:10:29.077199
+// Generated: 2026-03-25T10:02:37.769282
 
 // ignore_for_file: avoid_print
 
@@ -17,7 +17,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:tom_d4rt_exec/d4rt.dart';
+import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_dcli_exec/src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
 import 'package:tom_dcli_exec/src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
 import 'package:tom_dcli_exec/src/bridges/dcli_bridges.b.dart' as dcli_bridges;

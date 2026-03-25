@@ -70,11 +70,21 @@ Widget buildMiniCalendar({
   Color selColor = selectedDayColor ?? Colors.deepOrange;
   Color tdyColor = todayColor ?? Colors.orange;
   Color hlColor = highlightColor ?? Colors.orange.shade100;
-  Set<int> highlighted = highlightedDays ?? {};
+  Set<int> highlighted = highlightedDays ?? <int>{};
 
   List<String> monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   DateTime firstDay = DateTime(year, month, 1);
@@ -82,11 +92,20 @@ Widget buildMiniCalendar({
   int startWeekday = firstDay.weekday; // 1 = Monday
 
   List<Widget> dayHeaders = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
-      .map((d) => Expanded(
-            child: Center(
-              child: Text(d, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey.shade600)),
+      .map(
+        (d) => Expanded(
+          child: Center(
+            child: Text(
+              d,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+              ),
             ),
-          ))
+          ),
+        ),
+      )
       .toList();
 
   List<Widget> dayCells = [];
@@ -129,7 +148,11 @@ Widget buildMiniCalendar({
           child: Center(
             child: Text(
               day.toString(),
-              style: TextStyle(fontSize: 11, fontWeight: weight, color: textColor),
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: weight,
+                color: textColor,
+              ),
             ),
           ),
         ),
@@ -178,7 +201,11 @@ Widget buildMiniCalendar({
               Icon(Icons.chevron_left, color: Colors.white, size: 20),
               Text(
                 '${monthNames[month - 1]} $year',
-                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Icon(Icons.chevron_right, color: Colors.white, size: 20),
             ],
@@ -221,7 +248,14 @@ Widget buildDateRange({
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
             SizedBox(height: 2),
             Text(
               '$startDate  >>  $endDate',
@@ -251,7 +285,10 @@ Widget buildLegendItem(String label, Color color, {bool isCircle = false}) {
           ),
         ),
         SizedBox(width: 6),
-        Text(label, style: TextStyle(fontSize: 11, color: Colors.grey.shade700)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+        ),
       ],
     ),
   );
@@ -270,9 +307,19 @@ Widget buildPropertyChip(String label, String value, Color color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: TextStyle(fontSize: 10, color: color.withAlpha(180))),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10, color: color.withAlpha(180)),
+        ),
         SizedBox(width: 4),
-        Text(value, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -280,7 +327,9 @@ Widget buildPropertyChip(String label, String value, Color color) {
 
 dynamic build(BuildContext context) {
   debugPrint('=== Calendar Delegate Deep Demo ===');
-  debugPrint('Demonstrating calendar visuals: DatePicker themes, day cells, month grids');
+  debugPrint(
+    'Demonstrating calendar visuals: DatePicker themes, day cells, month grids',
+  );
 
   return SingleChildScrollView(
     child: Column(
@@ -320,12 +369,7 @@ dynamic build(BuildContext context) {
         buildSectionTitle('1. Basic Month Grids'),
         buildDescription('Mini calendar grids with standard layout'),
 
-        buildMiniCalendar(
-          year: 2025,
-          month: 1,
-          selectedDay: 15,
-          todayDay: 8,
-        ),
+        buildMiniCalendar(year: 2025, month: 1, selectedDay: 15, todayDay: 8),
         buildMiniCalendar(
           year: 2025,
           month: 2,
@@ -356,11 +400,18 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Day Cell Legend', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+              Text(
+                'Day Cell Legend',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 8),
               Wrap(
                 children: [
-                  buildLegendItem('Selected Day', Colors.deepOrange, isCircle: true),
+                  buildLegendItem(
+                    'Selected Day',
+                    Colors.deepOrange,
+                    isCircle: true,
+                  ),
                   buildLegendItem('Today', Colors.orange.shade100),
                   buildLegendItem('Highlighted', Colors.orange.shade50),
                   buildLegendItem('Normal', Colors.white),
@@ -469,14 +520,20 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('DatePickerThemeData Properties',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(
+                'DatePickerThemeData Properties',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 12),
               Wrap(
                 children: [
@@ -485,11 +542,19 @@ dynamic build(BuildContext context) {
                   buildPropertyChip('headerFgColor', 'onPrimary', Colors.blue),
                   buildPropertyChip('dayBgColor', 'primary', Colors.green),
                   buildPropertyChip('dayFgColor', 'onPrimary', Colors.green),
-                  buildPropertyChip('todayBgColor', 'transparent', Colors.orange),
+                  buildPropertyChip(
+                    'todayBgColor',
+                    'transparent',
+                    Colors.orange,
+                  ),
                   buildPropertyChip('todayFgColor', 'primary', Colors.orange),
                   buildPropertyChip('yearBgColor', 'primary', Colors.purple),
                   buildPropertyChip('yearFgColor', 'onPrimary', Colors.purple),
-                  buildPropertyChip('rangeHighlight', 'primaryContainer', Colors.red),
+                  buildPropertyChip(
+                    'rangeHighlight',
+                    'primaryContainer',
+                    Colors.red,
+                  ),
                   buildPropertyChip('surfaceTint', 'surfaceTint', Colors.teal),
                   buildPropertyChip('elevation', '6.0', Colors.grey),
                   buildPropertyChip('shape', 'rounded', Colors.grey),
@@ -510,7 +575,11 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 4)),
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 12,
+                offset: Offset(0, 4),
+              ),
             ],
           ),
           child: Theme(
@@ -526,16 +595,22 @@ dynamic build(BuildContext context) {
                 headerBackgroundColor: Colors.deepOrange,
                 headerForegroundColor: Colors.white,
                 dayForegroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected)) return Colors.white;
+                  if (states.contains(WidgetState.selected))
+                    return Colors.white;
                   return Colors.black87;
                 }),
                 dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected)) return Colors.deepOrange;
+                  if (states.contains(WidgetState.selected))
+                    return Colors.deepOrange;
                   return null;
                 }),
-                todayForegroundColor: WidgetStateProperty.all(Colors.deepOrange),
+                todayForegroundColor: WidgetStateProperty.all(
+                  Colors.deepOrange,
+                ),
                 todayBorder: BorderSide(color: Colors.deepOrange),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             child: DatePickerDialog(
@@ -555,7 +630,11 @@ dynamic build(BuildContext context) {
             color: Colors.grey.shade900,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 4)),
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 12,
+                offset: Offset(0, 4),
+              ),
             ],
           ),
           child: Theme(
@@ -565,16 +644,21 @@ dynamic build(BuildContext context) {
                 headerBackgroundColor: Colors.teal.shade700,
                 headerForegroundColor: Colors.white,
                 dayForegroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected)) return Colors.white;
+                  if (states.contains(WidgetState.selected))
+                    return Colors.white;
                   return Colors.grey.shade300;
                 }),
                 dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
                   if (states.contains(WidgetState.selected)) return Colors.teal;
                   return null;
                 }),
-                todayForegroundColor: WidgetStateProperty.all(Colors.tealAccent),
+                todayForegroundColor: WidgetStateProperty.all(
+                  Colors.tealAccent,
+                ),
                 todayBorder: BorderSide(color: Colors.tealAccent),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             child: DatePickerDialog(
@@ -596,13 +680,20 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Year Selection', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(
+                'Year Selection',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -615,17 +706,29 @@ dynamic build(BuildContext context) {
                     width: 72,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: isSelected ? Colors.deepOrange : (isCurrent ? Colors.deepOrange.withAlpha(30) : Colors.grey.shade100),
+                      color: isSelected
+                          ? Colors.deepOrange
+                          : (isCurrent
+                                ? Colors.deepOrange.withAlpha(30)
+                                : Colors.grey.shade100),
                       borderRadius: BorderRadius.circular(18),
-                      border: isCurrent && !isSelected ? Border.all(color: Colors.deepOrange) : null,
+                      border: isCurrent && !isSelected
+                          ? Border.all(color: Colors.deepOrange)
+                          : null,
                     ),
                     child: Center(
                       child: Text(
                         year.toString(),
                         style: TextStyle(
                           fontSize: 13,
-                          fontWeight: isSelected || isCurrent ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected ? Colors.white : (isCurrent ? Colors.deepOrange : Colors.black87),
+                          fontWeight: isSelected || isCurrent
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : (isCurrent
+                                    ? Colors.deepOrange
+                                    : Colors.black87),
                         ),
                       ),
                     ),
@@ -638,7 +741,9 @@ dynamic build(BuildContext context) {
 
         // Section 8: Month Navigation
         buildSectionTitle('8. Month Navigation Visualization'),
-        buildDescription('Navigation header patterns for calendar month switching'),
+        buildDescription(
+          'Navigation header patterns for calendar month switching',
+        ),
 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -646,7 +751,11 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
@@ -669,20 +778,51 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
-              BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('DatePicker Key Components', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(
+                'DatePicker Key Components',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
               SizedBox(height: 12),
-              _buildComponentRow('Header', 'Month/year display with navigation arrows', Colors.deepOrange),
-              _buildComponentRow('Day Grid', '7-column layout with weekday headers', Colors.blue),
-              _buildComponentRow('Day Cell', 'Individual day with selected/today/disabled states', Colors.green),
-              _buildComponentRow('Year Picker', 'Grid of selectable years', Colors.purple),
-              _buildComponentRow('Month Picker', 'Grid of selectable months', Colors.teal),
-              _buildComponentRow('Actions', 'Cancel/OK buttons at bottom', Colors.orange),
+              _buildComponentRow(
+                'Header',
+                'Month/year display with navigation arrows',
+                Colors.deepOrange,
+              ),
+              _buildComponentRow(
+                'Day Grid',
+                '7-column layout with weekday headers',
+                Colors.blue,
+              ),
+              _buildComponentRow(
+                'Day Cell',
+                'Individual day with selected/today/disabled states',
+                Colors.green,
+              ),
+              _buildComponentRow(
+                'Year Picker',
+                'Grid of selectable years',
+                Colors.purple,
+              ),
+              _buildComponentRow(
+                'Month Picker',
+                'Grid of selectable months',
+                Colors.teal,
+              ),
+              _buildComponentRow(
+                'Actions',
+                'Cancel/OK buttons at bottom',
+                Colors.orange,
+              ),
             ],
           ),
         ),
@@ -730,7 +870,11 @@ Widget _buildNavHeader(String monthYear, Color color) {
         ),
         Text(
           monthYear,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: color),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
         ),
         IconButton(
           onPressed: () {},
@@ -759,7 +903,10 @@ Widget _buildComponentRow(String name, String description, Color color) {
         Text(name, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
         SizedBox(width: 8),
         Expanded(
-          child: Text(description, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+          ),
         ),
       ],
     ),

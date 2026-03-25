@@ -49,11 +49,7 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildDensityCard(
-  String name,
-  VisualDensity density,
-  Color accentColor,
-) {
+Widget buildDensityCard(String name, VisualDensity density, Color accentColor) {
   print('Building density card: $name');
   double horizontal = density.horizontal;
   double vertical = density.vertical;
@@ -178,14 +174,8 @@ Widget buildStandardDensitySection() {
         'Description',
         'The default density for visual components.',
       ),
-      buildInfoCard(
-        'Horizontal Value',
-        '${standardDensity.horizontal}',
-      ),
-      buildInfoCard(
-        'Vertical Value',
-        '${standardDensity.vertical}',
-      ),
+      buildInfoCard('Horizontal Value', '${standardDensity.horizontal}'),
+      buildInfoCard('Vertical Value', '${standardDensity.vertical}'),
       buildInfoCard(
         'Use Case',
         'General purpose default spacing for most applications.',
@@ -207,14 +197,8 @@ Widget buildCompactDensitySection() {
         'Description',
         'Reduces spacing to fit more content on screen.',
       ),
-      buildInfoCard(
-        'Horizontal Value',
-        '${compactDensity.horizontal}',
-      ),
-      buildInfoCard(
-        'Vertical Value',
-        '${compactDensity.vertical}',
-      ),
+      buildInfoCard('Horizontal Value', '${compactDensity.horizontal}'),
+      buildInfoCard('Vertical Value', '${compactDensity.vertical}'),
       buildInfoCard(
         'Use Case',
         'Data-dense interfaces, desktop applications, power users.',
@@ -261,14 +245,8 @@ Widget buildComfortableDensitySection() {
         'Description',
         'Increases spacing for touch-friendly interfaces.',
       ),
-      buildInfoCard(
-        'Horizontal Value',
-        '${comfortableDensity.horizontal}',
-      ),
-      buildInfoCard(
-        'Vertical Value',
-        '${comfortableDensity.vertical}',
-      ),
+      buildInfoCard('Horizontal Value', '${comfortableDensity.horizontal}'),
+      buildInfoCard('Vertical Value', '${comfortableDensity.vertical}'),
       buildInfoCard(
         'Use Case',
         'Touch interfaces, accessibility, mobile devices.',
@@ -527,10 +505,7 @@ Widget buildBaseSizeAdjustmentSection() {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                names[index],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text(names[index], style: TextStyle(fontWeight: FontWeight.bold)),
               Row(
                 children: [
                   Container(
@@ -709,10 +684,7 @@ Widget buildButtonDensitySection() {
             children: [
               Text(
                 '${names[index]} Buttons',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               SizedBox(height: 12),
               Wrap(
@@ -875,10 +847,7 @@ Widget buildIconDensitySection() {
             children: [
               Text(
                 '${names[index]} Icon Buttons',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               SizedBox(height: 12),
               Row(
@@ -1088,9 +1057,7 @@ Widget buildDensityComparisonGrid() {
               ),
             ),
             Expanded(
-              child: Center(
-                child: Text('${VisualDensity.compact.horizontal}'),
-              ),
+              child: Center(child: Text('${VisualDensity.compact.horizontal}')),
             ),
             Expanded(
               child: Center(
@@ -1115,14 +1082,10 @@ Widget buildDensityComparisonGrid() {
               ),
             ),
             Expanded(
-              child: Center(
-                child: Text('${VisualDensity.compact.vertical}'),
-              ),
+              child: Center(child: Text('${VisualDensity.compact.vertical}')),
             ),
             Expanded(
-              child: Center(
-                child: Text('${VisualDensity.standard.vertical}'),
-              ),
+              child: Center(child: Text('${VisualDensity.standard.vertical}')),
             ),
             Expanded(
               child: Center(
@@ -1252,10 +1215,7 @@ Widget buildCustomDensityShowcase() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
@@ -1336,25 +1296,33 @@ Widget buildCopyWithSection() {
               'Original (standard):',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('horizontal: ${original.horizontal}, vertical: ${original.vertical}'),
+            Text(
+              'horizontal: ${original.horizontal}, vertical: ${original.vertical}',
+            ),
             SizedBox(height: 12),
             Text(
               'copyWith(horizontal: -2.0):',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('horizontal: ${modified1.horizontal}, vertical: ${modified1.vertical}'),
+            Text(
+              'horizontal: ${modified1.horizontal}, vertical: ${modified1.vertical}',
+            ),
             SizedBox(height: 12),
             Text(
               'copyWith(vertical: 2.0):',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('horizontal: ${modified2.horizontal}, vertical: ${modified2.vertical}'),
+            Text(
+              'horizontal: ${modified2.horizontal}, vertical: ${modified2.vertical}',
+            ),
             SizedBox(height: 12),
             Text(
               'copyWith(horizontal: -2.0, vertical: 2.0):',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('horizontal: ${modified3.horizontal}, vertical: ${modified3.vertical}'),
+            Text(
+              'horizontal: ${modified3.horizontal}, vertical: ${modified3.vertical}',
+            ),
           ],
         ),
       ),
@@ -1433,10 +1401,7 @@ Widget buildDensityVisualization() {
       children: [
         Text(
           'Visual Density Scale',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         SizedBox(height: 16),
         Row(
@@ -1545,7 +1510,7 @@ Widget buildDensityVisualization() {
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('Starting VisualDensity deep demo');
 
   Widget result = MaterialApp(

@@ -304,7 +304,9 @@ Widget buildActiveInactiveColorGrid() {
               data: SliderThemeData(
                 trackShape: RoundedRectSliderTrackShape(),
                 activeTrackColor: activeColors[c],
-                inactiveTrackColor: activeColors[c].withAlpha(inactiveAlphas[c]),
+                inactiveTrackColor: activeColors[c].withAlpha(
+                  inactiveAlphas[c],
+                ),
                 thumbColor: activeColors[c].shade700,
                 trackHeight: 6,
                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
@@ -401,8 +403,12 @@ Widget buildSliderThemeConfiguration() {
   for (t = 0; t < themeNames.length; t = t + 1) {
     Color bgColor = isDarkThemes[t] ? Colors.grey.shade900 : Colors.white;
     Color textColor = isDarkThemes[t] ? Colors.white : Colors.black;
-    Color subTextColor = isDarkThemes[t] ? Colors.grey.shade400 : Colors.grey.shade600;
-    Color borderColor = isDarkThemes[t] ? Colors.grey.shade700 : Colors.grey.shade300;
+    Color subTextColor = isDarkThemes[t]
+        ? Colors.grey.shade400
+        : Colors.grey.shade600;
+    Color borderColor = isDarkThemes[t]
+        ? Colors.grey.shade700
+        : Colors.grey.shade300;
 
     themeWidgets.add(
       Container(
@@ -418,11 +424,7 @@ Widget buildSliderThemeConfiguration() {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.tune,
-                  color: primaryColors[t],
-                  size: 20,
-                ),
+                Icon(Icons.tune, color: primaryColors[t], size: 20),
                 SizedBox(width: 10),
                 Text(
                   themeNames[t],
@@ -455,7 +457,9 @@ Widget buildSliderThemeConfiguration() {
               data: SliderThemeData(
                 trackShape: RoundedRectSliderTrackShape(),
                 activeTrackColor: primaryColors[t],
-                inactiveTrackColor: primaryColors[t].withAlpha(isDarkThemes[t] ? 80 : 50),
+                inactiveTrackColor: primaryColors[t].withAlpha(
+                  isDarkThemes[t] ? 80 : 50,
+                ),
                 thumbColor: primaryColors[t],
                 trackHeight: trackHeights[t],
                 thumbShape: RoundSliderThumbShape(
@@ -580,7 +584,10 @@ Widget buildRoundedEndsVisualization() {
                     SizedBox(height: 4),
                     Text(
                       'Default shape with soft ends',
-                      style: TextStyle(fontSize: 11, color: Colors.blue.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue.shade600,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -598,11 +605,7 @@ Widget buildRoundedEndsVisualization() {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.circle,
-                      color: Colors.green.shade700,
-                      size: 40,
-                    ),
+                    Icon(Icons.circle, color: Colors.green.shade700, size: 40),
                     SizedBox(height: 8),
                     Text(
                       'Thumb Centered',
@@ -615,7 +618,10 @@ Widget buildRoundedEndsVisualization() {
                     SizedBox(height: 4),
                     Text(
                       'Thumb aligns on track edge',
-                      style: TextStyle(fontSize: 11, color: Colors.green.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.green.shade600,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -673,14 +679,8 @@ Widget buildTrackShapeComparison() {
     'RoundedRectSliderTrackShape (Default)',
     'RectangularSliderTrackShape',
   ];
-  List<IconData> shapeIcons = [
-    Icons.rounded_corner,
-    Icons.rectangle_outlined,
-  ];
-  List<MaterialColor> shapeColors = [
-    Colors.indigo,
-    Colors.orange,
-  ];
+  List<IconData> shapeIcons = [Icons.rounded_corner, Icons.rectangle_outlined];
+  List<MaterialColor> shapeColors = [Colors.indigo, Colors.orange];
 
   List<Widget> comparisonItems = [];
   int s = 0;
@@ -735,7 +735,10 @@ Widget buildTrackShapeComparison() {
                       SizedBox(height: 2),
                       Text(
                         s == 0 ? 'Rounded end caps' : 'Flat rectangular ends',
-                        style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ],
                   ),
@@ -854,10 +857,7 @@ Widget buildSliderUseCases() {
                 SizedBox(width: 12),
                 Text(
                   useCaseNames[u],
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 Expanded(child: SizedBox()),
                 Text(
@@ -978,7 +978,10 @@ Widget buildThumbCompatibility() {
                     ),
                     Text(
                       'Radius: ${thumbRadii[th].toInt()}px',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -996,7 +999,9 @@ Widget buildThumbCompatibility() {
                   enabledThumbRadius: thumbRadii[th],
                 ),
                 overlayColor: thumbColors[th].withAlpha(30),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: thumbRadii[th] * 2),
+                overlayShape: RoundSliderOverlayShape(
+                  overlayRadius: thumbRadii[th] * 2,
+                ),
               ),
               child: Slider(
                 value: valuesForThumbs[th],
@@ -1122,11 +1127,7 @@ Widget buildDisabledStateExample() {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.block,
-                    color: Colors.grey.shade500,
-                    size: 20,
-                  ),
+                  Icon(Icons.block, color: Colors.grey.shade500, size: 20),
                   SizedBox(width: 8),
                   Text(
                     'Disabled Slider',
@@ -1148,12 +1149,7 @@ Widget buildDisabledStateExample() {
                   trackHeight: 6,
                   thumbShape: RoundSliderThumbShape(disabledThumbRadius: 8),
                 ),
-                child: Slider(
-                  value: 60.0,
-                  min: 0,
-                  max: 100,
-                  onChanged: null,
-                ),
+                child: Slider(value: 60.0, min: 0, max: 100, onChanged: null),
               ),
             ],
           ),
@@ -1400,7 +1396,7 @@ Widget buildTrackProperties() {
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('Starting RoundedRectSliderTrackShape deep demo');
 
   Widget result = MaterialApp(

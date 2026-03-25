@@ -95,10 +95,7 @@ Widget _buildMainHeader() {
         SizedBox(height: 8),
         Text(
           'Layer displaying performance statistics for debugging',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white.withAlpha(220),
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.white.withAlpha(220)),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 12),
@@ -225,10 +222,7 @@ Widget _buildPropertyRow(String property, String description, Color color) {
           width: 8,
           height: 8,
           margin: EdgeInsets.only(top: 6),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 12),
         SizedBox(
@@ -246,10 +240,7 @@ Widget _buildPropertyRow(String property, String description, Color color) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 13,
-              color: _textMedium,
-            ),
+            style: TextStyle(fontSize: 13, color: _textMedium),
           ),
         ),
       ],
@@ -323,10 +314,7 @@ Widget _buildBitMaskRow(int bit, String name, String description, Color color) {
               SizedBox(height: 3),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _textMedium,
-                ),
+                style: TextStyle(fontSize: 12, color: _textMedium),
               ),
             ],
           ),
@@ -336,7 +324,12 @@ Widget _buildBitMaskRow(int bit, String name, String description, Color color) {
   );
 }
 
-Widget _buildThresholdIndicator(int value, String label, Color color, bool isActive) {
+Widget _buildThresholdIndicator(
+  int value,
+  String label,
+  Color color,
+  bool isActive,
+) {
   return Container(
     margin: EdgeInsets.only(right: 10),
     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -397,16 +390,16 @@ Widget _buildOverviewSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('PerformanceOverlayLayer Overview', Icons.info_outline, _primaryColor),
+        _buildSectionHeader(
+          'PerformanceOverlayLayer Overview',
+          Icons.info_outline,
+          _primaryColor,
+        ),
         Text(
           'PerformanceOverlayLayer is a specialized compositing layer that renders '
           'performance statistics directly into the scene. It integrates with Flutter\'s '
           'Skia-based rendering engine to provide real-time metrics visualization.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Row(
@@ -477,9 +470,21 @@ Widget _buildOverviewSection() {
                 ],
               ),
               SizedBox(height: 12),
-              _buildPropertyRow('Layer', 'Base class for all compositing layers', _primaryColor),
-              _buildPropertyRow('ContainerLayer', 'Layer that can contain child layers', _primaryColor),
-              _buildPropertyRow('PerformanceOverlayLayer', 'Displays performance metrics', _primaryLight),
+              _buildPropertyRow(
+                'Layer',
+                'Base class for all compositing layers',
+                _primaryColor,
+              ),
+              _buildPropertyRow(
+                'ContainerLayer',
+                'Layer that can contain child layers',
+                _primaryColor,
+              ),
+              _buildPropertyRow(
+                'PerformanceOverlayLayer',
+                'Displays performance metrics',
+                _primaryLight,
+              ),
             ],
           ),
         ),
@@ -533,11 +538,7 @@ Widget _buildOptionsMaskSection() {
           'The optionsMask is a bitmask integer that controls which performance metrics '
           'are displayed in the overlay. Each bit corresponds to a specific performance '
           'visualization option.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Container(
@@ -732,16 +733,16 @@ Widget _buildRasterizerThresholdSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('rasterizerThreshold Property', Icons.timer, _warningColor),
+        _buildSectionHeader(
+          'rasterizerThreshold Property',
+          Icons.timer,
+          _warningColor,
+        ),
         Text(
           'The rasterizerThreshold property sets the frame budget threshold in milliseconds. '
           'Frames exceeding this threshold are visually highlighted, helping identify '
           'performance bottlenecks in the rendering pipeline.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Container(
@@ -771,15 +772,27 @@ Widget _buildRasterizerThresholdSection() {
               Row(
                 children: [
                   Expanded(
-                    child: _buildFrameBudgetCard('60 FPS', '16.67 ms', _successColor),
+                    child: _buildFrameBudgetCard(
+                      '60 FPS',
+                      '16.67 ms',
+                      _successColor,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: _buildFrameBudgetCard('120 FPS', '8.33 ms', _primaryColor),
+                    child: _buildFrameBudgetCard(
+                      '120 FPS',
+                      '8.33 ms',
+                      _primaryColor,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: _buildFrameBudgetCard('30 FPS', '33.33 ms', _errorColor),
+                    child: _buildFrameBudgetCard(
+                      '30 FPS',
+                      '33.33 ms',
+                      _errorColor,
+                    ),
                   ),
                 ],
               ),
@@ -912,16 +925,16 @@ Widget _buildCheckerboardSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('checkerboardRasterCacheImages', Icons.grid_4x4, _purpleColor),
+        _buildSectionHeader(
+          'checkerboardRasterCacheImages',
+          Icons.grid_4x4,
+          _purpleColor,
+        ),
         Text(
           'When enabled, checkerboardRasterCacheImages overlays a checkerboard pattern '
           'on images that are being cached by the raster cache. This helps identify '
           'which images are benefiting from caching optimization.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Row(
@@ -970,9 +983,18 @@ Widget _buildCheckerboardSection() {
                 ],
               ),
               SizedBox(height: 12),
-              _buildBenefitRow('Reduced GPU work', 'Cached images skip re-rasterization'),
-              _buildBenefitRow('Faster compositing', 'Pre-rendered textures composite quickly'),
-              _buildBenefitRow('Memory tradeoff', 'Uses GPU memory to store cached images'),
+              _buildBenefitRow(
+                'Reduced GPU work',
+                'Cached images skip re-rasterization',
+              ),
+              _buildBenefitRow(
+                'Faster compositing',
+                'Pre-rendered textures composite quickly',
+              ),
+              _buildBenefitRow(
+                'Memory tradeoff',
+                'Uses GPU memory to store cached images',
+              ),
             ],
           ),
         ),
@@ -1003,7 +1025,12 @@ Widget _buildCheckerboardSection() {
   );
 }
 
-Widget _buildCheckerStateCard(String title, String description, bool enabled, IconData icon) {
+Widget _buildCheckerStateCard(
+  String title,
+  String description,
+  bool enabled,
+  IconData icon,
+) {
   Color color = enabled ? _purpleColor : _textLight;
   return Container(
     padding: EdgeInsets.all(14),
@@ -1030,10 +1057,7 @@ Widget _buildCheckerStateCard(String title, String description, bool enabled, Ic
         SizedBox(height: 6),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 11,
-            color: _textMedium,
-          ),
+          style: TextStyle(fontSize: 11, color: _textMedium),
           textAlign: TextAlign.center,
         ),
       ],
@@ -1063,10 +1087,7 @@ Widget _buildBenefitRow(String title, String description) {
               ),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _textMedium,
-                ),
+                style: TextStyle(fontSize: 11, color: _textMedium),
               ),
             ],
           ),
@@ -1146,9 +1167,7 @@ Widget _buildSimpleCheckerboard() {
         int row = index ~/ 8;
         int col = index % 8;
         bool isEven = (row + col) % 2 == 0;
-        return Container(
-          color: isEven ? _purpleColor : Colors.transparent,
-        );
+        return Container(color: isEven ? _purpleColor : Colors.transparent);
       },
     ),
   );
@@ -1175,16 +1194,16 @@ Widget _buildVisualOverlaySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('Visual Overlay Representation', Icons.bar_chart, _tealColor),
+        _buildSectionHeader(
+          'Visual Overlay Representation',
+          Icons.bar_chart,
+          _tealColor,
+        ),
         Text(
           'The performance overlay displays two main sections: GPU thread timing at '
           'the top and UI thread timing at the bottom. Each section shows a histogram '
           'of recent frame times with color coding for performance status.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         _buildOverlayDiagram(),
@@ -1200,11 +1219,25 @@ Widget _buildVisualOverlaySection() {
         SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildColorIndicator('Green', 'Under budget', _successColor)),
+            Expanded(
+              child: _buildColorIndicator(
+                'Green',
+                'Under budget',
+                _successColor,
+              ),
+            ),
             SizedBox(width: 10),
-            Expanded(child: _buildColorIndicator('Yellow', 'Near budget', _warningColor)),
+            Expanded(
+              child: _buildColorIndicator(
+                'Yellow',
+                'Near budget',
+                _warningColor,
+              ),
+            ),
             SizedBox(width: 10),
-            Expanded(child: _buildColorIndicator('Red', 'Over budget', _errorColor)),
+            Expanded(
+              child: _buildColorIndicator('Red', 'Over budget', _errorColor),
+            ),
           ],
         ),
         SizedBox(height: 20),
@@ -1233,8 +1266,14 @@ Widget _buildVisualOverlaySection() {
               ),
               SizedBox(height: 12),
               _buildReadingGuideRow('Bar Height', 'Frame time duration'),
-              _buildReadingGuideRow('Horizontal Line', 'Target frame budget (16.67ms)'),
-              _buildReadingGuideRow('Bars Above Line', 'Frames that missed budget'),
+              _buildReadingGuideRow(
+                'Horizontal Line',
+                'Target frame budget (16.67ms)',
+              ),
+              _buildReadingGuideRow(
+                'Bars Above Line',
+                'Frames that missed budget',
+              ),
               _buildReadingGuideRow('Scrolling Graph', 'Recent frame history'),
             ],
           ),
@@ -1287,13 +1326,7 @@ Widget _buildOverlayBarSection(String label, Color color) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        label,
-        style: TextStyle(
-          color: Colors.white70,
-          fontSize: 10,
-        ),
-      ),
+      Text(label, style: TextStyle(color: Colors.white70, fontSize: 10)),
       SizedBox(height: 6),
       Stack(
         children: [
@@ -1308,10 +1341,7 @@ Widget _buildOverlayBarSection(String label, Color color) {
             top: 24,
             left: 0,
             right: 0,
-            child: Container(
-              height: 1,
-              color: Colors.white38,
-            ),
+            child: Container(height: 1, color: Colors.white38),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1381,13 +1411,7 @@ Widget _buildColorIndicator(String label, String meaning, Color color) {
                   color: color,
                 ),
               ),
-              Text(
-                meaning,
-                style: TextStyle(
-                  fontSize: 9,
-                  color: _textMedium,
-                ),
-              ),
+              Text(meaning, style: TextStyle(fontSize: 9, color: _textMedium)),
             ],
           ),
         ),
@@ -1416,10 +1440,7 @@ Widget _buildReadingGuideRow(String term, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 12,
-              color: _textMedium,
-            ),
+            style: TextStyle(fontSize: 12, color: _textMedium),
           ),
         ),
       ],
@@ -1448,16 +1469,16 @@ Widget _buildWidgetDemosSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('PerformanceOverlay Widget Demos', Icons.widgets, _successColor),
+        _buildSectionHeader(
+          'PerformanceOverlay Widget Demos',
+          Icons.widgets,
+          _successColor,
+        ),
         Text(
           'The PerformanceOverlay widget provides a convenient way to add performance '
           'statistics display to your Flutter application. It wraps the underlying '
           'PerformanceOverlayLayer and provides widget-friendly configuration.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         _buildDemoCard(
@@ -1472,12 +1493,12 @@ Widget _buildWidgetDemosSection() {
           'Rasterizer Stats Only',
           'Displays GPU thread timing histogram',
           'PerformanceOverlay(\n'
-          '  optionsMask:\n'
-          '    PerformanceOverlayOption\n'
-          '      .displayRasterizerStatistics.index |\n'
-          '    PerformanceOverlayOption\n'
-          '      .visualizeRasterizerStatistics.index,\n'
-          ')',
+              '  optionsMask:\n'
+              '    PerformanceOverlayOption\n'
+              '      .displayRasterizerStatistics.index |\n'
+              '    PerformanceOverlayOption\n'
+              '      .visualizeRasterizerStatistics.index,\n'
+              ')',
           Icons.memory,
           _successColor,
         ),
@@ -1486,12 +1507,12 @@ Widget _buildWidgetDemosSection() {
           'Engine Stats Only',
           'Displays UI thread timing histogram',
           'PerformanceOverlay(\n'
-          '  optionsMask:\n'
-          '    PerformanceOverlayOption\n'
-          '      .displayEngineStatistics.index |\n'
-          '    PerformanceOverlayOption\n'
-          '      .visualizeEngineStatistics.index,\n'
-          ')',
+              '  optionsMask:\n'
+              '    PerformanceOverlayOption\n'
+              '      .displayEngineStatistics.index |\n'
+              '    PerformanceOverlayOption\n'
+              '      .visualizeEngineStatistics.index,\n'
+              ')',
           Icons.speed,
           _accentColor,
         ),
@@ -1507,7 +1528,11 @@ Widget _buildWidgetDemosSection() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.integration_instructions, color: _successColor, size: 20),
+                  Icon(
+                    Icons.integration_instructions,
+                    color: _successColor,
+                    size: 20,
+                  ),
                   SizedBox(width: 10),
                   Text(
                     'Integration Patterns',
@@ -1570,7 +1595,13 @@ Widget _buildWidgetDemosSection() {
   );
 }
 
-Widget _buildDemoCard(String title, String description, String code, IconData icon, Color color) {
+Widget _buildDemoCard(
+  String title,
+  String description,
+  String code,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -1606,10 +1637,7 @@ Widget _buildDemoCard(String title, String description, String code, IconData ic
                   ),
                   Text(
                     description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: _textMedium,
-                    ),
+                    style: TextStyle(fontSize: 12, color: _textMedium),
                   ),
                 ],
               ),
@@ -1693,16 +1721,16 @@ Widget _buildOffscreenLayersSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('checkerboardOffscreenLayers', Icons.layers_clear, _errorColor),
+        _buildSectionHeader(
+          'checkerboardOffscreenLayers',
+          Icons.layers_clear,
+          _errorColor,
+        ),
         Text(
           'The checkerboardOffscreenLayers property highlights layers that are being '
           'rendered to an offscreen buffer before being composited. This can help '
           'identify unnecessary offscreen rendering that impacts performance.',
-          style: TextStyle(
-            fontSize: 14,
-            color: _textMedium,
-            height: 1.6,
-          ),
+          style: TextStyle(fontSize: 14, color: _textMedium, height: 1.6),
         ),
         SizedBox(height: 20),
         Container(
@@ -1786,10 +1814,7 @@ Widget _buildTriggerRow(String widget, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 12,
-              color: _textMedium,
-            ),
+            style: TextStyle(fontSize: 12, color: _textMedium),
           ),
         ),
       ],
@@ -1797,7 +1822,12 @@ Widget _buildTriggerRow(String widget, String description) {
   );
 }
 
-Widget _buildComparisonCard(String title, String description, IconData icon, Color color) {
+Widget _buildComparisonCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(14),
     decoration: BoxDecoration(
@@ -1820,10 +1850,7 @@ Widget _buildComparisonCard(String title, String description, IconData icon, Col
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 10,
-            color: _textMedium,
-          ),
+          style: TextStyle(fontSize: 10, color: _textMedium),
           textAlign: TextAlign.center,
         ),
       ],
@@ -1848,7 +1875,11 @@ Widget _buildBestPracticesSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader('Best Practices', Icons.check_circle_outline, _primaryColor),
+        _buildSectionHeader(
+          'Best Practices',
+          Icons.check_circle_outline,
+          _primaryColor,
+        ),
         _buildPracticeItem(
           'Debug Mode Only',
           'Only enable performance overlay in debug builds to avoid overhead in production.',
@@ -1884,7 +1915,12 @@ Widget _buildBestPracticesSection() {
   );
 }
 
-Widget _buildPracticeItem(String title, String description, IconData icon, Color color) {
+Widget _buildPracticeItem(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.only(bottom: 14),
     child: Row(
@@ -1914,11 +1950,7 @@ Widget _buildPracticeItem(String title, String description, IconData icon, Color
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: _textMedium,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 13, color: _textMedium, height: 1.4),
               ),
             ],
           ),
@@ -1932,7 +1964,7 @@ Widget _buildPracticeItem(String title, String description, IconData icon, Color
 // MAIN BUILD FUNCTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget build() {
+dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(

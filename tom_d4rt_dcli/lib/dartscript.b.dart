@@ -1,16 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-03-12T17:03:42.367055
+// Generated: 2026-03-25T10:02:09.821649
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'src\bridges\cli_api_bridges.b.dart' as cli_api_bridges;
-import 'src\bridges\tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
-import 'src\bridges\dcli_bridges.b.dart' as dcli_bridges;
-import 'src\bridges\path_bridges.b.dart' as path_bridges;
-import 'src\bridges\tom_chattools_bridges.b.dart' as tom_chattools_bridges;
+import 'src/bridges/cli_api_bridges.b.dart' as cli_api_bridges;
+import 'src/bridges/tom_vscode_scripting_api_bridges.b.dart' as tom_vscode_scripting_api_bridges;
+import 'src/bridges/dcli_bridges.b.dart' as dcli_bridges;
+import 'src/bridges/path_bridges.b.dart' as path_bridges;
+import 'src/bridges/tom_chattools_bridges.b.dart' as tom_chattools_bridges;
+import 'src/bridges/relaxers.b.dart' as relaxer_factories;
 
 /// Combined bridge registration for tom_d4rt_dcli.
 class TomD4rtDcliBridge {
@@ -58,6 +59,11 @@ class TomD4rtDcliBridge {
     for (final barrel in tom_chattools_bridges.TomChattoolsBridge.subPackageBarrels()) {
       tom_chattools_bridges.TomChattoolsBridge.registerBridges(d4rt, barrel);
     }
+
+    // RC-2: Register generic constructor factories
+    relaxer_factories.registerGenericConstructors();
+    // GEN-079: Register relaxer wrapper factories
+    relaxer_factories.registerRelaxers();
   }
 
   /// Get import block for all modules.

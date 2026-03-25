@@ -10,12 +10,15 @@ library;
 import 'dart:ui'
     as ui
     show FontStyle, FontWeight, StrutStyle, TextLeadingDistribution, TextStyle;
+import 'dart:ui' show Offset;
 
 import 'package:flutter/foundation.dart'
     show ChangeNotifier, Key, ValueKey, ValueNotifier;
 import 'package:flutter/material.dart'
-    show DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
+    show ButtonSegment, DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
+import 'package:flutter/rendering.dart'
+    show BoxConstraints;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
@@ -32,6 +35,8 @@ import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
+
+import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
 
 /// Register all runtime registrations (interface proxies, type coercions,
 /// generic constructor factories).
@@ -458,6 +463,161 @@ void _registerSupplementaryMethods() {
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     return cn.hasListeners;
   });
+
+  // ---------------------------------------------------------------------------
+  // RC-7: State<T> supplementary methods
+  // ---------------------------------------------------------------------------
+  // State.widget — getter exposing the StatefulWidget instance.
+  // When an interpreted State subclass accesses `widget`, the interpreter
+  // resolves via bridgedSuperObject chain. The native _InterpretedState's
+  // `widget` returns _InterpretedStatefulWidget which holds the original
+  // interpreted widget instance.
+  D4.registerSupplementaryMethod('State', 'widget', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is _InterpretedState) {
+      return target.widget._instance;
+    }
+    if (target is State) {
+      return target.widget;
+    }
+    return null;
+  });
+
+  // State.setState — triggers rebuild by calling setState on the native State.
+  D4.registerSupplementaryMethod('State', 'setState', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is _InterpretedState) {
+      // The positionalArgs[0] is the VoidCallback from the script.
+      // We call setState with a native closure that invokes the interpreted callback.
+      target.setState(() {
+        if (positionalArgs.isNotEmpty && positionalArgs[0] != null) {
+          final callback = positionalArgs[0];
+          if (callback is Function) {
+            callback();
+          }
+        }
+      });
+    }
+    return null;
+  });
+
+  // State.mounted — getter
+  D4.registerSupplementaryMethod('State', 'mounted', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is State) {
+      return target.mounted;
+    }
+    return false;
+  });
+
+  // State.context — getter
+  D4.registerSupplementaryMethod('State', 'context', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is State) {
+      return target.context;
+    }
+    return null;
+  });
+
+  // ---------------------------------------------------------------------------
+  // RC-7: MultiChildLayoutDelegate supplementary methods
+  // ---------------------------------------------------------------------------
+  // These methods are concrete (not abstract) on MultiChildLayoutDelegate and
+  // are called by interpreted performLayout() implementations. They delegate
+  // to the native proxy's super methods which access the actual layout children.
+
+  D4.registerSupplementaryMethod('MultiChildLayoutDelegate', 'hasChild', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is D4rtMultiChildLayoutDelegate) {
+      final childId = positionalArgs[0];
+      return target.hasChild(childId!);
+    }
+    // Fallback: use dynamic dispatch for other MultiChildLayoutDelegate subtypes
+    return (target as dynamic).hasChild(positionalArgs[0]);
+  });
+
+  D4.registerSupplementaryMethod('MultiChildLayoutDelegate', 'layoutChild', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is D4rtMultiChildLayoutDelegate) {
+      final childId = positionalArgs[0];
+      final constraints = D4.extractBridgedArg<BoxConstraints>(
+        positionalArgs[1],
+        'constraints',
+      );
+      return target.layoutChild(childId!, constraints);
+    }
+    // Fallback: use dynamic dispatch
+    return (target as dynamic).layoutChild(
+      positionalArgs[0],
+      D4.extractBridgedArg<BoxConstraints>(positionalArgs[1], 'constraints'),
+    );
+  });
+
+  D4.registerSupplementaryMethod('MultiChildLayoutDelegate', 'positionChild', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    if (target is D4rtMultiChildLayoutDelegate) {
+      final childId = positionalArgs[0];
+      final offset = D4.extractBridgedArg<Offset>(positionalArgs[1], 'offset');
+      target.positionChild(childId!, offset);
+    } else {
+      // Fallback: use dynamic dispatch
+      (target as dynamic).positionChild(
+        positionalArgs[0],
+        D4.extractBridgedArg<Offset>(positionalArgs[1], 'offset'),
+      );
+    }
+    return null;
+  });
+
+  // ---------------------------------------------------------------------------
+  // RC-7: SingleChildLayoutDelegate supplementary methods
+  // ---------------------------------------------------------------------------
+  D4.registerSupplementaryMethod('SingleChildLayoutDelegate', 'hasChild', (
+    visitor,
+    target,
+    positionalArgs,
+    namedArgs,
+    typeArgs,
+  ) {
+    // SingleChildLayoutDelegate doesn't have a hasChild method natively,
+    // but some scripts may assume it does. Return true as single-child always has child.
+    return true;
+  });
 }
 
 // =============================================================================
@@ -598,6 +758,63 @@ void _registerGenericWidgetReCreators() {
         trailingIcon: v.trailingIcon,
         enabled: v.enabled,
         style: v.style,
+      ),
+      _ => null,
+    };
+  });
+
+  // ButtonSegment<T> — Re-create with correct type parameter.
+  // Same pattern as DropdownMenuItem: script creates ButtonSegment without
+  // type args → bridge constructor produces ButtonSegment<dynamic> →
+  // coerceList<ButtonSegment<String>> fails (invariant generics).
+  D4.registerGenericTypeWrapper('ButtonSegment', (
+    Object value,
+    String innerTypeArg,
+  ) {
+    if (value is! ButtonSegment) return null;
+    final v = value;
+    return switch (innerTypeArg) {
+      'dynamic' || 'Object' || 'Object?' => ButtonSegment<dynamic>(
+        value: v.value,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
+      ),
+      'String' => ButtonSegment<String>(
+        value: v.value as String,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
+      ),
+      'int' => ButtonSegment<int>(
+        value: v.value as int,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
+      ),
+      'double' => ButtonSegment<double>(
+        value: v.value as double,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
+      ),
+      'bool' => ButtonSegment<bool>(
+        value: v.value as bool,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
+      ),
+      'num' => ButtonSegment<num>(
+        value: v.value as num,
+        icon: v.icon,
+        label: v.label,
+        tooltip: v.tooltip,
+        enabled: v.enabled,
       ),
       _ => null,
     };

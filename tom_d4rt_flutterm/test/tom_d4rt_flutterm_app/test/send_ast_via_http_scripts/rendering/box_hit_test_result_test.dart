@@ -1270,7 +1270,7 @@ BoxHitTestResult box = BoxHitTestResult.wrap(base);''',
 // MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════
 
-void main() {
+dynamic build(BuildContext context) {
   print('');
   print('══════════════════════════════════════════════════════════════════');
   print('  BoxHitTestResult Deep Demo');
@@ -1278,11 +1278,11 @@ void main() {
   print('══════════════════════════════════════════════════════════════════');
   print('');
 
-  runApp(BoxHitTestResultDemoApp());
+  return _BoxHitTestResultDemoApp();
 }
 
-class BoxHitTestResultDemoApp extends StatelessWidget {
-  const BoxHitTestResultDemoApp({super.key});
+class _BoxHitTestResultDemoApp extends StatelessWidget {
+  const _BoxHitTestResultDemoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1294,13 +1294,13 @@ class BoxHitTestResultDemoApp extends StatelessWidget {
         scaffoldBackgroundColor: _kSurfaceVariant,
         fontFamily: 'Roboto',
       ),
-      home: BoxHitTestResultDemoScreen(),
+      home: _BoxHitTestResultDemoScreen(),
     );
   }
 }
 
-class BoxHitTestResultDemoScreen extends StatelessWidget {
-  const BoxHitTestResultDemoScreen({super.key});
+class _BoxHitTestResultDemoScreen extends StatelessWidget {
+  const _BoxHitTestResultDemoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
