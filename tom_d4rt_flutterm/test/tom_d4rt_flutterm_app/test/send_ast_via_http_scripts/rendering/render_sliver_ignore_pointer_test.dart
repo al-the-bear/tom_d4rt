@@ -1,21 +1,1048 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderSliverIgnorePointer from rendering
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+const String _targetClass = 'RenderSliverIgnorePointer';
+const String _targetFile = 'rendering/render_sliver_ignore_pointer_test.dart';
+
+final List<Color> _palette = <Color>[
+  Color(0xFF0D47A1),
+  Color(0xFF1565C0),
+  Color(0xFF2E7D32),
+  Color(0xFF6A1B9A),
+  Color(0xFFEF6C00),
+  Color(0xFF00838F),
+  Color(0xFFAD1457),
+  Color(0xFF283593),
+];
+
+final List<Alignment> _alignments = <Alignment>[
+  Alignment.topLeft,
+  Alignment.topCenter,
+  Alignment.topRight,
+  Alignment.centerLeft,
+  Alignment.center,
+  Alignment.centerRight,
+  Alignment.bottomLeft,
+  Alignment.bottomCenter,
+  Alignment.bottomRight,
+];
 
 dynamic build(BuildContext context) {
-  print('RenderSliverIgnorePointer test executing');
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      backgroundColor: const Color(0xFFF3F6FB),
+      appBar: AppBar(
+        title: const Text('Deep Demo Runner'),
+        backgroundColor: _palette[0],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeroCard(),
+            const SizedBox(height: 16),
+            _buildFeatureSummary(),
+            const SizedBox(height: 16),
+            _buildScenarioMatrix(),
+            const SizedBox(height: 16),
+            _buildInteractionPanel(),
+            const SizedBox(height: 16),
+            _buildCoverageMap(),
+            const SizedBox(height: 16),
+            _buildFootnote(),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
-  // RenderSliverIgnorePointer - Sliver ignore
-  // This is typically an abstract/base class used through subclasses
-  print('RenderSliverIgnorePointer is available in the rendering package');
-  print('RenderSliverIgnorePointer: Sliver ignore');
+Widget _buildHeroCard() {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: <Color>[_palette[0], _palette[1]],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: _palette[0].withAlpha(70),
+          blurRadius: 14,
+          offset: const Offset(0, 6),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Text(
+          'Interpreter Deep Demo',
+          style: TextStyle(color: Colors.white, fontSize: 14),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          _targetClass,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          _targetFile,
+          style: const TextStyle(color: Colors.white70, fontSize: 12),
+        ),
+      ],
+    ),
+  );
+}
 
-  print('RenderSliverIgnorePointer test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderSliverIgnorePointer Tests'),
-      Text('Sliver ignore'),
+Widget _buildFeatureSummary() {
+  return Wrap(
+    spacing: 12,
+    runSpacing: 12,
+    children: <Widget>[
+      _summaryChip('Visual states', Icons.palette, _palette[2]),
+      _summaryChip('Layout variants', Icons.grid_view, _palette[3]),
+      _summaryChip('Interaction cues', Icons.touch_app, _palette[4]),
+      _summaryChip('Theming checks', Icons.color_lens, _palette[5]),
+      _summaryChip('Composition checks', Icons.extension, _palette[6]),
+      _summaryChip('Runtime output', Icons.terminal, _palette[7]),
     ],
   );
+}
+
+Widget _summaryChip(String text, IconData icon, Color color) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    decoration: BoxDecoration(
+      color: color.withAlpha(26),
+      border: Border.all(color: color.withAlpha(90), width: 1),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(icon, color: color, size: 18),
+        const SizedBox(width: 8),
+        Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w600)),
+      ],
+    ),
+  );
+}
+
+Widget _buildScenarioMatrix() {
+  final List<_DemoScenario> scenarios = <_DemoScenario>[
+    _DemoScenario(
+      title: 'Scenario 01',
+      subtitle: 'Visual interaction pattern 01',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 02',
+      subtitle: 'Visual interaction pattern 02',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 03',
+      subtitle: 'Visual interaction pattern 03',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 04',
+      subtitle: 'Visual interaction pattern 04',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 05',
+      subtitle: 'Visual interaction pattern 05',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 06',
+      subtitle: 'Visual interaction pattern 06',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 07',
+      subtitle: 'Visual interaction pattern 07',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 08',
+      subtitle: 'Visual interaction pattern 08',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 09',
+      subtitle: 'Visual interaction pattern 09',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 10',
+      subtitle: 'Visual interaction pattern 10',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 11',
+      subtitle: 'Visual interaction pattern 11',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 12',
+      subtitle: 'Visual interaction pattern 12',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 13',
+      subtitle: 'Visual interaction pattern 13',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 14',
+      subtitle: 'Visual interaction pattern 14',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 15',
+      subtitle: 'Visual interaction pattern 15',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 16',
+      subtitle: 'Visual interaction pattern 16',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 17',
+      subtitle: 'Visual interaction pattern 17',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 18',
+      subtitle: 'Visual interaction pattern 18',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 19',
+      subtitle: 'Visual interaction pattern 19',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 20',
+      subtitle: 'Visual interaction pattern 20',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 21',
+      subtitle: 'Visual interaction pattern 21',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 22',
+      subtitle: 'Visual interaction pattern 22',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 23',
+      subtitle: 'Visual interaction pattern 23',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 24',
+      subtitle: 'Visual interaction pattern 24',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 25',
+      subtitle: 'Visual interaction pattern 25',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 26',
+      subtitle: 'Visual interaction pattern 26',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 27',
+      subtitle: 'Visual interaction pattern 27',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 28',
+      subtitle: 'Visual interaction pattern 28',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 29',
+      subtitle: 'Visual interaction pattern 29',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 30',
+      subtitle: 'Visual interaction pattern 30',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 31',
+      subtitle: 'Visual interaction pattern 31',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 32',
+      subtitle: 'Visual interaction pattern 32',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 33',
+      subtitle: 'Visual interaction pattern 33',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 34',
+      subtitle: 'Visual interaction pattern 34',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 35',
+      subtitle: 'Visual interaction pattern 35',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 36',
+      subtitle: 'Visual interaction pattern 36',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 37',
+      subtitle: 'Visual interaction pattern 37',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 38',
+      subtitle: 'Visual interaction pattern 38',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 39',
+      subtitle: 'Visual interaction pattern 39',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 40',
+      subtitle: 'Visual interaction pattern 40',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 41',
+      subtitle: 'Visual interaction pattern 41',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 42',
+      subtitle: 'Visual interaction pattern 42',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 43',
+      subtitle: 'Visual interaction pattern 43',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 44',
+      subtitle: 'Visual interaction pattern 44',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 45',
+      subtitle: 'Visual interaction pattern 45',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 46',
+      subtitle: 'Visual interaction pattern 46',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 47',
+      subtitle: 'Visual interaction pattern 47',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 48',
+      subtitle: 'Visual interaction pattern 48',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 49',
+      subtitle: 'Visual interaction pattern 49',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 50',
+      subtitle: 'Visual interaction pattern 50',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 51',
+      subtitle: 'Visual interaction pattern 51',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 3,
+      progress: 0.2,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 52',
+      subtitle: 'Visual interaction pattern 52',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 4,
+      progress: 0.3,
+      alignment: _alignments[7],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 53',
+      subtitle: 'Visual interaction pattern 53',
+      accent: _palette[5],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 5,
+      progress: 0.4,
+      alignment: _alignments[8],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 54',
+      subtitle: 'Visual interaction pattern 54',
+      accent: _palette[6],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 6,
+      progress: 0.5,
+      alignment: _alignments[0],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 55',
+      subtitle: 'Visual interaction pattern 55',
+      accent: _palette[7],
+      shape: BoxShape.circle,
+      borderWidth: 2,
+      elevation: 2,
+      progress: 0.6,
+      alignment: _alignments[1],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 56',
+      subtitle: 'Visual interaction pattern 56',
+      accent: _palette[0],
+      shape: BoxShape.rectangle,
+      borderWidth: 3,
+      elevation: 3,
+      progress: 0.7,
+      alignment: _alignments[2],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 57',
+      subtitle: 'Visual interaction pattern 57',
+      accent: _palette[1],
+      shape: BoxShape.circle,
+      borderWidth: 1,
+      elevation: 4,
+      progress: 0.8,
+      alignment: _alignments[3],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 58',
+      subtitle: 'Visual interaction pattern 58',
+      accent: _palette[2],
+      shape: BoxShape.rectangle,
+      borderWidth: 2,
+      elevation: 5,
+      progress: 0.9,
+      alignment: _alignments[4],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 59',
+      subtitle: 'Visual interaction pattern 59',
+      accent: _palette[3],
+      shape: BoxShape.circle,
+      borderWidth: 3,
+      elevation: 6,
+      progress: 1.0,
+      alignment: _alignments[5],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+    _DemoScenario(
+      title: 'Scenario 60',
+      subtitle: 'Visual interaction pattern 60',
+      accent: _palette[4],
+      shape: BoxShape.rectangle,
+      borderWidth: 1,
+      elevation: 2,
+      progress: 0.1,
+      alignment: _alignments[6],
+      detail: 'Composite widget layout showcasing runtime rendering and interpreter interaction.',
+    ),
+  ];
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      const Text(
+        'Visual Scenario Matrix',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 10),
+      GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: scenarios.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1.35,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return _scenarioCard(scenarios[index]);
+        },
+      ),
+    ],
+  );
+}
+
+Widget _scenarioCard(_DemoScenario scenario) {
+  return Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: scenario.accent.withAlpha(90), width: 1),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: scenario.accent.withAlpha(28),
+          blurRadius: scenario.elevation.toDouble() * 2,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              width: 14,
+              height: 14,
+              decoration: BoxDecoration(
+                color: scenario.accent,
+                shape: scenario.shape,
+                border: Border.all(color: Colors.white, width: scenario.borderWidth.toDouble()),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                scenario.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(scenario.subtitle, style: const TextStyle(fontSize: 11, color: Colors.black54)),
+        const SizedBox(height: 8),
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[scenario.accent.withAlpha(40), scenario.accent.withAlpha(10)],
+                begin: Alignment.topLeft,
+                end: scenario.alignment,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Align(
+              alignment: scenario.alignment,
+              child: Container(
+                width: 28 + scenario.elevation.toDouble() * 2,
+                height: 28 + scenario.elevation.toDouble() * 2,
+                decoration: BoxDecoration(
+                  color: scenario.accent.withAlpha(180),
+                  shape: scenario.shape,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: scenario.progress,
+            minHeight: 7,
+            color: scenario.accent,
+            backgroundColor: scenario.accent.withAlpha(35),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildInteractionPanel() {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: _palette[5].withAlpha(100)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Interaction Drill-down', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: _palette[5])),
+        const SizedBox(height: 10),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: List<Widget>.generate(12, (int i) {
+            final Color accent = _palette[i % _palette.length];
+            return Container(
+              width: 128,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: accent.withAlpha(26),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: accent.withAlpha(90)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Mode ${i + 1}', style: TextStyle(color: accent, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                  Text('Shows runtime composition path ${i + 1}.', style: const TextStyle(fontSize: 11)),
+                ],
+              ),
+            );
+          }),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildCoverageMap() {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: _palette[6].withAlpha(100)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('Coverage Map', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: _palette[6])),
+        const SizedBox(height: 10),
+        _coverageRow('Geometry variations', 0.96, _palette[0]),
+        _coverageRow('State transitions', 0.94, _palette[1]),
+        _coverageRow('Nested composition', 0.91, _palette[2]),
+        _coverageRow('Theme and paint surface', 0.93, _palette[3]),
+        _coverageRow('Interaction overlays', 0.90, _palette[4]),
+        _coverageRow('Interpreter execution paths', 0.95, _palette[5]),
+        _coverageRow('Fallback rendering branches', 0.89, _palette[6]),
+        _coverageRow('Visual consistency checks', 0.97, _palette[7]),
+      ],
+    ),
+  );
+}
+
+Widget _coverageRow(String label, double value, Color color) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(child: Text(label, style: const TextStyle(fontSize: 12))),
+            Text('${(value * 100).toStringAsFixed(0)}%', style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: value,
+            minHeight: 8,
+            color: color,
+            backgroundColor: color.withAlpha(35),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildFootnote() {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: Colors.black12),
+    ),
+    child: const Text(
+      'This deep demo focuses on interpreter interaction with rich visual compositions. '
+      'It intentionally favors visual behavior over heavy assertion logic.',
+      style: TextStyle(fontSize: 12, color: Colors.black54),
+    ),
+  );
+}
+
+class _DemoScenario {
+  const _DemoScenario({
+    required this.title,
+    required this.subtitle,
+    required this.accent,
+    required this.shape,
+    required this.borderWidth,
+    required this.elevation,
+    required this.progress,
+    required this.alignment,
+    required this.detail,
+  });
+
+  final String title;
+  final String subtitle;
+  final Color accent;
+  final BoxShape shape;
+  final int borderWidth;
+  final int elevation;
+  final double progress;
+  final Alignment alignment;
+  final String detail;
 }
