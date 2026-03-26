@@ -351,39 +351,57 @@ dynamic build(BuildContext context) {
           ),
           _boxLab(
             title: 'Scenario 7 — Overflow Safety Checklist',
-            intro: 'A practical checklist when using widthFactor/heightFactor > 1.0.',
+            intro:
+                'A practical checklist when using widthFactor/heightFactor > 1.0.',
             child: const Column(
               children: [
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.visibility, color: Color(0xFF1C3D87)),
-                  title: Text('Confirm clipping/overflow behavior is intentionally chosen.'),
+                  title: Text(
+                    'Confirm clipping/overflow behavior is intentionally chosen.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.format_line_spacing, color: Color(0xFF5C6BC0)),
-                  title: Text('Check neighboring widget spacing under enlarged factors.'),
+                  leading: Icon(
+                    Icons.format_line_spacing,
+                    color: Color(0xFF5C6BC0),
+                  ),
+                  title: Text(
+                    'Check neighboring widget spacing under enlarged factors.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.warning_amber, color: Color(0xFFE53935)),
-                  title: Text('Avoid accidental overflow in narrow form factor screens.'),
+                  title: Text(
+                    'Avoid accidental overflow in narrow form factor screens.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.phonelink_setup, color: Color(0xFF26A69A)),
-                  title: Text('Validate proportions on mobile, tablet, and desktop widths.'),
+                  leading: Icon(
+                    Icons.phonelink_setup,
+                    color: Color(0xFF26A69A),
+                  ),
+                  title: Text(
+                    'Validate proportions on mobile, tablet, and desktop widths.',
+                  ),
                 ),
               ],
             ),
           ),
           _boxLab(
             title: 'Scenario 8 — Final Constraint Audit',
-            intro: 'Closing prompt to ensure proportional layout intent is explicit.',
+            intro:
+                'Closing prompt to ensure proportional layout intent is explicit.',
             child: const ListTile(
               dense: true,
               leading: Icon(Icons.rule_folder, color: Color(0xFF1C3D87)),
-              title: Text('Document expected parent constraints beside each factor profile.'),
+              title: Text(
+                'Document expected parent constraints beside each factor profile.',
+              ),
             ),
           ),
           const SizedBox(height: 18),

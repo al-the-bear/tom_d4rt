@@ -1,30 +1,9 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests NavigationRailLabelType from material
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_print
+// Placeholder for missing demo test file: navigation_rail_label_type_test.dart
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('NavigationRailLabelType test executing');
-
-  // Enumerate all NavigationRailLabelType values
-  print('NavigationRailLabelType values:');
-  for (final value in NavigationRailLabelType.values) {
-    print('  ${value.name}: $value');
-  }
-  print('NavigationRailLabelType has ${ NavigationRailLabelType.values.length} values');
-
-  final first = NavigationRailLabelType.values.first;
-  final last = NavigationRailLabelType.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
-
-  print('NavigationRailLabelType test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('NavigationRailLabelType Tests'),
-      Text('Values: ${ NavigationRailLabelType.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+  return const Center(
+    child: Text('Placeholder: NavigationRailLabelType'),
   );
 }

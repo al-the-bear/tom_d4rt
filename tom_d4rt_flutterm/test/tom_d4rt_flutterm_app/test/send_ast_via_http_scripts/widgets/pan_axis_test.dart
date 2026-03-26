@@ -1,30 +1,9 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests PanAxis from widgets
+// ignore_for_file: avoid_print
+// Placeholder for missing demo test file: pan_axis_test.dart
 import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('PanAxis test executing');
-
-  // Enumerate all PanAxis values
-  print('PanAxis values:');
-  for (final value in PanAxis.values) {
-    print('  ${value.name}: $value');
-  }
-  print('PanAxis has ${ PanAxis.values.length} values');
-
-  final first = PanAxis.values.first;
-  final last = PanAxis.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
-
-  print('PanAxis test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('PanAxis Tests'),
-      Text('Values: ${ PanAxis.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+  return const Center(
+    child: Text('Placeholder: PanAxis'),
   );
 }

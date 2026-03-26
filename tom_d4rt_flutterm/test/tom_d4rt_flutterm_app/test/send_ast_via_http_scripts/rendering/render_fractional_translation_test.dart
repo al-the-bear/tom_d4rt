@@ -363,22 +363,33 @@ dynamic build(BuildContext context) {
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.grid_on, color: Color(0xFF6A42CC)),
-                  title: Text('Compare translated element with origin ghost outline.'),
+                  title: Text(
+                    'Compare translated element with origin ghost outline.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.pan_tool_alt, color: Color(0xFFE53935)),
-                  title: Text('Verify tap regions when using transformHitTests variations.'),
+                  title: Text(
+                    'Verify tap regions when using transformHitTests variations.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.aspect_ratio, color: Color(0xFF00897B)),
-                  title: Text('Validate behavior on different icon and chip sizes.'),
+                  title: Text(
+                    'Validate behavior on different icon and chip sizes.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.layers_outlined, color: Color(0xFFFB8C00)),
-                  title: Text('Check overlap/stack order against adjacent UI components.'),
+                  leading: Icon(
+                    Icons.layers_outlined,
+                    color: Color(0xFFFB8C00),
+                  ),
+                  title: Text(
+                    'Check overlap/stack order against adjacent UI components.',
+                  ),
                 ),
               ],
             ),

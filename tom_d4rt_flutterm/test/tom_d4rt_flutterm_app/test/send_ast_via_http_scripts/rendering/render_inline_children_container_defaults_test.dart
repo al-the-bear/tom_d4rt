@@ -1372,13 +1372,25 @@ Widget _buildInlineAccessibilityGuardrails(BuildContext context) {
       children: [
         Text(
           'Inline Span Guardrails',
-          style: TextStyle(color: Colors.tealAccent, fontSize: 15, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: Colors.tealAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         SizedBox(height: 10),
-        Text('• Keep inline widgets sized to surrounding line metrics to avoid clipping.'),
-        Text('• Pair decorative WidgetSpan items with text alternatives when needed.'),
-        Text('• Validate baseline alignment for mixed icon/chip typography compositions.'),
-        Text('• Test SelectableText behavior when multiple WidgetSpans share one paragraph.'),
+        Text(
+          '• Keep inline widgets sized to surrounding line metrics to avoid clipping.',
+        ),
+        Text(
+          '• Pair decorative WidgetSpan items with text alternatives when needed.',
+        ),
+        Text(
+          '• Validate baseline alignment for mixed icon/chip typography compositions.',
+        ),
+        Text(
+          '• Test SelectableText behavior when multiple WidgetSpans share one paragraph.',
+        ),
       ],
     ),
   );

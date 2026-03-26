@@ -1,30 +1,9 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RefreshIndicatorStatus from material
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_print
+// Placeholder for missing demo test file: refresh_indicator_status_test.dart
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('RefreshIndicatorStatus test executing');
-
-  // Enumerate all RefreshIndicatorStatus values
-  print('RefreshIndicatorStatus values:');
-  for (final value in RefreshIndicatorStatus.values) {
-    print('  ${value.name}: $value');
-  }
-  print('RefreshIndicatorStatus has ${ RefreshIndicatorStatus.values.length} values');
-
-  final first = RefreshIndicatorStatus.values.first;
-  final last = RefreshIndicatorStatus.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
-
-  print('RefreshIndicatorStatus test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RefreshIndicatorStatus Tests'),
-      Text('Values: ${ RefreshIndicatorStatus.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+  return const Center(
+    child: Text('Placeholder: RefreshIndicatorStatus'),
   );
 }

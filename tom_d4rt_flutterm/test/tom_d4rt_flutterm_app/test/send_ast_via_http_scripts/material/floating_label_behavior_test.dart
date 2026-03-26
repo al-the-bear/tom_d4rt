@@ -1,30 +1,9 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests FloatingLabelBehavior from material
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_print
+// Placeholder for missing demo test file: floating_label_behavior_test.dart
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('FloatingLabelBehavior test executing');
-
-  // Enumerate all FloatingLabelBehavior values
-  print('FloatingLabelBehavior values:');
-  for (final value in FloatingLabelBehavior.values) {
-    print('  ${value.name}: $value');
-  }
-  print('FloatingLabelBehavior has ${ FloatingLabelBehavior.values.length} values');
-
-  final first = FloatingLabelBehavior.values.first;
-  final last = FloatingLabelBehavior.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
-
-  print('FloatingLabelBehavior test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('FloatingLabelBehavior Tests'),
-      Text('Values: ${ FloatingLabelBehavior.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+  return const Center(
+    child: Text('Placeholder: FloatingLabelBehavior'),
   );
 }

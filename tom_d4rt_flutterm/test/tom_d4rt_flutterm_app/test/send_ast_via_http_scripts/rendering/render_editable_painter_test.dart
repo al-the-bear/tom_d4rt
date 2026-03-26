@@ -104,7 +104,8 @@ dynamic build(BuildContext context) {
     text: 'Rounded cursor and soft selection region',
   );
   final multilineController = TextEditingController(
-    text: 'RenderEditablePainter also drives cursor and selection painting\n'
+    text:
+        'RenderEditablePainter also drives cursor and selection painting\n'
         'for multiline editable areas.\n'
         'Try selecting across lines to inspect visuals.',
   );
@@ -157,9 +158,15 @@ dynamic build(BuildContext context) {
             Wrap(
               children: [
                 _legendChip(const Color(0xFF3553C7), 'Cursor paint profile'),
-                _legendChip(const Color(0xFF00796B), 'Selection color contrast'),
+                _legendChip(
+                  const Color(0xFF00796B),
+                  'Selection color contrast',
+                ),
                 _legendChip(const Color(0xFF8E24AA), 'Handle visibility'),
-                _legendChip(const Color(0xFFEF6C00), 'Dense vs spacious fields'),
+                _legendChip(
+                  const Color(0xFFEF6C00),
+                  'Dense vs spacious fields',
+                ),
               ],
             ),
             _demoCard(
@@ -300,104 +307,130 @@ dynamic build(BuildContext context) {
                   ListTile(
                     dense: true,
                     leading: Icon(Icons.visibility, color: Color(0xFF3553C7)),
-                    title: Text('Increase cursor width for large desktop forms.'),
+                    title: Text(
+                      'Increase cursor width for large desktop forms.',
+                    ),
                   ),
                   ListTile(
                     dense: true,
                     leading: Icon(Icons.brush, color: Color(0xFF00796B)),
-                    title: Text('Tune selection colors for dark/light contrast.'),
+                    title: Text(
+                      'Tune selection colors for dark/light contrast.',
+                    ),
                   ),
                   ListTile(
                     dense: true,
-                    leading: Icon(Icons.accessibility, color: Color(0xFF8E24AA)),
-                    title: Text('Keep handles visible for touch-first surfaces.'),
+                    leading: Icon(
+                      Icons.accessibility,
+                      color: Color(0xFF8E24AA),
+                    ),
+                    title: Text(
+                      'Keep handles visible for touch-first surfaces.',
+                    ),
                   ),
                   ListTile(
                     dense: true,
                     leading: Icon(Icons.compress, color: Color(0xFFEF6C00)),
-                    title: Text('Use dense decoration only where readability remains good.'),
+                    title: Text(
+                      'Use dense decoration only where readability remains good.',
+                    ),
                   ),
                 ],
               ),
             ),
-              _demoCard(
-                title: 'Scenario 5 — Theme Profile Matrix',
-                description:
-                    'Three themed text zones illustrate how painter behavior should be reviewed '
-                    'in light, dark, and high-contrast palettes.',
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xFFC9D5FF)),
-                      ),
-                      child: const Text('Light profile: verify subtle handle visibility.'),
+            _demoCard(
+              title: 'Scenario 5 — Theme Profile Matrix',
+              description:
+                  'Three themed text zones illustrate how painter behavior should be reviewed '
+                  'in light, dark, and high-contrast palettes.',
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFFFFF),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: const Color(0xFFC9D5FF)),
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF21243A),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text(
-                        'Dark profile: selection overlays need stronger alpha balance.',
-                        style: TextStyle(color: Colors.white),
+                    child: const Text(
+                      'Light profile: verify subtle handle visibility.',
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF21243A),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text(
+                      'Dark profile: selection overlays need stronger alpha balance.',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF000000),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: const Color(0xFFFFD54F),
+                        width: 2,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF000000),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xFFFFD54F), width: 2),
-                      ),
-                      child: const Text(
-                        'High contrast: cursor and selection must remain unmistakable.',
-                        style: TextStyle(color: Color(0xFFFFF59D)),
-                      ),
+                    child: const Text(
+                      'High contrast: cursor and selection must remain unmistakable.',
+                      style: TextStyle(color: Color(0xFFFFF59D)),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              _demoCard(
-                title: 'Scenario 6 — Troubleshooting Checklist',
-                description:
-                    'Operational checklist for debugging painter-side text-editing visuals.',
-                child: const Column(
-                  children: [
-                    ListTile(
-                      dense: true,
-                      leading: Icon(Icons.rule, color: Color(0xFF3553C7)),
-                      title: Text('Check cursor thickness against font weight and scale.'),
+            ),
+            _demoCard(
+              title: 'Scenario 6 — Troubleshooting Checklist',
+              description:
+                  'Operational checklist for debugging painter-side text-editing visuals.',
+              child: const Column(
+                children: [
+                  ListTile(
+                    dense: true,
+                    leading: Icon(Icons.rule, color: Color(0xFF3553C7)),
+                    title: Text(
+                      'Check cursor thickness against font weight and scale.',
                     ),
-                    ListTile(
-                      dense: true,
-                      leading: Icon(Icons.layers_clear, color: Color(0xFF00796B)),
-                      title: Text('Ensure selection alpha does not hide text glyphs.'),
+                  ),
+                  ListTile(
+                    dense: true,
+                    leading: Icon(Icons.layers_clear, color: Color(0xFF00796B)),
+                    title: Text(
+                      'Ensure selection alpha does not hide text glyphs.',
                     ),
-                    ListTile(
-                      dense: true,
-                      leading: Icon(Icons.touch_app, color: Color(0xFF8E24AA)),
-                      title: Text('Validate handle visibility on touch and mouse devices.'),
+                  ),
+                  ListTile(
+                    dense: true,
+                    leading: Icon(Icons.touch_app, color: Color(0xFF8E24AA)),
+                    title: Text(
+                      'Validate handle visibility on touch and mouse devices.',
                     ),
-                    ListTile(
-                      dense: true,
-                      leading: Icon(Icons.tune, color: Color(0xFFEF6C00)),
-                      title: Text('Compare dense and regular input decoration spacing.'),
+                  ),
+                  ListTile(
+                    dense: true,
+                    leading: Icon(Icons.tune, color: Color(0xFFEF6C00)),
+                    title: Text(
+                      'Compare dense and regular input decoration spacing.',
                     ),
-                    ListTile(
-                      dense: true,
-                      leading: Icon(Icons.check_circle, color: Color(0xFF2E7D32)),
-                      title: Text('Record a final visual pass in all supported themes.'),
+                  ),
+                  ListTile(
+                    dense: true,
+                    leading: Icon(Icons.check_circle, color: Color(0xFF2E7D32)),
+                    title: Text(
+                      'Record a final visual pass in all supported themes.',
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
             const SizedBox(height: 20),
             const Text(
               'Deep demo completed: RenderEditablePainter behavior is demonstrated '

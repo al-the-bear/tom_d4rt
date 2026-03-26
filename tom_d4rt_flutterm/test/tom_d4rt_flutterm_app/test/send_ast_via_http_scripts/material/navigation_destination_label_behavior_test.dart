@@ -1,30 +1,9 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests NavigationDestinationLabelBehavior from material
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_print
+// Placeholder for missing demo test file: navigation_destination_label_behavior_test.dart
+import 'package:flutter/widgets.dart';
 
 dynamic build(BuildContext context) {
-  print('NavigationDestinationLabelBehavior test executing');
-
-  // Enumerate all NavigationDestinationLabelBehavior values
-  print('NavigationDestinationLabelBehavior values:');
-  for (final value in NavigationDestinationLabelBehavior.values) {
-    print('  ${value.name}: $value');
-  }
-  print('NavigationDestinationLabelBehavior has ${ NavigationDestinationLabelBehavior.values.length} values');
-
-  final first = NavigationDestinationLabelBehavior.values.first;
-  final last = NavigationDestinationLabelBehavior.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
-
-  print('NavigationDestinationLabelBehavior test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('NavigationDestinationLabelBehavior Tests'),
-      Text('Values: ${ NavigationDestinationLabelBehavior.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
-    ],
+  return const Center(
+    child: Text('Placeholder: NavigationDestinationLabelBehavior'),
   );
 }

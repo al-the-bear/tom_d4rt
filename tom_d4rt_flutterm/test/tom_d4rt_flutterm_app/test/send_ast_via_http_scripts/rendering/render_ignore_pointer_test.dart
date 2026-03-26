@@ -1075,7 +1075,10 @@ Widget _buildInteractionAuditSection(BuildContext context) {
                   children: [
                     Icon(Icons.visibility, color: Color(0xFF90CAF9)),
                     SizedBox(height: 4),
-                    Text('Visible layer', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    Text(
+                      'Visible layer',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ],
                 ),
               ),
@@ -1092,7 +1095,10 @@ Widget _buildInteractionAuditSection(BuildContext context) {
                   children: [
                     Icon(Icons.touch_app, color: Color(0xFFA5D6A7)),
                     SizedBox(height: 4),
-                    Text('Receives tap', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    Text(
+                      'Receives tap',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ],
                 ),
               ),
@@ -1109,7 +1115,10 @@ Widget _buildInteractionAuditSection(BuildContext context) {
                   children: [
                     Icon(Icons.record_voice_over, color: Color(0xFFFFCDD2)),
                     SizedBox(height: 4),
-                    Text('In semantics', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    Text(
+                      'In semantics',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ],
                 ),
               ),

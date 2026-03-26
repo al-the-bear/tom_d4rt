@@ -348,45 +348,61 @@ dynamic build(BuildContext context) {
               children: [
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.check_circle_outline, color: Color(0xFF2A4AB8)),
+                  leading: Icon(
+                    Icons.check_circle_outline,
+                    color: Color(0xFF2A4AB8),
+                  ),
                   title: Text('Caret remains visible across all backgrounds.'),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.height, color: Color(0xFF00796B)),
-                  title: Text('Line height and strut style keep text readable.'),
+                  title: Text(
+                    'Line height and strut style keep text readable.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.format_align_left, color: Color(0xFF8E24AA)),
-                  title: Text('Alignment and directionality match locale expectations.'),
+                  leading: Icon(
+                    Icons.format_align_left,
+                    color: Color(0xFF8E24AA),
+                  ),
+                  title: Text(
+                    'Alignment and directionality match locale expectations.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.keyboard, color: Color(0xFFEF6C00)),
-                  title: Text('Keyboard type and formatter pairings are practical.'),
+                  title: Text(
+                    'Keyboard type and formatter pairings are practical.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.layers, color: Color(0xFF546E7A)),
-                  title: Text('Decoration density does not obscure selection visuals.'),
+                  title: Text(
+                    'Decoration density does not obscure selection visuals.',
+                  ),
                 ),
               ],
             ),
           ),
-            _section(
-              title: 'Scenario 9 — Final Validation Notes',
-              intro: 'Quick pass items before marking an editable demo complete.',
-              child: const Column(
-                children: [
-                  ListTile(
-                    dense: true,
-                    leading: Icon(Icons.done_all, color: Color(0xFF2A4AB8)),
-                    title: Text('Confirm cursor, selection, and keyboard behavior together.'),
+          _section(
+            title: 'Scenario 9 — Final Validation Notes',
+            intro: 'Quick pass items before marking an editable demo complete.',
+            child: const Column(
+              children: [
+                ListTile(
+                  dense: true,
+                  leading: Icon(Icons.done_all, color: Color(0xFF2A4AB8)),
+                  title: Text(
+                    'Confirm cursor, selection, and keyboard behavior together.',
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
           const SizedBox(height: 18),
           const Text(
             'Deep demo completed: RenderEditable interactions are shown across multiple '

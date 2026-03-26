@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // ============================================================================
 // DebugOverflowIndicatorMixin Demo
 // ============================================================================
-// 
+//
 // This script demonstrates the DebugOverflowIndicatorMixin visually by
 // creating actual overflow scenarios. The mixin paints distinctive yellow
 // and black stripes when content exceeds container bounds.
@@ -58,7 +58,10 @@ dynamic build(BuildContext context) {
             _buildSectionHeader('Overflow Directions'),
             _buildDirectionCard('Top', 'Content extends above the container'),
             _buildDirectionCard('Right', 'Content extends past the right edge'),
-            _buildDirectionCard('Bottom', 'Content extends below the container'),
+            _buildDirectionCard(
+              'Bottom',
+              'Content extends below the container',
+            ),
             _buildDirectionCard('Left', 'Content extends past the left edge'),
             SizedBox(height: 16),
 
@@ -79,9 +82,13 @@ dynamic build(BuildContext context) {
             _buildSectionHeader('Common Solutions'),
             _buildSolutionCard('Wrap text with Flexible or Expanded'),
             _buildSolutionCard('Use ConstrainedBox or SizedBox'),
-            _buildSolutionCard('Add SingleChildScrollView for scrollable content'),
+            _buildSolutionCard(
+              'Add SingleChildScrollView for scrollable content',
+            ),
             _buildSolutionCard('Use FittedBox to scale content'),
-            _buildSolutionCard('Apply overflow: TextOverflow.ellipsis for text'),
+            _buildSolutionCard(
+              'Apply overflow: TextOverflow.ellipsis for text',
+            ),
             SizedBox(height: 32),
 
             // Section 7: Summary
@@ -128,10 +135,7 @@ Widget _buildInfoCard(String text) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: Colors.grey.shade300),
     ),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 14, height: 1.5),
-    ),
+    child: Text(text, style: TextStyle(fontSize: 14, height: 1.5)),
   );
 }
 
@@ -176,9 +180,7 @@ Widget _buildCauseCard(String cause) {
       children: [
         Icon(Icons.warning_amber_rounded, color: Colors.red.shade400, size: 20),
         SizedBox(width: 8),
-        Expanded(
-          child: Text(cause, style: TextStyle(fontSize: 13)),
-        ),
+        Expanded(child: Text(cause, style: TextStyle(fontSize: 13))),
       ],
     ),
   );
@@ -196,9 +198,7 @@ Widget _buildSolutionCard(String solution) {
       children: [
         Icon(Icons.check_circle, color: Colors.green.shade400, size: 20),
         SizedBox(width: 8),
-        Expanded(
-          child: Text(solution, style: TextStyle(fontSize: 13)),
-        ),
+        Expanded(child: Text(solution, style: TextStyle(fontSize: 13))),
       ],
     ),
   );

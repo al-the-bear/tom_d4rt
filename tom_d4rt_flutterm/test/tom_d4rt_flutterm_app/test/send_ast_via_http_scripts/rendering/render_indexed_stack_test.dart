@@ -1793,13 +1793,24 @@ Widget _buildStateFlowAudit(BuildContext context) {
         children: [
           Text(
             'State Flow Checklist',
-            style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF1A237E)),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1A237E),
+            ),
           ),
           SizedBox(height: 8),
-          _buildTakeawayItem('Keep form/page state alive while switching index values'),
-          _buildTakeawayItem('Use null index intentionally when all child views must hide'),
-          _buildTakeawayItem('Audit largest-child sizing effects in responsive layouts'),
-          _buildTakeawayItem('Prefer IndexedStack for tab/wizard flows requiring state retention'),
+          _buildTakeawayItem(
+            'Keep form/page state alive while switching index values',
+          ),
+          _buildTakeawayItem(
+            'Use null index intentionally when all child views must hide',
+          ),
+          _buildTakeawayItem(
+            'Audit largest-child sizing effects in responsive layouts',
+          ),
+          _buildTakeawayItem(
+            'Prefer IndexedStack for tab/wizard flows requiring state retention',
+          ),
         ],
       ),
     ),

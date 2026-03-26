@@ -41,11 +41,7 @@ Widget _buildHeader(String title, String subtitle) {
         SizedBox(height: 8),
         Text(
           subtitle,
-          style: TextStyle(
-            fontSize: 14,
-            color: Color(0xBBFFFFFF),
-            height: 1.5,
-          ),
+          style: TextStyle(fontSize: 14, color: Color(0xBBFFFFFF), height: 1.5),
         ),
       ],
     ),
@@ -88,7 +84,12 @@ Widget _buildSectionTitle(String title, Color accentColor) {
 }
 
 // -- Helper: info card with icon
-Widget _buildInfoCard(IconData icon, String label, String description, Color color) {
+Widget _buildInfoCard(
+  IconData icon,
+  String label,
+  String description,
+  Color color,
+) {
   print('[InfoCard] $label');
   return Container(
     margin: EdgeInsets.only(bottom: 10),
@@ -125,7 +126,11 @@ Widget _buildInfoCard(IconData icon, String label, String description, Color col
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(fontSize: 12, color: Color(0xFF616161), height: 1.4),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF616161),
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -138,7 +143,15 @@ Widget _buildInfoCard(IconData icon, String label, String description, Color col
 // -- Section 1: Basic IndexedSemantics wrapping list items
 Widget _buildBasicIndexedList() {
   print('[Demo] Basic IndexedSemantics wrapping list items');
-  List<String> fruits = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry', 'Fig', 'Grape'];
+  List<String> fruits = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape',
+  ];
   List<Color> fruitColors = [
     Color(0xFFE53935),
     Color(0xFFFDD835),
@@ -197,7 +210,10 @@ Widget _buildBasicIndexedList() {
                   children: [
                     Text(
                       fruits[i],
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
                     ),
                     SizedBox(height: 2),
                     Text(
@@ -289,7 +305,13 @@ Widget _buildSortKeyDemo() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(label, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
                     SizedBox(height: 3),
                     Text(
                       'Visual position: $i | Semantic order: ${order.toInt()}',
@@ -340,17 +362,31 @@ Widget _buildListViewBuilderDemo() {
   print('[Demo] IndexedSemantics in ListView.builder context');
   int itemCount = 8;
   List<IconData> icons = [
-    Icons.home, Icons.star, Icons.settings, Icons.person,
-    Icons.notifications, Icons.mail, Icons.bookmark, Icons.trending_up,
+    Icons.home,
+    Icons.star,
+    Icons.settings,
+    Icons.person,
+    Icons.notifications,
+    Icons.mail,
+    Icons.bookmark,
+    Icons.trending_up,
   ];
   List<String> labels = [
-    'Home', 'Favorites', 'Settings', 'Profile',
-    'Notifications', 'Messages', 'Bookmarks', 'Trending',
+    'Home',
+    'Favorites',
+    'Settings',
+    'Profile',
+    'Notifications',
+    'Messages',
+    'Bookmarks',
+    'Trending',
   ];
 
   List<Widget> builtItems = [];
   for (int index = 0; index < itemCount; index++) {
-    print('[ListView] Building indexed item $index/${itemCount - 1}: ${labels[index]}');
+    print(
+      '[ListView] Building indexed item $index/${itemCount - 1}: ${labels[index]}',
+    );
     builtItems.add(
       IndexedSemantics(
         index: index,
@@ -386,7 +422,10 @@ Widget _buildListViewBuilderDemo() {
                     Expanded(
                       child: Text(
                         labels[index],
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     Text(
@@ -447,7 +486,11 @@ Widget _buildGridLayoutDemo() {
   print('[Demo] IndexedSemantics in grid layout');
   List<Map<String, dynamic>> gridItems = [
     {'icon': Icons.photo, 'label': 'Photos', 'color': Color(0xFF43A047)},
-    {'icon': Icons.video_library, 'label': 'Videos', 'color': Color(0xFFE53935)},
+    {
+      'icon': Icons.video_library,
+      'label': 'Videos',
+      'color': Color(0xFFE53935),
+    },
     {'icon': Icons.music_note, 'label': 'Music', 'color': Color(0xFF8E24AA)},
     {'icon': Icons.article, 'label': 'Documents', 'color': Color(0xFF1E88E5)},
     {'icon': Icons.download, 'label': 'Downloads', 'color': Color(0xFFFF8F00)},
@@ -470,7 +513,8 @@ Widget _buildGridLayoutDemo() {
           child: IndexedSemantics(
             index: flatIndex,
             child: Semantics(
-              label: '$label, grid item ${flatIndex + 1} of ${gridItems.length}',
+              label:
+                  '$label, grid item ${flatIndex + 1} of ${gridItems.length}',
               child: Container(
                 margin: EdgeInsets.all(4),
                 padding: EdgeInsets.symmetric(vertical: 18, horizontal: 8),
@@ -496,7 +540,10 @@ Widget _buildGridLayoutDemo() {
                     SizedBox(height: 8),
                     Text(
                       label,
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 4),
@@ -538,15 +585,60 @@ Widget _buildGridLayoutDemo() {
 Widget _buildSemanticTreeVisualization() {
   print('[Demo] Semantic tree visualization with indices');
   List<Map<String, dynamic>> treeNodes = [
-    {'depth': 0, 'label': 'ScrollView', 'index': -1, 'color': Color(0xFF37474F)},
-    {'depth': 1, 'label': 'SliverList', 'index': -1, 'color': Color(0xFF546E7A)},
-    {'depth': 2, 'label': 'ListTile "Inbox"', 'index': 0, 'color': Color(0xFF1565C0)},
-    {'depth': 2, 'label': 'ListTile "Sent"', 'index': 1, 'color': Color(0xFF2E7D32)},
-    {'depth': 2, 'label': 'ListTile "Drafts"', 'index': 2, 'color': Color(0xFFE65100)},
-    {'depth': 2, 'label': 'ListTile "Trash"', 'index': 3, 'color': Color(0xFFC62828)},
-    {'depth': 1, 'label': 'SliverGrid', 'index': -1, 'color': Color(0xFF546E7A)},
-    {'depth': 2, 'label': 'GridTile "A"', 'index': 0, 'color': Color(0xFF6A1B9A)},
-    {'depth': 2, 'label': 'GridTile "B"', 'index': 1, 'color': Color(0xFF00838F)},
+    {
+      'depth': 0,
+      'label': 'ScrollView',
+      'index': -1,
+      'color': Color(0xFF37474F),
+    },
+    {
+      'depth': 1,
+      'label': 'SliverList',
+      'index': -1,
+      'color': Color(0xFF546E7A),
+    },
+    {
+      'depth': 2,
+      'label': 'ListTile "Inbox"',
+      'index': 0,
+      'color': Color(0xFF1565C0),
+    },
+    {
+      'depth': 2,
+      'label': 'ListTile "Sent"',
+      'index': 1,
+      'color': Color(0xFF2E7D32),
+    },
+    {
+      'depth': 2,
+      'label': 'ListTile "Drafts"',
+      'index': 2,
+      'color': Color(0xFFE65100),
+    },
+    {
+      'depth': 2,
+      'label': 'ListTile "Trash"',
+      'index': 3,
+      'color': Color(0xFFC62828),
+    },
+    {
+      'depth': 1,
+      'label': 'SliverGrid',
+      'index': -1,
+      'color': Color(0xFF546E7A),
+    },
+    {
+      'depth': 2,
+      'label': 'GridTile "A"',
+      'index': 0,
+      'color': Color(0xFF6A1B9A),
+    },
+    {
+      'depth': 2,
+      'label': 'GridTile "B"',
+      'index': 1,
+      'color': Color(0xFF00838F),
+    },
   ];
 
   List<Widget> nodes = [];
@@ -575,7 +667,9 @@ Widget _buildSemanticTreeVisualization() {
                 Padding(
                   padding: EdgeInsets.only(right: 6),
                   child: Icon(
-                    depth == 1 ? Icons.subdirectory_arrow_right : Icons.arrow_right,
+                    depth == 1
+                        ? Icons.subdirectory_arrow_right
+                        : Icons.arrow_right,
                     size: 14,
                     color: c.withOpacity(0.5),
                   ),
@@ -654,11 +748,36 @@ Widget _buildSemanticTreeVisualization() {
 Widget _buildAccessibleCarouselDemo() {
   print('[Demo] Accessible carousel with IndexedSemantics');
   List<Map<String, dynamic>> slides = [
-    {'title': 'Welcome', 'desc': 'Get started with our app', 'color': Color(0xFF1565C0), 'icon': Icons.waving_hand},
-    {'title': 'Discover', 'desc': 'Explore new features', 'color': Color(0xFF2E7D32), 'icon': Icons.explore},
-    {'title': 'Connect', 'desc': 'Meet other users', 'color': Color(0xFFE65100), 'icon': Icons.people},
-    {'title': 'Create', 'desc': 'Build something amazing', 'color': Color(0xFF6A1B9A), 'icon': Icons.create},
-    {'title': 'Share', 'desc': 'Tell the world', 'color': Color(0xFFC62828), 'icon': Icons.share},
+    {
+      'title': 'Welcome',
+      'desc': 'Get started with our app',
+      'color': Color(0xFF1565C0),
+      'icon': Icons.waving_hand,
+    },
+    {
+      'title': 'Discover',
+      'desc': 'Explore new features',
+      'color': Color(0xFF2E7D32),
+      'icon': Icons.explore,
+    },
+    {
+      'title': 'Connect',
+      'desc': 'Meet other users',
+      'color': Color(0xFFE65100),
+      'icon': Icons.people,
+    },
+    {
+      'title': 'Create',
+      'desc': 'Build something amazing',
+      'color': Color(0xFF6A1B9A),
+      'icon': Icons.create,
+    },
+    {
+      'title': 'Share',
+      'desc': 'Tell the world',
+      'color': Color(0xFFC62828),
+      'icon': Icons.share,
+    },
   ];
 
   List<Widget> slideWidgets = [];
@@ -730,10 +849,7 @@ Widget _buildAccessibleCarouselDemo() {
                 SizedBox(height: 4),
                 Text(
                   desc,
-                  style: TextStyle(
-                    color: Color(0xCCFFFFFF),
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 12),
                 ),
                 SizedBox(height: 12),
                 Container(
@@ -793,11 +909,41 @@ Widget _buildAccessibleCarouselDemo() {
 Widget _buildPracticalAccessibleList() {
   print('[Demo] Practical accessible list pattern');
   List<Map<String, dynamic>> emails = [
-    {'sender': 'Alice', 'subject': 'Project Update', 'time': '10:30 AM', 'unread': true, 'color': Color(0xFF1565C0)},
-    {'sender': 'Bob', 'subject': 'Meeting Tomorrow', 'time': '9:15 AM', 'unread': true, 'color': Color(0xFF2E7D32)},
-    {'sender': 'Carol', 'subject': 'Design Review', 'time': 'Yesterday', 'unread': false, 'color': Color(0xFFE65100)},
-    {'sender': 'Dave', 'subject': 'Bug Report #42', 'time': 'Yesterday', 'unread': false, 'color': Color(0xFF6A1B9A)},
-    {'sender': 'Eve', 'subject': 'Sprint Retro Notes', 'time': 'Mar 20', 'unread': false, 'color': Color(0xFF00838F)},
+    {
+      'sender': 'Alice',
+      'subject': 'Project Update',
+      'time': '10:30 AM',
+      'unread': true,
+      'color': Color(0xFF1565C0),
+    },
+    {
+      'sender': 'Bob',
+      'subject': 'Meeting Tomorrow',
+      'time': '9:15 AM',
+      'unread': true,
+      'color': Color(0xFF2E7D32),
+    },
+    {
+      'sender': 'Carol',
+      'subject': 'Design Review',
+      'time': 'Yesterday',
+      'unread': false,
+      'color': Color(0xFFE65100),
+    },
+    {
+      'sender': 'Dave',
+      'subject': 'Bug Report #42',
+      'time': 'Yesterday',
+      'unread': false,
+      'color': Color(0xFF6A1B9A),
+    },
+    {
+      'sender': 'Eve',
+      'subject': 'Sprint Retro Notes',
+      'time': 'Mar 20',
+      'unread': false,
+      'color': Color(0xFF00838F),
+    },
   ];
 
   List<Widget> emailItems = [];
@@ -814,7 +960,8 @@ Widget _buildPracticalAccessibleList() {
       IndexedSemantics(
         index: i,
         child: Semantics(
-          label: '${unread ? "Unread. " : ""}From $sender: $subject. $time. Item ${i + 1} of ${emails.length}',
+          label:
+              '${unread ? "Unread. " : ""}From $sender: $subject. $time. Item ${i + 1} of ${emails.length}',
           child: Container(
             margin: EdgeInsets.only(bottom: 6),
             padding: EdgeInsets.all(12),
@@ -855,7 +1002,9 @@ Widget _buildPracticalAccessibleList() {
                           Text(
                             sender,
                             style: TextStyle(
-                              fontWeight: unread ? FontWeight.w700 : FontWeight.w500,
+                              fontWeight: unread
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
                               fontSize: 14,
                             ),
                           ),
@@ -872,7 +1021,10 @@ Widget _buildPracticalAccessibleList() {
                           Spacer(),
                           Text(
                             time,
-                            style: TextStyle(fontSize: 11, color: Color(0xFF9E9E9E)),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF9E9E9E),
+                            ),
                           ),
                         ],
                       ),
@@ -882,7 +1034,9 @@ Widget _buildPracticalAccessibleList() {
                         style: TextStyle(
                           fontSize: 13,
                           color: Color(0xFF616161),
-                          fontWeight: unread ? FontWeight.w500 : FontWeight.normal,
+                          fontWeight: unread
+                              ? FontWeight.w500
+                              : FontWeight.normal,
                         ),
                       ),
                     ],
@@ -914,11 +1068,24 @@ Widget _buildPracticalAccessibleList() {
 // -- Section 8: Index mapping visualization
 Widget _buildIndexMappingVisualization() {
   print('[Demo] List indices to semantic indices mapping');
-  List<String> items = ['Header', 'ItemA', 'ItemB', 'Divider', 'ItemC', 'ItemD', 'Footer'];
+  List<String> items = [
+    'Header',
+    'ItemA',
+    'ItemB',
+    'Divider',
+    'ItemC',
+    'ItemD',
+    'Footer',
+  ];
   List<int> semanticIndices = [-1, 0, 1, -1, 2, 3, -1];
   List<Color> colors = [
-    Color(0xFF78909C), Color(0xFF1565C0), Color(0xFF2E7D32),
-    Color(0xFF78909C), Color(0xFFE65100), Color(0xFF6A1B9A), Color(0xFF78909C),
+    Color(0xFF78909C),
+    Color(0xFF1565C0),
+    Color(0xFF2E7D32),
+    Color(0xFF78909C),
+    Color(0xFFE65100),
+    Color(0xFF6A1B9A),
+    Color(0xFF78909C),
   ];
 
   List<Widget> mappingRows = [];
@@ -926,7 +1093,9 @@ Widget _buildIndexMappingVisualization() {
     int semIdx = semanticIndices[i];
     bool hasSemantic = semIdx >= 0;
     Color c = colors[i];
-    print('[Mapping] List[$i] "${items[i]}" -> semantic ${hasSemantic ? semIdx : "none"}');
+    print(
+      '[Mapping] List[$i] "${items[i]}" -> semantic ${hasSemantic ? semIdx : "none"}',
+    );
 
     mappingRows.add(
       Container(
@@ -987,7 +1156,11 @@ Widget _buildIndexMappingVisualization() {
             else
               Text(
                 'no index',
-                style: TextStyle(fontSize: 11, color: Color(0xFFBDBDBD), fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFFBDBDBD),
+                  fontStyle: FontStyle.italic,
+                ),
               ),
           ],
         ),
@@ -1030,13 +1203,23 @@ Widget _buildIndexContinuityChecklist() {
       children: [
         Text(
           'Index Continuity Checklist',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF6A1B9A)),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: Color(0xFF6A1B9A),
+          ),
         ),
         SizedBox(height: 8),
         Text('• Keep semantic indices stable when filtering/reordering lists.'),
-        Text('• Skip decorative separators or map them explicitly to null semantics.'),
-        Text('• Pair IndexedSemantics with clear labels for context-rich announcements.'),
-        Text('• Validate final order with screen reader traversal, not visual order only.'),
+        Text(
+          '• Skip decorative separators or map them explicitly to null semantics.',
+        ),
+        Text(
+          '• Pair IndexedSemantics with clear labels for context-rich announcements.',
+        ),
+        Text(
+          '• Validate final order with screen reader traversal, not visual order only.',
+        ),
       ],
     ),
   );
@@ -1045,8 +1228,12 @@ Widget _buildIndexContinuityChecklist() {
 // -- Entry point
 dynamic build(BuildContext context) {
   print('[RenderIndexedSemantics] Building deep demo');
-  print('[RenderIndexedSemantics] IndexedSemantics annotates semantics nodes with indices');
-  print('[RenderIndexedSemantics] Enables screen readers to announce item positions');
+  print(
+    '[RenderIndexedSemantics] IndexedSemantics annotates semantics nodes with indices',
+  );
+  print(
+    '[RenderIndexedSemantics] Enables screen readers to announce item positions',
+  );
 
   return SingleChildScrollView(
     padding: EdgeInsets.all(20),
@@ -1057,7 +1244,7 @@ dynamic build(BuildContext context) {
         _buildHeader(
           'RenderIndexedSemantics',
           'Annotates a semantics node with an index so screen readers can '
-          'announce "item X of Y" in scrollable lists. Widget: IndexedSemantics.',
+              'announce "item X of Y" in scrollable lists. Widget: IndexedSemantics.',
         ),
 
         SizedBox(height: 16),
@@ -1067,21 +1254,21 @@ dynamic build(BuildContext context) {
           Icons.tag,
           'IndexedSemantics Widget',
           'Wraps a child and annotates its semantics node with an integer index. '
-          'Used automatically by ListView, GridView, and other scrollables.',
+              'Used automatically by ListView, GridView, and other scrollables.',
           Color(0xFF1565C0),
         ),
         _buildInfoCard(
           Icons.sort,
           'OrdinalSortKey',
           'Allows explicit control of semantic traversal order independently '
-          'of visual layout. Lower ordinals are visited first by screen readers.',
+              'of visual layout. Lower ordinals are visited first by screen readers.',
           Color(0xFF2E7D32),
         ),
         _buildInfoCard(
           Icons.accessibility_new,
           'Accessibility Impact',
           'Screen readers like TalkBack and VoiceOver use semantic indices to '
-          'announce item positions, enabling spatial awareness in lists and grids.',
+              'announce item positions, enabling spatial awareness in lists and grids.',
           Color(0xFFE65100),
         ),
 
@@ -1094,7 +1281,10 @@ dynamic build(BuildContext context) {
         _buildSortKeyDemo(),
 
         // Section 3
-        _buildSectionTitle('3. ListView.builder with Indices', Color(0xFFE65100)),
+        _buildSectionTitle(
+          '3. ListView.builder with Indices',
+          Color(0xFFE65100),
+        ),
         _buildListViewBuilderDemo(),
 
         // Section 4
@@ -1110,7 +1300,10 @@ dynamic build(BuildContext context) {
         _buildAccessibleCarouselDemo(),
 
         // Section 7
-        _buildSectionTitle('7. Practical Accessible Email List', Color(0xFF00838F)),
+        _buildSectionTitle(
+          '7. Practical Accessible Email List',
+          Color(0xFF00838F),
+        ),
         _buildPracticalAccessibleList(),
 
         // Section 8

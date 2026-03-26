@@ -65,7 +65,9 @@ dynamic build(BuildContext context) {
   final changeNotifier = ChangeNotifier();
   changeNotifier.dispose();
   print('ChangeNotifier created for InheritedNotifier pattern');
-  print('  listener attachment can be demonstrated without reading protected state');
+  print(
+    '  listener attachment can be demonstrated without reading protected state',
+  );
 
   // ========== InheritedModel concept ==========
   print('--- InheritedModel Tests ---');

@@ -13,7 +13,11 @@ Widget _a11yCard({
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: const Color(0xFFD8E8F0)),
       boxShadow: const [
-        BoxShadow(color: Color(0x12000000), blurRadius: 8, offset: Offset(0, 3)),
+        BoxShadow(
+          color: Color(0x12000000),
+          blurRadius: 8,
+          offset: Offset(0, 3),
+        ),
       ],
     ),
     child: Column(
@@ -28,7 +32,10 @@ Widget _a11yCard({
           ),
         ),
         const SizedBox(height: 4),
-        Text(description, style: const TextStyle(fontSize: 12, color: Color(0xFF4B5F69))),
+        Text(
+          description,
+          style: const TextStyle(fontSize: 12, color: Color(0xFF4B5F69)),
+        ),
         const SizedBox(height: 10),
         child,
       ],
@@ -45,7 +52,10 @@ Widget _badge(String text, Color color) {
       borderRadius: BorderRadius.circular(20),
       border: Border.all(color: color.withValues(alpha: 0.35)),
     ),
-    child: Text(text, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -116,7 +126,10 @@ dynamic build(BuildContext context) {
                 children: [
                   const Text(
                     'Product Celebration Banner',
-                    style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF6D1B1B)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF6D1B1B),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   ExcludeSemantics(
@@ -144,7 +157,8 @@ dynamic build(BuildContext context) {
           ),
           _a11yCard(
             title: 'Scenario 2 — Meaningful Action Included',
-            description: 'Primary status and action remain in the semantics tree.',
+            description:
+                'Primary status and action remain in the semantics tree.',
             child: Semantics(
               label: 'Payment completed, button opens invoice details',
               child: Container(
@@ -156,7 +170,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 28),
+                    Icon(
+                      Icons.check_circle,
+                      color: Color(0xFF2E7D32),
+                      size: 28,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -192,7 +210,10 @@ dynamic build(BuildContext context) {
                       height: 48,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFF3569D6), width: 3),
+                        border: Border.all(
+                          color: const Color(0xFF3569D6),
+                          width: 3,
+                        ),
                         gradient: const LinearGradient(
                           colors: [Color(0xFFBCD1FF), Color(0xFFE2EAFF)],
                         ),
@@ -206,9 +227,15 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Project Apollo', style: TextStyle(fontWeight: FontWeight.w700)),
+                          Text(
+                            'Project Apollo',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
                           SizedBox(height: 3),
-                          Text('Due tomorrow • High priority', style: TextStyle(fontSize: 12)),
+                          Text(
+                            'Due tomorrow • High priority',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -257,18 +284,30 @@ dynamic build(BuildContext context) {
               children: [
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.do_not_disturb_alt, color: Color(0xFFC62828)),
-                  title: Text('Exclude decorative repetition, separators, and purely visual flair.'),
+                  leading: Icon(
+                    Icons.do_not_disturb_alt,
+                    color: Color(0xFFC62828),
+                  ),
+                  title: Text(
+                    'Exclude decorative repetition, separators, and purely visual flair.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
-                  leading: Icon(Icons.record_voice_over, color: Color(0xFF2E7D32)),
-                  title: Text('Keep all actionable and informational elements included.'),
+                  leading: Icon(
+                    Icons.record_voice_over,
+                    color: Color(0xFF2E7D32),
+                  ),
+                  title: Text(
+                    'Keep all actionable and informational elements included.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.layers, color: Color(0xFF1565C0)),
-                  title: Text('Compose semantics intentionally for grouped summary announcements.'),
+                  title: Text(
+                    'Compose semantics intentionally for grouped summary announcements.',
+                  ),
                 ),
               ],
             ),
@@ -290,7 +329,10 @@ dynamic build(BuildContext context) {
                             color: const Color(0xFFE9F6EC),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text('Order total: €129', style: TextStyle(fontWeight: FontWeight.w700)),
+                          child: const Text(
+                            'Order total: €129',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
                         ),
                       ),
                     ),
@@ -304,7 +346,10 @@ dynamic build(BuildContext context) {
                             color: const Color(0xFFFFF0F0),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text('★★★★★', textAlign: TextAlign.center),
+                          child: const Text(
+                            '★★★★★',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
@@ -322,7 +367,10 @@ dynamic build(BuildContext context) {
                             color: const Color(0xFFE8F3FF),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text('ETA: Tomorrow 16:00', style: TextStyle(fontWeight: FontWeight.w700)),
+                          child: const Text(
+                            'ETA: Tomorrow 16:00',
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
                         ),
                       ),
                     ),
@@ -347,7 +395,8 @@ dynamic build(BuildContext context) {
           ),
           _a11yCard(
             title: 'Scenario 7 — Team Accessibility Checklist',
-            description: 'Operational checklist for reviewing semantics quality in UI reviews.',
+            description:
+                'Operational checklist for reviewing semantics quality in UI reviews.',
             child: const Column(
               children: [
                 ListTile(
@@ -358,44 +407,63 @@ dynamic build(BuildContext context) {
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.campaign, color: Color(0xFF2E7D32)),
-                  title: Text('Preserve all actionable controls in semantics tree.'),
+                  title: Text(
+                    'Preserve all actionable controls in semantics tree.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.group_work, color: Color(0xFF8E24AA)),
-                  title: Text('Group complex cards with summary labels where useful.'),
+                  title: Text(
+                    'Group complex cards with summary labels where useful.',
+                  ),
                 ),
                 ListTile(
                   dense: true,
                   leading: Icon(Icons.devices, color: Color(0xFFEF6C00)),
-                  title: Text('Validate with screen reader on both mobile and desktop.'),
+                  title: Text(
+                    'Validate with screen reader on both mobile and desktop.',
+                  ),
                 ),
               ],
             ),
           ),
           _a11yCard(
             title: 'Scenario 8 — Final A11y Pass',
-            description: 'Last-step validation prompt for semantics exclusions.',
+            description:
+                'Last-step validation prompt for semantics exclusions.',
             child: const ListTile(
               dense: true,
-              leading: Icon(Icons.fact_check_outlined, color: Color(0xFF1565C0)),
-              title: Text('Verify excluded nodes are decorative only, never actionable.'),
+              leading: Icon(
+                Icons.fact_check_outlined,
+                color: Color(0xFF1565C0),
+              ),
+              title: Text(
+                'Verify excluded nodes are decorative only, never actionable.',
+              ),
             ),
           ),
           _a11yCard(
             title: 'Scenario 9 — Release Gate',
-            description: 'Team sign-off reminder before shipping accessibility changes.',
+            description:
+                'Team sign-off reminder before shipping accessibility changes.',
             child: const ListTile(
               dense: true,
               leading: Icon(Icons.verified_outlined, color: Color(0xFF2E7D32)),
-              title: Text('Run screen reader walkthrough for each excluded region.'),
+              title: Text(
+                'Run screen reader walkthrough for each excluded region.',
+              ),
             ),
           ),
           const SizedBox(height: 18),
           const Text(
             'Deep demo completed: visual and accessibility behavior are both demonstrated '
             'with realistic UI compositions.',
-            style: TextStyle(fontSize: 12, color: Color(0xFF5D6D74), fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF5D6D74),
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ],
       ),
