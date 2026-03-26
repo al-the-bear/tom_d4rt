@@ -128,27 +128,27 @@ Total remaining: 586 files
 | SliverGridLayout | sliver_grid_layout_test.dart | Yes | 2026-03-26 21:52 |
 | SliverGridRegularTileLayout | sliver_grid_regular_tile_layout_test.dart | Yes | 2026-03-26 21:52 |
 | SliverHitTestEntry | sliver_hit_test_entry_test.dart | Yes | 2026-03-26 21:52 |
-| SliverHitTestResult | sliver_hit_test_result_test.dart | No | |
-| SliverLayoutDimensions | sliver_layout_dimensions_test.dart | No | |
-| SliverLogicalContainerParentData | sliver_logical_container_parent_data_test.dart | No | |
-| SliverMultiBoxAdaptorParentData | sliver_multi_box_adaptor_parent_data_test.dart | No | |
-| SliverPaintOrder | sliver_paint_order_test.dart | No | |
-| SliverPhysicalContainerParentData | sliver_physical_container_parent_data_test.dart | No | |
-| SliverPhysicalParentData | sliver_physical_parent_data_test.dart | No | |
-| StackFit | stack_fit_test.dart | No | |
-| TableBorder | table_border_test.dart | No | |
-| TableCellParentData | table_cell_parent_data_test.dart | No | |
-| TableCellVerticalAlignment | table_cell_vertical_alignment_test.dart | No | |
-| TextParentData | text_parent_data_test.dart | No | |
-| TextSelectionHandleType | text_selection_handle_type_test.dart | No | |
-| TextSelectionPoint | text_selection_point_test.dart | No | |
-| TextureBox | texture_box_test.dart | No | |
-| TextureLayer | texture_layer_test.dart | No | |
-| TreeSliverIndentationType | tree_sliver_indentation_type_test.dart | No | |
-| TreeSliverNodeParentData | tree_sliver_node_parent_data_test.dart | No | |
-| VerticalCaretMovementRun | vertical_caret_movement_run_test.dart | No | |
+| SliverHitTestResult | sliver_hit_test_result_test.dart | Yes | 2026-03-26 22:14 |
+| SliverLayoutDimensions | sliver_layout_dimensions_test.dart | Yes | 2026-03-26 22:14 |
+| SliverLogicalContainerParentData | sliver_logical_container_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| SliverMultiBoxAdaptorParentData | sliver_multi_box_adaptor_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| SliverPaintOrder | sliver_paint_order_test.dart | Yes | 2026-03-26 22:14 |
+| SliverPhysicalContainerParentData | sliver_physical_container_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| SliverPhysicalParentData | sliver_physical_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| StackFit | stack_fit_test.dart | Yes | 2026-03-26 22:14 |
+| TableBorder | table_border_test.dart | Yes | 2026-03-26 22:14 |
+| TableCellParentData | table_cell_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| TableCellVerticalAlignment | table_cell_vertical_alignment_test.dart | Yes | 2026-03-26 22:14 |
+| TextParentData | text_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| TextSelectionHandleType | text_selection_handle_type_test.dart | Yes | 2026-03-26 22:14 |
+| TextSelectionPoint | text_selection_point_test.dart | Yes | 2026-03-26 22:14 |
+| TextureBox | texture_box_test.dart | Yes | 2026-03-26 22:14 |
+| TextureLayer | texture_layer_test.dart | Yes | 2026-03-26 22:14 |
+| TreeSliverIndentationType | tree_sliver_indentation_type_test.dart | Yes | 2026-03-26 22:14 |
+| TreeSliverNodeParentData | tree_sliver_node_parent_data_test.dart | Yes | 2026-03-26 22:14 |
+| VerticalCaretMovementRun | vertical_caret_movement_run_test.dart | Yes | 2026-03-26 22:14 |
 | viewport | viewport_test.dart | No | |
-| WrapAlignment | wrap_alignment_test.dart | No | |
+| WrapAlignment | wrap_alignment_test.dart | Yes | 2026-03-26 22:14 |
 | WrapCrossAlignment | wrap_cross_alignment_test.dart | No | |
 | WrapParentData | wrap_parent_data_test.dart | No | |
 
