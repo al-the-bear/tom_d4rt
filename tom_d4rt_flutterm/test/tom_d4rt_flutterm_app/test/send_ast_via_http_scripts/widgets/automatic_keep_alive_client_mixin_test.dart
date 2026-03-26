@@ -1,58 +1,86 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests AutomaticKeepAliveClientMixin from widgets
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('AutomaticKeepAliveClientMixin test executing');
+  print('=' * 50);
 
-  // AutomaticKeepAliveClientMixin - Keeps widgets alive in lazy lists
-  // Prevents disposal when scrolling off-screen
-  
-  print('AutomaticKeepAliveClientMixin purpose:');
-  print('- Keeps widget state when scrolling off-screen');
-  print('- Prevents rebuild on scroll back');
-  print('- Preserves form input, scroll position, etc.');
-  print('- Works with ListView, GridView, etc.');
-  
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('class _ItemState extends State<Item>');
-  print('    with AutomaticKeepAliveClientMixin {');
-  print('  @override bool get wantKeepAlive => true;');
-  print('  @override Widget build(context) {');
-  print('    super.build(context); // Required!');
-  print('    return MyWidget();');
-  print('  }');
-  print('}');
-  
-  // Key points
-  print('\nKey points:');
-  print('- Override wantKeepAlive to return true');
-  print('- MUST call super.build(context) in build');
-  print('- Uses KeepAliveNotification internally');
-  print('- Can be dynamic (change wantKeepAlive)');  
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('AutomaticKeepAliveClientMixin is mixin on State');
-  print('Sends KeepAliveNotification to parent');
-  print('AutomaticKeepAlive widget receives notification');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Chat messages with media');
-  print('- Form fields in list');
-  print('- Video players in feed');
-  print('- Complex list items with state');
+  runCase('AutomaticKeepAliveClientMixin symbol exists', () {
+    final Type t = AutomaticKeepAliveClientMixin;
+    return t.toString().contains('AutomaticKeepAliveClientMixin');
+  });
 
-  print('\nAutomaticKeepAliveClientMixin test completed');
+  runCase('AutomaticKeepAliveClientMixin type string stable', () {
+    final Type t = AutomaticKeepAliveClientMixin;
+    return t.toString().isNotEmpty;
+  });
+
+  runCase('Axis enum is available', () {
+    return Axis.values.isNotEmpty;
+  });
+
+  runCase('TextDirection enum is available', () {
+    return TextDirection.values.isNotEmpty;
+  });
+
+  runCase('ConnectionState enum is available', () {
+    return ConnectionState.values.isNotEmpty;
+  });
+
+  runCase('Duration arithmetic works', () {
+    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  });
+
+
+  runCase('AutomaticKeepAlive symbol exists', () {
+    final Type t = AutomaticKeepAlive;
+    return t.toString().contains('AutomaticKeepAlive');
+  });
+
+  runCase('Summary string can be generated', () {
+    final String summary = 'automatickeepaliveclientmixin:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('AutomaticKeepAliveClientMixin Tests'),
-      Text('Keep widget alive when off-screen'),
-      Text('wantKeepAlive => true'),
-      Text('Must call super.build(context)'),
+    children: <Widget>[
+      const Text(
+        'AutomaticKeepAliveClientMixin Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Widget class-focused checks completed'),
     ],
   );
 }

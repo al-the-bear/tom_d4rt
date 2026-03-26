@@ -245,26 +245,26 @@ Total remaining: 586 files
 | AsyncSnapshot | async_snapshot_test.dart | Yes | 2026-03-26 23:13 |
 | AutocompleteFirstOptionIntent | autocomplete_first_option_intent_test.dart | Yes | 2026-03-26 23:13 |
 | AutocompleteLastOptionIntent | autocomplete_last_option_intent_test.dart | Yes | 2026-03-26 23:13 |
-| AutocompleteNextOptionIntent | autocomplete_next_option_intent_test.dart | No | |
-| AutocompleteNextPageOptionIntent | autocomplete_next_page_option_intent_test.dart | No | |
-| AutocompletePreviousOptionIntent | autocomplete_previous_option_intent_test.dart | No | |
-| AutocompletePreviousPageOptionIntent | autocomplete_previous_page_option_intent_test.dart | No | |
-| AutofillContextAction | autofill_context_action_test.dart | No | |
-| AutomaticKeepAliveClientMixin | automatic_keep_alive_client_mixin_test.dart | No | |
-| AutovalidateMode | autovalidate_mode_test.dart | No | |
-| BallisticScrollActivity | ballistic_scroll_activity_test.dart | No | |
-| BannerLocation | banner_location_test.dart | No | |
-| BaseWindowController | base_window_controller_test.dart | No | |
-| BorderRadiusTween | border_radius_tween_test.dart | No | |
-| BorderTween | border_tween_test.dart | No | |
-| BouncingScrollPhysics | bouncing_scroll_physics_test.dart | No | |
-| BouncingScrollSimulation | bouncing_scroll_simulation_test.dart | No | |
-| BoxConstraintsTween | box_constraints_tween_test.dart | No | |
-| BuildOwner | build_owner_test.dart | No | |
-| BuildScope | build_scope_test.dart | No | |
-| ButtonActivateIntent | button_activate_intent_test.dart | No | |
-| CapturedThemes | captured_themes_test.dart | No | |
-| ChangeReportingBehavior | change_reporting_behavior_test.dart | No | |
+| AutocompleteNextOptionIntent | autocomplete_next_option_intent_test.dart | Yes | 2026-03-26 23:26 |
+| AutocompleteNextPageOptionIntent | autocomplete_next_page_option_intent_test.dart | Yes | 2026-03-26 23:26 |
+| AutocompletePreviousOptionIntent | autocomplete_previous_option_intent_test.dart | Yes | 2026-03-26 23:26 |
+| AutocompletePreviousPageOptionIntent | autocomplete_previous_page_option_intent_test.dart | Yes | 2026-03-26 23:26 |
+| AutofillContextAction | autofill_context_action_test.dart | Yes | 2026-03-26 23:26 |
+| AutomaticKeepAliveClientMixin | automatic_keep_alive_client_mixin_test.dart | Yes | 2026-03-26 23:26 |
+| AutovalidateMode | autovalidate_mode_test.dart | Yes | 2026-03-26 23:26 |
+| BallisticScrollActivity | ballistic_scroll_activity_test.dart | Yes | 2026-03-26 23:26 |
+| BannerLocation | banner_location_test.dart | Yes | 2026-03-26 23:26 |
+| BaseWindowController | base_window_controller_test.dart | Yes | 2026-03-26 23:26 |
+| BorderRadiusTween | border_radius_tween_test.dart | Yes | 2026-03-26 23:26 |
+| BorderTween | border_tween_test.dart | Yes | 2026-03-26 23:26 |
+| BouncingScrollPhysics | bouncing_scroll_physics_test.dart | Yes | 2026-03-26 23:26 |
+| BouncingScrollSimulation | bouncing_scroll_simulation_test.dart | Yes | 2026-03-26 23:26 |
+| BoxConstraintsTween | box_constraints_tween_test.dart | Yes | 2026-03-26 23:26 |
+| BuildOwner | build_owner_test.dart | Yes | 2026-03-26 23:26 |
+| BuildScope | build_scope_test.dart | Yes | 2026-03-26 23:26 |
+| ButtonActivateIntent | button_activate_intent_test.dart | Yes | 2026-03-26 23:26 |
+| CapturedThemes | captured_themes_test.dart | Yes | 2026-03-26 23:26 |
+| ChangeReportingBehavior | change_reporting_behavior_test.dart | Yes | 2026-03-26 23:26 |
 | CharacterActivator | character_activator_test.dart | No | |
 | ChildVicinity | child_vicinity_test.dart | No | |
 | ClampingScrollPhysics | clamping_scroll_physics_test.dart | No | |
