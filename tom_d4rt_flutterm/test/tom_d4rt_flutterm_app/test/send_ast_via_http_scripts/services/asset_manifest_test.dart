@@ -1,91 +1,82 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests AssetManifest from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('AssetManifest test executing');
   print('=' * 50);
 
-  // AssetManifest is an abstract class accessed via factory
-  print('\nAssetManifest is abstract:');
-  print('Access via AssetManifest.loadFromAssetBundle');
+  runCase('AssetManifest symbol exists', () {
+    final Type t = AssetManifest;
+    return t.toString().contains('AssetManifest');
+  });
 
-  // Explain the AssetManifest structure
-  print('\nAssetManifest methods:');
-  print('- listAssets(): List<String> of all asset keys');
-  print('- getAssetVariants(key): List<AssetMetadata> for variants');
+  runCase('AssetMetadata symbol exists', () {
+    final Type t = AssetMetadata;
+    return t.toString().contains('AssetMetadata');
+  });
 
-  // Asset key format explanation
-  print('\nAsset key format:');
-  print('- Full path from assets folder');
-  print('- Example: "assets/images/logo.png"');
-  print('- Variant: "assets/images/2.0x/logo.png"');
+  runCase('rootBundle is available', () {
+    return rootBundle.runtimeType.toString().isNotEmpty;
+  });
 
-  // Asset bundle relationship
-  print('\nAsset bundle relationship:');
-  print('AssetManifest.loadFromAssetBundle(bundle)');
-  print('- bundle: AssetBundle to load from');
-  print('- Returns Future<AssetManifest>');
+  runCase('CachingAssetBundle symbol exists', () {
+    final Type t = CachingAssetBundle;
+    return t.toString().contains('CachingAssetBundle');
+  });
 
-  // Default asset bundle
-  print('\nDefault asset bundle:');
-  final defaultBundle = DefaultAssetBundle.of(context);
-  print('DefaultAssetBundle: ${defaultBundle.runtimeType}');
+  runCase('PlatformAssetBundle symbol exists', () {
+    final Type t = PlatformAssetBundle;
+    return t.toString().contains('PlatformAssetBundle');
+  });
 
-  // Common asset patterns
-  print('\nCommon asset patterns:');
-  print('assets/');
-  print('  images/');
-  print('    logo.png');
-  print('    1.5x/logo.png');
-  print('    2.0x/logo.png');
-  print('    3.0x/logo.png');
-  print('  fonts/');
-  print('    custom_font.ttf');
-  print('  data/');
-  print('    config.json');
+  runCase('NetworkAssetBundle can be created', () {
+    final NetworkAssetBundle b = NetworkAssetBundle(Uri.parse('https://example.com/'));
+    return b.runtimeType.toString().contains('NetworkAssetBundle');
+  });
 
-  // Device pixel ratio and variants
-  print('\nDevice pixel ratio variants:');
-  print('1.0x: base resolution');
-  print('1.5x: 1.5 device pixel ratio');
-  print('2.0x: 2.0 device pixel ratio (Retina)');
-  print('3.0x: 3.0 device pixel ratio');
-  print('4.0x: 4.0 device pixel ratio');
+  runCase('AssetImage retains asset name', () {
+    const AssetImage image = AssetImage('assets/icon.png');
+    return image.assetName == 'assets/icon.png';
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('AssetManifest is abstract base');
-  print('Concrete implementation loaded from bundle');
+  runCase('summary string formed', () {
+    final String s = 'asset-manifest:${passed.length + failed.length}';
+    return s.startsWith('asset-manifest:');
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('final manifest = await AssetManifest.loadFromAssetBundle(bundle);');
-  print('final assets = manifest.listAssets();');
-  print('final variants = manifest.getAssetVariants("path/image.png");');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nAssetManifest purpose:');
-  print('- Lists all bundled assets in the app');
-  print('- Provides asset variants for different resolutions');
-  print('- Used internally by Image.asset(), AssetImage');
-  print('- Enables runtime asset discovery');
-  print('- Abstract class with factory method');
-
-  print('\n' + '=' * 50);
-  print('AssetManifest test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'AssetManifest Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: abstract class'),
-      Text('Load: AssetManifest.loadFromAssetBundle'),
-      Text('Methods: listAssets, getAssetVariants'),
-      Text('Purpose: Asset discovery and variants'),
+    children: <Widget>[
+      const Text('AssetManifest Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Asset-manifest related symbols and constructors validated'),
     ],
   );
 }

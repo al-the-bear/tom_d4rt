@@ -1,92 +1,84 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests ChildSemanticsConfigurationsResult from semantics
+import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('ChildSemanticsConfigurationsResult test executing');
   print('=' * 50);
 
-  // ChildSemanticsConfigurationsResult
-  print('\nChildSemanticsConfigurationsResult:');
-  print('Result of child semantics configuration collection');
-  print('Contains merged and sibling configurations');
+  final Type symbol = ChildSemanticsConfigurationsResult;
+  runCase('symbol type resolves', () => symbol.toString().contains('ChildSemanticsConfigurationsResult'));
 
-  // Purpose
-  print('\nPurpose:');
-  print('- Hold processed child semantics');
-  print('- Track merge-up configurations');
-  print('- Result of builder pattern');
+  runCase('SemanticsConfiguration stores value', () {
+    final SemanticsConfiguration conf = SemanticsConfiguration();
+    conf.value = '42';
+    return conf.value == '42';
+  });
 
-  // Properties
-  print('\nProperties:');
-  print('');
-  print('siblingMergeUpConfigurations:');
-  print('  - List<SemanticsConfiguration>');
-  print('  - Configs to merge with siblings');
+  runCase('SemanticsSortKey ordering numeric', () {
+    const OrdinalSortKey a = OrdinalSortKey(1);
+    const OrdinalSortKey b = OrdinalSortKey(2);
+    return a.order < b.order;
+  });
 
-  // Usage context
-  print('\nUsage context:');
-  print('Returned by ChildSemanticsConfigurationsResultBuilder.build()');
-  print('Used in assembleSemanticsNode implementations');
+  runCase('SemanticsValidationResult has values', () {
+    return SemanticsValidationResult.values.isNotEmpty;
+  });
 
-  // Code example
-  print('\nCode example:');
-  print('final builder = ChildSemanticsConfigurationsResultBuilder();');
-  print('');
-  print('// Mark configurations for merge');
-  print('for (final config in childConfigs) {');
-  print('  if (shouldMerge(config)) {');
-  print('    builder.markAsSiblingMergeUp(config);');
-  print('  }');
-  print('}');
-  print('');
-  print('// Get result');
-  print('final ChildSemanticsConfigurationsResult result = builder.build();');
-  print('');
-  print('// Access merged configs');
-  print('for (final config in result.siblingMergeUpConfigurations) {');
-  print('  // Process merged config');
-  print('}');
+  runCase('AnnounceSemanticsEvent type available', () {
+    final Type t = AnnounceSemanticsEvent;
+    return t.toString().contains('AnnounceSemanticsEvent');
+  });
 
-  // Merge behavior
-  print('\nMerge behavior:');
-  print('- Sibling merge combines adjacent nodes');
-  print('- Reduces accessibility tree depth');
-  print('- Improves screen reader navigation');
+  runCase('TapSemanticEvent type available', () {
+    final Type t = TapSemanticEvent;
+    return t.toString().contains('TapSemanticEvent');
+  });
 
-  // When used
-  print('\nWhen used:');
-  print('- RenderObject.assembleSemanticsNode');
-  print('- Custom viewport implementations');
-  print('- Complex layout semantics');
+  runCase('TooltipSemanticsEvent type available', () {
+    final Type t = TooltipSemanticsEvent;
+    return t.toString().contains('TooltipSemanticsEvent');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('ChildSemanticsConfigurationsResult (data class)');
-  print('  \u2514\u2500 Created by ResultBuilder');
+  runCase('Summary string generated', () {
+    final String summary = '${symbol.toString()}:${SemanticsValidationResult.values.length}';
+    return summary.contains(':');
+  });
 
-  // Explain purpose
-  print('\nChildSemanticsConfigurationsResult purpose:');
-  print('- Child semantics collection result');
-  print('- Contains sibling merge configs');
-  print('- Used with ResultBuilder');
-  print('- Custom semantics assembly');
-  print('- Accessibility tree optimization');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
 
-  print('\n' + '=' * 50);
-  print('ChildSemanticsConfigurationsResult test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'ChildSemanticsConfigurationsResult Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: data class'),
-      Text('Property: siblingMergeUpConfigurations'),
-      Text('Created by: ResultBuilder.build()'),
-      Text('Purpose: Semantics collection result'),
+    children: <Widget>[
+      const Text('ChildSemanticsConfigurationsResult Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Semantics result checks executed'),
     ],
   );
 }

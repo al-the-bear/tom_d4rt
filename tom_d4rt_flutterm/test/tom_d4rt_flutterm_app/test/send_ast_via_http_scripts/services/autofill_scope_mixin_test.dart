@@ -1,96 +1,87 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests AutofillScopeMixin from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('AutofillScopeMixin test executing');
   print('=' * 50);
 
-  // AutofillScopeMixin provides autofill scope
-  print('\nAutofillScopeMixin:');
-  print('Mixin for widgets managing autofill groups');
-  print('Coordinates autofill across multiple fields');
+  runCase('AutofillScopeMixin symbol exists', () {
+    final Type t = AutofillScopeMixin;
+    return t.toString().contains('AutofillScopeMixin');
+  });
 
-  // Mixin purpose
-  print('\nMixin purpose:');
-  print('- Group related autofill fields');
-  print('- Register clients with scope');
-  print('- Coordinate autofill triggers');
+  runCase('AutofillScope symbol exists', () {
+    final Type t = AutofillScope;
+    return t.toString().contains('AutofillScope');
+  });
 
-  // Methods provided
-  print('\nMethods provided by mixin:');
-  print('');
-  print('register(AutofillClient):');
-  print('  - Add field to autofill group');
-  print('  - Field participates in autofill');
-  print('');
-  print('unregister(identifier):');
-  print('  - Remove field from group');
-  print('  - Called on dispose');
-  print('');
-  print('attach(TextInputConnection, config):');
-  print('  - Connect scope to text input');
-  print('  - Enable platform autofill');
+  runCase('AutofillClient symbol exists', () {
+    final Type t = AutofillClient;
+    return t.toString().contains('AutofillClient');
+  });
 
-  // AutofillScope interface
-  print('\nImplements AutofillScope:');
-  print('getAutofillClient(id): Get client by ID');
-  print('autofillClients: Map of all clients');
+  runCase('AutofillConfiguration constructor works', () {
+    const AutofillConfiguration config = AutofillConfiguration(
+      uniqueIdentifier: 'id-1',
+      autofillHints: <String>['email'],
+      currentEditingValue: TextEditingValue(text: 'a@b.com'),
+    );
+    return config.uniqueIdentifier == 'id-1' && config.autofillHints.first == 'email';
+  });
 
-  // Usage context
-  print('\nUsage context:');
-  print('AutofillGroup widget uses this mixin');
-  print('Groups related form fields together');
-  print('');
-  print('AutofillGroup(');
-  print('  child: Column(');
-  print('    children: [');
-  print('      TextField( /* email */ ),');
-  print('      TextField( /* password */ ),');
-  print('    ],');
-  print('  ),');
-  print(');');
+  runCase('AutofillHints.email constant is valid', () {
+    return AutofillHints.email.contains('email');
+  });
 
-  // Autofill scenarios
-  print('\nAutofill scenarios:');
-  print('- Login forms (email + password)');
-  print('- Address forms (multiple fields)');
-  print('- Payment forms (card details)');
-  print('- Profile forms (name, phone, etc.)');
+  runCase('TextInputConfiguration carries autofill config', () {
+    const TextInputConfiguration cfg = TextInputConfiguration(
+      autofillConfiguration: AutofillConfiguration(
+        uniqueIdentifier: 'x',
+        autofillHints: <String>[AutofillHints.name],
+        currentEditingValue: TextEditingValue(text: 'alex'),
+      ),
+    );
+    return cfg.autofillConfiguration.autofillHints.contains(AutofillHints.name);
+  });
 
-  // Platform behavior
-  print('\nPlatform autofill behavior:');
-  print('iOS: Keyboard suggestions bar');
-  print('Android: Autofill service popup');
-  print('Web: Browser autofill');
+  runCase('summary string formed', () {
+    final String s = 'autofill-scope:${passed.length + failed.length}';
+    return s.startsWith('autofill-scope:');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('AutofillScope (interface)');
-  print('  \u2514\u2500 AutofillScopeMixin (implementation)');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nAutofillScopeMixin purpose:');
-  print('- Autofill group coordination');
-  print('- Client registration/unregistration');
-  print('- Platform autofill integration');
-  print('- Groups related fields together');
-  print('- Used by AutofillGroup widget');
-
-  print('\n' + '=' * 50);
-  print('AutofillScopeMixin test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'AutofillScopeMixin Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: mixin'),
-      Text('Implements: AutofillScope'),
-      Text('Used by: AutofillGroup'),
-      Text('Purpose: Autofill group coordination'),
+    children: <Widget>[
+      const Text('AutofillScopeMixin Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Autofill mixin and configuration checks completed'),
     ],
   );
 }

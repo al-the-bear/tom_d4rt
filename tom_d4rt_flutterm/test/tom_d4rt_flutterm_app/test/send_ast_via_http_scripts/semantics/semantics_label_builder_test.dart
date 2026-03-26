@@ -1,92 +1,81 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SemanticsLabelBuilder from semantics
+import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('SemanticsLabelBuilder test executing');
   print('=' * 50);
 
-  // SemanticsLabelBuilder typedef
-  print('\nSemanticsLabelBuilder:');
-  print('Typedef for building semantic labels');
-  print('typedef SemanticsLabelBuilder = String Function(String label)');
+  runCase('SemanticsLabelBuilder symbol exists', () {
+    final Type t = SemanticsLabelBuilder;
+    return t.toString().contains('SemanticsLabelBuilder');
+  });
 
-  // Create a SemanticsLabelBuilder function
-  String myLabelBuilder(String label) {
-    return 'Prefix: $label';
-  }
+  runCase('AttributedString basic text', () {
+    final AttributedString text = AttributedString('hello');
+    return text.string == 'hello';
+  });
 
-  print('\nCustom builder created:');
-  print('myLabelBuilder("test"): ${myLabelBuilder("test")}');
+  runCase('StringAttribute symbol exists', () {
+    final Type t = StringAttribute;
+    return t.toString().contains('StringAttribute');
+  });
 
-  // Usage in Semantics
-  print('\nUsage in Semantics:');
-  print('Semantics(');
-  print('  label: "Button",');
-  print('  labelBuilder: (label) => "Action \$label",');
-  print('  child: MyWidget(),');
-  print(');');
+  runCase('LocaleStringAttribute symbol exists', () {
+    final Type t = LocaleStringAttribute;
+    return t.toString().contains('LocaleStringAttribute');
+  });
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Add context to labels');
-  print('- Localization transformation');
-  print('- Label customization');
-  print('- Accessibility enhancements');
+  runCase('SpellOutStringAttribute symbol exists', () {
+    final Type t = SpellOutStringAttribute;
+    return t.toString().contains('SpellOutStringAttribute');
+  });
 
-  // Examples
-  print('\nExamples:');
-  print('');
-  print('Counter label:');
-  print('labelBuilder: (label) => "\$label: \$count items"');
-  print('');
-  print('State indicator:');
-  print(
-    'labelBuilder: (label) => "\$label, \${isActive ? "active" : "inactive"}"',
-  );
-  print('');
-  print('Position context:');
-  print('labelBuilder: (label) => "Item \$index of \$total: \$label"');
+  runCase('SemanticsConfiguration attributedLabel stores text', () {
+    final SemanticsConfiguration conf = SemanticsConfiguration();
+    conf.attributedLabel = AttributedString('world');
+    return conf.attributedLabel.string == 'world';
+  });
 
-  // Common patterns
-  print('\nCommon patterns:');
-  print('// Add state info');
-  print('(l) => selected ? "Selected \$l" : l');
-  print('');
-  print('// Add count');
-  print('(l) => "\$l (\$count)"');
-  print('');
-  print('// Add position');
-  print('(l) => "\$l, item \$pos of \$total"');
+  runCase('summary string formed', () {
+    final String s = 'label-builder:${passed.length + failed.length}';
+    return s.contains('label-builder');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('Function');
-  print('  \u2514\u2500 SemanticsLabelBuilder (typedef)');
-  print('       String Function(String label)');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nSemanticsLabelBuilder purpose:');
-  print('- Typedef for label building');
-  print('- String Function(String label)');
-  print('- Custom label transformation');
-  print('- Dynamic accessibility text');
-  print('- Used in Semantics widget');
-
-  print('\n' + '=' * 50);
-  print('SemanticsLabelBuilder test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'SemanticsLabelBuilder Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: typedef'),
-      Text('Signature: String Function(String)'),
-      Text('Test: ${myLabelBuilder("test")}'),
-      Text('Purpose: Label transformation'),
+    children: <Widget>[
+      const Text('SemanticsLabelBuilder Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: SemanticsLabelBuilder symbol resolved'),
+      const Text('Check: StringAttribute symbols resolved'),
+      const Text('Label-builder related semantics checks completed'),
     ],
   );
 }

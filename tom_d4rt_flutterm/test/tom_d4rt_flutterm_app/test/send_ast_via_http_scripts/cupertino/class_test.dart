@@ -1,130 +1,86 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests Cupertino class overview from cupertino
 import 'package:flutter/cupertino.dart';
 
 dynamic build(BuildContext context) {
-  print('Cupertino class overview test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
 
-  // ========== CupertinoApp ==========
-  print('--- CupertinoApp ---');
-  final app = CupertinoApp(
-    home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Test'),
-      ),
-      child: Center(child: Text('Hello')),
-    ),
-  );
-  print('  CupertinoApp created');
-  print('  type: ${app.runtimeType}');
-
-  // ========== CupertinoThemeData ==========
-  print('--- CupertinoThemeData ---');
-  final theme = CupertinoThemeData(
-    brightness: Brightness.dark,
-    primaryColor: CupertinoColors.activeBlue,
-    scaffoldBackgroundColor: CupertinoColors.black,
-    barBackgroundColor: CupertinoColors.darkBackgroundGray,
-  );
-  print('  brightness: ${theme.brightness}');
-  print('  primaryColor: ${theme.primaryColor}');
-  print('  scaffoldBackgroundColor: ${theme.scaffoldBackgroundColor}');
-
-  // ========== CupertinoTextThemeData ==========
-  print('--- CupertinoTextThemeData ---');
-  final textTheme = CupertinoTextThemeData(
-    primaryColor: CupertinoColors.activeBlue,
-  );
-  print('  textStyle: ${textTheme.textStyle}');
-  print('  navTitleTextStyle: ${textTheme.navTitleTextStyle}');
-  print('  navLargeTitleTextStyle: ${textTheme.navLargeTitleTextStyle}');
-
-  // ========== CupertinoColors ==========
-  print('--- CupertinoColors ---');
-  final colors = <(String, Color)>[
-    ('activeBlue', CupertinoColors.activeBlue),
-    ('activeGreen', CupertinoColors.activeGreen),
-    ('activeOrange', CupertinoColors.activeOrange),
-    ('white', CupertinoColors.white),
-    ('black', CupertinoColors.black),
-    ('lightBackgroundGray', CupertinoColors.lightBackgroundGray),
-    ('darkBackgroundGray', CupertinoColors.darkBackgroundGray),
-    ('systemRed', CupertinoColors.systemRed),
-    ('systemGreen', CupertinoColors.systemGreen),
-    ('systemBlue', CupertinoColors.systemBlue),
-    ('systemYellow', CupertinoColors.systemYellow),
-    ('systemPurple', CupertinoColors.systemPurple),
-    ('systemPink', CupertinoColors.systemPink),
-    ('systemGrey', CupertinoColors.systemGrey),
-  ];
-  for (final c in colors) {
-    print('  ${c.$1}: ${c.$2}');
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
   }
 
-  // ========== CupertinoIcons ==========
-  print('--- CupertinoIcons ---');
-  final icons = <(String, IconData)>[
-    ('back', CupertinoIcons.back),
-    ('forward', CupertinoIcons.forward),
-    ('add', CupertinoIcons.add),
-    ('search', CupertinoIcons.search),
-    ('settings', CupertinoIcons.settings),
-    ('heart', CupertinoIcons.heart),
-    ('heartFill', CupertinoIcons.heart_fill),
-    ('home', CupertinoIcons.home),
-    ('trash', CupertinoIcons.trash),
-    ('gear', CupertinoIcons.gear),
-  ];
-  for (final i in icons) {
-    print('  ${i.$1}: codePoint=${i.$2.codePoint}');
-  }
+  print('Cupertino class smoke test executing');
+  print('=' * 50);
 
-  print('Cupertino class overview test completed');
-  return CupertinoApp(
-    home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('Cupertino Class Overview'),
-      ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('CupertinoThemeData', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              Text('  brightness: ${theme.brightness}'),
-              Text('  primaryColor: ${theme.primaryColor}'),
-              SizedBox(height: 12.0),
-              Text('CupertinoColors', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              for (final c in colors)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 2.0),
-                  child: Row(children: [
-                    Container(width: 24.0, height: 24.0, color: c.$2),
-                    SizedBox(width: 8.0),
-                    Text(c.$1),
-                  ]),
-                ),
-              SizedBox(height: 12.0),
-              Text('CupertinoIcons', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              Wrap(
-                spacing: 12.0,
-                runSpacing: 8.0,
-                children: [
-                  for (final i in icons)
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(i.$2, size: 28.0),
-                        Text(i.$1, style: TextStyle(fontSize: 10.0)),
-                      ],
-                    ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
+  runCase('CupertinoThemeData brightness set', () {
+    final CupertinoThemeData data = const CupertinoThemeData(brightness: Brightness.dark);
+    return data.brightness == Brightness.dark;
+  });
+
+  runCase('CupertinoTextThemeData created', () {
+    final CupertinoTextThemeData text = const CupertinoTextThemeData();
+    return text.runtimeType.toString().contains('CupertinoTextThemeData');
+  });
+
+  runCase('CupertinoColors activeBlue has alpha', () {
+    final Color c = CupertinoColors.activeBlue;
+    return c.alpha == 255;
+  });
+
+  runCase('CupertinoDynamicColor resolves', () {
+    final CupertinoDynamicColor dyn = CupertinoDynamicColor.withBrightness(
+      color: CupertinoColors.white,
+      darkColor: CupertinoColors.black,
+    );
+    final Color resolved = CupertinoDynamicColor.resolve(dyn, context);
+    return resolved == CupertinoColors.white || resolved == CupertinoColors.black;
+  });
+
+  runCase('CupertinoScrollbar thickness positive', () {
+    const CupertinoScrollbar bar = CupertinoScrollbar(child: SizedBox(width: 10, height: 10));
+    return bar.thickness == 6.0;
+  });
+
+  runCase('CupertinoButton has child', () {
+    final CupertinoButton btn = CupertinoButton(
+      onPressed: () {},
+      child: const Text('ok'),
+    );
+    return btn.child is Text;
+  });
+
+  runCase('CupertinoPageScaffold can build', () {
+    const CupertinoPageScaffold page = CupertinoPageScaffold(child: SizedBox());
+    return page.child is SizedBox;
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const Text('Cupertino Class Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('See console output for detailed checks'),
+    ],
   );
 }

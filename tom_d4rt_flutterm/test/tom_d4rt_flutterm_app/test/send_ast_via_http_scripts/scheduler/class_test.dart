@@ -1,90 +1,81 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SchedulerBinding from scheduler
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('SchedulerBinding test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
+  print('Scheduler class smoke test executing');
   print('=' * 50);
 
-  // SchedulerBinding for frame scheduling
-  print('\nSchedulerBinding:');
-  print('Manages frame scheduling and callbacks');
-  print('Controls animation frame timing');
+  runCase('SchedulerPhase has expected values', () {
+    return SchedulerPhase.values.contains(SchedulerPhase.idle) &&
+        SchedulerPhase.values.contains(SchedulerPhase.persistentCallbacks);
+  });
 
-  // Access instance
-  print('\nAccess:');
-  print('SchedulerBinding.instance');
+  runCase('Priority values are ordered', () {
+    return Priority.idle.value < Priority.animation.value;
+  });
 
-  // schedulerPhase
-  print('\nSchedulerPhase values:');
-  print('idle: ${SchedulerPhase.idle.index}');
-  print('transientCallbacks: ${SchedulerPhase.transientCallbacks.index}');
-  print('midFrameMicrotasks: ${SchedulerPhase.midFrameMicrotasks.index}');
-  print('persistentCallbacks: ${SchedulerPhase.persistentCallbacks.index}');
-  print('postFrameCallbacks: ${SchedulerPhase.postFrameCallbacks.index}');
+  runCase('SchedulerBinding instance exists', () {
+    return SchedulerBinding.instance.runtimeType.toString().isNotEmpty;
+  });
 
-  // Callback phases
-  print('\nCallback phases:');
-  print('1. transientCallbacks - Animation ticks');
-  print('2. midFrameMicrotasks - Microtasks');
-  print('3. persistentCallbacks - Build/layout');
-  print('4. postFrameCallbacks - After frame');
+  runCase('Current scheduler phase is valid enum', () {
+    final SchedulerPhase phase = SchedulerBinding.instance.schedulerPhase;
+    return SchedulerPhase.values.contains(phase);
+  });
 
-  // Key methods
-  print('\nKey methods:');
-  print('scheduleFrameCallback(callback)');
-  print('addPersistentFrameCallback(callback)');
-  print('addPostFrameCallback(callback)');
-  print('scheduleTask(task, priority)');
-  print('scheduleForcedFrame()');
+  runCase('FrameCallback typedef type exists', () {
+    final Type t = FrameCallback;
+    return t.toString().contains('FrameCallback');
+  });
 
-  // FrameCallback typedef
-  print('\nFrameCallback typedef:');
-  print('void Function(Duration timeStamp)');
+  runCase('SchedulingStrategy typedef type exists', () {
+    final Type t = SchedulingStrategy;
+    return t.toString().contains('SchedulingStrategy');
+  });
 
-  // TimingsCallback typedef
-  print('\nTimingsCallback typedef:');
-  print('void Function(List<FrameTiming>)');
+  runCase('TaskCallback typedef type exists', () {
+    final Type t = TaskCallback;
+    return t.toString().contains('TaskCallback');
+  });
 
-  // Frame timing
-  print('\nFrame timing:');
-  print('currentFrameTimeStamp - Current frame time');
-  print('currentSystemFrameTimeStamp - System time');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
 
-  // Lifecycle state
-  print('\nLifecycle state:');
-  print('lifecycleState - AppLifecycleState');
-  print('framesEnabled - Whether frames scheduled');
-
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('BindingBase');
-  print('  \u2514\u2500 SchedulerBinding (mixin)');
-  print('       \u2514\u2500 WidgetsBinding');
-
-  // Explain purpose
-  print('\nSchedulerBinding purpose:');
-  print('- Frame scheduling');
-  print('- Animation timing');
-  print('- Callback management');
-  print('- Task scheduling');
-  print('- Frame phase control');
-
-  print('\n' + '=' * 50);
-  print('SchedulerBinding test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'SchedulerBinding Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Phases: ${SchedulerPhase.values.length}'),
-      Text('idle phase: ${SchedulerPhase.idle.index}'),
-      Text('Key: scheduleFrameCallback'),
-      Text('Purpose: Frame scheduling'),
+    children: <Widget>[
+      const Text('Scheduler Class Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: SchedulerPhase values available'),
+      const Text('Check: Priority ordering validated'),
+      const Text('Check: SchedulerBinding.instance reachable'),
+      const Text('Scheduler API checks completed'),
     ],
   );
 }

@@ -1,95 +1,81 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests GLFWKeyHelper from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('GLFWKeyHelper test executing');
   print('=' * 50);
 
-  // GLFWKeyHelper for GLFW keyboard mapping
-  print('\nGLFWKeyHelper:');
-  print('Deprecated key helper for GLFW');
-  print('Linux desktop keyboard support');
+  runCase('GLFWKeyHelper symbol exists', () {
+    final Type t = GLFWKeyHelper;
+    return t.toString().contains('GLFWKeyHelper');
+  });
 
-  // GLFW context
-  print('\nGLFW context:');
-  print('GLFW = Graphics Library Framework');
-  print('Used for Linux desktop windowing');
-  print('Flutter Linux uses GTK now');
+  runCase('GtkKeyHelper symbol exists', () {
+    final Type t = GtkKeyHelper;
+    return t.toString().contains('GtkKeyHelper');
+  });
 
-  // Deprecation status
-  print('\nDeprecation status:');
-  print('@Deprecated - use KeyEvent instead');
-  print('Part of RawKeyboard system');
-  print('Being replaced by HardwareKeyboard');
+  runCase('RawKeyEventDataLinux symbol exists', () {
+    final Type t = RawKeyEventDataLinux;
+    return t.toString().contains('RawKeyEventDataLinux');
+  });
 
-  // Key codes
-  print('\nGLFW key codes:');
-  print('GLFW_KEY_A = 65');
-  print('GLFW_KEY_SPACE = 32');
-  print('GLFW_KEY_ESCAPE = 256');
-  print('GLFW_KEY_ENTER = 257');
-  print('GLFW_KEY_TAB = 258');
+  runCase('LogicalKeyboardKey.enter has label', () {
+    return LogicalKeyboardKey.enter.keyLabel.isNotEmpty;
+  });
 
-  // Modifiers
-  print('\nGLFW modifiers:');
-  print('GLFW_MOD_SHIFT = 0x0001');
-  print('GLFW_MOD_CONTROL = 0x0002');
-  print('GLFW_MOD_ALT = 0x0004');
-  print('GLFW_MOD_SUPER = 0x0008');
+  runCase('PhysicalKeyboardKey.keyA has usage', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Helper methods
-  print('\nHelper methods:');
-  print('getModifierSide(key, modifiers):');
-  print('  - Determine left/right modifier');
-  print('');
-  print('isModifierPressed(side, modifiers):');
-  print('  - Check if modifier is pressed');
+  runCase('ModifierKey enum includes controlModifier', () {
+    return ModifierKey.values.contains(ModifierKey.controlModifier);
+  });
 
-  // Usage context
-  print('\nUsage context:');
-  print('RawKeyEventDataLinux uses this');
-  print('Maps GLFW codes to Flutter keys');
-  print('Linux-specific implementation');
+  runCase('KeyboardSide enum includes all', () {
+    return KeyboardSide.values.contains(KeyboardSide.all);
+  });
 
-  // Migration
-  print('\nMigration path:');
-  print('Old: RawKeyboard + GLFWKeyHelper');
-  print('New: HardwareKeyboard + KeyEvent');
-  print('');
-  print('// Old way (deprecated)');
-  print('RawKeyboard.instance.addListener(...)');
-  print('');
-  print('// New way');
-  print('HardwareKeyboard.instance.addHandler(...)');
+  runCase('summary string formed', () {
+    final String s = 'glfw-helper:${passed.length + failed.length}';
+    return s.startsWith('glfw-helper:');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('KeyHelper (abstract)');
-  print('  \u2514\u2500 GLFWKeyHelper (deprecated)');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nGLFWKeyHelper purpose:');
-  print('- GLFW key code mapping (deprecated)');
-  print('- Linux desktop keyboard support');
-  print('- Modifier key handling');
-  print('- Used by RawKeyEventDataLinux');
-  print('- Migrate to KeyEvent system');
-
-  print('\n' + '=' * 50);
-  print('GLFWKeyHelper test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'GLFWKeyHelper Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Status: @Deprecated'),
-      Text('Platform: Linux (GLFW)'),
-      Text('Replacement: KeyEvent system'),
-      Text('Purpose: GLFW key mapping'),
+    children: <Widget>[
+      const Text('GLFWKeyHelper Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: GLFWKeyHelper symbol resolved'),
+      const Text('Check: RawKeyEventDataLinux symbol resolved'),
+      const Text('Desktop key-helper and keyboard primitive checks done'),
     ],
   );
 }

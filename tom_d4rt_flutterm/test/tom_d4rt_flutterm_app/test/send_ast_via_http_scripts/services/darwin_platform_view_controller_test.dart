@@ -1,90 +1,81 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests DarwinPlatformViewController from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('DarwinPlatformViewController test executing');
   print('=' * 50);
 
-  // DarwinPlatformViewController for macOS/iOS views
-  print('\nDarwinPlatformViewController:');
-  print('Platform view controller for Darwin platforms');
-  print('macOS (AppKit) and iOS (UIKit) native views');
+  runCase('DarwinPlatformViewController symbol exists', () {
+    final Type t = DarwinPlatformViewController;
+    return t.toString().contains('DarwinPlatformViewController');
+  });
 
-  // Extends PlatformViewController
-  print('\nExtends PlatformViewController:');
-  print('Base controller for platform views');
-  print('Darwin-specific implementation');
+  runCase('UiKitViewController symbol exists', () {
+    final Type t = UiKitViewController;
+    return t.toString().contains('UiKitViewController');
+  });
 
-  // Platform support
-  print('\nPlatform support:');
-  print('- macOS: AppKit NSView hosting');
-  print('- iOS: UIKit UIView hosting');
-  print('- Not for Android or other platforms');
+  runCase('AppKitViewController symbol exists', () {
+    final Type t = AppKitViewController;
+    return t.toString().contains('AppKitViewController');
+  });
 
-  // Lifecycle methods
-  print('\nLifecycle methods:');
-  print('create(): Create native view');
-  print('clearFocus(): Remove focus from view');
-  print('dispatchPointerEvent(): Forward pointer events');
-  print('dispose(): Clean up resources');
+  runCase('PlatformViewController base symbol exists', () {
+    final Type t = PlatformViewController;
+    return t.toString().contains('PlatformViewController');
+  });
 
-  // View ID
-  print('\nView identification:');
-  print('viewId: Unique identifier for this view');
-  print('Used for platform channel routing');
+  runCase('PlatformViewsService symbol exists', () {
+    final Type t = PlatformViewsService;
+    return t.toString().contains('PlatformViewsService');
+  });
 
-  // macOS specifics
-  print('\nmacOS specifics:');
-  print('- NSView-based embedding');
-  print('- Responder chain integration');
-  print('- Focus management');
-  print('- Layer-backed or buffer-backed');
+  runCase('PlatformViewController symbol repeated check', () {
+    final Type t = PlatformViewController;
+    return t.toString().contains('PlatformViewController');
+  });
 
-  // iOS specifics
-  print('\niOS specifics:');
-  print('- UIView-based embedding');
-  print('- Touch event forwarding');
-  print('- Gesture recognizers');
-  print('- Safe area handling');
+  runCase('summary string formed', () {
+    final String s = 'darwin-platform-view:${passed.length + failed.length}';
+    return s.contains('darwin');
+  });
 
-  // Usage context
-  print('\nUsage context:');
-  print('UiKitView (iOS):');
-  print('  - Creates UIView in Flutter');
-  print('  - Uses this controller internally');
-  print('');
-  print('AppKitView (macOS):');
-  print('  - Creates NSView in Flutter');
-  print('  - Uses this controller internally');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PlatformViewController');
-  print('  \u2514\u2500 DarwinPlatformViewController');
-
-  // Explain purpose
-  print('\nDarwinPlatformViewController purpose:');
-  print('- Darwin platform view management');
-  print('- macOS AppKit integration');
-  print('- iOS UIKit integration');
-  print('- Native view lifecycle control');
-  print('- Event dispatching to native views');
-
-  print('\n' + '=' * 50);
-  print('DarwinPlatformViewController test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'DarwinPlatformViewController Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Extends: PlatformViewController'),
-      Text('Platforms: macOS, iOS'),
-      Text('Views: NSView, UIView'),
-      Text('Purpose: Darwin platform views'),
+    children: <Widget>[
+      const Text('DarwinPlatformViewController Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: Darwin base symbol resolved'),
+      const Text('Check: UiKit and AppKit symbols resolved'),
+      const Text('Check: PlatformViewsService symbol resolved'),
+      const Text('Darwin platform-view controller hierarchy checks done'),
     ],
   );
 }

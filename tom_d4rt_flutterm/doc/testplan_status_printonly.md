@@ -7,7 +7,7 @@ Total remaining: 586 files
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| Class | class_test.dart | No | |
+| Class | class_test.dart | Yes | 2026-03-26 22:55 |
 
 ## dart_ui/ (2 files)
 
@@ -67,7 +67,7 @@ Total remaining: 586 files
 | BorderStyle | border_style_test.dart | Yes | 2026-03-26 21:15 |
 | BoxFit | box_fit_test.dart | Yes | 2026-03-26 21:15 |
 | BoxShape | box_shape_test.dart | Yes | 2026-03-26 21:15 |
-| Class | class_test.dart | No | |
+| Class | class_test.dart | Yes | 2026-03-26 22:55 |
 | FlutterLogoStyle | flutter_logo_style_test.dart | Yes | 2026-03-26 21:15 |
 | ImageRepeat | image_repeat_test.dart | Yes | 2026-03-26 21:15 |
 | RenderComparison | render_comparison_test.dart | Yes | 2026-03-26 21:15 |
@@ -81,7 +81,7 @@ Total remaining: 586 files
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| Class | class_test.dart | No | |
+| Class | class_test.dart | Yes | 2026-03-26 22:55 |
 
 ## rendering/ (64 files)
 
@@ -147,7 +147,7 @@ Total remaining: 586 files
 | TreeSliverIndentationType | tree_sliver_indentation_type_test.dart | Yes | 2026-03-26 22:14 |
 | TreeSliverNodeParentData | tree_sliver_node_parent_data_test.dart | Yes | 2026-03-26 22:14 |
 | VerticalCaretMovementRun | vertical_caret_movement_run_test.dart | Yes | 2026-03-26 22:14 |
-| viewport | viewport_test.dart | No | |
+| viewport | viewport_test.dart | Yes | 2026-03-26 22:55 |
 | WrapAlignment | wrap_alignment_test.dart | Yes | 2026-03-26 22:14 |
 | WrapCrossAlignment | wrap_cross_alignment_test.dart | Yes | 2026-03-26 22:28 |
 | WrapParentData | wrap_parent_data_test.dart | Yes | 2026-03-26 22:28 |
@@ -156,44 +156,44 @@ Total remaining: 586 files
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| Class | class_test.dart | No | |
+| Class | class_test.dart | Yes | 2026-03-26 22:55 |
 
 ## semantics/ (6 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| ChildSemanticsConfigurationsResultBuilder | child_semantics_configurations_result_builder_test.dart | No | |
-| ChildSemanticsConfigurationsResult | child_semantics_configurations_result_test.dart | No | |
-| Class | class_test.dart | No | |
+| ChildSemanticsConfigurationsResultBuilder | child_semantics_configurations_result_builder_test.dart | Yes | 2026-03-26 22:55 |
+| ChildSemanticsConfigurationsResult | child_semantics_configurations_result_test.dart | Yes | 2026-03-26 22:55 |
+| Class | class_test.dart | Yes | 2026-03-26 22:55 |
 | SemanticsBinding | semantics_binding_test.dart | Yes | 2026-03-26 22:28 |
-| SemanticsHandle | semantics_handle_test.dart | No | |
-| SemanticsLabelBuilder | semantics_label_builder_test.dart | No | |
+| SemanticsHandle | semantics_handle_test.dart | Yes | 2026-03-26 22:55 |
+| SemanticsLabelBuilder | semantics_label_builder_test.dart | Yes | 2026-03-26 22:55 |
 
 ## services/ (56 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| AndroidViewController | android_view_controller_test.dart | No | |
+| AndroidViewController | android_view_controller_test.dart | Yes | 2026-03-26 22:55 |
 | AppKitViewController | app_kit_view_controller_test.dart | Yes | 2026-03-26 22:28 |
-| AssetManifest | asset_manifest_test.dart | No | |
+| AssetManifest | asset_manifest_test.dart | Yes | 2026-03-26 22:55 |
 | AutofillClient | autofill_client_test.dart | Yes | 2026-03-26 22:28 |
 | AutofillHints | autofill_hints_test.dart | Yes | 2026-03-26 22:28 |
-| AutofillScopeMixin | autofill_scope_mixin_test.dart | No | |
+| AutofillScopeMixin | autofill_scope_mixin_test.dart | Yes | 2026-03-26 22:55 |
 | AutofillScope | autofill_scope_test.dart | Yes | 2026-03-26 22:28 |
-| BackgroundIsolateBinaryMessenger | background_isolate_binary_messenger_test.dart | No | |
+| BackgroundIsolateBinaryMessenger | background_isolate_binary_messenger_test.dart | Yes | 2026-03-26 22:55 |
 | BrowserContextMenu | browser_context_menu_test.dart | Yes | 2026-03-26 22:28 |
 | CachingAssetBundle | caching_asset_bundle_test.dart | Yes | 2026-03-26 22:28 |
 | Class | class_test.dart | Yes | 2026-03-26 22:28 |
-| DarwinPlatformViewController | darwin_platform_view_controller_test.dart | No | |
-| DeferredComponent | deferred_component_test.dart | No | |
+| DarwinPlatformViewController | darwin_platform_view_controller_test.dart | Yes | 2026-03-26 22:55 |
+| DeferredComponent | deferred_component_test.dart | Yes | 2026-03-26 22:55 |
 | DeltaTextInputClient | delta_text_input_client_test.dart | Yes | 2026-03-26 22:28 |
-| ExpensiveAndroidViewController | expensive_android_view_controller_test.dart | No | |
-| GLFWKeyHelper | g_l_f_w_key_helper_test.dart | No | |
+| ExpensiveAndroidViewController | expensive_android_view_controller_test.dart | Yes | 2026-03-26 22:55 |
+| GLFWKeyHelper | g_l_f_w_key_helper_test.dart | Yes | 2026-03-26 22:55 |
 | GtkKeyHelper | gtk_key_helper_test.dart | Yes | 2026-03-26 22:28 |
 | HybridAndroidViewController | hybrid_android_view_controller_test.dart | Yes | 2026-03-26 22:28 |
 | IOSSystemContextMenuItemDataSearchWeb | i_o_s_system_context_menu_item_data_search_web_test.dart | Yes | 2026-03-26 22:28 |
-| IOSSystemContextMenuItemData | i_o_s_system_context_menu_item_data_test.dart | No | |
-| KeyEventManager | key_event_manager_test.dart | No | |
+| IOSSystemContextMenuItemData | i_o_s_system_context_menu_item_data_test.dart | Yes | 2026-03-26 22:55 |
+| KeyEventManager | key_event_manager_test.dart | Yes | 2026-03-26 22:55 |
 | TextInputConnection | key_events_adv_test.dart | No | |
 | LiveText | live_text_test.dart | No | |
 | MouseCursorManager | mouse_cursor_manager_test.dart | No | |

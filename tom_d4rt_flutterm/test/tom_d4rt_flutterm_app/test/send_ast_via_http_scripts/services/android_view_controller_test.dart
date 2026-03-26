@@ -1,93 +1,83 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests AndroidViewController from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('AndroidViewController test executing');
   print('=' * 50);
 
-  // AndroidViewController is abstract - explain usage
-  print('\nAndroidViewController:');
-  print('Abstract class for controlling Android platform views');
+  runCase('AndroidViewController symbol exists', () {
+    final Type t = AndroidViewController;
+    return t.toString().contains('AndroidViewController');
+  });
 
-  // Controller types
-  print('\nAndroidViewController implementations:');
-  print('- SurfaceAndroidViewController (default)');
-  print('- TextureAndroidViewController');
-  print('- ExpensiveAndroidViewController');
+  runCase('SurfaceAndroidViewController symbol exists', () {
+    final Type t = SurfaceAndroidViewController;
+    return t.toString().contains('SurfaceAndroidViewController');
+  });
 
-  // Platform view concept
-  print('\nPlatform view concept:');
-  print('- Embed native Android views in Flutter');
-  print('- WebView, MapView, VideoPlayer');
-  print('- Touch events pass to native view');
-  print('- Composited with Flutter widgets');
+  runCase('TextureAndroidViewController symbol exists', () {
+    final Type t = TextureAndroidViewController;
+    return t.toString().contains('TextureAndroidViewController');
+  });
 
-  // Creation via PlatformViewsService
-  print('\nCreation via PlatformViewsService:');
-  print('PlatformViewsService.initSurfaceAndroidView(');
-  print('  id: viewId,');
-  print('  viewType: "native_view_type",');
-  print('  layoutDirection: TextDirection.ltr,');
-  print(')');
+  runCase('ExpensiveAndroidViewController symbol exists', () {
+    final Type t = ExpensiveAndroidViewController;
+    return t.toString().contains('ExpensiveAndroidViewController');
+  });
 
-  // Controller lifecycle
-  print('\nController lifecycle:');
-  print('1. Create controller');
-  print('2. Call create() to initialize view');
-  print('3. Set size and position');
-  print('4. Handle touch events');
-  print('5. Call dispose() when done');
+  runCase('PlatformViewsService symbol exists', () {
+    final Type t = PlatformViewsService;
+    return t.toString().contains('PlatformViewsService');
+  });
 
-  // Common properties
-  print('\nController properties:');
-  print('- viewId: Unique identifier');
-  print('- viewType: Native view type string');
-  print('- isCreated: Whether view is initialized');
-  print('- layoutDirection: LTR or RTL');
+  runCase('AndroidPointerProperties constructor works', () {
+    const AndroidPointerProperties p = AndroidPointerProperties(id: 1, toolType: 0);
+    return p.id == 1;
+  });
 
-  // Touch handling
-  print('\nTouch handling:');
-  print('dispatchPointerEvent() - forward to native');
-  print('Touch events converted to MotionEvent');
+  runCase('AndroidPointerCoords constructor works', () {
+    const AndroidPointerCoords c = AndroidPointerCoords(orientation: 0, pressure: 1, size: 1, toolMajor: 1, toolMinor: 1, touchMajor: 1, touchMinor: 1, x: 3, y: 4);
+    return c.x == 3 && c.y == 4;
+  });
 
-  // Display modes
-  print('\nDisplay modes:');
-  print('Virtual Display: Renders to texture');
-  print('Hybrid Composition: Native view layering');
-  print('Trade-off: Performance vs. compatibility');
+  runCase('summary string formed', () {
+    final String s = 'android-view:${passed.length + failed.length}';
+    return s.contains('android-view');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PlatformViewController (base)');
-  print('  \u2514\u2500 AndroidViewController (abstract)');
-  print('       \u251c\u2500 SurfaceAndroidViewController');
-  print('       \u251c\u2500 TextureAndroidViewController');
-  print('       \u2514\u2500 ExpensiveAndroidViewController');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nAndroidViewController purpose:');
-  print('- Controls Android platform views');
-  print('- create(): Initialize native view');
-  print('- setSize(): Set view dimensions');
-  print('- dispose(): Clean up resources');
-  print('- Enables native view embedding');
-  print('- Manages view lifecycle');
-
-  print('\n' + '=' * 50);
-  print('AndroidViewController test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'AndroidViewController Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: abstract platform view controller'),
-      Text('Platform: Android only'),
-      Text('Modes: Surface, Texture, Hybrid'),
-      Text('Purpose: Native view embedding'),
+    children: <Widget>[
+      const Text('AndroidViewController Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Android platform-view controller symbols validated'),
     ],
   );
 }

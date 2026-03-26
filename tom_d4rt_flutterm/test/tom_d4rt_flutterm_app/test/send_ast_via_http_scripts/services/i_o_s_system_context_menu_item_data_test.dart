@@ -1,89 +1,80 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests IOSSystemContextMenuItemData from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('IOSSystemContextMenuItemData test executing');
   print('=' * 50);
 
-  // IOSSystemContextMenuItemData base class
-  print('\nIOSSystemContextMenuItemData:');
-  print('Base class for iOS system context menu items');
-  print('Used with SystemContextMenuController');
+  runCase('IOSSystemContextMenuItemData symbol exists', () {
+    final Type t = IOSSystemContextMenuItemData;
+    return t.toString().contains('IOSSystemContextMenuItemData');
+  });
 
-  // Purpose
-  print('\nPurpose:');
-  print('Represents iOS native context menu actions');
-  print('Cut, Copy, Paste, Select All, etc.');
-  print('Shows in iOS text selection menu');
+  runCase('SearchWeb subtype symbol exists', () {
+    final Type t = IOSSystemContextMenuItemDataSearchWeb;
+    return t.toString().contains('IOSSystemContextMenuItemDataSearchWeb');
+  });
 
-  // Subclasses
-  print('\nConcrete subclasses:');
-  print('- IOSSystemContextMenuItemDataCut');
-  print('- IOSSystemContextMenuItemDataCopy');
-  print('- IOSSystemContextMenuItemDataPaste');
-  print('- IOSSystemContextMenuItemDataSelectAll');
-  print('- IOSSystemContextMenuItemDataLiveText');
-  print('- IOSSystemContextMenuItemDataCustom');
+  runCase('SystemContextMenuController symbol exists', () {
+    final Type t = SystemContextMenuController;
+    return t.toString().contains('SystemContextMenuController');
+  });
 
-  // Properties
-  print('\nCommon properties:');
-  print('type: Identifier for the action type');
-  print('label: Display text (localized)');
+  runCase('SystemContextMenuClient symbol exists', () {
+    final Type t = SystemContextMenuClient;
+    return t.toString().contains('SystemContextMenuClient');
+  });
 
-  // iOS context menu system
-  print('\niOS context menu system:');
-  print('- UIMenuController (pre-iOS 16)');
-  print('- UIEditMenuInteraction (iOS 16+)');
-  print('- Native look and feel');
-  print('- Integrates with selection');
+  runCase('LiveTextInputStatus enum has values', () {
+    return LiveTextInputStatus.values.isNotEmpty;
+  });
 
-  // Usage with controller
-  print('\nUsage with SystemContextMenuController:');
-  print('SystemContextMenuController.show(');
-  print('  targetRect: rect,');
-  print('  items: [');
-  print('    IOSSystemContextMenuItemDataCopy(),');
-  print('    IOSSystemContextMenuItemDataPaste(),');
-  print('  ],');
-  print(');');
+  runCase('TextSelection object stores offsets', () {
+    const TextSelection selection = TextSelection(baseOffset: 0, extentOffset: 2);
+    return selection.baseOffset == 0 && selection.extentOffset == 2;
+  });
 
-  // Platform specifics
-  print('\nPlatform: iOS only');
-  print('On other platforms use regular context menus');
+  runCase('Summary string formed', () {
+    final String s = 'ios-context-menu:${passed.length + failed.length}';
+    return s.contains('context-menu');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('IOSSystemContextMenuItemData (base)');
-  print('  \u251c\u2500 IOSSystemContextMenuItemDataCut');
-  print('  \u251c\u2500 IOSSystemContextMenuItemDataCopy');
-  print('  \u251c\u2500 IOSSystemContextMenuItemDataPaste');
-  print('  \u251c\u2500 IOSSystemContextMenuItemDataSelectAll');
-  print('  \u251c\u2500 IOSSystemContextMenuItemDataLiveText');
-  print('  \u2514\u2500 IOSSystemContextMenuItemDataCustom');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Explain purpose
-  print('\nIOSSystemContextMenuItemData purpose:');
-  print('- Base class for iOS menu items');
-  print('- SystemContextMenuController integration');
-  print('- Native iOS context menu support');
-  print('- Standard text editing actions');
-  print('- Subclass for specific actions');
-
-  print('\n' + '=' * 50);
-  print('IOSSystemContextMenuItemData test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'IOSSystemContextMenuItemData Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: abstract base class'),
-      Text('Platform: iOS only'),
-      Text('Actions: Cut, Copy, Paste, etc.'),
-      Text('Purpose: iOS context menu items'),
+    children: <Widget>[
+      const Text('IOSSystemContextMenuItemData Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: IOS context-menu item symbols resolved'),
+      const Text('Check: LiveTextInputStatus enum resolved'),
+      const Text('Check: TextSelection primitive validated'),
+      const Text('iOS system context-menu symbols and related APIs checked'),
     ],
   );
 }

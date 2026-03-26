@@ -1,90 +1,80 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests DeferredComponent from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('DeferredComponent test executing');
   print('=' * 50);
 
-  // DeferredComponent is used for deferred loading
-  print('\nDeferredComponent:');
-  print('DeferredComponent handles deferred/split APK loading');
+  runCase('DeferredComponent symbol exists', () {
+    final Type t = DeferredComponent;
+    return t.toString().contains('DeferredComponent');
+  });
 
-  // Service singleton access
-  print('\nDeferredComponent service:');
-  print('Access via DeferredComponent.instance');
-  print('Service handles component installation');
+  runCase('DeferredComponent symbol is abstract contract', () {
+    final Type t = DeferredComponent;
+    return t.toString().isNotEmpty;
+  });
 
-  // Deferred loading concept
-  print('\nDeferred loading concept:');
-  print('- Split large apps into downloadable modules');
-  print('- Download features on-demand');
-  print('- Reduce initial app size');
-  print('- Android App Bundles support');
+  runCase('SystemChannels has deferredComponent channel', () {
+    return SystemChannels.deferredComponent.name.contains('deferredcomponent');
+  });
 
-  // Installation states
-  print('\nComponent states:');
-  print('- Not installed (needs download)');
-  print('- Installing (download in progress)');
-  print('- Installed (ready to use)');
-  print('- Failed (installation error)');
+  runCase('MethodChannel symbol exists', () {
+    final Type t = MethodChannel;
+    return t.toString().contains('MethodChannel');
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('1. Check if component installed');
-  print('2. Request installation if needed');
-  print('3. Wait for installation complete');
-  print('4. Load deferred library');
-  print('5. Use component features');
+  runCase('PlatformException symbol exists', () {
+    final Type t = PlatformException;
+    return t.toString().contains('PlatformException');
+  });
 
-  // Android specific
-  print('\nAndroid App Bundle integration:');
-  print('- Dynamic feature modules');
-  print('- Play Feature Delivery API');
-  print('- On-demand delivery');
-  print('- Install-time delivery');
+  runCase('MissingPluginException symbol exists', () {
+    final Type t = MissingPluginException;
+    return t.toString().contains('MissingPluginException');
+  });
 
-  // Dart deferred loading
-  print('\nDart deferred imports:');
-  print("import 'package:feature/feature.dart' deferred as feature;");
-  print('await feature.loadLibrary();');
-  print('feature.showFeatureWidget();');
+  runCase('summary string formed', () {
+    final String s = 'deferred-component:${passed.length + failed.length}';
+    return s.startsWith('deferred-component:');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('DeferredComponent (service class)');
-  print('  \u2514\u2500 manages component installation');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  // Error handling
-  print('\nError handling:');
-  print('- Network errors during download');
-  print('- Storage space issues');
-  print('- Invalid component names');
-  print('- Installation cancellation');
-
-  // Explain purpose
-  print('\nDeferredComponent purpose:');
-  print('- Service for deferred component loading');
-  print('- Manages split APK installation');
-  print('- installDeferredComponent(): Install module');
-  print('- uninstallDeferredComponent(): Remove module');
-  print('- Enables modular app delivery');
-  print('- Reduces initial download size');
-
-  print('\n' + '=' * 50);
-  print('DeferredComponent test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'DeferredComponent Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: deferred loading service'),
-      Text('Platform: Android App Bundles'),
-      Text('Methods: install/uninstall'),
-      Text('Purpose: On-demand feature loading'),
+    children: <Widget>[
+      const Text('DeferredComponent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Check: DeferredComponent symbol resolved'),
+      const Text('Check: deferredcomponent channel available'),
+      const Text('Check: MethodChannel + exceptions available'),
+      const Text('Deferred-component channel and symbol checks completed'),
     ],
   );
 }

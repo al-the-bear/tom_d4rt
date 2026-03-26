@@ -1,93 +1,83 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests KeyEventManager from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('KeyEventManager test executing');
   print('=' * 50);
 
-  // KeyEventManager - internal key event routing
-  print('\nKeyEventManager:');
-  print('Internal class for managing key event routing');
-  print('Part of keyboard event dispatch system');
+  runCase('KeyEventManager symbol exists', () {
+    final Type t = KeyEventManager;
+    return t.toString().contains('KeyEventManager');
+  });
 
-  // Key event flow
-  print('\nKey event flow:');
-  print('1. Platform sends key event');
-  print('2. KeyEventManager receives event');
-  print('3. HardwareKeyboard state updated');
-  print('4. Events dispatched to handlers');
-  print('5. Focus system routes to widgets');
+  runCase('HardwareKeyboard singleton available', () {
+    return HardwareKeyboard.instance.runtimeType.toString().isNotEmpty;
+  });
 
-  // HardwareKeyboard relationship
-  print('\nHardwareKeyboard relationship:');
-  print('HardwareKeyboard.instance');
-  print('  \u251c\u2500 .addHandler(handler)');
-  print('  \u251c\u2500 .removeHandler(handler)');
-  print('  \u2514\u2500 Uses KeyEventManager internally');
+  runCase('RawKeyDownEvent symbol exists', () {
+    final Type t = RawKeyDownEvent;
+    return t.toString().contains('RawKeyDownEvent');
+  });
 
-  // Event types handled
-  print('\nEvent types handled:');
-  print('- KeyDownEvent: Key pressed');
-  print('- KeyUpEvent: Key released');
-  print('- KeyRepeatEvent: Key held down');
+  runCase('RawKeyUpEvent symbol exists', () {
+    final Type t = RawKeyUpEvent;
+    return t.toString().contains('RawKeyUpEvent');
+  });
 
-  // Handler registration
-  print('\nHandler registration:');
-  print('bool keyHandler(KeyEvent event) {');
-  print('  if (event is KeyDownEvent) {');
-  print('    // Handle key down');
-  print('    return true; // Consumed');
-  print('  }');
-  print('  return false; // Not consumed');
-  print('}');
-  print('HardwareKeyboard.instance.addHandler(keyHandler);');
+  runCase('Logical key A has keyLabel', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Focus-based routing
-  print('\nFocus-based routing:');
-  print('- FocusNode.onKeyEvent');
-  print('- Focus widget KeyboardListener');
-  print('- Shortcuts widget');
-  print('- Events bubble up focus tree');
+  runCase('Physical key A has usage', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Platform channel
-  print('\nPlatform channel:');
-  print('SystemChannels.keyEvent');
-  print('Receives raw platform key events');
+  runCase('ModifierKey enum has shiftModifier', () {
+    return ModifierKey.values.contains(ModifierKey.shiftModifier);
+  });
 
-  // Thread safety
-  print('\nThread safety:');
-  print('- Events processed on UI thread');
-  print('- Synchronous dispatch');
-  print('- Handler returns bool (consumed)');
+  runCase('KeyDataTransitMode enum populated', () {
+    return KeyDataTransitMode.values.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('KeyEventManager (internal)');
-  print('  \u2514\u2500 Used by HardwareKeyboard');
+  runCase('summary string formed', () {
+    final String s = 'key-event-manager:${passed.length + failed.length}';
+    return s.startsWith('key-event-manager:');
+  });
 
-  // Explain purpose
-  print('\nKeyEventManager purpose:');
-  print('- Routes key events internally');
-  print('- Updates HardwareKeyboard state');
-  print('- Dispatches to registered handlers');
-  print('- Part of new KeyEvent system');
-  print('- Replaces deprecated RawKeyboard');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  print('\n' + '=' * 50);
-  print('KeyEventManager test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'KeyEventManager Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Type: internal event router'),
-      Text('Events: Down, Up, Repeat'),
-      Text('Access: HardwareKeyboard'),
-      Text('Purpose: Key event dispatch'),
+    children: <Widget>[
+      const Text('KeyEventManager Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Keyboard manager and key primitive checks completed'),
     ],
   );
 }

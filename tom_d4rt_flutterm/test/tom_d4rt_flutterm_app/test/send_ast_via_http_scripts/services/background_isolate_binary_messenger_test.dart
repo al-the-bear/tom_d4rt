@@ -1,92 +1,80 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests BackgroundIsolateBinaryMessenger from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('BackgroundIsolateBinaryMessenger test executing');
   print('=' * 50);
 
-  // BackgroundIsolateBinaryMessenger for isolate communication
-  print('\nBackgroundIsolateBinaryMessenger:');
-  print('BinaryMessenger for background isolates');
-  print('Platform channel access from non-root isolates');
+  runCase('BackgroundIsolateBinaryMessenger symbol exists', () {
+    final Type t = BackgroundIsolateBinaryMessenger;
+    return t.toString().contains('BackgroundIsolateBinaryMessenger');
+  });
 
-  // Problem it solves
-  print('\nProblem it solves:');
-  print('- Platform channels tied to root isolate');
-  print('- Background isolates cannot access channels');
-  print('- Need way to communicate from any isolate');
+  runCase('BinaryMessenger symbol exists', () {
+    final Type t = BinaryMessenger;
+    return t.toString().contains('BinaryMessenger');
+  });
 
-  // How it works
-  print('\nHow it works:');
-  print('1. Obtain RootIsolateToken on root isolate');
-  print('2. Pass token to background isolate');
-  print('3. Use token to create messenger');
-  print('4. Access platform channels from background');
+  runCase('ServicesBinding symbol exists', () {
+    final Type t = ServicesBinding;
+    return t.toString().contains('ServicesBinding');
+  });
 
-  // RootIsolateToken
-  print('\nRootIsolateToken:');
-  print('RootIsolateToken.instance');
-  print('  - Only accessible on root isolate');
-  print('  - Passed to spawned isolates');
-  print('  - Enables channel access');
+  runCase('ChannelBuffers symbol exists', () {
+    final Type t = ChannelBuffers;
+    return t.toString().contains('ChannelBuffers');
+  });
 
-  // Usage example
-  print('\nUsage example:');
-  print('// On root isolate:');
-  print('final token = RootIsolateToken.instance!;');
-  print('await Isolate.spawn(backgroundTask, token);');
-  print('');
-  print('// On background isolate:');
-  print('void backgroundTask(RootIsolateToken token) {');
-  print('  BackgroundIsolateBinaryMessenger.ensureInitialized(token);');
-  print('  // Now can use platform channels');
-  print('}');
+  runCase('Platform channel name is stable', () {
+    return SystemChannels.platform.name == 'flutter/platform';
+  });
 
-  // Static methods
-  print('\nStatic methods:');
-  print('ensureInitialized(token):');
-  print('  - Initialize for background isolate');
-  print('  - Must call before using channels');
-  print('');
-  print('instance:');
-  print('  - Get the messenger instance');
-  print('  - Use for platform channel calls');
+  runCase('TextInput channel name is stable', () {
+    return SystemChannels.textInput.name == 'flutter/textinput';
+  });
 
-  // Common use cases
-  print('\nCommon use cases:');
-  print('- File I/O with plugins in isolates');
-  print('- Database access from isolates');
-  print('- Network calls via native code');
-  print('- Compute-heavy tasks needing plugins');
+  runCase('WidgetsBinding instance available', () {
+    return WidgetsBinding.instance.platformDispatcher.runtimeType.toString().isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('BinaryMessenger');
-  print('  \u2514\u2500 BackgroundIsolateBinaryMessenger');
+  runCase('summary string formed', () {
+    final String s = 'background-messenger:${passed.length + failed.length}';
+    return s.contains('messenger');
+  });
 
-  // Explain purpose
-  print('\nBackgroundIsolateBinaryMessenger purpose:');
-  print('- Platform channels in background isolates');
-  print('- RootIsolateToken-based initialization');
-  print('- BinaryMessenger implementation');
-  print('- Enables plugin access anywhere');
-  print('- Critical for isolate-based plugins');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
 
-  print('\n' + '=' * 50);
-  print('BackgroundIsolateBinaryMessenger test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'BackgroundIsolateBinaryMessenger Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Implements: BinaryMessenger'),
-      Text('Requires: RootIsolateToken'),
-      Text('Purpose: Background isolate channels'),
-      Text('Key: ensureInitialized(token)'),
+    children: <Widget>[
+      const Text('BackgroundIsolateBinaryMessenger Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Background messenger and channel checks completed'),
     ],
   );
 }

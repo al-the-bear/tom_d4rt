@@ -1,93 +1,89 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests Simulation class from physics
 import 'package:flutter/physics.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('Simulation class test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
+  print('Physics class smoke test executing');
   print('=' * 50);
 
-  // Simulation abstract base class
-  print('\nSimulation:');
-  print('Abstract base class for physical simulations');
-  print('Models position and velocity over time');
+  runCase('Tolerance defaults are finite', () {
+    const Tolerance t = Tolerance.defaultTolerance;
+    return t.distance > 0 && t.velocity > 0 && t.time > 0;
+  });
 
-  // Abstract methods
-  print('\nAbstract methods:');
-  print('x(double time) - Position at time t');
-  print('dx(double time) - Velocity at time t');
-  print('isDone(double time) - Completion check');
+  runCase('SpringDescription created', () {
+    final SpringDescription d = SpringDescription.withDampingRatio(
+      mass: 1,
+      stiffness: 100,
+      ratio: 1,
+    );
+    return d.mass == 1 && d.stiffness == 100;
+  });
 
-  // Tolerance property
-  print('\ntolerance property:');
-  print('Tolerance for done determination');
-  print('Tolerance.defaultTolerance used by default');
+  runCase('SpringSimulation position changes', () {
+    final SpringDescription d = SpringDescription.withDampingRatio(
+      mass: 1,
+      stiffness: 50,
+      ratio: 1,
+    );
+    final SpringSimulation sim = SpringSimulation(d, 0, 1, 0);
+    return sim.x(0.2) != sim.x(0.0);
+  });
 
-  // SpringSimulation example
-  print('\nSpringSimulation example:');
-  final spring = SpringSimulation(
-    SpringDescription(mass: 1.0, stiffness: 100.0, damping: 10.0),
-    0.0, // start
-    100.0, // end
-    0.0, // velocity
-  );
-  print('is Simulation: true /* spring is Simulation */');
-  print('x(0.0): ${spring.x(0.0).toStringAsFixed(2)}');
-  print('x(1.0): ${spring.x(1.0).toStringAsFixed(2)}');
+  runCase('FrictionSimulation velocity decreases', () {
+    final FrictionSimulation sim = FrictionSimulation(0.135, 0, 10);
+    return sim.dx(0.5).abs() < sim.dx(0.0).abs();
+  });
 
-  // FrictionSimulation example
-  print('\nFrictionSimulation example:');
-  final friction = FrictionSimulation(0.135, 50.0, 200.0);
-  print('is Simulation: true /* friction is Simulation */');
-  print('x(0.0): ${friction.x(0.0).toStringAsFixed(2)}');
-  print('dx(0.0): ${friction.dx(0.0).toStringAsFixed(2)}');
+  runCase('ClampingScrollSimulation created', () {
+    final ClampingScrollSimulation sim = ClampingScrollSimulation(
+      position: 0,
+      velocity: 100,
+      tolerance: Tolerance.defaultTolerance,
+    );
+    return sim.x(0).isFinite;
+  });
 
-  // GravitySimulation example
-  print('\nGravitySimulation example:');
-  final gravity = GravitySimulation(9.8, 0.0, 0.0, 500.0);
-  print('is Simulation: true /* gravity is Simulation */');
-  print('x(0.0): ${gravity.x(0.0).toStringAsFixed(2)}');
-  print('x(1.0): ${gravity.x(1.0).toStringAsFixed(2)}');
+  runCase('BoundedFrictionSimulation clamps end', () {
+    final BoundedFrictionSimulation sim = BoundedFrictionSimulation(0.1, 0, 30, 0, 10);
+    final double end = sim.x(10);
+    return end <= 10 && end >= 0;
+  });
 
-  // Subclasses
-  print('\nSubclasses:');
-  print('- SpringSimulation');
-  print('- FrictionSimulation');
-  print('- GravitySimulation');
-  print('- BouncingScrollSimulation');
-  print('- ClampedSimulation');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('Simulation (abstract)');
-  print('  \u251c\u2500 SpringSimulation');
-  print('  \u251c\u2500 FrictionSimulation');
-  print('  \u251c\u2500 GravitySimulation');
-  print('  \u251c\u2500 ClampedSimulation');
-  print('  \u2514\u2500 BouncingScrollSimulation');
-
-  // Explain purpose
-  print('\nSimulation purpose:');
-  print('- Base class for physics');
-  print('- Models position over time');
-  print('- Used by AnimationController');
-  print('- Foundation for scroll physics');
-  print('- x(), dx(), isDone() interface');
-
-  print('\n${'=' * 50}');
-  print('Simulation class test completed');
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'Simulation Class Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-      SizedBox(height: 8),
-      Text('Spring x(1): ${spring.x(1.0).toStringAsFixed(1)}'),
-      Text('Friction x(0): ${friction.x(0.0).toStringAsFixed(1)}'),
-      Text('Gravity x(1): ${gravity.x(1.0).toStringAsFixed(1)}'),
-      Text('Purpose: Physics simulation'),
+    children: <Widget>[
+      const Text('Physics Class Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Simulations evaluated at runtime'),
     ],
   );
 }
