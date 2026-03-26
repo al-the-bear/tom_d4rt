@@ -49,32 +49,32 @@ Total remaining: 586 files
 | RefreshIndicatorTriggerMode | refresh_indicator_trigger_mode_test.dart | Yes | 2026-03-26 20:03 |
 | ScriptCategory | script_category_test.dart | Yes | 2026-03-26 20:03 |
 | ShowValueIndicator | show_value_indicator_test.dart | Yes | 2026-03-26 20:03 |
-| SliderInteraction | slider_interaction_test.dart | No | |
-| StretchMode | stretch_mode_test.dart | No | |
-| TabAlignment | tab_alignment_test.dart | No | |
-| TabIndicatorAnimation | tab_indicator_animation_test.dart | No | |
-| ThemeMode | theme_mode_test.dart | No | |
-| Thumb | thumb_test.dart | No | |
-| TimeOfDayFormat | time_of_day_format_test.dart | No | |
-| TimePickerEntryMode | time_picker_entry_mode_test.dart | No | |
+| SliderInteraction | slider_interaction_test.dart | Yes | 2026-03-26 21:15 |
+| StretchMode | stretch_mode_test.dart | Yes | 2026-03-26 21:15 |
+| TabAlignment | tab_alignment_test.dart | Yes | 2026-03-26 21:15 |
+| TabIndicatorAnimation | tab_indicator_animation_test.dart | Yes | 2026-03-26 21:15 |
+| ThemeMode | theme_mode_test.dart | Yes | 2026-03-26 21:15 |
+| Thumb | thumb_test.dart | Yes | 2026-03-26 21:15 |
+| TimeOfDayFormat | time_of_day_format_test.dart | Yes | 2026-03-26 21:15 |
+| TimePickerEntryMode | time_picker_entry_mode_test.dart | Yes | 2026-03-26 21:15 |
 
 ## painting/ (14 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| AxisDirection | axis_direction_test.dart | No | |
-| Axis | axis_test.dart | No | |
-| BorderStyle | border_style_test.dart | No | |
-| BoxFit | box_fit_test.dart | No | |
-| BoxShape | box_shape_test.dart | No | |
+| AxisDirection | axis_direction_test.dart | Yes | 2026-03-26 21:15 |
+| Axis | axis_test.dart | Yes | 2026-03-26 21:15 |
+| BorderStyle | border_style_test.dart | Yes | 2026-03-26 21:15 |
+| BoxFit | box_fit_test.dart | Yes | 2026-03-26 21:15 |
+| BoxShape | box_shape_test.dart | Yes | 2026-03-26 21:15 |
 | Class | class_test.dart | No | |
-| FlutterLogoStyle | flutter_logo_style_test.dart | No | |
-| ImageRepeat | image_repeat_test.dart | No | |
-| RenderComparison | render_comparison_test.dart | No | |
-| ResizeImagePolicy | resize_image_policy_test.dart | No | |
-| TextOverflow | text_overflow_test.dart | No | |
-| TextWidthBasis | text_width_basis_test.dart | No | |
-| VerticalDirection | vertical_direction_test.dart | No | |
+| FlutterLogoStyle | flutter_logo_style_test.dart | Yes | 2026-03-26 21:15 |
+| ImageRepeat | image_repeat_test.dart | Yes | 2026-03-26 21:15 |
+| RenderComparison | render_comparison_test.dart | Yes | 2026-03-26 21:15 |
+| ResizeImagePolicy | resize_image_policy_test.dart | Yes | 2026-03-26 21:15 |
+| TextOverflow | text_overflow_test.dart | Yes | 2026-03-26 21:15 |
+| TextWidthBasis | text_width_basis_test.dart | Yes | 2026-03-26 21:15 |
+| VerticalDirection | vertical_direction_test.dart | Yes | 2026-03-26 21:15 |
 | WebHtmlElementStrategy | web_html_element_strategy_test.dart | No | |
 
 ## physics/ (1 file)
