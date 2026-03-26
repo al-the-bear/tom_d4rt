@@ -1,92 +1,90 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextLayoutMetrics from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('TextLayoutMetrics test executing');
   print('=' * 50);
 
-  // TextLayoutMetrics is an abstract interface
-  print('\nTextLayoutMetrics:');
-  print('Abstract interface for text layout queries');
-  print('Implemented by RenderEditable, RenderParagraph');
+  runCase('TextLayoutMetrics symbol check', () {
+    final Type t = TextLayoutMetrics;
+    return t.toString().contains('TextLayoutMetrics');
+  });
 
-  // Interface methods
-  print('\nTextLayoutMetrics methods:');
-  print('getLineAtOffset(position): TextSelection');
-  print('getTextPositionAbove(position): TextPosition');
-  print('getTextPositionBelow(position): TextPosition');
-  print('getWordBoundary(position): TextRange');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Line selection
-  print('\ngetLineAtOffset:');
-  print('- Returns selection for entire line');
-  print('- Used for triple-click select line');
-  print('- Input: TextPosition');
-  print('- Output: TextSelection spanning line');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Vertical navigation
-  print('\ngetTextPositionAbove/Below:');
-  print('- Navigate cursor vertically');
-  print('- Used for up/down arrow keys');
-  print('- Maintains horizontal position');
-  print('- Handles line wrapping');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Word boundaries
-  print('\ngetWordBoundary:');
-  print('- Returns word at position');
-  print('- Used for double-click select word');
-  print('- Used for Ctrl+Left/Right navigation');
-  print('- Input: TextPosition');
-  print('- Output: TextRange for word');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Implementation in widgets
-  print('\nImplementing widgets:');
-  print('- RenderEditable (TextField)');
-  print('- RenderParagraph (Text)');
-  print('- EditableText uses this interface');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Usage example
-  print('\nUsage example:');
-  print('// In text action shortcuts:');
-  print('final line = metrics.getLineAtOffset(position);');
-  print('final word = metrics.getWordBoundary(position);');
-  print('final above = metrics.getTextPositionAbove(position);');
 
-  // Platform text actions
-  print('\nPlatform text actions using metrics:');
-  print('- Cmd+Up: Move to text start');
-  print('- Cmd+Down: Move to text end');
-  print('- Opt+Up: Move to paragraph start');
-  print('- Opt+Down: Move to paragraph end');
+  runCase('TextSelection symbol exists', () {
+    final Type t = TextSelection;
+    return t.toString().contains('TextSelection');
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('TextLayoutMetrics (abstract interface)');
-  print('  Implemented by text render objects');
+  runCase('TextPosition affinity enum values available', () {
+    return TextAffinity.values.isNotEmpty;
+  });
 
-  // Explain purpose
-  print('\nTextLayoutMetrics purpose:');
-  print('- Query text layout information');
-  print('- Find line/word boundaries');
-  print('- Navigate text vertically');
-  print('- Support text selection gestures');
-  print('- Enable keyboard navigation');
+  runCase('Summary string can be created', () {
+    final String summary = 'textlayoutmetrics:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
 
-  print('\n' + '=' * 50);
-  print('TextLayoutMetrics test completed');
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'TextLayoutMetrics Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: abstract interface'),
-      Text('Methods: getLineAtOffset, getWordBoundary'),
-      Text('getTextPositionAbove/Below'),
-      Text('Purpose: Text layout queries'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

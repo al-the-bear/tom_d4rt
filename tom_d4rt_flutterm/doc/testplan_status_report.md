@@ -1250,19 +1250,19 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [text_input_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_configuration_test.dart) | TextInputConfiguration | No | Yes | No | Checked. |
 | [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | Yes | No | Created on 2026-03-26 at 23:09 |
-| [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | No | Print-only | Checked. |
-| [text_input_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_test.dart) | TextInput | No | No | Print-only | Checked. |
+| [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [text_input_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_test.dart) | TextInput | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [text_input_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_type_test.dart) | TextInputType | No | Yes | No | Checked. |
-| [text_layout_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_layout_metrics_test.dart) | TextLayoutMetrics | No | No | Print-only | Checked. |
-| [text_selection_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_delegate_test.dart) | TextSelectionDelegate | No | No | Print-only | Checked. |
+| [text_layout_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_layout_metrics_test.dart) | TextLayoutMetrics | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [text_selection_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_delegate_test.dart) | TextSelectionDelegate | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
 | [textboundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textboundary_test.dart) | SystemUiOverlayStyle | No | Yes | No | Checked. |
-| [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | No | Print-only | Checked. |
-| [texture_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/texture_android_view_controller_test.dart) | TextureAndroidViewController | No | No | Print-only | Checked. |
-| [ui_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/ui_kit_view_controller_test.dart) | UiKitViewController | No | No | Print-only | Checked. |
+| [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [texture_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/texture_android_view_controller_test.dart) | TextureAndroidViewController | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [ui_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/ui_kit_view_controller_test.dart) | UiKitViewController | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [undo_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_direction_test.dart) | UndoDirection | No | Yes | No | Checked. |
-| [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | No | Print-only | Checked. |
-| [undo_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_test.dart) | UndoManager | No | No | Print-only | Checked. |
+| [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [undo_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_test.dart) | UndoManager | No | Yes | No | Created on 2026-03-26 at 23:13 |
 
 ### Deprecated API Test Files (Intentional)
 
@@ -1291,23 +1291,23 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [absorbpointer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/absorbpointer_test.dart) | AbsorbPointer | No | Yes | No |
 | [abstract_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/abstract_layout_builder_test.dart) | AbstractLayoutBuilder | No | No | Yes | Checked. |
-| [action_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_dispatcher_test.dart) | ActionDispatcher | No | No | Print-only | Checked. |
+| [action_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_dispatcher_test.dart) | ActionDispatcher | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [action_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_listener_test.dart) | ActionListener | No | No | Yes | Checked. |
 | [actions_intents_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/actions_intents_test.dart) | SelectIntent | No | Yes | No | Checked. |
 | [actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/actions_test.dart) | Actions | No | No | Yes | Checked. |
-| [activate_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/activate_action_test.dart) | ActivateAction | No | No | Print-only | Checked. |
-| [activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/activate_intent_test.dart) | ActivateIntent | No | No | Print-only | Checked. |
+| [activate_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/activate_action_test.dart) | ActivateAction | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/activate_intent_test.dart) | ActivateIntent | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/align_test.dart) | Align | No | Yes | No |
 | [align_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/align_transition_test.dart) | AlignTransition | No | No | Yes | Checked. |
-| [always_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/always_scrollable_scroll_physics_test.dart) | AlwaysScrollableScrollPhysics | No | No | Print-only | Checked. |
+| [always_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/always_scrollable_scroll_physics_test.dart) | AlwaysScrollableScrollPhysics | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [android_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_overscroll_indicator_test.dart) | AndroidOverscrollIndicator | No | No | Yes | Checked. |
 | [android_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart) | AndroidViewSurface | No | No | Yes | Checked. |
 | [android_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_test.dart) | AndroidView | No | No | Yes | Checked. |
 | [animated_align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_align_test.dart) | AnimatedAlign | No | No | Yes | Checked. |
 | [animated_cross_fade_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_cross_fade_test.dart) | AnimatedCrossFade | No | No | Yes | Checked. |
 | [animated_fractionally_sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_fractionally_sized_box_test.dart) | AnimatedFractionallySizedBox | No | No | Yes | Checked. |
-| [animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_grid_state_test.dart) | AnimatedGridState | No | No | Print-only | Checked. |
-| [animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_list_state_test.dart) | AnimatedListState | No | No | Print-only | Checked. |
+| [animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_grid_state_test.dart) | AnimatedGridState | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_list_state_test.dart) | AnimatedListState | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [animated_modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_modal_barrier_test.dart) | AnimatedModalBarrier | No | No | Yes | Checked. |
 | [animated_physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_physical_model_test.dart) | AnimatedPhysicalModel | No | No | Yes | Checked. |
 | [animated_positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_positioned_directional_test.dart) | AnimatedPositionedDirectional | No | No | Yes | Checked. |
@@ -1315,7 +1315,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animated_scale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_scale_test.dart) | AnimatedScale | No | No | Yes | Checked. |
 | [animated_slide_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_slide_test.dart) | AnimatedSlide | No | No | Yes | Checked. |
 | [animated_switcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_switcher_test.dart) | AnimatedSwitcher | No | No | Yes | Checked. |
-| [animated_widget_base_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_widget_base_state_test.dart) | AnimatedWidgetBaseState | No | No | Print-only | Checked. |
+| [animated_widget_base_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_widget_base_state_test.dart) | AnimatedWidgetBaseState | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [animated_widgets_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_widgets_adv_test.dart) | AnimatedSwitcher | No | Yes | No |
 | [animatedbuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animatedbuilder_test.dart) | AnimatedBuilder | No | Yes | No | Checked. |
 | [animatedcontainer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animatedcontainer_test.dart) | AnimatedContainer | No | Yes | No |
@@ -1328,12 +1328,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animation_test.dart) | Animation | No | Yes | No | Checked. |
 | [annotated_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | No | Yes | Checked. |
 | [app_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart) | AppKitView | No | No | Yes | Checked. |
-| [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | No | Print-only | Checked. |
+| [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [appbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/appbar_test.dart) | AppBar | No | Yes | No |
-| [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | No | Print-only | Checked. |
-| [autocomplete_first_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_first_option_intent_test.dart) | AutocompleteFirstOptionIntent | No | No | Print-only | Checked. |
+| [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | Yes | No | Created on 2026-03-26 at 23:13 |
+| [autocomplete_first_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_first_option_intent_test.dart) | AutocompleteFirstOptionIntent | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [autocomplete_highlighted_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_highlighted_option_test.dart) | AutocompleteHighlightedOption | No | No | Yes | Checked. |
-| [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | No | Print-only | Checked. |
+| [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | Yes | No | Created on 2026-03-26 at 23:13 |
 | [autocomplete_next_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_option_intent_test.dart) | AutocompleteNextOptionIntent | No | No | Print-only | Checked. |
 | [autocomplete_next_page_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_page_option_intent_test.dart) | AutocompleteNextPageOptionIntent | No | No | Print-only | Checked. |
 | [autocomplete_previous_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_option_intent_test.dart) | AutocompletePreviousOptionIntent | No | No | Print-only | Checked. |

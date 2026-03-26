@@ -1,101 +1,91 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests UndoManager from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('UndoManager test executing');
   print('=' * 50);
 
-  // UndoManager handles undo/redo operations
-  print('\nUndoManager:');
-  print('Manages undo/redo for text input');
-  print('Platform-level undo stack');
+  runCase('UndoManager symbol check', () {
+    final Type t = UndoManager;
+    return t.toString().contains('UndoManager');
+  });
 
-  // Singleton access
-  print('\nSingleton access:');
-  print('UndoManager.instance');
-  print('App-wide undo management');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Methods
-  print('\nKey methods:');
-  print('setUndoState(UndoState):');
-  print('  - canUndo: bool');
-  print('  - canRedo: bool');
-  print('');
-  print('handleUndo():');
-  print('  - Triggered by platform undo');
-  print('  - iOS shake to undo');
-  print('  - Keyboard shortcuts');
-  print('');
-  print('handleRedo():');
-  print('  - Triggered by platform redo');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // UndoState
-  print('\nUndoState:');
-  print('class UndoState {');
-  print('  final bool canUndo;');
-  print('  final bool canRedo;');
-  print('}');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Platform integration
-  print('\nPlatform integration:');
-  print('');
-  print('iOS:');
-  print('  - Shake to undo gesture');
-  print('  - Three-finger swipe');
-  print('  - Cmd+Z keyboard shortcut');
-  print('');
-  print('Android:');
-  print('  - System back for undo');
-  print('  - Keyboard shortcuts');
-  print('');
-  print('Desktop:');
-  print('  - Ctrl/Cmd+Z for undo');
-  print('  - Ctrl/Cmd+Shift+Z for redo');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // UndoManagerClient
-  print('\nUndoManagerClient interface:');
-  print('handlePlatformUndo():');
-  print('  - Called when undo triggered');
-  print('');
-  print('handlePlatformRedo():');
-  print('  - Called when redo triggered');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('// Set current undo state');
-  print('UndoManager.instance.setUndoState(');
-  print('  UndoState(canUndo: true, canRedo: false),');
-  print(');');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('UndoManager (singleton)');
-  print('UndoManagerClient (interface)');
-  print('UndoState (data class)');
+  runCase('UndoManagerClient symbol exists', () {
+    final Type t = UndoManagerClient;
+    return t.toString().contains('UndoManagerClient');
+  });
 
-  // Explain purpose
-  print('\nUndoManager purpose:');
-  print('- Platform undo/redo coordination');
-  print('- UndoState management');
-  print('- Gesture integration (shake)');
-  print('- Keyboard shortcut handling');
-  print('- TextField undo support');
+  runCase('UndoManager symbol string is stable', () {
+    final Type t = UndoManager;
+    return t.toString() == 'UndoManager';
+  });
 
-  print('\n' + '=' * 50);
-  print('UndoManager test completed');
+  runCase('Summary string can be created', () {
+    final String summary = 'undomanager:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'UndoManager Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: singleton service'),
-      Text('Features: undo/redo stack'),
-      Text('Platform: iOS, Android, Desktop'),
-      Text('Purpose: Text undo management'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

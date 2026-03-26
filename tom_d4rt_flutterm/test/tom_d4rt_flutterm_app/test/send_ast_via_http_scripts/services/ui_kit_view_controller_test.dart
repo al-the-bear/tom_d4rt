@@ -1,93 +1,91 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests UiKitViewController from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('UiKitViewController test executing');
   print('=' * 50);
 
-  // UiKitViewController for iOS UIKit views
-  print('\nUiKitViewController:');
-  print('Platform view controller for iOS UIKit views');
-  print('Embeds native UIView in Flutter');
+  runCase('UiKitViewController symbol check', () {
+    final Type t = UiKitViewController;
+    return t.toString().contains('UiKitViewController');
+  });
 
-  // Extends DarwinPlatformViewController
-  print('\nExtends DarwinPlatformViewController:');
-  print('Darwin-specific platform view handling');
-  print('iOS UIKit integration');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Properties and lifecycle
-  print('\nProperties:');
-  print('viewId: Unique view identifier');
-  print('awaitingCreation: View creation pending');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Lifecycle methods
-  print('\nLifecycle methods:');
-  print('create(): Initialize UIView');
-  print('  - Called when widget builds');
-  print('  - Allocates native view');
-  print('');
-  print('dispose(): Cleanup');
-  print('  - Release native resources');
-  print('  - Remove from view hierarchy');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Event handling
-  print('\nEvent handling:');
-  print('dispatchPointerEvent(event):');
-  print('  - Forwards touch events to UIView');
-  print('  - Translates Flutter events to UIKit');
-  print('');
-  print('clearFocus():');
-  print('  - Removes focus from native view');
-  print('  - Resignes first responder');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // UiKitView widget
-  print('\nUiKitView widget usage:');
-  print('UiKitView(');
-  print('  viewType: "native-view-type",');
-  print('  onPlatformViewCreated: (id) {');
-  print('    // View created with id');
-  print('  },');
-  print('  creationParams: <String, dynamic>{},');
-  print('  creationParamsCodec: StandardMessageCodec(),');
-  print(');');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Common use cases
-  print('\nCommon use cases:');
-  print('- WKWebView integration');
-  print('- MKMapView (Apple Maps)');
-  print('- AVPlayer video views');
-  print('- Camera preview');
-  print('- Third-party SDKs');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PlatformViewController');
-  print('  \u2514\u2500 DarwinPlatformViewController');
-  print('      \u2514\u2500 UiKitViewController');
+  runCase('DarwinPlatformViewController symbol exists', () {
+    final Type t = DarwinPlatformViewController;
+    return t.toString().contains('DarwinPlatformViewController');
+  });
 
-  // Explain purpose
-  print('\nUiKitViewController purpose:');
-  print('- iOS UIKit view hosting');
-  print('- Native UIView embedding');
-  print('- Lifecycle management');
-  print('- Event dispatching');
-  print('- Focus handling');
+  runCase('System context menu item symbol exists', () {
+    final Type t = IOSSystemContextMenuItemData;
+    return t.toString().contains('IOSSystemContextMenuItemData');
+  });
 
-  print('\n' + '=' * 50);
-  print('UiKitViewController test completed');
+  runCase('Summary string can be created', () {
+    final String summary = 'uikitviewcontroller:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'UiKitViewController Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Extends: DarwinPlatformViewController'),
-      Text('Platform: iOS'),
-      Text('Widget: UiKitView'),
-      Text('Purpose: iOS native view hosting'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

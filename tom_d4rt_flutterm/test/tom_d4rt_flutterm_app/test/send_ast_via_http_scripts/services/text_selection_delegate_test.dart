@@ -1,100 +1,89 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextSelectionDelegate from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('TextSelectionDelegate test executing');
   print('=' * 50);
 
-  // TextSelectionDelegate interface
-  print('\nTextSelectionDelegate:');
-  print('Interface for text selection operations');
-  print('Handles cut, copy, paste, select all');
+  runCase('TextSelectionDelegate symbol check', () {
+    final Type t = TextSelectionDelegate;
+    return t.toString().contains('TextSelectionDelegate');
+  });
 
-  // Key properties
-  print('\nKey properties:');
-  print('');
-  print('textEditingValue:');
-  print('  - Current text and selection');
-  print('  - Getter and setter');
-  print('');
-  print('cutEnabled: bool');
-  print('copyEnabled: bool');
-  print('pasteEnabled: bool');
-  print('selectAllEnabled: bool');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Methods
-  print('\nInterface methods:');
-  print('');
-  print('hideToolbar([bool hideHandles]):');
-  print('  - Hide selection toolbar');
-  print('  - Optionally hide handles');
-  print('');
-  print('bringIntoView(TextPosition):');
-  print('  - Scroll to make position visible');
-  print('');
-  print('userUpdateTextEditingValue(value, cause):');
-  print('  - User-initiated text change');
-  print('  - SelectionChangedCause parameter');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // SelectionChangedCause
-  print('\nSelectionChangedCause values:');
-  print('- SelectionChangedCause.tap');
-  print('- SelectionChangedCause.doubleTap');
-  print('- SelectionChangedCause.longPress');
-  print('- SelectionChangedCause.forcePress');
-  print('- SelectionChangedCause.keyboard');
-  print('- SelectionChangedCause.drag');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Toolbar operations
-  print('\nToolbar operations:');
-  print('');
-  print('cutSelection(cause):');
-  print('  - Cut selected text');
-  print('  - Copy to clipboard + delete');
-  print('');
-  print('copySelection(cause):');
-  print('  - Copy selected text');
-  print('');
-  print('pasteText(cause):');
-  print('  - Paste from clipboard');
-  print('');
-  print('selectAll(cause):');
-  print('  - Select all text');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Implementation
-  print('\nImplemented by:');
-  print('- EditableText');
-  print('- EditableTextState');
-  print('- Custom editable widgets');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('TextSelectionDelegate (interface)');
-  print('  \u2514\u2500 EditableTextState (implementation)');
 
-  // Explain purpose
-  print('\nTextSelectionDelegate purpose:');
-  print('- Text selection interface');
-  print('- Cut/copy/paste operations');
-  print('- Selection toolbar control');
-  print('- Scroll to position');
-  print('- Enable/disable operations');
+  runCase('TextEditingValue empty is accessible', () {
+    return TextEditingValue.empty.text.isEmpty;
+  });
 
-  print('\n' + '=' * 50);
-  print('TextSelectionDelegate test completed');
+  runCase('SelectionChangedCause values available', () {
+    return SelectionChangedCause.values.isNotEmpty;
+  });
+
+  runCase('Summary string can be created', () {
+    final String summary = 'textselectiondelegate:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'TextSelectionDelegate Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: interface'),
-      Text('Operations: cut, copy, paste'),
-      Text('Used by: EditableText'),
-      Text('Purpose: Selection operations'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

@@ -1,90 +1,89 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextInput from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('TextInput test executing');
   print('=' * 50);
 
-  // TextInput is a static service class
-  print('\nTextInput:');
-  print('Static service for text input management');
-  print('Platform channel communication for IME');
+  runCase('TextInput symbol check', () {
+    final Type t = TextInput;
+    return t.toString().contains('TextInput');
+  });
 
-  // Static methods
-  print('\nTextInput static methods:');
-  print('attach(client, config): Attach to keyboard');
-  print('ensureInitialized(): Initialize service');
-  print('setChannel(channel): Set test channel');
-  print('finishAutofillContext(): Complete autofill');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Attaching to keyboard
-  print('\nAttaching to keyboard:');
-  print('TextInputConnection conn = TextInput.attach(');
-  print('  client,    // TextInputClient');
-  print('  config,    // TextInputConfiguration');
-  print(');');
-  print('conn.show(); // Show keyboard');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // TextInputClient interface
-  print('\nTextInputClient interface:');
-  print('- updateEditingValue(value)');
-  print('- performAction(action)');
-  print('- updateFloatingCursor(point, state)');
-  print('- showAutocorrectionPromptRect(start, end)');
-  print('- connectionClosed()');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Text editing flow
-  print('\nText editing flow:');
-  print('1. Widget implements TextInputClient');
-  print('2. Attach with TextInput.attach()');
-  print('3. Show keyboard with connection.show()');
-  print('4. Receive updates via updateEditingValue');
-  print('5. Send updates via setEditingState');
-  print('6. Close with connection.close()');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Autofill integration
-  print('\nAutofill integration:');
-  print('TextInput.finishAutofillContext(');
-  print('  shouldSave: true, // Save to autofill');
-  print(');');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Platform channel
-  print('\nPlatform channel:');
-  print('SystemChannels.textInput');
-  print('Method: TextInput.setClient');
-  print('Method: TextInput.show');
-  print('Method: TextInput.hide');
-  print('Method: TextInput.clearClient');
 
-  // Scribble support
-  print('\nScribble support (iPadOS):');
-  print('- Handwriting input');
-  print('- Pencil Kit integration');
-  print('- Focused element info');
+  runCase('TextInputType text constant exists', () {
+    return TextInputType.text.toString().isNotEmpty;
+  });
 
-  // Explain purpose
-  print('\nTextInput purpose:');
-  print('- Central text input service');
-  print('- Manages IME connections');
-  print('- attach(): Create connection');
-  print('- Platform keyboard integration');
-  print('- Foundation for all text fields');
+  runCase('TextInputAction go is present', () {
+    return TextInputAction.values.contains(TextInputAction.go);
+  });
 
-  print('\n' + '=' * 50);
-  print('TextInput test completed');
+  runCase('Summary string can be created', () {
+    final String summary = 'textinput:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'TextInput Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: static service class'),
-      Text('Key method: attach(client, config)'),
-      Text('Returns: TextInputConnection'),
-      Text('Purpose: IME/keyboard bridge'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

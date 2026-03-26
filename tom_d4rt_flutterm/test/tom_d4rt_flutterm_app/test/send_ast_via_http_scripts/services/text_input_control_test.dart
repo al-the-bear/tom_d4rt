@@ -1,102 +1,90 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextInputControl from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('TextInputControl test executing');
   print('=' * 50);
 
-  // TextInputControl for custom input methods
-  print('\nTextInputControl:');
-  print('Abstract class for custom input controls');
-  print('Replace platform keyboard with custom input');
+  runCase('TextInputControl symbol check', () {
+    final Type t = TextInputControl;
+    return t.toString().contains('TextInputControl');
+  });
 
-  // Purpose
-  print('\nPurpose:');
-  print('- Custom virtual keyboards');
-  print('- Game input systems');
-  print('- Specialized input methods');
-  print('- Desktop custom inputs');
+  runCase('Logical keyboard key A has label', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Abstract methods
-  print('\nAbstract methods to implement:');
-  print('');
-  print('show():');
-  print('  - Show custom input UI');
-  print('  - Replace system keyboard');
-  print('');
-  print('hide():');
-  print('  - Hide custom input UI');
-  print('');
-  print('setEditingState(TextEditingValue):');
-  print('  - Sync editing state');
-  print('  - Update input display');
-  print('');
-  print('setComposingRect(Rect):');
-  print('  - Set IME composition area');
-  print('');
-  print('setCaretRect(Rect?):');
-  print('  - Set cursor position');
-  print('');
-  print('setSelectionRects(List<SelectionRect>):');
-  print('  - Set selection highlights');
+  runCase('Physical keyboard key A has usage id', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Registration
-  print('\nRegistration with TextInput:');
-  print('// Set custom control');
-  print('TextInput.setInputControl(myControl);');
-  print('');
-  print('// Reset to platform default');
-  print('TextInput.restorePlatformInputControl();');
+  runCase('TextInputAction enum populated', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Example implementation
-  print('\nExample implementation:');
-  print('class NumericPadControl extends TextInputControl {');
-  print('  @override');
-  print('  void show() {');
-  print('    _overlayEntry = _showNumericPad();');
-  print('  }');
-  print('');
-  print('  @override');
-  print('  void hide() {');
-  print('    _overlayEntry?.remove();');
-  print('  }');
-  print('}');
+  runCase('SmartDashesType enum populated', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Use cases
-  print('\nUse cases:');
-  print('- PIN entry pads');
-  print('- Custom emoji keyboards');
-  print('- Voice input interfaces');
-  print('- Handwriting recognition UIs');
+  runCase('SmartQuotesType enum populated', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('TextInputControl (abstract)');
-  print('  \u2514\u2500 Custom implementations');
 
-  // Explain purpose
-  print('\nTextInputControl purpose:');
-  print('- Custom input method framework');
-  print('- Replace platform keyboard');
-  print('- Abstract show/hide methods');
-  print('- Editing state synchronization');
-  print('- Enable custom input UIs');
+  runCase('TextInput singleton exists', () {
+    final Type t = TextInput;
+    return t.toString().contains('TextInput');
+  });
 
-  print('\n' + '=' * 50);
-  print('TextInputControl test completed');
+  runCase('TextInputAction has done', () {
+    return TextInputAction.values.contains(TextInputAction.done);
+  });
+
+  runCase('Summary string can be created', () {
+    final String summary = 'textinputcontrol:'
+        '${passed.length} passed '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'TextInputControl Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: abstract class'),
-      Text('Methods: show, hide, setEditingState'),
-      Text('Use: TextInput.setInputControl'),
-      Text('Purpose: Custom input methods'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

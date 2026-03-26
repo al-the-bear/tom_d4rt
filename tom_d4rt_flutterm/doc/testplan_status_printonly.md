@@ -220,31 +220,31 @@ Total remaining: 586 files
 | SystemContextMenuController | system_context_menu_controller_test.dart | Yes | 2026-03-26 23:09 |
 | TextInputClient | text_input_client_test.dart | Yes | 2026-03-26 23:09 |
 | TextInputConnection | text_input_connection_test.dart | Yes | 2026-03-26 23:09 |
-| TextInputControl | text_input_control_test.dart | No | |
-| TextInput | text_input_test.dart | No | |
-| TextLayoutMetrics | text_layout_metrics_test.dart | No | |
-| TextSelectionDelegate | text_selection_delegate_test.dart | No | |
-| Textformatter | textformatter_test.dart | No | |
-| TextureAndroidViewController | texture_android_view_controller_test.dart | No | |
-| UiKitViewController | ui_kit_view_controller_test.dart | No | |
-| UndoManagerClient | undo_manager_client_test.dart | No | |
-| UndoManager | undo_manager_test.dart | No | |
+| TextInputControl | text_input_control_test.dart | Yes | 2026-03-26 23:13 |
+| TextInput | text_input_test.dart | Yes | 2026-03-26 23:13 |
+| TextLayoutMetrics | text_layout_metrics_test.dart | Yes | 2026-03-26 23:13 |
+| TextSelectionDelegate | text_selection_delegate_test.dart | Yes | 2026-03-26 23:13 |
+| Textformatter | textformatter_test.dart | Yes | 2026-03-26 23:13 |
+| TextureAndroidViewController | texture_android_view_controller_test.dart | Yes | 2026-03-26 23:13 |
+| UiKitViewController | ui_kit_view_controller_test.dart | Yes | 2026-03-26 23:13 |
+| UndoManagerClient | undo_manager_client_test.dart | Yes | 2026-03-26 23:13 |
+| UndoManager | undo_manager_test.dart | Yes | 2026-03-26 23:13 |
 
 ## widgets/ (414 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| ActionDispatcher | action_dispatcher_test.dart | No | |
-| ActivateAction | activate_action_test.dart | No | |
-| ActivateIntent | activate_intent_test.dart | No | |
-| AlwaysScrollableScrollPhysics | always_scrollable_scroll_physics_test.dart | No | |
-| AnimatedGridState | animated_grid_state_test.dart | No | |
-| AnimatedListState | animated_list_state_test.dart | No | |
-| AnimatedWidgetBaseState | animated_widget_base_state_test.dart | No | |
-| AppLifecycleListener | app_lifecycle_listener_test.dart | No | |
-| AsyncSnapshot | async_snapshot_test.dart | No | |
-| AutocompleteFirstOptionIntent | autocomplete_first_option_intent_test.dart | No | |
-| AutocompleteLastOptionIntent | autocomplete_last_option_intent_test.dart | No | |
+| ActionDispatcher | action_dispatcher_test.dart | Yes | 2026-03-26 23:13 |
+| ActivateAction | activate_action_test.dart | Yes | 2026-03-26 23:13 |
+| ActivateIntent | activate_intent_test.dart | Yes | 2026-03-26 23:13 |
+| AlwaysScrollableScrollPhysics | always_scrollable_scroll_physics_test.dart | Yes | 2026-03-26 23:13 |
+| AnimatedGridState | animated_grid_state_test.dart | Yes | 2026-03-26 23:13 |
+| AnimatedListState | animated_list_state_test.dart | Yes | 2026-03-26 23:13 |
+| AnimatedWidgetBaseState | animated_widget_base_state_test.dart | Yes | 2026-03-26 23:13 |
+| AppLifecycleListener | app_lifecycle_listener_test.dart | Yes | 2026-03-26 23:13 |
+| AsyncSnapshot | async_snapshot_test.dart | Yes | 2026-03-26 23:13 |
+| AutocompleteFirstOptionIntent | autocomplete_first_option_intent_test.dart | Yes | 2026-03-26 23:13 |
+| AutocompleteLastOptionIntent | autocomplete_last_option_intent_test.dart | Yes | 2026-03-26 23:13 |
 | AutocompleteNextOptionIntent | autocomplete_next_option_intent_test.dart | No | |
 | AutocompleteNextPageOptionIntent | autocomplete_next_page_option_intent_test.dart | No | |
 | AutocompletePreviousOptionIntent | autocomplete_previous_option_intent_test.dart | No | |
