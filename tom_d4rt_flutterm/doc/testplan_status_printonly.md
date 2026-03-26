@@ -13,42 +13,42 @@ Total remaining: 586 files
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| SemanticsUpdate | semantics_update_test.dart | No | |
-| SingletonFlutterWindow | singleton_flutter_window_test.dart | No | |
+| SemanticsUpdate | semantics_update_test.dart | Yes | 2026-03-26 20:03 |
+| SingletonFlutterWindow | singleton_flutter_window_test.dart | Yes | 2026-03-26 20:03 |
 
 ## foundation/ (4 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| DiagnosticLevel | diagnostic_level_test.dart | No | |
-| Factory | factory_test.dart | No | |
-| FlagsSummary | flags_summary_test.dart | No | |
-| TargetPlatform | target_platform_test.dart | No | |
+| DiagnosticLevel | diagnostic_level_test.dart | Yes | 2026-03-26 20:03 |
+| Factory | factory_test.dart | Yes | 2026-03-26 20:03 |
+| FlagsSummary | flags_summary_test.dart | Yes | 2026-03-26 20:03 |
+| TargetPlatform | target_platform_test.dart | Yes | 2026-03-26 20:03 |
 
 ## gestures/ (2 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| Class | class_test.dart | No | |
-| IOSScrollViewFlingVelocityTracker | i_o_s_scroll_view_fling_velocity_tracker_test.dart | No | |
+| Class | class_test.dart | Yes | 2026-03-26 20:03 |
+| IOSScrollViewFlingVelocityTracker | i_o_s_scroll_view_fling_velocity_tracker_test.dart | Yes | 2026-03-26 20:03 |
 
 ## material/ (21 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
-| ButtonBarLayoutBehavior | button_bar_layout_behavior_test.dart | No | |
-| ButtonTextTheme | button_text_theme_test.dart | No | |
-| DropdownMenuCloseBehavior | dropdown_menu_close_behavior_test.dart | No | |
-| DynamicSchemeVariant | dynamic_scheme_variant_test.dart | No | |
+| ButtonBarLayoutBehavior | button_bar_layout_behavior_test.dart | Yes | 2026-03-26 20:03 |
+| ButtonTextTheme | button_text_theme_test.dart | Yes | 2026-03-26 20:03 |
+| DropdownMenuCloseBehavior | dropdown_menu_close_behavior_test.dart | Yes | 2026-03-26 20:03 |
+| DynamicSchemeVariant | dynamic_scheme_variant_test.dart | Yes | 2026-03-26 20:03 |
 | MaterialBannerClosedReason | material_banner_closed_reason_test.dart | No | |
-| MaterialTapTargetSize | material_tap_target_size_test.dart | No | |
-| NavigationDestinationLabelBehavior | navigation_destination_label_behavior_test.dart | No | |
-| NavigationRailLabelType | navigation_rail_label_type_test.dart | No | |
-| PopupMenuPosition | popup_menu_position_test.dart | No | |
-| RefreshIndicatorStatus | refresh_indicator_status_test.dart | No | |
-| RefreshIndicatorTriggerMode | refresh_indicator_trigger_mode_test.dart | No | |
-| ScriptCategory | script_category_test.dart | No | |
-| ShowValueIndicator | show_value_indicator_test.dart | No | |
+| MaterialTapTargetSize | material_tap_target_size_test.dart | Yes | 2026-03-26 20:03 |
+| NavigationDestinationLabelBehavior | navigation_destination_label_behavior_test.dart | Yes | 2026-03-26 20:03 |
+| NavigationRailLabelType | navigation_rail_label_type_test.dart | Yes | 2026-03-26 20:03 |
+| PopupMenuPosition | popup_menu_position_test.dart | Yes | 2026-03-26 20:03 |
+| RefreshIndicatorStatus | refresh_indicator_status_test.dart | Yes | 2026-03-26 20:03 |
+| RefreshIndicatorTriggerMode | refresh_indicator_trigger_mode_test.dart | Yes | 2026-03-26 20:03 |
+| ScriptCategory | script_category_test.dart | Yes | 2026-03-26 20:03 |
+| ShowValueIndicator | show_value_indicator_test.dart | Yes | 2026-03-26 20:03 |
 | SliderInteraction | slider_interaction_test.dart | No | |
 | StretchMode | stretch_mode_test.dart | No | |
 | TabAlignment | tab_alignment_test.dart | No | |

@@ -221,10 +221,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [semantics_input_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_input_type_test.dart) | SemanticsInputType | No | Yes | No | Checked. |
 | [semantics_role_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_role_test.dart) | SemanticsRole | No | Yes | No | Checked. |
 | [semantics_update_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_builder_test.dart) | SemanticsUpdateBuilder | No | Yes | No | Checked. |
-| [semantics_update_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_test.dart) | SemanticsUpdate | No | No | Print-only | Checked. |
+| [semantics_update_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_test.dart) | SemanticsUpdate | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [semantics_validation_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_validation_result_test.dart) | SemanticsValidationResult | No | Yes | No | Checked. |
 | [shader_mask_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/shader_mask_engine_layer_test.dart) | ShaderMaskEngineLayer | No | Yes | No | Checked. |
-| [singleton_flutter_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/singleton_flutter_window_test.dart) | SingletonFlutterWindow | No | No | Print-only | Checked. |
+| [singleton_flutter_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/singleton_flutter_window_test.dart) | SingletonFlutterWindow | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/size_test.dart) | Size | Yes | Yes | No |
 | [spell_out_string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/spell_out_string_attribute_test.dart) | SpellOutStringAttribute | No | Yes | No | Checked. |
 | [string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/string_attribute_test.dart) | StringAttribute | No | Yes | No | Checked. |
@@ -267,7 +267,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [caching_iterable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/caching_iterable_test.dart) | CachingIterable | Yes | Yes | No |
 | [category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/category_test.dart) | Category | Yes | Yes | No |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | Yes | Yes | No |
-| [diagnostic_level_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | No | Print-only | Checked. |
+| [diagnostic_level_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [diagnosticable_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_node_test.dart) | DiagnosticableNode | Yes | Yes | No |
 | [diagnosticable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_test.dart) | Diagnosticable | Yes | Yes | No |
 | [diagnosticable_tree_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_mixin_test.dart) | DiagnosticableTreeMixin | No | Yes | No | Checked. |
@@ -284,9 +284,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [enum_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/enum_property_test.dart) | EnumProperty | No | Yes | No | Checked. |
 | [error_spacer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/error_spacer_test.dart) | ErrorSpacer | No | Yes | No | Checked. |
 | [error_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/error_test.dart) | FlutterError | Yes | Yes | No |
-| [factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | No | Print-only | Checked. |
+| [factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [flag_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flag_property_test.dart) | FlagProperty | No | Yes | No | Checked. |
-| [flags_summary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flags_summary_test.dart) | FlagsSummary | No | No | Print-only | Checked. |
+| [flags_summary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flags_summary_test.dart) | FlagsSummary | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [flutter_memory_allocations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flutter_memory_allocations_test.dart) | FlutterMemoryAllocations | No | Yes | No | Checked. |
 | [flutter_timeline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flutter_timeline_test.dart) | FlutterTimeline | Yes | Yes | No |
 | [foundation_misc_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/foundation_misc_adv_test.dart) | TargetPlatformVariant | No | Yes | No | Checked. |
@@ -312,7 +312,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [string_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/string_property_test.dart) | StringProperty | No | Yes | No | Checked. |
 | [summary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/summary_test.dart) | Summary | No | Yes | No | Checked. |
 | [synchronousfuture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/synchronousfuture_test.dart) | SynchronousFuture | Yes | Yes | No |
-| [target_platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart) | TargetPlatform | No | No | Print-only | Checked. |
+| [target_platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/target_platform_test.dart) | TargetPlatform | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [targetplatform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/targetplatform_test.dart) | TargetPlatform | No | Yes | No | Checked. |
 | [text_tree_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/text_tree_configuration_test.dart) | TextTreeConfiguration | Yes | Yes | No |
 | [text_tree_renderer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/text_tree_renderer_test.dart) | TextTreeRenderer | No | Yes | No | Checked. |
@@ -325,7 +325,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [base_tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/base_tap_and_drag_gesture_recognizer_test.dart) | BaseTapAndDragGestureRecognizer | No | Yes | No | Checked. |
 | [base_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/base_tap_gesture_recognizer_test.dart) | BaseTapGestureRecognizer | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | No | Print-only | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | Yes | No | Checked. |
 | [details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/details_test.dart) | gesture | No | Yes | No |
 | [device_gesture_settings_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | Yes | No | Checked. |
@@ -344,7 +344,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [hit_test_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_test_dispatcher_test.dart) | HitTestDispatcher | No | Yes | No | Checked. |
 | [hit_testable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/hit_testable_test.dart) | HitTestable | No | Yes | No | Checked. |
 | [horizontal_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/horizontal_multi_drag_gesture_recognizer_test.dart) | HorizontalMultiDragGestureRecognizer | No | Yes | No | Checked. |
-| [i_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart) | IOSScrollViewFlingVelocityTracker | No | No | Print-only | Checked. |
+| [i_o_s_scroll_view_fling_velocity_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart) | IOSScrollViewFlingVelocityTracker | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [immediate_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/immediate_multi_drag_gesture_recognizer_test.dart) | ImmediateMultiDragGestureRecognizer | Yes | Yes | No |
 | [least_squares_solver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/least_squares_solver_test.dart) | LeastSquaresSolver | Yes | Yes | No |
 | [long_press_down_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/long_press_down_details_test.dart) | LongPressDownDetails | No | Yes | No | Checked. |
@@ -429,13 +429,13 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [bottom_navigation_bar_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart) | BottomNavigationBarType | No | Yes | No | Verified 25.03.2026 - 1950 lines |
 | [bottomappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomappbar_test.dart) | BottomAppBar | No | Yes | No |
 | [bottomnavigationbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomnavigationbar_test.dart) | BottomNavigationBar | No | Yes | No | Checked. |
-| [button_bar_layout_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart) | ButtonBarLayoutBehavior | No | No | Print-only | Checked. |
+| [button_bar_layout_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart) | ButtonBarLayoutBehavior | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [button_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_test.dart) | ButtonBar | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_data_test.dart) | ButtonBarThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart) | ButtonBarTheme | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_style_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_style_button_test.dart) | ButtonStyleButton | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_styles_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_styles_misc_test.dart) | ButtonBarTheme | No | Yes | No | Checked. |
-| [button_text_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart) | ButtonTextTheme | No | No | Print-only | Checked. |
+| [button_text_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart) | ButtonTextTheme | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [button_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_types_test.dart) | MaterialButton | No | Yes | No | Checked. |
 | [buttons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/buttons_test.dart) | OutlinedButton | No | Yes | No |
 | [buttonstyle_popup_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/buttonstyle_popup_test.dart) | ButtonStyle | No | Yes | No |
@@ -502,7 +502,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [drop_range_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/drop_range_slider_value_indicator_shape_test.dart) | DropRangeSliderValueIndicatorShape | Yes | Yes | No |
 | [drop_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/drop_slider_value_indicator_shape_test.dart) | DropSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_button_hide_underline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_button_hide_underline_test.dart) | DropdownButtonHideUnderline | No | Yes | No | Created on 2026-03-21 at 09:34 |
-| [dropdown_menu_close_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_test.dart) | DropdownMenuCloseBehavior | No | No | Print-only | Checked. |
+| [dropdown_menu_close_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_test.dart) | DropdownMenuCloseBehavior | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [dropdown_menu_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_entry_test.dart) | DropdownMenuEntry | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_menu_form_field_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_form_field_test.dart) | DropdownMenuFormField | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_item_test.dart) | DropdownMenuItem | No | Yes | No | Created on 2026-03-21 at 09:34 |
@@ -510,7 +510,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [dropdown_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_test.dart) | DropdownButton | No | Yes | No |
 | [dropdownform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdownform_test.dart) | DropdownButtonFormField | No | Yes | No |
 | [durations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/durations_test.dart) | Durations | No | Yes | No | Created on 2026-03-21 at 09:34 |
-| [dynamic_scheme_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dynamic_scheme_variant_test.dart) | DynamicSchemeVariant | No | No | Print-only | Checked. |
+| [dynamic_scheme_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dynamic_scheme_variant_test.dart) | DynamicSchemeVariant | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [easing_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/easing_test.dart) | Easing | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [elevated_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/elevated_button_test.dart) | ElevatedButton | No | Yes | No | Checked. |
 | [elevation_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/elevation_overlay_test.dart) | ElevationOverlay | No | Yes | No | Created on 2026-03-21 at 09:34 |
@@ -580,7 +580,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [material_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_mixin_test.dart) | MaterialStateMixin | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_state_outline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_outline_input_border_test.dart) | MaterialStateOutlineInputBorder | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [material_state_underline_input_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_state_underline_input_border_test.dart) | MaterialStateUnderlineInputBorder | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [material_tap_target_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_tap_target_size_test.dart) | MaterialTapTargetSize | No | No | Print-only | Checked. |
+| [material_tap_target_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_tap_target_size_test.dart) | MaterialTapTargetSize | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [material_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_controls_test.dart) | MaterialTextSelectionControls | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [material_text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_text_selection_handle_controls_test.dart) | MaterialTextSelectionHandleControls | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [material_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_type_test.dart) | MaterialType | No | Yes | No | Checked. |
@@ -603,11 +603,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [modal_bottom_sheet_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/modal_bottom_sheet_route_test.dart) | ModalBottomSheetRoute | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [nav_badge_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/nav_badge_advanced_test.dart) | material | No | Yes | No |
 | [nav_destinations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/nav_destinations_test.dart) | NavigationDestination | No | Yes | No |
-| [navigation_destination_label_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_destination_label_behavior_test.dart) | NavigationDestinationLabelBehavior | No | No | Print-only | Checked. |
+| [navigation_destination_label_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_destination_label_behavior_test.dart) | NavigationDestinationLabelBehavior | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [navigation_drawer_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_data_test.dart) | NavigationDrawerThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [navigation_drawer_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_drawer_theme_test.dart) | NavigationDrawerTheme | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [navigation_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_indicator_test.dart) | NavigationIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [navigation_rail_label_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_rail_label_type_test.dart) | NavigationRailLabelType | No | No | Print-only | Checked. |
+| [navigation_rail_label_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_rail_label_type_test.dart) | NavigationRailLabelType | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [navigation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_test.dart) | Drawer | No | Yes | No |
 | [navigation_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_themes_test.dart) | NavigationBarTheme | No | Yes | No | Checked. |
 | [no_splash_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/no_splash_test.dart) | YesSplash | No | Yes | No | Created on 2026-03-21 at 12:30 |
@@ -625,7 +625,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [popup_menu_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_entry_test.dart) | PopupMenuEntry | No | Yes | No | Checked. |
 | [popup_menu_item_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_state_test.dart) | PopupMenuItemState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [popup_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_test.dart) | PopupMenuItem | No | Yes | No | Checked. |
-| [popup_menu_position_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart) | PopupMenuPosition | No | No | Print-only | Checked. |
+| [popup_menu_position_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart) | PopupMenuPosition | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [predictive_back_fullscreen_page_transitions_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/predictive_back_fullscreen_page_transitions_builder_test.dart) | PredictiveBackFullscreenPageTransitionsBuilder | No | Yes | No | Checked. |
 | [progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_indicator_test.dart) | ProgressIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [progress_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_sheet_test.dart) | LinearProgressIndicator | No | Yes | No |
@@ -646,8 +646,8 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [rectangular_slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_track_shape_test.dart) | RectangularSliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [rectangular_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/rectangular_slider_value_indicator_shape_test.dart) | RectangularSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [refresh_indicator_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_state_test.dart) | RefreshIndicatorState | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [refresh_indicator_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_status_test.dart) | RefreshIndicatorStatus | No | No | Print-only | Checked. |
-| [refresh_indicator_trigger_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_trigger_mode_test.dart) | RefreshIndicatorTriggerMode | No | No | Print-only | Checked. |
+| [refresh_indicator_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_status_test.dart) | RefreshIndicatorStatus | No | Yes | No | Created on 2026-03-26 at 20:03 |
+| [refresh_indicator_trigger_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_indicator_trigger_mode_test.dart) | RefreshIndicatorTriggerMode | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [refresh_progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refresh_progress_indicator_test.dart) | RefreshProgressIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [refreshindicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/refreshindicator_test.dart) | RefreshIndicator | No | Yes | No |
 | [reorderable_material_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/reorderable_material_test.dart) | ReorderableListView | No | Yes | No |
@@ -671,7 +671,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [scaffold_prelayout_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_prelayout_geometry_test.dart) | ScaffoldPrelayoutGeometry | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [scaffold_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_state_test.dart) | ScaffoldState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [scaffold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scaffold_test.dart) | Scaffold | No | Yes | No |
-| [script_category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/script_category_test.dart) | ScriptCategory | No | No | Print-only | Checked. |
+| [script_category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/script_category_test.dart) | ScriptCategory | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [scrollbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scrollbar_test.dart) | Scrollbar | No | Yes | No |
 | [scrollbar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/scrollbar_theme_data_test.dart) | ScrollbarThemeData | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [search_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/search_anchor_test.dart) | SearchAnchor | No | Yes | No | Created on 2026-03-21 at 12:30 |
@@ -686,7 +686,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [selection_area_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_state_test.dart) | SelectionAreaState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [selection_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_test.dart) | SelectionArea | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [shape_border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/shape_border_tween_test.dart) | ShapeBorderTween | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [show_value_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | No | Print-only | Checked. |
+| [show_value_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | Yes | No | Created on 2026-03-26 at 20:03 |
 | [showbottomsheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showbottomsheet_test.dart) | showModalBottomSheet | No | Yes | No |
 | [showdatepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdatepicker_test.dart) | showDatePicker | No | Yes | No |
 | [showdialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdialog_test.dart) | showDialog | No | Yes | No |
