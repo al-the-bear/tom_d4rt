@@ -24,61 +24,47 @@ dynamic build(BuildContext context) {
   print('CrossFadeState test executing');
   print('=' * 50);
 
-  runCase('CrossFadeState symbol exists', () {
-    final Type t = CrossFadeState;
-    return t.toString().contains('CrossFadeState');
+  runCase('enum has two states', () {
+    return CrossFadeState.values.length == 2;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('contains showFirst and showSecond', () {
+    return CrossFadeState.values.contains(CrossFadeState.showFirst) &&
+        CrossFadeState.values.contains(CrossFadeState.showSecond);
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('ordering is stable', () {
+    return CrossFadeState.showFirst.index == 0 &&
+        CrossFadeState.showSecond.index == 1;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('name values are stable', () {
+    return CrossFadeState.showFirst.name == 'showFirst' &&
+        CrossFadeState.showSecond.name == 'showSecond';
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString includes enum names', () {
+    return CrossFadeState.showSecond.toString().contains('showSecond');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('CrossFadeState enum has showFirst', () {
-    return CrossFadeState.values.contains(CrossFadeState.showFirst);
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'crossfadestate:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'CrossFadeState Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('CrossFadeState Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('CrossFadeState behavior checks completed'),
     ],
   );
 }

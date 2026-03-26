@@ -24,62 +24,47 @@ dynamic build(BuildContext context) {
   print('DefaultPlatformMenuDelegate test executing');
   print('=' * 50);
 
-  runCase('DefaultPlatformMenuDelegate symbol exists', () {
-    final Type t = DefaultPlatformMenuDelegate;
-    return t.toString().contains('DefaultPlatformMenuDelegate');
+  final DefaultPlatformMenuDelegate delegate = DefaultPlatformMenuDelegate();
+
+  runCase('delegate is PlatformMenuDelegate', () {
+    return delegate is PlatformMenuDelegate;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('runtime type is stable', () {
+    return delegate.runtimeType.toString().contains('DefaultPlatformMenuDelegate');
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('hashCode is consistent', () {
+    return delegate.hashCode == delegate.hashCode;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('toString includes class name', () {
+    return delegate.toString().contains('DefaultPlatformMenuDelegate');
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('can be assigned to base type', () {
+    final PlatformMenuDelegate base = delegate;
+    return base.runtimeType == delegate.runtimeType;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('PlatformMenuDelegate symbol exists', () {
-    final Type t = PlatformMenuDelegate;
-    return t.toString().contains('PlatformMenuDelegate');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'defaultplatformmenudelegate:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'DefaultPlatformMenuDelegate Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('DefaultPlatformMenuDelegate Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('DefaultPlatformMenuDelegate behavior checks completed'),
     ],
   );
 }

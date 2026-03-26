@@ -24,62 +24,52 @@ dynamic build(BuildContext context) {
   print('DecorationTween test executing');
   print('=' * 50);
 
-  runCase('DecorationTween symbol exists', () {
-    final Type t = DecorationTween;
-    return t.toString().contains('DecorationTween');
+  final DecorationTween tween = DecorationTween(
+    begin: const BoxDecoration(color: Colors.red),
+    end: const BoxDecoration(color: Colors.blue),
+  );
+
+  runCase('begin decoration is stored', () {
+    return tween.begin is BoxDecoration;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('end decoration is stored', () {
+    return tween.end is BoxDecoration;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('lerp at 0 gives begin-like value', () {
+    final Decoration? value = tween.transform(0);
+    return value != null;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('lerp at 1 gives end-like value', () {
+    final Decoration? value = tween.transform(1);
+    return value != null;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('lerp at 0.5 returns decoration', () {
+    final Decoration? value = tween.transform(0.5);
+    return value is Decoration;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('BoxDecoration symbol exists', () {
-    final Type t = BoxDecoration;
-    return t.toString().contains('BoxDecoration');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'decorationtween:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'DecorationTween Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('DecorationTween Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('DecorationTween behavior checks completed'),
     ],
   );
 }

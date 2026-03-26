@@ -24,62 +24,54 @@ dynamic build(BuildContext context) {
   print('ContentInsertionConfiguration test executing');
   print('=' * 50);
 
-  runCase('ContentInsertionConfiguration symbol exists', () {
-    final Type t = ContentInsertionConfiguration;
-    return t.toString().contains('ContentInsertionConfiguration');
+  final ContentInsertionConfiguration config = ContentInsertionConfiguration(
+    onContentInserted: (KeyboardInsertedContent data) {},
+  );
+
+  runCase('configuration can be constructed', () {
+    return config.runtimeType.toString().contains('ContentInsertionConfiguration');
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('onContentInserted callback is present', () {
+    return config.onContentInserted is void Function(KeyboardInsertedContent);
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('second config has independent callback', () {
+    final ContentInsertionConfiguration second = ContentInsertionConfiguration(
+      onContentInserted: (KeyboardInsertedContent data) {},
+    );
+    return !identical(second.onContentInserted, config.onContentInserted);
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('callbacks can be invoked without error', () {
+    config.onContentInserted(
+      const KeyboardInsertedContent(mimeType: 'text/plain', data: Uint8List(0)),
+    );
+    return true;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString references class name', () {
+    return config.toString().contains('ContentInsertionConfiguration');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('EditableText symbol exists', () {
-    final Type t = EditableText;
-    return t.toString().contains('EditableText');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'contentinsertionconfiguration:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ContentInsertionConfiguration Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ContentInsertionConfiguration Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ContentInsertionConfiguration behavior checks completed'),
     ],
   );
 }

@@ -24,62 +24,48 @@ dynamic build(BuildContext context) {
   print('CopySelectionTextIntent test executing');
   print('=' * 50);
 
-  runCase('CopySelectionTextIntent symbol exists', () {
-    final Type t = CopySelectionTextIntent;
-    return t.toString().contains('CopySelectionTextIntent');
+  const CopySelectionTextIntent intent = CopySelectionTextIntent(SelectionChangedCause.tap);
+
+  runCase('intent stores cause', () {
+    return intent.cause == SelectionChangedCause.tap;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('intent is an Intent', () {
+    return intent is Intent;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('different cause means inequality', () {
+    const CopySelectionTextIntent other = CopySelectionTextIntent(SelectionChangedCause.keyboard);
+    return intent != other;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('same cause means equality', () {
+    const CopySelectionTextIntent again = CopySelectionTextIntent(SelectionChangedCause.tap);
+    return intent == again;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString mentions intent class', () {
+    return intent.toString().contains('CopySelectionTextIntent');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('Intent base symbol exists', () {
-    final Type t = Intent;
-    return t.toString().contains('Intent');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'copyselectiontextintent:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'CopySelectionTextIntent Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('CopySelectionTextIntent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('CopySelectionTextIntent behavior checks completed'),
     ],
   );
 }

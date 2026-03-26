@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// Handcrafted D4rt print-only test focused on ClampingScrollPhysics behavior.
 dynamic build(BuildContext context) {
   final List<String> passed = <String>[];
   final List<String> failed = <String>[];
@@ -24,42 +25,52 @@ dynamic build(BuildContext context) {
   print('ClampingScrollPhysics test executing');
   print('=' * 50);
 
-  runCase('ClampingScrollPhysics symbol exists', () {
-    final Type t = ClampingScrollPhysics;
-    return t.toString().contains('ClampingScrollPhysics');
+  const ClampingScrollPhysics physics = ClampingScrollPhysics();
+  final FixedScrollMetrics metrics = FixedScrollMetrics(
+    minScrollExtent: 0,
+    maxScrollExtent: 100,
+    pixels: 50,
+    viewportDimension: 20,
+    axisDirection: AxisDirection.down,
+    devicePixelRatio: 1,
+  );
+
+  runCase('instance type is correct', () {
+    return physics.runtimeType.toString().contains('ClampingScrollPhysics');
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('applyBoundaryConditions allows in-range delta', () {
+    return physics.applyBoundaryConditions(metrics, 60) == 0;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('overscroll at top is clamped', () {
+    final FixedScrollMetrics top = FixedScrollMetrics(
+      minScrollExtent: 0,
+      maxScrollExtent: 100,
+      pixels: 0,
+      viewportDimension: 20,
+      axisDirection: AxisDirection.down,
+      devicePixelRatio: 1,
+    );
+    return physics.applyBoundaryConditions(top, -5) < 0;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('applyTo keeps physics chain', () {
+    final ScrollPhysics chained = physics.applyTo(const AlwaysScrollableScrollPhysics());
+    return chained.parent != null;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('shouldAcceptUserOffset true for scrollable range', () {
+    return physics.shouldAcceptUserOffset(metrics);
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
+  runCase('toString references class name', () {
+    return physics.toString().contains('ClampingScrollPhysics');
   });
 
-
-  runCase('BouncingScrollPhysics symbol exists', () {
-    final Type t = BouncingScrollPhysics;
-    return t.toString().contains('BouncingScrollPhysics');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'clampingscrollphysics:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary text can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
@@ -71,15 +82,12 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ClampingScrollPhysics Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ClampingScrollPhysics Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ClampingScrollPhysics behavior checks completed'),
     ],
   );
 }

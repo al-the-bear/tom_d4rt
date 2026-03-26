@@ -24,62 +24,60 @@ dynamic build(BuildContext context) {
   print('ComponentElement test executing');
   print('=' * 50);
 
-  runCase('ComponentElement symbol exists', () {
-    final Type t = ComponentElement;
-    return t.toString().contains('ComponentElement');
+  final StatefulElement stateful = StatefulElement(_HarnessWidget());
+
+  runCase('StatefulElement is a ComponentElement', () {
+    return stateful is ComponentElement;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('StatefulElement is also an Element', () {
+    return stateful is Element;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('widget reference is preserved', () {
+    return stateful.widget is StatefulWidget;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('dirty flag defaults to true before mount', () {
+    return stateful.dirty;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString references element type', () {
+    return stateful.toString().contains('StatefulElement');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
+  runCase('BuildContext contract holds', () {
+    return stateful is BuildContext;
   });
 
-
-  runCase('Element symbol exists', () {
-    final Type t = Element;
-    return t.toString().contains('Element');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'componentelement:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ComponentElement Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ComponentElement Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ComponentElement behavior checks completed'),
     ],
   );
+}
+
+class _HarnessWidget extends StatefulWidget {
+  @override
+  State<_HarnessWidget> createState() => _HarnessState();
+}
+
+class _HarnessState extends State<_HarnessWidget> {
+  @override
+  Widget build(BuildContext context) => const SizedBox();
 }

@@ -24,61 +24,54 @@ dynamic build(BuildContext context) {
   print('ClipboardStatusNotifier test executing');
   print('=' * 50);
 
-  runCase('ClipboardStatusNotifier symbol exists', () {
-    final Type t = ClipboardStatusNotifier;
-    return t.toString().contains('ClipboardStatusNotifier');
+  final ClipboardStatusNotifier notifier = ClipboardStatusNotifier();
+  int calls = 0;
+
+  runCase('notifier is a ValueNotifier', () {
+    return notifier is ValueNotifier<ClipboardStatus?>;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('listener can be attached', () {
+    void listener() => calls++;
+    notifier.addListener(listener);
+    notifier.notifyListeners();
+    notifier.removeListener(listener);
+    return calls > 0;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('value can be read', () {
+    final ClipboardStatus? value = notifier.value;
+    return value == null || ClipboardStatus.values.contains(value);
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('disposed notifier still has runtimeType', () {
+    notifier.dispose();
+    return notifier.runtimeType.toString().contains('ClipboardStatusNotifier');
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('enum has expected states', () {
+    return ClipboardStatus.values.contains(ClipboardStatus.notPasteable) &&
+        ClipboardStatus.values.contains(ClipboardStatus.pasteable);
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('ClipboardStatus enum values exist', () {
-    return ClipboardStatus.values.isNotEmpty;
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'clipboardstatusnotifier:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ClipboardStatusNotifier Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ClipboardStatusNotifier Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ClipboardStatusNotifier behavior checks completed'),
     ],
   );
 }

@@ -24,61 +24,56 @@ dynamic build(BuildContext context) {
   print('ContextMenuButtonItem test executing');
   print('=' * 50);
 
-  runCase('ContextMenuButtonItem symbol exists', () {
-    final Type t = ContextMenuButtonItem;
-    return t.toString().contains('ContextMenuButtonItem');
+  bool invoked = false;
+  final ContextMenuButtonItem item = ContextMenuButtonItem(
+    label: 'Copy',
+    onPressed: () {
+      invoked = true;
+    },
+    type: ContextMenuButtonType.copy,
+  );
+
+  runCase('label is stored', () {
+    return item.label == 'Copy';
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('type is stored', () {
+    return item.type == ContextMenuButtonType.copy;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('onPressed callback is callable', () {
+    item.onPressed();
+    return invoked;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('copyWith can change label', () {
+    final ContextMenuButtonItem changed = item.copyWith(label: 'Cut');
+    return changed.label == 'Cut' && changed.type == item.type;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('copyWith can change type', () {
+    final ContextMenuButtonItem changed = item.copyWith(type: ContextMenuButtonType.cut);
+    return changed.type == ContextMenuButtonType.cut;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('ContextMenuButtonType enum values exist', () {
-    return ContextMenuButtonType.values.isNotEmpty;
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'contextmenubuttonitem:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ContextMenuButtonItem Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ContextMenuButtonItem Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ContextMenuButtonItem behavior checks completed'),
     ],
   );
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -24,62 +25,57 @@ dynamic build(BuildContext context) {
   print('DebugCreator test executing');
   print('=' * 50);
 
-  runCase('DebugCreator symbol exists', () {
-    final Type t = DebugCreator;
-    return t.toString().contains('DebugCreator');
+  final StatefulElement element = StatefulElement(_HarnessWidget());
+  final DebugCreator creator = DebugCreator(element);
+
+  runCase('DebugCreator stores element reference', () {
+    return identical(creator.element, element);
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('DebugCreator is a DiagnosticsNode', () {
+    return creator is DiagnosticsNode;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('toStringDeep returns non-empty text', () {
+    return creator.toStringDeep().isNotEmpty;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('toDescription gives class context', () {
+    return creator.toDescription().isNotEmpty;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('style is diagnostic style object', () {
+    return creator.style != DiagnosticsTreeStyle.none;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('DiagnosticsNode symbol exists', () {
-    final Type t = DiagnosticsNode;
-    return t.toString().contains('DiagnosticsNode');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'debugcreator:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'DebugCreator Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('DebugCreator Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('DebugCreator behavior checks completed'),
     ],
   );
+}
+
+class _HarnessWidget extends StatefulWidget {
+  @override
+  State<_HarnessWidget> createState() => _HarnessState();
+}
+
+class _HarnessState extends State<_HarnessWidget> {
+  @override
+  Widget build(BuildContext context) => const SizedBox();
 }

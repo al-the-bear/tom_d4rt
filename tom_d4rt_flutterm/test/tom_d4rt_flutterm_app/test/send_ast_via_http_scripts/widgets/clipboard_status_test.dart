@@ -24,61 +24,49 @@ dynamic build(BuildContext context) {
   print('ClipboardStatus test executing');
   print('=' * 50);
 
-  runCase('ClipboardStatus symbol exists', () {
-    final Type t = ClipboardStatus;
-    return t.toString().contains('ClipboardStatus');
+  runCase('enum has exactly two states', () {
+    return ClipboardStatus.values.length == 2;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
-  });
-
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
-  });
-
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
-  });
-
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
-  });
-
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('ClipboardStatus has pasteable', () {
+  runCase('contains pasteable', () {
     return ClipboardStatus.values.contains(ClipboardStatus.pasteable);
   });
 
-  runCase('Summary string can be generated', () {
-    final String summary = 'clipboardstatus:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('contains notPasteable', () {
+    return ClipboardStatus.values.contains(ClipboardStatus.notPasteable);
+  });
+
+  runCase('index order is stable', () {
+    return ClipboardStatus.notPasteable.index < ClipboardStatus.pasteable.index;
+  });
+
+  runCase('name values are stable', () {
+    return ClipboardStatus.pasteable.name == 'pasteable' &&
+        ClipboardStatus.notPasteable.name == 'notPasteable';
+  });
+
+  runCase('toString includes enum label', () {
+    return ClipboardStatus.pasteable.toString().contains('pasteable');
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ClipboardStatus Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ClipboardStatus Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ClipboardStatus behavior checks completed'),
     ],
   );
 }

@@ -24,62 +24,47 @@ dynamic build(BuildContext context) {
   print('DefaultTransitionDelegate test executing');
   print('=' * 50);
 
-  runCase('DefaultTransitionDelegate symbol exists', () {
-    final Type t = DefaultTransitionDelegate;
-    return t.toString().contains('DefaultTransitionDelegate');
+  final DefaultTransitionDelegate<void> delegate = DefaultTransitionDelegate<void>();
+
+  runCase('delegate is TransitionDelegate', () {
+    return delegate is TransitionDelegate<void>;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('runtime type is stable', () {
+    return delegate.runtimeType.toString().contains('DefaultTransitionDelegate');
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('hashCode is consistent', () {
+    return delegate.hashCode == delegate.hashCode;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('toString includes class name', () {
+    return delegate.toString().contains('DefaultTransitionDelegate');
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('can be assigned to base type', () {
+    final TransitionDelegate<void> base = delegate;
+    return base.runtimeType == delegate.runtimeType;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('TransitionDelegate symbol exists', () {
-    final Type t = TransitionDelegate;
-    return t.toString().contains('TransitionDelegate');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'defaulttransitiondelegate:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'DefaultTransitionDelegate Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('DefaultTransitionDelegate Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('DefaultTransitionDelegate behavior checks completed'),
     ],
   );
 }

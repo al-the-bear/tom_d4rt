@@ -24,62 +24,48 @@ dynamic build(BuildContext context) {
   print('DeleteCharacterIntent test executing');
   print('=' * 50);
 
-  runCase('DeleteCharacterIntent symbol exists', () {
-    final Type t = DeleteCharacterIntent;
-    return t.toString().contains('DeleteCharacterIntent');
+  const DeleteCharacterIntent forward = DeleteCharacterIntent(forward: true);
+  const DeleteCharacterIntent backward = DeleteCharacterIntent(forward: false);
+
+  runCase('forward flag is stored', () {
+    return forward.forward && !backward.forward;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('intents are Intent subtypes', () {
+    return forward is Intent && backward is Intent;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('different direction implies inequality', () {
+    return forward != backward;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('same direction implies equality', () {
+    const DeleteCharacterIntent same = DeleteCharacterIntent(forward: true);
+    return same == forward;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString mentions class', () {
+    return forward.toString().contains('DeleteCharacterIntent');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
-  });
-
-
-  runCase('DeleteToLineBreakIntent symbol exists', () {
-    final Type t = DeleteToLineBreakIntent;
-    return t.toString().contains('DeleteToLineBreakIntent');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'deletecharacterintent:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) {
-    print('Failed cases: ${failed.join(', ')}');
-  }
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'DeleteCharacterIntent Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('DeleteCharacterIntent Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('DeleteCharacterIntent behavior checks completed'),
     ],
   );
 }

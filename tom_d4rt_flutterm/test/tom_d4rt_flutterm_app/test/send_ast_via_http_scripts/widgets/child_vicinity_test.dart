@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// Handcrafted D4rt print-only test focused on ChildVicinity semantics.
 dynamic build(BuildContext context) {
   final List<String> passed = <String>[];
   final List<String> failed = <String>[];
@@ -24,42 +25,39 @@ dynamic build(BuildContext context) {
   print('ChildVicinity test executing');
   print('=' * 50);
 
-  runCase('ChildVicinity symbol exists', () {
-    final Type t = ChildVicinity;
-    return t.toString().contains('ChildVicinity');
+  const ChildVicinity a = ChildVicinity(xIndex: 1, yIndex: 2);
+  const ChildVicinity b = ChildVicinity(xIndex: 1, yIndex: 2);
+  const ChildVicinity c = ChildVicinity(xIndex: 2, yIndex: 1);
+
+  runCase('xIndex is stored', () {
+    return a.xIndex == 1;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('yIndex is stored', () {
+    return a.yIndex == 2;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('equality uses both coordinates', () {
+    return a == b && a != c;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('hashCode aligns with equality', () {
+    return a.hashCode == b.hashCode && a.hashCode != c.hashCode;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('toString references coordinates', () {
+    final String s = a.toString();
+    return s.contains('1') && s.contains('2');
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
+  runCase('can be used as map key', () {
+    final Map<ChildVicinity, String> map = <ChildVicinity, String>{a: 'node'};
+    return map[b] == 'node';
   });
 
-
-  runCase('Table symbol exists', () {
-    final Type t = Table;
-    return t.toString().contains('Table');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'childvicinity:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary text can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
@@ -71,15 +69,12 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'ChildVicinity Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('ChildVicinity Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('ChildVicinity behavior checks completed'),
     ],
   );
 }

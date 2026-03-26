@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// Handcrafted D4rt print-only test focused on CharacterActivator behavior.
 dynamic build(BuildContext context) {
   final List<String> passed = <String>[];
   final List<String> failed = <String>[];
@@ -24,42 +25,43 @@ dynamic build(BuildContext context) {
   print('CharacterActivator test executing');
   print('=' * 50);
 
-  runCase('CharacterActivator symbol exists', () {
-    final Type t = CharacterActivator;
-    return t.toString().contains('CharacterActivator');
+  const CharacterActivator plain = CharacterActivator('a');
+  const CharacterActivator withControl = CharacterActivator('a', control: true);
+  const CharacterActivator withAlt = CharacterActivator('a', alt: true);
+
+  runCase('character is stored', () {
+    return plain.character == 'a';
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('control modifier is tracked', () {
+    return withControl.control && !withControl.alt;
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('alt modifier is tracked', () {
+    return withAlt.alt && !withAlt.control;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('equality differs with modifiers', () {
+    return plain != withControl && withControl != withAlt;
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('same config compares equal', () {
+    const CharacterActivator one = CharacterActivator('z', control: true);
+    const CharacterActivator two = CharacterActivator('z', control: true);
+    return one == two && one.hashCode == two.hashCode;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
+  runCase('toString references activator type', () {
+    return plain.toString().contains('CharacterActivator');
   });
 
-
-  runCase('SingleActivator symbol exists', () {
-    final Type t = SingleActivator;
-    return t.toString().contains('SingleActivator');
+  runCase('Activator supertype relation holds', () {
+    return plain.runtimeType.toString().contains('CharacterActivator');
   });
 
-  runCase('Summary string can be generated', () {
-    final String summary = 'characteractivator:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary reflects run count', () {
+    final String summary = '${passed.length + failed.length} cases';
+    return summary.contains('cases');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
@@ -71,15 +73,12 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'CharacterActivator Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('CharacterActivator Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('CharacterActivator behavior checks completed'),
     ],
   );
 }

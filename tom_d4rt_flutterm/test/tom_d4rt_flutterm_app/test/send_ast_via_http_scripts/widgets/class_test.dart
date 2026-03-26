@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 import 'package:flutter/material.dart';
 
+// Handcrafted D4rt print-only umbrella widgets class test.
 dynamic build(BuildContext context) {
   final List<String> passed = <String>[];
   final List<String> failed = <String>[];
@@ -21,45 +22,39 @@ dynamic build(BuildContext context) {
     }
   }
 
-  print('Class test executing');
+  print('Widgets class umbrella test executing');
   print('=' * 50);
 
-  runCase('Class symbol exists', () {
-    final Type t = Widget;
-    return t.toString().contains('Widget');
+  runCase('Widget base type exists', () {
+    final Widget w = const SizedBox();
+    return w.runtimeType.toString().isNotEmpty;
   });
 
-  runCase('Axis enum is available', () {
-    return Axis.values.isNotEmpty;
+  runCase('Element base type reachable', () {
+    final Element e = StatefulElement(_HarnessWidget());
+    return e.runtimeType.toString().contains('Element');
   });
 
-  runCase('TextDirection enum is available', () {
-    return TextDirection.values.isNotEmpty;
+  runCase('BuildOwner can be instantiated', () {
+    final BuildOwner owner = BuildOwner();
+    return owner.onBuildScheduled == null;
   });
 
-  runCase('ConnectionState enum is available', () {
-    return ConnectionState.values.isNotEmpty;
+  runCase('ConnectionState enum includes done', () {
+    return ConnectionState.values.contains(ConnectionState.done);
   });
 
-  runCase('Duration arithmetic works', () {
-    return const Duration(milliseconds: 500).inMicroseconds == 500000;
+  runCase('Axis enum includes vertical and horizontal', () {
+    return Axis.values.length == 2;
   });
 
-  runCase('Alignment center resolves', () {
-    return Alignment.center.x == 0 && Alignment.center.y == 0;
+  runCase('TextDirection has rtl', () {
+    return TextDirection.values.contains(TextDirection.rtl);
   });
 
-
-  runCase('Widget symbol exists', () {
-    final Type t = Widget;
-    return t.toString().contains('Widget');
-  });
-
-  runCase('Summary string can be generated', () {
-    final String summary = 'class:'
-        '${passed.length} passed '
-        '${failed.length} failed';
-    return summary.contains('passed') && summary.contains('failed');
+  runCase('summary text can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.contains('checks');
   });
 
   print('Result: ${passed.length} passed, ${failed.length} failed');
@@ -71,15 +66,22 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const Text(
-        'Class Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      ),
+      const Text('Widgets Class Umbrella Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       const SizedBox(height: 8),
       Text('Passed: ${passed.length}'),
       Text('Failed: ${failed.length}'),
       Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
-      const Text('Widget class-focused checks completed'),
+      const Text('Core widgets class behavior checks completed'),
     ],
   );
+}
+
+class _HarnessWidget extends StatefulWidget {
+  @override
+  State<_HarnessWidget> createState() => _HarnessState();
+}
+
+class _HarnessState extends State<_HarnessWidget> {
+  @override
+  Widget build(BuildContext context) => const SizedBox();
 }
