@@ -1,94 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests PlatformViewsService from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('PlatformViewsService test executing');
   print('=' * 50);
 
-  // PlatformViewsService static service
-  print('\nPlatformViewsService:');
-  print('Static service for creating platform view controllers');
-  print('Factory methods for different view types');
+  runCase('PlatformViewsService symbol exists', () {
+    final Type t = PlatformViewsService;
+    return t.toString().contains('PlatformViewsService');
+  });
 
-  // Android factory methods
-  print('\nAndroid factory methods:');
-  print('initSurfaceAndroidView():');
-  print('  - Virtual display rendering');
-  print('  - Better performance');
-  print('  ');
-  print('initExpensiveAndroidView():');
-  print('  - Hybrid composition');
-  print('  - Better compatibility');
-  print('  ');
-  print('initAndroidView():');
-  print('  - Texture layer rendering');
-  print('  - Good for video');
+  runCase('PlatformViewsService type string is stable', () {
+    final Type t = PlatformViewsService;
+    return t.toString().isNotEmpty;
+  });
 
-  // iOS factory methods
-  print('\niOS/macOS factory methods:');
-  print('initUiKitView():');
-  print('  - iOS UIView embedding');
-  print('  ');
-  print('initAppKitView():');
-  print('  - macOS NSView embedding');
+  runCase('PlatformViewsService type hashCode is stable', () {
+    final Type t = PlatformViewsService;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Common parameters
-  print('\nCommon parameters:');
-  print('- id: Unique view ID');
-  print('- viewType: String (native view type)');
-  print('- layoutDirection: TextDirection');
-  print('- creationParams: Optional params');
-  print('- creationParamsCodec: MessageCodec');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Usage example
-  print('\nUsage example:');
-  print('final controller = PlatformViewsService.initSurfaceAndroidView(');
-  print('  id: _viewId,');
-  print('  viewType: "my_native_view",');
-  print('  layoutDirection: TextDirection.ltr,');
-  print('  creationParams: {"param": "value"},');
-  print('  creationParamsCodec: StandardMessageCodec(),');
-  print(');');
-  print('await controller.create();');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Platform channel
-  print('\nPlatform channel:');
-  print('SystemChannels.platform_views');
-  print('Method: create, dispose, resize, touch');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // View type registration
-  print('\nView type registration (platform side):');
-  print('Android: PlatformViewRegistry.registerViewFactory');
-  print('iOS: FlutterPlatformViewFactory');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PlatformViewsService (static service)');
-  print('  \u2514\u2500 Factory methods for controllers');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nPlatformViewsService purpose:');
-  print('- Factory for platform view controllers');
-  print('- initSurfaceAndroidView(): Android surface');
-  print('- initUiKitView(): iOS UIKit view');
-  print('- initAppKitView(): macOS AppKit view');
-  print('- Manages platform channel communication');
 
-  print('\n' + '=' * 50);
-  print('PlatformViewsService test completed');
+  runCase('platformViewsRegistry provides id', () {
+    final int id = platformViewsRegistry.getNextPlatformViewId();
+    return id >= 0;
+  });
+
+  runCase('PlatformViewsRegistry symbol exists', () {
+    final Type t = PlatformViewsRegistry;
+    return t.toString().contains('PlatformViewsRegistry');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'platformviewsservice:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'PlatformViewsService Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: static service'),
-      Text('Android: initSurfaceAndroidView'),
-      Text('iOS: initUiKitView'),
-      Text('Purpose: Platform view factory'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

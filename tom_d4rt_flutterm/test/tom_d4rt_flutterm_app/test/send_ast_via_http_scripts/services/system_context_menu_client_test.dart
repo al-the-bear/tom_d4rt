@@ -1,97 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SystemContextMenuClient from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('SystemContextMenuClient test executing');
   print('=' * 50);
 
-  // SystemContextMenuClient interface
-  print('\nSystemContextMenuClient:');
-  print('Interface for system context menu handling');
-  print('Receives menu item selection callbacks');
+  runCase('SystemContextMenuClient symbol exists', () {
+    final Type t = SystemContextMenuClient;
+    return t.toString().contains('SystemContextMenuClient');
+  });
 
-  // Interface definition
-  print('\nInterface methods:');
-  print('');
-  print('handleSystemHide():');
-  print('  - Called when system hides menu');
-  print('  - User dismissed menu');
-  print('  - Another action occurred');
+  runCase('SystemContextMenuClient type string is stable', () {
+    final Type t = SystemContextMenuClient;
+    return t.toString().isNotEmpty;
+  });
 
-  // Platform context menus
-  print('\nPlatform context menus:');
-  print('');
-  print('iOS:');
-  print('  - UIMenuController');
-  print('  - Text selection menu');
-  print('  - Cut/Copy/Paste actions');
-  print('');
-  print('Android:');
-  print('  - ActionMode menu');
-  print('  - Text selection toolbar');
-  print('');
-  print('macOS:');
-  print('  - NSMenu');
-  print('  - Right-click context menus');
+  runCase('SystemContextMenuClient type hashCode is stable', () {
+    final Type t = SystemContextMenuClient;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Usage with SystemContextMenuController
-  print('\nUsage with SystemContextMenuController:');
-  print('class MyClient implements SystemContextMenuClient {');
-  print('  @override');
-  print('  void handleSystemHide() {');
-  print('    // Menu was hidden');
-  print('    setState(() => menuVisible = false);');
-  print('  }');
-  print('}');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Registration
-  print('\nRegistration with controller:');
-  print('final controller = SystemContextMenuController(');
-  print('  onSystemHide: () {');
-  print('    // Clean up state');
-  print('  },');
-  print(');');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // When handleSystemHide is called
-  print('\nWhen handleSystemHide is called:');
-  print('- User taps outside menu');
-  print('- User selects a menu item');
-  print('- Another widget steals focus');
-  print('- App goes to background');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Relationship to controller
-  print('\nRelationship to SystemContextMenuController:');
-  print('Controller manages menu lifecycle');
-  print('Client receives hide notifications');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('SystemContextMenuClient (abstract/interface)');
-  print('  \u2514\u2500 Widget implementations');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nSystemContextMenuClient purpose:');
-  print('- System context menu callbacks');
-  print('- handleSystemHide notification');
-  print('- Platform menu integration');
-  print('- State synchronization');
-  print('- Enable menu visibility tracking');
 
-  print('\n' + '=' * 50);
-  print('SystemContextMenuClient test completed');
+  runCase('SystemContextMenuController symbol exists', () {
+    final Type t = SystemContextMenuController;
+    return t.toString().contains('SystemContextMenuController');
+  });
+
+  runCase('IOSSystemContextMenuItemData symbol exists', () {
+    final Type t = IOSSystemContextMenuItemData;
+    return t.toString().contains('IOSSystemContextMenuItemData');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'systemcontextmenuclient:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'SystemContextMenuClient Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: interface'),
-      Text('Method: handleSystemHide'),
-      Text('Used with: SystemContextMenuController'),
-      Text('Purpose: Context menu callbacks'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

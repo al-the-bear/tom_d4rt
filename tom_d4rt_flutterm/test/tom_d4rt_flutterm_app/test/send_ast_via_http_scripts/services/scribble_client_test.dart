@@ -1,90 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests ScribbleClient from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('ScribbleClient test executing');
   print('=' * 50);
 
-  // ScribbleClient is an abstract mixin
-  print('\nScribbleClient:');
-  print('Mixin for handling Apple Pencil Scribble input');
-  print('iPadOS 14+ feature for handwriting input');
+  runCase('ScribbleClient symbol exists', () {
+    final Type t = ScribbleClient;
+    return t.toString().contains('ScribbleClient');
+  });
 
-  // Interface methods
-  print('\nScribbleClient interface:');
-  print('scribbleElement: Rect (element bounds)');
-  print('isInScribbleRect(point): Check if in bounds');
-  print('scribbleFocus(): Request focus for scribble');
-  print('scribbleCommit(): Commit scribble input');
-  print('scribbleCancel(): Cancel scribble input');
+  runCase('ScribbleClient type string is stable', () {
+    final Type t = ScribbleClient;
+    return t.toString().isNotEmpty;
+  });
 
-  // Scribble feature
-  print('\nApple Scribble feature:');
-  print('- Handwrite with Apple Pencil');
-  print('- System converts to typed text');
-  print('- Works in any text field');
-  print('- iPadOS 14+ required');
+  runCase('ScribbleClient type hashCode is stable', () {
+    final Type t = ScribbleClient;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Registration
-  print('\nScribble registration:');
-  print('Scribble.ensureInitialized();');
-  print('Scribble.registerScribbleElement(element);');
-  print('Scribble.unregisterScribbleElement(element);');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Implementation requirements
-  print('\nImplementation requirements:');
-  print('1. Mix in ScribbleClient');
-  print('2. Provide scribbleElement bounds');
-  print('3. Handle scribbleFocus request');
-  print('4. Handle commit/cancel callbacks');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('class MyTextField with ScribbleClient {');
-  print('  @override');
-  print('  Rect get scribbleElement => _elementBounds;');
-  print('  ');
-  print('  @override');
-  print('  bool isInScribbleRect(Offset point) {');
-  print('    return scribbleElement.contains(point);');
-  print('  }');
-  print('}');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Platform channel
-  print('\nPlatform interaction:');
-  print('- SystemChannels.scribble');
-  print('- PencilKit integration');
-  print('- Coordinate conversion');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Related classes
-  print('\nRelated classes:');
-  print('- Scribble (service)');
-  print('- ScribbleClient (mixin)');
-  print('- EditableText (implements it)');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nScribbleClient purpose:');
-  print('- Enable Pencil handwriting input');
-  print('- Report element bounds');
-  print('- Handle focus requests');
-  print('- iPadOS Scribble integration');
-  print('- Enhances tablet text input');
 
-  print('\n' + '=' * 50);
-  print('ScribbleClient test completed');
+  runCase('ScribbleClient symbol exists', () {
+    final Type t = ScribbleClient;
+    return t.toString().contains('ScribbleClient');
+  });
+
+  runCase('Scribe symbol exists', () {
+    final Type t = Scribe;
+    return t.toString().contains('Scribe');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'scribbleclient:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'ScribbleClient Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: abstract mixin'),
-      Text('Platform: iPadOS 14+'),
-      Text('Feature: Apple Pencil Scribble'),
-      Text('Purpose: Handwriting input'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

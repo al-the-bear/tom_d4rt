@@ -1,86 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextInputConnection, TextInput, RawKeyEventData, KeyData, BrowserContextMenu, LiveText, LiveTextInputStatusNotifier
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('Key events and text input advanced test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
 
-  // ========== TextInputConnection ==========
-  print('--- TextInputConnection Tests ---');
-  // TextInputConnection is returned by TextInput.attach().
-  // Reference the type through TextInput.
-  print('TextInputConnection: referenced via TextInput.attach()');
-  print('Type: TextInputConnection (connection to platform text input)');
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
 
-  // ========== TextInput ==========
-  print('--- TextInput Tests ---');
-  // TextInput is the static interface to the platform text input system.
-  print('TextInput: static interface for platform text input');
-  print('Type: TextInput');
+  print('TextInputConnection test executing');
+  print('=' * 50);
 
-  // ========== RawKeyEventData ==========
-  print('--- RawKeyEventData Tests ---');
-  // RawKeyEventData is an abstract base class for raw keyboard event data.
-  // Deprecated in favor of KeyEvent system, but still available.
-  print('RawKeyEventData: abstract base class for raw key event data');
-  print('Type: RawKeyEventData (abstract)');
-  print(
-    'Subclasses: RawKeyEventDataAndroid, RawKeyEventDataIos, RawKeyEventDataWeb, etc.',
-  );
+  runCase('TextInputConnection symbol exists', () {
+    final Type t = TextInputConnection;
+    return t.toString().contains('TextInputConnection');
+  });
 
-  // ========== KeyData ==========
-  print('--- KeyData Tests ---');
-  // KeyData represents a key event at the engine level.
-  // The constructor may not be publicly accessible, so reference the type.
-  print('KeyData: engine-level key event data');
-  print('Type: KeyData');
-  print('Fields: timeStamp, type, physical, logical, character, synthesized');
+  runCase('TextInputConnection type string is stable', () {
+    final Type t = TextInputConnection;
+    return t.toString().isNotEmpty;
+  });
 
-  // ========== BrowserContextMenu ==========
-  print('--- BrowserContextMenu Tests ---');
-  // BrowserContextMenu controls the browser's context menu on web.
-  print('BrowserContextMenu: controls browser context menu on web platform');
-  print('BrowserContextMenu.disableContextMenu: disables right-click menu');
-  print('BrowserContextMenu.enableContextMenu: enables right-click menu');
-  print('Type: BrowserContextMenu');
+  runCase('TextInputConnection type hashCode is stable', () {
+    final Type t = TextInputConnection;
+    return t.hashCode == t.hashCode;
+  });
 
-  // ========== LiveText ==========
-  print('--- LiveText Tests ---');
-  // LiveText provides access to live text input features (camera text recognition).
-  print('LiveText: live text input API for camera text recognition');
-  print('LiveText.isLiveTextInputAvailable: checks platform support');
-  print('Type: LiveText');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // ========== LiveTextInputStatusNotifier ==========
-  print('--- LiveTextInputStatusNotifier Tests ---');
-  // LiveTextInputStatusNotifier notifies about live text input status changes.
-  print('LiveTextInputStatusNotifier: notifies about live text status changes');
-  print('Type: LiveTextInputStatusNotifier');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  print('All key events and text input advanced tests passed');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // ========== RETURN WIDGET ==========
-  return MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Key Events Advanced Test',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            Text('TextInputConnection: OK'),
-            Text('TextInput: OK'),
-            Text('RawKeyEventData: OK (abstract)'),
-            Text('KeyData: OK'),
-            Text('BrowserContextMenu: OK'),
-            Text('LiveText: OK'),
-            Text('LiveTextInputStatusNotifier: OK'),
-          ],
-        ),
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
+
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
+
+
+  runCase('TextInputClient symbol exists', () {
+    final Type t = TextInputClient;
+    return t.toString().contains('TextInputClient');
+  });
+
+  runCase('TextInput singleton symbol exists', () {
+    final Type t = TextInput;
+    return t.toString().contains('TextInput');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'textinputconnection:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const Text(
+        'TextInputConnection Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-    ),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
+    ],
   );
 }

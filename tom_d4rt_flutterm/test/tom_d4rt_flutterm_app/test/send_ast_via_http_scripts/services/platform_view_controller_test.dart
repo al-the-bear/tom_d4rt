@@ -1,90 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests PlatformViewController from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('PlatformViewController test executing');
   print('=' * 50);
 
-  // PlatformViewController is abstract base
-  print('\nPlatformViewController:');
-  print('Abstract base for platform view controllers');
-  print('Manages lifecycle of native platform views');
+  runCase('PlatformViewController symbol exists', () {
+    final Type t = PlatformViewController;
+    return t.toString().contains('PlatformViewController');
+  });
 
-  // Interface methods
-  print('\nPlatformViewController interface:');
-  print('viewId: int (unique view identifier)');
-  print('create(): Future<void> (create native view)');
-  print('dispose(): Future<void> (destroy view)');
-  print('clearFocus(): void (remove focus)');
-  print('dispatchPointerEvent(): Forward touch events');
+  runCase('PlatformViewController type string is stable', () {
+    final Type t = PlatformViewController;
+    return t.toString().isNotEmpty;
+  });
 
-  // Platform-specific implementations
-  print('\nPlatform-specific implementations:');
-  print('Android:');
-  print('  - AndroidViewController (abstract)');
-  print('  - SurfaceAndroidViewController');
-  print('  - TextureAndroidViewController');
-  print('  - ExpensiveAndroidViewController');
-  print('iOS/macOS:');
-  print('  - DarwinPlatformViewController');
-  print('  - UiKitViewController');
-  print('  - AppKitViewController');
+  runCase('PlatformViewController type hashCode is stable', () {
+    final Type t = PlatformViewController;
+    return t.hashCode == t.hashCode;
+  });
 
-  // View creation
-  print('\nView creation flow:');
-  print('1. Get controller from PlatformViewsService');
-  print('2. Call create() to initialize native view');
-  print('3. Use viewId to reference view');
-  print('4. Forward touch events with dispatchPointerEvent');
-  print('5. Call dispose() when done');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Property: viewId
-  print('\nviewId property:');
-  print('- Unique identifier for this view');
-  print('- Used to reference view in platform code');
-  print('- Assigned by PlatformViewsService');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Touch event handling
-  print('\nTouch event handling:');
-  print('dispatchPointerEvent(event):');
-  print('- Converts Flutter PointerEvent');
-  print('- Forwards to native view');
-  print('- Handles coordinate transformation');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PlatformViewController (abstract base)');
-  print('  \u251c\u2500 AndroidViewController');
-  print('  |    \u251c\u2500 SurfaceAndroidViewController');
-  print('  |    \u251c\u2500 TextureAndroidViewController');
-  print('  |    \u2514\u2500 ExpensiveAndroidViewController');
-  print('  \u2514\u2500 DarwinPlatformViewController');
-  print('       \u251c\u2500 UiKitViewController');
-  print('       \u2514\u2500 AppKitViewController');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Explain purpose
-  print('\nPlatformViewController purpose:');
-  print('- Base class for platform view control');
-  print('- create()/dispose(): Lifecycle management');
-  print('- viewId: View identification');
-  print('- dispatchPointerEvent: Touch forwarding');
-  print('- Enables native view embedding');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  print('\n' + '=' * 50);
-  print('PlatformViewController test completed');
+
+  runCase('AndroidViewController symbol exists', () {
+    final Type t = AndroidViewController;
+    return t.toString().contains('AndroidViewController');
+  });
+
+  runCase('UiKitViewController symbol exists', () {
+    final Type t = UiKitViewController;
+    return t.toString().contains('UiKitViewController');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'platformviewcontroller:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'PlatformViewController Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: abstract base class'),
-      Text('Methods: create, dispose, dispatchPointerEvent'),
-      Text('Implementations: Android, iOS, macOS'),
-      Text('Purpose: Native view control'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

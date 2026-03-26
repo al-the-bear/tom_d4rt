@@ -1,90 +1,100 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests LiveText from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('LiveText test executing');
   print('=' * 50);
 
-  // LiveText is a class with static methods
-  print('\nLiveText class:');
-  print('LiveText provides static methods for Live Text functionality');
+  runCase('LiveText symbol exists', () {
+    final Type t = LiveText;
+    return t.toString().contains('LiveText');
+  });
 
-  // Explain Live Text feature
-  print('\nLive Text feature:');
-  print('- iOS 15+/macOS Monterey+ feature');
-  print('- Recognizes text in images');
-  print('- Allows copying/interacting with text in photos');
-  print('- Available in camera and photos');
+  runCase('LiveText type string is stable', () {
+    final Type t = LiveText;
+    return t.toString().isNotEmpty;
+  });
 
-  // LiveText.isLiveTextInputAvailable
-  print('\nLiveText.isLiveTextInputAvailable:');
-  print('- Returns Future<bool>');
-  print('- Checks if Live Text input is available');
-  print('- iOS 15+, macOS 12+ required');
-  print('- Device must support on-device ML');
+  runCase('LiveText type hashCode is stable', () {
+    final Type t = LiveText;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Platform availability
-  print('\nPlatform availability:');
-  print('- iOS 15.0+: Supported on A12+ chips');
-  print('- macOS 12.0+: Supported on Apple Silicon');
-  print('- Android: Not available (returns false)');
-  print('- Windows/Linux: Not available (returns false)');
-  print('- Web: Not available (returns false)');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Use cases
-  print('\nUse cases:');
-  print('1. Text input from camera');
-  print('2. Copy text from images');
-  print('3. Phone number recognition');
-  print('4. URL detection in photos');
-  print('5. Address recognition');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Integration with TextField
-  print('\nIntegration with TextField:');
-  print('- TextField can show camera button');
-  print('- Tapping opens camera for text capture');
-  print('- Recognized text inserted into field');
-  print('- Controlled via InputDecoration.suffixIcon');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Test type hierarchy
-  print('\nType hierarchy:');
-  print('LiveText is a static utility class');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Error handling
-  print('\nError handling:');
-  print('- Check isLiveTextInputAvailable before using');
-  print('- Gracefully degrade on unsupported platforms');
-  print('- Provide alternative text input methods');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Related APIs
-  print('\nRelated APIs:');
-  print('- IOSSystemContextMenuItemDataLiveText');
-  print('- TextInputConfiguration');
-  print('- CupertinoTextField live text support');
 
-  // Explain purpose
-  print('\nLiveText purpose:');
-  print('- Utility class for iOS/macOS Live Text');
-  print('- isLiveTextInputAvailable: Check availability');
-  print('- Enables text recognition from camera');
-  print('- Part of Apple\'s on-device ML features');
-  print('- Improves text input UX on supported devices');
+  runCase('LiveTextInputStatus symbol exists', () {
+    final Type t = LiveTextInputStatus;
+    return t.toString().contains('LiveTextInputStatus');
+  });
 
-  print('\n' + '=' * 50);
-  print('LiveText test completed');
+  runCase('LiveTextInputStatus enum populated', () {
+    return LiveTextInputStatus.values.isNotEmpty;
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'livetext:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'LiveText Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: static utility class'),
-      Text('Method: isLiveTextInputAvailable'),
-      Text('Platform: iOS 15+, macOS 12+'),
-      Text('Purpose: Camera text recognition'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

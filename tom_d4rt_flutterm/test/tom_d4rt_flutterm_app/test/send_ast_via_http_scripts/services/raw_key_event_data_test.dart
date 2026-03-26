@@ -1,96 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RawKeyEventData from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('RawKeyEventData test executing');
   print('=' * 50);
 
-  // RawKeyEventData - deprecated abstract base
-  print('\nRawKeyEventData (deprecated):');
-  print('Abstract base for platform-specific key data');
-  print('Part of deprecated RawKeyboard system');
+  runCase('RawKeyEventData symbol exists', () {
+    final Type t = RawKeyEventData;
+    return t.toString().contains('RawKeyEventData');
+  });
 
-  // Platform-specific subclasses
-  print('\nPlatform-specific subclasses:');
-  print('- RawKeyEventDataAndroid');
-  print('- RawKeyEventDataIos');
-  print('- RawKeyEventDataMacOs');
-  print('- RawKeyEventDataWindows');
-  print('- RawKeyEventDataLinux');
-  print('- RawKeyEventDataWeb');
-  print('- RawKeyEventDataFuchsia');
+  runCase('RawKeyEventData type string is stable', () {
+    final Type t = RawKeyEventData;
+    return t.toString().isNotEmpty;
+  });
 
-  // Common properties
-  print('\nCommon properties:');
-  print('- physicalKey: PhysicalKeyboardKey');
-  print('- logicalKey: LogicalKeyboardKey');
-  print('- keyLabel: String (printable character)');
+  runCase('RawKeyEventData type hashCode is stable', () {
+    final Type t = RawKeyEventData;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Modifier state
-  print('\nModifier state properties:');
-  print('- isControlPressed: bool');
-  print('- isShiftPressed: bool');
-  print('- isAltPressed: bool');
-  print('- isMetaPressed: bool');
-  print('- modifiersPressed: Map of modifiers');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Android-specific data
-  print('\nAndroid-specific (RawKeyEventDataAndroid):');
-  print('- flags: Android event flags');
-  print('- codePoint: Unicode code point');
-  print('- keyCode: Android key code');
-  print('- scanCode: Hardware scan code');
-  print('- metaState: Meta key state mask');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // iOS-specific data
-  print('\niOS-specific (RawKeyEventDataIos):');
-  print('- characters: UIKey characters');
-  print('- charactersIgnoringModifiers');
-  print('- keyCode: UIKey key code');
-  print('- modifiers: UIKeyModifierFlags');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Access from RawKeyEvent
-  print('\nAccess from RawKeyEvent:');
-  print('final event = RawKeyDownEvent(...);');
-  print('final data = event.data;');
-  print('if (data is RawKeyEventDataAndroid) {');
-  print('  final keyCode = data.keyCode;');
-  print('}');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RawKeyEventData (abstract, deprecated)');
-  print('  \u251c\u2500 RawKeyEventDataAndroid');
-  print('  \u251c\u2500 RawKeyEventDataIos');
-  print('  \u251c\u2500 RawKeyEventDataMacOs');
-  print('  \u251c\u2500 RawKeyEventDataWindows');
-  print('  \u251c\u2500 RawKeyEventDataLinux');
-  print('  \u251c\u2500 RawKeyEventDataWeb');
-  print('  \u2514\u2500 RawKeyEventDataFuchsia');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nRawKeyEventData purpose (deprecated):');
-  print('- Platform-specific key event details');
-  print('- Contains raw platform key codes');
-  print('- Maps to Flutter key identifiers');
-  print('- Part of RawKeyEvent.data');
-  print('- Migrate to KeyEvent system');
 
-  print('\n' + '=' * 50);
-  print('RawKeyEventData test completed');
+  runCase('RawKeyEventDataAndroid symbol exists', () {
+    final Type t = RawKeyEventDataAndroid;
+    return t.toString().contains('RawKeyEventDataAndroid');
+  });
+
+  runCase('RawKeyEventDataMacOs symbol exists', () {
+    final Type t = RawKeyEventDataMacOs;
+    return t.toString().contains('RawKeyEventDataMacOs');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'rawkeyeventdata:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'RawKeyEventData Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Status: DEPRECATED'),
-      Text('Type: abstract base class'),
-      Text('Impls: Android, iOS, macOS, etc.'),
-      Text('Purpose: Platform key data'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

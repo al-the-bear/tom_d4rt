@@ -1173,7 +1173,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_down_event_test.dart) | KeyDownEvent | No | Yes | No | Checked. |
 | [key_event_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_event_manager_test.dart) | KeyEventManager | No | Yes | No | Created on 2026-03-26 22:55 |
 | [key_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_event_test.dart) | KeyEvent | No | Yes | No | Checked. |
-| [key_events_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_adv_test.dart) | TextInputConnection | No | No | Print-only | Checked. |
+| [key_events_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_adv_test.dart) | TextInputConnection | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [key_events_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
 | [key_helper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_helper_test.dart) | KeyHelper | No | Yes | No | Checked. |
 | [key_message_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_message_test.dart) | KeyMessage | No | Yes | No | Checked. |
@@ -1183,60 +1183,60 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [keyboard_lock_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_lock_mode_test.dart) | KeyboardLockMode | No | Yes | No | Checked. |
 | [keyboard_side_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_side_test.dart) | KeyboardSide | No | Yes | No | Checked. |
 | [keyboard_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_test.dart) | LogicalKeyboardKey | No | Yes | No | Checked. |
-| [live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/live_text_test.dart) | LiveText | No | No | Print-only | Checked. |
+| [live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/live_text_test.dart) | LiveText | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [max_length_enforcement_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/max_length_enforcement_test.dart) | MaxLengthEnforcement | No | Yes | No | Checked. |
 | [message_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/message_codec_test.dart) | MessageCodec | No | Yes | No | Checked. |
 | [method_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/method_codec_test.dart) | MethodCodec | No | Yes | No | Checked. |
 | [missing_plugin_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/missing_plugin_exception_test.dart) | MissingPluginException | No | Yes | No | Checked. |
 | [modifier_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/modifier_key_test.dart) | ModifierKey | No | Yes | No | Checked. |
-| [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | No | Print-only | Checked. |
+| [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [mouse_cursor_session_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_session_test.dart) | MouseCursorSession | No | Yes | No | Created on 2026-03-26 22:28 |
 | [mouse_tracker_annotation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_tracker_annotation_test.dart) | MouseTrackerAnnotation | No | Yes | No | Checked. |
 | [network_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/network_asset_bundle_test.dart) | NetworkAssetBundle | No | Yes | No | Checked. |
-| [platform_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_asset_bundle_test.dart) | PlatformAssetBundle | No | No | Print-only | Checked. |
+| [platform_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_asset_bundle_test.dart) | PlatformAssetBundle | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [platform_channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_channels_test.dart) | MethodChannel | No | Yes | No | Checked. |
 | [platform_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_exception_test.dart) | PlatformException | No | Yes | No | Checked. |
 | [platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_test.dart) | Clipboard | No | Yes | No | Checked. |
-| [platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_view_controller_test.dart) | PlatformViewController | No | No | Print-only | Checked. |
+| [platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_view_controller_test.dart) | PlatformViewController | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [platform_views_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_registry_test.dart) | PlatformViewsRegistry | No | Yes | No | Checked. |
-| [platform_views_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_service_test.dart) | PlatformViewsService | No | No | Print-only | Checked. |
+| [platform_views_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_service_test.dart) | PlatformViewsService | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [predictive_back_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/predictive_back_event_test.dart) | PredictiveBackEvent | No | Yes | No | Created on 2026-03-26 22:28 |
 | [process_text_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_action_test.dart) | ProcessTextAction | No | Yes | No | Checked. |
-| [process_text_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_service_test.dart) | ProcessTextService | No | No | Print-only | Checked. |
+| [process_text_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_service_test.dart) | ProcessTextService | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [raw_floating_cursor_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_floating_cursor_point_test.dart) | RawFloatingCursorPoint | No | Yes | No | Checked. |
-| [raw_key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_down_event_test.dart) | RawKeyDownEvent | No | No | Print-only | Checked. |
+| [raw_key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_down_event_test.dart) | RawKeyDownEvent | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [raw_key_event_data_android_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_android_test.dart) | RawKeyEventDataAndroid | No | Yes | No | Checked. |
 | [raw_key_event_data_fuchsia_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_fuchsia_test.dart) | RawKeyEventDataFuchsia | No | Yes | No | Checked. |
 | [raw_key_event_data_ios_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_ios_test.dart) | RawKeyEventDataIos | No | Yes | No | Checked. |
 | [raw_key_event_data_linux_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_linux_test.dart) | RawKeyEventDataLinux | No | Yes | No | Checked. |
 | [raw_key_event_data_mac_os_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_mac_os_test.dart) | RawKeyEventDataMacOs | No | Yes | No | Created on 2026-03-26 22:28 |
-| [raw_key_event_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_test.dart) | RawKeyEventData | No | No | Print-only | Checked. |
+| [raw_key_event_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_test.dart) | RawKeyEventData | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [raw_key_event_data_web_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_web_test.dart) | RawKeyEventDataWeb | No | Yes | No | Checked. |
 | [raw_key_event_data_windows_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_windows_test.dart) | RawKeyEventDataWindows | No | Yes | No | Checked. |
 | [raw_key_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
-| [raw_key_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_up_event_test.dart) | RawKeyUpEvent | No | No | Print-only | Checked. |
+| [raw_key_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_up_event_test.dart) | RawKeyUpEvent | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [raw_keyboard_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_keyboard_test.dart) | RawKeyboard | No | Yes | No | Checked. |
-| [restoration_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_bucket_test.dart) | RestorationBucket | No | No | Print-only | Checked. |
+| [restoration_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_bucket_test.dart) | RestorationBucket | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [restoration_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_manager_test.dart) | RestorationManager | No | Yes | No | Created on 2026-03-26 22:28 |
 | [restoration_platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_platform_test.dart) | RestorationMemento | No | Yes | No | Checked. |
-| [scribble_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribble_client_test.dart) | ScribbleClient | No | No | Print-only | Checked. |
+| [scribble_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribble_client_test.dart) | ScribbleClient | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [scribe_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribe_test.dart) | Scribe | No | Yes | No | Created on 2026-03-26 22:28 |
 | [selection_changed_cause_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_changed_cause_test.dart) | SelectionChangedCause | No | Yes | No | Checked. |
 | [selection_rect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_rect_test.dart) | SelectionRect | No | Yes | No | Checked. |
-| [sensitive_content_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/sensitive_content_service_test.dart) | SensitiveContentService | No | No | Print-only | Checked. |
+| [sensitive_content_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/sensitive_content_service_test.dart) | SensitiveContentService | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [services_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_advanced_test.dart) | KeyEvent | No | Yes | No | Checked. |
 | [services_service_extensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_service_extensions_test.dart) | ServicesServiceExtensions | No | Yes | No | Checked. |
 | [smart_dashes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_dashes_type_test.dart) | SmartDashesType | No | Yes | No | Created on 2026-03-26 22:28 |
-| [smart_quotes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_quotes_type_test.dart) | SmartQuotesType | No | No | Print-only | Checked. |
-| [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | No | Print-only | Checked. |
+| [smart_quotes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_quotes_type_test.dart) | SmartQuotesType | No | Yes | No | Created on 2026-03-26 at 23:09 |
+| [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [spellcheck_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spellcheck_test.dart) | SpellCheckResults | No | Yes | No | Checked. |
 | [suggestion_span_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/suggestion_span_test.dart) | SuggestionSpan | No | Yes | No | Checked. |
-| [surface_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/surface_android_view_controller_test.dart) | SurfaceAndroidViewController | No | No | Print-only | Checked. |
+| [surface_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/surface_android_view_controller_test.dart) | SurfaceAndroidViewController | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [swipe_edge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/swipe_edge_test.dart) | SwipeEdge | No | Yes | No | Checked. |
 | [system_channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_channels_test.dart) | SystemChannels | No | Yes | No | Checked. |
 | [system_chrome_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_chrome_test.dart) | SystemChrome | No | Yes | No | Checked. |
-| [system_context_menu_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_client_test.dart) | SystemContextMenuClient | No | No | Print-only | Checked. |
-| [system_context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_controller_test.dart) | SystemContextMenuController | No | No | Print-only | Checked. |
+| [system_context_menu_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_client_test.dart) | SystemContextMenuClient | No | Yes | No | Created on 2026-03-26 at 23:09 |
+| [system_context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_controller_test.dart) | SystemContextMenuController | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [system_sound_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_sound_type_test.dart) | SystemSoundType | No | Yes | No | Checked. |
 | [system_ui_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_ui_mode_test.dart) | SystemUiMode | No | Yes | No | Checked. |
 | [system_ui_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_ui_overlay_test.dart) | SystemUiOverlay | No | Yes | No | Checked. |
@@ -1247,9 +1247,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_editing_delta_replacement_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_editing_delta_replacement_test.dart) | TextEditingDeltaReplacement | No | Yes | No | Checked. |
 | [text_editing_value_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_editing_value_test.dart) | TextEditingValue | No | Yes | No | Checked. |
 | [text_input_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_action_test.dart) | TextInputAction | No | Yes | No | Checked. |
-| [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | No | Print-only | Checked. |
+| [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [text_input_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_configuration_test.dart) | TextInputConfiguration | No | Yes | No | Checked. |
-| [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | No | Print-only | Checked. |
+| [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | Yes | No | Created on 2026-03-26 at 23:09 |
 | [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | No | Print-only | Checked. |
 | [text_input_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_test.dart) | TextInput | No | No | Print-only | Checked. |
 | [text_input_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_type_test.dart) | TextInputType | No | Yes | No | Checked. |

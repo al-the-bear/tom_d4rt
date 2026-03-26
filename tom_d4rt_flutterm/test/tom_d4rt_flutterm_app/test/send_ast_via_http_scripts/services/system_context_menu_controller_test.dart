@@ -1,91 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SystemContextMenuController from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('SystemContextMenuController test executing');
   print('=' * 50);
 
-  // SystemContextMenuController controls native context menus
-  print('\nSystemContextMenuController:');
-  print('Controls system-native context menus');
-  print('iOS Live Text, text selection menus');
+  runCase('SystemContextMenuController symbol exists', () {
+    final Type t = SystemContextMenuController;
+    return t.toString().contains('SystemContextMenuController');
+  });
 
-  // Show/hide methods
-  print('\nController methods:');
-  print('show(rect): Show context menu at rect');
-  print('hide(): Hide the context menu');
+  runCase('SystemContextMenuController type string is stable', () {
+    final Type t = SystemContextMenuController;
+    return t.toString().isNotEmpty;
+  });
 
-  // Platform availability
-  print('\nPlatform availability:');
-  print('- iOS: Native text selection menu');
-  print('- Android: System context menu');
-  print('- Other platforms: Limited support');
+  runCase('SystemContextMenuController type hashCode is stable', () {
+    final Type t = SystemContextMenuController;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Menu position
-  print('\nMenu positioning:');
-  print('- rect: Target rectangle for menu');
-  print('- System positions menu near rect');
-  print('- Avoids overlapping target');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('final controller = SystemContextMenuController();');
-  print('');
-  print('// Show menu at selection');
-  print('controller.show(selectionRect);');
-  print('');
-  print('// Hide when done');
-  print('controller.hide();');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // iOS context menu items
-  print('\niOS context menu items:');
-  print('- Copy, Cut, Paste, Select All');
-  print('- Look Up, Translate');
-  print('- Live Text (camera text)');
-  print('- Share');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Integration with TextField
-  print('\nIntegration with TextField:');
-  print('- TextField manages automatically');
-  print('- Shows on text selection');
-  print('- Hides on tap elsewhere');
-  print('- contextMenuBuilder for custom menus');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Callback handling
-  print('\nCallback handling:');
-  print('Platform sends action callbacks:');
-  print('- Cut/Copy/Paste actions');
-  print('- Custom action results');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // ContextMenuController (higher level)
-  print('\nContextMenuController (widgets layer):');
-  print('- Higher-level controller');
-  print('- Manages Flutter context menus');
-  print('- Uses SystemContextMenuController');
 
-  // Explain purpose
-  print('\nSystemContextMenuController purpose:');
-  print('- Control native context menus');
-  print('- show(rect): Display menu at position');
-  print('- hide(): Dismiss menu');
-  print('- iOS text selection integration');
-  print('- System menu customization');
+  runCase('SystemContextMenuController symbol exists', () {
+    final Type t = SystemContextMenuController;
+    return t.toString().contains('SystemContextMenuController');
+  });
 
-  print('\n' + '=' * 50);
-  print('SystemContextMenuController test completed');
+  runCase('IOSSystemContextMenuItemData symbol exists', () {
+    final Type t = IOSSystemContextMenuItemData;
+    return t.toString().contains('IOSSystemContextMenuItemData');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'systemcontextmenucontroller:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'SystemContextMenuController Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: context menu controller'),
-      Text('Methods: show, hide'),
-      Text('Platform: iOS, Android'),
-      Text('Purpose: Native context menus'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

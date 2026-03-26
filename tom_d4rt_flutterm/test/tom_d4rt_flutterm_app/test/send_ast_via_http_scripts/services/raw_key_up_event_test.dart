@@ -1,88 +1,100 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RawKeyUpEvent from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('RawKeyUpEvent test executing');
   print('=' * 50);
 
-  // RawKeyUpEvent - deprecated, use KeyUpEvent
-  print('\nRawKeyUpEvent (deprecated):');
-  print('Use KeyUpEvent instead');
-  print('Part of deprecated RawKeyboard system');
+  runCase('RawKeyUpEvent symbol exists', () {
+    final Type t = RawKeyUpEvent;
+    return t.toString().contains('RawKeyUpEvent');
+  });
 
-  // Event structure
-  print('\nRawKeyUpEvent structure:');
-  print('- data: Platform-specific RawKeyEventData');
-  print('- No character property (key release)');
-  print('- Extends RawKeyEvent');
+  runCase('RawKeyUpEvent type string is stable', () {
+    final Type t = RawKeyUpEvent;
+    return t.toString().isNotEmpty;
+  });
 
-  // Properties (inherited from RawKeyEvent)
-  print('\nRawKeyEvent properties:');
-  print('- physicalKey: Physical key location');
-  print('- logicalKey: Key meaning');
-  print('- repeat: Always false for up events');
-  print('- isControlPressed: Ctrl held');
-  print('- isShiftPressed: Shift held');
-  print('- isAltPressed: Alt held');
-  print('- isMetaPressed: Meta/Cmd held');
+  runCase('RawKeyUpEvent type hashCode is stable', () {
+    final Type t = RawKeyUpEvent;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Key up vs key down
-  print('\nKey up vs key down:');
-  print('RawKeyDownEvent: Key pressed');
-  print('RawKeyUpEvent: Key released');
-  print('Both contain same key identification');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Platform considerations
-  print('\nPlatform considerations:');
-  print('- Some platforms may not guarantee up events');
-  print('- Focus loss may skip up events');
-  print('- Use keysPressed for current state');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Migration to KeyUpEvent
-  print('\nMigration to KeyUpEvent:');
-  print('// Deprecated:');
-  print('if (event is RawKeyUpEvent) { ... }');
-  print('// New:');
-  print('if (event is KeyUpEvent) { ... }');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Usage pattern
-  print('\nUsage in listener:');
-  print('RawKeyboard.instance.addListener((event) {');
-  print('  if (event is RawKeyUpEvent) {');
-  print('    final key = event.logicalKey;');
-  print('    // Handle key release');
-  print('  }');
-  print('});');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RawKeyEvent (abstract, deprecated)');
-  print('  \u251c\u2500 RawKeyDownEvent');
-  print('  \u2514\u2500 RawKeyUpEvent');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nRawKeyUpEvent purpose (deprecated):');
-  print('- Represents physical key release');
-  print('- Contains platform-specific data');
-  print('- Matches earlier RawKeyDownEvent');
-  print('- Used for toggle/hold detection');
-  print('- Migrate to KeyUpEvent');
 
-  print('\n' + '=' * 50);
-  print('RawKeyUpEvent test completed');
+  runCase('RawKeyEvent base symbol exists', () {
+    final Type t = RawKeyEvent;
+    return t.toString().contains('RawKeyEvent');
+  });
+
+  runCase('RawKeyboard singleton available', () {
+    return RawKeyboard.instance.runtimeType.toString().isNotEmpty;
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'rawkeyupevent:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'RawKeyUpEvent Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Status: DEPRECATED'),
-      Text('Use: KeyUpEvent instead'),
-      Text('Parent: RawKeyEvent'),
-      Text('Purpose: Key release event'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

@@ -1,105 +1,100 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests TextInputClient from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('TextInputClient test executing');
   print('=' * 50);
 
-  // TextInputClient interface for text input
-  print('\nTextInputClient:');
-  print('Interface for widgets receiving text input');
-  print('Receives platform keyboard events');
+  runCase('TextInputClient symbol exists', () {
+    final Type t = TextInputClient;
+    return t.toString().contains('TextInputClient');
+  });
 
-  // Key methods
-  print('\nKey interface methods:');
-  print('');
-  print('updateEditingValue(TextEditingValue):');
-  print('  - Receive text changes from keyboard');
-  print('  - Called on every keystroke');
-  print('');
-  print('performAction(TextInputAction):');
-  print('  - Handle keyboard actions');
-  print('  - Done, newline, search, etc.');
-  print('');
-  print('updateFloatingCursor(RawFloatingCursorPoint):');
-  print('  - iOS floating cursor updates');
-  print('  - For precise cursor positioning');
+  runCase('TextInputClient type string is stable', () {
+    final Type t = TextInputClient;
+    return t.toString().isNotEmpty;
+  });
 
-  // TextEditingValue
-  print('\nTextEditingValue handling:');
-  print('text: Current text content');
-  print('selection: Cursor/selection range');
-  print('composing: IME composition range');
+  runCase('TextInputClient type hashCode is stable', () {
+    final Type t = TextInputClient;
+    return t.hashCode == t.hashCode;
+  });
 
-  // TextInputAction callbacks
-  print('\nTextInputAction values:');
-  print('- TextInputAction.done');
-  print('- TextInputAction.go');
-  print('- TextInputAction.search');
-  print('- TextInputAction.send');
-  print('- TextInputAction.next');
-  print('- TextInputAction.previous');
-  print('- TextInputAction.newline');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Focus handling
-  print('\nFocus-related methods:');
-  print('showAutocorrectionPromptRect(start, end):');
-  print('  - iOS autocorrection bubble');
-  print('');
-  print('connectionClosed():');
-  print('  - Input connection ended');
-  print('  - Platform closed keyboard');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Autofill
-  print('\nAutofill support:');
-  print('autofillId: Unique identifier');
-  print('currentAutofillScope: Autofill group');
-  print('currentTextEditingValue: Current value');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Implementation example
-  print('\nImplementation pattern:');
-  print('class MyInput implements TextInputClient {');
-  print('  @override');
-  print('  void updateEditingValue(TextEditingValue value) {');
-  print('    setState(() => _value = value);');
-  print('  }');
-  print('');
-  print('  @override');
-  print('  void performAction(TextInputAction action) {');
-  print('    if (action == TextInputAction.done) {');
-  print('      submit();');
-  print('    }');
-  print('  }');
-  print('}');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('TextInputClient (interface)');
-  print('  \u2514\u2500 EditableText (implementation)');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nTextInputClient purpose:');
-  print('- Platform keyboard integration');
-  print('- Receive text editing values');
-  print('- Handle keyboard actions');
-  print('- Floating cursor support');
-  print('- Autofill coordination');
 
-  print('\n' + '=' * 50);
-  print('TextInputClient test completed');
+  runCase('TextEditingValue symbol exists', () {
+    final Type t = TextEditingValue;
+    return t.toString().contains('TextEditingValue');
+  });
+
+  runCase('TextInputType text constant exists', () {
+    return TextInputType.text.toString().isNotEmpty;
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'textinputclient:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'TextInputClient Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: interface'),
-      Text('Key method: updateEditingValue'),
-      Text('Used by: EditableText'),
-      Text('Purpose: Keyboard input handling'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

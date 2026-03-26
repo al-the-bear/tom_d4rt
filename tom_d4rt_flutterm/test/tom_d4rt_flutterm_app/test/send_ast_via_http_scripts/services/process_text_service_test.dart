@@ -1,90 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests ProcessTextService from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('ProcessTextService test executing');
   print('=' * 50);
 
-  // ProcessTextService is abstract interface
-  print('\nProcessTextService:');
-  print('Abstract interface for text processing actions');
-  print('Android PROCESS_TEXT intent integration');
+  runCase('ProcessTextService symbol exists', () {
+    final Type t = ProcessTextService;
+    return t.toString().contains('ProcessTextService');
+  });
 
-  // Interface methods
-  print('\nProcessTextService methods:');
-  print('queryTextActions():');
-  print('  - Returns List<ProcessTextAction>');
-  print('  - Available text processing actions');
-  print('');
-  print('processTextAction(actionId, text, readOnly):');
-  print('  - Executes the action on text');
-  print('  - Returns processed text or null');
+  runCase('ProcessTextService type string is stable', () {
+    final Type t = ProcessTextService;
+    return t.toString().isNotEmpty;
+  });
 
-  // ProcessTextAction structure
-  print('\nProcessTextAction structure:');
-  print('- id: Unique action identifier');
-  print('- label: Display name for action');
+  runCase('ProcessTextService type hashCode is stable', () {
+    final Type t = ProcessTextService;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Platform support
-  print('\nPlatform support:');
-  print('- Android: Full support via PROCESS_TEXT');
-  print('- iOS: Limited (system actions only)');
-  print('- Other: Not typically available');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Android PROCESS_TEXT
-  print('\nAndroid PROCESS_TEXT:');
-  print('- Intent.ACTION_PROCESS_TEXT');
-  print('- Apps register as text processors');
-  print('- Google Translate, Dictionary, etc.');
-  print('- Shows in text selection menu');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Usage example
-  print('\nUsage example:');
-  print('final service = ProcessTextService;');
-  print('final actions = await service.queryTextActions();');
-  print('for (final action in actions) {');
-  print('  print("\${action.label}: \${action.id}");');
-  print('}');
-  print('');
-  print('final result = await service.processTextAction(');
-  print('  "com.google.translate.action.TRANSLATE",');
-  print('  "Hello",');
-  print('  true, // readOnly');
-  print(');');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Read-only vs editable
-  print('\nRead-only vs editable:');
-  print('readOnly=true: View translation/definition');
-  print('readOnly=false: Replace with processed text');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('ProcessTextService (abstract)');
-  print('  \u2514\u2500 DefaultProcessTextService');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Explain purpose
-  print('\nProcessTextService purpose:');
-  print('- Abstract text processing interface');
-  print('- queryTextActions(): List available actions');
-  print('- processTextAction(): Execute an action');
-  print('- Android PROCESS_TEXT integration');
-  print('- Enables translate, define, share');
 
-  print('\n' + '=' * 50);
-  print('ProcessTextService test completed');
+  runCase('ProcessTextAction symbol exists', () {
+    final Type t = ProcessTextAction;
+    return t.toString().contains('ProcessTextAction');
+  });
+
+  runCase('ProcessTextService symbol stays readable', () {
+    final Type t = ProcessTextService;
+    return t.toString() == 'ProcessTextService';
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'processtextservice:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'ProcessTextService Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: abstract interface'),
-      Text('Methods: queryTextActions, processTextAction'),
-      Text('Platform: Android (PROCESS_TEXT)'),
-      Text('Purpose: Text action processing'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

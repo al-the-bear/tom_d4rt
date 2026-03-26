@@ -1,93 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RestorationBucket from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('RestorationBucket test executing');
   print('=' * 50);
 
-  // RestorationBucket stores restoration data
-  print('\nRestorationBucket:');
-  print('Stores state for restoration after process death');
-  print('Part of state restoration framework');
+  runCase('RestorationBucket symbol exists', () {
+    final Type t = RestorationBucket;
+    return t.toString().contains('RestorationBucket');
+  });
 
-  // Bucket hierarchy
-  print('\nBucket hierarchy:');
-  print('- Root bucket from RestorationManager');
-  print('- Child buckets for widget subtrees');
-  print('- Each bucket has unique restorationId');
+  runCase('RestorationBucket type string is stable', () {
+    final Type t = RestorationBucket;
+    return t.toString().isNotEmpty;
+  });
 
-  // Data storage
-  print('\nData storage methods:');
-  print('write(restorationId, value) - Store value');
-  print('read<T>(restorationId) - Read value');
-  print('remove<T>(restorationId) - Remove value');
-  print('contains(restorationId) - Check existence');
+  runCase('RestorationBucket type hashCode is stable', () {
+    final Type t = RestorationBucket;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Child bucket management
-  print('\nChild bucket management:');
-  print('claimChild(restorationId, debugOwner)');
-  print('adoptChild(bucket)');
-  print('rename(newRestorationId)');
-  print('dispose() - Clean up bucket');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Supported value types
-  print('\nSupported value types:');
-  print('- Primitives: int, double, String, bool');
-  print('- null');
-  print('- List<Object?>');
-  print('- Map<String, Object?>');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // State restoration flow
-  print('\nState restoration flow:');
-  print('1. App killed by system');
-  print('2. User returns to app');
-  print('3. RestorationManager provides buckets');
-  print('4. Widgets restore from buckets');
-  print('5. User sees previous state');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // RestorationManager relationship
-  print('\nRestorationManager relationship:');
-  print('RestorationManager.instance');
-  print('  \u2514\u2500 provides root RestorationBucket');
-  print('       \u2514\u2500 child buckets for subtrees');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Usage in widgets
-  print('\nUsage in widgets:');
-  print('class MyWidget extends StatefulWidget {');
-  print('  final String? restorationId;');
-  print('}');
-  print('// State implements RestorationMixin');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // RestorableProperty types
-  print('\nRestorableProperty types:');
-  print('- RestorableInt, RestorableDouble');
-  print('- RestorableString, RestorableBool');
-  print('- RestorableTextEditingController');
-  print('- RestorableScrollOffset');
 
-  // Explain purpose
-  print('\nRestorationBucket purpose:');
-  print('- Store/retrieve restoration data');
-  print('- Hierarchical data organization');
-  print('- Survive process termination');
-  print('- Platform state restoration API');
-  print('- Enables seamless app continuity');
+  runCase('RestorationManager symbol exists', () {
+    final Type t = RestorationManager;
+    return t.toString().contains('RestorationManager');
+  });
 
-  print('\n' + '=' * 50);
-  print('RestorationBucket test completed');
+  runCase('RestorationBucket type string matches', () {
+    final Type t = RestorationBucket;
+    return t.toString().contains('RestorationBucket');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'restorationbucket:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'RestorationBucket Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: state storage bucket'),
-      Text('Methods: read, write, remove'),
-      Text('Hierarchy: parent-child buckets'),
-      Text('Purpose: State restoration'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

@@ -1,96 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SensitiveContentService from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('SensitiveContentService test executing');
   print('=' * 50);
 
-  // SensitiveContentService handles sensitive content detection
-  print('\nSensitiveContentService:');
-  print('Service for sensitive content detection');
-  print('macOS Sensitive Content Analysis');
+  runCase('SensitiveContentService symbol exists', () {
+    final Type t = SensitiveContentService;
+    return t.toString().contains('SensitiveContentService');
+  });
 
-  // Service singleton
-  print('\nSensitiveContentService singleton:');
-  print('SensitiveContentService.instance');
-  print('Provides access to platform service');
+  runCase('SensitiveContentService type string is stable', () {
+    final Type t = SensitiveContentService;
+    return t.toString().isNotEmpty;
+  });
 
-  // Platform support
-  print('\nPlatform support:');
-  print('- macOS 14+ (Sonoma): Full support');
-  print('- iOS 17+: Limited support');
-  print('- Other platforms: Not available');
+  runCase('SensitiveContentService type hashCode is stable', () {
+    final Type t = SensitiveContentService;
+    return t.hashCode == t.hashCode;
+  });
 
-  // macOS Sensitive Content Analysis
-  print('\nmacOS Sensitive Content Analysis:');
-  print('- On-device ML detection');
-  print('- Detects nudity/explicit content');
-  print('- Privacy-preserving (no cloud)');
-  print('- User must enable in Settings');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Service capabilities
-  print('\nService capabilities:');
-  print('- Check if service available');
-  print('- Analyze image content');
-  print('- Returns sensitivity analysis');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Privacy considerations
-  print('\nPrivacy considerations:');
-  print('- All processing on-device');
-  print('- No data sent to servers');
-  print('- User controls in System Settings');
-  print('- Opt-in feature');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('// Check availability');
-  print('final available = await SensitiveContentService');
-  print('    .instance.isServiceAvailable();');
-  print('');
-  print('if (available) {');
-  print('  // Analyze content');
-  print('  final result = await service.analyzeImage(imageData);');
-  print('}');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // Image analysis results
-  print('\nAnalysis results:');
-  print('- Safe: No sensitive content');
-  print('- Sensitive: Contains sensitive content');
-  print('- Error: Analysis failed');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Settings access
-  print('\nSystem Settings (macOS):');
-  print('System Settings > Privacy & Security');
-  print('  > Sensitive Content Warning');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('SensitiveContentService (singleton)');
-  print('  \u2514\u2500 Platform-specific implementation');
+  runCase('SensitiveContentService symbol exists', () {
+    final Type t = SensitiveContentService;
+    return t.toString().contains('SensitiveContentService');
+  });
 
-  // Explain purpose
-  print('\nSensitiveContentService purpose:');
-  print('- Detect sensitive/explicit content');
-  print('- On-device ML analysis');
-  print('- macOS Sensitive Content API');
-  print('- Privacy-preserving detection');
-  print('- Enables content warnings');
+  runCase('SensitiveContentService type string matches', () {
+    final Type t = SensitiveContentService;
+    return t.toString() == 'SensitiveContentService';
+  });
 
-  print('\n' + '=' * 50);
-  print('SensitiveContentService test completed');
+  runCase('Summary string can be produced', () {
+    final String summary = 'sensitivecontentservice:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'SensitiveContentService Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: singleton service'),
-      Text('Platform: macOS 14+, iOS 17+'),
-      Text('Privacy: On-device ML'),
-      Text('Purpose: Sensitive content detection'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }

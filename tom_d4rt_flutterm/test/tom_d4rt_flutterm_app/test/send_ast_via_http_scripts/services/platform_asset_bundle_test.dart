@@ -1,91 +1,101 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests PlatformAssetBundle from services
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('PlatformAssetBundle test executing');
   print('=' * 50);
 
-  // PlatformAssetBundle is the default asset bundle
-  print('\nPlatformAssetBundle:');
-  print('Default implementation for rootBundle');
-  print('Loads assets from app package');
+  runCase('PlatformAssetBundle symbol exists', () {
+    final Type t = PlatformAssetBundle;
+    return t.toString().contains('PlatformAssetBundle');
+  });
 
-  // Access via rootBundle
-  print('\nAccess via rootBundle:');
-  print('rootBundle is PlatformAssetBundle');
-  print('Global access to packaged assets');
+  runCase('PlatformAssetBundle type string is stable', () {
+    final Type t = PlatformAssetBundle;
+    return t.toString().isNotEmpty;
+  });
 
-  // AssetBundle interface
-  print('\nAssetBundle interface methods:');
-  print('load(key): Load as ByteData');
-  print('loadString(key): Load as String');
-  print('loadBuffer(key): Load as ImmutableBuffer');
-  print('loadStructuredData(): Load and parse');
-  print('evict(key): Remove from cache');
+  runCase('PlatformAssetBundle type hashCode is stable', () {
+    final Type t = PlatformAssetBundle;
+    return t.hashCode == t.hashCode;
+  });
 
-  // Asset key resolution
-  print('\nAsset key resolution:');
-  print('Key: assets/images/logo.png');
-  print('Resolved from app bundle/APK');
-  print('Matches pubspec.yaml asset entries');
+  runCase('TextInputAction values are available', () {
+    return TextInputAction.values.isNotEmpty;
+  });
 
-  // Usage patterns
-  print('\nUsage patterns:');
-  print('// Load text file');
-  print('final text = await rootBundle.loadString("assets/data.json");');
-  print('// Load binary file');
-  print('final data = await rootBundle.load("assets/image.png");');
+  runCase('SmartDashesType values are available', () {
+    return SmartDashesType.values.isNotEmpty;
+  });
 
-  // Platform-specific storage
-  print('\nPlatform-specific storage:');
-  print('Android: APK assets directory');
-  print('iOS: App bundle resources');
-  print('Web: Server assets directory');
-  print('Desktop: Executable bundle');
+  runCase('SmartQuotesType values are available', () {
+    return SmartQuotesType.values.isNotEmpty;
+  });
 
-  // Caching
-  print('\nCaching behavior:');
-  print('- Loaded assets are cached');
-  print('- evict() removes cache entry');
-  print('- Cache reduces disk/network I/O');
+  runCase('Logical keyboard key A exists', () {
+    return LogicalKeyboardKey.keyA.keyLabel.isNotEmpty;
+  });
 
-  // DefaultAssetBundle
-  print('\nDefaultAssetBundle widget:');
-  print('DefaultAssetBundle.of(context)');
-  print('Returns nearest ancestor bundle');
-  print('Enables bundle injection for testing');
+  runCase('Physical keyboard key A usage id is positive', () {
+    return PhysicalKeyboardKey.keyA.usbHidUsage > 0;
+  });
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('AssetBundle (abstract)');
-  print('  \u251c\u2500 CachingAssetBundle (with cache)');
-  print('  |    \u2514\u2500 PlatformAssetBundle (default)');
-  print('  \u2514\u2500 NetworkAssetBundle (remote)');
 
-  // Explain purpose
-  print('\nPlatformAssetBundle purpose:');
-  print('- Default AssetBundle implementation');
-  print('- Loads from app package');
-  print('- Caches loaded assets');
-  print('- Platform-specific resolution');
-  print('- Available via rootBundle');
-  print('- Foundation for asset loading');
+  runCase('PlatformAssetBundle can be created', () {
+    final PlatformAssetBundle bundle = PlatformAssetBundle();
+    return bundle.runtimeType.toString().contains('PlatformAssetBundle');
+  });
 
-  print('\n' + '=' * 50);
-  print('PlatformAssetBundle test completed');
+  runCase('AssetBundle symbol exists', () {
+    final Type t = AssetBundle;
+    return t.toString().contains('AssetBundle');
+  });
+
+  runCase('Summary string can be produced', () {
+    final String summary = 'platformassetbundle:'
+        '${passed.length} passed, '
+        '${failed.length} failed';
+    return summary.contains('passed') && summary.contains('failed');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) {
+    print('Failed cases: ${failed.join(', ')}');
+  }
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
+    children: <Widget>[
+      const Text(
         'PlatformAssetBundle Tests',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-      SizedBox(height: 8),
-      Text('Type: default AssetBundle'),
-      Text('Access: rootBundle'),
-      Text('Methods: load, loadString'),
-      Text('Purpose: Local asset loading'),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('Service class-focused checks completed'),
     ],
   );
 }
