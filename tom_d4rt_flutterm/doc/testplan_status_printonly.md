@@ -40,7 +40,7 @@ Total remaining: 586 files
 | ButtonTextTheme | button_text_theme_test.dart | Yes | 2026-03-26 20:03 |
 | DropdownMenuCloseBehavior | dropdown_menu_close_behavior_test.dart | Yes | 2026-03-26 20:03 |
 | DynamicSchemeVariant | dynamic_scheme_variant_test.dart | Yes | 2026-03-26 20:03 |
-| MaterialBannerClosedReason | material_banner_closed_reason_test.dart | No | |
+| MaterialBannerClosedReason | material_banner_closed_reason_test.dart | Yes | 2026-03-26 20:42 |
 | MaterialTapTargetSize | material_tap_target_size_test.dart | Yes | 2026-03-26 20:03 |
 | NavigationDestinationLabelBehavior | navigation_destination_label_behavior_test.dart | Yes | 2026-03-26 20:03 |
 | NavigationRailLabelType | navigation_rail_label_type_test.dart | Yes | 2026-03-26 20:03 |
