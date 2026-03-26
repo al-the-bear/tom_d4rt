@@ -265,26 +265,26 @@ Total remaining: 586 files
 | ButtonActivateIntent | button_activate_intent_test.dart | Yes | 2026-03-26 23:26 |
 | CapturedThemes | captured_themes_test.dart | Yes | 2026-03-26 23:26 |
 | ChangeReportingBehavior | change_reporting_behavior_test.dart | Yes | 2026-03-26 23:26 |
-| CharacterActivator | character_activator_test.dart | No | |
-| ChildVicinity | child_vicinity_test.dart | No | |
-| ClampingScrollPhysics | clamping_scroll_physics_test.dart | No | |
-| ClampingScrollSimulation | clamping_scroll_simulation_test.dart | No | |
-| Class | class_test.dart | No | |
-| ClipboardStatusNotifier | clipboard_status_notifier_test.dart | No | |
-| ClipboardStatus | clipboard_status_test.dart | No | |
-| ComponentElement | component_element_test.dart | No | |
-| ConnectionState | connection_state_test.dart | No | |
-| ContentInsertionConfiguration | content_insertion_configuration_test.dart | No | |
-| ContextMenuButtonItem | context_menu_button_item_test.dart | No | |
-| ContextMenuButtonType | context_menu_button_type_test.dart | No | |
-| CopySelectionTextIntent | copy_selection_text_intent_test.dart | No | |
-| CrossFadeState | cross_fade_state_test.dart | No | |
-| DebugCreator | debug_creator_test.dart | No | |
-| DecorationTween | decoration_tween_test.dart | No | |
-| DefaultPlatformMenuDelegate | default_platform_menu_delegate_test.dart | No | |
-| DefaultTransitionDelegate | default_transition_delegate_test.dart | No | |
-| DeleteCharacterIntent | delete_character_intent_test.dart | No | |
-| DeleteToLineBreakIntent | delete_to_line_break_intent_test.dart | No | |
+| CharacterActivator | character_activator_test.dart | Yes | 2026-03-26 23:36 |
+| ChildVicinity | child_vicinity_test.dart | Yes | 2026-03-26 23:36 |
+| ClampingScrollPhysics | clamping_scroll_physics_test.dart | Yes | 2026-03-26 23:36 |
+| ClampingScrollSimulation | clamping_scroll_simulation_test.dart | Yes | 2026-03-26 23:36 |
+| Class | class_test.dart | Yes | 2026-03-26 23:36 |
+| ClipboardStatusNotifier | clipboard_status_notifier_test.dart | Yes | 2026-03-26 23:36 |
+| ClipboardStatus | clipboard_status_test.dart | Yes | 2026-03-26 23:36 |
+| ComponentElement | component_element_test.dart | Yes | 2026-03-26 23:36 |
+| ConnectionState | connection_state_test.dart | Yes | 2026-03-26 23:36 |
+| ContentInsertionConfiguration | content_insertion_configuration_test.dart | Yes | 2026-03-26 23:36 |
+| ContextMenuButtonItem | context_menu_button_item_test.dart | Yes | 2026-03-26 23:36 |
+| ContextMenuButtonType | context_menu_button_type_test.dart | Yes | 2026-03-26 23:36 |
+| CopySelectionTextIntent | copy_selection_text_intent_test.dart | Yes | 2026-03-26 23:36 |
+| CrossFadeState | cross_fade_state_test.dart | Yes | 2026-03-26 23:36 |
+| DebugCreator | debug_creator_test.dart | Yes | 2026-03-26 23:36 |
+| DecorationTween | decoration_tween_test.dart | Yes | 2026-03-26 23:36 |
+| DefaultPlatformMenuDelegate | default_platform_menu_delegate_test.dart | Yes | 2026-03-26 23:36 |
+| DefaultTransitionDelegate | default_transition_delegate_test.dart | Yes | 2026-03-26 23:36 |
+| DeleteCharacterIntent | delete_character_intent_test.dart | Yes | 2026-03-26 23:36 |
+| DeleteToLineBreakIntent | delete_to_line_break_intent_test.dart | Yes | 2026-03-26 23:36 |
 | DeleteToNextWordBoundaryIntent | delete_to_next_word_boundary_intent_test.dart | No | |
 | DesktopTextSelectionToolbarLayoutDelegate | desktop_text_selection_toolbar_layout_delegate_test.dart | No | |
 | DevToolsDeepLinkProperty | dev_tools_deep_link_property_test.dart | No | |
