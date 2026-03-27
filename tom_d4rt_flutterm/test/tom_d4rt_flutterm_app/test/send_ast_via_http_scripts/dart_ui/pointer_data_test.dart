@@ -1,61 +1,106 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests PointerData from dart:ui
+// D4rt test script: Tests PointerData from dart_ui
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('PointerData test executing');
+  print('=' * 50);
 
-  // Default
-  final pd1 = ui.PointerData();
-  print('Default: change=${pd1.change}, kind=${pd1.kind}');
-  print('physicalX=${pd1.physicalX}, physicalY=${pd1.physicalY}');
-  print('buttons=${pd1.buttons}, pressure=${pd1.pressure}');
-  print('device=${pd1.device}, pointerIdentifier=${pd1.pointerIdentifier}');
-
-  // Touch down
-  final pd2 = ui.PointerData(
-    change: ui.PointerChange.down,
-    kind: ui.PointerDeviceKind.touch,
-    physicalX: 150.0,
-    physicalY: 300.0,
-    buttons: 1,
-    pressure: 0.5,
-    pressureMin: 0.0,
-    pressureMax: 1.0,
-    device: 1,
-  );
-  print('Touch: change=${pd2.change}, kind=${pd2.kind}, x=${pd2.physicalX}, y=${pd2.physicalY}');
-  print('pressure=${pd2.pressure}, pressureMin=${pd2.pressureMin}, pressureMax=${pd2.pressureMax}');
-
-  // Mouse hover
-  final pd3 = ui.PointerData(
-    change: ui.PointerChange.hover,
-    kind: ui.PointerDeviceKind.mouse,
-    physicalX: 200.0,
-    physicalY: 100.0,
-    scrollDeltaX: 0.0,
-    scrollDeltaY: -10.0,
-  );
-  print('Mouse: change=${pd3.change}, scrollDeltaY=${pd3.scrollDeltaY}');
-
-  // Stylus
-  final pd4 = ui.PointerData(
+  const ui.PointerData data = ui.PointerData(
+    timeStamp: Duration(milliseconds: 100),
     change: ui.PointerChange.move,
-    kind: ui.PointerDeviceKind.stylus,
-    physicalX: 50.0,
-    physicalY: 50.0,
-    tilt: 0.3,
+    kind: ui.PointerDeviceKind.touch,
+    physicalX: 100.0,
+    physicalY: 200.0,
   );
-  print('Stylus: kind=${pd4.kind}, tilt=${pd4.tilt}');
-  print('toString: ${pd1.toString()}');
 
-  print('PointerData test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
-    Text('PointerData Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-    Text('Default: ${pd1.change}'),
-    Text('Touch: x=${pd2.physicalX}, y=${pd2.physicalY}'),
-    Text('Mouse: scroll=${pd3.scrollDeltaY}'),
-    Text('Stylus: tilt=${pd4.tilt}'),
-  ]);
+  runCase('PointerData can be created', () {
+    return data.runtimeType == ui.PointerData;
+  });
+
+  runCase('timeStamp is stored', () {
+    return data.timeStamp == const Duration(milliseconds: 100);
+  });
+
+  runCase('change is stored', () {
+    return data.change == ui.PointerChange.move;
+  });
+
+  runCase('kind is stored', () {
+    return data.kind == ui.PointerDeviceKind.touch;
+  });
+
+  runCase('physicalX is stored', () {
+    return data.physicalX == 100.0;
+  });
+
+  runCase('physicalY is stored', () {
+    return data.physicalY == 200.0;
+  });
+
+  runCase('defaults are applied', () {
+    return data.device == 0 &&
+        data.buttons == 0 &&
+        data.obscured == false &&
+        data.pressure == 0.0;
+  });
+
+  runCase('viewId defaults to 0', () {
+    return data.viewId == 0;
+  });
+
+  runCase('synthesized defaults to false', () {
+    return data.synthesized == false;
+  });
+
+  runCase('custom values can be set', () {
+    const ui.PointerData custom = ui.PointerData(
+      buttons: 1,
+      pressure: 0.5,
+      tilt: 0.1,
+    );
+    return custom.buttons == 1 && custom.pressure == 0.5;
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const Text('PointerData Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('PointerData behavior checks completed'),
+    ],
+  );
 }

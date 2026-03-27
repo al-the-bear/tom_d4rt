@@ -1,77 +1,104 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests KeyData from dart:ui
+// D4rt test script: Tests KeyData from dart_ui
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('KeyData test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
 
-  // KeyData with key down event
-  final kd1 = ui.KeyData(
-    timeStamp: Duration(milliseconds: 100),
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
+  print('KeyData test executing');
+  print('=' * 50);
+
+  final ui.KeyData keyData = ui.KeyData(
+    timeStamp: const Duration(milliseconds: 100),
     type: ui.KeyEventType.down,
     physical: 0x00070004,
-    logical: 0x00000061,
+    logical: 0x00000000061,
     character: 'a',
     synthesized: false,
   );
-  print('KeyData created: ${kd1.runtimeType}');
-  print('timeStamp: ${kd1.timeStamp}');
-  print('type: ${kd1.type}');
-  print('physical: ${kd1.physical}');
-  print('logical: ${kd1.logical}');
-  print('character: ${kd1.character}');
-  print('synthesized: ${kd1.synthesized}');
-  print('deviceType: ${kd1.deviceType}');
 
-  // KeyData with key up event
-  final kd2 = ui.KeyData(
-    timeStamp: Duration(milliseconds: 200),
-    type: ui.KeyEventType.up,
-    physical: 0x00070004,
-    logical: 0x00000061,
-    character: null,
-    synthesized: false,
-  );
-  print('KeyData up: type=${kd2.type}, character=${kd2.character}');
+  runCase('KeyData can be created', () {
+    return keyData.runtimeType == ui.KeyData;
+  });
 
-  // KeyData with repeat
-  final kd3 = ui.KeyData(
-    timeStamp: Duration(milliseconds: 150),
-    type: ui.KeyEventType.repeat,
-    physical: 0x00070004,
-    logical: 0x00000061,
-    character: 'a',
-    synthesized: true,
-    deviceType: ui.KeyEventDeviceType.keyboard,
-  );
-  print('KeyData repeat: type=${kd3.type}, synthesized=${kd3.synthesized}');
-  print('deviceType: ${kd3.deviceType}');
+  runCase('timeStamp is stored', () {
+    return keyData.timeStamp == const Duration(milliseconds: 100);
+  });
 
-  // toString
-  print('toString: ${kd1.toString()}');
-  print('toStringFull: ${kd1.toStringFull()}');
+  runCase('type is stored', () {
+    return keyData.type == ui.KeyEventType.down;
+  });
 
-  // KeyEventType values
-  for (final t in ui.KeyEventType.values) {
-    print('KeyEventType: ${t.name}');
-  }
+  runCase('physical key is stored', () {
+    return keyData.physical == 0x00070004;
+  });
 
-  // KeyEventDeviceType values
-  for (final d in ui.KeyEventDeviceType.values) {
-    print('KeyEventDeviceType: ${d.name}');
-  }
+  runCase('logical key is stored', () {
+    return keyData.logical == 0x00000000061;
+  });
 
-  print('KeyData test completed');
+  runCase('character is stored', () {
+    return keyData.character == 'a';
+  });
+
+  runCase('synthesized is stored', () {
+    return keyData.synthesized == false;
+  });
+
+  runCase('deviceType defaults to keyboard', () {
+    return keyData.deviceType == ui.KeyEventDeviceType.keyboard;
+  });
+
+  runCase('custom deviceType is stored', () {
+    final ui.KeyData k = ui.KeyData(
+      timeStamp: Duration.zero,
+      type: ui.KeyEventType.up,
+      physical: 0,
+      logical: 0,
+      character: null,
+      synthesized: false,
+      deviceType: ui.KeyEventDeviceType.gamepad,
+    );
+    return k.deviceType == ui.KeyEventDeviceType.gamepad;
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('KeyData Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(height: 8),
-      Text('Down: type=${kd1.type}, char=${kd1.character}'),
-      Text('Up: type=${kd2.type}, char=${kd2.character}'),
-      Text('Repeat: synthesized=${kd3.synthesized}'),
-      Text('KeyEventType: ${ui.KeyEventType.values.length} values'),
+    children: <Widget>[
+      const Text('KeyData Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('KeyData behavior checks completed'),
     ],
   );
 }

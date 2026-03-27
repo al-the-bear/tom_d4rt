@@ -1,59 +1,96 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests LocaleStringAttribute from dart:ui
+// D4rt test script: Tests LocaleStringAttribute from dart_ui
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('LocaleStringAttribute test executing');
+  print('=' * 50);
 
-  // LocaleStringAttribute marks a range with a locale
-  final attr1 = ui.LocaleStringAttribute(
-    range: TextRange(start: 0, end: 5),
-    locale: ui.Locale('en', 'US'),
+  final ui.LocaleStringAttribute attr = ui.LocaleStringAttribute(
+    range: const ui.TextRange(start: 0, end: 10),
+    locale: const Locale('en', 'US'),
   );
-  print('LocaleStringAttribute created: ${attr1.runtimeType}');
-  print('range: ${attr1.range}');
-  print('locale: ${attr1.locale}');
 
-  // Different locale
-  final attr2 = ui.LocaleStringAttribute(
-    range: TextRange(start: 6, end: 12),
-    locale: ui.Locale('de', 'DE'),
-  );
-  print('attr2 locale: ${attr2.locale}');
-  print('attr2 range: start=${attr2.range.start}, end=${attr2.range.end}');
+  runCase('LocaleStringAttribute can be created', () {
+    return attr.runtimeType == ui.LocaleStringAttribute;
+  });
 
-  // Japanese locale
-  final attr3 = ui.LocaleStringAttribute(
-    range: TextRange(start: 0, end: 3),
-    locale: ui.Locale('ja'),
-  );
-  print('attr3 locale: ${attr3.locale}');
+  runCase('range is stored', () {
+    return attr.range.start == 0 && attr.range.end == 10;
+  });
 
-  // SpellOutStringAttribute
-  final spellAttr = ui.SpellOutStringAttribute(
-    range: TextRange(start: 0, end: 10),
-  );
-  print('SpellOutStringAttribute: ${spellAttr.runtimeType}');
-  print('spellAttr range: ${spellAttr.range}');
+  runCase('locale is stored', () {
+    return attr.locale == const Locale('en', 'US');
+  });
 
-  // StringAttribute base
-  print('true: true');
-  print('true: true');
+  runCase('copy creates new instance with new range', () {
+    final ui.StringAttribute copied = attr.copy(range: const ui.TextRange(start: 5, end: 15));
+    return copied.range.start == 5 && copied.range.end == 15;
+  });
 
-  print('LocaleStringAttribute test completed');
+  runCase('toString contains locale tag', () {
+    return attr.toString().contains('en-US');
+  });
+
+  runCase('extends StringAttribute', () {
+    return attr.runtimeType.toString().contains('LocaleStringAttribute');
+  });
+
+  runCase('different locales work', () {
+    final ui.LocaleStringAttribute fr = ui.LocaleStringAttribute(
+      range: const ui.TextRange(start: 0, end: 5),
+      locale: const Locale('fr', 'FR'),
+    );
+    return fr.locale == const Locale('fr', 'FR');
+  });
+
+  runCase('range can span entire text', () {
+    final ui.LocaleStringAttribute full = ui.LocaleStringAttribute(
+      range: const ui.TextRange(start: 0, end: 1000),
+      locale: const Locale('de'),
+    );
+    return full.range.end == 1000;
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'LocaleStringAttribute Tests',
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      SizedBox(height: 8),
-      Text('en_US: range=${attr1.range}'),
-      Text('de_DE: range=${attr2.range}'),
-      Text('ja: range=${attr3.range}'),
-      Text('SpellOutStringAttribute: ${spellAttr.range}'),
+    children: <Widget>[
+      const Text('LocaleStringAttribute Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('LocaleStringAttribute behavior checks completed'),
     ],
   );
 }

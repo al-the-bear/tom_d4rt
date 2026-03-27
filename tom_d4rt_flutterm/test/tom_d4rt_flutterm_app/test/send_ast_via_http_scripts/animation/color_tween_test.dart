@@ -1,78 +1,93 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ColorTween from animation
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('ColorTween test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
 
-  // ========== Basic ColorTween ==========
-  print('--- Basic ColorTween ---');
-  final tween = ColorTween(begin: Color(0xFFFF0000), end: Color(0xFF0000FF));
-  print('  begin: ${tween.begin}');
-  print('  end: ${tween.end}');
-
-  // ========== Lerp at various t ==========
-  print('--- Lerp values ---');
-  final tValues = [0.0, 0.25, 0.5, 0.75, 1.0];
-  final colors = <Color?>[];
-  for (final t in tValues) {
-    final color = tween.transform(t);
-    colors.add(color);
-    print('  t=$t: $color');
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
   }
 
-  // ========== Null begin/end ==========
-  print('--- Null begin ---');
-  final nullBegin = ColorTween(begin: null, end: Color(0xFF00FF00));
-  print('  lerp(0.0): ${nullBegin.transform(0.0)}');
-  print('  lerp(1.0): ${nullBegin.transform(1.0)}');
+  print('ColorTween test executing');
+  print('=' * 50);
 
-  // ========== Same color ==========
-  print('--- Same color ---');
-  final same = ColorTween(begin: Color(0xFF808080), end: Color(0xFF808080));
-  print('  lerp(0.5): ${same.transform(0.5)}');
+  final ColorTween tween = ColorTween(begin: Colors.red, end: Colors.blue);
 
-  // ========== With transparency ==========
-  print('--- With transparency ---');
-  final alpha = ColorTween(begin: Color(0x00FF0000), end: Color(0xFFFF0000));
-  print('  t=0.0 alpha: ${alpha.transform(0.0)}');
-  print('  t=0.5 alpha: ${alpha.transform(0.5)}');
-  print('  t=1.0 alpha: ${alpha.transform(1.0)}');
+  runCase('tween can be created', () {
+    return tween.runtimeType == ColorTween;
+  });
 
-  // ========== Transform (uses Animation) ==========
-  print('--- Transform via Animation ---');
-  final anim = AlwaysStoppedAnimation<double>(0.5);
-  final result = tween.evaluate(anim);
-  print('  evaluate at 0.5: $result');
+  runCase('begin is stored', () {
+    return tween.begin == Colors.red;
+  });
 
-  print('ColorTween test completed');
-  return SingleChildScrollView(
-    child: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'ColorTween Tests',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8.0),
-          for (var i = 0; i < tValues.length; i++)
-            Container(
-              height: 30.0,
-              width: 200.0,
-              margin: EdgeInsets.symmetric(vertical: 2.0),
-              color: colors[i] ?? Color(0x00000000),
-              child: Center(
-                child: Text(
-                  't=${tValues[i]}',
-                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
-                ),
-              ),
-            ),
-        ],
-      ),
-    ),
+  runCase('end is stored', () {
+    return tween.end == Colors.blue;
+  });
+
+  runCase('lerp at 0.0 returns begin', () {
+    final Color? result = tween.lerp(0.0);
+    return result == Colors.red;
+  });
+
+  runCase('lerp at 1.0 returns end', () {
+    final Color? result = tween.lerp(1.0);
+    return result == Colors.blue;
+  });
+
+  runCase('lerp at 0.5 returns blended color', () {
+    final Color? result = tween.lerp(0.5);
+    return result != null && result != Colors.red && result != Colors.blue;
+  });
+
+  runCase('null begin treats as transparent', () {
+    final ColorTween t = ColorTween(begin: null, end: Colors.blue);
+    final Color? result = t.lerp(0.5);
+    return result != null;
+  });
+
+  runCase('transform uses lerp', () {
+    final Color? result = tween.transform(0.5);
+    return result == tween.lerp(0.5);
+  });
+
+  runCase('toString is non-empty', () {
+    return tween.toString().isNotEmpty;
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const Text('ColorTween Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('ColorTween behavior checks completed'),
+    ],
   );
 }

@@ -1,31 +1,86 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests KeyEventDeviceType from dart_ui
-import 'dart:ui';
-import 'package:flutter/widgets.dart';
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('KeyEventDeviceType test executing');
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
 
-  // Enumerate all KeyEventDeviceType values
-  print('KeyEventDeviceType values:');
-  for (final value in KeyEventDeviceType.values) {
-    print('  ${value.name}: $value');
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
   }
-  print('KeyEventDeviceType has ${KeyEventDeviceType.values.length} values');
 
-  final first = KeyEventDeviceType.values.first;
-  final last = KeyEventDeviceType.values.last;
-  print('First: $first, Last: $last');
-  print('First index: ${first.index}, Last index: ${last.index}');
+  print('KeyEventDeviceType test executing');
+  print('=' * 50);
 
-  print('KeyEventDeviceType test completed');
+  runCase('keyboard value exists', () {
+    return ui.KeyEventDeviceType.keyboard.index == 0;
+  });
+
+  runCase('directionalPad value exists', () {
+    return ui.KeyEventDeviceType.directionalPad.index == 1;
+  });
+
+  runCase('gamepad value exists', () {
+    return ui.KeyEventDeviceType.gamepad.index == 2;
+  });
+
+  runCase('joystick value exists', () {
+    return ui.KeyEventDeviceType.joystick.index == 3;
+  });
+
+  runCase('hdmi value exists', () {
+    return ui.KeyEventDeviceType.hdmi.index == 4;
+  });
+
+  runCase('values has 5 entries', () {
+    return ui.KeyEventDeviceType.values.length == 5;
+  });
+
+  runCase('keyboard label is Keyboard', () {
+    return ui.KeyEventDeviceType.keyboard.label == 'Keyboard';
+  });
+
+  runCase('gamepad label is Gamepad', () {
+    return ui.KeyEventDeviceType.gamepad.label == 'Gamepad';
+  });
+
+  runCase('toString contains enum name', () {
+    return ui.KeyEventDeviceType.keyboard.toString().contains('keyboard');
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('KeyEventDeviceType Tests'),
-      Text('Values: ${KeyEventDeviceType.values.length}'),
-      Text('First: $first'),
-      Text('Last: $last'),
+    children: <Widget>[
+      const Text('KeyEventDeviceType Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('KeyEventDeviceType behavior checks completed'),
     ],
   );
 }

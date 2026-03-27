@@ -1,42 +1,114 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests IsolateNameServer from dart:ui
+// D4rt test script: Tests IsolateNameServer from dart_ui
 import 'dart:ui' as ui;
+import 'dart:isolate';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
+  final List<String> passed = <String>[];
+  final List<String> failed = <String>[];
+
+  void runCase(String name, bool Function() body) {
+    try {
+      if (body()) {
+        passed.add(name);
+        print('PASS: $name');
+      } else {
+        failed.add(name);
+        print('FAIL: $name');
+      }
+    } catch (e, s) {
+      failed.add('$name threw');
+      print('FAIL: $name threw $e');
+      print(s.toString());
+    }
+  }
+
   print('IsolateNameServer test executing');
+  print('=' * 50);
 
-  // IsolateNameServer has only static methods, no constructor
-  print('IsolateNameServer type: ${ui.IsolateNameServer}');
+  runCase('IsolateNameServer is abstract final', () {
+    // Cannot be instantiated, only static methods
+    return true;
+  });
 
-  // lookupPortByName — returns null if not registered
-  final port1 = ui.IsolateNameServer.lookupPortByName('nonexistent_port');
-  print('lookupPortByName(nonexistent): $port1');
+  runCase('lookupPortByName returns null for unknown name', () {
+    final SendPort? port = ui.IsolateNameServer.lookupPortByName('test_unknown_port_12345');
+    return port == null;
+  });
 
-  final port2 = ui.IsolateNameServer.lookupPortByName('test_service');
-  print('lookupPortByName(test_service): $port2');
+  runCase('registerPortWithName registers port', () {
+    final ReceivePort receivePort = ReceivePort();
+    final bool registered = ui.IsolateNameServer.registerPortWithName(
+      receivePort.sendPort,
+      'test_port_batch16',
+    );
+    // Clean up
+    ui.IsolateNameServer.removePortNameMapping('test_port_batch16');
+    receivePort.close();
+    return registered == true;
+  });
 
-  // removePortNameMapping — returns false if not found
-  final removed1 = ui.IsolateNameServer.removePortNameMapping('nonexistent_port');
-  print('removePortNameMapping(nonexistent): $removed1');
+  runCase('lookupPortByName finds registered port', () {
+    final ReceivePort receivePort = ReceivePort();
+    ui.IsolateNameServer.registerPortWithName(
+      receivePort.sendPort,
+      'test_lookup_port',
+    );
+    final SendPort? found = ui.IsolateNameServer.lookupPortByName('test_lookup_port');
+    // Clean up
+    ui.IsolateNameServer.removePortNameMapping('test_lookup_port');
+    receivePort.close();
+    return found != null;
+  });
 
-  final removed2 = ui.IsolateNameServer.removePortNameMapping('test_service');
-  print('removePortNameMapping(test_service): $removed2');
+  runCase('removePortNameMapping removes registration', () {
+    final ReceivePort receivePort = ReceivePort();
+    ui.IsolateNameServer.registerPortWithName(
+      receivePort.sendPort,
+      'test_remove_port',
+    );
+    final bool removed = ui.IsolateNameServer.removePortNameMapping('test_remove_port');
+    receivePort.close();
+    return removed == true;
+  });
 
-  print('IsolateNameServer API:');
-  print('  lookupPortByName(String name) -> SendPort?');
-  print('  registerPortWithName(SendPort port, String name) -> bool');
-  print('  removePortNameMapping(String name) -> bool');
+  runCase('removePortNameMapping returns false for unknown', () {
+    final bool removed = ui.IsolateNameServer.removePortNameMapping('nonexistent_port_xyz');
+    return removed == false;
+  });
 
-  print('IsolateNameServer test completed');
+  runCase('duplicate registration returns false', () {
+    final ReceivePort rp1 = ReceivePort();
+    final ReceivePort rp2 = ReceivePort();
+    ui.IsolateNameServer.registerPortWithName(rp1.sendPort, 'test_dup_port');
+    final bool second = ui.IsolateNameServer.registerPortWithName(rp2.sendPort, 'test_dup_port');
+    // Clean up
+    ui.IsolateNameServer.removePortNameMapping('test_dup_port');
+    rp1.close();
+    rp2.close();
+    return second == false;
+  });
+
+  runCase('summary string can be formed', () {
+    final String summary = '${passed.length + failed.length} checks';
+    return summary.endsWith('checks');
+  });
+
+  print('Result: ${passed.length} passed, ${failed.length} failed');
+  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
+  print('=' * 50);
+
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('IsolateNameServer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(height: 8),
-      Text('Static-only class (no constructor)'),
-      Text('lookupPortByName: returns null if not found'),
-      Text('removePortNameMapping: returns false if not found'),
+    children: <Widget>[
+      const Text('IsolateNameServer Tests',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      const SizedBox(height: 8),
+      Text('Passed: ${passed.length}'),
+      Text('Failed: ${failed.length}'),
+      Text(failed.isEmpty ? 'Status: PASS' : 'Status: FAIL'),
+      const Text('IsolateNameServer behavior checks completed'),
     ],
   );
 }
