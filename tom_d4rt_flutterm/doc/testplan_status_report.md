@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-18 (Batch 16: 20 print-only tests - ColorTween + 19 dart_ui classes. 940 ≥80L, 1048 <80L.)
+Updated: 2026-03-18 (Batch 17: 20 print-only tests - SemanticsUpdate, SingletonFlutterWindow, 4 foundation, 1 gestures, 13 material enums. 960 ≥80L, 1028 <80L.)
 
 ## Implementation Threshold
 
