@@ -1645,28 +1645,28 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_box_test.dart) | OverflowBox | No | No | Yes | Checked. |
 | [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo | No | No | Yes | Checked. |
 | [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation | No | No | Yes | Checked. |
-| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | No | Yes | Checked. |
+| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | Yes | No | Yes | Checked. |
 | [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay | No | Yes | No |
-| [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | No | No | Yes | Checked. |
+| [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | Yes | No | Yes | Checked. |
 | [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState | No | No | Yes | Checked. |
 | [overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_test.dart) | Overlay | No | Yes | No |
-| [overscroll_indicator_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_indicator_notification_test.dart) | OverscrollIndicatorNotification | No | No | Yes | Checked. |
-| [overscroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_notification_test.dart) | OverscrollNotification | No | No | Yes | Checked. |
+| [overscroll_indicator_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_indicator_notification_test.dart) | OverscrollIndicatorNotification | Yes | No | Yes | Checked. |
+| [overscroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_notification_test.dart) | OverscrollNotification | Yes | No | Yes | Checked. |
 | [padding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/padding_test.dart) | Padding | No | Yes | No | Checked. |
-| [page_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_metrics_test.dart) | PageMetrics | No | No | Yes | Checked. |
-| [page_route_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_route_builder_test.dart) | PageRouteBuilder | No | No | Yes | Checked. |
-| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics | No | No | Yes | Checked. |
+| [page_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_metrics_test.dart) | PageMetrics | Yes | No | Yes | Checked. |
+| [page_route_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_route_builder_test.dart) | PageRouteBuilder | Yes | No | Yes | Checked. |
+| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics | Yes | No | Yes | Checked. |
 | [page_storage_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_bucket_test.dart) | PageStorageBucket | No | No | Yes | Checked. |
-| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey | No | No | Yes | Checked. |
+| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey | Yes | No | Yes | Checked. |
 | [page_storage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_test.dart) | PageStorage | No | No | Yes | Checked. |
-| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page | No | No | Yes | Checked. |
+| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page | Yes | No | Yes | Checked. |
 | [page_view_tabview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_view_tabview_test.dart) | PageView | No | Yes | No |
 | [pagecontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pagecontroller_test.dart) | PageController | No | Yes | No |
 | [pageview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pageview_test.dart) | PageView | No | Yes | No |
-| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis | No | No | Yes | Checked. |
-| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | No | No | Yes | Checked. |
-| [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget | No | No | Yes | Checked. |
-| [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | No | No | Yes | Checked. |
+| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis | Yes | No | Yes | Checked. |
+| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | Yes | No | Yes | Checked. |
+| [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget | Yes | No | Yes | Checked. |
+| [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | Yes | No | Yes | Checked. |
 | [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | No | Yes | Checked. |
 | [physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_model_test.dart) | PhysicalModel | No | No | Yes | Checked. |
 | [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | No | Yes | Checked. |
@@ -1674,17 +1674,17 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [pinned_header_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver | No | No | Yes | Checked. |
 | [placeholder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder | No | Yes | No | Checked. |
 | [platform_menu_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar | No | No | Yes | Checked. |
-| [platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_delegate_test.dart) | PlatformMenuDelegate | No | No | Yes | Checked. |
+| [platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_delegate_test.dart) | PlatformMenuDelegate | Yes | No | Yes | Checked. |
 | [platform_menu_item_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_group_test.dart) | PlatformMenuItemGroup | No | No | Yes | Checked. |
 | [platform_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_test.dart) | PlatformMenuItem | No | No | Yes | Checked. |
 | [platform_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_test.dart) | PlatformMenu | No | No | Yes | Checked. |
 | [platform_menu_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_widgets_test.dart) | PlatformMenuWidgets | No | Yes | No | Checked. |
-| [platform_provided_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_test.dart) | PlatformProvidedMenuItem | No | No | Yes | Checked. |
-| [platform_provided_menu_item_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_type_test.dart) | PlatformProvidedMenuItemType | No | No | Yes | Checked. |
-| [platform_route_information_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_route_information_provider_test.dart) | PlatformRouteInformationProvider | No | No | Yes | Checked. |
-| [platform_selectable_region_context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_selectable_region_context_menu_test.dart) | PlatformSelectableRegionContextMenu | No | No | Yes | Checked. |
-| [platform_view_creation_params_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_creation_params_test.dart) | PlatformViewCreationParams | No | No | Yes | Checked. |
-| [platform_view_link_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_link_test.dart) | PlatformViewLink | No | No | Yes | Checked. |
+| [platform_provided_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_test.dart) | PlatformProvidedMenuItem | Yes | No | Yes | Checked. |
+| [platform_provided_menu_item_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_type_test.dart) | PlatformProvidedMenuItemType | Yes | No | Yes | Checked. |
+| [platform_route_information_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_route_information_provider_test.dart) | PlatformRouteInformationProvider | Yes | No | Yes | Checked. |
+| [platform_selectable_region_context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_selectable_region_context_menu_test.dart) | PlatformSelectableRegionContextMenu | Yes | No | Yes | Checked. |
+| [platform_view_creation_params_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_creation_params_test.dart) | PlatformViewCreationParams | Yes | No | Yes | Checked. |
+| [platform_view_link_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_link_test.dart) | PlatformViewLink | Yes | No | Yes | Checked. |
 | [platform_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_surface_test.dart) | PlatformViewSurface | No | No | Yes | Checked. |
 | [pop_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_entry_test.dart) | PopEntry | No | No | Yes | Checked. |
 | [pop_navigator_router_delegate_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_navigator_router_delegate_mixin_test.dart) | PopNavigatorRouterDelegateMixin | No | No | Yes | Checked. |
