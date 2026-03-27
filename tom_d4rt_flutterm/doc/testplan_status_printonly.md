@@ -305,26 +305,26 @@ Total remaining: 586 files
 | DismissDirection | dismiss_direction_test.dart | Yes | 2026-03-27 14:00 |
 | DismissIntent | dismiss_intent_test.dart | Yes | 2026-03-27 14:00 |
 | DismissMenuAction | dismiss_menu_action_test.dart | Yes | 2026-03-27 14:00 |
-| DismissUpdateDetails | dismiss_update_details_test.dart | No | |
-| DisposableBuildContext | disposable_build_context_test.dart | No | |
-| DoNothingAction | do_nothing_action_test.dart | No | |
-| DoNothingAndStopPropagationIntent | do_nothing_and_stop_propagation_intent_test.dart | No | |
-| DoNothingAndStopPropagationTextIntent | do_nothing_and_stop_propagation_text_intent_test.dart | No | |
-| DoNothingIntent | do_nothing_intent_test.dart | No | |
-| DragBoundaryDelegate | drag_boundary_delegate_test.dart | No | |
-| DragBoundary | drag_boundary_test.dart | No | |
-| DragScrollActivity | drag_scroll_activity_test.dart | No | |
-| DragTargetDetails | drag_target_details_test.dart | No | |
-| DraggableDetails | draggable_details_test.dart | No | |
-| DraggableScrollableController | draggable_scrollable_controller_test.dart | No | |
-| DraggableScrollableNotification | draggable_scrollable_notification_test.dart | No | |
-| DrivenScrollActivity | driven_scroll_activity_test.dart | No | |
-| EdgeDraggingAutoScroller | edge_dragging_auto_scroller_test.dart | No | |
-| EdgeInsetsGeometryTween | edge_insets_geometry_tween_test.dart | No | |
-| EdgeInsetsTween | edge_insets_tween_test.dart | No | |
-| EditableTextState | editable_text_state_test.dart | No | |
-| EditableTextTapOutsideIntent | editable_text_tap_outside_intent_test.dart | No | |
-| EditableTextTapUpOutsideIntent | editable_text_tap_up_outside_intent_test.dart | No | |
+| DismissUpdateDetails | dismiss_update_details_test.dart | Yes | 2025-07-14 | |
+| DisposableBuildContext | disposable_build_context_test.dart | Yes | 2025-07-14 | |
+| DoNothingAction | do_nothing_action_test.dart | Yes | 2025-07-14 | |
+| DoNothingAndStopPropagationIntent | do_nothing_and_stop_propagation_intent_test.dart | Yes | 2025-07-14 | |
+| DoNothingAndStopPropagationTextIntent | do_nothing_and_stop_propagation_text_intent_test.dart | Yes | 2025-07-14 | |
+| DoNothingIntent | do_nothing_intent_test.dart | Yes | 2025-07-14 | |
+| DragBoundaryDelegate | drag_boundary_delegate_test.dart | Yes | 2025-07-14 | |
+| DragBoundary | drag_boundary_test.dart | Yes | 2025-07-14 | |
+| DragScrollActivity | drag_scroll_activity_test.dart | Yes | 2025-07-14 | |
+| DragTargetDetails | drag_target_details_test.dart | Yes | 2025-07-14 | |
+| DraggableDetails | draggable_details_test.dart | Yes | 2025-07-14 | |
+| DraggableScrollableController | draggable_scrollable_controller_test.dart | Yes | 2025-07-14 | |
+| DraggableScrollableNotification | draggable_scrollable_notification_test.dart | Yes | 2025-07-14 | |
+| DrivenScrollActivity | driven_scroll_activity_test.dart | Yes | 2025-07-14 | |
+| EdgeDraggingAutoScroller | edge_dragging_auto_scroller_test.dart | Yes | 2025-07-14 | |
+| EdgeInsetsGeometryTween | edge_insets_geometry_tween_test.dart | Yes | 2025-07-14 | |
+| EdgeInsetsTween | edge_insets_tween_test.dart | Yes | 2025-07-14 | |
+| EditableTextState | editable_text_state_test.dart | Yes | 2025-07-14 | |
+| EditableTextTapOutsideIntent | editable_text_tap_outside_intent_test.dart | Yes | 2025-07-14 | |
+| EditableTextTapUpOutsideIntent | editable_text_tap_up_outside_intent_test.dart | Yes | 2025-07-14 | |
 | Element | element_test.dart | No | |
 | EmptyTextSelectionControls | empty_text_selection_controls_test.dart | No | |
 | EnableWidgetInspectorScope | enable_widget_inspector_scope_test.dart | No | |
