@@ -2,6 +2,7 @@
 
 Generated: 2026-03-26
 Total remaining: 586 files
+Implemented: 483 Yes, 103 No (widgets/ only)
 
 ## cupertino/ (1 file)
 
@@ -526,26 +527,26 @@ Total remaining: 586 files
 | ScrollIncrementType | scroll_increment_type_test.dart | Yes | 2026-03-27 | |
 | ScrollIntent | scroll_intent_test.dart | Yes | 2026-03-27 | |
 | ScrollMetricsNotification | scroll_metrics_notification_test.dart | Yes | 2026-03-27 | |
-| ScrollNotificationObserverState | scroll_notification_observer_state_test.dart | No | |
-| ScrollPhysics | scroll_physics_test.dart | No | |
-| ScrollPositionAlignmentPolicy | scroll_position_alignment_policy_test.dart | No | |
-| ScrollPosition | scroll_position_test.dart | No | |
-| ScrollPositionWithSingleContext | scroll_position_with_single_context_test.dart | No | |
-| ScrollStartNotification | scroll_start_notification_test.dart | No | |
-| ScrollToDocumentBoundaryIntent | scroll_to_document_boundary_intent_test.dart | No | |
-| ScrollUpdateNotification | scroll_update_notification_test.dart | No | |
-| ScrollViewKeyboardDismissBehavior | scroll_view_keyboard_dismiss_behavior_test.dart | No | |
-| ScrollableDetails | scrollable_details_test.dart | No | |
-| ScrollableState | scrollable_state_test.dart | No | |
-| ScrollbarOrientation | scrollbar_orientation_test.dart | No | |
-| SelectAction | select_action_test.dart | No | |
-| SelectAllTextIntent | select_all_text_intent_test.dart | No | |
-| SelectIntent | select_intent_test.dart | No | |
-| SelectableRegionState | selectable_region_state_test.dart | No | |
-| SelectionContainerDelegate | selection_container_delegate_test.dart | No | |
-| SelectionDetails | selection_details_test.dart | No | |
-| SemanticsGestureDelegate | semantics_gesture_delegate_test.dart | No | |
-| ShortcutActivator | shortcut_activator_test.dart | No | |
+| ScrollNotificationObserverState | scroll_notification_observer_state_test.dart | Yes | 2026-03-27 |
+| ScrollPhysics | scroll_physics_test.dart | Yes | 2026-03-27 |
+| ScrollPositionAlignmentPolicy | scroll_position_alignment_policy_test.dart | Yes | 2026-03-27 |
+| ScrollPosition | scroll_position_test.dart | Yes | 2026-03-27 |
+| ScrollPositionWithSingleContext | scroll_position_with_single_context_test.dart | Yes | 2026-03-27 |
+| ScrollStartNotification | scroll_start_notification_test.dart | Yes | 2026-03-27 |
+| ScrollToDocumentBoundaryIntent | scroll_to_document_boundary_intent_test.dart | Yes | 2026-03-27 |
+| ScrollUpdateNotification | scroll_update_notification_test.dart | Yes | 2026-03-27 |
+| ScrollViewKeyboardDismissBehavior | scroll_view_keyboard_dismiss_behavior_test.dart | Yes | 2026-03-27 |
+| ScrollableDetails | scrollable_details_test.dart | Yes | 2026-03-27 |
+| ScrollableState | scrollable_state_test.dart | Yes | 2026-03-27 |
+| ScrollbarOrientation | scrollbar_orientation_test.dart | Yes | 2026-03-27 |
+| SelectAction | select_action_test.dart | Yes | 2026-03-27 |
+| SelectAllTextIntent | select_all_text_intent_test.dart | Yes | 2026-03-27 |
+| SelectIntent | select_intent_test.dart | Yes | 2026-03-27 |
+| SelectableRegionState | selectable_region_state_test.dart | Yes | 2026-03-27 |
+| SelectionContainerDelegate | selection_container_delegate_test.dart | Yes | 2026-03-27 |
+| SelectionDetails | selection_details_test.dart | Yes | 2026-03-27 |
+| SemanticsGestureDelegate | semantics_gesture_delegate_test.dart | Yes | 2026-03-27 |
+| ShortcutActivator | shortcut_activator_test.dart | Yes | 2026-03-27 |
 | ShortcutManager | shortcut_manager_test.dart | No | |
 | ShortcutMapProperty | shortcut_map_property_test.dart | No | |
 | ShortcutRegistryEntry | shortcut_registry_entry_test.dart | No | |
