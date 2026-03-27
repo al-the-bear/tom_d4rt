@@ -1,60 +1,82 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests PopNavigatorRouterDelegateMixin from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('PopNavigatorRouterDelegateMixin test executing');
+  print('=' * 50);
 
-  // PopNavigatorRouterDelegateMixin - Mixin for RouterDelegate to handle back button
-  // Implements popRoute() by delegating to Navigator
-  
-  print('PopNavigatorRouterDelegateMixin purpose:');
-  print('- Provides default popRoute() implementation');
-  print('- Delegates to Navigator.maybePop()');
-  print('- Handles Android back button in Router apps');
-  print('- Simplifies RouterDelegate implementation');
-  
+  // === Test PopNavigatorRouterDelegateMixin ===
+  print('\nPopNavigatorRouterDelegateMixin handles pop in Router');
+
+  // Describe the mixin
+  print('\n--- Understanding the mixin ---');
+  print('Mixin on RouterDelegate<T>');
+  print('Provides default popRoute() implementation');
+  print('Use when building Navigator in RouterDelegate.build');
+
+  // Key properties
+  print('\n--- Key property: navigatorKey ---');
+  print('GlobalKey<NavigatorState>? get navigatorKey');
+  print('Must be used to create Navigator in build()');
+  print('Used by popRoute to access current state');
+
   // popRoute implementation
-  print('\npopRoute() implementation:');
-  print('1. Called when system back button pressed');
-  print('2. Finds Navigator using navigatorKey');
-  print('3. Calls Navigator.maybePop()');
-  print('4. Returns Future<bool> (true if popped)');
-  
-  // Required navigatorKey
-  print('\nRequired navigatorKey:');
-  print('- Must provide GlobalKey<NavigatorState>');
-  print('- Used to access Navigator inside Router');
-  print('- abstract T get navigatorKey');
-  
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('class MyRouterDelegate extends RouterDelegate');
-  print('    with PopNavigatorRouterDelegateMixin {');
-  print('  final navigatorKey = GlobalKey<NavigatorState>();');
-  print('}');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('PopNavigatorRouterDelegateMixin is mixin on RouterDelegate');
-  print('Provides popRoute() implementation');
-  print('Used with Router widget');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Navigator 2.0 apps');
-  print('- Deep linking support');
-  print('- Web URL routing');
-  print('- Custom back navigation');
+  print('\n--- popRoute() implementation ---');
+  print('Gets NavigatorState from navigatorKey');
+  print('Calls navigator.maybePop()');
+  print('Returns Future<bool>');
+  print('Returns false if navigator is null');
 
-  print('\nPopNavigatorRouterDelegateMixin test completed');
+  // Usage pattern
+  print('\n--- Usage pattern ---');
+  print('class MyRouterDelegate extends RouterDelegate<MyConfig>');
+  print('    with PopNavigatorRouterDelegateMixin<MyConfig> {');
+  print('  @override');
+  print('  GlobalKey<NavigatorState>? get navigatorKey => _navKey;');
+  print('}');
+
+  // Router integration
+  print('\n--- Router integration ---');
+  print('Router widget calls routerDelegate.popRoute()');
+  print('System back button triggers popRoute');
+  print('Returns true if handled, false to pop route');
+
+  // Related classes
+  print('\n--- Related classes ---');
+  print('Router: top-level routing widget');
+  print('RouterDelegate: declarative routing');
+  print('RouteInformationParser: URL parsing');
+  print('Navigator: imperative navigation');
+
+
+  // Navigator state access
+  print('\n--- Navigator state access ---');
+  print('navigatorKey?.currentState?.maybePop()');
+  print('Returns SynchronousFuture<bool>(false) if null');
+  print('Navigator handles actual pop logic');
+
+  // ChangeNotifier integration
+  print('\n--- ChangeNotifier pattern ---');
+  print('RouterDelegate extends ChangeNotifier');
+  print('notifyListeners() triggers Router rebuild');
+  print('Router listens to delegate changes');
+
+  print('\n' + '=' * 50);
+  print('PopNavigatorRouterDelegateMixin test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('PopNavigatorRouterDelegateMixin Tests'),
-      Text('Back button handling for Router'),
-      Text('Delegates to Navigator.maybePop'),
-      Text('Navigator 2.0 pattern'),
+      Text(
+        'PopNavigatorRouterDelegateMixin Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: mixin on RouterDelegate'),
+      Text('Key: navigatorKey'),
+      Text('Method: popRoute()'),
     ],
   );
 }

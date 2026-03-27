@@ -1,54 +1,93 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests RadioClient from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('RadioClient test executing');
+  print('=' * 50);
 
-  // RadioClient - Mixin for widgets participating in radio button groups
-  // Part of the toggleable widget system for exclusive selection
-  
-  print('RadioClient purpose:');
-  print('- Participates in exclusive selection groups');
-  print('- Only one member can be selected at a time');
-  print('- Coordinates with RadioGroupScope');
-  print('- Used by Radio widget implementation');
-  
-  // Radio group behavior
-  print('\nRadio group behavior:');
-  print('- All radios with same groupValue form a group');
-  print('- Selecting one deselects others');
-  print('- Mutually exclusive selection');
-  print('- Visual feedback for selection state');
-  
-  // Mixin interface
-  print('\nRadioClient interface:');
-  print('- groupValue: Current group selection');
-  print('- value: This radio\'s value');
-  print('- onChanged: Selection callback');
-  print('- isSelected: value == groupValue');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RadioClient is a mixin');
-  print('Used by ToggleableStateMixin implementations');
-  print('Part of toggleable widget system');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Radio button groups');
-  print('- Exclusive option lists');
-  print('- Single-select menus');
-  print('- Segmented controls');
+  // === Test RadioClient mixin ===
+  print('\nRadioClient is a mixin for radio button state');
 
-  print('\nRadioClient test completed');
+  // Describe the mixin
+  print('\n--- Understanding RadioClient<T> ---');
+  print('Mixin typically used with State');
+  print('Client for RadioGroupRegistry');
+  print('Provides radio button properties');
+
+  // Key properties
+  print('\n--- Key properties ---');
+  print('tristate: bool (supports toggle?)');
+  print('radioValue: T (value this radio represents)');
+  print('enabled: bool (interactive?)');
+  print('focusNode: FocusNode (keyboard support)');
+
+  // Registry property
+  print('\n--- registry property ---');
+  print('RadioGroupRegistry<T>? get registry');
+  print('set registry(RadioGroupRegistry<T>?)');
+  print('Auto-registers on set');
+  print('Auto-unregisters on change/null');
+
+  // Registration flow
+  print('\n--- Registration flow ---');
+  print('1. Set registry = groupRegistry');
+  print('2. Unregisters from old registry');
+  print('3. Registers with new registry');
+  print('4. Set to null on dispose');
+
+  // Usage pattern
+  print('\n--- Usage pattern ---');
+  print('class MyRadioState extends State<MyRadio>');
+  print('    with RadioClient<String> {');
+  print('  @override bool get tristate => false;');
+  print('  @override String get radioValue => widget.value;');
+  print('  @override bool get enabled => widget.enabled;');
+  print('  @override FocusNode get focusNode => _focusNode;');
+  print('}');
+
+  // Keyboard navigation
+  print('\n--- Keyboard navigation ---');
+  print('Registry uses focusNode for keyboard');
+  print('Arrow keys navigate between radios');
+  print('Disabled radios skipped');
+
+  // Related classes
+  print('\n--- Related classes ---');
+  print('RadioGroupRegistry: manages group');
+  print('Radio<T>: Material radio button');
+  print('RadioListTile<T>: radio with label');
+
+
+  // Dispose pattern
+  print('\n--- Dispose pattern ---');
+  print('@override void dispose() {');
+  print('  registry = null;');
+  print('  _focusNode.dispose();');
+  print('  super.dispose();');
+  print('}');
+
+  // Tristate
+  print('\n--- Tristate behavior ---');
+  print('If tristate == true');
+  print('Clicking selected radio deselects');
+  print('Group value becomes null');
+
+  print('\n' + '=' * 50);
+  print('RadioClient test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('RadioClient Tests'),
-      Text('Exclusive selection groups'),
-      Text('Radio button coordination'),
-      Text('One selection at a time'),
+      Text(
+        'RadioClient Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: mixin on State'),
+      Text('Props: tristate, radioValue, enabled'),
+      Text('Registry: auto-register/unregister'),
     ],
   );
 }
