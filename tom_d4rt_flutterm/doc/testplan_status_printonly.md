@@ -485,26 +485,26 @@ Total remaining: 586 files
 | RequestFocusIntent | request_focus_intent_test.dart | Yes | 2026-03-28 |
 | RestorableBoolN | restorable_bool_n_test.dart | Yes | 2026-03-28 |
 | RestorableBool | restorable_bool_test.dart | Yes | 2026-03-28 |
-| RestorableChangeNotifier | restorable_change_notifier_test.dart | No | |
-| RestorableDateTimeN | restorable_date_time_n_test.dart | No | |
-| RestorableDateTime | restorable_date_time_test.dart | No | |
-| RestorableDoubleN | restorable_double_n_test.dart | No | |
-| RestorableDouble | restorable_double_test.dart | No | |
-| RestorableEnumN | restorable_enum_n_test.dart | No | |
-| RestorableEnum | restorable_enum_test.dart | No | |
-| RestorableIntN | restorable_int_n_test.dart | No | |
-| RestorableInt | restorable_int_test.dart | No | |
-| RestorableListenable | restorable_listenable_test.dart | No | |
-| RestorableNumN | restorable_num_n_test.dart | No | |
-| RestorableNum | restorable_num_test.dart | No | |
-| RestorableProperty | restorable_property_test.dart | No | |
-| RestorableRouteFuture | restorable_route_future_test.dart | No | |
-| RestorableStringN | restorable_string_n_test.dart | No | |
-| RestorableString | restorable_string_test.dart | No | |
-| RestorableTextEditingController | restorable_text_editing_controller_test.dart | No | |
-| RestorableValue | restorable_value_test.dart | No | |
-| RestorationMixin | restoration_mixin_test.dart | No | |
-| RootElementMixin | root_element_mixin_test.dart | No | |
+| RestorableChangeNotifier | restorable_change_notifier_test.dart | Yes | 2026-03-27 |
+| RestorableDateTimeN | restorable_date_time_n_test.dart | Yes | 2026-03-27 |
+| RestorableDateTime | restorable_date_time_test.dart | Yes | 2026-03-27 |
+| RestorableDoubleN | restorable_double_n_test.dart | Yes | 2026-03-27 |
+| RestorableDouble | restorable_double_test.dart | Yes | 2026-03-27 |
+| RestorableEnumN | restorable_enum_n_test.dart | Yes | 2026-03-27 |
+| RestorableEnum | restorable_enum_test.dart | Yes | 2026-03-27 |
+| RestorableIntN | restorable_int_n_test.dart | Yes | 2026-03-27 |
+| RestorableInt | restorable_int_test.dart | Yes | 2026-03-27 |
+| RestorableListenable | restorable_listenable_test.dart | Yes | 2026-03-27 |
+| RestorableNumN | restorable_num_n_test.dart | Yes | 2026-03-27 |
+| RestorableNum | restorable_num_test.dart | Yes | 2026-03-27 |
+| RestorableProperty | restorable_property_test.dart | Yes | 2026-03-27 |
+| RestorableRouteFuture | restorable_route_future_test.dart | Yes | 2026-03-27 |
+| RestorableStringN | restorable_string_n_test.dart | Yes | 2026-03-27 |
+| RestorableString | restorable_string_test.dart | Yes | 2026-03-27 |
+| RestorableTextEditingController | restorable_text_editing_controller_test.dart | Yes | 2026-03-27 |
+| RestorableValue | restorable_value_test.dart | Yes | 2026-03-27 |
+| RestorationMixin | restoration_mixin_test.dart | Yes | 2026-03-27 |
+| RootElementMixin | root_element_mixin_test.dart | Yes | 2026-03-27 |
 | RootElement | root_element_test.dart | No | |
 | RootRenderObjectElement | root_render_object_element_test.dart | No | |
 | RootWidget | root_widget_test.dart | No | |

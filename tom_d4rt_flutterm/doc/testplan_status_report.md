@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-28 (Batch 24: 20 print-only tests - RegularWindowControllerMacOS, RegularWindowController, RegularWindowControllerWin32, RegularWindow, RelativeRectTween, Render*, Reorderable*, RepeatMode, ReplaceTextIntent, RequestFocus*, RestorableBool*. 1100 ≥80L, 888 <80L.)
+Updated: 2026-03-27 (Batch 25: 20 print-only tests - RestorableChangeNotifier, RestorableDateTime*, RestorableDouble*, RestorableEnum*, RestorableInt*, RestorableListenable, RestorableNum*, RestorableProperty, RestorableRouteFuture, RestorableString*, RestorableTextEditingController, RestorableValue, RestorationMixin, RootElementMixin. 1120 ≥80L, 868 <80L.)
 
 ## Implementation Threshold
 
@@ -1762,31 +1762,31 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [request_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/request_focus_intent_test.dart) | RequestFocusIntent | Yes | No | Yes | Checked. |
 | [restorable_bool_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_bool_n_test.dart) | RestorableBoolN | Yes | No | Yes | Checked. |
 | [restorable_bool_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_bool_test.dart) | RestorableBool | Yes | No | Yes | Checked. |
-| [restorable_change_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_change_notifier_test.dart) | RestorableChangeNotifier | No | No | Yes | Checked. |
-| [restorable_date_time_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_date_time_n_test.dart) | RestorableDateTimeN | No | No | Yes | Checked. |
-| [restorable_date_time_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_date_time_test.dart) | RestorableDateTime | No | No | Yes | Checked. |
-| [restorable_double_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_double_n_test.dart) | RestorableDoubleN | No | No | Yes | Checked. |
-| [restorable_double_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_double_test.dart) | RestorableDouble | No | No | Yes | Checked. |
-| [restorable_enum_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_n_test.dart) | RestorableEnumN | No | No | Yes | Checked. |
-| [restorable_enum_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_test.dart) | RestorableEnum | No | No | Yes | Checked. |
-| [restorable_int_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_n_test.dart) | RestorableIntN | No | No | Yes | Checked. |
-| [restorable_int_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_test.dart) | RestorableInt | No | No | Yes | Checked. |
-| [restorable_listenable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_listenable_test.dart) | RestorableListenable | No | No | Yes | Checked. |
-| [restorable_num_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_n_test.dart) | RestorableNumN | No | No | Yes | Checked. |
-| [restorable_num_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_test.dart) | RestorableNum | No | No | Yes | Checked. |
-| [restorable_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_property_test.dart) | RestorableProperty | No | No | Yes | Checked. |
-| [restorable_route_future_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_route_future_test.dart) | RestorableRouteFuture | No | No | Yes | Checked. |
-| [restorable_string_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_string_n_test.dart) | RestorableStringN | No | No | Yes | Checked. |
-| [restorable_string_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_string_test.dart) | RestorableString | No | No | Yes | Checked. |
-| [restorable_text_editing_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_text_editing_controller_test.dart) | RestorableTextEditingController | No | No | Yes | Checked. |
-| [restorable_value_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_value_test.dart) | RestorableValue | No | No | Yes | Checked. |
+| [restorable_change_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_change_notifier_test.dart) | RestorableChangeNotifier | Yes | No | Yes | Checked. |
+| [restorable_date_time_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_date_time_n_test.dart) | RestorableDateTimeN | Yes | No | Yes | Checked. |
+| [restorable_date_time_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_date_time_test.dart) | RestorableDateTime | Yes | No | Yes | Checked. |
+| [restorable_double_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_double_n_test.dart) | RestorableDoubleN | Yes | No | Yes | Checked. |
+| [restorable_double_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_double_test.dart) | RestorableDouble | Yes | No | Yes | Checked. |
+| [restorable_enum_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_n_test.dart) | RestorableEnumN | Yes | No | Yes | Checked. |
+| [restorable_enum_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_test.dart) | RestorableEnum | Yes | No | Yes | Checked. |
+| [restorable_int_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_n_test.dart) | RestorableIntN | Yes | No | Yes | Checked. |
+| [restorable_int_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_test.dart) | RestorableInt | Yes | No | Yes | Checked. |
+| [restorable_listenable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_listenable_test.dart) | RestorableListenable | Yes | No | Yes | Checked. |
+| [restorable_num_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_n_test.dart) | RestorableNumN | Yes | No | Yes | Checked. |
+| [restorable_num_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_test.dart) | RestorableNum | Yes | No | Yes | Checked. |
+| [restorable_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_property_test.dart) | RestorableProperty | Yes | No | Yes | Checked. |
+| [restorable_route_future_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_route_future_test.dart) | RestorableRouteFuture | Yes | No | Yes | Checked. |
+| [restorable_string_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_string_n_test.dart) | RestorableStringN | Yes | No | Yes | Checked. |
+| [restorable_string_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_string_test.dart) | RestorableString | Yes | No | Yes | Checked. |
+| [restorable_text_editing_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_text_editing_controller_test.dart) | RestorableTextEditingController | Yes | No | Yes | Checked. |
+| [restorable_value_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_value_test.dart) | RestorableValue | Yes | No | Yes | Checked. |
 | [restorable_values_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_values_test.dart) | Restorable | No | Yes | No | Checked. |
 | [restoration_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_adv_test.dart) | RestorationAdv | No | Yes | No | Checked. |
-| [restoration_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_mixin_test.dart) | RestorationMixin | No | No | Yes | Checked. |
+| [restoration_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_mixin_test.dart) | RestorationMixin | Yes | No | Yes | Checked. |
 | [restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_scope_test.dart) | RestorationScope | No | Yes | No | Checked. |
 | [richtext_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/richtext_test.dart) | RichText | No | Yes | No |
 | [root_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_back_button_dispatcher_test.dart) | RootBackButtonDispatcher | No | No | Yes | Checked. |
-| [root_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_mixin_test.dart) | RootElementMixin | No | No | Yes | Checked. |
+| [root_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_mixin_test.dart) | RootElementMixin | Yes | No | Yes | Checked. |
 | [root_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_test.dart) | RootElement | No | No | Yes | Checked. |
 | [root_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_render_object_element_test.dart) | RootRenderObjectElement | No | No | Yes | Checked. |
 | [root_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_restoration_scope_test.dart) | RootRestorationScope | No | No | Yes | Checked. |

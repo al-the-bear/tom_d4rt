@@ -1,64 +1,93 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+// ignore_for_file: avoid_print, deprecated_member_use
 // D4rt test script: Tests RestorationMixin from widgets
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('RestorationMixin test executing');
+  print('=' * 50);
 
-  // RestorationMixin - State restoration after app killed/restarted
-  // Saves and restores widget state across app lifecycle
-  
-  print('RestorationMixin purpose:');
-  print('- Restores state after app restart');
-  print('- Persists restoration data automatically');
-  print('- Works with platform state restoration');
-  print('- Part of flutter restoration framework');
-  
-  // Key concepts
-  print('\nKey concepts:');
-  print('- RestorationId: Unique identifier for state');
-  print('- RestorableProperty: Restorable state holder');
-  print('- RestorationBucket: Container for restoration data');
-  print('- registerForRestoration: Registers properties');
-  
-  // Usage pattern
-  print('\nUsage pattern:');
-  print('class _MyState extends State with RestorationMixin {');
-  print('  final RestorableInt _counter = RestorableInt(0);');
-  print('  @override String? get restorationId => "counter";');
-  print('  @override void restoreState(bucket, initialRestore) {');
-  print('    registerForRestoration(_counter, "counter");');
+  // RestorationMixin is the core state restoration mixin
+  print('RestorationMixin<S extends StatefulWidget>:');
+  print('Purpose: Enable state restoration for StatefulWidget');
+  print('Mixin on: State<S>');
+  print('');
+
+  // Key property
+  print('Key property:');
+  print('  String? get restorationId');
+  print('    - Override to provide restoration ID');
+  print('    - null disables restoration');
+  print('    - Must be unique in parent scope');
+  print('');
+
+  // Core method
+  print('Core method:');
+  print('  void restoreState(RestorationBucket? oldBucket, bool initialRestore)');
+  print('    - Called to restore/initialize state');
+  print('    - Register properties with registerForRestoration');
+  print('    - Called on init and when bucket changes');
+  print('');
+
+  // Registration
+  print('Property registration:');
+  print('  registerForRestoration(property, restorationId)');
+  print('    - Links property to restoration system');
+  print('    - Restores value if data available');
+  print('    - Otherwise uses createDefaultValue');
+  print('');
+
+  // RestorationBucket
+  print('RestorationBucket? get bucket:');
+  print('  - The bucket storing restoration data');
+  print('  - null when restoration disabled');
+  print('  - Obtained from parent RestorationScope');
+  print('');
+
+  // Lifecycle
+  print('Lifecycle callbacks:');
+  print('  didToggleBucket(oldBucket)');
+  print('    - Called when bucket becomes null/non-null');
+  print('');
+  print('  didUpdateRestorationId()');
+  print('    - Call when restorationId changes');
+  print('');
+
+  // Typical pattern
+  print('Typical implementation pattern:');
+  print('  class _MyState extends State<MyWidget>');
+  print('    with RestorationMixin {');
+  print('    final _counter = RestorableInt(0);');
+  print('    ');
+  print('    @override');
+  print('    String? get restorationId => \'myWidget\';');
+  print('    ');
+  print('    @override');
+  print('    void restoreState(bucket, initial) {');
+  print('      registerForRestoration(_counter, \'counter\');');
+  print('    }');
   print('  }');
-  print('}');
-  
-  // Restorable types
-  print('\nRestorable property types:');
-  print('- RestorableInt, RestorableDouble, RestorableBool');
-  print('- RestorableString, RestorableDateTime');
-  print('- RestorableTextEditingController');
-  print('- RestorableEnum<T>');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RestorationMixin is mixin on State');
-  print('Implements RestorationManager integration');
-  print('Works with RestorationScope widget');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Form state preservation');
-  print('- Scroll position restoration');
-  print('- Shopping cart persistence');
-  print('- Multi-step wizard state');
+  print('');
 
-  print('\nRestorationMixin test completed');
+  // Testing via direct construction not possible
+  print('Testing behavior:');
+  print('  - Mixin requires State<S> base');
+  print('  - Cannot instantiate directly in test');
+  print('  - Test via StatefulWidget integration');
+
+  print('\n' + '=' * 50);
+  print('RestorationMixin test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('RestorationMixin Tests'),
-      Text('State restoration after restart'),
-      Text('RestorableInt/String/Bool/etc.'),
-      Text('Works with platform restoration'),
+      Text(
+        'RestorationMixin Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Mixin on State<S>'),
+      Text('Enables state restoration'),
+      Text('Manages RestorableProperty registration'),
     ],
   );
 }
