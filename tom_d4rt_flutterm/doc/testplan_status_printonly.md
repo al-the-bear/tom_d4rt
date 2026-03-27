@@ -285,26 +285,26 @@ Total remaining: 586 files
 | DefaultTransitionDelegate | default_transition_delegate_test.dart | Yes | 2026-03-26 23:36 |
 | DeleteCharacterIntent | delete_character_intent_test.dart | Yes | 2026-03-26 23:36 |
 | DeleteToLineBreakIntent | delete_to_line_break_intent_test.dart | Yes | 2026-03-26 23:36 |
-| DeleteToNextWordBoundaryIntent | delete_to_next_word_boundary_intent_test.dart | No | |
-| DesktopTextSelectionToolbarLayoutDelegate | desktop_text_selection_toolbar_layout_delegate_test.dart | No | |
-| DevToolsDeepLinkProperty | dev_tools_deep_link_property_test.dart | No | |
-| DiagonalDragBehavior | diagonal_drag_behavior_test.dart | No | |
-| DialogWindowControllerDelegate | dialog_window_controller_delegate_test.dart | No | |
-| DialogWindowControllerLinux | dialog_window_controller_linux_test.dart | No | |
-| DialogWindowControllerMacOS | dialog_window_controller_mac_o_s_test.dart | No | |
-| DialogWindowController | dialog_window_controller_test.dart | No | |
-| DialogWindowControllerWin32 | dialog_window_controller_win32_test.dart | No | |
-| DialogWindow | dialog_window_test.dart | No | |
-| DirectionalCaretMovementIntent | directional_caret_movement_intent_test.dart | No | |
-| DirectionalFocusAction | directional_focus_action_test.dart | No | |
-| DirectionalFocusIntent | directional_focus_intent_test.dart | No | |
-| DirectionalFocusTraversalPolicyMixin | directional_focus_traversal_policy_mixin_test.dart | No | |
-| DirectionalTextEditingIntent | directional_text_editing_intent_test.dart | No | |
-| DisableWidgetInspectorScope | disable_widget_inspector_scope_test.dart | No | |
-| DismissAction | dismiss_action_test.dart | No | |
-| DismissDirection | dismiss_direction_test.dart | No | |
-| DismissIntent | dismiss_intent_test.dart | No | |
-| DismissMenuAction | dismiss_menu_action_test.dart | No | |
+| DeleteToNextWordBoundaryIntent | delete_to_next_word_boundary_intent_test.dart | Yes | 2026-03-27 14:00 |
+| DesktopTextSelectionToolbarLayoutDelegate | desktop_text_selection_toolbar_layout_delegate_test.dart | Yes | 2026-03-27 14:00 |
+| DevToolsDeepLinkProperty | dev_tools_deep_link_property_test.dart | Yes | 2026-03-27 14:00 |
+| DiagonalDragBehavior | diagonal_drag_behavior_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindowControllerDelegate | dialog_window_controller_delegate_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindowControllerLinux | dialog_window_controller_linux_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindowControllerMacOS | dialog_window_controller_mac_o_s_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindowController | dialog_window_controller_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindowControllerWin32 | dialog_window_controller_win32_test.dart | Yes | 2026-03-27 14:00 |
+| DialogWindow | dialog_window_test.dart | Yes | 2026-03-27 14:00 |
+| DirectionalCaretMovementIntent | directional_caret_movement_intent_test.dart | Yes | 2026-03-27 14:00 |
+| DirectionalFocusAction | directional_focus_action_test.dart | Yes | 2026-03-27 14:00 |
+| DirectionalFocusIntent | directional_focus_intent_test.dart | Yes | 2026-03-27 14:00 |
+| DirectionalFocusTraversalPolicyMixin | directional_focus_traversal_policy_mixin_test.dart | Yes | 2026-03-27 14:00 |
+| DirectionalTextEditingIntent | directional_text_editing_intent_test.dart | Yes | 2026-03-27 14:00 |
+| DisableWidgetInspectorScope | disable_widget_inspector_scope_test.dart | Yes | 2026-03-27 14:00 |
+| DismissAction | dismiss_action_test.dart | Yes | 2026-03-27 14:00 |
+| DismissDirection | dismiss_direction_test.dart | Yes | 2026-03-27 14:00 |
+| DismissIntent | dismiss_intent_test.dart | Yes | 2026-03-27 14:00 |
+| DismissMenuAction | dismiss_menu_action_test.dart | Yes | 2026-03-27 14:00 |
 | DismissUpdateDetails | dismiss_update_details_test.dart | No | |
 | DisposableBuildContext | disposable_build_context_test.dart | No | |
 | DoNothingAction | do_nothing_action_test.dart | No | |
