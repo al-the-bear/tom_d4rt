@@ -345,26 +345,26 @@ Total remaining: 586 files
 | ExtendSelectionVerticallyToAdjacentPageIntent | extend_selection_vertically_to_adjacent_page_intent_test.dart | Yes | 2026-03-27 | |
 | Feedback | feedback_test.dart | Yes | 2026-03-27 | |
 | FixedExtentMetrics | fixed_extent_metrics_test.dart | Yes | 2026-03-27 | |
-| FixedExtentScrollController | fixed_extent_scroll_controller_test.dart | No | |
-| FixedExtentScrollPhysics | fixed_extent_scroll_physics_test.dart | No | |
-| FixedScrollMetrics | fixed_scroll_metrics_test.dart | No | |
-| FloatingHeaderSnapMode | floating_header_snap_mode_test.dart | No | |
-| FocusAttachment | focus_attachment_test.dart | No | |
-| FocusHighlightMode | focus_highlight_mode_test.dart | No | |
-| FocusHighlightStrategy | focus_highlight_strategy_test.dart | No | |
-| FocusOrder | focus_order_test.dart | No | |
-| FocusScopeNode | focus_properties_test.dart | No | |
-| FocusScopeNode | focus_scope_node_test.dart | No | |
-| FocusTraversalOrder | focus_traversal_order_test.dart | No | |
-| GestureRecognizerFactory | gesture_recognizer_factory_test.dart | No | |
-| GestureRecognizerFactoryWithHandlers | gesture_recognizer_factory_with_handlers_test.dart | No | |
-| GlobalObjectKey | global_object_key_test.dart | No | |
-| HeroFlightDirection | hero_flight_direction_test.dart | No | |
-| HoldScrollActivity | hold_scroll_activity_test.dart | No | |
-| IOSSystemContextMenuItemCopy | i_o_s_system_context_menu_item_copy_test.dart | No | |
-| IOSSystemContextMenuItemCustom | i_o_s_system_context_menu_item_custom_test.dart | No | |
-| IOSSystemContextMenuItemCut | i_o_s_system_context_menu_item_cut_test.dart | No | |
-| IOSSystemContextMenuItemLiveText | i_o_s_system_context_menu_item_live_text_test.dart | No | |
+| FixedExtentScrollController | fixed_extent_scroll_controller_test.dart | Yes | 2026-03-27 | |
+| FixedExtentScrollPhysics | fixed_extent_scroll_physics_test.dart | Yes | 2026-03-27 | |
+| FixedScrollMetrics | fixed_scroll_metrics_test.dart | Yes | 2026-03-27 | |
+| FloatingHeaderSnapMode | floating_header_snap_mode_test.dart | Yes | 2026-03-27 | |
+| FocusAttachment | focus_attachment_test.dart | Yes | 2026-03-27 | |
+| FocusHighlightMode | focus_highlight_mode_test.dart | Yes | 2026-03-27 | |
+| FocusHighlightStrategy | focus_highlight_strategy_test.dart | Yes | 2026-03-27 | |
+| FocusOrder | focus_order_test.dart | Yes | 2026-03-27 | |
+| FocusScopeNode | focus_properties_test.dart | Yes | 2026-03-27 | |
+| FocusScopeNode | focus_scope_node_test.dart | Yes | 2026-03-27 | |
+| FocusTraversalOrder | focus_traversal_order_test.dart | Yes | 2026-03-27 | |
+| GestureRecognizerFactory | gesture_recognizer_factory_test.dart | Yes | 2026-03-27 | |
+| GestureRecognizerFactoryWithHandlers | gesture_recognizer_factory_with_handlers_test.dart | Yes | 2026-03-27 | |
+| GlobalObjectKey | global_object_key_test.dart | Yes | 2026-03-27 | |
+| HeroFlightDirection | hero_flight_direction_test.dart | Yes | 2026-03-27 | |
+| HoldScrollActivity | hold_scroll_activity_test.dart | Yes | 2026-03-27 | |
+| IOSSystemContextMenuItemCopy | i_o_s_system_context_menu_item_copy_test.dart | Yes | 2026-03-27 | |
+| IOSSystemContextMenuItemCustom | i_o_s_system_context_menu_item_custom_test.dart | Yes | 2026-03-27 | |
+| IOSSystemContextMenuItemCut | i_o_s_system_context_menu_item_cut_test.dart | Yes | 2026-03-27 | |
+| IOSSystemContextMenuItemLiveText | i_o_s_system_context_menu_item_live_text_test.dart | Yes | 2026-03-27 | |
 | IOSSystemContextMenuItemLookUp | i_o_s_system_context_menu_item_look_up_test.dart | No | |
 | IOSSystemContextMenuItemPaste | i_o_s_system_context_menu_item_paste_test.dart | No | |
 | IOSSystemContextMenuItemSearchWeb | i_o_s_system_context_menu_item_search_web_test.dart | No | |
