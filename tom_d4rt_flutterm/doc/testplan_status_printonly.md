@@ -325,26 +325,26 @@ Total remaining: 586 files
 | EditableTextState | editable_text_state_test.dart | Yes | 2025-07-14 | |
 | EditableTextTapOutsideIntent | editable_text_tap_outside_intent_test.dart | Yes | 2025-07-14 | |
 | EditableTextTapUpOutsideIntent | editable_text_tap_up_outside_intent_test.dart | Yes | 2025-07-14 | |
-| Element | element_test.dart | No | |
-| EmptyTextSelectionControls | empty_text_selection_controls_test.dart | No | |
-| EnableWidgetInspectorScope | enable_widget_inspector_scope_test.dart | No | |
-| ExcludeFocus | exclude_focus_test.dart | No | |
-| ExcludeFocusTraversal | exclude_focus_traversal_test.dart | No | |
-| ExpandSelectionToDocumentBoundaryIntent | expand_selection_to_document_boundary_intent_test.dart | No | |
-| ExpandSelectionToLineBreakIntent | expand_selection_to_line_break_intent_test.dart | No | |
-| ExpansibleController | expansible_controller_test.dart | No | |
-| ExtendSelectionByCharacterIntent | extend_selection_by_character_intent_test.dart | No | |
-| ExtendSelectionByPageIntent | extend_selection_by_page_intent_test.dart | No | |
-| ExtendSelectionToDocumentBoundaryIntent | extend_selection_to_document_boundary_intent_test.dart | No | |
-| ExtendSelectionToLineBreakIntent | extend_selection_to_line_break_intent_test.dart | No | |
-| ExtendSelectionToNextParagraphBoundaryIntent | extend_selection_to_next_paragraph_boundary_intent_test.dart | No | |
-| ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent | extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart | No | |
-| ExtendSelectionToNextWordBoundaryIntent | extend_selection_to_next_word_boundary_intent_test.dart | No | |
-| ExtendSelectionToNextWordBoundaryOrCaretLocationIntent | extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart | No | |
-| ExtendSelectionVerticallyToAdjacentLineIntent | extend_selection_vertically_to_adjacent_line_intent_test.dart | No | |
-| ExtendSelectionVerticallyToAdjacentPageIntent | extend_selection_vertically_to_adjacent_page_intent_test.dart | No | |
-| Feedback | feedback_test.dart | No | |
-| FixedExtentMetrics | fixed_extent_metrics_test.dart | No | |
+| Element | element_test.dart | Yes | 2026-03-27 | |
+| EmptyTextSelectionControls | empty_text_selection_controls_test.dart | Yes | 2026-03-27 | |
+| EnableWidgetInspectorScope | enable_widget_inspector_scope_test.dart | Yes | 2026-03-27 | |
+| ExcludeFocus | exclude_focus_test.dart | Yes | 2026-03-27 | |
+| ExcludeFocusTraversal | exclude_focus_traversal_test.dart | Yes | 2026-03-27 | |
+| ExpandSelectionToDocumentBoundaryIntent | expand_selection_to_document_boundary_intent_test.dart | Yes | 2026-03-27 | |
+| ExpandSelectionToLineBreakIntent | expand_selection_to_line_break_intent_test.dart | Yes | 2026-03-27 | |
+| ExpansibleController | expansible_controller_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionByCharacterIntent | extend_selection_by_character_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionByPageIntent | extend_selection_by_page_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToDocumentBoundaryIntent | extend_selection_to_document_boundary_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToLineBreakIntent | extend_selection_to_line_break_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToNextParagraphBoundaryIntent | extend_selection_to_next_paragraph_boundary_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToNextParagraphBoundaryOrCaretLocationIntent | extend_selection_to_next_paragraph_boundary_or_caret_location_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToNextWordBoundaryIntent | extend_selection_to_next_word_boundary_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionToNextWordBoundaryOrCaretLocationIntent | extend_selection_to_next_word_boundary_or_caret_location_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionVerticallyToAdjacentLineIntent | extend_selection_vertically_to_adjacent_line_intent_test.dart | Yes | 2026-03-27 | |
+| ExtendSelectionVerticallyToAdjacentPageIntent | extend_selection_vertically_to_adjacent_page_intent_test.dart | Yes | 2026-03-27 | |
+| Feedback | feedback_test.dart | Yes | 2026-03-27 | |
+| FixedExtentMetrics | fixed_extent_metrics_test.dart | Yes | 2026-03-27 | |
 | FixedExtentScrollController | fixed_extent_scroll_controller_test.dart | No | |
 | FixedExtentScrollPhysics | fixed_extent_scroll_physics_test.dart | No | |
 | FixedScrollMetrics | fixed_scroll_metrics_test.dart | No | |
