@@ -47,6 +47,18 @@ dynamic build(BuildContext context) {
     return idx.length == ContextMenuButtonType.values.length;
   });
 
+  runCase('contains selectAll action', () {
+    return ContextMenuButtonType.values.contains(ContextMenuButtonType.selectAll);
+  });
+
+  runCase('contains custom type', () {
+    return ContextMenuButtonType.values.contains(ContextMenuButtonType.custom);
+  });
+
+  runCase('delete type exists', () {
+    return ContextMenuButtonType.values.contains(ContextMenuButtonType.delete);
+  });
+
   runCase('summary string can be formed', () {
     final String summary = '${passed.length + failed.length} checks';
     return summary.endsWith('checks');

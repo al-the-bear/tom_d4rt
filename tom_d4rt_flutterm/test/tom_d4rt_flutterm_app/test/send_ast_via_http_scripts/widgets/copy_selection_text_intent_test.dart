@@ -24,28 +24,42 @@ dynamic build(BuildContext context) {
   print('CopySelectionTextIntent test executing');
   print('=' * 50);
 
-  const CopySelectionTextIntent intent = CopySelectionTextIntent(SelectionChangedCause.tap);
+  final CopySelectionTextIntent cutIntent = CopySelectionTextIntent.cut(SelectionChangedCause.tap);
+  const CopySelectionTextIntent copyIntent = CopySelectionTextIntent.copy;
 
-  runCase('intent stores cause', () {
-    return intent.cause == SelectionChangedCause.tap;
+  runCase('cut intent stores cause', () {
+    return cutIntent.cause == SelectionChangedCause.tap;
   });
 
-  runCase('intent is an Intent', () {
-    return intent is Intent;
+  runCase('cut intent collapses selection', () {
+    return cutIntent.collapseSelection == true;
   });
 
-  runCase('different cause means inequality', () {
-    const CopySelectionTextIntent other = CopySelectionTextIntent(SelectionChangedCause.keyboard);
-    return intent != other;
+  runCase('copy intent does not collapse selection', () {
+    return copyIntent.collapseSelection == false;
   });
 
-  runCase('same cause means equality', () {
-    const CopySelectionTextIntent again = CopySelectionTextIntent(SelectionChangedCause.tap);
-    return intent == again;
+  runCase('intent runtime type is correct', () {
+    return cutIntent.runtimeType.toString().contains('CopySelectionTextIntent');
   });
 
-  runCase('toString mentions intent class', () {
-    return intent.toString().contains('CopySelectionTextIntent');
+  runCase('copy intent has keyboard cause', () {
+    return copyIntent.cause == SelectionChangedCause.keyboard;
+  });
+
+  runCase('cut and copy are different instances', () {
+    return cutIntent != copyIntent;
+  });
+
+  runCase('cut with different cause', () {
+    final CopySelectionTextIntent dragCut =
+        CopySelectionTextIntent.cut(SelectionChangedCause.drag);
+    return dragCut.cause == SelectionChangedCause.drag &&
+        dragCut.collapseSelection == true;
+  });
+
+  runCase('toString returns non-empty string', () {
+    return cutIntent.toString().isNotEmpty;
   });
 
   runCase('summary string can be formed', () {

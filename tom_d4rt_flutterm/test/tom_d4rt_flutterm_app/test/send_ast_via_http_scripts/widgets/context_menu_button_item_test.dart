@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
   });
 
   runCase('onPressed callback is callable', () {
-    item.onPressed();
+    item.onPressed?.call();
     return invoked;
   });
 
@@ -54,6 +54,14 @@ dynamic build(BuildContext context) {
   runCase('copyWith can change type', () {
     final ContextMenuButtonItem changed = item.copyWith(type: ContextMenuButtonType.cut);
     return changed.type == ContextMenuButtonType.cut;
+  });
+
+  runCase('null onPressed item can be created', () {
+    final ContextMenuButtonItem nullItem = ContextMenuButtonItem(
+      label: 'Disabled',
+      onPressed: null,
+    );
+    return nullItem.onPressed == null && nullItem.label == 'Disabled';
   });
 
   runCase('summary string can be formed', () {

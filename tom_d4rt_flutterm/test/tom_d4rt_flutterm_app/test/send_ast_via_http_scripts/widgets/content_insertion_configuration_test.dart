@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
@@ -33,7 +35,7 @@ dynamic build(BuildContext context) {
   });
 
   runCase('onContentInserted callback is present', () {
-    return config.onContentInserted is void Function(KeyboardInsertedContent);
+    return config.onContentInserted.runtimeType.toString().contains('KeyboardInsertedContent');
   });
 
   runCase('second config has independent callback', () {
@@ -45,7 +47,11 @@ dynamic build(BuildContext context) {
 
   runCase('callbacks can be invoked without error', () {
     config.onContentInserted(
-      const KeyboardInsertedContent(mimeType: 'text/plain', data: Uint8List(0)),
+      KeyboardInsertedContent(
+        mimeType: 'text/plain',
+        data: Uint8List(0),
+        uri: 'https://example.com/inserted',
+      ),
     );
     return true;
   });

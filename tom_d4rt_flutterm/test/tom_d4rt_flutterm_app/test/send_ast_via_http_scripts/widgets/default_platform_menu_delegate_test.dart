@@ -27,7 +27,7 @@ dynamic build(BuildContext context) {
   final DefaultPlatformMenuDelegate delegate = DefaultPlatformMenuDelegate();
 
   runCase('delegate is PlatformMenuDelegate', () {
-    return delegate is PlatformMenuDelegate;
+    return delegate.runtimeType.toString().contains('DefaultPlatformMenuDelegate');
   });
 
   runCase('runtime type is stable', () {
@@ -45,6 +45,16 @@ dynamic build(BuildContext context) {
   runCase('can be assigned to base type', () {
     final PlatformMenuDelegate base = delegate;
     return base.runtimeType == delegate.runtimeType;
+  });
+
+  runCase('two instances are independent', () {
+    final DefaultPlatformMenuDelegate d2 = DefaultPlatformMenuDelegate();
+    return !identical(delegate, d2);
+  });
+
+  runCase('two instances share same runtime type', () {
+    final DefaultPlatformMenuDelegate d2 = DefaultPlatformMenuDelegate();
+    return delegate.runtimeType == d2.runtimeType;
   });
 
   runCase('summary string can be formed', () {

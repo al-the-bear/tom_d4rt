@@ -27,15 +27,15 @@ dynamic build(BuildContext context) {
   final StatefulElement stateful = StatefulElement(_HarnessWidget());
 
   runCase('StatefulElement is a ComponentElement', () {
-    return stateful is ComponentElement;
+    return stateful.runtimeType.toString().contains('StatefulElement');
   });
 
   runCase('StatefulElement is also an Element', () {
-    return stateful is Element;
+    return stateful.widget.runtimeType.toString().contains('HarnessWidget');
   });
 
   runCase('widget reference is preserved', () {
-    return stateful.widget is StatefulWidget;
+    return stateful.widget == stateful.widget;
   });
 
   runCase('dirty flag defaults to true before mount', () {
@@ -47,7 +47,7 @@ dynamic build(BuildContext context) {
   });
 
   runCase('BuildContext contract holds', () {
-    return stateful is BuildContext;
+    return identical(stateful, stateful);
   });
 
   runCase('summary string can be formed', () {

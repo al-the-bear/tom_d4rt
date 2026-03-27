@@ -49,6 +49,20 @@ dynamic build(BuildContext context) {
     return ClipboardStatus.pasteable.toString().contains('pasteable');
   });
 
+  runCase('hashCode is unique per value', () {
+    return ClipboardStatus.pasteable.hashCode != ClipboardStatus.notPasteable.hashCode;
+  });
+
+  runCase('equality matches same value', () {
+    final ClipboardStatus a = ClipboardStatus.pasteable;
+    final ClipboardStatus b = ClipboardStatus.pasteable;
+    return a == b;
+  });
+
+  runCase('inequality for different values', () {
+    return ClipboardStatus.pasteable != ClipboardStatus.notPasteable;
+  });
+
   runCase('summary string can be formed', () {
     final String summary = '${passed.length + failed.length} checks';
     return summary.contains('checks');

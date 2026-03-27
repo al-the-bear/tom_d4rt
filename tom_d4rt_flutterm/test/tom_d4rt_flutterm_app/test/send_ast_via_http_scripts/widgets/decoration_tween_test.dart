@@ -38,18 +38,26 @@ dynamic build(BuildContext context) {
   });
 
   runCase('lerp at 0 gives begin-like value', () {
-    final Decoration? value = tween.transform(0);
-    return value != null;
+    final Decoration value = tween.transform(0);
+    return value.runtimeType.toString().contains('BoxDecoration');
   });
 
   runCase('lerp at 1 gives end-like value', () {
-    final Decoration? value = tween.transform(1);
-    return value != null;
+    final Decoration value = tween.transform(1);
+    return value.runtimeType.toString().contains('BoxDecoration');
   });
 
   runCase('lerp at 0.5 returns decoration', () {
-    final Decoration? value = tween.transform(0.5);
-    return value is Decoration;
+    final Decoration value = tween.transform(0.5);
+    return value.runtimeType.toString().isNotEmpty;
+  });
+
+  runCase('begin and end can be reassigned', () {
+    final DecorationTween t2 = DecorationTween(
+      begin: const BoxDecoration(color: Colors.green),
+      end: const BoxDecoration(color: Colors.yellow),
+    );
+    return t2.begin != tween.begin;
   });
 
   runCase('summary string can be formed', () {

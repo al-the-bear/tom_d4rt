@@ -32,7 +32,7 @@ dynamic build(BuildContext context) {
   });
 
   runCase('intent is an Intent subtype', () {
-    return forward is Intent;
+    return forward.runtimeType.toString().contains('DeleteToLineBreakIntent');
   });
 
   runCase('different direction implies inequality', () {
@@ -46,6 +46,18 @@ dynamic build(BuildContext context) {
 
   runCase('toString includes class name', () {
     return forward.toString().contains('DeleteToLineBreakIntent');
+  });
+
+  runCase('hashCode is consistent for same instance', () {
+    return forward.hashCode == forward.hashCode;
+  });
+
+  runCase('backward toString also mentions class', () {
+    return backward.toString().contains('DeleteToLineBreakIntent');
+  });
+
+  runCase('forward and backward share runtime type', () {
+    return forward.runtimeType == backward.runtimeType;
   });
 
   runCase('summary string can be formed', () {

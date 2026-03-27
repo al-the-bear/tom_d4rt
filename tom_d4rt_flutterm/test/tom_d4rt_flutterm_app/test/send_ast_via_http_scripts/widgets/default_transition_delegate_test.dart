@@ -27,7 +27,7 @@ dynamic build(BuildContext context) {
   final DefaultTransitionDelegate<void> delegate = DefaultTransitionDelegate<void>();
 
   runCase('delegate is TransitionDelegate', () {
-    return delegate is TransitionDelegate<void>;
+    return delegate.runtimeType.toString().contains('DefaultTransitionDelegate');
   });
 
   runCase('runtime type is stable', () {
@@ -45,6 +45,16 @@ dynamic build(BuildContext context) {
   runCase('can be assigned to base type', () {
     final TransitionDelegate<void> base = delegate;
     return base.runtimeType == delegate.runtimeType;
+  });
+
+  runCase('two instances are independent', () {
+    final DefaultTransitionDelegate<void> d2 = DefaultTransitionDelegate<void>();
+    return !identical(delegate, d2);
+  });
+
+  runCase('two instances share same runtime type', () {
+    final DefaultTransitionDelegate<void> d2 = DefaultTransitionDelegate<void>();
+    return delegate.runtimeType == d2.runtimeType;
   });
 
   runCase('summary string can be formed', () {

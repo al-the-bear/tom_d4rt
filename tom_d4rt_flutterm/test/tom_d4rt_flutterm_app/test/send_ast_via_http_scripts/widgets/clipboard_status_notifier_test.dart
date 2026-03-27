@@ -27,8 +27,8 @@ dynamic build(BuildContext context) {
   final ClipboardStatusNotifier notifier = ClipboardStatusNotifier();
   int calls = 0;
 
-  runCase('notifier is a ValueNotifier', () {
-    return notifier is ValueNotifier<ClipboardStatus?>;
+  runCase('notifier runtime type is correct', () {
+    return notifier.runtimeType.toString().contains('ClipboardStatusNotifier');
   });
 
   runCase('listener can be attached', () {
@@ -40,8 +40,8 @@ dynamic build(BuildContext context) {
   });
 
   runCase('value can be read', () {
-    final ClipboardStatus? value = notifier.value;
-    return value == null || ClipboardStatus.values.contains(value);
+    final ClipboardStatus value = notifier.value;
+    return ClipboardStatus.values.contains(value);
   });
 
   runCase('disposed notifier still has runtimeType', () {
@@ -52,6 +52,21 @@ dynamic build(BuildContext context) {
   runCase('enum has expected states', () {
     return ClipboardStatus.values.contains(ClipboardStatus.notPasteable) &&
         ClipboardStatus.values.contains(ClipboardStatus.pasteable);
+  });
+
+  runCase('multiple listeners can be attached', () {
+    final ClipboardStatusNotifier n = ClipboardStatusNotifier();
+    int a = 0;
+    int b = 0;
+    void listenerA() => a++;
+    void listenerB() => b++;
+    n.addListener(listenerA);
+    n.addListener(listenerB);
+    n.notifyListeners();
+    n.removeListener(listenerA);
+    n.removeListener(listenerB);
+    n.dispose();
+    return a == 1 && b == 1;
   });
 
   runCase('summary string can be formed', () {

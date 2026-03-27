@@ -47,6 +47,20 @@ dynamic build(BuildContext context) {
     return CrossFadeState.showSecond.toString().contains('showSecond');
   });
 
+  runCase('hashCodes differ between states', () {
+    return CrossFadeState.showFirst.hashCode != CrossFadeState.showSecond.hashCode;
+  });
+
+  runCase('equality matches same value', () {
+    final CrossFadeState a = CrossFadeState.showFirst;
+    final CrossFadeState b = CrossFadeState.showFirst;
+    return a == b;
+  });
+
+  runCase('inequality for different values', () {
+    return CrossFadeState.showFirst != CrossFadeState.showSecond;
+  });
+
   runCase('summary string can be formed', () {
     final String summary = '${passed.length + failed.length} checks';
     return summary.endsWith('checks');
