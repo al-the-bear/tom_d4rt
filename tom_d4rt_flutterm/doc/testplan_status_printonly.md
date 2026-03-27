@@ -547,26 +547,26 @@ Implemented: 483 Yes, 103 No (widgets/ only)
 | SelectionDetails | selection_details_test.dart | Yes | 2026-03-27 |
 | SemanticsGestureDelegate | semantics_gesture_delegate_test.dart | Yes | 2026-03-27 |
 | ShortcutActivator | shortcut_activator_test.dart | Yes | 2026-03-27 |
-| ShortcutManager | shortcut_manager_test.dart | No | |
-| ShortcutMapProperty | shortcut_map_property_test.dart | No | |
-| ShortcutRegistryEntry | shortcut_registry_entry_test.dart | No | |
-| ShortcutSerialization | shortcut_serialization_test.dart | No | |
-| SingleActivator | single_activator_test.dart | No | |
-| SingleChildRenderObjectElement | single_child_render_object_element_test.dart | No | |
-| SingleChildRenderObjectWidget | single_child_render_object_widget_test.dart | No | |
-| SingleTickerProviderStateMixin | single_ticker_provider_state_mixin_test.dart | No | |
-| SizeChangedLayoutNotification | size_changed_layout_notification_test.dart | No | |
-| SliverAnimatedGridState | sliver_animated_grid_state_test.dart | No | |
-| SliverAnimatedListState | sliver_animated_list_state_test.dart | No | |
-| SliverChildBuilderDelegate | sliver_child_builder_delegate_test.dart | No | |
-| SliverChildDelegate | sliver_child_delegate_test.dart | No | |
-| SliverChildListDelegate | sliver_child_list_delegate_test.dart | No | |
-| SliverMultiBoxAdaptorElement | sliver_multi_box_adaptor_element_test.dart | No | |
-| SliverMultiBoxAdaptorWidget | sliver_multi_box_adaptor_widget_test.dart | No | |
-| SliverPersistentHeaderDelegate | sliver_persistent_header_delegate_test.dart | No | |
-| SliverReorderableListState | sliver_reorderable_list_state_test.dart | No | |
-| SlottedContainerRenderObjectMixin | slotted_container_render_object_mixin_test.dart | No | |
-| SlottedMultiChildRenderObjectWidgetMixin | slotted_multi_child_render_object_widget_mixin_test.dart | No | |
+| ShortcutManager | shortcut_manager_test.dart | Yes | 2026-03-27 |
+| ShortcutMapProperty | shortcut_map_property_test.dart | Yes | 2026-03-27 |
+| ShortcutRegistryEntry | shortcut_registry_entry_test.dart | Yes | 2026-03-27 |
+| ShortcutSerialization | shortcut_serialization_test.dart | Yes | 2026-03-27 |
+| SingleActivator | single_activator_test.dart | Yes | 2026-03-27 |
+| SingleChildRenderObjectElement | single_child_render_object_element_test.dart | Yes | 2026-03-27 |
+| SingleChildRenderObjectWidget | single_child_render_object_widget_test.dart | Yes | 2026-03-27 |
+| SingleTickerProviderStateMixin | single_ticker_provider_state_mixin_test.dart | Yes | 2026-03-27 |
+| SizeChangedLayoutNotification | size_changed_layout_notification_test.dart | Yes | 2026-03-27 |
+| SliverAnimatedGridState | sliver_animated_grid_state_test.dart | Yes | 2026-03-27 |
+| SliverAnimatedListState | sliver_animated_list_state_test.dart | Yes | 2026-03-27 |
+| SliverChildBuilderDelegate | sliver_child_builder_delegate_test.dart | Yes | 2026-03-27 |
+| SliverChildDelegate | sliver_child_delegate_test.dart | Yes | 2026-03-27 |
+| SliverChildListDelegate | sliver_child_list_delegate_test.dart | Yes | 2026-03-27 |
+| SliverMultiBoxAdaptorElement | sliver_multi_box_adaptor_element_test.dart | Yes | 2026-03-27 |
+| SliverMultiBoxAdaptorWidget | sliver_multi_box_adaptor_widget_test.dart | Yes | 2026-03-27 |
+| SliverPersistentHeaderDelegate | sliver_persistent_header_delegate_test.dart | Yes | 2026-03-27 |
+| SliverReorderableListState | sliver_reorderable_list_state_test.dart | Yes | 2026-03-27 |
+| SlottedContainerRenderObjectMixin | slotted_container_render_object_mixin_test.dart | Yes | 2026-03-27 |
+| SlottedMultiChildRenderObjectWidgetMixin | slotted_multi_child_render_object_widget_mixin_test.dart | Yes | 2026-03-27 |
 | SlottedMultiChildRenderObjectWidget | slotted_multi_child_render_object_widget_test.dart | No | |
 | SlottedRenderObjectElement | slotted_render_object_element_test.dart | No | |
 | SnapshotController | snapshot_controller_test.dart | No | |

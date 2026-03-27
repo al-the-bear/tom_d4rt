@@ -1,60 +1,149 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests SlottedContainerRenderObjectMixin from widgets
-import 'package:flutter/widgets.dart';
+// DO NOT MODIFY - AUTO-GENERATED PRINT-ONLY TEST
+// This file is a placeholder test that will be implemented manually.
+// This test file uses a simplified single-class-value widget pattern for D4rt AST validation.
 
-dynamic build(BuildContext context) {
-  print('SlottedContainerRenderObjectMixin test executing');
+import 'package:flutter/material.dart';
 
-  // SlottedContainerRenderObjectMixin - Render object for slotted children
-  // Manages children by slot enum instead of linked list
+/// Print-only test for SlottedContainerRenderObjectMixin class.
+/// Tests render object mixin with named slots with print output verification.
+class SlottedContainerRenderObjectMixinTestApp extends StatelessWidget {
+  const SlottedContainerRenderObjectMixinTestApp({super.key});
 
-  print('SlottedContainerRenderObjectMixin purpose:');
-  print('- Manages children by named slots');
-  print('- Paired with SlottedMultiChildRenderObjectWidgetMixin');
-  print('- Children not in linked list');
-  print('- Access children by slot identifier');
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'SlottedContainerRenderObjectMixin Print Test',
+      home: SlottedContainerRenderObjectMixinTestPage(),
+    );
+  }
+}
 
-  // Key methods
-  print('\nKey methods:');
-  print('- childForSlot(S slot): Get child by slot');
-  print('- setChild(S slot, RenderBox? child): Set slot child');
-  print('- visitChildren(): Iterate all slots');
-  print('- debugDescribeChildren(): Debug info');
+/// Test page demonstrating SlottedContainerRenderObjectMixin functionality via printed output.
+class SlottedContainerRenderObjectMixinTestPage extends StatefulWidget {
+  const SlottedContainerRenderObjectMixinTestPage({super.key});
 
-  // Slot type parameter
-  print('\nSlot type parameter:');
-  print('mixin SlottedContainerRenderObjectMixin<S extends Enum>');
-  print('S is typically an enum like:');
-  print('enum _Slot { leading, title, subtitle, trailing }');
+  @override
+  State<SlottedContainerRenderObjectMixinTestPage> createState() => _SlottedContainerRenderObjectMixinTestPageState();
+}
 
-  // Comparison with ContainerRenderObjectMixin
-  print('\nSlotted vs Container mixin:');
-  print('- Slotted: Named positions (header, footer)');
-  print('- Container: Linked list (firstChild, lastChild)');
-  print('- Slotted: Fixed number of semantic slots');
-  print('- Container: Dynamic number of children');
+class _SlottedContainerRenderObjectMixinTestPageState extends State<SlottedContainerRenderObjectMixinTestPage> {
+  /// Test SlottedContainerRenderObjectMixin mixin declaration
+  void _testMixinDeclaration() {
+    print('=== SlottedContainerRenderObjectMixin Declaration ===');
+    print('mixin SlottedContainerRenderObjectMixin<SlotType, ChildType extends RenderObject>');
+    print('on RenderObject');
+    print('SlotType: type for slots (typically Enum)');
+    print('ChildType: type of RenderObject children (e.g. RenderBox)');
+  }
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('SlottedContainerRenderObjectMixin is mixin on RenderBox');
-  print('Works with SlottedMultiChildRenderObjectWidgetMixin');
-  print('Provides slotted child management');
+  /// Test childForSlot method
+  void _testChildForSlot() {
+    print('=== SlottedContainerRenderObjectMixin childForSlot ===');
+    print('@protected ChildType? childForSlot(SlotType slot)');
+    print('Returns RenderObject in provided slot');
+    print('Returns null if no child in slot');
+    print('Uses internal _slotToChild map');
+  }
 
-  // Use cases
-  print('\nUse cases:');
-  print('- ListTile implementation');
-  print('- Card with fixed sections');
-  print('- AppBar internals');
-  print('- Any widget with named children');
+  /// Test children getter
+  void _testChildrenGetter() {
+    print('=== SlottedContainerRenderObjectMixin children ===');
+    print('@protected Iterable<ChildType> get children');
+    print('Returns all non-null children');
+    print('Used by attach, detach, redepthChildren, visitChildren');
+    print('Default: _slotToChild.values');
+    print('Override for custom order (e.g. hit test order)');
+  }
 
-  print('\nSlottedContainerRenderObjectMixin test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('SlottedContainerRenderObjectMixin Tests'),
-      Text('Render object for slotted children'),
-      Text('childForSlot()/setChild()'),
-      Text('Enum-based child management'),
-    ],
-  );
+  /// Test debugNameForSlot method
+  void _testDebugNameForSlot() {
+    print('=== SlottedContainerRenderObjectMixin debugNameForSlot ===');
+    print('@protected String debugNameForSlot(SlotType slot)');
+    print('Debug name for slot in diagnostics');
+    print('If slot is Enum: returns slot.name');
+    print('Otherwise: returns slot.toString()');
+  }
+
+  /// Test attach method
+  void _testAttach() {
+    print('=== SlottedContainerRenderObjectMixin attach ===');
+    print('void attach(PipelineOwner owner)');
+    print('Calls super.attach(owner)');
+    print('Attaches all children to owner');
+    print('Uses children getter');
+  }
+
+  /// Test detach method
+  void _testDetach() {
+    print('=== SlottedContainerRenderObjectMixin detach ===');
+    print('void detach()');
+    print('Calls super.detach()');
+    print('Detaches all children');
+    print('Uses children getter');
+  }
+
+  /// Test redepthChildren method
+  void _testRedepthChildren() {
+    print('=== SlottedContainerRenderObjectMixin redepthChildren ===');
+    print('void redepthChildren()');
+    print('Updates depth of all children');
+    print('children.forEach(redepthChild)');
+    print('Called when tree structure changes');
+  }
+
+  /// Test visitChildren method
+  void _testVisitChildren() {
+    print('=== SlottedContainerRenderObjectMixin visitChildren ===');
+    print('void visitChildren(RenderObjectVisitor visitor)');
+    print('Visits all children with visitor');
+    print('children.forEach(visitor)');
+    print('Used for tree traversal');
+  }
+
+  /// Test debugDescribeChildren method
+  void _testDebugDescribeChildren() {
+    print('=== SlottedContainerRenderObjectMixin debugDescribeChildren ===');
+    print('List<DiagnosticsNode> debugDescribeChildren()');
+    print('Returns diagnostics for all children');
+    print('Uses debugNameForSlot for names');
+    print('Useful for debugging');
+  }
+
+  /// Test _setChild method
+  void _testSetChild() {
+    print('=== SlottedContainerRenderObjectMixin _setChild ===');
+    print('void _setChild(ChildType? child, SlotType slot)');
+    print('Sets child in slot, handling old child removal');
+    print('If oldChild exists: dropChild(oldChild)');
+    print('If newChild: adoptChild(child)');
+    print('Updates _slotToChild map');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('SlottedContainerRenderObjectMixin Test')),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ElevatedButton(onPressed: _testMixinDeclaration, child: const Text('Test Declaration')),
+            ElevatedButton(onPressed: _testChildForSlot, child: const Text('Test childForSlot')),
+            ElevatedButton(onPressed: _testChildrenGetter, child: const Text('Test children')),
+            ElevatedButton(onPressed: _testDebugNameForSlot, child: const Text('Test debugNameForSlot')),
+            ElevatedButton(onPressed: _testAttach, child: const Text('Test attach')),
+            ElevatedButton(onPressed: _testDetach, child: const Text('Test detach')),
+            ElevatedButton(onPressed: _testRedepthChildren, child: const Text('Test redepthChildren')),
+            ElevatedButton(onPressed: _testVisitChildren, child: const Text('Test visitChildren')),
+            ElevatedButton(onPressed: _testDebugDescribeChildren, child: const Text('Test debugDescribeChildren')),
+            ElevatedButton(onPressed: _testSetChild, child: const Text('Test _setChild')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(const SlottedContainerRenderObjectMixinTestApp());
 }

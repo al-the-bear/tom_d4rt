@@ -1868,54 +1868,54 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [shaderfilter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shaderfilter_test.dart) | ShaderMask | No | Yes | No |
 | [shared_app_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shared_app_data_test.dart) | SharedAppData | No | No | Yes | Checked. |
 | [shortcut_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_activator_test.dart) | ShortcutActivator | No | Yes | Yes | Checked. |
-| [shortcut_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_manager_test.dart) | ShortcutManager | No | No | Yes | Checked. |
-| [shortcut_map_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_map_property_test.dart) | ShortcutMapProperty | No | No | Yes | Checked. |
+| [shortcut_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_manager_test.dart) | ShortcutManager | No | Yes | Yes | Checked. |
+| [shortcut_map_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_map_property_test.dart) | ShortcutMapProperty | No | Yes | Yes | Checked. |
 | [shortcut_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registrar_test.dart) | ShortcutRegistrar | No | No | Yes | Checked. |
-| [shortcut_registry_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart) | ShortcutRegistryEntry | No | No | Yes | Checked. |
+| [shortcut_registry_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart) | ShortcutRegistryEntry | No | Yes | Yes | Checked. |
 | [shortcut_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_test.dart) | ShortcutRegistry | No | No | Yes | Checked. |
-| [shortcut_serialization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | No | Yes | Checked. |
+| [shortcut_serialization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Yes | Yes | Checked. |
 | [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
 | [shortcuts_actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Checked. |
 | [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | No | Yes | Checked. |
-| [single_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | No | Yes | Checked. |
-| [single_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_element_test.dart) | SingleChildRenderObjectElement | No | No | Yes | Checked. |
-| [single_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_widget_test.dart) | SingleChildRenderObjectWidget | No | No | Yes | Checked. |
-| [single_ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_ticker_provider_state_mixin_test.dart) | SingleTickerProviderStateMixin | No | No | Yes | Checked. |
+| [single_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | Yes | Yes | Checked. |
+| [single_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_element_test.dart) | SingleChildRenderObjectElement | No | Yes | Yes | Checked. |
+| [single_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_widget_test.dart) | SingleChildRenderObjectWidget | No | Yes | Yes | Checked. |
+| [single_ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_ticker_provider_state_mixin_test.dart) | SingleTickerProviderStateMixin | No | Yes | Yes | Checked. |
 | [singlechildscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/singlechildscrollview_test.dart) | SingleChildScrollView | No | Yes | No |
-| [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | No | Yes | Checked. |
+| [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | Yes | Yes | Checked. |
 | [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | No | Yes | Checked. |
 | [sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_box_test.dart) | SizedBox | No | Yes | No | Checked. |
 | [sized_overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_overflow_box_test.dart) | SizedOverflowBox | No | No | Yes | Checked. |
 | [sizing_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sizing_test.dart) | UnconstrainedBox | No | Yes | No | Checked. |
 | [slidetransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slidetransition_test.dart) | SlideTransition | No | Yes | No |
 | [sliver_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_advanced_test.dart) | SliverAnimatedList | No | Yes | No | Checked. |
-| [sliver_animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_state_test.dart) | SliverAnimatedGridState | No | No | Yes | Checked. |
+| [sliver_animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_state_test.dart) | SliverAnimatedGridState | No | Yes | Yes | Checked. |
 | [sliver_animated_grid_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_test.dart) | SliverAnimatedGrid | No | No | Yes | Checked. |
-| [sliver_animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart) | SliverAnimatedListState | No | No | Yes | Checked. |
+| [sliver_animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart) | SliverAnimatedListState | No | Yes | Yes | Checked. |
 | [sliver_animated_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_test.dart) | SliverAnimatedList | No | No | Yes | Checked. |
 | [sliver_animated_opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_opacity_test.dart) | SliverAnimatedOpacity | No | No | Yes | Checked. |
-| [sliver_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart) | SliverChildBuilderDelegate | No | No | Yes | Checked. |
-| [sliver_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_delegate_test.dart) | SliverChildDelegate | No | No | Yes | Checked. |
-| [sliver_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_list_delegate_test.dart) | SliverChildListDelegate | No | No | Yes | Checked. |
+| [sliver_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart) | SliverChildBuilderDelegate | No | Yes | Yes | Checked. |
+| [sliver_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_delegate_test.dart) | SliverChildDelegate | No | Yes | Yes | Checked. |
+| [sliver_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_list_delegate_test.dart) | SliverChildListDelegate | No | Yes | Yes | Checked. |
 | [sliver_constrained_cross_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_constrained_cross_axis_test.dart) | SliverConstrainedCrossAxis | No | No | Yes | Checked. |
 | [sliver_cross_axis_expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_cross_axis_expanded_test.dart) | SliverCrossAxisExpanded | No | No | Yes | Checked. |
 | [sliver_cross_axis_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_cross_axis_group_test.dart) | SliverCrossAxisGroup | No | No | Yes | Checked. |
-| [sliver_delegates_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_delegates_test.dart) | SliverChildBuilderDelegate | No | Yes | No | Checked. |
+| [sliver_delegates_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_delegates_test.dart) | SliverChildBuilderDelegate | No | Yes | Yes | Checked. |
 | [sliver_ensure_semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_ensure_semantics_test.dart) | SliverEnsureSemantics | No | No | Yes | Checked. |
 | [sliver_fade_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_fade_transition_test.dart) | SliverFadeTransition | No | No | Yes | Checked. |
 | [sliver_floating_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_floating_header_test.dart) | SliverFloatingHeader | No | No | Yes | Checked. |
 | [sliver_ignore_pointer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_ignore_pointer_test.dart) | SliverIgnorePointer | No | No | Yes | Checked. |
 | [sliver_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_layout_builder_test.dart) | SliverLayoutBuilder | No | No | Yes | Checked. |
 | [sliver_main_axis_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_main_axis_group_test.dart) | SliverMainAxisGroup | No | No | Yes | Checked. |
-| [sliver_multi_box_adaptor_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_element_test.dart) | SliverMultiBoxAdaptorElement | No | No | Yes | Checked. |
-| [sliver_multi_box_adaptor_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_widget_test.dart) | SliverMultiBoxAdaptorWidget | No | No | Yes | Checked. |
+| [sliver_multi_box_adaptor_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_element_test.dart) | SliverMultiBoxAdaptorElement | No | Yes | Yes | Checked. |
+| [sliver_multi_box_adaptor_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_widget_test.dart) | SliverMultiBoxAdaptorWidget | No | Yes | Yes | Checked. |
 | [sliver_offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_offstage_test.dart) | SliverOffstage | No | No | Yes | Checked. |
 | [sliver_overlap_absorber_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_absorber_handle_test.dart) | SliverOverlapAbsorberHandle | No | No | Yes | Checked. |
 | [sliver_overlap_absorber_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_absorber_test.dart) | SliverOverlapAbsorber | No | No | Yes | Checked. |
 | [sliver_overlap_injector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_injector_test.dart) | SliverOverlapInjector | No | No | Yes | Checked. |
-| [sliver_persistent_header_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_persistent_header_delegate_test.dart) | SliverPersistentHeaderDelegate | No | No | Yes | Checked. |
+| [sliver_persistent_header_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_persistent_header_delegate_test.dart) | SliverPersistentHeaderDelegate | No | Yes | Yes | Checked. |
 | [sliver_prototype_extent_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_prototype_extent_list_test.dart) | SliverPrototypeExtentList | No | No | Yes | Checked. |
-| [sliver_reorderable_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_reorderable_list_state_test.dart) | SliverReorderableListState | No | No | Yes | Checked. |
+| [sliver_reorderable_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_reorderable_list_state_test.dart) | SliverReorderableListState | No | Yes | Yes | Checked. |
 | [sliver_reorderable_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_reorderable_list_test.dart) | SliverReorderableList | No | No | Yes | Checked. |
 | [sliver_resizing_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_resizing_header_test.dart) | SliverResizingHeader | No | No | Yes | Checked. |
 | [sliver_safe_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_safe_area_test.dart) | SliverSafeArea | No | No | Yes | Checked. |
@@ -1925,8 +1925,8 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [sliverfillremaining_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverfillremaining_test.dart) | SliverFillRemaining | No | Yes | No |
 | [sliverlist_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverlist_test.dart) | SliverList | No | Yes | No |
 | [sliverwidgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverwidgets_test.dart) | SliverFixedExtentList | No | Yes | No |
-| [slotted_container_render_object_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_container_render_object_mixin_test.dart) | SlottedContainerRenderObjectMixin | No | No | Yes | Checked. |
-| [slotted_multi_child_render_object_widget_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_mixin_test.dart) | SlottedMultiChildRenderObjectWidgetMixin | No | No | Yes | Checked. |
+| [slotted_container_render_object_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_container_render_object_mixin_test.dart) | SlottedContainerRenderObjectMixin | No | Yes | Yes | Checked. |
+| [slotted_multi_child_render_object_widget_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_mixin_test.dart) | SlottedMultiChildRenderObjectWidgetMixin | No | Yes | Yes | Checked. |
 | [slotted_multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_test.dart) | SlottedMultiChildRenderObjectWidget | No | No | Yes | Checked. |
 | [slotted_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_render_object_element_test.dart) | SlottedRenderObjectElement | No | No | Yes | Checked. |
 | [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | No | Yes | Checked. |
