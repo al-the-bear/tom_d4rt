@@ -1,54 +1,95 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests RouteAware from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+// Example implementation of RouteAware
+class TestRouteAware with RouteAware {
+  List<String> events = [];
+
+  @override
+  void didPopNext() {
+    events.add('didPopNext');
+  }
+
+  @override
+  void didPush() {
+    events.add('didPush');
+  }
+
+  @override
+  void didPop() {
+    events.add('didPop');
+  }
+
+  @override
+  void didPushNext() {
+    events.add('didPushNext');
+  }
+}
 
 dynamic build(BuildContext context) {
   print('RouteAware test executing');
+  print('=' * 50);
 
-  // RouteAware - Mixin for objects that need to know about route changes
-  // Used with RouteObserver to receive push/pop notifications
-  
-  print('RouteAware callbacks:');
-  print('- didPush(): Route was pushed on top of another route');
-  print('- didPushNext(): Another route pushed on top of this route');
-  print('- didPop(): Route was popped off the navigator');
-  print('- didPopNext(): Route on top of this was popped');
-  
-  // RouteObserver interaction
-  print('\nUsage with RouteObserver:');
-  print('1. Create RouteObserver<PageRoute> in MaterialApp');
-  print('2. Add to navigatorObservers list');
-  print('3. Mix RouteAware into State class');
-  print('4. Subscribe in didChangeDependencies');
-  print('5. Unsubscribe in dispose');
-  
-  // Code pattern
-  print('\nCode pattern:');
-  print('final routeObserver = RouteObserver<PageRoute>();');
-  print('routeObserver.subscribe(this, ModalRoute.of(context)!);');
-  print('routeObserver.unsubscribe(this);');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RouteAware is a mixin class');
-  print('Works with RouteObserver<R extends Route>');
-  print('ModalRoute.of(context) gets current route');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Pause video when navigating away');
-  print('- Resume audio when returning to page');
-  print('- Analytics page view tracking');
-  print('- Refresh data when returning to screen');
+  // RouteAware is a mixin for widgets aware of their current Route
+  print('\nRouteAware Analysis:');
+  print('  Type: abstract mixin class');
+  print('  Purpose: Interface for route-aware widgets');
+  print('  Used with: RouteObserver');
 
-  print('\nRouteAware test completed');
+  // Create test implementation
+  print('\nTest Implementation:');
+  final routeAware = TestRouteAware();
+  print('  Created TestRouteAware: ${routeAware.runtimeType}');
+  print('  Is RouteAware: ${routeAware is RouteAware}');
+
+  // Test all callback methods
+  print('\nCallback Methods:');
+  
+  routeAware.didPush();
+  print('  didPush() - Called when current route is pushed');
+  print('  Events so far: ${routeAware.events}');
+
+  routeAware.didPushNext();
+  print('  didPushNext() - Called when new route pushed on top');
+  print('  Events so far: ${routeAware.events}');
+
+  routeAware.didPopNext();
+  print('  didPopNext() - Called when top route popped, current shows');
+  print('  Events so far: ${routeAware.events}');
+
+  routeAware.didPop();
+  print('  didPop() - Called when current route popped');
+  print('  Events so far: ${routeAware.events}');
+
+  // All events recorded
+  print('\nAll Events Recorded:');
+  for (var i = 0; i < routeAware.events.length; i++) {
+    print('  ${i + 1}. ${routeAware.events[i]}');
+  }
+
+  // Usage pattern with RouteObserver
+  print('\nUsage Pattern:');
+  print('  1. Create RouteObserver<PageRoute> as navigator observer');
+  print('  2. Subscribe widget in didChangeDependencies');
+  print('  3. Unsubscribe in dispose');
+  print('  4. React to route changes in callbacks');
+
+  print('\n' + '=' * 50);
+  print('RouteAware test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('RouteAware Tests'),
-      Text('Route change notification mixin'),
-      Text('Works with RouteObserver'),
-      Text('didPush/didPop/didPushNext/didPopNext'),
+      Text(
+        'RouteAware Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Implementation: ${routeAware.runtimeType}'),
+      Text('Events count: ${routeAware.events.length}'),
+      Text('Events: ${routeAware.events.join(", ")}'),
     ],
   );
 }

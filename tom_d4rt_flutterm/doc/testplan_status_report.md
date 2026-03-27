@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-27 (Batch 25: 20 print-only tests - RestorableChangeNotifier, RestorableDateTime*, RestorableDouble*, RestorableEnum*, RestorableInt*, RestorableListenable, RestorableNum*, RestorableProperty, RestorableRouteFuture, RestorableString*, RestorableTextEditingController, RestorableValue, RestorationMixin, RootElementMixin. 1120 ≥80L, 868 <80L.)
+Updated: 2026-03-27 (Batch 26: 20 print-only tests - RootRenderObjectElement, RootWidget, RouteAware, RouteInformation*, RoutePopDisposition, RouteTransitionRecord, RouterConfig, ScrollAction, ScrollActivity*, ScrollContext, ScrollDecelerationRate, ScrollDragController, ScrollEndNotification, ScrollHoldController, ScrollIncrement*, ScrollIntent, ScrollMetricsNotification. 1140 ≥80L, 848 <80L.)
 
 ## Implementation Threshold
 
@@ -1788,40 +1788,40 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [root_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_back_button_dispatcher_test.dart) | RootBackButtonDispatcher | No | No | Yes | Checked. |
 | [root_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_mixin_test.dart) | RootElementMixin | Yes | No | Yes | Checked. |
 | [root_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_test.dart) | RootElement | No | No | Yes | Checked. |
-| [root_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_render_object_element_test.dart) | RootRenderObjectElement | No | No | Yes | Checked. |
+| [root_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_render_object_element_test.dart) | RootRenderObjectElement | Yes | No | Yes | Checked. |
 | [root_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_restoration_scope_test.dart) | RootRestorationScope | No | No | Yes | Checked. |
-| [root_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_widget_test.dart) | RootWidget | No | No | Yes | Checked. |
+| [root_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_widget_test.dart) | RootWidget | Yes | No | Yes | Checked. |
 | [rotationtransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/rotationtransition_test.dart) | RotationTransition | No | Yes | No |
-| [route_aware_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_aware_test.dart) | RouteAware | No | No | Yes | Checked. |
-| [route_information_reporting_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_reporting_type_test.dart) | RouteInformationReportingType | No | No | Yes | Checked. |
-| [route_information_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart) | RouteInformation | No | No | Yes | Checked. |
+| [route_aware_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_aware_test.dart) | RouteAware | Yes | No | Yes | Checked. |
+| [route_information_reporting_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_reporting_type_test.dart) | RouteInformationReportingType | Yes | No | Yes | Checked. |
+| [route_information_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart) | RouteInformation | Yes | No | Yes | Checked. |
 | [route_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_observer_test.dart) | RouteObserver | No | Yes | No | Checked. |
-| [route_pop_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart) | RoutePopDisposition | No | No | Yes | Checked. |
+| [route_pop_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart) | RoutePopDisposition | Yes | No | Yes | Checked. |
 | [route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_test.dart) | Route | No | Yes | No | Checked. |
-| [route_transition_record_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_transition_record_test.dart) | RouteTransitionRecord | No | No | Yes | Checked. |
-| [router_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart) | RouterConfig | No | No | Yes | Checked. |
+| [route_transition_record_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_transition_record_test.dart) | RouteTransitionRecord | Yes | No | Yes | Checked. |
+| [router_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart) | RouterConfig | Yes | No | Yes | Checked. |
 | [router_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_test.dart) | Router | No | Yes | No | Checked. |
 | [row_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/row_test.dart) | Row | No | Yes | No |
 | [safearea_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/safearea_test.dart) | SafeArea | No | Yes | No |
 | [scaffold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scaffold_test.dart) | Scaffold | No | Yes | No |
 | [scaffoldstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scaffoldstate_test.dart) | ScaffoldState | No | Yes | No | Checked. |
 | [scaletransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scaletransition_test.dart) | ScaleTransition | No | Yes | No |
-| [scroll_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_action_test.dart) | ScrollAction | No | No | Yes | Checked. |
-| [scroll_activity_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_delegate_test.dart) | ScrollActivityDelegate | No | No | Yes | Checked. |
-| [scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart) | ScrollActivity | No | No | Yes | Checked. |
+| [scroll_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_action_test.dart) | ScrollAction | Yes | No | Yes | Checked. |
+| [scroll_activity_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_delegate_test.dart) | ScrollActivityDelegate | Yes | No | Yes | Checked. |
+| [scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart) | ScrollActivity | Yes | No | Yes | Checked. |
 | [scroll_aware_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_aware_image_provider_test.dart) | ScrollAwareImageProvider | No | No | Yes | Checked. |
 | [scroll_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_behavior_test.dart) | ScrollConfiguration | No | Yes | No | Checked. |
 | [scroll_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_configuration_test.dart) | ScrollConfiguration | No | No | Yes | Checked. |
-| [scroll_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_context_test.dart) | ScrollContext | No | No | Yes | Checked. |
+| [scroll_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_context_test.dart) | ScrollContext | Yes | No | Yes | Checked. |
 | [scroll_controllers_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_controllers_types_test.dart) | ScrollControllersTypes | No | Yes | No | Checked. |
-| [scroll_deceleration_rate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_deceleration_rate_test.dart) | ScrollDecelerationRate | No | No | Yes | Checked. |
-| [scroll_drag_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_drag_controller_test.dart) | ScrollDragController | No | No | Yes | Checked. |
-| [scroll_end_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_end_notification_test.dart) | ScrollEndNotification | No | No | Yes | Checked. |
-| [scroll_hold_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_hold_controller_test.dart) | ScrollHoldController | No | No | Yes | Checked. |
-| [scroll_increment_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_increment_details_test.dart) | ScrollIncrementDetails | No | No | Yes | Checked. |
-| [scroll_increment_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_increment_type_test.dart) | ScrollIncrementType | No | No | Yes | Checked. |
-| [scroll_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_intent_test.dart) | ScrollIntent | No | No | Yes | Checked. |
-| [scroll_metrics_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_metrics_notification_test.dart) | ScrollMetricsNotification | No | No | Yes | Checked. |
+| [scroll_deceleration_rate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_deceleration_rate_test.dart) | ScrollDecelerationRate | Yes | No | Yes | Checked. |
+| [scroll_drag_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_drag_controller_test.dart) | ScrollDragController | Yes | No | Yes | Checked. |
+| [scroll_end_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_end_notification_test.dart) | ScrollEndNotification | Yes | No | Yes | Checked. |
+| [scroll_hold_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_hold_controller_test.dart) | ScrollHoldController | Yes | No | Yes | Checked. |
+| [scroll_increment_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_increment_details_test.dart) | ScrollIncrementDetails | Yes | No | Yes | Checked. |
+| [scroll_increment_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_increment_type_test.dart) | ScrollIncrementType | Yes | No | Yes | Checked. |
+| [scroll_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_intent_test.dart) | ScrollIntent | Yes | No | Yes | Checked. |
+| [scroll_metrics_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_metrics_notification_test.dart) | ScrollMetricsNotification | Yes | No | Yes | Checked. |
 | [scroll_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_metrics_test.dart) | FixedScrollMetrics | No | Yes | No | Checked. |
 | [scroll_notification_observer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_state_test.dart) | ScrollNotificationObserverState | No | No | Yes | Checked. |
 | [scroll_notification_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_test.dart) | ScrollNotificationObserver | No | No | Yes | Checked. |

@@ -506,26 +506,26 @@ Total remaining: 586 files
 | RestorationMixin | restoration_mixin_test.dart | Yes | 2026-03-27 |
 | RootElementMixin | root_element_mixin_test.dart | Yes | 2026-03-27 |
 | RootElement | root_element_test.dart | No | |
-| RootRenderObjectElement | root_render_object_element_test.dart | No | |
-| RootWidget | root_widget_test.dart | No | |
-| RouteAware | route_aware_test.dart | No | |
-| RouteInformationReportingType | route_information_reporting_type_test.dart | No | |
-| RouteInformation | route_information_test.dart | No | |
-| RoutePopDisposition | route_pop_disposition_test.dart | No | |
-| RouteTransitionRecord | route_transition_record_test.dart | No | |
-| RouterConfig | router_config_test.dart | No | |
-| ScrollAction | scroll_action_test.dart | No | |
-| ScrollActivityDelegate | scroll_activity_delegate_test.dart | No | |
-| ScrollActivity | scroll_activity_test.dart | No | |
-| ScrollContext | scroll_context_test.dart | No | |
-| ScrollDecelerationRate | scroll_deceleration_rate_test.dart | No | |
-| ScrollDragController | scroll_drag_controller_test.dart | No | |
-| ScrollEndNotification | scroll_end_notification_test.dart | No | |
-| ScrollHoldController | scroll_hold_controller_test.dart | No | |
-| ScrollIncrementDetails | scroll_increment_details_test.dart | No | |
-| ScrollIncrementType | scroll_increment_type_test.dart | No | |
-| ScrollIntent | scroll_intent_test.dart | No | |
-| ScrollMetricsNotification | scroll_metrics_notification_test.dart | No | |
+| RootRenderObjectElement | root_render_object_element_test.dart | Yes | 2026-03-27 | |
+| RootWidget | root_widget_test.dart | Yes | 2026-03-27 | |
+| RouteAware | route_aware_test.dart | Yes | 2026-03-27 | |
+| RouteInformationReportingType | route_information_reporting_type_test.dart | Yes | 2026-03-27 | |
+| RouteInformation | route_information_test.dart | Yes | 2026-03-27 | |
+| RoutePopDisposition | route_pop_disposition_test.dart | Yes | 2026-03-27 | |
+| RouteTransitionRecord | route_transition_record_test.dart | Yes | 2026-03-27 | |
+| RouterConfig | router_config_test.dart | Yes | 2026-03-27 | |
+| ScrollAction | scroll_action_test.dart | Yes | 2026-03-27 | |
+| ScrollActivityDelegate | scroll_activity_delegate_test.dart | Yes | 2026-03-27 | |
+| ScrollActivity | scroll_activity_test.dart | Yes | 2026-03-27 | |
+| ScrollContext | scroll_context_test.dart | Yes | 2026-03-27 | |
+| ScrollDecelerationRate | scroll_deceleration_rate_test.dart | Yes | 2026-03-27 | |
+| ScrollDragController | scroll_drag_controller_test.dart | Yes | 2026-03-27 | |
+| ScrollEndNotification | scroll_end_notification_test.dart | Yes | 2026-03-27 | |
+| ScrollHoldController | scroll_hold_controller_test.dart | Yes | 2026-03-27 | |
+| ScrollIncrementDetails | scroll_increment_details_test.dart | Yes | 2026-03-27 | |
+| ScrollIncrementType | scroll_increment_type_test.dart | Yes | 2026-03-27 | |
+| ScrollIntent | scroll_intent_test.dart | Yes | 2026-03-27 | |
+| ScrollMetricsNotification | scroll_metrics_notification_test.dart | Yes | 2026-03-27 | |
 | ScrollNotificationObserverState | scroll_notification_observer_state_test.dart | No | |
 | ScrollPhysics | scroll_physics_test.dart | No | |
 | ScrollPositionAlignmentPolicy | scroll_position_alignment_policy_test.dart | No | |
