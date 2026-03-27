@@ -385,26 +385,26 @@ Total remaining: 586 files
 | InspectorSerializationDelegate | inspector_serialization_delegate_test.dart | Yes | 2026-03-27 |
 | KeepAliveHandle | keep_alive_handle_test.dart | Yes | 2026-03-27 |
 | KeepAliveNotification | keep_alive_notification_test.dart | Yes | 2026-03-27 |
-| KeyEventResult | key_event_result_test.dart | No | |
-| KeySet | key_set_test.dart | No | |
-| LabeledGlobalKey | labeled_global_key_test.dart | No | |
-| LeafRenderObjectElement | leaf_render_object_element_test.dart | No | |
-| LeafRenderObjectWidget | leaf_render_object_widget_test.dart | No | |
-| LexicalFocusOrder | lexical_focus_order_test.dart | No | |
-| ListWheelChildBuilderDelegate | list_wheel_child_builder_delegate_test.dart | No | |
-| ListWheelChildDelegate | list_wheel_child_delegate_test.dart | No | |
-| ListWheelChildListDelegate | list_wheel_child_list_delegate_test.dart | No | |
-| ListWheelChildLoopingListDelegate | list_wheel_child_looping_list_delegate_test.dart | No | |
-| ListWheelElement | list_wheel_element_test.dart | No | |
-| LiveTextInputStatusNotifier | live_text_input_status_notifier_test.dart | No | |
-| LiveTextInputStatus | live_text_input_status_test.dart | No | |
-| LocalHistoryEntry | local_history_entry_test.dart | No | |
-| LocalizationsResolver | localizations_resolver_test.dart | No | |
-| LockState | lock_state_test.dart | No | |
-| LogicalKeySet | logical_key_set_test.dart | No | |
-| MagnifierController | magnifier_controller_test.dart | No | |
-| MagnifierInfo | magnifier_info_test.dart | No | |
-| Matrix4Tween | matrix4_tween_test.dart | No | |
+| KeyEventResult | key_event_result_test.dart | Yes | 2026-03-27 |
+| KeySet | key_set_test.dart | Yes | 2026-03-27 |
+| LabeledGlobalKey | labeled_global_key_test.dart | Yes | 2026-03-27 |
+| LeafRenderObjectElement | leaf_render_object_element_test.dart | Yes | 2026-03-27 |
+| LeafRenderObjectWidget | leaf_render_object_widget_test.dart | Yes | 2026-03-27 |
+| LexicalFocusOrder | lexical_focus_order_test.dart | Yes | 2026-03-27 |
+| ListWheelChildBuilderDelegate | list_wheel_child_builder_delegate_test.dart | Yes | 2026-03-27 |
+| ListWheelChildDelegate | list_wheel_child_delegate_test.dart | Yes | 2026-03-27 |
+| ListWheelChildListDelegate | list_wheel_child_list_delegate_test.dart | Yes | 2026-03-27 |
+| ListWheelChildLoopingListDelegate | list_wheel_child_looping_list_delegate_test.dart | Yes | 2026-03-27 |
+| ListWheelElement | list_wheel_element_test.dart | Yes | 2026-03-27 |
+| LiveTextInputStatusNotifier | live_text_input_status_notifier_test.dart | Yes | 2026-03-27 |
+| LiveTextInputStatus | live_text_input_status_test.dart | Yes | 2026-03-27 |
+| LocalHistoryEntry | local_history_entry_test.dart | Yes | 2026-03-27 |
+| LocalizationsResolver | localizations_resolver_test.dart | Yes | 2026-03-27 |
+| LockState | lock_state_test.dart | Yes | 2026-03-27 |
+| LogicalKeySet | logical_key_set_test.dart | Yes | 2026-03-27 |
+| MagnifierController | magnifier_controller_test.dart | Yes | 2026-03-27 |
+| MagnifierInfo | magnifier_info_test.dart | Yes | 2026-03-27 |
+| Matrix4Tween | matrix4_tween_test.dart | Yes | 2026-03-27 |
 | MenuController | menu_controller_test.dart | No | |
 | MultiChildRenderObjectElement | multi_child_render_object_element_test.dart | No | |
 | MultiChildRenderObjectWidget | multi_child_render_object_widget_test.dart | No | |
