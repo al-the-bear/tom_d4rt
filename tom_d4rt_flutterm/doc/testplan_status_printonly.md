@@ -2,7 +2,7 @@
 
 Generated: 2026-03-26
 Total remaining: 586 files
-Implemented: 483 Yes, 103 No (widgets/ only)
+Implemented: 523 Yes, 63 No (widgets/ only)
 
 ## cupertino/ (1 file)
 
@@ -567,26 +567,26 @@ Implemented: 483 Yes, 103 No (widgets/ only)
 | SliverReorderableListState | sliver_reorderable_list_state_test.dart | Yes | 2026-03-27 |
 | SlottedContainerRenderObjectMixin | slotted_container_render_object_mixin_test.dart | Yes | 2026-03-27 |
 | SlottedMultiChildRenderObjectWidgetMixin | slotted_multi_child_render_object_widget_mixin_test.dart | Yes | 2026-03-27 |
-| SlottedMultiChildRenderObjectWidget | slotted_multi_child_render_object_widget_test.dart | No | |
-| SlottedRenderObjectElement | slotted_render_object_element_test.dart | No | |
-| SnapshotController | snapshot_controller_test.dart | No | |
-| SnapshotMode | snapshot_mode_test.dart | No | |
-| SpellCheckConfiguration | spell_check_configuration_test.dart | No | |
-| StandardComponentType | standard_component_type_test.dart | No | |
-| StatefulElement | stateful_element_test.dart | No | |
-| StatelessElement | stateless_element_test.dart | No | |
-| StaticSelectionContainerDelegate | static_selection_container_delegate_test.dart | No | |
-| StreamBuilderBase | stream_builder_base_test.dart | No | |
-| TextMagnifierConfiguration | text_magnifier_configuration_test.dart | No | |
-| TextSelectionControls | text_selection_controls_test.dart | No | |
-| TextSelectionGestureDetectorBuilderDelegate | text_selection_gesture_detector_builder_delegate_test.dart | No | |
-| TextSelectionGestureDetectorBuilder | text_selection_gesture_detector_builder_test.dart | No | |
-| TextSelectionHandleControls | text_selection_handle_controls_test.dart | No | |
-| TextSelectionToolbarAnchors | text_selection_toolbar_anchors_test.dart | No | |
-| TextSelectionToolbarLayoutDelegate | text_selection_toolbar_layout_delegate_test.dart | No | |
-| TextStyleTween | text_style_tween_test.dart | No | |
-| TickerProviderStateMixin | ticker_provider_state_mixin_test.dart | No | |
-| ToggleablePainter | toggleable_painter_test.dart | No | |
+| SlottedMultiChildRenderObjectWidget | slotted_multi_child_render_object_widget_test.dart | Yes | 2026-03-27 |
+| SlottedRenderObjectElement | slotted_render_object_element_test.dart | Yes | 2026-03-27 |
+| SnapshotController | snapshot_controller_test.dart | Yes | 2026-03-27 |
+| SnapshotMode | snapshot_mode_test.dart | Yes | 2026-03-27 |
+| SpellCheckConfiguration | spell_check_configuration_test.dart | Yes | 2026-03-27 |
+| StandardComponentType | standard_component_type_test.dart | Yes | 2026-03-27 |
+| StatefulElement | stateful_element_test.dart | Yes | 2026-03-27 |
+| StatelessElement | stateless_element_test.dart | Yes | 2026-03-27 |
+| StaticSelectionContainerDelegate | static_selection_container_delegate_test.dart | Yes | 2026-03-27 |
+| StreamBuilderBase | stream_builder_base_test.dart | Yes | 2026-03-27 |
+| TextMagnifierConfiguration | text_magnifier_configuration_test.dart | Yes | 2026-03-27 |
+| TextSelectionControls | text_selection_controls_test.dart | Yes | 2026-03-27 |
+| TextSelectionGestureDetectorBuilderDelegate | text_selection_gesture_detector_builder_delegate_test.dart | Yes | 2026-03-27 |
+| TextSelectionGestureDetectorBuilder | text_selection_gesture_detector_builder_test.dart | Yes | 2026-03-27 |
+| TextSelectionHandleControls | text_selection_handle_controls_test.dart | Yes | 2026-03-27 |
+| TextSelectionToolbarAnchors | text_selection_toolbar_anchors_test.dart | Yes | 2026-03-27 |
+| TextSelectionToolbarLayoutDelegate | text_selection_toolbar_layout_delegate_test.dart | Yes | 2026-03-27 |
+| TextStyleTween | text_style_tween_test.dart | Yes | 2026-03-27 |
+| TickerProviderStateMixin | ticker_provider_state_mixin_test.dart | Yes | 2026-03-27 |
+| ToggleablePainter | toggleable_painter_test.dart | Yes | 2026-03-27 |
 | ToggleableStateMixin | toggleable_state_mixin_test.dart | No | |
 | ToolbarItemsParentData | toolbar_items_parent_data_test.dart | No | |
 | ToolbarOptions | toolbar_options_test.dart | No | |

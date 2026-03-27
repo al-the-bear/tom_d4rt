@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-27 (Batch 27: 20 print-only tests - ScrollNotificationObserverState, ScrollPhysics, ScrollPosition*, ScrollStartNotification, ScrollToDocumentBoundaryIntent, ScrollUpdateNotification, ScrollViewKeyboardDismissBehavior, Scrollable*, ScrollbarOrientation, Select*, SelectableRegionState, Selection*, SemanticsGestureDelegate, ShortcutActivator. 1160 ≥80L, 828 <80L.)
+Updated: 2026-03-27 (Batch 29: 20 print-only tests - SlottedMultiChildRenderObjectWidget, SlottedRenderObjectElement, Snapshot*, SpellCheckConfiguration, StandardComponentType, State*Element, StaticSelectionContainerDelegate, StreamBuilderBase, TextMagnifierConfiguration, TextSelection*, TextStyleTween, TickerProviderStateMixin, ToggleablePainter. 1200 ≥80L, 788 <80L.)
 
 ## Implementation Threshold
 
@@ -1927,22 +1927,22 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [sliverwidgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverwidgets_test.dart) | SliverFixedExtentList | No | Yes | No |
 | [slotted_container_render_object_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_container_render_object_mixin_test.dart) | SlottedContainerRenderObjectMixin | No | Yes | Yes | Checked. |
 | [slotted_multi_child_render_object_widget_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_mixin_test.dart) | SlottedMultiChildRenderObjectWidgetMixin | No | Yes | Yes | Checked. |
-| [slotted_multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_test.dart) | SlottedMultiChildRenderObjectWidget | No | No | Yes | Checked. |
-| [slotted_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_render_object_element_test.dart) | SlottedRenderObjectElement | No | No | Yes | Checked. |
-| [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | No | Yes | Checked. |
-| [snapshot_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_mode_test.dart) | SnapshotMode | No | No | Yes | Checked. |
+| [slotted_multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_test.dart) | SlottedMultiChildRenderObjectWidget | No | Yes | Yes | Checked. |
+| [slotted_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_render_object_element_test.dart) | SlottedRenderObjectElement | No | Yes | Yes | Checked. |
+| [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | Yes | Yes | Checked. |
+| [snapshot_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_mode_test.dart) | SnapshotMode | No | Yes | Yes | Checked. |
 | [snapshot_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_painter_test.dart) | SnapshotPainter | No | No | Yes | Checked. |
 | [snapshot_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_widget_test.dart) | SnapshotWidget | No | No | Yes | Checked. |
 | [spacer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spacer_test.dart) | Spacer | No | No | Yes | Checked. |
-| [spell_check_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spell_check_configuration_test.dart) | SpellCheckConfiguration | No | No | Yes | Checked. |
+| [spell_check_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spell_check_configuration_test.dart) | SpellCheckConfiguration | No | Yes | Yes | Checked. |
 | [stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stack_test.dart) | Stack | No | Yes | No |
-| [standard_component_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/standard_component_type_test.dart) | StandardComponentType | No | No | Yes | Checked. |
-| [stateful_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stateful_element_test.dart) | StatefulElement | No | No | Yes | Checked. |
+| [standard_component_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/standard_component_type_test.dart) | StandardComponentType | No | Yes | Yes | Checked. |
+| [stateful_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stateful_element_test.dart) | StatefulElement | No | Yes | Yes | Checked. |
 | [statefulwidget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/statefulwidget_test.dart) | StatelessWidget | No | Yes | No | Checked. |
-| [stateless_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stateless_element_test.dart) | StatelessElement | No | No | Yes | Checked. |
-| [static_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/static_selection_container_delegate_test.dart) | StaticSelectionContainerDelegate | No | No | Yes | Checked. |
+| [stateless_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stateless_element_test.dart) | StatelessElement | No | Yes | Yes | Checked. |
+| [static_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/static_selection_container_delegate_test.dart) | StaticSelectionContainerDelegate | No | Yes | Yes | Checked. |
 | [status_transition_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/status_transition_widget_test.dart) | StatusTransitionWidget | No | No | Yes | Checked. |
-| [stream_builder_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stream_builder_base_test.dart) | StreamBuilderBase | No | No | Yes | Checked. |
+| [stream_builder_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stream_builder_base_test.dart) | StreamBuilderBase | No | Yes | Yes | Checked. |
 | [streambuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart) | StreamBuilder | No | Yes | No | Checked. |
 | [stretch_effect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretch_effect_test.dart) | StretchEffect | No | No | Yes | Checked. |
 | [stretching_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretching_overscroll_indicator_test.dart) | StretchingOverscrollIndicator | No | No | Yes | Checked. |
@@ -1958,18 +1958,18 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_test.dart) | TapRegion | No | No | Yes | Checked. |
 | [text_editing_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_editing_adv_test.dart) | TextEditingAdv | No | Yes | No | Checked. |
 | [text_field_tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_field_tap_region_test.dart) | TextFieldTapRegion | No | No | Yes | Checked. |
-| [text_magnifier_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_configuration_test.dart) | TextMagnifierConfiguration | No | No | Yes | Checked. |
+| [text_magnifier_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_configuration_test.dart) | TextMagnifierConfiguration | No | Yes | Yes | Checked. |
 | [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_test.dart) | MagnifierDecoration | No | No | Yes | Checked. |
-| [text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_controls_test.dart) | TextSelectionControls | No | No | Yes | Checked. |
-| [text_selection_gesture_detector_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_delegate_test.dart) | TextSelectionGestureDetectorBuilderDelegate | No | No | Yes | Checked. |
-| [text_selection_gesture_detector_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_test.dart) | TextSelectionGestureDetectorBuilder | No | No | Yes | Checked. |
+| [text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_controls_test.dart) | TextSelectionControls | No | Yes | Yes | Checked. |
+| [text_selection_gesture_detector_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_delegate_test.dart) | TextSelectionGestureDetectorBuilderDelegate | No | Yes | Yes | Checked. |
+| [text_selection_gesture_detector_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_test.dart) | TextSelectionGestureDetectorBuilder | No | Yes | Yes | Checked. |
 | [text_selection_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_test.dart) | TextSelectionGestureDetector | No | No | Yes | Checked. |
-| [text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_handle_controls_test.dart) | TextSelectionHandleControls | No | No | Yes | Checked. |
+| [text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_handle_controls_test.dart) | TextSelectionHandleControls | No | Yes | Yes | Checked. |
 | [text_selection_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_overlay_test.dart) | TextSelectionOverlay | No | No | Yes | Checked. |
-| [text_selection_toolbar_anchors_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_anchors_test.dart) | TextSelectionToolbarAnchors | No | No | Yes | Checked. |
-| [text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_layout_delegate_test.dart) | TextSelectionToolbarLayoutDelegate | No | No | Yes | Checked. |
+| [text_selection_toolbar_anchors_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_anchors_test.dart) | TextSelectionToolbarAnchors | No | Yes | Yes | Checked. |
+| [text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_layout_delegate_test.dart) | TextSelectionToolbarLayoutDelegate | No | Yes | Yes | Checked. |
 | [text_selection_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_widgets_test.dart) | TextSelectionTheme | No | Yes | No | Checked. |
-| [text_style_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | No | Yes | Checked. |
+| [text_style_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | Yes | Yes | Checked. |
 | [text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_test.dart) | Text | No | Yes | No |
 | [textcontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textcontroller_test.dart) | TextEditingController | No | Yes | No | Checked. |
 | [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textfield_test.dart) | Textfield | No | No | Yes | Checked. |
@@ -1977,9 +1977,9 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [texture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/texture_test.dart) | Texture | No | No | Yes | Checked. |
 | [ticker_mode_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_data_test.dart) | TickerModeData | No | No | Yes | Checked. |
 | [ticker_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_test.dart) | TickerMode | No | No | Yes | Checked. |
-| [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | No | Yes | Checked. |
+| [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Yes | Yes | Checked. |
 | [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | No | Yes | Checked. |
-| [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | No | Yes | Checked. |
+| [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | Yes | Yes | Checked. |
 | [toggleable_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_state_mixin_test.dart) | ToggleableStateMixin | No | No | Yes | Checked. |
 | [toolbar_items_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart) | ToolbarItemsParentData | No | No | Yes | Checked. |
 | [toolbar_options_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart) | ToolbarOptions | No | No | Yes | Checked. |
