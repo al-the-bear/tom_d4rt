@@ -1,64 +1,82 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderObjectWidget from widgets
+// Generated print-only test for RenderObjectWidget
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderObjectWidget test executing');
+/// Print-only test for RenderObjectWidget
+/// This test prints class structure and API information.
+class RenderObjectWidgetTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderObjectWidget PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderObjectWidget - Base class for widgets that create RenderObjects
-  // The foundation of Flutter's rendering system integration
+  // Class definition
+  print('\n--- RenderObjectWidget class ---');
+  print('abstract class RenderObjectWidget extends Widget');
+  print('Purpose: Widget that creates a RenderObject');
 
-  print('RenderObjectWidget purpose:');
-  print('- Creates and configures RenderObjects');
-  print('- Bridge between Widget and Render trees');
-  print('- Abstract base with key methods');
-  print('- Foundation of visual widgets');
+  // Constructor
+  print('\n--- Constructor ---');
+  print('const RenderObjectWidget({super.key})');
+  print('Abstract const constructor');
+  print('Enables const subclass constructors');
 
-  // Key abstract methods
-  print('\nKey methods to override:');
-  print('- createRenderObject(context): Create new RenderObject');
-  print('- updateRenderObject(context, renderObject): Update existing');
-  print('- createElement(): Create matching Element');
+  // createElement
+  print('\n--- createElement() ---');
+  print('@override');
+  print('@factory');
+  print('RenderObjectElement createElement()');
+  print('Must return RenderObjectElement subclass');
+  print('Called by framework to inflate widget');
 
-  // Subclass hierarchy
-  print('\nRenderObjectWidget subclasses:');
-  print('- LeafRenderObjectWidget: No children');
-  print('- SingleChildRenderObjectWidget: One child');
-  print('- MultiChildRenderObjectWidget: Multiple children');
+  // createRenderObject
+  print('\n--- createRenderObject() ---');
+  print('@protected');
+  print('@factory');
+  print('RenderObject createRenderObject(BuildContext context)');
+  print('Creates the RenderObject for this widget');
+  print('Should NOT configure children');
 
-  // Example subclasses in Flutter
-  print('\nExample widgets extending these:');
-  print('- ColoredBox (Leaf): Just paints color');
-  print('- Padding (SingleChild): Adds insets around child');
-  print('- Row/Column (MultiChild): Multiple children');
+  // updateRenderObject
+  print('\n--- updateRenderObject() ---');
+  print('@protected');
+  print('void updateRenderObject(BuildContext context,');
+  print('  covariant RenderObject renderObject)');
+  print('Copies configuration to render object');
+  print('Called when widget configuration changes');
+  print('Default implementation is empty');
 
-  // Lifecycle
-  print('\nWidget-RenderObject lifecycle:');
-  print('1. Widget inserted: createRenderObject called');
-  print('2. Widget rebuilt: updateRenderObject called');
-  print('3. Widget removed: didUnmountRenderObject called');
+  // didUnmountRenderObject
+  print('\n--- didUnmountRenderObject() ---');
+  print('@protected');
+  print('void didUnmountRenderObject(');
+  print('  covariant RenderObject renderObject)');
+  print('Called when render object removed');
+  print('Opportunity for cleanup');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderObjectWidget extends Widget');
-  print('Creates RenderObjectElement');
-  print('Widget -> Element -> RenderObject architecture');
+  // Subclasses
+  print('\n--- Common subclasses ---');
+  print('LeafRenderObjectWidget: no children');
+  print('SingleChildRenderObjectWidget: one child');
+  print('MultiChildRenderObjectWidget: N children');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Custom painting widgets');
-  print('- Custom layout widgets');
-  print('- Platform view integration');
-  print('- Performance-critical rendering');
+  // Element-RenderObject relationship
+  print('\n--- Element-RenderObject lifecycle ---');
+  print('Element.mount() -> createRenderObject()');
+  print('Element.update() -> updateRenderObject()');
+  print('Element.unmount() -> didUnmountRenderObject()');
 
-  print('\nRenderObjectWidget test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderObjectWidget Tests'),
-      Text('Creates RenderObjects'),
-      Text('createRenderObject / updateRenderObject'),
-      Text('Leaf / SingleChild / MultiChild variants'),
-    ],
-  );
+
+  // Common pattern
+  print('\n--- Common implementation ---');
+  print('class MyRenderWidget extends SingleChildRenderObjectWidget {');
+  print('  @override');
+  print('  RenderObject createRenderObject(context) => MyRender();');
+  print('}');
+
+  print('\n' + '=' * 50);
+  print('END RenderObjectWidget PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

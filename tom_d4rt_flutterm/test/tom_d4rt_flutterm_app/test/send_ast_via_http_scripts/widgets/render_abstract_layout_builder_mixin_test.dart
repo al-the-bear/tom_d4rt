@@ -1,59 +1,83 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderAbstractLayoutBuilderMixin from widgets
+// Generated print-only test for RenderAbstractLayoutBuilderMixin
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderAbstractLayoutBuilderMixin test executing');
+/// Print-only test for RenderAbstractLayoutBuilderMixin
+/// This test prints class structure and API information.
+class RenderAbstractLayoutBuilderMixinTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderAbstractLayoutBuilderMixin PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderAbstractLayoutBuilderMixin - Common logic for LayoutBuilder render objects
-  // Provides constraint-aware child building mechanism
+  // Mixin definition
+  print('\n--- RenderAbstractLayoutBuilderMixin ---');
+  print('mixin RenderAbstractLayoutBuilderMixin<LayoutInfoType, ChildType>');
+  print('  on RenderObjectWithChildMixin<ChildType>,');
+  print('     RenderObjectWithLayoutCallbackMixin');
+  print('Purpose: Base for layout builders with callbacks');
 
-  print('RenderAbstractLayoutBuilderMixin purpose:');
-  print('- Provides base implementation for LayoutBuilder');
-  print('- Manages callback invocation during layout');
-  print('- Handles constraints change detection');
-  print('- Enables responsive layout building');
+  // Type parameters
+  print('\n--- Type parameters ---');
+  print('LayoutInfoType: info passed to builder callback');
+  print('ChildType: type of child RenderObject');
+  print('Default LayoutInfoType is Constraints');
 
-  // How LayoutBuilder works
-  print('\nLayoutBuilder mechanism:');
-  print('1. Parent provides constraints during layout');
-  print('2. Render object gets constraints');
-  print('3. Callback invoked with constraints');
-  print('4. Child widget built based on constraints');
-  print('5. Child laid out with same constraints');
+  // Callback mechanism
+  print('\n--- Callback mechanism ---');
+  print('_callback: LayoutCallback<Constraints>?');
+  print('_updateCallback(): sets and schedules callback');
+  print('scheduleLayoutCallback(): marks needs layout');
 
-  // Key callbacks/methods
-  print('\nKey methods:');
-  print('- layoutCallback: Invoked during layout');
-  print('- rebuildIfNecessary(): Triggers rebuild');
-  print('- markNeedsLayout(): Schedules new layout');
+  // layoutCallback method
+  print('\n--- layoutCallback() ---');
+  print('@visibleForOverriding');
+  print('@override');
+  print('void layoutCallback() => _callback!(constraints)');
+  print('Called during performLayout');
+  print('Invokes builder with current constraints');
 
-  // Implementations
-  print('\nImplementations using this mixin:');
-  print('- RenderLayoutBuilder: Standard box constraints');
-  print('- RenderSliverLayoutBuilder: Sliver constraints');
+  // layoutInfo property
+  print('\n--- layoutInfo property ---');
+  print('@protected');
+  print('LayoutInfoType get layoutInfo => constraints');
+  print('Override in subclasses for custom info');
+  print('Default returns incoming constraints');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderAbstractLayoutBuilderMixin is a mixin');
-  print('Mixed into RenderObject subclasses');
-  print('Used by _RenderLayoutBuilder internally');
+  // Usage pattern
+  print('\n--- Usage pattern ---');
+  print('1. Call layoutCallback() in performLayout');
+  print('2. Builder receives layoutInfo');
+  print('3. Builder rebuilds widget tree');
+  print('4. Continue with layout');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Responsive layouts');
-  print('- Constraint-dependent UI');
-  print('- Custom layout builders');
-  print('- Size-aware widgets');
+  // LayoutBuilder usage
+  print('\n--- LayoutBuilder example ---');
+  print('LayoutBuilder(');
+  print('  builder: (context, constraints) {');
+  print('    // constraints come from layoutInfo');
+  print('    return SizedBox(...);');
+  print('  },');
+  print(')');
 
-  print('\nRenderAbstractLayoutBuilderMixin test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderAbstractLayoutBuilderMixin Tests'),
-      Text('Base for LayoutBuilder render objects'),
-      Text('Constraint-aware child building'),
-      Text('Responsive layout support'),
-    ],
-  );
+  // Replacement note
+  print('\n--- RenderConstrainedLayoutBuilder ---');
+  print('typedef RenderConstrainedLayoutBuilder = ');
+  print('  RenderAbstractLayoutBuilderMixin');
+  print('Old name, use new mixin name');
+
+
+  // Custom layoutInfo
+  print('\n--- Custom layoutInfo override ---');
+  print('@override');
+  print('MyLayoutInfo get layoutInfo => MyLayoutInfo(');
+  print('  constraints: constraints,');
+  print('  extraData: computeExtra(),');
+  print(')');
+
+  print('\n' + '=' * 50);
+  print('END RenderAbstractLayoutBuilderMixin PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

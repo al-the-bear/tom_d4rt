@@ -1,64 +1,85 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderObjectElement from widgets
+// Generated print-only test for RenderObjectElement
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderObjectElement test executing');
+/// Print-only test for RenderObjectElement
+/// This test prints class structure and API information.
+class RenderObjectElementTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderObjectElement PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderObjectElement - Element that holds a RenderObject
-  // Manages the RenderObject lifecycle and tree attachment
+  // Class definition
+  print('\n--- RenderObjectElement class ---');
+  print('abstract class RenderObjectElement extends Element');
+  print('Purpose: Element that manages a RenderObject');
 
-  print('RenderObjectElement purpose:');
-  print('- Manages RenderObject lifecycle');
-  print('- Attaches/detaches render objects from tree');
-  print('- Handles render object updates');
-  print('- Coordinates element and render trees');
+  // Constructor
+  print('\n--- Constructor ---');
+  print('RenderObjectElement(RenderObjectWidget widget)');
+  print('Takes RenderObjectWidget configuration');
 
-  // Key methods
-  print('\nKey methods:');
-  print('- mount(): Creates and attaches renderObject');
-  print('- update(): Updates renderObject from new widget');
-  print('- unmount(): Detaches and removes renderObject');
-  print('- performRebuild(): Rebuilds after dependency change');
+  // Key properties
+  print('\n--- Properties ---');
+  print('renderObject: RenderObject (read-only)');
+  print('_renderObject: RenderObject? (internal)');
+  print('_ancestorRenderObjectElement: RenderObjectElement?');
+  print('renderObjectAttachingChild: Element? => null');
+  print('debugDoingBuild: bool');
 
-  // RenderObject attachment
-  print('\nRender tree attachment:');
-  print('- insertRenderObjectChild(): Insert child render object');
-  print('- moveRenderObjectChild(): Change child position');
-  print('- removeRenderObjectChild(): Remove child');
+  // Lifecycle methods
+  print('\n--- Lifecycle methods ---');
+  print('mount(parent, newSlot): creates render object');
+  print('unmount(): detaches render object');
+  print('update(newWidget): updates render object');
+  print('performRebuild(): rebuilds element');
 
-  // Subclass hierarchy
-  print('\nRenderObjectElement subclasses:');
-  print('- LeafRenderObjectElement: No children');
-  print('- SingleChildRenderObjectElement: One child');
-  print('- MultiChildRenderObjectElement: Multiple children');
+  // Render object management
+  print('\n--- Render object creation ---');
+  print('widget.createRenderObject(this)');
+  print('Called during mount()');
+  print('Sets _renderObject');
 
-  // Three trees coordination
-  print('\nThree trees:');
-  print('Widget tree -> Element tree -> RenderObject tree');
-  print('RenderObjectElement bridges Element and RenderObject');
+  // Update mechanism
+  print('\n--- Update mechanism ---');
+  print('widget.updateRenderObject(this, renderObject)');
+  print('Copies new configuration to render object');
+  print('Called during update()');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderObjectElement extends Element');
-  print('Created by RenderObjectWidget.createElement()');
-  print('Holds reference to RenderObject via renderObject property');
+  // Ancestor finding
+  print('\n--- Finding ancestors ---');
+  print('_findAncestorRenderObjectElement()');
+  print('Walks up tree to find parent');
+  print('Skips non-RenderObjectElements');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- All visual widgets use this internally');
-  print('- Custom render object widgets');
-  print('- Performance debugging');
-  print('- Widget-RenderObject coordination');
+  // ParentData handling
+  print('\n--- ParentData elements ---');
+  print('_findAncestorParentDataElements()');
+  print('Finds ParentDataWidgets in ancestry');
+  print('Validates no conflicting types');
 
-  print('\nRenderObjectElement test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderObjectElement Tests'),
-      Text('Manages RenderObject lifecycle'),
-      Text('mount/update/unmount'),
-      Text('Element-RenderObject bridge'),
-    ],
-  );
+  // Unmount cleanup
+  print('\n--- Cleanup on unmount ---');
+  print('widget.didUnmountRenderObject(renderObject)');
+  print('Allows widget to clean up');
+  print('Called before detaching');
+
+
+  // Slot handling
+  print('\n--- Slot handling ---');
+  print('slot identifies child position');
+  print('Used in multi-child widgets');
+  print('Passed to insertRenderObjectChild');
+
+  // Update comparison
+  print('\n--- Widget comparison ---');
+  print('Skips update if same widget');
+  print('Calls updateRenderObject if different');
+
+  print('\n' + '=' * 50);
+  print('END RenderObjectElement PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

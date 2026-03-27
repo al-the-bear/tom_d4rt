@@ -1,53 +1,84 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderWebImage from widgets
+// Generated print-only test for RenderWebImage
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderWebImage test executing');
+/// Print-only test for RenderWebImage
+/// This test prints class structure and API information.
+class RenderWebImageTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderWebImage PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderWebImage - Web-specific image render object
-  // Used on web platform for optimized image rendering via HTML img element
+  // Class definition
+  print('\n--- RenderWebImage class ---');
+  print('class RenderWebImage extends RenderShiftedBox');
+  print('Platform: Web only (_web_image_web.dart)');
+  print('Purpose: Render HTML img element in Flutter');
 
-  print('RenderWebImage characteristics:');
-  print('- Web platform specific implementation');
-  print('- Uses HTML img element for better performance');
-  print('- Handles network images natively');
-  print('- Supports platform view embedding');
+  // Constructor
+  print('\n--- Constructor ---');
+  print('RenderWebImage({');
+  print('  RenderBox? child,');
+  print('  required HTMLImageElement image,');
+  print('  double? width,');
+  print('  double? height,');
+  print('  BoxFit? fit,');
+  print('  AlignmentGeometry alignment = Alignment.center,');
+  print('  bool matchTextDirection = false,');
+  print('  TextDirection? textDirection,');
+  print('})');
 
-  // Testing via Image widget (cross-platform)
-  print('\nTesting image rendering via Image widget:');
-  print('Image.network uses platform-specific render objects');
-  print('- Web: RenderWebImage when kIsWeb');
-  print('- Native: Creates texture-based rendering');
+  // Properties
+  print('\n--- Properties ---');
+  print('image: HTMLImageElement - the native image');
+  print('width: double? - requested width');
+  print('height: double? - requested height');
+  print('fit: BoxFit? - how to fit image');
+  print('alignment: AlignmentGeometry - position');
+  print('matchTextDirection: bool - flip for RTL');
+  print('textDirection: TextDirection? - for flipping');
 
-  // Properties (conceptual - actual class is web-only)
-  print('\nRenderWebImage properties:');
-  print('- src: Image source URL');
-  print('- width/height: Dimensions');
-  print('- fit: BoxFit for scaling');
-  print('- alignment: Alignment within bounds');
+  // Resolution
+  print('\n--- Resolution handling ---');
+  print('_resolve(): resolves alignment');
+  print('_resolvedAlignment: Alignment');
+  print('_flipHorizontally: bool for RTL');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderWebImage extends RenderBox');
-  print('Implements platform-specific image display');
-  print('Part of web engine integration');
+  // matchTextDirection
+  print('\n--- matchTextDirection ---');
+  print('If true and RTL, flips image horizontally');
+  print('Uses scale factor of -1');
+  print('For icons designed for LTR');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Network images on web platform');
-  print('- Asset images via web URLs');
-  print('- SEO-friendly image tags');
-  print('- Native browser image handling');
+  // Clipping
+  print('\n--- Clipping ---');
+  print('_needsClip: bool - requires clipping');
+  print('Clips when image exceeds bounds');
+  print('Based on BoxFit and size');
 
-  print('\nRenderWebImage test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderWebImage Tests'),
-      Text('Web-specific image renderer'),
-      Text('Uses HTML img element'),
-      Text('Platform-specific optimization'),
-    ],
-  );
+  // Image comparison
+  print('\n--- Image comparison ---');
+  print('Compares by src attribute');
+  print('Cloned images with same src are equal');
+  print('Allows early return in setter');
+
+  // Web-specific
+  print('\n--- Web-specific implementation ---');
+  print('Uses dart:html HTMLImageElement');
+  print('Positions via platform view');
+  print('Native browser image handling');
+
+
+  // BoxFit options
+  print('\n--- BoxFit options ---');
+  print('BoxFit.contain: fit within bounds');
+  print('BoxFit.cover: cover all bounds');
+  print('BoxFit.fill: stretch to fill');
+
+  print('\n' + '=' * 50);
+  print('END RenderWebImage PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

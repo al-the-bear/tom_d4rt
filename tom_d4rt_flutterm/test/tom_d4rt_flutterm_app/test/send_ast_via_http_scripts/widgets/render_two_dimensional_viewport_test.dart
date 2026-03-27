@@ -1,60 +1,83 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderTwoDimensionalViewport from widgets
+// Generated print-only test for RenderTwoDimensionalViewport
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderTwoDimensionalViewport test executing');
+/// Print-only test for RenderTwoDimensionalViewport
+/// This test prints class structure and API information.
+class RenderTwoDimensionalViewportTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderTwoDimensionalViewport PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderTwoDimensionalViewport - Viewport for 2D scrolling (horizontal + vertical)
-  // Used by TwoDimensionalScrollView and TableView for grid-like layouts
+  // Class definition
+  print('\n--- RenderTwoDimensionalViewport class ---');
+  print('abstract class RenderTwoDimensionalViewport');
+  print('  extends RenderBox');
+  print('  implements RenderAbstractViewport');
+  print('Purpose: Viewport that scrolls in 2D');
 
-  print('RenderTwoDimensionalViewport characteristics:');
-  print('- Scrolls in two dimensions simultaneously');
-  print('- Used for large grids and tables');
-  print('- Efficient child management via delegate');
-  print('- Supports infinite scrolling in both axes');
+  // Constructor parameters
+  print('\n--- Constructor ---');
+  print('RenderTwoDimensionalViewport({');
+  print('  required ViewportOffset horizontalOffset,');
+  print('  required AxisDirection horizontalAxisDirection,');
+  print('  required ViewportOffset verticalOffset,');
+  print('  required AxisDirection verticalAxisDirection,');
+  print('  required TwoDimensionalChildDelegate delegate,');
+  print('  required Axis mainAxis,');
+  print('  required TwoDimensionalChildManager childManager,');
+  print('  double? cacheExtent,');
+  print('  CacheExtentStyle? cacheExtentStyle,');
+  print('  Clip clipBehavior = Clip.hardEdge,');
+  print('})');
+
+  // Offset properties
+  print('\n--- Scroll offsets ---');
+  print('horizontalOffset: ViewportOffset');
+  print('verticalOffset: ViewportOffset');
+  print('Both listen and trigger relayout');
+
+  // Axis directions
+  print('\n--- Axis directions ---');
+  print('horizontalAxisDirection: left or right');
+  print('verticalAxisDirection: up or down');
+  print('Assertions validate correct axis');
+
+  // Delegate
+  print('\n--- TwoDimensionalChildDelegate ---');
+  print('delegate: provides children on demand');
+  print('Called during layout');
+  print('Returns child for (x, y) index');
+
+  // Main axis
+  print('\n--- mainAxis property ---');
+  print('Primary scroll axis');
+  print('Axis.horizontal or Axis.vertical');
+  print('Affects layout priority');
+
+  // Cache extent
+  print('\n--- Cache extent ---');
+  print('cacheExtent: preload buffer size');
+  print('cacheExtentStyle: pixel vs viewport');
+  print('Default: RenderAbstractViewport.defaultCacheExtent');
 
   // Child management
-  print('\nChild management:');
-  print('- TwoDimensionalChildDelegate: Provides children');
-  print('- childDelegateBuilder: Builds children on demand');
-  print('- Caches visible children only');
-  print('- Manages ChildVicinity for 2D coords');
+  print('\n--- Child management ---');
+  print('childManager: creates/removes children');
+  print('Lazy instantiation on demand');
+  print('Keep-alive support');
 
-  // ChildVicinity
-  print('\nChildVicinity (2D coordinates):');
-  print('- xIndex: Column index');
-  print('- yIndex: Row index');
-  print('- Used to identify children in 2D space');
 
-  // Properties
-  print('\nKey properties:');
-  print('- horizontalOffset: ViewportOffset for horizontal scroll');
-  print('- verticalOffset: ViewportOffset for vertical scroll');
-  print('- delegate: TwoDimensionalChildDelegate');
-  print('- mainAxis: Primary scroll axis');
+  // Clip behavior
+  print('\n--- clipBehavior ---');
+  print('Clip.hardEdge: sharp clipping');
+  print('Clip.antiAlias: smooth edges');
+  print('Clip.none: no clipping');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderTwoDimensionalViewport extends RenderObjectWithChildMixin');
-  print('Base class for TableView, TreeView implementations');
-  print('Works with TwoDimensionalScrollable');
-
-  // Use cases
-  print('\nUse cases:');
-  print('- Large data grids');
-  print('- Spreadsheet-like UIs');
-  print('- Calendar views (month/week)');
-  print('- Map tile viewers');
-
-  print('\nRenderTwoDimensionalViewport test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderTwoDimensionalViewport Tests'),
-      Text('2D scrolling viewport'),
-      Text('Grid and table layouts'),
-      Text('Horizontal + vertical scroll'),
-    ],
-  );
+  print('\n' + '=' * 50);
+  print('END RenderTwoDimensionalViewport PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

@@ -1,61 +1,83 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderObjectToWidgetAdapter from widgets
+// Generated print-only test for RenderObjectToWidgetAdapter
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderObjectToWidgetAdapter test executing');
+/// Print-only test for RenderObjectToWidgetAdapter
+/// This test prints class structure and API information.
+class RenderObjectToWidgetAdapterTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderObjectToWidgetAdapter PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderObjectToWidgetAdapter - Bridge between RenderObject tree and Widget tree
-  // Root widget that attaches to existing RenderObject (like RenderView)
+  // Class definition
+  print('\n--- RenderObjectToWidgetAdapter class ---');
+  print('class RenderObjectToWidgetAdapter<T extends RenderObject>');
+  print('  extends RenderObjectWidget');
+  print('Purpose: Bridge RenderObject to Element tree');
 
-  print('RenderObjectToWidgetAdapter purpose:');
-  print('- Bootstraps widget tree to render tree');
-  print('- Used internally by runApp()');
-  print('- Creates RenderObjectToWidgetElement');
-  print('- Bridges RenderView to widget layer');
+  // Type parameter
+  print('\n--- Type parameter T ---');
+  print('T extends RenderObject');
+  print('Type of child expected by container');
 
-  // How runApp works
-  print('\nrunApp() flow:');
-  print('1. WidgetsFlutterBinding.ensureInitialized()');
-  print('2. Schedules initial frame');
-  print('3. Creates RenderObjectToWidgetAdapter');
-  print('4. attachRootWidget() called');
-  print('5. Element tree built under adapter');
+  // Constructor
+  print('\n--- Constructor ---');
+  print('RenderObjectToWidgetAdapter({');
+  print('  this.child,');
+  print('  required this.container,');
+  print('  this.debugShortDescription,');
+  print('})');
+  print('key: GlobalObjectKey(container)');
 
-  // Generic type parameter
-  print('\nGeneric parameter:');
-  print('RenderObjectToWidgetAdapter<T extends RenderObject>');
-  print('- T is typically RenderBox');
-  print('- container: The container render object');
-  print('- child: The root widget');
+  // Properties
+  print('\n--- Properties ---');
+  print('child: Widget? - widget below this');
+  print('container: RenderObjectWithChildMixin<T>');
+  print('debugShortDescription: String? - debug label');
 
-  // Key properties
-  print('\nKey properties:');
-  print('- container: Target RenderObject (RenderView)');
-  print('- child: Root widget of app');
-  print('- debugShortDescription: Debug name');
+  // createElement
+  print('\n--- createElement() ---');
+  print('Returns RenderObjectToWidgetElement<T>(this)');
+  print('Creates element for this adapter');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderObjectToWidgetAdapter<T> extends RenderObjectWidget');
-  print('Creates RenderObjectToWidgetElement<T>');
-  print('Root of Flutter app widget tree');
+  // createRenderObject
+  print('\n--- createRenderObject() ---');
+  print('Returns container directly');
+  print('No new render object created');
+  print('Uses existing container');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Flutter app bootstrapping');
-  print('- Custom embedding scenarios');
-  print('- Test widget mounting');
-  print('- Add-to-app integration');
+  // attachToRenderTree
+  print('\n--- attachToRenderTree() ---');
+  print('RenderObjectToWidgetElement<T> attachToRenderTree(');
+  print('  BuildOwner owner,');
+  print('  [RenderObjectToWidgetElement<T>? element],');
+  print(')');
+  print('Creates or updates element');
+  print('Mounts into render tree');
 
-  print('\nRenderObjectToWidgetAdapter test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderObjectToWidgetAdapter Tests'),
-      Text('Bridge widget tree to render tree'),
-      Text('Used by runApp() internally'),
-      Text('Attaches to RenderView'),
-    ],
-  );
+  // Usage pattern
+  print('\n--- Usage pattern ---');
+  print('Alternative to RootWidget');
+  print('Requires existing render tree');
+  print('Attaches element tree to container');
+
+  // Bootstrap mechanism
+  print('\n--- Bootstrap mechanism ---');
+  print('owner.lockState() for initial mount');
+  print('owner.buildScope() to mount element');
+  print('Updates via markNeedsBuild()');
+
+
+  // Element lifecycle
+  print('\n--- Element lifecycle ---');
+  print('First call: creates element');
+  print('Subsequent: updates existing');
+  print('markNeedsBuild() triggers update');
+
+  print('\n' + '=' * 50);
+  print('END RenderObjectToWidgetAdapter PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }

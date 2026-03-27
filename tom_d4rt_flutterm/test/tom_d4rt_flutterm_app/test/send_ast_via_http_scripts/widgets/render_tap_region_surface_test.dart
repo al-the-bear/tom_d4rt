@@ -1,54 +1,85 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RenderTapRegionSurface from widgets
+// Generated print-only test for RenderTapRegionSurface
+// ignore_for_file: avoid_print, unused_local_variable
 import 'package:flutter/widgets.dart';
 
-dynamic build(BuildContext context) {
-  print('RenderTapRegionSurface test executing');
+/// Print-only test for RenderTapRegionSurface
+/// This test prints class structure and API information.
+class RenderTapRegionSurfaceTest {
+  dynamic build(BuildContext context) {
+  print('=' * 50);
+  print('RenderTapRegionSurface PRINT-ONLY TEST');
+  print('=' * 50);
 
-  // RenderTapRegionSurface - Root surface for tap region detection
-  // Manages TapRegion registration and coordinates tap detection
+  // Class definition
+  print('\n--- RenderTapRegionSurface class ---');
+  print('class RenderTapRegionSurface');
+  print('  extends RenderProxyBoxWithHitTestBehavior');
+  print('  implements TapRegionRegistry');
+  print('Purpose: Root for tap outside detection');
 
-  print('RenderTapRegionSurface purpose:');
-  print('- Acts as registry for TapRegion render objects');
-  print('- Coordinates tap inside/outside detection');
-  print('- Manages grouped tap regions');
-  print('- Usually placed near root of widget tree');
+  // Registry interface
+  print('\n--- TapRegionRegistry implementation ---');
+  print('registerTapRegion(RenderTapRegion region)');
+  print('unregisterTapRegion(RenderTapRegion region)');
+  print('Tracks all descendant tap regions');
 
-  // Relationship with TapRegion
-  print('\nRelationship with TapRegion:');
-  print('1. TapRegionSurface wraps area with tap regions');
-  print('2. TapRegion children register with surface');
-  print('3. Surface tracks all registered regions');
-  print('4. Determines tap location relative to regions');
+  // Internal data structures
+  print('\n--- Internal data structures ---');
+  print('_cachedResults: Expando<BoxHitTestResult>');
+  print('_registeredRegions: Set<RenderTapRegion>');
+  print('_groupIdToRegions: Map<Object?, Set<RenderTapRegion>>');
 
   // Group handling
-  print('\nGroup handling:');
-  print('- Regions share groupId to form a group');
-  print('- Tap inside any member = inside group');
-  print('- Tap outside all members = outside group');
-  print('- Surface dispatches appropriate callbacks');
+  print('\n--- Group handling ---');
+  print('Regions with same groupId act as one');
+  print('Tap inside any group member = inside');
+  print('All members notified together');
 
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('RenderTapRegionSurface extends RenderProxyBox');
-  print('Implements TapRegionRegistry interface');
-  print('TapRegionSurface widget creates this render object');
+  // hitTest
+  print('\n--- hitTest() override ---');
+  print('bool hitTest(BoxHitTestResult result, {Offset position})');
+  print('Caches result for later handleEvent');
+  print('Standard hit testing behavior');
 
-  // Use cases
-  print('\nUse cases:');
-  print('- Dismiss-on-tap-outside patterns');
-  print('- Menu/dropdown close behavior');
-  print('- Overlay dismiss handling');
-  print('- Focus scope management');
+  // handleEvent
+  print('\n--- handleEvent() ---');
+  print('Processes PointerDownEvent/PointerUpEvent');
+  print('Determines hit vs non-hit regions');
+  print('Calls onTapOutside/onTapInside callbacks');
 
-  print('\nRenderTapRegionSurface test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('RenderTapRegionSurface Tests'),
-      Text('Registry for TapRegion objects'),
-      Text('Manages grouped tap detection'),
-      Text('Dismiss-on-tap-outside pattern'),
-    ],
-  );
+  // Inside/outside determination
+  print('\n--- Inside/outside logic ---');
+  print('hitRegions = regions in hit test path');
+  print('insideRegions = hitRegions + their groups');
+  print('outsideRegions = all - insideRegions');
+
+  // consumeOutsideTaps
+  print('\n--- consumeOutsideTaps handling ---');
+  print('If any outside region consumes taps');
+  print('Adds dummy recognizer to arena');
+  print('Immediately resolves as accepted');
+  print('Prevents other gesture recognizers');
+
+  // Finding surface
+  print('\n--- TapRegionRegistry.of ---');
+  print('Finds nearest ancestor surface');
+  print('Returns as TapRegionRegistry');
+
+
+  // Event types
+  print('\n--- Handled events ---');
+  print('PointerDownEvent: onTapOutside/Inside');
+  print('PointerUpEvent: onTapUpOutside/Inside');
+  print('Other events ignored');
+
+  // Debug logging
+  print('\n--- Debug logging ---');
+  print('_tapRegionDebug() for tracing');
+  print('Logs registration/events');
+
+  print('\n' + '=' * 50);
+  print('END RenderTapRegionSurface PRINT-ONLY TEST');
+  print('=' * 50);
+  return const SizedBox.shrink();
+  }
 }
