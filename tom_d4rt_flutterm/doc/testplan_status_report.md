@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-03-27 (Batch 29: 20 print-only tests - SlottedMultiChildRenderObjectWidget, SlottedRenderObjectElement, Snapshot*, SpellCheckConfiguration, StandardComponentType, State*Element, StaticSelectionContainerDelegate, StreamBuilderBase, TextMagnifierConfiguration, TextSelection*, TextStyleTween, TickerProviderStateMixin, ToggleablePainter. 1200 ≥80L, 788 <80L.)
+Updated: 2026-03-27 (Batch 30: 20 print-only tests - widgets: ToggleableStateMixin, Toolbar*, Tooltip*, TrackingScrollController, TransformationController, Transition*, Traversal*, TreeSliver*, TwoDimensional*. 1220 ≥80L, 768 <80L.)
 
 ## Implementation Threshold
 
@@ -1980,33 +1980,33 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Yes | Yes | Checked. |
 | [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | No | Yes | Checked. |
 | [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | Yes | Yes | Checked. |
-| [toggleable_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_state_mixin_test.dart) | ToggleableStateMixin | No | No | Yes | Checked. |
-| [toolbar_items_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart) | ToolbarItemsParentData | No | No | Yes | Checked. |
-| [toolbar_options_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart) | ToolbarOptions | No | No | Yes | Checked. |
-| [tooltip_position_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart) | TooltipPositionContext | No | No | Yes | Checked. |
+| [toggleable_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_state_mixin_test.dart) | ToggleableStateMixin | No | Yes | Yes | Checked. |
+| [toolbar_items_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart) | ToolbarItemsParentData | No | Yes | Yes | Checked. |
+| [toolbar_options_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart) | ToolbarOptions | No | Yes | Yes | Checked. |
+| [tooltip_position_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart) | TooltipPositionContext | No | Yes | Yes | Checked. |
 | [tooltip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_test.dart) | Tooltip | No | Yes | No | Checked. |
 | [tooltip_trigger_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_trigger_mode_test.dart) | TooltipTriggerMode | No | Yes | No | Checked. |
-| [tooltip_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart) | TooltipWindowControllerDelegate | No | No | Yes | Checked. |
-| [tooltip_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart) | TooltipWindowController | No | No | Yes | Checked. |
-| [tooltip_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_test.dart) | TooltipWindow | No | No | Yes | Checked. |
-| [tracking_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tracking_scroll_controller_test.dart) | TrackingScrollController | No | No | Yes | Checked. |
+| [tooltip_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart) | TooltipWindowControllerDelegate | No | Yes | Yes | Checked. |
+| [tooltip_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart) | TooltipWindowController | No | Yes | Yes | Checked. |
+| [tooltip_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_test.dart) | TooltipWindow | No | Yes | Yes | Checked. |
+| [tracking_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tracking_scroll_controller_test.dart) | TrackingScrollController | No | Yes | Yes | Checked. |
 | [transform_full_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transform_full_test.dart) | Transform | No | Yes | No | Checked. |
 | [transform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transform_test.dart) | Transform | No | Yes | No |
-| [transformation_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transformation_controller_test.dart) | TransformationController | No | No | Yes | Checked. |
-| [transition_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart) | TransitionDelegate | No | No | Yes | Checked. |
-| [transition_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_route_test.dart) | TransitionRoute | No | No | Yes | Checked. |
-| [transpose_characters_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transpose_characters_intent_test.dart) | TransposeCharactersIntent | No | No | Yes | Checked. |
-| [traversal_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart) | TraversalDirection | No | No | Yes | Checked. |
-| [traversal_edge_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart) | TraversalEdgeBehavior | No | No | Yes | Checked. |
-| [tree_sliver_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_controller_test.dart) | TreeSliverController | No | No | Yes | Checked. |
+| [transformation_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transformation_controller_test.dart) | TransformationController | No | Yes | Yes | Checked. |
+| [transition_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart) | TransitionDelegate | No | Yes | Yes | Checked. |
+| [transition_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_route_test.dart) | TransitionRoute | No | Yes | Yes | Checked. |
+| [transpose_characters_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transpose_characters_intent_test.dart) | TransposeCharactersIntent | No | Yes | Yes | Checked. |
+| [traversal_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart) | TraversalDirection | No | Yes | Yes | Checked. |
+| [traversal_edge_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart) | TraversalEdgeBehavior | No | Yes | Yes | Checked. |
+| [tree_sliver_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_controller_test.dart) | TreeSliverController | No | Yes | Yes | Checked. |
 | [tree_sliver_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_node_test.dart) | TreeSliverNode | No | No | Yes | Checked. |
-| [tree_sliver_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_state_mixin_test.dart) | TreeSliverStateMixin | No | No | Yes | Checked. |
+| [tree_sliver_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_state_mixin_test.dart) | TreeSliverStateMixin | No | Yes | Yes | Checked. |
 | [tree_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_test.dart) | TreeSliver | No | No | Yes | Checked. |
 | [tween_animation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tween_animation_builder_test.dart) | TweenAnimationBuilder | No | No | Yes | Checked. |
-| [two_dimensional_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_builder_delegate_test.dart) | TwoDimensionalChildBuilderDelegate | No | No | Yes | Checked. |
-| [two_dimensional_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_delegate_test.dart) | TwoDimensionalChildDelegate | No | No | Yes | Checked. |
-| [two_dimensional_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_list_delegate_test.dart) | TwoDimensionalChildListDelegate | No | No | Yes | Checked. |
-| [two_dimensional_child_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_manager_test.dart) | TwoDimensionalChildManager | No | No | Yes | Checked. |
+| [two_dimensional_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_builder_delegate_test.dart) | TwoDimensionalChildBuilderDelegate | No | Yes | Yes | Checked. |
+| [two_dimensional_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_delegate_test.dart) | TwoDimensionalChildDelegate | No | Yes | Yes | Checked. |
+| [two_dimensional_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_list_delegate_test.dart) | TwoDimensionalChildListDelegate | No | Yes | Yes | Checked. |
+| [two_dimensional_child_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_manager_test.dart) | TwoDimensionalChildManager | No | Yes | Yes | Checked. |
 | [two_dimensional_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scroll_view_test.dart) | TwoDimensionalScrollView | No | No | Yes | Checked. |
 | [two_dimensional_scrollable_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scrollable_state_test.dart) | TwoDimensionalScrollableState | No | No | Yes | Checked. |
 | [two_dimensional_scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scrollable_test.dart) | TwoDimensionalScrollable | No | No | Yes | Checked. |

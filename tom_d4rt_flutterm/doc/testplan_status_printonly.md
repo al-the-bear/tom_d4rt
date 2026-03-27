@@ -1,8 +1,8 @@
 # Test Plan — Print-Only Test Files
 
-Generated: 2026-03-26
+Generated: 2026-03-27
 Total remaining: 586 files
-Implemented: 523 Yes, 63 No (widgets/ only)
+Implemented: 543 Yes, 43 No (widgets/ only)
 
 ## cupertino/ (1 file)
 
@@ -587,26 +587,26 @@ Implemented: 523 Yes, 63 No (widgets/ only)
 | TextStyleTween | text_style_tween_test.dart | Yes | 2026-03-27 |
 | TickerProviderStateMixin | ticker_provider_state_mixin_test.dart | Yes | 2026-03-27 |
 | ToggleablePainter | toggleable_painter_test.dart | Yes | 2026-03-27 |
-| ToggleableStateMixin | toggleable_state_mixin_test.dart | No | |
-| ToolbarItemsParentData | toolbar_items_parent_data_test.dart | No | |
-| ToolbarOptions | toolbar_options_test.dart | No | |
-| TooltipPositionContext | tooltip_position_context_test.dart | No | |
-| TooltipWindowControllerDelegate | tooltip_window_controller_delegate_test.dart | No | |
-| TooltipWindowController | tooltip_window_controller_test.dart | No | |
-| TooltipWindow | tooltip_window_test.dart | No | |
-| TrackingScrollController | tracking_scroll_controller_test.dart | No | |
-| TransformationController | transformation_controller_test.dart | No | |
-| TransitionDelegate | transition_delegate_test.dart | No | |
-| TransitionRoute | transition_route_test.dart | No | |
-| TransposeCharactersIntent | transpose_characters_intent_test.dart | No | |
-| TraversalDirection | traversal_direction_test.dart | No | |
-| TraversalEdgeBehavior | traversal_edge_behavior_test.dart | No | |
-| TreeSliverController | tree_sliver_controller_test.dart | No | |
-| TreeSliverStateMixin | tree_sliver_state_mixin_test.dart | No | |
-| TwoDimensionalChildBuilderDelegate | two_dimensional_child_builder_delegate_test.dart | No | |
-| TwoDimensionalChildDelegate | two_dimensional_child_delegate_test.dart | No | |
-| TwoDimensionalChildListDelegate | two_dimensional_child_list_delegate_test.dart | No | |
-| TwoDimensionalChildManager | two_dimensional_child_manager_test.dart | No | |
+| ToggleableStateMixin | toggleable_state_mixin_test.dart | Yes | 2026-03-27 |
+| ToolbarItemsParentData | toolbar_items_parent_data_test.dart | Yes | 2026-03-27 |
+| ToolbarOptions | toolbar_options_test.dart | Yes | 2026-03-27 |
+| TooltipPositionContext | tooltip_position_context_test.dart | Yes | 2026-03-27 |
+| TooltipWindowControllerDelegate | tooltip_window_controller_delegate_test.dart | Yes | 2026-03-27 |
+| TooltipWindowController | tooltip_window_controller_test.dart | Yes | 2026-03-27 |
+| TooltipWindow | tooltip_window_test.dart | Yes | 2026-03-27 |
+| TrackingScrollController | tracking_scroll_controller_test.dart | Yes | 2026-03-27 |
+| TransformationController | transformation_controller_test.dart | Yes | 2026-03-27 |
+| TransitionDelegate | transition_delegate_test.dart | Yes | 2026-03-27 |
+| TransitionRoute | transition_route_test.dart | Yes | 2026-03-27 |
+| TransposeCharactersIntent | transpose_characters_intent_test.dart | Yes | 2026-03-27 |
+| TraversalDirection | traversal_direction_test.dart | Yes | 2026-03-27 |
+| TraversalEdgeBehavior | traversal_edge_behavior_test.dart | Yes | 2026-03-27 |
+| TreeSliverController | tree_sliver_controller_test.dart | Yes | 2026-03-27 |
+| TreeSliverStateMixin | tree_sliver_state_mixin_test.dart | Yes | 2026-03-27 |
+| TwoDimensionalChildBuilderDelegate | two_dimensional_child_builder_delegate_test.dart | Yes | 2026-03-27 |
+| TwoDimensionalChildDelegate | two_dimensional_child_delegate_test.dart | Yes | 2026-03-27 |
+| TwoDimensionalChildListDelegate | two_dimensional_child_list_delegate_test.dart | Yes | 2026-03-27 |
+| TwoDimensionalChildManager | two_dimensional_child_manager_test.dart | Yes | 2026-03-27 |
 | TwoDimensionalScrollableState | two_dimensional_scrollable_state_test.dart | No | |
 | TwoDimensionalViewportParentData | two_dimensional_viewport_parent_data_test.dart | No | |
 | UndoHistoryController | undo_history_controller_test.dart | No | |

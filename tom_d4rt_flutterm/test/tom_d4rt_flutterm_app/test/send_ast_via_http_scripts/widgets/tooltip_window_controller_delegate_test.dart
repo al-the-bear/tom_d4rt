@@ -1,54 +1,83 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests TooltipWindowControllerDelegate from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('TooltipWindowControllerDelegate test executing');
+  print('=' * 50);
 
-  // TooltipWindowControllerDelegate - Mixin for tooltip window control
-  // Part of Flutter multi-window support for tooltip-style windows
-  
-  print('TooltipWindowControllerDelegate characteristics:');
-  print('- Mixin class for tooltip window delegates');
-  print('- Handles lightweight tooltip window lifecycle');
-  print('- Desktop platform specific functionality');
-  print('- Part of Window widget infrastructure');
-  
-  // Tooltip vs other window types
-  print('\nTooltip vs other window types:');
-  print('- Tooltip: Borderless, no chrome, auto-dismiss');
-  print('- Dialog: Modal, centered, title bar');
-  print('- Regular: Full window, resizable');
-  print('- Popup: Menu-style, auto-close');
-  
-  // Tooltip window behavior
-  print('\nTooltip window behavior:');
-  print('- No window decoration');
-  print('- No title bar or buttons');
-  print('- Auto-dismiss on mouse leave');
-  print('- Positioned near target element');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('TooltipWindowControllerDelegate is a mixin class');
-  print('Extends WindowControllerDelegate');
-  print('Used with TooltipWindowController');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Native hover tooltips');
-  print('- Rich content tooltips');
-  print('- Info popups without chrome');
-  print('- Desktop help overlays');
+  // TooltipWindowControllerDelegate is for window-based tooltips
+  print('TooltipWindowControllerDelegate overview:');
+  print('  - Internal/experimental windowing API');
+  print('  - Controls tooltip window behavior');
+  print('  - Part of multi-window support');
+  print('  - Delegates window lifecycle events');
 
-  print('\nTooltipWindowControllerDelegate test completed');
+  // Windowing API context
+  print('\nMulti-window context:');
+  print('  - Flutter experimental windowing feature');
+  print('  - Tooltips may appear in separate windows');
+  print('  - Delegate handles window interactions');
+  print('  - Requires windowing feature enabled');
+
+  // Expected delegate responsibilities
+  print('\nTypical delegate responsibilities:');
+  print('  - Handle window creation requests');
+  print('  - Manage window positioning');
+  print('  - Coordinate with parent window');
+  print('  - Handle focus transitions');
+  print('  - Control window visibility');
+
+  // Relationship to TooltipWindow
+  print('\nRelationship to other classes:');
+  print('  - Used by TooltipWindowController');
+  print('  - Configures TooltipWindow behavior');
+  print('  - Part of _window.dart internal API');
+  print('  - Subject to breaking changes');
+
+  // Experimental status
+  print('\nExperimental status:');
+  print('  - Listed in @internal scope');
+  print('  - May throw UnsupportedError');
+  print('  - Requires windowing feature flag');
+  print('  - Not for production use');
+  print('  - Only on main channel');
+
+  // API patterns
+  print('\nExpected API patterns:');
+  print('  - Abstract base or mixin interface');
+  print('  - Methods for window lifecycle');
+  print('  - Position and sizing callbacks');
+  print('  - Visibility state management');
+
+  // Feature flag
+  print('\nFeature flag requirement:');
+  print('  - isWindowingEnabled must be true');
+  print('  - Otherwise throws UnsupportedError');
+  print('  - Enable via Flutter main channel');
+  print('  - See issue #30701');
+
+  // Platform considerations
+  print('\nPlatform considerations:');
+  print('  - Desktop platforms primary target');
+  print('  - Mobile may not support multiple windows');
+  print('  - Web has iframe-like constraints');
+
+  print('\n' + '=' * 50);
+  print('TooltipWindowControllerDelegate test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('TooltipWindowControllerDelegate Tests'),
-      Text('Mixin for tooltip windows'),
-      Text('Borderless, auto-dismiss'),
-      Text('Desktop multi-window support'),
+      Text(
+        'TooltipWindowControllerDelegate Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: Internal/experimental'),
+      Text('Purpose: Window-based tooltip control'),
+      Text('Status: Requires windowing feature'),
     ],
   );
 }

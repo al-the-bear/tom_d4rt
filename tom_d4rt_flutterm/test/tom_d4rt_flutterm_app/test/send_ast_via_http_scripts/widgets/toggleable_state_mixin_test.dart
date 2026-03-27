@@ -1,59 +1,95 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ToggleableStateMixin from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('ToggleableStateMixin test executing');
+  print('=' * 50);
 
-  // ToggleableStateMixin - Base mixin for toggle widgets
-  // Used by Checkbox, Switch, Radio implementations
-  
-  print('ToggleableStateMixin purpose:');
-  print('- Common state for toggleable widgets');
-  print('- Manages position animation (0.0 - 1.0)');
-  print('- Handles reaction animation');
-  print('- Provides tristate support (null = indeterminate)');
-  
-  // Animations provided
-  print('\nAnimations provided:');
-  print('- position: CurvedAnimation (0.0 to 1.0)');
-  print('- reaction: CurvedAnimation for press feedback');
-  print('- animateToValue(bool?): Animate to new state');
-  
-  // State values
-  print('\nState values:');
-  print('- false: position = 0.0');
-  print('- true: position = 1.0');  
-  print('- null: tristate indeterminate');
-  print('- isInteractive: Whether tap changes state');
-  
-  // Reaction handling
-  print('\nReaction handling:');
-  print('- reactionController: Press animation');
-  print('- reactionHoverFade/Focus Fade: Hover effects');
-  print('- downPosition: Touch down location');
-  
-  // Type hierarchy
-  print('\nType hierarchy:');
-  print('ToggleableStateMixin is mixin on State');
-  print('Requires TickerProviderStateMixin');
-  print('Used by _CheckboxState, _SwitchState, _RadioState');
-  
-  // Use cases
-  print('\nUse cases:');
-  print('- Checkbox widget');
-  print('- Switch widget');
-  print('- Radio widget');
-  print('- Custom toggleable controls');
+  // ToggleableStateMixin is a mixin for StatefulWidgets implementing toggleable controls
+  print('ToggleableStateMixin overview:');
+  print('  - Mixin for StatefulWidget with toggle animations');
+  print('  - Used by Switch, Checkbox, Radio widgets');
+  print('  - Requires TickerProviderStateMixin');
+  print('  - Provides animation controllers for visual state');
 
-  print('\nToggleableStateMixin test completed');
+  // Animation controllers provided
+  print('\nAnimation controllers provided:');
+  print('  - positionController: controls visual toggle position');
+  print('  - position: CurvedAnimation for toggle state');
+  print('  - reactionController: controls radial ink reaction');
+  print('  - reaction: CurvedAnimation for ink reaction');
+  print('  - reactionHoverFade: opacity for hover changes');
+  print('  - reactionFocusFade: opacity for focus changes');
+
+  // Key properties
+  print('\nKey properties:');
+  print('  - value: bool? (current toggle state)');
+  print('  - tristate: bool (allows null value)');
+  print('  - isInteractive: bool (onChanged != null)');
+  print('  - onChanged: ValueChanged<bool?>?');
+
+  // Animation durations
+  print('\nAnimation durations (constants):');
+  print('  - _kToggleDuration: 200ms');
+  print('  - _kReactionFadeDuration: 50ms');
+  print('  - reactionAnimationDuration: 100ms');
+  print('  - position curve: Curves.easeIn');
+  print('  - position reverseCurve: Curves.easeOut');
+
+  // Methods
+  print('\nKey methods:');
+  print('  - animateToValue(): runs position animation');
+  print('  - buildToggleable(): builds with CustomPainter');
+  print('  - describeForError(): returns description');
+  print('  - initState(): initializes all controllers');
+
+  // Hover and focus handling
+  print('\nHover and focus handling:');
+  print('  - Tracks hovering and focused states');
+  print('  - Fades reaction based on hover/focus');
+  print('  - Uses action map for ActivateIntent');
+  print('  - CallbackAction invokes _handleTap');
+
+  // Curves used
+  print('\nCurves used:');
+  print('  - position: easeIn forward, easeOut reverse');
+  print('  - reaction: fastOutSlowIn');
+  print('  - reactionHoverFade: fastOutSlowIn');
+  print('  - reactionFocusFade: fastOutSlowIn');
+
+  // Widget implementations
+  print('\nWidgets using this mixin:');
+  print('  - Switch (Material)');
+  print('  - CupertinoSwitch');
+  print('  - Checkbox');
+  print('  - CupertinoCheckbox');
+  print('  - Radio');
+  print('  - CupertinoRadio');
+
+  // Typical usage
+  print('\nTypical usage pattern:');
+  print('  - Mix into State class');
+  print('  - Also mix TickerProviderStateMixin');
+  print('  - Override value, tristate, onChanged');
+  print('  - Call buildToggleable with painter');
+
+  print('\n' + '=' * 50);
+  print('ToggleableStateMixin test completed');
+
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('ToggleableStateMixin Tests'),
-      Text('Base mixin for toggle widgets'),
-      Text('Position animation 0.0-1.0'),
-      Text('Checkbox/Switch/Radio base'),
+      Text(
+        'ToggleableStateMixin Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: Mixin for StatefulWidget'),
+      Text('Purpose: Toggle animation logic'),
+      Text('Controllers: position, reaction, fades'),
+      Text('Requires: TickerProviderStateMixin'),
     ],
   );
 }
