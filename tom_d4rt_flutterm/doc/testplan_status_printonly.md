@@ -1,8 +1,8 @@
 # Test Plan — Print-Only Test Files
 
 Generated: 2026-07-16
-Total remaining: 586 files
-Implemented: 586 Yes, 0 No (widgets/ only)
+Total remaining: 589 files
+Implemented: 589 Yes, 0 No (widgets/ + 3 rendering)
 
 ## cupertino/ (1 file)
 
@@ -84,11 +84,14 @@ Implemented: 586 Yes, 0 No (widgets/ only)
 |-------|-----------|-------------|------------------------------|
 | Class | class_test.dart | Yes | 2026-03-26 22:55 |
 
-## rendering/ (64 files)
+## rendering/ (67 files)
 
 | Class | Test file | Implemented | Implementation date and time |
 |-------|-----------|-------------|------------------------------|
 | const | const_test.dart | Yes | 2026-03-27 08:30 |
+| PerformanceOverlayOption | performance_overlay_option_test.dart | Yes | 2026-07-16 |
+| PersistentHeaderShowOnScreenConfiguration | persistent_header_show_on_screen_configuration_test.dart | Yes | 2026-07-16 |
+| PictureLayer | picture_layer_test.dart | Yes | 2026-07-16 |
 | RenderSliverFloatingPersistentHeader | render_sliver_floating_persistent_header_test.dart | Yes | 2026-03-27 08:30 |
 | RenderSliverFloatingPinnedPersistentHeader | render_sliver_floating_pinned_persistent_header_test.dart | Yes | 2026-03-26 21:52 |
 | RenderSliverHelpers | render_sliver_helpers_test.dart | Yes | 2026-03-27 08:30 |

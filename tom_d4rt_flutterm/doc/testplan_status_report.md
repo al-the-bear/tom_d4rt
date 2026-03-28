@@ -1,7 +1,7 @@
 # Test Plan — All Test Files
 
 Generated: 2026-03-08  
-Updated: 2026-07-16 (Batch 33: 20 print-only tests - widgets: WindowingOwner*; material: ButtonBarLayoutBehavior, ButtonTextTheme, DropdownMenuCloseBehavior, DynamicSchemeVariant, MaterialBannerClosedReason, MaterialTapTargetSize, Navigation*LabelBehavior/Type, PopupMenuPosition, Range*, RefreshIndicator*, ScriptCategory, ShowValueIndicator, SliderInteraction, StretchMode. 1280 ≥80L, 708 <80L.)
+Updated: 2026-07-16 (Batch 35: 20 print-only tests - material: Thumb, ThemeMode, TimeOfDayFormat, TimePickerEntryMode; painting: Axis*, BorderStyle, BoxFit, BoxShape, FlutterLogoStyle, ImageRepeat, RenderComparison, ResizeImagePolicy, TextOverflow, TextWidthBasis, VerticalDirection, WebHtmlElementStrategy; rendering: PerformanceOverlayOption, PersistentHeaderShowOnScreenConfiguration, PictureLayer. 1323 ≥80L, 665 <80L.)
 
 ## Implementation Threshold
 
@@ -732,12 +732,12 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [themadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [theme_data_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | Yes | No | Yes | Created on 2026-03-21 at 12:30 |
 | [theme_extension_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | Yes | No | Yes | Created on 2026-03-21 at 12:30 |
-| [theme_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | No | Yes | Checked. |
+| [theme_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | Yes | No | Yes | Checked. |
 | [theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_test.dart) | Theme | No | Yes | No |
 | [themes_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [thumb_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | No | No | Yes | Checked. |
-| [time_of_day_format_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | No | No | Yes | Checked. |
-| [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | No | No | Yes | Checked. |
+| [thumb_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/thumb_test.dart) | Thumb | Yes | No | Yes | Checked. |
+| [time_of_day_format_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_of_day_format_test.dart) | TimeOfDayFormat | Yes | No | Yes | Checked. |
+| [time_picker_entry_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/time_picker_entry_mode_test.dart) | TimePickerEntryMode | Yes | No | Yes | Checked. |
 | [timeofday_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/timeofday_test.dart) | TimeOfDay | No | Yes | No | Checked. |
 | [timepicker_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/timepicker_widget_test.dart) | TimePickerDialog | No | Yes | No | Checked. |
 | [toggle_buttons_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart) | ToggleButtonsThemeData | Yes | No | Yes | Created on 2026-03-21 at 12:30 |
@@ -764,17 +764,17 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [asset_bundle_image_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_key_test.dart) | AssetBundleImageKey | No | Yes | No | Checked. |
 | [asset_bundle_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart) | AssetBundleImageProvider | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [automatic_notched_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/automatic_notched_shape_test.dart) | AutomaticNotchedShape | No | Yes | No | Checked. |
-| [axis_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart) | AxisDirection | No | No | Yes | Checked. |
-| [axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_test.dart) | Axis | No | No | Yes | Checked. |
+| [axis_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart) | AxisDirection | Yes | No | Yes | Checked. |
+| [axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_test.dart) | Axis | Yes | No | Yes | Checked. |
 | [border_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_directional_test.dart) | BorderDirectional | No | Yes | No | Checked. |
 | [border_radius_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_radius_test.dart) | BorderRadius | No | Yes | No |
-| [border_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_style_test.dart) | BorderStyle | No | No | Yes | Checked. |
+| [border_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_style_test.dart) | BorderStyle | Yes | No | Yes | Checked. |
 | [border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_test.dart) | Border | No | Yes | No |
 | [box_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_border_test.dart) | BoxBorder | No | Yes | No | Checked. |
 | [box_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_decoration_test.dart) | BoxDecoration | No | Yes | No |
-| [box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_fit_test.dart) | BoxFit | No | No | Yes | Checked. |
+| [box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_fit_test.dart) | BoxFit | Yes | No | Yes | Checked. |
 | [box_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_painter_test.dart) | BoxPainter | No | Yes | No | Checked. |
-| [box_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_shape_test.dart) | BoxShape | No | No | Yes | Checked. |
+| [box_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_shape_test.dart) | BoxShape | Yes | No | Yes | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/class_test.dart) | Class | No | No | Yes | Checked. |
 | [clip_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/clip_context_test.dart) | ClipContext | No | Yes | No | Checked. |
 | [color_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/color_property_test.dart) | ColorProperty | No | Yes | No | Checked. |
@@ -786,7 +786,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [enums_painting_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/enums_painting_test.dart) | EnumsPainting | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [fitted_sizes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/fitted_sizes_test.dart) | FittedSizes | No | Yes | No | Checked. |
 | [flutter_logo_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_decoration_test.dart) | FlutterLogoDecoration | No | Yes | No | Checked. |
-| [flutter_logo_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_style_test.dart) | FlutterLogoStyle | No | No | Yes | Checked. |
+| [flutter_logo_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_style_test.dart) | FlutterLogoStyle | Yes | No | Yes | Checked. |
 | [gradient_shadow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_shadow_test.dart) | LinearGradient | No | Yes | No |
 | [gradient_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_test.dart) | Gradient | No | Yes | No | Checked. |
 | [gradient_transform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_transform_test.dart) | GradientTransform | No | Yes | No |
@@ -796,7 +796,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [image_chunk_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_chunk_event_test.dart) | ImageChunkEvent | No | Yes | No | Checked. |
 | [image_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_info_test.dart) | ImageInfo | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [image_providers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_providers_test.dart) | ExactAssetImage | No | Yes | No | Checked. |
-| [image_repeat_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_repeat_test.dart) | ImageRepeat | No | No | Yes | Checked. |
+| [image_repeat_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_repeat_test.dart) | ImageRepeat | Yes | No | Yes | Checked. |
 | [image_size_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_size_info_test.dart) | ImageSizeInfo | No | Yes | No | Checked. |
 | [image_stream_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_stream_adv_test.dart) | BeveledRectangleBorder | No | Yes | No | Checked. |
 | [image_stream_completer_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_stream_completer_handle_test.dart) | ImageStreamCompleterHandle | No | Yes | No | Created on 2026-03-22 at 10:30 |
@@ -820,23 +820,23 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [painting_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/painting_binding_test.dart) | PaintingBinding | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [placeholder_dimensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/placeholder_dimensions_test.dart) | PlaceholderDimensions | No | Yes | No | Checked. |
 | [placeholder_span_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/placeholder_span_test.dart) | PlaceholderSpan | No | Yes | No | Checked. |
-| [render_comparison_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/render_comparison_test.dart) | RenderComparison | No | No | Yes | Checked. |
+| [render_comparison_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/render_comparison_test.dart) | RenderComparison | Yes | No | Yes | Checked. |
 | [resize_image_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_key_test.dart) | ResizeImageKey | No | Yes | No | Created on 2026-03-22 at 10:30 |
-| [resize_image_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_policy_test.dart) | ResizeImagePolicy | No | No | Yes | Checked. |
+| [resize_image_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_policy_test.dart) | ResizeImagePolicy | Yes | No | Yes | Checked. |
 | [resize_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_test.dart) | ResizeImage | No | Yes | No | Checked. |
 | [rounded_superellipse_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/rounded_superellipse_border_test.dart) | RoundedSuperellipseBorder | No | Yes | No | Checked. |
 | [shader_warm_up_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shader_warm_up_test.dart) | ShaderWarmUp | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [shape_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shape_border_test.dart) | ShapeBorder | No | Yes | No | Checked. |
 | [shapes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shapes_test.dart) | RoundedRectangleBorder | No | Yes | No |
 | [star_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/star_border_test.dart) | StarBorder | No | Yes | No | Checked. |
-| [text_overflow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_overflow_test.dart) | TextOverflow | No | No | Yes | Checked. |
+| [text_overflow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_overflow_test.dart) | TextOverflow | Yes | No | Yes | Checked. |
 | [text_painting_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_painting_test.dart) | StrutStyle | No | Yes | No |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
-| [text_width_basis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_width_basis_test.dart) | TextWidthBasis | No | No | Yes | Checked. |
+| [text_width_basis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_width_basis_test.dart) | TextWidthBasis | Yes | No | Yes | Checked. |
 | [textstyle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/textstyle_test.dart) | TextStyle | No | Yes | No |
 | [transform_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/transform_property_test.dart) | TransformProperty | No | Yes | No | Checked. |
-| [vertical_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/vertical_direction_test.dart) | VerticalDirection | No | No | Yes | Checked. |
-| [web_html_element_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_html_element_strategy_test.dart) | WebHtmlElementStrategy | No | No | Yes | Checked. |
+| [vertical_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/vertical_direction_test.dart) | VerticalDirection | Yes | No | Yes | Checked. |
+| [web_html_element_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_html_element_strategy_test.dart) | WebHtmlElementStrategy | Yes | No | Yes | Checked. |
 | [web_image_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_image_info_test.dart) | WebImageInfo | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [word_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/word_boundary_test.dart) | WordBoundary | No | Yes | No | Created on 2026-03-22 at 10:30 |
 ## physics/ (8 files)
@@ -918,9 +918,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/parent_data_test.dart) | ParentData | No | Yes | No | Created on 2026-03-22 at 14:00 |
 | [parentdata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/parentdata_test.dart) | StackParentData | No | Yes | No | Checked. |
 | [performance_overlay_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/performance_overlay_layer_test.dart) | PerformanceOverlayLayer | No | Yes | No | Created on 2026-03-22 at 14:00 |
-| [performance_overlay_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/performance_overlay_option_test.dart) | PerformanceOverlayOption | No | No | Yes | Created on 2026-03-25 at 18:09. |
-| [persistent_header_show_on_screen_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/persistent_header_show_on_screen_configuration_test.dart) | PersistentHeaderShowOnScreenConfiguration | No | No | Yes | Created on 2026-03-25 at 18:09. |
-| [picture_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/picture_layer_test.dart) | PictureLayer | No | No | Yes | Created on 2026-03-25 at 18:09. |
+| [performance_overlay_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/performance_overlay_option_test.dart) | PerformanceOverlayOption | Yes | No | Yes | Created on 2026-03-25 at 18:09. |
+| [persistent_header_show_on_screen_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/persistent_header_show_on_screen_configuration_test.dart) | PersistentHeaderShowOnScreenConfiguration | Yes | No | Yes | Created on 2026-03-25 at 18:09. |
+| [picture_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/picture_layer_test.dart) | PictureLayer | Yes | No | Yes | Created on 2026-03-25 at 18:09. |
 | [pipeline_manifold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/pipeline_manifold_test.dart) | PipelineManifold | No | No | Yes | Created on 2026-03-25 at 18:09. |
 | [placeholder_span_index_semantics_tag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/placeholder_span_index_semantics_tag_test.dart) | PlaceholderSpanIndexSemanticsTag | No | No | Yes | Created on 2026-03-25 at 18:09. |
 | [platform_view_hit_test_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/platform_view_hit_test_behavior_test.dart) | PlatformViewHitTestBehavior | No | No | Yes | Created on 2026-03-25 at 18:10. |
