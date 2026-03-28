@@ -213,7 +213,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [root_isolate_token_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/root_isolate_token_test.dart) | RootIsolateToken | No | Yes | No | Checked. |
 | [scene_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/scene_builder_test.dart) | SceneBuilder | No | Yes | No | Checked. |
 | [scene_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/scene_test.dart) | Scene | No | Yes | No | Created on 2026-03-28 at 19:23. |
-| [semantics_action_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_event_test.dart) | SemanticsActionEvent | No | No | Yes | Checked. |
+| [semantics_action_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_event_test.dart) | SemanticsActionEvent | No | Yes | No | Created on 2026-03-28 at 19:48. |
 | [semantics_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_action_test.dart) | SemanticsAction | No | Yes | No | Checked. |
 | [semantics_flag_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_flag_test.dart) | SemanticsFlag | No | Yes | No | Checked. |
 | [semantics_flags_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_flags_test.dart) | SemanticsFlags | No | Yes | No | Checked. |
