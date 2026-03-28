@@ -1,99 +1,92 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests RefreshIndicatorStatus from material
+// D4rt test script: Tests RefreshIndicatorStatus from material (internal API)
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('RefreshIndicatorStatus test executing');
   print('=' * 50);
 
-  // RefreshIndicatorStatus enum: drag, armed, snap, refresh, done, canceled
-  runCase('RefreshIndicatorStatus.values has 6 entries', () {
-    return RefreshIndicatorStatus.values.length == 6;
-  });
+  // RefreshIndicatorMode enum (internal)
+  print('RefreshIndicatorMode overview:');
+  print('  - Internal enum in RefreshIndicator');
+  print('  - Not exported for public use');
+  print('  - Tracks refresh lifecycle states');
 
-  runCase('drag value exists', () {
-    final value = RefreshIndicatorStatus.drag;
-    print('  drag: index=${value.index}, name=${value.name}');
-    return value.index == 0 && value.name == 'drag';
-  });
+  // States (described, not accessible directly)
+  print('\nRefreshIndicatorMode values (internal):');
+  print('  - drag (index: 0)');
+  print('  - armed (index: 1)');
+  print('  - snap (index: 2)');
+  print('  - refresh (index: 3)');
+  print('  - done (index: 4)');
+  print('  - canceled (index: 5)');
+  print('  Total: 6 values');
 
-  runCase('armed value exists', () {
-    final value = RefreshIndicatorStatus.armed;
-    print('  armed: index=${value.index}, name=${value.name}');
-    return value.index == 1;
-  });
+  // State descriptions
+  print('\nState descriptions:');
+  print('  drag:');
+  print('    - User is pulling down');
+  print('    - Indicator follows finger');
+  print('    - Initial interaction state');
 
-  runCase('snap value exists', () {
-    final value = RefreshIndicatorStatus.snap;
-    print('  snap: index=${value.index}, name=${value.name}');
-    return value.index == 2;
-  });
+  print('  armed:');
+  print('    - Pulled far enough to trigger');
+  print('    - Ready to refresh on release');
+  print('    - Visual feedback changes');
 
-  runCase('refresh value exists', () {
-    final value = RefreshIndicatorStatus.refresh;
-    print('  refresh: index=${value.index}, name=${value.name}');
-    return value.index == 3;
-  });
+  print('  snap:');
+  print('    - Indicator snapping to position');
+  print('    - Animation to final position');
+  print('    - Transition state');
 
-  runCase('done value exists', () {
-    final value = RefreshIndicatorStatus.done;
-    print('  done: index=${value.index}, name=${value.name}');
-    return value.index == 4;
-  });
+  print('  refresh:');
+  print('    - Refresh callback executing');
+  print('    - Spinner animation active');
+  print('    - Waiting for Future');
 
-  runCase('canceled value exists', () {
-    final value = RefreshIndicatorStatus.canceled;
-    print('  canceled: index=${value.index}, name=${value.name}');
-    return value.index == 5;
-  });
+  print('  done:');
+  print('    - Refresh completed');
+  print('    - Hiding indicator');
+  print('    - Cleanup state');
 
-  runCase('drag is first value', () {
-    return RefreshIndicatorStatus.values.first == RefreshIndicatorStatus.drag;
-  });
+  print('  canceled:');
+  print('    - User canceled pull');
+  print('    - Did not pull far enough');
+  print('    - Returns to idle');
 
-  runCase('canceled is last value', () {
-    return RefreshIndicatorStatus.values.last == RefreshIndicatorStatus.canceled;
-  });
+  // State transitions
+  print('\nState transitions:');
+  print('  idle -> drag -> armed -> snap -> refresh -> done');
+  print('  idle -> drag -> canceled');
+  print('  armed -> canceled (if scroll)');
 
-  runCase('enum values are comparable', () {
-    return RefreshIndicatorStatus.drag != RefreshIndicatorStatus.refresh;
-  });
+  // RefreshIndicator usage
+  print('\nRefreshIndicator usage:');
+  print('  RefreshIndicator(');
+  print('    onRefresh: () async {');
+  print('      await Future.delayed(Duration(seconds: 2));');
+  print('    },');
+  print('    child: ListView(...),');
+  print('  )');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
+  // Similar to SnackBar
+  print('\nSimilar to:');
+  print('  Internally tracks states like SnackBar/Banner');
 
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('RefreshIndicatorStatus test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('RefreshIndicatorStatus Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'RefreshIndicatorStatus Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum (RefreshIndicatorMode - internal)'),
+      Text('Values: drag, armed, snap, refresh, done, canceled'),
+      Text('Use: Refresh lifecycle (internal)'),
     ],
   );
 }

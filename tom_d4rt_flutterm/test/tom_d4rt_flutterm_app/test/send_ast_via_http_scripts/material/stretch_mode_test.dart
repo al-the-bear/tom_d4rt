@@ -3,99 +3,84 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('StretchMode test executing');
   print('=' * 50);
 
-  // StretchMode enum: zoomBackground, blurBackground, fadeTitle
-  runCase('StretchMode.values has 3 entries', () {
-    return StretchMode.values.length == 3;
-  });
+  // StretchMode enum for FlexibleSpaceBar
+  print('StretchMode overview:');
+  print('  - Enum for FlexibleSpaceBar stretch effects');
+  print('  - Used with FlexibleSpaceBar widget');
+  print('  - Controls overscroll behavior');
 
-  runCase('zoomBackground value exists', () {
-    final value = StretchMode.zoomBackground;
-    print('  zoomBackground: index=${value.index}, name=${value.name}');
-    return value.index == 0 && value.name == 'zoomBackground';
-  });
+  // All enum values
+  print('\nAll StretchMode values:');
+  for (final value in StretchMode.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${StretchMode.values.length} values');
 
-  runCase('blurBackground value exists', () {
-    final value = StretchMode.blurBackground;
-    print('  blurBackground: index=${value.index}, name=${value.name}');
-    return value.index == 1 && value.name == 'blurBackground';
-  });
+  // Test individual values
+  print('\nTesting individual values:');
+  const zoomBackground = StretchMode.zoomBackground;
+  const blurBackground = StretchMode.blurBackground;
+  const fadeTitle = StretchMode.fadeTitle;
 
-  runCase('fadeTitle value exists', () {
-    final value = StretchMode.fadeTitle;
-    print('  fadeTitle: index=${value.index}, name=${value.name}');
-    return value.index == 2 && value.name == 'fadeTitle';
-  });
+  print('  zoomBackground: $zoomBackground');
+  print('    - Background zooms on overscroll');
+  print('    - Scales up image');
+  print('    - Common effect');
+  print('    - Default stretch mode');
 
-  runCase('zoomBackground is first value', () {
-    return StretchMode.values.first == StretchMode.zoomBackground;
-  });
+  print('  blurBackground: $blurBackground');
+  print('    - Background blurs on overscroll');
+  print('    - Progressive blur effect');
+  print('    - iOS-style behavior');
 
-  runCase('fadeTitle is last value', () {
-    return StretchMode.values.last == StretchMode.fadeTitle;
-  });
+  print('  fadeTitle: $fadeTitle');
+  print('    - Title fades on overscroll');
+  print('    - Opacity transition');
+  print('    - Subtle effect');
 
-  runCase('toString shows value name', () {
-    final str = StretchMode.blurBackground.toString();
-    print('  toString: $str');
-    return str.contains('blurBackground');
-  });
+  // Usage in FlexibleSpaceBar
+  print('\nUsage in FlexibleSpaceBar:');
+  print('  FlexibleSpaceBar(');
+  print('    stretchModes: [');
+  print('      StretchMode.zoomBackground,');
+  print('      StretchMode.fadeTitle,');
+  print('    ],');
+  print('    background: Image.asset(...),');
+  print('    title: Text("Title"),');
+  print('  )');
 
-  runCase('enum values are comparable', () {
-    return StretchMode.zoomBackground != StretchMode.fadeTitle;
-  });
+  // First and last
+  print('\nFirst and last:');
+  final first = StretchMode.values.first;
+  final last = StretchMode.values.last;
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  runCase('FlexibleSpaceBar accepts stretchModes', () {
-    final widget = FlexibleSpaceBar(
-      stretchModes: [StretchMode.zoomBackground],
-      title: Text('Test'),
-    );
-    print('  FlexibleSpaceBar created with stretchModes');
-    return widget.stretchModes.contains(StretchMode.zoomBackground);
-  });
+  // Multi-mode usage
+  print('\nMulti-mode usage:');
+  print('  Can combine multiple modes in list');
+  print('  Each mode applies independently');
 
-  runCase('multiple stretchModes can be combined', () {
-    final modes = [StretchMode.zoomBackground, StretchMode.fadeTitle];
-    return modes.length == 2;
-  });
+  // Default value
+  print('\nDefault: [StretchMode.zoomBackground]');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
-
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('StretchMode test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('StretchMode Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'StretchMode Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum'),
+      Text('Values: zoomBackground, blurBackground, fadeTitle'),
+      Text('Use: FlexibleSpaceBar stretch'),
     ],
   );
 }

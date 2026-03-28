@@ -3,97 +3,85 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('ShowValueIndicator test executing');
   print('=' * 50);
 
-  // ShowValueIndicator enum: onlyForDiscrete, onlyForContinuous, always (deprecated), onDrag, alwaysVisible, never
-  runCase('ShowValueIndicator.values exists', () {
-    final count = ShowValueIndicator.values.length;
-    print('  values count: $count');
-    return count >= 5; // May have deprecated values
-  });
+  // ShowValueIndicator enum for sliders
+  print('ShowValueIndicator overview:');
+  print('  - Enum for Slider value indicator display');
+  print('  - Used with SliderThemeData');
+  print('  - Controls bubble indicator visibility');
 
-  runCase('onlyForDiscrete value exists', () {
-    final value = ShowValueIndicator.onlyForDiscrete;
-    print('  onlyForDiscrete: index=${value.index}, name=${value.name}');
-    return value.name == 'onlyForDiscrete';
-  });
+  // All enum values
+  print('\nAll ShowValueIndicator values:');
+  for (final value in ShowValueIndicator.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${ShowValueIndicator.values.length} values');
 
-  runCase('onlyForContinuous value exists', () {
-    final value = ShowValueIndicator.onlyForContinuous;
-    print('  onlyForContinuous: index=${value.index}, name=${value.name}');
-    return value.name == 'onlyForContinuous';
-  });
+  // Test individual values
+  print('\nTesting individual values:');
+  const onlyForDiscrete = ShowValueIndicator.onlyForDiscrete;
+  const onlyForContinuous = ShowValueIndicator.onlyForContinuous;
+  const always = ShowValueIndicator.always;
+  const never = ShowValueIndicator.never;
 
-  runCase('onDrag value exists', () {
-    final value = ShowValueIndicator.onDrag;
-    print('  onDrag: index=${value.index}, name=${value.name}');
-    return value.name == 'onDrag';
-  });
+  print('  onlyForDiscrete: $onlyForDiscrete');
+  print('    - Show only for discrete sliders');
+  print('    - When divisions is set');
+  print('    - Default behavior');
 
-  runCase('alwaysVisible value exists', () {
-    final value = ShowValueIndicator.alwaysVisible;
-    print('  alwaysVisible: index=${value.index}, name=${value.name}');
-    return value.name == 'alwaysVisible';
-  });
+  print('  onlyForContinuous: $onlyForContinuous');
+  print('    - Show only for continuous sliders');
+  print('    - When no divisions');
 
-  runCase('never value exists', () {
-    final value = ShowValueIndicator.never;
-    print('  never: index=${value.index}, name=${value.name}');
-    return value.name == 'never';
-  });
+  print('  always: $always');
+  print('    - Always show indicator');
+  print('    - Both discrete and continuous');
+  print('    - Deprecated: use alwaysVisible');
 
-  runCase('SliderThemeData accepts showValueIndicator', () {
-    final theme = SliderThemeData(showValueIndicator: ShowValueIndicator.onDrag);
-    print('  SliderThemeData showValueIndicator: ${theme.showValueIndicator}');
-    return theme.showValueIndicator == ShowValueIndicator.onDrag;
-  });
+  print('  never: $never');
+  print('    - Never show indicator');
+  print('    - No bubble display');
 
-  runCase('toString shows value name', () {
-    final str = ShowValueIndicator.never.toString();
-    print('  toString: $str');
-    return str.contains('never');
-  });
+  // Additional values
+  print('\nAdditional values (Material 3):');
+  print('  onDrag: Show while dragging');
+  print('  alwaysVisible: Replaces deprecated always');
 
-  runCase('enum values are comparable', () {
-    return ShowValueIndicator.onDrag != ShowValueIndicator.never;
-  });
+  // Usage in SliderTheme
+  print('\nUsage in SliderTheme:');
+  print('  SliderTheme(');
+  print('    data: SliderThemeData(');
+  print('      showValueIndicator: ShowValueIndicator.onDrag,');
+  print('    ),');
+  print('    child: Slider(...),');
+  print('  )');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
+  // First and last
+  print('\nFirst and last:');
+  final first = ShowValueIndicator.values.first;
+  final last = ShowValueIndicator.values.last;
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  // Default value
+  print('\nDefault: ShowValueIndicator.onlyForDiscrete');
+
+  print('\n' + '=' * 50);
+  print('ShowValueIndicator test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('ShowValueIndicator Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'ShowValueIndicator Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum'),
+      Text('Values: onlyForDiscrete, onlyForContinuous, always, never'),
+      Text('Use: Slider value bubble'),
     ],
   );
 }

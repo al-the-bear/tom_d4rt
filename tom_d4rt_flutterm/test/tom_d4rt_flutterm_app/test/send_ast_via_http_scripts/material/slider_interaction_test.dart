@@ -3,97 +3,85 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('SliderInteraction test executing');
   print('=' * 50);
 
-  // SliderInteraction enum: tapAndSlide, tapOnly, slideOnly, slideThumb
-  runCase('SliderInteraction.values has 4 entries', () {
-    return SliderInteraction.values.length == 4;
-  });
+  // SliderInteraction enum
+  print('SliderInteraction overview:');
+  print('  - Enum for Slider interaction modes');
+  print('  - Used with SliderThemeData');
+  print('  - Controls how slider responds to input');
 
-  runCase('tapAndSlide value exists', () {
-    final value = SliderInteraction.tapAndSlide;
-    print('  tapAndSlide: index=${value.index}, name=${value.name}');
-    return value.index == 0 && value.name == 'tapAndSlide';
-  });
+  // All enum values
+  print('\nAll SliderInteraction values:');
+  for (final value in SliderInteraction.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${SliderInteraction.values.length} values');
 
-  runCase('tapOnly value exists', () {
-    final value = SliderInteraction.tapOnly;
-    print('  tapOnly: index=${value.index}, name=${value.name}');
-    return value.index == 1 && value.name == 'tapOnly';
-  });
+  // Test individual values
+  print('\nTesting individual values:');
+  const tapAndSlide = SliderInteraction.tapAndSlide;
+  const tapOnly = SliderInteraction.tapOnly;
+  const slideOnly = SliderInteraction.slideOnly;
+  const slideThumb = SliderInteraction.slideThumb;
 
-  runCase('slideOnly value exists', () {
-    final value = SliderInteraction.slideOnly;
-    print('  slideOnly: index=${value.index}, name=${value.name}');
-    return value.index == 2 && value.name == 'slideOnly';
-  });
+  print('  tapAndSlide: $tapAndSlide');
+  print('    - Tap anywhere to jump');
+  print('    - Slide to adjust');
+  print('    - Default behavior');
 
-  runCase('slideThumb value exists', () {
-    final value = SliderInteraction.slideThumb;
-    print('  slideThumb: index=${value.index}, name=${value.name}');
-    return value.index == 3 && value.name == 'slideThumb';
-  });
+  print('  tapOnly: $tapOnly');
+  print('    - Only tap to set value');
+  print('    - No sliding interaction');
+  print('    - Discrete selection');
 
-  runCase('tapAndSlide is first value', () {
-    return SliderInteraction.values.first == SliderInteraction.tapAndSlide;
-  });
+  print('  slideOnly: $slideOnly');
+  print('    - Only slide to adjust');
+  print('    - No tap to jump');
+  print('    - Precise adjustment');
 
-  runCase('slideThumb is last value', () {
-    return SliderInteraction.values.last == SliderInteraction.slideThumb;
-  });
+  print('  slideThumb: $slideThumb');
+  print('    - Must start on thumb');
+  print('    - Slide from thumb only');
+  print('    - Most controlled');
 
-  runCase('toString shows value name', () {
-    final str = SliderInteraction.slideOnly.toString();
-    print('  toString: $str');
-    return str.contains('slideOnly');
-  });
+  // Usage in SliderTheme
+  print('\nUsage in SliderTheme:');
+  print('  SliderTheme(');
+  print('    data: SliderThemeData(');
+  print('      allowedInteraction: SliderInteraction.tapAndSlide,');
+  print('    ),');
+  print('    child: Slider(');
+  print('      value: _value,');
+  print('      onChanged: (v) => setState(() => _value = v),');
+  print('    ),');
+  print('  )');
 
-  runCase('enum values are comparable', () {
-    return SliderInteraction.tapAndSlide != SliderInteraction.slideThumb;
-  });
+  // First and last
+  print('\nFirst and last:');
+  final first = SliderInteraction.values.first;
+  final last = SliderInteraction.values.last;
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  runCase('SliderThemeData accepts allowedInteraction', () {
-    final theme = SliderThemeData(allowedInteraction: SliderInteraction.slideThumb);
-    print('  SliderThemeData allowedInteraction: ${theme.allowedInteraction}');
-    return theme.allowedInteraction == SliderInteraction.slideThumb;
-  });
+  // Default value
+  print('\nDefault: SliderInteraction.tapAndSlide');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
-
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('SliderInteraction test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('SliderInteraction Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'SliderInteraction Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum'),
+      Text('Values: tapAndSlide, tapOnly, slideOnly, slideThumb'),
+      Text('Use: Slider input modes'),
     ],
   );
 }

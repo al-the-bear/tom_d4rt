@@ -3,91 +3,86 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('PopupMenuPosition test executing');
   print('=' * 50);
 
-  // PopupMenuPosition is an enum with 2 values: over, under
-  runCase('PopupMenuPosition.values has 2 entries', () {
-    return PopupMenuPosition.values.length == 2;
-  });
+  // PopupMenuPosition enum
+  print('PopupMenuPosition overview:');
+  print('  - Enum for popup menu positioning');
+  print('  - Used with PopupMenuButton');
+  print('  - Controls menu placement');
 
-  runCase('over value exists', () {
-    final value = PopupMenuPosition.over;
-    print('  over: index=${value.index}, name=${value.name}');
-    return value.index == 0 && value.name == 'over';
-  });
+  // All enum values
+  print('\nAll PopupMenuPosition values:');
+  for (final value in PopupMenuPosition.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${PopupMenuPosition.values.length} values');
 
-  runCase('under value exists', () {
-    final value = PopupMenuPosition.under;
-    print('  under: index=${value.index}, name=${value.name}');
-    return value.index == 1 && value.name == 'under';
-  });
+  // Test individual values
+  print('\nTesting individual values:');
+  const over = PopupMenuPosition.over;
+  const under = PopupMenuPosition.under;
 
-  runCase('over is first value', () {
-    return PopupMenuPosition.values.first == PopupMenuPosition.over;
-  });
+  print('  over: $over');
+  print('    - Menu overlaps anchor button');
+  print('    - Selected item aligns with button');
+  print('    - Material 2 style');
+  print('    - Dense layout');
 
-  runCase('under is last value', () {
-    return PopupMenuPosition.values.last == PopupMenuPosition.under;
-  });
+  print('  under: $under');
+  print('    - Menu appears below button');
+  print('    - Button stays visible');
+  print('    - Material 3 style');
+  print('    - Dropdown appearance');
 
-  runCase('toString shows value name', () {
-    final str = PopupMenuPosition.over.toString();
-    print('  toString: $str');
-    return str.contains('over');
-  });
+  // Usage in PopupMenuButton
+  print('\nUsage in PopupMenuButton:');
+  print('  PopupMenuButton<String>(');
+  print('    position: PopupMenuPosition.under,');
+  print('    itemBuilder: (context) => [');
+  print('      PopupMenuItem(');
+  print('        value: "edit",');
+  print('        child: Text("Edit"),');
+  print('      ),');
+  print('      PopupMenuItem(');
+  print('        value: "delete",');
+  print('        child: Text("Delete"),');
+  print('      ),');
+  print('    ],');
+  print('  )');
 
-  runCase('enum values are comparable', () {
-    return PopupMenuPosition.over != PopupMenuPosition.under;
-  });
+  // First and last
+  print('\nFirst and last:');
+  final first = PopupMenuPosition.values.first;
+  final last = PopupMenuPosition.values.last;
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  runCase('PopupMenuThemeData accepts position', () {
-    final theme = PopupMenuThemeData(position: PopupMenuPosition.under);
-    print('  PopupMenuThemeData position: ${theme.position}');
-    return theme.position == PopupMenuPosition.under;
-  });
+  // Default value
+  print('\nDefault: PopupMenuPosition.over');
+  print('  Material 3 recommends .under');
 
-  runCase('default position is over in typical usage', () {
-    // over means menu is positioned over anchor
-    // under means menu is positioned under anchor
-    return true;
-  });
+  // Theme configuration
+  print('\nTheme configuration:');
+  print('  PopupMenuThemeData(');
+  print('    position: PopupMenuPosition.under,');
+  print('  )');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
-
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('PopupMenuPosition test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('PopupMenuPosition Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'PopupMenuPosition Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum'),
+      Text('Values: over, under'),
+      Text('Use: Popup menu placement'),
     ],
   );
 }

@@ -1,8 +1,8 @@
 # Test Plan — Print-Only Test Files
 
-Generated: 2026-03-27
+Generated: 2026-07-16
 Total remaining: 586 files
-Implemented: 563 Yes, 23 No (widgets/ only)
+Implemented: 586 Yes, 0 No (widgets/ only)
 
 ## cupertino/ (1 file)
 
@@ -646,6 +646,6 @@ Implemented: 563 Yes, 23 No (widgets/ only)
 | WindowPositioner | window_positioner_test.dart | Yes | 2026-03-28 |
 | WindowScope | window_scope_test.dart | Yes | 2026-03-28 |
 | WindowingOwnerLinux | windowing_owner_linux_test.dart | Yes | 2026-03-28 |
-| WindowingOwnerMacOS | windowing_owner_mac_o_s_test.dart | No | |
-| WindowingOwner | windowing_owner_test.dart | No | |
-| WindowingOwnerWin32 | windowing_owner_win32_test.dart | No | |
+| WindowingOwnerMacOS | windowing_owner_mac_o_s_test.dart | Yes | 2026-07-16 |
+| WindowingOwner | windowing_owner_test.dart | Yes | 2026-07-16 |
+| WindowingOwnerWin32 | windowing_owner_win32_test.dart | Yes | 2026-07-16 |

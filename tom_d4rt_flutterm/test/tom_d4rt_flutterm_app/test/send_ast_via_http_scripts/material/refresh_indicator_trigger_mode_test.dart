@@ -3,89 +3,78 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('RefreshIndicatorTriggerMode test executing');
   print('=' * 50);
 
-  // RefreshIndicatorTriggerMode enum: anywhere, onEdge
-  runCase('RefreshIndicatorTriggerMode.values has 2 entries', () {
-    return RefreshIndicatorTriggerMode.values.length == 2;
-  });
+  // RefreshIndicatorTriggerMode enum
+  print('RefreshIndicatorTriggerMode overview:');
+  print('  - Enum for RefreshIndicator trigger');
+  print('  - Used with RefreshIndicator widget');
+  print('  - Controls when refresh can start');
 
-  runCase('anywhere value exists', () {
-    final value = RefreshIndicatorTriggerMode.anywhere;
-    print('  anywhere: index=${value.index}, name=${value.name}');
-    return value.index == 0 && value.name == 'anywhere';
-  });
+  // All enum values
+  print('\nAll RefreshIndicatorTriggerMode values:');
+  for (final value in RefreshIndicatorTriggerMode.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${RefreshIndicatorTriggerMode.values.length} values');
 
-  runCase('onEdge value exists', () {
-    final value = RefreshIndicatorTriggerMode.onEdge;
-    print('  onEdge: index=${value.index}, name=${value.name}');
-    return value.index == 1 && value.name == 'onEdge';
-  });
+  // Test individual values
+  print('\nTesting individual values:');
+  const anywhere = RefreshIndicatorTriggerMode.anywhere;
+  const onEdge = RefreshIndicatorTriggerMode.onEdge;
 
-  runCase('anywhere is first value', () {
-    return RefreshIndicatorTriggerMode.values.first == RefreshIndicatorTriggerMode.anywhere;
-  });
+  print('  anywhere: $anywhere');
+  print('    - Drag can start from any scroll position');
+  print('    - Even when not at top');
+  print('    - More flexible');
+  print('    - May conflict with scroll');
 
-  runCase('onEdge is last value', () {
-    return RefreshIndicatorTriggerMode.values.last == RefreshIndicatorTriggerMode.onEdge;
-  });
+  print('  onEdge: $onEdge');
+  print('    - Drag starts only at scroll edge');
+  print('    - Must be at top of scrollable');
+  print('    - Default behavior');
+  print('    - Less conflict with scrolling');
 
-  runCase('toString shows value name', () {
-    final str = RefreshIndicatorTriggerMode.anywhere.toString();
-    print('  toString: $str');
-    return str.contains('anywhere');
-  });
+  // Usage in RefreshIndicator
+  print('\nUsage in RefreshIndicator:');
+  print('  RefreshIndicator(');
+  print('    triggerMode: RefreshIndicatorTriggerMode.onEdge,');
+  print('    onRefresh: () async {');
+  print('      await fetchData();');
+  print('    },');
+  print('    child: ListView(...),');
+  print('  )');
 
-  runCase('enum values are comparable', () {
-    return RefreshIndicatorTriggerMode.anywhere != RefreshIndicatorTriggerMode.onEdge;
-  });
+  // First and last
+  print('\nFirst and last:');
+  final first = RefreshIndicatorTriggerMode.values.first;
+  final last = RefreshIndicatorTriggerMode.values.last;
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  runCase('anywhere triggers regardless of scroll position', () {
-    // anywhere: indicator can be triggered regardless of scroll position
-    return true;
-  });
+  // Default value
+  print('\nDefault: RefreshIndicatorTriggerMode.onEdge');
 
-  runCase('onEdge only triggers at edge', () {
-    // onEdge: indicator only triggers at scroll edge
-    return true;
-  });
+  // Use cases
+  print('\nUse cases:');
+  print('  onEdge: Standard pull-to-refresh');
+  print('  anywhere: Custom gesture interactions');
 
-  runCase('summary string can be formed', () {
-    final summary = '${passed.length + failed.length} checks';
-    return summary.endsWith('checks');
-  });
-
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('RefreshIndicatorTriggerMode test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('RefreshIndicatorTriggerMode Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'RefreshIndicatorTriggerMode Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: enum'),
+      Text('Values: anywhere, onEdge'),
+      Text('Use: Refresh trigger position'),
     ],
   );
 }

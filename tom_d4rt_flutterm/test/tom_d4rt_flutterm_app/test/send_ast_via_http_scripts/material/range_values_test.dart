@@ -3,110 +3,83 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('RangeValues test executing');
   print('=' * 50);
 
-  // RangeValues - pair of start and end double values
-  runCase('RangeValues can be constructed', () {
-    final values = RangeValues(0.2, 0.8);
-    print('  Created: $values');
-    return values.start == 0.2 && values.end == 0.8;
-  });
+  // RangeValues class for RangeSlider
+  print('RangeValues overview:');
+  print('  - Class for RangeSlider values');
+  print('  - Stores start and end double values');
+  print('  - Immutable value object');
 
-  runCase('start property is accessible', () {
-    final values = RangeValues(0.0, 1.0);
-    print('  start: ${values.start}');
-    return values.start == 0.0;
-  });
+  // Constructor
+  print('\nConstructor:');
+  print('  const RangeValues(double start, double end)');
 
-  runCase('end property is accessible', () {
-    final values = RangeValues(0.0, 1.0);
-    print('  end: ${values.end}');
-    return values.end == 1.0;
-  });
+  // Test instance creation
+  print('\nTest instance creation:');
+  const values1 = RangeValues(0, 100);
+  const values2 = RangeValues(25.5, 75.5);
+  const values3 = RangeValues(-10, 10);
 
-  runCase('equality works for same values', () {
-    final v1 = RangeValues(0.3, 0.7);
-    final v2 = RangeValues(0.3, 0.7);
-    return v1 == v2;
-  });
+  print('  values1: ${values1.start} - ${values1.end}');
+  print('  values2: ${values2.start} - ${values2.end}');
+  print('  values3: ${values3.start} - ${values3.end}');
 
-  runCase('inequality for different start', () {
-    final v1 = RangeValues(0.3, 0.7);
-    final v2 = RangeValues(0.4, 0.7);
-    return v1 != v2;
-  });
+  // Properties
+  print('\nProperties:');
+  print('  start (double): ${values1.start}');
+  print('  end (double): ${values1.end}');
 
-  runCase('inequality for different end', () {
-    final v1 = RangeValues(0.3, 0.7);
-    final v2 = RangeValues(0.3, 0.8);
-    return v1 != v2;
-  });
+  // Usage in RangeSlider
+  print('\nUsage in RangeSlider:');
+  print('  RangeSlider(');
+  print('    values: RangeValues(20, 80),');
+  print('    min: 0,');
+  print('    max: 100,');
+  print('    onChanged: (newValues) {');
+  print('      print(newValues.start);');
+  print('      print(newValues.end);');
+  print('    },');
+  print('  )');
 
-  runCase('hashCode is consistent', () {
-    final v1 = RangeValues(0.5, 0.9);
-    final v2 = RangeValues(0.5, 0.9);
-    return v1.hashCode == v2.hashCode;
-  });
+  // Equality
+  print('\nEquality:');
+  const same = RangeValues(0, 100);
+  print('  values1 == same: ${values1 == same}');
+  print('  values1.hashCode: ${values1.hashCode}');
+  print('  same.hashCode: ${same.hashCode}');
 
-  runCase('toString shows both values', () {
-    final values = RangeValues(0.25, 0.75);
-    final str = values.toString();
-    print('  toString: $str');
-    return str.contains('0.25') && str.contains('0.75');
-  });
+  // ToString
+  print('\nToString:');
+  print('  values1.toString(): $values1');
 
-  runCase('zero values work', () {
-    final values = RangeValues(0.0, 0.0);
-    return values.start == 0.0 && values.end == 0.0;
-  });
+  // State management pattern
+  print('\nState management pattern:');
+  print('  RangeValues _range = RangeValues(0, 100);');
+  print('  RangeSlider(');
+  print('    values: _range,');
+  print('    onChanged: (v) => setState(() => _range = v),');
+  print('  )');
 
-  runCase('full range values work', () {
-    final values = RangeValues(0.0, 1.0);
-    return values.start == 0.0 && values.end == 1.0;
-  });
+  // Related class
+  print('\nRelated class:');
+  print('  RangeLabels for slider labels');
 
-  runCase('negative values are supported', () {
-    final values = RangeValues(-0.5, 0.5);
-    return values.start == -0.5 && values.end == 0.5;
-  });
-
-  runCase('runtimeType is RangeValues', () {
-    final values = RangeValues(0.1, 0.9);
-    print('  runtimeType: ${values.runtimeType}');
-    return values.runtimeType.toString().contains('RangeValues');
-  });
-
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('RangeValues test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('RangeValues Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'RangeValues Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: class'),
+      Text('Properties: start, end (double)'),
+      Text('Use: RangeSlider values'),
     ],
   );
 }

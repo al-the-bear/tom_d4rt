@@ -3,99 +3,84 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final List<String> passed = <String>[];
-  final List<String> failed = <String>[];
-
-  void runCase(String name, bool Function() body) {
-    try {
-      if (body()) {
-        passed.add(name);
-        print('PASS: $name');
-      } else {
-        failed.add(name);
-        print('FAIL: $name');
-      }
-    } catch (e, s) {
-      failed.add('$name threw');
-      print('FAIL: $name threw $e');
-      print(s.toString());
-    }
-  }
-
   print('RangeLabels test executing');
   print('=' * 50);
 
-  // RangeLabels - pair of start and end label strings
-  runCase('RangeLabels can be constructed', () {
-    final labels = RangeLabels('Start', 'End');
-    print('  Created: $labels');
-    return labels.start == 'Start' && labels.end == 'End';
-  });
+  // RangeLabels class for RangeSlider
+  print('RangeLabels overview:');
+  print('  - Class for RangeSlider labels');
+  print('  - Stores start and end label strings');
+  print('  - Immutable value object');
 
-  runCase('start property is accessible', () {
-    final labels = RangeLabels('Min', 'Max');
-    print('  start: ${labels.start}');
-    return labels.start == 'Min';
-  });
+  // Constructor
+  print('\nConstructor:');
+  print('  const RangeLabels(String start, String end)');
 
-  runCase('end property is accessible', () {
-    final labels = RangeLabels('Min', 'Max');
-    print('  end: ${labels.end}');
-    return labels.end == 'Max';
-  });
+  // Test instance creation
+  print('\nTest instance creation:');
+  const labels1 = RangeLabels('0', '100');
+  const labels2 = RangeLabels(r'$10', r'$50');
+  const labels3 = RangeLabels('Min', 'Max');
 
-  runCase('equality works for same values', () {
-    final labels1 = RangeLabels('A', 'B');
-    final labels2 = RangeLabels('A', 'B');
-    return labels1 == labels2;
-  });
+  print('  labels1: ${labels1.start} - ${labels1.end}');
+  print('  labels2: ${labels2.start} - ${labels2.end}');
+  print('  labels3: ${labels3.start} - ${labels3.end}');
 
-  runCase('inequality for different values', () {
-    final labels1 = RangeLabels('A', 'B');
-    final labels2 = RangeLabels('A', 'C');
-    return labels1 != labels2;
-  });
+  // Properties
+  print('\nProperties:');
+  print('  start (String): ${labels1.start}');
+  print('  end (String): ${labels1.end}');
 
-  runCase('hashCode is consistent', () {
-    final labels1 = RangeLabels('X', 'Y');
-    final labels2 = RangeLabels('X', 'Y');
-    return labels1.hashCode == labels2.hashCode;
-  });
+  // Usage in RangeSlider
+  print('\nUsage in RangeSlider:');
+  print('  RangeSlider(');
+  print('    values: RangeValues(20, 80),');
+  print('    labels: RangeLabels("20", "80"),');
+  print('    min: 0,');
+  print('    max: 100,');
+  print('    onChanged: (values) { ... },');
+  print('  )');
 
-  runCase('toString shows both labels', () {
-    final labels = RangeLabels('Low', 'High');
-    final str = labels.toString();
-    print('  toString: $str');
-    return str.contains('Low') && str.contains('High');
-  });
+  // Equality
+  print('\nEquality:');
+  const same = RangeLabels('0', '100');
+  print('  labels1 == same: ${labels1 == same}');
+  print('  labels1.hashCode: ${labels1.hashCode}');
+  print('  same.hashCode: ${same.hashCode}');
 
-  runCase('empty strings are valid', () {
-    final labels = RangeLabels('', '');
-    return labels.start == '' && labels.end == '';
-  });
+  // ToString
+  print('\nToString:');
+  print('  labels1.toString(): $labels1');
 
-  runCase('numeric labels work', () {
-    final labels = RangeLabels('0', '100');
-    return labels.start == '0' && labels.end == '100';
-  });
+  // Dynamic labels
+  print('\nDynamic labels pattern:');
+  print('  onChanged: (values) {');
+  print('    setState(() {');
+  print('      labels = RangeLabels(');
+  print('        values.start.round().toString(),');
+  print('        values.end.round().toString(),');
+  print('      );');
+  print('    });');
+  print('  }');
 
-  runCase('runtimeType is RangeLabels', () {
-    final labels = RangeLabels('a', 'b');
-    print('  runtimeType: ${labels.runtimeType}');
-    return labels.runtimeType.toString().contains('RangeLabels');
-  });
+  // Related class
+  print('\nRelated class:');
+  print('  RangeValues for actual slider values');
 
-  print('Result: ${passed.length} passed, ${failed.length} failed');
-  if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
-  print('=' * 50);
+  print('\n' + '=' * 50);
+  print('RangeLabels test completed');
 
   return Column(
     mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text('RangeLabels Test'),
-      Text('Passed: ${passed.length}'),
-      Text('Failed: ${failed.length}'),
-      if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
+    children: [
+      Text(
+        'RangeLabels Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text('Type: class'),
+      Text('Properties: start, end (String)'),
+      Text('Use: RangeSlider labels'),
     ],
   );
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, deprecated_member_use
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ButtonBarLayoutBehavior from material
 import 'package:flutter/material.dart';
 
@@ -6,74 +6,67 @@ dynamic build(BuildContext context) {
   print('ButtonBarLayoutBehavior test executing');
   print('=' * 50);
 
-  // ButtonBarLayoutBehavior is an enum with 2 values
-  print('ButtonBarLayoutBehavior enum values:');
-  for (final behavior in ButtonBarLayoutBehavior.values) {
-    print('  ${behavior.name}: index=${behavior.index}');
-  }
-  print('ButtonBarLayoutBehavior has ${ButtonBarLayoutBehavior.values.length} values');
+  // ButtonBarLayoutBehavior enum for button bar sizing
+  print('ButtonBarLayoutBehavior overview:');
+  print('  - Enum for ButtonBar layout behavior');
+  print('  - Used with ButtonTheme and ButtonThemeData');
+  print('  - Controls button bar height and padding');
 
-  // Test first and last
+  // All enum values
+  print('\nAll ButtonBarLayoutBehavior values:');
+  for (final value in ButtonBarLayoutBehavior.values) {
+    print('  - ${value.name} (index: ${value.index})');
+  }
+  print('  Total: ${ButtonBarLayoutBehavior.values.length} values');
+
+  // Test individual values
+  print('\nTesting individual values:');
+  const constrained = ButtonBarLayoutBehavior.constrained;
+  const padded = ButtonBarLayoutBehavior.padded;
+
+  print('  constrained: $constrained');
+  print('    - Minimum height of 52 pixels');
+  print('    - Conforms to Material Design spec');
+  print('    - Fixed constraint behavior');
+
+  print('  padded: $padded');
+  print('    - Padding calculated from button theme');
+  print('    - More flexible sizing');
+  print('    - Default behavior');
+
+  // Usage in ButtonTheme
+  print('\nUsage in ButtonTheme:');
+  print('  ButtonTheme(');
+  print('    layoutBehavior: ButtonBarLayoutBehavior.constrained,');
+  print('    child: ButtonBar(');
+  print('      children: [');
+  print('        TextButton(...),');
+  print('        ElevatedButton(...),');
+  print('      ],');
+  print('    ),');
+  print('  )');
+
+  // First and last
+  print('\nFirst and last:');
   final first = ButtonBarLayoutBehavior.values.first;
   final last = ButtonBarLayoutBehavior.values.last;
-  print('\nFirst value: $first (index ${first.index})');
-  print('Last value: $last (index ${last.index})');
+  print('  First: $first (index ${first.index})');
+  print('  Last: $last (index ${last.index})');
 
-  // Test constrained
-  print('\nTesting ButtonBarLayoutBehavior.constrained:');
-  final constrained = ButtonBarLayoutBehavior.constrained;
-  print('  name: ${constrained.name}');
-  print('  index: ${constrained.index}');
-  print('  toString: $constrained');
-  print('  Purpose: Min height 52px per Material spec');
+  // Comparison
+  print('\nComparison:');
+  print('  constrained == constrained: ${constrained == ButtonBarLayoutBehavior.constrained}');
+  print('  padded.index > constrained.index: ${padded.index > constrained.index}');
 
-  // Test padded
-  print('\nTesting ButtonBarLayoutBehavior.padded:');
-  final padded = ButtonBarLayoutBehavior.padded;
-  print('  name: ${padded.name}');
-  print('  index: ${padded.index}');
-  print('  toString: $padded');
-  print('  Purpose: Padding from button theme');
+  // Default value
+  print('\nDefault value:');
+  print('  ButtonTheme default: ButtonBarLayoutBehavior.padded');
 
-  // Test equality
-  print('\nEquality tests:');
-  print('constrained == constrained: ${constrained == constrained}');
-  print('constrained == padded: ${constrained == padded}');
-
-  // Usage with ButtonTheme (deprecated but still available)
-  print('\nUsage context:');
-  print('Used with ButtonTheme and ButtonThemeData');
-  print('Defines button bar sizing behavior');
-
-  // Test in ButtonTheme
-  final buttonTheme = ButtonTheme(
-    layoutBehavior: ButtonBarLayoutBehavior.constrained,
-    child: Container(),
-  );
-  print('\nButtonTheme created with constrained layout');
-  print('ButtonTheme type: ${buttonTheme.runtimeType}');
-
-  final buttonTheme2 = ButtonTheme(
-    layoutBehavior: ButtonBarLayoutBehavior.padded,
-    child: Container(),
-  );
-  print('ButtonTheme created with padded layout');
-
-  // Test comparison
-  print('\nIndex comparison:');
-  print('constrained.index < padded.index: ${constrained.index < padded.index}');
-
-  // Test in ButtonThemeData
-  const themeData = ButtonThemeData(
-    layoutBehavior: ButtonBarLayoutBehavior.constrained,
-  );
-  print('\nButtonThemeData created');
-  print('layoutBehavior: ${themeData.layoutBehavior}');
-
-  const themeData2 = ButtonThemeData(
-    layoutBehavior: ButtonBarLayoutBehavior.padded,
-  );
-  print('Second ButtonThemeData layoutBehavior: ${themeData2.layoutBehavior}');
+  // Material 3 note
+  print('\nMaterial 3 note:');
+  print('  ButtonBar is deprecated in Material 3');
+  print('  Use OverflowBar or Row instead');
+  print('  This enum still used for legacy compatibility');
 
   print('\n' + '=' * 50);
   print('ButtonBarLayoutBehavior test completed');
@@ -81,11 +74,14 @@ dynamic build(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('ButtonBarLayoutBehavior Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      Text(
+        'ButtonBarLayoutBehavior Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       SizedBox(height: 8),
-      Text('Values: ${ButtonBarLayoutBehavior.values.length}'),
-      Text('constrained: min 52px height'),
-      Text('padded: uses theme padding'),
+      Text('Type: enum'),
+      Text('Values: constrained, padded'),
+      Text('Use: ButtonBar sizing behavior'),
     ],
   );
 }
