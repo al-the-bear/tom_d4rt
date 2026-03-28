@@ -1305,12 +1305,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [android_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_test.dart) | AndroidView | No | No | Yes | Checked. |
 | [animated_align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_align_test.dart) | AnimatedAlign | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_cross_fade_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_cross_fade_test.dart) | AnimatedCrossFade | No | Yes | No | Deep demo created 2025-03-28 |
-| [animated_fractionally_sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_fractionally_sized_box_test.dart) | AnimatedFractionallySizedBox | No | No | Yes | Checked. |
+| [animated_fractionally_sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_fractionally_sized_box_test.dart) | AnimatedFractionallySizedBox | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_grid_state_test.dart) | AnimatedGridState | No | Print-Only | No | Checked. |
 | [animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_list_state_test.dart) | AnimatedListState | No | Print-Only | No | Checked. |
 | [animated_modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_modal_barrier_test.dart) | AnimatedModalBarrier | No | Yes | No | Deep demo created 2025-03-28 |
-| [animated_physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_physical_model_test.dart) | AnimatedPhysicalModel | No | No | Yes | Checked. |
-| [animated_positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_positioned_directional_test.dart) | AnimatedPositionedDirectional | No | No | Yes | Checked. |
+| [animated_physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_physical_model_test.dart) | AnimatedPhysicalModel | No | Yes | No | Deep demo created 2025-03-28 |
+| [animated_positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_positioned_directional_test.dart) | AnimatedPositionedDirectional | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_rotation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_rotation_test.dart) | AnimatedRotation | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_scale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_scale_test.dart) | AnimatedScale | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_slide_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_slide_test.dart) | AnimatedSlide | No | Yes | No | Deep demo created 2025-03-28 |
@@ -1326,7 +1326,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animatedpositioned_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animatedpositioned_test.dart) | AnimatedPositioned | No | Yes | No | Checked. |
 | [animatedsize_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animatedsize_test.dart) | AnimatedSize | No | Yes | No | Checked. |
 | [animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animation_test.dart) | Animation | No | Yes | No | Checked. |
-| [annotated_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | No | Yes | Checked. |
+| [annotated_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | Yes | No | Deep demo created 2025-03-28 |
 | [app_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart) | AppKitView | No | No | Yes | Checked. |
 | [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | Print-Only | No | Checked. |
 | [appbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/appbar_test.dart) | AppBar | No | Yes | No |
@@ -1351,7 +1351,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [backdrop_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_group_test.dart) | BackdropGroup | No | No | Yes | Checked. |
 | [ballistic_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ballistic_scroll_activity_test.dart) | BallisticScrollActivity | No | Print-Only | No | Checked. |
 | [banner_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_location_test.dart) | BannerLocation | No | Print-Only | No | Checked. |
-| [banner_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_painter_test.dart) | BannerPainter | No | No | Yes | Checked. |
+| [banner_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_painter_test.dart) | BannerPainter | No | Yes | No | Deep demo created 2025-03-28 |
 | [banner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_test.dart) | Banner | No | Yes | No | Checked. |
 | [base_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/base_window_controller_test.dart) | BaseWindowController | No | Print-Only | No | Checked. |
 | [blocksemantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/blocksemantics_test.dart) | BlockSemantics | No | Yes | No |
