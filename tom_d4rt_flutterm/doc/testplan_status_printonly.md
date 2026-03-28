@@ -652,3 +652,23 @@ Implemented: 589 Yes, 0 No (widgets/ + 3 rendering)
 | WindowingOwnerMacOS | windowing_owner_mac_o_s_test.dart | Yes | 2026-07-16 |
 | WindowingOwner | windowing_owner_test.dart | Yes | 2026-07-16 |
 | WindowingOwnerWin32 | windowing_owner_win32_test.dart | Yes | 2026-07-16 |
+| [smart_dashes_type_test.dart](services/smart_dashes_type_test.dart) | SmartDashesType | Yes |
+| [smart_quotes_type_test.dart](services/smart_quotes_type_test.dart) | SmartQuotesType | Yes |
+| [autofill_hints_test.dart](services/autofill_hints_test.dart) | AutofillHints | Yes |
+| [autofill_client_test.dart](services/autofill_client_test.dart) | AutofillClient | Yes |
+| [autofill_scope_test.dart](services/autofill_scope_test.dart) | AutofillScope | Yes |
+| [browser_context_menu_test.dart](services/browser_context_menu_test.dart) | BrowserContextMenu | Yes |
+| [delta_text_input_client_test.dart](services/delta_text_input_client_test.dart) | DeltaTextInputClient | Yes |
+| [restoration_manager_test.dart](services/restoration_manager_test.dart) | RestorationManager | Yes |
+| [render_backdrop_filter_test.dart](rendering/render_backdrop_filter_test.dart) | RenderBackdropFilter | Yes |
+| [render_android_view_test.dart](rendering/render_android_view_test.dart) | RenderAndroidView | Yes |
+| [wrap_cross_alignment_test.dart](rendering/wrap_cross_alignment_test.dart) | WrapCrossAlignment | Yes |
+| [table_border_test.dart](rendering/table_border_test.dart) | TableBorder | Yes |
+| [render_sliver_fill_remaining_test.dart](rendering/render_sliver_fill_remaining_test.dart) | RenderSliverFillRemaining | Yes |
+| [render_proxy_sliver_test.dart](rendering/render_proxy_sliver_test.dart) | RenderProxySliver | Yes |
+| [render_animated_opacity_test.dart](rendering/render_animated_opacity_test.dart) | RenderAnimatedOpacity | Yes |
+| [render_clip_r_superellipse_test.dart](rendering/render_clip_r_superellipse_test.dart) | RenderClipRSuperellipse | Yes |
+| [render_box_container_defaults_mixin_test.dart](rendering/render_box_container_defaults_mixin_test.dart) | RenderBoxContainerDefaultsMixin | Yes |
+| [semantics_test.dart](semantics/semantics_test.dart) | Semantics | Yes |
+| [semantics_binding_test.dart](semantics/semantics_binding_test.dart) | SemanticsBinding | Yes |
+| [semantics_config_test.dart](semantics/semantics_config_test.dart) | SemanticsConfiguration | Yes |
