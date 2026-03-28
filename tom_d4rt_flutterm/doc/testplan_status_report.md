@@ -195,7 +195,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [path_metric_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metric_test.dart) | PathMetric | No | Yes | No | Checked. |
 | [path_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metrics_test.dart) | PathMetrics | No | Yes | No | Created on 2026-03-28 at 18:46. |
 | [path_operation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_operation_test.dart) | PathOperation | No | Yes | No | Checked. |
-| [picture_rasterization_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/picture_rasterization_exception_test.dart) | PictureRasterizationException | No | No | Yes | Checked. |
+| [picture_rasterization_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/picture_rasterization_exception_test.dart) | PictureRasterizationException | No | Yes | No | Created on 2026-03-28 at 18:50. |
 | [picture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/picture_test.dart) | PictureRecorder | No | Yes | No | Checked. |
 | [pixel_format_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/pixel_format_test.dart) | PixelFormat | No | Yes | No | Checked. |
 | [placeholder_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/placeholder_alignment_test.dart) | PlaceholderAlignment | No | Yes | No | Checked. |
