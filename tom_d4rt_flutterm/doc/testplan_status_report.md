@@ -181,7 +181,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [isolate_name_server_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/isolate_name_server_test.dart) | IsolateNameServer | No | Yes | No | Created on 2026-03-28 at 18:10. |
 | [key_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_data_test.dart) | KeyData | No | Yes | No | Created on 2026-03-28 at 18:14. |
 | [key_event_device_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_device_type_test.dart) | KeyEventDeviceType | No | Yes | No | Created on 2026-03-28 at 18:17. |
-| [key_event_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart) | KeyEventType | No | No | Yes | Checked. |
+| [key_event_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart) | KeyEventType | No | Yes | No | Created on 2026-03-28 at 18:21. |
 | [locale_string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/locale_string_attribute_test.dart) | LocaleStringAttribute | No | No | Yes | Checked. |
 | [offset_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/offset_base_test.dart) | OffsetBase | No | Yes | No | Checked. |
 | [offset_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/offset_engine_layer_test.dart) | OffsetEngineLayer | No | Yes | No | Checked. |
