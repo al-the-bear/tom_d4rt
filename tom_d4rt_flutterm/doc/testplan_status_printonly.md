@@ -2,7 +2,7 @@
 
 Generated: 2026-03-27
 Total remaining: 586 files
-Implemented: 543 Yes, 43 No (widgets/ only)
+Implemented: 563 Yes, 23 No (widgets/ only)
 
 ## cupertino/ (1 file)
 
@@ -506,7 +506,7 @@ Implemented: 543 Yes, 43 No (widgets/ only)
 | RestorableValue | restorable_value_test.dart | Yes | 2026-03-27 |
 | RestorationMixin | restoration_mixin_test.dart | Yes | 2026-03-27 |
 | RootElementMixin | root_element_mixin_test.dart | Yes | 2026-03-27 |
-| RootElement | root_element_test.dart | No | |
+| RootElement | root_element_test.dart | Yes | 2025-07-16 | |
 | RootRenderObjectElement | root_render_object_element_test.dart | Yes | 2026-03-27 | |
 | RootWidget | root_widget_test.dart | Yes | 2026-03-27 | |
 | RouteAware | route_aware_test.dart | Yes | 2026-03-27 | |
@@ -607,25 +607,25 @@ Implemented: 543 Yes, 43 No (widgets/ only)
 | TwoDimensionalChildDelegate | two_dimensional_child_delegate_test.dart | Yes | 2026-03-27 |
 | TwoDimensionalChildListDelegate | two_dimensional_child_list_delegate_test.dart | Yes | 2026-03-27 |
 | TwoDimensionalChildManager | two_dimensional_child_manager_test.dart | Yes | 2026-03-27 |
-| TwoDimensionalScrollableState | two_dimensional_scrollable_state_test.dart | No | |
-| TwoDimensionalViewportParentData | two_dimensional_viewport_parent_data_test.dart | No | |
-| UndoHistoryController | undo_history_controller_test.dart | No | |
-| UndoHistoryState | undo_history_state_test.dart | No | |
-| UndoHistoryValue | undo_history_value_test.dart | No | |
-| UndoTextIntent | undo_text_intent_test.dart | No | |
-| UnfocusDisposition | unfocus_disposition_test.dart | No | |
-| UpdateSelectionIntent | update_selection_intent_test.dart | No | |
-| UserScrollNotification | user_scroll_notification_test.dart | No | |
-| ViewportElementMixin | viewport_element_mixin_test.dart | No | |
-| ViewportNotificationMixin | viewport_notification_mixin_test.dart | No | |
-| VoidCallbackAction | void_callback_action_test.dart | No | |
-| VoidCallbackIntent | void_callback_intent_test.dart | No | |
-| WeakMap | weak_map_test.dart | No | |
-| WebBrowserDetection | web_browser_detection_test.dart | No | |
-| WidgetInspectorServiceExtensions | widget_inspector_service_extensions_test.dart | No | |
-| WidgetInspectorService | widget_inspector_service_test.dart | No | |
-| WidgetInspector | widget_inspector_test.dart | No | |
-| WidgetOrderTraversalPolicy | widget_order_traversal_policy_test.dart | No | |
+| TwoDimensionalScrollableState | two_dimensional_scrollable_state_test.dart | Yes | 2025-07-16 | |
+| TwoDimensionalViewportParentData | two_dimensional_viewport_parent_data_test.dart | Yes | 2025-07-16 | |
+| UndoHistoryController | undo_history_controller_test.dart | Yes | 2025-07-16 | |
+| UndoHistoryState | undo_history_state_test.dart | Yes | 2025-07-16 | |
+| UndoHistoryValue | undo_history_value_test.dart | Yes | 2025-07-16 | |
+| UndoTextIntent | undo_text_intent_test.dart | Yes | 2025-07-16 | |
+| UnfocusDisposition | unfocus_disposition_test.dart | Yes | 2025-07-16 | |
+| UpdateSelectionIntent | update_selection_intent_test.dart | Yes | 2025-07-16 | |
+| UserScrollNotification | user_scroll_notification_test.dart | Yes | 2025-07-16 | |
+| ViewportElementMixin | viewport_element_mixin_test.dart | Yes | 2025-07-16 | |
+| ViewportNotificationMixin | viewport_notification_mixin_test.dart | Yes | 2025-07-16 | |
+| VoidCallbackAction | void_callback_action_test.dart | Yes | 2025-07-16 | |
+| VoidCallbackIntent | void_callback_intent_test.dart | Yes | 2025-07-16 | |
+| WeakMap | weak_map_test.dart | Yes | 2025-07-16 | |
+| WebBrowserDetection | web_browser_detection_test.dart | Yes | 2025-07-16 | |
+| WidgetInspectorServiceExtensions | widget_inspector_service_extensions_test.dart | Yes | 2025-07-16 | |
+| WidgetInspectorService | widget_inspector_service_test.dart | Yes | 2025-07-16 | |
+| WidgetInspector | widget_inspector_test.dart | Yes | 2025-07-16 | |
+| WidgetOrderTraversalPolicy | widget_order_traversal_policy_test.dart | Yes | 2025-07-16 | |
 | WidgetStateBorderSide | widget_state_border_side_test.dart | No | |
 | WidgetStateColor | widget_state_color_test.dart | No | |
 | WidgetStateMapper | widget_state_mapper_test.dart | No | |
