@@ -200,7 +200,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [pixel_format_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/pixel_format_test.dart) | PixelFormat | No | Yes | No | Checked. |
 | [placeholder_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/placeholder_alignment_test.dart) | PlaceholderAlignment | No | Yes | No | Checked. |
 | [platform_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/platform_dispatcher_test.dart) | PlatformDispatcher | No | No | Yes | Checked. |
-| [plugin_utilities_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/plugin_utilities_test.dart) | PluginUtilities | No | No | Yes | Checked. |
+| [plugin_utilities_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/plugin_utilities_test.dart) | PluginUtilities | No | Yes | No | Created on 2026-03-28 at 19:07. |
 | [point_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/point_mode_test.dart) | PointMode | No | Yes | No | Checked. |
 | [pointer_change_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/pointer_change_test.dart) | PointerChange | No | Yes | No | Checked. |
 | [pointer_data_packet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/pointer_data_packet_test.dart) | PointerDataPacket | No | Yes | No | Checked. |
