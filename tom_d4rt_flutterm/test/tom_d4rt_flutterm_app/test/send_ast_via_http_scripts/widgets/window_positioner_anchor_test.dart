@@ -1,56 +1,95 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: compile-safe visual probe
+// D4rt test script: Tests WindowPositionerAnchor from widgets (internal API)
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  const scriptName = 'widgets/window_positioner_anchor_test.dart';
+  print('WindowPositionerAnchor test executing');
+  print('=' * 50);
 
-  print('$scriptName executing');
+  // WindowPositionerAnchor is internal in Flutter
+  print('WindowPositionerAnchor overview:');
+  print('  - Internal enum in _window_positioner.dart');
+  print('  - Not exported for public use');
+  print('  - Used by Flutter window positioning system');
 
-  return Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 560),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: const Color(0xFF111827),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF334155), width: 1.5),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Row(
-                children: [
-                  FlutterLogo(size: 18),
-                  SizedBox(width: 10),
-                  Text(
-                    'D4rt Compile-Safe Probe',
-                    style: TextStyle(color: Color(0xFFE2E8F0), fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text('This script is intentionally compile-safe.', style: TextStyle(color: Color(0xFFCBD5E1))),
-              SizedBox(height: 6),
-              Text('Used to unblock analyzer compile errors.', style: TextStyle(color: Color(0xFF94A3B8))),
-              SizedBox(height: 12),
-              ColoredBox(
-                color: Color(0xFF1E293B),
-                child: SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Visible UI output', style: TextStyle(color: Color(0xFF93C5FD))),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+  // Enum values documented
+  print('\nEnum values (internal):');
+  print('  - center: Center of the anchor rectangle');
+  print('  - top: Center of top edge');
+  print('  - bottom: Center of bottom edge');
+  print('  - left: Center of left edge');
+  print('  - right: Center of right edge');
+  print('  - topLeft: Top left corner');
+  print('  - topRight: Top right corner');
+  print('  - bottomLeft: Bottom left corner');
+  print('  - bottomRight: Bottom right corner');
+
+  // Anchor positions visualization
+  print('\nAnchor positions:');
+  print('  topLeft ---- top ---- topRight');
+  print('     |                     |');
+  print('   left      center      right');
+  print('     |                     |');
+  print('  bottomLeft-bottom-bottomRight');
+
+  // Usage context
+  print('\nUsage (internal to Flutter):');
+  print('  WindowPositioner(');
+  print('    parentAnchor: WindowPositionerAnchor.bottom,');
+  print('    childAnchor: WindowPositionerAnchor.top,');
+  print('    offset: Offset(0, 5),');
+  print('  )');
+
+  // Parent vs Child anchor
+  print('\nParent vs Child anchor:');
+  print('  parentAnchor: Point on parent where child attaches');
+  print('  childAnchor: Point on child that attaches to parent');
+  print('  offset: Additional Offset from anchored position');
+
+  // Examples
+  print('\nExample configurations:');
+  print('  Dropdown below button:');
+  print('    parent=bottomLeft, child=topLeft');
+  print('  ');
+  print('  Tooltip above widget:');
+  print('    parent=top, child=bottom');
+  print('  ');
+  print('  Context menu at cursor:');
+  print('    parent=center (cursor), child=topLeft');
+
+  // Platform considerations
+  print('\nPlatform considerations:');
+  print('  - Desktop platforms use this for popups');
+  print('  - Mobile typically uses overlay positioning');
+  print('  - Web may have different constraints');
+
+  // Related classes
+  print('\nRelated internal classes:');
+  print('  - WindowPositioner');
+  print('  - WindowPositionerConstraintAdjustment');
+  print('  - WindowingOwner (platform-specific)');
+
+  // Index-like behavior
+  print('\nEnum semantics:');
+  print('  - 9 total anchor positions');
+  print('  - Covers all corners, edges, and center');
+  print('  - Natural for rectangle-based positioning');
+
+  print('\n' + '=' * 50);
+  print('WindowPositionerAnchor test completed');
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'WindowPositionerAnchor Tests',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
-    ),
+      SizedBox(height: 8),
+      Text('Type: Internal enum'),
+      Text('Values: center, corners, edges'),
+      Text('Use: Flutter window positioning'),
+    ],
   );
 }

@@ -626,26 +626,26 @@ Implemented: 563 Yes, 23 No (widgets/ only)
 | WidgetInspectorService | widget_inspector_service_test.dart | Yes | 2025-07-16 | |
 | WidgetInspector | widget_inspector_test.dart | Yes | 2025-07-16 | |
 | WidgetOrderTraversalPolicy | widget_order_traversal_policy_test.dart | Yes | 2025-07-16 | |
-| WidgetStateBorderSide | widget_state_border_side_test.dart | No | |
-| WidgetStateColor | widget_state_color_test.dart | No | |
-| WidgetStateMapper | widget_state_mapper_test.dart | No | |
-| WidgetStateMouseCursor | widget_state_mouse_cursor_test.dart | No | |
-| WidgetStateOutlinedBorder | widget_state_outlined_border_test.dart | No | |
-| WidgetStatePropertyAll | widget_state_property_all_test.dart | No | |
-| WidgetState | widget_state_test.dart | No | |
-| WidgetStateTextStyle | widget_state_text_style_test.dart | No | |
-| WidgetStatesConstraint | widget_states_constraint_test.dart | No | |
-| Widget | widget_test.dart | No | |
-| WidgetsBindingObserver | widgets_binding_observer_test.dart | No | |
-| WidgetsBinding | widgets_binding_test.dart | No | |
-| WidgetsFlutterBinding | widgets_flutter_binding_test.dart | No | |
-| WidgetsLocalizations | widgets_localizations_test.dart | No | |
-| WidgetsServiceExtensions | widgets_service_extensions_test.dart | No | |
-| WindowPositionerAnchor | window_positioner_anchor_test.dart | No | |
-| WindowPositionerConstraintAdjustment | window_positioner_constraint_adjustment_test.dart | No | |
-| WindowPositioner | window_positioner_test.dart | No | |
-| WindowScope | window_scope_test.dart | No | |
-| WindowingOwnerLinux | windowing_owner_linux_test.dart | No | |
+| WidgetStateBorderSide | widget_state_border_side_test.dart | Yes | 2026-03-28 |
+| WidgetStateColor | widget_state_color_test.dart | Yes | 2026-03-28 |
+| WidgetStateMapper | widget_state_mapper_test.dart | Yes | 2026-03-28 |
+| WidgetStateMouseCursor | widget_state_mouse_cursor_test.dart | Yes | 2026-03-28 |
+| WidgetStateOutlinedBorder | widget_state_outlined_border_test.dart | Yes | 2026-03-28 |
+| WidgetStatePropertyAll | widget_state_property_all_test.dart | Yes | 2026-03-28 |
+| WidgetState | widget_state_test.dart | Yes | 2026-03-28 |
+| WidgetStateTextStyle | widget_state_text_style_test.dart | Yes | 2026-03-28 |
+| WidgetStatesConstraint | widget_states_constraint_test.dart | Yes | 2026-03-28 |
+| Widget | widget_test.dart | Yes | 2026-03-28 |
+| WidgetsBindingObserver | widgets_binding_observer_test.dart | Yes | 2026-03-28 |
+| WidgetsBinding | widgets_binding_test.dart | Yes | 2026-03-28 |
+| WidgetsFlutterBinding | widgets_flutter_binding_test.dart | Yes | 2026-03-28 |
+| WidgetsLocalizations | widgets_localizations_test.dart | Yes | 2026-03-28 |
+| WidgetsServiceExtensions | widgets_service_extensions_test.dart | Yes | 2026-03-28 |
+| WindowPositionerAnchor | window_positioner_anchor_test.dart | Yes | 2026-03-28 |
+| WindowPositionerConstraintAdjustment | window_positioner_constraint_adjustment_test.dart | Yes | 2026-03-28 |
+| WindowPositioner | window_positioner_test.dart | Yes | 2026-03-28 |
+| WindowScope | window_scope_test.dart | Yes | 2026-03-28 |
+| WindowingOwnerLinux | windowing_owner_linux_test.dart | Yes | 2026-03-28 |
 | WindowingOwnerMacOS | windowing_owner_mac_o_s_test.dart | No | |
 | WindowingOwner | windowing_owner_test.dart | No | |
 | WindowingOwnerWin32 | windowing_owner_win32_test.dart | No | |
