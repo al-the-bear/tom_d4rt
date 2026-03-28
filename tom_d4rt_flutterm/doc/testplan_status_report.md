@@ -191,7 +191,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [painting_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/painting_style_test.dart) | PaintingStyle | No | Yes | No | Checked. |
 | [paragraph_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/paragraph_test.dart) | Paragraph | No | Yes | No | Checked. |
 | [path_fill_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_fill_type_test.dart) | PathFillType | No | Yes | No | Checked. |
-| [path_metric_iterator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metric_iterator_test.dart) | PathMetricIterator | No | No | Yes | Checked. |
+| [path_metric_iterator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metric_iterator_test.dart) | PathMetricIterator | No | Yes | No | Created on 2026-03-28 at 18:43. |
 | [path_metric_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metric_test.dart) | PathMetric | No | Yes | No | Checked. |
 | [path_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_metrics_test.dart) | PathMetrics | No | No | Yes | Checked. |
 | [path_operation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/path_operation_test.dart) | PathOperation | No | Yes | No | Checked. |
