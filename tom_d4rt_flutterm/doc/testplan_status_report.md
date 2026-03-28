@@ -479,7 +479,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [date_utils_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/date_utils_test.dart) | DateUtils | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [datepicker_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/datepicker_widgets_test.dart) | DatePickerDialog | No | Yes | No |
 | [datetime_utils_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/datetime_utils_test.dart) | DatetimeUtils | Yes | Yes | No |
-| [day_period_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/day_period_test.dart) | DayPeriod | No | No | Yes | Created on 2026-03-26 at 14:30 |
+| [day_period_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/day_period_test.dart) | DayPeriod | No | Yes | No | Created on 2026-03-28 at 20:06. |
 | [default_material_localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/default_material_localizations_test.dart) | DefaultMaterialLocalizations | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [deletable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/deletable_chip_attributes_test.dart) | DeletableChipAttributes | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [desktop_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/desktop_text_selection_controls_test.dart) | DesktopTextSelectionControls | No | Yes | No | Created on 20.03.2026 at 19:11 |
