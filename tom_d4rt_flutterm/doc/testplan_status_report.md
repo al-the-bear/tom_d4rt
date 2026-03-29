@@ -721,7 +721,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tab_page_selector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | Yes | No | Deep demo created 2025-03-28 |
 | [table_row_ink_well_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/table_row_ink_well_test.dart) | TableRowInkWell | No | Yes | No | Deep demo created 2025-03-28 |
 | [tabs_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tabs_test.dart) | Tabs | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | No | Yes | Created on 2026-03-21 at 12:30 |
+| [tappable_chip_attributes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tappable_chip_attributes_test.dart) | TappableChipAttributes | No | Yes | No | Created on 2026-03-29 at 14:35 |
 | [text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_button_test.dart) | TextButton | No | Yes | No | Checked. |
 | [text_button_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_button_theme_data_test.dart) | TextButtonThemeData | No | No | Yes | Created on 2026-03-21 at 12:30 |
 | [text_field_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_field_theme_test.dart) | InputDecorationTheme | No | Yes | No | Checked. |
