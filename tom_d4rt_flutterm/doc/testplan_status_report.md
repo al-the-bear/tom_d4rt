@@ -727,7 +727,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_field_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_field_theme_test.dart) | InputDecorationTheme | No | Yes | No | Checked. |
 | [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_magnifier_test.dart) | TextMagnifier | No | Yes | No | Deep demo created 2025-03-28 |
 | [text_selection_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_test.dart) | TextSelectionToolbar | No | Yes | No | Created on 2026-03-29 at 14:45 |
-| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | No | Yes | Created on 2026-03-21 at 12:30 |
+| [text_selection_toolbar_text_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/text_selection_toolbar_text_button_test.dart) | TextSelectionToolbarTextButton | No | Yes | No | Created on 2026-03-29 at 14:50 |
 | [texttheme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/texttheme_test.dart) | TextTheme | No | Yes | No |
 | [themadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [theme_data_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | No | Yes | Created on 2026-03-21 at 12:30 |
