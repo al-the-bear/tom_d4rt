@@ -1433,7 +1433,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [directional_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_intent_test.dart) | DirectionalFocusIntent | No | Print-Only | No | Checked. |
 | [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin | No | Print-Only | No | Checked. |
 | [directional_text_editing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_text_editing_intent_test.dart) | DirectionalTextEditingIntent | No | Print-Only | No | Checked. |
-| [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | No | Yes | Checked. |
+| [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | Yes | No | Created on 2026-03-30 at 22:47. |
 | [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope | No | Print-Only | No | Checked. |
 | [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction | No | Print-Only | No | Checked. |
 | [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | Print-Only | No | Checked. |
