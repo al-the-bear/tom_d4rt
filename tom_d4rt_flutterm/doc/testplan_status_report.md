@@ -1383,7 +1383,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [clipboard_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_test.dart) | ClipboardStatus | No | Print-Only | No | Checked. |
 | [clipping_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipping_test.dart) | ClipRect | No | Yes | No | Checked. |
 | [cliprrect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/cliprrect_test.dart) | ClipRRect | No | Yes | No |
-| [color_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | No | Yes | Checked. |
+| [color_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | Yes | No | Created on 2026-03-30 at 17:12. |
 | [column_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/column_test.dart) | Column | No | Yes | No |
 | [component_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | Print-Only | No | Checked. |
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | No | Yes | Checked. |
