@@ -1332,7 +1332,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [appbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/appbar_test.dart) | AppBar | No | Yes | No |
 | [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | Print-Only | No | Checked. |
 | [autocomplete_first_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_first_option_intent_test.dart) | AutocompleteFirstOptionIntent | No | Print-Only | No | Checked. |
-| [autocomplete_highlighted_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_highlighted_option_test.dart) | AutocompleteHighlightedOption | No | No | Yes | Checked. |
+| [autocomplete_highlighted_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_highlighted_option_test.dart) | AutocompleteHighlightedOption | No | Yes | No | Created on 2026-03-30 at 14:13. |
 | [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | Print-Only | No | Checked. |
 | [autocomplete_next_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_option_intent_test.dart) | AutocompleteNextOptionIntent | No | Print-Only | No | Checked. |
 | [autocomplete_next_page_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_page_option_intent_test.dart) | AutocompleteNextPageOptionIntent | No | Print-Only | No | Checked. |
