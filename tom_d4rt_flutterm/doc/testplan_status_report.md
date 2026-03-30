@@ -1116,7 +1116,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [semantics_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_handle_test.dart) | SemanticsHandle | No | Print-Only | No | Checked. |
 | [semantics_label_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_label_builder_test.dart) | SemanticsLabelBuilder | No | Print-Only | No | Checked. |
 | [semantics_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_properties_test.dart) | SemanticsProperties | No | Yes | No | Checked. |
-| [semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_test.dart) | Semantics | No | No | Yes | Checked. |
+| [semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_test.dart) | Semantics | No | Yes | No | Created on 2026-03-30 at 18:54. |
 | [tap_semantic_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/tap_semantic_event_test.dart) | TapSemanticEvent | No | Yes | No | Checked. |
 | [tooltip_semantics_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/tooltip_semantics_event_test.dart) | TooltipSemanticsEvent | No | Yes | No | Checked. |
 ## services/ (140 files)
