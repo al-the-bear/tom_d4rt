@@ -1378,7 +1378,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [clamping_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_physics_test.dart) | ClampingScrollPhysics | No | Print-Only | No | Checked. |
 | [clamping_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_simulation_test.dart) | ClampingScrollSimulation | No | Print-Only | No | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/class_test.dart) | Class | No | Print-Only | No | Checked. |
-| [clip_r_superellipse_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clip_r_superellipse_test.dart) | ClipRSuperellipse | No | No | Yes | Checked. |
+| [clip_r_superellipse_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clip_r_superellipse_test.dart) | ClipRSuperellipse | No | Yes | No | Created on 2026-03-30 at 16:26. |
 | [clipboard_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_notifier_test.dart) | ClipboardStatusNotifier | No | Print-Only | No | Checked. |
 | [clipboard_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_test.dart) | ClipboardStatus | No | Print-Only | No | Checked. |
 | [clipping_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipping_test.dart) | ClipRect | No | Yes | No | Checked. |
