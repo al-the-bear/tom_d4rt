@@ -1327,7 +1327,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animatedsize_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animatedsize_test.dart) | AnimatedSize | No | Yes | No | Checked. |
 | [animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animation_test.dart) | Animation | No | Yes | No | Checked. |
 | [annotated_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | Yes | No | Deep demo created 2025-03-28 |
-| [app_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart) | AppKitView | No | No | Yes | Checked. |
+| [app_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart) | AppKitView | No | Yes | No | Created on 2026-03-30 at 14:06. |
 | [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | Print-Only | No | Checked. |
 | [appbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/appbar_test.dart) | AppBar | No | Yes | No |
 | [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | Print-Only | No | Checked. |
