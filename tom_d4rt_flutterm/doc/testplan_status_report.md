@@ -1409,7 +1409,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [decoration_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | Print-Only | No | Checked. |
 | [default_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_asset_bundle_test.dart) | DefaultAssetBundle | No | Yes | No | Created on 2026-03-30 at 22:15. |
 | [default_platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_platform_menu_delegate_test.dart) | DefaultPlatformMenuDelegate | No | Print-Only | No | Checked. |
-| [default_selection_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart) | DefaultSelectionStyle | No | No | Yes | Checked. |
+| [default_selection_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart) | DefaultSelectionStyle | No | Yes | No | Created on 2026-03-30 at 22:20. |
 | [default_text_editing_shortcuts_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_text_editing_shortcuts_test.dart) | DefaultTextEditingShortcuts | No | No | Yes | Checked. |
 | [default_text_height_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_text_height_behavior_test.dart) | DefaultTextHeightBehavior | No | No | Yes | Checked. |
 | [default_text_style_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_text_style_transition_test.dart) | DefaultTextStyleTransition | No | No | Yes | Checked. |
