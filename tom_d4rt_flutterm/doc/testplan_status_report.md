@@ -1389,7 +1389,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | Yes | No | Created on 2026-03-30 at 17:28. |
 | [composited_transform_target_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_target_test.dart) | CompositedTransformTarget | No | Yes | No | Created on 2026-03-30 at 19:10. |
 | [connection_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/connection_state_test.dart) | ConnectionState | No | Print-Only | No | Checked. |
-| [constrained_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart) | ConstrainedLayoutBuilder | No | No | Yes | Checked. |
+| [constrained_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart) | ConstrainedLayoutBuilder | No | Yes | No | Created on 2026-03-30 at 19:18. |
 | [constrainedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrainedbox_test.dart) | ConstrainedBox | No | Yes | No |
 | [constraints_transform_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart) | ConstraintsTransformBox | No | No | Yes | Checked. |
 | [container_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/container_test.dart) | Container | No | Yes | No | Checked. |
