@@ -1302,7 +1302,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [always_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/always_scrollable_scroll_physics_test.dart) | AlwaysScrollableScrollPhysics | No | Print-Only | No | Checked. |
 | [android_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_overscroll_indicator_test.dart) | AndroidOverscrollIndicator | No | Yes | No | Created on 2026-03-30 at 10:36. |
 | [android_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart) | AndroidViewSurface | No | Yes | No | Created on 2026-03-30 at 10:49. |
-| [android_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_test.dart) | AndroidView | No | No | Yes | Checked. |
+| [android_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_test.dart) | AndroidView | No | Yes | No | Created on 2026-03-30 at 13:58. |
 | [animated_align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_align_test.dart) | AnimatedAlign | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_cross_fade_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_cross_fade_test.dart) | AnimatedCrossFade | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_fractionally_sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_fractionally_sized_box_test.dart) | AnimatedFractionallySizedBox | No | Yes | No | Deep demo created 2025-03-28 |
