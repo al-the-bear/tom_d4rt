@@ -1397,7 +1397,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [context_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart) | ContextAction | No | Yes | No | Created on 2026-03-30 at 20:30. |
 | [context_menu_button_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_button_item_test.dart) | ContextMenuButtonItem | No | Print-Only | No | Checked. |
 | [context_menu_button_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_button_type_test.dart) | ContextMenuButtonType | No | Print-Only | No | Checked. |
-| [context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_controller_test.dart) | ContextMenuController | No | No | Yes | Checked. |
+| [context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_controller_test.dart) | ContextMenuController | No | Yes | No | Created on 2026-03-30 at 21:05. |
 | [context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_test.dart) | ContextMenuButtonItem | No | Yes | No | Checked. |
 | [copy_selection_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/copy_selection_text_intent_test.dart) | CopySelectionTextIntent | No | Print-Only | No | Checked. |
 | [cross_fade_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/cross_fade_state_test.dart) | CrossFadeState | No | Print-Only | No | Checked. |
