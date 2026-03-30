@@ -1361,7 +1361,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [bouncing_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_physics_test.dart) | BouncingScrollPhysics | No | Print-Only | No | Checked. |
 | [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | Print-Only | No | Checked. |
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | Print-Only | No | Checked. |
-| [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | No | Yes | Checked. |
+| [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
 | [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | Print-Only | No | Checked. |
 | [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | Print-Only | No | Checked. |
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
