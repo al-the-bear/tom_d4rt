@@ -1404,7 +1404,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [custompaint_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/custompaint_test.dart) | CustomPaint | No | Yes | No |
 | [customscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/customscrollview_test.dart) | CustomScrollView | No | Yes | No |
 | [debug_creator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/debug_creator_test.dart) | DebugCreator | No | Print-Only | No | Checked. |
-| [decorated_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decorated_sliver_test.dart) | DecoratedSliver | No | No | Yes | Checked. |
+| [decorated_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decorated_sliver_test.dart) | DecoratedSliver | No | Yes | No | Created on 2026-03-30 at 21:59. |
 | [decoratedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoratedbox_test.dart) | DecoratedBox | No | Yes | No |
 | [decoration_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | Print-Only | No | Checked. |
 | [default_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_asset_bundle_test.dart) | DefaultAssetBundle | No | No | Yes | Checked. |
