@@ -1366,7 +1366,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | Print-Only | No | Checked. |
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
 | [button_activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/button_activate_intent_test.dart) | ButtonActivateIntent | No | Print-Only | No | Checked. |
-| [callback_shortcuts_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/callback_shortcuts_test.dart) | CallbackShortcuts | No | No | Yes | Checked. |
+| [callback_shortcuts_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/callback_shortcuts_test.dart) | CallbackShortcuts | No | Yes | No | Created on 2026-03-30 at 15:30. |
 | [captured_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/captured_themes_test.dart) | CapturedThemes | No | Print-Only | No | Checked. |
 | [center_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/center_test.dart) | Center | No | No | Yes | Checked. |
 | [change_reporting_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/change_reporting_behavior_test.dart) | ChangeReportingBehavior | No | Print-Only | No | Checked. |
