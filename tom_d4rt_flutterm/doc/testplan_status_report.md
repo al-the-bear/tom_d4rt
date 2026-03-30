@@ -1391,7 +1391,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [connection_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/connection_state_test.dart) | ConnectionState | No | Print-Only | No | Checked. |
 | [constrained_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart) | ConstrainedLayoutBuilder | No | Yes | No | Created on 2026-03-30 at 19:18. |
 | [constrainedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrainedbox_test.dart) | ConstrainedBox | No | Yes | No |
-| [constraints_transform_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart) | ConstraintsTransformBox | No | No | Yes | Checked. |
+| [constraints_transform_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart) | ConstraintsTransformBox | No | Yes | No | Created on 2026-03-30 at 19:45. |
 | [container_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/container_test.dart) | Container | No | Yes | No | Checked. |
 | [content_insertion_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/content_insertion_configuration_test.dart) | ContentInsertionConfiguration | No | Print-Only | No | Checked. |
 | [context_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart) | ContextAction | No | No | Yes | Checked. |
