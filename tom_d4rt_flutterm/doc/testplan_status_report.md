@@ -1017,7 +1017,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [render_sliver_varied_extent_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_sliver_varied_extent_list_test.dart) | RenderSliverVariedExtentList | No | Print-Only | No | Checked. |
 | [render_sliver_with_keep_alive_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_sliver_with_keep_alive_mixin_test.dart) | RenderSliverWithKeepAliveMixin | No | Print-Only | No | Checked. |
 | [render_tree_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_tree_sliver_test.dart) | RenderTreeSliver | No | Print-Only | No | Checked. |
-| [render_ui_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_ui_kit_view_test.dart) | RenderUiKitView | No | No | Yes | Checked. |
+| [render_ui_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_ui_kit_view_test.dart) | RenderUiKitView | No | Yes | No | Created on 2026-03-30 at 17:43. |
 | [render_viewport_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_viewport_base_test.dart) | RenderViewportBase | No | Print-Only | No | Checked. |
 | [renderer_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/renderer_binding_test.dart) | RendererBinding | No | Print-Only | No | Checked. |
 | [rendering_flutter_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/rendering_flutter_binding_test.dart) | RenderingFlutterBinding | No | Print-Only | No | Checked. |
