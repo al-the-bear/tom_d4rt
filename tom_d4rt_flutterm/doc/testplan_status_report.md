@@ -1440,7 +1440,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent | No | Print-Only | No | Checked. |
 | [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction | No | Print-Only | No | Checked. |
 | [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | Print-Only | No | Checked. |
-| [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | No | Yes | Checked. |
+| [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-30 at 22:54. |
 | [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | No | Yes | Checked. |
 | [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Checked. |
 | [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | Print-Only | No | Checked. |
