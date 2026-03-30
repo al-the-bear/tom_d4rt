@@ -1109,7 +1109,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [focus_semantic_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/focus_semantic_event_test.dart) | FocusSemanticEvent | No | Yes | No | Checked. |
 | [long_press_semantics_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/long_press_semantics_event_test.dart) | LongPressSemanticsEvent | No | Yes | No | Checked. |
 | [semantics_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_binding_test.dart) | SemanticsBinding | No | Print-Only | No | Checked. |
-| [semantics_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_config_test.dart) | Semantics | No | No | Yes | Checked. |
+| [semantics_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_config_test.dart) | Semantics | No | Yes | No | Created on 2026-03-30 at 18:35. |
 | [semantics_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_data_test.dart) | SemanticsData | No | Yes | No | Checked. |
 | [semantics_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_event_test.dart) | SemanticsEvent | No | Yes | No | Checked. |
 | [semantics_events_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/semantics_events_test.dart) | SemanticsEvent | No | Yes | No | Checked. |
