@@ -1478,7 +1478,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [expand_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_line_break_intent_test.dart) | ExpandSelectionToLineBreakIntent | No | Print-Only | No | Checked. |
 | [expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expanded_test.dart) | Expanded | No | Yes | No |
 | [expansible_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_controller_test.dart) | ExpansibleController | No | Print-Only | No | Checked. |
-| [expansible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_test.dart) | Expansible | No | No | Yes | Checked. |
+| [expansible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_test.dart) | Expansible | No | Yes | No | Created on 2026-03-31 at 12:30. |
 | [extend_selection_by_character_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_character_intent_test.dart) | ExtendSelectionByCharacterIntent | No | Print-Only | No | Checked. |
 | [extend_selection_by_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_page_intent_test.dart) | ExtendSelectionByPageIntent | No | Print-Only | No | Checked. |
 | [extend_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_to_document_boundary_intent_test.dart) | ExtendSelectionToDocumentBoundaryIntent | No | Print-Only | No | Checked. |
