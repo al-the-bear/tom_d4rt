@@ -1541,7 +1541,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [i_o_s_system_context_menu_item_share_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_share_test.dart) | IOSSystemContextMenuItemShare | No | Print-Only | No | Checked. |
 | [i_o_s_system_context_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_test.dart) | IOSSystemContextMenuItem | No | Print-Only | No | Checked. |
 | [icon_data_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_property_test.dart) | IconDataProperty | No | Print-Only | No | Checked. |
-| [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData | No | No | Yes | Checked. |
+| [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData | No | Yes | No | Created on 31.03.2026 at 13:44 |
 | [icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_test.dart) | Icon | No | Yes | No |
 | [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData | No | No | Yes | Checked. |
 | [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity | No | Print-Only | No | Checked. |
