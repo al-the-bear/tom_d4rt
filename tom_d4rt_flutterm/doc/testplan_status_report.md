@@ -1543,7 +1543,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [icon_data_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_property_test.dart) | IconDataProperty | No | Print-Only | No | Checked. |
 | [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData | No | Yes | No | Created on 31.03.2026 at 13:44 |
 | [icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_test.dart) | Icon | No | Yes | No |
-| [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData | No | No | Yes | Checked. |
+| [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData | No | Yes | No | Created on 31.03.2026 at 13:56 |
 | [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity | No | Print-Only | No | Checked. |
 | [ignore_baseline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ignore_baseline_test.dart) | IgnoreBaseline | No | No | Yes | Checked. |
 | [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered | No | No | Yes | Checked. |
