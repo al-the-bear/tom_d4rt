@@ -1516,7 +1516,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [formstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/formstate_test.dart) | FormState | No | Yes | No | Checked. |
 | [fractional_translation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fractional_translation_test.dart) | FractionalTranslation | No | Yes | No | Created on 2026-03-31 at 12:50. |
 | [futurebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/futurebuilder_test.dart) | FutureBuilder | No | Yes | No | Checked. |
-| [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible | No | No | Yes | Checked. |
+| [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-31 at 12:56. |
 | [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory | No | Print-Only | No | Checked. |
 | [gesture_recognizer_factory_with_handlers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_with_handlers_test.dart) | GestureRecognizerFactoryWithHandlers | No | Print-Only | No | Checked. |
 | [gesturedetector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesturedetector_test.dart) | GestureDetector | No | Yes | No |
