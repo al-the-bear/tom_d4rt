@@ -1529,7 +1529,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [hero_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_test.dart) | Hero | No | Yes | No |
 | [heromode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/heromode_test.dart) | HeroMode | No | Yes | No | Checked. |
 | [hold_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hold_scroll_activity_test.dart) | HoldScrollActivity | No | Print-Only | No | Checked. |
-| [html_element_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/html_element_view_test.dart) | HtmlElementView | No | No | Yes | Checked. |
+| [html_element_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/html_element_view_test.dart) | HtmlElementView | No | Yes | No | Created on 2026-03-31 at 13:37. |
 | [i_o_s_system_context_menu_item_copy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_copy_test.dart) | IOSSystemContextMenuItemCopy | No | Print-Only | No | Checked. |
 | [i_o_s_system_context_menu_item_custom_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_custom_test.dart) | IOSSystemContextMenuItemCustom | No | Print-Only | No | Checked. |
 | [i_o_s_system_context_menu_item_cut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_cut_test.dart) | IOSSystemContextMenuItemCut | No | Print-Only | No | Checked. |
