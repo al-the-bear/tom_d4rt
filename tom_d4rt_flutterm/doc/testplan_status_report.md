@@ -1523,7 +1523,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [global_object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/global_object_key_test.dart) | GlobalObjectKey | No | Print-Only | No | Checked. |
 | [glowing_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/glowing_overscroll_indicator_test.dart) | GlowingOverscrollIndicator | No | Yes | No | Created on 2026-03-31 at 13:02. |
 | [gridview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gridview_test.dart) | GridView | No | Yes | No |
-| [hero_controller_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_scope_test.dart) | HeroControllerScope | No | No | Yes | Checked. |
+| [hero_controller_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_scope_test.dart) | HeroControllerScope | No | Yes | No | Created on 2026-03-31 at 13:09. |
 | [hero_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_test.dart) | HeroController | No | No | Yes | Checked. |
 | [hero_flight_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_flight_direction_test.dart) | HeroFlightDirection | No | Print-Only | No | Checked. |
 | [hero_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_test.dart) | Hero | No | Yes | No |
