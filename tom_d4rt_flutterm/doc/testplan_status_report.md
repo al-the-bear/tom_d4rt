@@ -1588,7 +1588,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [list_wheel_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_list_delegate_test.dart) | ListWheelChildListDelegate | No | Print-Only | No | Checked. |
 | [list_wheel_child_looping_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_looping_list_delegate_test.dart) | ListWheelChildLoopingListDelegate | No | Print-Only | No | Checked. |
 | [list_wheel_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_element_test.dart) | ListWheelElement | No | Print-Only | No | Checked. |
-| [list_wheel_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_scroll_view_test.dart) | ListWheelScrollView | No | No | Yes | Checked. |
+| [list_wheel_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_scroll_view_test.dart) | ListWheelScrollView | No | Yes | No | Created on 2026-04-01 at 18:02. |
 | [list_wheel_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_viewport_test.dart) | ListWheelViewport | No | No | Yes | Checked. |
 | [listbody_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listbody_test.dart) | ListBody | No | Yes | No |
 | [listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listener_test.dart) | Listener | No | Yes | No |
