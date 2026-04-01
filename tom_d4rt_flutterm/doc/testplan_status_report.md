@@ -1553,7 +1553,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | Print-Only | No | Checked. |
 | [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget | No | Print-Only | No | Checked. |
 | [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | Print-Only | No | Checked. |
-| [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack | No | No | Yes | Checked. |
+| [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack | No | Yes | No | Created on 2026-04-01 at 13:24. |
 | [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement | No | Print-Only | No | Checked. |
 | [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement | No | Print-Only | No | Checked. |
 | [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel | No | Yes | No | Checked. |
