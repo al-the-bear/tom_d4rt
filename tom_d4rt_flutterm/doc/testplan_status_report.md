@@ -1549,7 +1549,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered | No | Yes | No | Created on 31.03.2026 at 20:28 |
 | [image_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_test.dart) | ImageIcon | No | Yes | No | Created on 2026-04-01 at 12:43. |
 | [image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_test.dart) | Image | No | Yes | No |
-| [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView | No | No | Yes | Checked. |
+| [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView | No | Yes | No | Created on 2026-04-01 at 12:55. |
 | [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | Print-Only | No | Checked. |
 | [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget | No | Print-Only | No | Checked. |
 | [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | Print-Only | No | Checked. |
