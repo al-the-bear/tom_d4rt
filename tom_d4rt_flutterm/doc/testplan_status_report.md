@@ -1605,7 +1605,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [magnifier_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_decoration_test.dart) | MagnifierDecoration | No | Yes | No | Created on 2026-04-01 at 18:25. |
 | [magnifier_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo | No | Print-Only | No | Checked. |
 | [matrix4_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween | No | Print-Only | No | Checked. |
-| [matrix_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition | No | No | Yes | Checked. |
+| [matrix_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition | No | Yes | No | Created on 2026-04-01 at 18:34. |
 | [media_query_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData | No | Yes | No | Checked. |
 | [mediaquery_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/mediaquery_test.dart) | MediaQuery | No | Yes | No |
 | [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | Print-Only | No | Checked. |
