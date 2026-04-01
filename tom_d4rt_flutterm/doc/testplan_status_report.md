@@ -1611,7 +1611,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | Print-Only | No | Checked. |
 | [menu_serializable_shortcut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_serializable_shortcut_test.dart) | MenuSerializableShortcut | No | Yes | No | Checked. |
 | [meta_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/meta_data_test.dart) | MetaData | No | Yes | No | Created on 2026-04-01 at 19:55. |
-| [modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/modal_barrier_test.dart) | ModalBarrier | No | No | Yes | Checked. |
+| [modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/modal_barrier_test.dart) | ModalBarrier | No | Yes | No | Created on 2026-04-01 at 20:02. |
 | [multi_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_element_test.dart) | MultiChildRenderObjectElement | No | Print-Only | No | Checked. |
 | [multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_child_render_object_widget_test.dart) | MultiChildRenderObjectWidget | No | Print-Only | No | Checked. |
 | [multi_selectable_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_selectable_selection_container_delegate_test.dart) | MultiSelectableSelectionContainerDelegate | No | Print-Only | No | Checked. |
