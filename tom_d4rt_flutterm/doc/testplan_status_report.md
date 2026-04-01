@@ -1559,7 +1559,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel | No | Yes | No | Checked. |
 | [inherited_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_notifier_test.dart) | InheritedNotifier | No | Yes | No | Created on 2026-04-01 at 13:33. |
 | [inherited_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_theme_test.dart) | InheritedTheme | No | Yes | No | Created on 2026-04-01 at 13:54. |
-| [inherited_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_widget_test.dart) | InheritedWidget | No | No | Yes | Checked. |
+| [inherited_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_widget_test.dart) | InheritedWidget | No | Yes | No | Created on 2026-04-01 at 14:03. |
 | [inkwell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inkwell_test.dart) | InkWell | No | Yes | No |
 | [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton | No | Print-Only | No | Checked. |
 | [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant | No | Print-Only | No | Checked. |
