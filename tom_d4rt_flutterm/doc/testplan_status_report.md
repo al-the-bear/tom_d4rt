@@ -1648,7 +1648,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | Print-Only | No | Checked. |
 | [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay | No | Yes | No |
 | [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | No | Print-Only | No | Checked. |
-| [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState | No | No | Yes | Checked. |
+| [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState | No | Yes | No | Created on 2026-04-02 at 13:07 |
 | [overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_test.dart) | Overlay | No | Yes | No |
 | [overscroll_indicator_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_indicator_notification_test.dart) | OverscrollIndicatorNotification | No | Print-Only | No | Checked. |
 | [overscroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overscroll_notification_test.dart) | OverscrollNotification | No | Print-Only | No | Checked. |
