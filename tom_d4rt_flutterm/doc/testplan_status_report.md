@@ -1638,7 +1638,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_test.dart) | Opacity | No | Yes | No |
 | [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection | No | Print-Only | No | Checked. |
 | [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy | No | Print-Only | No | Checked. |
-| [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder | No | No | Yes | Checked. |
+| [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder | No | Yes | No | Created on 2026-04-02 at 11:28. |
 | [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation | No | Print-Only | No | Checked. |
 | [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment | No | Print-Only | No | Checked. |
 | [overflow_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_test.dart) | OverflowBar | No | No | Yes | Checked. |
