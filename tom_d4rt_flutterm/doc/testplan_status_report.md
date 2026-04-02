@@ -1667,7 +1667,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | No | Print-Only | No | Checked. |
 | [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget | No | Print-Only | No | Checked. |
 | [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | No | Print-Only | No | Checked. |
-| [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | No | Yes | Checked. |
+| [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | Yes | No | Created on 2026-04-02 at 19:27 |
 | [physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_model_test.dart) | PhysicalModel | No | Yes | No | Deep demo created 2025-03-28 |
 | [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | No | Yes | Checked. |
 | [physicalmodel_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel | No | Yes | No |
