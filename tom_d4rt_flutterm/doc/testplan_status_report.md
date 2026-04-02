@@ -1617,7 +1617,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [multi_selectable_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/multi_selectable_selection_container_delegate_test.dart) | MultiSelectableSelectionContainerDelegate | No | Print-Only | No | Checked. |
 | [navigation_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_mode_test.dart) | NavigationMode | No | Print-Only | No | Checked. |
 | [navigation_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_notification_test.dart) | NavigationNotification | No | Print-Only | No | Checked. |
-| [navigation_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_toolbar_test.dart) | NavigationToolbar | No | No | Yes | Checked. |
+| [navigation_toolbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigation_toolbar_test.dart) | NavigationToolbar | No | Yes | No | Created on 2026-04-02 at 03:09. |
 | [navigator_pop_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_pop_handler_test.dart) | NavigatorPopHandler | No | No | Yes | Checked. |
 | [navigator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_test.dart) | Navigator | No | Yes | No |
 | [navigatorstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigatorstate_test.dart) | NavigatorState | No | Yes | No | Checked. |
