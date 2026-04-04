@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('MaterialTapTargetSize test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -79,5 +79,5 @@ dynamic build(BuildContext context) {
       Text('Values: padded, shrinkWrap'),
       Text('Use: Touch target sizing'),
     ],
-  );
+  ));
 }

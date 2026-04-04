@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
   print('  Type: $widget6');
 
   print('SnackBar test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       // SnackBars are not normally placed in a Column directly,
@@ -124,5 +124,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }

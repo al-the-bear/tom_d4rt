@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('StretchMode test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -82,5 +82,5 @@ dynamic build(BuildContext context) {
       Text('Values: zoomBackground, blurBackground, fadeTitle'),
       Text('Use: FlexibleSpaceBar stretch'),
     ],
-  );
+  ));
 }

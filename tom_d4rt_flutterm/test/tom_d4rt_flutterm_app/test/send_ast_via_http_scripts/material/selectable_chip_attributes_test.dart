@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for SelectableChipAttributes mixin.
 /// Shared attributes for selectable chip widgets.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('SelectableChipAttributes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -41,7 +41,7 @@ dynamic build(BuildContext context) {
       const SizedBox(height: 12),
       const Text('selectedColor, checkmarkColor', style: TextStyle(fontSize: 11, color: Colors.grey)),
     ],
-  );
+  ));
 }
 
 class _ChipDemo extends StatelessWidget {

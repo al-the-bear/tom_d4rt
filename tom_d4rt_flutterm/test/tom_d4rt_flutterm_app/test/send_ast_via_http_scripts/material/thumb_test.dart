@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('Thumb test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('Thumb Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -87,5 +87,5 @@ dynamic build(BuildContext context) {
       Text('Values: start, end'),
       Text('Purpose: RangeSlider thumb ID'),
     ],
-  );
+  ));
 }

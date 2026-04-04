@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for DateRangePickerDialog - dialog for selecting date ranges.
 /// Shows start and end date selection with visual range.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('DateRangePickerDialog', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -80,5 +80,5 @@ dynamic build(BuildContext context) {
       const SizedBox(height: 12),
       const Text('Start + End dates with visual range', style: TextStyle(fontSize: 11, color: Colors.grey)),
     ],
-  );
+  ));
 }

@@ -52,7 +52,7 @@ dynamic build(BuildContext context) {
   print('AnimatedIcon(home_menu, progress: 1.0) created');
 
   print('AnimatedIcon test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
       Row(
@@ -80,5 +80,5 @@ dynamic build(BuildContext context) {
         children: [Text('home_menu 1.0: '), widget6],
       ),
     ],
-  );
+  ));
 }

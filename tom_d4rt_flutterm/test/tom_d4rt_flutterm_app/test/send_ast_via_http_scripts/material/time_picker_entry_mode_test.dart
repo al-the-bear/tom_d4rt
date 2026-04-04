@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('TimePickerEntryMode test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('TimePickerEntryMode Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -92,5 +92,5 @@ dynamic build(BuildContext context) {
       Text('Values: dial, input, dialOnly, inputOnly'),
       Text('Purpose: Time picker input mode'),
     ],
-  );
+  ));
 }

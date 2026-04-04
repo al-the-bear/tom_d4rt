@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('ShowValueIndicator test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -83,5 +83,5 @@ dynamic build(BuildContext context) {
       Text('Values: onlyForDiscrete, onlyForContinuous, always, never'),
       Text('Use: Slider value bubble'),
     ],
-  );
+  ));
 }

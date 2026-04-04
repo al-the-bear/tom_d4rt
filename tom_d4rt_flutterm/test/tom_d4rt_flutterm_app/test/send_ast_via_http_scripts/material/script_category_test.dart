@@ -66,7 +66,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('ScriptCategory test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -78,5 +78,5 @@ dynamic build(BuildContext context) {
       Text('Values: englishLike, dense, tall'),
       Text('Use: Typography script types'),
     ],
-  );
+  ));
 }
