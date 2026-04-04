@@ -391,6 +391,51 @@ Several Cupertino widget tests have layout constraint errors. These are related 
 
 ---
 
+## Issue #10: Bridged Mixins Cannot Be Used as Mixins
+
+**Status**: Open  
+**Severity**: High  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (remove mixin, replace AnimationController with static value)
+
+### Description
+
+Bridged classes like `SingleTickerProviderStateMixin`, `TickerProviderStateMixin`, `ChangeNotifier`, `DiagnosticableTreeMixin`, `ContainerRenderObjectMixin`, `AutomaticKeepAliveClientMixin`, and `RouteAware` cannot be used as mixins in interpreted code. The bridge does not have `canBeUsedAsMixin=true` set.
+
+### Error Message
+
+```
+Bridged class 'SingleTickerProviderStateMixin' cannot be used as a mixin. Set canBeUsedAsMixin=true when registering the bridge.
+```
+
+### Affected Files (15 in dart_ui/ — fixed by removing mixin)
+
+- clip_rect_engine_layer_test.dart
+- image_filter_engine_layer_test.dart
+- image_sampler_slot_test.dart
+- image_descriptor_test.dart
+- immutable_buffer_test.dart
+- key_data_test.dart
+- locale_string_attribute_test.dart
+- path_metric_iterator_test.dart
+- path_metrics_test.dart
+- platform_dispatcher_test.dart
+- isolate_name_server_test.dart
+- key_event_device_type_test.dart
+- key_event_type_test.dart
+- picture_rasterization_exception_test.dart
+- plugin_utilities_test.dart
+
+### Workaround
+
+Remove `with SingleTickerProviderStateMixin` from the State class, remove the `AnimationController`, replace `controller.value` with a static `double _animValue = 0.0`, and inline `AnimatedBuilder` children into `Builder` or the parent widget.
+
+### Proper Fix
+
+Set `canBeUsedAsMixin=true` in the bridge registration for all classes intended to be used as mixins.
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

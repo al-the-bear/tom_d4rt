@@ -16,8 +16,7 @@ class _LocaleStringAttributeDeepDemoPage extends StatefulWidget {
   State<_LocaleStringAttributeDeepDemoPage> createState() => _LocaleStringAttributeDeepDemoPageState();
 }
 
-class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttributeDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttributeDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -35,7 +34,7 @@ class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttribu
   bool _autoExpand = false;
   int _palette = 0;
 
-  late final AnimationController _anim;
+  double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
     <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
@@ -77,10 +76,6 @@ class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttribu
   @override
   void initState() {
     super.initState();
-    _anim = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2500),
-    )..repeat();
     _clampRange();
     _emit('LocaleStringAttribute studio initialized.');
     _runProbes();
@@ -88,7 +83,6 @@ class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttribu
 
   @override
   void dispose() {
-    _anim.dispose();
     super.dispose();
   }
 
@@ -468,9 +462,9 @@ class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttribu
                 onSelected: (bool v) {
                   setState(() => _animate = v);
                   if (_animate) {
-                    _anim.repeat();
+                    /* animation removed */
                   } else {
-                    _anim.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -624,14 +618,13 @@ class _LocaleStringAttributeDeepDemoPageState extends State<_LocaleStringAttribu
           SizedBox(
             width: double.infinity,
             height: 220,
-            child: AnimatedBuilder(
-              animation: _anim,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _CoveragePainter(
                     textLength: textLength,
                     entries: _entries,
-                    pulse: _animate ? _anim.value : 0,
+                    pulse: _animate ? _animValue : 0,
                     showGrid: _showGrid,
                     showIndices: _showIndices,
                   ),

@@ -16,8 +16,7 @@ class _PathMetricsDeepDemoPage extends StatefulWidget {
   State<_PathMetricsDeepDemoPage> createState() => _PathMetricsDeepDemoPageState();
 }
 
-class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
   final List<_ShapeSpec> _shapes = <_ShapeSpec>[];
   final List<String> _notes = <String>[];
   final List<String> _passed = <String>[];
@@ -37,7 +36,7 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
   double _extractStart = 0.12;
   double _extractEnd = 0.62;
 
-  late final AnimationController _anim;
+  double _animValue = 0.0;
   List<ui.PathMetric> _metrics = <ui.PathMetric>[];
   int _selectedMetric = 0;
 
@@ -51,7 +50,6 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
   @override
   void initState() {
     super.initState();
-    _anim = AnimationController(vsync: this, duration: const Duration(milliseconds: 2300))..repeat();
     _addShape(0);
     _addShape(2);
     _recompute();
@@ -61,7 +59,6 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
 
   @override
   void dispose() {
-    _anim.dispose();
     super.dispose();
   }
 
@@ -317,9 +314,9 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
             onSelected: (bool v) {
               setState(() => _animate = v);
               if (_animate) {
-                _anim.repeat();
+                /* animation removed */
               } else {
-                _anim.stop();
+                /* animation removed */
               }
             },
           ),
@@ -388,9 +385,8 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
         SizedBox(
           width: double.infinity,
           height: 250,
-          child: AnimatedBuilder(
-            animation: _anim,
-            builder: (BuildContext context, Widget? child) {
+          child: Builder(
+            builder: (BuildContext context) {
               return CustomPaint(
                 painter: _PathMetricsPainter(
                   path: path,
@@ -401,7 +397,7 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage>
                   showTangents: _showTangents,
                   extractStart: _extractStart,
                   extractEnd: _extractEnd,
-                  pulse: _animate ? _anim.value : 0,
+                  pulse: _animate ? _animValue : 0,
                 ),
               );
             },

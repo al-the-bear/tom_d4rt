@@ -16,8 +16,7 @@ class _KeyEventTypeDeepDemoPage extends StatefulWidget {
   State<_KeyEventTypeDeepDemoPage> createState() => _KeyEventTypeDeepDemoPageState();
 }
 
-class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -37,7 +36,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
   double _logicalSeed = 88;
   int _themeIndex = 0;
 
-  late final AnimationController _anim;
+  double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -48,17 +47,12 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
   @override
   void initState() {
     super.initState();
-    _anim = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2200),
-    )..repeat();
     _emit('KeyEventType phase lab initialized.');
     _runProbes();
   }
 
   @override
   void dispose() {
-    _anim.dispose();
     super.dispose();
   }
 
@@ -397,9 +391,9 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
                 onSelected: (bool v) {
                   setState(() => _animateFlow = v);
                   if (_animateFlow) {
-                    _anim.repeat();
+                    /* animation removed */
                   } else {
-                    _anim.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -480,13 +474,12 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
           SizedBox(
             width: double.infinity,
             height: 220,
-            child: AnimatedBuilder(
-              animation: _anim,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _PhaseLanePainter(
                     entries: _entries,
-                    pulse: _animateFlow ? _anim.value : 0,
+                    pulse: _animateFlow ? _animValue : 0,
                     showGrid: _showGrid,
                   ),
                 );
@@ -525,7 +518,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage>
               painter: _CadencePainter(
                 repeatRate: _repeatRate,
                 holdMs: _holdTime,
-                pulse: _animateFlow ? _anim.value : 0,
+                pulse: _animateFlow ? _animValue : 0,
               ),
             ),
           ),

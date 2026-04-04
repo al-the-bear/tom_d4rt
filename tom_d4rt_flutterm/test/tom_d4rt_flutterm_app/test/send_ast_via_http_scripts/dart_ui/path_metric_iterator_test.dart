@@ -16,8 +16,7 @@ class _PathMetricIteratorDeepDemoPage extends StatefulWidget {
   State<_PathMetricIteratorDeepDemoPage> createState() => _PathMetricIteratorDeepDemoPageState();
 }
 
-class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeepDemoPage> {
   final List<_ContourSpec> _contours = <_ContourSpec>[];
   final List<String> _notes = <String>[];
   final List<String> _passed = <String>[];
@@ -42,7 +41,7 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
   bool _iteratorDone = false;
   List<ui.PathMetric> _metricCache = <ui.PathMetric>[];
 
-  late final AnimationController _anim;
+  double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -55,7 +54,6 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
   @override
   void initState() {
     super.initState();
-    _anim = AnimationController(vsync: this, duration: const Duration(milliseconds: 2300))..repeat();
     _addContourByIndex(0);
     _addContourByIndex(1);
     _rebuildMetrics();
@@ -65,7 +63,6 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
 
   @override
   void dispose() {
-    _anim.dispose();
     super.dispose();
   }
 
@@ -392,9 +389,9 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
                 onSelected: (bool v) {
                   setState(() => _animate = v);
                   if (_animate) {
-                    _anim.repeat();
+                    /* animation removed */
                   } else {
-                    _anim.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -473,9 +470,8 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
           SizedBox(
             width: double.infinity,
             height: 250,
-            child: AnimatedBuilder(
-              animation: _anim,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _PathMetricPainter(
                     path: path,
@@ -486,7 +482,7 @@ class _PathMetricIteratorDeepDemoPageState extends State<_PathMetricIteratorDeep
                     showExtract: _showExtract,
                     extractStart: _extractStart,
                     extractEnd: _extractEnd,
-                    pulse: _animate ? _anim.value : 0,
+                    pulse: _animate ? _animValue : 0,
                   ),
                 );
               },

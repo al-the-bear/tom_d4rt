@@ -16,8 +16,7 @@ class _ClipRectEngineLayerDemo extends StatefulWidget {
   State<_ClipRectEngineLayerDemo> createState() => _ClipRectEngineLayerDemoState();
 }
 
-class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo>
-    with SingleTickerProviderStateMixin {
+class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo> {
   double _left = 16;
   double _top = 10;
   double _width = 190;
@@ -28,7 +27,7 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo>
   bool _showGuides = true;
   int _paletteIndex = 0;
 
-  late final AnimationController _controller;
+  double _animValue = 0.0;
 
   final List<String> _probePassed = <String>[];
   final List<String> _probeFailed = <String>[];
@@ -42,23 +41,11 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2400),
-    )..addListener(() {
-        if (_animateWindow) {
-          setState(() {
-            _left = 16 + (90 * _controller.value);
-            _top = 10 + (45 * (1 - (_controller.value - 0.5).abs() * 2));
-          });
-        }
-      });
     _runSceneBuilderProbes();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -503,9 +490,9 @@ class _ClipRectEngineLayerDemoState extends State<_ClipRectEngineLayerDemo>
                   setState(() {
                     _animateWindow = !_animateWindow;
                     if (_animateWindow) {
-                      _controller.repeat(reverse: true);
+                      /* animation removed */
                     } else {
-                      _controller.stop();
+                      /* animation removed */
                     }
                   });
                 },

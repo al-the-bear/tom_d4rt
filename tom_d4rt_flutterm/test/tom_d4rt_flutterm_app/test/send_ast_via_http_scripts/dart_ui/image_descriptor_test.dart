@@ -17,8 +17,7 @@ class _ImageDescriptorDeepDemo extends StatefulWidget {
   State<_ImageDescriptorDeepDemo> createState() => _ImageDescriptorDeepDemoState();
 }
 
-class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo>
-    with SingleTickerProviderStateMixin {
+class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo> {
   double _targetWidth = 64;
   double _targetHeight = 64;
   double _density = 1.0;
@@ -36,7 +35,7 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo>
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
 
-  late final AnimationController _pulseController;
+  double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
     <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
@@ -59,16 +58,11 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo>
   @override
   void initState() {
     super.initState();
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1600),
-    )..repeat(reverse: true);
     _runProbes();
   }
 
   @override
   void dispose() {
-    _pulseController.dispose();
     _decodedImage?.dispose();
     super.dispose();
   }
@@ -477,12 +471,8 @@ class _ImageDescriptorDeepDemoState extends State<_ImageDescriptorDeepDemo>
                 if (_showGrid)
                   const Positioned.fill(child: CustomPaint(painter: _DescriptorGridPainter())),
                 Center(
-                  child: AnimatedBuilder(
-                    animation: _pulseController,
-                    builder: (BuildContext context, Widget? child) {
-                      final double scale = 0.95 + (_pulseController.value * 0.08);
-                      return Transform.scale(scale: scale, child: child);
-                    },
+                  child: Transform.scale(
+                    scale: 0.95 + (_animValue * 0.08),
                     child: Container(
                       width: 180,
                       height: 140,

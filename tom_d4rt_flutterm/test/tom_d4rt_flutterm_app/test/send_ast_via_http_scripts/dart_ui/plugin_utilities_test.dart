@@ -27,8 +27,7 @@ class _PluginUtilitiesDemoPage extends StatefulWidget {
   State<_PluginUtilitiesDemoPage> createState() => _PluginUtilitiesDemoPageState();
 }
 
-class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage>
-    with SingleTickerProviderStateMixin {
+class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _eventLog = <String>[];
@@ -44,7 +43,7 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage>
   double _nodeSpacing = 20;
   double _pulseStrength = 0.5;
 
-  late final AnimationController _pulse;
+  double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -63,14 +62,12 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage>
   @override
   void initState() {
     super.initState();
-    _pulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 2200))..repeat();
     _log('PluginUtilities deep demo initialized.');
     _runProbes();
   }
 
   @override
   void dispose() {
-    _pulse.dispose();
     super.dispose();
   }
 
@@ -339,9 +336,9 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage>
                 onSelected: (bool v) {
                   setState(() => _animatePipeline = v);
                   if (_animatePipeline) {
-                    _pulse.repeat();
+                    /* animation removed */
                   } else {
-                    _pulse.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -400,12 +397,11 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage>
           SizedBox(
             width: double.infinity,
             height: 230,
-            child: AnimatedBuilder(
-              animation: _pulse,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _PipelinePainter(
-                    pulse: _animatePipeline ? _pulse.value : 0,
+                    pulse: _animatePipeline ? _animValue : 0,
                     sourceLabel: _sourceLabels[_sourceMode],
                     showGrid: _showRawGrid,
                     spacing: _nodeSpacing,

@@ -25,21 +25,21 @@ Generated: 2026-04-04
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| dart_ui/clip_rect_engine_layer_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/image_filter_engine_layer_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/image_sampler_slot_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_image_descriptor_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_immutable_buffer_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_key_data_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_locale_string_attribute_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_path_metric_iterator_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_path_metrics_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/individual_platform_dispatcher_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/isolate_name_server_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/key_event_device_type_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/key_event_type_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/picture_rasterization_exception_test.dart | mixin: SingleTickerProviderStateMixin | |
-| dart_ui/plugin_utilities_test.dart | mixin: SingleTickerProviderStateMixin | |
+| dart_ui/clip_rect_engine_layer_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/image_filter_engine_layer_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/image_sampler_slot_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_image_descriptor_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_immutable_buffer_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_key_data_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_locale_string_attribute_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_path_metric_iterator_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_path_metrics_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/individual_platform_dispatcher_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/isolate_name_server_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/key_event_device_type_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/key_event_type_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/picture_rasterization_exception_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| dart_ui/plugin_utilities_test.dart | mixin: SingleTickerProviderStateMixin | yes |
 | dart_ui/singleton_flutter_window_test.dart | undefined var: window | |
 | foundation/diagnosticable_tree_mixin_test.dart | mixin: DiagnosticableTreeMixin | |
 | foundation/factory_test.dart | Bridged class 'Factory' has no instance method named 'constructor'. Error during | |

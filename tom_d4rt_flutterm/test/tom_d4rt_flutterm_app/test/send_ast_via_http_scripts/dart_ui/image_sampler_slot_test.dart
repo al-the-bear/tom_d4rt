@@ -17,8 +17,7 @@ class _ImageSamplerSlotDeepDemo extends StatefulWidget {
   State<_ImageSamplerSlotDeepDemo> createState() => _ImageSamplerSlotDeepDemoState();
 }
 
-class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo>
-    with SingleTickerProviderStateMixin {
+class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
   static const List<String> _sourceNames = <String>[
     'Checker Texture',
     'Radial Gradient',
@@ -38,7 +37,7 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo>
   bool _showOverlay = true;
   int _paletteIndex = 0;
 
-  late final AnimationController _controller;
+  double _animValue = 0.0;
 
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
@@ -53,24 +52,11 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2800),
-    )..addListener(() {
-        if (_animateUv) {
-          setState(() {
-            _uvOffsetX = math.sin(_controller.value * math.pi * 2) * 0.16;
-            _uvOffsetY = math.cos(_controller.value * math.pi * 2) * 0.11;
-          });
-        }
-      })
-      ..repeat();
     _runProbes();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -433,9 +419,9 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo>
                         setState(() {
                           _animateUv = v;
                           if (_animateUv) {
-                            _controller.repeat();
+                            /* animation removed */
                           } else {
-                            _controller.stop();
+                            /* animation removed */
                           }
                         });
                       },

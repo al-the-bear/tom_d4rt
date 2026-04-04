@@ -17,8 +17,7 @@ class _PictureRasterizationExceptionDemoPage extends StatefulWidget {
   State<_PictureRasterizationExceptionDemoPage> createState() => _PictureRasterizationExceptionDemoPageState();
 }
 
-class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasterizationExceptionDemoPage>
-    with SingleTickerProviderStateMixin {
+class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasterizationExceptionDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -35,7 +34,7 @@ class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasteriz
   bool _animate = true;
   int _theme = 0;
 
-  late final AnimationController _anim;
+  double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -48,14 +47,12 @@ class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasteriz
   @override
   void initState() {
     super.initState();
-    _anim = AnimationController(vsync: this, duration: const Duration(milliseconds: 2400))..repeat();
     _emit('Picture rasterization diagnostics lab initialized.');
     _runProbes();
   }
 
   @override
   void dispose() {
-    _anim.dispose();
     super.dispose();
   }
 
@@ -399,9 +396,9 @@ class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasteriz
             onSelected: (bool v) {
               setState(() => _animate = v);
               if (_animate) {
-                _anim.repeat();
+                /* animation removed */
               } else {
-                _anim.stop();
+                /* animation removed */
               }
             },
           ),
@@ -452,16 +449,15 @@ class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasteriz
         SizedBox(
           width: double.infinity,
           height: 230,
-          child: AnimatedBuilder(
-            animation: _anim,
-            builder: (BuildContext context, Widget? child) {
+          child: Builder(
+            builder: (BuildContext context) {
               return CustomPaint(
                 painter: _ScenePreviewPainter(
                   sceneType: _sceneType,
                   complexity: _complexity,
                   strokeWidth: _strokeWidth,
                   showGrid: _showGrid,
-                  pulse: _animate ? _anim.value : 0,
+                  pulse: _animate ? _animValue : 0,
                 ),
               );
             },

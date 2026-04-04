@@ -16,8 +16,7 @@ class _KeyEventDeviceTypeDeepDemoPage extends StatefulWidget {
   State<_KeyEventDeviceTypeDeepDemoPage> createState() => _KeyEventDeviceTypeDeepDemoPageState();
 }
 
-class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -35,7 +34,7 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
   double _codeSeed = 44;
   int _themeIndex = 0;
 
-  late final AnimationController _pulse;
+  double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
@@ -46,17 +45,12 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
   @override
   void initState() {
     super.initState();
-    _pulse = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2400),
-    )..repeat();
     _emitNote('KeyEventDeviceType deep demo initialized.');
     _runProbes();
   }
 
   @override
   void dispose() {
-    _pulse.dispose();
     super.dispose();
   }
 
@@ -507,9 +501,9 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
                 onSelected: (bool value) {
                   setState(() => _animateFlow = value);
                   if (_animateFlow) {
-                    _pulse.repeat();
+                    /* animation removed */
                   } else {
-                    _pulse.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -676,14 +670,13 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
           SizedBox(
             width: double.infinity,
             height: 210,
-            child: AnimatedBuilder(
-              animation: _pulse,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _RoutingPainter(
                     activeDevice: _activeDevice(),
                     showGrid: _showGrid,
-                    pulse: _animateFlow ? _pulse.value : 0,
+                    pulse: _animateFlow ? _animValue : 0,
                     phase: _phase,
                     strength: _signalStrength,
                   ),

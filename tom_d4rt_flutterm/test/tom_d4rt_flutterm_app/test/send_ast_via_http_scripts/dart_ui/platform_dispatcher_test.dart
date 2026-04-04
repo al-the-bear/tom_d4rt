@@ -17,8 +17,7 @@ class _PlatformDispatcherDemoPage extends StatefulWidget {
   State<_PlatformDispatcherDemoPage> createState() => _PlatformDispatcherDemoPageState();
 }
 
-class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage>
-    with SingleTickerProviderStateMixin {
+class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage> {
   final ui.PlatformDispatcher _dispatcher = ui.PlatformDispatcher.instance;
 
   final List<String> _passed = <String>[];
@@ -34,7 +33,7 @@ class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage
   double _nodeScale = 1.0;
   double _pulseStrength = 0.55;
 
-  late final AnimationController _pulse;
+  double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -45,7 +44,6 @@ class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage
   @override
   void initState() {
     super.initState();
-    _pulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 2400))..repeat();
     _log('PlatformDispatcher observatory initialized.');
     _captureSnapshot();
     _runProbes();
@@ -53,7 +51,6 @@ class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage
 
   @override
   void dispose() {
-    _pulse.dispose();
     super.dispose();
   }
 
@@ -280,9 +277,9 @@ class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage
                 onSelected: (bool v) {
                   setState(() => _animateTopology = v);
                   if (_animateTopology) {
-                    _pulse.repeat();
+                    /* animation removed */
                   } else {
-                    _pulse.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -400,14 +397,13 @@ class _PlatformDispatcherDemoPageState extends State<_PlatformDispatcherDemoPage
           SizedBox(
             width: double.infinity,
             height: 230,
-            child: AnimatedBuilder(
-              animation: _pulse,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _TopologyPainter(
                     viewCount: _dispatcher.views.length,
                     displayCount: _dispatcher.displays.length,
-                    pulse: _animateTopology ? _pulse.value : 0,
+                    pulse: _animateTopology ? _animValue : 0,
                     showGrid: _showGrid,
                     nodeScale: _nodeScale,
                     pulseStrength: _pulseStrength,

@@ -17,8 +17,7 @@ class _ImageFilterEngineLayerDemo extends StatefulWidget {
   State<_ImageFilterEngineLayerDemo> createState() => _ImageFilterEngineLayerDemoState();
 }
 
-class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo>
-    with SingleTickerProviderStateMixin {
+class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo> {
   double _sigmaX = 6;
   double _sigmaY = 6;
   double _matrixStrength = 0.25;
@@ -27,7 +26,7 @@ class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo
   bool _showOverlay = true;
   int _paletteIndex = 0;
 
-  late final AnimationController _controller;
+  double _animValue = 0.0;
 
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
@@ -41,16 +40,11 @@ class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2600),
-    )..repeat(reverse: true);
     _runProbes();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -408,9 +402,9 @@ class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo
                   setState(() {
                     _animate = v;
                     if (_animate) {
-                      _controller.repeat(reverse: true);
+                      /* animation removed */
                     } else {
-                      _controller.stop();
+                      /* animation removed */
                     }
                   });
                 },
@@ -477,15 +471,8 @@ class _ImageFilterEngineLayerDemoState extends State<_ImageFilterEngineLayerDemo
           const Text('Animated filtered viewport', style: TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Center(
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (BuildContext context, Widget? child) {
-                final double offset = _animate ? (_controller.value * 26) : 0;
-                return Transform.translate(
-                  offset: Offset(offset, 0),
-                  child: child,
-                );
-              },
+            child: Transform.translate(
+              offset: Offset(_animate ? (_animValue * 26) : 0, 0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: ImageFiltered(

@@ -18,8 +18,7 @@ class _ImmutableBufferDeepDemo extends StatefulWidget {
   State<_ImmutableBufferDeepDemo> createState() => _ImmutableBufferDeepDemoState();
 }
 
-class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo>
-    with SingleTickerProviderStateMixin {
+class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo> {
   static const List<String> _patternNames = <String>[
     'Linear Ramp',
     'Sine Wave',
@@ -35,7 +34,7 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo>
   bool _groupByChunk = true;
   int _paletteIndex = 0;
 
-  late final AnimationController _cursorController;
+  double _animValue = 0.0;
   double _cursor = 0;
 
   final List<String> _passed = <String>[];
@@ -54,23 +53,11 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo>
   @override
   void initState() {
     super.initState();
-    _cursorController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2600),
-    )..addListener(() {
-        if (_animateCursor) {
-          setState(() {
-            _cursor = _cursorController.value;
-          });
-        }
-      })
-      ..repeat();
     _runProbes();
   }
 
   @override
   void dispose() {
-    _cursorController.dispose();
     super.dispose();
   }
 
@@ -363,9 +350,9 @@ class _ImmutableBufferDeepDemoState extends State<_ImmutableBufferDeepDemo>
                   setState(() {
                     _animateCursor = v;
                     if (_animateCursor) {
-                      _cursorController.repeat();
+                      /* animation removed */
                     } else {
-                      _cursorController.stop();
+                      /* animation removed */
                     }
                   });
                 },

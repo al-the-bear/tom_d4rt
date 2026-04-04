@@ -16,8 +16,7 @@ class _KeyDataDeepDemoPage extends StatefulWidget {
   State<_KeyDataDeepDemoPage> createState() => _KeyDataDeepDemoPageState();
 }
 
-class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage>
-    with SingleTickerProviderStateMixin {
+class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<ui.KeyData> _timeline = <ui.KeyData>[];
@@ -36,7 +35,7 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage>
   String _character = 'a';
   int _palette = 0;
 
-  late final AnimationController _pulse;
+  double _animValue = 0.0;
 
   final List<List<Color>> _palettes = <List<Color>>[
     <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
@@ -55,17 +54,12 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage>
   @override
   void initState() {
     super.initState();
-    _pulse = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2100),
-    )..repeat();
     _runProbes();
     _emitEvent('Demo initialized with keyboard A key profile.');
   }
 
   @override
   void dispose() {
-    _pulse.dispose();
     super.dispose();
   }
 
@@ -442,9 +436,9 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage>
                 onSelected: (bool value) {
                   setState(() => _animatePulse = value);
                   if (_animatePulse) {
-                    _pulse.repeat();
+                    /* animation removed */
                   } else {
-                    _pulse.stop();
+                    /* animation removed */
                   }
                 },
               ),
@@ -517,14 +511,13 @@ class _KeyDataDeepDemoPageState extends State<_KeyDataDeepDemoPage>
           SizedBox(
             width: double.infinity,
             height: 185,
-            child: AnimatedBuilder(
-              animation: _pulse,
-              builder: (BuildContext context, Widget? child) {
+            child: Builder(
+              builder: (BuildContext context) {
                 return CustomPaint(
                   painter: _KeyDataPainter(
                     data: d,
                     showGrid: _showGrid,
-                    pulse: _animatePulse ? _pulse.value : 0,
+                    pulse: _animatePulse ? _animValue : 0,
                     showHex: _showHex,
                   ),
                 );

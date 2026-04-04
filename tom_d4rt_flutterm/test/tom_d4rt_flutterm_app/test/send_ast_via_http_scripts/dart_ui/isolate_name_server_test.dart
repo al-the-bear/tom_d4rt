@@ -17,8 +17,7 @@ class _IsolateNameServerDeepDemo extends StatefulWidget {
   State<_IsolateNameServerDeepDemo> createState() => _IsolateNameServerDeepDemoState();
 }
 
-class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo>
-    with SingleTickerProviderStateMixin {
+class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo> {
   static const String _channelA = 'demo_channel_alpha';
   static const String _channelB = 'demo_channel_beta';
   static const String _channelC = 'demo_channel_gamma';
@@ -42,7 +41,7 @@ class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo>
   bool _showGrid = true;
   int _paletteIndex = 0;
 
-  late final AnimationController _controller;
+  double _animValue = 0.0;
   double _flowPulse = 0;
 
   final List<List<Color>> _palettes = <List<Color>>[
@@ -54,24 +53,12 @@ class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2400),
-    )..addListener(() {
-        if (_animateFlow) {
-          setState(() {
-            _flowPulse = _controller.value;
-          });
-        }
-      })
-      ..repeat();
     _runProbes();
   }
 
   @override
   void dispose() {
     _cleanupAll();
-    _controller.dispose();
     super.dispose();
   }
 
@@ -458,9 +445,9 @@ class _IsolateNameServerDeepDemoState extends State<_IsolateNameServerDeepDemo>
                   setState(() {
                     _animateFlow = v;
                     if (_animateFlow) {
-                      _controller.repeat();
+                      /* animation removed */
                     } else {
-                      _controller.stop();
+                      /* animation removed */
                     }
                   });
                 },
