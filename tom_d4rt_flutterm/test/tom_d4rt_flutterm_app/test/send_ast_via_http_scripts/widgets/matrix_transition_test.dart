@@ -1,6 +1,15 @@
+// ignore_for_file: avoid_print
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 const _bg = Color(0xFFF3F7FB);
 const _ink = Color(0xFF163247);
@@ -327,7 +336,7 @@ class _FundamentalsScene extends StatefulWidget {
   State<_FundamentalsScene> createState() => _FundamentalsSceneState();
 }
 
-class _FundamentalsSceneState extends State<_FundamentalsScene> with SingleTickerProviderStateMixin {
+class _FundamentalsSceneState extends State<_FundamentalsScene> with _TickerProviderShim {
   late final AnimationController _controller;
 
   _TransformMode _mode = _TransformMode.combo;
@@ -565,7 +574,7 @@ class _WorkshopScene extends StatefulWidget {
   State<_WorkshopScene> createState() => _WorkshopSceneState();
 }
 
-class _WorkshopSceneState extends State<_WorkshopScene> with SingleTickerProviderStateMixin {
+class _WorkshopSceneState extends State<_WorkshopScene> with _TickerProviderShim {
   late final AnimationController _controller;
   bool _reverse = true;
   double _speed = 1.0;
@@ -766,7 +775,7 @@ class _AlignmentFilterScene extends StatefulWidget {
   State<_AlignmentFilterScene> createState() => _AlignmentFilterSceneState();
 }
 
-class _AlignmentFilterSceneState extends State<_AlignmentFilterScene> with SingleTickerProviderStateMixin {
+class _AlignmentFilterSceneState extends State<_AlignmentFilterScene> with _TickerProviderShim {
   late final AnimationController _controller;
   bool _reverse = true;
   double _speed = 1.0;
@@ -955,7 +964,7 @@ class _KeyframeScene extends StatefulWidget {
   State<_KeyframeScene> createState() => _KeyframeSceneState();
 }
 
-class _KeyframeSceneState extends State<_KeyframeScene> with SingleTickerProviderStateMixin {
+class _KeyframeSceneState extends State<_KeyframeScene> with _TickerProviderShim {
   late final AnimationController _controller;
   bool _manual = false;
   double _manualT = 0;
@@ -1345,7 +1354,7 @@ class _PracticalModule extends StatefulWidget {
   State<_PracticalModule> createState() => _PracticalModuleState();
 }
 
-class _PracticalModuleState extends State<_PracticalModule> with SingleTickerProviderStateMixin {
+class _PracticalModuleState extends State<_PracticalModule> with _TickerProviderShim {
   late final AnimationController _controller;
   double _intensity = 1.0;
   bool _reverse = true;

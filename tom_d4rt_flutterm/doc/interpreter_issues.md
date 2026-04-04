@@ -685,6 +685,16 @@ Workaround: added `import 'package:flutter/scheduler.dart';` and local `_TickerP
 - widgets/performance_overlay_test.dart (SingleTickerProviderStateMixin — scheduler import added)
 - widgets/back_button_listener_test.dart (ChangeNotifier — local _ChangeNotifierShim mixin)
 
+## Issue #10 — Additional Affected Files (Batch 17)
+
+Workaround: added `import 'package:flutter/scheduler.dart';` and local `_TickerProviderShim` mixin with `createTicker` implementation. Replaced `with SingleTickerProviderStateMixin` / `with TickerProviderStateMixin` with `with _TickerProviderShim`.
+
+- widgets/shader_mask_test.dart (SingleTickerProviderStateMixin)
+- widgets/single_ticker_provider_state_mixin_test.dart (SingleTickerProviderStateMixin + runApp→build conversion)
+- widgets/ticker_provider_state_mixin_test.dart (TickerProviderStateMixin)
+- widgets/matrix_transition_test.dart (SingleTickerProviderStateMixin)
+- widgets/nested_scroll_view_viewport_test.dart (SingleTickerProviderStateMixin)
+
 ---
 
 ## Issue Tracking Notes

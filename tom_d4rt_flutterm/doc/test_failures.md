@@ -85,21 +85,21 @@ Generated: 2026-04-04
 | widgets/individual_render_object_widget_test.dart | undefined var: build | yes |
 | widgets/individual_restorable_bool_test.dart | undefined var: build | yes |
 | widgets/individual_scroll_physics_test.dart | undefined var: build | yes |
-| widgets/individual_scroll_position_test.dart | undefined var: build | |
-| widgets/individual_scrollable_state_test.dart | undefined var: build | |
-| widgets/individual_shader_mask_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_single_child_render_object_element_test.dart | undefined var: build | |
-| widgets/individual_single_child_render_object_widget_test.dart | undefined var: build | |
-| widgets/individual_single_ticker_provider_state_mixin_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_ticker_provider_state_mixin_test.dart | mixin: TickerProviderStateMixin | |
-| widgets/matrix_transition_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/nested_scroll_view_viewport_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/regular_window_controller_mac_o_s_test.dart | undefined var: build | |
-| widgets/regular_window_controller_test.dart | undefined var: build | |
-| widgets/regular_window_controller_win32_test.dart | undefined var: build | |
-| widgets/regular_window_test.dart | undefined var: build | |
-| widgets/relative_rect_tween_test.dart | undefined var: build | |
-| widgets/render_abstract_layout_builder_mixin_test.dart | undefined var: build | |
+| widgets/individual_scroll_position_test.dart | undefined var: build | yes |
+| widgets/individual_scrollable_state_test.dart | undefined var: build | yes |
+| widgets/individual_shader_mask_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_single_child_render_object_element_test.dart | undefined var: build | yes |
+| widgets/individual_single_child_render_object_widget_test.dart | undefined var: build | yes |
+| widgets/individual_single_ticker_provider_state_mixin_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_ticker_provider_state_mixin_test.dart | mixin: TickerProviderStateMixin | yes |
+| widgets/matrix_transition_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/nested_scroll_view_viewport_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/regular_window_controller_mac_o_s_test.dart | undefined var: build | yes |
+| widgets/regular_window_controller_test.dart | undefined var: build | yes |
+| widgets/regular_window_controller_win32_test.dart | undefined var: build | yes |
+| widgets/regular_window_test.dart | undefined var: build | yes |
+| widgets/relative_rect_tween_test.dart | undefined var: build | yes |
+| widgets/render_abstract_layout_builder_mixin_test.dart | undefined var: build | yes |
 | widgets/render_object_to_widget_adapter_test.dart | undefined var: build | |
 | widgets/render_tap_region_surface_test.dart | undefined var: build | |
 | widgets/render_tap_region_test.dart | undefined var: build | |

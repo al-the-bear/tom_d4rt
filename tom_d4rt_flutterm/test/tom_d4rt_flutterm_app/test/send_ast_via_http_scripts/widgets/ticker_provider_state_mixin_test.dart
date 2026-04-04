@@ -1,7 +1,15 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests TickerProviderStateMixin from widgets
 import 'package:flutter/widgets.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 // Example widget using TickerProviderStateMixin
 class TickerTestWidget extends StatefulWidget {
@@ -12,7 +20,7 @@ class TickerTestWidget extends StatefulWidget {
 }
 
 class _TickerTestWidgetState extends State<TickerTestWidget>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller1;
   late AnimationController _controller2;
   
@@ -50,8 +58,8 @@ dynamic build(BuildContext context) {
   print('  mixin TickerProviderStateMixin<T extends StatefulWidget>');
   print('      on State<T> implements TickerProvider');
 
-  // Compare with SingleTickerProviderStateMixin
-  print('\nComparison with SingleTickerProviderStateMixin:');
+  // Compare with _TickerProviderShim
+  print('\nComparison with _TickerProviderShim:');
   print('  TickerProviderStateMixin:');
   print('    - Multiple tickers');
   print('    - Uses Set<Ticker> internally');
@@ -89,7 +97,7 @@ dynamic build(BuildContext context) {
   // Usage
   print('\nUsage example:');
   print('  class _MyState extends State<MyWidget>');
-  print('      with TickerProviderStateMixin {');
+  print('      with _TickerProviderShim {');
   print('    late AnimationController _c1, _c2;');
   print('    void initState() {');
   print('      _c1 = AnimationController(vsync: this, ...);');

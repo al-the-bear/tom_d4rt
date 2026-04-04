@@ -1,4 +1,13 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 const _canvas = Color(0xFFF4F8FC);
 const _ink = Color(0xFF143146);
@@ -720,7 +729,7 @@ class _CoordinatorHost extends StatefulWidget {
   State<_CoordinatorHost> createState() => _CoordinatorHostState();
 }
 
-class _CoordinatorHostState extends State<_CoordinatorHost> with SingleTickerProviderStateMixin {
+class _CoordinatorHostState extends State<_CoordinatorHost> with _TickerProviderShim {
   late final TabController _tabs = TabController(length: 3, vsync: this);
 
   @override

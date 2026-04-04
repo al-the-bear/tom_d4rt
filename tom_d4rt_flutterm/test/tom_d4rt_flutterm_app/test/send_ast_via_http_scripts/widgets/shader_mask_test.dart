@@ -2,6 +2,14 @@
 // Deep demo: ShaderMask - Apply shader-based masks to widgets
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 dynamic build(BuildContext context) {
   return MaterialApp(
@@ -18,7 +26,7 @@ class ShaderMaskDemo extends StatefulWidget {
 }
 
 class _ShaderMaskDemoState extends State<ShaderMaskDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: Basic Gradient Masks
   // ═══════════════════════════════════════════════════════════════════════════

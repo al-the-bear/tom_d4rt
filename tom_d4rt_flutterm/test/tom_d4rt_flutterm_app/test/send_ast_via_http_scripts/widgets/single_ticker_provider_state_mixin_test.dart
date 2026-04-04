@@ -1,8 +1,17 @@
+// ignore_for_file: avoid_print
 // DO NOT MODIFY - AUTO-GENERATED PRINT-ONLY TEST
 // This file is a placeholder test that will be implemented manually.
 // This test file uses a simplified single-class-value widget pattern for D4rt AST validation.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 /// Print-only test for SingleTickerProviderStateMixin class.
 /// Tests ticker provider mixin with print output verification.
@@ -27,7 +36,7 @@ class SingleTickerProviderStateMixinTestPage extends StatefulWidget {
 }
 
 class _SingleTickerProviderStateMixinTestPageState extends State<SingleTickerProviderStateMixinTestPage>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
 
   @override
@@ -147,6 +156,6 @@ class _SingleTickerProviderStateMixinTestPageState extends State<SingleTickerPro
   }
 }
 
-void main() {
-  runApp(const SingleTickerProviderStateMixinTestApp());
+dynamic build(BuildContext context) {
+  return const SingleTickerProviderStateMixinTestApp();
 }
