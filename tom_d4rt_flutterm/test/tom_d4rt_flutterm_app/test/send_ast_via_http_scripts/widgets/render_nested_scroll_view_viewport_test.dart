@@ -17,7 +17,7 @@ dynamic build(BuildContext context) {
   // Variation 1: Basic NestedScrollView with floating SliverAppBar
   final widget1 = NestedScrollView(
     controller: outerController,
-    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+    headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
       SliverAppBar(
         title: Text('Floating Header'),
         floating: true,
@@ -56,7 +56,7 @@ dynamic build(BuildContext context) {
 
   // Variation 2: NestedScrollView with pinned SliverAppBar
   final widget2 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+    headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
       SliverAppBar(
         title: Text('Pinned Header'),
         pinned: true,
@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
 
   // Variation 3: NestedScrollView with multiple slivers
   final widget3 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+    headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
       SliverAppBar(
         title: Text('Multi-Sliver'),
         floating: true,
@@ -133,7 +133,7 @@ dynamic build(BuildContext context) {
   // Variation 4: NestedScrollView with SliverOverlapAbsorber/Injector
   final widget4 = NestedScrollView(
     floatHeaderSlivers: true,
-    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+    headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
       SliverOverlapAbsorber(
         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
         sliver: SliverAppBar(
@@ -172,7 +172,7 @@ dynamic build(BuildContext context) {
   // NestedScrollView with custom physics
   final _ = NestedScrollView(
     physics: BouncingScrollPhysics(),
-    headerSliverBuilder: (context, _) => [
+    headerSliverBuilder: (context, _) => <Widget>[
       SliverAppBar(title: Text('Bouncing'), floating: true),
     ],
     body: ListView(children: [Container(height: 200, color: Colors.cyan)]),

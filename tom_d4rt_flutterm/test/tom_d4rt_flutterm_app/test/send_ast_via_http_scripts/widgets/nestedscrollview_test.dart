@@ -7,11 +7,11 @@ dynamic build(BuildContext context) {
 
   // Variation 1: Basic NestedScrollView with SliverAppBar and ListView body
   final widget1 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxScrolled) => [
+    headerSliverBuilder: (context, innerBoxScrolled) => <Widget>[
       SliverAppBar(title: Text('Nested'), floating: true),
     ],
     body: ListView(
-      children: [
+      children: <Widget>[
         Container(height: 50, color: Colors.blue),
         Container(height: 50, color: Colors.red),
       ],
@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
 
   // Variation 2: NestedScrollView with SliverToBoxAdapter header
   final widget2 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxScrolled) => [
+    headerSliverBuilder: (context, innerBoxScrolled) => <Widget>[
       SliverToBoxAdapter(
         child: Container(
           height: 100,
@@ -31,7 +31,7 @@ dynamic build(BuildContext context) {
       ),
     ],
     body: ListView(
-      children: [
+      children: <Widget>[
         Container(height: 50, color: Colors.orange),
         Container(height: 50, color: Colors.purple),
       ],
@@ -41,7 +41,7 @@ dynamic build(BuildContext context) {
 
   // Variation 3: NestedScrollView with pinned SliverAppBar
   final widget3 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxScrolled) => [
+    headerSliverBuilder: (context, innerBoxScrolled) => <Widget>[
       SliverAppBar(
         title: Text('Pinned'),
         pinned: true,
@@ -60,7 +60,7 @@ dynamic build(BuildContext context) {
 
   // Variation 4: NestedScrollView with multiple sliver headers
   final widget4 = NestedScrollView(
-    headerSliverBuilder: (context, innerBoxScrolled) => [
+    headerSliverBuilder: (context, innerBoxScrolled) => <Widget>[
       SliverAppBar(title: Text('Multi Header'), floating: true, snap: true),
       SliverToBoxAdapter(
         child: Container(
@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
       ),
     ],
     body: ListView(
-      children: [
+      children: <Widget>[
         Container(height: 80, color: Colors.cyan),
         Container(height: 80, color: Colors.lime),
       ],

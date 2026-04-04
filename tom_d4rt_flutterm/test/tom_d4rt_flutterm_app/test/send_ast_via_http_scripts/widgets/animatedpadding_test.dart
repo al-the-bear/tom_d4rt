@@ -48,5 +48,10 @@ dynamic build(BuildContext context) {
   print('AnimatedPadding with Curves.bounceOut created');
 
   print('AnimatedPadding test completed');
-  return Column(children: [padAll, padSymH, padOnly, padCurve, padBounce]);
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [padAll, padSymH, padOnly, padCurve, padBounce],
+    ),
+  );
 }

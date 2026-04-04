@@ -58,15 +58,18 @@ dynamic build(BuildContext context) {
   print('Transform.rotate with alignment created');
 
   print('Transform and FractionallySizedBox test completed');
-  return Column(
-    children: [
-      rotated,
-      scaled,
-      translated,
-      identity,
-      SizedBox(height: 100, child: fractional1),
-      SizedBox(height: 100, child: fractional2),
-      rotatedAligned,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        rotated,
+        scaled,
+        translated,
+        identity,
+        SizedBox(height: 100, child: fractional1),
+        SizedBox(height: 100, child: fractional2),
+        rotatedAligned,
+      ],
+    ),
   );
 }

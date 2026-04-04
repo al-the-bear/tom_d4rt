@@ -99,24 +99,26 @@ dynamic build(BuildContext context) {
 
   print('AppBar test completed');
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      SizedBox(height: 56.0, child: basicAppBar),
-      SizedBox(height: 4.0),
-      SizedBox(height: 56.0, child: withLeading),
-      SizedBox(height: 4.0),
-      SizedBox(height: 56.0, child: withActions),
-      SizedBox(height: 4.0),
-      SizedBox(height: 56.0, child: customColors),
-      SizedBox(height: 4.0),
-      SizedBox(height: 56.0, child: centerTitle),
-      SizedBox(height: 4.0),
-      SizedBox(height: 104.0, child: withBottom),
-      SizedBox(height: 4.0),
-      SizedBox(height: 56.0, child: withFlexibleSpace),
-      SizedBox(height: 4.0),
-      SizedBox(height: 80.0, child: customHeight),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 56.0, child: basicAppBar),
+        SizedBox(height: 4.0),
+        SizedBox(height: 56.0, child: withLeading),
+        SizedBox(height: 4.0),
+        SizedBox(height: 56.0, child: withActions),
+        SizedBox(height: 4.0),
+        SizedBox(height: 56.0, child: customColors),
+        SizedBox(height: 4.0),
+        SizedBox(height: 56.0, child: centerTitle),
+        SizedBox(height: 4.0),
+        SizedBox(height: 104.0, child: withBottom),
+        SizedBox(height: 4.0),
+        SizedBox(height: 56.0, child: withFlexibleSpace),
+        SizedBox(height: 4.0),
+        SizedBox(height: 80.0, child: customHeight),
+      ],
+    ),
   );
 }

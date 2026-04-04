@@ -63,15 +63,22 @@ dynamic build(BuildContext context) {
   print('ErrorWidget(Exception) created');
 
   print('Banner/ErrorWidget test completed');
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      widget1,
-      widget2,
-      widget3,
-      widget4,
-      SizedBox(height: 80, child: widget5),
-      SizedBox(height: 80, child: widget6),
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        widget1,
+        SizedBox(height: 8),
+        widget2,
+        SizedBox(height: 8),
+        widget3,
+        SizedBox(height: 8),
+        widget4,
+        SizedBox(height: 8),
+        SizedBox(height: 80, child: widget5),
+        SizedBox(height: 8),
+        SizedBox(height: 80, child: widget6),
+      ],
+    ),
   );
 }

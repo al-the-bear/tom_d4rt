@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
   print('\n--- Testing floatHeaderSlivers ---');
   final floatingView = NestedScrollView(
     floatHeaderSlivers: true,
-    headerSliverBuilder: (ctx, scrolled) => [
+    headerSliverBuilder: (ctx, scrolled) => <Widget>[
       SliverAppBar(title: Text('Floating')),
     ],
     body: Center(child: Text('Body')),

@@ -213,10 +213,15 @@ dynamic build(BuildContext context) {
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             dropdownMenu,
             SizedBox(height: 16),
-            Row(children: [menuItem, submenu]),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [menuItem, submenu],
+            ),
           ],
         ),
       ),
