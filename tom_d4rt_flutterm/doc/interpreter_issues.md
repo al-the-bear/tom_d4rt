@@ -1007,6 +1007,58 @@ The D4rt interpreter rejects returning instances of private classes from functio
 
 ---
 
+## Issue #22 — Additional Affected Files (Batch 25)
+
+**Affected files:**
+- rendering/flex_fit_test.dart (undefined: name on bridged instance of 'Flex')
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 25)
+
+**Affected files:**
+- rendering/box_hit_test_result_test.dart (Expected: true)
+- rendering/platform_view_layer_test.dart (Expected: true)
+
+---
+
+## Issue #27 — Additional Affected Files (Batch 25)
+
+**Affected files:**
+- rendering/relayout_when_system_fonts_change_mixin_test.dart (no constructor: _Profile)
+- rendering/render_absorb_pointer_test.dart (no constructor: _Profile)
+- rendering/render_aligning_shifted_box_test.dart (no constructor: _ThemePreset)
+- rendering/render_animated_opacity_test.dart (no constructor: _ThemeTrack)
+- rendering/render_animated_size_test.dart (no constructor: _ThemePreset)
+- rendering/render_annotated_region_test.dart (no constructor: _ThemePreset)
+- rendering/render_backdrop_filter_test.dart (no constructor: _ThemePreset)
+- rendering/render_baseline_test.dart (no constructor: _ThemePreset)
+
+---
+
+## Issue #29 — Additional Affected Files (Batch 25)
+
+**Affected files:**
+- rendering/box_hit_test_entry_test.dart (return _InteractiveHitTestArea)
+- rendering/clip_r_superellipse_layer_test.dart (return _CornerComparisonWidget)
+- rendering/container_box_parent_data_test.dart (return _InteractiveOffsetWidget)
+
+---
+
+## Issue #30 — Null Method Invocation on Bridged Const Color (Batch 25)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 25
+- **Workaround:** None — const Color values resolve to null at runtime
+
+The D4rt interpreter fails to resolve top-level `const Color(...)` declarations, resulting in null values at runtime. When methods like `withAlpha()` are invoked on these null references, the interpreter reports "Cannot invoke method 'withAlpha' on null".
+
+**Affected files:**
+- rendering/hit_test_behavior_test.dart (Cannot invoke method 'withAlpha' on null — _kPink800 is `const Color(0xFF9D174D)`)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

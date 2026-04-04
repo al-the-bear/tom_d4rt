@@ -209,21 +209,21 @@ Generated: 2026-04-04
 | rendering/cache_extent_style_test.dart | A value of type '_InteractiveComparisonWidget' can't be returned from the functi | yes |
 | rendering/cross_axis_alignment_test.dart | undefined: toString on CrossAxisAlignment | yes |
 | rendering/decoration_position_test.dart | undefined: name on bridged instance of 'Decoration' | yes |
-| rendering/flex_fit_test.dart | undefined: name on bridged instance of 'Flex' | |
-| rendering/hit_test_behavior_test.dart | Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocat | |
-| rendering/individual_box_hit_test_entry_test.dart | A value of type '_InteractiveHitTestArea' can't be returned from the function '_ | |
-| rendering/individual_box_hit_test_result_test.dart | Expected: true | |
-| rendering/individual_clip_r_superellipse_layer_test.dart | A value of type '_CornerComparisonWidget' can't be returned from the function '_ | |
-| rendering/individual_container_box_parent_data_test.dart | A value of type '_InteractiveOffsetWidget' can't be returned from the function ' | |
-| rendering/individual_platform_view_layer_test.dart | Expected: true | |
-| rendering/individual_relayout_when_system_fonts_change_mixin_test.dart | no constructor: _Profile | |
-| rendering/individual_render_absorb_pointer_test.dart | no constructor: _Profile | |
-| rendering/individual_render_aligning_shifted_box_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_animated_opacity_test.dart | no constructor: _ThemeTrack | |
-| rendering/individual_render_animated_size_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_annotated_region_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_backdrop_filter_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_baseline_test.dart | no constructor: _ThemePreset | |
+| rendering/flex_fit_test.dart | undefined: name on bridged instance of 'Flex' | yes |
+| rendering/hit_test_behavior_test.dart | Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocat | yes |
+| rendering/individual_box_hit_test_entry_test.dart | A value of type '_InteractiveHitTestArea' can't be returned from the function '_ | yes |
+| rendering/individual_box_hit_test_result_test.dart | Expected: true | yes |
+| rendering/individual_clip_r_superellipse_layer_test.dart | A value of type '_CornerComparisonWidget' can't be returned from the function '_ | yes |
+| rendering/individual_container_box_parent_data_test.dart | A value of type '_InteractiveOffsetWidget' can't be returned from the function ' | yes |
+| rendering/individual_platform_view_layer_test.dart | Expected: true | yes |
+| rendering/individual_relayout_when_system_fonts_change_mixin_test.dart | no constructor: _Profile | yes |
+| rendering/individual_render_absorb_pointer_test.dart | no constructor: _Profile | yes |
+| rendering/individual_render_aligning_shifted_box_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_animated_opacity_test.dart | no constructor: _ThemeTrack | yes |
+| rendering/individual_render_animated_size_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_annotated_region_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_backdrop_filter_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_baseline_test.dart | no constructor: _ThemePreset | yes |
 | rendering/individual_render_block_semantics_test.dart | no constructor: _ThemePreset | |
 | rendering/individual_render_box_container_defaults_mixin_test.dart | no constructor: _ThemeProfile | |
 | rendering/individual_render_constrained_overflow_box_test.dart | no constructor: _ThemePreset | |
