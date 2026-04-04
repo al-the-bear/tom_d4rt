@@ -23,7 +23,15 @@
 
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/rendering.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 // ============================================================================
 // MAIN BUILD FUNCTION
@@ -743,7 +751,7 @@ class _AnimatedDemoContent extends StatefulWidget {
 }
 
 class _AnimatedDemoContentState extends State<_AnimatedDemoContent>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
 
   @override
@@ -871,7 +879,7 @@ class _RenderPipelineLabScene extends StatefulWidget {
 }
 
 class _RenderPipelineLabSceneState extends State<_RenderPipelineLabScene>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   bool _showOverlay = true;
   int _workloadLevel = 1; // 1=light, 2=medium, 3=heavy
@@ -1336,7 +1344,7 @@ class _FrameBudgetDashboardScene extends StatefulWidget {
 }
 
 class _FrameBudgetDashboardSceneState extends State<_FrameBudgetDashboardScene>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
 
   @override
@@ -2441,7 +2449,7 @@ class _ProfilingPatternsScene extends StatefulWidget {
 }
 
 class _ProfilingPatternsSceneState extends State<_ProfilingPatternsScene>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   int _selectedScenario = 0;
   bool _isRunning = false;

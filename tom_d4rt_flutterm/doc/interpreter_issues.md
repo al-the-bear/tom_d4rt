@@ -669,6 +669,22 @@ final binaryEncoded = binaryCodec.encodeMessage(byteData);
 
 - rendering/render_sliver_box_child_manager_test.dart (AutomaticKeepAliveClientMixin)
 
+## Issue #10 — Additional Affected Files (Batch 16)
+
+Workaround: added `import 'package:flutter/scheduler.dart';` and local `_TickerProviderShim` mixin (already present from prior generation), or local `_ChangeNotifierShim` mixin. No animation code removed — shim replaces unbridgeable mixin.
+
+- widgets/align_transition_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/clip_r_superellipse_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/default_text_style_transition_test.dart (TickerProviderStateMixin — scheduler import added)
+- widgets/fractional_translation_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/icon_theme_data_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/animated_modal_barrier_test.dart (TickerProviderStateMixin — scheduler import added)
+- widgets/color_filtered_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/dual_transition_builder_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/image_filtered_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/performance_overlay_test.dart (SingleTickerProviderStateMixin — scheduler import added)
+- widgets/back_button_listener_test.dart (ChangeNotifier — local _ChangeNotifierShim mixin)
+
 ---
 
 ## Issue Tracking Notes

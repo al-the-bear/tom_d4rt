@@ -4,8 +4,7 @@ import 'package:flutter/widgets.dart';
 
 /// Print-only test for RenderObjectWidget
 /// This test prints class structure and API information.
-class RenderObjectWidgetTest {
-  dynamic build(BuildContext context) {
+dynamic build(BuildContext context) {
   print('=' * 50);
   print('RenderObjectWidget PRINT-ONLY TEST');
   print('=' * 50);
@@ -78,5 +77,4 @@ class RenderObjectWidgetTest {
   print('END RenderObjectWidget PRINT-ONLY TEST');
   print('=' * 50);
   return const SizedBox.shrink();
-  }
 }

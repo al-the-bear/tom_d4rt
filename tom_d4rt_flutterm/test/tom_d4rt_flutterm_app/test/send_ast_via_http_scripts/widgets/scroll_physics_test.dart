@@ -17,8 +17,7 @@ import 'package:flutter/widgets.dart';
 /// - ClampingScrollPhysics: Android-style edge clamping
 /// - AlwaysScrollableScrollPhysics: Always allows scrolling
 /// - NeverScrollableScrollPhysics: Disables scrolling
-class FlutterWidgetPrinter {
-  dynamic build(BuildContext context) {
+dynamic build(BuildContext context) {
     print('=== ScrollPhysics Test ===');
     print('');
     
@@ -81,5 +80,4 @@ class FlutterWidgetPrinter {
     
     print('Test completed.');
     return const SizedBox.shrink();
-  }
 }

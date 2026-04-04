@@ -1,6 +1,14 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 dynamic build(BuildContext context) {
   return const _ClipRSuperellipseDeepDemo();
@@ -97,7 +105,7 @@ class _ClipRSuperellipseDeepDemo extends StatefulWidget {
 }
 
 class _ClipRSuperellipseDeepDemoState extends State<_ClipRSuperellipseDeepDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   _Scene _scene = _Scene.primer;
   int _skinIndex = 0;
 

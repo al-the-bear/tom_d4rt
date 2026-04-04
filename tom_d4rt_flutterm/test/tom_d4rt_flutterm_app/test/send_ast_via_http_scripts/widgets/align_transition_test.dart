@@ -21,6 +21,14 @@
 // practical applications of AlignTransition in Flutter applications.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 /// Main demo widget showcasing AlignTransition capabilities
 class AlignTransitionDeepDemo extends StatefulWidget {
@@ -137,7 +145,7 @@ class BasicAlignmentSection extends StatefulWidget {
 }
 
 class _BasicAlignmentSectionState extends State<BasicAlignmentSection>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignmentAnimation;
 
@@ -339,7 +347,7 @@ class RepeatAnimationDemo extends StatefulWidget {
 }
 
 class _RepeatAnimationDemoState extends State<RepeatAnimationDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _animation;
   bool _isRepeating = false;
@@ -443,7 +451,7 @@ class HorizontalAlignmentSection extends StatefulWidget {
 }
 
 class _HorizontalAlignmentSectionState extends State<HorizontalAlignmentSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _leftRightController;
   late AnimationController _slideInController;
   late AnimationController _bounceController;
@@ -705,7 +713,7 @@ class MultiItemHorizontalDemo extends StatefulWidget {
 }
 
 class _MultiItemHorizontalDemoState extends State<MultiItemHorizontalDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late List<AnimationController> _controllers;
   late List<Animation<AlignmentGeometry>> _animations;
   final List<Color> _colors = [Colors.red, Colors.orange, Colors.yellow, Colors.green];
@@ -806,7 +814,7 @@ class VerticalAlignmentSection extends StatefulWidget {
 }
 
 class _VerticalAlignmentSectionState extends State<VerticalAlignmentSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _dropDownController;
   late AnimationController _riseUpController;
   late AnimationController _notificationController;
@@ -1098,7 +1106,7 @@ class VerticalStackDemo extends StatefulWidget {
 }
 
 class _VerticalStackDemoState extends State<VerticalStackDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late List<AnimationController> _controllers;
   late List<Animation<AlignmentGeometry>> _animations;
   bool _isExpanded = false;
@@ -1221,7 +1229,7 @@ class DiagonalMovementSection extends StatefulWidget {
 }
 
 class _DiagonalMovementSectionState extends State<DiagonalMovementSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _cornerController;
   late AnimationController _zigzagController;
   late AnimationController _spiralController;
@@ -1491,7 +1499,7 @@ class CircularPathDemo extends StatefulWidget {
 }
 
 class _CircularPathDemoState extends State<CircularPathDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _animation;
 
@@ -1603,7 +1611,7 @@ class AlignmentTweenTypesSection extends StatefulWidget {
 }
 
 class _AlignmentTweenTypesSectionState extends State<AlignmentTweenTypesSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _alignmentTweenController;
   late AnimationController _geometryTweenController;
   late AnimationController _directionalController;
@@ -1868,7 +1876,7 @@ class DirectionalComparisonDemo extends StatefulWidget {
 }
 
 class _DirectionalComparisonDemoState extends State<DirectionalComparisonDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _animation;
 
@@ -2009,7 +2017,7 @@ class CurvesAndDurationSection extends StatefulWidget {
 }
 
 class _CurvesAndDurationSectionState extends State<CurvesAndDurationSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   final List<CurveInfo> _curves = [
     CurveInfo('linear', Curves.linear, Colors.grey),
     CurveInfo('easeIn', Curves.easeIn, Colors.blue),
@@ -2188,7 +2196,7 @@ class DurationComparisonDemo extends StatefulWidget {
 }
 
 class _DurationComparisonDemoState extends State<DurationComparisonDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   final durations = [200, 500, 1000, 2000];
   late List<AnimationController> _controllers;
   late List<Animation<AlignmentGeometry>> _animations;
@@ -2287,7 +2295,7 @@ class CurveSelectorDemo extends StatefulWidget {
 }
 
 class _CurveSelectorDemoState extends State<CurveSelectorDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   Animation<AlignmentGeometry>? _animation;
   
@@ -2446,7 +2454,7 @@ class SizeFactorsSection extends StatefulWidget {
 }
 
 class _SizeFactorsSectionState extends State<SizeFactorsSection>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _basicController;
   late AnimationController _widthFactorController;
   late AnimationController _bothFactorsController;
@@ -2783,7 +2791,7 @@ class FABPositionDemo extends StatefulWidget {
 }
 
 class _FABPositionDemoState extends State<FABPositionDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _animation;
   bool _isExpanded = false;
@@ -2894,7 +2902,7 @@ class MenuRevealDemo extends StatefulWidget {
 }
 
 class _MenuRevealDemoState extends State<MenuRevealDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late List<AnimationController> _controllers;
   late List<Animation<AlignmentGeometry>> _animations;
   bool _isVisible = false;
@@ -3004,7 +3012,7 @@ class CardHighlightDemo extends StatefulWidget {
 }
 
 class _CardHighlightDemoState extends State<CardHighlightDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   int _highlightedIndex = 0;
   
@@ -3130,7 +3138,7 @@ class LoadingIndicatorDemo extends StatefulWidget {
 }
 
 class _LoadingIndicatorDemoState extends State<LoadingIndicatorDemo>
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   late List<AnimationController> _controllers;
   late List<Animation<AlignmentGeometry>> _animations;
   bool _isLoading = false;
@@ -3241,7 +3249,7 @@ class OnboardingPointerDemo extends StatefulWidget {
 }
 
 class _OnboardingPointerDemoState extends State<OnboardingPointerDemo>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _animation;
   int _currentStep = 0;

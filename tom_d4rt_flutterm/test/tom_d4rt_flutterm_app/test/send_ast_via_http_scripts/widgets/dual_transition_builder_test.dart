@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 const _seedNavy = Color(0xFF1E4E75);
 const _seedAmber = Color(0xFFC47C35);
@@ -575,7 +583,7 @@ class _ConceptLoopPreview extends StatefulWidget {
   State<_ConceptLoopPreview> createState() => _ConceptLoopPreviewState();
 }
 
-class _ConceptLoopPreviewState extends State<_ConceptLoopPreview> with SingleTickerProviderStateMixin {
+class _ConceptLoopPreviewState extends State<_ConceptLoopPreview> with _TickerProviderShim {
   late final AnimationController _controller;
 
   @override
@@ -676,7 +684,7 @@ class _EnterExitTelemetryScene extends StatefulWidget {
   State<_EnterExitTelemetryScene> createState() => _EnterExitTelemetrySceneState();
 }
 
-class _EnterExitTelemetrySceneState extends State<_EnterExitTelemetryScene> with SingleTickerProviderStateMixin {
+class _EnterExitTelemetrySceneState extends State<_EnterExitTelemetryScene> with _TickerProviderShim {
   late final AnimationController _controller;
 
   Animation<double>? _forwardProbe;
@@ -955,7 +963,7 @@ class _InterruptionLabScene extends StatefulWidget {
   State<_InterruptionLabScene> createState() => _InterruptionLabSceneState();
 }
 
-class _InterruptionLabSceneState extends State<_InterruptionLabScene> with SingleTickerProviderStateMixin {
+class _InterruptionLabSceneState extends State<_InterruptionLabScene> with _TickerProviderShim {
   late final AnimationController _controller;
 
   Animation<double>? _forwardProbe;
@@ -1218,7 +1226,7 @@ class _StateRetentionScene extends StatefulWidget {
   State<_StateRetentionScene> createState() => _StateRetentionSceneState();
 }
 
-class _StateRetentionSceneState extends State<_StateRetentionScene> with TickerProviderStateMixin {
+class _StateRetentionSceneState extends State<_StateRetentionScene> with _TickerProviderShim {
   late final AnimationController _dualController;
   late final AnimationController _plainController;
 
@@ -1510,7 +1518,7 @@ enum _ReverseRecipe {
   final String label;
 }
 
-class _BuilderCompositionSceneState extends State<_BuilderCompositionScene> with SingleTickerProviderStateMixin {
+class _BuilderCompositionSceneState extends State<_BuilderCompositionScene> with _TickerProviderShim {
   late final AnimationController _controller;
   _ForwardRecipe _forwardRecipe = _ForwardRecipe.fadeSlide;
   _ReverseRecipe _reverseRecipe = _ReverseRecipe.shrinkFade;
@@ -1712,7 +1720,7 @@ class _PracticalPatternScene extends StatefulWidget {
   State<_PracticalPatternScene> createState() => _PracticalPatternSceneState();
 }
 
-class _PracticalPatternSceneState extends State<_PracticalPatternScene> with TickerProviderStateMixin {
+class _PracticalPatternSceneState extends State<_PracticalPatternScene> with _TickerProviderShim {
   late final AnimationController _detailController;
 
   final List<_MailThread> _threads = const [

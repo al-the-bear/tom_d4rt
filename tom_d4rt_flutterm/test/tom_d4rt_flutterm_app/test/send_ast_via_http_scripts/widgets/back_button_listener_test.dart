@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+// Local shim — ChangeNotifier mixin not available in D4rt bridge
+mixin _ChangeNotifierShim {
+  final List<VoidCallback> _listeners = [];
+  void addListener(VoidCallback listener) => _listeners.add(listener);
+  void removeListener(VoidCallback listener) => _listeners.remove(listener);
+  void notifyListeners() { for (final l in [..._listeners]) l(); }
+}
+
 dynamic build(BuildContext context) {
   return const _BackButtonListenerDeepDemo();
 }
@@ -24,7 +32,7 @@ class _BackButtonListenerDeepDemoState extends State<_BackButtonListenerDeepDemo
   }
 }
 
-class _BackLabRouterDelegate extends RouterDelegate<Object> with ChangeNotifier {
+class _BackLabRouterDelegate extends RouterDelegate<Object> with _ChangeNotifierShim {
   @override
   Future<void> setNewRoutePath(Object configuration) async {}
 

@@ -70,21 +70,21 @@ Generated: 2026-04-04
 | services/raw_key_event_data_web_test.dart | undefined var: RawKeyEventDataWeb | yes |
 | services/raw_key_event_data_windows_test.dart | undefined var: RawKeyEventDataWindows | yes |
 | services/raw_keyboard_test.dart | undefined var: RawKeyboard | yes |
-| widgets/align_transition_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/back_button_listener_test.dart | mixin: ChangeNotifier | |
-| widgets/clip_r_superellipse_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/default_text_style_transition_test.dart | mixin: TickerProviderStateMixin | |
-| widgets/fractional_translation_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/icon_theme_data_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_animated_modal_barrier_test.dart | mixin: TickerProviderStateMixin | |
-| widgets/individual_color_filtered_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_dual_transition_builder_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_image_filtered_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_performance_overlay_test.dart | mixin: SingleTickerProviderStateMixin | |
-| widgets/individual_render_object_element_test.dart | undefined var: build | |
-| widgets/individual_render_object_widget_test.dart | undefined var: build | |
-| widgets/individual_restorable_bool_test.dart | undefined var: build | |
-| widgets/individual_scroll_physics_test.dart | undefined var: build | |
+| widgets/align_transition_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/back_button_listener_test.dart | mixin: ChangeNotifier | yes |
+| widgets/clip_r_superellipse_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/default_text_style_transition_test.dart | mixin: TickerProviderStateMixin | yes |
+| widgets/fractional_translation_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/icon_theme_data_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_animated_modal_barrier_test.dart | mixin: TickerProviderStateMixin | yes |
+| widgets/individual_color_filtered_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_dual_transition_builder_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_image_filtered_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_performance_overlay_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| widgets/individual_render_object_element_test.dart | undefined var: build | yes |
+| widgets/individual_render_object_widget_test.dart | undefined var: build | yes |
+| widgets/individual_restorable_bool_test.dart | undefined var: build | yes |
+| widgets/individual_scroll_physics_test.dart | undefined var: build | yes |
 | widgets/individual_scroll_position_test.dart | undefined var: build | |
 | widgets/individual_scrollable_state_test.dart | undefined var: build | |
 | widgets/individual_shader_mask_test.dart | mixin: SingleTickerProviderStateMixin | |

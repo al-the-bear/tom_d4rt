@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 const _ink = Color(0xFF1F4E73);
 const _sun = Color(0xFFC47B36);
@@ -927,7 +935,7 @@ class _AnimatedPracticalScene extends StatefulWidget {
   State<_AnimatedPracticalScene> createState() => _AnimatedPracticalSceneState();
 }
 
-class _AnimatedPracticalSceneState extends State<_AnimatedPracticalScene> with SingleTickerProviderStateMixin {
+class _AnimatedPracticalSceneState extends State<_AnimatedPracticalScene> with _TickerProviderShim {
   late final AnimationController _controller;
   bool _auto = false;
   double _amplitude = 0.3;

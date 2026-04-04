@@ -1,6 +1,14 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 // ---------------------------------------------------------------------------
 // ColorFiltered Deep Demo
@@ -1050,7 +1058,7 @@ class _HueRotatorTile extends StatefulWidget {
 }
 
 class _HueRotatorTileState extends State<_HueRotatorTile>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late final AnimationController _ctrl;
 
   @override
@@ -1151,7 +1159,7 @@ class _TintPulseTile extends StatefulWidget {
 }
 
 class _TintPulseTileState extends State<_TintPulseTile>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late final AnimationController _ctrl;
 
   @override
@@ -1244,7 +1252,7 @@ class _SunriseTile extends StatefulWidget {
 }
 
 class _SunriseTileState extends State<_SunriseTile>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late final AnimationController _ctrl;
 
   @override
@@ -1335,7 +1343,7 @@ class _SaturationFadeTile extends StatefulWidget {
 }
 
 class _SaturationFadeTileState extends State<_SaturationFadeTile>
-    with SingleTickerProviderStateMixin {
+    with _TickerProviderShim {
   late final AnimationController _ctrl;
 
   @override

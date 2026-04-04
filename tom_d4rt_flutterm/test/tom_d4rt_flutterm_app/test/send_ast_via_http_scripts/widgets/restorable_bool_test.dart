@@ -4,8 +4,7 @@ import 'package:flutter/widgets.dart';
 
 /// Print-only test for RestorableBool
 /// This test prints class structure and API information.
-class RestorableBoolTest {
-  dynamic build(BuildContext context) {
+dynamic build(BuildContext context) {
   print('=' * 50);
   print('RestorableBool PRINT-ONLY TEST');
   print('=' * 50);
@@ -79,5 +78,4 @@ class RestorableBoolTest {
   print('END RestorableBool PRINT-ONLY TEST');
   print('=' * 50);
   return const SizedBox.shrink();
-  }
 }

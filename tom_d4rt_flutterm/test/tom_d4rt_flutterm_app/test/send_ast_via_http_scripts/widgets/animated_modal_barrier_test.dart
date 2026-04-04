@@ -1,6 +1,14 @@
 // ignore_for_file: avoid_print
 // Deep demo: AnimatedModalBarrier - Animated barrier that blocks user interaction
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+
+// D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
 
 dynamic build(BuildContext context) {
   return MaterialApp(
@@ -17,7 +25,7 @@ class AnimatedModalBarrierDemo extends StatefulWidget {
 }
 
 class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo> 
-    with TickerProviderStateMixin {
+    with _TickerProviderShim {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: Basic Modal Barrier Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
