@@ -1244,18 +1244,20 @@ Widget _buildSizeBox(String label, double size, Color color) {
         ),
       ),
       SizedBox(width: 16),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-          ),
-          Text(
-            '${size.toInt()}x${size.toInt()} logical pixels',
-            style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
-          ),
-        ],
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+            ),
+            Text(
+              '${size.toInt()}x${size.toInt()} logical pixels',
+              style: TextStyle(fontSize: 11, color: Color(0xFF757575)),
+            ),
+          ],
+        ),
       ),
     ],
   );
