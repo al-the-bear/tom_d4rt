@@ -795,6 +795,66 @@ Bridged enums like `DisplayFeatureState` do not expose `hashCode` correctly in t
 
 ---
 
+## Issue #21 — Additional Affected Files (Batch 22)
+
+8 more enum hashCode failures:
+
+- dart_ui/display_feature_type_test.dart (DisplayFeatureType)
+- dart_ui/filter_quality_test.dart (FilterQuality)
+- dart_ui/font_style_test.dart (FontStyle)
+- dart_ui/semantics_hit_test_behavior_test.dart (SemanticsHitTestBehavior)
+- dart_ui/semantics_input_type_test.dart (SemanticsInputType)
+- dart_ui/semantics_role_test.dart (SemanticsRole)
+- dart_ui/semantics_validation_result_test.dart (SemanticsValidationResult)
+- dart_ui/stroke_join_test.dart (StrokeJoin)
+
+---
+
+## Issue #22 — Undefined Property 'name' on Bridged Instances (Batch 22)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 22
+- **Workaround:** None — runtime property access failure
+
+Accessing the `name` property on bridged enum/class instances fails with "undefined: name on bridged instance". The `.name` getter is not exposed through the bridge for certain types.
+
+**Affected files:**
+- dart_ui/image_byte_format_test.dart (bridged instance of 'Image')
+- dart_ui/path_fill_type_test.dart (bridged instance of 'Path')
+- dart_ui/path_operation_test.dart (bridged instance of 'Path')
+- dart_ui/placeholder_alignment_test.dart (bridged instance of 'Placeholder')
+
+---
+
+## Issue #23 — Undefined 'toString' on Bridged Enum (Batch 22)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 22
+- **Workaround:** None — toString not accessible on bridged enum
+
+The `toString` method on bridged enums like `StrokeCap` is not properly forwarded through the bridge, causing "undefined: toString on StrokeCap" errors.
+
+**Affected files:**
+- dart_ui/painting_style_test.dart
+
+---
+
+## Issue #24 — Test Assertion Mismatch (Expected: true) (Batch 22)
+
+- **Status:** Open
+- **Severity:** Low
+- **Discovered:** Batch 22
+- **Workaround:** None — runtime behavior differs from expected
+
+Test assertions return unexpected values, likely due to incomplete bridging of underlying APIs. The scripts are valid Dart but produce different results in D4rt.
+
+**Affected files:**
+- dart_ui/individual_ztmp_path_metrics_access_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

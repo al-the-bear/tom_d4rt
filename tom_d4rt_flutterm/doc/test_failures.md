@@ -164,21 +164,21 @@ Generated: 2026-04-04
 | animation/reverse_tween_test.dart | null check failed | yes |
 | animation/tweensequence_test.dart | null check failed | yes |
 | dart_ui/color_space_test.dart | Unsupported target for indexing: null | yes |
-| dart_ui/display_feature_state_test.dart | enum hashCode: DisplayFeatureState | |
-| dart_ui/display_feature_type_test.dart | enum hashCode: DisplayFeatureType | |
-| dart_ui/filter_quality_test.dart | enum hashCode: FilterQuality | |
-| dart_ui/font_style_test.dart | enum hashCode: FontStyle | |
-| dart_ui/image_byte_format_test.dart | undefined: name on bridged instance of 'Image' | |
-| dart_ui/individual_ztmp_path_metrics_access_test.dart | Expected: true | |
-| dart_ui/painting_style_test.dart | undefined: toString on StrokeCap | |
-| dart_ui/path_fill_type_test.dart | undefined: name on bridged instance of 'Path' | |
-| dart_ui/path_operation_test.dart | undefined: name on bridged instance of 'Path' | |
-| dart_ui/placeholder_alignment_test.dart | undefined: name on bridged instance of 'Placeholder' | |
-| dart_ui/semantics_hit_test_behavior_test.dart | enum hashCode: SemanticsHitTestBehavior | |
-| dart_ui/semantics_input_type_test.dart | enum hashCode: SemanticsInputType | |
-| dart_ui/semantics_role_test.dart | enum hashCode: SemanticsRole | |
-| dart_ui/semantics_validation_result_test.dart | enum hashCode: SemanticsValidationResult | |
-| dart_ui/stroke_join_test.dart | enum hashCode: StrokeJoin | |
+| dart_ui/display_feature_state_test.dart | enum hashCode: DisplayFeatureState | yes |
+| dart_ui/display_feature_type_test.dart | enum hashCode: DisplayFeatureType | yes |
+| dart_ui/filter_quality_test.dart | enum hashCode: FilterQuality | yes |
+| dart_ui/font_style_test.dart | enum hashCode: FontStyle | yes |
+| dart_ui/image_byte_format_test.dart | undefined: name on bridged instance of 'Image' | yes |
+| dart_ui/individual_ztmp_path_metrics_access_test.dart | Expected: true | yes |
+| dart_ui/painting_style_test.dart | undefined: toString on StrokeCap | yes |
+| dart_ui/path_fill_type_test.dart | undefined: name on bridged instance of 'Path' | yes |
+| dart_ui/path_operation_test.dart | undefined: name on bridged instance of 'Path' | yes |
+| dart_ui/placeholder_alignment_test.dart | undefined: name on bridged instance of 'Placeholder' | yes |
+| dart_ui/semantics_hit_test_behavior_test.dart | enum hashCode: SemanticsHitTestBehavior | yes |
+| dart_ui/semantics_input_type_test.dart | enum hashCode: SemanticsInputType | yes |
+| dart_ui/semantics_role_test.dart | enum hashCode: SemanticsRole | yes |
+| dart_ui/semantics_validation_result_test.dart | enum hashCode: SemanticsValidationResult | yes |
+| dart_ui/stroke_join_test.dart | enum hashCode: StrokeJoin | yes |
 | dart_ui/system_color_palette_test.dart | Expected: true | |
 | dart_ui/target_pixel_format_test.dart | enum hashCode: TargetPixelFormat | |
 | dart_ui/text_affinity_test.dart | undefined: name on bridged instance of 'Text' | |
