@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
   print('4. onSerialTapUp (count=1) <- this is double-tap!');
 
   print('\nSerialTapUpDetails test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -66,5 +66,5 @@ dynamic build(BuildContext context) {
       Text('count: ${details.count}'),
       Text('kind: ${details.kind}'),
     ],
-  );
+  ));
 }

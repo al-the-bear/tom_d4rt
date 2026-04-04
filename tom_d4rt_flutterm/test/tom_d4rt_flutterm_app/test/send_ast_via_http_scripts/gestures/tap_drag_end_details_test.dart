@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
   print('- Use primaryVelocity for 1D scrolling');
 
   print('\nTapDragEndDetails test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -66,5 +66,5 @@ dynamic build(BuildContext context) {
       Text('primaryVelocity: ${details.primaryVelocity}'),
       Text('consecutiveTapCount: ${details.consecutiveTapCount}'),
     ],
-  );
+  ));
 }

@@ -19,7 +19,7 @@ dynamic build(BuildContext context) {
   print('First index: ${first.index}, Last index: ${last.index}');
 
   print('DragStartBehavior test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('DragStartBehavior Tests'),
@@ -27,5 +27,5 @@ dynamic build(BuildContext context) {
       Text('First: $first'),
       Text('Last: $last'),
     ],
-  );
+  ));
 }

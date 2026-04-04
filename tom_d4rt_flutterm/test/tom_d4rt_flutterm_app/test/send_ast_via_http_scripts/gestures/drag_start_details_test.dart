@@ -23,9 +23,9 @@ dynamic build(BuildContext context) {
   print('d2 kind: ${d2.kind}');
 
   print('DragStartDetails test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('DragStartDetails Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('global: ${d1.globalPosition}'),
     Text('sourceTimeStamp: ${d1.sourceTimeStamp}'),
-  ]);
+  ]));
 }

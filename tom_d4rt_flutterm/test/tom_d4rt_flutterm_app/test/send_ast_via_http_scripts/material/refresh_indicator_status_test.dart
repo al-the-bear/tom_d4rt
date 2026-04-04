@@ -76,7 +76,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('RefreshIndicatorStatus test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -88,5 +88,5 @@ dynamic build(BuildContext context) {
       Text('Values: drag, armed, snap, refresh, done, canceled'),
       Text('Use: Refresh lifecycle (internal)'),
     ],
-  );
+  ));
 }

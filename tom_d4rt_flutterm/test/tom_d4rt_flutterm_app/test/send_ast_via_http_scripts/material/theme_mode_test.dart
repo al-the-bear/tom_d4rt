@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('ThemeMode test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('ThemeMode Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -93,5 +93,5 @@ dynamic build(BuildContext context) {
       Text('Values: system, light, dark'),
       Text('Purpose: App theme mode'),
     ],
-  );
+  ));
 }

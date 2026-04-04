@@ -913,7 +913,7 @@ dynamic build(BuildContext context) {
           );
         }
 
-        return Column(children: rows);
+        return SingleChildScrollView(child: Column(children: rows));
       }
 
       Widget codeWalkthrough() {
@@ -974,7 +974,7 @@ dynamic build(BuildContext context) {
           );
         }
 
-        return Column(
+        return SingleChildScrollView(child: Column(
           children: timeline.map((entry) {
             return Container(
               margin: const EdgeInsets.only(bottom: 8),
@@ -1023,7 +1023,7 @@ dynamic build(BuildContext context) {
               ),
             );
           }).toList(),
-        );
+        ));
       }
 
       Widget consolePanel() {

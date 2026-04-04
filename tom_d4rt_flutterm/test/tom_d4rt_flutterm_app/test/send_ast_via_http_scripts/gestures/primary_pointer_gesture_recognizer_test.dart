@@ -55,7 +55,7 @@ dynamic build(BuildContext context) {
   print('\nDisposed recognizer');
 
   print('\nPrimaryPointerGestureRecognizer test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -68,5 +68,5 @@ dynamic build(BuildContext context) {
       Text('Subclasses: LongPress, Tap, etc.'),
       Text('Manages: deadline, state machine'),
     ],
-  );
+  ));
 }

@@ -59,7 +59,7 @@ dynamic build(BuildContext context) {
   print('4. TapDragEndDetails');
 
   print('\nTapDragUpdateDetails test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -72,5 +72,5 @@ dynamic build(BuildContext context) {
       Text('offsetFromOrigin: ${details.offsetFromOrigin}'),
       Text('Called: repeatedly during drag'),
     ],
-  );
+  ));
 }

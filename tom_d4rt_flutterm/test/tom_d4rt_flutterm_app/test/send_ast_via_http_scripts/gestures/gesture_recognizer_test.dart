@@ -20,9 +20,9 @@ dynamic build(BuildContext context) {
   lp.dispose();
 
   print('GestureRecognizer test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('GestureRecognizer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('Abstract base for all recognizers'),
     Text('Tested via Tap + LongPress'),
-  ]);
+  ]));
 }

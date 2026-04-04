@@ -45,7 +45,7 @@ dynamic build(BuildContext context) {
   print('- SerialTapGestureRecognizer (recognizer)');
 
   print('\nSerialTapCancelDetails test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -58,5 +58,5 @@ dynamic build(BuildContext context) {
       Text('Previous taps before cancel'),
       Text('Used in: onSerialTapCancel'),
     ],
-  );
+  ));
 }
