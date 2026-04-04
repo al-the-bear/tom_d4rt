@@ -88,7 +88,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('DiagnosticLevel test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('DiagnosticLevel Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -97,5 +97,5 @@ dynamic build(BuildContext context) {
       Text('hidden, fine, debug, info'),
       Text('warning, hint, summary, error, off'),
     ],
-  );
+  ));
 }

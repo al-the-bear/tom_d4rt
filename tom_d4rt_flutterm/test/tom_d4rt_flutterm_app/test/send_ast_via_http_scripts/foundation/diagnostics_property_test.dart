@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
   print('dp2 toString: ${dp2.toString()}');
 
   print('DiagnosticsProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -33,5 +33,5 @@ dynamic build(BuildContext context) {
       Text('Int: ${dp2.toString()}'),
       Text('Null: ${dp3.toString()}'),
     ],
-  );
+  ));
 }

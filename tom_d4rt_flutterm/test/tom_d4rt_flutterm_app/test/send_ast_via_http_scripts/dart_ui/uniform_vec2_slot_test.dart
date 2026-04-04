@@ -40,7 +40,7 @@ dynamic build(BuildContext context) {
   print('- scale: 2D scale factor');
 
   print('\nUniformVec2Slot test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -64,5 +64,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }

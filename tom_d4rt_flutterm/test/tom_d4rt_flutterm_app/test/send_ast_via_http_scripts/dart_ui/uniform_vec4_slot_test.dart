@@ -49,7 +49,7 @@ dynamic build(BuildContext context) {
   print('- transform: position + scale');
 
   print('\nUniformVec4Slot test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -74,5 +74,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }

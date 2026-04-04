@@ -42,7 +42,7 @@ dynamic build(BuildContext context) {
   print('- ambient: ambient light color');
 
   print('\nUniformVec3Slot test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -67,5 +67,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }

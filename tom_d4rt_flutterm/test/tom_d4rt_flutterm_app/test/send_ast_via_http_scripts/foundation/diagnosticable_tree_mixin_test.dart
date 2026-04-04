@@ -99,7 +99,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('DiagnosticableTreeMixin test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -113,5 +113,5 @@ dynamic build(BuildContext context) {
       Text('Element uses mixin: true /* element is DiagnosticableTreeMixin */'),
       Text('Purpose: Tree-aware diagnostics'),
     ],
-  );
+  ));
 }

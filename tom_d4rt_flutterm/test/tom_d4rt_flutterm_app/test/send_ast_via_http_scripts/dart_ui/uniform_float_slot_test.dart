@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
   print('Thresholds: cutoff values for effects');
 
   print('UniformFloatSlot test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -58,5 +58,5 @@ dynamic build(BuildContext context) {
       Text('Used with FragmentShader.setFloat()'),
       Text('Float range: ±3.4e38'),
     ],
-  );
+  ));
 }

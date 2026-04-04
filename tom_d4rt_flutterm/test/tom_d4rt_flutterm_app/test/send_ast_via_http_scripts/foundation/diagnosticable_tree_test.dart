@@ -80,7 +80,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('DiagnosticableTree test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -94,5 +94,5 @@ dynamic build(BuildContext context) {
       Text('toStringDeep lines: ${deepString.split('\n').length}'),
       Text('Purpose: Tree-structured diagnostics'),
     ],
-  );
+  ));
 }

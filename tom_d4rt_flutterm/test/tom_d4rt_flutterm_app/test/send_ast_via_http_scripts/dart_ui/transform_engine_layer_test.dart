@@ -27,9 +27,9 @@ dynamic build(BuildContext context) {
   scene.dispose();
 
   print('TransformEngineLayer test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('TransformEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('pushOffset creates OffsetEngineLayer'),
     Text('Nested transforms OK'),
-  ]);
+  ]));
 }

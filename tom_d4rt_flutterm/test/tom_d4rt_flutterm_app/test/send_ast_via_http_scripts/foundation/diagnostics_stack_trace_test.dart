@@ -85,7 +85,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('DiagnosticsStackTrace test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -99,5 +99,5 @@ dynamic build(BuildContext context) {
       Text('description lines: ${descLines.length}'),
       Text('Purpose: Stack trace diagnostic node'),
     ],
-  );
+  ));
 }

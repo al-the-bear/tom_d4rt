@@ -30,7 +30,7 @@ dynamic build(BuildContext context) {
   print('block2 name: ${block2.name}');
 
   print('AggregatedTimings test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -40,5 +40,5 @@ dynamic build(BuildContext context) {
       Text('Empty timings: ${timings.timedBlocks.length}'),
       Text('block1: ${block1.name} ${block1.duration}'),
     ],
-  );
+  ));
 }

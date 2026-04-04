@@ -25,10 +25,10 @@ dynamic build(BuildContext context) {
   }
 
   print('ViewConstraints test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('ViewConstraints Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('Loose: 0-800 x 0-600, tight=${vc1.isTight}'),
     Text('Tight: 400x300, tight=${vc2.isTight}'),
     Text('isSatisfiedBy: ${vc2.isSatisfiedBy(Size(400, 300))}'),
-  ]);
+  ]));
 }

@@ -27,9 +27,9 @@ dynamic build(BuildContext context) {
   for (final d in ui.ViewFocusDirection.values) { print('ViewFocusDirection: ${d.name}'); }
 
   print('ViewFocusEvent test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('ViewFocusEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('focused: ${event1.state}'),
     Text('unfocused: ${event2.state}'),
-  ]);
+  ]));
 }
