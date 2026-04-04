@@ -5,8 +5,8 @@
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(ScaffoldMessengerDemoApp());
+dynamic build(BuildContext context) {
+  return ScaffoldMessengerDemoApp();
 }
 
 // ============================================================================
@@ -1124,36 +1124,11 @@ class AnimatedSnackBarContent extends StatefulWidget {
       _AnimatedSnackBarContentState();
 }
 
-class _AnimatedSnackBarContentState extends State<AnimatedSnackBarContent>
-    with SingleTickerProviderStateMixin {
-  AnimationController? animationController;
-  Animation<double>? scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-      duration: Duration(milliseconds: 300),
-      vsync: this,
-    );
-    scaleAnimation = CurvedAnimation(
-      parent: animationController!,
-      curve: Curves.elasticOut,
-    );
-    animationController?.forward();
-  }
-
-  @override
-  void dispose() {
-    animationController?.dispose();
-    super.dispose();
-  }
+class _AnimatedSnackBarContentState extends State<AnimatedSnackBarContent> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: scaleAnimation!,
-      child: Container(
+    return Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.deepPurple,
@@ -1176,7 +1151,6 @@ class _AnimatedSnackBarContentState extends State<AnimatedSnackBarContent>
             ),
           ],
         ),
-      ),
     );
   }
 }

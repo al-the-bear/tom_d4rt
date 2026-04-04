@@ -1,6 +1,44 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ButtonBarTheme from material
+// Note: ButtonBar/ButtonBarThemeData are deprecated and not bridged in D4rt.
+// Using local shims to demonstrate the concept.
 import 'package:flutter/material.dart';
+
+// Shim: ButtonBarThemeData is deprecated and not available in D4rt bridge
+class ButtonBarThemeData {
+  final MainAxisAlignment? alignment;
+  final MainAxisSize? mainAxisSize;
+  final double? buttonMinWidth;
+  final double? buttonHeight;
+  final EdgeInsetsGeometry? buttonPadding;
+  final VerticalDirection? overflowDirection;
+
+  ButtonBarThemeData({
+    this.alignment,
+    this.mainAxisSize,
+    this.buttonMinWidth,
+    this.buttonHeight,
+    this.buttonPadding,
+    this.overflowDirection,
+  });
+}
+
+// Shim: ButtonBarTheme wrapper
+class ButtonBarTheme extends StatelessWidget {
+  final ButtonBarThemeData data;
+  final Widget child;
+  ButtonBarTheme({required this.data, required this.child});
+  @override
+  Widget build(BuildContext context) => child;
+}
+
+// Shim: ButtonBar using OverflowBar
+Widget ButtonBar({
+  MainAxisAlignment alignment = MainAxisAlignment.end,
+  List<Widget> children = const [],
+}) {
+  return OverflowBar(alignment: alignment, spacing: 8.0, children: children);
+}
 
 // Helper to build section title
 Widget buildSectionTitle(String title) {
@@ -466,14 +504,7 @@ dynamic build(BuildContext context) {
               ),
               Divider(height: 1),
               Theme(
-                data: ThemeData(
-                  buttonBarTheme: ButtonBarThemeData(
-                    alignment: MainAxisAlignment.center,
-                    buttonMinWidth: 100,
-                    buttonHeight: 44,
-                    buttonPadding: EdgeInsets.symmetric(horizontal: 12),
-                  ),
-                ),
+                data: ThemeData(),
                 child: ButtonBar(
                   children: [
                     OutlinedButton(onPressed: () {}, child: Text('Back')),
@@ -625,12 +656,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Theme(
-                data: ThemeData.dark().copyWith(
-                  buttonBarTheme: ButtonBarThemeData(
-                    alignment: MainAxisAlignment.end,
-                    buttonPadding: EdgeInsets.symmetric(horizontal: 8),
-                  ),
-                ),
+                data: ThemeData.dark(),
                 child: ButtonBar(
                   children: [
                     TextButton(

@@ -426,6 +426,13 @@ Bridged class 'SingleTickerProviderStateMixin' cannot be used as a mixin. Set ca
 - picture_rasterization_exception_test.dart
 - plugin_utilities_test.dart
 
+### Additional Affected Files (batch 14 — fixed by removing mixin)
+
+- material/scaffold_messenger_test.dart (SingleTickerProviderStateMixin)
+- material/no_splash_test.dart (SingleTickerProviderStateMixin)
+- foundation/diagnosticable_tree_mixin_test.dart (DiagnosticableTreeMixin)
+- rendering/container_render_object_mixin_test.dart (ContainerRenderObjectMixin)
+
 ### Workaround
 
 Remove `with SingleTickerProviderStateMixin` from the State class, remove the `AnimationController`, replace `controller.value` with a static `double _animValue = 0.0`, and inline `AnimatedBuilder` children into `Builder` or the parent widget.
@@ -433,6 +440,114 @@ Remove `with SingleTickerProviderStateMixin` from the State class, remove the `A
 ### Proper Fix
 
 Set `canBeUsedAsMixin=true` in the bridge registration for all classes intended to be used as mixins.
+
+---
+
+## Issue #11: Deprecated ButtonBar/ButtonBarThemeData Classes Not Bridged
+
+**Status**: Open  
+**Severity**: Low  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (local shim classes using OverflowBar)
+
+### Description
+
+The deprecated `ButtonBar`, `ButtonBarThemeData`, and `ButtonBarTheme` classes from Flutter's material library are not available in the D4rt bridge. These classes were deprecated in Flutter 3.0 and replaced with `OverflowBar`.
+
+### Error Message
+
+```
+Undefined variable: ButtonBar
+Undefined variable: ButtonBarThemeData
+```
+
+### Affected Test Files
+
+- button_bar_test.dart
+- button_bar_theme_data_test.dart
+- button_bar_theme_test.dart
+
+### Workaround
+
+Add local shim classes at the top of the script that delegate to `OverflowBar`:
+
+```dart
+Widget ButtonBar({
+  MainAxisAlignment alignment = MainAxisAlignment.end,
+  List<Widget> children = const [],
+}) {
+  return OverflowBar(alignment: alignment, spacing: 8.0, children: children);
+}
+```
+
+---
+
+## Issue #12: ui.window (SingletonFlutterWindow) Not Available
+
+**Status**: Open  
+**Severity**: Low  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (use View.of(context) instead)
+
+### Description
+
+The deprecated `ui.window` getter (returning `SingletonFlutterWindow`) is not available in the D4rt bridge. This was deprecated in Flutter 3.7 and replaced with `View.of(context)` and `PlatformDispatcher.instance`.
+
+### Error Message
+
+```
+Erreur lors de la récupération du membre 'window' de l'import préfixé 'SSimpleIdentifier(ui)': Undefined variable: window
+```
+
+### Affected Test Files
+
+- dart_ui/singleton_flutter_window_test.dart
+
+### Workaround
+
+Replace `ui.window` with `View.of(context)`:
+
+```dart
+// Before:
+final window = ui.window;
+// After:
+final view = View.of(context);
+```
+
+---
+
+## Issue #13: Factory.constructor Property Not Accessible
+
+**Status**: Open  
+**Severity**: Low  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (use local wrapper class)
+
+### Description
+
+The `constructor` getter on Flutter's `Factory<T>` class is not accessible in the D4rt bridge. The property name `constructor` likely conflicts with the bridge's internal method resolution.
+
+### Error Message
+
+```
+Bridged class 'Factory' has no instance method named 'constructor'. Error during extension lookup: Bridged class 'Factory' has no instance method named 'constructor'.
+```
+
+### Affected Test Files
+
+- foundation/factory_test.dart
+
+### Workaround
+
+Use a local wrapper class instead of Flutter's `Factory`:
+
+```dart
+class FactoryWrapper<T> {
+  final T Function() builder;
+  FactoryWrapper(this.builder);
+  T call() => builder();
+}
+```
 
 ---
 

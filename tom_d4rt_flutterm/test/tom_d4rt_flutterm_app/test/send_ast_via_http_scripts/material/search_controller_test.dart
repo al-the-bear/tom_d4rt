@@ -1893,7 +1893,7 @@ Widget _buildPatternCard(
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('Starting SearchController deep demo');
 
   Widget result = MaterialApp(

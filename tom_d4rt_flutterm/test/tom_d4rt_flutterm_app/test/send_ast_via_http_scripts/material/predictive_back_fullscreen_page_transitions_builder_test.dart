@@ -1772,12 +1772,11 @@ Widget buildMainContent() {
   );
 }
 
-void main() {
+dynamic build(BuildContext context) {
   print('=== PredictiveBackFullscreenPageTransitionsBuilder Deep Demo ===');
   print('Testing page transition builder for Android predictive back gesture');
   
-  runApp(
-    MaterialApp(
+  return MaterialApp(
       title: 'PredictiveBackFullscreenPageTransitionsBuilder Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -1800,6 +1799,5 @@ void main() {
         ),
         body: buildMainContent(),
       ),
-    ),
   );
 }

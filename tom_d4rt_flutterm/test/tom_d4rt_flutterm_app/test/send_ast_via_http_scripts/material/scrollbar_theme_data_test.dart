@@ -1354,7 +1354,7 @@ Widget buildNestedScrollbarsDemo() {
   );
 }
 
-Widget testWidget() {
+dynamic build(BuildContext context) {
   print('Building ScrollbarThemeData deep demo');
 
   Widget result = MaterialApp(

@@ -1394,13 +1394,12 @@ Widget buildApp() {
   );
 }
 
-void main() {
+dynamic build(BuildContext context) {
   print('Starting PopupMenuEntry demonstration');
   print('PopupMenuEntry is the abstract base for popup menu items');
-  
-  runApp(buildApp());
   
   print('Application built successfully');
   print('Demonstrated: concept, PopupMenuItem, PopupMenuDivider, CheckedPopupMenuItem');
   print('Demonstrated: represents property, height property, custom entries');
+  return buildApp();
 }

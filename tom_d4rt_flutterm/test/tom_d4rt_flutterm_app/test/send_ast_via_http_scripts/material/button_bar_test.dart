@@ -1,6 +1,26 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ButtonBar from material
+// Note: ButtonBar is deprecated and not bridged in D4rt.
+// Using OverflowBar as a local shim to demonstrate the concept.
 import 'package:flutter/material.dart';
+
+// Shim: ButtonBar is deprecated and not available in D4rt bridge
+Widget ButtonBar({
+  MainAxisAlignment alignment = MainAxisAlignment.end,
+  MainAxisSize mainAxisSize = MainAxisSize.max,
+  double? buttonMinWidth,
+  double? buttonHeight,
+  EdgeInsetsGeometry? buttonPadding,
+  VerticalDirection? overflowDirection,
+  List<Widget> children = const [],
+}) {
+  return OverflowBar(
+    alignment: alignment,
+    overflowDirection: overflowDirection ?? VerticalDirection.down,
+    spacing: 8.0,
+    children: children,
+  );
+}
 
 // Helper to build section title
 Widget buildSectionTitle(String title) {

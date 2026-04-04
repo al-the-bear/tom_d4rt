@@ -40,21 +40,21 @@ Generated: 2026-04-04
 | dart_ui/key_event_type_test.dart | mixin: SingleTickerProviderStateMixin | yes |
 | dart_ui/picture_rasterization_exception_test.dart | mixin: SingleTickerProviderStateMixin | yes |
 | dart_ui/plugin_utilities_test.dart | mixin: SingleTickerProviderStateMixin | yes |
-| dart_ui/singleton_flutter_window_test.dart | undefined var: window | |
-| foundation/diagnosticable_tree_mixin_test.dart | mixin: DiagnosticableTreeMixin | |
-| foundation/factory_test.dart | Bridged class 'Factory' has no instance method named 'constructor'. Error during | |
-| material/button_bar_test.dart | undefined var: ButtonBar | |
-| material/button_bar_theme_data_test.dart | undefined var: ButtonBarThemeData | |
-| material/button_bar_theme_test.dart | undefined var: ButtonBarThemeData | |
-| material/individual_scaffold_messenger_test.dart | mixin: SingleTickerProviderStateMixin | |
-| material/no_splash_test.dart | mixin: SingleTickerProviderStateMixin | |
-| material/popup_menu_entry_test.dart | undefined var: build | |
-| material/popup_menu_item_test.dart | undefined var: build | |
-| material/predictive_back_fullscreen_page_transitions_builder_test.dart | undefined var: build | |
-| material/scrollbar_theme_data_test.dart | undefined var: build | |
-| material/search_controller_test.dart | undefined var: build | |
-| material/search_delegate_test.dart | undefined var: build | |
-| rendering/individual_container_render_object_mixin_test.dart | mixin: ContainerRenderObjectMixin | |
+| dart_ui/singleton_flutter_window_test.dart | undefined var: window | yes |
+| foundation/diagnosticable_tree_mixin_test.dart | mixin: DiagnosticableTreeMixin | yes |
+| foundation/factory_test.dart | Bridged class 'Factory' has no instance method named 'constructor'. Error during | yes |
+| material/button_bar_test.dart | undefined var: ButtonBar | yes |
+| material/button_bar_theme_data_test.dart | undefined var: ButtonBarThemeData | yes |
+| material/button_bar_theme_test.dart | undefined var: ButtonBarThemeData | yes |
+| material/individual_scaffold_messenger_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| material/no_splash_test.dart | mixin: SingleTickerProviderStateMixin | yes |
+| material/popup_menu_entry_test.dart | undefined var: build | yes |
+| material/popup_menu_item_test.dart | undefined var: build | yes |
+| material/predictive_back_fullscreen_page_transitions_builder_test.dart | undefined var: build | yes |
+| material/scrollbar_theme_data_test.dart | undefined var: build | yes |
+| material/search_controller_test.dart | undefined var: build | yes |
+| material/search_delegate_test.dart | undefined var: build | yes |
+| rendering/individual_container_render_object_mixin_test.dart | mixin: ContainerRenderObjectMixin | yes |
 | rendering/over_scroll_header_stretch_configuration_test.dart | undefined var: build | |
 | rendering/render_sliver_box_child_manager_test.dart | mixin: AutomaticKeepAliveClientMixin | |
 | services/codecs_test.dart | undefined var: Uint8List | |

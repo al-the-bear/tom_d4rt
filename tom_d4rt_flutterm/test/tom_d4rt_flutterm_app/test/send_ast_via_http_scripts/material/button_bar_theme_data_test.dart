@@ -1,6 +1,44 @@
 // ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
 // D4rt test script: Tests ButtonBarThemeData from material
+// Note: ButtonBar/ButtonBarThemeData are deprecated and not bridged in D4rt.
+// Using local shims to demonstrate the concept.
 import 'package:flutter/material.dart';
+
+// Shim: ButtonBarThemeData is deprecated and not available in D4rt bridge
+class ButtonBarThemeData {
+  final MainAxisAlignment? alignment;
+  final MainAxisSize? mainAxisSize;
+  final double? buttonMinWidth;
+  final double? buttonHeight;
+  final EdgeInsetsGeometry? buttonPadding;
+  final VerticalDirection? overflowDirection;
+
+  ButtonBarThemeData({
+    this.alignment,
+    this.mainAxisSize,
+    this.buttonMinWidth,
+    this.buttonHeight,
+    this.buttonPadding,
+    this.overflowDirection,
+  });
+}
+
+// Shim: ButtonBarTheme wrapper
+class ButtonBarTheme extends StatelessWidget {
+  final ButtonBarThemeData data;
+  final Widget child;
+  ButtonBarTheme({required this.data, required this.child});
+  @override
+  Widget build(BuildContext context) => child;
+}
+
+// Shim: ButtonBar using OverflowBar
+Widget ButtonBar({
+  MainAxisAlignment alignment = MainAxisAlignment.end,
+  List<Widget> children = const [],
+}) {
+  return OverflowBar(alignment: alignment, spacing: 8.0, children: children);
+}
 
 // Helper to build section title
 Widget buildSectionTitle(String title) {

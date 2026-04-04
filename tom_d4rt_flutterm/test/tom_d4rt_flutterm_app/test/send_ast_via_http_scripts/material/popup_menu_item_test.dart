@@ -1607,7 +1607,7 @@ Widget buildCombinedDemosSection() {
   );
 }
 
-Widget buildMain() {
+dynamic build(BuildContext context) {
   print('Building PopupMenuItem deep demo');
   
   Widget result = MaterialApp(

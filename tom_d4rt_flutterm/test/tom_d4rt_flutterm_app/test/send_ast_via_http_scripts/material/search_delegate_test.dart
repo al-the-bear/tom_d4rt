@@ -1236,7 +1236,7 @@ Widget _buildTableRow(String delegate, String useCase, String resultType) {
   );
 }
 
-Widget buildSearchDelegateDeepDemo() {
+dynamic build(BuildContext context) {
   print('Starting SearchDelegate deep demo build');
 
   List<String> sampleProducts = [

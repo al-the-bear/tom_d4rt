@@ -19,8 +19,7 @@ class NoSplashDemoPage extends StatefulWidget {
   State<NoSplashDemoPage> createState() => _NoSplashDemoPageState();
 }
 
-class _NoSplashDemoPageState extends State<NoSplashDemoPage>
-    with SingleTickerProviderStateMixin {
+class _NoSplashDemoPageState extends State<NoSplashDemoPage> {
   int _selectedSection = 0;
   int _tapCount = 0;
   bool _showSplash = true;

@@ -35,160 +35,15 @@ Color _kAmber200 = Color(0xFFFFE082);
 Color _kAmber400 = Color(0xFFFFCA28);
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CUSTOM PARENT DATA FOR DEMO
+// NOTE: ContainerRenderObjectMixin and RenderBoxContainerDefaultsMixin
+// cannot be used as mixins in D4rt bridge (Issue #10).
+// The custom render object classes have been replaced with Column-based
+// equivalents for demonstration purposes.
 // ═══════════════════════════════════════════════════════════════════════════
 
-class DemoChildParentData extends ContainerBoxParentData<RenderBox> {
-  int childIndex = 0;
-  String childLabel = '';
-  bool isHighlighted = false;
-  Color childColor = Color(0xFF673AB7);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// DEMO RENDER OBJECT USING ContainerRenderObjectMixin
-// ═══════════════════════════════════════════════════════════════════════════
-
-class DemoContainerRenderBox extends RenderBox
-    with
-        ContainerRenderObjectMixin<RenderBox, DemoChildParentData>,
-        RenderBoxContainerDefaultsMixin<RenderBox, DemoChildParentData> {
-  //
-  // This class demonstrates ContainerRenderObjectMixin by implementing
-  // a simple vertical stack layout for demo purposes.
-  //
-
-  double _spacing = 8.0;
-
-  double get spacing => _spacing;
-
-  set spacing(double value) {
-    if (_spacing != value) {
-      _spacing = value;
-      markNeedsLayout();
-    }
-  }
-
-  @override
-  void setupParentData(RenderObject child) {
-    if (child.parentData is! DemoChildParentData) {
-      child.parentData = DemoChildParentData();
-    }
-  }
-
-  @override
-  void performLayout() {
-    double yOffset = 0;
-    double maxWidth = 0;
-
-    RenderBox? currentChild = firstChild;
-    int index = 0;
-
-    while (currentChild != null) {
-      DemoChildParentData childParentData =
-          currentChild.parentData as DemoChildParentData;
-
-      currentChild.layout(
-        BoxConstraints(maxWidth: constraints.maxWidth),
-        parentUsesSize: true,
-      );
-
-      childParentData.offset = Offset(0, yOffset);
-      childParentData.childIndex = index;
-
-      yOffset += currentChild.size.height + _spacing;
-      if (currentChild.size.width > maxWidth) {
-        maxWidth = currentChild.size.width;
-      }
-
-      currentChild = childParentData.nextSibling;
-      index++;
-    }
-
-    size = Size(
-      constraints.constrainWidth(maxWidth),
-      constraints.constrainHeight(yOffset > 0 ? yOffset - _spacing : 0),
-    );
-  }
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    defaultPaint(context, offset);
-  }
-
-  @override
-  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
-    return defaultHitTestChildren(result, position: position);
-  }
-
-  // Demonstration method: collect all child indices
-  List<int> collectChildIndices() {
-    List<int> indices = [];
-    visitChildren((RenderObject child) {
-      if (child is RenderBox) {
-        DemoChildParentData pd = child.parentData as DemoChildParentData;
-        indices.add(pd.childIndex);
-      }
-    });
-    return indices;
-  }
-
-  // Demonstration method: get child at specific index using iteration
-  RenderBox? getChildAtIndex(int targetIndex) {
-    RenderBox? current = firstChild;
-    int idx = 0;
-    while (current != null) {
-      if (idx == targetIndex) {
-        return current;
-      }
-      DemoChildParentData pd = current.parentData as DemoChildParentData;
-      current = pd.nextSibling;
-      idx++;
-    }
-    return null;
-  }
-
-  // Demonstration method: iterate from last to first
-  List<int> collectReverseIndices() {
-    List<int> indices = [];
-    RenderBox? current = lastChild;
-    while (current != null) {
-      DemoChildParentData pd = current.parentData as DemoChildParentData;
-      indices.add(pd.childIndex);
-      current = pd.previousSibling;
-    }
-    return indices;
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// DEMO WIDGET WRAPPING THE RENDER OBJECT
-// ═══════════════════════════════════════════════════════════════════════════
-
-class DemoContainerWidget extends MultiChildRenderObjectWidget {
-  const DemoContainerWidget({
-    super.key,
-    super.children = const [],
-    this.spacing = 8.0,
-  });
-
-  final double spacing;
-
-  @override
-  RenderObject createRenderObject(BuildContext context) {
-    DemoContainerRenderBox renderObject = DemoContainerRenderBox();
-    renderObject.spacing = spacing;
-    return renderObject;
-  }
-
-  @override
-  void updateRenderObject(
-    BuildContext context,
-    DemoContainerRenderBox renderObject,
-  ) {
-    renderObject.spacing = spacing;
-  }
-}
+// DemoContainerRenderBox and DemoContainerWidget removed:
+// ContainerRenderObjectMixin/RenderBoxContainerDefaultsMixin cannot be used
+// as mixins in D4rt bridge. Using Column as equivalent for demos.
 
 // ═══════════════════════════════════════════════════════════════════════════
 // HELPER WIDGET BUILDERS
@@ -1160,13 +1015,13 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(height: 12),
                 Text(
-                  'The DemoContainerWidget below uses ContainerRenderObjectMixin '
-                  'to manage its children:',
+                  'A Column is used below as a substitute since '
+                  'ContainerRenderObjectMixin cannot be used as a mixin in D4rt:',
                   style: TextStyle(fontSize: 12, color: _kDeepPurple700),
                 ),
                 SizedBox(height: 12),
-                DemoContainerWidget(
-                  spacing: 8.0,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
                       padding: EdgeInsets.all(12),

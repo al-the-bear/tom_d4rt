@@ -12,26 +12,25 @@ dynamic build(BuildContext context) {
   print('Note: SingletonFlutterWindow is deprecated since Flutter 3.7');
   print('Use FlutterView or PlatformDispatcher instead');
 
-  // Access the deprecated window singleton
-  final window = ui.window;
-  print('ui.window accessed (deprecated)');
-  print('Window runtimeType: ${window.runtimeType}');
-  print('is ui.SingletonFlutterWindow: ${window is ui.SingletonFlutterWindow}');
-  print('is ui.FlutterView: ${window is ui.FlutterView}');
+  // Use View.of(context) instead of deprecated ui.window
+  final view = View.of(context);
+  print('View.of(context) accessed (modern replacement for ui.window)');
+  print('View runtimeType: ${view.runtimeType}');
+  print('is ui.FlutterView: ${view is ui.FlutterView}');
 
-  // Test FlutterView properties inherited by SingletonFlutterWindow
+  // Test FlutterView properties
   print('\nFlutterView properties:');
-  print('viewId: ${window.viewId}');
-  print('devicePixelRatio: ${window.devicePixelRatio}');
-  print('physicalSize: ${window.physicalSize}');
-  print('viewInsets: ${window.viewInsets}');
-  print('viewPadding: ${window.viewPadding}');
-  print('padding: ${window.padding}');
-  print('systemGestureInsets: ${window.systemGestureInsets}');
-  print('displayFeatures length: ${window.displayFeatures.length}');
+  print('viewId: ${view.viewId}');
+  print('devicePixelRatio: ${view.devicePixelRatio}');
+  print('physicalSize: ${view.physicalSize}');
+  print('viewInsets: ${view.viewInsets}');
+  print('viewPadding: ${view.viewPadding}');
+  print('padding: ${view.padding}');
+  print('systemGestureInsets: ${view.systemGestureInsets}');
+  print('displayFeatures length: ${view.displayFeatures.length}');
 
   // Test platformDispatcher access
-  final dispatcher = window.platformDispatcher;
+  final dispatcher = view.platformDispatcher;
   print('\nPlatformDispatcher access:');
   print('Dispatcher runtimeType: ${dispatcher.runtimeType}');
   print('is ui.PlatformDispatcher: ${dispatcher is ui.PlatformDispatcher}');
@@ -53,13 +52,13 @@ dynamic build(BuildContext context) {
   if (implicitView != null) {
     print('Implicit view exists');
     print('implicitView.viewId: ${implicitView.viewId}');
-    print('window.viewId == implicitView.viewId: ${window.viewId == implicitView.viewId}');
+    print('view.viewId == implicitView.viewId: ${view.viewId == implicitView.viewId}');
   } else {
     print('Implicit view is null (multi-window mode)');
   }
 
   // Test GestureSettings
-  final gestureSettings = window.gestureSettings;
+  final gestureSettings = view.gestureSettings;
   print('\nGestureSettings:');
   print('physicalDoubleTapSlop: ${gestureSettings.physicalDoubleTapSlop}');
   print('physicalTouchSlop: ${gestureSettings.physicalTouchSlop}');
@@ -75,7 +74,7 @@ dynamic build(BuildContext context) {
       Text('Status: DEPRECATED since Flutter 3.7'),
       Text('Extends: FlutterView'),
       Text('Replacement: FlutterView + PlatformDispatcher'),
-      Text('viewId: ${window.viewId}'),
+      Text('viewId: ${view.viewId}'),
     ],
   ));
 }
