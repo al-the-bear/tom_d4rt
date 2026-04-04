@@ -100,8 +100,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Cupertino Misc Advanced Tests',
@@ -118,6 +119,7 @@ dynamic build(BuildContext context) {
             Text('CupertinoTextSelectionControls: OK'),
             Text('CupertinoAdaptiveTheme: OK'),
           ],
+          ),
         ),
       ),
     ),

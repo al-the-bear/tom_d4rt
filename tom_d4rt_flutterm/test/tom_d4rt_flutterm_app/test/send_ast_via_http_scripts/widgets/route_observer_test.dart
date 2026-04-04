@@ -80,12 +80,14 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: Text('Route Test')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Route Observer Test'),
             Text('Settings: ${settings.name}'),
           ],
+          ),
         ),
       ),
     ),

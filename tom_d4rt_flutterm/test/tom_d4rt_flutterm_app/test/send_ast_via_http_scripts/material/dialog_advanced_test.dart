@@ -84,8 +84,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData(dialogTheme: dialogTheme),
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Dialog Advanced Test',
@@ -94,6 +95,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 16.0),
             simpleDialog,
           ],
+          ),
         ),
       ),
     ),

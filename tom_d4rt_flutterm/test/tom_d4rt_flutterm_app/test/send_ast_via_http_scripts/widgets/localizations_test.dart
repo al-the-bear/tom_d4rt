@@ -47,8 +47,9 @@ dynamic build(BuildContext context) {
         return Scaffold(
           appBar: AppBar(title: Text('Localizations Test')),
           body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Current locale: $innerLocale'),
                 Text('Language: ${innerLocale.languageCode}'),
@@ -56,6 +57,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 16.0),
                 Text('Supported: en_US, de_DE, ja'),
               ],
+              ),
             ),
           ),
         );

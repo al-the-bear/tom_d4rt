@@ -70,8 +70,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'ContextMenu Test',
@@ -84,6 +85,7 @@ dynamic build(BuildContext context) {
             Text('Created items: copy, paste, cut, selectAll, custom'),
             Text('AdaptiveTextSelectionToolbar created'),
           ],
+          ),
         ),
       ),
     ),

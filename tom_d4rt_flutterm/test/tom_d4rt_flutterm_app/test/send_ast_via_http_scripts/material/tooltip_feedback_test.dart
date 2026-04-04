@@ -92,8 +92,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Tooltip/Feedback Test',
@@ -106,6 +107,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 16.0),
             inkResponse,
           ],
+          ),
         ),
       ),
     ),

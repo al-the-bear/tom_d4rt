@@ -84,8 +84,9 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: Text('Popup Advanced Test'), actions: [menuButton]),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Popup Advanced Test',
@@ -99,6 +100,7 @@ dynamic build(BuildContext context) {
               'PopupMenuPosition: ${PopupMenuPosition.values.length} values',
             ),
           ],
+          ),
         ),
       ),
     ),

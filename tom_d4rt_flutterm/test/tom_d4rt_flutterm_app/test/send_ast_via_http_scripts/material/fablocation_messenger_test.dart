@@ -100,8 +100,9 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: Text('FAB Location Test')),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'FAB Location Test',
@@ -110,6 +111,7 @@ dynamic build(BuildContext context) {
             Text('SnackBarBehavior: floating'),
             Text('FAB location: endFloat'),
           ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

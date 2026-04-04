@@ -88,8 +88,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData(colorScheme: seedScheme),
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Color Scheme Test',
@@ -104,6 +105,7 @@ dynamic build(BuildContext context) {
               ],
             ),
           ],
+          ),
         ),
       ),
     ),

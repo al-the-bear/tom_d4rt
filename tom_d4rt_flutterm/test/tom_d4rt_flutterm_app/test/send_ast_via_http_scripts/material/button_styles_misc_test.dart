@@ -111,8 +111,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Button Styles Misc Test',
@@ -128,6 +129,7 @@ dynamic build(BuildContext context) {
             Text('NavigationIndicatorTransition: themed'),
             Text('PopupMenuItemState/Selected: callback referenced'),
           ],
+          ),
         ),
       ),
     ),

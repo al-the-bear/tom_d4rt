@@ -93,8 +93,9 @@ dynamic build(BuildContext context) {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Scaffold FAB Test',
@@ -111,6 +112,7 @@ dynamic build(BuildContext context) {
             Text('startTop: ${startTop.runtimeType}'),
             Text('endContained: ${endContained.runtimeType}'),
           ],
+          ),
         ),
       ),
     ),

@@ -80,8 +80,9 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: Text('FAB Locations')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             fabSmall,
             SizedBox(height: 8),
@@ -89,6 +90,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8),
             fabExtended,
           ],
+          ),
         ),
       ),
       floatingActionButton: fab,
