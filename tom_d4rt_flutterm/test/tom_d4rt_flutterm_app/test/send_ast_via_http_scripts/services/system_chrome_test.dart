@@ -103,8 +103,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Services System Chrome Tests',
@@ -117,6 +118,7 @@ dynamic build(BuildContext context) {
             Text('TextInputType: ${TextInputType.text}'),
             Text('TextInputAction values: ${TextInputAction.values.length}'),
           ],
+          ),
         ),
       ),
     ),

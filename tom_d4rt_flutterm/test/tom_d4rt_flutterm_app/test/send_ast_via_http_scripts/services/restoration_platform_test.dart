@@ -101,8 +101,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Restoration & Platform Menu Test',
@@ -117,6 +118,7 @@ dynamic build(BuildContext context) {
             Text('PlatformMenuItemGroup: OK (3 members)'),
             Text('PlatformProvidedMenuItem: OK (about, quit)'),
           ],
+          ),
         ),
       ),
     ),

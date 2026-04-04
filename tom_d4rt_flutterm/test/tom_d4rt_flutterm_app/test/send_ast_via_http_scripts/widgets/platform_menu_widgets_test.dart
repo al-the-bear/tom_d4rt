@@ -79,14 +79,16 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             menuBar,
             magnifier,
             keyboardListener,
             const Text('Platform Menu Widgets Test'),
           ],
+          ),
         ),
       ),
     ),

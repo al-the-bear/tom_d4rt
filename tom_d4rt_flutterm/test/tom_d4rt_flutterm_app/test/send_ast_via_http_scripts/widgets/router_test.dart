@@ -90,8 +90,9 @@ dynamic build(BuildContext context) {
       '/': (ctx) => Scaffold(
         appBar: AppBar(title: Text('Router Test - Home')),
         body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
             children: [
               Text('Traditional routing (alternative to Router API)'),
               SizedBox(height: 8.0),
@@ -100,6 +101,7 @@ dynamic build(BuildContext context) {
                 onPressed: () => print('Would navigate to /detail'),
               ),
             ],
+            ),
           ),
         ),
       ),

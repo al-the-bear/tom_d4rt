@@ -81,8 +81,9 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: appBar,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             opacity,
             column,
@@ -90,6 +91,7 @@ dynamic build(BuildContext context) {
             rawImage,
             const Text('Render Object Widgets Adv Test'),
           ],
+          ),
         ),
       ),
     ),

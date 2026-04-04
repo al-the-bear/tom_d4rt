@@ -96,8 +96,9 @@ dynamic build(BuildContext context) {
           button: true,
           enabled: true,
           sortKey: OrdinalSortKey(1.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Semantics Properties Test',
@@ -113,6 +114,7 @@ dynamic build(BuildContext context) {
                 child: Text('Custom Actions'),
               ),
             ],
+            ),
           ),
         ),
       ),

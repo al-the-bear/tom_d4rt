@@ -66,8 +66,9 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       appBar: AppBar(title: Text('Route Test')),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
           children: [
             Text('Route/RouteSettings/NavigatorObserver tests'),
             SizedBox(height: 8.0),
@@ -83,6 +84,7 @@ dynamic build(BuildContext context) {
               },
             ),
           ],
+          ),
         ),
       ),
     ),

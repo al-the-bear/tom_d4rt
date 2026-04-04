@@ -78,8 +78,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: ListView(
@@ -94,6 +95,7 @@ dynamic build(BuildContext context) {
             ),
             const Text('Scroll Controllers Types Test'),
           ],
+          ),
         ),
       ),
     ),

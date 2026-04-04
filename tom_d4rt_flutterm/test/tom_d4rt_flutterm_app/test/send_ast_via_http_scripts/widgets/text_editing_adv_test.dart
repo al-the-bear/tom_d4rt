@@ -97,8 +97,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               inputFormatters: [denyFormatter, allowFormatter],
@@ -107,6 +108,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 20),
             const Text('Text Editing Adv Test'),
           ],
+          ),
         ),
       ),
     ),

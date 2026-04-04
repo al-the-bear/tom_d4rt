@@ -56,8 +56,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'DisplayFeature Test',
@@ -75,6 +76,7 @@ dynamic build(BuildContext context) {
               child: Text('SubScreen content'),
             ),
           ],
+          ),
         ),
       ),
     ),

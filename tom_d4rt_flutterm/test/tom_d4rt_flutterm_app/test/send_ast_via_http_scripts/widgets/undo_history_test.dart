@@ -50,8 +50,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'UndoHistory Test',
@@ -61,6 +62,7 @@ dynamic build(BuildContext context) {
             Text('UndoHistoryValue canUndo=true, canRedo=false'),
             Text('UndoHistoryController created and disposed'),
           ],
+          ),
         ),
       ),
     ),

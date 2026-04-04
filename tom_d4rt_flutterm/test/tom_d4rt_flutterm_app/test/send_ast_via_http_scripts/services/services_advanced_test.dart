@@ -119,8 +119,9 @@ dynamic build(BuildContext context) {
       value: lightStyle,
       child: Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Services Advanced Test',
@@ -139,6 +140,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
             ],
+            ),
           ),
         ),
       ),
