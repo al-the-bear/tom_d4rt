@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
   // ========== RETURN WIDGET ==========
   return MaterialApp(
     home: Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: AutofillGroup(
           child: Column(

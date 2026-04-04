@@ -70,9 +70,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
             Text(
               'Button Types Test',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
@@ -83,6 +84,7 @@ dynamic build(BuildContext context) {
             Text('MaterialType: ${MaterialType.values.length} values'),
             Text('ButtonTextTheme: ${ButtonTextTheme.values.length} values'),
           ],
+          ),
         ),
       ),
     ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: const Text('TapDragStartDetails')),
-    body: Padding(
+    body: SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
