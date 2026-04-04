@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: const Text('Category Annotation Demo')),
-    body: Padding(
+    body: SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
             'API Documentation Categories',

@@ -72,19 +72,24 @@ dynamic build(BuildContext context) {
 
   print('All element types tests passed');
 
-  return MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            statefulWidget,
-            container,
-            positioned,
-            errorWidget,
-            const Text('Element Types Test'),
-          ],
-        ),
+  return SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          statefulWidget,
+          container,
+          // Note: Positioned must be in a Stack to work properly
+          SizedBox(
+            height: 100,
+            child: Stack(
+              children: [positioned],
+            ),
+          ),
+          errorWidget,
+          const Text('Element Types Test'),
+        ],
       ),
     ),
   );
