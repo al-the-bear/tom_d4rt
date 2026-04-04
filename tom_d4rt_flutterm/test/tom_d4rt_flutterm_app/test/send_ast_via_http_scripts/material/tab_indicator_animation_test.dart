@@ -86,7 +86,7 @@ dynamic build(BuildContext context) {
   if (failed.isNotEmpty) print('Failed cases: ${failed.join(', ')}');
   print('=' * 50);
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Text('TabIndicatorAnimation Test'),
@@ -94,5 +94,5 @@ dynamic build(BuildContext context) {
       Text('Failed: ${failed.length}'),
       if (failed.isNotEmpty) Text('Failures: ${failed.join(', ')}'),
     ],
-  );
+  ));
 }

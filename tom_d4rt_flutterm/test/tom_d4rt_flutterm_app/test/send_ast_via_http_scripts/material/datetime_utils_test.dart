@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Shows common date manipulation helpers.
 dynamic build(BuildContext context) {
   final now = DateTime.now();
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text(
@@ -49,7 +49,7 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }
 
 class _UtilRow extends StatelessWidget {

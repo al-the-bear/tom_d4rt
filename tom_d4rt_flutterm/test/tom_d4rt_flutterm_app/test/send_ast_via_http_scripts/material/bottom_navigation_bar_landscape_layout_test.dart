@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for BottomNavigationBarLandscapeLayout - enum for landscape layout modes.
 /// Shows how navigation items are arranged in landscape orientation.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('BottomNavigationBar Landscape', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -63,7 +63,7 @@ dynamic build(BuildContext context) {
       const SizedBox(height: 8),
       const Text('Linear layout puts labels beside icons', style: TextStyle(fontSize: 10, color: Colors.grey)),
     ],
-  );
+  ));
 }
 
 class _NavItem extends StatelessWidget {

@@ -134,7 +134,7 @@ dynamic build(BuildContext context) {
   print('RefreshIndicator(all custom properties) created');
 
   print('RefreshIndicator test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     children: [
       Expanded(child: widget1),
       Expanded(child: widget2),
@@ -142,5 +142,5 @@ dynamic build(BuildContext context) {
       Expanded(child: widget4),
       Expanded(child: widget5),
     ],
-  );
+  ));
 }

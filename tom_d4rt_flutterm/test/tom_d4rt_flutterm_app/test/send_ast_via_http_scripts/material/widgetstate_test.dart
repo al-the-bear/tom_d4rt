@@ -186,7 +186,7 @@ dynamic build(BuildContext context) {
       final theme = Theme.of(ctx);
       print('Theme.of resolved: $theme');
 
-      return Column(
+      return SingleChildScrollView(child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ElevatedButton(
@@ -201,7 +201,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           Text('WidgetState test passed'),
         ],
-      );
+      ));
     }),
   );
 }

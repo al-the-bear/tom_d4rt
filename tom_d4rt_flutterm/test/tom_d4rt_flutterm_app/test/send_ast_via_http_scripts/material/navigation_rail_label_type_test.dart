@@ -73,7 +73,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('NavigationRailLabelType test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -85,5 +85,5 @@ dynamic build(BuildContext context) {
       Text('Values: none, selected, all'),
       Text('Use: NavigationRail labels'),
     ],
-  );
+  ));
 }

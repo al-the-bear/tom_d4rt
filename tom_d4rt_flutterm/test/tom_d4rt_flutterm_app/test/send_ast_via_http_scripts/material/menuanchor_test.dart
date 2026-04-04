@@ -88,8 +88,8 @@ dynamic build(BuildContext context) {
   print('MenuItemButton(leadingIcon + trailingIcon) created');
 
   print('MenuAnchor/MenuItemButton/SubmenuButton test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [widget1, widget2, widget3, widget4, widget5, widget6],
-  );
+  ));
 }

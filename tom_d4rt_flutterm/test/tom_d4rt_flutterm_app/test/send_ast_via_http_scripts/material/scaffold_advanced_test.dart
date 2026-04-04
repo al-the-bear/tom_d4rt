@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for advanced Scaffold features.
 /// Drawers, persistent bottom sheets, FAB locations.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('Advanced Scaffold Features', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -79,5 +79,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }

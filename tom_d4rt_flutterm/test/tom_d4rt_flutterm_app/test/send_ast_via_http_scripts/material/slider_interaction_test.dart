@@ -71,7 +71,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('SliderInteraction test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -83,5 +83,5 @@ dynamic build(BuildContext context) {
       Text('Values: tapAndSlide, tapOnly, slideOnly, slideThumb'),
       Text('Use: Slider input modes'),
     ],
-  );
+  ));
 }

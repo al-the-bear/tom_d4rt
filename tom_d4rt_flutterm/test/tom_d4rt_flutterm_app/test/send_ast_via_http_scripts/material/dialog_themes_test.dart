@@ -147,7 +147,7 @@ dynamic build(BuildContext context) {
           '  snackBarTheme.behavior: ${resolvedTheme.snackBarTheme.behavior}',
         );
 
-        return Column(
+        return SingleChildScrollView(child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Card(
@@ -172,7 +172,7 @@ dynamic build(BuildContext context) {
             ),
             Text('Dialog themes test passed'),
           ],
-        );
+        ));
       },
     ),
   );

@@ -53,7 +53,7 @@ dynamic build(BuildContext context) {
   print('time6.minute: ${time6.minute}');
 
   print('TimeOfDay test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -84,5 +84,5 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }
