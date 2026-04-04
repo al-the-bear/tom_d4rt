@@ -115,21 +115,21 @@ Generated: 2026-04-04
 | widgets/router_config_test.dart | mixin: ChangeNotifier | yes |
 | widgets/scroll_notification_observer_state_test.dart | undefined var: build | yes |
 | widgets/scroll_position_alignment_policy_test.dart | undefined var: build | yes |
-| widgets/scroll_position_with_single_context_test.dart | undefined var: build | |
-| widgets/scroll_start_notification_test.dart | undefined var: build | |
-| widgets/scroll_to_document_boundary_intent_test.dart | undefined var: build | |
-| widgets/scroll_update_notification_test.dart | undefined var: build | |
-| widgets/scroll_view_keyboard_dismiss_behavior_test.dart | undefined var: build | |
-| widgets/scrollable_details_test.dart | undefined var: build | |
-| widgets/scrollbar_orientation_test.dart | undefined var: build | |
-| widgets/select_action_test.dart | undefined var: build | |
-| widgets/select_all_text_intent_test.dart | undefined var: build | |
-| widgets/select_intent_test.dart | undefined var: build | |
-| widgets/selectable_region_state_test.dart | undefined var: build | |
-| widgets/selection_container_delegate_test.dart | undefined var: build | |
-| widgets/selection_details_test.dart | undefined var: build | |
-| widgets/semantics_gesture_delegate_test.dart | undefined var: build | |
-| widgets/shortcut_activator_test.dart | undefined var: build | |
+| widgets/scroll_position_with_single_context_test.dart | undefined var: build | yes |
+| widgets/scroll_start_notification_test.dart | undefined var: build | yes |
+| widgets/scroll_to_document_boundary_intent_test.dart | undefined var: build | yes |
+| widgets/scroll_update_notification_test.dart | undefined var: build | yes |
+| widgets/scroll_view_keyboard_dismiss_behavior_test.dart | undefined var: build | yes |
+| widgets/scrollable_details_test.dart | undefined var: build | yes |
+| widgets/scrollbar_orientation_test.dart | undefined var: build | yes |
+| widgets/select_action_test.dart | undefined var: build | yes |
+| widgets/select_all_text_intent_test.dart | undefined var: build | yes |
+| widgets/select_intent_test.dart | undefined var: build | yes |
+| widgets/selectable_region_state_test.dart | undefined var: build | yes |
+| widgets/selection_container_delegate_test.dart | undefined var: build | yes |
+| widgets/selection_details_test.dart | undefined var: build | yes |
+| widgets/semantics_gesture_delegate_test.dart | undefined var: build | yes |
+| widgets/shortcut_activator_test.dart | undefined var: build | yes |
 | widgets/shortcut_manager_test.dart | undefined var: build | |
 | widgets/shortcut_map_property_test.dart | undefined var: build | |
 | widgets/shortcut_registry_entry_test.dart | undefined var: build | |
