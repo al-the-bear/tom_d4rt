@@ -82,12 +82,13 @@ dynamic build(BuildContext context) {
         colors: [Colors.cyan.shade50, Colors.blue.shade50],
       ),
     ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header
-        Container(
+    child: SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Container(
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.cyan.shade600,
@@ -257,6 +258,7 @@ dynamic build(BuildContext context) {
           ),
         ),
       ],
+      ),
     ),
   );
 }
