@@ -37,9 +37,9 @@ dynamic build(BuildContext context) {
   print('SemanticsFlag.values: ${ui.SemanticsFlag.values.length}');
 
   print('SemanticsFlag test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('SemanticsFlag Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('${flags.length} flags tested'),
     Text('Total values: ${ui.SemanticsFlag.values.length}'),
-  ]);
+  ]));
 }

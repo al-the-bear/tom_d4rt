@@ -22,7 +22,7 @@ class _VelocityDemoState extends State<_VelocityDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
@@ -69,7 +69,7 @@ class _VelocityDemoState extends State<_VelocityDemo> {
           ),
         ),
       ],
-    );
+    ));
   }
 }
 

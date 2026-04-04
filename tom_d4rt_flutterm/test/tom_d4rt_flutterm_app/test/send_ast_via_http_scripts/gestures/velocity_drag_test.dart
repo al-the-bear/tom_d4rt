@@ -21,7 +21,7 @@ class _VelocityDragDemoState extends State<_VelocityDragDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Drag and release to see velocity', style: TextStyle(fontSize: 16)),
@@ -78,6 +78,6 @@ class _VelocityDragDemoState extends State<_VelocityDragDemo> {
         ),
         TextButton(onPressed: () => setState(() { _xPos = 0; _velocity = 0; }), child: const Text('Reset')),
       ],
-    );
+    ));
   }
 }

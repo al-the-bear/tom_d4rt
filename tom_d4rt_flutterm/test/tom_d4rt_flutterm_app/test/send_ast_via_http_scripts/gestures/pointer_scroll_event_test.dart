@@ -23,7 +23,7 @@ class _ScrollDemoState extends State<_ScrollDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
@@ -77,7 +77,7 @@ class _ScrollDemoState extends State<_ScrollDemo> {
           child: const Text('Reset'),
         ),
       ],
-    );
+    ));
   }
 
   @override

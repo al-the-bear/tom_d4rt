@@ -23,7 +23,7 @@ class _TrackerDemoState extends State<_TrackerDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
@@ -102,7 +102,7 @@ class _TrackerDemoState extends State<_TrackerDemo> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   @override

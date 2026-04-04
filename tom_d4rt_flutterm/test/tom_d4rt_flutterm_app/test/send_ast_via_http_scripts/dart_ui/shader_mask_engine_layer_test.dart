@@ -25,9 +25,9 @@ dynamic build(BuildContext context) {
   scene.dispose();
 
   print('ShaderMaskEngineLayer test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('ShaderMaskEngineLayer Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('Type: ${layer.runtimeType}'),
     Text('Created via pushShaderMask'),
-  ]);
+  ]));
 }

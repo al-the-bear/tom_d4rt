@@ -35,9 +35,9 @@ dynamic build(BuildContext context) {
   print('tap index: ${ui.SemanticsAction.tap.index}');
 
   print('SemanticsAction test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('SemanticsAction Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('${actions.length} actions tested'),
     Text('values map: ${ui.SemanticsAction.values.length} entries'),
-  ]);
+  ]));
 }

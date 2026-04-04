@@ -67,7 +67,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('SingletonFlutterWindow test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('SingletonFlutterWindow Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -77,5 +77,5 @@ dynamic build(BuildContext context) {
       Text('Replacement: FlutterView + PlatformDispatcher'),
       Text('viewId: ${window.viewId}'),
     ],
-  );
+  ));
 }

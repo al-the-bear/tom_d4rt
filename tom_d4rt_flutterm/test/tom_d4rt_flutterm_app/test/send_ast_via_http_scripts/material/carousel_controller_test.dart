@@ -20,7 +20,7 @@ class _CarouselDemoState extends State<_CarouselDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
@@ -83,6 +83,6 @@ class _CarouselDemoState extends State<_CarouselDemo> {
           ],
         ),
       ],
-    );
+    ));
   }
 }

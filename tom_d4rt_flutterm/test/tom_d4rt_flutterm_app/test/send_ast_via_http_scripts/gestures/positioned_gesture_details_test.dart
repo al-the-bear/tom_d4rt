@@ -21,7 +21,7 @@ class _PositionDemoState extends State<_PositionDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Tap anywhere in the box', style: TextStyle(fontSize: 16)),
@@ -96,7 +96,7 @@ class _PositionDemoState extends State<_PositionDemo> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   @override

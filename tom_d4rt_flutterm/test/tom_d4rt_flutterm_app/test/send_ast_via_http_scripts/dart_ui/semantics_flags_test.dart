@@ -24,10 +24,10 @@ dynamic build(BuildContext context) {
   print('isFocused index: ${ui.SemanticsFlag.isFocused.index}');
 
   print('SemanticsFlags test completed');
-  return Column(mainAxisSize: MainAxisSize.min, children: [
+  return SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
     Text('SemanticsFlags Tests', style: TextStyle(fontWeight: FontWeight.bold)),
     Text('isButton: $flag1'),
     Text('isTextField: $flag2'),
     Text('Total: ${vals.length} flags'),
-  ]);
+  ]));
 }

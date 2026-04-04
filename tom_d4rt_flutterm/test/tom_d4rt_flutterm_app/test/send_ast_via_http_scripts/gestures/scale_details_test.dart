@@ -23,7 +23,7 @@ class _ScaleDetailsDemoState extends State<_ScaleDetailsDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text(
@@ -89,7 +89,7 @@ class _ScaleDetailsDemoState extends State<_ScaleDetailsDemo> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   @override
