@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: const Text('VerticalMultiDragRecognizer')),
-    body: Padding(
+    body: SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Vertical Multi-Drag', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
