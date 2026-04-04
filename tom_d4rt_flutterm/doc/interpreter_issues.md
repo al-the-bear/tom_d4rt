@@ -1059,6 +1059,33 @@ The D4rt interpreter fails to resolve top-level `const Color(...)` declarations,
 
 ---
 
+## Issue #24 — Additional Affected Files (Batch 26)
+
+**Affected files:**
+- rendering/render_semantics_annotations_test.dart (Expected: true)
+- rendering/render_semantics_gesture_handler_test.dart (Expected: true)
+
+---
+
+## Issue #27 — Additional Affected Files (Batch 26)
+
+**Affected files:**
+- rendering/render_block_semantics_test.dart (no constructor: _ThemePreset)
+- rendering/render_box_container_defaults_mixin_test.dart (no constructor: _ThemeProfile)
+- rendering/render_constrained_overflow_box_test.dart (no constructor: _ThemePreset)
+- rendering/render_custom_multi_child_layout_box_test.dart (no constructor: _ThemePreset)
+- rendering/render_custom_paint_test.dart (no constructor: _PaintThemePreset)
+- rendering/render_custom_single_child_layout_box_test.dart (no constructor: _ThemePreset)
+- rendering/render_physical_model_test.dart (no constructor: _ThemePreset)
+- rendering/render_physical_shape_test.dart (no constructor: _ThemeProfile)
+- rendering/render_pointer_listener_test.dart (no constructor: _ThemePreset)
+- rendering/render_proxy_box_mixin_test.dart (no constructor: _ThemePack)
+- rendering/render_proxy_box_with_hit_test_behavior_test.dart (no constructor: _ThemeProfile)
+- rendering/render_repaint_boundary_test.dart (no constructor: _ThemePalette)
+- rendering/render_rotated_box_test.dart (no constructor: _ThemePack)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

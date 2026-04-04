@@ -224,21 +224,21 @@ Generated: 2026-04-04
 | rendering/individual_render_annotated_region_test.dart | no constructor: _ThemePreset | yes |
 | rendering/individual_render_backdrop_filter_test.dart | no constructor: _ThemePreset | yes |
 | rendering/individual_render_baseline_test.dart | no constructor: _ThemePreset | yes |
-| rendering/individual_render_block_semantics_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_box_container_defaults_mixin_test.dart | no constructor: _ThemeProfile | |
-| rendering/individual_render_constrained_overflow_box_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_custom_multi_child_layout_box_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_custom_paint_test.dart | no constructor: _PaintThemePreset | |
-| rendering/individual_render_custom_single_child_layout_box_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_physical_model_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_physical_shape_test.dart | no constructor: _ThemeProfile | |
-| rendering/individual_render_pointer_listener_test.dart | no constructor: _ThemePreset | |
-| rendering/individual_render_proxy_box_mixin_test.dart | no constructor: _ThemePack | |
-| rendering/individual_render_proxy_box_with_hit_test_behavior_test.dart | no constructor: _ThemeProfile | |
-| rendering/individual_render_repaint_boundary_test.dart | no constructor: _ThemePalette | |
-| rendering/individual_render_rotated_box_test.dart | no constructor: _ThemePack | |
-| rendering/individual_render_semantics_annotations_test.dart | Expected: true | |
-| rendering/individual_render_semantics_gesture_handler_test.dart | Expected: true | |
+| rendering/individual_render_block_semantics_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_box_container_defaults_mixin_test.dart | no constructor: _ThemeProfile | yes |
+| rendering/individual_render_constrained_overflow_box_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_custom_multi_child_layout_box_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_custom_paint_test.dart | no constructor: _PaintThemePreset | yes |
+| rendering/individual_render_custom_single_child_layout_box_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_physical_model_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_physical_shape_test.dart | no constructor: _ThemeProfile | yes |
+| rendering/individual_render_pointer_listener_test.dart | no constructor: _ThemePreset | yes |
+| rendering/individual_render_proxy_box_mixin_test.dart | no constructor: _ThemePack | yes |
+| rendering/individual_render_proxy_box_with_hit_test_behavior_test.dart | no constructor: _ThemeProfile | yes |
+| rendering/individual_render_repaint_boundary_test.dart | no constructor: _ThemePalette | yes |
+| rendering/individual_render_rotated_box_test.dart | no constructor: _ThemePack | yes |
+| rendering/individual_render_semantics_annotations_test.dart | Expected: true | yes |
+| rendering/individual_render_semantics_gesture_handler_test.dart | Expected: true | yes |
 | rendering/individual_render_shader_mask_test.dart | Expected: true | |
 | rendering/individual_render_shrink_wrapping_viewport_test.dart | Expected: true | |
 | rendering/individual_render_sized_overflow_box_test.dart | Expected: true | |
