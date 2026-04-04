@@ -1142,15 +1142,15 @@ dynamic build(BuildContext context) {
   print('  - tags: Set<SemanticsTag>? (optional tags)');
   print('════════════════════════════════════════════════════════════════');
 
-  return Container(
-    decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [_kPurple50, Colors.white, _kPurple50],
+  return SingleChildScrollView(
+    child: Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [_kPurple50, Colors.white, _kPurple50],
+        ),
       ),
-    ),
-    child: SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -33,16 +33,16 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════════
   // VISUAL DEMONSTRATION UI
   // ═══════════════════════════════════════════════════════════════════════════════
-  return Container(
-    padding: EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.grey.shade100, Colors.blueGrey.shade100],
+  return SingleChildScrollView(
+    child: Container(
+      padding: EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.grey.shade100, Colors.blueGrey.shade100],
+        ),
       ),
-    ),
-    child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

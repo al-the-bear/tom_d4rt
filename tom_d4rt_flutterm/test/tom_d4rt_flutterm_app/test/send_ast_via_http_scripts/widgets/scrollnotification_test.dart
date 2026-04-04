@@ -134,20 +134,22 @@ dynamic build(BuildContext context) {
   print('SizeChangedLayoutNotifier created');
 
   print('ScrollNotification test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('ScrollNotification Tests'),
-      SizedBox(height: 8.0),
-      scrollListener1,
-      SizedBox(height: 8.0),
-      scrollListener2,
-      SizedBox(height: 8.0),
-      scrollListener3,
-      SizedBox(height: 8.0),
-      scrollListener4,
-      SizedBox(height: 8.0),
-      sizeNotifier,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('ScrollNotification Tests'),
+        SizedBox(height: 8.0),
+        scrollListener1,
+        SizedBox(height: 8.0),
+        scrollListener2,
+        SizedBox(height: 8.0),
+        scrollListener3,
+        SizedBox(height: 8.0),
+        scrollListener4,
+        SizedBox(height: 8.0),
+        sizeNotifier,
+      ],
+    ),
   );
 }

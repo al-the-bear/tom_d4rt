@@ -184,23 +184,25 @@ dynamic build(BuildContext context) {
   print('MenuBar(with CheckboxMenuButton and RadioMenuButton) created');
 
   print('MenuBar/CheckboxMenuButton/RadioMenuButton test completed');
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      widget1,
-      SizedBox(height: 8),
-      widget2,
-      SizedBox(height: 8),
-      widget3,
-      widget4,
-      widget5,
-      widget6,
-      SizedBox(height: 8),
-      widget7,
-      widget8,
-      widget9,
-      SizedBox(height: 8),
-      widget10,
-    ],
+  return SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        widget1,
+        SizedBox(height: 8),
+        widget2,
+        SizedBox(height: 8),
+        widget3,
+        widget4,
+        widget5,
+        widget6,
+        SizedBox(height: 8),
+        widget7,
+        widget8,
+        widget9,
+        SizedBox(height: 8),
+        widget10,
+      ],
+    ),
   );
 }
