@@ -704,6 +704,97 @@ Workaround: added local `_RouteAwareShim` mixin (stubs for `didPopNext`, `didPus
 
 ---
 
+## Issue #16 — ToolbarOptions Not Bridged (Batch 21)
+
+- **Status:** Open
+- **Severity:** Low (deprecated API)
+- **Discovered:** Batch 21
+- **Workaround:** None — script is valid Dart but `ToolbarOptions` is not available in D4rt runtime
+
+The `ToolbarOptions` class (deprecated in Flutter) is not bridged in D4rt. The test script compiles fine with `dart analyze` but fails at runtime with "undefined var: ToolbarOptions".
+
+**Affected files:**
+- widgets/toolbar_options_test.dart
+
+---
+
+## Issue #17 — Assertion Failure in Animation Constructors (Batch 21)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 21
+- **Workaround:** None — runtime assertion failures in constructors
+
+Animation curve constructors (e.g., `CatmullRomCurve`, `CatmullRomSpline`, `Curve2DSample`) throw assertion errors when constructed in the D4rt interpreter, likely due to missing or incorrect parameter handling during bridge invocation.
+
+**Affected files:**
+- animation/catmull_rom_curve_test.dart
+- animation/catmull_rom_spline_test.dart
+- animation/curve2_d_sample_test.dart
+- animation/curve2_d_test.dart
+
+---
+
+## Issue #18 — Bridged Method 'reduce' Error on Iterable (Batch 21)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 21
+- **Workaround:** None — native function type mismatch during `reduce` call
+
+Calling `reduce` on bridged `Iterable` instances fails with "type 'NativeFunction' is not a subtype of type expected". This affects animation tests that iterate over curve data.
+
+**Affected files:**
+- animation/curve_tween_test.dart
+- animation/elastic_in_out_curve_test.dart
+- animation/elastic_out_curve_test.dart
+- animation/flipped_curve_test.dart
+
+---
+
+## Issue #19 — Null Check Failed in Animation Tests (Batch 21)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 21
+- **Workaround:** None — null check operator used on null value during bridge execution
+
+Animation tests using `ReverseTween` and `TweenSequence` fail with null check errors, likely due to incomplete bridging of tween/animation state.
+
+**Affected files:**
+- animation/reverse_tween_test.dart
+- animation/tweensequence_test.dart
+
+---
+
+## Issue #20 — Unsupported Target for Indexing: null (Batch 21)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 21
+- **Workaround:** None — indexing operation on null target
+
+The `dart_ui/color_space_test.dart` fails with "Unsupported target for indexing: null", suggesting the interpreter cannot resolve enum values or indexed access for `ColorSpace`.
+
+**Affected files:**
+- dart_ui/color_space_test.dart
+
+---
+
+## Issue #21 — Enum hashCode Not Available (Batch 21)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 21
+- **Workaround:** None — enum `hashCode` property not accessible in interpreter
+
+Bridged enums like `DisplayFeatureState` do not expose `hashCode` correctly in the D4rt interpreter, causing test failures when comparing enum instances.
+
+**Affected files:**
+- dart_ui/display_feature_state_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

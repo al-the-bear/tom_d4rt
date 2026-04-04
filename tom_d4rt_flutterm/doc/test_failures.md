@@ -145,25 +145,25 @@ Generated: 2026-04-04
 | widgets/sliver_multi_box_adaptor_widget_test.dart | undefined var: build | yes |
 | widgets/sliver_persistent_header_delegate_test.dart | undefined var: build | yes |
 | widgets/sliver_reorderable_list_state_test.dart | undefined var: build | yes |
-| widgets/slotted_container_render_object_mixin_test.dart | undefined var: build | |
-| widgets/slotted_multi_child_render_object_widget_mixin_test.dart | undefined var: build | |
-| widgets/toolbar_options_test.dart | undefined var: ToolbarOptions | |
+| widgets/slotted_container_render_object_mixin_test.dart | undefined var: build | yes |
+| widgets/slotted_multi_child_render_object_widget_mixin_test.dart | undefined var: build | yes |
+| widgets/toolbar_options_test.dart | undefined var: ToolbarOptions | yes |
 
 ## ASSERTION_FAIL (194 failures)
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| animation/catmull_rom_curve_test.dart | assertion failure in constructor | |
-| animation/catmull_rom_spline_test.dart | assertion failure in constructor | |
-| animation/curve2_d_sample_test.dart | assertion failure in constructor | |
-| animation/curve2_d_test.dart | assertion failure in constructor | |
-| animation/curve_tween_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | |
-| animation/elastic_in_out_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | |
-| animation/elastic_out_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | |
-| animation/flipped_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | |
-| animation/reverse_tween_test.dart | null check failed | |
-| animation/tweensequence_test.dart | null check failed | |
-| dart_ui/color_space_test.dart | Unsupported target for indexing: null | |
+| animation/catmull_rom_curve_test.dart | assertion failure in constructor | yes |
+| animation/catmull_rom_spline_test.dart | assertion failure in constructor | yes |
+| animation/curve2_d_sample_test.dart | assertion failure in constructor | yes |
+| animation/curve2_d_test.dart | assertion failure in constructor | yes |
+| animation/curve_tween_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | yes |
+| animation/elastic_in_out_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | yes |
+| animation/elastic_out_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | yes |
+| animation/flipped_curve_test.dart | Native error during bridged method call 'reduce' on Iterable: type 'NativeFuncti | yes |
+| animation/reverse_tween_test.dart | null check failed | yes |
+| animation/tweensequence_test.dart | null check failed | yes |
+| dart_ui/color_space_test.dart | Unsupported target for indexing: null | yes |
 | dart_ui/display_feature_state_test.dart | enum hashCode: DisplayFeatureState | |
 | dart_ui/display_feature_type_test.dart | enum hashCode: DisplayFeatureType | |
 | dart_ui/filter_quality_test.dart | enum hashCode: FilterQuality | |

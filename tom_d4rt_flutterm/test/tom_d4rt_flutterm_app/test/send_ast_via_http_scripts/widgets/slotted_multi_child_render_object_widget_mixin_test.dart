@@ -140,6 +140,6 @@ class _SlottedMultiChildRenderObjectWidgetMixinTestPageState
   }
 }
 
-void main() {
-  runApp(const SlottedMultiChildRenderObjectWidgetMixinTestApp());
+dynamic build(BuildContext context) {
+  return const SlottedMultiChildRenderObjectWidgetMixinTestApp();
 }

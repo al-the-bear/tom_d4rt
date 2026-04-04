@@ -144,6 +144,6 @@ class _SlottedContainerRenderObjectMixinTestPageState extends State<SlottedConta
   }
 }
 
-void main() {
-  runApp(const SlottedContainerRenderObjectMixinTestApp());
+dynamic build(BuildContext context) {
+  return const SlottedContainerRenderObjectMixinTestApp();
 }
