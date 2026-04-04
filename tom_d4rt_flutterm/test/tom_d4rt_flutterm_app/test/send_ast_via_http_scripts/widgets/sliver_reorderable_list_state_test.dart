@@ -164,6 +164,6 @@ class _SliverReorderableListStateTestPageState extends State<SliverReorderableLi
   }
 }
 
-void main() {
-  runApp(const SliverReorderableListStateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverReorderableListStateTestApp();
 }

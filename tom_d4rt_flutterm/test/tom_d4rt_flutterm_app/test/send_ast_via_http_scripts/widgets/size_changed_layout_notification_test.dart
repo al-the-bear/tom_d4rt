@@ -135,6 +135,6 @@ class _SizeChangedLayoutNotificationTestPageState extends State<SizeChangedLayou
   }
 }
 
-void main() {
-  runApp(const SizeChangedLayoutNotificationTestApp());
+dynamic build(BuildContext context) {
+  return const SizeChangedLayoutNotificationTestApp();
 }

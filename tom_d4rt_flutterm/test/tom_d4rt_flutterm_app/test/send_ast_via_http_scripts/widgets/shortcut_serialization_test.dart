@@ -131,6 +131,6 @@ class _ShortcutSerializationTestPageState extends State<ShortcutSerializationTes
   }
 }
 
-void main() {
-  runApp(const ShortcutSerializationTestApp());
+dynamic build(BuildContext context) {
+  return const ShortcutSerializationTestApp();
 }

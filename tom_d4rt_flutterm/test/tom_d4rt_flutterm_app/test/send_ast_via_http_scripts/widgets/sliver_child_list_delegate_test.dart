@@ -145,6 +145,6 @@ class _SliverChildListDelegateTestPageState extends State<SliverChildListDelegat
   }
 }
 
-void main() {
-  runApp(const SliverChildListDelegateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverChildListDelegateTestApp();
 }

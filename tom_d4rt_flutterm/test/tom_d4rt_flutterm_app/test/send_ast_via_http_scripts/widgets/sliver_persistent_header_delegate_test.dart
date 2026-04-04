@@ -137,6 +137,6 @@ class _SliverPersistentHeaderDelegateTestPageState extends State<SliverPersisten
   }
 }
 
-void main() {
-  runApp(const SliverPersistentHeaderDelegateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverPersistentHeaderDelegateTestApp();
 }

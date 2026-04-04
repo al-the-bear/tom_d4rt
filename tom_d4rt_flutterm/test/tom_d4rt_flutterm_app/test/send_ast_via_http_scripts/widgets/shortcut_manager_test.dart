@@ -141,6 +141,6 @@ class _ShortcutManagerTestPageState extends State<ShortcutManagerTestPage> {
   }
 }
 
-void main() {
-  runApp(const ShortcutManagerTestApp());
+dynamic build(BuildContext context) {
+  return const ShortcutManagerTestApp();
 }

@@ -150,6 +150,6 @@ class _SliverAnimatedListStateTestPageState extends State<SliverAnimatedListStat
   }
 }
 
-void main() {
-  runApp(const SliverAnimatedListStateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverAnimatedListStateTestApp();
 }

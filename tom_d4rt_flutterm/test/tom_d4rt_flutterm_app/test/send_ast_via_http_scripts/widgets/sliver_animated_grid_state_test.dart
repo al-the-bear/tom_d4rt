@@ -150,6 +150,6 @@ class _SliverAnimatedGridStateTestPageState extends State<SliverAnimatedGridStat
   }
 }
 
-void main() {
-  runApp(const SliverAnimatedGridStateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverAnimatedGridStateTestApp();
 }

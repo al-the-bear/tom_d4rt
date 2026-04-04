@@ -130,21 +130,21 @@ Generated: 2026-04-04
 | widgets/selection_details_test.dart | undefined var: build | yes |
 | widgets/semantics_gesture_delegate_test.dart | undefined var: build | yes |
 | widgets/shortcut_activator_test.dart | undefined var: build | yes |
-| widgets/shortcut_manager_test.dart | undefined var: build | |
-| widgets/shortcut_map_property_test.dart | undefined var: build | |
-| widgets/shortcut_registry_entry_test.dart | undefined var: build | |
-| widgets/shortcut_serialization_test.dart | undefined var: build | |
-| widgets/single_activator_test.dart | undefined var: build | |
-| widgets/size_changed_layout_notification_test.dart | undefined var: build | |
-| widgets/sliver_animated_grid_state_test.dart | undefined var: build | |
-| widgets/sliver_animated_list_state_test.dart | undefined var: build | |
-| widgets/sliver_child_builder_delegate_test.dart | undefined var: build | |
-| widgets/sliver_child_delegate_test.dart | undefined var: build | |
-| widgets/sliver_child_list_delegate_test.dart | undefined var: build | |
-| widgets/sliver_multi_box_adaptor_element_test.dart | undefined var: build | |
-| widgets/sliver_multi_box_adaptor_widget_test.dart | undefined var: build | |
-| widgets/sliver_persistent_header_delegate_test.dart | undefined var: build | |
-| widgets/sliver_reorderable_list_state_test.dart | undefined var: build | |
+| widgets/shortcut_manager_test.dart | undefined var: build | yes |
+| widgets/shortcut_map_property_test.dart | undefined var: build | yes |
+| widgets/shortcut_registry_entry_test.dart | undefined var: build | yes |
+| widgets/shortcut_serialization_test.dart | undefined var: build | yes |
+| widgets/single_activator_test.dart | undefined var: build | yes |
+| widgets/size_changed_layout_notification_test.dart | undefined var: build | yes |
+| widgets/sliver_animated_grid_state_test.dart | undefined var: build | yes |
+| widgets/sliver_animated_list_state_test.dart | undefined var: build | yes |
+| widgets/sliver_child_builder_delegate_test.dart | undefined var: build | yes |
+| widgets/sliver_child_delegate_test.dart | undefined var: build | yes |
+| widgets/sliver_child_list_delegate_test.dart | undefined var: build | yes |
+| widgets/sliver_multi_box_adaptor_element_test.dart | undefined var: build | yes |
+| widgets/sliver_multi_box_adaptor_widget_test.dart | undefined var: build | yes |
+| widgets/sliver_persistent_header_delegate_test.dart | undefined var: build | yes |
+| widgets/sliver_reorderable_list_state_test.dart | undefined var: build | yes |
 | widgets/slotted_container_render_object_mixin_test.dart | undefined var: build | |
 | widgets/slotted_multi_child_render_object_widget_mixin_test.dart | undefined var: build | |
 | widgets/toolbar_options_test.dart | undefined var: ToolbarOptions | |

@@ -133,6 +133,6 @@ class _ShortcutMapPropertyTestPageState extends State<ShortcutMapPropertyTestPag
   }
 }
 
-void main() {
-  runApp(const ShortcutMapPropertyTestApp());
+dynamic build(BuildContext context) {
+  return const ShortcutMapPropertyTestApp();
 }

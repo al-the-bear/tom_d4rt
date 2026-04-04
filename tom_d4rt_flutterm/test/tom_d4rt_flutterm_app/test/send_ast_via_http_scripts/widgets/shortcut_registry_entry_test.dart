@@ -108,6 +108,6 @@ class _ShortcutRegistryEntryTestPageState extends State<ShortcutRegistryEntryTes
   }
 }
 
-void main() {
-  runApp(const ShortcutRegistryEntryTestApp());
+dynamic build(BuildContext context) {
+  return const ShortcutRegistryEntryTestApp();
 }

@@ -135,6 +135,6 @@ class _SliverMultiBoxAdaptorElementTestPageState extends State<SliverMultiBoxAda
   }
 }
 
-void main() {
-  runApp(const SliverMultiBoxAdaptorElementTestApp());
+dynamic build(BuildContext context) {
+  return const SliverMultiBoxAdaptorElementTestApp();
 }

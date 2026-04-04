@@ -135,6 +135,6 @@ class _SliverChildBuilderDelegateTestPageState extends State<SliverChildBuilderD
   }
 }
 
-void main() {
-  runApp(const SliverChildBuilderDelegateTestApp());
+dynamic build(BuildContext context) {
+  return const SliverChildBuilderDelegateTestApp();
 }

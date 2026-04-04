@@ -149,6 +149,6 @@ class _SingleActivatorTestPageState extends State<SingleActivatorTestPage> {
   }
 }
 
-void main() {
-  runApp(const SingleActivatorTestApp());
+dynamic build(BuildContext context) {
+  return const SingleActivatorTestApp();
 }

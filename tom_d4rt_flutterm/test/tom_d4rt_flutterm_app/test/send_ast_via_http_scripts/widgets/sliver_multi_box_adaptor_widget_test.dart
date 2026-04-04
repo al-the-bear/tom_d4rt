@@ -137,6 +137,6 @@ class _SliverMultiBoxAdaptorWidgetTestPageState extends State<SliverMultiBoxAdap
   }
 }
 
-void main() {
-  runApp(const SliverMultiBoxAdaptorWidgetTestApp());
+dynamic build(BuildContext context) {
+  return const SliverMultiBoxAdaptorWidgetTestApp();
 }
