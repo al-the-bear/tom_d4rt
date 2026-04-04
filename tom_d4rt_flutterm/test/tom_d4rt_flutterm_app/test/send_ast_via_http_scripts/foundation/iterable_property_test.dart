@@ -20,7 +20,7 @@ dynamic build(BuildContext context) {
   print('ip4 null: ${ip4.toString()}');
 
   print('IterableProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -30,5 +30,5 @@ dynamic build(BuildContext context) {
       Text('items: ${ip1.toString()}'),
       Text('empty: ${ip3.toString()}'),
     ],
-  );
+  ));
 }

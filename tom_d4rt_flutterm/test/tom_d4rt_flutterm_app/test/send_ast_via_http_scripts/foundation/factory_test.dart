@@ -78,7 +78,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('Factory test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('Factory Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -87,7 +87,7 @@ dynamic build(BuildContext context) {
       Text('Properties: constructor, type'),
       Text('Can be const with top-level functions'),
     ],
-  );
+  ));
 }
 
 double _returnPi() => 3.14159;

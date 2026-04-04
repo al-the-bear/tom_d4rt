@@ -90,7 +90,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('FlagsSummary test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('FlagsSummary Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -99,5 +99,5 @@ dynamic build(BuildContext context) {
       Text('Summarizes flag presence/absence'),
       Text('Level hidden when empty'),
     ],
-  );
+  ));
 }

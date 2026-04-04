@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('MessageProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -95,5 +95,5 @@ dynamic build(BuildContext context) {
       Text('is DiagnosticsProperty: true'), // mp1 is DiagnosticsProperty
       Text('Purpose: Message display in diagnostics'),
     ],
-  );
+  ));
 }

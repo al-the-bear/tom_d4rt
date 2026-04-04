@@ -30,12 +30,12 @@ dynamic build(BuildContext context) {
   print('fp4 showName: ${fp4.toString()}');
 
   print('FlagProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('FlagProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
       Text('True: ${fp1.toString()}'),
       Text('False: ${fp2.toString()}'),
     ],
-  );
+  ));
 }

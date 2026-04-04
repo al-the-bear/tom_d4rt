@@ -43,7 +43,7 @@ dynamic build(BuildContext context) {
   print('- Part of diagnostics tree hierarchy');
 
   print('\nErrorSpacer test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -57,5 +57,5 @@ dynamic build(BuildContext context) {
       Text('showName: ${spacer.showName}'),
       Text('Purpose: Blank line separator in errors'),
     ],
-  );
+  ));
 }

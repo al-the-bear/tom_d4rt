@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
   print('Events received: $eventCount');
 
   print('FlutterMemoryAllocations test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -32,5 +32,5 @@ dynamic build(BuildContext context) {
       Text('Singleton instance'),
       Text('addListener/removeListener OK'),
     ],
-  );
+  ));
 }

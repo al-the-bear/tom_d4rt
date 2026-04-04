@@ -21,7 +21,7 @@ dynamic build(BuildContext context) {
   print('dp4 isFiltered(info): ${dp4.isFiltered(DiagnosticLevel.info)}');
 
   print('DoubleProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -32,5 +32,5 @@ dynamic build(BuildContext context) {
       Text('opacity: ${dp2.toString()}'),
       Text('null: ${dp3.toString()}'),
     ],
-  );
+  ));
 }

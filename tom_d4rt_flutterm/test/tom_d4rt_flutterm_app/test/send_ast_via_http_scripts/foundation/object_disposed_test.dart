@@ -48,7 +48,7 @@ dynamic build(BuildContext context) {
   print('- Both extend ObjectEvent with object reference');
 
   print('\nObjectDisposed test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -63,5 +63,5 @@ dynamic build(BuildContext context) {
       Text('Purpose: Memory lifecycle tracking'),
       Text('Paired with: ObjectCreated'),
     ],
-  );
+  ));
 }

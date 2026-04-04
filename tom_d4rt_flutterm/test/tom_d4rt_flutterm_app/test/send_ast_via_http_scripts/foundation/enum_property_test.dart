@@ -24,7 +24,7 @@ dynamic build(BuildContext context) {
   print('ep4 level: ${ep4.level}');
 
   print('EnumProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('EnumProperty Tests', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -32,5 +32,5 @@ dynamic build(BuildContext context) {
       Text('axis: ${ep2.toString()}'),
       Text('null: ${ep3.toString()}'),
     ],
-  );
+  ));
 }

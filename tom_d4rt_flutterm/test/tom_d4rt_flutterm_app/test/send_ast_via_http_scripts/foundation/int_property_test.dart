@@ -87,7 +87,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('IntProperty test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -101,5 +101,5 @@ dynamic build(BuildContext context) {
       Text('is DiagnosticsProperty: true /* ip1 is DiagnosticsProperty */'),
       Text('Purpose: Integer value diagnostics'),
     ],
-  );
+  ));
 }

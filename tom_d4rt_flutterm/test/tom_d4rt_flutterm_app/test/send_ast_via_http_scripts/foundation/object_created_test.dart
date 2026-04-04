@@ -113,7 +113,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('ObjectCreated test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -127,5 +127,5 @@ dynamic build(BuildContext context) {
       Text('is ObjectEvent: true /* event1 is ObjectEvent */'),
       Text('Purpose: Memory allocation tracking'),
     ],
-  );
+  ));
 }

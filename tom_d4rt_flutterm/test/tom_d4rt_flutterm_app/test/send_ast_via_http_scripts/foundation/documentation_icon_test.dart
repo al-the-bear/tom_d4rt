@@ -65,7 +65,7 @@ dynamic build(BuildContext context) {
 
   print('\n' + '=' * 50);
   print('DocumentationIcon test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -79,5 +79,5 @@ dynamic build(BuildContext context) {
       Text('Same URL equals: ${sameIcon1.url == sameIcon2.url}'),
       Text('Purpose: Documentation icon annotation'),
     ],
-  );
+  ));
 }

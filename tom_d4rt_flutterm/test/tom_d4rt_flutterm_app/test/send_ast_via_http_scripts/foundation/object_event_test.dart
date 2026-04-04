@@ -22,7 +22,7 @@ dynamic build(BuildContext context) {
   print('ObjectDisposed is ObjectEvent: true /* disposed is ObjectEvent */');
 
   print('ObjectEvent test completed');
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('ObjectEvent Tests', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -30,5 +30,5 @@ dynamic build(BuildContext context) {
       Text('ObjectCreated is ObjectEvent: true'),
       Text('ObjectDisposed is ObjectEvent: true'),
     ],
-  );
+  ));
 }
