@@ -179,21 +179,21 @@ Generated: 2026-04-04
 | dart_ui/semantics_role_test.dart | enum hashCode: SemanticsRole | yes |
 | dart_ui/semantics_validation_result_test.dart | enum hashCode: SemanticsValidationResult | yes |
 | dart_ui/stroke_join_test.dart | enum hashCode: StrokeJoin | yes |
-| dart_ui/system_color_palette_test.dart | Expected: true | |
-| dart_ui/target_pixel_format_test.dart | enum hashCode: TargetPixelFormat | |
-| dart_ui/text_affinity_test.dart | undefined: name on bridged instance of 'Text' | |
-| dart_ui/text_align_test.dart | enum hashCode: TextAlign | |
-| dart_ui/text_baseline_test.dart | undefined: name on bridged instance of 'Text' | |
-| dart_ui/text_decoration_style_test.dart | undefined: name on bridged instance of 'TextDecoration' | |
-| dart_ui/text_direction_test.dart | enum hashCode: TextDirection | |
-| dart_ui/tile_mode_test.dart | enum hashCode: TileMode | |
-| dart_ui/view_focus_direction_test.dart | undefined: name on bridged instance of 'View' | |
-| dart_ui/view_focus_state_test.dart | undefined: name on bridged instance of 'View' | |
-| foundation/diagnostics_stack_trace_test.dart | Native error during default bridged constructor for 'DiagnosticsStackTrace': Arg | |
-| foundation/object_created_test.dart | not callable: Object | |
-| foundation/object_disposed_test.dart | not callable: Object | |
-| foundation/object_event_test.dart | not callable: Object | |
-| gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart | Native error during default bridged constructor for 'FlutterErrorDetailsForPoint | |
+| dart_ui/system_color_palette_test.dart | Expected: true | yes |
+| dart_ui/target_pixel_format_test.dart | enum hashCode: TargetPixelFormat | yes |
+| dart_ui/text_affinity_test.dart | undefined: name on bridged instance of 'Text' | yes |
+| dart_ui/text_align_test.dart | enum hashCode: TextAlign | yes |
+| dart_ui/text_baseline_test.dart | undefined: name on bridged instance of 'Text' | yes |
+| dart_ui/text_decoration_style_test.dart | undefined: name on bridged instance of 'TextDecoration' | yes |
+| dart_ui/text_direction_test.dart | enum hashCode: TextDirection | yes |
+| dart_ui/tile_mode_test.dart | enum hashCode: TileMode | yes |
+| dart_ui/view_focus_direction_test.dart | undefined: name on bridged instance of 'View' | yes |
+| dart_ui/view_focus_state_test.dart | undefined: name on bridged instance of 'View' | yes |
+| foundation/diagnostics_stack_trace_test.dart | Native error during default bridged constructor for 'DiagnosticsStackTrace': Arg | yes |
+| foundation/object_created_test.dart | not callable: Object | yes |
+| foundation/object_disposed_test.dart | not callable: Object | yes |
+| foundation/object_event_test.dart | not callable: Object | yes |
+| gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart | Native error during default bridged constructor for 'FlutterErrorDetailsForPoint | yes |
 | gestures/tap_move_details_test.dart | assertion failure in constructor | |
 | material/bottom_navigation_bar_type_test.dart | Expected: true | |
 | material/collapse_mode_test.dart | null check failed | |

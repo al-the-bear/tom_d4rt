@@ -855,6 +855,68 @@ Test assertions return unexpected values, likely due to incomplete bridging of u
 
 ---
 
+## Issue #21 — Additional Affected Files (Batch 23)
+
+4 more enum hashCode failures:
+
+- dart_ui/target_pixel_format_test.dart (TargetPixelFormat)
+- dart_ui/text_align_test.dart (TextAlign)
+- dart_ui/text_direction_test.dart (TextDirection)
+- dart_ui/tile_mode_test.dart (TileMode)
+
+---
+
+## Issue #22 — Additional Affected Files (Batch 23)
+
+5 more undefined 'name' on bridged instance failures:
+
+- dart_ui/text_affinity_test.dart (bridged instance of 'Text')
+- dart_ui/text_baseline_test.dart (bridged instance of 'Text')
+- dart_ui/text_decoration_style_test.dart (bridged instance of 'TextDecoration')
+- dart_ui/view_focus_direction_test.dart (bridged instance of 'View')
+- dart_ui/view_focus_state_test.dart (bridged instance of 'View')
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 23)
+
+1 more Expected: true assertion mismatch:
+
+- dart_ui/system_color_palette_test.dart
+
+---
+
+## Issue #25 — Native Error During Bridged Constructor (Batch 23)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 23
+- **Workaround:** None — constructor argument errors in bridge
+
+Bridged constructors for certain classes fail with "Native error during default bridged constructor" due to argument type mismatches or missing parameter handling.
+
+**Affected files:**
+- foundation/diagnostics_stack_trace_test.dart (DiagnosticsStackTrace)
+- gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart (FlutterErrorDetailsForPointerEventDispatcher)
+
+---
+
+## Issue #26 — Not Callable: Object (Batch 23)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 23
+- **Workaround:** None — Object constructor not callable in interpreter
+
+Attempting to create instances of classes extending `Object` fails with "not callable: Object". The D4rt interpreter does not properly handle explicit `Object()` constructor calls.
+
+**Affected files:**
+- foundation/object_created_test.dart
+- foundation/object_disposed_test.dart
+- foundation/object_event_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
