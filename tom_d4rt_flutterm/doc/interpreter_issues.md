@@ -306,6 +306,65 @@ Color colorForChange(ui.PointerChange value) {
 
 ---
 
+## Issue #8: dart:ui/math.dart Assertion Failure
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None
+
+### Description
+
+The D4rt interpreter fails an assertion in `dart:ui/math.dart` during Scene rendering tests. The assertion occurs at line 14 position 10 with an `<optimized out>` placeholder in the error.
+
+### Error Message
+
+```
+'dart:ui/math.dart': Failed assertion: line 14 pos 10: '<optimized out>': is not true.
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| dart_ui/scene_test.dart | Rendering |
+
+### Root Cause
+
+The dart:ui math library has internal assertions that fail during interpretation—likely related to matrix or transform calculations used in Scene composition.
+
+---
+
+## Issue #9: Vertices Constructor Bridge Error
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None
+
+### Description
+
+The D4rt bridge for the `Vertices` constructor throws an error when the `positions` parameter is null. This occurs even when creating valid Vertices objects with proper parameters.
+
+### Error Message
+
+```
+Runtime Error: Native error during default bridged constructor for 'Vertices': 
+Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| dart_ui/vertex_mode_test.dart | Rendering |
+
+### Root Cause
+
+The D4rt bridge code for the `Vertices` class may have issues with parameter passing or null checking before invoking the native constructor.
+
+---
+
 ## Non-Interpreter Issues
 
 ### Cupertino Widget Constraint Issues

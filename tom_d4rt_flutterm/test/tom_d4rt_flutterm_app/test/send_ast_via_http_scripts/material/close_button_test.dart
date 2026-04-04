@@ -352,13 +352,8 @@ Widget buildTabWithClose(String tabLabel, bool isActive) {
         topLeft: Radius.circular(8),
         topRight: Radius.circular(8),
       ),
-      border: isActive
-          ? Border(
-              top: BorderSide(color: Color(0xFF1976D2), width: 2),
-              left: BorderSide(color: Color(0xFFBDBDBD), width: 1),
-              right: BorderSide(color: Color(0xFFBDBDBD), width: 1),
-            )
-          : Border.all(color: Color(0xFFBDBDBD), width: 1),
+      // Use uniform border color to avoid "borderRadius can only be given on borders with uniform colors" error
+      border: Border.all(color: isActive ? Color(0xFF1976D2) : Color(0xFFBDBDBD), width: isActive ? 2 : 1),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
