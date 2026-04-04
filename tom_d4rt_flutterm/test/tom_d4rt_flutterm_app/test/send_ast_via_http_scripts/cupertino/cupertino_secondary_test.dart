@@ -103,11 +103,14 @@ dynamic build(BuildContext context) {
   // ========== CupertinoFormRow ==========
   print('--- CupertinoFormRow Tests ---');
 
-  final formRow = CupertinoFormRow(
-    prefix: Text('Name'),
-    helper: Text('Enter your name'),
-    error: null,
-    child: CupertinoTextField(placeholder: 'John Doe'),
+  final formRow = ConstrainedBox(
+    constraints: BoxConstraints(minHeight: 44),
+    child: CupertinoFormRow(
+      prefix: Text('Name'),
+      helper: Text('Enter your name'),
+      error: null,
+      child: CupertinoTextField(placeholder: 'John Doe'),
+    ),
   );
   print('CupertinoFormRow created');
 

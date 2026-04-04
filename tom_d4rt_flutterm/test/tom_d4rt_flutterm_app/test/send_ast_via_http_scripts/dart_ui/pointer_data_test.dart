@@ -316,6 +316,9 @@ dynamic build(BuildContext context) {
         return const Color(0xFFF57C00);
       case ui.PointerChange.panZoomEnd:
         return const Color(0xFFEF6C00);
+      default:
+        // D4rt interpreter may not recognize exhaustive enum switches
+        return const Color(0xFF9E9E9E);
     }
   }
 
@@ -332,6 +335,8 @@ dynamic build(BuildContext context) {
       case ui.PointerDeviceKind.trackpad:
         return Icons.laptop_mac;
       case ui.PointerDeviceKind.unknown:
+      default:
+        // D4rt interpreter may not recognize exhaustive enum switches
         return Icons.help_outline;
     }
   }

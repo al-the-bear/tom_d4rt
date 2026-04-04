@@ -8,14 +8,17 @@ dynamic build(BuildContext context) {
 
   // ========== CupertinoTextFormFieldRow ==========
   print('--- CupertinoTextFormFieldRow Tests ---');
-  final textRow = CupertinoTextFormFieldRow(
-    prefix: Text('Name'),
-    placeholder: 'Enter your name',
-    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    keyboardType: TextInputType.name,
-    textCapitalization: TextCapitalization.words,
-    autocorrect: false,
-    maxLines: 1,
+  final textRow = ConstrainedBox(
+    constraints: BoxConstraints(minHeight: 44),
+    child: CupertinoTextFormFieldRow(
+      prefix: Text('Name'),
+      placeholder: 'Enter your name',
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      keyboardType: TextInputType.name,
+      textCapitalization: TextCapitalization.words,
+      autocorrect: false,
+      maxLines: 1,
+    ),
   );
   print('CupertinoTextFormFieldRow created');
 

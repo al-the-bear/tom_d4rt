@@ -120,13 +120,13 @@ dynamic build(BuildContext context) {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 200.0, child: basicTransition),
+              SizedBox(height: 100.0, child: basicTransition),
               SizedBox(height: 8.0),
-              SizedBox(height: 200.0, child: linearTransition),
+              SizedBox(height: 100.0, child: linearTransition),
               SizedBox(height: 8.0),
-              SizedBox(height: 200.0, child: gappedTransition),
+              SizedBox(height: 100.0, child: gappedTransition),
               SizedBox(height: 8.0),
-              SizedBox(height: 200.0, child: richTransition),
+              SizedBox(height: 100.0, child: richTransition),
             ],
           ),
         ),

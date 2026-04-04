@@ -161,15 +161,21 @@ dynamic build(BuildContext context) {
     header: Text('PERSONAL INFORMATION'),
     footer: Text('All fields are required'),
     children: [
-      CupertinoFormRow(
-        prefix: Text('Name'),
-        child: CupertinoTextFormFieldRow(placeholder: 'Enter name'),
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoFormRow(
+          prefix: Text('Name'),
+          child: CupertinoTextFormFieldRow(placeholder: 'Enter name'),
+        ),
       ),
-      CupertinoFormRow(
-        prefix: Text('Email'),
-        child: CupertinoTextFormFieldRow(
-          placeholder: 'Enter email',
-          keyboardType: TextInputType.emailAddress,
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoFormRow(
+          prefix: Text('Email'),
+          child: CupertinoTextFormFieldRow(
+            placeholder: 'Enter email',
+            keyboardType: TextInputType.emailAddress,
+          ),
         ),
       ),
     ],
@@ -181,13 +187,19 @@ dynamic build(BuildContext context) {
   final formSectionInset = CupertinoFormSection.insetGrouped(
     header: Text('ADDRESS'),
     children: [
-      CupertinoFormRow(
-        prefix: Text('Street'),
-        child: CupertinoTextFormFieldRow(placeholder: 'Street'),
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoFormRow(
+          prefix: Text('Street'),
+          child: CupertinoTextFormFieldRow(placeholder: 'Street'),
+        ),
       ),
-      CupertinoFormRow(
-        prefix: Text('City'),
-        child: CupertinoTextFormFieldRow(placeholder: 'City'),
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoFormRow(
+          prefix: Text('City'),
+          child: CupertinoTextFormFieldRow(placeholder: 'City'),
+        ),
       ),
     ],
   );

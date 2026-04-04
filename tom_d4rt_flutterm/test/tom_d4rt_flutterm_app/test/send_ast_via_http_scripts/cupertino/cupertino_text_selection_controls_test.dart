@@ -35,19 +35,25 @@ dynamic build(BuildContext context) {
   }
 
   // Used with CupertinoTextField
-  final textField1 = CupertinoTextField(
-    placeholder: 'Select text here',
-    selectionControls: CupertinoTextSelectionControls(),
+  final textField1 = ConstrainedBox(
+    constraints: BoxConstraints(minHeight: 36),
+    child: CupertinoTextField(
+      placeholder: 'Select text here',
+      selectionControls: CupertinoTextSelectionControls(),
+    ),
   );
   print('text field with selection controls created');
 
   // Multiple TextFields with same controls
   final sharedControls = CupertinoTextSelectionControls();
-  final fields = <CupertinoTextField>[];
+  final fields = <Widget>[];
   for (var i = 0; i < 3; i++) {
-    fields.add(CupertinoTextField(
-      placeholder: 'Field $i',
-      selectionControls: sharedControls,
+    fields.add(ConstrainedBox(
+      constraints: BoxConstraints(minHeight: 36),
+      child: CupertinoTextField(
+        placeholder: 'Field $i',
+        selectionControls: sharedControls,
+      ),
     ));
   }
   print('${fields.length} text fields sharing same controls');

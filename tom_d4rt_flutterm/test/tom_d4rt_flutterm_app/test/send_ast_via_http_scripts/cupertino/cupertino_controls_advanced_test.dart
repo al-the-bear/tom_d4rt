@@ -52,18 +52,21 @@ dynamic build(BuildContext context) {
 
   // ========== CupertinoSearchTextField ==========
   print('--- CupertinoSearchTextField Tests ---');
-  final searchField = CupertinoSearchTextField(
-    placeholder: 'Search...',
-    onChanged: (String value) => print('Search: $value'),
-    onSubmitted: (String value) => print('Submit: $value'),
-    autocorrect: false,
-    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-    prefixIcon: Icon(CupertinoIcons.search, size: 20.0),
-    suffixIcon: Icon(CupertinoIcons.xmark_circle_fill, size: 18.0),
-    suffixMode: OverlayVisibilityMode.editing,
-    style: TextStyle(fontSize: 16.0),
-    borderRadius: BorderRadius.circular(8.0),
-    backgroundColor: CupertinoColors.systemGrey6,
+  final searchField = ConstrainedBox(
+    constraints: BoxConstraints(minHeight: 36),
+    child: CupertinoSearchTextField(
+      placeholder: 'Search...',
+      onChanged: (String value) => print('Search: $value'),
+      onSubmitted: (String value) => print('Submit: $value'),
+      autocorrect: false,
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      prefixIcon: Icon(CupertinoIcons.search, size: 20.0),
+      suffixIcon: Icon(CupertinoIcons.xmark_circle_fill, size: 18.0),
+      suffixMode: OverlayVisibilityMode.editing,
+      style: TextStyle(fontSize: 16.0),
+      borderRadius: BorderRadius.circular(8.0),
+      backgroundColor: CupertinoColors.systemGrey6,
+    ),
   );
   print('CupertinoSearchTextField created');
 

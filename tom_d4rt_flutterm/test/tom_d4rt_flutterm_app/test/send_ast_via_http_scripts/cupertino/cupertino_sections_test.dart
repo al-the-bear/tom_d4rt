@@ -19,15 +19,21 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
     ),
     children: [
-      CupertinoTextFormFieldRow(
-        prefix: Text('Email'),
-        placeholder: 'email@example.com',
-        keyboardType: TextInputType.emailAddress,
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoTextFormFieldRow(
+          prefix: Text('Email'),
+          placeholder: 'email@example.com',
+          keyboardType: TextInputType.emailAddress,
+        ),
       ),
-      CupertinoTextFormFieldRow(
-        prefix: Text('Password'),
-        placeholder: 'Required',
-        obscureText: true,
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoTextFormFieldRow(
+          prefix: Text('Password'),
+          placeholder: 'Required',
+          obscureText: true,
+        ),
       ),
     ],
   );
@@ -38,9 +44,12 @@ dynamic build(BuildContext context) {
   final insetForm = CupertinoFormSection.insetGrouped(
     header: Text('Settings'),
     children: [
-      CupertinoTextFormFieldRow(
-        prefix: Text('Name'),
-        placeholder: 'Enter name',
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 44),
+        child: CupertinoTextFormFieldRow(
+          prefix: Text('Name'),
+          placeholder: 'Enter name',
+        ),
       ),
     ],
   );
