@@ -110,8 +110,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Painting Image Stream & Misc Test',
@@ -121,6 +122,7 @@ dynamic build(BuildContext context) {
             Text('Accumulator: ${acc.value}'),
             Text('ImageChunkEvent loaded: ${chunkEvent.cumulativeBytesLoaded}'),
           ],
+          ),
         ),
       ),
     ),

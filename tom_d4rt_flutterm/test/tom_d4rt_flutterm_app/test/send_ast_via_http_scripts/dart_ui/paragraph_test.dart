@@ -115,8 +115,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('dart:ui Paragraph Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
             SizedBox(height: 16.0),
@@ -126,6 +127,7 @@ dynamic build(BuildContext context) {
             Text('Layout: w=${paragraph1.width.toInt()}, h=${paragraph1.height.toInt()}'),
             Text('LineMetrics: ${metrics.length} lines'),
           ],
+          ),
         ),
       ),
     ),

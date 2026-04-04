@@ -122,8 +122,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Autocomplete & Chips Test',
@@ -140,6 +141,7 @@ dynamic build(BuildContext context) {
             Text('DisabledChipAttributes: via InputChip'),
             Text('CheckableChipAttributes: via FilterChip'),
           ],
+          ),
         ),
       ),
     ),

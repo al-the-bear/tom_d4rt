@@ -92,8 +92,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('dart:ui Text Typography Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
             SizedBox(height: 16.0),
@@ -105,6 +106,7 @@ dynamic build(BuildContext context) {
             Text('FontVariation: wght, wdth, weight()'),
             Text('TextBox: LTR + RTL'),
           ],
+          ),
         ),
       ),
     ),

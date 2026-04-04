@@ -118,8 +118,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Gesture Callbacks Test',
@@ -136,6 +137,7 @@ dynamic build(BuildContext context) {
             Text('GestureRecognizerCallback: via factory'),
             Text('RecognizerCallback: via PanGestureRecognizer'),
           ],
+          ),
         ),
       ),
     ),

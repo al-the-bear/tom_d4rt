@@ -63,8 +63,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Key Events Advanced Test',
@@ -79,6 +80,7 @@ dynamic build(BuildContext context) {
             Text('LiveText: OK'),
             Text('LiveTextInputStatusNotifier: OK'),
           ],
+          ),
         ),
       ),
     ),

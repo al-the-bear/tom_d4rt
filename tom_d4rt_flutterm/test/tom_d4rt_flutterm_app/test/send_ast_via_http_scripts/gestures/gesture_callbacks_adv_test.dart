@@ -116,8 +116,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Gesture Callbacks Adv Test',
@@ -139,6 +140,7 @@ dynamic build(BuildContext context) {
               'MultitouchDragStrategy: ${MultitouchDragStrategy.values.length} values',
             ),
           ],
+          ),
         ),
       ),
     ),

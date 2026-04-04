@@ -87,8 +87,9 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     home: Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'RenderBox Types Test',
@@ -99,6 +100,7 @@ dynamic build(BuildContext context) {
             Text('RenderConstrainedBox, RenderFlex'),
             Text('BoxConstraints: tight, loose, expand'),
           ],
+          ),
         ),
       ),
     ),
