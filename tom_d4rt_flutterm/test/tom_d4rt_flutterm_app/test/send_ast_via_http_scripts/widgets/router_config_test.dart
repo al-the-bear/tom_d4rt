@@ -3,8 +3,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
+
+// D4rt bridge workaround: bridged ChangeNotifier cannot be used as mixin
+mixin _ChangeNotifierShim {
+  void addListener(dynamic listener) {}
+  void removeListener(dynamic listener) {}
+  void notifyListeners() {}
+  void dispose() {}
+}
+
 // Minimal RouterDelegate for testing
-class TestRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
+class TestRouterDelegate extends RouterDelegate<String> with _ChangeNotifierShim {
   @override
   Widget build(BuildContext context) => Container();
 

@@ -3,8 +3,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
+
+// D4rt bridge workaround: bridged RouteAware cannot be used as mixin
+mixin _RouteAwareShim {
+  void didPopNext() {}
+  void didPush() {}
+  void didPop() {}
+  void didPushNext() {}
+}
+
 // Example implementation of RouteAware
-class TestRouteAware with RouteAware {
+class TestRouteAware with _RouteAwareShim {
   List<String> events = [];
 
   @override

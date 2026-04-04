@@ -100,21 +100,21 @@ Generated: 2026-04-04
 | widgets/regular_window_test.dart | undefined var: build | yes |
 | widgets/relative_rect_tween_test.dart | undefined var: build | yes |
 | widgets/render_abstract_layout_builder_mixin_test.dart | undefined var: build | yes |
-| widgets/render_object_to_widget_adapter_test.dart | undefined var: build | |
-| widgets/render_tap_region_surface_test.dart | undefined var: build | |
-| widgets/render_tap_region_test.dart | undefined var: build | |
-| widgets/render_two_dimensional_viewport_test.dart | undefined var: build | |
-| widgets/render_web_image_test.dart | undefined var: build | |
-| widgets/reorderable_list_state_test.dart | undefined var: build | |
-| widgets/repeat_mode_test.dart | undefined var: build | |
-| widgets/replace_text_intent_test.dart | undefined var: build | |
-| widgets/request_focus_action_test.dart | undefined var: build | |
-| widgets/request_focus_intent_test.dart | undefined var: build | |
-| widgets/restorable_bool_n_test.dart | undefined var: build | |
-| widgets/route_aware_test.dart | mixin: RouteAware | |
-| widgets/router_config_test.dart | mixin: ChangeNotifier | |
-| widgets/scroll_notification_observer_state_test.dart | undefined var: build | |
-| widgets/scroll_position_alignment_policy_test.dart | undefined var: build | |
+| widgets/render_object_to_widget_adapter_test.dart | undefined var: build | yes |
+| widgets/render_tap_region_surface_test.dart | undefined var: build | yes |
+| widgets/render_tap_region_test.dart | undefined var: build | yes |
+| widgets/render_two_dimensional_viewport_test.dart | undefined var: build | yes |
+| widgets/render_web_image_test.dart | undefined var: build | yes |
+| widgets/reorderable_list_state_test.dart | undefined var: build | yes |
+| widgets/repeat_mode_test.dart | undefined var: build | yes |
+| widgets/replace_text_intent_test.dart | undefined var: build | yes |
+| widgets/request_focus_action_test.dart | undefined var: build | yes |
+| widgets/request_focus_intent_test.dart | undefined var: build | yes |
+| widgets/restorable_bool_n_test.dart | undefined var: build | yes |
+| widgets/route_aware_test.dart | mixin: RouteAware | yes |
+| widgets/router_config_test.dart | mixin: ChangeNotifier | yes |
+| widgets/scroll_notification_observer_state_test.dart | undefined var: build | yes |
+| widgets/scroll_position_alignment_policy_test.dart | undefined var: build | yes |
 | widgets/scroll_position_with_single_context_test.dart | undefined var: build | |
 | widgets/scroll_start_notification_test.dart | undefined var: build | |
 | widgets/scroll_to_document_boundary_intent_test.dart | undefined var: build | |

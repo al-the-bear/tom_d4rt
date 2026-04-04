@@ -695,6 +695,13 @@ Workaround: added `import 'package:flutter/scheduler.dart';` and local `_TickerP
 - widgets/matrix_transition_test.dart (SingleTickerProviderStateMixin)
 - widgets/nested_scroll_view_viewport_test.dart (SingleTickerProviderStateMixin)
 
+## Issue #10 — Additional Affected Files (Batch 18)
+
+Workaround: added local `_RouteAwareShim` mixin (stubs for `didPopNext`, `didPush`, `didPop`, `didPushNext`) and local `_ChangeNotifierShim` mixin (stubs for `addListener`, `removeListener`, `notifyListeners`, `dispose`).
+
+- widgets/route_aware_test.dart (RouteAware → _RouteAwareShim)
+- widgets/router_config_test.dart (ChangeNotifier → _ChangeNotifierShim)
+
 ---
 
 ## Issue Tracking Notes
