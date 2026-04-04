@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   // Return visual UI demonstrating ClipRRect concepts
-  return Container(
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.blue.shade50, Colors.indigo.shade50],
+  return SingleChildScrollView(
+    child: Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.blue.shade50, Colors.indigo.shade50],
+        ),
       ),
-    ),
-    child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

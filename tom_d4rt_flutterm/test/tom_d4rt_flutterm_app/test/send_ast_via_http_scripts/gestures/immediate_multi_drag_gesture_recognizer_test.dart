@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: const Text('ImmediateMultiDragGestureRecognizer')),
-    body: Padding(
+    body: SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

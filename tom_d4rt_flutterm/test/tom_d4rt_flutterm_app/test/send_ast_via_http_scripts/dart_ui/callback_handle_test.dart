@@ -12,16 +12,16 @@ dynamic build(BuildContext context) {
   final h3 = ui.CallbackHandle.fromRawHandle(67890);
 
   // Return visual UI
-  return Container(
-    padding: EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.deepPurple.shade50, Colors.purple.shade50],
+  return SingleChildScrollView(
+    child: Container(
+      padding: EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.deepPurple.shade50, Colors.purple.shade50],
+        ),
       ),
-    ),
-    child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

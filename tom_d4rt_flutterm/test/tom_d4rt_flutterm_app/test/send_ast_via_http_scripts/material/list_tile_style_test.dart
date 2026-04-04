@@ -188,6 +188,7 @@ Widget buildStyleComparisonCard({
                     ),
                   ),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(
@@ -218,6 +219,7 @@ Widget buildStyleComparisonCard({
                 child: Container(
                   padding: EdgeInsets.all(8),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(

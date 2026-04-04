@@ -194,7 +194,7 @@ dynamic build(BuildContext context) {
       textSelectionTheme: selectionTheme,
     ),
     home: Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(children: [textField]),
       ),

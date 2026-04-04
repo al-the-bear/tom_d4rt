@@ -118,16 +118,16 @@ dynamic build(BuildContext context) {
   // ═══════════════════════════════════════════════════════════════════════════
 
   // Return visual UI showing class categories
-  return Container(
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Colors.indigo.shade50, Colors.purple.shade50],
+  return SingleChildScrollView(
+    child: Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.indigo.shade50, Colors.purple.shade50],
+        ),
       ),
-    ),
-    child: SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
