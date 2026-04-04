@@ -76,6 +76,241 @@ tabs: items.map((e) => [Tab(text: e)]).expand((x) => x).toList()
 
 ---
 
+## Issue #2: Missing `int.roundToDouble()` Method
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None documented yet
+
+### Description
+
+The D4rt interpreter does not resolve the `roundToDouble()` method on `int` types. This is a standard Dart `num` method that should be available on both `int` and `double`.
+
+### Error Message
+
+```
+Runtime Error: Bridged class 'int' has no instance method named 'roundToDouble'. 
+Error during extension lookup: Bridged class 'int' has no instance method named 'roundToDouble'.
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| material/range_slider_track_shape_test.dart | RangeSlider |
+| material/range_slider_value_indicator_shape_test.dart | RangeSlider |
+| material/range_values_test.dart | RangeSlider |
+| material/spell_check_suggestions_toolbar_test.dart | SpellCheck |
+| material/tab_bar_theme_data_test.dart | TabBar |
+
+### Root Cause
+
+The `roundToDouble()` method from `dart:core num` class is not exposed in the D4rt bridged `int` class.
+
+### Potential Workaround
+
+```dart
+// Instead of:
+someInt.roundToDouble()
+
+// Use:
+someInt.toDouble()  // if rounding is not needed
+// or
+(someInt + 0.0)  // cast to double first
+```
+
+---
+
+## Issue #3: Missing `List.whereType<T>()` Method
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None documented yet
+
+### Description
+
+The D4rt interpreter does not resolve the `whereType<T>()` method on `List` (inherited from `Iterable`). This is used to filter list elements by runtime type.
+
+### Error Message
+
+```
+Runtime Error: Bridged class 'List' has no instance method named 'whereType'. 
+Error during extension lookup: Bridged class 'List' has no instance method named 'whereType'.
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| widgets/animated_cross_fade_test.dart | Animation |
+| widgets/animated_switcher_test.dart | Animation |
+| widgets/backdrop_filter_test.dart | Effects |
+| widgets/physical_model_test.dart | Rendering |
+
+### Root Cause
+
+The `whereType<T>()` method from `dart:core Iterable` is not exposed in the D4rt bridged `List` class.
+
+### Potential Workaround
+
+```dart
+// Instead of:
+myList.whereType<Widget>()
+
+// Use:
+myList.where((e) => e is Widget).cast<Widget>()
+```
+
+---
+
+## Issue #4: State.widget Property Not Resolved
+
+**Status**: Open  
+**Severity**: High  
+**Discovered**: 2026-04-04  
+**Workaround**: None
+
+### Description
+
+The D4rt interpreter cannot resolve the implicit `widget` getter property on `State<T>` subclasses. This is a fundamental Flutter pattern where State classes access their associated StatefulWidget via `this.widget`.
+
+### Error Message
+
+```
+Runtime Error: Undefined variable: widget 
+(Original error: Undefined property 'widget' on _VerticalTrackState.)
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| gestures/vertical_multi_drag_gesture_recognizer_test.dart | Gestures |
+
+### Root Cause
+
+The `widget` property is an inherited getter from `State<T>` that returns `T`. The D4rt interpreter's property resolution doesn't follow inheritance chains for implicit getters on bridged classes.
+
+### Impact
+
+This blocks any StatefulWidget test that accesses `widget` in its State class.
+
+---
+
+## Issue #5: layoutChild Property Not Resolved on Delegates
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None
+
+### Description
+
+The D4rt interpreter cannot resolve the `layoutChild` method/property on custom `MultiChildLayoutDelegate` subclasses.
+
+### Error Message
+
+```
+Runtime Error: Undefined variable: layoutChild 
+(Original error: Undefined property 'layoutChild' on TestMultiChildLayoutDelegate.)
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| widgets/layout_builder_adv_test.dart | Layout |
+
+### Root Cause
+
+Similar to Issue #4 - inherited methods from abstract delegate base classes are not resolved correctly.
+
+---
+
+## Issue #6: Function Type Mismatch with `semanticsBuilder`
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: None documented yet
+
+### Description
+
+The D4rt interpreter fails type checking when assigning an interpreted function to the `semanticsBuilder` parameter of `CustomPainter`. The expected type includes a nullable function type that the interpreter doesn't match correctly.
+
+### Error Message
+
+```
+Argument Error: Invalid parameter "semanticsBuilder": 
+expected ((Size) => List<CustomPainterSemantics>)?, got InterpretedFunction
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| rendering/custom_painter_semantics_test.dart | CustomPainter |
+
+### Root Cause
+
+The D4rt interpreter's `InterpretedFunction` type is not recognized as matching the expected `((Size) => List<CustomPainterSemantics>)?` function type.
+
+---
+
+## Issue #7: Null-aware Method Invocation on Potentially Null Values
+
+**Status**: Open  
+**Severity**: Low  
+**Discovered**: 2026-04-04  
+**Workaround**: Test script fix
+
+### Description
+
+Some test scripts invoke methods on values that may be null at runtime. The error suggests using `?.` for null-aware invocation.
+
+### Error Message
+
+```
+Runtime Error: Cannot invoke method 'withValues' on null. 
+Use '?.' for null-aware method invocation.
+```
+
+### Affected Test Files
+
+| File | Category |
+|------|----------|
+| dart_ui/pointer_data_test.dart | Input |
+
+### Resolution
+
+This is likely a test script issue - add null-aware invocation (`?.`) or null checks.
+
+---
+
+## Non-Interpreter Issues
+
+### Cupertino Widget Constraint Issues
+
+Several Cupertino widget tests fail with layout constraint errors. These appear to be related to how CupertinoTextField and related widgets handle bounded height constraints, not D4rt interpreter bugs:
+
+| File | Error Type |
+|------|------------|
+| cupertino/cupertino_form_scroll_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_controls_advanced_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_secondary_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_sections_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_tabbar_scaffold_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_text_selection_controls_test.dart | BoxConstraints negative height |
+| cupertino/cupertino_sheet_transition_test.dart | Overflow |
+
+**Root Cause**: CupertinoTextField and CupertinoTextFormFieldRow have intrinsic size calculations that produce negative heights when placed in tightly bounded containers.
+
+**Potential Fix**: These tests may need `ConstrainedBox` with minimum height or `IntrinsicHeight` wrappers.
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
