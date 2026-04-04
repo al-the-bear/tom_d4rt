@@ -74,7 +74,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('TimeOfDayFormat test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('TimeOfDayFormat Tests', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -83,5 +83,5 @@ dynamic build(BuildContext context) {
       Text('Values: 6 format patterns'),
       Text('Purpose: Locale time formatting'),
     ],
-  );
+  ));
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for DropRangeSliderValueIndicatorShape - drop-shaped value indicators.
 /// Shows the teardrop indicator shape for range sliders.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text(
@@ -83,7 +83,7 @@ dynamic build(BuildContext context) {
         style: TextStyle(fontSize: 11, color: Colors.grey),
       ),
     ],
-  );
+  ));
 }
 
 class _DropIndicator extends StatelessWidget {

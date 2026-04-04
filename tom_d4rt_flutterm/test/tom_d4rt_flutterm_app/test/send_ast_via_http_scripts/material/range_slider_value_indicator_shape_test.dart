@@ -584,7 +584,7 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return Column(children: tableRows);
+    return SingleChildScrollView(child: Column(children: tableRows));
   }
 
   Widget timelinePanel(List<_TimelineItem> items) {
@@ -606,7 +606,7 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return Column(
+    return SingleChildScrollView(child: Column(
       children: items.map((item) {
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
@@ -655,7 +655,7 @@ dynamic build(BuildContext context) {
           ),
         );
       }).toList(),
-    );
+    ));
   }
 
   Widget consolePanel(List<String> entries) {

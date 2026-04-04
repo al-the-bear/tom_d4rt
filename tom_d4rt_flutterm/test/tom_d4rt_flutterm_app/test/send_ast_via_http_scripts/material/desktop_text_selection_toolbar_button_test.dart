@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for DesktopTextSelectionToolbarButton - individual toolbar button.
 /// Shows button styling and interaction states.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('Toolbar Button', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
         ),
       ),
     ],
-  );
+  ));
 }
 
 class _ButtonState extends StatelessWidget {

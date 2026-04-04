@@ -84,7 +84,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('DropdownMenuCloseBehavior test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -96,5 +96,5 @@ dynamic build(BuildContext context) {
       Text('Values: all, self, none'),
       Text('Use: Menu close on selection'),
     ],
-  );
+  ));
 }

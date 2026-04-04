@@ -775,7 +775,7 @@ dynamic build(BuildContext context) {
                       }
                     });
 
-                    return Column(
+                    return SingleChildScrollView(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Theme(
@@ -853,7 +853,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                       ],
-                    );
+                    ));
                   },
                 ),
               ),
@@ -905,7 +905,7 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return Column(children: rows);
+    return SingleChildScrollView(child: Column(children: rows));
   }
 
   Widget timelinePanel() {
@@ -924,7 +924,7 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return Column(
+    return SingleChildScrollView(child: Column(
       children: timeline.map((event) {
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
@@ -961,7 +961,7 @@ dynamic build(BuildContext context) {
           ),
         );
       }).toList(),
-    );
+    ));
   }
 
   Widget snapshotPanel() {
@@ -980,7 +980,7 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return Column(
+    return SingleChildScrollView(child: Column(
       children: snapshots.map((snapshot) {
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
@@ -1008,7 +1008,7 @@ dynamic build(BuildContext context) {
           ),
         );
       }).toList(),
-    );
+    ));
   }
 
   Widget consolePanel() {

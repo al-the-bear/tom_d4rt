@@ -72,7 +72,7 @@ dynamic build(BuildContext context) {
   print('\n' + '=' * 50);
   print('PopupMenuPosition test completed');
 
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text(
@@ -84,5 +84,5 @@ dynamic build(BuildContext context) {
       Text('Values: over, under'),
       Text('Use: Popup menu placement'),
     ],
-  );
+  ));
 }

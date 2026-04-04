@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Deep visual demo for fade forward page transition.
 /// Shows the fade + slide up animation style.
 dynamic build(BuildContext context) {
-  return Column(
+  return SingleChildScrollView(child: Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       const Text('Fade Forwards Transition', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
@@ -78,5 +78,5 @@ dynamic build(BuildContext context) {
       const SizedBox(height: 12),
       const Text('Android/Linux default transition', style: TextStyle(fontSize: 11, color: Colors.grey)),
     ],
-  );
+  ));
 }

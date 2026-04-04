@@ -206,7 +206,7 @@ dynamic build(BuildContext context) {
           '  dividerTheme.thickness: ${resolvedTheme.dividerTheme.thickness}',
         );
 
-        return Column(
+        return SingleChildScrollView(child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTileTheme(
@@ -224,7 +224,7 @@ dynamic build(BuildContext context) {
             DividerTheme(data: dividerThemeData, child: Divider()),
             Card(child: Text('Component themes test passed')),
           ],
-        );
+        ));
       },
     ),
   );
