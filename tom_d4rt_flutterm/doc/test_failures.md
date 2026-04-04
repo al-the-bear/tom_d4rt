@@ -194,21 +194,21 @@ Generated: 2026-04-04
 | foundation/object_disposed_test.dart | not callable: Object | yes |
 | foundation/object_event_test.dart | not callable: Object | yes |
 | gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart | Native error during default bridged constructor for 'FlutterErrorDetailsForPoint | yes |
-| gestures/tap_move_details_test.dart | assertion failure in constructor | |
-| material/bottom_navigation_bar_type_test.dart | Expected: true | |
-| material/collapse_mode_test.dart | null check failed | |
-| material/floating_label_behavior_test.dart | null check failed | |
-| material/individual_text_button_theme_data_test.dart | no constructor: _ThemeRecipe | |
-| material/individual_text_selection_toolbar_test.dart | no constructor: _ScenarioCard | |
-| material/individual_text_selection_toolbar_text_button_test.dart | no constructor: _ButtonFamily | |
-| material/material_scroll_behavior_test.dart | undefined: map on _ConstSet<PointerDeviceKind> | |
-| painting/enums_painting_test.dart | undefined: name on bridged instance of 'Image' | |
-| painting/individual_decoration_image_painter_test.dart | Native error during default bridged constructor for 'Text': Argument Error: Inva | |
-| rendering/annotation_entry_test.dart | A value of type '_InteractiveAnnotationDemo' can't be returned from the function | |
-| rendering/annotation_result_test.dart | A value of type '_MultipleEntriesWidget' can't be returned from the function '_b | |
-| rendering/cache_extent_style_test.dart | A value of type '_InteractiveComparisonWidget' can't be returned from the functi | |
-| rendering/cross_axis_alignment_test.dart | undefined: toString on CrossAxisAlignment | |
-| rendering/decoration_position_test.dart | undefined: name on bridged instance of 'Decoration' | |
+| gestures/tap_move_details_test.dart | assertion failure in constructor | yes |
+| material/bottom_navigation_bar_type_test.dart | Expected: true | yes |
+| material/collapse_mode_test.dart | null check failed | yes |
+| material/floating_label_behavior_test.dart | null check failed | yes |
+| material/individual_text_button_theme_data_test.dart | no constructor: _ThemeRecipe | yes |
+| material/individual_text_selection_toolbar_test.dart | no constructor: _ScenarioCard | yes |
+| material/individual_text_selection_toolbar_text_button_test.dart | no constructor: _ButtonFamily | yes |
+| material/material_scroll_behavior_test.dart | undefined: map on _ConstSet<PointerDeviceKind> | yes |
+| painting/enums_painting_test.dart | undefined: name on bridged instance of 'Image' | yes |
+| painting/individual_decoration_image_painter_test.dart | Native error during default bridged constructor for 'Text': Argument Error: Inva | yes |
+| rendering/annotation_entry_test.dart | A value of type '_InteractiveAnnotationDemo' can't be returned from the function | yes |
+| rendering/annotation_result_test.dart | A value of type '_MultipleEntriesWidget' can't be returned from the function '_b | yes |
+| rendering/cache_extent_style_test.dart | A value of type '_InteractiveComparisonWidget' can't be returned from the functi | yes |
+| rendering/cross_axis_alignment_test.dart | undefined: toString on CrossAxisAlignment | yes |
+| rendering/decoration_position_test.dart | undefined: name on bridged instance of 'Decoration' | yes |
 | rendering/flex_fit_test.dart | undefined: name on bridged instance of 'Flex' | |
 | rendering/hit_test_behavior_test.dart | Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocat | |
 | rendering/individual_box_hit_test_entry_test.dart | A value of type '_InteractiveHitTestArea' can't be returned from the function '_ | |

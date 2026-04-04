@@ -917,6 +917,96 @@ Attempting to create instances of classes extending `Object` fails with "not cal
 
 ---
 
+## Issue #17 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- gestures/tap_move_details_test.dart (assertion failure in constructor)
+
+---
+
+## Issue #19 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- material/collapse_mode_test.dart (null check failed)
+- material/floating_label_behavior_test.dart (null check failed)
+
+---
+
+## Issue #22 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- painting/enums_painting_test.dart (undefined: name on bridged instance of 'Image')
+- rendering/decoration_position_test.dart (undefined: name on bridged instance of 'Decoration')
+
+---
+
+## Issue #23 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- rendering/cross_axis_alignment_test.dart (undefined: toString on CrossAxisAlignment)
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- material/bottom_navigation_bar_type_test.dart (Expected: true)
+
+---
+
+## Issue #25 — Additional Affected Files (Batch 24)
+
+**Affected files:**
+- painting/decoration_image_painter_test.dart (Native error during default bridged constructor for 'Text')
+
+---
+
+## Issue #27 — Private Class Constructor Not Resolved (Batch 24)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 24
+- **Workaround:** None — D4rt cannot resolve constructors for private classes
+
+The D4rt interpreter fails to resolve constructors for private classes (prefixed with `_`). When a script defines a private class and attempts to instantiate it, the interpreter reports "no constructor" for the class.
+
+**Affected files:**
+- material/text_button_theme_data_test.dart (no constructor: _ThemeRecipe)
+- material/text_selection_toolbar_test.dart (no constructor: _ScenarioCard)
+- material/text_selection_toolbar_text_button_test.dart (no constructor: _ButtonFamily)
+
+---
+
+## Issue #28 — Undefined 'map' on _ConstSet (Batch 24)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 24
+- **Workaround:** None — bridged Set iteration methods not available
+
+The D4rt interpreter does not expose the `map` method on `_ConstSet<T>` (the internal Set implementation). When calling `.map()` on a constant Set returned from a bridged API, the interpreter reports the method as undefined.
+
+**Affected files:**
+- material/material_scroll_behavior_test.dart (undefined: map on _ConstSet<PointerDeviceKind>)
+
+---
+
+## Issue #29 — Private Class Type Cannot Be Returned from Function (Batch 24)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 24
+- **Workaround:** None — D4rt type system rejects private class return types
+
+The D4rt interpreter rejects returning instances of private classes from functions, reporting "A value of type '_ClassName' can't be returned from the function". This occurs even though the private class extends a public class (e.g., StatefulWidget) and the function's return type is compatible.
+
+**Affected files:**
+- rendering/annotation_entry_test.dart (return _InteractiveAnnotationDemo)
+- rendering/annotation_result_test.dart (return _MultipleEntriesWidget)
+- rendering/cache_extent_style_test.dart (return _InteractiveComparisonWidget)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
