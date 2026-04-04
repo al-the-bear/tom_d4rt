@@ -3,6 +3,25 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — RawKeyEventDataWindows not available in D4rt bridge (deprecated API)
+class RawKeyEventDataWindows {
+  final int keyCode;
+  final int scanCode;
+  final int characterCodePoint;
+  final int modifiers;
+  RawKeyEventDataWindows({
+    required this.keyCode,
+    required this.scanCode,
+    required this.characterCodePoint,
+    required this.modifiers,
+  });
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(scanCode + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(characterCodePoint);
+  bool get isControlPressed => (modifiers & 0x08) != 0;
+  bool get isShiftPressed => (modifiers & 0x04) != 0;
+  bool get isAltPressed => (modifiers & 0x10) != 0;
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyEventDataWindows test executing');
   print('=' * 50);

@@ -3,6 +3,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+// Local shim — KeyboardSide not available in D4rt bridge (deprecated API)
+enum KeyboardSide { any, left, right, all }
+
 dynamic build(BuildContext context) {
   print('KeyboardSide test executing');
 

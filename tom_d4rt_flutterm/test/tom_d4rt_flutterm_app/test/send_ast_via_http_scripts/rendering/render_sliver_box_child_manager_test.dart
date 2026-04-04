@@ -1903,10 +1903,8 @@ class _LifecycleProbeTile extends StatefulWidget {
   State<_LifecycleProbeTile> createState() => _LifecycleProbeTileState();
 }
 
-class _LifecycleProbeTileState extends State<_LifecycleProbeTile>
-    with AutomaticKeepAliveClientMixin<_LifecycleProbeTile> {
-  @override
-  bool get wantKeepAlive => widget.keepAlive;
+class _LifecycleProbeTileState extends State<_LifecycleProbeTile> {
+  // AutomaticKeepAliveClientMixin removed — not available in D4rt bridge
 
   @override
   void initState() {
@@ -1917,9 +1915,6 @@ class _LifecycleProbeTileState extends State<_LifecycleProbeTile>
   @override
   void didUpdateWidget(covariant _LifecycleProbeTile oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.keepAlive != widget.keepAlive) {
-      updateKeepAlive();
-    }
   }
 
   @override
@@ -1930,7 +1925,6 @@ class _LifecycleProbeTileState extends State<_LifecycleProbeTile>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 4, 10, 4),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

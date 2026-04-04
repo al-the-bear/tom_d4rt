@@ -3,6 +3,23 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — RawKeyEventDataFuchsia not available in D4rt bridge (deprecated API)
+class RawKeyEventDataFuchsia {
+  final int hidUsage;
+  final int codePoint;
+  final int modifiers;
+  RawKeyEventDataFuchsia({
+    required this.hidUsage,
+    required this.codePoint,
+    required this.modifiers,
+  });
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(hidUsage + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(codePoint);
+  bool get isControlPressed => (modifiers & 8) != 0;
+  bool get isShiftPressed => (modifiers & 1) != 0;
+  bool get isAltPressed => (modifiers & 64) != 0;
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyEventDataFuchsia test executing');
   print('=' * 50);

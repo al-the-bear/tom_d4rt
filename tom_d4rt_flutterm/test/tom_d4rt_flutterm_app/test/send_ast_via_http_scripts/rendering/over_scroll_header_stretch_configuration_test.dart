@@ -1824,6 +1824,6 @@ class OverScrollHeaderStretchConfigurationDemo extends StatelessWidget {
 // MAIN ENTRY POINT
 // ═══════════════════════════════════════════════════════════════════════════════
 
-void main() {
-  runApp(OverScrollHeaderStretchConfigurationDemo());
+dynamic build(BuildContext context) {
+  return OverScrollHeaderStretchConfigurationDemo();
 }

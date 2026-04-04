@@ -3,6 +3,13 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — KeyMessage not available in D4rt bridge (deprecated API)
+class KeyMessage {
+  final List<KeyEvent> events;
+  final dynamic rawEvent;
+  KeyMessage(this.events, this.rawEvent);
+}
+
 dynamic build(BuildContext context) {
   print('KeyMessage test executing');
 

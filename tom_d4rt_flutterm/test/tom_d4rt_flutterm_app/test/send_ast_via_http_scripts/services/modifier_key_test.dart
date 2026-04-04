@@ -3,6 +3,13 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+// Local shim — ModifierKey not available in D4rt bridge (deprecated API)
+enum ModifierKey {
+  controlModifier, shiftModifier, altModifier, metaModifier,
+  capsLockModifier, numLockModifier, scrollLockModifier, functionModifier,
+  symbolModifier,
+}
+
 dynamic build(BuildContext context) {
   print('ModifierKey test executing');
 

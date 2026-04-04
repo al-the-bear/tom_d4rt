@@ -551,6 +551,126 @@ class FactoryWrapper<T> {
 
 ---
 
+## Issue #14: Deprecated RawKeyboard API Classes Not Bridged
+
+**Status**: Open  
+**Severity**: Low  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (local shim classes/enums)
+
+### Description
+
+The deprecated RawKeyboard API from `package:flutter/services.dart` is not bridged in D4rt. This includes enums (`KeyDataTransitMode`, `KeyboardSide`, `ModifierKey`), helper classes (`KeyHelper`, `KeyMessage`), platform-specific data classes (`RawKeyEventDataAndroid`, `RawKeyEventDataFuchsia`, `RawKeyEventDataIos`, `RawKeyEventDataLinux`, `RawKeyEventDataWeb`, `RawKeyEventDataWindows`), and the `RawKeyboard` singleton service.
+
+These classes were deprecated in Flutter 3.18+ in favor of the new `KeyEvent` / `HardwareKeyboard` system.
+
+### Error Messages
+
+```
+Undefined variable: KeyDataTransitMode
+Undefined variable: KeyHelper
+Undefined variable: KeyMessage
+Undefined variable: KeyboardSide
+Undefined variable: ModifierKey
+Undefined variable: RawKeyEventDataAndroid
+Undefined variable: RawKeyEventDataFuchsia
+Undefined variable: RawKeyEventDataIos
+Undefined variable: RawKeyEventDataLinux
+Undefined variable: RawKeyEventDataWeb
+Undefined variable: RawKeyEventDataWindows
+Undefined variable: RawKeyboard
+```
+
+### Affected Test Files
+
+- services/key_data_transit_mode_test.dart
+- services/key_helper_test.dart
+- services/key_message_test.dart
+- services/keyboard_side_test.dart
+- services/modifier_key_test.dart
+- services/raw_key_event_data_android_test.dart
+- services/raw_key_event_data_fuchsia_test.dart
+- services/raw_key_event_data_ios_test.dart
+- services/raw_key_event_data_linux_test.dart
+- services/raw_key_event_data_web_test.dart
+- services/raw_key_event_data_windows_test.dart
+- services/raw_keyboard_test.dart
+
+### Workaround
+
+Add local shim classes/enums that shadow the missing types. For enums, define matching enum values. For data classes, create minimal classes with the same constructor parameters and property getters as accessed in the script.
+
+```dart
+// Enum shim example:
+enum KeyDataTransitMode { keyDataChannel, rawKeyData }
+
+// Data class shim example:
+class RawKeyEventDataAndroid {
+  final int flags, codePoint, keyCode, scanCode, metaState;
+  RawKeyEventDataAndroid({required this.flags, required this.codePoint,
+    required this.keyCode, required this.scanCode, required this.metaState});
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(scanCode + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(codePoint);
+  bool get isControlPressed => (metaState & 4096) != 0;
+  // ...
+}
+
+// Singleton shim example:
+class RawKeyboard {
+  static final RawKeyboard instance = RawKeyboard._();
+  RawKeyboard._();
+  Set<LogicalKeyboardKey> get keysPressed => <LogicalKeyboardKey>{};
+}
+```
+
+---
+
+## Issue #15: Uint8List Not Available in D4rt Bridge
+
+**Status**: Open  
+**Severity**: Medium  
+**Discovered**: 2026-04-04  
+**Workaround**: Available (use ByteData directly)
+
+### Description
+
+`Uint8List` from `dart:typed_data` is not available in the D4rt bridge. Scripts that use `Uint8List.fromList(...)` for byte manipulation fail with an undefined variable error.
+
+### Error Message
+
+```
+Undefined variable: Uint8List
+```
+
+### Affected Test Files
+
+- services/codecs_test.dart
+
+### Workaround
+
+Replace `Uint8List` usage with `ByteData` which is available:
+
+```dart
+// Before:
+final bytes = Uint8List.fromList([1, 2, 3, 4, 5]);
+final binaryEncoded = binaryCodec.encodeMessage(bytes.buffer.asByteData());
+
+// After:
+final byteData = ByteData(5);
+for (var i = 0; i < 5; i++) {
+  byteData.setUint8(i, i + 1);
+}
+final binaryEncoded = binaryCodec.encodeMessage(byteData);
+```
+
+---
+
+## Issue #10 — Additional Affected Files (Batch 15)
+
+- rendering/render_sliver_box_child_manager_test.dart (AutomaticKeepAliveClientMixin)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

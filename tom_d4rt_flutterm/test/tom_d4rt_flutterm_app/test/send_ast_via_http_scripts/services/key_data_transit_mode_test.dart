@@ -3,6 +3,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+// Local shim — KeyDataTransitMode not available in D4rt bridge (deprecated API)
+enum KeyDataTransitMode { keyDataChannel, rawKeyData }
+
 dynamic build(BuildContext context) {
   print('KeyDataTransitMode test executing');
 

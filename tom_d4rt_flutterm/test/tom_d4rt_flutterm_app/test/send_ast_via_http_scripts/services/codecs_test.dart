@@ -156,8 +156,12 @@ dynamic build(BuildContext context) {
   print('  runtimeType: ${binaryCodec.runtimeType}');
 
   // Binary passes through unchanged
-  final bytes = Uint8List.fromList([1, 2, 3, 4, 5]);
-  final binaryEncoded = binaryCodec.encodeMessage(bytes.buffer.asByteData());
+  // Note: Uint8List not available in D4rt bridge — using ByteData directly
+  final byteData = ByteData(5);
+  for (var i = 0; i < 5; i++) {
+    byteData.setUint8(i, i + 1);
+  }
+  final binaryEncoded = binaryCodec.encodeMessage(byteData);
   print('Binary encoded: ${binaryEncoded != null ? "has data" : "null"}');
 
   final binaryDecoded = binaryCodec.decodeMessage(binaryEncoded);

@@ -3,6 +3,28 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — RawKeyEventDataAndroid not available in D4rt bridge (deprecated API)
+class RawKeyEventDataAndroid {
+  final int flags;
+  final int codePoint;
+  final int keyCode;
+  final int scanCode;
+  final int metaState;
+  RawKeyEventDataAndroid({
+    required this.flags,
+    required this.codePoint,
+    required this.keyCode,
+    required this.scanCode,
+    required this.metaState,
+  });
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(scanCode + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(codePoint);
+  bool get isControlPressed => (metaState & 4096) != 0;
+  bool get isShiftPressed => (metaState & 1) != 0;
+  bool get isAltPressed => (metaState & 2) != 0;
+  bool get isMetaPressed => (metaState & 65536) != 0;
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyEventDataAndroid test executing');
   print('=' * 50);

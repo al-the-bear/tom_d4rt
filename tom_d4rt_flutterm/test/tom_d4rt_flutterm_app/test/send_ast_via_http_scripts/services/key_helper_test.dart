@@ -3,6 +3,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — KeyHelper not available in D4rt bridge (deprecated API)
+class KeyHelper {
+  final String toolkit;
+  KeyHelper(this.toolkit);
+}
+
 dynamic build(BuildContext context) {
   print('KeyHelper test executing');
   print('=' * 50);

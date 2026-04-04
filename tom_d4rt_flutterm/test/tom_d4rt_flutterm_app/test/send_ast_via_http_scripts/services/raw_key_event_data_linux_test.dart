@@ -3,6 +3,35 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shims — RawKeyEventDataLinux and KeyHelper not available in D4rt bridge (deprecated API)
+class KeyHelper {
+  final String toolkit;
+  KeyHelper(this.toolkit);
+}
+
+class RawKeyEventDataLinux {
+  final KeyHelper keyHelper;
+  final int unicodeScalarValues;
+  final int keyCode;
+  final int scanCode;
+  final int modifiers;
+  final bool isDown;
+  final int? specifiedLogicalKey;
+  RawKeyEventDataLinux({
+    required this.keyHelper,
+    required this.unicodeScalarValues,
+    required this.keyCode,
+    required this.scanCode,
+    required this.modifiers,
+    required this.isDown,
+    required this.specifiedLogicalKey,
+  });
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(scanCode + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(unicodeScalarValues);
+  bool get isControlPressed => (modifiers & 4) != 0;
+  bool get isShiftPressed => (modifiers & 1) != 0;
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyEventDataLinux test executing');
   print('=' * 50);

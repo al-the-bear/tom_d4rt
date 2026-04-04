@@ -3,6 +3,26 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — RawKeyEventDataWeb not available in D4rt bridge (deprecated API)
+class RawKeyEventDataWeb {
+  final String code;
+  final String key;
+  final int location;
+  final int metaState;
+  final int keyCode;
+  RawKeyEventDataWeb({
+    required this.code,
+    required this.key,
+    required this.location,
+    required this.metaState,
+    required this.keyCode,
+  });
+  PhysicalKeyboardKey get physicalKey => PhysicalKeyboardKey(keyCode + 0x70000);
+  LogicalKeyboardKey get logicalKey => LogicalKeyboardKey(key.isNotEmpty ? key.codeUnitAt(0) : 0);
+  bool get isControlPressed => (metaState & 2) != 0;
+  bool get isShiftPressed => (metaState & 1) != 0;
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyEventDataWeb test executing');
   print('=' * 50);

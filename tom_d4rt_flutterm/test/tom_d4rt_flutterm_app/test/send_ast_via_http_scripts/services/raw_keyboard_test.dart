@@ -3,6 +3,13 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+// Local shim — RawKeyboard not available in D4rt bridge (deprecated API)
+class RawKeyboard {
+  static final RawKeyboard instance = RawKeyboard._();
+  RawKeyboard._();
+  Set<LogicalKeyboardKey> get keysPressed => <LogicalKeyboardKey>{};
+}
+
 dynamic build(BuildContext context) {
   print('RawKeyboard test executing');
   print('=' * 50);
