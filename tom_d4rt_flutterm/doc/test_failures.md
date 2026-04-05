@@ -299,21 +299,21 @@ Generated: 2026-04-04
 | widgets/hero_controller_scope_test.dart | Expected: true | yes |
 | widgets/hero_controller_test.dart | Expected: true | yes |
 | widgets/icon_data_test.dart | Expected: true | yes |
-| widgets/ignore_baseline_test.dart | Expected: true | |
-| widgets/image_icon_test.dart | Expected: true | |
-| widgets/img_element_platform_view_test.dart | Expected: true | |
-| widgets/individual_android_view_test.dart | Expected: true | |
-| widgets/individual_autofill_group_test.dart | Expected: true | |
-| widgets/individual_checked_mode_banner_test.dart | Expected: true | |
-| widgets/individual_composited_transform_follower_test.dart | Expected: true | |
-| widgets/individual_default_asset_bundle_test.dart | Expected: true | |
-| widgets/individual_default_text_height_behavior_test.dart | Expected: true | |
-| widgets/individual_directionality_test.dart | Expected: true | |
-| widgets/individual_display_feature_sub_screen_test.dart | Expected: true | |
-| widgets/individual_fade_in_image_test.dart | Expected: true | |
-| widgets/individual_glowing_overscroll_indicator_test.dart | Expected: true | |
-| widgets/individual_html_element_view_test.dart | Expected: true | |
-| widgets/individual_indexed_stack_test.dart | Expected: true | |
+| widgets/ignore_baseline_test.dart | Expected: true | yes |
+| widgets/image_icon_test.dart | Expected: true | yes |
+| widgets/img_element_platform_view_test.dart | Expected: true | yes |
+| widgets/individual_android_view_test.dart | Expected: true | yes |
+| widgets/individual_autofill_group_test.dart | Expected: true | yes |
+| widgets/individual_checked_mode_banner_test.dart | Expected: true | yes |
+| widgets/individual_composited_transform_follower_test.dart | Expected: true | yes |
+| widgets/individual_default_asset_bundle_test.dart | Expected: true | yes |
+| widgets/individual_default_text_height_behavior_test.dart | Expected: true | yes |
+| widgets/individual_directionality_test.dart | Expected: true | yes |
+| widgets/individual_display_feature_sub_screen_test.dart | Expected: true | yes |
+| widgets/individual_fade_in_image_test.dart | Expected: true | yes |
+| widgets/individual_glowing_overscroll_indicator_test.dart | Expected: true | yes |
+| widgets/individual_html_element_view_test.dart | Expected: true | yes |
+| widgets/individual_indexed_stack_test.dart | Expected: true | yes |
 | widgets/individual_inherited_notifier_test.dart | Expected: true | |
 | widgets/individual_inherited_theme_test.dart | Expected: true | |
 | widgets/individual_inherited_widget_test.dart | Expected: true | |

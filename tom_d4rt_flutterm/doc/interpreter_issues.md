@@ -1192,6 +1192,27 @@ The D4rt interpreter cannot access properties like `lengthInBytes` on `_ByteData
 
 ---
 
+## Issue #24 — Additional Affected Files (Batch 31)
+
+**Affected files:**
+- widgets/ignore_baseline_test.dart
+- widgets/image_icon_test.dart
+- widgets/img_element_platform_view_test.dart
+- widgets/individual_android_view_test.dart
+- widgets/individual_autofill_group_test.dart
+- widgets/individual_checked_mode_banner_test.dart
+- widgets/individual_composited_transform_follower_test.dart
+- widgets/individual_default_asset_bundle_test.dart
+- widgets/individual_default_text_height_behavior_test.dart
+- widgets/individual_directionality_test.dart
+- widgets/individual_display_feature_sub_screen_test.dart
+- widgets/individual_fade_in_image_test.dart
+- widgets/individual_glowing_overscroll_indicator_test.dart
+- widgets/individual_html_element_view_test.dart
+- widgets/individual_indexed_stack_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
