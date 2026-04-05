@@ -1420,6 +1420,27 @@ Test infrastructure failure — the D4rt test sends AST payloads via HTTP to the
 
 ---
 
+## Issue #38 — Additional Affected Files (Batch 37)
+
+**Affected files:**
+- painting/image_stream_completer_handle_test.dart
+- painting/inline_span_semantics_information_test.dart
+- painting/inline_span_test.dart
+- painting/matrix_utils_test.dart
+- painting/multi_frame_image_stream_completer_test.dart
+- painting/network_image_load_exception_test.dart
+- painting/one_frame_image_stream_completer_test.dart
+- painting/painting_binding_test.dart
+- painting/render_comparison_test.dart
+- painting/resize_image_policy_test.dart
+- painting/shader_warm_up_test.dart
+- painting/text_overflow_test.dart
+- painting/text_width_basis_test.dart
+- painting/transform_property_test.dart
+- painting/vertical_direction_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
