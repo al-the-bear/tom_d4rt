@@ -986,17 +986,45 @@ class D4rt {
       }
       Logger.debug("[_executeInEnvironment] Finished processing directives.");
 
+      // RC-4: Process declarations in dependency order (matching ModuleLoader).
+      // The DeclarationVisitor (pass 1) only creates class/mixin placeholders
+      // with empty constructor maps. We must populate class members before
+      // evaluating top-level variable initializers that may reference them
+      // (forward-reference problem: const lists using classes defined later).
       Logger.debug(
-          "[_executeInEnvironment] Processing ALL declarations sequentially");
+          "[_executeInEnvironment] Processing declarations in dependency order");
 
-      Logger.debug(
-          "[_executeInEnvironment] Top-level declarations for Pass 2:");
+      // 1. Enum declarations first (const variables may reference enum values)
       for (final declaration in compilationUnit.declarations) {
-        Logger.debug("[_executeInEnvironment]   - ${declaration.runtimeType}");
+        if (declaration is EnumDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
-
+      // 2. Class and mixin declarations (populates constructors, methods, etc.)
       for (final declaration in compilationUnit.declarations) {
-        declaration.accept<Object?>(_visitor!);
+        if (declaration is ClassDeclaration ||
+            declaration is MixinDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 3. Extension declarations
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ExtensionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 4. Function declarations
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is FunctionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 5. Top-level variable declarations (initializers can now reference
+      //    all classes, enums, functions, and extensions)
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is TopLevelVariableDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
       Logger.debug("[_executeInEnvironment] Looking for $name function");
@@ -1216,16 +1244,41 @@ class D4rt {
       }
       Logger.debug(" [_executeClassic] Finished processing directives.");
 
+      // RC-4: Process declarations in dependency order (matching ModuleLoader).
+      // See _executeInEnvironment for rationale.
       Logger.debug(
-          " [_executeClassic] Processing ALL declarations sequentially");
+          " [_executeClassic] Processing declarations in dependency order");
 
-      Logger.debug(" [_executeClassic] Top-level declarations for Pass 2:");
+      // 1. Enum declarations first
       for (final declaration in compilationUnit.declarations) {
-        Logger.debug(" [_executeClassic]   - ${declaration.runtimeType}");
+        if (declaration is EnumDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
-
+      // 2. Class and mixin declarations (populates constructors, methods, etc.)
       for (final declaration in compilationUnit.declarations) {
-        declaration.accept<Object?>(_visitor!);
+        if (declaration is ClassDeclaration ||
+            declaration is MixinDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 3. Extension declarations
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ExtensionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 4. Function declarations
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is FunctionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      // 5. Top-level variable declarations
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is TopLevelVariableDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
       Logger.debug(" [_executeClassic] Finished processing declarations");
       Logger.debug("[_executeClassic] Looking for $name function");
@@ -1480,9 +1533,24 @@ class D4rt {
         declaration.accept<void>(declarationVisitor);
       }
 
-      // Interpretation pass
+      // Interpretation pass — RC-4: ordered by type to handle forward references
       for (final declaration in compilationUnit.declarations) {
-        declaration.accept<Object?>(_visitor!);
+        if (declaration is EnumDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ClassDeclaration ||
+            declaration is MixinDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is! EnumDeclaration &&
+            declaration is! ClassDeclaration &&
+            declaration is! MixinDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
 
       Logger.debug("[D4rt.eval] Processed declaration(s)");

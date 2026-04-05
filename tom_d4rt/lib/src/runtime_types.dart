@@ -578,7 +578,17 @@ class InterpretedClass implements Callable, RuntimeType {
     final instance = createAndInitializeInstance(visitor, typeArguments);
 
     // 2. Find the UNNAMED constructor
-    final constructor = findConstructor(''); // Look for the default constructor
+    var constructor = findConstructor(''); // Look for the default constructor
+
+    // RC-4: If no unnamed constructor found but the class has exactly one
+    // constructor (named), use it as fallback. This handles cases like
+    // private classes with only a named const constructor (e.g.,
+    // _ThemePreset({required this.id, ...})) that are called dynamically.
+    if (constructor == null && constructors.length == 1) {
+      constructor = constructors.values.first;
+      Logger.debug(
+          "[Instance Init] No unnamed constructor for '$name', falling back to sole constructor '${constructors.keys.first}'");
+    }
 
     // 3. Call constructor if found, binding 'this' (which is the instance)
     if (constructor != null) {

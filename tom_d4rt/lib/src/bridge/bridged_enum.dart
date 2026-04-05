@@ -86,7 +86,11 @@ class BridgedEnumValue implements RuntimeValue {
         return index;
       case 'name':
         return name;
-      // 'toString' is handled below via adapters or the invoke method
+      // RC-4: Object-level properties that all objects support
+      case 'hashCode':
+        return nativeValue.hashCode;
+      case 'runtimeType':
+        return enumType;
       default:
         // 1. Check for custom instance getters
         final getterAdapter =

@@ -1,12 +1,28 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-05 (updated after RC-3 interface proxy fix)
+Generated: 2026-04-05 (updated after RC-4b declaration ordering fix)
 
 ## Summary
 
-- **Total test failures:** 152 (across 8 test files with failures) — down from 309 (–157)
+- **Total test failures:** 126 (across 6 test files with failures) — down from 309 (–183)
 - **Total framework errors:** 111 blocks (386 individual errors, occurring in passing tests) — up from 69/304 (more tests now progress further)
 - **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
+- **Tests passing:** 1,871 (+9 skip)
+
+### RC-4 Fix Impact
+
+RC-4 addressed two error categories with three fixes across both tom_d4rt and tom_d4rt_ast:
+
+1. **BridgedEnumValue Object methods** (Category 2): Added `hashCode` and `runtimeType` cases to `BridgedEnumValue.get()` switch statement
+2. **Constructor lookup fallback** (Category 1, layer 1): Added sole-constructor fallback in `InterpretedClass.call()` when `findConstructor('')` returns null but only one constructor exists
+3. **Declaration ordering** (Category 1, layer 2): Reordered pass-2 declaration processing in `d4rt_base.dart` and `d4rt_runner.dart` to process enums → classes/mixins → extensions → functions → top-level variables (matching the existing `ModuleLoader` ordering from Bug-59)
+
+| Metric | RC-3 | RC-4 (enum fix) | RC-4b (+ordering) | Total Change |
+|--------|------|-----------------|-------------------|--------------|
+| Total test failures | 152 | 145 | **126** | **–26 (–17%)** |
+| "unnamed constructor" errors | 35 | 35 | **0** | **–35 (–100%)** |
+| hashCode/runtimeType errors | 17 | **0** | **0** | **–17 (–100%)** |
+| Tests passing | 1,845 | 1,852 | **1,871** | **+26** |
 
 ### RC-3 Fix Impact
 
@@ -27,11 +43,11 @@ The largest new framework error category is `widget` property access (154 occurr
 
 152 test failures (153 `[E]` markers, 1 duplicate). These are actual test failures counted by dart test.
 
-| Category | Count | Before | Change | Description |
-|----------|-------|--------|--------|-------------|
-| Missing unnamed constructor | 35 | 34 | +1 | Classes like _ThemePreset(17), _ThemePack(2) etc. — constructor not resolved |
-| hashCode on bridged enum | 17 | 17 | — | hashCode not found on enum values — interpreter issue |
-| _TickerProviderShim mixin | 15 | 15 | — | Mixin 'on' clause type not found — interpreter issue |
+| Category | Count | RC-3 | RC-4b | Description |
+|----------|-------|------|-------|-------------|
+| ~~Missing unnamed constructor~~ | ~~35~~ | 34 | **0 ✅** | **FIXED in RC-4b** — declaration ordering fix |
+| ~~hashCode on bridged enum~~ | ~~17~~ | 17 | **0 ✅** | **FIXED in RC-4** — BridgedEnumValue.get() Object methods |
+| _TickerProviderShim mixin | 15 | 15 | 15 | Mixin 'on' clause type not found — interpreter issue |
 | Undefined .name on bridged | 12 | 12 | — | Undefined property 'name' on bridged enum/class |
 | Native bridged constructor error | 11 | 11 | — | Native error during default bridged constructor execution |
 | Other undefined var/property | 7 | 4 | +3 | Various undefined variables or properties |
@@ -40,7 +56,7 @@ The largest new framework error category is `widget` property access (154 occurr
 | Null check on SPostfixExpression | 5 | 5 | — | Null check operator at SPostfixExpression |
 | _SUnknownNode (for-loop) | 5 | 5 | — | Unknown for-loop node in AST — interpreter issue |
 | WidgetState.isSatisfiedBy | 5 | 5 | — | WidgetState method resolution failure |
-| toString on bridged enum | 4 | 3 | +1 | Calling toString on bridged enum |
+| toString on bridged enum | 4 | 3 | 4 | Calling toString on bridged enum |
 | Object not callable | 4 | 4 | — | No default constructor bridge — interpreter issue |
 | InterpretedInstance not converted | 4 | 105 | **–101** | **Mostly fixed by RC-3** — remaining are argument-passing cases |
 | flutter_test import unresolved | 3 | 3 | — | Package not available in D4rt — interpreter issue |
@@ -50,7 +66,7 @@ The largest new framework error category is `widget` property access (154 occurr
 | Unsupported operation | 2 | 2 | — | SystemColor, unsupported indexing |
 | Failed assertion (native) | 2 | 2 | — | Flutter framework assertion failures |
 | Other (single-occurrence) | 2 | 73 | **–71** | Script not found, null method invocation, etc. |
-| **TOTAL** | **153** | **317** | **–164** | **(152 unique failures + 1 duplicate [E] marker)** |
+| **TOTAL** | **126** | **317** | **126** | **(126 unique failures, down from 152 after RC-4 fixes)** |
 
 ## Detailed Category Explanations
 
@@ -59,57 +75,21 @@ Each subsection below explains one category from the Test Failure Categories tab
 
 ---
 
-### 1. Missing Unnamed Constructor (35 failures)
+### 1. Missing Unnamed Constructor (35 failures) — ✅ FIXED in RC-4b
 
-**Error message:**
-```
-Runtime Error: Class '_ThemePreset' does not have an unnamed constructor that accepts arguments.
-```
+> **Status:** Fully resolved. Zero occurrences in RC-4b test results.
 
-**Code that fails:**
-```dart
-class _ThemePreset {
-  const _ThemePreset({
-    required this.id,
-    required this.name,
-    required this.seed,
-    required this.brightness,
-  });
-  final String id;
-  final String name;
-  final Color seed;
-  final Brightness brightness;
-}
+**Root cause:** Forward-reference problem. Test scripts declare `const List<_SomeClass> _items = [...]` at the top of the file, but `class _SomeClass { const _SomeClass({...}); ... }` at the bottom. Pass 1 (`DeclarationVisitor`) creates class placeholders with EMPTY constructor maps. Pass 2 processed declarations in source order, so when evaluating the top-level const variable, the class placeholder existed but its constructors hadn't been populated yet.
 
-// Usage in script:
-const List<_ThemePreset> _presets = [
-  _ThemePreset(id: 'ocean', name: 'Ocean', seed: Color(0xFF0284C7), brightness: Brightness.light),
-];
-```
-
-**Affected test scripts:** `_ThemePreset` (17), `_ThemePack` (2), `_ThemeRecipe` (2), `_ThemeProfile` (4), `_Profile` (3), `_FaqItem`, `_ScenarioCard`, `_ButtonFamily`, `_ThemePalette`, `_PaintThemePreset`, `_ThemeModel`, `_ThemeTrack` (1 each).
-
-**Explanation:** D4rt test scripts define private classes with `const` named-parameter constructors. The interpreter cannot resolve these constructors because the class is defined entirely in the interpreted code (not bridged) and uses advanced constructor features. When D4rt encounters `_ThemePreset(id: 'ocean', ...)`, it looks for an unnamed constructor on the class but cannot match the constructor to the call. This is because the interpreter's constructor resolution does not properly handle `const` constructors with named parameters on interpreted classes. The 35 failures include 17 different `_ThemePreset` usages across multiple test scripts, plus similar patterns in other private classes. This is the largest single category because many test scripts follow the same pattern of defining a configuration class and instantiating it with named parameters.
+**Fix:** Reordered pass-2 declaration processing in `d4rt_base.dart` (`_executeInEnvironment`, `_executeClassic`, `eval`) and `d4rt_runner.dart` (`_executeInEnvironment`) to process declarations in dependency order: enums → classes/mixins → extensions → functions → top-level variables. This matches the ordering already used in `ModuleLoader` (Bug-59 fix).
 
 ---
 
-### 2. hashCode on Bridged Enum (17 failures)
+### 2. hashCode on Bridged Enum (17 failures) — ✅ FIXED in RC-4
 
-**Error message:**
-```
-Runtime Error: Property "hashCode" not found on enum value DisplayFeatureState.unknown
-```
+> **Status:** Fully resolved. Zero occurrences in RC-4/RC-4b test results.
 
-**Code that fails:**
-```dart
-for (final state in DisplayFeatureState.values) {
-  print('${state.name}: hashCode=${state.hashCode}');
-}
-```
-
-**Affected test scripts:** `display_feature_state_test.dart`, `display_feature_type_test.dart`, `filter_quality_test.dart`, `font_weight_test.dart`, `image_byte_format_test.dart`, `paint_test.dart`, `pointer_change_test.dart`, `pointer_device_kind_test.dart`, `pointer_signal_kind_test.dart`, and other `dart_ui/` enum tests.
-
-**Explanation:** The test scripts access `.hashCode` on bridged `dart:ui` enum values (e.g., `FilterQuality.none.hashCode`). In native Dart, `hashCode` is inherited from `Object` and available on every value including enums. However, the D4rt bridge system for enums only exposes explicitly bridged properties. Since `hashCode` is not part of the enum bridge definition — it's inherited from `Object` — the interpreter cannot find it. The fix requires the enum bridge to either explicitly include `hashCode` or the interpreter's property resolution to fall back to `Object`-level properties when looking up members on bridged enum values.
+**Fix:** Added `case 'hashCode': return nativeValue.hashCode;` and `case 'runtimeType': return enumType;` to `BridgedEnumValue.get()` switch statement in both tom_d4rt and tom_d4rt_ast.
 
 ---
 

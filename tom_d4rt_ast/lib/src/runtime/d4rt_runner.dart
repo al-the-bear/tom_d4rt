@@ -665,8 +665,36 @@ class D4rtRunner {
       }
 
       Logger.debug("[_executeInEnvironment] Processing declarations");
+      // RC-4: Process declarations in dependency order (matching AstModuleLoader).
+      // The DeclarationVisitor (pass 1) only creates class/mixin placeholders
+      // with empty constructor maps. We must populate class members before
+      // evaluating top-level variable initializers that may reference them
+      // (forward-reference problem: const lists using classes defined later).
       for (final declaration in compilationUnit.declarations) {
-        declaration.accept<Object?>(_visitor!);
+        if (declaration is SEnumDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is SClassDeclaration ||
+            declaration is SMixinDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is SFunctionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is SExtensionDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
+      }
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is STopLevelVariableDeclaration) {
+          declaration.accept<Object?>(_visitor!);
+        }
       }
       Logger.debug("[_executeInEnvironment] Finished processing declarations");
 
