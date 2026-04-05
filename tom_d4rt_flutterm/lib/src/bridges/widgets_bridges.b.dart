@@ -93193,6 +93193,7 @@ BridgedClass _createSingleTickerProviderStateMixinBridge() {
     nativeType: $flutter_270.SingleTickerProviderStateMixin,
     name: 'SingleTickerProviderStateMixin',
     isAssignable: (v) => v is $flutter_270.SingleTickerProviderStateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -93319,6 +93320,7 @@ BridgedClass _createTickerProviderStateMixinBridge() {
     nativeType: $flutter_270.TickerProviderStateMixin,
     name: 'TickerProviderStateMixin',
     isAssignable: (v) => v is $flutter_270.TickerProviderStateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {

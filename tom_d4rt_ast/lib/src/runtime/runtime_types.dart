@@ -993,6 +993,11 @@ class InterpretedInstance implements RuntimeValue {
   // Store the native object created by a bridged superclass constructor
   Object? bridgedSuperObject;
 
+  // Store a native proxy that wraps this instance (e.g., _InterpretedTickerProviderState).
+  // Used by extractBridgedArg to return the proxy when the target type matches,
+  // instead of creating a new delegation wrapper.
+  Object? nativeProxy;
+
   // Store generic type arguments for this instance (e.g., for List<String>, this would be [StringType])
   final List<RuntimeType>? typeArguments;
 

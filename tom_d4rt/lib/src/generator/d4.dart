@@ -937,6 +937,15 @@ class D4 {
     // `class _StatefulDemo extends StatefulWidget`), the InterpretedInstance
     // holds the native object in bridgedSuperObject.
     if (arg is InterpretedInstance) {
+      // RC-5: Check nativeProxy first. When a native proxy (e.g.,
+      // _InterpretedTickerProviderState) wraps the InterpretedInstance,
+      // return it directly if it satisfies T. This avoids creating a new
+      // delegation wrapper when the proxy already implements the interface.
+      final proxy = arg.nativeProxy;
+      if (proxy != null && proxy is T) {
+        return proxy as T;
+      }
+
       final superObj = arg.bridgedSuperObject;
       // RC-7: Check superObj != null before returning, otherwise a null
       // bridgedSuperObject (from abstract classes like CustomPainter) would

@@ -25,9 +25,11 @@ import 'package:flutter/widgets.dart'
         GlobalKey,
         NavigatorState,
         FormState,
+        SingleTickerProviderStateMixin,
         State,
         StatefulWidget,
         StatelessWidget,
+        TickerProviderStateMixin,
         Widget;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
@@ -351,11 +353,36 @@ class _InterpretedStatefulWidget extends StatefulWidget {
       // If it's an InterpretedInstance (interpreted State), wrap it in a
       // native State proxy that delegates build/lifecycle to the interpreter.
       if (result is InterpretedInstance) {
+        // RC-5: Check if the State subclass uses a TickerProvider mixin.
+        // If so, use a specialized proxy that natively provides createTicker().
+        if (_usesTickerProviderMixin(result.klass)) {
+          final state = _usesSingleTickerProviderMixin(result.klass)
+              ? _InterpretedSingleTickerProviderState(_visitor, result, this)
+              : _InterpretedMultiTickerProviderState(_visitor, result, this);
+          result.nativeProxy = state;
+          return state;
+        }
         return _InterpretedState(_visitor, result, this);
       }
     }
     throw StateError(
       'Interpreted class ${_instance.klass.name} does not implement createState()',
+    );
+  }
+
+  /// Check if an interpreted class mixes in any TickerProvider mixin.
+  static bool _usesTickerProviderMixin(InterpretedClass klass) {
+    return klass.bridgedMixins.any(
+      (m) =>
+          m.name == 'SingleTickerProviderStateMixin' ||
+          m.name == 'TickerProviderStateMixin',
+    );
+  }
+
+  /// Check if an interpreted class uses SingleTickerProviderStateMixin specifically.
+  static bool _usesSingleTickerProviderMixin(InterpretedClass klass) {
+    return klass.bridgedMixins.any(
+      (m) => m.name == 'SingleTickerProviderStateMixin',
     );
   }
 }
@@ -367,6 +394,154 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
   final InterpretedInstance _stateInstance;
 
   _InterpretedState(
+    this._visitor,
+    this._stateInstance,
+    _InterpretedStatefulWidget parentWidget,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _callVoidMethod('initState');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _callVoidMethod('didChangeDependencies');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final method = _stateInstance.klass.findInstanceMethod('build');
+    if (method != null) {
+      final bound = method.bind(_stateInstance);
+      final result = bound.call(_visitor, [context], {});
+      return D4.extractBridgedArg<Widget>(result, 'build');
+    }
+    throw StateError(
+      'Interpreted State ${_stateInstance.klass.name} does not implement build()',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _callVoidMethod('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() {
+    _callVoidMethod('deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _callVoidMethod('dispose');
+    super.dispose();
+  }
+
+  void _callVoidMethod(String name) {
+    final method = _stateInstance.klass.findInstanceMethod(name);
+    if (method != null) {
+      try {
+        method.bind(_stateInstance).call(_visitor, [], {});
+      } catch (_) {
+        // Lifecycle methods may call super which isn't available in proxy
+      }
+    }
+  }
+}
+
+// =============================================================================
+// RC-5: TickerProvider State Proxies
+// =============================================================================
+
+/// A native [State] with [SingleTickerProviderStateMixin] that delegates
+/// lifecycle methods to an interpreted D4rt State subclass.
+///
+/// This provides a real native [TickerProvider] so that
+/// `AnimationController(vsync: this)` works when `this` refers to the
+/// interpreted State instance — the [nativeProxy] field on the
+/// [InterpretedInstance] points to this object, and [D4.extractBridgedArg]
+/// returns it directly for TickerProvider-typed parameters.
+class _InterpretedSingleTickerProviderState
+    extends State<_InterpretedStatefulWidget>
+    with SingleTickerProviderStateMixin {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _stateInstance;
+
+  _InterpretedSingleTickerProviderState(
+    this._visitor,
+    this._stateInstance,
+    _InterpretedStatefulWidget parentWidget,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _callVoidMethod('initState');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _callVoidMethod('didChangeDependencies');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final method = _stateInstance.klass.findInstanceMethod('build');
+    if (method != null) {
+      final bound = method.bind(_stateInstance);
+      final result = bound.call(_visitor, [context], {});
+      return D4.extractBridgedArg<Widget>(result, 'build');
+    }
+    throw StateError(
+      'Interpreted State ${_stateInstance.klass.name} does not implement build()',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _callVoidMethod('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() {
+    _callVoidMethod('deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _callVoidMethod('dispose');
+    super.dispose();
+  }
+
+  void _callVoidMethod(String name) {
+    final method = _stateInstance.klass.findInstanceMethod(name);
+    if (method != null) {
+      try {
+        method.bind(_stateInstance).call(_visitor, [], {});
+      } catch (_) {
+        // Lifecycle methods may call super which isn't available in proxy
+      }
+    }
+  }
+}
+
+/// A native [State] with [TickerProviderStateMixin] (multi-ticker) that
+/// delegates lifecycle methods to an interpreted D4rt State subclass.
+class _InterpretedMultiTickerProviderState
+    extends State<_InterpretedStatefulWidget>
+    with TickerProviderStateMixin {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _stateInstance;
+
+  _InterpretedMultiTickerProviderState(
     this._visitor,
     this._stateInstance,
     _InterpretedStatefulWidget parentWidget,
@@ -478,7 +653,8 @@ void _registerSupplementaryMethods() {
     namedArgs,
     typeArgs,
   ) {
-    if (target is _InterpretedState) {
+    // RC-5: All interpreted State proxies wrap _InterpretedStatefulWidget
+    if (target is State<_InterpretedStatefulWidget>) {
       return target.widget._instance;
     }
     if (target is State) {
@@ -495,9 +671,11 @@ void _registerSupplementaryMethods() {
     namedArgs,
     typeArgs,
   ) {
-    if (target is _InterpretedState) {
+    // RC-5: All interpreted State proxies are State<_InterpretedStatefulWidget>
+    if (target is State) {
       // The positionalArgs[0] is the VoidCallback from the script.
       // We call setState with a native closure that invokes the interpreted callback.
+      // ignore: invalid_use_of_protected_member
       target.setState(() {
         if (positionalArgs.isNotEmpty && positionalArgs[0] != null) {
           final callback = positionalArgs[0];
