@@ -1399,6 +1399,27 @@ Test infrastructure failure — the D4rt test sends AST payloads via HTTP to the
 
 ---
 
+## Issue #38 — Additional Affected Files (Batch 36)
+
+**Affected files:**
+- material/widget_state_input_border_test.dart
+- painting/accumulator_test.dart
+- painting/asset_bundle_image_key_test.dart
+- painting/axis_direction_test.dart
+- painting/axis_test.dart
+- painting/border_style_test.dart
+- painting/box_fit_test.dart
+- painting/box_shape_test.dart
+- painting/class_test.dart
+- painting/clip_context_test.dart
+- painting/color_property_test.dart
+- painting/fitted_sizes_test.dart
+- painting/flutter_logo_style_test.dart
+- painting/image_repeat_test.dart
+- painting/image_size_info_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
