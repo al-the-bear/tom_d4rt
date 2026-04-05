@@ -1378,6 +1378,27 @@ Test infrastructure failure — the D4rt test sends AST payloads via HTTP to the
 
 ---
 
+## Issue #38 — Additional Affected Files (Batch 35)
+
+**Affected files:**
+- material/tab_page_selector_test.dart
+- material/table_row_ink_well_test.dart
+- material/tappable_chip_attributes_test.dart
+- material/text_magnifier_test.dart
+- material/theme_data_tween_test.dart
+- material/theme_extension_test.dart
+- material/theme_mode_test.dart
+- material/thumb_test.dart
+- material/time_of_day_format_test.dart
+- material/time_picker_entry_mode_test.dart
+- material/toggle_buttons_theme_data_test.dart
+- material/toggle_buttons_theme_test.dart
+- material/tooltip_state_test.dart
+- material/underline_tab_indicator_test.dart
+- material/vertical_divider_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
