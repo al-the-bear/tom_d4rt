@@ -344,26 +344,26 @@ Generated: 2026-04-04
 | widgets/void_callback_intent_test.dart | undefined: runtimeType on () => void | yes |
 | widgets/widget_state_color_test.dart | undefined: contains on _ConstSet<WidgetState> | yes |
 | widgets/widget_state_mapper_test.dart | Undefined enum value 'any' on bridged enum 'WidgetState'. (in Map literal) | yes |
-| widgets/widget_state_property_all_test.dart | Error in generic constructor factory for 'WidgetStatePropertyAll': type 'Null' i | |
-| widgets/widget_state_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | |
-| widgets/widget_states_constraint_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | |
+| widgets/widget_state_property_all_test.dart | Error in generic constructor factory for 'WidgetStatePropertyAll': type 'Null' i | yes |
+| widgets/widget_state_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | yes |
+| widgets/widget_states_constraint_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | yes |
 
 ## SOCKET_EXCEPTION (62 failures)
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| material/shape_border_tween_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/show_value_indicator_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/simple_dialog_option_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/slider_interaction_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/snack_bar_theme_data_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/spell_check_suggestions_toolbar_layout_delegate_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/standard_fab_location_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/step_style_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/stretch_mode_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/tab_alignment_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/tab_indicator_animation_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| material/tab_page_selector_indicator_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
+| material/shape_border_tween_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/show_value_indicator_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/simple_dialog_option_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/slider_interaction_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/snack_bar_theme_data_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/spell_check_suggestions_toolbar_layout_delegate_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/standard_fab_location_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/step_style_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/stretch_mode_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/tab_alignment_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/tab_indicator_animation_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| material/tab_page_selector_indicator_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
 | material/tab_page_selector_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
 | material/table_row_ink_well_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
 | material/tappable_chip_attributes_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |

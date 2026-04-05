@@ -1324,6 +1324,60 @@ When a D4rt-interpreted class extends a bridged class and calls `super(...)` in 
 
 ---
 
+## Issue #36 — Generic Constructor Factory Error (Batch 34)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 34
+- **Workaround:** None — bridge limitation
+
+The D4rt interpreter fails when constructing generic bridged classes via factory constructors. The error "Error in generic constructor factory for 'WidgetStatePropertyAll': type 'Null'" indicates the bridge cannot properly instantiate generic factory constructors with type parameters.
+
+**Affected files:**
+- widgets/widget_state_property_all_test.dart
+
+---
+
+## Issue #37 — Bridged Method Execution Error on Enum Instance (Batch 34)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 34
+- **Workaround:** None — bridge limitation
+
+The D4rt interpreter fails when calling certain bridged methods on enum instances. The error "Error executing bridged method 'isSatisfiedBy' on WidgetState.hovered" occurs when invoking methods defined on enum values. The internal `_Set` type passed as the argument is not recognized by the bridge.
+
+**Affected files:**
+- widgets/widget_state_test.dart
+- widgets/widget_states_constraint_test.dart
+
+---
+
+## Issue #38 — SocketException: Connection Refused (Batch 34)
+
+- **Status:** Open
+- **Severity:** High
+- **Discovered:** Batch 34
+- **Workaround:** Re-run tests with D4rt evaluation server running
+
+Test infrastructure failure — the D4rt test sends AST payloads via HTTP to the evaluation server, but the server was not running or refused the connection. The scripts themselves are valid Dart code. These failures need to be re-tested with the server available.
+
+**Affected files (12):**
+- material/shape_border_tween_test.dart
+- material/show_value_indicator_test.dart
+- material/simple_dialog_option_test.dart
+- material/slider_interaction_test.dart
+- material/snack_bar_theme_data_test.dart
+- material/spell_check_suggestions_toolbar_layout_delegate_test.dart
+- material/standard_fab_location_test.dart
+- material/step_style_test.dart
+- material/stretch_mode_test.dart
+- material/tab_alignment_test.dart
+- material/tab_indicator_animation_test.dart
+- material/tab_page_selector_indicator_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
