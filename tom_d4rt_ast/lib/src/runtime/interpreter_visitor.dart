@@ -9493,6 +9493,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "[InstanceCreation]   Type resolved to InterpretedClass: '$constructorName'",
       );
 
+      // RC-3: If the interpreted class extends a bridged type that has a
+      // registered interface proxy (e.g. StatefulWidget, StatelessWidget),
+      // convert the InterpretedInstance to its native proxy so that runtime
+      // type checks like `is Widget` pass naturally.
+      Object applyInterfaceProxy(InterpretedInstance instance) {
+        return D4.tryCreateInterfaceProxyWithVisitor<Object>(instance, this) ??
+            instance;
+      }
+
       // Find and call the constructor (interpreted)
       final constructorLookupName =
           namedConstructorPart ?? ''; // Use '' for default
@@ -9549,7 +9558,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
           // Factory constructors should return an instance of the expected type
           if (result is InterpretedInstance && result.klass == klass) {
-            return result;
+            return applyInterfaceProxy(result);
           } else if (result is InterpretedInstance) {
             throw RuntimeD4rtException(
               "Factory constructor '$constructorLookupName' returned an instance of '${result.klass.name}' but expected '$constructorName'.",
@@ -9579,20 +9588,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             evaluatedTypeArguments,
           );
           // The constructor call returns the instance
-          return instance;
+          return applyInterfaceProxy(instance);
         }
       } on ReturnException catch (e) {
         // Handle return exceptions (applies to both factory and regular constructors)
         if (constructor.isFactory) {
           // For factory constructors, the return value is the actual result
-          return e.value;
+          final factoryResult = e.value;
+          if (factoryResult is InterpretedInstance) {
+            return applyInterfaceProxy(factoryResult);
+          }
+          return factoryResult;
         } else {
           // For regular constructors, check if returned value is valid
           if (e.value != null && e.value is InterpretedInstance) {
             final instance = e.value as InterpretedInstance; // Explicit cast
             if (instance.klass == klass) {
               // Check on the casted instance
-              return instance;
+              return applyInterfaceProxy(instance);
             }
           }
           // If the condition fails (null, not InterpretedInstance, or wrong class)
