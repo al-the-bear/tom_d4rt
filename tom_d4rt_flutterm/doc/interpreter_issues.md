@@ -365,32 +365,6 @@ The D4rt bridge code for the `Vertices` class may have issues with parameter pas
 
 ---
 
-## Non-Interpreter Issues
-
-### Cupertino Widget Constraint Issues
-
-Several Cupertino widget tests have layout constraint errors. These are related to how CupertinoTextField and related widgets handle bounded height constraints, not D4rt interpreter bugs.
-
-**Applied Fix**: Added `ConstrainedBox(constraints: BoxConstraints(minHeight: 44))` wrappers around CupertinoTextFormFieldRow, CupertinoFormRow, CupertinoSearchTextField, and CupertinoTextField widgets.
-
-**Result**: Tests now pass (status: success), but some framework errors still occur due to deep internal layout calculations in `_RenderEditableCustomPaint`. The constraint wrapper doesn't fully propagate to the internal editable component.
-
-| File | Status | Remaining Errors |
-|------|--------|------------------|
-| cupertino/cupertino_form_scroll_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_controls_advanced_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_secondary_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_sections_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_tabbar_scaffold_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_text_selection_controls_test.dart | ✅ Pass | 1 framework error |
-| cupertino/cupertino_sheet_transition_test.dart | ✅ Pass | 0 framework errors |
-
-**Root Cause**: CupertinoTextField's `_RenderEditableCustomPaint` internally calculates constraints that can become negative when the parent doesn't provide enough space. The ConstrainedBox wrapper helps but doesn't fully prevent internal constraint issues.
-
-**Further Investigation**: May need to modify test harness constraints or use different layout strategies.
-
----
-
 ## Issue #10: Bridged Mixins Cannot Be Used as Mixins
 
 **Status**: Open  
