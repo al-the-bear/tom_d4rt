@@ -329,21 +329,21 @@ Generated: 2026-04-04
 | widgets/keyboard_listener_test.dart | Expected: true | yes |
 | widgets/layout_id_test.dart | Expected: true | yes |
 | widgets/live_text_input_status_test.dart | enum hashCode: LiveTextInputStatus | yes |
-| widgets/lock_state_test.dart | enum hashCode: LockState | |
-| widgets/logical_key_set_test.dart | undefined: length on _HashSet<LogicalKeyboardKey> | |
-| widgets/lookup_boundary_test.dart | Expected: true | |
-| widgets/meta_data_test.dart | Expected: true | |
-| widgets/modal_barrier_test.dart | Expected: true | |
-| widgets/navigation_mode_test.dart | enum hashCode: NavigationMode | |
-| widgets/navigator_pop_handler_test.dart | Expected: true | |
-| widgets/orientation_builder_test.dart | Expected: true | |
-| widgets/overlay_state_test.dart | Expected: true | |
-| widgets/raw_menu_overlay_info_test.dart | not callable: Object | |
-| widgets/stream_builder_base_test.dart | Error during constructor execution for class 'CountStreamBuilder': Bridged super | |
-| widgets/two_dimensional_child_list_delegate_test.dart | Native error during default bridged constructor for 'TwoDimensionalChildListDele | |
-| widgets/void_callback_intent_test.dart | undefined: runtimeType on () => void | |
-| widgets/widget_state_color_test.dart | undefined: contains on _ConstSet<WidgetState> | |
-| widgets/widget_state_mapper_test.dart | Undefined enum value 'any' on bridged enum 'WidgetState'. (in Map literal) | |
+| widgets/lock_state_test.dart | enum hashCode: LockState | yes |
+| widgets/logical_key_set_test.dart | undefined: length on _HashSet<LogicalKeyboardKey> | yes |
+| widgets/lookup_boundary_test.dart | Expected: true | yes |
+| widgets/meta_data_test.dart | Expected: true | yes |
+| widgets/modal_barrier_test.dart | Expected: true | yes |
+| widgets/navigation_mode_test.dart | enum hashCode: NavigationMode | yes |
+| widgets/navigator_pop_handler_test.dart | Expected: true | yes |
+| widgets/orientation_builder_test.dart | Expected: true | yes |
+| widgets/overlay_state_test.dart | Expected: true | yes |
+| widgets/raw_menu_overlay_info_test.dart | not callable: Object | yes |
+| widgets/stream_builder_base_test.dart | Error during constructor execution for class 'CountStreamBuilder': Bridged super | yes |
+| widgets/two_dimensional_child_list_delegate_test.dart | Native error during default bridged constructor for 'TwoDimensionalChildListDele | yes |
+| widgets/void_callback_intent_test.dart | undefined: runtimeType on () => void | yes |
+| widgets/widget_state_color_test.dart | undefined: contains on _ConstSet<WidgetState> | yes |
+| widgets/widget_state_mapper_test.dart | Undefined enum value 'any' on bridged enum 'WidgetState'. (in Map literal) | yes |
 | widgets/widget_state_property_all_test.dart | Error in generic constructor factory for 'WidgetStatePropertyAll': type 'Null' i | |
 | widgets/widget_state_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | |
 | widgets/widget_states_constraint_test.dart | Error executing bridged method "isSatisfiedBy" on WidgetState.hovered: type '_Se | |

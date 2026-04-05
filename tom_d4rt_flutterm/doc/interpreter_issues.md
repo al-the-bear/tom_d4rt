@@ -1240,6 +1240,90 @@ The D4rt interpreter cannot access properties like `lengthInBytes` on `_ByteData
 
 ---
 
+## Issue #21 — Additional Affected Files (Batch 33)
+
+**Affected files:**
+- widgets/lock_state_test.dart (LockState)
+- widgets/navigation_mode_test.dart (NavigationMode)
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 33)
+
+**Affected files:**
+- widgets/lookup_boundary_test.dart
+- widgets/meta_data_test.dart
+- widgets/modal_barrier_test.dart
+- widgets/navigator_pop_handler_test.dart
+- widgets/orientation_builder_test.dart
+- widgets/overlay_state_test.dart
+
+---
+
+## Issue #25 — Additional Affected Files (Batch 33)
+
+**Affected files:**
+- widgets/two_dimensional_child_list_delegate_test.dart (TwoDimensionalChildListDelegate)
+
+---
+
+## Issue #26 — Additional Affected Files (Batch 33)
+
+**Affected files:**
+- widgets/raw_menu_overlay_info_test.dart
+
+---
+
+## Issue #28 — Additional Affected Files (Batch 33)
+
+**Affected files:**
+- widgets/logical_key_set_test.dart (undefined: length on _HashSet<LogicalKeyboardKey>)
+- widgets/widget_state_color_test.dart (undefined: contains on _ConstSet<WidgetState>)
+
+---
+
+## Issue #33 — Undefined runtimeType on Function Types (Batch 33)
+
+- **Status:** Open
+- **Severity:** Low
+- **Discovered:** Batch 33
+- **Workaround:** None — interpreter limitation
+
+The D4rt interpreter does not expose `runtimeType` on function/closure values. Accessing `.runtimeType` on a `() => void` callback fails with "undefined: runtimeType on () => void".
+
+**Affected files:**
+- widgets/void_callback_intent_test.dart
+
+---
+
+## Issue #34 — Undefined Enum Value on Bridged Enum (Batch 33)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 33
+- **Workaround:** None — bridge generator limitation
+
+The D4rt bridge does not expose all enum-like values. `WidgetState.any` is a static const value defined on the `WidgetState` enum (not a standard enum value but a special convenience constant). The bridge only exposes standard enum values, causing "Undefined enum value 'any'" errors.
+
+**Affected files:**
+- widgets/widget_state_mapper_test.dart
+
+---
+
+## Issue #35 — Bridged Super Constructor Invocation Fails (Batch 33)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 33
+- **Workaround:** None — interpreter limitation
+
+When a D4rt-interpreted class extends a bridged class and calls `super(...)` in its constructor, the interpreter fails with "Error during constructor execution ... Bridged super". The super constructor delegation to the native bridged class cannot be resolved at runtime.
+
+**Affected files:**
+- widgets/stream_builder_base_test.dart (CountStreamBuilder extends StreamBuilderBase)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
