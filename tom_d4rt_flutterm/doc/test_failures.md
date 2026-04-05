@@ -314,21 +314,21 @@ Generated: 2026-04-04
 | widgets/individual_glowing_overscroll_indicator_test.dart | Expected: true | yes |
 | widgets/individual_html_element_view_test.dart | Expected: true | yes |
 | widgets/individual_indexed_stack_test.dart | Expected: true | yes |
-| widgets/individual_inherited_notifier_test.dart | Expected: true | |
-| widgets/individual_inherited_theme_test.dart | Expected: true | |
-| widgets/individual_inherited_widget_test.dart | Expected: true | |
-| widgets/individual_list_wheel_scroll_view_test.dart | Expected: true | |
-| widgets/individual_list_wheel_viewport_test.dart | Expected: true | |
-| widgets/individual_magnifier_decoration_test.dart | Expected: true | |
-| widgets/individual_navigation_toolbar_test.dart | Expected: true | |
-| widgets/individual_overflow_bar_test.dart | Expected: true | |
-| widgets/individual_overflow_box_test.dart | Expected: true | |
-| widgets/individual_page_storage_bucket_test.dart | Expected: true | |
-| widgets/individual_page_storage_test.dart | Expected: true | |
-| widgets/inspector_button_variant_test.dart | enum hashCode: InspectorButtonVariant | |
-| widgets/keyboard_listener_test.dart | Expected: true | |
-| widgets/layout_id_test.dart | Expected: true | |
-| widgets/live_text_input_status_test.dart | enum hashCode: LiveTextInputStatus | |
+| widgets/individual_inherited_notifier_test.dart | Expected: true | yes |
+| widgets/individual_inherited_theme_test.dart | Expected: true | yes |
+| widgets/individual_inherited_widget_test.dart | Expected: true | yes |
+| widgets/individual_list_wheel_scroll_view_test.dart | Expected: true | yes |
+| widgets/individual_list_wheel_viewport_test.dart | Expected: true | yes |
+| widgets/individual_magnifier_decoration_test.dart | Expected: true | yes |
+| widgets/individual_navigation_toolbar_test.dart | Expected: true | yes |
+| widgets/individual_overflow_bar_test.dart | Expected: true | yes |
+| widgets/individual_overflow_box_test.dart | Expected: true | yes |
+| widgets/individual_page_storage_bucket_test.dart | Expected: true | yes |
+| widgets/individual_page_storage_test.dart | Expected: true | yes |
+| widgets/inspector_button_variant_test.dart | enum hashCode: InspectorButtonVariant | yes |
+| widgets/keyboard_listener_test.dart | Expected: true | yes |
+| widgets/layout_id_test.dart | Expected: true | yes |
+| widgets/live_text_input_status_test.dart | enum hashCode: LiveTextInputStatus | yes |
 | widgets/lock_state_test.dart | enum hashCode: LockState | |
 | widgets/logical_key_set_test.dart | undefined: length on _HashSet<LogicalKeyboardKey> | |
 | widgets/lookup_boundary_test.dart | Expected: true | |

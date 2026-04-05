@@ -1213,6 +1213,33 @@ The D4rt interpreter cannot access properties like `lengthInBytes` on `_ByteData
 
 ---
 
+## Issue #21 — Additional Affected Files (Batch 32)
+
+**Affected files:**
+- widgets/inspector_button_variant_test.dart (InspectorButtonVariant)
+- widgets/live_text_input_status_test.dart (LiveTextInputStatus)
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 32)
+
+**Affected files:**
+- widgets/individual_inherited_notifier_test.dart
+- widgets/individual_inherited_theme_test.dart
+- widgets/individual_inherited_widget_test.dart
+- widgets/individual_list_wheel_scroll_view_test.dart
+- widgets/individual_list_wheel_viewport_test.dart
+- widgets/individual_magnifier_decoration_test.dart
+- widgets/individual_navigation_toolbar_test.dart
+- widgets/individual_overflow_bar_test.dart
+- widgets/individual_overflow_box_test.dart
+- widgets/individual_page_storage_bucket_test.dart
+- widgets/individual_page_storage_test.dart
+- widgets/keyboard_listener_test.dart
+- widgets/layout_id_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
