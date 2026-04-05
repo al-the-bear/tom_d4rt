@@ -1,42 +1,99 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-05
+Generated: 2026-04-05 (updated after RC-3 interface proxy fix)
 
 ## Summary
 
-- **Total test failures:** 309 (across 8 test files with failures)
-- **Total framework errors:** 69 blocks (304 individual errors, occurring in passing tests)
-- **Test files with 0 test failures:** bridge_execution_test.dart, tom_d4rt_flutterm_test.dart
+- **Total test failures:** 152 (across 8 test files with failures) — down from 309 (–157)
+- **Total framework errors:** 111 blocks (386 individual errors, occurring in passing tests) — up from 69/304 (more tests now progress further)
+- **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
 
-## Error Categories
+### RC-3 Fix Impact
+
+The RC-3 fix in `visitInstanceCreationExpression` (both tom_d4rt and tom_d4rt_ast) applies interface proxy conversion at instance creation time, so interpreted classes extending bridged types like `StatefulWidget` and `StatelessWidget` are returned as native proxies.
+
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| Total test failures | 309 | 152 | **–157 (–51%)** |
+| InterpretedInstance errors | 107 | 20 | **–87 (–81%)** |
+| Tests passing | 1,688 | 1,845 | **+157** |
+| Framework error blocks | 69 | 111 | +42 (more tests reach further) |
+
+The remaining 20 InterpretedInstance errors occur when an interpreted instance is passed as an **argument** to a bridged constructor (e.g., `child: InterpretedInstance(PanelTheme)` to `Directionality`), which is the argument-extraction path, not the instance-creation path.
+
+The largest new framework error category is `widget` property access (154 occurrences in 111 FW blocks) — tests that previously failed at InterpretedInstance now progress further and pass, but produce framework errors because `State.widget` is not resolved on interpreted State subclasses.
+
+## Test Failure Categories
+
+152 test failures (153 `[E]` markers, 1 duplicate). These are actual test failures counted by dart test.
+
+| Category | Count | Before | Change | Description |
+|----------|-------|--------|--------|-------------|
+| Missing unnamed constructor | 35 | 34 | +1 | Classes like _ThemePreset(17), _ThemePack(2) etc. — constructor not resolved |
+| hashCode on bridged enum | 17 | 17 | — | hashCode not found on enum values — interpreter issue |
+| _TickerProviderShim mixin | 15 | 15 | — | Mixin 'on' clause type not found — interpreter issue |
+| Undefined .name on bridged | 12 | 12 | — | Undefined property 'name' on bridged enum/class |
+| Native bridged constructor error | 11 | 11 | — | Native error during default bridged constructor execution |
+| Other undefined var/property | 7 | 4 | +3 | Various undefined variables or properties |
+| Return type mismatch | 6 | 6 | — | "A value of type X can't be returned from function Y" |
+| InterpretedFunction type mismatch | 5 | 5 | — | InterpretedFunction is not subtype of closure type |
+| Null check on SPostfixExpression | 5 | 5 | — | Null check operator at SPostfixExpression |
+| _SUnknownNode (for-loop) | 5 | 5 | — | Unknown for-loop node in AST — interpreter issue |
+| WidgetState.isSatisfiedBy | 5 | 5 | — | WidgetState method resolution failure |
+| toString on bridged enum | 4 | 3 | +1 | Calling toString on bridged enum |
+| Object not callable | 4 | 4 | — | No default constructor bridge — interpreter issue |
+| InterpretedInstance not converted | 4 | 105 | **–101** | **Mostly fixed by RC-3** — remaining are argument-passing cases |
+| flutter_test import unresolved | 3 | 3 | — | Package not available in D4rt — interpreter issue |
+| Timeout | 3 | 0 | +3 | Test or build timed out — newly exposed |
+| CatmullRomSpline assertion | 3 | 3 | — | Control points assertion — list bridging issue |
+| ByteData / platform channel | 3 | 3 | — | ByteData-related errors |
+| Unsupported operation | 2 | 2 | — | SystemColor, unsupported indexing |
+| Failed assertion (native) | 2 | 2 | — | Flutter framework assertion failures |
+| Other (single-occurrence) | 2 | 73 | **–71** | Script not found, null method invocation, etc. |
+| **TOTAL** | **153** | **317** | **–164** | **(152 unique failures + 1 duplicate [E] marker)** |
+
+## Framework Error Categories
+
+111 framework error blocks (386 individual errors). These occur in **passing** tests — the test completes but Flutter's error handler catches runtime errors during widget build/layout. These increased from 69 blocks (304 individual) because more tests now progress past the InterpretedInstance barrier.
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| InterpretedInstance (not Widget) | 105 | D4rt returns InterpretedInstance instead of native Widget — interpreter issue #24 |
-| _ThemePreset constructor | 17 | Custom class constructor not resolved — script error (class pattern) |
-| _TickerProviderShim mixin | 15 | Mixin 'on' clause type not found — interpreter issue |
-| _SUnknownNode for-loop parse | 5 | Record destructuring in for-loops — interpreter issue #39 |
-| Iterable.reduce NativeFunction | 4 | Native function passed as callback — interpreter issue |
-| Object not callable | 4 | No default constructor bridge — interpreter issue |
-| _ThemeProfile constructor | 4 | Custom class constructor not resolved — script error (class pattern) |
-| CatmullRomSpline assertion | 3 | Control points assertion — interpreter bridges list incorrectly |
-| flutter_test import | 3 | Package not available in D4rt — interpreter issue #40 |
-| _Profile constructor | 3 | Custom class constructor not resolved — script error (class pattern) |
-| .name on bridged instance | ~8 | Undefined property 'name' on bridged types — interpreter issue |
-| enum hashCode | ~10 | hashCode not found on enum values — interpreter issue #21 |
-| Other runtime errors | ~28 | Various interpreter issues |
+| Undefined property 'widget' on State | 154 | State subclass can't access `this.widget` — newly exposed by RC-3 fix |
+| Layout/render errors | 41 | Infinite size, RenderFlex constraints, RenderBox not laid out |
+| Failed assertions | 30 | Various Flutter framework assertion failures during layout/paint |
+| Null check operator | 19 | Null check on various interpreter nodes |
+| InterpretedInstance (argument path) | 16 | InterpretedInstance passed as constructor argument to bridged class |
+| .name on bridged instance | 13 | Undefined property 'name' on bridged enum/class |
+| Other undefined var/property | 10 | Various undefined variables or properties |
+| roundToDouble | 9 | Missing method on bridged int |
+| Actions/Map\<Type\> conversion | 5 | Cannot convert Map to typed Map in bridged constructors |
+| whereType on BridgedList | 4 | Missing method on bridged List |
+| EagerGestureRecognizer | 3 | Undefined static member 'new' on bridged class |
+| toString on bridged | 2 | toString resolution on bridged types |
+| _dispatcher late init | 2 | Late variable accessed before assignment |
+| Other framework errors | 28 | Various runtime errors in widget tree |
 
 ## Detailed Error Analysis
 
-### Error #1 — widgets/center_test.dart
+> **Note on Interpreter issue #24 (InterpretedInstance not Widget):** All errors tagged with
+> "Interpreter issue #24" that involve `Expected Widget but got InterpretedInstance` at the
+> top-level return of `build()` are **FIXED by RC-3**. The fix applies interface proxy
+> conversion in `visitInstanceCreationExpression`, so interpreted classes extending
+> `StatefulWidget` or `StatelessWidget` are now returned as native proxies. Remaining
+> InterpretedInstance errors (20 total) occur when an interpreted instance is passed as a
+> **constructor argument** to a bridged class (e.g., `child: InterpretedInstance(PanelTheme)`).
+> These are argument-extraction path issues, not instance-creation issues.
+
+### Error #1 — widgets/center_test.dart — **FIXED by RC-3**
 
 | Field | Value |
 |-------|-------|
 | **Test file** | essential_classes_test.dart:525 |
 | **Script** | widgets/center_test.dart |
 | **Error** | `Expected Widget but got InterpretedInstance` |
+| **Status** | **FIXED** — RC-3 interface proxy conversion in `visitInstanceCreationExpression` now returns the native proxy (`_InterpretedStatefulWidget`) instead of the raw `InterpretedInstance`. This test now passes. |
 | **Code** | `return const _CenterGeometryAtlasDemo();` — `build()` returns a `StatefulWidget` subclass |
-| **Explanation** | The script defines `_CenterGeometryAtlasDemo extends StatefulWidget` and returns it from `build()`. The D4rt interpreter executes the class successfully but wraps the result as an `InterpretedInstance` instead of recognizing it as a native `Widget`. The test harness checks `result is Widget` which fails. **Interpreter issue #24** — the interpreter cannot cast interpreted class instances to their bridged superclass types. |
+| **Explanation** | The script defines `_CenterGeometryAtlasDemo extends StatefulWidget` and returns it from `build()`. Previously the D4rt interpreter returned an `InterpretedInstance` that failed `is Widget`. The RC-3 fix applies `D4.tryCreateInterfaceProxyWithVisitor()` at instance creation time, converting the instance to an `_InterpretedStatefulWidget` that satisfies `is Widget`. |
 
 ### Error #2 — animation/catmull_rom_curve_test.dart
 
