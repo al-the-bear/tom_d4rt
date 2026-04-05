@@ -1889,7 +1889,7 @@ Widget _buildSummaryRow(IconData icon, String value, String description, Color c
 // MAIN DEMO WIDGET
 // ═══════════════════════════════════════════════════════════════════════════════
 
-Widget build() {
+dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Scaffold(

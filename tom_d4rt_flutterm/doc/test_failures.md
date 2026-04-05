@@ -239,21 +239,21 @@ Generated: 2026-04-04
 | rendering/individual_render_rotated_box_test.dart | no constructor: _ThemePack | yes |
 | rendering/individual_render_semantics_annotations_test.dart | Expected: true | yes |
 | rendering/individual_render_semantics_gesture_handler_test.dart | Expected: true | yes |
-| rendering/individual_render_shader_mask_test.dart | Expected: true | |
-| rendering/individual_render_shrink_wrapping_viewport_test.dart | Expected: true | |
-| rendering/individual_render_sized_overflow_box_test.dart | Expected: true | |
-| rendering/individual_render_sliver_animated_opacity_test.dart | Expected: true | |
-| rendering/individual_render_sliver_fill_viewport_test.dart | Expected: true | |
-| rendering/individual_render_sliver_fixed_extent_list_test.dart | Expected: true | |
-| rendering/overflow_box_fit_test.dart | 'build' function accepts at most 0 positional argument(s), but 1 were provided. | |
-| rendering/pipeline_manifold_test.dart | Expected: true | |
-| rendering/placeholder_span_index_semantics_tag_test.dart | Expected: true | |
-| rendering/platform_view_hit_test_behavior_test.dart | Expected: true | |
-| rendering/platform_view_render_box_test.dart | no constructor: _FaqItem | |
-| rendering/render_abstract_viewport_test.dart | no constructor: _Profile | |
-| rendering/render_android_view_test.dart | no constructor: _ThemePreset | |
-| rendering/render_animated_opacity_mixin_test.dart | no constructor: _ThemePreset | |
-| rendering/render_animated_size_state_test.dart | no constructor: _ThemePreset | |
+| rendering/individual_render_shader_mask_test.dart | Expected: true | yes |
+| rendering/individual_render_shrink_wrapping_viewport_test.dart | Expected: true | yes |
+| rendering/individual_render_sized_overflow_box_test.dart | Expected: true | yes |
+| rendering/individual_render_sliver_animated_opacity_test.dart | Expected: true | yes |
+| rendering/individual_render_sliver_fill_viewport_test.dart | Expected: true | yes |
+| rendering/individual_render_sliver_fixed_extent_list_test.dart | Expected: true | yes |
+| rendering/overflow_box_fit_test.dart | 'build' function accepts at most 0 positional argument(s), but 1 were provided. | fixed |
+| rendering/pipeline_manifold_test.dart | Expected: true | yes |
+| rendering/placeholder_span_index_semantics_tag_test.dart | Expected: true | yes |
+| rendering/platform_view_hit_test_behavior_test.dart | Expected: true | yes |
+| rendering/platform_view_render_box_test.dart | no constructor: _FaqItem | yes |
+| rendering/render_abstract_viewport_test.dart | no constructor: _Profile | yes |
+| rendering/render_android_view_test.dart | no constructor: _ThemePreset | yes |
+| rendering/render_animated_opacity_mixin_test.dart | no constructor: _ThemePreset | yes |
+| rendering/render_animated_size_state_test.dart | no constructor: _ThemePreset | yes |
 | rendering/render_app_kit_view_test.dart | no constructor: _ThemePreset | |
 | rendering/render_clip_r_superellipse_test.dart | no constructor: _ThemeProfile | |
 | rendering/render_darwin_platform_view_test.dart | no constructor: _ThemePreset | |

@@ -1060,6 +1060,32 @@ The D4rt interpreter fails to resolve top-level `const Color(...)` declarations,
 
 ---
 
+## Issue #24 — Additional Affected Files (Batch 27)
+
+**Affected files:**
+- rendering/render_shader_mask_test.dart (Expected: true)
+- rendering/render_shrink_wrapping_viewport_test.dart (Expected: true)
+- rendering/render_sized_overflow_box_test.dart (Expected: true)
+- rendering/render_sliver_animated_opacity_test.dart (Expected: true)
+- rendering/render_sliver_fill_viewport_test.dart (Expected: true)
+- rendering/render_sliver_fixed_extent_list_test.dart (Expected: true)
+- rendering/pipeline_manifold_test.dart (Expected: true)
+- rendering/placeholder_span_index_semantics_tag_test.dart (Expected: true)
+- rendering/platform_view_hit_test_behavior_test.dart (Expected: true)
+
+---
+
+## Issue #27 — Additional Affected Files (Batch 27)
+
+**Affected files:**
+- rendering/platform_view_render_box_test.dart (no constructor: _FaqItem)
+- rendering/render_abstract_viewport_test.dart (no constructor: _Profile)
+- rendering/render_android_view_test.dart (no constructor: _ThemePreset)
+- rendering/render_animated_opacity_mixin_test.dart (no constructor: _ThemePreset)
+- rendering/render_animated_size_state_test.dart (no constructor: _ThemePreset)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
