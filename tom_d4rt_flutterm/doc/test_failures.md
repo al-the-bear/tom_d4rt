@@ -284,21 +284,21 @@ Generated: 2026-04-04
 | widgets/batch_3_actions_test.dart | Expected: true | missing |
 | widgets/bottom_navigation_bar_item_test.dart | Expected: true | yes |
 | widgets/box_scroll_view_test.dart | Expected: true | yes |
-| widgets/callback_shortcuts_test.dart | Expected: true | |
-| widgets/center_test.dart | Expected: true | |
-| widgets/child_back_button_dispatcher_test.dart | Expected: true | |
-| widgets/context_action_test.dart | Native error during default bridged constructor for 'Actions': Argument Error: I | |
-| widgets/default_selection_style_test.dart | Expected: true | |
-| widgets/default_text_editing_shortcuts_test.dart | Expected: true | |
-| widgets/device_orientation_builder_test.dart | Expected: true | |
-| widgets/dismissible_test.dart | Expected: true | |
-| widgets/draggable_scrollable_actuator_test.dart | Expected: true | |
-| widgets/expansible_test.dart | Expected: true | |
-| widgets/flex_test.dart | Expected: true | |
-| widgets/gesture_detector_adv_test.dart | Expected: true | |
-| widgets/hero_controller_scope_test.dart | Expected: true | |
-| widgets/hero_controller_test.dart | Expected: true | |
-| widgets/icon_data_test.dart | Expected: true | |
+| widgets/callback_shortcuts_test.dart | Expected: true | yes |
+| widgets/center_test.dart | Expected: true | yes |
+| widgets/child_back_button_dispatcher_test.dart | Expected: true | yes |
+| widgets/context_action_test.dart | Native error during default bridged constructor for 'Actions': Argument Error: I | yes |
+| widgets/default_selection_style_test.dart | Expected: true | yes |
+| widgets/default_text_editing_shortcuts_test.dart | Expected: true | yes |
+| widgets/device_orientation_builder_test.dart | Expected: true | yes |
+| widgets/dismissible_test.dart | Expected: true | yes |
+| widgets/draggable_scrollable_actuator_test.dart | Expected: true | yes |
+| widgets/expansible_test.dart | Expected: true | yes |
+| widgets/flex_test.dart | Expected: true | yes |
+| widgets/gesture_detector_adv_test.dart | Expected: true | yes |
+| widgets/hero_controller_scope_test.dart | Expected: true | yes |
+| widgets/hero_controller_test.dart | Expected: true | yes |
+| widgets/icon_data_test.dart | Expected: true | yes |
 | widgets/ignore_baseline_test.dart | Expected: true | |
 | widgets/image_icon_test.dart | Expected: true | |
 | widgets/img_element_platform_view_test.dart | Expected: true | |

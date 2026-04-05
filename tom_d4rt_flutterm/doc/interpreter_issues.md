@@ -1165,6 +1165,33 @@ The D4rt interpreter cannot access properties like `lengthInBytes` on `_ByteData
 
 ---
 
+## Issue #24 — Additional Affected Files (Batch 30)
+
+**Affected files:**
+- widgets/callback_shortcuts_test.dart
+- widgets/center_test.dart
+- widgets/child_back_button_dispatcher_test.dart
+- widgets/default_selection_style_test.dart
+- widgets/default_text_editing_shortcuts_test.dart
+- widgets/device_orientation_builder_test.dart
+- widgets/dismissible_test.dart
+- widgets/draggable_scrollable_actuator_test.dart
+- widgets/expansible_test.dart
+- widgets/flex_test.dart
+- widgets/gesture_detector_adv_test.dart
+- widgets/hero_controller_scope_test.dart
+- widgets/hero_controller_test.dart
+- widgets/icon_data_test.dart
+
+---
+
+## Issue #25 — Additional Affected Files (Batch 30)
+
+**Affected files:**
+- widgets/context_action_test.dart (Native error during default bridged constructor for 'Actions')
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
