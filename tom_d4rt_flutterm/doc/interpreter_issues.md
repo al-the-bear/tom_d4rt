@@ -1441,6 +1441,79 @@ Test infrastructure failure — the D4rt test sends AST payloads via HTTP to the
 
 ---
 
+## Issue #38 — Additional Affected Files (Batch 38)
+
+**Affected files (SocketException):**
+- painting/web_html_element_strategy_test.dart
+- painting/web_image_info_test.dart
+- physics/bounded_friction_simulation_test.dart
+- physics/class_test.dart
+- physics/spring_type_test.dart
+
+**Affected file (HttpException — same infrastructure issue, different manifestation):**
+- material/selection_area_test.dart (HttpException: Connection closed before full header was received)
+
+---
+
+## Issue #39 — _SUnknownNode Type Cast Error in For-Loop Parsing (Batch 38)
+
+- **Status:** Open
+- **Severity:** High
+- **Discovered:** Batch 38
+- **Workaround:** None — interpreter limitation
+
+The D4rt AST parser fails with `type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast` when processing scripts that use Dart 3 record destructuring patterns in for-loops (e.g., `for (final (name, value) in list)`). The parser creates an `_SUnknownNode` when it encounters a pattern it cannot identify, and then fails to cast it to `SForLoopParts`.
+
+**Trigger pattern:**
+```dart
+for (final (name, value) in items) { ... }
+```
+
+**Root cause:** The D4rt AST parser does not support Dart 3 record/pattern destructuring syntax in for-loop variable declarations.
+
+**Affected files (5):**
+- dart_ui/point_mode_test.dart
+- rendering/child_layout_helper_test.dart
+- services/mouse_cursor_manager_test.dart
+- widgets/icon_data_property_test.dart
+- widgets/implicitly_animated_widget_test.dart
+
+---
+
+## Issue #40 — Cannot Resolve flutter_test Import (Batch 38)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 38
+- **Workaround:** None — package not available in D4rt sandbox
+
+Scripts that import `package:flutter_test/flutter_test.dart` fail because this package is not available in the D4rt evaluation environment. These scripts use test framework APIs (`test()`, `group()`, `testWidgets()`, `expect()`, `tester.pumpWidget()`, `find.*`) that require `flutter_test`.
+
+**Error:** `Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart"`
+
+**Affected files (3):**
+- material/list_tile_style_test.dart
+- rendering/class_test.dart
+- rendering/diagnostics_debug_creator_test.dart
+
+---
+
+## Issue #41 — Script Not Found on Evaluation Server (Batch 38)
+
+- **Status:** Open
+- **Severity:** Low
+- **Discovered:** Batch 38
+- **Workaround:** None — file missing from deployment
+
+The script file does not exist on the evaluation server. The error references a path on the server (`/srv/repos/...`) where the script was expected.
+
+**Error:** `Bad state: Script not found: /srv/repos/al_the_bear/inhouse/second_wind/enterpri...`
+
+**Affected files (1):**
+- painting/asset_bundle_image_provider_test.dart
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

@@ -409,34 +409,34 @@ Generated: 2026-04-04
 | painting/text_width_basis_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
 | painting/transform_property_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
 | painting/vertical_direction_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
-| painting/web_html_element_strategy_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| painting/web_image_info_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| physics/bounded_friction_simulation_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| physics/class_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
-| physics/spring_type_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | |
+| painting/web_html_element_strategy_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| painting/web_image_info_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| physics/bounded_friction_simulation_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| physics/class_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
+| physics/spring_type_test.dart | SocketException: Connection refused (OS Error: Connection refused, errno = 111), | yes |
 
 ## PARSE_ERROR (5 failures)
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| dart_ui/point_mode_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | |
-| rendering/child_layout_helper_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | |
-| services/mouse_cursor_manager_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | |
-| widgets/icon_data_property_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | |
-| widgets/individual_implicitly_animated_widget_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | |
+| dart_ui/point_mode_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | yes |
+| rendering/child_layout_helper_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | yes |
+| services/mouse_cursor_manager_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | yes |
+| widgets/icon_data_property_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | yes |
+| widgets/individual_implicitly_animated_widget_test.dart | type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast | yes |
 
 ## IMPORT_ERROR (4 failures)
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| material/list_tile_style_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | |
-| painting/asset_bundle_image_provider_test.dart | Bad state: Script not found: /srv/repos/al_the_bear/inhouse/second_wind/enterpri | |
-| rendering/class_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | |
-| rendering/diagnostics_debug_creator_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | |
+| material/list_tile_style_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | yes |
+| painting/asset_bundle_image_provider_test.dart | Bad state: Script not found: /srv/repos/al_the_bear/inhouse/second_wind/enterpri | yes |
+| rendering/class_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | yes |
+| rendering/diagnostics_debug_creator_test.dart | Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from m | yes |
 
 ## OTHER (1 failures)
 
 | File | Failure Type | Fixed |
 |------|-------------|-------|
-| material/selection_area_test.dart | HttpException: Connection closed before full header was received, uri = http://l | |
+| material/selection_area_test.dart | HttpException: Connection closed before full header was received, uri = http://l | yes |
 
