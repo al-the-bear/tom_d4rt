@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 179 files
-// Generated: 2026-03-30T17:50:33.752782
+// Generated: 2026-04-05T22:00:04.019582
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -11285,6 +11285,7 @@ BridgedClass _createAutomaticKeepAliveClientMixinBridge() {
     nativeType: $flutter_134.AutomaticKeepAliveClientMixin,
     name: 'AutomaticKeepAliveClientMixin',
     isAssignable: (v) => v is $flutter_134.AutomaticKeepAliveClientMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -21569,6 +21570,7 @@ BridgedClass _createWidgetsBindingBridge() {
     nativeType: $flutter_137.WidgetsBinding,
     name: 'WidgetsBinding',
     isAssignable: (v) => v is $flutter_137.WidgetsBinding,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -29455,6 +29457,7 @@ BridgedClass _createDirectionalFocusTraversalPolicyMixinBridge() {
     nativeType: $flutter_162.DirectionalFocusTraversalPolicyMixin,
     name: 'DirectionalFocusTraversalPolicyMixin',
     isAssignable: (v) => v is $flutter_162.DirectionalFocusTraversalPolicyMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -33382,6 +33385,7 @@ BridgedClass _createNotifiableElementMixinBridge() {
     nativeType: $flutter_164.NotifiableElementMixin,
     name: 'NotifiableElementMixin',
     isAssignable: (v) => v is $flutter_164.NotifiableElementMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -37351,6 +37355,7 @@ BridgedClass _createRootElementMixinBridge() {
     nativeType: $flutter_164.RootElementMixin,
     name: 'RootElementMixin',
     isAssignable: (v) => v is $flutter_164.RootElementMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -45878,6 +45883,7 @@ BridgedClass _createRenderAbstractLayoutBuilderMixinBridge() {
     nativeType: $flutter_181.RenderAbstractLayoutBuilderMixin,
     name: 'RenderAbstractLayoutBuilderMixin',
     isAssignable: (v) => v is $flutter_181.RenderAbstractLayoutBuilderMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -59143,6 +59149,7 @@ BridgedClass _createMenuSerializableShortcutBridge() {
     nativeType: $flutter_204.MenuSerializableShortcut,
     name: 'MenuSerializableShortcut',
     isAssignable: (v) => v is $flutter_204.MenuSerializableShortcut,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -61292,6 +61299,7 @@ BridgedClass _createRadioClientBridge() {
     nativeType: $flutter_209.RadioClient,
     name: 'RadioClient',
     isAssignable: (v) => v is $flutter_209.RadioClient,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -63648,6 +63656,7 @@ BridgedClass _createRestorationMixinBridge() {
     nativeType: $flutter_215.RestorationMixin,
     name: 'RestorationMixin',
     isAssignable: (v) => v is $flutter_215.RestorationMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -66885,6 +66894,7 @@ BridgedClass _createPopNavigatorRouterDelegateMixinBridge() {
     nativeType: $flutter_217.PopNavigatorRouterDelegateMixin,
     name: 'PopNavigatorRouterDelegateMixin',
     isAssignable: (v) => v is $flutter_217.PopNavigatorRouterDelegateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -67471,6 +67481,7 @@ BridgedClass _createLocalHistoryRouteBridge() {
     nativeType: $flutter_218.LocalHistoryRoute,
     name: 'LocalHistoryRoute',
     isAssignable: (v) => v is $flutter_218.LocalHistoryRoute,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -71465,6 +71476,7 @@ BridgedClass _createScrollMetricsBridge() {
     nativeType: $flutter_226.ScrollMetrics,
     name: 'ScrollMetrics',
     isAssignable: (v) => v is $flutter_226.ScrollMetrics,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -71612,6 +71624,7 @@ BridgedClass _createViewportNotificationMixinBridge() {
     nativeType: $flutter_227.ViewportNotificationMixin,
     name: 'ViewportNotificationMixin',
     isAssignable: (v) => v is $flutter_227.ViewportNotificationMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -71660,6 +71673,7 @@ BridgedClass _createViewportElementMixinBridge() {
     nativeType: $flutter_227.ViewportElementMixin,
     name: 'ViewportElementMixin',
     isAssignable: (v) => v is $flutter_227.ViewportElementMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -83992,6 +84006,7 @@ BridgedClass _createTreeSliverStateMixinBridge() {
     nativeType: $flutter_253.TreeSliverStateMixin,
     name: 'TreeSliverStateMixin',
     isAssignable: (v) => v is $flutter_253.TreeSliverStateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -84502,6 +84517,7 @@ BridgedClass _createSlottedContainerRenderObjectMixinBridge() {
     nativeType: $flutter_254.SlottedContainerRenderObjectMixin,
     name: 'SlottedContainerRenderObjectMixin',
     isAssignable: (v) => v is $flutter_254.SlottedContainerRenderObjectMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -92674,6 +92690,7 @@ BridgedClass _createTextSelectionHandleControlsBridge() {
     nativeType: $flutter_266.TextSelectionHandleControls,
     name: 'TextSelectionHandleControls',
     isAssignable: (v) => v is $flutter_266.TextSelectionHandleControls,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -93596,6 +93613,7 @@ BridgedClass _createToggleableStateMixinBridge() {
     nativeType: $flutter_272.ToggleableStateMixin,
     name: 'ToggleableStateMixin',
     isAssignable: (v) => v is $flutter_272.ToggleableStateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -98706,6 +98724,7 @@ BridgedClass _createWidgetInspectorServiceBridge() {
     nativeType: $flutter_283.WidgetInspectorService,
     name: 'WidgetInspectorService',
     isAssignable: (v) => v is $flutter_283.WidgetInspectorService,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {

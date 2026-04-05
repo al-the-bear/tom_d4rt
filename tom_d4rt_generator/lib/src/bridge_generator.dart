@@ -645,6 +645,10 @@ class ClassInfo {
   /// Like abstract classes, they should not have bridge constructors.
   final bool isSealed;
 
+  /// Whether this class was declared as a `mixin` or `mixin class`.
+  /// Used to set `canBeUsedAsMixin: true` in the generated BridgedClass.
+  final bool isMixin;
+
   final List<ConstructorInfo> constructors;
   final List<MemberInfo> members;
   final String sourceFile;
@@ -667,6 +671,7 @@ class ClassInfo {
     this.superclassUri,
     this.isAbstract = false,
     this.isSealed = false,
+    this.isMixin = false,
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
@@ -3720,6 +3725,7 @@ class BridgeGenerator {
                 superclassUri: c.superclassUri,
                 isAbstract: c.isAbstract,
                 isSealed: c.isSealed,
+                isMixin: c.isMixin,
                 constructors: c.constructors,
                 members: c.members,
                 typeParameters: c.typeParameters,
@@ -3765,6 +3771,7 @@ class BridgeGenerator {
             superclass: c.superclass,
             isAbstract: c.isAbstract,
             isSealed: c.isSealed,
+            isMixin: c.isMixin,
             constructors: c.constructors,
             members: c.members,
             typeParameters: c.typeParameters,
@@ -7313,6 +7320,11 @@ class BridgeGenerator {
     // GEN-079 reverted: isAssignable enables supertype bridge lookup for private subclasses
     // e.g., Curves.linear returns _Linear which should use Curve bridge
     buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
+
+    // Mixins must set canBeUsedAsMixin so the interpreter allows them in `with` clauses
+    if (cls.isMixin) {
+      buffer.writeln('    canBeUsedAsMixin: true,');
+    }
 
     // Use nativeNames from UserBridge if available
     if (userBridge != null && userBridge.hasNativeNames) {
@@ -14278,6 +14290,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         superclass: superclass,
         superclassUri: superclassUri,
         isAbstract: true, // Mixins are always abstract
+        isMixin: true,
         constructors: const [], // Mixins cannot have constructors
         members: members,
         typeParameters: typeParams,
@@ -15481,6 +15494,9 @@ class _ParsedClass {
   /// GEN-051: Sealed classes cannot be directly instantiated.
   bool isSealed;
 
+  /// Whether this class was declared as a `mixin` or `mixin class`.
+  bool isMixin;
+
   List<ConstructorInfo> constructors;
   List<MemberInfo> members;
 
@@ -15498,6 +15514,7 @@ class _ParsedClass {
     this.superclassUri,
     this.isAbstract = false,
     this.isSealed = false,
+    this.isMixin = false,
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
@@ -15684,6 +15701,7 @@ class _ClassVisitor extends RecursiveAstVisitor<void> {
         name: mixinName,
         superclass: superclass,
         isAbstract: true, // Mixins are always abstract
+        isMixin: true,
         constructors: const [], // Mixins cannot have constructors
         members: members,
         typeParameters: typeParams,

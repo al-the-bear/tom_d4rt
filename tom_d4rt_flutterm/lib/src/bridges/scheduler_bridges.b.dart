@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-03-30T17:49:31.623058
+// Generated: 2026-04-05T21:59:03.206531
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -338,6 +338,7 @@ BridgedClass _createSchedulerBindingBridge() {
     nativeType: $flutter_4.SchedulerBinding,
     name: 'SchedulerBinding',
     isAssignable: (v) => v is $flutter_4.SchedulerBinding,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {

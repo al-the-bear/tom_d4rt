@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 249 files
-// Generated: 2026-03-30T17:51:02.218703
+// Generated: 2026-04-05T22:00:33.243070
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -23989,6 +23989,7 @@ BridgedClass _createFabTopOffsetYBridge() {
     nativeType: $flutter_96.FabTopOffsetY,
     name: 'FabTopOffsetY',
     isAssignable: (v) => v is $flutter_96.FabTopOffsetY,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24040,6 +24041,7 @@ BridgedClass _createFabFloatOffsetYBridge() {
     nativeType: $flutter_96.FabFloatOffsetY,
     name: 'FabFloatOffsetY',
     isAssignable: (v) => v is $flutter_96.FabFloatOffsetY,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24091,6 +24093,7 @@ BridgedClass _createFabDockedOffsetYBridge() {
     nativeType: $flutter_96.FabDockedOffsetY,
     name: 'FabDockedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabDockedOffsetY,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24142,6 +24145,7 @@ BridgedClass _createFabContainedOffsetYBridge() {
     nativeType: $flutter_96.FabContainedOffsetY,
     name: 'FabContainedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabContainedOffsetY,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24193,6 +24197,7 @@ BridgedClass _createFabStartOffsetXBridge() {
     nativeType: $flutter_96.FabStartOffsetX,
     name: 'FabStartOffsetX',
     isAssignable: (v) => v is $flutter_96.FabStartOffsetX,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24244,6 +24249,7 @@ BridgedClass _createFabCenterOffsetXBridge() {
     nativeType: $flutter_96.FabCenterOffsetX,
     name: 'FabCenterOffsetX',
     isAssignable: (v) => v is $flutter_96.FabCenterOffsetX,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24295,6 +24301,7 @@ BridgedClass _createFabEndOffsetXBridge() {
     nativeType: $flutter_96.FabEndOffsetX,
     name: 'FabEndOffsetX',
     isAssignable: (v) => v is $flutter_96.FabEndOffsetX,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -24346,6 +24353,7 @@ BridgedClass _createFabMiniOffsetAdjustmentBridge() {
     nativeType: $flutter_96.FabMiniOffsetAdjustment,
     name: 'FabMiniOffsetAdjustment',
     isAssignable: (v) => v is $flutter_96.FabMiniOffsetAdjustment,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -48593,6 +48601,7 @@ BridgedClass _createMaterialStateMixinBridge() {
     nativeType: $flutter_120.MaterialStateMixin,
     name: 'MaterialStateMixin',
     isAssignable: (v) => v is $flutter_120.MaterialStateMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -53506,6 +53515,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
     nativeType: $flutter_137.MaterialRouteTransitionMixin,
     name: 'MaterialRouteTransitionMixin',
     isAssignable: (v) => v is $flutter_137.MaterialRouteTransitionMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -58143,6 +58153,7 @@ BridgedClass _createBaseRangeSliderTrackShapeBridge() {
     nativeType: $flutter_149.BaseRangeSliderTrackShape,
     name: 'BaseRangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.BaseRangeSliderTrackShape,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -63410,6 +63421,7 @@ BridgedClass _createBaseSliderTrackShapeBridge() {
     nativeType: $flutter_165.BaseSliderTrackShape,
     name: 'BaseSliderTrackShape',
     isAssignable: (v) => v is $flutter_165.BaseSliderTrackShape,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {

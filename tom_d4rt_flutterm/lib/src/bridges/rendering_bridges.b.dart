@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 55 files
-// Generated: 2026-03-30T17:50:14.078286
+// Generated: 2026-04-05T21:59:44.189071
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2278,6 +2278,7 @@ BridgedClass _createRendererBindingBridge() {
     nativeType: $flutter_41.RendererBinding,
     name: 'RendererBinding',
     isAssignable: (v) => v is $flutter_41.RendererBinding,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -4921,6 +4922,7 @@ BridgedClass _createRenderBoxContainerDefaultsMixinBridge() {
     nativeType: $flutter_42.RenderBoxContainerDefaultsMixin,
     name: 'RenderBoxContainerDefaultsMixin',
     isAssignable: (v) => v is $flutter_42.RenderBoxContainerDefaultsMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -7255,6 +7257,7 @@ BridgedClass _createDebugOverflowIndicatorMixinBridge() {
     nativeType: $flutter_46.DebugOverflowIndicatorMixin,
     name: 'DebugOverflowIndicatorMixin',
     isAssignable: (v) => v is $flutter_46.DebugOverflowIndicatorMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -21738,6 +21741,7 @@ BridgedClass _createRenderObjectWithChildMixinBridge() {
     nativeType: $flutter_59.RenderObjectWithChildMixin,
     name: 'RenderObjectWithChildMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithChildMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -22217,6 +22221,7 @@ BridgedClass _createRenderObjectWithLayoutCallbackMixinBridge() {
     nativeType: $flutter_59.RenderObjectWithLayoutCallbackMixin,
     name: 'RenderObjectWithLayoutCallbackMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithLayoutCallbackMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -22696,6 +22701,7 @@ BridgedClass _createContainerParentDataMixinBridge() {
     nativeType: $flutter_59.ContainerParentDataMixin,
     name: 'ContainerParentDataMixin',
     isAssignable: (v) => v is $flutter_59.ContainerParentDataMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -22743,6 +22749,7 @@ BridgedClass _createContainerRenderObjectMixinBridge() {
     nativeType: $flutter_59.ContainerRenderObjectMixin,
     name: 'ContainerRenderObjectMixin',
     isAssignable: (v) => v is $flutter_59.ContainerRenderObjectMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -23288,6 +23295,7 @@ BridgedClass _createRelayoutWhenSystemFontsChangeMixinBridge() {
     nativeType: $flutter_59.RelayoutWhenSystemFontsChangeMixin,
     name: 'RelayoutWhenSystemFontsChangeMixin',
     isAssignable: (v) => v is $flutter_59.RelayoutWhenSystemFontsChangeMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -23761,6 +23769,7 @@ BridgedClass _createSemanticsAnnotationsMixinBridge() {
     nativeType: $flutter_59.SemanticsAnnotationsMixin,
     name: 'SemanticsAnnotationsMixin',
     isAssignable: (v) => v is $flutter_59.SemanticsAnnotationsMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -24519,6 +24528,7 @@ BridgedClass _createRenderInlineChildrenContainerDefaultsBridge() {
     nativeType: $flutter_60.RenderInlineChildrenContainerDefaults,
     name: 'RenderInlineChildrenContainerDefaults',
     isAssignable: (v) => v is $flutter_60.RenderInlineChildrenContainerDefaults,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -30924,6 +30934,7 @@ BridgedClass _createRenderProxyBoxMixinBridge() {
     nativeType: $flutter_63.RenderProxyBoxMixin,
     name: 'RenderProxyBoxMixin',
     isAssignable: (v) => v is $flutter_63.RenderProxyBoxMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -37198,6 +37209,7 @@ BridgedClass _createRenderAnimatedOpacityMixinBridge() {
     nativeType: $flutter_63.RenderAnimatedOpacityMixin,
     name: 'RenderAnimatedOpacityMixin',
     isAssignable: (v) => v is $flutter_63.RenderAnimatedOpacityMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -64365,6 +64377,7 @@ BridgedClass _createSelectableBridge() {
     nativeType: $flutter_66.Selectable,
     name: 'Selectable',
     isAssignable: (v) => v is $flutter_66.Selectable,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -64456,6 +64469,7 @@ BridgedClass _createSelectionRegistrantBridge() {
     nativeType: $flutter_66.SelectionRegistrant,
     name: 'SelectionRegistrant',
     isAssignable: (v) => v is $flutter_66.SelectionRegistrant,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -73375,6 +73389,7 @@ BridgedClass _createRenderSliverHelpersBridge() {
     nativeType: $flutter_69.RenderSliverHelpers,
     name: 'RenderSliverHelpers',
     isAssignable: (v) => v is $flutter_69.RenderSliverHelpers,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -83329,6 +83344,7 @@ BridgedClass _createKeepAliveParentDataMixinBridge() {
     nativeType: $flutter_75.KeepAliveParentDataMixin,
     name: 'KeepAliveParentDataMixin',
     isAssignable: (v) => v is $flutter_75.KeepAliveParentDataMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -83373,6 +83389,7 @@ BridgedClass _createRenderSliverWithKeepAliveMixinBridge() {
     nativeType: $flutter_75.RenderSliverWithKeepAliveMixin,
     name: 'RenderSliverWithKeepAliveMixin',
     isAssignable: (v) => v is $flutter_75.RenderSliverWithKeepAliveMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {

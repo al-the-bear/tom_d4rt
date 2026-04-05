@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-03-30T17:49:53.527138
+// Generated: 2026-04-05T21:59:23.944336
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1905,6 +1905,7 @@ BridgedClass _createAutofillScopeMixinBridge() {
     nativeType: $flutter_12.AutofillScopeMixin,
     name: 'AutofillScopeMixin',
     isAssignable: (v) => v is $flutter_12.AutofillScopeMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -2275,6 +2276,7 @@ BridgedClass _createTextSelectionDelegateBridge() {
     nativeType: $flutter_50.TextSelectionDelegate,
     name: 'TextSelectionDelegate',
     isAssignable: (v) => v is $flutter_50.TextSelectionDelegate,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -2370,6 +2372,7 @@ BridgedClass _createTextInputClientBridge() {
     nativeType: $flutter_50.TextInputClient,
     name: 'TextInputClient',
     isAssignable: (v) => v is $flutter_50.TextInputClient,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -2582,6 +2585,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
     nativeType: $flutter_50.DeltaTextInputClient,
     name: 'DeltaTextInputClient',
     isAssignable: (v) => v is $flutter_50.DeltaTextInputClient,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -2918,6 +2922,7 @@ BridgedClass _createTextInputControlBridge() {
     nativeType: $flutter_50.TextInputControl,
     name: 'TextInputControl',
     isAssignable: (v) => v is $flutter_50.TextInputControl,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -6364,6 +6369,7 @@ BridgedClass _createServicesBindingBridge() {
     nativeType: $flutter_14.ServicesBinding,
     name: 'ServicesBinding',
     isAssignable: (v) => v is $flutter_14.ServicesBinding,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -6835,6 +6841,7 @@ BridgedClass _createSystemContextMenuClientBridge() {
     nativeType: $flutter_14.SystemContextMenuClient,
     name: 'SystemContextMenuClient',
     isAssignable: (v) => v is $flutter_14.SystemContextMenuClient,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -10956,6 +10963,7 @@ BridgedClass _createUndoManagerClientBridge() {
     nativeType: $flutter_52.UndoManagerClient,
     name: 'UndoManagerClient',
     isAssignable: (v) => v is $flutter_52.UndoManagerClient,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
