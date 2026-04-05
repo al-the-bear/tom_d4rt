@@ -1086,6 +1086,39 @@ The D4rt interpreter fails to resolve top-level `const Color(...)` declarations,
 
 ---
 
+## Issue #17 — Additional Affected Files (Batch 28)
+
+**Affected files:**
+- rendering/render_inline_children_container_defaults_test.dart (assertion failure in constructor)
+
+---
+
+## Issue #24 — Additional Affected Files (Batch 28)
+
+**Affected files:**
+- rendering/render_proxy_sliver_test.dart (Expected: true)
+- rendering/render_sliver_constrained_cross_axis_test.dart (Expected: true)
+- rendering/render_sliver_cross_axis_group_test.dart (Expected: true)
+- rendering/render_sliver_edge_insets_padding_test.dart (Expected: true)
+- rendering/render_sliver_fill_remaining_and_overscroll_test.dart (Expected: true)
+- rendering/render_sliver_fill_remaining_with_scrollable_test.dart (Expected: true)
+- rendering/render_sliver_fixed_extent_box_adaptor_test.dart (Expected: true)
+- rendering/render_sliver_floating_pinned_persistent_header_test.dart (Expected: true)
+- rendering/render_ui_kit_view_test.dart (Expected: true)
+
+---
+
+## Issue #27 — Additional Affected Files (Batch 28)
+
+**Affected files:**
+- rendering/render_app_kit_view_test.dart (no constructor: _ThemePreset)
+- rendering/render_clip_r_superellipse_test.dart (no constructor: _ThemeProfile)
+- rendering/render_darwin_platform_view_test.dart (no constructor: _ThemePreset)
+- rendering/render_decorated_sliver_test.dart (no constructor: _ThemePreset)
+- rendering/render_pointer_test.dart (no constructor: _ThemeModel)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:
