@@ -1119,6 +1119,52 @@ The D4rt interpreter fails to resolve top-level `const Color(...)` declarations,
 
 ---
 
+## Issue #24 — Additional Affected Files (Batch 29)
+
+**Affected files:**
+- semantics/semantics_config_test.dart (Expected: true)
+- widgets/abstract_layout_builder_test.dart (Expected: true)
+- widgets/action_listener_test.dart (Expected: true)
+- widgets/android_overscroll_indicator_test.dart (Expected: true)
+- widgets/android_view_surface_test.dart (Expected: true)
+- widgets/app_kit_view_test.dart (Expected: true)
+- widgets/autocomplete_highlighted_option_test.dart (Expected: true)
+- widgets/autofill_group_state_test.dart (Expected: true)
+- widgets/backdrop_group_test.dart (Expected: true)
+- widgets/bottom_navigation_bar_item_test.dart (Expected: true)
+- widgets/box_scroll_view_test.dart (Expected: true)
+
+---
+
+## Issue #31 — Native Error During Bridged Method Call (Batch 29)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 29
+- **Workaround:** None — bridged method call fails with native error
+
+The D4rt interpreter fails when calling certain bridged methods on platform channel classes. The error occurs during the actual method invocation, not during construction. This is distinct from Issue #25 (constructor errors) — here the object is constructed successfully but a method call on it fails.
+
+**Affected files:**
+- services/channels_test.dart (Native error during bridged method call 'setMessageHandler' on BasicMessageChannel)
+
+---
+
+## Issue #32 — Undefined Property on Internal Bridged Type _ByteDataView (Batch 29)
+
+- **Status:** Open
+- **Severity:** Medium
+- **Discovered:** Batch 29
+- **Workaround:** None — internal type properties not exposed through bridge
+
+The D4rt interpreter cannot access properties like `lengthInBytes` on `_ByteDataView`, an internal Dart implementation type for `ByteData`. The bridge does not expose properties on internal/private platform types that are returned from bridged API calls.
+
+**Affected files:**
+- services/message_codec_test.dart (undefined: lengthInBytes on _ByteDataView)
+- services/method_codec_test.dart (Cannot access property 'lengthInBytes' on target of type _ByteDataView)
+
+---
+
 ## Issue Tracking Notes
 
 When adding new issues:

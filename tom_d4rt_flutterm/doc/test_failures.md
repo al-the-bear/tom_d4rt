@@ -269,21 +269,21 @@ Generated: 2026-04-04
 | rendering/render_sliver_fixed_extent_box_adaptor_test.dart | Expected: true | yes |
 | rendering/render_sliver_floating_pinned_persistent_header_test.dart | Expected: true | yes |
 | rendering/render_ui_kit_view_test.dart | Expected: true | yes |
-| semantics/semantics_config_test.dart | Expected: true | |
-| services/channels_test.dart | Native error during bridged method call 'setMessageHandler' on BasicMessageChann | |
-| services/message_codec_test.dart | undefined: lengthInBytes on _ByteDataView | |
-| services/method_codec_test.dart | Cannot access property 'lengthInBytes' on target of type _ByteDataView. | |
-| widgets/abstract_layout_builder_test.dart | Expected: true | |
-| widgets/action_listener_test.dart | Expected: true | |
-| widgets/android_overscroll_indicator_test.dart | Expected: true | |
-| widgets/android_view_surface_test.dart | Expected: true | |
-| widgets/app_kit_view_test.dart | Expected: true | |
-| widgets/autocomplete_highlighted_option_test.dart | Expected: true | |
-| widgets/autofill_group_state_test.dart | Expected: true | |
-| widgets/backdrop_group_test.dart | Expected: true | |
-| widgets/batch_3_actions_test.dart | Expected: true | |
-| widgets/bottom_navigation_bar_item_test.dart | Expected: true | |
-| widgets/box_scroll_view_test.dart | Expected: true | |
+| semantics/semantics_config_test.dart | Expected: true | yes |
+| services/channels_test.dart | Native error during bridged method call 'setMessageHandler' on BasicMessageChann | yes |
+| services/message_codec_test.dart | undefined: lengthInBytes on _ByteDataView | yes |
+| services/method_codec_test.dart | Cannot access property 'lengthInBytes' on target of type _ByteDataView. | yes |
+| widgets/abstract_layout_builder_test.dart | Expected: true | yes |
+| widgets/action_listener_test.dart | Expected: true | yes |
+| widgets/android_overscroll_indicator_test.dart | Expected: true | yes |
+| widgets/android_view_surface_test.dart | Expected: true | yes |
+| widgets/app_kit_view_test.dart | Expected: true | yes |
+| widgets/autocomplete_highlighted_option_test.dart | Expected: true | yes |
+| widgets/autofill_group_state_test.dart | Expected: true | yes |
+| widgets/backdrop_group_test.dart | Expected: true | yes |
+| widgets/batch_3_actions_test.dart | Expected: true | missing |
+| widgets/bottom_navigation_bar_item_test.dart | Expected: true | yes |
+| widgets/box_scroll_view_test.dart | Expected: true | yes |
 | widgets/callback_shortcuts_test.dart | Expected: true | |
 | widgets/center_test.dart | Expected: true | |
 | widgets/child_back_button_dispatcher_test.dart | Expected: true | |
