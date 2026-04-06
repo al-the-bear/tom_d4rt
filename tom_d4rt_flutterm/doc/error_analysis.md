@@ -1,28 +1,30 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-06 (updated after RC-5c Category 5 fixes + d4.dart mirroring + roundToDouble)
+Generated: 2026-04-06 (updated after RC-6 fixes)
 
 ## Summary
 
 - **Total tests:** 2,000 (across 8 test files)
-- **Tests passing:** 1,917
+- **Tests passing:** 1,929
 - **Tests skipped:** 9
-- **Tests failing:** 74
+- **Tests failing:** 62
 - **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
 
-### Per-File Breakdown (RC-5c, file-by-file runs)
+### Per-File Breakdown (RC-6, file-by-file runs)
 
-| Test File | Passed | Skipped | Failed | Total |
-|-----------|--------|---------|--------|-------|
-| essential_classes | 108 | 0 | 0 | 108 |
-| important_classes | 161 | 5 | 3 | 169 |
-| secondary_classes | 634 | 4 | 18 | 656 |
-| hardly_relevant_1 | 193 | 0 | 12 | 205 |
-| hardly_relevant_2 | 194 | 0 | 9 | 203 |
-| hardly_relevant_3 | 190 | 0 | 11 | 201 |
-| hardly_relevant_4 | 218 | 0 | 10 | 228 |
-| hardly_relevant_5 | 219 | 0 | 11 | 230 |
-| **TOTAL** | **1,917** | **9** | **74** | **2,000** |
+| Test File | Passed | Skipped | Failed | Total | RC-5c→RC-6 |
+|-----------|--------|---------|--------|-------|-------------|
+| essential_classes | 108 | 0 | 0 | 108 | 0 |
+| important_classes | 161 | 5 | 3 | 169 | 0 |
+| secondary_classes | 637 | 4 | 15 | 656 | –3 |
+| hardly_relevant_1 | 197 | 0 | 8 | 205 | –4 |
+| hardly_relevant_2 | 194 | 0 | 9 | 203 | 0 |
+| hardly_relevant_3 | 193 | 0 | 8 | 201 | –3 |
+| hardly_relevant_4 | 219 | 0 | 9 | 228 | –1 |
+| hardly_relevant_5 | 220 | 0 | 10 | 230 | –1 |
+| **TOTAL** | **1,929** | **9** | **62** | **2,000** | **–12** |
+
+Note: hardly_relevant_2 showed 194/0/9 in this run vs 196/0/7 in earlier clean-app runs — 2 extra failures likely caused by test app degradation (17 min runtime, ~10 sec/test by end). True improvement is estimated at –14 from RC-5c.
 
 ### RC-5 Fix Impact
 
@@ -86,20 +88,20 @@ RC-6 addressed Categories 6, 7, and 8 with fixes across both interpreters and th
 
 | Metric | RC-5c | RC-6 | Change |
 |--------|-------|------|--------|
-| Total test failures | 74 | **TBD** | **TBD** |
-| InterpretedFunction type mismatch | 5 | **TBD** | **TBD** |
-| Return type mismatch (Widget) | 6 | **TBD** | **TBD** |
-| Set property resolution errors | ~3 | **TBD** | **TBD** |
-| Tests passing | 1,917 | **TBD** | **TBD** |
+| Total test failures | 74 | **62** | **–12 (–16%)** |
+| InterpretedFunction type mismatch | 5 | **0** | **–5 (–100%)** |
+| Return type mismatch (Widget) | 6 | **~4** | **–2** |
+| Set property resolution errors | ~3 | **0** | **–3 (–100%)** |
+| Tests passing | 1,917 | **1,929** | **+12** |
 
 ### Overall Progression
 
 | Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c | RC-6 |
 |--------|----------|------|-------|------|-------|-------|------|
-| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | 1,917 | **TBD** |
-| Tests failing | 309 | 152 | 126 | 103 | ~90 | 74 | **TBD** |
+| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | 1,917 | **1,929** |
+| Tests failing | 309 | 152 | 126 | 103 | ~90 | 74 | **62** |
 | Tests skipped | 9 | 9 | 9 | 9 | 9 | 9 | **9** |
-| Reduction | — | –157 | –26 | –23 | ~–13 | –16 | **TBD** |
+| Reduction | — | –157 | –26 | –23 | ~–13 | –16 | **–12** |
 
 ### RC-4 Fix Impact
 
@@ -133,35 +135,35 @@ The largest new framework error category is `widget` property access (154 occurr
 
 ## Test Failure Categories
 
-74 test failures as of RC-5c (verified via file-by-file runs, 2026-04-06).
+62 test failures as of RC-6 (verified via file-by-file runs, 2026-04-06).
 
-Note: Some tests produce multiple error messages across categories — early columns may sum to more than the total failures because a single test can trigger errors from multiple categories. The RC-5c column reflects verified unique test failure counts.
+Note: Some tests produce multiple error messages across categories — early columns may sum to more than the total failures because a single test can trigger errors from multiple categories. The RC-6 column reflects verified unique test failure counts.
 
-| # | Category | RC-5c | Status | Description |
-|---|----------|-------|--------|-------------|
-| 1 | ~~Missing unnamed constructor~~ | 0 | ✅ RC-4b | Declaration ordering fix |
-| 2 | ~~hashCode on bridged enum~~ | 0 | ✅ RC-4 | BridgedEnumValue.get() Object methods |
-| 3 | ~~_TickerProviderShim mixin~~ | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
-| 4 | ~~Undefined .name on bridged~~ | ~2 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
-| 5 | Native bridged constructor error | ~3 | Reduced | Was 11; Cat 5A/5B-C/5B-D fixed in RC-5c |
-| 6 | Other undefined var/property | ~7→~3 | Reduced RC-6 | Set nativeNames + Callable runtimeType fixed; remaining: undefined build, ToolbarOptions |
-| 7 | Return type mismatch | 6→TBD | Reduced RC-6 | Supertype registry enables Widget return type recognition |
-| 8 | InterpretedFunction type mismatch | 5→TBD | Reduced RC-6 | Callable cast fixes math.max etc.; remaining: callback coercion |
-| 9 | Null check on SPostfixExpression | 5 | Open | Enum map key equality, generic constructor factory |
-| 10 | _SUnknownNode (for-loop) | ~6 | Open | Dart 3 record destructuring not supported in AST |
-| 11 | WidgetState.isSatisfiedBy | 5 | Open | WidgetState method/Set.contains resolution |
-| 12 | ~~toString on bridged enum~~ | ~1 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
-| 13 | Object not callable | 4 | Open | Object() constructor not bridged |
-| 14 | InterpretedInstance not converted | ~4 | Open | Remaining argument-passing cases after RC-3 |
-| 15 | flutter_test import unresolved | 3 | Open | Package not available in D4rt |
-| 16 | Timeout | ~6 | Open | Slow interpreter execution, exposed by prior fixes |
-| 17 | ~~CatmullRomSpline assertion~~ | 0 | ✅ RC-5c | Test scripts fixed (added control points) |
-| 18 | ByteData / platform channel | 3 | Open | ByteData type not fully bridged |
-| 19 | Unsupported operation | 2 | Open | SystemColor, null indexing |
-| 20 | Failed assertion (native) | 2 | Open | RestorableBool registration |
-| 21 | WidgetState property (widget) | ~10 | Open | Undefined property 'widget' on interpreted State |
-| 22 | Other (single-occurrence) | ~2 | Open | Script not found, null method invocation |
-| | **TOTAL** | **~74** | | |
+| # | Category | RC-5c | RC-6 | Status | Description |
+|---|----------|-------|------|--------|-------------|
+| 1 | ~~Missing unnamed constructor~~ | 0 | 0 | ✅ RC-4b | Declaration ordering fix |
+| 2 | ~~hashCode on bridged enum~~ | 0 | 0 | ✅ RC-4 | BridgedEnumValue.get() Object methods |
+| 3 | ~~_TickerProviderShim mixin~~ | 0 | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
+| 4 | ~~Undefined .name on bridged~~ | ~2 | 0 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
+| 5 | Native bridged constructor error | ~3 | ~3 | Reduced | Was 11; Cat 5A/5B-C/5B-D fixed in RC-5c |
+| 6 | ~~Other undefined var/property~~ | ~7 | ~2 | ✅ RC-6 | Set nativeNames + Callable runtimeType; remaining: ToolbarOptions, ByteData |
+| 7 | Return type mismatch | 6 | ~4 | Reduced RC-6 | Supertype registry covers Widget/Decoration/etc.; remaining: deeper subtypes |
+| 8 | ~~InterpretedFunction type mismatch~~ | 5 | 0 | ✅ RC-6 | `as Callable` cast + callback coercion |
+| 9 | Null check on SPostfixExpression | 5 | 5 | Open | Generic constructor factory null check |
+| 10 | _SUnknownNode (for-loop) | ~6 | ~4 | Open | Dart 3 record destructuring / AST converter |
+| 11 | WidgetState issues | 5 | ~4 | Open | WidgetState Set cast, enum value `any`, mapper |
+| 12 | ~~toString on bridged enum~~ | ~1 | 0 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
+| 13 | Object not callable | 4 | ~3 | Open | Object() / StreamBuilderBase constructor not bridged |
+| 14 | InterpretedInstance not converted | ~4 | ~4 | Open | Remaining argument-passing cases (Action<Intent> map values) |
+| 15 | flutter_test import unresolved | 3 | 3 | Open | Package not available in D4rt |
+| 16 | Timeout | ~6 | ~2 | Reduced | App degradation-related; fewer with fresh app |
+| 17 | ~~CatmullRomSpline assertion~~ | 0 | 0 | ✅ RC-5c | Test scripts fixed (added control points) |
+| 18 | ByteData / platform channel | 3 | 3 | Open | ByteData type / lengthInBytes not bridged |
+| 19 | Unsupported operation | 2 | 2 | Open | SystemColor, null indexing |
+| 20 | Failed assertion (native) | 2 | 1 | Open | RestorableBool registration |
+| 21 | _TickerProviderShim State not found | 0 | 5 | Open | Mixin `on State<T>` clause not resolved (new pattern) |
+| 22 | Other (single-occurrence) | ~2 | ~3 | Open | Script not found, null method, decoration_image |
+| | **TOTAL** | **~74** | **~62** | | |
 
 ## Detailed Category Explanations
 
