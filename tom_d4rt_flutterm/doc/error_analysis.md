@@ -1,13 +1,43 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-05 (updated after RC-4b declaration ordering fix)
+Generated: 2026-04-05 (updated after RC-5b enum property/method fix)
 
 ## Summary
 
-- **Total test failures:** 126 (across 6 test files with failures) — down from 309 (–183)
-- **Total framework errors:** 111 blocks (386 individual errors, occurring in passing tests) — up from 69/304 (more tests now progress further)
+- **Total test failures:** ~90 (estimated, down from 126) — down from 309 (–219)
+- **Total framework errors:** 111+ blocks (more tests now progress further)
 - **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
-- **Tests passing:** 1,871 (+9 skip)
+- **Tests passing:** ~1,907 (+9 skip)
+
+### RC-5 Fix Impact
+
+RC-5 addressed two error categories:
+
+1. **TickerProvider adapter** (Category 3): Added `nativeProxy` field to `InterpretedInstance`, created native State proxy classes `_InterpretedSingleTickerProviderState` and `_InterpretedMultiTickerProviderState` that implement `TickerProviderStateMixin`, wired detection in `createState()`, and added enum check in `extractBridgedArg`
+2. **canBeUsedAsMixin generator fix** (Category 3): Added `isMixin` field to `ClassInfo` and `_ParsedClass` in bridge generator, so mixin bridges now correctly emit `canBeUsedAsMixin: true`. 70 mixins now correctly marked across all bridge files.
+
+| Metric | RC-4b | RC-5 | Change |
+|--------|-------|------|--------|
+| Total test failures | 126 | **103** | **–23 (–18%)** |
+| _TickerProviderShim mixin errors | 15 | **0** | **–15 (–100%)** |
+| canBeUsedAsMixin errors | ~8 | **0** | **–8 (–100%)** |
+| Tests passing | 1,871 | **1,894** | **+23** |
+
+### RC-5b Fix Impact
+
+RC-5b addressed enum property and method access on raw native enum values:
+
+1. **Enum property fallback in visitPrefixedIdentifier** (Category 4): Added `if (nativeObject is Enum)` check before throw in both tom_d4rt and tom_d4rt_ast — handles `name`, `index`, `hashCode`, `runtimeType`, `toString`
+2. **Enum method fallback in visitMethodInvocation** (Category 12): Added `if (targetValue is Enum)` check before throw — handles `toString()` method calls on raw enum values
+
+| Metric | RC-5 | RC-5b | Change |
+|--------|------|-------|--------|
+| Total test failures | 103 | **~90** | **~–13** |
+| .name on bridged enum errors | 12 | **~2** | **–10** |
+| toString on bridged enum errors | 4 | **~1** | **–3** |
+| Tests passing | 1,894 | **~1,907** | **~+13** |
+
+Note: Some tests that previously failed with enum errors now reveal different underlying errors (timeouts, _SUnknownNode for-loop patterns). Full test suite run pending for exact counts.
 
 ### RC-4 Fix Impact
 
@@ -43,30 +73,30 @@ The largest new framework error category is `widget` property access (154 occurr
 
 152 test failures (153 `[E]` markers, 1 duplicate). These are actual test failures counted by dart test.
 
-| Category | Count | RC-3 | RC-4b | Description |
-|----------|-------|------|-------|-------------|
-| ~~Missing unnamed constructor~~ | ~~35~~ | 34 | **0 ✅** | **FIXED in RC-4b** — declaration ordering fix |
-| ~~hashCode on bridged enum~~ | ~~17~~ | 17 | **0 ✅** | **FIXED in RC-4** — BridgedEnumValue.get() Object methods |
-| _TickerProviderShim mixin | 15 | 15 | 15 | Mixin 'on' clause type not found — interpreter issue |
-| Undefined .name on bridged | 12 | 12 | — | Undefined property 'name' on bridged enum/class |
-| Native bridged constructor error | 11 | 11 | — | Native error during default bridged constructor execution |
-| Other undefined var/property | 7 | 4 | +3 | Various undefined variables or properties |
-| Return type mismatch | 6 | 6 | — | "A value of type X can't be returned from function Y" |
-| InterpretedFunction type mismatch | 5 | 5 | — | InterpretedFunction is not subtype of closure type |
-| Null check on SPostfixExpression | 5 | 5 | — | Null check operator at SPostfixExpression |
-| _SUnknownNode (for-loop) | 5 | 5 | — | Unknown for-loop node in AST — interpreter issue |
-| WidgetState.isSatisfiedBy | 5 | 5 | — | WidgetState method resolution failure |
-| toString on bridged enum | 4 | 3 | 4 | Calling toString on bridged enum |
-| Object not callable | 4 | 4 | — | No default constructor bridge — interpreter issue |
-| InterpretedInstance not converted | 4 | 105 | **–101** | **Mostly fixed by RC-3** — remaining are argument-passing cases |
-| flutter_test import unresolved | 3 | 3 | — | Package not available in D4rt — interpreter issue |
-| Timeout | 3 | 0 | +3 | Test or build timed out — newly exposed |
-| CatmullRomSpline assertion | 3 | 3 | — | Control points assertion — list bridging issue |
-| ByteData / platform channel | 3 | 3 | — | ByteData-related errors |
-| Unsupported operation | 2 | 2 | — | SystemColor, unsupported indexing |
-| Failed assertion (native) | 2 | 2 | — | Flutter framework assertion failures |
-| Other (single-occurrence) | 2 | 73 | **–71** | Script not found, null method invocation, etc. |
-| **TOTAL** | **126** | **317** | **126** | **(126 unique failures, down from 152 after RC-4 fixes)** |
+| Category | Count | RC-3 | RC-4b | RC-5b | Description |
+|----------|-------|------|-------|-------|-------------|
+| ~~Missing unnamed constructor~~ | ~~35~~ | 34 | **0 ✅** | 0 | **FIXED in RC-4b** — declaration ordering fix |
+| ~~hashCode on bridged enum~~ | ~~17~~ | 17 | **0 ✅** | 0 | **FIXED in RC-4** — BridgedEnumValue.get() Object methods |
+| ~~_TickerProviderShim mixin~~ | ~~15~~ | 15 | 15 | **0 ✅** | **FIXED in RC-5** — TickerProvider adapter + canBeUsedAsMixin |
+| ~~Undefined .name on bridged~~ | ~~12~~ | 12 | — | **~2** | **Mostly FIXED in RC-5b** — enum property fallback in visitPrefixedIdentifier |
+| Native bridged constructor error | 11 | 11 | — | 11 | Native error during default bridged constructor execution |
+| Other undefined var/property | 7 | 4 | +3 | 7 | Various undefined variables or properties |
+| Return type mismatch | 6 | 6 | — | 6 | "A value of type X can't be returned from function Y" |
+| InterpretedFunction type mismatch | 5 | 5 | — | 5 | InterpretedFunction is not subtype of closure type |
+| Null check on SPostfixExpression | 5 | 5 | — | 5 | Null check operator at SPostfixExpression |
+| _SUnknownNode (for-loop) | 5 | 5 | — | ~6 | Unknown for-loop node in AST — interpreter issue (+1 exposed by enum fix) |
+| WidgetState.isSatisfiedBy | 5 | 5 | — | 5 | WidgetState method resolution failure |
+| ~~toString on bridged enum~~ | ~~4~~ | 3 | 4 | **~1** | **Mostly FIXED in RC-5b** — enum method fallback in visitMethodInvocation |
+| Object not callable | 4 | 4 | — | 4 | No default constructor bridge — interpreter issue |
+| InterpretedInstance not converted | 4 | 105 | **–101** | 4 | **Mostly fixed by RC-3** — remaining are argument-passing cases |
+| flutter_test import unresolved | 3 | 3 | — | 3 | Package not available in D4rt — interpreter issue |
+| Timeout | 3 | 0 | +3 | ~6 | Test or build timed out — +3 newly exposed by enum fixes |
+| CatmullRomSpline assertion | 3 | 3 | — | 3 | Control points assertion — list bridging issue |
+| ByteData / platform channel | 3 | 3 | — | 3 | ByteData-related errors |
+| Unsupported operation | 2 | 2 | — | 2 | SystemColor, unsupported indexing |
+| Failed assertion (native) | 2 | 2 | — | 2 | Flutter framework assertion failures |
+| Other (single-occurrence) | 2 | 73 | **–71** | 2 | Script not found, null method invocation, etc. |
+| **TOTAL** | **126** | **317** | **126** | **~90** | **(~90 unique failures, down from 103 after RC-5b fixes)** |
 
 ## Detailed Category Explanations
 
@@ -93,9 +123,15 @@ Each subsection below explains one category from the Test Failure Categories tab
 
 ---
 
-### 3. _TickerProviderShim Mixin (15 failures)
+### 3. _TickerProviderShim Mixin (15 failures) — ✅ FIXED in RC-5
 
-**Error message:**
+> **Status:** Fully resolved. Zero occurrences in RC-5 test results.
+
+**Fix:** Two-part fix:
+1. **TickerProvider adapter:** Added `nativeProxy` field to `InterpretedInstance`, created `_InterpretedSingleTickerProviderState` and `_InterpretedMultiTickerProviderState` native State proxy classes that implement `TickerProviderStateMixin`, wired detection in `createState()` to use these proxies when a script class mixes in `SingleTickerProviderStateMixin` or `TickerProviderStateMixin`.
+2. **canBeUsedAsMixin generator fix:** Added `isMixin` field to `ClassInfo` and `_ParsedClass` in the bridge generator. Mixins parsed via `visitMixinDeclaration` were previously stored as `isAbstract: true` and were indistinguishable from abstract classes. Now they correctly emit `canBeUsedAsMixin: true` in the generated bridge code. 70 mixins across all bridge files now have this flag.
+
+**Original error message:**
 ```
 Runtime Error: Type 'State' in 'on' clause of mixin '_TickerProviderShim' not found. Ensure it's defined.
 ```
@@ -121,9 +157,15 @@ class _AlignTransitionDemoState extends State<_AlignTransitionDemo>
 
 ---
 
-### 4. Undefined .name on Bridged Instance (12 failures)
+### 4. Undefined .name on Bridged Instance (12 failures) — ✅ Mostly FIXED in RC-5b
 
-**Error message:**
+> **Status:** ~10 of 12 resolved. Remaining ~2 failures revealed as different underlying errors (timeouts, _SUnknownNode for-loop patterns).
+
+**Fix:** Added `if (bridgedInstance.nativeObject is Enum)` check before the throw in `visitSPrefixedIdentifier` (AST) and `visitPrefixedIdentifier` (tok) — same pattern as "Fix I" already present in `visitPropertyAccess`. Handles `name`, `index`, `hashCode`, `runtimeType`, and `toString` on raw native enum values wrapped as `BridgedInstance`.
+
+**Root cause:** When native enums are returned from bridged APIs (e.g., iterating `ImageByteFormat.values`), the values arrive as native Dart objects wrapped as `BridgedInstance` (not `BridgedEnumValue`). Property access like `.name` goes through `visitPrefixedIdentifier`, which checked getterAdapter, methodAdapter, and extensionMember — but NOT whether the `nativeObject` was an `Enum`. The same check was already present in `visitPropertyAccess` ("Fix I") but was missing from the `PrefixedIdentifier` path.
+
+**Original error message:**
 ```
 Runtime Error: Undefined property or method 'name' on bridged instance of 'Image'.
 Runtime Error: Undefined property or method 'name' on bridged instance of 'Path'.
@@ -177,9 +219,45 @@ return Directionality(
 
 **Explanation:** This category covers errors that occur when D4rt successfully finds and invokes a bridged constructor, but the native Dart constructor throws during execution. There are two distinct sub-patterns:
 
-1. **List type bridging (CatmullRomSpline/CatmullRomCurve — 3 failures):** The script constructs a `List<Offset>` and passes it to `CatmullRomSpline(controlPoints)`. The interpreter creates the list correctly, but the `<Offset>` generic type is lost during bridging — the native constructor receives a `List<dynamic>` or a list where the items are `InterpretedInstance` wrappers instead of native `Offset` objects, causing the assertion to fail because the list appears empty or incorrectly typed.
+#### Subcategory 5A: List/Collection Type Bridging Issues (5 failures + 2 FW errors)
 
-2. **Widget constructor arguments (8 failures):** The script passes an interpreted instance as a constructor argument (e.g., `child: myWidget`). The bridged constructor's native Dart code expects a `Widget` but receives an `InterpretedInstance`. Unlike the top-level `build()` return path (fixed by RC-3), the constructor argument extraction path does not apply interface proxy conversion. These are closely related to the InterpretedInstance category but differ in that the error originates inside the native constructor, not in the test framework.
+The interpreter creates `List<Object?>` for list literals. When passed to a native constructor expecting `List<Offset>`, `List<List<Widget>>`, etc., the generic type is lost. `D4.coerceList<T>()` handles coercion, but fails when elements are `InterpretedInstance` wrappers or when nested generics are involved.
+
+| # | Test Name | Constructor | Error |
+|---|-----------|-------------|-------|
+| 1 | `animation/ catmull_rom_curve_test.dart` | `CatmullRomCurve` | `Failed assertion: validateControlPoints` |
+| 2 | `animation/ catmull_rom_spline_test.dart` | `CatmullRomSpline` | `Failed assertion: 'controlPoints.length > 3'` |
+| 3 | `animation/ curve2_d_sample_test.dart` | `CatmullRomSpline` | `Failed assertion: 'controlPoints.length > 3'` |
+| 4 | `animation/ curve2_d_test.dart` | `CatmullRomSpline` | `Failed assertion: 'controlPoints.length > 3'` |
+| 5 | `widgets/ two_dimensional_child_list_delegate_test.dart` | `TwoDimensionalChildListDelegate` | `cannot convert List to List<List<Widget>>` |
+
+**Root cause:** The bridge constructor calls `D4.coerceList<Offset>(positional[0], 'controlPoints')` (`d4.dart` L296-L370). The `coerceList<T>` method iterates elements, unwrapping `BridgedInstance` → `nativeObject`, `BridgedEnumValue` → `nativeValue`, and `InterpretedInstance` → `bridgedSuperObject`. For `CatmullRomSpline`, the `List<Offset>` should coerce correctly since `Offset` values are native — but the assertion failure suggests the list arrives empty or with wrong-type elements. For `TwoDimensionalChildListDelegate`, the `coerceList` does not support nested generic types (`List<List<Widget>>`).
+
+**Fix strategy:** Debug `coerceList` with logging to trace what `positional[0]` actually contains at runtime. For nested generics, add recursive coercion support or a `coerceNestedList<T>()` method.
+
+#### Subcategory 5B: Widget/Object Constructor Argument Issues (5 failures + 12 FW errors)
+
+Native constructors receive `InterpretedInstance` objects instead of the expected native types (`Widget`, `Type`, `StackTrace`, `MultiChildLayoutDelegate`, etc.). The `extractBridgedArg<T>()` method (`d4.dart` L776-L1040) tries to unwrap via `bridgedSuperObject` and interface proxy factories, but fails for types without registered proxies.
+
+| # | Test Name | Constructor | Error |
+|---|-----------|-------------|-------|
+| 1 | `widgets/ context_action_test.dart` | `Actions` | `InterpretedClass is not subtype of Type` |
+| 2 | `foundation/ diagnostics_stack_trace_test.dart` | `DiagnosticsStackTrace` | `expected StackTrace?, got BridgedStaticMethodCallable` |
+| 3 | `gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart` | `FlutterErrorDetailsForPointerEventDispatcher` | `expected StackTrace?, got BridgedStaticMethodCallable` |
+| 4 | `gestures/ tap_move_details_test.dart` | `DragUpdateDetails` | `Failed assertion: 'primaryDelta == null || ...'` |
+| 5 | `rendering/ render_inline_children_container_defaults_test.dart` | `WidgetSpan` | `Failed assertion: 'baseline != null'` |
+
+**Error sub-patterns identified:**
+
+- **Pattern A — InterpretedInstance as Widget child (8 FW errors):** When an interpreted class extends `StatefulWidget`/`StatelessWidget`, the RC-3 fix converts at instance creation. But when passed as a **named argument** (`child:`) to a bridged constructor, `extractBridgedArg<Widget>()` may fail to find the proxy because `klass.bridgedSuperclass` doesn't match exactly through multiple inheritance levels.
+
+- **Pattern B — InterpretedClass as Type (1 failure + 1 FW error):** `Actions(actions: {GreetIntent: greetAction, ...})` passes a Map where keys are interpreted class references. The `_unwrapElement` handles `BridgedClass → Type` but NOT `InterpretedClass → Type`.
+
+- **Pattern C — BridgedStaticMethodCallable as StackTrace (2 failures):** Scripts pass `StackTrace.current` which resolves to a `BridgedStaticMethodCallable` (the static accessor) rather than evaluating it to get the actual `StackTrace` value.
+
+- **Pattern D — Missing named argument → null (2 failures):** Named arguments not extracted correctly, resulting in null values for required parameters, causing native assertion failures.
+
+**Fix strategies:** (1) Add `InterpretedClass → Type` handling in `extractBridgedArg`. (2) Fix `StackTrace.current` to evaluate as a property, not a method reference. (3) Register interface proxy factories for `MultiChildLayoutDelegate`, `CustomClipper`, etc. (4) Verify named argument extraction completeness.
 
 ---
 
@@ -355,9 +433,13 @@ final stateColor = WidgetStateColor.resolveWith((states) {
 
 ---
 
-### 12. toString on Bridged Enum (4 failures)
+### 12. toString on Bridged Enum (4 failures) — ✅ Mostly FIXED in RC-5b
 
-**Error message:**
+> **Status:** 3 of 4 resolved. Remaining 1 failure revealed as a timeout (performance issue after the toString error was eliminated).
+
+**Fix:** Added `if (targetValue is Enum)` check before the throw in `visitMethodInvocation` fallback path in both interpreters. When `toString()` is called as a method (with parentheses) on a raw native enum value, the call goes through the method invocation path (not property access). The interpreter tried extension method lookup, found none, and threw. The fix returns `targetValue.toString()` directly for enum targets.
+
+**Original error message:**
 ```
 Runtime Error: Undefined property or method 'toString' on MainAxisAlignment.
 Runtime Error: Undefined property or method 'toString' on StrokeCap.
