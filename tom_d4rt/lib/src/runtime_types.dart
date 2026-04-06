@@ -24,7 +24,8 @@ class InterpretedClass implements Callable, RuntimeType {
   final bool isAbstract;
   List<InterpretedClass> interfaces;
   final bool isMixin;
-  List<InterpretedClass> onClauseTypes;
+  // RC-7: Accept both InterpretedClass and BridgedClass for mixin on-clause.
+  List<RuntimeType> onClauseTypes;
   List<InterpretedClass> mixins;
 
   // Support for bridged mixins
@@ -131,7 +132,7 @@ class InterpretedClass implements Callable, RuntimeType {
     this.isAbstract = false,
     List<InterpretedClass>? interfaces,
     this.isMixin = false,
-    List<InterpretedClass>? onClauseTypes,
+    List<RuntimeType>? onClauseTypes,
     List<InterpretedClass>? mixins,
     List<BridgedClass>? bridgedMixins,
     List<BridgedClass>? bridgedInterfaces,

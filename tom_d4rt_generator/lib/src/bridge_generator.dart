@@ -470,7 +470,11 @@ class EnumInfo {
 
   /// Instance method names on enhanced enums.
   /// E.g., for `enum HttpMethod { ... bool canHaveBody() => ...; }` → ['canHaveBody']
-  final List<String> methodNames;
+  List<String> get methodNames => methodDetails.map((m) => m.name).toList();
+
+  /// RC-7: Detailed method information including parameter types.
+  /// Used to generate proper argument coercion in enum method adapters.
+  final List<EnumMethodDetail> methodDetails;
 
   const EnumInfo({
     required this.name,
@@ -478,8 +482,35 @@ class EnumInfo {
     required this.sourceFile,
     this.hasMembers = false,
     this.getterNames = const [],
-    this.methodNames = const [],
+    this.methodDetails = const [],
   });
+}
+
+/// RC-7: Detailed information about an enum instance method.
+///
+/// Stores parameter type information so the bridge generator can emit
+/// proper argument coercion (e.g., `D4.coerceSet<T>()`) instead of
+/// raw `Function.apply`.
+class EnumMethodDetail {
+  final String name;
+  final List<ParameterInfo> parameters;
+
+  const EnumMethodDetail({required this.name, this.parameters = const []});
+
+  /// Whether any parameter requires collection coercion.
+  bool get hasCollectionParams => parameters.any(
+    (p) =>
+        _typeNeedsCoercion(p.type),
+  );
+
+  static bool _typeNeedsCoercion(String type) {
+    final baseType =
+        type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+    return baseType.startsWith('Set<') ||
+        baseType.startsWith('List<') ||
+        baseType.startsWith('Iterable<') ||
+        baseType.startsWith('Map<');
+  }
 }
 
 /// Information about an extension declaration in the source code.
@@ -5880,9 +5911,11 @@ class BridgeGenerator {
 
       // GEN-041: Emit method adapters for enhanced enum methods
       // GEN-050: Handle operators with proper syntax (not dot notation)
-      if (enumInfo.methodNames.isNotEmpty) {
+      // RC-7: Use parameter-aware coercion for methods with collection params
+      if (enumInfo.methodDetails.isNotEmpty) {
         buffer.writeln('        methods: {');
-        for (final method in enumInfo.methodNames) {
+        for (final methodDetail in enumInfo.methodDetails) {
+          final method = methodDetail.name;
           buffer.writeln(
             "          '$method': (visitor, target, positional, named, typeArgs) {",
           );
@@ -5892,8 +5925,16 @@ class BridgeGenerator {
           final operatorCall = _generateOperatorCall(method, 't');
           if (operatorCall != null) {
             buffer.writeln('            $operatorCall');
+          } else if (methodDetail.hasCollectionParams) {
+            // RC-7: Emit parameter-by-parameter coercion for collection types
+            _emitEnumMethodWithCoercion(
+              buffer,
+              method,
+              methodDetail,
+              enumInfo.sourceFile,
+            );
           } else {
-            // Regular method - use Function.apply for flexibility
+            // Regular method without collection params - use Function.apply
             buffer.writeln(
               "            return Function.apply(t.$method, positional, named.map((k, v) => MapEntry(Symbol(k), v)));",
             );
@@ -5910,6 +5951,7 @@ class BridgeGenerator {
     buffer.writeln();
 
     // Always generate enumSourceUris method (returns empty map if no enums)
+
     buffer.writeln(
       '  /// Returns a map of enum names to their canonical source URIs.',
     );
@@ -5930,8 +5972,7 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
-    // GEN-047: Generate bridgedExtensions() method
-    // GEN-059: Filter extensions whose target type (onTypeName) is not resolvable.
+    // GEN-047: Generate bridgedExtensions() method    // GEN-059: Filter extensions whose target type (onTypeName) is not resolvable.
     // If an extension targets a type from a skipped package (e.g., Digest from crypto),
     // including it would cause a registration error at runtime.
     final bridgedTypeNames = <String>{
@@ -12196,6 +12237,121 @@ class BridgeGenerator {
         baseType.endsWith('>');
   }
 
+  /// RC-7: Emit a parameter-aware enum method adapter with proper collection
+  /// coercion.
+  ///
+  /// Instead of `Function.apply(t.method, positional, named)`, this emits
+  /// explicit parameter extraction with `D4.coerceSet<T>()`,
+  /// `D4.coerceList<T>()`, etc. for collection-typed parameters.
+  void _emitEnumMethodWithCoercion(
+    StringBuffer buffer,
+    String methodName,
+    EnumMethodDetail methodDetail,
+    String sourceFile,
+  ) {
+    final positionalParams =
+        methodDetail.parameters.where((p) => !p.isNamed).toList();
+    final namedParams =
+        methodDetail.parameters.where((p) => p.isNamed).toList();
+
+    // Emit positional parameter extraction with coercion
+    final posArgNames = <String>[];
+    for (int i = 0; i < positionalParams.length; i++) {
+      final param = positionalParams[i];
+      final localName = param.name.isNotEmpty ? param.name : 'p$i';
+      final isNullable = param.type.endsWith('?');
+
+      if (_isSetType(param.type)) {
+        final elementType = _getSetElementType(
+          param.type,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFile,
+        );
+        final coerceMethod =
+            isNullable ? 'D4.coerceSetOrNull' : 'D4.coerceSet';
+        if (param.isRequired) {
+          buffer.writeln(
+            "            final $localName = $coerceMethod<$elementType>(positional[$i], '${param.name}');",
+          );
+        } else {
+          buffer.writeln(
+            "            final $localName = positional.length > $i ? $coerceMethod<$elementType>(positional[$i], '${param.name}') : ${isNullable ? 'null' : '<$elementType>{}'};",
+          );
+        }
+      } else if (_isListType(param.type)) {
+        final elementType = _getListElementType(
+          param.type,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFile,
+        );
+        final coerceMethod =
+            isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
+        if (param.isRequired) {
+          buffer.writeln(
+            "            final $localName = $coerceMethod<$elementType>(positional[$i], '${param.name}');",
+          );
+        } else {
+          buffer.writeln(
+            "            final $localName = positional.length > $i ? $coerceMethod<$elementType>(positional[$i], '${param.name}') : ${isNullable ? 'null' : '<$elementType>[]'};",
+          );
+        }
+      } else {
+        // Non-collection parameter — pass through with optional bounds check
+        if (param.isRequired) {
+          buffer.writeln(
+            "            final $localName = positional[$i];",
+          );
+        } else {
+          buffer.writeln(
+            "            final $localName = positional.length > $i ? positional[$i] : null;",
+          );
+        }
+      }
+      posArgNames.add(localName);
+    }
+
+    // Emit named parameter extraction with coercion
+    final namedArgExprs = <String>[];
+    for (final param in namedParams) {
+      final localName = param.name;
+      final isNullable = param.type.endsWith('?');
+
+      if (_isSetType(param.type)) {
+        final elementType = _getSetElementType(
+          param.type,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFile,
+        );
+        final coerceMethod =
+            isNullable ? 'D4.coerceSetOrNull' : 'D4.coerceSet';
+        buffer.writeln(
+          "            final $localName = named.containsKey('${param.name}') ? $coerceMethod<$elementType>(named['${param.name}'], '${param.name}') : ${isNullable || !param.isRequired ? 'null' : '<$elementType>{}'};",
+        );
+      } else if (_isListType(param.type)) {
+        final elementType = _getListElementType(
+          param.type,
+          typeToUri: param.typeToUri,
+          sourceFilePath: sourceFile,
+        );
+        final coerceMethod =
+            isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
+        buffer.writeln(
+          "            final $localName = named.containsKey('${param.name}') ? $coerceMethod<$elementType>(named['${param.name}'], '${param.name}') : ${isNullable || !param.isRequired ? 'null' : '<$elementType>[]'};",
+        );
+      } else {
+        // Non-collection named parameter — pass through
+        buffer.writeln(
+          "            final $localName = named['${param.name}'];",
+        );
+      }
+      namedArgExprs.add('$localName: $localName');
+    }
+
+    // Emit the method call with coerced arguments
+    final allArgs = [...posArgNames, ...namedArgExprs].join(', ');
+    buffer.writeln("            return t.$methodName($allArgs);");
+  }
+
   /// Checks if a type is a Map type (e.g., Map<String, int>).
   bool _isMapType(String type) {
     final baseType = type.endsWith('?')
@@ -13584,6 +13740,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     // since they're handled natively by BridgedEnumValue.
     final getterNames = <String>[];
     final methodNames = <String>[];
+    final methodDetails = <EnumMethodDetail>[];
     final enumElement = node.declaredFragment?.element;
     if (hasMembers && enumElement != null) {
       // Built-in names that BridgedEnumValue already handles
@@ -13622,6 +13779,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       }
 
       // Collect non-synthetic, non-private instance methods
+      // RC-7: Also collect parameter type info for proper coercion generation
       for (final method in enumElement.methods) {
         if (method.isSynthetic) continue;
         if (method.isPrivate) continue;
@@ -13629,6 +13787,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         final methodName = method.name;
         if (methodName == null) continue;
         methodNames.add(methodName);
+        methodDetails.add(_collectEnumMethodDetail(method));
       }
 
       // GEN-053: Also collect methods and getters from mixin supertypes.
@@ -13655,6 +13814,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         }
 
         // Collect methods from mixin
+        // RC-7: Also collect parameter type info for proper coercion generation
         for (final method in supertypeElement.methods) {
           if (method.isStatic) continue;
           if (method.isSynthetic) continue;
@@ -13663,6 +13823,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           if (methodName.startsWith('_')) continue;
           if (methodNames.contains(methodName)) continue;
           methodNames.add(methodName);
+          methodDetails.add(_collectEnumMethodDetail(method));
         }
       }
     }
@@ -13674,11 +13835,39 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         sourceFile: currentSourceFile ?? '',
         hasMembers: hasMembers,
         getterNames: getterNames,
-        methodNames: methodNames,
+        methodDetails: methodDetails,
       ),
     );
 
     super.visitEnumDeclaration(node);
+  }
+
+  /// RC-7: Collect method parameter details for an enum method.
+  ///
+  /// Extracts parameter names, types, and import URI info so that the
+  /// generated method adapter can emit proper collection coercion
+  /// (e.g., `D4.coerceSet<WidgetState>()` instead of `Function.apply`).
+  EnumMethodDetail _collectEnumMethodDetail(MethodElement method) {
+    final params = method.formalParameters.map((p) {
+      final paramTypeImportUris = <String>{};
+      final paramTypeToUri = <String, String>{};
+      _collectInfoFromDartType(p.type, paramTypeImportUris, paramTypeToUri);
+
+      return ParameterInfo(
+        name: p.name ?? '',
+        type: p.type.getDisplayString(),
+        isRequired: p.isRequired,
+        isNamed: p.isNamed,
+        defaultValue: p.hasDefaultValue ? p.defaultValueCode : null,
+        typeImportUris: paramTypeImportUris,
+        typeToUri: paramTypeToUri,
+      );
+    }).toList();
+
+    return EnumMethodDetail(
+      name: method.name ?? '',
+      parameters: params,
+    );
   }
 
   /// GEN-074: Handle type aliases (generic typedef declarations).

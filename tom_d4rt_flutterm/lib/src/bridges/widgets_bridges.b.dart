@@ -2225,7 +2225,9 @@ class FlutterWidgetsBridge {
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
             final t = target as $flutter_285.WidgetState;
-            return Function.apply(t.isSatisfiedBy, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+            // RC-7: Coerce Set<Object?> → Set<WidgetState> for proper typed dispatch
+            final states = D4.coerceSet<$flutter_285.WidgetState>(positional[0], 'states');
+            return t.isSatisfiedBy(states);
           },
         },
       ),

@@ -5161,8 +5161,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "Unexpected MapLiteralEntry ('key: value') in a non-map literal.");
       }
       if (collection is Map) {
-        final key = element.key.accept<Object?>(this);
+        var key = element.key.accept<Object?>(this);
         final value = element.value.accept<Object?>(this);
+        // RC-7: Unwrap BridgedEnumValue keys so that map lookups with
+        // unwrapped keys (in visitIndexExpression) find the entries.
+        if (key is BridgedEnumValue) key = key.nativeValue;
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
@@ -6994,9 +6997,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         final typeName = typeNode.name2.lexeme;
         try {
           final potentialType = environment.get(typeName);
-          if (potentialType is InterpretedClass) {
-            // Add to the onClauseTypes list of the existing mixinClass object
-            mixinClass.onClauseTypes.add(potentialType);
+          if (potentialType is InterpretedClass ||
+              potentialType is BridgedClass) {
+            // RC-7: Accept both InterpretedClass and BridgedClass for
+            // mixin 'on' clause constraints. Bridged classes (e.g., State)
+            // are valid superclass constraints.
+            mixinClass.onClauseTypes.add(potentialType as RuntimeType);
             Logger.debug(
                 "[Visitor.visitMixinDeclaration] Added 'on' constraint '$typeName' for '$mixinName'");
           } else {

@@ -1828,7 +1828,9 @@ class FlutterMaterialBridge {
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
             final t = target as $flutter_327.WidgetState;
-            return Function.apply(t.isSatisfiedBy, positional, named.map((k, v) => MapEntry(Symbol(k), v)));
+            // RC-7: Coerce Set<Object?> → Set<WidgetState> for proper typed dispatch
+            final states = D4.coerceSet<$flutter_327.WidgetState>(positional[0], 'states');
+            return t.isSatisfiedBy(states);
           },
         },
       ),
