@@ -3698,6 +3698,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
           }
         } else {
+          // RC-5b: Enum method fallback for raw native enum values
+          if (targetValue is Enum) {
+            switch (methodName) {
+              case 'toString':
+                return targetValue.toString();
+              case 'noSuchMethod':
+                break;
+            }
+          }
+
           // No extension method found either, rethrow the original stdlib error
           Logger.debug(
             "[SMethodInvocation] Extension method '$methodName' not found. Rethrowing original error.",
