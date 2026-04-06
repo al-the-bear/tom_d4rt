@@ -1020,13 +1020,26 @@ class D4 {
           'num' => unwrappedSet.cast<num>().toSet(),
           'bool' => unwrappedSet.cast<bool>().toSet(),
           'Object' || 'dynamic' => unwrappedSet.cast<Object>().toSet(),
-          // ENG-001: For non-primitive types, return unwrapped and try cast
+          // RC-7c: For non-primitive element types (e.g., Set<WidgetState>),
+          // attempt Set.from() which uses runtime type coercion. Elements
+          // are already unwrapped to native values, so the typed set
+          // constructor can succeed if all elements are the correct type.
           _ => unwrappedSet,
         };
         try {
           return result as T;
         } catch (_) {
-          // Fall through — collection is right shape but wrong generic type
+          // RC-7c: Direct cast failed (e.g., Set<Object?> as Set<EnumType>).
+          // Re-create the set through Set<dynamic>.from() to get a Set whose
+          // runtime type is Set<dynamic>, which satisfies covariant checks.
+          try {
+            // Use Set.from() which creates a LinkedHashSet<dynamic> —
+            // this satisfies `is Set<X>` via covariant generics in Dart.
+            final coerced = Set<dynamic>.from(unwrappedSet);
+            return coerced as T;
+          } catch (_) {
+            // Fall through
+          }
         }
       } catch (_) {
         // Fall through to error

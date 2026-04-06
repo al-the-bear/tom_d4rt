@@ -5968,8 +5968,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
       if (collection is Map) {
-        final key = element.key!.accept<Object?>(this);
+        var key = element.key!.accept<Object?>(this);
         final value = element.value!.accept<Object?>(this);
+        // RC-7a: Unwrap BridgedEnumValue keys to nativeValue at creation
+        // time so that map lookups with native enum values work correctly.
+        if (key is BridgedEnumValue) key = key.nativeValue;
         collection[key] = value;
       } else {
         // Should not happen if isMap is true
@@ -7989,9 +7992,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         final typeName = typeNode.name!.name;
         try {
           final potentialType = environment.get(typeName);
-          if (potentialType is InterpretedClass) {
-            // Add to the onClauseTypes list of the existing mixinClass object
-            mixinClass.onClauseTypes.add(potentialType);
+          if (potentialType is InterpretedClass ||
+              potentialType is BridgedClass) {
+            // RC-7b: Accept both InterpretedClass and BridgedClass as valid
+            // on-clause constraints. Bridged types like State, ChangeNotifier
+            // are BridgedClass instances resolved from the environment.
+            mixinClass.onClauseTypes.add(potentialType as RuntimeType);
             Logger.debug(
               "[Visitor.visitMixinDeclaration] Added 'on' constraint '$typeName' for '$mixinName'",
             );
