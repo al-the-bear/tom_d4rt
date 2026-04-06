@@ -1,13 +1,28 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-05 (updated after RC-5b enum property/method fix)
+Generated: 2026-04-06 (updated after RC-5c Category 5 fixes + d4.dart mirroring + roundToDouble)
 
 ## Summary
 
-- **Total test failures:** ~90 (estimated, down from 126) — down from 309 (–219)
-- **Total framework errors:** 111+ blocks (more tests now progress further)
+- **Total tests:** 2,000 (across 8 test files)
+- **Tests passing:** 1,917
+- **Tests skipped:** 9
+- **Tests failing:** 74
 - **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
-- **Tests passing:** ~1,907 (+9 skip)
+
+### Per-File Breakdown (RC-5c, file-by-file runs)
+
+| Test File | Passed | Skipped | Failed | Total |
+|-----------|--------|---------|--------|-------|
+| essential_classes | 108 | 0 | 0 | 108 |
+| important_classes | 161 | 5 | 3 | 169 |
+| secondary_classes | 634 | 4 | 18 | 656 |
+| hardly_relevant_1 | 193 | 0 | 12 | 205 |
+| hardly_relevant_2 | 194 | 0 | 9 | 203 |
+| hardly_relevant_3 | 190 | 0 | 11 | 201 |
+| hardly_relevant_4 | 218 | 0 | 10 | 228 |
+| hardly_relevant_5 | 219 | 0 | 11 | 230 |
+| **TOTAL** | **1,917** | **9** | **74** | **2,000** |
 
 ### RC-5 Fix Impact
 
@@ -38,6 +53,36 @@ RC-5b addressed enum property and method access on raw native enum values:
 | Tests passing | 1,894 | **~1,907** | **~+13** |
 
 Note: Some tests that previously failed with enum errors now reveal different underlying errors (timeouts, _SUnknownNode for-loop patterns). Full test suite run pending for exact counts.
+
+### RC-5c Fix Impact
+
+RC-5c addressed Category 5 "Native Bridge Constructor Errors" with fixes across both interpreters, plus stdlib additions:
+
+1. **CatmullRomSpline test script fixes** (Category 5A/17): Test scripts had <4 control points — added 2+ more points to satisfy `controlPoints.length > 3` assertion. Fixed in `catmull_rom_spline_test.dart`, `catmull_rom_curve_test.dart`, `curve2_d_sample_test.dart`, `curve2_d_test.dart`.
+2. **coerceNestedList\<T\>()** (Category 5A): Added recursive `List<List<T>>` coercion method in `d4.dart` for `TwoDimensionalChildListDelegate` and similar nested collection constructors.
+3. **InterpretedClass→Type in coerceMap** (Category 5B-B): Added `InterpretedClass` branch in `_coerceMapKey` so interpreted class references can be used as `Map<Type, ...>` keys.
+4. **StackTrace staticGetters** (Category 5B-C): Moved `StackTrace.current` and `StackTrace.empty` from `staticMethods` to `staticGetters` so property access returns the value, not the callable.
+5. **Test script fixes** (Category 5B-D): Fixed `DragUpdateDetails` (invalid `primaryDelta` for 2D delta), `WidgetSpan` (added required `baseline: TextBaseline.alphabetic`).
+6. **InterpretedInstance in \_coerceMapValue**: Added `InterpretedInstance` unwrapping via `bridgedSuperObject` and interface proxy in `_coerceMapValue`.
+7. **d4.dart mirrored to tom\_d4rt**: All fixes (coerceNestedList, InterpretedClass map key, InterpretedInstance map value) mirrored from `tom_d4rt_ast` to `tom_d4rt`.
+8. **roundToDouble family on int stdlib**: Added `ceilToDouble`, `floorToDouble`, `roundToDouble`, `truncateToDouble` to `int` stdlib bridge in both interpreters.
+
+| Metric | RC-5b | RC-5c | Change |
+|--------|-------|-------|--------|
+| Total test failures | ~90 | **74** | **–16 (–18%)** |
+| CatmullRomSpline assertion errors | 3 | **0** | **–3 (–100%)** |
+| StackTrace static callable errors | 2 | **0** | **–2 (–100%)** |
+| Native bridge constructor errors | 11 | **~3** | **~–8** |
+| Tests passing | ~1,907 | **1,917** | **+10** |
+
+### Overall Progression
+
+| Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c |
+|--------|----------|------|-------|------|-------|-------|
+| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | **1,917** |
+| Tests failing | 309 | 152 | 126 | 103 | ~90 | **74** |
+| Tests skipped | 9 | 9 | 9 | 9 | 9 | **9** |
+| Reduction | — | –157 | –26 | –23 | ~–13 | **–16** |
 
 ### RC-4 Fix Impact
 
@@ -71,32 +116,35 @@ The largest new framework error category is `widget` property access (154 occurr
 
 ## Test Failure Categories
 
-152 test failures (153 `[E]` markers, 1 duplicate). These are actual test failures counted by dart test.
+74 test failures as of RC-5c (verified via file-by-file runs, 2026-04-06).
 
-| Category | Count | RC-3 | RC-4b | RC-5b | Description |
-|----------|-------|------|-------|-------|-------------|
-| ~~Missing unnamed constructor~~ | ~~35~~ | 34 | **0 ✅** | 0 | **FIXED in RC-4b** — declaration ordering fix |
-| ~~hashCode on bridged enum~~ | ~~17~~ | 17 | **0 ✅** | 0 | **FIXED in RC-4** — BridgedEnumValue.get() Object methods |
-| ~~_TickerProviderShim mixin~~ | ~~15~~ | 15 | 15 | **0 ✅** | **FIXED in RC-5** — TickerProvider adapter + canBeUsedAsMixin |
-| ~~Undefined .name on bridged~~ | ~~12~~ | 12 | — | **~2** | **Mostly FIXED in RC-5b** — enum property fallback in visitPrefixedIdentifier |
-| Native bridged constructor error | 11 | 11 | — | 11 | Native error during default bridged constructor execution |
-| Other undefined var/property | 7 | 4 | +3 | 7 | Various undefined variables or properties |
-| Return type mismatch | 6 | 6 | — | 6 | "A value of type X can't be returned from function Y" |
-| InterpretedFunction type mismatch | 5 | 5 | — | 5 | InterpretedFunction is not subtype of closure type |
-| Null check on SPostfixExpression | 5 | 5 | — | 5 | Null check operator at SPostfixExpression |
-| _SUnknownNode (for-loop) | 5 | 5 | — | ~6 | Unknown for-loop node in AST — interpreter issue (+1 exposed by enum fix) |
-| WidgetState.isSatisfiedBy | 5 | 5 | — | 5 | WidgetState method resolution failure |
-| ~~toString on bridged enum~~ | ~~4~~ | 3 | 4 | **~1** | **Mostly FIXED in RC-5b** — enum method fallback in visitMethodInvocation |
-| Object not callable | 4 | 4 | — | 4 | No default constructor bridge — interpreter issue |
-| InterpretedInstance not converted | 4 | 105 | **–101** | 4 | **Mostly fixed by RC-3** — remaining are argument-passing cases |
-| flutter_test import unresolved | 3 | 3 | — | 3 | Package not available in D4rt — interpreter issue |
-| Timeout | 3 | 0 | +3 | ~6 | Test or build timed out — +3 newly exposed by enum fixes |
-| CatmullRomSpline assertion | 3 | 3 | — | 3 | Control points assertion — list bridging issue |
-| ByteData / platform channel | 3 | 3 | — | 3 | ByteData-related errors |
-| Unsupported operation | 2 | 2 | — | 2 | SystemColor, unsupported indexing |
-| Failed assertion (native) | 2 | 2 | — | 2 | Flutter framework assertion failures |
-| Other (single-occurrence) | 2 | 73 | **–71** | 2 | Script not found, null method invocation, etc. |
-| **TOTAL** | **126** | **317** | **126** | **~90** | **(~90 unique failures, down from 103 after RC-5b fixes)** |
+Note: Some tests produce multiple error messages across categories — early columns may sum to more than the total failures because a single test can trigger errors from multiple categories. The RC-5c column reflects verified unique test failure counts.
+
+| # | Category | RC-5c | Status | Description |
+|---|----------|-------|--------|-------------|
+| 1 | ~~Missing unnamed constructor~~ | 0 | ✅ RC-4b | Declaration ordering fix |
+| 2 | ~~hashCode on bridged enum~~ | 0 | ✅ RC-4 | BridgedEnumValue.get() Object methods |
+| 3 | ~~_TickerProviderShim mixin~~ | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
+| 4 | ~~Undefined .name on bridged~~ | ~2 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
+| 5 | Native bridged constructor error | ~3 | Reduced | Was 11; Cat 5A/5B-C/5B-D fixed in RC-5c |
+| 6 | Other undefined var/property | ~7 | Open | .map on Set, undefined build, ToolbarOptions, etc. |
+| 7 | Return type mismatch | 6 | Open | InterpretedClass not recognized as Widget return type |
+| 8 | InterpretedFunction type mismatch | 5 | Open | NativeFunction not accepted as closure callback |
+| 9 | Null check on SPostfixExpression | 5 | Open | Enum .values, generic constructor factory |
+| 10 | _SUnknownNode (for-loop) | ~6 | Open | Dart 3 record destructuring not supported in AST |
+| 11 | WidgetState.isSatisfiedBy | 5 | Open | WidgetState method/Set.contains resolution |
+| 12 | ~~toString on bridged enum~~ | ~1 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
+| 13 | Object not callable | 4 | Open | Object() constructor not bridged |
+| 14 | InterpretedInstance not converted | ~4 | Open | Remaining argument-passing cases after RC-3 |
+| 15 | flutter_test import unresolved | 3 | Open | Package not available in D4rt |
+| 16 | Timeout | ~6 | Open | Slow interpreter execution, exposed by prior fixes |
+| 17 | ~~CatmullRomSpline assertion~~ | 0 | ✅ RC-5c | Test scripts fixed (added control points) |
+| 18 | ByteData / platform channel | 3 | Open | ByteData type not fully bridged |
+| 19 | Unsupported operation | 2 | Open | SystemColor, null indexing |
+| 20 | Failed assertion (native) | 2 | Open | RestorableBool registration |
+| 21 | WidgetState property (widget) | ~10 | Open | Undefined property 'widget' on interpreted State |
+| 22 | Other (single-occurrence) | ~2 | Open | Script not found, null method invocation |
+| | **TOTAL** | **~74** | | |
 
 ## Detailed Category Explanations
 
@@ -184,7 +232,17 @@ for (final format in ImageByteFormat.values) {
 
 ---
 
-### 5. Native Bridged Constructor Error (11 failures)
+### 5. Native Bridged Constructor Error (11 → ~3 failures) — Partially FIXED in RC-5c
+
+> **Status:** 8 of 11 resolved. Remaining ~3 are argument-passing issues requiring interface proxy registration for abstract classes.
+
+**RC-5c fixes applied:**
+- **5A (test script fixes):** CatmullRomSpline/Curve2D test scripts had <4 control points — all fixed by adding 2+ more points
+- **5A (coerceNestedList):** Added `coerceNestedList<T>()` for `TwoDimensionalChildListDelegate` `List<List<Widget>>` support
+- **5B-B (InterpretedClass→Type):** Added `InterpretedClass` branch in `_coerceMapKey` for `Map<Type, Action>` patterns
+- **5B-C (StackTrace):** Moved `StackTrace.current`/`StackTrace.empty` from `staticMethods` to `staticGetters`
+- **5B-D (test scripts):** Fixed `DragUpdateDetails` (invalid `primaryDelta` for 2D delta), `WidgetSpan` (added `baseline: TextBaseline.alphabetic`)
+- **_coerceMapValue:** Added `InterpretedInstance` unwrapping via `bridgedSuperObject` and interface proxy
 
 **Error message:**
 ```
@@ -564,7 +622,9 @@ These are not interpreter bugs but performance limitations. The scripts are larg
 
 ---
 
-### 17. CatmullRomSpline Assertion (3 failures)
+### 17. CatmullRomSpline Assertion (3 failures) — ✅ FIXED in RC-5c
+
+> **Status:** Fully resolved. Test scripts were fixed to have >3 control points (added 2+ more Offset entries). These overlapped with Category 5A.
 
 **Error message:**
 ```
