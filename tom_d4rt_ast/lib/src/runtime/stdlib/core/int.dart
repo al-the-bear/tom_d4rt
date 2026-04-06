@@ -42,6 +42,18 @@ class IntCore {
           'truncate': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as int).truncate();
           },
+          'ceilToDouble': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as int).ceilToDouble();
+          },
+          'floorToDouble': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as int).floorToDouble();
+          },
+          'roundToDouble': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as int).roundToDouble();
+          },
+          'truncateToDouble': (visitor, target, positionalArgs, namedArgs, _) {
+            return (target as int).truncateToDouble();
+          },
           'toDouble': (visitor, target, positionalArgs, namedArgs, _) {
             return (target as int).toDouble();
           },
