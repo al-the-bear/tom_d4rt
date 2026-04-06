@@ -959,6 +959,27 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
 
+      // RC-5: Enum property fallback — same as visitSPropertyAccess Fix I
+      if (bridgedInstance.nativeObject is Enum) {
+        final enumObj = bridgedInstance.nativeObject as Enum;
+        switch (memberName) {
+          case 'name':
+            return enumObj.name;
+          case 'index':
+            return enumObj.index;
+          case 'hashCode':
+            return enumObj.hashCode;
+          case 'runtimeType':
+            return enumObj.runtimeType;
+          case 'toString':
+            return NativeFunction(
+              (visitor, args, namedArgs, typeArgs) => enumObj.toString(),
+              arity: 0,
+              name: 'toString',
+            );
+        }
+      }
+
       throw RuntimeD4rtException(
         "Undefined property or method '$memberName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
       );
