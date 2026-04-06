@@ -450,6 +450,42 @@ class D4 {
     return coerceList<T>(arg, paramName);
   }
 
+  /// Coerce a nested `List<List<T>>` from D4rt.
+  ///
+  /// For parameters like `List<List<Widget>>`, the outer list contains
+  /// inner lists that each need element-level coercion. Standard
+  /// `coerceList<List<T>>` can't handle this because inner lists are
+  /// `List<dynamic>` which can't be cast to `List<T>` directly.
+  static List<List<T>> coerceNestedList<T>(Object? arg, String paramName) {
+    if (arg == null) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected List<List<$T>>, got null',
+      );
+    }
+
+    final value = arg is BridgedInstance ? arg.nativeObject : arg;
+
+    if (value is! List) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": expected List<List<$T>>, '
+        'got ${value.runtimeType}',
+      );
+    }
+
+    if (value is List<List<T>>) return value;
+
+    try {
+      return value.map<List<T>>((row) {
+        return coerceList<T>(row, paramName);
+      }).toList();
+    } catch (e) {
+      throw ArgumentD4rtException(
+        'Invalid parameter "$paramName": cannot convert to '
+        'List<List<$T>> - $e',
+      );
+    }
+  }
+
   // ==========================================================================
   // Set Coercion
   // ==========================================================================
@@ -577,6 +613,9 @@ class D4 {
             : k is BridgedClass
             ? k.nativeType
                   as K // ENG-002: class name → Type
+            : k is InterpretedClass && k.bridgedSuperclass != null
+            ? k.bridgedSuperclass!.nativeType
+                  as K // InterpretedClass → bridged superclass Type
             : k as K;
         final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);

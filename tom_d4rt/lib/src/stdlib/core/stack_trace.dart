@@ -8,13 +8,9 @@ class StackTraceCore {
         nativeNames: [
           '_StringStackTrace',
         ],
-        staticMethods: {
-          'current': (visitor, positionalArgs, namedArgs, _) {
-            return StackTrace.current;
-          },
-          'empty': (visitor, positionalArgs, namedArgs, _) {
-            return StackTrace.empty;
-          },
+        staticGetters: {
+          'current': (visitor) => StackTrace.current,
+          'empty': (visitor) => StackTrace.empty,
         },
         methods: {
           'toString': (visitor, target, positionalArgs, namedArgs, _) {

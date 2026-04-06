@@ -61,7 +61,7 @@ dynamic build(BuildContext context) {
   // SECTION 4: LINEAR SPLINE (2 POINTS)
   // ============================================================================
 
-  final linearPoints = <Offset>[Offset(0.0, 0.0), Offset(1.0, 1.0)];
+  final linearPoints = <Offset>[Offset(0.0, 0.0), Offset(0.33, 0.33), Offset(0.67, 0.67), Offset(1.0, 1.0)];
   final linearSpline = CatmullRomSpline(linearPoints);
 
   final linearResults = <Map<String, dynamic>>[];

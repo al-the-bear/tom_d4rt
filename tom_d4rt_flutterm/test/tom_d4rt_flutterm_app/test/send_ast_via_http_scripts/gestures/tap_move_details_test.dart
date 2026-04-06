@@ -10,7 +10,7 @@ dynamic build(BuildContext context) {
   final dragUpdate = DragUpdateDetails(
     globalPosition: Offset(150.0, 250.0),
     localPosition: Offset(75.0, 125.0),
-    delta: Offset(5.0, 10.0),
+    delta: Offset(0.0, 10.0),
     primaryDelta: 10.0,
     sourceTimeStamp: Duration(milliseconds: 100),
   );

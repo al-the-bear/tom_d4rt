@@ -38,7 +38,7 @@ dynamic build(BuildContext context) {
   // SECTION 3: LINEAR CONTROL POINTS
   // ============================================================================
 
-  final linearPoints = <Offset>[Offset(0.5, 0.5)];
+  final linearPoints = <Offset>[Offset(0.25, 0.25), Offset(0.75, 0.75)];
   final linearCurve = CatmullRomCurve(linearPoints);
 
   final linearResults = <Map<String, dynamic>>[];

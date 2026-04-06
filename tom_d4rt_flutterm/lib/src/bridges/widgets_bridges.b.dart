@@ -71392,7 +71392,7 @@ BridgedClass _createTwoDimensionalChildListDelegateBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('TwoDimensionalChildListDelegate: Missing required named argument "children"');
         }
-        final children = D4.coerceList<List<$flutter_164.Widget>>(named['children'], 'children');
+        final children = D4.coerceNestedList<$flutter_164.Widget>(named['children'], 'children');
         return $flutter_225.TwoDimensionalChildListDelegate(addRepaintBoundaries: addRepaintBoundaries, addAutomaticKeepAlives: addAutomaticKeepAlives, children: children);
       },
     },

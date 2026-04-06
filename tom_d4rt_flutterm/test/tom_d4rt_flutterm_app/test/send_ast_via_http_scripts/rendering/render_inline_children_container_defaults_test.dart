@@ -486,6 +486,7 @@ Widget _buildAlignmentRow(String name, PlaceholderAlignment alignment) {
                 TextSpan(text: 'Text '),
                 WidgetSpan(
                   alignment: alignment,
+                  baseline: TextBaseline.alphabetic,
                   child: Container(
                     width: 28,
                     height: 28,

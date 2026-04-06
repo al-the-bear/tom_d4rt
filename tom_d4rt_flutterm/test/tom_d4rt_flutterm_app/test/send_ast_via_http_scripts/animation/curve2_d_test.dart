@@ -234,12 +234,13 @@ dynamic build(BuildContext context) {
   // Straight line
   final straightLine = CatmullRomSpline([
     Offset(0.0, 0.0),
-    Offset(0.5, 0.5),
+    Offset(0.33, 0.33),
+    Offset(0.67, 0.67),
     Offset(1.0, 1.0),
   ]);
   final straightSamples = straightLine.generateSamples();
   print('1. Straight Line (diagonal):');
-  print('   Points: (0,0) → (0.5,0.5) → (1,1)');
+  print('   Points: (0,0) → (0.33,0.33) → (0.67,0.67) → (1,1)');
   print('   Sample count: ${straightSamples.length}');
 
   // S-curve
@@ -488,9 +489,9 @@ dynamic build(BuildContext context) {
   print('');
 
   // Minimal control points
-  final minimalCurve = CatmullRomSpline([Offset(0.0, 0.0), Offset(1.0, 1.0)]);
+  final minimalCurve = CatmullRomSpline([Offset(0.0, 0.0), Offset(0.33, 0.33), Offset(0.67, 0.67), Offset(1.0, 1.0)]);
   final minimalSamples = minimalCurve.generateSamples();
-  print('Minimal curve (2 points):');
+  print('Minimal curve (4 points):');
   print('  Sample count: ${minimalSamples.length}');
   print(
     '  Start: (${minimalCurve.transform(0.0).dx}, ${minimalCurve.transform(0.0).dy})',

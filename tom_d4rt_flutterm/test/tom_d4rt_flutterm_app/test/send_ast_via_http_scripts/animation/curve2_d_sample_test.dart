@@ -103,7 +103,7 @@ dynamic build(BuildContext context) {
   // SECTION 6: LINEAR SPLINE SAMPLES
   // ============================================================================
 
-  final linearSpline = CatmullRomSpline([Offset(0.0, 0.0), Offset(1.0, 1.0)]);
+  final linearSpline = CatmullRomSpline([Offset(0.0, 0.0), Offset(0.33, 0.33), Offset(0.67, 0.67), Offset(1.0, 1.0)]);
   final linearSamples = linearSpline.generateSamples().toList();
 
   final linearInfo = <Map<String, dynamic>>[];
