@@ -1610,7 +1610,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (indexValue is AsyncSuspensionRequest) return indexValue;
 
     if (targetValue is Map) {
-      return targetValue[indexValue];
+      // Unwrap BridgedEnumValue keys to nativeValue so lookups work
+      // regardless of whether the map was built with native or wrapped keys.
+      final key = indexValue is BridgedEnumValue
+          ? indexValue.nativeValue
+          : indexValue;
+      return targetValue[key];
     }
     if (targetValue is String && indexValue is int) {
       return targetValue[indexValue];
@@ -2611,7 +2616,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else {
       if (lhs is SIndexExpression) {
         final targetValue = lhs.target?.accept<Object?>(this);
-        final indexValue = lhs.index!.accept<Object?>(this);
+        final rawIndexValue = lhs.index!.accept<Object?>(this);
+        // Unwrap BridgedEnumValue for Map key operations
+        final indexValue = rawIndexValue is BridgedEnumValue
+            ? rawIndexValue.nativeValue
+            : rawIndexValue;
 
         // Determine the value to actually assign
         Object? finalValueToAssign;

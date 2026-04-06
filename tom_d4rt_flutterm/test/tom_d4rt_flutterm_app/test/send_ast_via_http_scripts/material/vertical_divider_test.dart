@@ -978,7 +978,7 @@ Widget _buildFormField(String label, IconData icon) {
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('Starting VerticalDivider deep demo');
 
   Widget result = MaterialApp(

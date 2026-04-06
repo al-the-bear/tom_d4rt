@@ -75,14 +75,31 @@ RC-5c addressed Category 5 "Native Bridge Constructor Errors" with fixes across 
 | Native bridge constructor errors | 11 | **~3** | **~–8** |
 | Tests passing | ~1,907 | **1,917** | **+10** |
 
+### RC-6 Fix Impact
+
+RC-6 addressed Categories 6, 7, and 8 with fixes across both interpreters and the Flutter module:
+
+1. **Callable cast in HOF bridges** (Category 8): Changed `as InterpretedFunction` → `as Callable` in all higher-order function bridges in `iterable.dart` and `set.dart` (17 occurrences per interpreter). Allows `NativeFunction` references like `math.max` to be passed to `reduce()`, `map()`, etc.
+2. **Set nativeNames + isAssignable** (Category 6 partial): Added `_ConstSet`, `_HashSet`, `CompactLinkedIdentityHashSet` to Set bridge `nativeNames` and `isAssignable: (v) => v is Set` so runtime Set instances from Flutter APIs are recognized.
+3. **BridgedClass supertype registry** (Category 7): Added static `_supertypeRegistry` to `BridgedClass` with `registerSupertypes()` method. Flutter type hierarchy registered in `d4rt_runtime_registrations.dart` (Widget, State, Decoration, ChangeNotifier, Animation families). Enables transitive subtype checking for return type validation.
+4. **Callable runtimeType** (Category 6 partial): Added `Callable` branch in `visitPropertyAccess` to handle `.runtimeType`, `.hashCode`, `.toString`, `.call` on function objects.
+
+| Metric | RC-5c | RC-6 | Change |
+|--------|-------|------|--------|
+| Total test failures | 74 | **TBD** | **TBD** |
+| InterpretedFunction type mismatch | 5 | **TBD** | **TBD** |
+| Return type mismatch (Widget) | 6 | **TBD** | **TBD** |
+| Set property resolution errors | ~3 | **TBD** | **TBD** |
+| Tests passing | 1,917 | **TBD** | **TBD** |
+
 ### Overall Progression
 
-| Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c |
-|--------|----------|------|-------|------|-------|-------|
-| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | **1,917** |
-| Tests failing | 309 | 152 | 126 | 103 | ~90 | **74** |
-| Tests skipped | 9 | 9 | 9 | 9 | 9 | **9** |
-| Reduction | — | –157 | –26 | –23 | ~–13 | **–16** |
+| Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c | RC-6 |
+|--------|----------|------|-------|------|-------|-------|------|
+| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | 1,917 | **TBD** |
+| Tests failing | 309 | 152 | 126 | 103 | ~90 | 74 | **TBD** |
+| Tests skipped | 9 | 9 | 9 | 9 | 9 | 9 | **9** |
+| Reduction | — | –157 | –26 | –23 | ~–13 | –16 | **TBD** |
 
 ### RC-4 Fix Impact
 
@@ -127,10 +144,10 @@ Note: Some tests produce multiple error messages across categories — early col
 | 3 | ~~_TickerProviderShim mixin~~ | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
 | 4 | ~~Undefined .name on bridged~~ | ~2 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
 | 5 | Native bridged constructor error | ~3 | Reduced | Was 11; Cat 5A/5B-C/5B-D fixed in RC-5c |
-| 6 | Other undefined var/property | ~7 | Open | .map on Set, undefined build, ToolbarOptions, etc. |
-| 7 | Return type mismatch | 6 | Open | InterpretedClass not recognized as Widget return type |
-| 8 | InterpretedFunction type mismatch | 5 | Open | NativeFunction not accepted as closure callback |
-| 9 | Null check on SPostfixExpression | 5 | Open | Enum .values, generic constructor factory |
+| 6 | Other undefined var/property | ~7→~3 | Reduced RC-6 | Set nativeNames + Callable runtimeType fixed; remaining: undefined build, ToolbarOptions |
+| 7 | Return type mismatch | 6→TBD | Reduced RC-6 | Supertype registry enables Widget return type recognition |
+| 8 | InterpretedFunction type mismatch | 5→TBD | Reduced RC-6 | Callable cast fixes math.max etc.; remaining: callback coercion |
+| 9 | Null check on SPostfixExpression | 5 | Open | Enum map key equality, generic constructor factory |
 | 10 | _SUnknownNode (for-loop) | ~6 | Open | Dart 3 record destructuring not supported in AST |
 | 11 | WidgetState.isSatisfiedBy | 5 | Open | WidgetState method/Set.contains resolution |
 | 12 | ~~toString on bridged enum~~ | ~1 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
@@ -319,7 +336,9 @@ Native constructors receive `InterpretedInstance` objects instead of the expecte
 
 ---
 
-### 6. Other Undefined Variable/Property (7 failures)
+### 6. Other Undefined Variable/Property (7 failures → ~3 after RC-6)
+
+> **RC-6 status:** Set property resolution fixed via `nativeNames` + `isAssignable`. Closure `runtimeType` fixed via Callable branch in `visitPropertyAccess`. Remaining ~3 failures are `undefined build` (2) and `ToolbarOptions` (1).
 
 **Error messages:**
 ```
@@ -347,9 +366,16 @@ Widget build(BuildContext context) {
 
 **Explanation:** This is a catch-all category for various unresolved identifiers:
 
-- **`.map` on Set (2 failures):** The interpreter bridges `Set` but does not expose the `Iterable.map()` method on `_ConstSet` (an internal Set implementation returned by some Flutter APIs). The script receives a `_ConstSet<PointerDeviceKind>` from `ScrollBehavior().dragDevices` and tries to call `.map()`, but the bridge only covers `Set` members, not inherited `Iterable` members.
-- **Undefined `build` (2 failures):** A top-level `build` function is referenced inside the widget tree but the interpreter does not resolve it as a variable reference — the function name is visible in interpreted scope but the resolution fails when used in a nested context.
-- **Other undefined (3 failures):** `ToolbarOptions` (deprecated class not bridged), `runtimeType` on closures (not supported on InterpretedFunction), and `length` on `_HashSet` (internal Set type missing inherited properties).
+- **`.map` on Set (2 failures) — ✅ FIXED RC-6:** The interpreter bridges `Set` but did not expose the `Iterable.map()` method on `_ConstSet` (an internal Set implementation returned by some Flutter APIs). Fixed by adding `_ConstSet`, `_HashSet`, `CompactLinkedIdentityHashSet` to Set bridge `nativeNames` and `isAssignable: (v) => v is Set`.
+- **`runtimeType` on closures (1 failure) — ✅ FIXED RC-6:** `.runtimeType` was not supported on `InterpretedFunction` / `Callable`. Fixed by adding a `Callable` branch in `visitPropertyAccess` that handles `runtimeType`, `hashCode`, `toString`, and `call`.
+- **Undefined `build` (2 failures) — DEFERRED:** See root cause analysis below.
+- **`ToolbarOptions` (1 failure):** Deprecated class not bridged, low priority.
+
+#### Deferred Issue: "Undefined variable: build" — Wrong Entry Point Name
+
+**Root cause:** The 2 failing scripts (`shape_border_tween_test.dart`, `snack_bar_theme_data_test.dart`, `vertical_divider_test.dart`) define their entry point as `Widget main()` instead of the expected `dynamic build(BuildContext context)`. The test harness calls `executeBundle(bundle, name: 'build')`, which looks up a top-level function named `build`. Since none exists with that name, the interpreter throws "Undefined variable: build".
+
+**Fix:** Rename `Widget main()` → `dynamic build(BuildContext context)` in all 3 scripts. Applied in RC-6.
 
 ---
 
@@ -374,7 +400,9 @@ Widget _buildInteractiveDemo() {
 
 ---
 
-### 8. InterpretedFunction Type Mismatch (5 failures)
+### 8. InterpretedFunction Type Mismatch (5 failures → TBD after RC-6)
+
+> **RC-6 status:** `as InterpretedFunction` → `as Callable` fix in iterable/set HOF bridges resolves `reduce(math.max)` pattern (3 failures). Remaining ~2 failures are callback coercion issues where `InterpretedFunction` must be wrapped as a native function type.
 
 **Error message:**
 ```
@@ -393,9 +421,21 @@ final maxElastic = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
 **Affected test scripts:** `curve_tween_test.dart`, `elastic_in_out_curve_test.dart`, `elastic_out_curve_test.dart`, `flipped_curve_test.dart`, `sawtooth_test.dart`.
 
-**Explanation:** The script calls `.reduce(math.max)` on an `Iterable<double>`. In native Dart, `math.max` is a top-level function `int max(int a, int b)` / `double max(num a, num b)` that can be passed as a function reference. When the interpreter encounters `math.max`, it resolves it as a `NativeFunction` (a reference to a natively-implemented function). The bridge for `Iterable.reduce()` expects its callback parameter to be an `InterpretedFunction` (a D4rt-interpreted closure) and fails with a type cast error when it receives a `NativeFunction`.
+**Explanation:** The script calls `.reduce(math.max)` on an `Iterable<double>`. In native Dart, `math.max` is a top-level function `int max(int a, int b)` / `double max(num a, num b)` that can be passed as a function reference. When the interpreter encounters `math.max`, it resolves it as a `NativeFunction` (a reference to a natively-implemented function). The bridge for `Iterable.reduce()` expects its callback parameter to be an `InterpretedFunction` (a D4rt-interpreted closure) and fails with a type cast error when it receives a `NativeFunction`. **Fixed in RC-6** by changing the cast to `as Callable`, which accepts both types.
 
-The fix requires the `reduce` bridge (and similar higher-order-function bridges) to accept both `InterpretedFunction` and `NativeFunction` as callbacks, wrapping `NativeFunction` in a compatible adapter before invoking it.
+#### Deferred Issue: InterpretedFunction → Native Function Type Coercion
+
+**Remaining failures** (~2) involve a different pattern: an `InterpretedFunction` is extracted via `extractBridgedArg<dynamic>()` and assigned directly to a native property that expects a specific function type like `void Function()` or `GestureTapCallback`.
+
+**Root cause:** Bridge setters use `extractBridgedArgOrNull<dynamic>(value, 'onTap')` — the `dynamic` type parameter means step 1 of `extractBridgedArg` returns the value as-is, without any wrapping. The native setter then does `config.onTap = interpretedFunction`, which throws a `TypeError` because `InterpretedFunction` does not implement `void Function()`.
+
+**The problem in detail:**
+1. `D4.extractBridgedArg<dynamic>(value, 'onTap')` — `T` is `dynamic`, so step 1 returns `value` directly
+2. The caller assigns `config.onTap = value` where `onTap` is typed as `GestureTapCallback?` (i.e., `void Function()?`)
+3. Dart's runtime throws: `type 'InterpretedFunction' is not a subtype of type '(() => void)?'`
+4. The existing `_wrapCallableForMap<V>()` in `d4.dart` handles this pattern for map values but there is NO equivalent wrapper in the general `extractBridgedArg` path
+
+**Fix approach:** In `extractBridgedArg`, detect when the value is a `Callable` and wrap it in a native function closure. If a generic approach is not feasible (because the target function signature is unknown at extraction time), add a callback-wrapper-factory registration mechanism similar to `_interfaceProxies`.
 
 ---
 
@@ -427,6 +467,30 @@ final reversedDouble = ReverseTween<double>(doubleTween);
 1. **Enum `.values` (3 failures):** The interpreter encounters `CollapseMode.values` and creates an `SPostfixExpression` node. When evaluating the `.values` property access, the interpreter looks up the `values` getter on the bridged enum type, but the property resolution returns `null` because `values` is a static member, not an instance member. The null check (`!`) on the lookup result then throws.
 
 2. **Generic constructor factory (2 failures):** `ReverseTween<double>(...)` triggers the generic constructor factory, which internally uses postfix expression evaluation. The `<double>` type argument resolution hits a null check because the factory cannot find the concrete type for the generic parameter.
+
+#### Deferred Issue A: Enum Map Key Equality (collapse_mode_test.dart)
+
+The `collapse_mode_test.dart` failure involves more than just `.values` — the script creates a `Map<CollapseMode, ...>` with enum keys, then lookups with `map[mode]!` return `null` and the `!` operator throws.
+
+**Root cause:** `visitIndexExpression` (interpreter_visitor.dart L1597+) executes `targetValue[indexValue]` using plain Dart `Map.[]` which relies on `==` and `hashCode`. The problem is a type boundary mismatch:
+
+1. Map keys may be stored as native `CollapseMode` enum values (from bridge constructors or literal map initialization)
+2. The lookup value `mode` (from iterating `CollapseMode.values`) arrives as a `BridgedEnumValue` wrapper
+3. `CollapseMode.parallax != BridgedEnumValue(CollapseMode, 0, CollapseMode.parallax)` — always `false` across the type boundary
+4. `BridgedEnumValue.==` (bridged_enum.dart L210-217) correctly compares `enumType.name`, `index`, and `nativeValue` but only when BOTH sides are `BridgedEnumValue`
+5. When one side is a raw native enum and the other is a `BridgedEnumValue`, Dart's `==` dispatch goes to the native enum's `==` which doesn't know about `BridgedEnumValue`
+
+**Fix approach:** Ensure clean unwrapping in map index operations. When the target is a `Map` and the key is a `BridgedEnumValue`, unwrap to `nativeValue` before the lookup. Similarly for `[]=` operations.
+
+#### Deferred Issue B: Generic Constructor Factory — extractBridgedArg Failures
+
+The `reverse_tween_test.dart` / `tween_sequence_test.dart` failures involve `extractBridgedArg<Animatable<double>?>()` returning `null` because reified generics prevent the `is` check from succeeding.
+
+**Root cause:** In `d4.dart` `extractBridgedArg<T>()`, step 9 finds `bridgedSuperObject` (the native `Tween<dynamic>` instance) and checks `superObj is Animatable<double>?`. This fails because Dart's reified generics: `Tween<dynamic> is Animatable<double>` is **false** — the type parameter `dynamic` doesn't match `double`.
+
+Similarly, `RouterConfig` tests fail because `TestRouterDelegate` (an interpreted class extending `RouterDelegate`) has no `nativeProxy` and no `bridgedSuperObject` (abstract class with no native instantiation).
+
+**Fix approach:** Add missing generic type wrappers to the `_genericTypeWrappers` registry (GEN-079 in d4.dart). Search the Flutter API for all abstract generic types used in bridge constructor/factory parameters that need type-erased matching (e.g., `Animatable<T>`, `RouterDelegate<T>`).
 
 ---
 

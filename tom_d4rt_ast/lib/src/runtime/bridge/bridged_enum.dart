@@ -205,18 +205,22 @@ class BridgedEnumValue implements RuntimeValue {
     return '${enumType.name}.$name';
   }
 
-  // Consider adding equality checks based on nativeValue or index/type if needed
+  // Cross-type-boundary equality: BridgedEnumValue can equal its nativeValue
+  // so that Map lookups work regardless of wrapper direction.
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BridgedEnumValue &&
-          runtimeType == other.runtimeType &&
-          // Compare bridged enum types by name to avoid instance issues
-          enumType.name == other.enumType.name &&
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is BridgedEnumValue) {
+      return enumType.name == other.enumType.name &&
           index == other.index &&
-          nativeValue == other.nativeValue; // Compare native values too
+          nativeValue == other.nativeValue;
+    }
+    // Allow comparison with raw native enum values
+    return other == nativeValue;
+  }
 
+  // Must match nativeValue.hashCode so that BridgedEnumValue and its
+  // nativeValue hash to the same bucket when used as Map keys.
   @override
-  int get hashCode =>
-      enumType.name.hashCode ^ index.hashCode ^ nativeValue.hashCode;
+  int get hashCode => nativeValue.hashCode;
 }

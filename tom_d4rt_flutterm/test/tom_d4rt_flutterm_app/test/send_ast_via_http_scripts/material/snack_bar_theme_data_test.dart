@@ -420,7 +420,7 @@ Widget buildContentStylePreview(
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('SnackBarThemeData Deep Demo');
   print('===========================');
   print('Demonstrating SnackBarThemeData properties and configurations');

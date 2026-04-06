@@ -880,6 +880,22 @@ class D4 {
       return arg.nativeType as T;
     }
 
+    // RC-6c: Callable → native function wrapping.
+    // When T is a function type (e.g., void Function(), GestureTapCallback)
+    // and the value is a Callable (InterpretedFunction or NativeFunction),
+    // wrap it in a native closure so it can be assigned to typed function
+    // properties. Uses the same pattern as _wrapCallableForMap.
+    if (unwrapped is Callable) {
+      final tStr = T.toString();
+      if (tStr.contains('Function')) {
+        final effectiveVisitor = visitor ?? _activeVisitor;
+        if (effectiveVisitor != null) {
+          final wrapped = _wrapCallableForMap<T>(unwrapped, effectiveVisitor);
+          if (wrapped is T) return wrapped;
+        }
+      }
+    }
+
     // GEN-079: Generic type wrapper resolution.
     // When T is a complex generic (e.g., WidgetStateProperty<Color?>?),
     // the `is T` check fails if the value was created with `<dynamic>`
@@ -1055,6 +1071,14 @@ class D4 {
       // match nullable T (e.g., CustomPainter?) and skip proxy resolution.
       if (superObj != null && superObj is T) {
         return superObj as T;
+      }
+      // RC-6b: After superObj fails the `is T` check (e.g., Tween<dynamic>
+      // is not Animatable<double> due to reified generics), try the generic
+      // wrapper resolution on superObj. The relaxer factory can wrap the
+      // native object in a properly typed proxy.
+      if (superObj != null && _genericTypeWrappers.isNotEmpty) {
+        final wrapped = _tryGenericWrapperResolution<T>(superObj);
+        if (wrapped != null) return wrapped;
       }
       // RC-1: Try registered interface proxy factories.
       // For abstract classes/interfaces (CustomClipper, TickerProvider),

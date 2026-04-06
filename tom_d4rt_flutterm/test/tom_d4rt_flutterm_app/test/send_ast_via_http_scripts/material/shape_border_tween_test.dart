@@ -530,7 +530,7 @@ Widget buildInterpolationProgressBar(double t, Color color) {
   );
 }
 
-Widget main() {
+dynamic build(BuildContext context) {
   print('ShapeBorderTween Deep Demo - Starting');
   print('Demonstrating animation between ShapeBorder values');
 
