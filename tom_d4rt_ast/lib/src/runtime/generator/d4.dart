@@ -648,6 +648,21 @@ class D4 {
   ) {
     final unwrapped = v is BridgedInstance ? v.nativeObject : v;
 
+    // InterpretedInstance → native via bridgedSuperObject or interface proxy
+    if (v is InterpretedInstance) {
+      if (v.bridgedSuperObject is V) {
+        return v.bridgedSuperObject as V;
+      }
+      final effectiveVisitor = visitor ?? _activeVisitor;
+      if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
+        final proxy = tryCreateInterfaceProxyWithVisitor<V>(
+          v,
+          effectiveVisitor,
+        );
+        if (proxy != null) return proxy;
+      }
+    }
+
     // If V is a function type and v is an InterpretedFunction, wrap it
     // We detect function types by checking the type name string
     final vTypeName = V.toString();
