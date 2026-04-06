@@ -11,7 +11,11 @@ class SetCore {
       '_CompactLinkedHashSet',
       'LinkedHashSet', // Explicit LinkedHashSet
       '_SetBase', // Internal Set base type
+      '_ConstSet', // Const set literals
+      '_HashSet', // HashSet internal type
+      'CompactLinkedIdentityHashSet', // Identity hash set
     ],
+    isAssignable: (v) => v is Set,
     constructors: {
       '': (visitor, positionalArgs, namedArgs) {
         return <dynamic>{};
@@ -78,7 +82,7 @@ class SetCore {
         return null;
       },
       'removeWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         (target as Set).removeWhere((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -89,7 +93,7 @@ class SetCore {
         return null;
       },
       'retainWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         (target as Set).retainWhere((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -106,61 +110,61 @@ class SetCore {
         return (target as Set).toList(growable: growable);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
-        final action = positionalArgs[0] as InterpretedFunction;
+        final action = positionalArgs[0] as Callable;
         for (var element in (target as Set)) {
           action.call(visitor, [element]);
         }
         return null;
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
-        final f = positionalArgs[0] as InterpretedFunction;
+        final f = positionalArgs[0] as Callable;
         return (target as Set).map((element) {
           return f.call(visitor, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Set).where((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
-        final f = positionalArgs[0] as InterpretedFunction;
+        final f = positionalArgs[0] as Callable;
         return (target as Set).expand((element) {
           return f.call(visitor, [element]) as Iterable;
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Set).every((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Set).any((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).firstWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).lastWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).singleWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),

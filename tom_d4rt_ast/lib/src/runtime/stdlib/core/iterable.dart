@@ -39,7 +39,7 @@ class IterableCore {
       'generate': (visitor, positionalArgs, namedArgs, _) {
         final count = positionalArgs[0] as int;
         final generator = positionalArgs.length > 1
-            ? positionalArgs[1] as InterpretedFunction?
+            ? positionalArgs[1] as Callable?
             : null;
 
         return Iterable.generate(
@@ -57,19 +57,19 @@ class IterableCore {
     },
     methods: {
       'map': (visitor, target, positionalArgs, namedArgs, _) {
-        final f = positionalArgs[0] as InterpretedFunction;
+        final f = positionalArgs[0] as Callable;
         return (target as Iterable).map((element) {
           return f.call(visitor, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Iterable).where((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
-        final f = positionalArgs[0] as InterpretedFunction;
+        final f = positionalArgs[0] as Callable;
         return (target as Iterable).expand((element) {
           return f.call(visitor, [element]) as Iterable;
         });
@@ -78,21 +78,21 @@ class IterableCore {
         return (target as Iterable).contains(positionalArgs[0]);
       },
       'forEach': (visitor, target, positionalArgs, namedArgs, _) {
-        final action = positionalArgs[0] as InterpretedFunction;
+        final action = positionalArgs[0] as Callable;
         for (var element in (target as Iterable)) {
           action.call(visitor, [element]);
         }
         return null;
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
-        final combine = positionalArgs[0] as InterpretedFunction;
+        final combine = positionalArgs[0] as Callable;
         return (target as Iterable).reduce((value, element) {
           return combine.call(visitor, [value, element]);
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
         final initialValue = positionalArgs[0];
-        final combine = positionalArgs[1] as InterpretedFunction;
+        final combine = positionalArgs[1] as Callable;
         return (target as Iterable).fold(initialValue, (
           previousValue,
           element,
@@ -101,7 +101,7 @@ class IterableCore {
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Iterable).every((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -113,7 +113,7 @@ class IterableCore {
         return (target as Iterable).join(separator);
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Iterable).any((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -129,7 +129,7 @@ class IterableCore {
         return (target as Iterable).take(positionalArgs[0] as int);
       },
       'takeWhile': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Iterable).takeWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
@@ -138,30 +138,30 @@ class IterableCore {
         return (target as Iterable).skip(positionalArgs[0] as int);
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
+        final test = positionalArgs[0] as Callable;
         return (target as Iterable).skipWhile((element) {
           return test.call(visitor, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).firstWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).lastWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
-        final test = positionalArgs[0] as InterpretedFunction;
-        final orElse = namedArgs['orElse'] as InterpretedFunction?;
+        final test = positionalArgs[0] as Callable;
+        final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).singleWhere(
           (element) => test.call(visitor, [element]) as bool,
           orElse: orElse == null ? null : () => orElse.call(visitor, []),

@@ -33,7 +33,7 @@ import 'package:flutter/widgets.dart'
         Widget;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
-    show BridgedInstance;
+    show BridgedClass, BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 
@@ -44,11 +44,70 @@ import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
 ///
 /// Call this once during bridge setup, alongside [registerRelaxers].
 void registerD4rtRuntimeExtensions() {
+  _registerBridgedSupertypes();
   _registerInterfaceProxies();
   _registerTypeCoercions();
   _registerGenericConstructors();
   _registerSupplementaryMethods();
   _registerGenericWidgetReCreators();
+}
+
+// =============================================================================
+// RC-7b: Bridged Class Supertype Registry
+// =============================================================================
+
+/// Register native Dart/Flutter class hierarchy for BridgedClass.isSubtypeOf.
+/// This enables InterpretedClass instances extending BridgedClass supertypes
+/// to pass return-type checks (e.g., MyWidget extends StatelessWidget → Widget).
+void _registerBridgedSupertypes() {
+  BridgedClass.registerSupertypes({
+    // Widget hierarchy
+    'StatelessWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
+    'StatefulWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
+    'RenderObjectWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
+    'LeafRenderObjectWidget': [
+      'RenderObjectWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'SingleChildRenderObjectWidget': [
+      'RenderObjectWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'MultiChildRenderObjectWidget': [
+      'RenderObjectWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'ProxyWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
+    'InheritedWidget': [
+      'ProxyWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'ParentDataWidget': [
+      'ProxyWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    // State hierarchy
+    'State': ['Diagnosticable'],
+    // Painting
+    'Decoration': [],
+    'BoxDecoration': ['Decoration'],
+    'ShapeDecoration': ['Decoration'],
+    // Other common types
+    'ChangeNotifier': ['Listenable'],
+    'ValueNotifier': ['ChangeNotifier', 'Listenable'],
+    'Animation': ['Listenable'],
+    'AnimationController': ['Animation', 'Listenable'],
+  });
 }
 
 // =============================================================================

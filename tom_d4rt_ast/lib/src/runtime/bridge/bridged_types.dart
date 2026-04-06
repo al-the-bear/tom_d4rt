@@ -24,6 +24,23 @@ import '../callable.dart';
 /// );
 /// ```
 class BridgedClass implements RuntimeType {
+  /// Static registry of supertype relationships for bridged classes.
+  /// Maps class name → set of supertype class names.
+  /// This allows BridgedClass→BridgedClass subtype checking to walk
+  /// the native Dart class hierarchy without dart:mirrors.
+  static final Map<String, Set<String>> _supertypeRegistry = {};
+
+  /// Register supertype relationships for bridged classes.
+  /// Each key is a class name, and the value is a list of its supertype names.
+  /// Example: {'StatelessWidget': ['Widget', 'DiagnosticableTree']}
+  static void registerSupertypes(Map<String, List<String>> hierarchy) {
+    for (final entry in hierarchy.entries) {
+      _supertypeRegistry
+          .putIfAbsent(entry.key, () => {})
+          .addAll(entry.value);
+    }
+  }
+
   /// The native Dart type this bridge represents.
   final Type nativeType; // Keep nativeType for bridge logic
 
@@ -180,6 +197,22 @@ class BridgedClass implements RuntimeType {
             ? value.nativeObject
             : value;
         if (other.isAssignable!(nativeValue)) return true;
+      }
+
+      // RC-7b: Check static supertype registry for native class hierarchy.
+      // This handles cases like StatelessWidget→Widget where BridgedClass
+      // objects don't have parent references.
+      final supertypes = _supertypeRegistry[name];
+      if (supertypes != null && supertypes.contains(other.name)) return true;
+      // Transitive check: walk the registry chain
+      if (supertypes != null) {
+        for (final superName in supertypes) {
+          final superSupertypes = _supertypeRegistry[superName];
+          if (superSupertypes != null &&
+              superSupertypes.contains(other.name)) {
+            return true;
+          }
+        }
       }
 
       return false;

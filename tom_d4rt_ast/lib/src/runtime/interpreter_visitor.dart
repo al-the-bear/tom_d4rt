@@ -4507,6 +4507,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw RuntimeD4rtException(
         "Undefined property or method '$propertyName' accessed via 'super' on bridged superclass '${bridgedSuper.name}'.",
       );
+    } else if (target is Callable) {
+      // ENG-006: Handle property access on function objects (closures, NativeFunctions)
+      Logger.debug(
+        "[SPropertyAccess] Access on Callable: ${target.runtimeType}.$propertyName",
+      );
+      switch (propertyName) {
+        case 'runtimeType':
+          return target.runtimeType;
+        case 'hashCode':
+          return target.hashCode;
+        case 'toString':
+          return NativeFunction(
+            (visitor, args, namedArgs, typeArgs) => target.toString(),
+            arity: 0,
+            name: 'toString',
+          );
+        case 'call':
+          return target; // Tear-off
+        default:
+          throw RuntimeD4rtException(
+            "Undefined property '$propertyName' on function object (${target.runtimeType}).",
+          );
+      }
     } else {
       // Check if target is a native enum that has been bridged
       final bridgedEnumValue = environment.getBridgedEnumValue(target);
