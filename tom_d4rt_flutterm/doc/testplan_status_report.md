@@ -1669,9 +1669,9 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | No | Print-Only | No | Checked. |
 | [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | Yes | No | Created on 2026-04-02 at 19:27 |
 | [physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_model_test.dart) | PhysicalModel | No | Yes | No | Deep demo created 2025-03-28 |
-| [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | No | Yes | Checked. |
+| [physical_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physical_shape_test.dart) | PhysicalShape | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [physicalmodel_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel | No | Yes | No |
-| [pinned_header_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver | No | No | Yes | Checked. |
+| [pinned_header_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [placeholder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder | No | Yes | No | Checked. |
 | [platform_menu_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar | No | No | Yes | Checked. |
 | [platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_delegate_test.dart) | PlatformMenuDelegate | No | Print-Only | No | Checked. |
@@ -1692,15 +1692,15 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [popup_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_controller_delegate_test.dart) | PopupWindowControllerDelegate | No | Print-Only | No | Checked. |
 | [popup_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_controller_test.dart) | PopupWindowController | No | Print-Only | No | Checked. |
 | [popup_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_test.dart) | PopupWindow | No | Print-Only | No | Checked. |
-| [positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/positioned_directional_test.dart) | PositionedDirectional | No | No | Yes | Checked. |
+| [positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/positioned_directional_test.dart) | PositionedDirectional | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [positioned_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/positioned_test.dart) | Positioned | No | Yes | No |
 | [predictive_back_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/predictive_back_route_test.dart) | PredictiveBackRoute | No | Print-Only | No | Checked. |
-| [preferred_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_test.dart) | PreferredSize | No | No | Yes | Checked. |
+| [preferred_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_test.dart) | PreferredSize | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [preferred_size_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_widget_test.dart) | PreferredSizeWidget | No | No | Yes | Checked. |
 | [preferredsize_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferredsize_test.dart) | PreferredSize | No | Yes | No |
 | [previous_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/previous_focus_action_test.dart) | PreviousFocusAction | No | Print-Only | No | Checked. |
 | [previous_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/previous_focus_intent_test.dart) | PreviousFocusIntent | No | Print-Only | No | Checked. |
-| [primary_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/primary_scroll_controller_test.dart) | PrimaryScrollController | No | No | Yes | Checked. |
+| [primary_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/primary_scroll_controller_test.dart) | PrimaryScrollController | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [prioritized_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_action_test.dart) | PrioritizedAction | No | No | Yes | Checked. |
 | [prioritized_intents_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_intents_test.dart) | PrioritizedIntents | No | No | Yes | Checked. |
 | [proxy_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/proxy_element_test.dart) | ProxyElement | No | Print-Only | No | Checked. |
