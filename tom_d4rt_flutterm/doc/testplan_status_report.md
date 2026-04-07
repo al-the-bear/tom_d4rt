@@ -1885,19 +1885,19 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | Print-Only | No | Checked. |
 | [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | Yes | No | Created on 2026-04-07 at 21:15. |
 | [sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_box_test.dart) | SizedBox | No | Yes | No | Checked. |
-| [sized_overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_overflow_box_test.dart) | SizedOverflowBox | No | No | Yes | Checked. |
+| [sized_overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_overflow_box_test.dart) | SizedOverflowBox | No | Yes | No | Created on 2026-04-07 at 21:00. |
 | [sizing_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sizing_test.dart) | UnconstrainedBox | No | Yes | No | Checked. |
 | [slidetransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slidetransition_test.dart) | SlideTransition | No | Yes | No |
 | [sliver_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_advanced_test.dart) | SliverAnimatedList | No | Yes | No | Checked. |
 | [sliver_animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_state_test.dart) | SliverAnimatedGridState | No | Print-Only | No | Checked. |
-| [sliver_animated_grid_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_test.dart) | SliverAnimatedGrid | No | No | Yes | Checked. |
+| [sliver_animated_grid_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_grid_test.dart) | SliverAnimatedGrid | No | Yes | No | Created on 2026-04-07 at 21:15. |
 | [sliver_animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart) | SliverAnimatedListState | No | Print-Only | No | Checked. |
-| [sliver_animated_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_test.dart) | SliverAnimatedList | No | No | Yes | Checked. |
-| [sliver_animated_opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_opacity_test.dart) | SliverAnimatedOpacity | No | No | Yes | Checked. |
+| [sliver_animated_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_test.dart) | SliverAnimatedList | No | Yes | No | Created on 2026-04-07 at 21:30. |
+| [sliver_animated_opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_opacity_test.dart) | SliverAnimatedOpacity | No | Yes | No | Created on 2026-04-07 at 21:45. |
 | [sliver_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart) | SliverChildBuilderDelegate | No | Print-Only | No | Checked. |
 | [sliver_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_delegate_test.dart) | SliverChildDelegate | No | Print-Only | No | Checked. |
 | [sliver_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_list_delegate_test.dart) | SliverChildListDelegate | No | Print-Only | No | Checked. |
-| [sliver_constrained_cross_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_constrained_cross_axis_test.dart) | SliverConstrainedCrossAxis | No | No | Yes | Checked. |
+| [sliver_constrained_cross_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_constrained_cross_axis_test.dart) | SliverConstrainedCrossAxis | No | Yes | No | Created on 2026-04-07 at 22:00. |
 | [sliver_cross_axis_expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_cross_axis_expanded_test.dart) | SliverCrossAxisExpanded | No | No | Yes | Checked. |
 | [sliver_cross_axis_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_cross_axis_group_test.dart) | SliverCrossAxisGroup | No | No | Yes | Checked. |
 | [sliver_delegates_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_delegates_test.dart) | SliverChildBuilderDelegate | No | Yes | Yes | Checked. |
