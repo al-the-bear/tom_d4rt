@@ -1454,7 +1454,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | Print-Only | No | Checked. |
 | [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | Print-Only | No | Checked. |
 | [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator | No | Yes | No | Created on 2026-03-31 at 12:15. |
-| [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController | No | Print-Only | No | Checked. |
+| [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [draggable_scrollable_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_notification_test.dart) | DraggableScrollableNotification | No | Print-Only | No | Checked. |
 | [draggable_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_sheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
 | [draggable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_test.dart) | Draggable | No | Yes | No |
@@ -1465,7 +1465,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | Print-Only | No | Checked. |
 | [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | Print-Only | No | Checked. |
 | [editable_text_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_misc_test.dart) | EditorText | No | Yes | No | Checked. |
-| [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState | No | Print-Only | No | Checked. |
+| [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [editable_text_tap_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_outside_intent_test.dart) | EditableTextTapOutsideIntent | No | Print-Only | No | Checked. |
 | [editable_text_tap_up_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_up_outside_intent_test.dart) | EditableTextTapUpOutsideIntent | No | Print-Only | No | Checked. |
 | [element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_test.dart) | Element | No | Print-Only | No | Checked. |
@@ -2029,7 +2029,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_test.dart) | View | No | Yes | No | Created on 2026-04-07 at 21:01 |
 | [viewport_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_element_mixin_test.dart) | ViewportElementMixin | No | Print-Only | No | Checked. |
 | [viewport_notification_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_notification_mixin_test.dart) | ViewportNotificationMixin | No | Print-Only | No | Checked. |
-| [viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_test.dart) | Viewport | No | Print-Only | No | Checked. |
+| [viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_test.dart) | Viewport | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/visibility_test.dart) | Visibility | No | Yes | No |
 | [void_callback_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/void_callback_action_test.dart) | VoidCallbackAction | No | Print-Only | No | Checked. |
 | [void_callback_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/void_callback_intent_test.dart) | VoidCallbackIntent | No | Print-Only | No | Checked. |
@@ -2050,13 +2050,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [widget_states_constraint_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_states_constraint_test.dart) | WidgetStatesConstraint | No | Print-Only | No | Checked. |
 | [widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_test.dart) | Widget | No | Print-Only | No | Checked. |
 | [widget_to_render_box_adapter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_to_render_box_adapter_test.dart) | WidgetToRenderBoxAdapter | No | Yes | No | Created on 2026-04-07 at 21:01 |
-| [widgets_app_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_app_test.dart) | WidgetsApp | No | No | Yes | Checked. |
+| [widgets_app_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_app_test.dart) | WidgetsApp | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [widgets_binding_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_binding_observer_test.dart) | WidgetsBindingObserver | No | Print-Only | No | Checked. |
 | [widgets_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_binding_test.dart) | WidgetsBinding | No | Print-Only | No | Checked. |
 | [widgets_flutter_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_flutter_binding_test.dart) | WidgetsFlutterBinding | No | Print-Only | No | Checked. |
 | [widgets_localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_localizations_test.dart) | WidgetsLocalizations | No | Print-Only | No | Checked. |
 | [widgets_service_extensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_service_extensions_test.dart) | WidgetsServiceExtensions | No | Print-Only | No | Checked. |
-| [will_pop_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/will_pop_scope_test.dart) | WillPopScope | No | No | Yes | Checked. |
+| [will_pop_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/will_pop_scope_test.dart) | WillPopScope | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [window_positioner_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/window_positioner_anchor_test.dart) | WindowPositionerAnchor | No | Print-Only | No | Checked. |
 | [window_positioner_constraint_adjustment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/window_positioner_constraint_adjustment_test.dart) | WindowPositionerConstraintAdjustment | No | Print-Only | No | Checked. |
 | [window_positioner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/window_positioner_test.dart) | WindowPositioner | No | Print-Only | No | Checked. |
