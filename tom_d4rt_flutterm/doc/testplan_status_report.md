@@ -1945,12 +1945,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [stream_builder_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stream_builder_base_test.dart) | StreamBuilderBase | No | Print-Only | No | Checked. |
 | [streambuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart) | StreamBuilder | No | Yes | No | Checked. |
 | [stretch_effect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretch_effect_test.dart) | StretchEffect | No | Yes | No | Created on 2026-04-07 at 18:35 |
-| [stretching_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretching_overscroll_indicator_test.dart) | StretchingOverscrollIndicator | No | No | Yes | Checked. |
-| [system_context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_context_menu_test.dart) | SystemContextMenu | No | No | Yes | Checked. |
-| [system_text_scaler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_text_scaler_test.dart) | SystemTextScaler | No | No | Yes | Checked. |
+| [stretching_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretching_overscroll_indicator_test.dart) | StretchingOverscrollIndicator | No | Yes | No | Created on 2026-04-07 at 18:57 |
+| [system_context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_context_menu_test.dart) | SystemContextMenu | No | Yes | No | Created on 2026-04-07 at 18:57 |
+| [system_text_scaler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_text_scaler_test.dart) | SystemTextScaler | No | Yes | No | Created on 2026-04-07 at 18:57 |
 | [tabcontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tabcontroller_test.dart) | TabController | No | Yes | No |
-| [table_cell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_cell_test.dart) | TableCell | No | No | Yes | Checked. |
-| [table_row_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_row_test.dart) | TableRow | No | No | Yes | Checked. |
+| [table_cell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_cell_test.dart) | TableCell | No | Yes | No | Created on 2026-04-07 at 18:57 |
+| [table_row_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_row_test.dart) | TableRow | No | Yes | No | Created on 2026-04-07 at 18:57 |
 | [table_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_test.dart) | Table | No | Yes | No |
 | [table_wrap_flow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_wrap_flow_test.dart) | Table | No | Yes | No | Checked. |
 | [tap_region_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_registry_test.dart) | TapRegionRegistry | No | No | Yes | Checked. |
