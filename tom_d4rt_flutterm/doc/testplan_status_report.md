@@ -1688,7 +1688,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [platform_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_surface_test.dart) | PlatformViewSurface | No | Print-Only | No | Checked. |
 | [pop_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_entry_test.dart) | PopEntry | No | Yes | No | Created on 2026-04-07 at 04:40 |
 | [pop_navigator_router_delegate_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_navigator_router_delegate_mixin_test.dart) | PopNavigatorRouterDelegateMixin | No | Print-Only | No | Checked. |
-| [pop_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_scope_test.dart) | PopScope | No | No | Yes | Checked. |
+| [pop_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_scope_test.dart) | PopScope | No | Yes | No | Created on 2026-04-07 at 06:32 |
 | [popup_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_controller_delegate_test.dart) | PopupWindowControllerDelegate | No | Print-Only | No | Checked. |
 | [popup_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_controller_test.dart) | PopupWindowController | No | Print-Only | No | Checked. |
 | [popup_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_test.dart) | PopupWindow | No | Print-Only | No | Checked. |
@@ -1696,18 +1696,18 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [positioned_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/positioned_test.dart) | Positioned | No | Yes | No |
 | [predictive_back_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/predictive_back_route_test.dart) | PredictiveBackRoute | No | Print-Only | No | Checked. |
 | [preferred_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_test.dart) | PreferredSize | No | Yes | No | Created on 2026-04-07 at 04:18 |
-| [preferred_size_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_widget_test.dart) | PreferredSizeWidget | No | No | Yes | Checked. |
+| [preferred_size_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferred_size_widget_test.dart) | PreferredSizeWidget | No | Yes | No | Created on 2026-04-07 at 06:32 |
 | [preferredsize_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/preferredsize_test.dart) | PreferredSize | No | Yes | No |
 | [previous_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/previous_focus_action_test.dart) | PreviousFocusAction | No | Print-Only | No | Checked. |
 | [previous_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/previous_focus_intent_test.dart) | PreviousFocusIntent | No | Print-Only | No | Checked. |
 | [primary_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/primary_scroll_controller_test.dart) | PrimaryScrollController | No | Yes | No | Created on 2026-04-07 at 04:18 |
-| [prioritized_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_action_test.dart) | PrioritizedAction | No | No | Yes | Checked. |
-| [prioritized_intents_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_intents_test.dart) | PrioritizedIntents | No | No | Yes | Checked. |
+| [prioritized_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_action_test.dart) | PrioritizedAction | No | Yes | No | Created on 2026-04-07 at 06:32 |
+| [prioritized_intents_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/prioritized_intents_test.dart) | PrioritizedIntents | No | Yes | No | Created on 2026-04-07 at 06:32 |
 | [proxy_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/proxy_element_test.dart) | ProxyElement | No | Print-Only | No | Checked. |
 | [proxy_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/proxy_widget_test.dart) | ProxyWidget | No | Print-Only | No | Checked. |
 | [radio_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_client_test.dart) | RadioClient | No | Print-Only | No | Checked. |
 | [radio_group_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_group_registry_test.dart) | RadioGroupRegistry | No | Print-Only | No | Checked. |
-| [radio_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_group_test.dart) | RadioGroup | No | No | Yes | Checked. |
+| [radio_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_group_test.dart) | RadioGroup | No | Yes | No | Created on 2026-04-07 at 06:32 |
 | [range_maintaining_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/range_maintaining_scroll_physics_test.dart) | RangeMaintainingScrollPhysics | No | Print-Only | No | Checked. |
 | [raw_autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_autocomplete_test.dart) | RawAutocomplete | No | No | Yes | Checked. |
 | [raw_dialog_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart) | RawDialogRoute | No | No | Yes | Checked. |
