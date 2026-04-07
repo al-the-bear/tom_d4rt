@@ -1722,7 +1722,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [raw_radio_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_radio_test.dart) | RawRadio | No | Yes | No | Created on 2026-04-07 at 12:00 |
 | [raw_scrollbar_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_scrollbar_state_test.dart) | RawScrollbarState | No | Print-Only | No | Checked. |
 | [raw_tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_state_test.dart) | RawTooltipState | No | No | Yes | Created on 2026-03-21 at 12:30 |
-| [raw_tooltip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_test.dart) | RawTooltip | No | No | Yes | Checked. |
+| [raw_tooltip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_test.dart) | RawTooltip | No | Yes | No | Created on 2026-04-07 at 19:00. |
 | [raw_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_view_test.dart) | RawView | No | Yes | No | Created on 2026-04-07 at 14:00. |
 | [raw_web_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_web_image_test.dart) | RawWebImage | No | Yes | No | Created on 2026-04-07 at 14:15. |
 | [raw_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_widgets_test.dart) | RawScrollbar | No | Yes | No | Checked. |
@@ -1862,17 +1862,17 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [semantics_debugger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_debugger_test.dart) | SemanticsDebugger | No | Yes | No | Created on 2026-04-07 at 18:45. |
 | [semantics_gesture_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_gesture_delegate_test.dart) | SemanticsGestureDelegate | No | Print-Only | No | Checked. |
 | [semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_test.dart) | Semantics | No | Yes | No | Created on 2026-04-07 at 18:45. |
-| [sensitive_content_host_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_host_test.dart) | SensitiveContentHost | No | No | Yes | Checked. |
-| [sensitive_content_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_test.dart) | SensitiveContent | No | No | Yes | Checked. |
+| [sensitive_content_host_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_host_test.dart) | SensitiveContentHost | No | Yes | No | Created on 2026-04-07 at 19:15. |
+| [sensitive_content_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_test.dart) | SensitiveContent | No | Yes | No | Created on 2026-04-07 at 19:30. |
 | [shader_mask_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shader_mask_test.dart) | ShaderMask | No | Yes | No | Deep demo created 2025-03-28 |
 | [shaderfilter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shaderfilter_test.dart) | ShaderMask | No | Yes | No |
-| [shared_app_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shared_app_data_test.dart) | SharedAppData | No | No | Yes | Checked. |
+| [shared_app_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shared_app_data_test.dart) | SharedAppData | No | Yes | No | Created on 2026-04-07 at 19:45. |
 | [shortcut_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_activator_test.dart) | ShortcutActivator | No | Print-Only | No | Checked. |
 | [shortcut_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_manager_test.dart) | ShortcutManager | No | Print-Only | No | Checked. |
 | [shortcut_map_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_map_property_test.dart) | ShortcutMapProperty | No | Print-Only | No | Checked. |
-| [shortcut_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registrar_test.dart) | ShortcutRegistrar | No | No | Yes | Checked. |
+| [shortcut_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registrar_test.dart) | ShortcutRegistrar | No | Yes | No | Created on 2026-04-07 at 20:00. |
 | [shortcut_registry_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart) | ShortcutRegistryEntry | No | Print-Only | No | Checked. |
-| [shortcut_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_test.dart) | ShortcutRegistry | No | No | Yes | Checked. |
+| [shortcut_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_test.dart) | ShortcutRegistry | No | Yes | No | Created on 2026-04-07 at 20:15. |
 | [shortcut_serialization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Print-Only | No | Checked. |
 | [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
 | [shortcuts_actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Checked. |
