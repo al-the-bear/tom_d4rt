@@ -1811,7 +1811,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart) | ScrollActivity | No | Print-Only | No | Checked. |
 | [scroll_aware_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_aware_image_provider_test.dart) | ScrollAwareImageProvider | No | Yes | No | Created on 2026-04-07 at 15:00. |
 | [scroll_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_behavior_test.dart) | ScrollConfiguration | No | Yes | No | Checked. |
-| [scroll_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_configuration_test.dart) | ScrollConfiguration | No | No | Yes | Checked. |
+| [scroll_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_configuration_test.dart) | ScrollConfiguration | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scroll_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_context_test.dart) | ScrollContext | No | Print-Only | No | Checked. |
 | [scroll_controllers_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_controllers_types_test.dart) | ScrollControllersTypes | No | Yes | No | Checked. |
 | [scroll_deceleration_rate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_deceleration_rate_test.dart) | ScrollDecelerationRate | No | Print-Only | No | Checked. |
@@ -1824,7 +1824,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_metrics_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_metrics_notification_test.dart) | ScrollMetricsNotification | No | Print-Only | No | Checked. |
 | [scroll_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_metrics_test.dart) | FixedScrollMetrics | No | Yes | No | Checked. |
 | [scroll_notification_observer_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_state_test.dart) | ScrollNotificationObserverState | No | Print-Only | No | Checked. |
-| [scroll_notification_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_test.dart) | ScrollNotificationObserver | No | No | Yes | Checked. |
+| [scroll_notification_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_test.dart) | ScrollNotificationObserver | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scroll_notifications_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notifications_adv_test.dart) | ScrollStartNotification | No | Yes | No | Checked. |
 | [scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_physics_test.dart) | ScrollPhysics | No | Print-Only | No | Checked. |
 | [scroll_position_alignment_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_alignment_policy_test.dart) | ScrollPositionAlignmentPolicy | No | Print-Only | No | Checked. |
@@ -1835,13 +1835,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_to_document_boundary_intent_test.dart) | ScrollToDocumentBoundaryIntent | No | Print-Only | No | Checked. |
 | [scroll_update_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_update_notification_test.dart) | ScrollUpdateNotification | No | Print-Only | No | Checked. |
 | [scroll_view_keyboard_dismiss_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_keyboard_dismiss_behavior_test.dart) | ScrollViewKeyboardDismissBehavior | No | Print-Only | No | Checked. |
-| [scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_test.dart) | ScrollView | No | No | Yes | Checked. |
+| [scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_test.dart) | ScrollView | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scrollable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_details_test.dart) | ScrollableDetails | No | Print-Only | No | Checked. |
 | [scrollable_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_state_test.dart) | ScrollableState | No | Print-Only | No | Checked. |
-| [scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_test.dart) | Scrollable | No | No | Yes | Checked. |
+| [scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_test.dart) | Scrollable | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scrollbar_layout_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_layout_misc_test.dart) | RawScrollbar | No | Yes | No |
 | [scrollbar_orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_orientation_test.dart) | ScrollbarOrientation | No | Print-Only | No | Checked. |
-| [scrollbar_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_painter_test.dart) | ScrollbarPainter | No | No | Yes | Checked. |
+| [scrollbar_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_painter_test.dart) | ScrollbarPainter | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scrollnotification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollnotification_test.dart) | ScrollNotification | No | Yes | No |
 | [scrollphysics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollphysics_test.dart) | ScrollPhysics | No | Yes | No | Checked. |
 | [select_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart) | SelectAction | No | Print-Only | No | Checked. |
