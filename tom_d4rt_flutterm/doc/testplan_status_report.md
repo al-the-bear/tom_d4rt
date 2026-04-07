@@ -1855,13 +1855,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [selection_container_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_container_test.dart) | SelectionContainer | No | Yes | No | Created on 2026-04-07 at 14:30. |
 | [selection_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_details_test.dart) | SelectionDetails | No | Print-Only | No | Checked. |
 | [selection_listener_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_listener_notifier_test.dart) | SelectionListenerNotifier | No | Yes | No | Created on 2026-04-07 at 14:30. |
-| [selection_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_listener_test.dart) | SelectionListener | No | No | Yes | Checked. |
-| [selection_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_overlay_test.dart) | SelectionOverlay | No | No | Yes | Checked. |
-| [selection_registrar_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_registrar_scope_test.dart) | SelectionRegistrarScope | No | No | Yes | Checked. |
+| [selection_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_listener_test.dart) | SelectionListener | No | Yes | No | Created on 2026-04-07 at 18:45. |
+| [selection_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_overlay_test.dart) | SelectionOverlay | No | Yes | No | Created on 2026-04-07 at 18:45. |
+| [selection_registrar_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_registrar_scope_test.dart) | SelectionRegistrarScope | No | Yes | No | Created on 2026-04-07 at 18:45. |
 | [selection_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/selection_types_test.dart) | SelectionTypes | No | Yes | No | Checked. |
-| [semantics_debugger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_debugger_test.dart) | SemanticsDebugger | No | No | Yes | Checked. |
+| [semantics_debugger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_debugger_test.dart) | SemanticsDebugger | No | Yes | No | Created on 2026-04-07 at 18:45. |
 | [semantics_gesture_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_gesture_delegate_test.dart) | SemanticsGestureDelegate | No | Print-Only | No | Checked. |
-| [semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_test.dart) | Semantics | No | No | Yes | Checked. |
+| [semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/semantics_test.dart) | Semantics | No | Yes | No | Created on 2026-04-07 at 18:45. |
 | [sensitive_content_host_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_host_test.dart) | SensitiveContentHost | No | No | Yes | Checked. |
 | [sensitive_content_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sensitive_content_test.dart) | SensitiveContent | No | No | Yes | Checked. |
 | [shader_mask_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shader_mask_test.dart) | ShaderMask | No | Yes | No | Deep demo created 2025-03-28 |
