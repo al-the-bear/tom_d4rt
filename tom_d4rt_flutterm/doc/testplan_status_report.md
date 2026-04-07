@@ -1953,13 +1953,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [table_row_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_row_test.dart) | TableRow | No | Yes | No | Created on 2026-04-07 at 18:57 |
 | [table_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_test.dart) | Table | No | Yes | No |
 | [table_wrap_flow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/table_wrap_flow_test.dart) | Table | No | Yes | No | Checked. |
-| [tap_region_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_registry_test.dart) | TapRegionRegistry | No | No | Yes | Checked. |
-| [tap_region_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_surface_test.dart) | TapRegionSurface | No | No | Yes | Checked. |
-| [tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_test.dart) | TapRegion | No | No | Yes | Checked. |
+| [tap_region_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_registry_test.dart) | TapRegionRegistry | No | Yes | No | Created on 2026-04-07 at 19:22 |
+| [tap_region_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_surface_test.dart) | TapRegionSurface | No | Yes | No | Created on 2026-04-07 at 19:22 |
+| [tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tap_region_test.dart) | TapRegion | No | Yes | No | Created on 2026-04-07 at 19:22 |
 | [text_editing_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_editing_adv_test.dart) | TextEditingAdv | No | Yes | No | Checked. |
-| [text_field_tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_field_tap_region_test.dart) | TextFieldTapRegion | No | No | Yes | Checked. |
+| [text_field_tap_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_field_tap_region_test.dart) | TextFieldTapRegion | No | Yes | No | Created on 2026-04-07 at 19:22 |
 | [text_magnifier_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_configuration_test.dart) | TextMagnifierConfiguration | No | Print-Only | No | Checked. |
-| [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_test.dart) | MagnifierDecoration | No | No | Yes | Checked. |
+| [text_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_magnifier_test.dart) | MagnifierDecoration | No | Yes | No | Created on 2026-04-07 at 19:22 |
 | [text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_controls_test.dart) | TextSelectionControls | No | Print-Only | No | Checked. |
 | [text_selection_gesture_detector_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_delegate_test.dart) | TextSelectionGestureDetectorBuilderDelegate | No | Print-Only | No | Checked. |
 | [text_selection_gesture_detector_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_test.dart) | TextSelectionGestureDetectorBuilder | No | Print-Only | No | Checked. |
