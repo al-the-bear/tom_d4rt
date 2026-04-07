@@ -1917,11 +1917,11 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [sliver_prototype_extent_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_prototype_extent_list_test.dart) | SliverPrototypeExtentList | No | Yes | No | Created on 2026-04-07 at 18:00 |
 | [sliver_reorderable_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_reorderable_list_state_test.dart) | SliverReorderableListState | No | Print-Only | No | Checked. |
 | [sliver_reorderable_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_reorderable_list_test.dart) | SliverReorderableList | No | Yes | No | Created on 2026-04-07 at 18:00 |
-| [sliver_resizing_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_resizing_header_test.dart) | SliverResizingHeader | No | No | Yes | Checked. |
-| [sliver_safe_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_safe_area_test.dart) | SliverSafeArea | No | No | Yes | Checked. |
-| [sliver_semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_semantics_test.dart) | SliverSemantics | No | No | Yes | Checked. |
-| [sliver_visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_visibility_test.dart) | SliverVisibility | No | No | Yes | Checked. |
-| [sliver_with_keep_alive_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_with_keep_alive_widget_test.dart) | SliverWithKeepAliveWidget | No | No | Yes | Checked. |
+| [sliver_resizing_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_resizing_header_test.dart) | SliverResizingHeader | No | Yes | No | Created on 2026-04-07 at 18:17 |
+| [sliver_safe_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_safe_area_test.dart) | SliverSafeArea | No | Yes | No | Created on 2026-04-07 at 18:17 |
+| [sliver_semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_semantics_test.dart) | SliverSemantics | No | Yes | No | Created on 2026-04-07 at 18:17 |
+| [sliver_visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_visibility_test.dart) | SliverVisibility | No | Yes | No | Created on 2026-04-07 at 18:17 |
+| [sliver_with_keep_alive_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_with_keep_alive_widget_test.dart) | SliverWithKeepAliveWidget | No | Yes | No | Created on 2026-04-07 at 18:17 |
 | [sliverfillremaining_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverfillremaining_test.dart) | SliverFillRemaining | No | Yes | No |
 | [sliverlist_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverlist_test.dart) | SliverList | No | Yes | No |
 | [sliverwidgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliverwidgets_test.dart) | SliverFixedExtentList | No | Yes | No |
