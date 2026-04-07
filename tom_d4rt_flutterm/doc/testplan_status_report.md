@@ -1978,7 +1978,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [ticker_mode_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_data_test.dart) | TickerModeData | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [ticker_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_test.dart) | TickerMode | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Print-Only | No | Checked. |
-| [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | No | Yes | Checked. |
+| [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | Yes | No | Created on 2026-04-07 at 20:20 |
 | [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | Print-Only | No | Checked. |
 | [toggleable_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_state_mixin_test.dart) | ToggleableStateMixin | No | Print-Only | No | Checked. |
 | [toolbar_items_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart) | ToolbarItemsParentData | No | Print-Only | No | Checked. |
@@ -1999,27 +1999,27 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [traversal_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart) | TraversalDirection | No | Print-Only | No | Checked. |
 | [traversal_edge_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart) | TraversalEdgeBehavior | No | Print-Only | No | Checked. |
 | [tree_sliver_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_controller_test.dart) | TreeSliverController | No | Print-Only | No | Checked. |
-| [tree_sliver_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_node_test.dart) | TreeSliverNode | No | No | Yes | Checked. |
+| [tree_sliver_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_node_test.dart) | TreeSliverNode | No | Yes | No | Created on 2026-04-07 at 20:20 |
 | [tree_sliver_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_state_mixin_test.dart) | TreeSliverStateMixin | No | Print-Only | No | Checked. |
-| [tree_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_test.dart) | TreeSliver | No | No | Yes | Checked. |
-| [tween_animation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tween_animation_builder_test.dart) | TweenAnimationBuilder | No | No | Yes | Checked. |
+| [tree_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tree_sliver_test.dart) | TreeSliver | No | Yes | No | Created on 2026-04-07 at 20:20 |
+| [tween_animation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tween_animation_builder_test.dart) | TweenAnimationBuilder | No | Yes | No | Created on 2026-04-07 at 20:20 |
 | [two_dimensional_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_builder_delegate_test.dart) | TwoDimensionalChildBuilderDelegate | No | Print-Only | No | Checked. |
 | [two_dimensional_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_delegate_test.dart) | TwoDimensionalChildDelegate | No | Print-Only | No | Checked. |
 | [two_dimensional_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_list_delegate_test.dart) | TwoDimensionalChildListDelegate | No | Print-Only | No | Checked. |
 | [two_dimensional_child_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_child_manager_test.dart) | TwoDimensionalChildManager | No | Print-Only | No | Checked. |
-| [two_dimensional_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scroll_view_test.dart) | TwoDimensionalScrollView | No | No | Yes | Checked. |
+| [two_dimensional_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scroll_view_test.dart) | TwoDimensionalScrollView | No | Yes | No | Created on 2026-04-07 at 20:37 |
 | [two_dimensional_scrollable_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scrollable_state_test.dart) | TwoDimensionalScrollableState | No | Print-Only | No | Checked. |
-| [two_dimensional_scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scrollable_test.dart) | TwoDimensionalScrollable | No | No | Yes | Checked. |
+| [two_dimensional_scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_scrollable_test.dart) | TwoDimensionalScrollable | No | Yes | No | Created on 2026-04-07 at 20:37 |
 | [two_dimensional_viewport_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_viewport_parent_data_test.dart) | TwoDimensionalViewportParentData | No | Print-Only | No | Checked. |
-| [two_dimensional_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_viewport_test.dart) | TwoDimensionalViewport | No | No | Yes | Checked. |
-| [ui_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ui_kit_view_test.dart) | UiKitView | No | No | Yes | Checked. |
+| [two_dimensional_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/two_dimensional_viewport_test.dart) | TwoDimensionalViewport | No | Yes | No | Created on 2026-04-07 at 20:37 |
+| [ui_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ui_kit_view_test.dart) | UiKitView | No | Yes | No | Created on 2026-04-07 at 20:37 |
 | [undo_history_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_history_controller_test.dart) | UndoHistoryController | No | Print-Only | No | Checked. |
 | [undo_history_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_history_state_test.dart) | UndoHistoryState | No | Print-Only | No | Checked. |
 | [undo_history_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_history_test.dart) | UndoHistoryController | Yes (B31) | Yes | Checked. |
 | [undo_history_value_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_history_value_test.dart) | UndoHistoryValue | No | Print-Only | No | Checked. |
 | [undo_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_text_intent_test.dart) | UndoTextIntent | No | Print-Only | No | Checked. |
 | [unfocus_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unfocus_disposition_test.dart) | UnfocusDisposition | No | Print-Only | No | Checked. |
-| [unique_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unique_widget_test.dart) | UniqueWidget | No | No | Yes | Checked. |
+| [unique_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unique_widget_test.dart) | UniqueWidget | No | Yes | No | Created on 2026-04-07 at 20:37 |
 | [unmanaged_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unmanaged_restoration_scope_test.dart) | UnmanagedRestorationScope | No | No | Yes | Checked. |
 | [update_selection_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/update_selection_intent_test.dart) | UpdateSelectionIntent | No | Print-Only | No | Checked. |
 | [user_scroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/user_scroll_notification_test.dart) | UserScrollNotification | No | Print-Only | No | Checked. |
