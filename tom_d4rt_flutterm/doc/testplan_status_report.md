@@ -1291,7 +1291,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [absorbpointer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/absorbpointer_test.dart) | AbsorbPointer | No | Yes | No |
 | [abstract_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/abstract_layout_builder_test.dart) | AbstractLayoutBuilder | No | Yes | No | Created on 2026-03-30 at 10:13. |
-| [action_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_dispatcher_test.dart) | ActionDispatcher | No | No | Yes | Checked. |
+| [action_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_dispatcher_test.dart) | ActionDispatcher | No | Yes | No | Created on 2026-04-07. |
 | [action_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/action_listener_test.dart) | ActionListener | No | Yes | No | Created on 2026-03-30 at 10:22. |
 | [actions_intents_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/actions_intents_test.dart) | SelectIntent | No | Yes | No | Checked. |
 | [actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/actions_test.dart) | Actions | No | Yes | No | Created on 2026-03-30 at 10:29. |
@@ -1306,8 +1306,8 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animated_align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_align_test.dart) | AnimatedAlign | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_cross_fade_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_cross_fade_test.dart) | AnimatedCrossFade | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_fractionally_sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_fractionally_sized_box_test.dart) | AnimatedFractionallySizedBox | No | Yes | No | Deep demo created 2025-03-28 |
-| [animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_grid_state_test.dart) | AnimatedGridState | No | No | Yes | Checked. |
-| [animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_list_state_test.dart) | AnimatedListState | No | No | Yes | Checked. |
+| [animated_grid_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_grid_state_test.dart) | AnimatedGridState | No | Yes | No | Created on 2026-04-07. |
+| [animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_list_state_test.dart) | AnimatedListState | No | Yes | No | Created on 2026-04-07. |
 | [animated_modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_modal_barrier_test.dart) | AnimatedModalBarrier | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_physical_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_physical_model_test.dart) | AnimatedPhysicalModel | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_positioned_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_positioned_directional_test.dart) | AnimatedPositionedDirectional | No | Yes | No | Deep demo created 2025-03-28 |
@@ -1328,9 +1328,9 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animation_test.dart) | Animation | No | Yes | No | Checked. |
 | [annotated_region_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/annotated_region_test.dart) | AnnotatedRegion | No | Yes | No | Deep demo created 2025-03-28 |
 | [app_kit_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_kit_view_test.dart) | AppKitView | No | Yes | No | Created on 2026-03-30 at 14:06. |
-| [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | No | Yes | Checked. |
+| [app_lifecycle_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/app_lifecycle_listener_test.dart) | AppLifecycleListener | No | Yes | No | Created on 2026-04-07. |
 | [appbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/appbar_test.dart) | AppBar | No | Yes | No |
-| [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | No | Yes | Checked. |
+| [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | Yes | No | Created on 2026-04-07. |
 | [autocomplete_first_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_first_option_intent_test.dart) | AutocompleteFirstOptionIntent | No | No | Yes | Checked. |
 | [autocomplete_highlighted_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_highlighted_option_test.dart) | AutocompleteHighlightedOption | No | Yes | No | Created on 2026-03-30 at 14:13. |
 | [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | No | Yes | Checked. |
