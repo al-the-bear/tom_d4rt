@@ -10,12 +10,17 @@ library;
 import 'dart:ui'
     as ui
     show FontStyle, FontWeight, StrutStyle, TextLeadingDistribution, TextStyle;
-import 'dart:ui' show Offset;
+import 'dart:ui' show Color, Offset;
 
+import 'package:flutter/animation.dart' show Tween;
 import 'package:flutter/foundation.dart'
     show ChangeNotifier, Key, ValueKey, ValueNotifier;
 import 'package:flutter/material.dart'
-    show ButtonSegment, DropdownMenuEntry, DropdownMenuItem, ScaffoldState;
+    show
+        ButtonSegment,
+        DropdownMenuEntry,
+        DropdownMenuItem,
+        ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/rendering.dart' show BoxConstraints;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
@@ -38,6 +43,7 @@ import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
+import 'bridges/flutter_relaxers.b.dart' show $RelaxedTween;
 
 /// Register all runtime registrations (interface proxies, type coercions,
 /// generic constructor factories).
@@ -49,6 +55,7 @@ void registerD4rtRuntimeExtensions() {
   _registerTypeCoercions();
   _registerGenericConstructors();
   _registerSupplementaryMethods();
+  _registerSupplementaryRelaxers();
   _registerGenericWidgetReCreators();
 }
 
@@ -853,6 +860,40 @@ void _registerSupplementaryMethods() {
     // SingleChildLayoutDelegate doesn't have a hasChild method natively,
     // but some scripts may assume it does. Return true as single-child always has child.
     return true;
+  });
+}
+
+// =============================================================================
+// RC-8: Supplementary Relaxer Type Wrappers
+// =============================================================================
+
+/// Register additional inner type arguments for generated relaxer wrappers.
+///
+/// The generated `flutter_relaxers.b.dart` only includes a limited set of
+/// inner types per wrapper (e.g., Tween only has Object/Rect). This function
+/// adds commonly-needed inner types that match Flutter's built-in Tween
+/// subclasses and animation targets.
+///
+/// These registrations will become redundant when the relaxer generator is
+/// updated to auto-detect which inner types are actually needed.
+void _registerSupplementaryRelaxers() {
+  // Tween<T> — add commonly-used inner types matching Flutter's built-in
+  // Tween subclasses (ColorTween, IntTween, etc.) and animation targets.
+  D4.registerGenericTypeWrapper('Tween', (Object value, String innerTypeArg) {
+    if (value is! Tween) return null;
+    return switch (innerTypeArg) {
+      'double' => $RelaxedTween<double>(value),
+      'double?' => $RelaxedTween<double?>(value),
+      'int' => $RelaxedTween<int>(value),
+      'int?' => $RelaxedTween<int?>(value),
+      'num' => $RelaxedTween<num>(value),
+      'num?' => $RelaxedTween<num?>(value),
+      'Color' => $RelaxedTween<Color>(value),
+      'Color?' => $RelaxedTween<Color?>(value),
+      'Offset' => $RelaxedTween<Offset>(value),
+      'Offset?' => $RelaxedTween<Offset?>(value),
+      _ => null,
+    };
   });
 }
 

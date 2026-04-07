@@ -78,11 +78,16 @@ class BridgedEnumDefinition<T extends Enum> {
   /// The key is the method name.
   final Map<String, BridgedMethodAdapter> methods;
 
+  /// Adapters for static getters on the enum type itself.
+  /// These are non-constant static members like `WidgetState.any`.
+  final Map<String, Object? Function()> staticGetters;
+
   BridgedEnumDefinition({
     required this.name,
     required this.values,
     this.getters = const {},
     this.methods = const {},
+    this.staticGetters = const {},
   }) {
     // Validation: Ensure the value list is not empty
     if (values.isEmpty) {
@@ -126,6 +131,7 @@ class BridgedEnumDefinition<T extends Enum> {
     // Copy adapters into the final instance as well
     bridgedEnum.getters = getters;
     bridgedEnum.methods = methods;
+    bridgedEnum.staticGetters = staticGetters;
 
     final finalBridgedValues = <String, BridgedEnumValue>{};
     for (final nativeValue in values) {

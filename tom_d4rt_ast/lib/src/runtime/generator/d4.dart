@@ -283,6 +283,36 @@ class D4 {
   }
 
   // ==========================================================================
+  // RC-8: Enum Static Getter Registry
+  // ==========================================================================
+
+  /// Static getter adapters for bridged enums, keyed by enum name then getter
+  /// name. These allow injecting non-constant static members (e.g.
+  /// `WidgetState.any`) at runtime without modifying generated bridge files.
+  static final Map<String, Map<String, Object? Function()>>
+      _enumStaticGetters = {};
+
+  /// Register a static getter on a bridged enum type.
+  ///
+  /// Used for enum static members that are not enum constants (e.g.
+  /// `WidgetState.any` which returns a `WidgetStatesConstraint`).
+  static void registerEnumStaticGetter(
+    String enumName,
+    String getterName,
+    Object? Function() getter,
+  ) {
+    _enumStaticGetters.putIfAbsent(enumName, () => {})[getterName] = getter;
+  }
+
+  /// Look up a runtime-registered static getter for a bridged enum.
+  static Object? Function()? findEnumStaticGetter(
+    String enumName,
+    String getterName,
+  ) {
+    return _enumStaticGetters[enumName]?[getterName];
+  }
+
+  // ==========================================================================
   // List Coercion
   // ==========================================================================
 

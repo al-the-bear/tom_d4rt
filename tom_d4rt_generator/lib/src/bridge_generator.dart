@@ -476,6 +476,10 @@ class EnumInfo {
   /// Used to generate proper argument coercion in enum method adapters.
   final List<EnumMethodDetail> methodDetails;
 
+  /// RC-8: Static getter names (non-constant static members).
+  /// E.g. `WidgetState.any` which is a `static const WidgetStatesConstraint`.
+  final List<String> staticGetterNames;
+
   const EnumInfo({
     required this.name,
     required this.values,
@@ -483,6 +487,7 @@ class EnumInfo {
     this.hasMembers = false,
     this.getterNames = const [],
     this.methodDetails = const [],
+    this.staticGetterNames = const [],
   });
 }
 
@@ -5940,6 +5945,17 @@ class BridgeGenerator {
             );
           }
           buffer.writeln('          },');
+        }
+        buffer.writeln('        },');
+      }
+
+      // RC-8: Emit static getter adapters for non-constant static members
+      if (enumInfo.staticGetterNames.isNotEmpty) {
+        buffer.writeln('        staticGetters: {');
+        for (final getter in enumInfo.staticGetterNames) {
+          buffer.writeln(
+            "          '$getter': () => $prefixedEnumName.$getter,",
+          );
         }
         buffer.writeln('        },');
       }
@@ -13741,6 +13757,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     final getterNames = <String>[];
     final methodNames = <String>[];
     final methodDetails = <EnumMethodDetail>[];
+    final staticGetterNames = <String>[];
     final enumElement = node.declaredFragment?.element;
     if (hasMembers && enumElement != null) {
       // Built-in names that BridgedEnumValue already handles
@@ -13756,7 +13773,18 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       for (final field in enumElement.fields) {
         if (field.isSynthetic) continue;
         if (field.isPrivate) continue;
-        if (field.isStatic) continue; // Enum constants are static
+        if (field.isStatic) {
+          // RC-8: Collect non-enum-constant static fields (e.g. WidgetState.any)
+          if (!field.isEnumConstant) {
+            final fieldName = field.name;
+            if (fieldName != null &&
+                !builtInNames.contains(fieldName) &&
+                !values.contains(fieldName)) {
+              staticGetterNames.add(fieldName);
+            }
+          }
+          continue;
+        }
         final fieldName = field.name;
         if (fieldName == null) continue;
         if (builtInNames.contains(fieldName)) continue;
@@ -13768,7 +13796,17 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       for (final accessor in enumElement.getters) {
         if (accessor.isSynthetic) continue;
         if (accessor.isPrivate) continue;
-        if (accessor.isStatic) continue;
+        if (accessor.isStatic) {
+          // RC-8: Collect non-enum-constant static getters
+          final accessorName = accessor.name;
+          if (accessorName != null &&
+              !builtInNames.contains(accessorName) &&
+              !values.contains(accessorName) &&
+              !staticGetterNames.contains(accessorName)) {
+            staticGetterNames.add(accessorName);
+          }
+          continue;
+        }
         final accessorName = accessor.name;
         if (accessorName == null) continue;
         if (builtInNames.contains(accessorName)) continue;
@@ -13836,6 +13874,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         hasMembers: hasMembers,
         getterNames: getterNames,
         methodDetails: methodDetails,
+        staticGetterNames: staticGetterNames,
       ),
     );
 

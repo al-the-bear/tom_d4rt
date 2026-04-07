@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 116 files
-// Generated: 2026-04-05T22:00:54.059152
+// Generated: 2026-04-07T02:49:12.226897
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -868,10 +868,12 @@ class FlutterCupertinoBridge {
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
             final t = target as $flutter_164.WidgetState;
-            // RC-7: Coerce Set<Object?> → Set<WidgetState> for proper typed dispatch
             final states = D4.coerceSet<$flutter_164.WidgetState>(positional[0], 'states');
             return t.isSatisfiedBy(states);
           },
+        },
+        staticGetters: {
+          'any': () => $flutter_164.WidgetState.any,
         },
       ),
     ];

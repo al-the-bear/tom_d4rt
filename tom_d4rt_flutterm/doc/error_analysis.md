@@ -1,30 +1,56 @@
 # Error Analysis — tom_d4rt_flutterm Test Results
 
-Generated: 2026-04-06 (updated after RC-6 fixes)
+Generated: 2026-04-06 (updated after RC-8 fixes)
 
 ## Summary
 
 - **Total tests:** 2,000 (across 8 test files)
-- **Tests passing:** 1,929
+- **Tests passing:** 1,949
 - **Tests skipped:** 9
-- **Tests failing:** 62
+- **Tests failing:** 42
 - **Test files with 0 test failures:** bridge_execution_test.dart, essential_classes_test.dart, tom_d4rt_flutterm_test.dart
 
-### Per-File Breakdown (RC-6, file-by-file runs)
+### Per-File Breakdown (RC-8, file-by-file runs)
 
-| Test File | Passed | Skipped | Failed | Total | RC-5c→RC-6 |
-|-----------|--------|---------|--------|-------|-------------|
+| Test File | Passed | Skipped | Failed | Total | RC-6→RC-8 |
+|-----------|--------|---------|--------|-------|------------|
 | essential_classes | 108 | 0 | 0 | 108 | 0 |
 | important_classes | 161 | 5 | 3 | 169 | 0 |
-| secondary_classes | 637 | 4 | 15 | 656 | –3 |
-| hardly_relevant_1 | 197 | 0 | 8 | 205 | –4 |
-| hardly_relevant_2 | 194 | 0 | 9 | 203 | 0 |
-| hardly_relevant_3 | 193 | 0 | 8 | 201 | –3 |
-| hardly_relevant_4 | 219 | 0 | 9 | 228 | –1 |
-| hardly_relevant_5 | 220 | 0 | 10 | 230 | –1 |
-| **TOTAL** | **1,929** | **9** | **62** | **2,000** | **–12** |
+| secondary_classes | 645 | 4 | 7 | 656 | –8 |
+| hardly_relevant_1 | 197 | 0 | 8 | 205 | 0 |
+| hardly_relevant_2 | 199 | 0 | 4 | 203 | –5 |
+| hardly_relevant_3 | 193 | 0 | 8 | 201 | 0 |
+| hardly_relevant_4 | 226 | 0 | 2 | 228 | –7 |
+| hardly_relevant_5 | 220 | 0 | 10 | 230 | 0 |
+| **TOTAL** | **1,949** | **9** | **42** | **2,000** | **–20** |
 
-Note: hardly_relevant_2 showed 194/0/9 in this run vs 196/0/7 in earlier clean-app runs — 2 extra failures likely caused by test app degradation (17 min runtime, ~10 sec/test by end). True improvement is estimated at –14 from RC-5c.
+### RC-7 + RC-8 Fix Impact
+
+RC-7 (commit `76101da9`) and RC-8 were developed consecutively; tests were run after RC-8 with all bridges regenerated.
+
+**RC-7 fixes (both interpreters):**
+
+1. **Map enum key unwrap** (Category 9 Deferred A): In `visitIndexExpression`, when the target is a `Map` and the key is a `BridgedEnumValue`, unwrap to `nativeValue` before lookup. Fixes `Map<CollapseMode, ...>` lookups where keys cross the native/bridged boundary.
+2. **Mixin on-clause BridgedClass** (Category 21): In mixin `on` clause resolution, added `BridgedClass` type matching so `mixin Foo on State<T>` correctly resolves `State` as a bridged type. Fixes all `_TickerProviderShim` mixin patterns.
+3. **Enum method adapter coercion**: Return value coercion through enum method adapters now applies `extractBridgedArg` to the result, fixing type mismatch errors when bridged enum methods return values.
+
+**RC-8 fixes (generator + runtime):**
+
+4. **Enum static getters in generator** (Category 11 partial): `EnumInfo.staticGetterNames` collects non-enum-constant static members using `field.isEnumConstant`. Generator emits `staticGetters:` map. Fixes `WidgetState.any` resolution.
+5. **D4.registerEnumStaticGetter API** (Category 11): New runtime API `D4.registerEnumStaticGetter()` / `D4.findEnumStaticGetter()` in both interpreters, with `BridgedEnum.getValue()` fallback chain.
+6. **Supplementary Tween relaxers** (runtime): Registered `Tween<Color>`, `Tween<Offset>`, `Tween<int>`, `Tween<num>` and nullable variants via `D4.registerGenericTypeWrapper` in `d4rt_runtime_registrations.dart`.
+7. **Bridge regeneration**: All 18 bridge files regenerated (2035 classes, 13 modules). Picks up `staticGetters`, `coerceSet`, and all RC-7 code changes.
+
+| Metric | RC-6 | RC-8 | Change |
+|--------|------|------|--------|
+| Total test failures | 62 | **42** | **–20 (–32%)** |
+| Mixin on-clause State errors | 5 | **0** | **–5 (–100%)** |
+| Return type mismatch (Widget) | ~4 | **~1** | **~–3** |
+| Map enum key lookup failures | ~2 | **0** | **~–2** |
+| WidgetState.any undefined | 1 | **0** | **–1 (–100%)** |
+| Tests passing | 1,929 | **1,949** | **+20** |
+
+**Biggest contributor:** The mixin on-clause fix (Cat 21) resolved 5 failures directly, plus cascading improvements in widget tests that previously failed because `_TickerProviderShim` could not be resolved. The hr4 file saw the largest improvement (–7) as it contains many animation widget tests using this mixin pattern.
 
 ### RC-5 Fix Impact
 
@@ -96,12 +122,12 @@ RC-6 addressed Categories 6, 7, and 8 with fixes across both interpreters and th
 
 ### Overall Progression
 
-| Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c | RC-6 |
-|--------|----------|------|-------|------|-------|-------|------|
-| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | 1,917 | **1,929** |
-| Tests failing | 309 | 152 | 126 | 103 | ~90 | 74 | **62** |
-| Tests skipped | 9 | 9 | 9 | 9 | 9 | 9 | **9** |
-| Reduction | — | –157 | –26 | –23 | ~–13 | –16 | **–12** |
+| Metric | Pre-RC-3 | RC-3 | RC-4b | RC-5 | RC-5b | RC-5c | RC-6 | RC-8 |
+|--------|----------|------|-------|------|-------|-------|------|------|
+| Tests passing | 1,688 | 1,845 | 1,871 | 1,894 | ~1,907 | 1,917 | 1,929 | **1,949** |
+| Tests failing | 309 | 152 | 126 | 103 | ~90 | 74 | 62 | **42** |
+| Tests skipped | 9 | 9 | 9 | 9 | 9 | 9 | 9 | **9** |
+| Reduction | — | –157 | –26 | –23 | ~–13 | –16 | –12 | **–20** |
 
 ### RC-4 Fix Impact
 
@@ -135,35 +161,37 @@ The largest new framework error category is `widget` property access (154 occurr
 
 ## Test Failure Categories
 
-62 test failures as of RC-6 (verified via file-by-file runs, 2026-04-06).
+42 test failures as of RC-8 (verified via file-by-file runs, 2026-04-06).
 
-Note: Some tests produce multiple error messages across categories — early columns may sum to more than the total failures because a single test can trigger errors from multiple categories. The RC-6 column reflects verified unique test failure counts.
+Note: Some tests produce multiple error messages across categories — early columns may sum to more than the total failures because a single test can trigger errors from multiple categories. The RC-8 column reflects verified unique test failure counts.
 
-| # | Category | RC-5c | RC-6 | Status | Description |
-|---|----------|-------|------|--------|-------------|
-| 1 | ~~Missing unnamed constructor~~ | 0 | 0 | ✅ RC-4b | Declaration ordering fix |
-| 2 | ~~hashCode on bridged enum~~ | 0 | 0 | ✅ RC-4 | BridgedEnumValue.get() Object methods |
-| 3 | ~~_TickerProviderShim mixin~~ | 0 | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
-| 4 | ~~Undefined .name on bridged~~ | ~2 | 0 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
-| 5 | Native bridged constructor error | ~3 | ~3 | Reduced | Was 11; Cat 5A/5B-C/5B-D fixed in RC-5c |
-| 6 | ~~Other undefined var/property~~ | ~7 | ~2 | ✅ RC-6 | Set nativeNames + Callable runtimeType; remaining: ToolbarOptions, ByteData |
-| 7 | Return type mismatch | 6 | ~4 | Reduced RC-6 | Supertype registry covers Widget/Decoration/etc.; remaining: deeper subtypes |
-| 8 | ~~InterpretedFunction type mismatch~~ | 5 | 0 | ✅ RC-6 | `as Callable` cast + callback coercion |
-| 9 | Null check on SPostfixExpression | 5 | 5 | Open | Generic constructor factory null check |
-| 10 | _SUnknownNode (for-loop) | ~6 | ~4 | Open | Dart 3 record destructuring / AST converter |
-| 11 | WidgetState issues | 5 | ~4 | Open | WidgetState Set cast, enum value `any`, mapper |
-| 12 | ~~toString on bridged enum~~ | ~1 | 0 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
-| 13 | Object not callable | 4 | ~3 | Open | Object() / StreamBuilderBase constructor not bridged |
-| 14 | InterpretedInstance not converted | ~4 | ~4 | Open | Remaining argument-passing cases (Action<Intent> map values) |
-| 15 | flutter_test import unresolved | 3 | 3 | Open | Package not available in D4rt |
-| 16 | Timeout | ~6 | ~2 | Reduced | App degradation-related; fewer with fresh app |
-| 17 | ~~CatmullRomSpline assertion~~ | 0 | 0 | ✅ RC-5c | Test scripts fixed (added control points) |
-| 18 | ByteData / platform channel | 3 | 3 | Open | ByteData type / lengthInBytes not bridged |
-| 19 | Unsupported operation | 2 | 2 | Open | SystemColor, null indexing |
-| 20 | Failed assertion (native) | 2 | 1 | Open | RestorableBool registration |
-| 21 | _TickerProviderShim State not found | 0 | 5 | Open | Mixin `on State<T>` clause not resolved (new pattern) |
-| 22 | Other (single-occurrence) | ~2 | ~3 | Open | Script not found, null method, decoration_image |
-| | **TOTAL** | **~74** | **~62** | | |
+| # | Category | RC-5c | RC-6 | RC-8 | Status | Description |
+|---|----------|-------|------|------|--------|-------------|
+| 1 | ~~Missing unnamed constructor~~ | 0 | 0 | 0 | ✅ RC-4b | Declaration ordering fix |
+| 2 | ~~hashCode on bridged enum~~ | 0 | 0 | 0 | ✅ RC-4 | BridgedEnumValue.get() Object methods |
+| 3 | ~~_TickerProviderShim mixin~~ | 0 | 0 | 0 | ✅ RC-5 | TickerProvider adapter + canBeUsedAsMixin |
+| 4 | ~~Undefined .name on bridged~~ | ~2 | 0 | 0 | ✅ RC-5b | Enum property fallback in visitPrefixedIdentifier |
+| 5 | Native bridged constructor error | ~3 | ~3 | ~3 | Open | InterpretedInstance arg-passing (Widget?, Map<Type, Action>) |
+| 6 | Other undefined var/property | ~7 | ~2 | ~2 | Reduced | ToolbarOptions (1), runtimeType on closure (1) |
+| 7 | Return type mismatch | 6 | ~4 | ~1 | Reduced RC-8 | On-clause fix resolves most; remaining: deep subtypes |
+| 8 | ~~InterpretedFunction type mismatch~~ | 5 | 0 | 0 | ✅ RC-6 | `as Callable` cast + callback coercion |
+| 9 | Null check on SPostfixExpression | 5 | 5 | ~3 | Reduced RC-8 | ReverseTween, TweenSequenceItem, RouterConfig |
+| 10 | _SUnknownNode (for-loop) | ~6 | ~4 | ~3 | Open | Dart 3 record destructuring / AST converter |
+| 11 | WidgetState issues | 5 | ~4 | ~3 | Reduced RC-8 | `.any` fixed; remaining: mapper Map coercion, isSatisfiedBy |
+| 12 | ~~toString on bridged enum~~ | ~1 | 0 | 0 | ✅ RC-5b | Enum method fallback in visitMethodInvocation |
+| 13 | Object not callable | 4 | ~3 | ~4 | Open | Object(), StreamBuilderBase, VoidCallbackIntent |
+| 14 | InterpretedInstance not converted | ~4 | ~4 | ~3 | Reduced RC-8 | Remaining: scaffold_messenger, bottom_nav_bar_type, over_scroll |
+| 15 | flutter_test import unresolved | 3 | 3 | 3 | Open | Package not available in D4rt |
+| 16 | Timeout | ~6 | ~2 | 0 | ✅ RC-8 | Fresh app per test file; no timeouts observed |
+| 17 | ~~CatmullRomSpline assertion~~ | 0 | 0 | 0 | ✅ RC-5c | Test scripts fixed (added control points) |
+| 18 | ByteData / platform channel | 3 | 3 | 3 | Open | ByteData type / lengthInBytes not bridged |
+| 19 | Unsupported operation | 2 | 2 | 2 | Open | SystemColor, null indexing |
+| 20 | Failed assertion (native) | 2 | 1 | 2 | Open | RestorableBool/RestorableBoolN registration |
+| 21 | ~~_TickerProviderShim State not found~~ | 0 | 5 | 0 | ✅ RC-7 | Mixin on-clause BridgedClass resolution |
+| 22 | Other (single-occurrence) | ~2 | ~3 | ~3 | Open | Script not found, null method, decoration_image, hasSize |
+| 23 | Callback type coercion | — | — | ~1 | New RC-8 | `(dynamic) => Future<dynamic>` not subtype of `((String?) => Future<String>)?` |
+| 24 | Late variable initialization | — | — | ~5 | New RC-8 | `LateInitializationError` in State subclass lifecycle (FW errors) |
+| | **TOTAL** | **~74** | **~62** | **~42** | | |
 
 ## Detailed Category Explanations
 
@@ -824,3 +852,41 @@ The test script file does not exist at the expected path. The test list referenc
 Runtime Error: Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocation.
 ```
 A color value resolves to `null` and `.withAlpha(...)` is called on it without null-aware syntax. The script code uses `color.withAlpha(128)` where `color` was supposed to be resolved from a theme or configuration but returned `null` due to an upstream resolution failure. This is likely a cascading error — an earlier failure (e.g., theme not resolved) causes `null` to propagate to a `.withAlpha()` call.
+
+---
+
+### 23. Callback Type Coercion (1 failure) — New in RC-8
+
+**Error message:**
+```
+Runtime Error: Native error during bridged method call 'setMessageHandler' on BasicMessageChannel:
+  type '(dynamic) => Future<dynamic>' is not a subtype of type '((String?) => Future<String>)?' of 'handler'
+```
+
+**Code that fails:**
+```dart
+final channel = BasicMessageChannel<String>('test', StringCodec());
+channel.setMessageHandler((message) async {
+  return 'Response: $message';
+});
+```
+
+**Affected test script:** `channels_test.dart`.
+
+**Explanation:** When an `InterpretedFunction` is wrapped as a native callback closure via `extractBridgedArg`, the generated wrapper uses `dynamic` parameter and return types instead of the specific generic types (`String?` → `Future<String>`). The bridge creates `(dynamic arg) => Future<dynamic>.value(fn.call([arg]))` but the native `setMessageHandler` expects `((String?) => Future<String>)?`. Dart's reified generics reject the covariant assignment. This requires type-aware callback wrapping — the wrapper must match the exact function signature expected by the native API.
+
+---
+
+### 24. Late Variable Initialization (framework errors) — New in RC-8
+
+**Error messages:**
+```
+Runtime Error: Undefined variable: _controller (Original error: LateInitializationError: Late variable '_controller' without initializer is accessed before being assigned.)
+Runtime Error: Undefined variable: _dispatcher (Original error: LateInitializationError: Late variable '_dispatcher' without initializer is accessed before being assigned.)
+Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _SomeState.)
+Runtime Error: Undefined variable: context (Original error: Undefined property 'context' on _SomeState.)
+```
+
+**Affected test scripts:** Various widget tests in hr3, hr4 (align_transition, backdrop_group, hero_controller, etc.).
+
+**Explanation:** These are State lifecycle errors where `late` instance variables (typically `AnimationController`, `CurvedAnimation`) or inherited properties (`widget`, `context`, `setState`) are accessed before the State's `initState()` has been called. This occurs when the interpreted State subclass is correctly proxied (thanks to mixin on-clause fix in RC-7), but the State lifecycle methods (`initState`, `didChangeDependencies`) are not properly dispatched to the interpreted class. The `late` variables are assigned in `initState()`, but if `initState()` is not forwarded from the native proxy to the interpreted class, they remain uninitialized. These appear as **framework errors** (non-fatal) rather than test failures, but they indicate a gap in the State proxy forwarding mechanism.

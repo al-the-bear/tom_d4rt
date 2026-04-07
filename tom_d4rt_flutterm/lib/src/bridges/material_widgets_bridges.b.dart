@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 249 files
-// Generated: 2026-04-05T22:00:33.243070
+// Generated: 2026-04-07T02:48:49.875026
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1828,10 +1828,12 @@ class FlutterMaterialBridge {
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
             final t = target as $flutter_327.WidgetState;
-            // RC-7: Coerce Set<Object?> → Set<WidgetState> for proper typed dispatch
             final states = D4.coerceSet<$flutter_327.WidgetState>(positional[0], 'states');
             return t.isSatisfiedBy(states);
           },
+        },
+        staticGetters: {
+          'any': () => $flutter_327.WidgetState.any,
         },
       ),
     ];

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 179 files
-// Generated: 2026-04-05T22:00:04.019582
+// Generated: 2026-04-07T02:48:17.895473
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2225,10 +2225,12 @@ class FlutterWidgetsBridge {
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
             final t = target as $flutter_285.WidgetState;
-            // RC-7: Coerce Set<Object?> → Set<WidgetState> for proper typed dispatch
             final states = D4.coerceSet<$flutter_285.WidgetState>(positional[0], 'states');
             return t.isSatisfiedBy(states);
           },
+        },
+        staticGetters: {
+          'any': () => $flutter_285.WidgetState.any,
         },
       ),
     ];
@@ -71394,7 +71396,7 @@ BridgedClass _createTwoDimensionalChildListDelegateBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('TwoDimensionalChildListDelegate: Missing required named argument "children"');
         }
-        final children = D4.coerceNestedList<$flutter_164.Widget>(named['children'], 'children');
+        final children = D4.coerceList<List<$flutter_164.Widget>>(named['children'], 'children');
         return $flutter_225.TwoDimensionalChildListDelegate(addRepaintBoundaries: addRepaintBoundaries, addAutomaticKeepAlives: addAutomaticKeepAlives, children: children);
       },
     },

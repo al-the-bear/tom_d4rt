@@ -17,6 +17,10 @@ class BridgedEnum implements RuntimeType {
   /// Instance method adapters (shared by all values).
   Map<String, BridgedMethodAdapter> methods = {};
 
+  /// Static getter adapters for non-constant static members.
+  /// E.g. `WidgetState.any` which returns a `WidgetStatesConstraint`.
+  Map<String, Object? Function()> staticGetters = {};
+
   /// Creates a definition for a bridged enum.
   BridgedEnum(this.name, this.values);
 
@@ -38,7 +42,16 @@ class BridgedEnum implements RuntimeType {
     if (valueName == 'values') {
       return enumValues;
     }
-    return values[valueName];
+    // Check enum constants first
+    final enumValue = values[valueName];
+    if (enumValue != null) return enumValue;
+    // RC-8: Check static getters (e.g. WidgetState.any)
+    final staticGetter = staticGetters[valueName];
+    if (staticGetter != null) return staticGetter();
+    // RC-8: Fallback to runtime-registered static getters (via D4.registerEnumStaticGetter)
+    final runtimeGetter = D4.findEnumStaticGetter(name, valueName);
+    if (runtimeGetter != null) return runtimeGetter();
+    return null;
   }
 
   /// Returns the list of all values for this enum.
