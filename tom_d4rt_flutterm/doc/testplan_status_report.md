@@ -1963,20 +1963,20 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_controls_test.dart) | TextSelectionControls | No | Print-Only | No | Checked. |
 | [text_selection_gesture_detector_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_delegate_test.dart) | TextSelectionGestureDetectorBuilderDelegate | No | Print-Only | No | Checked. |
 | [text_selection_gesture_detector_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_builder_test.dart) | TextSelectionGestureDetectorBuilder | No | Print-Only | No | Checked. |
-| [text_selection_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_test.dart) | TextSelectionGestureDetector | No | No | Yes | Checked. |
+| [text_selection_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_gesture_detector_test.dart) | TextSelectionGestureDetector | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [text_selection_handle_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_handle_controls_test.dart) | TextSelectionHandleControls | No | Print-Only | No | Checked. |
-| [text_selection_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_overlay_test.dart) | TextSelectionOverlay | No | No | Yes | Checked. |
+| [text_selection_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_overlay_test.dart) | TextSelectionOverlay | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [text_selection_toolbar_anchors_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_anchors_test.dart) | TextSelectionToolbarAnchors | No | Print-Only | No | Checked. |
 | [text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_layout_delegate_test.dart) | TextSelectionToolbarLayoutDelegate | No | Print-Only | No | Checked. |
 | [text_selection_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_widgets_test.dart) | TextSelectionTheme | No | Yes | No | Checked. |
 | [text_style_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | Print-Only | No | Checked. |
 | [text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_test.dart) | Text | No | Yes | No |
 | [textcontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textcontroller_test.dart) | TextEditingController | No | Yes | No | Checked. |
-| [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textfield_test.dart) | Textfield | No | No | Yes | Checked. |
+| [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textfield_test.dart) | Textfield | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [textspan_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textspan_test.dart) | TextSpan | No | Yes | No | Checked. |
-| [texture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/texture_test.dart) | Texture | No | No | Yes | Checked. |
-| [ticker_mode_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_data_test.dart) | TickerModeData | No | No | Yes | Checked. |
-| [ticker_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_test.dart) | TickerMode | No | No | Yes | Checked. |
+| [texture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/texture_test.dart) | Texture | No | Yes | No | Created on 2026-04-07 at 19:55 |
+| [ticker_mode_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_data_test.dart) | TickerModeData | No | Yes | No | Created on 2026-04-07 at 19:55 |
+| [ticker_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_test.dart) | TickerMode | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Print-Only | No | Checked. |
 | [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | No | Yes | Checked. |
 | [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | Print-Only | No | Checked. |
