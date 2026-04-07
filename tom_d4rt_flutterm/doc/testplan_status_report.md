@@ -2020,13 +2020,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [undo_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_text_intent_test.dart) | UndoTextIntent | No | Print-Only | No | Checked. |
 | [unfocus_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unfocus_disposition_test.dart) | UnfocusDisposition | No | Print-Only | No | Checked. |
 | [unique_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unique_widget_test.dart) | UniqueWidget | No | Yes | No | Created on 2026-04-07 at 20:37 |
-| [unmanaged_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unmanaged_restoration_scope_test.dart) | UnmanagedRestorationScope | No | No | Yes | Checked. |
+| [unmanaged_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unmanaged_restoration_scope_test.dart) | UnmanagedRestorationScope | No | Yes | No | Created on 2026-04-07 at 21:01 |
 | [update_selection_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/update_selection_intent_test.dart) | UpdateSelectionIntent | No | Print-Only | No | Checked. |
 | [user_scroll_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/user_scroll_notification_test.dart) | UserScrollNotification | No | Print-Only | No | Checked. |
 | [valuelistenablebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/valuelistenablebuilder_test.dart) | ValueListenableBuilder | No | Yes | No | Checked. |
-| [view_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_anchor_test.dart) | ViewAnchor | No | No | Yes | Checked. |
-| [view_collection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_collection_test.dart) | ViewCollection | No | No | Yes | Checked. |
-| [view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_test.dart) | View | No | No | Yes | Checked. |
+| [view_anchor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_anchor_test.dart) | ViewAnchor | No | Yes | No | Created on 2026-04-07 at 21:01 |
+| [view_collection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_collection_test.dart) | ViewCollection | No | Yes | No | Created on 2026-04-07 at 21:01 |
+| [view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/view_test.dart) | View | No | Yes | No | Created on 2026-04-07 at 21:01 |
 | [viewport_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_element_mixin_test.dart) | ViewportElementMixin | No | Print-Only | No | Checked. |
 | [viewport_notification_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_notification_mixin_test.dart) | ViewportNotificationMixin | No | Print-Only | No | Checked. |
 | [viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/viewport_test.dart) | Viewport | No | Print-Only | No | Checked. |
@@ -2049,7 +2049,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [widget_state_text_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_state_text_style_test.dart) | WidgetStateTextStyle | No | Print-Only | No | Checked. |
 | [widget_states_constraint_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_states_constraint_test.dart) | WidgetStatesConstraint | No | Print-Only | No | Checked. |
 | [widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_test.dart) | Widget | No | Print-Only | No | Checked. |
-| [widget_to_render_box_adapter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_to_render_box_adapter_test.dart) | WidgetToRenderBoxAdapter | No | No | Yes | Checked. |
+| [widget_to_render_box_adapter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_to_render_box_adapter_test.dart) | WidgetToRenderBoxAdapter | No | Yes | No | Created on 2026-04-07 at 21:01 |
 | [widgets_app_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_app_test.dart) | WidgetsApp | No | No | Yes | Checked. |
 | [widgets_binding_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_binding_observer_test.dart) | WidgetsBindingObserver | No | Print-Only | No | Checked. |
 | [widgets_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widgets_binding_test.dart) | WidgetsBinding | No | Print-Only | No | Checked. |
