@@ -1931,9 +1931,9 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [slotted_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_render_object_element_test.dart) | SlottedRenderObjectElement | No | Print-Only | No | Checked. |
 | [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | Print-Only | No | Checked. |
 | [snapshot_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_mode_test.dart) | SnapshotMode | No | Print-Only | No | Checked. |
-| [snapshot_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_painter_test.dart) | SnapshotPainter | No | No | Yes | Checked. |
-| [snapshot_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_widget_test.dart) | SnapshotWidget | No | No | Yes | Checked. |
-| [spacer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spacer_test.dart) | Spacer | No | No | Yes | Checked. |
+| [snapshot_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_painter_test.dart) | SnapshotPainter | No | Yes | No | Created on 2026-04-07 at 18:35 |
+| [snapshot_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_widget_test.dart) | SnapshotWidget | No | Yes | No | Created on 2026-04-07 at 18:35 |
+| [spacer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spacer_test.dart) | Spacer | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [spell_check_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/spell_check_configuration_test.dart) | SpellCheckConfiguration | No | Print-Only | No | Checked. |
 | [stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stack_test.dart) | Stack | No | Yes | No |
 | [standard_component_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/standard_component_type_test.dart) | StandardComponentType | No | Print-Only | No | Checked. |
@@ -1941,10 +1941,10 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [statefulwidget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/statefulwidget_test.dart) | StatelessWidget | No | Yes | No | Checked. |
 | [stateless_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stateless_element_test.dart) | StatelessElement | No | Print-Only | No | Checked. |
 | [static_selection_container_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/static_selection_container_delegate_test.dart) | StaticSelectionContainerDelegate | No | Print-Only | No | Checked. |
-| [status_transition_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/status_transition_widget_test.dart) | StatusTransitionWidget | No | No | Yes | Checked. |
+| [status_transition_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/status_transition_widget_test.dart) | StatusTransitionWidget | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [stream_builder_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stream_builder_base_test.dart) | StreamBuilderBase | No | Print-Only | No | Checked. |
 | [streambuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/streambuilder_test.dart) | StreamBuilder | No | Yes | No | Checked. |
-| [stretch_effect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretch_effect_test.dart) | StretchEffect | No | No | Yes | Checked. |
+| [stretch_effect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretch_effect_test.dart) | StretchEffect | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [stretching_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/stretching_overscroll_indicator_test.dart) | StretchingOverscrollIndicator | No | No | Yes | Checked. |
 | [system_context_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_context_menu_test.dart) | SystemContextMenu | No | No | Yes | Checked. |
 | [system_text_scaler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/system_text_scaler_test.dart) | SystemTextScaler | No | No | Yes | Checked. |
