@@ -1903,13 +1903,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [sliver_delegates_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_delegates_test.dart) | SliverChildBuilderDelegate | No | Yes | Yes | Checked. |
 | [sliver_ensure_semantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_ensure_semantics_test.dart) | SliverEnsureSemantics | No | No | Yes | Checked. |
 | [sliver_fade_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_fade_transition_test.dart) | SliverFadeTransition | No | No | Yes | Checked. |
-| [sliver_floating_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_floating_header_test.dart) | SliverFloatingHeader | No | No | Yes | Checked. |
-| [sliver_ignore_pointer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_ignore_pointer_test.dart) | SliverIgnorePointer | No | No | Yes | Checked. |
-| [sliver_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_layout_builder_test.dart) | SliverLayoutBuilder | No | No | Yes | Checked. |
-| [sliver_main_axis_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_main_axis_group_test.dart) | SliverMainAxisGroup | No | No | Yes | Checked. |
+| [sliver_floating_header_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_floating_header_test.dart) | SliverFloatingHeader | No | Yes | No | Created on 2026-04-07 at 16:46 |
+| [sliver_ignore_pointer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_ignore_pointer_test.dart) | SliverIgnorePointer | No | Yes | No | Created on 2026-04-07 at 16:46 |
+| [sliver_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_layout_builder_test.dart) | SliverLayoutBuilder | No | Yes | No | Created on 2026-04-07 at 16:46 |
+| [sliver_main_axis_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_main_axis_group_test.dart) | SliverMainAxisGroup | No | Yes | No | Created on 2026-04-07 at 16:46 |
 | [sliver_multi_box_adaptor_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_element_test.dart) | SliverMultiBoxAdaptorElement | No | Print-Only | No | Checked. |
 | [sliver_multi_box_adaptor_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_multi_box_adaptor_widget_test.dart) | SliverMultiBoxAdaptorWidget | No | Print-Only | No | Checked. |
-| [sliver_offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_offstage_test.dart) | SliverOffstage | No | No | Yes | Checked. |
+| [sliver_offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_offstage_test.dart) | SliverOffstage | No | Yes | No | Created on 2026-04-07 at 16:46 |
 | [sliver_overlap_absorber_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_absorber_handle_test.dart) | SliverOverlapAbsorberHandle | No | No | Yes | Checked. |
 | [sliver_overlap_absorber_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_absorber_test.dart) | SliverOverlapAbsorber | No | No | Yes | Checked. |
 | [sliver_overlap_injector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_overlap_injector_test.dart) | SliverOverlapInjector | No | No | Yes | Checked. |
