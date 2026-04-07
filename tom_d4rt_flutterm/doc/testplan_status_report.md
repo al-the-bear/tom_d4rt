@@ -1673,11 +1673,11 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [physicalmodel_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/physicalmodel_test.dart) | PhysicalModel | No | Yes | No |
 | [pinned_header_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pinned_header_sliver_test.dart) | PinnedHeaderSliver | No | Yes | No | Created on 2026-04-07 at 04:18 |
 | [placeholder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/placeholder_test.dart) | Placeholder | No | Yes | No | Checked. |
-| [platform_menu_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar | No | No | Yes | Checked. |
+| [platform_menu_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_bar_test.dart) | PlatformMenuBar | No | Yes | No | Created on 2026-04-07 at 04:40 |
 | [platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_delegate_test.dart) | PlatformMenuDelegate | No | Print-Only | No | Checked. |
-| [platform_menu_item_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_group_test.dart) | PlatformMenuItemGroup | No | No | Yes | Checked. |
-| [platform_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_test.dart) | PlatformMenuItem | No | No | Yes | Checked. |
-| [platform_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_test.dart) | PlatformMenu | No | No | Yes | Checked. |
+| [platform_menu_item_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_group_test.dart) | PlatformMenuItemGroup | No | Yes | No | Created on 2026-04-07 at 04:40 |
+| [platform_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_item_test.dart) | PlatformMenuItem | No | Yes | No | Created on 2026-04-07 at 04:40 |
+| [platform_menu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_test.dart) | PlatformMenu | No | Yes | No | Created on 2026-04-07 at 04:40 |
 | [platform_menu_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_menu_widgets_test.dart) | PlatformMenuWidgets | No | Yes | No | Checked. |
 | [platform_provided_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_test.dart) | PlatformProvidedMenuItem | No | Print-Only | No | Checked. |
 | [platform_provided_menu_item_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_provided_menu_item_type_test.dart) | PlatformProvidedMenuItemType | No | Print-Only | No | Checked. |
@@ -1686,7 +1686,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [platform_view_creation_params_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_creation_params_test.dart) | PlatformViewCreationParams | No | Print-Only | No | Checked. |
 | [platform_view_link_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_link_test.dart) | PlatformViewLink | No | Print-Only | No | Checked. |
 | [platform_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/platform_view_surface_test.dart) | PlatformViewSurface | No | Print-Only | No | Checked. |
-| [pop_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_entry_test.dart) | PopEntry | No | No | Yes | Checked. |
+| [pop_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_entry_test.dart) | PopEntry | No | Yes | No | Created on 2026-04-07 at 04:40 |
 | [pop_navigator_router_delegate_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_navigator_router_delegate_mixin_test.dart) | PopNavigatorRouterDelegateMixin | No | Print-Only | No | Checked. |
 | [pop_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pop_scope_test.dart) | PopScope | No | No | Yes | Checked. |
 | [popup_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/popup_window_controller_delegate_test.dart) | PopupWindowControllerDelegate | No | Print-Only | No | Checked. |
