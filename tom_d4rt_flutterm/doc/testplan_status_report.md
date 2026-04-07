@@ -1876,14 +1876,14 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [shortcut_serialization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Print-Only | No | Checked. |
 | [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
 | [shortcuts_actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Checked. |
-| [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | No | Yes | Checked. |
+| [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | Yes | No | Created on 2026-04-07 at 21:00. |
 | [single_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | Print-Only | No | Checked. |
 | [single_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_element_test.dart) | SingleChildRenderObjectElement | No | Print-Only | No | Checked. |
 | [single_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_widget_test.dart) | SingleChildRenderObjectWidget | No | Print-Only | No | Checked. |
 | [single_ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_ticker_provider_state_mixin_test.dart) | SingleTickerProviderStateMixin | No | Print-Only | No | Checked. |
 | [singlechildscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/singlechildscrollview_test.dart) | SingleChildScrollView | No | Yes | No |
 | [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | Print-Only | No | Checked. |
-| [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | No | Yes | Checked. |
+| [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | Yes | No | Created on 2026-04-07 at 21:15. |
 | [sized_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_box_test.dart) | SizedBox | No | Yes | No | Checked. |
 | [sized_overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sized_overflow_box_test.dart) | SizedOverflowBox | No | No | Yes | Checked. |
 | [sizing_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sizing_test.dart) | UnconstrainedBox | No | Yes | No | Checked. |
