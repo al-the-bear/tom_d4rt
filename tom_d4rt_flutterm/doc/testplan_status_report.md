@@ -1709,11 +1709,11 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [radio_group_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_group_registry_test.dart) | RadioGroupRegistry | No | Print-Only | No | Checked. |
 | [radio_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/radio_group_test.dart) | RadioGroup | No | Yes | No | Created on 2026-04-07 at 06:32 |
 | [range_maintaining_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/range_maintaining_scroll_physics_test.dart) | RangeMaintainingScrollPhysics | No | Print-Only | No | Checked. |
-| [raw_autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_autocomplete_test.dart) | RawAutocomplete | No | No | Yes | Checked. |
-| [raw_dialog_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart) | RawDialogRoute | No | No | Yes | Checked. |
+| [raw_autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_autocomplete_test.dart) | RawAutocomplete | No | Yes | No | Created on 2026-04-07 at 07:15 |
+| [raw_dialog_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart) | RawDialogRoute | No | Yes | No | Created on 2026-04-07 at 07:15 |
 | [raw_gesture_detector_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_gesture_detector_state_test.dart) | RawGestureDetectorState | No | Print-Only | No | Checked. |
-| [raw_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_gesture_detector_test.dart) | RawGestureDetector | No | No | Yes | Checked. |
-| [raw_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_image_test.dart) | RawImage | No | No | Yes | Checked. |
+| [raw_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_gesture_detector_test.dart) | RawGestureDetector | No | Yes | No | Created on 2026-04-07 at 07:15 |
+| [raw_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_image_test.dart) | RawImage | No | Yes | No | Created on 2026-04-07 at 07:15 |
 | [raw_keyboard_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_keyboard_listener_test.dart) | RawKeyboardListener | No | No | Yes | Checked. |
 | [raw_magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_magnifier_test.dart) | RawMagnifier | No | No | Yes | Checked. |
 | [raw_menu_anchor_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_menu_anchor_group_test.dart) | RawMenuAnchorGroup | No | No | Yes | Checked. |
