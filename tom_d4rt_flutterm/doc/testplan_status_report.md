@@ -1723,8 +1723,8 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [raw_scrollbar_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_scrollbar_state_test.dart) | RawScrollbarState | No | Print-Only | No | Checked. |
 | [raw_tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_state_test.dart) | RawTooltipState | No | No | Yes | Created on 2026-03-21 at 12:30 |
 | [raw_tooltip_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_tooltip_test.dart) | RawTooltip | No | No | Yes | Checked. |
-| [raw_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_view_test.dart) | RawView | No | No | Yes | Checked. |
-| [raw_web_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_web_image_test.dart) | RawWebImage | No | No | Yes | Checked. |
+| [raw_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_view_test.dart) | RawView | No | Yes | No | Created on 2026-04-07 at 14:00. |
+| [raw_web_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_web_image_test.dart) | RawWebImage | No | Yes | No | Created on 2026-04-07 at 14:15. |
 | [raw_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_widgets_test.dart) | RawScrollbar | No | Yes | No | Checked. |
 | [reading_order_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/reading_order_traversal_policy_test.dart) | ReadingOrderTraversalPolicy | No | Print-Only | No | Checked. |
 | [redo_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/redo_text_intent_test.dart) | RedoTextIntent | No | Print-Only | No | Checked. |
@@ -1785,11 +1785,11 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [restoration_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_mixin_test.dart) | RestorationMixin | No | Print-Only | No | Checked. |
 | [restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restoration_scope_test.dart) | RestorationScope | No | Yes | No | Checked. |
 | [richtext_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/richtext_test.dart) | RichText | No | Yes | No |
-| [root_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_back_button_dispatcher_test.dart) | RootBackButtonDispatcher | No | No | Yes | Checked. |
+| [root_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_back_button_dispatcher_test.dart) | RootBackButtonDispatcher | No | Yes | No | Created on 2026-04-07 at 14:30. |
 | [root_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_mixin_test.dart) | RootElementMixin | No | Print-Only | No | Checked. |
 | [root_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_element_test.dart) | RootElement | No | Print-Only | No | Checked. |
 | [root_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_render_object_element_test.dart) | RootRenderObjectElement | No | Print-Only | No | Checked. |
-| [root_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_restoration_scope_test.dart) | RootRestorationScope | No | No | Yes | Checked. |
+| [root_restoration_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_restoration_scope_test.dart) | RootRestorationScope | No | Yes | No | Created on 2026-04-07 at 14:45. |
 | [root_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/root_widget_test.dart) | RootWidget | No | Print-Only | No | Checked. |
 | [rotationtransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/rotationtransition_test.dart) | RotationTransition | No | Yes | No |
 | [route_aware_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_aware_test.dart) | RouteAware | No | Print-Only | No | Checked. |
@@ -1809,7 +1809,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_action_test.dart) | ScrollAction | No | Print-Only | No | Checked. |
 | [scroll_activity_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_delegate_test.dart) | ScrollActivityDelegate | No | Print-Only | No | Checked. |
 | [scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart) | ScrollActivity | No | Print-Only | No | Checked. |
-| [scroll_aware_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_aware_image_provider_test.dart) | ScrollAwareImageProvider | No | No | Yes | Checked. |
+| [scroll_aware_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_aware_image_provider_test.dart) | ScrollAwareImageProvider | No | Yes | No | Created on 2026-04-07 at 15:00. |
 | [scroll_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_behavior_test.dart) | ScrollConfiguration | No | Yes | No | Checked. |
 | [scroll_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_configuration_test.dart) | ScrollConfiguration | No | No | Yes | Checked. |
 | [scroll_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_context_test.dart) | ScrollContext | No | Print-Only | No | Checked. |
