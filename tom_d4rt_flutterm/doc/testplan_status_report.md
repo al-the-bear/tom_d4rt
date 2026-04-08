@@ -1220,7 +1220,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [restoration_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_manager_test.dart) | RestorationManager | No | Print-Only | No | Checked. |
 | [restoration_platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_platform_test.dart) | RestorationMemento | No | Yes | No | Checked. |
 | [scribble_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribble_client_test.dart) | ScribbleClient | No | Print-Only | No | Checked. |
-| [scribe_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribe_test.dart) | Scribe | No | No | Yes | Checked. |
+| [scribe_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribe_test.dart) | Scribe | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [selection_changed_cause_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_changed_cause_test.dart) | SelectionChangedCause | No | Yes | No | Checked. |
 | [selection_rect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_rect_test.dart) | SelectionRect | No | Yes | No | Checked. |
 | [sensitive_content_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/sensitive_content_service_test.dart) | SensitiveContentService | No | Print-Only | No | Checked. |
@@ -1231,7 +1231,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | Print-Only | No | Checked. |
 | [spellcheck_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spellcheck_test.dart) | SpellCheckResults | No | Yes | No | Checked. |
 | [suggestion_span_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/suggestion_span_test.dart) | SuggestionSpan | No | Yes | No | Checked. |
-| [surface_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/surface_android_view_controller_test.dart) | SurfaceAndroidViewController | No | No | Yes | Checked. |
+| [surface_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/surface_android_view_controller_test.dart) | SurfaceAndroidViewController | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [swipe_edge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/swipe_edge_test.dart) | SwipeEdge | No | Yes | No | Checked. |
 | [system_channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_channels_test.dart) | SystemChannels | No | Yes | No | Checked. |
 | [system_chrome_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_chrome_test.dart) | SystemChrome | No | Yes | No | Checked. |
@@ -1257,8 +1257,8 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_selection_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_delegate_test.dart) | TextSelectionDelegate | No | Print-Only | No | Checked. |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
 | [textboundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textboundary_test.dart) | SystemUiOverlayStyle | No | Yes | No | Checked. |
-| [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | No | Yes | Checked. |
-| [texture_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/texture_android_view_controller_test.dart) | TextureAndroidViewController | No | No | Yes | Checked. |
+| [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | Yes | No | Created on 2026-04-08 at 22:12. |
+| [texture_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/texture_android_view_controller_test.dart) | TextureAndroidViewController | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [ui_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/ui_kit_view_controller_test.dart) | UiKitViewController | No | Print-Only | No | Checked. |
 | [undo_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_direction_test.dart) | UndoDirection | No | Yes | No | Checked. |
 | [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | Print-Only | No | Checked. |
@@ -1333,7 +1333,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [async_snapshot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/async_snapshot_test.dart) | AsyncSnapshot | No | Yes | No | Created on 2026-04-07. |
 | [autocomplete_first_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_first_option_intent_test.dart) | AutocompleteFirstOptionIntent | No | Yes | No | Created on 2026-04-08. |
 | [autocomplete_highlighted_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_highlighted_option_test.dart) | AutocompleteHighlightedOption | No | Yes | No | Created on 2026-03-30 at 14:13. |
-| [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | No | Yes | Checked. |
+| [autocomplete_last_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_last_option_intent_test.dart) | AutocompleteLastOptionIntent | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [autocomplete_next_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_option_intent_test.dart) | AutocompleteNextOptionIntent | No | No | Yes | Checked. |
 | [autocomplete_next_page_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_page_option_intent_test.dart) | AutocompleteNextPageOptionIntent | No | No | Yes | Checked. |
 | [autocomplete_previous_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_option_intent_test.dart) | AutocompletePreviousOptionIntent | No | No | Yes | Checked. |
