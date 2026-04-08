@@ -1508,7 +1508,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-08. |
 | [focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | Yes | No | Checked. |
 | [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy | Yes (B31) | Yes | Checked. |
-| [focus_traversal_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder | No | No | Yes | Checked. |
+| [focus_traversal_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder | No | Yes | No | Created on 2026-04-08. |
 | [focusnode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focusnode_test.dart) | FocusNode | No | Yes | No |
 | [focustraversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focustraversal_test.dart) | FocusTraversalGroup | No | Yes | No |
 | [form_field_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_field_test.dart) | Form | No | Yes | No |
@@ -1517,18 +1517,18 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [fractional_translation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fractional_translation_test.dart) | FractionalTranslation | No | Yes | No | Created on 2026-03-31 at 12:50. |
 | [futurebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/futurebuilder_test.dart) | FutureBuilder | No | Yes | No | Checked. |
 | [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-31 at 12:56. |
-| [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory | No | No | Yes | Checked. |
+| [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory | No | Yes | No | Created on 2026-04-08. |
 | [gesture_recognizer_factory_with_handlers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_with_handlers_test.dart) | GestureRecognizerFactoryWithHandlers | No | No | Yes | Checked. |
 | [gesturedetector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesturedetector_test.dart) | GestureDetector | No | Yes | No |
-| [global_object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/global_object_key_test.dart) | GlobalObjectKey | No | No | Yes | Checked. |
+| [global_object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/global_object_key_test.dart) | GlobalObjectKey | No | Yes | No | Created on 2026-04-08. |
 | [glowing_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/glowing_overscroll_indicator_test.dart) | GlowingOverscrollIndicator | No | Yes | No | Created on 2026-03-31 at 13:02. |
 | [gridview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gridview_test.dart) | GridView | No | Yes | No |
 | [hero_controller_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_scope_test.dart) | HeroControllerScope | No | Yes | No | Created on 2026-03-31 at 13:09. |
 | [hero_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_controller_test.dart) | HeroController | No | Yes | No | Created on 2026-03-31 at 13:16. |
-| [hero_flight_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_flight_direction_test.dart) | HeroFlightDirection | No | No | Yes | Checked. |
+| [hero_flight_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_flight_direction_test.dart) | HeroFlightDirection | No | Yes | No | Created on 2026-04-08. |
 | [hero_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hero_test.dart) | Hero | No | Yes | No |
 | [heromode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/heromode_test.dart) | HeroMode | No | Yes | No | Checked. |
-| [hold_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hold_scroll_activity_test.dart) | HoldScrollActivity | No | No | Yes | Checked. |
+| [hold_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/hold_scroll_activity_test.dart) | HoldScrollActivity | No | Yes | No | Created on 2026-04-08. |
 | [html_element_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/html_element_view_test.dart) | HtmlElementView | No | Yes | No | Created on 2026-03-31 at 13:37. |
 | [i_o_s_system_context_menu_item_copy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_copy_test.dart) | IOSSystemContextMenuItemCopy | No | No | Yes | Checked. |
 | [i_o_s_system_context_menu_item_custom_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/i_o_s_system_context_menu_item_custom_test.dart) | IOSSystemContextMenuItemCustom | No | No | Yes | Checked. |
