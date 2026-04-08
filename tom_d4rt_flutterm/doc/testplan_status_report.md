@@ -1544,17 +1544,17 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [icon_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_data_test.dart) | IconData | No | Yes | No | Created on 31.03.2026 at 13:44 |
 | [icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_test.dart) | Icon | No | Yes | No |
 | [icon_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/icon_theme_data_test.dart) | IconThemeData | No | Yes | No | Created on 31.03.2026 at 13:56 |
-| [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [idle_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/idle_scroll_activity_test.dart) | IdleScrollActivity | No | Yes | No | Created on 2026-04-09 at 01:57. |
 | [ignore_baseline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ignore_baseline_test.dart) | IgnoreBaseline | No | Yes | No | Created on 31.03.2026 at 20:20 |
 | [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered | No | Yes | No | Created on 31.03.2026 at 20:28 |
 | [image_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_test.dart) | ImageIcon | No | Yes | No | Created on 2026-04-01 at 12:43. |
 | [image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_test.dart) | Image | No | Yes | No |
 | [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView | No | Yes | No | Created on 2026-04-01 at 12:55. |
-| [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | Print-Only | No | Checked. |
-| [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
-| [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | Yes | No | Created on 2026-04-09 at 01:57. |
+| [implicitly_animated_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_test.dart) | ImplicitlyAnimatedWidget | No | Yes | No | Created on 2026-04-09 at 01:57. |
+| [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | Yes | No | Created on 2026-04-09 at 01:57. |
 | [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack | No | Yes | No | Created on 2026-04-01 at 13:24. |
-| [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement | No | Print-Only | No | Checked. |
+| [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement | No | Yes | No | Created on 2026-04-09 at 01:57. |
 | [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel | No | Yes | No | Checked. |
 | [inherited_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_notifier_test.dart) | InheritedNotifier | No | Yes | No | Created on 2026-04-01 at 13:33. |
