@@ -1067,13 +1067,13 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [stack_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/stack_fit_test.dart) | StackFit | No | Yes | No | Created on 2026-04-08. |
 | [table_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_border_test.dart) | TableBorder | No | Print-Only | No | Checked. |
 | [table_cell_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_cell_parent_data_test.dart) | TableCellParentData | No | Yes | No | Created on 2026-04-08. |
-| [table_cell_vertical_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_cell_vertical_alignment_test.dart) | TableCellVerticalAlignment | No | No | Yes | Checked. |
+| [table_cell_vertical_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_cell_vertical_alignment_test.dart) | TableCellVerticalAlignment | No | Yes | No | Created on 2026-04-08. |
 | [text_granularity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_granularity_test.dart) | TextGranularity | No | Yes | No | Checked. |
-| [text_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_parent_data_test.dart) | TextParentData | No | No | Yes | Checked. |
-| [text_selection_handle_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_selection_handle_type_test.dart) | TextSelectionHandleType | No | No | Yes | Checked. |
-| [text_selection_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_selection_point_test.dart) | TextSelectionPoint | No | No | Yes | Checked. |
+| [text_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_parent_data_test.dart) | TextParentData | No | Yes | No | Created on 2026-04-08. |
+| [text_selection_handle_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_selection_handle_type_test.dart) | TextSelectionHandleType | No | Yes | No | Created on 2026-04-08. |
+| [text_selection_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_selection_point_test.dart) | TextSelectionPoint | No | Yes | No | Created on 2026-04-08. |
 | [textpainter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/textpainter_test.dart) | TextPainter | No | Yes | No | Checked. |
-| [texture_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/texture_box_test.dart) | TextureBox | No | No | Yes | Checked. |
+| [texture_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/texture_box_test.dart) | TextureBox | No | Yes | No | Created on 2026-04-08. |
 | [texture_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/texture_layer_test.dart) | TextureLayer | No | No | Yes | Checked. |
 | [tree_sliver_indentation_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/tree_sliver_indentation_type_test.dart) | TreeSliverIndentationType | No | No | Yes | Checked. |
 | [tree_sliver_node_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/tree_sliver_node_parent_data_test.dart) | TreeSliverNodeParentData | No | No | Yes | Checked. |
