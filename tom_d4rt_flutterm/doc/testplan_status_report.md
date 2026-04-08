@@ -1034,13 +1034,13 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [select_paragraph_selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/select_paragraph_selection_event_test.dart) | SelectParagraphSelectionEvent | No | Yes | No | Checked. |
 | [select_word_selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/select_word_selection_event_test.dart) | SelectWordSelectionEvent | No | Yes | No | Checked. |
 | [selectable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selectable_test.dart) | Selectable | No | Yes | No | Created on 2026-04-08. |
-| [selected_content_range_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selected_content_range_test.dart) | SelectedContentRange | No | No | Yes | Checked. |
-| [selected_content_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selected_content_test.dart) | SelectedContent | No | No | Yes | Checked. |
-| [selection_edge_update_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_edge_update_event_test.dart) | SelectionEdgeUpdateEvent | No | No | Yes | Checked. |
-| [selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_event_test.dart) | SelectionEvent | No | No | Yes | Checked. |
+| [selected_content_range_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selected_content_range_test.dart) | SelectedContentRange | No | Yes | No | Created on 2026-04-08. |
+| [selected_content_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selected_content_test.dart) | SelectedContent | No | Yes | No | Created on 2026-04-08. |
+| [selection_edge_update_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_edge_update_event_test.dart) | SelectionEdgeUpdateEvent | No | Yes | No | Created on 2026-04-08. |
+| [selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_event_test.dart) | SelectionEvent | No | Yes | No | Created on 2026-04-08. |
 | [selection_event_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_event_type_test.dart) | SelectionEventType | No | Yes | No | Checked. |
 | [selection_extend_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_extend_direction_test.dart) | SelectionExtendDirection | No | Yes | No | Checked. |
-| [selection_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_geometry_test.dart) | SelectionGeometry | No | No | Yes | Checked. |
+| [selection_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_geometry_test.dart) | SelectionGeometry | No | Yes | No | Created on 2026-04-08. |
 | [selection_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_handler_test.dart) | SelectionHandler | No | No | Yes | Checked. |
 | [selection_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_point_test.dart) | SelectionPoint | No | No | Yes | Checked. |
 | [selection_registrant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_registrant_test.dart) | SelectionRegistrant | No | No | Yes | Checked. |
