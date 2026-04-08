@@ -1452,7 +1452,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | No | Yes | Checked. |
 | [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | No | Yes | Checked. |
 | [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | Yes | No | Created on 2026-04-08. |
-| [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | No | Yes | Checked. |
+| [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | Yes | No | Created on 2026-04-08. |
 | [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator | No | Yes | No | Created on 2026-03-31 at 12:15. |
 | [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [draggable_scrollable_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_notification_test.dart) | DraggableScrollableNotification | No | No | Yes | Checked. |
@@ -1463,7 +1463,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dual_transition_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | Yes | No | Created on 2026-03-31 at 12:25. |
 | [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | No | Yes | Checked. |
 | [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | No | Yes | Checked. |
-| [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | No | Yes | Checked. |
+| [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | Yes | No | Created on 2026-04-08. |
 | [editable_text_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_misc_test.dart) | EditorText | No | Yes | No | Checked. |
 | [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [editable_text_tap_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_outside_intent_test.dart) | EditableTextTapOutsideIntent | No | No | Yes | Checked. |
@@ -1493,8 +1493,8 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [fadetransition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fadetransition_test.dart) | FadeTransition | No | Yes | No |
 | [feedback_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/feedback_test.dart) | Feedback | No | No | Yes | Checked. |
 | [fixed_extent_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_metrics_test.dart) | FixedExtentMetrics | No | No | Yes | Checked. |
-| [fixed_extent_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_controller_test.dart) | FixedExtentScrollController | No | No | Yes | Checked. |
-| [fixed_extent_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_physics_test.dart) | FixedExtentScrollPhysics | No | No | Yes | Checked. |
+| [fixed_extent_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_controller_test.dart) | FixedExtentScrollController | No | Yes | No | Created on 2026-04-08. |
+| [fixed_extent_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_extent_scroll_physics_test.dart) | FixedExtentScrollPhysics | No | Yes | No | Created on 2026-04-08. |
 | [fixed_scroll_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fixed_scroll_metrics_test.dart) | FixedScrollMetrics | No | No | Yes | Checked. |
 | [flex_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flex_test.dart) | Flex | No | Yes | No | Created on 2026-03-31 at 12:46. |
 | [flexible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/flexible_test.dart) | Flexible | No | Yes | No |
@@ -1505,7 +1505,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [focus_highlight_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_strategy_test.dart) | FocusHighlightStrategy | No | No | Yes | Checked. |
 | [focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_order_test.dart) | FocusOrder | No | No | Yes | Checked. |
 | [focus_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode | No | Print-Only | No | Checked. |
-| [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | No | Yes | Checked. |
+| [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-08. |
 | [focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | Yes | No | Checked. |
 | [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy | Yes (B31) | Yes | Checked. |
 | [focus_traversal_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_order_test.dart) | FocusTraversalOrder | No | No | Yes | Checked. |
