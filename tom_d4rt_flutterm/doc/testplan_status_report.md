@@ -1359,7 +1359,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/border_tween_test.dart) | BorderTween | No | Yes | No | Created on 2026-04-08. |
 | [bottom_navigation_bar_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bottom_navigation_bar_item_test.dart) | BottomNavigationBarItem | No | Yes | No | Created on 2026-03-30 at 15:12. |
 | [bouncing_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_physics_test.dart) | BouncingScrollPhysics | No | Yes | No | Created on 2026-04-08. |
-| [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | No | Yes | Checked. |
+| [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | Yes | No | Created on 2026-04-08. |
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | Yes | No | Created on 2026-04-08. |
 | [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
 | [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | No | Yes | Checked. |
@@ -1367,7 +1367,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
 | [button_activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/button_activate_intent_test.dart) | ButtonActivateIntent | No | No | Yes | Checked. |
 | [callback_shortcuts_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/callback_shortcuts_test.dart) | CallbackShortcuts | No | Yes | No | Created on 2026-03-30 at 15:30. |
-| [captured_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/captured_themes_test.dart) | CapturedThemes | No | No | Yes | Checked. |
+| [captured_themes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/captured_themes_test.dart) | CapturedThemes | No | Yes | No | Created on 2026-04-08. |
 | [center_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/center_test.dart) | Center | No | Yes | No | Created on 2026-03-30 at 15:36. |
 | [change_reporting_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/change_reporting_behavior_test.dart) | ChangeReportingBehavior | No | No | Yes | Checked. |
 | [changenotifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/changenotifier_test.dart) | ChangeNotifier | No | Yes | No | Checked. |
@@ -1376,7 +1376,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [child_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/child_back_button_dispatcher_test.dart) | ChildBackButtonDispatcher | No | Yes | No | Created on 2026-03-30 at 16:16. |
 | [child_vicinity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/child_vicinity_test.dart) | ChildVicinity | No | No | Yes | Checked. |
 | [clamping_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_physics_test.dart) | ClampingScrollPhysics | No | Yes | No | Created on 2026-04-08. |
-| [clamping_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_simulation_test.dart) | ClampingScrollSimulation | No | No | Yes | Checked. |
+| [clamping_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_simulation_test.dart) | ClampingScrollSimulation | No | Yes | No | Created on 2026-04-08. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/class_test.dart) | Class | No | No | Yes | Checked. |
 | [clip_r_superellipse_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clip_r_superellipse_test.dart) | ClipRSuperellipse | No | Yes | No | Created on 2026-03-30 at 16:26. |
 | [clipboard_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_notifier_test.dart) | ClipboardStatusNotifier | No | No | Yes | Checked. |
@@ -1388,7 +1388,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [component_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | No | Yes | Checked. |
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | Yes | No | Created on 2026-03-30 at 17:28. |
 | [composited_transform_target_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_target_test.dart) | CompositedTransformTarget | No | Yes | No | Created on 2026-03-30 at 19:10. |
-| [connection_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/connection_state_test.dart) | ConnectionState | No | No | Yes | Checked. |
+| [connection_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/connection_state_test.dart) | ConnectionState | No | Yes | No | Created on 2026-04-08. |
 | [constrained_layout_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrained_layout_builder_test.dart) | ConstrainedLayoutBuilder | No | Yes | No | Created on 2026-03-30 at 19:18. |
 | [constrainedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constrainedbox_test.dart) | ConstrainedBox | No | Yes | No |
 | [constraints_transform_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/constraints_transform_box_test.dart) | ConstraintsTransformBox | No | Yes | No | Created on 2026-03-30 at 19:45. |
@@ -1406,7 +1406,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [debug_creator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/debug_creator_test.dart) | DebugCreator | No | No | Yes | Checked. |
 | [decorated_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decorated_sliver_test.dart) | DecoratedSliver | No | Yes | No | Created on 2026-03-30 at 21:59. |
 | [decoratedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoratedbox_test.dart) | DecoratedBox | No | Yes | No |
-| [decoration_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | No | Yes | Checked. |
+| [decoration_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | Yes | No | Created on 2026-04-08. |
 | [default_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_asset_bundle_test.dart) | DefaultAssetBundle | No | Yes | No | Created on 2026-03-30 at 22:15. |
 | [default_platform_menu_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_platform_menu_delegate_test.dart) | DefaultPlatformMenuDelegate | No | No | Yes | Checked. |
 | [default_selection_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart) | DefaultSelectionStyle | No | Yes | No | Created on 2026-03-30 at 22:20. |
