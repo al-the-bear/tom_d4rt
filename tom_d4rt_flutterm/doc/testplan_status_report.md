@@ -1363,7 +1363,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | Yes | No | Created on 2026-04-08. |
 | [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
 | [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | Yes | No | Created on 2026-04-08. |
-| [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | No | Yes | Checked. |
+| [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | Yes | No | Created on 2026-04-08. |
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
 | [button_activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/button_activate_intent_test.dart) | ButtonActivateIntent | No | No | Yes | Checked. |
 | [callback_shortcuts_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/callback_shortcuts_test.dart) | CallbackShortcuts | No | Yes | No | Created on 2026-03-30 at 15:30. |
@@ -1443,14 +1443,14 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-30 at 22:54. |
 | [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | Yes | No | Created on 2026-03-30 at 23:00. |
 | [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Checked. |
-| [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | No | Yes | Checked. |
+| [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | Yes | No | Created on 2026-04-08. |
 | [do_nothing_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction | No | Yes | No | Created on 2026-04-08. |
 | [do_nothing_and_stop_propagation_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_intent_test.dart) | DoNothingAndStopPropagationIntent | No | No | Yes | Checked. |
 | [do_nothing_and_stop_propagation_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_text_intent_test.dart) | DoNothingAndStopPropagationTextIntent | No | No | Yes | Checked. |
 | [do_nothing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_intent_test.dart) | DoNothingIntent | No | No | Yes | Checked. |
 | [drag_boundary_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_delegate_test.dart) | DragBoundaryDelegate | No | No | Yes | Checked. |
 | [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | Yes | No | Created on 2026-04-08. |
-| [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | No | Yes | Checked. |
+| [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | Yes | No | Created on 2026-04-08. |
 | [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | Yes | No | Created on 2026-04-08. |
 | [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | Yes | No | Created on 2026-04-08. |
 | [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator | No | Yes | No | Created on 2026-03-31 at 12:15. |
@@ -1468,9 +1468,9 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [editable_text_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_state_test.dart) | EditableTextState | No | Yes | No | Created on 2026-04-07 at 21:26 |
 | [editable_text_tap_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_outside_intent_test.dart) | EditableTextTapOutsideIntent | No | No | Yes | Checked. |
 | [editable_text_tap_up_outside_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_tap_up_outside_intent_test.dart) | EditableTextTapUpOutsideIntent | No | No | Yes | Checked. |
-| [element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_test.dart) | Element | No | No | Yes | Checked. |
+| [element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_test.dart) | Element | No | Yes | No | Created on 2026-04-08. |
 | [element_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_types_test.dart) | ElementTypes | No | Yes | No | Checked. |
-| [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls | No | No | Yes | Checked. |
+| [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls | No | Yes | No | Created on 2026-04-08. |
 | [enable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/enable_widget_inspector_scope_test.dart) | EnableWidgetInspectorScope | No | No | Yes | Checked. |
 | [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus | No | Yes | No | Created on 2026-04-08. |
 | [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal | No | Yes | No | Created on 2026-04-08. |
