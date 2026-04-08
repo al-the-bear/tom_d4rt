@@ -1429,13 +1429,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dialog_window_controller_win32_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_win32_test.dart) | DialogWindowControllerWin32 | No | No | Yes | Checked. |
 | [dialog_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_test.dart) | DialogWindow | No | No | Yes | Checked. |
 | [directional_caret_movement_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_caret_movement_intent_test.dart) | DirectionalCaretMovementIntent | No | No | Yes | Checked. |
-| [directional_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_action_test.dart) | DirectionalFocusAction | No | No | Yes | Checked. |
+| [directional_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_action_test.dart) | DirectionalFocusAction | No | Yes | No | Created on 2026-04-08. |
 | [directional_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_intent_test.dart) | DirectionalFocusIntent | No | No | Yes | Checked. |
 | [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [directional_text_editing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_text_editing_intent_test.dart) | DirectionalTextEditingIntent | No | No | Yes | Checked. |
 | [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | Yes | No | Created on 2026-03-30 at 22:47. |
 | [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope | No | No | Yes | Checked. |
-| [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction | No | No | Yes | Checked. |
+| [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction | No | Yes | No | Created on 2026-04-08. |
 | [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | Yes | No | Created on 2026-04-08. |
 | [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent | No | No | Yes | Checked. |
 | [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction | No | No | Yes | Checked. |
@@ -1461,7 +1461,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [draggablescrollablesheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggablescrollablesheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
 | [driven_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity | No | No | Yes | Checked. |
 | [dual_transition_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | Yes | No | Created on 2026-03-31 at 12:25. |
-| [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | No | Yes | Checked. |
+| [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | Yes | No | Created on 2026-04-08. |
 | [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | Yes | No | Created on 2026-04-08. |
 | [edge_insets_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_tween_test.dart) | EdgeInsetsTween | No | Yes | No | Created on 2026-04-08. |
 | [editable_text_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/editable_text_misc_test.dart) | EditorText | No | Yes | No | Checked. |
@@ -1472,12 +1472,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [element_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/element_types_test.dart) | ElementTypes | No | Yes | No | Checked. |
 | [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls | No | No | Yes | Checked. |
 | [enable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/enable_widget_inspector_scope_test.dart) | EnableWidgetInspectorScope | No | No | Yes | Checked. |
-| [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus | No | No | Yes | Checked. |
+| [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus | No | Yes | No | Created on 2026-04-08. |
 | [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal | No | No | Yes | Checked. |
 | [expand_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_document_boundary_intent_test.dart) | ExpandSelectionToDocumentBoundaryIntent | No | No | Yes | Checked. |
 | [expand_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_line_break_intent_test.dart) | ExpandSelectionToLineBreakIntent | No | No | Yes | Checked. |
 | [expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expanded_test.dart) | Expanded | No | Yes | No |
-| [expansible_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_controller_test.dart) | ExpansibleController | No | No | Yes | Checked. |
+| [expansible_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_controller_test.dart) | ExpansibleController | No | Yes | No | Created on 2026-04-08. |
 | [expansible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expansible_test.dart) | Expansible | No | Yes | No | Created on 2026-03-31 at 12:30. |
 | [extend_selection_by_character_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_character_intent_test.dart) | ExtendSelectionByCharacterIntent | No | No | Yes | Checked. |
 | [extend_selection_by_page_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/extend_selection_by_page_intent_test.dart) | ExtendSelectionByPageIntent | No | No | Yes | Checked. |
