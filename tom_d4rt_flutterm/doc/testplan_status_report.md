@@ -1371,7 +1371,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [center_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/center_test.dart) | Center | No | Yes | No | Created on 2026-03-30 at 15:36. |
 | [change_reporting_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/change_reporting_behavior_test.dart) | ChangeReportingBehavior | No | No | Yes | Checked. |
 | [changenotifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/changenotifier_test.dart) | ChangeNotifier | No | Yes | No | Checked. |
-| [character_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/character_activator_test.dart) | CharacterActivator | No | No | Yes | Checked. |
+| [character_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/character_activator_test.dart) | CharacterActivator | No | Yes | No | Created on 2026-04-08. |
 | [checked_mode_banner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/checked_mode_banner_test.dart) | CheckedModeBanner | No | Yes | No | Created on 2026-03-30 at 16:08. |
 | [child_back_button_dispatcher_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/child_back_button_dispatcher_test.dart) | ChildBackButtonDispatcher | No | Yes | No | Created on 2026-03-30 at 16:16. |
 | [child_vicinity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/child_vicinity_test.dart) | ChildVicinity | No | Yes | No | Created on 2026-04-08. |
@@ -1385,7 +1385,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [cliprrect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/cliprrect_test.dart) | ClipRRect | No | Yes | No |
 | [color_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/color_filtered_test.dart) | ColorFiltered | No | Yes | No | Created on 2026-03-30 at 17:12. |
 | [column_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/column_test.dart) | Column | No | Yes | No |
-| [component_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | No | Yes | Checked. |
+| [component_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/component_element_test.dart) | ComponentElement | No | Yes | No | Created on 2026-04-08. |
 | [composited_transform_follower_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_follower_test.dart) | CompositedTransformFollower | No | Yes | No | Created on 2026-03-30 at 17:28. |
 | [composited_transform_target_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/composited_transform_target_test.dart) | CompositedTransformTarget | No | Yes | No | Created on 2026-03-30 at 19:10. |
 | [connection_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/connection_state_test.dart) | ConnectionState | No | Yes | No | Created on 2026-04-08. |
@@ -1444,12 +1444,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | Yes | No | Created on 2026-03-30 at 23:00. |
 | [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Checked. |
 | [disposable_build_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disposable_build_context_test.dart) | DisposableBuildContext | No | No | Yes | Checked. |
-| [do_nothing_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction | No | No | Yes | Checked. |
+| [do_nothing_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_action_test.dart) | DoNothingAction | No | Yes | No | Created on 2026-04-08. |
 | [do_nothing_and_stop_propagation_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_intent_test.dart) | DoNothingAndStopPropagationIntent | No | No | Yes | Checked. |
 | [do_nothing_and_stop_propagation_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_and_stop_propagation_text_intent_test.dart) | DoNothingAndStopPropagationTextIntent | No | No | Yes | Checked. |
 | [do_nothing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/do_nothing_intent_test.dart) | DoNothingIntent | No | No | Yes | Checked. |
 | [drag_boundary_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_delegate_test.dart) | DragBoundaryDelegate | No | No | Yes | Checked. |
-| [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | No | Yes | Checked. |
+| [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | Yes | No | Created on 2026-04-08. |
 | [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | No | Yes | Checked. |
 | [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | Yes | No | Created on 2026-04-08. |
 | [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | Yes | No | Created on 2026-04-08. |
@@ -1473,7 +1473,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [empty_text_selection_controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/empty_text_selection_controls_test.dart) | EmptyTextSelectionControls | No | No | Yes | Checked. |
 | [enable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/enable_widget_inspector_scope_test.dart) | EnableWidgetInspectorScope | No | No | Yes | Checked. |
 | [exclude_focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_test.dart) | ExcludeFocus | No | Yes | No | Created on 2026-04-08. |
-| [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal | No | No | Yes | Checked. |
+| [exclude_focus_traversal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/exclude_focus_traversal_test.dart) | ExcludeFocusTraversal | No | Yes | No | Created on 2026-04-08. |
 | [expand_selection_to_document_boundary_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_document_boundary_intent_test.dart) | ExpandSelectionToDocumentBoundaryIntent | No | No | Yes | Checked. |
 | [expand_selection_to_line_break_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expand_selection_to_line_break_intent_test.dart) | ExpandSelectionToLineBreakIntent | No | No | Yes | Checked. |
 | [expanded_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/expanded_test.dart) | Expanded | No | Yes | No |
