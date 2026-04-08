@@ -1338,27 +1338,27 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [autocomplete_next_page_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_next_page_option_intent_test.dart) | AutocompleteNextPageOptionIntent | No | No | Yes | Checked. |
 | [autocomplete_previous_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_option_intent_test.dart) | AutocompletePreviousOptionIntent | No | No | Yes | Checked. |
 | [autocomplete_previous_page_option_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autocomplete_previous_page_option_intent_test.dart) | AutocompletePreviousPageOptionIntent | No | No | Yes | Checked. |
-| [autofill_context_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_context_action_test.dart) | AutofillContextAction | No | No | Yes | Checked. |
+| [autofill_context_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_context_action_test.dart) | AutofillContextAction | No | Yes | No | Created on 2026-04-08. |
 | [autofill_context_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_context_adv_test.dart) | AutofillContextAdv | No | Yes | No | Checked. |
 | [autofill_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_context_test.dart) | AutofillGroup | No | Yes | No | Checked. |
 | [autofill_group_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_group_state_test.dart) | AutofillGroupState | No | Yes | No | Created on 2026-03-30 at 14:37. |
 | [autofill_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autofill_group_test.dart) | AutofillGroup | No | Yes | No | Created on 2026-03-30 at 14:45. |
 | [automatic_keep_alive_client_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/automatic_keep_alive_client_mixin_test.dart) | AutomaticKeepAliveClientMixin | No | Print-Only | No | Checked. |
-| [autovalidate_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autovalidate_mode_test.dart) | AutovalidateMode | No | No | Yes | Checked. |
+| [autovalidate_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/autovalidate_mode_test.dart) | AutovalidateMode | No | Yes | No | Created on 2026-04-08. |
 | [back_button_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart) | BackButtonListener | No | Yes | No | Created on 2026-03-30 at 14:55. |
 | [backbutton_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backbutton_test.dart) | BackButtonDispatcher | No | Yes | No | Checked. |
 | [backdrop_filter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_filter_test.dart) | BackdropFilter | No | Yes | No | Deep demo created 2025-03-28 |
 | [backdrop_group_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_group_test.dart) | BackdropGroup | No | Yes | No | Created on 2026-03-30 at 15:04. |
 | [ballistic_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ballistic_scroll_activity_test.dart) | BallisticScrollActivity | No | No | Yes | Checked. |
-| [banner_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_location_test.dart) | BannerLocation | No | No | Yes | Checked. |
+| [banner_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_location_test.dart) | BannerLocation | No | Yes | No | Created on 2026-04-08. |
 | [banner_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_painter_test.dart) | BannerPainter | No | Yes | No | Deep demo created 2025-03-28 |
 | [banner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/banner_test.dart) | Banner | No | Yes | No | Checked. |
 | [base_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/base_window_controller_test.dart) | BaseWindowController | No | No | Yes | Checked. |
 | [blocksemantics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/blocksemantics_test.dart) | BlockSemantics | No | Yes | No |
-| [border_radius_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/border_radius_tween_test.dart) | BorderRadiusTween | No | No | Yes | Checked. |
+| [border_radius_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/border_radius_tween_test.dart) | BorderRadiusTween | No | Yes | No | Created on 2026-04-08. |
 | [border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/border_tween_test.dart) | BorderTween | No | No | Yes | Checked. |
 | [bottom_navigation_bar_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bottom_navigation_bar_item_test.dart) | BottomNavigationBarItem | No | Yes | No | Created on 2026-03-30 at 15:12. |
-| [bouncing_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_physics_test.dart) | BouncingScrollPhysics | No | No | Yes | Checked. |
+| [bouncing_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_physics_test.dart) | BouncingScrollPhysics | No | Yes | No | Created on 2026-04-08. |
 | [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | No | Yes | Checked. |
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | No | Yes | Checked. |
 | [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
