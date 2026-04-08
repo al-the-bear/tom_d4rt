@@ -1436,7 +1436,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | Yes | No | Created on 2026-03-30 at 22:47. |
 | [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope | No | No | Yes | Checked. |
 | [dismiss_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_action_test.dart) | DismissAction | No | No | Yes | Checked. |
-| [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | No | Yes | Checked. |
+| [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | Yes | No | Created on 2026-04-08. |
 | [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent | No | No | Yes | Checked. |
 | [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction | No | No | Yes | Checked. |
 | [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | No | Yes | Checked. |
@@ -1451,7 +1451,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [drag_boundary_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_delegate_test.dart) | DragBoundaryDelegate | No | No | Yes | Checked. |
 | [drag_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_boundary_test.dart) | DragBoundary | No | No | Yes | Checked. |
 | [drag_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_scroll_activity_test.dart) | DragScrollActivity | No | No | Yes | Checked. |
-| [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | No | Yes | Checked. |
+| [drag_target_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/drag_target_details_test.dart) | DragTargetDetails | No | Yes | No | Created on 2026-04-08. |
 | [draggable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_details_test.dart) | DraggableDetails | No | No | Yes | Checked. |
 | [draggable_scrollable_actuator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_actuator_test.dart) | DraggableScrollableActuator | No | Yes | No | Created on 2026-03-31 at 12:15. |
 | [draggable_scrollable_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_scrollable_controller_test.dart) | DraggableScrollableController | No | Yes | No | Created on 2026-04-07 at 21:26 |
