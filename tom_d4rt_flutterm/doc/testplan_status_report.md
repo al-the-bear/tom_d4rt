@@ -1362,7 +1362,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | Yes | No | Created on 2026-04-08. |
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | Yes | No | Created on 2026-04-08. |
 | [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
-| [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | No | Yes | Checked. |
+| [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | Yes | No | Created on 2026-04-08. |
 | [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | No | Yes | Checked. |
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
 | [button_activate_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/button_activate_intent_test.dart) | ButtonActivateIntent | No | No | Yes | Checked. |
@@ -1379,7 +1379,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [clamping_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clamping_scroll_simulation_test.dart) | ClampingScrollSimulation | No | Yes | No | Created on 2026-04-08. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/class_test.dart) | Class | No | No | Yes | Checked. |
 | [clip_r_superellipse_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clip_r_superellipse_test.dart) | ClipRSuperellipse | No | Yes | No | Created on 2026-03-30 at 16:26. |
-| [clipboard_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_notifier_test.dart) | ClipboardStatusNotifier | No | No | Yes | Checked. |
+| [clipboard_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_notifier_test.dart) | ClipboardStatusNotifier | No | Yes | No | Created on 2026-04-08. |
 | [clipboard_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipboard_status_test.dart) | ClipboardStatus | No | Yes | No | Created on 2026-04-08. |
 | [clipping_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/clipping_test.dart) | ClipRect | No | Yes | No | Checked. |
 | [cliprrect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/cliprrect_test.dart) | ClipRRect | No | Yes | No |
@@ -1403,7 +1403,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [cross_fade_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/cross_fade_state_test.dart) | CrossFadeState | No | Yes | No | Created on 2026-04-08. |
 | [custompaint_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/custompaint_test.dart) | CustomPaint | No | Yes | No |
 | [customscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/customscrollview_test.dart) | CustomScrollView | No | Yes | No |
-| [debug_creator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/debug_creator_test.dart) | DebugCreator | No | No | Yes | Checked. |
+| [debug_creator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/debug_creator_test.dart) | DebugCreator | No | Yes | No | Created on 2026-04-08. |
 | [decorated_sliver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decorated_sliver_test.dart) | DecoratedSliver | No | Yes | No | Created on 2026-03-30 at 21:59. |
 | [decoratedbox_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoratedbox_test.dart) | DecoratedBox | No | Yes | No |
 | [decoration_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/decoration_tween_test.dart) | DecorationTween | No | Yes | No | Created on 2026-04-08. |
@@ -1439,7 +1439,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dismiss_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_direction_test.dart) | DismissDirection | No | Yes | No | Created on 2026-04-08. |
 | [dismiss_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_intent_test.dart) | DismissIntent | No | No | Yes | Checked. |
 | [dismiss_menu_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_menu_action_test.dart) | DismissMenuAction | No | No | Yes | Checked. |
-| [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | No | Yes | Checked. |
+| [dismiss_update_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismiss_update_details_test.dart) | DismissUpdateDetails | No | Yes | No | Created on 2026-04-08. |
 | [dismissible_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dismissible_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-30 at 22:54. |
 | [display_feature_sub_screen_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_sub_screen_test.dart) | DisplayFeatureSubScreen | No | Yes | No | Created on 2026-03-30 at 23:00. |
 | [display_feature_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/display_feature_test.dart) | DisplayFeature | No | Yes | No | Checked. |
@@ -1459,7 +1459,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [draggable_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_sheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
 | [draggable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggable_test.dart) | Draggable | No | Yes | No |
 | [draggablescrollablesheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/draggablescrollablesheet_test.dart) | DraggableScrollableSheet | No | Yes | No |
-| [driven_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity | No | No | Yes | Checked. |
+| [driven_scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/driven_scroll_activity_test.dart) | DrivenScrollActivity | No | Yes | No | Created on 2026-04-08. |
 | [dual_transition_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dual_transition_builder_test.dart) | DualTransitionBuilder | No | Yes | No | Created on 2026-03-31 at 12:25. |
 | [edge_dragging_auto_scroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_dragging_auto_scroller_test.dart) | EdgeDraggingAutoScroller | No | Yes | No | Created on 2026-04-08. |
 | [edge_insets_geometry_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/edge_insets_geometry_tween_test.dart) | EdgeInsetsGeometryTween | No | Yes | No | Created on 2026-04-08. |
