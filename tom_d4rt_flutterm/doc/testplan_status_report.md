@@ -1041,13 +1041,13 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [selection_event_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_event_type_test.dart) | SelectionEventType | No | Yes | No | Checked. |
 | [selection_extend_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_extend_direction_test.dart) | SelectionExtendDirection | No | Yes | No | Checked. |
 | [selection_geometry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_geometry_test.dart) | SelectionGeometry | No | Yes | No | Created on 2026-04-08. |
-| [selection_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_handler_test.dart) | SelectionHandler | No | No | Yes | Checked. |
-| [selection_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_point_test.dart) | SelectionPoint | No | No | Yes | Checked. |
-| [selection_registrant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_registrant_test.dart) | SelectionRegistrant | No | No | Yes | Checked. |
-| [selection_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_registrar_test.dart) | SelectionRegistrar | No | No | Yes | Checked. |
+| [selection_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_handler_test.dart) | SelectionHandler | No | Yes | No | Created on 2026-04-08. |
+| [selection_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_point_test.dart) | SelectionPoint | No | Yes | No | Created on 2026-04-08. |
+| [selection_registrant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_registrant_test.dart) | SelectionRegistrant | No | Yes | No | Created on 2026-04-08. |
+| [selection_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_registrar_test.dart) | SelectionRegistrar | No | Yes | No | Created on 2026-04-08. |
 | [selection_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_result_test.dart) | SelectionResult | No | Yes | No | Checked. |
 | [selection_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_status_test.dart) | SelectionStatus | No | Yes | No | Checked. |
-| [selection_utils_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_utils_test.dart) | SelectionUtils | No | No | Yes | Checked. |
+| [selection_utils_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/selection_utils_test.dart) | SelectionUtils | No | Yes | No | Created on 2026-04-08. |
 | [semantics_annotations_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/semantics_annotations_mixin_test.dart) | SemanticsAnnotationsMixin | No | No | Yes | Checked. |
 | [shader_mask_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/shader_mask_layer_test.dart) | ShaderMaskLayer | No | No | Yes | Checked. |
 | [shape_border_clipper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/shape_border_clipper_test.dart) | ShapeBorderClipper | No | Yes | No | Created on 2026-04-08. |
