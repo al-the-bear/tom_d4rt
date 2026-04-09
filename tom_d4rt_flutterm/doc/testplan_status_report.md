@@ -1599,16 +1599,16 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [localizations_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_resolver_test.dart) | LocalizationsResolver | No | Yes | No | Created on 2025-04-09 at 14:30. |
 | [localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_test.dart) | Localizations | No | Yes | No | Checked. |
 | [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState | No | Yes | No | Created on 2025-04-09 at 14:30. |
-| [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet | No | Yes | No | Created on 2025-04-09 at 16:10. |
 | [lookup_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lookup_boundary_test.dart) | LookupBoundary | No | Yes | No | Created on 2026-04-01 at 18:17. |
-| [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController | No | Print-Only | No | Checked. |
+| [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController | No | Yes | No | Created on 2025-04-09 at 16:20. |
 | [magnifier_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_decoration_test.dart) | MagnifierDecoration | No | Yes | No | Created on 2026-04-01 at 18:25. |
-| [magnifier_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [matrix4_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [magnifier_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_info_test.dart) | MagnifierInfo | No | Yes | No | Created on 2025-04-09 at 16:30. |
+| [matrix4_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix4_tween_test.dart) | Matrix4Tween | No | Yes | No | Created on 2025-04-09 at 16:40. |
 | [matrix_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/matrix_transition_test.dart) | MatrixTransition | No | Yes | No | Created on 2026-04-01 at 18:34. |
 | [media_query_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/media_query_adv_test.dart) | MediaQueryData | No | Yes | No | Checked. |
 | [mediaquery_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/mediaquery_test.dart) | MediaQuery | No | Yes | No |
-| [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | Print-Only | No | Checked. |
+| [menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_controller_test.dart) | MenuController | No | Yes | No | Created on 2025-04-09 at 16:50. |
 | [menu_serializable_shortcut_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/menu_serializable_shortcut_test.dart) | MenuSerializableShortcut | No | Yes | No | Checked. |
 | [meta_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/meta_data_test.dart) | MetaData | No | Yes | No | Created on 2026-04-01 at 19:55. |
 | [modal_barrier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/modal_barrier_test.dart) | ModalBarrier | No | Yes | No | Created on 2026-04-01 at 20:02. |
