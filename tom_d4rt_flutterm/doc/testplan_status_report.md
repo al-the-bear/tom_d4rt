@@ -1259,10 +1259,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [textboundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textboundary_test.dart) | SystemUiOverlayStyle | No | Yes | No | Checked. |
 | [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [texture_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/texture_android_view_controller_test.dart) | TextureAndroidViewController | No | Yes | No | Created on 2026-04-08 at 22:12. |
-| [ui_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/ui_kit_view_controller_test.dart) | UiKitViewController | No | Print-Only | No | Checked. |
+| [ui_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/ui_kit_view_controller_test.dart) | UiKitViewController | No | Deep-Demo DONE | No | B76: Steel/Pewter theme, 16 sections, natural names. |
 | [undo_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_direction_test.dart) | UndoDirection | No | Yes | No | Checked. |
-| [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | Print-Only | No | Checked. |
-| [undo_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_test.dart) | UndoManager | No | Print-Only | No | Checked. |
+| [undo_manager_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_client_test.dart) | UndoManagerClient | No | Deep-Demo DONE | No | B76: Burgundy/Wine theme, 16 sections, natural names. |
+| [undo_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/undo_manager_test.dart) | UndoManager | No | Deep-Demo DONE | No | B76: Sapphire/Navy theme, 16 sections, natural names. |
 
 ### Deprecated API Test Files (Intentional)
 
@@ -1422,7 +1422,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [dev_tools_deep_link_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dev_tools_deep_link_property_test.dart) | DevToolsDeepLinkProperty | No | Yes | No | Created on 2026-04-08. |
 | [device_orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/device_orientation_builder_test.dart) | DeviceOrientationBuilder | No | Yes | No | Created on 2026-03-30 at 22:41. |
 | [diagonal_drag_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/diagonal_drag_behavior_test.dart) | DiagonalDragBehavior | No | Yes | No | Created on 2026-04-08. |
-| [dialog_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_delegate_test.dart) | DialogWindowControllerDelegate | No | Print-Only | No | Checked. |
+| [dialog_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_delegate_test.dart) | DialogWindowControllerDelegate | No | Deep-Demo DONE | No | B76: Olive/Sage theme, 16 sections, natural names. |
 | [dialog_window_controller_linux_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_linux_test.dart) | DialogWindowControllerLinux | No | Yes | No | Created on 2026-04-08. |
 | [dialog_window_controller_mac_o_s_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_mac_o_s_test.dart) | DialogWindowControllerMacOS | No | Yes | No | Created on 2026-04-08. |
 | [dialog_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/dialog_window_controller_test.dart) | DialogWindowController | No | Yes | No | Created on 2026-04-08 at 23:38. |
@@ -1431,7 +1431,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [directional_caret_movement_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_caret_movement_intent_test.dart) | DirectionalCaretMovementIntent | No | Yes | No | Created on 2026-04-08 at 23:38. |
 | [directional_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_action_test.dart) | DirectionalFocusAction | No | Yes | No | Created on 2026-04-08. |
 | [directional_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_intent_test.dart) | DirectionalFocusIntent | No | Yes | No | Created on 2026-04-08 at 23:38. |
-| [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [directional_focus_traversal_policy_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_focus_traversal_policy_mixin_test.dart) | DirectionalFocusTraversalPolicyMixin | No | Deep-Demo DONE | No | B76: Magenta/Fuchsia theme, 16 sections, natural names. |
 | [directional_text_editing_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directional_text_editing_intent_test.dart) | DirectionalTextEditingIntent | No | Yes | No | Created on 2025-07-25 at 23:59. |
 | [directionality_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/directionality_test.dart) | Directionality | No | Yes | No | Created on 2026-03-30 at 22:47. |
 | [disable_widget_inspector_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/disable_widget_inspector_scope_test.dart) | DisableWidgetInspectorScope | No | Yes | No | Created on 2025-07-25 at 23:59. |
