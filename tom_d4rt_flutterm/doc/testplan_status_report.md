@@ -764,17 +764,17 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [asset_bundle_image_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_key_test.dart) | AssetBundleImageKey | No | Yes | No | Checked. |
 | [asset_bundle_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart) | AssetBundleImageProvider | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [automatic_notched_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/automatic_notched_shape_test.dart) | AutomaticNotchedShape | No | Yes | No | Checked. |
-| [axis_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart) | AxisDirection | No | Print-Only | No | Checked. |
-| [axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_test.dart) | Axis | No | Print-Only | No | Checked. |
+| [axis_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart) | AxisDirection | No | Yes | No | B63: Deep demo 1182 lines, Steel/Iron theme, prefix ad. |
+| [axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_test.dart) | Axis | No | Yes | No | B63: Deep demo 1225 lines, Rosewood/Blush theme, prefix ax. |
 | [border_directional_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_directional_test.dart) | BorderDirectional | No | Yes | No | Checked. |
 | [border_radius_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_radius_test.dart) | BorderRadius | No | Yes | No |
-| [border_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_style_test.dart) | BorderStyle | No | Print-Only | No | Checked. |
+| [border_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_style_test.dart) | BorderStyle | No | Yes | No | B63: Deep demo 1050 lines, Graphite/Pewter theme, prefix bs. |
 | [border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/border_test.dart) | Border | No | Yes | No |
 | [box_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_border_test.dart) | BoxBorder | No | Yes | No | Checked. |
 | [box_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_decoration_test.dart) | BoxDecoration | No | Yes | No |
-| [box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_fit_test.dart) | BoxFit | No | Print-Only | No | Checked. |
+| [box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_fit_test.dart) | BoxFit | No | Yes | No | B63: Deep demo 1161 lines, Amber/Saffron theme, prefix bf. |
 | [box_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_painter_test.dart) | BoxPainter | No | Yes | No | Checked. |
-| [box_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_shape_test.dart) | BoxShape | No | Print-Only | No | Checked. |
+| [box_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_shape_test.dart) | BoxShape | No | Yes | No | B63: Deep demo 1238 lines, Pine/Fern theme, prefix bx. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (1061 lines, 28 sections). |
 | [clip_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/clip_context_test.dart) | ClipContext | No | Yes | No | Checked. |
 | [color_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/color_property_test.dart) | ColorProperty | No | Yes | No | Checked. |
