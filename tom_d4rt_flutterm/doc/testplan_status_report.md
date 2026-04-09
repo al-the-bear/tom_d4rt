@@ -1639,13 +1639,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection | No | Yes | No | Created on 2026-04-09 at 17:12. |
 | [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy | No | Yes | No | Created on 2026-04-09 at 17:12. |
 | [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder | No | Yes | No | Created on 2026-04-02 at 11:28. |
-| [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation | No | Yes | No | Created on 2026-04-09 at 17:36. |
+| [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment | No | Yes | No | Created on 2026-04-09 at 17:36. |
 | [overflow_bar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_test.dart) | OverflowBar | No | Yes | No | Created on 2026-04-02 at 11:35. |
 | [overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_box_test.dart) | OverflowBox | No | Yes | No | Created on 2026-04-02 at 12:51. |
-| [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo | No | Print-Only | No | Checked. |
-| [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation | No | Print-Only | No | Checked. |
-| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | Print-Only | No | Checked. |
+| [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo | No | Yes | No | Created on 2026-04-09 at 17:36. |
+| [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation | No | Yes | No | Created on 2026-04-09 at 17:36. |
+| [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | Yes | No | Created on 2026-04-09 at 17:36. |
 | [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay | No | Yes | No |
 | [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | No | Print-Only | No | Checked. |
 | [overlay_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_state_test.dart) | OverlayState | No | Yes | No | Created on 2026-04-02 at 13:07 |
