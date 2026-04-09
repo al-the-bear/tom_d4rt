@@ -1629,15 +1629,15 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [next_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart) | NextFocusIntent | No | Yes | No | Created on 2026-04-09 at 15:30. |
 | [notifiable_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notifiable_element_mixin_test.dart) | NotifiableElementMixin | No | Yes | No | Created on 2026-04-09 at 15:30. |
 | [notification_locale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_locale_test.dart) | YestificationListener | No | Yes | No | Checked. |
-| [notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_test.dart) | Yestification | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_test.dart) | Notification | No | Yes | No | Created on 2026-04-09 at 17:12. |
 | [notificationlistener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notificationlistener_test.dart) | YestificationListener | No | Yes | No |
-| [numeric_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/numeric_focus_order_test.dart) | NumericFocusOrder | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart) | ObjectKey | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [numeric_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/numeric_focus_order_test.dart) | NumericFocusOrder | No | Yes | No | Created on 2026-04-09 at 17:12. |
+| [object_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart) | ObjectKey | No | Yes | No | Created on 2026-04-09 at 17:12. |
 | [offstage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/offstage_test.dart) | Offstage | No | Yes | No |
 | [opacity_full_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_full_test.dart) | Opacity | No | Yes | No | Checked. |
 | [opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/opacity_test.dart) | Opacity | No | Yes | No |
-| [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [options_view_open_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/options_view_open_direction_test.dart) | OptionsViewOpenDirection | No | Yes | No | Created on 2026-04-09 at 17:12. |
+| [ordered_traversal_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ordered_traversal_policy_test.dart) | OrderedTraversalPolicy | No | Yes | No | Created on 2026-04-09 at 17:12. |
 | [orientation_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_builder_test.dart) | OrientationBuilder | No | Yes | No | Created on 2026-04-02 at 11:28. |
 | [orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/orientation_test.dart) | Orientation | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [overflow_bar_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_bar_alignment_test.dart) | OverflowBarAlignment | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
