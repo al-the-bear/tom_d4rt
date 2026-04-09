@@ -1593,12 +1593,12 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [listbody_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listbody_test.dart) | ListBody | No | Yes | No |
 | [listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listener_test.dart) | Listener | No | Yes | No |
 | [listview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/listview_test.dart) | ListView | No | Yes | No |
-| [live_text_input_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_notifier_test.dart) | LiveTextInputStatusNotifier | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [live_text_input_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart) | LiveTextInputStatus | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [local_history_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/local_history_entry_test.dart) | LocalHistoryEntry | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [localizations_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_resolver_test.dart) | LocalizationsResolver | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [live_text_input_status_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_notifier_test.dart) | LiveTextInputStatusNotifier | No | Yes | No | Created on 2025-04-09 at 14:30. |
+| [live_text_input_status_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart) | LiveTextInputStatus | No | Yes | No | Created on 2025-04-09 at 14:30. |
+| [local_history_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/local_history_entry_test.dart) | LocalHistoryEntry | No | Yes | No | Created on 2025-04-09 at 14:30. |
+| [localizations_resolver_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_resolver_test.dart) | LocalizationsResolver | No | Yes | No | Created on 2025-04-09 at 14:30. |
 | [localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/localizations_test.dart) | Localizations | No | Yes | No | Checked. |
-| [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState | No | Print-Only | No | Checked. |
+| [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState | No | Yes | No | Created on 2025-04-09 at 14:30. |
 | [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [lookup_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lookup_boundary_test.dart) | LookupBoundary | No | Yes | No | Created on 2026-04-01 at 18:17. |
 | [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController | No | Print-Only | No | Checked. |
