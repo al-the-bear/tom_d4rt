@@ -786,7 +786,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [enums_painting_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/enums_painting_test.dart) | EnumsPainting | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [fitted_sizes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/fitted_sizes_test.dart) | FittedSizes | No | Yes | No | Checked. |
 | [flutter_logo_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_decoration_test.dart) | FlutterLogoDecoration | No | Yes | No | Checked. |
-| [flutter_logo_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_style_test.dart) | FlutterLogoStyle | No | Print-Only | No | Checked. |
+| [flutter_logo_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/flutter_logo_style_test.dart) | FlutterLogoStyle | No | Yes | No | Batch 64 deep demo |
 | [gradient_shadow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_shadow_test.dart) | LinearGradient | No | Yes | No |
 | [gradient_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_test.dart) | Gradient | No | Yes | No | Checked. |
 | [gradient_transform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/gradient_transform_test.dart) | GradientTransform | No | Yes | No |
@@ -796,7 +796,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [image_chunk_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_chunk_event_test.dart) | ImageChunkEvent | No | Yes | No | Checked. |
 | [image_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_info_test.dart) | ImageInfo | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [image_providers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_providers_test.dart) | ExactAssetImage | No | Yes | No | Checked. |
-| [image_repeat_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_repeat_test.dart) | ImageRepeat | No | Print-Only | No | Checked. |
+| [image_repeat_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_repeat_test.dart) | ImageRepeat | No | Yes | No | Batch 64 deep demo |
 | [image_size_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_size_info_test.dart) | ImageSizeInfo | No | Yes | No | Checked. |
 | [image_stream_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_stream_adv_test.dart) | BeveledRectangleBorder | No | Yes | No | Checked. |
 | [image_stream_completer_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/image_stream_completer_handle_test.dart) | ImageStreamCompleterHandle | No | Yes | No | Created on 2026-03-22 at 10:30 |
@@ -820,16 +820,16 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [painting_binding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/painting_binding_test.dart) | PaintingBinding | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [placeholder_dimensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/placeholder_dimensions_test.dart) | PlaceholderDimensions | No | Yes | No | Checked. |
 | [placeholder_span_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/placeholder_span_test.dart) | PlaceholderSpan | No | Yes | No | Checked. |
-| [render_comparison_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/render_comparison_test.dart) | RenderComparison | No | Print-Only | No | Checked. |
+| [render_comparison_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/render_comparison_test.dart) | RenderComparison | No | Yes | No | Batch 64 deep demo |
 | [resize_image_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_key_test.dart) | ResizeImageKey | No | Yes | No | Created on 2026-03-22 at 10:30 |
-| [resize_image_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_policy_test.dart) | ResizeImagePolicy | No | Print-Only | No | Checked. |
+| [resize_image_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_policy_test.dart) | ResizeImagePolicy | No | Yes | No | Batch 64 deep demo |
 | [resize_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/resize_image_test.dart) | ResizeImage | No | Yes | No | Checked. |
 | [rounded_superellipse_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/rounded_superellipse_border_test.dart) | RoundedSuperellipseBorder | No | Yes | No | Checked. |
 | [shader_warm_up_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shader_warm_up_test.dart) | ShaderWarmUp | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [shape_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shape_border_test.dart) | ShapeBorder | No | Yes | No | Checked. |
 | [shapes_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/shapes_test.dart) | RoundedRectangleBorder | No | Yes | No |
 | [star_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/star_border_test.dart) | StarBorder | No | Yes | No | Checked. |
-| [text_overflow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_overflow_test.dart) | TextOverflow | No | Print-Only | No | Checked. |
+| [text_overflow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_overflow_test.dart) | TextOverflow | No | Yes | No | Batch 64 deep demo |
 | [text_painting_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_painting_test.dart) | StrutStyle | No | Yes | No |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
 | [text_width_basis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_width_basis_test.dart) | TextWidthBasis | No | Print-Only | No | Checked. |
