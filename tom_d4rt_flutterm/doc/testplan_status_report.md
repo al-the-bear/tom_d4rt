@@ -1504,7 +1504,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [focus_highlight_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_mode_test.dart) | FocusHighlightMode | No | Yes | No | Created on 2026-04-08. |
 | [focus_highlight_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_highlight_strategy_test.dart) | FocusHighlightStrategy | No | Yes | No | Created on 2026-04-08. |
 | [focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_order_test.dart) | FocusOrder | No | Yes | No | Created on 2026-04-08. |
-| [focus_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode | No | Print-Only | No | Checked. |
+| [focus_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_properties_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-09 at 03:40. |
 | [focus_scope_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_scope_node_test.dart) | FocusScopeNode | No | Yes | No | Created on 2026-04-08. |
 | [focus_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_test.dart) | Focus | No | Yes | No | Checked. |
 | [focus_traversal_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/focus_traversal_advanced_test.dart) | WidgetOrderTraversalPolicy | Yes (B31) | Yes | Checked. |
@@ -1555,15 +1555,15 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [indexed_slot_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_slot_test.dart) | IndexedSlot | No | Yes | No | Created on 2026-04-09 at 01:57. |
 | [indexed_stack_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/indexed_stack_test.dart) | IndexedStack | No | Yes | No | Created on 2026-04-01 at 13:24. |
 | [inherited_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_element_test.dart) | InheritedElement | No | Yes | No | Created on 2026-04-09 at 01:57. |
-| [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [inherited_model_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_element_test.dart) | InheritedModelElement | No | Yes | No | Created on 2026-04-09 at 03:45. |
 | [inherited_model_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_model_test.dart) | InheritedModel | No | Yes | No | Checked. |
 | [inherited_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_notifier_test.dart) | InheritedNotifier | No | Yes | No | Created on 2026-04-01 at 13:33. |
 | [inherited_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_theme_test.dart) | InheritedTheme | No | Yes | No | Created on 2026-04-01 at 13:54. |
 | [inherited_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inherited_widget_test.dart) | InheritedWidget | No | Yes | No | Created on 2026-04-01 at 14:03. |
 | [inkwell_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inkwell_test.dart) | InkWell | No | Yes | No |
-| [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [inspector_reference_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_reference_data_test.dart) | InspectorReferenceData | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton | No | Yes | No | Created on 2026-04-09 at 03:50. |
+| [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant | No | Yes | No | Created on 2026-04-09 at 03:55. |
+| [inspector_reference_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_reference_data_test.dart) | InspectorReferenceData | No | Yes | No | Created on 2026-04-09 at 04:00. |
 | [inspector_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_selection_test.dart) | InspectorSelection | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [inspector_serialization_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_serialization_delegate_test.dart) | InspectorSerializationDelegate | No | Print-Only | No | Checked. |
 | [interactive_viewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactive_viewer_test.dart) | InteractiveViewer | No | Yes | No | Checked. |
