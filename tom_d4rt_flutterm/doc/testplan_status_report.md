@@ -1065,7 +1065,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [sliver_physical_container_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/sliver_physical_container_parent_data_test.dart) | SliverPhysicalContainerParentData | No | Yes | No | Created on 2026-04-08. |
 | [sliver_physical_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/sliver_physical_parent_data_test.dart) | SliverPhysicalParentData | No | Yes | No | Created on 2026-04-08. |
 | [stack_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/stack_fit_test.dart) | StackFit | No | Yes | No | Created on 2026-04-08. |
-| [table_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_border_test.dart) | TableBorder | No | Print-Only | No | Checked. |
+| [table_border_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_border_test.dart) | TableBorder | No | Yes | No | B66 deep demo. 992 lines, Copper/Bronze theme, prefix tb. |
 | [table_cell_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_cell_parent_data_test.dart) | TableCellParentData | No | Yes | No | Created on 2026-04-08. |
 | [table_cell_vertical_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/table_cell_vertical_alignment_test.dart) | TableCellVerticalAlignment | No | Yes | No | Created on 2026-04-08. |
 | [text_granularity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/text_granularity_test.dart) | TextGranularity | No | Yes | No | Checked. |
@@ -1078,15 +1078,15 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [tree_sliver_indentation_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/tree_sliver_indentation_type_test.dart) | TreeSliverIndentationType | No | Yes | No | Created on 2026-04-08. |
 | [tree_sliver_node_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/tree_sliver_node_parent_data_test.dart) | TreeSliverNodeParentData | No | Yes | No | Created on 2026-04-08. |
 | [vertical_caret_movement_run_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/vertical_caret_movement_run_test.dart) | VerticalCaretMovementRun | No | Yes | No | Created on 2026-04-08. |
-| [viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/viewport_test.dart) | viewport | No | Print-Only | No | Checked. |
+| [viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/viewport_test.dart) | viewport | No | Yes | No | B66 deep demo. 1033 lines, Pine/Cedar theme, prefix vp. |
 | [wrap_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/wrap_alignment_test.dart) | WrapAlignment | No | Yes | No | Created on 2026-04-08. |
-| [wrap_cross_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/wrap_cross_alignment_test.dart) | WrapCrossAlignment | No | Print-Only | No | Checked. |
+| [wrap_cross_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/wrap_cross_alignment_test.dart) | WrapCrossAlignment | No | Yes | No | B66 deep demo. 878 lines, Plum/Berry theme, prefix wc. |
 | [wrap_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/wrap_parent_data_test.dart) | WrapParentData | No | Yes | No | Created on 2026-04-08. |
 ## scheduler/ (8 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/class_test.dart) | Class | No | Print-Only | No | Checked. 90 lines, bare Column — upgradeable. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/class_test.dart) | Class | No | Yes | No | B66 deep demo. 928 lines, Steel/Iron theme, prefix sk. |
 | [performance_mode_request_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/performance_mode_request_handle_test.dart) | PerformanceModeRequestHandle | No | Yes | No | Checked. |
 | [priority_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/priority_test.dart) | Priority | No | Yes | No | Checked. |
 | [scheduler_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/scheduler_misc_test.dart) | Priority | No | Yes | No | Checked. |
@@ -1102,7 +1102,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [announce_semantics_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/announce_semantics_event_test.dart) | AnnounceSemanticsEvent | No | Yes | No | Checked. |
 | [assertiveness_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/assertiveness_test.dart) | Assertiveness | No | Yes | No | Checked. |
 | [attributed_string_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/attributed_string_property_test.dart) | AttributedStringProperty | No | Yes | No | Checked. |
-| [child_semantics_configurations_result_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/child_semantics_configurations_result_builder_test.dart) | ChildSemanticsConfigurationsResultBuilder | No | Print-Only | No | Checked. |
+| [child_semantics_configurations_result_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/child_semantics_configurations_result_builder_test.dart) | ChildSemanticsConfigurationsResultBuilder | No | Yes | No | B66 deep demo. 1020 lines, Coral/Shell theme, prefix cb. |
 | [child_semantics_configurations_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/child_semantics_configurations_result_test.dart) | ChildSemanticsConfigurationsResult | No | Print-Only | No | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/class_test.dart) | Class | No | Print-Only | No | Checked. 105 lines, bare Column — upgradeable. |
 | [debug_semantics_dump_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/debug_semantics_dump_order_test.dart) | DebugSemanticsDumpOrder | No | Yes | No | Checked. |
