@@ -1249,12 +1249,12 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_input_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_action_test.dart) | TextInputAction | No | Yes | No | Checked. |
 | [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | Deep-Demo DONE | No | B74: Slate/Graphite theme, 16 sections, natural names. |
 | [text_input_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_configuration_test.dart) | TextInputConfiguration | No | Yes | No | Checked. |
-| [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | Print-Only | No | Checked. |
-| [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | Print-Only | No | Checked. |
-| [text_input_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_test.dart) | TextInput | No | Print-Only | No | Checked. |
+| [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | Deep-Demo DONE | No | B75: Teal/Cyan theme, 16 sections, natural names. |
+| [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | Deep-Demo DONE | No | B75: Amber/Gold theme, 16 sections, natural names. |
+| [text_input_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_test.dart) | TextInput | No | Deep-Demo DONE | No | B75: Indigo/Violet theme, 16 sections, natural names. |
 | [text_input_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_type_test.dart) | TextInputType | No | Yes | No | Checked. |
-| [text_layout_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_layout_metrics_test.dart) | TextLayoutMetrics | No | Print-Only | No | Checked. |
-| [text_selection_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_delegate_test.dart) | TextSelectionDelegate | No | Print-Only | No | Checked. |
+| [text_layout_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_layout_metrics_test.dart) | TextLayoutMetrics | No | Deep-Demo DONE | No | B75: Emerald/Jade theme, 16 sections, natural names. |
+| [text_selection_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_delegate_test.dart) | TextSelectionDelegate | No | Deep-Demo DONE | No | B75: Coral/Terracotta theme, 16 sections, natural names. |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
 | [textboundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textboundary_test.dart) | SystemUiOverlayStyle | No | Yes | No | Checked. |
 | [textformatter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/textformatter_test.dart) | Textformatter | No | Yes | No | Created on 2026-04-08 at 22:12. |
