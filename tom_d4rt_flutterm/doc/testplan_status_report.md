@@ -1126,16 +1126,16 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [android_motion_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/android_motion_event_test.dart) | AndroidMotionEvent | No | Yes | No | Checked. |
 | [android_pointer_coords_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/android_pointer_coords_test.dart) | AndroidPointerCoords | No | Yes | No | Checked. |
 | [android_pointer_properties_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/android_pointer_properties_test.dart) | AndroidPointerProperties | No | Yes | No | Checked. |
-| [android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/android_view_controller_test.dart) | AndroidViewController | No | Print-Only | No | Checked. |
+| [android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/android_view_controller_test.dart) | AndroidViewController | No | Deep-Demo DONE | No | B68: Terracotta/Clay theme, 16 sections, av prefix. |
 | [app_kit_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/app_kit_view_controller_test.dart) | AppKitViewController | No | Yes | No | Created on 2026-04-08. |
 | [application_switcher_description_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/application_switcher_description_test.dart) | ApplicationSwitcherDescription | No | Yes | No | Checked. |
-| [asset_manifest_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/asset_manifest_test.dart) | AssetManifest | No | Print-Only | No | Checked. |
+| [asset_manifest_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/asset_manifest_test.dart) | AssetManifest | No | Deep-Demo DONE | No | B68: Indigo/Navy theme, 16 sections, am prefix. |
 | [asset_metadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/asset_metadata_test.dart) | AssetMetadata | No | Yes | No | Checked. |
 | [asset_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/asset_test.dart) | AssetImage | No | Yes | No | Checked. |
-| [autofill_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_client_test.dart) | AutofillClient | No | Print-Only | No | Checked. |
+| [autofill_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_client_test.dart) | AutofillClient | No | Deep-Demo DONE | No | B68: Mint/Jade theme, 16 sections, ac prefix. |
 | [autofill_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_configuration_test.dart) | AutofillConfiguration | No | Yes | No | Checked. |
-| [autofill_hints_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_hints_test.dart) | AutofillHints | No | Print-Only | No | Checked. |
-| [autofill_scope_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_scope_mixin_test.dart) | AutofillScopeMixin | No | Print-Only | No | Checked. |
+| [autofill_hints_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_hints_test.dart) | AutofillHints | No | Deep-Demo DONE | No | B68: Crimson/Ruby theme, 16 sections, ah prefix. |
+| [autofill_scope_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_scope_mixin_test.dart) | AutofillScopeMixin | No | Deep-Demo DONE | No | B68: Teal/Lagoon theme, 16 sections, as prefix. |
 | [autofill_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/autofill_scope_test.dart) | AutofillScope | No | Print-Only | No | Checked. |
 | [background_isolate_binary_messenger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/background_isolate_binary_messenger_test.dart) | BackgroundIsolateBinaryMessenger | No | Print-Only | No | Checked. |
 | [binary_messenger_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/binary_messenger_test.dart) | BinaryMessenger | No | Yes | No | Checked. |
