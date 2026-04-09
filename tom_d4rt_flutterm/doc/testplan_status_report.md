@@ -1572,17 +1572,17 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | Yes | No | Created on 2026-04-09 at 14:34. |
 | [keepalive_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No |
 | [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult | No | Yes | No | Created on 2026-04-09 at 14:34. |
-| [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key | No | Yes | No |
 | [keyboard_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyboard_listener_test.dart) | KeyboardListener | No | Yes | No | Created on 2026-04-01 at 17:42. |
 | [keyedsubtree_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyedsubtree_test.dart) | KeyedSubtree | No | Yes | No |
-| [labeled_global_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/labeled_global_key_test.dart) | LabeledGlobalKey | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [labeled_global_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/labeled_global_key_test.dart) | LabeledGlobalKey | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [layout_builder_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_builder_adv_test.dart) | LayoutBuilder | No | Yes | No |
 | [layout_id_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layout_id_test.dart) | LayoutId | No | Yes | No | Created on 2026-04-01 at 17:53. |
 | [layoutbuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/layoutbuilder_test.dart) | LayoutBuilder | No | Yes | No |
-| [leaf_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_element_test.dart) | LeafRenderObjectElement | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
-| [leaf_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_widget_test.dart) | LeafRenderObjectWidget | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [lexical_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lexical_focus_order_test.dart) | LexicalFocusOrder | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [leaf_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_element_test.dart) | LeafRenderObjectElement | No | Yes | No | Created on 2026-04-09 at 14:57. |
+| [leaf_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/leaf_render_object_widget_test.dart) | LeafRenderObjectWidget | No | Yes | No | Created on 2026-04-09 at 14:57. |
+| [lexical_focus_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lexical_focus_order_test.dart) | LexicalFocusOrder | No | Yes | No | Created on 2026-04-09 at 14:57. |
 | [list_wheel_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_builder_delegate_test.dart) | ListWheelChildBuilderDelegate | No | Print-Only | No | Checked. |
 | [list_wheel_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_delegate_test.dart) | ListWheelChildDelegate | No | Print-Only | No | Checked. |
 | [list_wheel_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/list_wheel_child_list_delegate_test.dart) | ListWheelChildListDelegate | No | Print-Only | No | Checked. |
