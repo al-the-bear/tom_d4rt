@@ -1173,7 +1173,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_down_event_test.dart) | KeyDownEvent | No | Yes | No | Checked. |
 | [key_event_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_event_manager_test.dart) | KeyEventManager | No | Deep-Demo DONE | No | B70: Cobalt/Azure theme, 16 sections, ke prefix. |
 | [key_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_event_test.dart) | KeyEvent | No | Yes | No | Checked. |
-| [key_events_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_adv_test.dart) | TextInputConnection | No | Print-Only | No | Checked. |
+| [key_events_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_adv_test.dart) | TextInputConnection | No | Deep-Demo DONE | No | B71: Teal/Mint theme, 16 sections, tc prefix. |
 | [key_events_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_events_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
 | [key_helper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_helper_test.dart) | KeyHelper | No | Yes | No | Checked. |
 | [key_message_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/key_message_test.dart) | KeyMessage | No | Yes | No | Checked. |
@@ -1183,21 +1183,21 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [keyboard_lock_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_lock_mode_test.dart) | KeyboardLockMode | No | Yes | No | Checked. |
 | [keyboard_side_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_side_test.dart) | KeyboardSide | No | Yes | No | Checked. |
 | [keyboard_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/keyboard_test.dart) | LogicalKeyboardKey | No | Yes | No | Checked. |
-| [live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/live_text_test.dart) | LiveText | No | Print-Only | No | Checked. |
+| [live_text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/live_text_test.dart) | LiveText | No | Deep-Demo DONE | No | B71: Coral/Peach theme, 16 sections, lt prefix. |
 | [max_length_enforcement_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/max_length_enforcement_test.dart) | MaxLengthEnforcement | No | Yes | No | Checked. |
 | [message_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/message_codec_test.dart) | MessageCodec | No | Yes | No | Checked. |
 | [method_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/method_codec_test.dart) | MethodCodec | No | Yes | No | Checked. |
 | [missing_plugin_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/missing_plugin_exception_test.dart) | MissingPluginException | No | Yes | No | Checked. |
 | [modifier_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/modifier_key_test.dart) | ModifierKey | No | Yes | No | Checked. |
-| [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | Print-Only | No | Checked. |
+| [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | Deep-Demo DONE | No | B71: Slate/Silver theme, 16 sections, mc prefix. |
 | [mouse_cursor_session_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_session_test.dart) | MouseCursorSession | No | Yes | No | Created on 2026-04-08 at 21:49. |
 | [mouse_tracker_annotation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_tracker_annotation_test.dart) | MouseTrackerAnnotation | No | Yes | No | Checked. |
 | [network_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/network_asset_bundle_test.dart) | NetworkAssetBundle | No | Yes | No | Checked. |
-| [platform_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_asset_bundle_test.dart) | PlatformAssetBundle | No | Print-Only | No | Checked. |
+| [platform_asset_bundle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_asset_bundle_test.dart) | PlatformAssetBundle | No | Deep-Demo DONE | No | B71: Amber/Gold theme, 16 sections, pa prefix. |
 | [platform_channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_channels_test.dart) | MethodChannel | No | Yes | No | Checked. |
 | [platform_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_exception_test.dart) | PlatformException | No | Yes | No | Checked. |
 | [platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_test.dart) | Clipboard | No | Yes | No | Checked. |
-| [platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_view_controller_test.dart) | PlatformViewController | No | Print-Only | No | Checked. |
+| [platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_view_controller_test.dart) | PlatformViewController | No | Deep-Demo DONE | No | B71: Violet/Lavender theme, 16 sections, pv prefix. |
 | [platform_views_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_registry_test.dart) | PlatformViewsRegistry | No | Yes | No | Checked. |
 | [platform_views_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_service_test.dart) | PlatformViewsService | No | Print-Only | No | Checked. |
 | [predictive_back_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/predictive_back_event_test.dart) | PredictiveBackEvent | No | Yes | No | Created on 2026-04-08 at 21:49. |
