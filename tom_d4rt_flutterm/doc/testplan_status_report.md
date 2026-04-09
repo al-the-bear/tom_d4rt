@@ -1564,14 +1564,14 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [inspector_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_test.dart) | InspectorButton | No | Yes | No | Created on 2026-04-09 at 03:50. |
 | [inspector_button_variant_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_button_variant_test.dart) | InspectorButtonVariant | No | Yes | No | Created on 2026-04-09 at 03:55. |
 | [inspector_reference_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_reference_data_test.dart) | InspectorReferenceData | No | Yes | No | Created on 2026-04-09 at 04:00. |
-| [inspector_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_selection_test.dart) | InspectorSelection | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [inspector_serialization_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_serialization_delegate_test.dart) | InspectorSerializationDelegate | No | Print-Only | No | Checked. |
+| [inspector_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_selection_test.dart) | InspectorSelection | No | Yes | No | Created on 2026-04-09 at 14:34. |
+| [inspector_serialization_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/inspector_serialization_delegate_test.dart) | InspectorSerializationDelegate | No | Yes | No | Created on 2026-04-09 at 14:34. |
 | [interactive_viewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactive_viewer_test.dart) | InteractiveViewer | No | Yes | No | Checked. |
 | [interactiveviewer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/interactiveviewer_test.dart) | InteractiveViewer | No | Yes | No |
-| [keep_alive_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [keep_alive_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_handle_test.dart) | KeepAliveHandle | No | Yes | No | Created on 2026-04-09 at 14:34. |
+| [keep_alive_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keep_alive_notification_test.dart) | KeepAliveNotification | No | Yes | No | Created on 2026-04-09 at 14:34. |
 | [keepalive_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keepalive_test.dart) | KeepAlive | No | Yes | No |
-| [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [key_event_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_event_result_test.dart) | KeyEventResult | No | Yes | No | Created on 2026-04-09 at 14:34. |
 | [key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_set_test.dart) | KeySet | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/key_test.dart) | Key | No | Yes | No |
 | [keyboard_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/keyboard_listener_test.dart) | KeyboardListener | No | Yes | No | Created on 2026-04-01 at 17:42. |
