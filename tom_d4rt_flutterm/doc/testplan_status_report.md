@@ -1216,17 +1216,17 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [raw_key_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
 | [raw_key_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_up_event_test.dart) | RawKeyUpEvent | No | Deep-Demo DONE | No | B72: Indigo/Periwinkle theme, 16 sections, ru prefix. |
 | [raw_keyboard_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_keyboard_test.dart) | RawKeyboard | No | Yes | No | Checked. |
-| [restoration_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_bucket_test.dart) | RestorationBucket | No | Print-Only | No | Checked. |
-| [restoration_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_manager_test.dart) | RestorationManager | No | Print-Only | No | Checked. |
+| [restoration_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_bucket_test.dart) | RestorationBucket | No | Deep-Demo DONE | No | B73: Emerald/Jade theme, 16 sections, rb prefix. |
+| [restoration_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_manager_test.dart) | RestorationManager | No | Deep-Demo DONE | No | B73: Crimson/Flame theme, 16 sections, rg prefix. |
 | [restoration_platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_platform_test.dart) | RestorationMemento | No | Yes | No | Checked. |
-| [scribble_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribble_client_test.dart) | ScribbleClient | No | Print-Only | No | Checked. |
+| [scribble_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribble_client_test.dart) | ScribbleClient | No | Deep-Demo DONE | No | B73: Teal/Cyan theme, 16 sections, wr prefix. |
 | [scribe_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/scribe_test.dart) | Scribe | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [selection_changed_cause_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_changed_cause_test.dart) | SelectionChangedCause | No | Yes | No | Checked. |
 | [selection_rect_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/selection_rect_test.dart) | SelectionRect | No | Yes | No | Checked. |
-| [sensitive_content_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/sensitive_content_service_test.dart) | SensitiveContentService | No | Print-Only | No | Checked. |
+| [sensitive_content_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/sensitive_content_service_test.dart) | SensitiveContentService | No | Deep-Demo DONE | No | B73: Slate/Graphite theme, 16 sections, sn prefix. |
 | [services_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_advanced_test.dart) | KeyEvent | No | Yes | No | Checked. |
 | [services_service_extensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_service_extensions_test.dart) | ServicesServiceExtensions | No | Yes | No | Checked. |
-| [smart_dashes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_dashes_type_test.dart) | SmartDashesType | No | Print-Only | No | Checked. |
+| [smart_dashes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_dashes_type_test.dart) | SmartDashesType | No | Deep-Demo DONE | No | B73: Plum/Orchid theme, 16 sections, sd prefix. |
 | [smart_quotes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_quotes_type_test.dart) | SmartQuotesType | No | Print-Only | No | Checked. |
 | [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | Print-Only | No | Checked. |
 | [spellcheck_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spellcheck_test.dart) | SpellCheckResults | No | Yes | No | Checked. |
