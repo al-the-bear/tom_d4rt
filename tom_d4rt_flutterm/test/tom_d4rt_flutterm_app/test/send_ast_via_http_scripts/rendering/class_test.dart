@@ -1,1166 +1,1292 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// Deep demo: Flutter rendering package classes
-// Covers RenderObject, RenderBox, Constraints, ParentData and related concepts
-
-import 'package:flutter/rendering.dart';
+// ignore_for_file: avoid_print
+// D4rt deep-demo: Rendering Package Classes — Ember / Ash theme, prefix rn
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:vector_math/vector_math_64.dart' hide Colors;
 
-// =============================================================================
-// SECTION 1: Size - Fundamental 2D Dimensions
-// =============================================================================
-
-void sizeBasicsDemo() {
-  // Size represents width and height dimensions
-  var size1 = Size(100.0, 200.0);
-  print('Size basics:');
-  print('  Width: ${size1.width}');
-  print('  Height: ${size1.height}');
-  print('  Aspect ratio: ${size1.aspectRatio}');
-  
-  // Size creation methods
-  var squareSize = Size.square(50.0);
-  print('  Square size: $squareSize');
-  
-  var fromRadius = Size.fromRadius(25.0);
-  print('  From radius 25: $fromRadius');
-  
-  var fromWidth = Size.fromWidth(100.0);
-  print('  From width (infinite height): $fromWidth');
-  
-  var fromHeight = Size.fromHeight(100.0);
-  print('  From height (infinite width): $fromHeight');
-  
-  // Size special values
-  var zeroSize = Size.zero;
-  var infiniteSize = Size.infinite;
-  print('  Zero size: $zeroSize');
-  print('  Infinite size: $infiniteSize');
-}
-
-void sizeOperationsDemo() {
-  var size1 = Size(100.0, 200.0);
-  var size2 = Size(50.0, 75.0);
-  
-  print('Size operations:');
-  
-  // Arithmetic with offsets
-  var offset = Offset(10.0, 20.0);
-  var addedOffset = size1 + offset;
-  print('  Size + Offset: $addedOffset');
-  
-  var subtractedOffset = size1 - offset;
-  print('  Size - Offset: $subtractedOffset');
-  
-  // Multiplication and division
-  var scaled = size1 * 2.0;
-  print('  Size * 2: $scaled');
-  
-  var divided = size1 / 2.0;
-  print('  Size / 2: $divided');
-  
-  var intDivided = size1 ~/ 2;
-  print('  Size ~/ 2: $intDivided');
-  
-  var modulo = size1 % 30.0;
-  print('  Size % 30: $modulo');
-  
-  // Avoid unused variable warning
-  print('  size2 for reference: $size2');
-}
-
-void sizeGeometryDemo() {
-  var size = Size(100.0, 200.0);
-  
-  print('Size geometry:');
-  
-  // Center and other points
-  var center = size.center(Offset.zero);
-  print('  Center at origin: $center');
-  
-  var centerOffset = size.center(Offset(50.0, 50.0));
-  print('  Center at (50,50): $centerOffset');
-  
-  var topLeft = size.topLeft(Offset.zero);
-  var topCenter = size.topCenter(Offset.zero);
-  var topRight = size.topRight(Offset.zero);
-  print('  Top left: $topLeft');
-  print('  Top center: $topCenter');
-  print('  Top right: $topRight');
-  
-  var centerLeft = size.centerLeft(Offset.zero);
-  var centerRight = size.centerRight(Offset.zero);
-  print('  Center left: $centerLeft');
-  print('  Center right: $centerRight');
-  
-  var bottomLeft = size.bottomLeft(Offset.zero);
-  var bottomCenter = size.bottomCenter(Offset.zero);
-  var bottomRight = size.bottomRight(Offset.zero);
-  print('  Bottom left: $bottomLeft');
-  print('  Bottom center: $bottomCenter');
-  print('  Bottom right: $bottomRight');
-  
-  // Containment check
-  var containsOffset = size.contains(Offset(50.0, 100.0));
-  var notContained = size.contains(Offset(150.0, 100.0));
-  print('  Contains (50,100): $containsOffset');
-  print('  Contains (150,100): $notContained');
-  
-  // Shortest and longest side
-  print('  Shortest side: ${size.shortestSide}');
-  print('  Longest side: ${size.longestSide}');
-  
-  // Flipped dimensions
-  var flipped = size.flipped;
-  print('  Flipped: $flipped');
-}
-
-void sizeValidityDemo() {
-  print('Size validity checks:');
-  
-  var validSize = Size(100.0, 200.0);
-  var zeroSize = Size.zero;
-  var infiniteSize = Size.infinite;
-  var negativeSize = Size(-10.0, 20.0);
-  var nanSize = Size(double.nan, 100.0);
-  
-  print('  Valid size isEmpty: ${validSize.isEmpty}');
-  print('  Zero size isEmpty: ${zeroSize.isEmpty}');
-  print('  Infinite size isEmpty: ${infiniteSize.isEmpty}');
-  
-  print('  Valid size isFinite: ${validSize.isFinite}');
-  print('  Infinite size isFinite: ${infiniteSize.isFinite}');
-  
-  print('  Valid size isInfinite: ${validSize.isInfinite}');
-  print('  Infinite size isInfinite: ${infiniteSize.isInfinite}');
-  
-  // Use variables to avoid warnings
-  print('  Negative size width: ${negativeSize.width}');
-  print('  NaN size width isNaN: ${nanSize.width.isNaN}');
-}
-
-// =============================================================================
-// SECTION 2: Offset - 2D Position/Vector
-// =============================================================================
-
-void offsetBasicsDemo() {
-  print('Offset basics:');
-  
-  var offset1 = Offset(100.0, 200.0);
-  print('  dx: ${offset1.dx}');
-  print('  dy: ${offset1.dy}');
-  
-  // Special offsets
-  var zero = Offset.zero;
-  var infinite = Offset.infinite;
-  print('  Zero offset: $zero');
-  print('  Infinite offset: $infinite');
-  
-  // From direction (angle in radians)
-  var fromDirection = Offset.fromDirection(0.785398); // ~45 degrees
-  print('  From direction (45°): $fromDirection');
-  
-  var withMagnitude = Offset.fromDirection(0.785398, 100.0);
-  print('  From direction with magnitude: $withMagnitude');
-}
-
-void offsetOperationsDemo() {
-  var offset1 = Offset(100.0, 200.0);
-  var offset2 = Offset(50.0, 75.0);
-  
-  print('Offset operations:');
-  
-  // Addition and subtraction
-  var sum = offset1 + offset2;
-  print('  offset1 + offset2: $sum');
-  
-  var diff = offset1 - offset2;
-  print('  offset1 - offset2: $diff');
-  
-  // Negation
-  var negated = -offset1;
-  print('  Negated: $negated');
-  
-  // Scaling
-  var scaled = offset1 * 2.0;
-  print('  Scaled by 2: $scaled');
-  
-  var divided = offset1 / 2.0;
-  print('  Divided by 2: $divided');
-  
-  var modulo = offset1 % 30.0;
-  print('  Modulo 30: $modulo');
-}
-
-void offsetGeometryDemo() {
-  var offset = Offset(30.0, 40.0);
-  
-  print('Offset geometry:');
-  
-  // Distance from origin
-  print('  Distance: ${offset.distance}');
-  print('  Distance squared: ${offset.distanceSquared}');
-  
-  // Direction (angle in radians)
-  print('  Direction: ${offset.direction}');
-  
-  // Translate
-  var translated = offset.translate(10.0, 20.0);
-  print('  Translated by (10,20): $translated');
-  
-  // Scale independently
-  var independentlyScaled = offset.scale(2.0, 0.5);
-  print('  Scaled x*2, y*0.5: $independentlyScaled');
-}
-
-void offsetComparisonDemo() {
-  var offset1 = Offset(100.0, 200.0);
-  var offset2 = Offset(100.0, 200.0);
-  var offset3 = Offset(150.0, 250.0);
-  
-  print('Offset comparison:');
-  print('  offset1 == offset2: ${offset1 == offset2}');
-  print('  offset1 == offset3: ${offset1 == offset3}');
-  
-  // Comparison operators (lexicographic)
-  print('  offset1 < offset3: ${offset1 < offset3}');
-  print('  offset1 <= offset2: ${offset1 <= offset2}');
-  print('  offset3 > offset1: ${offset3 > offset1}');
-  
-  // Validity checks
-  print('  offset1 isFinite: ${offset1.isFinite}');
-  print('  offset1 isInfinite: ${offset1.isInfinite}');
-}
-
-// =============================================================================
-// SECTION 3: BoxConstraints - Layout Constraints for RenderBox
-// =============================================================================
-
-void boxConstraintsBasicsDemo() {
-  print('BoxConstraints basics:');
-  
-  // Standard constructor
-  var constraints1 = BoxConstraints(
-    minWidth: 0.0,
-    maxWidth: 200.0,
-    minHeight: 0.0,
-    maxHeight: 300.0,
+// ── Helpers ──────────────────────────────────────────────────────
+Widget rnSectionHeader(String title, IconData icon) {
+  return Padding(
+    padding: EdgeInsets.only(top: 20.0, bottom: 8.0),
+    child: Row(
+      children: [
+        Icon(icon, color: Color(0xFFD4520A), size: 22.0),
+        SizedBox(width: 8.0),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF8C3503),
+            ),
+          ),
+        ),
+      ],
+    ),
   );
-  print('  Constraints: $constraints1');
-  print('  minWidth: ${constraints1.minWidth}');
-  print('  maxWidth: ${constraints1.maxWidth}');
-  print('  minHeight: ${constraints1.minHeight}');
-  print('  maxHeight: ${constraints1.maxHeight}');
-  
-  // Tight constraints (exact size)
-  var tight = BoxConstraints.tight(Size(100.0, 150.0));
-  print('  Tight constraints: $tight');
-  print('  isTight: ${tight.isTight}');
-  
-  // Loose constraints (from zero to max)
-  var loose = BoxConstraints.loose(Size(200.0, 300.0));
-  print('  Loose constraints: $loose');
-  
-  // Expand (fill available space)
-  var expand = BoxConstraints.expand();
-  print('  Expand constraints: $expand');
-  
-  var expandPartial = BoxConstraints.expand(width: 100.0);
-  print('  Expand with fixed width: $expandPartial');
 }
 
-void boxConstraintsTightDemo() {
-  print('Tight constraints variations:');
-  
-  var tightWidth = BoxConstraints.tightFor(width: 100.0);
-  print('  Tight for width only: $tightWidth');
-  
-  var tightHeight = BoxConstraints.tightFor(height: 150.0);
-  print('  Tight for height only: $tightHeight');
-  
-  var tightBoth = BoxConstraints.tightFor(width: 100.0, height: 150.0);
-  print('  Tight for both: $tightBoth');
-  
-  var tightFinite = BoxConstraints.tightForFinite(width: 100.0);
-  print('  Tight for finite: $tightFinite');
-}
-
-void boxConstraintsQueriesDemo() {
-  var constraints = BoxConstraints(
-    minWidth: 50.0,
-    maxWidth: 200.0,
-    minHeight: 75.0,
-    maxHeight: 300.0,
+Widget rnChip(String label, Color bg) {
+  return Container(
+    margin: EdgeInsets.only(right: 6.0, bottom: 6.0),
+    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.white)),
   );
-  
-  print('BoxConstraints queries:');
-  print('  hasBoundedWidth: ${constraints.hasBoundedWidth}');
-  print('  hasBoundedHeight: ${constraints.hasBoundedHeight}');
-  print('  hasInfiniteWidth: ${constraints.hasInfiniteWidth}');
-  print('  hasInfiniteHeight: ${constraints.hasInfiniteHeight}');
-  print('  isTight: ${constraints.isTight}');
-  print('  isNormalized: ${constraints.isNormalized}');
-  
-  // Biggest and smallest possible sizes
-  print('  biggest: ${constraints.biggest}');
-  print('  smallest: ${constraints.smallest}');
-  
-  // Constrain a size
-  var unconstrainedSize = Size(500.0, 400.0);
-  var constrainedSize = constraints.constrain(unconstrainedSize);
-  print('  Constrain $unconstrainedSize: $constrainedSize');
-  
-  var smallSize = Size(10.0, 20.0);
-  var constrainedSmall = constraints.constrain(smallSize);
-  print('  Constrain $smallSize: $constrainedSmall');
 }
 
-void boxConstraintsTransformationsDemo() {
-  var constraints = BoxConstraints(
-    minWidth: 50.0,
-    maxWidth: 200.0,
-    minHeight: 75.0,
-    maxHeight: 300.0,
+Widget rnInfoRow(String label, String value) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 2.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 130.0,
+          child: Text(label,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF8C3503))),
+        ),
+        Expanded(
+          child: Text(value,
+              style: TextStyle(fontSize: 12.0, color: Color(0xFF5A504A))),
+        ),
+      ],
+    ),
   );
-  
-  print('BoxConstraints transformations:');
-  
-  // Loosen (set min to 0)
-  var loosened = constraints.loosen();
-  print('  Loosened: $loosened');
-  
-  // Tighten to specific dims
-  var tightened = constraints.tighten(width: 100.0);
-  print('  Tightened width to 100: $tightened');
-  
-  // Enforce constraints range
-  var enforced = constraints.enforce(BoxConstraints(
-    minWidth: 75.0,
-    maxWidth: 150.0,
-    minHeight: 100.0,
-    maxHeight: 250.0,
-  ));
-  print('  Enforced more restrictive: $enforced');
-  
-  // Width/height constraints only
-  var widthOnly = constraints.widthConstraints();
-  print('  Width constraints only: $widthOnly');
-  
-  var heightOnly = constraints.heightConstraints();
-  print('  Height constraints only: $heightOnly');
-  
-  // Flipped
-  var flipped = constraints.flipped;
-  print('  Flipped: $flipped');
-  
-  // Deflate (subtract insets)
-  var deflated = constraints.deflate(EdgeInsets.all(10.0));
-  print('  Deflated by 10 all sides: $deflated');
 }
 
-void boxConstraintsConstrainDemo() {
-  var constraints = BoxConstraints(
-    minWidth: 50.0,
-    maxWidth: 200.0,
-    minHeight: 75.0,
-    maxHeight: 300.0,
+Widget rnCodeBlock(String code) {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(10.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF3EB),
+      borderRadius: BorderRadius.circular(6.0),
+    ),
+    child: Text(code,
+        style: TextStyle(
+            fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF8C3503))),
   );
-  
-  print('BoxConstraints constraining:');
-  
-  // Constrain width
-  print('  constrainWidth(25): ${constraints.constrainWidth(25.0)}');
-  print('  constrainWidth(100): ${constraints.constrainWidth(100.0)}');
-  print('  constrainWidth(500): ${constraints.constrainWidth(500.0)}');
-  
-  // Constrain height
-  print('  constrainHeight(50): ${constraints.constrainHeight(50.0)}');
-  print('  constrainHeight(150): ${constraints.constrainHeight(150.0)}');
-  print('  constrainHeight(500): ${constraints.constrainHeight(500.0)}');
-  
-  // Constrain to another set of constraints
-  var size = Size(100.0, 150.0);
-  var sizeInRange = constraints.constrainSizeAndAttemptToPreserveAspectRatio(size);
-  print('  Constrain and preserve aspect: $sizeInRange');
 }
 
-// =============================================================================
-// SECTION 4: Constraints - Abstract Base Class
-// =============================================================================
-
-void constraintsConceptDemo() {
-  print('Constraints concept:');
-  print('  Constraints is the abstract base class');
-  print('  BoxConstraints extends Constraints');
-  print('  SliverConstraints extends Constraints');
-  
-  // BoxConstraints as Constraints
-  Constraints boxAsConstraints = BoxConstraints(
-    minWidth: 0.0,
-    maxWidth: 100.0,
-    minHeight: 0.0,
-    maxHeight: 100.0,
-  );
-  
-  print('  BoxConstraints isTight: ${boxAsConstraints.isTight}');
-  print('  BoxConstraints isNormalized: ${boxAsConstraints.isNormalized}');
-}
-
-// =============================================================================
-// SECTION 5: RenderObject and RenderBox Hierarchy
-// =============================================================================
-
-void renderObjectHierarchyDemo() {
-  print('RenderObject hierarchy:');
-  print('  AbstractNode (base)');
-  print('    └── RenderObject');
-  print('          ├── RenderBox (2D layout)');
-  print('          │     ├── RenderProxyBox');
-  print('          │     ├── RenderShiftedBox');
-  print('          │     ├── RenderDecoratedBox');
-  print('          │     └── RenderFlex');
-  print('          └── RenderSliver (sliver layout)');
-  print('                ├── RenderSliverList');
-  print('                └── RenderSliverGrid');
-}
-
-void renderBoxBasicsDemo() {
-  print('RenderBox basics:');
-  print('  RenderBox uses BoxConstraints');
-  print('  RenderBox has a Size after layout');
-  print('  RenderBox uses Offset for positioning');
-  print('');
-  print('  Key properties:');
-  print('    - size: Size after layout');
-  print('    - constraints: BoxConstraints during layout');
-  print('    - parentData: Data stored by parent');
-  print('');
-  print('  Key methods:');
-  print('    - performLayout(): Calculate size');
-  print('    - paint(context, offset): Draw content');
-  print('    - hitTest(result, position): Handle touches');
-}
-
-// =============================================================================
-// SECTION 6: Layout Process Demonstration
-// =============================================================================
-
-void layoutProcessConceptsDemo() {
-  print('Layout process concepts:');
-  print('');
-  print('  1. Constraints go DOWN the tree');
-  print('     Parent tells child: "You can be between X and Y"');
-  print('');
-  print('  2. Sizes go UP the tree');
-  print('     Child tells parent: "I am this size"');
-  print('');
-  print('  3. Parent positions children');
-  print('     Parent sets child.parentData.offset');
-  print('');
-  print('  Layout phases:');
-  print('    a) layout() called with constraints');
-  print('    b) performLayout() calculates size');
-  print('    c) size is set');
-  print('    d) Parent reads child.size');
-  print('    e) Parent sets child position via parentData');
-}
-
-void constraintsFlowDemo() {
-  print('Constraints flow example:');
-  print('');
-  print('  Screen: 400x800');
-  print('    └── Container (expand)');
-  print('          Receives: tight(400x800)');
-  print('          └── Padding (all: 20)');
-  print('                Receives: tight(360x760)');
-  print('                └── Center');
-  print('                      Receives: loose(360x760)');
-  print('                      └── Box(100x50)');
-  print('                            Receives: loose(360x760)');
-  print('                            Returns: 100x50');
-  
-  // Demonstrate with actual constraints
-  var screenConstraints = BoxConstraints.tight(Size(400.0, 800.0));
-  print('');
-  print('  Actual constraint values:');
-  print('    Screen constraints: $screenConstraints');
-  
-  var paddedConstraints = screenConstraints.deflate(EdgeInsets.all(20.0));
-  print('    After padding: $paddedConstraints');
-  
-  var looseConstraints = paddedConstraints.loosen();
-  print('    After Center (loosened): $looseConstraints');
-  
-  var childSize = Size(100.0, 50.0);
-  var constrainedChild = looseConstraints.constrain(childSize);
-  print('    Child constrained size: $constrainedChild');
-}
-
-// =============================================================================
-// SECTION 7: Paint Process Demonstration
-// =============================================================================
-
-void paintProcessConceptsDemo() {
-  print('Paint process concepts:');
-  print('');
-  print('  Paint happens AFTER layout');
-  print('  paint(PaintingContext context, Offset offset)');
-  print('');
-  print('  Key aspects:');
-  print('    - offset: Position relative to parent');
-  print('    - context.canvas: Drawing surface');
-  print('    - context.paintChild(): Paint child with offset');
-  print('');
-  print('  Paint order:');
-  print('    1. Paint self (background)');
-  print('    2. Paint children');
-  print('    3. Paint self (foreground)');
-}
-
-void paintingContextDemo() {
-  print('PaintingContext operations:');
-  print('');
-  print('  Drawing operations:');
-  print('    - canvas.drawRect()');
-  print('    - canvas.drawCircle()');
-  print('    - canvas.drawPath()');
-  print('    - canvas.drawImage()');
-  print('');
-  print('  Child painting:');
-  print('    - paintChild(child, offset)');
-  print('');
-  print('  Layers for effects:');
-  print('    - pushOpacity(offset, opacity, painter)');
-  print('    - pushClipRect(bounds, clipBehavior, painter)');
-  print('    - pushTransform(transform, painter)');
-}
-
-void canvasOperationsDemo() {
-  print('Canvas operations reference:');
-  print('');
-  print('  Shapes:');
-  print('    - drawLine(p1, p2, paint)');
-  print('    - drawRect(rect, paint)');
-  print('    - drawRRect(rrect, paint)');
-  print('    - drawOval(rect, paint)');
-  print('    - drawCircle(center, radius, paint)');
-  print('    - drawArc(rect, startAngle, sweepAngle, useCenter, paint)');
-  print('    - drawPath(path, paint)');
-  print('');
-  print('  Images:');
-  print('    - drawImage(image, offset, paint)');
-  print('    - drawImageRect(image, src, dst, paint)');
-  print('');
-  print('  Text and paragraphs:');
-  print('    - drawParagraph(paragraph, offset)');
-}
-
-// =============================================================================
-// SECTION 8: Hit Testing Basics
-// =============================================================================
-
-void hitTestingConceptsDemo() {
-  print('Hit testing concepts:');
-  print('');
-  print('  Purpose: Determine which render objects are at a point');
-  print('  Used for: Touch/click handling, gesture recognition');
-  print('');
-  print('  hitTest(BoxHitTestResult result, Offset position)');
-  print('    Returns: bool (whether this or children were hit)');
-  print('');
-  print('  Process:');
-  print('    1. Check if position is within bounds');
-  print('    2. Hit test children (back to front)');
-  print('    3. Add self to result if needed');
-}
-
-void hitTestResultDemo() {
-  print('HitTestResult structure:');
-  print('');
-  print('  BoxHitTestResult contains HitTestEntry objects');
-  print('  Each entry has:');
-  print('    - target: The RenderObject that was hit');
-  print('    - transform: Matrix to convert to local coords');
-  print('');
-  print('  Result is a path from leaf to root');
-  print('  Events bubble up through this path');
-  
-  // Create a result
-  var result = BoxHitTestResult();
-  print('');
-  print('  Empty hit test result path length: ${result.path.length}');
-}
-
-void hitTestBoundsDemo() {
-  print('Hit test bounds checking:');
-  print('');
-  print('  For RenderBox:');
-  print('    - Check if position.dx >= 0 && position.dx < size.width');
-  print('    - Check if position.dy >= 0 && position.dy < size.height');
-  print('');
-  
-  var size = Size(100.0, 200.0);
-  var insidePoint = Offset(50.0, 100.0);
-  var outsidePoint = Offset(150.0, 100.0);
-  var edgePoint = Offset(100.0, 0.0);
-  
-  bool isInside(Offset point, Size bounds) {
-    return point.dx >= 0.0 &&
-           point.dx < bounds.width &&
-           point.dy >= 0.0 &&
-           point.dy < bounds.height;
-  }
-  
-  print('  Box size: $size');
-  print('  Inside point $insidePoint: ${isInside(insidePoint, size)}');
-  print('  Outside point $outsidePoint: ${isInside(outsidePoint, size)}');
-  print('  Edge point $edgePoint: ${isInside(edgePoint, size)}');
-}
-
-void hitTestTransformsDemo() {
-  print('Hit test coordinate transforms:');
-  print('');
-  print('  When child has offset from parent:');
-  print('    childLocalPosition = position - childOffset');
-  print('');
-  print('  When child has transform (rotation, scale):');
-  print('    childLocalPosition = transform.inverse * position');
-  print('');
-  
-  var parentPosition = Offset(150.0, 200.0);
-  var childOffset = Offset(50.0, 75.0);
-  var childLocalPosition = parentPosition - childOffset;
-  
-  print('  Example:');
-  print('    Parent position: $parentPosition');
-  print('    Child offset: $childOffset');
-  print('    Child local position: $childLocalPosition');
-}
-
-// =============================================================================
-// SECTION 9: ParentData Concepts
-// =============================================================================
-
-void parentDataConceptsDemo() {
-  print('ParentData concepts:');
-  print('');
-  print('  ParentData is stored on child, managed by parent');
-  print('  Contains layout info specific to parent type');
-  print('');
-  print('  Common ParentData types:');
-  print('    - BoxParentData: Has offset field');
-  print('    - ContainerBoxParentData: Has previous/next siblings');
-  print('    - FlexParentData: Has flex, fit fields');
-  print('    - StackParentData: Has top/left/right/bottom');
-}
-
-void boxParentDataDemo() {
-  print('BoxParentData usage:');
-  print('');
-  print('  class BoxParentData extends ParentData {');
-  print('    Offset offset = Offset.zero;');
-  print('  }');
-  print('');
-  print('  Parent sets child position:');
-  print('    child.parentData.offset = Offset(10, 20);');
-  print('');
-  print('  During paint:');
-  print('    context.paintChild(child, child.parentData.offset);');
-  
-  var parentData = BoxParentData();
-  print('');
-  print('  Default offset: ${parentData.offset}');
-  
-  parentData.offset = Offset(100.0, 50.0);
-  print('  After setting offset: ${parentData.offset}');
-}
-
-void flexParentDataDemo() {
-  print('FlexParentData for Row/Column:');
-  print('');
-  print('  class FlexParentData extends BoxParentData {');
-  print('    int? flex;');
-  print('    FlexFit fit = FlexFit.tight;');
-  print('  }');
-  print('');
-  print('  flex: How much of remaining space to take');
-  print('  fit: Whether to fill (tight) or just take needed (loose)');
-  
-  var flexData = FlexParentData();
-  print('');
-  print('  Default flex: ${flexData.flex}');
-  print('  Default fit: ${flexData.fit}');
-  
-  flexData.flex = 2;
-  flexData.fit = FlexFit.loose;
-  print('  After modification:');
-  print('    flex: ${flexData.flex}');
-  print('    fit: ${flexData.fit}');
-}
-
-// =============================================================================
-// SECTION 10: RenderObject Lifecycle
-// =============================================================================
-
-void renderObjectLifecycleDemo() {
-  print('RenderObject lifecycle:');
-  print('');
-  print('  Creation and attachment:');
-  print('    1. Constructor called');
-  print('    2. attach(owner) - Connect to render tree');
-  print('    3. adoptChild() - Child added');
-  print('');
-  print('  Layout phase:');
-  print('    4. markNeedsLayout() - Schedule layout');
-  print('    5. layout(constraints) - Perform layout');
-  print('    6. performLayout() - Calculate size');
-  print('');
-  print('  Paint phase:');
-  print('    7. markNeedsPaint() - Schedule paint');
-  print('    8. paint(context, offset) - Draw content');
-  print('');
-  print('  Removal:');
-  print('    9. dropChild() - Child removed');
-  print('    10. detach() - Disconnect from render tree');
-}
-
-void renderObjectFlagsDemo() {
-  print('RenderObject dirty flags:');
-  print('');
-  print('  needsLayout: Layout needs to be recalculated');
-  print('    - Set by markNeedsLayout()');
-  print('    - Cleared after performLayout()');
-  print('');
-  print('  needsPaint: Paint needs to be redone');
-  print('    - Set by markNeedsPaint()');
-  print('    - Cleared after paint()');
-  print('');
-  print('  needsCompositing: Layer tree needs update');
-  print('    - Set when isRepaintBoundary changes');
-  print('    - Affects layer creation');
-}
-
-void repaintBoundaryDemo() {
-  print('RepaintBoundary concept:');
-  print('');
-  print('  isRepaintBoundary = true:');
-  print('    - Creates own compositing layer');
-  print('    - Repaints independently of ancestors');
-  print('    - Good for frequently updating content');
-  print('');
-  print('  Use cases:');
-  print('    - Animations');
-  print('    - Scrolling content');
-  print('    - Expensive painting operations');
-  print('');
-  print('  Trade-offs:');
-  print('    - Extra memory for layer');
-  print('    - More compositing work');
-  print('    - But faster incremental repaints');
-}
-
-// =============================================================================
-// SECTION 11: Rect and EdgeInsets
-// =============================================================================
-
-void rectDemo() {
-  print('Rect (rectangle) basics:');
-  
-  // Creation methods
-  var fromLTWH = Rect.fromLTWH(10.0, 20.0, 100.0, 50.0);
-  print('  fromLTWH(10, 20, 100, 50): $fromLTWH');
-  
-  var fromLTRB = Rect.fromLTRB(10.0, 20.0, 110.0, 70.0);
-  print('  fromLTRB(10, 20, 110, 70): $fromLTRB');
-  
-  var fromCenter = Rect.fromCenter(
-    center: Offset(50.0, 50.0),
-    width: 100.0,
-    height: 60.0,
-  );
-  print('  fromCenter: $fromCenter');
-  
-  var fromCircle = Rect.fromCircle(center: Offset(50.0, 50.0), radius: 25.0);
-  print('  fromCircle: $fromCircle');
-  
-  var fromPoints = Rect.fromPoints(Offset(10.0, 20.0), Offset(110.0, 70.0));
-  print('  fromPoints: $fromPoints');
-  
-  // Properties
-  print('');
-  print('  Properties of $fromLTWH:');
-  print('    left: ${fromLTWH.left}');
-  print('    top: ${fromLTWH.top}');
-  print('    right: ${fromLTWH.right}');
-  print('    bottom: ${fromLTWH.bottom}');
-  print('    width: ${fromLTWH.width}');
-  print('    height: ${fromLTWH.height}');
-  print('    size: ${fromLTWH.size}');
-  print('    center: ${fromLTWH.center}');
-}
-
-void rectOperationsDemo() {
-  var rect = Rect.fromLTWH(10.0, 20.0, 100.0, 50.0);
-  
-  print('Rect operations:');
-  
-  // Translation
-  var shifted = rect.shift(Offset(5.0, 10.0));
-  print('  Shifted by (5, 10): $shifted');
-  
-  var translated = rect.translate(5.0, 10.0);
-  print('  Translated: $translated');
-  
-  // Inflation/deflation
-  var inflated = rect.inflate(10.0);
-  print('  Inflated by 10: $inflated');
-  
-  var deflated = rect.deflate(5.0);
-  print('  Deflated by 5: $deflated');
-  
-  // Intersection and union
-  var other = Rect.fromLTWH(50.0, 40.0, 100.0, 50.0);
-  var intersection = rect.intersect(other);
-  print('  Intersection with $other: $intersection');
-  
-  var union = rect.expandToInclude(other);
-  print('  Union with other: $union');
-  
-  // Contains checks
-  var containsPoint = rect.contains(Offset(50.0, 40.0));
-  print('  Contains (50, 40): $containsPoint');
-  
-  var overlaps = rect.overlaps(other);
-  print('  Overlaps other: $overlaps');
-}
-
-void edgeInsetsDemo() {
-  print('EdgeInsets basics:');
-  
-  // Creation methods
-  var all = EdgeInsets.all(20.0);
-  print('  EdgeInsets.all(20): ${all.left}, ${all.top}, ${all.right}, ${all.bottom}');
-  
-  var symmetric = EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0);
-  print('  symmetric(h:10, v:20): ${symmetric.left}, ${symmetric.top}');
-  
-  var only = EdgeInsets.only(left: 10.0, top: 20.0);
-  print('  only(left:10, top:20): $only');
-  
-  var fromLTRB = EdgeInsets.fromLTRB(10.0, 20.0, 30.0, 40.0);
-  print('  fromLTRB(10,20,30,40): $fromLTRB');
-  
-  // Operations
-  print('');
-  print('  EdgeInsets operations:');
-  
-  var horizontal = fromLTRB.horizontal;
-  var vertical = fromLTRB.vertical;
-  print('    horizontal (left+right): $horizontal');
-  print('    vertical (top+bottom): $vertical');
-  
-  var collapsed = fromLTRB.collapsedSize;
-  print('    collapsedSize: $collapsed');
-  
-  var flippedH = fromLTRB.flipped;
-  print('    flipped: $flippedH');
-  
-  // Inflate a rect
-  var rect = Rect.fromLTWH(50.0, 50.0, 100.0, 100.0);
-  var inflatedRect = all.inflateRect(rect);
-  print('    Rect $rect inflated by all(20): $inflatedRect');
-  
-  var deflatedRect = all.deflateRect(rect);
-  print('    Rect deflated: $deflatedRect');
-}
-
-// =============================================================================
-// SECTION 12: Matrix4 Transforms for Rendering
-// =============================================================================
-
-void matrix4TransformDemo() {
-  print('Matrix4 transforms for rendering:');
-  print('');
-  print('  Used in:');
-  print('    - Transform widget');
-  print('    - CustomPaint canvas transforms');
-  print('    - Hit test coordinate conversion');
-  print('');
-  
-  // Identity matrix
-  var identity = Matrix4.identity();
-  print('  Identity matrix (no transform):');
-  print('    $identity');
-  
-  // Translation
-  var translation = Matrix4.translationValues(100.0, 50.0, 0.0);
-  print('  Translation (100, 50, 0):');
-  print('    storage[12]: ${translation.storage[12]}');
-  print('    storage[13]: ${translation.storage[13]}');
-  
-  // Rotation around Z axis (2D rotation)
-  var rotation = Matrix4.rotationZ(0.785398); // 45 degrees
-  print('  Rotation Z (45 degrees):');
-  print('    storage[0]: ${rotation.storage[0].toStringAsFixed(4)}');
-  
-  // Scale
-  var scale = Matrix4.diagonal3Values(2.0, 2.0, 1.0);
-  print('  Scale (2x, 2x, 1x):');
-  print('    storage[0]: ${scale.storage[0]}');
-  print('    storage[5]: ${scale.storage[5]}');
-}
-
-void transformPointDemo() {
-  print('Transforming points with Matrix4:');
-  print('');
-  
-  var point = Offset(100.0, 50.0);
-  print('  Original point: $point');
-  
-  // Apply translation
-  var translateMatrix = Matrix4.translationValues(20.0, 30.0, 0.0);
-  var vector3 = translateMatrix.transform3(
-    Vector3(point.dx, point.dy, 0.0),
-  );
-  var translatedPoint = Offset(vector3.x, vector3.y);
-  print('  After translation (20, 30): $translatedPoint');
-  
-  // Apply scale
-  var scaleMatrix = Matrix4.diagonal3Values(2.0, 0.5, 1.0);
-  var scaledVector = scaleMatrix.transform3(
-    Vector3(point.dx, point.dy, 0.0),
-  );
-  var scaledPoint = Offset(scaledVector.x, scaledVector.y);
-  print('  After scale (2x, 0.5x): $scaledPoint');
-}
-
-// =============================================================================
-// SECTION 13: Paint and Decoration
-// =============================================================================
-
-void paintStyleDemo() {
-  print('Paint style options:');
-  print('');
-  print('  PaintingStyle:');
-  print('    - fill: Fill the shape');
-  print('    - stroke: Outline only');
-  print('');
-  print('  StrokeCap (line endings):');
-  print('    - butt: Flat end at exact point');
-  print('    - round: Rounded end');
-  print('    - square: Square end extending past point');
-  print('');
-  print('  StrokeJoin (corner style):');
-  print('    - miter: Sharp corners');
-  print('    - round: Rounded corners');
-  print('    - bevel: Flat corners');
-  
-  // Create paint objects
-  var fillPaint = Paint()
-    ..color = Colors.blue
-    ..style = PaintingStyle.fill;
-  print('');
-  print('  Fill paint color: ${fillPaint.color}');
-  print('  Fill paint style: ${fillPaint.style}');
-  
-  var strokePaint = Paint()
-    ..color = Colors.red
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 2.0
-    ..strokeCap = StrokeCap.round;
-  print('');
-  print('  Stroke paint width: ${strokePaint.strokeWidth}');
-  print('  Stroke paint cap: ${strokePaint.strokeCap}');
-}
-
-void boxDecorationDemo() {
-  print('BoxDecoration for rendering:');
-  print('');
-  print('  Properties:');
-  print('    - color: Background fill');
-  print('    - border: Border around box');
-  print('    - borderRadius: Rounded corners');
-  print('    - boxShadow: Drop shadow');
-  print('    - gradient: Gradient fill');
-  print('    - image: Background image');
-  print('    - shape: BoxShape.rectangle or circle');
-  
-  // Create decoration
-  var decoration = BoxDecoration(
-    color: Colors.blue,
-    borderRadius: BorderRadius.circular(8.0),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black26,
-        blurRadius: 4.0,
-        offset: Offset(2.0, 2.0),
+Widget rnSizeBox(double w, double h, String label, Color accent) {
+  return Column(
+    children: [
+      Container(
+        width: w,
+        height: h,
+        decoration: BoxDecoration(
+          color: accent.withValues(alpha: 0.15),
+          border: Border.all(color: accent, width: 2.0),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Center(
+          child: Text('${w.toInt()}x${h.toInt()}',
+              style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600,
+                  color: accent)),
+        ),
       ),
+      SizedBox(height: 4.0),
+      Text(label,
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
     ],
   );
-  
-  print('');
-  print('  Decoration color: ${decoration.color}');
-  print('  Decoration borderRadius: ${decoration.borderRadius}');
-  print('  Decoration shadow count: ${decoration.boxShadow?.length}');
 }
 
-// =============================================================================
-// Test Wrapper
-// =============================================================================
+// ── build ────────────────────────────────────────────────────────
+dynamic build(BuildContext context) {
+  // ── Section 1: Title ──────────────────────────────────────────
+  print('\n[1] Rendering Package Overview');
+  print('  Core: Size, Offset, BoxConstraints, RenderObject');
+  print('  Pipeline: Layout → Paint → Composite → Hit-test');
+  print('  Key classes: RenderBox, RenderFlex, RenderStack');
 
-void main() {
-  group('Deep Demo - Flutter Rendering Package Classes', () {
-    test('Section 1: Size basics', () {
-      sizeBasicsDemo();
-    });
-    
-    test('Section 1: Size operations', () {
-      sizeOperationsDemo();
-    });
-    
-    test('Section 1: Size geometry', () {
-      sizeGeometryDemo();
-    });
-    
-    test('Section 1: Size validity', () {
-      sizeValidityDemo();
-    });
-    
-    test('Section 2: Offset basics', () {
-      offsetBasicsDemo();
-    });
-    
-    test('Section 2: Offset operations', () {
-      offsetOperationsDemo();
-    });
-    
-    test('Section 2: Offset geometry', () {
-      offsetGeometryDemo();
-    });
-    
-    test('Section 2: Offset comparison', () {
-      offsetComparisonDemo();
-    });
-    
-    test('Section 3: BoxConstraints basics', () {
-      boxConstraintsBasicsDemo();
-    });
-    
-    test('Section 3: BoxConstraints tight variations', () {
-      boxConstraintsTightDemo();
-    });
-    
-    test('Section 3: BoxConstraints queries', () {
-      boxConstraintsQueriesDemo();
-    });
-    
-    test('Section 3: BoxConstraints transformations', () {
-      boxConstraintsTransformationsDemo();
-    });
-    
-    test('Section 3: BoxConstraints constraining', () {
-      boxConstraintsConstrainDemo();
-    });
-    
-    test('Section 4: Constraints concept', () {
-      constraintsConceptDemo();
-    });
-    
-    test('Section 5: RenderObject hierarchy', () {
-      renderObjectHierarchyDemo();
-    });
-    
-    test('Section 5: RenderBox basics', () {
-      renderBoxBasicsDemo();
-    });
-    
-    test('Section 6: Layout process concepts', () {
-      layoutProcessConceptsDemo();
-    });
-    
-    test('Section 6: Constraints flow', () {
-      constraintsFlowDemo();
-    });
-    
-    test('Section 7: Paint process concepts', () {
-      paintProcessConceptsDemo();
-    });
-    
-    test('Section 7: PaintingContext demo', () {
-      paintingContextDemo();
-    });
-    
-    test('Section 7: Canvas operations', () {
-      canvasOperationsDemo();
-    });
-    
-    test('Section 8: Hit testing concepts', () {
-      hitTestingConceptsDemo();
-    });
-    
-    test('Section 8: HitTestResult demo', () {
-      hitTestResultDemo();
-    });
-    
-    test('Section 8: Hit test bounds', () {
-      hitTestBoundsDemo();
-    });
-    
-    test('Section 8: Hit test transforms', () {
-      hitTestTransformsDemo();
-    });
-    
-    test('Section 9: ParentData concepts', () {
-      parentDataConceptsDemo();
-    });
-    
-    test('Section 9: BoxParentData demo', () {
-      boxParentDataDemo();
-    });
-    
-    test('Section 9: FlexParentData demo', () {
-      flexParentDataDemo();
-    });
-    
-    test('Section 10: RenderObject lifecycle', () {
-      renderObjectLifecycleDemo();
-    });
-    
-    test('Section 10: RenderObject flags', () {
-      renderObjectFlagsDemo();
-    });
-    
-    test('Section 10: RepaintBoundary', () {
-      repaintBoundaryDemo();
-    });
-    
-    test('Section 11: Rect demo', () {
-      rectDemo();
-    });
-    
-    test('Section 11: Rect operations', () {
-      rectOperationsDemo();
-    });
-    
-    test('Section 11: EdgeInsets demo', () {
-      edgeInsetsDemo();
-    });
-    
-    test('Section 12: Matrix4 transforms', () {
-      matrix4TransformDemo();
-    });
-    
-    test('Section 12: Transform points', () {
-      transformPointDemo();
-    });
-    
-    test('Section 13: Paint style', () {
-      paintStyleDemo();
-    });
-    
-    test('Section 13: BoxDecoration', () {
-      boxDecorationDemo();
-    });
-  });
+  final rnTitleSection = Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(16.0),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFFD4520A), Color(0xFF8C3503)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.layers, color: Colors.white, size: 28.0),
+            SizedBox(width: 10.0),
+            Expanded(
+              child: Text('Rendering Package',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
+            ),
+          ],
+        ),
+        SizedBox(height: 8.0),
+        Text('Low-level rendering pipeline: layout, paint, compositing, hit-testing',
+            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFD6BE))),
+        SizedBox(height: 8.0),
+        Wrap(
+          children: [
+            rnChip('Size', Color(0xFFE86B20)),
+            rnChip('Offset', Color(0xFFC75A15)),
+            rnChip('BoxConstraints', Color(0xFFAB4A0E)),
+            rnChip('RenderObject', Color(0xFF8C3503)),
+            rnChip('RenderBox', Color(0xFF6B2A05)),
+          ],
+        ),
+      ],
+    ),
+  );
+
+  // ── Section 2: Size ──────────────────────────────────────────
+  print('\n[2] Size — 2D Dimensions');
+  final s1 = Size(120.0, 80.0);
+  final s2 = Size.square(60.0);
+  final s3 = Size.fromRadius(30.0);
+  print('  Size(120,80): width=${s1.width}, height=${s1.height}');
+  print('  Square(60): $s2');
+  print('  FromRadius(30): $s3');
+  print('  Aspect ratio: ${s1.aspectRatio}');
+  print('  isEmpty: ${Size.zero.isEmpty}');
+  print('  isInfinite: ${Size.infinite.isInfinite}');
+
+  final rnSizeSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Size represents width and height dimensions',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+        SizedBox(height: 12.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            rnSizeBox(80.0, 50.0, 'Size(80,50)', Color(0xFFE86B20)),
+            rnSizeBox(50.0, 50.0, 'square(50)', Color(0xFFC75A15)),
+            rnSizeBox(60.0, 60.0, 'fromRadius(30)', Color(0xFFAB4A0E)),
+            rnSizeBox(40.0, 70.0, 'Size(40,70)', Color(0xFF8C3503)),
+          ],
+        ),
+        SizedBox(height: 12.0),
+        rnInfoRow('Width:', '${s1.width}'),
+        rnInfoRow('Height:', '${s1.height}'),
+        rnInfoRow('Aspect ratio:', s1.aspectRatio.toStringAsFixed(2)),
+        rnInfoRow('Flipped:', s1.flipped.toString()),
+        rnInfoRow('Shortest side:', '${s1.shortestSide}'),
+        rnInfoRow('Longest side:', '${s1.longestSide}'),
+        SizedBox(height: 8.0),
+        rnCodeBlock('Size(120.0, 80.0)\nSize.square(60.0)\nSize.fromRadius(30.0)'),
+      ],
+    ),
+  );
+
+  // ── Section 3: Offset ────────────────────────────────────────
+  print('\n[3] Offset — 2D Point / Vector');
+  final o1 = Offset(30.0, 40.0);
+  final o2 = Offset(10.0, 20.0);
+  print('  Offset(30,40): dx=${o1.dx}, dy=${o1.dy}');
+  print('  Distance: ${o1.distance}');
+  print('  Direction: ${o1.direction}');
+  print('  Addition: ${o1 + o2}');
+  print('  Scale: ${o1 * 2.0}');
+  print('  Offset.zero: ${Offset.zero}');
+
+  final rnOffsetSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Offset represents a point or displacement vector',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+        SizedBox(height: 10.0),
+        Container(
+          width: double.infinity,
+          height: 120.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(color: Color(0xFFE8C4AC)),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 10.0, top: 10.0,
+                child: Container(
+                  width: 8.0, height: 8.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD4520A),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 14.0, top: 4.0,
+                child: Text('Origin(0,0)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503))),
+              ),
+              Positioned(
+                left: 40.0, top: 50.0,
+                child: Container(
+                  width: 8.0, height: 8.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE86B20),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 50.0, top: 47.0,
+                child: Text('Offset(30,40)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFFC75A15))),
+              ),
+              Positioned(
+                left: 50.0, top: 70.0,
+                child: Container(
+                  width: 8.0, height: 8.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFAB4A0E),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 60.0, top: 67.0,
+                child: Text('+ Offset(10,20) = (40,60)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E))),
+              ),
+              Positioned(
+                left: 70.0, top: 90.0,
+                child: Container(
+                  width: 8.0, height: 8.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF8C3503),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 80.0, top: 87.0,
+                child: Text('* 2.0 = (60,80)',
+                    style: TextStyle(fontSize: 8.0, color: Color(0xFF8C3503))),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10.0),
+        rnInfoRow('dx, dy:', '${o1.dx}, ${o1.dy}'),
+        rnInfoRow('Distance:', o1.distance.toStringAsFixed(2)),
+        rnInfoRow('Direction (rad):', o1.direction.toStringAsFixed(4)),
+        rnInfoRow('o1 + o2:', (o1 + o2).toString()),
+        rnInfoRow('o1 * 2:', (o1 * 2.0).toString()),
+        rnInfoRow('o1 - o2:', (o1 - o2).toString()),
+      ],
+    ),
+  );
+
+  // ── Section 4: BoxConstraints ────────────────────────────────
+  print('\n[4] BoxConstraints');
+  final cLoose = BoxConstraints.loose(Size(200.0, 150.0));
+  final cTight = BoxConstraints.tight(Size(100.0, 80.0));
+  final cExpand = BoxConstraints.expand(width: 300.0, height: 200.0);
+  print('  Loose: $cLoose');
+  print('  Tight: $cTight');
+  print('  Expand: $cExpand');
+  print('  isTight(tight): ${cTight.isTight}');
+  print('  Constrain(500,500): ${cLoose.constrain(Size(500.0, 500.0))}');
+
+  final constraintData = <Map<String, dynamic>>[
+    {'label': 'Loose', 'constraint': cLoose, 'color': Color(0xFFE86B20),
+     'desc': 'min=0, max=given — child picks any size up to max',
+     'min': 'minW:${cLoose.minWidth.toInt()}, minH:${cLoose.minHeight.toInt()}',
+     'max': 'maxW:${cLoose.maxWidth.toInt()}, maxH:${cLoose.maxHeight.toInt()}'},
+    {'label': 'Tight', 'constraint': cTight, 'color': Color(0xFFC75A15),
+     'desc': 'min=max=given — child forced to exact size',
+     'min': 'minW:${cTight.minWidth.toInt()}, minH:${cTight.minHeight.toInt()}',
+     'max': 'maxW:${cTight.maxWidth.toInt()}, maxH:${cTight.maxHeight.toInt()}'},
+    {'label': 'Expand', 'constraint': cExpand, 'color': Color(0xFFAB4A0E),
+     'desc': 'min=max=fill — child fills all available space',
+     'min': 'minW:${cExpand.minWidth.toInt()}, minH:${cExpand.minHeight.toInt()}',
+     'max': 'maxW:${cExpand.maxWidth.toInt()}, maxH:${cExpand.maxHeight.toInt()}'},
+  ];
+
+  final rnConstraintsSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: constraintData.map((cd) {
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 8.0),
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border(
+              left: BorderSide(color: cd['color'] as Color, width: 4.0),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  rnChip(cd['label'] as String, cd['color'] as Color),
+                  Expanded(child: Text('isTight: ${(cd['constraint'] as BoxConstraints).isTight}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)))),
+                ],
+              ),
+              SizedBox(height: 4.0),
+              Text(cd['desc'] as String,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A))),
+              SizedBox(height: 4.0),
+              Text('min: ${cd['min']}',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
+              Text('max: ${cd['max']}',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 5: Constraints Flow ──────────────────────────────
+  print('\n[5] Constraints Flow');
+  print('  Parent passes constraints DOWN');
+  print('  Child determines size within constraints');
+  print('  Child reports size UP');
+  print('  Parent positions child using offset');
+
+  final flowSteps = <Map<String, dynamic>>[
+    {'step': '1', 'title': 'Parent → Child', 'icon': Icons.arrow_downward,
+     'desc': 'Parent passes BoxConstraints (min/max width/height)'},
+    {'step': '2', 'title': 'Child determines size', 'icon': Icons.straighten,
+     'desc': 'Child picks a Size within the constraint bounds'},
+    {'step': '3', 'title': 'Child → Parent', 'icon': Icons.arrow_upward,
+     'desc': 'Child reports its chosen Size back to parent'},
+    {'step': '4', 'title': 'Parent positions', 'icon': Icons.open_with,
+     'desc': 'Parent sets child Offset via parentData'},
+  ];
+
+  final rnFlowSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: flowSteps.map((fs) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 8.0),
+          child: Row(
+            children: [
+              Container(
+                width: 32.0,
+                height: 32.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFFD4520A),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(child: Text(fs['step'] as String,
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,
+                        fontSize: 14.0))),
+              ),
+              SizedBox(width: 10.0),
+              Icon(fs['icon'] as IconData, color: Color(0xFFD4520A), size: 20.0),
+              SizedBox(width: 8.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(fs['title'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: Color(0xFF8C3503))),
+                    Text(fs['desc'] as String,
+                        style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 6: RenderObject Hierarchy ────────────────────────
+  print('\n[6] RenderObject Hierarchy');
+  print('  RenderObject (abstract)');
+  print('    ├── RenderBox (cartesian layout)');
+  print('    │   ├── RenderFlex (Column/Row)');
+  print('    │   ├── RenderStack');
+  print('    │   ├── RenderDecoratedBox');
+  print('    │   └── RenderParagraph');
+  print('    └── RenderSliver (scrolling)');
+
+  final treeNodes = <Map<String, dynamic>>[
+    {'name': 'RenderObject', 'depth': 0, 'color': Color(0xFFD4520A),
+     'desc': 'Base class for all render objects'},
+    {'name': 'RenderBox', 'depth': 1, 'color': Color(0xFFE86B20),
+     'desc': '2D cartesian layout with BoxConstraints'},
+    {'name': 'RenderFlex', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Flexible layout (Row/Column)'},
+    {'name': 'RenderStack', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Overlay layout (Stack)'},
+    {'name': 'RenderDecoratedBox', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Box with decoration (Container)'},
+    {'name': 'RenderParagraph', 'depth': 2, 'color': Color(0xFFC75A15),
+     'desc': 'Text rendering (Text widget)'},
+    {'name': 'RenderSliver', 'depth': 1, 'color': Color(0xFFAB4A0E),
+     'desc': 'Scrollable content layout'},
+  ];
+
+  final rnHierarchySection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('RenderObject class hierarchy',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+        SizedBox(height: 8.0),
+        ...treeNodes.map((node) {
+          return Padding(
+            padding: EdgeInsets.only(
+                left: (node['depth'] as int) * 24.0, bottom: 6.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 10.0,
+                  height: 10.0,
+                  decoration: BoxDecoration(
+                    color: node['color'] as Color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                SizedBox(width: 8.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(node['name'] as String,
+                          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                              fontFamily: 'monospace', color: node['color'] as Color)),
+                      Text(node['desc'] as String,
+                          style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
+    ),
+  );
+
+  // ── Section 7: Layout Pipeline ───────────────────────────────
+  print('\n[7] Layout Pipeline');
+  print('  Step 1: markNeedsLayout()');
+  print('  Step 2: Relayout boundary walks up');
+  print('  Step 3: performLayout() on dirty subtree');
+  print('  Step 4: Size is determined');
+
+  final pipelineStages = <Map<String, dynamic>>[
+    {'stage': 'Layout', 'icon': Icons.straighten, 'color': Color(0xFFD4520A),
+     'method': 'performLayout()',
+     'desc': 'Receive constraints, compute size, layout children'},
+    {'stage': 'Paint', 'icon': Icons.brush, 'color': Color(0xFFE86B20),
+     'method': 'paint(context, offset)',
+     'desc': 'Draw visual content to the canvas at given offset'},
+    {'stage': 'Composite', 'icon': Icons.layers, 'color': Color(0xFFC75A15),
+     'method': 'compositeFrame()',
+     'desc': 'Merge paint layers into final scene for display'},
+    {'stage': 'Hit Test', 'icon': Icons.touch_app, 'color': Color(0xFFAB4A0E),
+     'method': 'hitTest(result, position)',
+     'desc': 'Determine which render object receives pointer events'},
+  ];
+
+  final rnPipelineSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: pipelineStages.map((ps) {
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 8.0),
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(color: (ps['color'] as Color).withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: (ps['color'] as Color).withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Icon(ps['icon'] as IconData, color: ps['color'] as Color, size: 24.0),
+              ),
+              SizedBox(width: 10.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(ps['stage'] as String,
+                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
+                            color: ps['color'] as Color)),
+                    Text(ps['method'] as String,
+                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
+                            color: Color(0xFF8C3503))),
+                    Text(ps['desc'] as String,
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 8: Rect ──────────────────────────────────────────
+  print('\n[8] Rect — Axis-Aligned Rectangle');
+  final r1 = Rect.fromLTWH(10.0, 20.0, 100.0, 60.0);
+  final r2 = Rect.fromCenter(center: Offset(100.0, 60.0), width: 80.0, height: 40.0);
+  final r3 = Rect.fromCircle(center: Offset(50.0, 50.0), radius: 30.0);
+  print('  fromLTWH(10,20,100,60): $r1');
+  print('  fromCenter(100,60): $r2');
+  print('  fromCircle(50,50,r=30): $r3');
+  print('  Contains(50,40): ${r1.contains(Offset(50.0, 40.0))}');
+  print('  Intersects: ${r1.overlaps(r2)}');
+
+  final rnRectSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Rect creation methods and operations',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+        SizedBox(height: 8.0),
+        Container(
+          width: double.infinity,
+          height: 130.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 10.0, top: 20.0,
+                child: Container(
+                  width: 100.0, height: 60.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD4520A).withValues(alpha: 0.2),
+                    border: Border.all(color: Color(0xFFD4520A), width: 2.0),
+                  ),
+                  child: Center(child: Text('fromLTWH',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFD4520A)))),
+                ),
+              ),
+              Positioned(
+                left: 60.0, top: 40.0,
+                child: Container(
+                  width: 80.0, height: 40.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE86B20).withValues(alpha: 0.2),
+                    border: Border.all(color: Color(0xFFE86B20), width: 2.0),
+                  ),
+                  child: Center(child: Text('fromCenter',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFE86B20)))),
+                ),
+              ),
+              Positioned(
+                left: 150.0, top: 20.0,
+                child: Container(
+                  width: 60.0, height: 60.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFC75A15).withValues(alpha: 0.2),
+                    border: Border.all(color: Color(0xFFC75A15), width: 2.0),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(child: Text('fromCircle',
+                      style: TextStyle(fontSize: 7.0, color: Color(0xFFC75A15)))),
+                ),
+              ),
+              Positioned(
+                left: 230.0, top: 10.0,
+                child: Container(
+                  width: 70.0, height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFAB4A0E).withValues(alpha: 0.2),
+                    border: Border.all(color: Color(0xFFAB4A0E), width: 2.0),
+                  ),
+                  child: Center(child: Text('fromPoints',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFFAB4A0E)))),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 8.0),
+        rnInfoRow('r1 center:', '${r1.center}'),
+        rnInfoRow('r1 size:', '${r1.size}'),
+        rnInfoRow('r1.contains:', '${r1.contains(Offset(50.0, 40.0))}'),
+        rnInfoRow('r1 overlaps r2:', '${r1.overlaps(r2)}'),
+        rnInfoRow('Inflate(5):', '${r1.inflate(5.0)}'),
+      ],
+    ),
+  );
+
+  // ── Section 9: EdgeInsets ────────────────────────────────────
+  print('\n[9] EdgeInsets — Directional Spacing');
+  final e1 = EdgeInsets.all(16.0);
+  final e2 = EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0);
+  final e3 = EdgeInsets.only(left: 8.0, top: 4.0, right: 16.0, bottom: 12.0);
+  print('  all(16): $e1');
+  print('  symmetric(h:20,v:10): $e2');
+  print('  only(l:8,t:4,r:16,b:12): $e3');
+  print('  collapsedSize: ${e3.collapsedSize}');
+
+  final edgeData = <Map<String, dynamic>>[
+    {'label': 'all(16)', 'insets': e1, 'color': Color(0xFFD4520A)},
+    {'label': 'sym(h:20,v:10)', 'insets': e2, 'color': Color(0xFFE86B20)},
+    {'label': 'only(8,4,16,12)', 'insets': e3, 'color': Color(0xFFC75A15)},
+  ];
+
+  final rnEdgeSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: edgeData.map((ed) {
+        final ins = ed['insets'] as EdgeInsets;
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              rnChip(ed['label'] as String, ed['color'] as Color),
+              SizedBox(height: 4.0),
+              Container(
+                padding: ins,
+                decoration: BoxDecoration(
+                  color: (ed['color'] as Color).withValues(alpha: 0.1),
+                  border: Border.all(color: ed['color'] as Color),
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2.0),
+                  ),
+                  child: Text('Content inside padding',
+                      style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                ),
+              ),
+              SizedBox(height: 2.0),
+              Text('L:${ins.left} T:${ins.top} R:${ins.right} B:${ins.bottom}',
+                  style: TextStyle(fontSize: 9.0, fontFamily: 'monospace',
+                      color: Color(0xFF8C3503))),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 10: BoxDecoration Visual Gallery ─────────────────
+  print('\n[10] BoxDecoration — Visual Decoration Gallery');
+  print('  Color, gradient, border, borderRadius, boxShadow, shape');
+
+  final decorations = <Map<String, dynamic>>[
+    {'label': 'Solid Color + Radius',
+     'deco': BoxDecoration(
+       color: Color(0xFFD4520A).withValues(alpha: 0.15),
+       borderRadius: BorderRadius.circular(12.0),
+       border: Border.all(color: Color(0xFFD4520A), width: 2.0),
+     )},
+    {'label': 'Gradient + Shadow',
+     'deco': BoxDecoration(
+       gradient: LinearGradient(
+           colors: [Color(0xFFD4520A), Color(0xFFE86B20)]),
+       borderRadius: BorderRadius.circular(8.0),
+       boxShadow: [
+         BoxShadow(color: Color(0x44D4520A), blurRadius: 8.0, offset: Offset(0, 4)),
+       ],
+     )},
+    {'label': 'Circle Shape',
+     'deco': BoxDecoration(
+       color: Color(0xFFAB4A0E).withValues(alpha: 0.2),
+       shape: BoxShape.circle,
+       border: Border.all(color: Color(0xFFAB4A0E), width: 2.0),
+     )},
+    {'label': 'Thick Border + Color',
+     'deco': BoxDecoration(
+       color: Color(0xFFFFF3EB),
+       border: Border(
+         left: BorderSide(color: Color(0xFFD4520A), width: 6.0),
+         top: BorderSide(color: Color(0xFFE86B20), width: 2.0),
+         right: BorderSide(color: Color(0xFFC75A15), width: 6.0),
+         bottom: BorderSide(color: Color(0xFFAB4A0E), width: 2.0),
+       ),
+     )},
+  ];
+
+  final rnDecorationSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Wrap(
+      spacing: 10.0,
+      runSpacing: 10.0,
+      children: decorations.map((d) {
+        return SizedBox(
+          width: 140.0,
+          child: Column(
+            children: [
+              Container(
+                width: 80.0,
+                height: 80.0,
+                decoration: d['deco'] as BoxDecoration,
+              ),
+              SizedBox(height: 4.0),
+              Text(d['label'] as String,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 11: Hit Testing ──────────────────────────────────
+  print('\n[11] Hit Testing Concepts');
+  print('  HitTestResult collects entries down the tree');
+  print('  Each RenderBox tests if point is within bounds');
+  print('  First responder in result list handles event');
+  print('  Transforms applied for rotated/scaled boxes');
+
+  final hitZones = <Map<String, dynamic>>[
+    {'label': 'Zone A\n(Parent)', 'x': 10.0, 'y': 10.0, 'w': 280.0, 'h': 80.0,
+     'color': Color(0xFFD4520A), 'opacity': 0.1},
+    {'label': 'Zone B\n(Child 1)', 'x': 20.0, 'y': 20.0, 'w': 120.0, 'h': 50.0,
+     'color': Color(0xFFE86B20), 'opacity': 0.2},
+    {'label': 'Zone C\n(Child 2)', 'x': 160.0, 'y': 20.0, 'w': 120.0, 'h': 50.0,
+     'color': Color(0xFFC75A15), 'opacity': 0.2},
+  ];
+
+  final rnHitTestSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Touch events dispatched via hit-testing',
+            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+        SizedBox(height: 8.0),
+        Container(
+          width: double.infinity,
+          height: 100.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Stack(
+            children: hitZones.map((hz) {
+              return Positioned(
+                left: hz['x'] as double,
+                top: hz['y'] as double,
+                child: Container(
+                  width: hz['w'] as double,
+                  height: hz['h'] as double,
+                  decoration: BoxDecoration(
+                    color: (hz['color'] as Color).withValues(
+                        alpha: hz['opacity'] as double),
+                    border: Border.all(color: hz['color'] as Color, width: 1.5),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Center(child: Text(hz['label'] as String,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 9.0, color: hz['color'] as Color))),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+        SizedBox(height: 8.0),
+        rnInfoRow('Method:', 'hitTest(result, position)'),
+        rnInfoRow('Result:', 'HitTestResult with ordered entries'),
+        rnInfoRow('Dispatch:', 'First entry handles GestureEvent'),
+      ],
+    ),
+  );
+
+  // ── Section 12: ParentData ───────────────────────────────────
+  print('\n[12] ParentData');
+  print('  ParentData: base class for parent-owned child data');
+  print('  BoxParentData: offset property for positioning');
+  print('  FlexParentData: flex, fit for Row/Column');
+  print('  StackParentData: top, right, bottom, left for Stack');
+
+  final parentDataTypes = <Map<String, dynamic>>[
+    {'name': 'ParentData', 'icon': Icons.account_tree,
+     'color': Color(0xFFD4520A),
+     'props': 'Base class — no properties',
+     'used': 'RenderObject'},
+    {'name': 'BoxParentData', 'icon': Icons.crop_free,
+     'color': Color(0xFFE86B20),
+     'props': 'offset: Offset',
+     'used': 'RenderBox children'},
+    {'name': 'FlexParentData', 'icon': Icons.view_column,
+     'color': Color(0xFFC75A15),
+     'props': 'flex: int?, fit: FlexFit?',
+     'used': 'Row, Column, Flex'},
+    {'name': 'StackParentData', 'icon': Icons.layers,
+     'color': Color(0xFFAB4A0E),
+     'props': 'top, right, bottom, left, width, height',
+     'used': 'Stack, Positioned'},
+  ];
+
+  final rnParentDataSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: parentDataTypes.map((pd) {
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 8.0),
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Row(
+            children: [
+              Icon(pd['icon'] as IconData, color: pd['color'] as Color, size: 22.0),
+              SizedBox(width: 10.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(pd['name'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            fontFamily: 'monospace', color: pd['color'] as Color)),
+                    Text('Properties: ${pd['props']}',
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                    Text('Used by: ${pd['used']}',
+                        style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                            color: Color(0xFF8C3503))),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 13: Matrix4 Transforms ───────────────────────────
+  print('\n[13] Matrix4 Transforms');
+  print('  Translation: move position');
+  print('  Rotation: spin around axis');
+  print('  Scale: resize larger/smaller');
+  print('  Perspective: 3D depth effect');
+
+  final transforms = <Map<String, dynamic>>[
+    {'label': 'Identity', 'color': Color(0xFFD4520A),
+     'desc': 'No transform applied'},
+    {'label': 'Translate', 'color': Color(0xFFE86B20),
+     'desc': 'Move by (dx, dy, dz)'},
+    {'label': 'Scale', 'color': Color(0xFFC75A15),
+     'desc': 'Resize larger or smaller'},
+    {'label': 'Rotate', 'color': Color(0xFFAB4A0E),
+     'desc': 'Spin around an axis'},
+    {'label': 'Skew', 'color': Color(0xFF8C3503),
+     'desc': 'Shear along X or Y axis'},
+  ];
+
+  final rnTransformSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: transforms.map((t) {
+            return Column(
+              children: [
+                Container(
+                  width: 48.0,
+                  height: 48.0,
+                  decoration: BoxDecoration(
+                    color: (t['color'] as Color).withValues(alpha: 0.15),
+                    border: Border.all(color: t['color'] as Color, width: 2.0),
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: Center(
+                    child: Icon(Icons.transform, color: t['color'] as Color, size: 20.0),
+                  ),
+                ),
+                SizedBox(height: 4.0),
+                Text(t['label'] as String,
+                    style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600,
+                        color: t['color'] as Color)),
+              ],
+            );
+          }).toList(),
+        ),
+        SizedBox(height: 10.0),
+        rnCodeBlock(
+            'Matrix4.identity()\n'
+            'Matrix4.translationValues(10, 20, 0)\n'
+            'Matrix4.diagonal3Values(2, 2, 1)\n'
+            'Matrix4.rotationZ(0.5)',
+        ),
+      ],
+    ),
+  );
+
+  // ── Section 14: Paint Concepts ───────────────────────────────
+  print('\n[14] Paint Concepts');
+  print('  PaintingStyle.fill vs PaintingStyle.stroke');
+  print('  Paint object controls: color, style, strokeWidth');
+  print('  Canvas draws: rect, circle, line, path, text');
+
+  final paintModes = <Map<String, dynamic>>[
+    {'label': 'Fill', 'style': 'PaintingStyle.fill',
+     'color': Color(0xFFD4520A),
+     'desc': 'Interior is completely filled with color'},
+    {'label': 'Stroke', 'style': 'PaintingStyle.stroke',
+     'color': Color(0xFFE86B20),
+     'desc': 'Only the outline border is drawn'},
+  ];
+
+  final rnPaintSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFFF8F3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: [
+        Row(
+          children: paintModes.map((pm) {
+            return Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 4.0),
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 60.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: pm['label'] == 'Fill'
+                            ? (pm['color'] as Color).withValues(alpha: 0.3)
+                            : Colors.transparent,
+                        border: Border.all(
+                            color: pm['color'] as Color,
+                            width: pm['label'] == 'Stroke' ? 3.0 : 1.0),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    SizedBox(height: 6.0),
+                    Text(pm['label'] as String,
+                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
+                            color: pm['color'] as Color)),
+                    Text(pm['desc'] as String,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+        SizedBox(height: 10.0),
+        Text('Canvas operations: drawRect, drawCircle, drawLine, drawPath, drawParagraph',
+            style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
+                color: Color(0xFF8C3503))),
+      ],
+    ),
+  );
+
+  // ── Section 15: RenderObject Lifecycle ───────────────────────
+  print('\n[15] RenderObject Lifecycle');
+  print('  attach() → markNeedsLayout() → performLayout()');
+  print('  markNeedsPaint() → paint() → composite');
+  print('  detach() → dispose()');
+  print('  sizedByParent: child size determined only by constraints');
+
+  final lifecycleEvents = <Map<String, dynamic>>[
+    {'event': 'attach()', 'phase': 'Mounting', 'color': Color(0xFFD4520A),
+     'desc': 'RenderObject added to the render tree'},
+    {'event': 'markNeedsLayout()', 'phase': 'Dirty', 'color': Color(0xFFE86B20),
+     'desc': 'Schedule layout pass for this node'},
+    {'event': 'performLayout()', 'phase': 'Layout', 'color': Color(0xFFC75A15),
+     'desc': 'Compute size based on constraints'},
+    {'event': 'markNeedsPaint()', 'phase': 'Dirty', 'color': Color(0xFFAB4A0E),
+     'desc': 'Schedule repaint for this node'},
+    {'event': 'paint()', 'phase': 'Paint', 'color': Color(0xFF8C3503),
+     'desc': 'Draw visual representation to canvas'},
+    {'event': 'detach()', 'phase': 'Unmount', 'color': Color(0xFF6B2A05),
+     'desc': 'RenderObject removed from the tree'},
+  ];
+
+  final rnLifecycleSection = Container(
+    padding: EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Color(0xFFFAEDE3),
+      borderRadius: BorderRadius.circular(10.0),
+      border: Border.all(color: Color(0xFFE8C4AC)),
+    ),
+    child: Column(
+      children: lifecycleEvents.map((le) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 6.0),
+          child: Row(
+            children: [
+              Container(
+                width: 8.0,
+                height: 8.0,
+                decoration: BoxDecoration(
+                  color: le['color'] as Color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              SizedBox(width: 8.0),
+              SizedBox(
+                width: 60.0,
+                child: Text(le['phase'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF999999))),
+              ),
+              SizedBox(
+                width: 100.0,
+                child: Text(le['event'] as String,
+                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
+                        fontFamily: 'monospace', color: le['color'] as Color)),
+              ),
+              Expanded(
+                child: Text(le['desc'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+
+  // ── Section 16: Summary Dashboard ────────────────────────────
+  print('\n[16] Summary Dashboard');
+  print('  Key types: ${['Size', 'Offset', 'Rect', 'BoxConstraints'].join(', ')}');
+  print('  Pipeline: Layout → Paint → Composite → Hit');
+  print('  Tree: RenderObject → RenderBox → Specific renders');
+
+  final rnSummarySection = Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(14.0),
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: [Color(0xFF8C3503), Color(0xFFD4520A)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Column(
+      children: [
+        Text('Rendering Package Dashboard',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
+                color: Colors.white)),
+        SizedBox(height: 10.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Icon(Icons.straighten, color: Color(0xFFFFD6BE), size: 28.0),
+                Text('Size', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(Icons.crop_free, color: Color(0xFFFFD6BE), size: 28.0),
+                Text('Constraints', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(Icons.brush, color: Color(0xFFFFD6BE), size: 28.0),
+                Text('Paint', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(Icons.touch_app, color: Color(0xFFFFD6BE), size: 28.0),
+                Text('Hit Test', style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD6BE))),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 10.0),
+        Wrap(
+          spacing: 6.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.center,
+          children: [
+            rnChip('RenderObject', Color(0xFFE86B20)),
+            rnChip('RenderBox', Color(0xFFC75A15)),
+            rnChip('BoxConstraints', Color(0xFFAB4A0E)),
+            rnChip('EdgeInsets', Color(0xFF8C3503)),
+            rnChip('BoxDecoration', Color(0xFF6B2A05)),
+          ],
+        ),
+      ],
+    ),
+  );
+
+  print('\nRendering Package Deep Demo complete');
+
+  // ── Assemble ─────────────────────────────────────────────────
+  return SingleChildScrollView(
+    padding: EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 1 Title
+        rnTitleSection,
+        SizedBox(height: 16.0),
+        // 2 Size
+        rnSectionHeader('Size — 2D Dimensions', Icons.straighten),
+        rnSizeSection,
+        // 3 Offset
+        rnSectionHeader('Offset — Point & Vector', Icons.my_location),
+        rnOffsetSection,
+        // 4 BoxConstraints
+        rnSectionHeader('BoxConstraints', Icons.crop_free),
+        rnConstraintsSection,
+        // 5 Constraints Flow
+        rnSectionHeader('Constraints Flow', Icons.swap_vert),
+        rnFlowSection,
+        // 6 Hierarchy
+        rnSectionHeader('RenderObject Hierarchy', Icons.account_tree),
+        rnHierarchySection,
+        // 7 Pipeline
+        rnSectionHeader('Rendering Pipeline', Icons.linear_scale),
+        rnPipelineSection,
+        // 8 Rect
+        rnSectionHeader('Rect — Axis-Aligned Rectangle', Icons.crop_square),
+        rnRectSection,
+        // 9 EdgeInsets
+        rnSectionHeader('EdgeInsets — Spacing', Icons.padding),
+        rnEdgeSection,
+        // 10 BoxDecoration
+        rnSectionHeader('BoxDecoration Gallery', Icons.palette),
+        rnDecorationSection,
+        // 11 Hit Testing
+        rnSectionHeader('Hit Testing', Icons.touch_app),
+        rnHitTestSection,
+        // 12 ParentData
+        rnSectionHeader('ParentData Types', Icons.account_tree),
+        rnParentDataSection,
+        // 13 Transforms
+        rnSectionHeader('Matrix4 Transforms', Icons.transform),
+        rnTransformSection,
+        // 14 Paint
+        rnSectionHeader('Paint Concepts', Icons.brush),
+        rnPaintSection,
+        // 15 Lifecycle
+        rnSectionHeader('RenderObject Lifecycle', Icons.loop),
+        rnLifecycleSection,
+        // 16 Summary
+        SizedBox(height: 8.0),
+        rnSummarySection,
+      ],
+    ),
+  );
 }

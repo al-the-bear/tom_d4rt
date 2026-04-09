@@ -832,11 +832,11 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_overflow_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_overflow_test.dart) | TextOverflow | No | Yes | No | Batch 64 deep demo |
 | [text_painting_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_painting_test.dart) | StrutStyle | No | Yes | No |
 | [text_selection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_selection_test.dart) | TextSelection | No | Yes | No | Checked. |
-| [text_width_basis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_width_basis_test.dart) | TextWidthBasis | No | Print-Only | No | Checked. |
+| [text_width_basis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/text_width_basis_test.dart) | TextWidthBasis | No | Yes | No | B65 deep demo — Spruce/Moss theme, prefix wb, 1285 lines. |
 | [textstyle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/textstyle_test.dart) | TextStyle | No | Yes | No |
 | [transform_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/transform_property_test.dart) | TransformProperty | No | Yes | No | Checked. |
-| [vertical_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/vertical_direction_test.dart) | VerticalDirection | No | Print-Only | No | Checked. |
-| [web_html_element_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_html_element_strategy_test.dart) | WebHtmlElementStrategy | No | Print-Only | No | Checked. |
+| [vertical_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/vertical_direction_test.dart) | VerticalDirection | No | Yes | No | B65 deep demo — Grape/Violet theme, prefix vd, 1335 lines. |
+| [web_html_element_strategy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_html_element_strategy_test.dart) | WebHtmlElementStrategy | No | Yes | No | B65 deep demo — Sand/Dune theme, prefix we, 1288 lines. |
 | [web_image_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/web_image_info_test.dart) | WebImageInfo | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [word_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/word_boundary_test.dart) | WordBoundary | No | Yes | No | Created on 2026-03-22 at 10:30 |
 ## physics/ (8 files)
@@ -845,7 +845,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [bounded_friction_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/bounded_friction_simulation_test.dart) | BoundedFrictionSimulation | No | Yes | No | Checked. |
 | [clamped_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/clamped_simulation_test.dart) | ClampedSimulation | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/class_test.dart) | Class | No | Print-Only | No | Checked. 93 lines, bare Column — upgradeable. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/class_test.dart) | Class | No | Yes | No | B65 deep demo — Ocean/Reef theme, prefix ph, 1396 lines. |
 | [gravity_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/gravity_simulation_test.dart) | GravitySimulation | No | Yes | No | Checked. |
 | [simulations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/simulations_test.dart) | SpringSimulation | No | Yes | No | Checked. |
 | [spring_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/spring_test.dart) | SpringDescription | No | Yes | No | Checked. |
@@ -867,7 +867,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cache_extent_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/cache_extent_style_test.dart) | CacheExtentStyle | No | Yes | No | Checked. |
 | [canvas_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/canvas_test.dart) | Canvas | No | Yes | No | Checked. |
 | [child_layout_helper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/child_layout_helper_test.dart) | ChildLayoutHelper | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/class_test.dart) | Class | No | Print-Only | No | flutter_test format (1166 lines), not d4rt script — needs rewrite to dynamic build(). |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/class_test.dart) | Class | No | Yes | No | B65 deep demo — Ember/Ash theme, prefix rn, 1292 lines. |
 | [clear_selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clear_selection_event_test.dart) | ClearSelectionEvent | No | Yes | No | Checked. |
 | [clip_path_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clip_path_layer_test.dart) | ClipPathLayer | No | Yes | No | Checked. |
 | [clip_r_superellipse_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clip_r_superellipse_layer_test.dart) | ClipRSuperellipseLayer | No | Yes | No | Checked. |
