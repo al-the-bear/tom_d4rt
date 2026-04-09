@@ -1199,22 +1199,22 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [platform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_test.dart) | Clipboard | No | Yes | No | Checked. |
 | [platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_view_controller_test.dart) | PlatformViewController | No | Deep-Demo DONE | No | B71: Violet/Lavender theme, 16 sections, pv prefix. |
 | [platform_views_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_registry_test.dart) | PlatformViewsRegistry | No | Yes | No | Checked. |
-| [platform_views_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_service_test.dart) | PlatformViewsService | No | Print-Only | No | Checked. |
+| [platform_views_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/platform_views_service_test.dart) | PlatformViewsService | No | Deep-Demo DONE | No | B72: Forest/Sage theme, 16 sections, ps prefix. |
 | [predictive_back_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/predictive_back_event_test.dart) | PredictiveBackEvent | No | Yes | No | Created on 2026-04-08 at 21:49. |
 | [process_text_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_action_test.dart) | ProcessTextAction | No | Yes | No | Checked. |
-| [process_text_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_service_test.dart) | ProcessTextService | No | Print-Only | No | Checked. |
+| [process_text_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/process_text_service_test.dart) | ProcessTextService | No | Deep-Demo DONE | No | B72: Ruby/Rose theme, 16 sections, pt prefix. |
 | [raw_floating_cursor_point_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_floating_cursor_point_test.dart) | RawFloatingCursorPoint | No | Yes | No | Checked. |
-| [raw_key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_down_event_test.dart) | RawKeyDownEvent | No | Print-Only | No | Checked. |
+| [raw_key_down_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_down_event_test.dart) | RawKeyDownEvent | No | Deep-Demo DONE | No | B72: Ocean/Sky theme, 16 sections, rd prefix. |
 | [raw_key_event_data_android_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_android_test.dart) | RawKeyEventDataAndroid | No | Yes | No | Checked. |
 | [raw_key_event_data_fuchsia_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_fuchsia_test.dart) | RawKeyEventDataFuchsia | No | Yes | No | Checked. |
 | [raw_key_event_data_ios_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_ios_test.dart) | RawKeyEventDataIos | No | Yes | No | Checked. |
 | [raw_key_event_data_linux_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_linux_test.dart) | RawKeyEventDataLinux | No | Yes | No | Checked. |
 | [raw_key_event_data_mac_os_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_mac_os_test.dart) | RawKeyEventDataMacOs | No | Yes | No | Created on 2026-04-08 at 21:49. |
-| [raw_key_event_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_test.dart) | RawKeyEventData | No | Print-Only | No | Checked. |
+| [raw_key_event_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_test.dart) | RawKeyEventData | No | Deep-Demo DONE | No | B72: Copper/Terracotta theme, 16 sections, re prefix. |
 | [raw_key_event_data_web_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_web_test.dart) | RawKeyEventDataWeb | No | Yes | No | Checked. |
 | [raw_key_event_data_windows_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_data_windows_test.dart) | RawKeyEventDataWindows | No | Yes | No | Checked. |
 | [raw_key_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_event_test.dart) | RawKeyEvent | No | Yes | No | Checked. |
-| [raw_key_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_up_event_test.dart) | RawKeyUpEvent | No | Print-Only | No | Checked. |
+| [raw_key_up_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_key_up_event_test.dart) | RawKeyUpEvent | No | Deep-Demo DONE | No | B72: Indigo/Periwinkle theme, 16 sections, ru prefix. |
 | [raw_keyboard_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/raw_keyboard_test.dart) | RawKeyboard | No | Yes | No | Checked. |
 | [restoration_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_bucket_test.dart) | RestorationBucket | No | Print-Only | No | Checked. |
 | [restoration_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/restoration_manager_test.dart) | RestorationManager | No | Print-Only | No | Checked. |
