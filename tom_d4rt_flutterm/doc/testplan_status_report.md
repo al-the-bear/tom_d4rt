@@ -1227,16 +1227,16 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [services_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_advanced_test.dart) | KeyEvent | No | Yes | No | Checked. |
 | [services_service_extensions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/services_service_extensions_test.dart) | ServicesServiceExtensions | No | Yes | No | Checked. |
 | [smart_dashes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_dashes_type_test.dart) | SmartDashesType | No | Deep-Demo DONE | No | B73: Plum/Orchid theme, 16 sections, sd prefix. |
-| [smart_quotes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_quotes_type_test.dart) | SmartQuotesType | No | Print-Only | No | Checked. |
-| [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | Print-Only | No | Checked. |
+| [smart_quotes_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/smart_quotes_type_test.dart) | SmartQuotesType | No | Deep-Demo DONE | No | B74: Sapphire/Azure theme, 16 sections, natural names. |
+| [spell_check_service_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spell_check_service_test.dart) | SpellCheckService | No | Deep-Demo DONE | No | B74: Terracotta/Copper theme, 16 sections, natural names. |
 | [spellcheck_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/spellcheck_test.dart) | SpellCheckResults | No | Yes | No | Checked. |
 | [suggestion_span_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/suggestion_span_test.dart) | SuggestionSpan | No | Yes | No | Checked. |
 | [surface_android_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/surface_android_view_controller_test.dart) | SurfaceAndroidViewController | No | Yes | No | Created on 2026-04-08 at 22:12. |
 | [swipe_edge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/swipe_edge_test.dart) | SwipeEdge | No | Yes | No | Checked. |
 | [system_channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_channels_test.dart) | SystemChannels | No | Yes | No | Checked. |
 | [system_chrome_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_chrome_test.dart) | SystemChrome | No | Yes | No | Checked. |
-| [system_context_menu_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_client_test.dart) | SystemContextMenuClient | No | Print-Only | No | Checked. |
-| [system_context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_controller_test.dart) | SystemContextMenuController | No | Print-Only | No | Checked. |
+| [system_context_menu_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_client_test.dart) | SystemContextMenuClient | No | Deep-Demo DONE | No | B74: Forest/Sage theme, 16 sections, natural names. |
+| [system_context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_context_menu_controller_test.dart) | SystemContextMenuController | No | Deep-Demo DONE | No | B74: Garnet/Rose theme, 16 sections, natural names. |
 | [system_sound_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_sound_type_test.dart) | SystemSoundType | No | Yes | No | Checked. |
 | [system_ui_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_ui_mode_test.dart) | SystemUiMode | No | Yes | No | Checked. |
 | [system_ui_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/system_ui_overlay_test.dart) | SystemUiOverlay | No | Yes | No | Checked. |
@@ -1247,7 +1247,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [text_editing_delta_replacement_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_editing_delta_replacement_test.dart) | TextEditingDeltaReplacement | No | Yes | No | Checked. |
 | [text_editing_value_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_editing_value_test.dart) | TextEditingValue | No | Yes | No | Checked. |
 | [text_input_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_action_test.dart) | TextInputAction | No | Yes | No | Checked. |
-| [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | Print-Only | No | Checked. |
+| [text_input_client_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_client_test.dart) | TextInputClient | No | Deep-Demo DONE | No | B74: Slate/Graphite theme, 16 sections, natural names. |
 | [text_input_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_configuration_test.dart) | TextInputConfiguration | No | Yes | No | Checked. |
 | [text_input_connection_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_connection_test.dart) | TextInputConnection | No | Print-Only | No | Checked. |
 | [text_input_control_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/text_input_control_test.dart) | TextInputControl | No | Print-Only | No | Checked. |
