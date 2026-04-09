@@ -686,7 +686,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [selection_area_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_state_test.dart) | SelectionAreaState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [selection_area_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/selection_area_test.dart) | SelectionArea | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [shape_border_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/shape_border_tween_test.dart) | ShapeBorderTween | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [show_value_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | Print-Only | No | Checked. |
+| [show_value_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/show_value_indicator_test.dart) | ShowValueIndicator | No | Yes | No | Batch 61 deep demo (Tangerine/Apricot, sv). 1165 lines, 16 sections. |
 | [showbottomsheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showbottomsheet_test.dart) | showModalBottomSheet | No | Yes | No |
 | [showdatepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdatepicker_test.dart) | showDatePicker | No | Yes | No |
 | [showdialog_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showdialog_test.dart) | showDialog | No | Yes | No |
@@ -694,7 +694,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [showtimepicker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/showtimepicker_test.dart) | showTimePicker | No | Yes | No |
 | [simple_dialog_option_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/simple_dialog_option_test.dart) | SimpleDialogOption | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [slider_component_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_component_shape_test.dart) | SliderComponentShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [slider_interaction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_interaction_test.dart) | SliderInteraction | No | Print-Only | No | Checked. |
+| [slider_interaction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_interaction_test.dart) | SliderInteraction | No | Yes | No | Batch 61 deep demo (Pistachio/Lime, si). 1229 lines, 16 sections. |
 | [slider_tick_mark_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_tick_mark_shape_test.dart) | SliderTickMarkShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [slider_track_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/slider_track_shape_test.dart) | SliderTrackShape | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [sliverappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/sliverappbar_test.dart) | SliverAppBar | No | Yes | No |
@@ -710,12 +710,12 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [stepper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_test.dart) | Stepper | No | Yes | No |
 | [stepper_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_type_test.dart) | StepperType | No | Yes | No | Checked. |
 | [stepper_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stepper_state_test.dart) | StepperState | No | Yes | No | Created on 2026-03-21 at 12:30 |
-| [stretch_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stretch_mode_test.dart) | StretchMode | No | Print-Only | No | Checked. |
+| [stretch_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/stretch_mode_test.dart) | StretchMode | No | Yes | No | Batch 61 deep demo (Sapphire/Azure, sm). 1242 lines, 16 sections. |
 | [switch_list_tile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/switch_list_tile_test.dart) | SwitchListTile | No | Yes | No | Deep demo created 2025-03-28 |
-| [tab_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_alignment_test.dart) | TabAlignment | No | Print-Only | No | Checked. |
+| [tab_alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_alignment_test.dart) | TabAlignment | No | Yes | No | Batch 61 deep demo (Terracotta/Clay, ta). 1104 lines, 16 sections. |
 | [tab_bar_indicator_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_bar_indicator_size_test.dart) | TabBarIndicatorSize | No | Yes | No | Checked. |
 | [tab_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_bar_theme_data_test.dart) | TabBarThemeData | No | Yes | No | Created on 2026-03-29 at 14:31 |
-| [tab_indicator_animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_indicator_animation_test.dart) | TabIndicatorAnimation | No | Print-Only | No | Checked. |
+| [tab_indicator_animation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_indicator_animation_test.dart) | TabIndicatorAnimation | No | Yes | No | Batch 61 deep demo (Mulberry/Plum, ti). 1110 lines, 16 sections. |
 | [tab_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_indicator_test.dart) | UnderlineTabIndicator | No | Yes | No |
 | [tab_page_selector_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_indicator_test.dart) | TabPageSelectorIndicator | No | Yes | No | Deep demo created 2025-03-28 |
 | [tab_page_selector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tab_page_selector_test.dart) | TabPageSelector | No | Yes | No | Deep demo created 2025-03-28 |
