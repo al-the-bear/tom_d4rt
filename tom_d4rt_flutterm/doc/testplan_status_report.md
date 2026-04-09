@@ -29,7 +29,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [animationstyle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/animationstyle_test.dart) | AnimationStyle | No | Yes | No |
 | [catmull_rom_curve_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_curve_test.dart) | CatmullRomCurve | No | Yes | No | Created on 2025-01-21 at 14:41 |
 | [catmull_rom_spline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/catmull_rom_spline_test.dart) | CatmullRomSpline | No | Yes | No | Already converted |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/class_test.dart) | Class | No | Print-Only | No | Already converted |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (1205 lines, 8 sections). |
 | [color_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/color_tween_test.dart) | ColorTween | No | Yes | No | Deep demo created 2025-03-28 |
 | [compoundanimation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/compoundanimation_test.dart) | ProxyAnimation | No | Yes | No |
 | [constant_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/constant_tween_test.dart) | ConstantTween | No | Yes | No | Already converted |
@@ -61,7 +61,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/button_test.dart) | CupertinoButton | No | Yes | No |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Print-Only | No |  |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (130 lines, CupertinoApp with theme/colors/icons). |
 | [contextmenu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No |
 | [controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/controls_test.dart) | Controls | No | Yes | No |
 | [cupertino_button_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | Yes | No | Created on 2026-03-17 at 16:38 |
@@ -137,7 +137,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [callback_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/callback_handle_test.dart) | CallbackHandle | No | Yes | No | Created on 2026-03-17 at 18:56 |
 | [channel_buffers_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/channel_buffers_test.dart) | ChannelBuffers | No | Yes | No | Created on 2026-03-17 at 19:05 |
 | [checked_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/checked_state_test.dart) | CheckedState | No | Yes | No | Created on 2026-03-17 at 19:12 |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/class_test.dart) | Class | No | Print-Only | No | Created on 2026-03-17 at 19:22 |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (472 lines, 15 sections). |
 | [clip_op_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/clip_op_test.dart) | ClipOp | No | Yes | No | Created on 2026-03-17 at 19:30 |
 | [clip_path_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/clip_path_engine_layer_test.dart) | ClipPathEngineLayer | No | Yes | No | Created on 2026-03-17 at 19:40 |
 | [clip_r_rect_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/clip_r_rect_engine_layer_test.dart) | ClipRRectEngineLayer | No | Yes | No | Created on 2026-03-17 at 19:48 |
@@ -266,7 +266,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [buffers_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/buffers_misc_test.dart) | foundation | Yes | Yes | No |
 | [caching_iterable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/caching_iterable_test.dart) | CachingIterable | Yes | Yes | No |
 | [category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/category_test.dart) | Category | Yes | Yes | No |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | No | Print-Only | No |  |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (141 lines, Scaffold with custom widgets). |
 | [diagnostic_level_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | Print-Only | No | Checked. |
 | [diagnosticable_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_node_test.dart) | DiagnosticableNode | Yes | Yes | No |
 | [diagnosticable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_test.dart) | Diagnosticable | Yes | Yes | No |
@@ -325,7 +325,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [base_tap_and_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/base_tap_and_drag_gesture_recognizer_test.dart) | BaseTapAndDragGestureRecognizer | No | Yes | No | Checked. |
 | [base_tap_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/base_tap_gesture_recognizer_test.dart) | BaseTapGestureRecognizer | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | Print-Only | No | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/class_test.dart) | Class | No | Print-Only | No | Checked. 43 lines, bare Column — upgradeable. |
 | [delayed_multi_drag_gesture_recognizer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/delayed_multi_drag_gesture_recognizer_test.dart) | DelayedMultiDragGestureRecognizer | No | Yes | No | Checked. |
 | [details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/details_test.dart) | gesture | No | Yes | No |
 | [device_gesture_settings_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/gestures/device_gesture_settings_test.dart) | DeviceGestureSettings | No | Yes | No | Checked. |
@@ -457,7 +457,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [chip_variants_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/chip_variants_test.dart) | Chip | No | Yes | No |
 | [chips_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/chips_test.dart) | Chip | No | Yes | No |
 | [circleavatar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/circleavatar_test.dart) | CircleAvatar | No | Yes | No |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/class_test.dart) | Class | No | Print-Only | No | Created on 20.03.2026 at 19:11 |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (1044 lines, 17 sections with Scaffold). |
 | [close_button_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/close_button_icon_test.dart) | CloseButtonIcon | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [close_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/close_button_test.dart) | CloseButton | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [collapse_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/collapse_mode_test.dart) | CollapseMode | No | Yes | No | Verified 25.03.2026 - 1469 lines |
@@ -775,7 +775,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_fit_test.dart) | BoxFit | No | Print-Only | No | Checked. |
 | [box_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_painter_test.dart) | BoxPainter | No | Yes | No | Checked. |
 | [box_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/box_shape_test.dart) | BoxShape | No | Print-Only | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/class_test.dart) | Class | No | Print-Only | No | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/class_test.dart) | Class | No | Yes | No | Deep demo verified 2026-04-09 (1061 lines, 28 sections). |
 | [clip_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/clip_context_test.dart) | ClipContext | No | Yes | No | Checked. |
 | [color_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/color_property_test.dart) | ColorProperty | No | Yes | No | Checked. |
 | [colors_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/colors_test.dart) | HSLColor | No | Yes | No |
@@ -845,7 +845,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 |----------|---------------|------------------------------|-------------------------------|-------|
 | [bounded_friction_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/bounded_friction_simulation_test.dart) | BoundedFrictionSimulation | No | Yes | No | Checked. |
 | [clamped_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/clamped_simulation_test.dart) | ClampedSimulation | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/class_test.dart) | Class | No | Print-Only | No | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/class_test.dart) | Class | No | Print-Only | No | Checked. 93 lines, bare Column — upgradeable. |
 | [gravity_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/gravity_simulation_test.dart) | GravitySimulation | No | Yes | No | Checked. |
 | [simulations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/simulations_test.dart) | SpringSimulation | No | Yes | No | Checked. |
 | [spring_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/physics/spring_test.dart) | SpringDescription | No | Yes | No | Checked. |
@@ -867,7 +867,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [cache_extent_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/cache_extent_style_test.dart) | CacheExtentStyle | No | Yes | No | Checked. |
 | [canvas_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/canvas_test.dart) | Canvas | No | Yes | No | Checked. |
 | [child_layout_helper_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/child_layout_helper_test.dart) | ChildLayoutHelper | No | Yes | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/class_test.dart) | Class | No | Print-Only | No | Created on 2026-03-22 at 10:30 |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/class_test.dart) | Class | No | Print-Only | No | flutter_test format (1166 lines), not d4rt script — needs rewrite to dynamic build(). |
 | [clear_selection_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clear_selection_event_test.dart) | ClearSelectionEvent | No | Yes | No | Checked. |
 | [clip_path_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clip_path_layer_test.dart) | ClipPathLayer | No | Yes | No | Checked. |
 | [clip_r_superellipse_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/clip_r_superellipse_layer_test.dart) | ClipRSuperellipseLayer | No | Yes | No | Checked. |
@@ -1086,7 +1086,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
 |----------|---------------|------------------------------|-------------------------------|-------|
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/class_test.dart) | Class | No | Print-Only | No | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/class_test.dart) | Class | No | Print-Only | No | Checked. 90 lines, bare Column — upgradeable. |
 | [performance_mode_request_handle_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/performance_mode_request_handle_test.dart) | PerformanceModeRequestHandle | No | Yes | No | Checked. |
 | [priority_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/priority_test.dart) | Priority | No | Yes | No | Checked. |
 | [scheduler_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/scheduler/scheduler_misc_test.dart) | Priority | No | Yes | No | Checked. |
@@ -1104,7 +1104,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [attributed_string_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/attributed_string_property_test.dart) | AttributedStringProperty | No | Yes | No | Checked. |
 | [child_semantics_configurations_result_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/child_semantics_configurations_result_builder_test.dart) | ChildSemanticsConfigurationsResultBuilder | No | Print-Only | No | Checked. |
 | [child_semantics_configurations_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/child_semantics_configurations_result_test.dart) | ChildSemanticsConfigurationsResult | No | Print-Only | No | Checked. |
-| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/class_test.dart) | Class | No | Print-Only | No | Checked. |
+| [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/class_test.dart) | Class | No | Print-Only | No | Checked. 105 lines, bare Column — upgradeable. |
 | [debug_semantics_dump_order_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/debug_semantics_dump_order_test.dart) | DebugSemanticsDumpOrder | No | Yes | No | Checked. |
 | [focus_semantic_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/focus_semantic_event_test.dart) | FocusSemanticEvent | No | Yes | No | Checked. |
 | [long_press_semantics_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/semantics/long_press_semantics_event_test.dart) | LongPressSemanticsEvent | No | Yes | No | Checked. |
