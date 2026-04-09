@@ -1621,13 +1621,13 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [navigator_pop_handler_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_pop_handler_test.dart) | NavigatorPopHandler | No | Yes | No | Created on 2026-04-02 at 03:21. |
 | [navigator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_test.dart) | Navigator | No | Yes | No |
 | [navigatorstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigatorstate_test.dart) | NavigatorState | No | Yes | No | Checked. |
-| [nested_scroll_view_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart) | NestedScrollViewState | No | Print-Only | No | Checked. |
+| [nested_scroll_view_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart) | NestedScrollViewState | No | Yes | No | Created on 2026-04-09 at 15:30. |
 | [nested_scroll_view_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_viewport_test.dart) | NestedScrollViewViewport | No | Yes | No | Created on 2026-04-02 at 11:21. |
 | [nestedscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nestedscrollview_test.dart) | NestedScrollView | No | Yes | No |
-| [never_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/never_scrollable_scroll_physics_test.dart) | NeverScrollableScrollPhysics | No | Print-Only | No | Checked. |
-| [next_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_action_test.dart) | NextFocusAction | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [next_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart) | NextFocusIntent | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [notifiable_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notifiable_element_mixin_test.dart) | YestifiableElementMixin | No | Print-Only | No | Checked. |
+| [never_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/never_scrollable_scroll_physics_test.dart) | NeverScrollableScrollPhysics | No | Yes | No | Created on 2026-04-09 at 15:30. |
+| [next_focus_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_action_test.dart) | NextFocusAction | No | Yes | No | Created on 2026-04-09 at 15:30. |
+| [next_focus_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart) | NextFocusIntent | No | Yes | No | Created on 2026-04-09 at 15:30. |
+| [notifiable_element_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notifiable_element_mixin_test.dart) | NotifiableElementMixin | No | Yes | No | Created on 2026-04-09 at 15:30. |
 | [notification_locale_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_locale_test.dart) | YestificationListener | No | Yes | No | Checked. |
 | [notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notification_test.dart) | Yestification | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [notificationlistener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/notificationlistener_test.dart) | YestificationListener | No | Yes | No |
