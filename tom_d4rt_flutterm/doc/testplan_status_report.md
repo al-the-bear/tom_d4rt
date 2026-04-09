@@ -221,10 +221,10 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [semantics_input_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_input_type_test.dart) | SemanticsInputType | No | Yes | No | Checked. |
 | [semantics_role_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_role_test.dart) | SemanticsRole | No | Yes | No | Checked. |
 | [semantics_update_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_builder_test.dart) | SemanticsUpdateBuilder | No | Yes | No | Checked. |
-| [semantics_update_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_test.dart) | SemanticsUpdate | No | Print-Only | No | Checked. |
+| [semantics_update_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_update_test.dart) | SemanticsUpdate | No | Yes | No | Batch 57 deep demo. |
 | [semantics_validation_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/semantics_validation_result_test.dart) | SemanticsValidationResult | No | Yes | No | Checked. |
 | [shader_mask_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/shader_mask_engine_layer_test.dart) | ShaderMaskEngineLayer | No | Yes | No | Checked. |
-| [singleton_flutter_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/singleton_flutter_window_test.dart) | SingletonFlutterWindow | No | Print-Only | No | Checked. |
+| [singleton_flutter_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/singleton_flutter_window_test.dart) | SingletonFlutterWindow | No | Yes | No | Batch 57 deep demo. |
 | [size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/size_test.dart) | Size | Yes | Yes | No |
 | [spell_out_string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/spell_out_string_attribute_test.dart) | SpellOutStringAttribute | No | Yes | No | Checked. |
 | [string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/string_attribute_test.dart) | StringAttribute | No | Yes | No | Checked. |
@@ -267,7 +267,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [caching_iterable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/caching_iterable_test.dart) | CachingIterable | Yes | Yes | No |
 | [category_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/category_test.dart) | Category | Yes | Yes | No |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (141 lines, Scaffold with custom widgets). |
-| [diagnostic_level_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | Print-Only | No | Checked. |
+| [diagnostic_level_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnostic_level_test.dart) | DiagnosticLevel | No | Yes | No | Batch 57 deep demo. |
 | [diagnosticable_node_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_node_test.dart) | DiagnosticableNode | Yes | Yes | No |
 | [diagnosticable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_test.dart) | Diagnosticable | Yes | Yes | No |
 | [diagnosticable_tree_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/diagnosticable_tree_mixin_test.dart) | DiagnosticableTreeMixin | No | Yes | No | Checked. |
@@ -284,9 +284,9 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [enum_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/enum_property_test.dart) | EnumProperty | No | Yes | No | Checked. |
 | [error_spacer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/error_spacer_test.dart) | ErrorSpacer | No | Yes | No | Checked. |
 | [error_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/error_test.dart) | FlutterError | Yes | Yes | No |
-| [factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Print-Only | No | Checked. |
+| [factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/factory_test.dart) | Factory | No | Yes | No | Batch 57 deep demo. |
 | [flag_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flag_property_test.dart) | FlagProperty | No | Yes | No | Checked. |
-| [flags_summary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flags_summary_test.dart) | FlagsSummary | No | Print-Only | No | Checked. |
+| [flags_summary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flags_summary_test.dart) | FlagsSummary | No | Yes | No | Batch 57 deep demo. |
 | [flutter_memory_allocations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flutter_memory_allocations_test.dart) | FlutterMemoryAllocations | No | Yes | No | Checked. |
 | [flutter_timeline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/flutter_timeline_test.dart) | FlutterTimeline | Yes | Yes | No |
 | [foundation_misc_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/foundation_misc_adv_test.dart) | TargetPlatformVariant | No | Yes | No | Checked. |
