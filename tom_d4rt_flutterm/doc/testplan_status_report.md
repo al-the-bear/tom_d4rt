@@ -1655,16 +1655,16 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [padding_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/padding_test.dart) | Padding | No | Yes | No | Checked. |
 | [page_metrics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_metrics_test.dart) | PageMetrics | No | Yes | No | Created on 2026-04-10 at 09:30. |
 | [page_route_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_route_builder_test.dart) | PageRouteBuilder | No | Yes | No | Created on 2026-04-10 at 09:30. |
-| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics | No | Print-Only | No | Checked. |
+| [page_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_scroll_physics_test.dart) | PageScrollPhysics | No | Deep | No | B88: 1473 lines, 15+ sections, Forest/Emerald palette, live PageView demo, custom SpringCurvePainter. |
 | [page_storage_bucket_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_bucket_test.dart) | PageStorageBucket | No | Yes | No | Created on 2026-04-02 at 14:28 |
-| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [page_storage_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_key_test.dart) | PageStorageKey | No | Deep | No | B88: 918 lines, 18 sections, Slate/Steel palette, live 3-tab demo, bucket system. |
 | [page_storage_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_storage_test.dart) | PageStorage | No | Yes | No | Created on 2026-04-02 at 14:37 |
-| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page | No | Print-Only | No | Checked. |
+| [page_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_test.dart) | Page | No | Deep | No | B88: 993 lines, 18 sections, Copper/Bronze palette, Navigator 2.0, canUpdate demo. |
 | [page_view_tabview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/page_view_tabview_test.dart) | PageView | No | Yes | No |
 | [pagecontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pagecontroller_test.dart) | PageController | No | Yes | No |
 | [pageview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pageview_test.dart) | PageView | No | Yes | No |
-| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis | No | Print-Only | No | Checked. |
-| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | No | Print-Only | No | Checked. |
+| [pan_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/pan_axis_test.dart) | PanAxis | No | Deep | No | B88: 931 lines, 18 sections, Violet/Orchid palette, 4 InteractiveViewer panels, custom GridPainter. |
+| [parent_data_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_element_test.dart) | ParentDataElement | No | Deep | No | B88: 986 lines, 18 sections, Teal/Cyan palette, Stack+Row live demo, custom LayoutGridPainter. |
 | [parent_data_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/parent_data_widget_test.dart) | ParentDataWidget | No | Print-Only | No | Checked. |
 | [paste_text_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/paste_text_intent_test.dart) | PasteTextIntent | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [performance_overlay_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/performance_overlay_test.dart) | PerformanceOverlay | No | Yes | No | Created on 2026-04-02 at 19:27 |
