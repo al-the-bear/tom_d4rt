@@ -1929,7 +1929,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [slotted_multi_child_render_object_widget_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_mixin_test.dart) | SlottedMultiChildRenderObjectWidgetMixin | No | Print-Only | No | Checked. |
 | [slotted_multi_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_multi_child_render_object_widget_test.dart) | SlottedMultiChildRenderObjectWidget | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [slotted_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/slotted_render_object_element_test.dart) | SlottedRenderObjectElement | No | Print-Only | No | Checked. |
-| [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | Print-Only | No | Checked. |
+| [snapshot_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_controller_test.dart) | SnapshotController | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [snapshot_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_mode_test.dart) | SnapshotMode | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [snapshot_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_painter_test.dart) | SnapshotPainter | No | Yes | No | Created on 2026-04-07 at 18:35 |
 | [snapshot_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/snapshot_widget_test.dart) | SnapshotWidget | No | Yes | No | Created on 2026-04-07 at 18:35 |
@@ -1969,7 +1969,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [text_selection_toolbar_anchors_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_anchors_test.dart) | TextSelectionToolbarAnchors | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [text_selection_toolbar_layout_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_toolbar_layout_delegate_test.dart) | TextSelectionToolbarLayoutDelegate | No | Print-Only | No | Checked. |
 | [text_selection_widgets_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_selection_widgets_test.dart) | TextSelectionTheme | No | Yes | No | Checked. |
-| [text_style_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
+| [text_style_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_style_tween_test.dart) | TextStyleTween | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [text_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/text_test.dart) | Text | No | Yes | No |
 | [textcontroller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textcontroller_test.dart) | TextEditingController | No | Yes | No | Checked. |
 | [textfield_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/textfield_test.dart) | Textfield | No | Yes | No | Created on 2026-04-07 at 19:55 |
@@ -1977,7 +1977,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [texture_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/texture_test.dart) | Texture | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [ticker_mode_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_data_test.dart) | TickerModeData | No | Yes | No | Created on 2026-04-07 at 19:55 |
 | [ticker_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_mode_test.dart) | TickerMode | No | Yes | No | Created on 2026-04-07 at 19:55 |
-| [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Print-Only | No | Checked. |
+| [ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ticker_provider_state_mixin_test.dart) | TickerProviderStateMixin | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [title_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/title_test.dart) | Title | No | Yes | No | Created on 2026-04-07 at 20:20 |
 | [toggleable_painter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_painter_test.dart) | ToggleablePainter | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [toggleable_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toggleable_state_mixin_test.dart) | ToggleableStateMixin | No | Print-Only | No | Checked. |
@@ -1989,10 +1989,10 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [tooltip_window_controller_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart) | TooltipWindowControllerDelegate | No | Print-Only | No | Checked. |
 | [tooltip_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart) | TooltipWindowController | No | Print-Only | No | Checked. |
 | [tooltip_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_test.dart) | TooltipWindow | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [tracking_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tracking_scroll_controller_test.dart) | TrackingScrollController | No | Print-Only | No | Checked. |
+| [tracking_scroll_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tracking_scroll_controller_test.dart) | TrackingScrollController | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [transform_full_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transform_full_test.dart) | Transform | No | Yes | No | Checked. |
 | [transform_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transform_test.dart) | Transform | No | Yes | No |
-| [transformation_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transformation_controller_test.dart) | TransformationController | No | Print-Only | No | Checked. |
+| [transformation_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transformation_controller_test.dart) | TransformationController | No | Yes | No | Created on 2026-04-10 at 08:05. |
 | [transition_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart) | TransitionDelegate | No | Print-Only | No | Checked. |
 | [transition_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_route_test.dart) | TransitionRoute | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [transpose_characters_intent_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transpose_characters_intent_test.dart) | TransposeCharactersIntent | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
