@@ -1741,7 +1741,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_element_test.dart) | RenderObjectElement | No | Yes | No | Created on 2026-04-15 at 10:00. |
 | [render_object_to_widget_adapter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_adapter_test.dart) | RenderObjectToWidgetAdapter | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
 | [render_object_to_widget_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_element_test.dart) | RenderObjectToWidgetElement | Yes | Yes | No |
-| [render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_widget_test.dart) | RenderObjectWidget | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
+| [render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_widget_test.dart) | RenderObjectWidget | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [render_object_widgets_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_widgets_adv_test.dart) | RenderObjectWidgetsAdv | No | Yes | No | Checked. |
 | [render_sliver_overlap_absorber_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_sliver_overlap_absorber_test.dart) | RenderSliverOverlapAbsorber | No | Yes | No | Checked. |
 | [render_sliver_overlap_injector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_sliver_overlap_injector_test.dart) | RenderSliverOverlapInjector | No | Yes | No | Checked. |
@@ -1799,7 +1799,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [route_pop_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart) | RoutePopDisposition | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
 | [route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_test.dart) | Route | No | Yes | No | Checked. |
 | [route_transition_record_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_transition_record_test.dart) | RouteTransitionRecord | No | Print-Only | No | Checked. Output needs improvement (bare Column). |
-| [router_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart) | RouterConfig | No | Print-Only | No | Checked. |
+| [router_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart) | RouterConfig | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [router_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_test.dart) | Router | No | Yes | No | Checked. |
 | [row_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/row_test.dart) | Row | No | Yes | No |
 | [safearea_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/safearea_test.dart) | SafeArea | No | Yes | No |
@@ -1837,7 +1837,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_view_keyboard_dismiss_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_keyboard_dismiss_behavior_test.dart) | ScrollViewKeyboardDismissBehavior | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
 | [scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_test.dart) | ScrollView | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scrollable_details_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_details_test.dart) | ScrollableDetails | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
-| [scrollable_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_state_test.dart) | ScrollableState | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
+| [scrollable_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_state_test.dart) | ScrollableState | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [scrollable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollable_test.dart) | Scrollable | No | Yes | No | Created on 2026-04-07 at 12:54. |
 | [scrollbar_layout_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_layout_misc_test.dart) | RawScrollbar | No | Yes | No |
 | [scrollbar_orientation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_orientation_test.dart) | ScrollbarOrientation | No | Print-Only | No | Checked. Output needs improvement (SizedBox.shrink). |
@@ -1880,7 +1880,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [single_activator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart) | SingleActivator | No | Print-Only | No | Checked. |
 | [single_child_render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_element_test.dart) | SingleChildRenderObjectElement | No | Print-Only | No | Checked. |
 | [single_child_render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_child_render_object_widget_test.dart) | SingleChildRenderObjectWidget | No | Print-Only | No | Checked. |
-| [single_ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_ticker_provider_state_mixin_test.dart) | SingleTickerProviderStateMixin | No | Print-Only | No | Checked. |
+| [single_ticker_provider_state_mixin_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_ticker_provider_state_mixin_test.dart) | SingleTickerProviderStateMixin | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [singlechildscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/singlechildscrollview_test.dart) | SingleChildScrollView | No | Yes | No |
 | [size_changed_layout_notification_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notification_test.dart) | SizeChangedLayoutNotification | No | Print-Only | No | Checked. |
 | [size_changed_layout_notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/size_changed_layout_notifier_test.dart) | SizeChangedLayoutNotifier | No | Yes | No | Created on 2026-04-07 at 21:15. |
@@ -1894,7 +1894,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [sliver_animated_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart) | SliverAnimatedListState | No | Print-Only | No | Checked. |
 | [sliver_animated_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_test.dart) | SliverAnimatedList | No | Yes | No | Created on 2026-04-07 at 21:30. |
 | [sliver_animated_opacity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_opacity_test.dart) | SliverAnimatedOpacity | No | Yes | No | Created on 2026-04-07 at 21:45. |
-| [sliver_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart) | SliverChildBuilderDelegate | No | Print-Only | No | Checked. |
+| [sliver_child_builder_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart) | SliverChildBuilderDelegate | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [sliver_child_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_delegate_test.dart) | SliverChildDelegate | No | Print-Only | No | Checked. |
 | [sliver_child_list_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_list_delegate_test.dart) | SliverChildListDelegate | No | Print-Only | No | Checked. |
 | [sliver_constrained_cross_axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_constrained_cross_axis_test.dart) | SliverConstrainedCrossAxis | No | Yes | No | Created on 2026-04-07 at 22:00. |
