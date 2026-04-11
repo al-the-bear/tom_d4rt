@@ -2197,3 +2197,150 @@ No script fix needed. Cascading failure from Issue #64.
 **Batch Number:** 13
 
 ---
+
+## Batch 14
+
+### Issue #70: widgets/fixed_extent_metrics_test.dart
+
+**Test:** `widgets/ individual fixed_extent_metrics_test.dart`
+**Script:** `widgets/fixed_extent_metrics_test.dart`
+**Suite:** `secondary_classes`
+
+**Error Summary:**
+
+```
+Bad state: Transport failure while running "widgets/fixed_extent_metrics_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51408
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Cascading failure from Issue #64 server crash. The Flutter app crashed during Batch 13 processing and never recovered. Connection refused on all subsequent tests.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 14
+
+---
+
+### Issue #71: widgets/fixed_extent_scroll_controller_test.dart
+
+**Test:** `widgets/ individual fixed_extent_scroll_controller_test.dart`
+**Script:** `widgets/fixed_extent_scroll_controller_test.dart`
+**Suite:** `secondary_classes`
+
+**Error Summary:**
+
+```
+Bad state: Transport failure while running "widgets/fixed_extent_scroll_controller_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51416
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issue #70 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 14
+
+---
+
+### Issue #72: widgets/fixed_extent_scroll_physics_test.dart
+
+**Test:** `widgets/ individual fixed_extent_scroll_physics_test.dart`
+**Script:** `widgets/fixed_extent_scroll_physics_test.dart`
+**Suite:** `secondary_classes`
+
+**Error Summary:**
+
+```
+Bad state: Transport failure while running "widgets/fixed_extent_scroll_physics_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51428
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #70-#71 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 14
+
+---
+
+### Issue #73: widgets/glowing_overscroll_indicator_test.dart
+
+**Test:** `widgets/ individual glowing_overscroll_indicator_test.dart`
+**Script:** `widgets/glowing_overscroll_indicator_test.dart`
+**Suite:** `secondary_classes`
+
+**Error Summary:**
+
+```
+Bad state: Transport failure while running "widgets/glowing_overscroll_indicator_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51454
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #70-#72 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 14
+
+---
+
+### Issue #74: widgets/html_element_view_test.dart
+
+**Test:** `widgets/ individual html_element_view_test.dart`
+**Script:** `widgets/html_element_view_test.dart`
+**Suite:** `secondary_classes`
+
+**Error Summary:**
+
+```
+Bad state: Transport failure while running "widgets/html_element_view_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51476
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #70-#73 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 14
+
+---
