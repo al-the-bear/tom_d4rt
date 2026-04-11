@@ -1,0 +1,605 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_1_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:11 +1: animation/ animation_behavior_test.dart
+[METRIC] script=animation/animation_behavior_test.dart sourceBytes=25739 sourceChars=25739 bundleJsonBytes=289166 clearMs=24 readMs=1 bundleMs=188 httpMs=473 totalMs=688 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:12 +2: animation/ animation_eager_listener_mixin_test.dart
+[METRIC] script=animation/animation_eager_listener_mixin_test.dart sourceBytes=27347 sourceChars=27346 bundleJsonBytes=335842 clearMs=4 readMs=3 bundleMs=80 httpMs=296 totalMs=384 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:13 +3: animation/ animation_lazy_listener_mixin_test.dart
+[METRIC] script=animation/animation_lazy_listener_mixin_test.dart sourceBytes=34198 sourceChars=34198 bundleJsonBytes=402284 clearMs=63 readMs=1 bundleMs=43 httpMs=285 totalMs=393 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:13 +4: animation/ animation_local_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_listeners_mixin_test.dart sourceBytes=43581 sourceChars=43550 bundleJsonBytes=432776 clearMs=66 readMs=5 bundleMs=86 httpMs=464 totalMs=622 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +5: animation/ animation_local_status_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_status_listeners_mixin_test.dart sourceBytes=45602 sourceChars=45571 bundleJsonBytes=436766 clearMs=25 readMs=6 bundleMs=77 httpMs=483 totalMs=593 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +6: animation/ animation_status_test.dart
+[METRIC] script=animation/animation_status_test.dart sourceBytes=27233 sourceChars=27233 bundleJsonBytes=343974 clearMs=26 readMs=0 bundleMs=14 httpMs=388 totalMs=429 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:15 +7: animation/ catmull_rom_curve_test.dart
+[METRIC] script=animation/catmull_rom_curve_test.dart sourceBytes=43312 sourceChars=43295 bundleJsonBytes=399464 clearMs=4 readMs=1 bundleMs=36 httpMs=438 totalMs=480 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:15 +8: animation/ catmull_rom_spline_test.dart
+[METRIC] script=animation/catmull_rom_spline_test.dart sourceBytes=44843 sourceChars=44819 bundleJsonBytes=429291 clearMs=28 readMs=1 bundleMs=27 httpMs=393 totalMs=450 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:16 +9: animation/ class_test.dart
+[METRIC] script=animation/class_test.dart sourceBytes=45240 sourceChars=45204 bundleJsonBytes=422856 clearMs=27 readMs=0 bundleMs=14 httpMs=283 totalMs=326 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:16 +10: animation/ color_tween_test.dart
+[METRIC] script=animation/color_tween_test.dart sourceBytes=42308 sourceChars=42279 bundleJsonBytes=529695 clearMs=26 readMs=0 bundleMs=43 httpMs=557 totalMs=628 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:17 +11: animation/ constant_tween_test.dart
+[METRIC] script=animation/constant_tween_test.dart sourceBytes=43636 sourceChars=43616 bundleJsonBytes=400638 clearMs=69 readMs=7 bundleMs=22 httpMs=434 totalMs=533 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:17 +12: animation/ cubic_test.dart
+[METRIC] script=animation/cubic_test.dart sourceBytes=3352 sourceChars=3352 bundleJsonBytes=49946 clearMs=25 readMs=0 bundleMs=3 httpMs=141 totalMs=171 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:17 +13: animation/ curve2_d_sample_test.dart
+[METRIC] script=animation/curve2_d_sample_test.dart sourceBytes=47860 sourceChars=47840 bundleJsonBytes=460273 clearMs=3 readMs=1 bundleMs=27 httpMs=352 totalMs=385 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +14: animation/ curve2_d_test.dart
+[METRIC] script=animation/curve2_d_test.dart sourceBytes=50456 sourceChars=40888 bundleJsonBytes=461526 clearMs=28 readMs=1 bundleMs=27 httpMs=338 totalMs=396 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:18 +15: animation/ curve_tween_test.dart
+[METRIC] script=animation/curve_tween_test.dart sourceBytes=55779 sourceChars=46097 bundleJsonBytes=511839 clearMs=3 readMs=1 bundleMs=30 httpMs=509 totalMs=545 status=success httpStatus=200 outputLines=237 frameworkErrors=0
+00:19 +16: animation/ curves_test.dart
+[METRIC] script=animation/curves_test.dart sourceBytes=3475 sourceChars=3475 bundleJsonBytes=44754 clearMs=31 readMs=0 bundleMs=13 httpMs=247 totalMs=293 status=success httpStatus=200 outputLines=70 frameworkErrors=0
+00:19 +17: animation/ elastic_in_curve_test.dart
+[METRIC] script=animation/elastic_in_curve_test.dart sourceBytes=54179 sourceChars=44327 bundleJsonBytes=493073 clearMs=3 readMs=1 bundleMs=38 httpMs=429 totalMs=472 status=success httpStatus=200 outputLines=252 frameworkErrors=0
+00:19 +18: animation/ elastic_in_out_curve_test.dart
+[METRIC] script=animation/elastic_in_out_curve_test.dart sourceBytes=56580 sourceChars=46327 bundleJsonBytes=523461 clearMs=3 readMs=1 bundleMs=38 httpMs=325 totalMs=369 status=success httpStatus=200 outputLines=243 frameworkErrors=0
+00:20 +19: animation/ elastic_out_curve_test.dart
+[METRIC] script=animation/elastic_out_curve_test.dart sourceBytes=60288 sourceChars=49513 bundleJsonBytes=554502 clearMs=3 readMs=1 bundleMs=33 httpMs=323 totalMs=363 status=success httpStatus=200 outputLines=248 frameworkErrors=0
+00:20 +20: animation/ flipped_curve_test.dart
+[METRIC] script=animation/flipped_curve_test.dart sourceBytes=55065 sourceChars=44585 bundleJsonBytes=507220 clearMs=8 readMs=1 bundleMs=29 httpMs=309 totalMs=348 status=success httpStatus=200 outputLines=236 frameworkErrors=0
+00:20 +21: animation/ int_tween_test.dart
+[METRIC] script=animation/int_tween_test.dart sourceBytes=53933 sourceChars=43827 bundleJsonBytes=496204 clearMs=3 readMs=1 bundleMs=30 httpMs=269 totalMs=304 status=success httpStatus=200 outputLines=271 frameworkErrors=0
+00:21 +22: animation/ interval_test.dart
+[METRIC] script=animation/interval_test.dart sourceBytes=48646 sourceChars=37930 bundleJsonBytes=441080 clearMs=63 readMs=1 bundleMs=27 httpMs=258 totalMs=350 status=success httpStatus=200 outputLines=250 frameworkErrors=0
+00:21 +23: animation/ parametric_curve_test.dart
+[METRIC] script=animation/parametric_curve_test.dart sourceBytes=48638 sourceChars=37481 bundleJsonBytes=435451 clearMs=31 readMs=1 bundleMs=84 httpMs=498 totalMs=615 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+00:22 +24: animation/ rect_tween_test.dart
+[METRIC] script=animation/rect_tween_test.dart sourceBytes=45969 sourceChars=35737 bundleJsonBytes=419217 clearMs=3 readMs=1 bundleMs=28 httpMs=195 totalMs=229 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:22 +25: animation/ reverse_tween_test.dart
+[METRIC] script=animation/reverse_tween_test.dart sourceBytes=45855 sourceChars=35359 bundleJsonBytes=402404 clearMs=3 readMs=1 bundleMs=30 httpMs=187 totalMs=223 status=error httpStatus=400 outputLines=126 frameworkErrors=0
+00:22 +25 -1: animation/ reverse_tween_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ReverseTween': Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 207:7      main.<fn>.<fn>
+  
+00:22 +25 -1: animation/ saw_tooth_test.dart
+[METRIC] script=animation/saw_tooth_test.dart sourceBytes=41888 sourceChars=31353 bundleJsonBytes=367373 clearMs=11 readMs=0 bundleMs=20 httpMs=1241 totalMs=1274 status=success httpStatus=200 outputLines=264 frameworkErrors=0
+00:24 +26 -1: animation/ size_tween_test.dart
+[METRIC] script=animation/size_tween_test.dart sourceBytes=45528 sourceChars=34449 bundleJsonBytes=431061 clearMs=3 readMs=1 bundleMs=23 httpMs=190 totalMs=218 status=success httpStatus=200 outputLines=233 frameworkErrors=0
+00:24 +27 -1: animation/ split_test.dart
+[METRIC] script=animation/split_test.dart sourceBytes=45157 sourceChars=34495 bundleJsonBytes=398798 clearMs=58 readMs=1 bundleMs=25 httpMs=950 totalMs=1035 status=success httpStatus=200 outputLines=216 frameworkErrors=0
+00:25 +28 -1: animation/ step_tween_test.dart
+[METRIC] script=animation/step_tween_test.dart sourceBytes=39769 sourceChars=29243 bundleJsonBytes=349769 clearMs=3 readMs=1 bundleMs=21 httpMs=244 totalMs=270 status=success httpStatus=200 outputLines=247 frameworkErrors=0
+00:25 +29 -1: animation/ three_point_cubic_test.dart
+[METRIC] script=animation/three_point_cubic_test.dart sourceBytes=43358 sourceChars=32796 bundleJsonBytes=383565 clearMs=3 readMs=1 bundleMs=21 httpMs=470 totalMs=495 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+00:26 +30 -1: animation/ threshold_test.dart
+[METRIC] script=animation/threshold_test.dart sourceBytes=43056 sourceChars=32188 bundleJsonBytes=372748 clearMs=3 readMs=1 bundleMs=24 httpMs=207 totalMs=236 status=success httpStatus=200 outputLines=246 frameworkErrors=0
+00:26 +31 -1: cupertino/ class_test.dart
+[METRIC] script=cupertino/class_test.dart sourceBytes=4774 sourceChars=4774 bundleJsonBytes=61307 clearMs=3 readMs=0 bundleMs=6 httpMs=200 totalMs=210 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+00:26 +32 -1: cupertino/ cupertino_button_size_test.dart
+[METRIC] script=cupertino/cupertino_button_size_test.dart sourceBytes=33404 sourceChars=24908 bundleJsonBytes=260669 clearMs=2 readMs=0 bundleMs=30 httpMs=197 totalMs=231 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+00:26 +33 -1: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+[METRIC] script=cupertino/cupertino_desktop_text_selection_controls_test.dart sourceBytes=3580 sourceChars=3580 bundleJsonBytes=42353 clearMs=3 readMs=0 bundleMs=3 httpMs=239 totalMs=247 status=success httpStatus=200 outputLines=20 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_desktop_text_selection_controls_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#116b6 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:27 +34 -1: cupertino/ cupertino_expansion_tile_test.dart
+[METRIC] script=cupertino/cupertino_expansion_tile_test.dart sourceBytes=3110 sourceChars=3110 bundleJsonBytes=40912 clearMs=3 readMs=0 bundleMs=3 httpMs=184 totalMs=192 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:27 +35 -1: cupertino/ cupertino_focus_halo_test.dart
+[METRIC] script=cupertino/cupertino_focus_halo_test.dart sourceBytes=3777 sourceChars=3773 bundleJsonBytes=49211 clearMs=17 readMs=0 bundleMs=3 httpMs=153 totalMs=175 status=success httpStatus=200 outputLines=16 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_focus_halo_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#ec631 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:27 +36 -1: cupertino/ cupertino_linear_activity_indicator_test.dart
+[METRIC] script=cupertino/cupertino_linear_activity_indicator_test.dart sourceBytes=4536 sourceChars=4536 bundleJsonBytes=54419 clearMs=16 readMs=0 bundleMs=3 httpMs=85 totalMs=106 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:27 +37 -1: cupertino/ cupertino_list_section_type_test.dart
+[METRIC] script=cupertino/cupertino_list_section_type_test.dart sourceBytes=32764 sourceChars=23680 bundleJsonBytes=233026 clearMs=2 readMs=0 bundleMs=12 httpMs=181 totalMs=197 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+00:27 +38 -1: cupertino/ cupertino_list_tile_chevron_test.dart
+[METRIC] script=cupertino/cupertino_list_tile_chevron_test.dart sourceBytes=3763 sourceChars=3763 bundleJsonBytes=40408 clearMs=29 readMs=0 bundleMs=1 httpMs=130 totalMs=162 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+00:27 +39 -1: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceBytes=4615 sourceChars=4615 bundleJsonBytes=54877 clearMs=33 readMs=0 bundleMs=3 httpMs=196 totalMs=234 status=success httpStatus=200 outputLines=28 frameworkErrors=11
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_text_selection_handle_controls_test.dart (11 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#b764b NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#88193 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#8256f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#3fe60 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#5f875 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:28 +40 -1: cupertino/ cupertino_thumb_painter_test.dart
+[METRIC] script=cupertino/cupertino_thumb_painter_test.dart sourceBytes=4923 sourceChars=4923 bundleJsonBytes=64824 clearMs=3 readMs=0 bundleMs=2 httpMs=68 totalMs=75 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:28 +41 -1: cupertino/ expansion_tile_transition_mode_test.dart
+[METRIC] script=cupertino/expansion_tile_transition_mode_test.dart sourceBytes=35861 sourceChars=26773 bundleJsonBytes=269064 clearMs=22 readMs=0 bundleMs=10 httpMs=135 totalMs=169 status=success httpStatus=200 outputLines=220 frameworkErrors=0
+00:28 +42 -1: cupertino/ inherited_cupertino_theme_test.dart
+[METRIC] script=cupertino/inherited_cupertino_theme_test.dart sourceBytes=4868 sourceChars=4868 bundleJsonBytes=59647 clearMs=3 readMs=1 bundleMs=4 httpMs=173 totalMs=183 status=success httpStatus=200 outputLines=30 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in cupertino/inherited_cupertino_theme_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#c1959 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:28 +43 -1: cupertino/ navigation_bar_bottom_mode_test.dart
+[METRIC] script=cupertino/navigation_bar_bottom_mode_test.dart sourceBytes=34525 sourceChars=25781 bundleJsonBytes=260163 clearMs=51 readMs=1 bundleMs=14 httpMs=151 totalMs=218 status=success httpStatus=200 outputLines=227 frameworkErrors=0
+00:28 +44 -1: cupertino/ overlay_visibility_mode_test.dart
+[METRIC] script=cupertino/overlay_visibility_mode_test.dart sourceBytes=34929 sourceChars=25651 bundleJsonBytes=271829 clearMs=3 readMs=1 bundleMs=14 httpMs=168 totalMs=187 status=success httpStatus=200 outputLines=235 frameworkErrors=7
+
+  ⚠️  FRAMEWORK ERROR in cupertino/overlay_visibility_mode_test.dart (7 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#84b8f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#453da NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#644a9 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:28 +45 -1: cupertino/ restorable_cupertino_tab_controller_test.dart
+[METRIC] script=cupertino/restorable_cupertino_tab_controller_test.dart sourceBytes=4468 sourceChars=4468 bundleJsonBytes=59275 clearMs=3 readMs=0 bundleMs=4 httpMs=158 totalMs=167 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:29 +46 -1: dart_ui/ app_exit_response_test.dart
+[METRIC] script=dart_ui/app_exit_response_test.dart sourceBytes=15441 sourceChars=13333 bundleJsonBytes=145350 clearMs=28 readMs=0 bundleMs=22 httpMs=145 totalMs=197 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:29 +47 -1: dart_ui/ app_exit_type_test.dart
+[METRIC] script=dart_ui/app_exit_type_test.dart sourceBytes=13867 sourceChars=13825 bundleJsonBytes=162341 clearMs=3 readMs=0 bundleMs=9 httpMs=125 totalMs=139 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:29 +48 -1: dart_ui/ app_lifecycle_state_test.dart
+[METRIC] script=dart_ui/app_lifecycle_state_test.dart sourceBytes=17400 sourceChars=14958 bundleJsonBytes=151860 clearMs=2 readMs=1 bundleMs=10 httpMs=198 totalMs=213 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:29 +49 -1: dart_ui/ backdrop_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/backdrop_filter_engine_layer_test.dart sourceBytes=15489 sourceChars=15157 bundleJsonBytes=170710 clearMs=3 readMs=0 bundleMs=9 httpMs=193 totalMs=206 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:29 +50 -1: dart_ui/ blend_mode_test.dart
+[METRIC] script=dart_ui/blend_mode_test.dart sourceBytes=17962 sourceChars=14160 bundleJsonBytes=144568 clearMs=2 readMs=0 bundleMs=8 httpMs=264 totalMs=277 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +51 -1: dart_ui/ blur_style_test.dart
+[METRIC] script=dart_ui/blur_style_test.dart sourceBytes=17414 sourceChars=15013 bundleJsonBytes=171599 clearMs=3 readMs=1 bundleMs=10 httpMs=185 totalMs=200 status=success httpStatus=200 outputLines=0 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/blur_style_test.dart (4 error(s)):
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+00:30 +52 -1: dart_ui/ box_height_style_test.dart
+[METRIC] script=dart_ui/box_height_style_test.dart sourceBytes=23095 sourceChars=19491 bundleJsonBytes=214346 clearMs=9 readMs=1 bundleMs=13 httpMs=256 totalMs=279 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+00:30 +53 -1: dart_ui/ box_width_style_test.dart
+[METRIC] script=dart_ui/box_width_style_test.dart sourceBytes=18873 sourceChars=14371 bundleJsonBytes=135546 clearMs=27 readMs=0 bundleMs=14 httpMs=103 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +54 -1: dart_ui/ callback_handle_test.dart
+[METRIC] script=dart_ui/callback_handle_test.dart sourceBytes=9650 sourceChars=9646 bundleJsonBytes=116653 clearMs=24 readMs=0 bundleMs=8 httpMs=110 totalMs=145 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +55 -1: dart_ui/ channel_buffers_test.dart
+[METRIC] script=dart_ui/channel_buffers_test.dart sourceBytes=17810 sourceChars=13306 bundleJsonBytes=129171 clearMs=3 readMs=0 bundleMs=11 httpMs=145 totalMs=161 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:31 +56 -1: dart_ui/ checked_state_test.dart
+[METRIC] script=dart_ui/checked_state_test.dart sourceBytes=23531 sourceChars=20205 bundleJsonBytes=231428 clearMs=5 readMs=0 bundleMs=12 httpMs=203 totalMs=222 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+00:31 +57 -1: dart_ui/ class_test.dart
+[METRIC] script=dart_ui/class_test.dart sourceBytes=19285 sourceChars=14773 bundleJsonBytes=135569 clearMs=3 readMs=0 bundleMs=23 httpMs=169 totalMs=196 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:31 +58 -1: dart_ui/ clip_op_test.dart
+[METRIC] script=dart_ui/clip_op_test.dart sourceBytes=23005 sourceChars=19371 bundleJsonBytes=200353 clearMs=4 readMs=1 bundleMs=14 httpMs=152 totalMs=172 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:31 +59 -1: dart_ui/ clip_path_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_path_engine_layer_test.dart sourceBytes=7849 sourceChars=7807 bundleJsonBytes=99855 clearMs=3 readMs=0 bundleMs=6 httpMs=136 totalMs=147 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:31 +60 -1: dart_ui/ clip_r_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_rect_engine_layer_test.dart sourceBytes=8984 sourceChars=8956 bundleJsonBytes=115475 clearMs=22 readMs=0 bundleMs=7 httpMs=130 totalMs=161 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:32 +61 -1: dart_ui/ clip_r_superellipse_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_superellipse_engine_layer_test.dart sourceBytes=31132 sourceChars=31132 bundleJsonBytes=444348 clearMs=21 readMs=0 bundleMs=42 httpMs=796 totalMs=861 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:32 +62 -1: dart_ui/ clip_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_rect_engine_layer_test.dart sourceBytes=26309 sourceChars=26309 bundleJsonBytes=380913 clearMs=3 readMs=0 bundleMs=26 httpMs=505 totalMs=536 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:33 +63 -1: dart_ui/ clip_test.dart
+[METRIC] script=dart_ui/clip_test.dart sourceBytes=44324 sourceChars=44242 bundleJsonBytes=420394 clearMs=26 readMs=1 bundleMs=29 httpMs=415 totalMs=472 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:33 +64 -1: dart_ui/ color_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/color_filter_engine_layer_test.dart sourceBytes=25136 sourceChars=23430 bundleJsonBytes=257958 clearMs=71 readMs=0 bundleMs=17 httpMs=172 totalMs=262 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+00:34 +65 -1: dart_ui/ color_space_test.dart
+[METRIC] script=dart_ui/color_space_test.dart sourceBytes=27016 sourceChars=25306 bundleJsonBytes=260415 clearMs=35 readMs=1 bundleMs=16 httpMs=106 totalMs=159 status=error httpStatus=400 outputLines=88 frameworkErrors=0
+00:34 +65 -2: dart_ui/ color_space_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Unsupported target for indexing: null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 484:7      main.<fn>.<fn>
+  
+00:34 +65 -2: dart_ui/ dart_performance_mode_test.dart
+[METRIC] script=dart_ui/dart_performance_mode_test.dart sourceBytes=24591 sourceChars=22889 bundleJsonBytes=255690 clearMs=40 readMs=0 bundleMs=16 httpMs=225 totalMs=282 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:34 +66 -2: dart_ui/ dart_plugin_registrant_test.dart
+[METRIC] script=dart_ui/dart_plugin_registrant_test.dart sourceBytes=26740 sourceChars=25342 bundleJsonBytes=240593 clearMs=2 readMs=0 bundleMs=10 httpMs=180 totalMs=195 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:34 +67 -2: dart_ui/ display_feature_state_test.dart
+[METRIC] script=dart_ui/display_feature_state_test.dart sourceBytes=29786 sourceChars=27353 bundleJsonBytes=297186 clearMs=2 readMs=1 bundleMs=20 httpMs=216 totalMs=240 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:35 +68 -2: dart_ui/ display_feature_type_test.dart
+[METRIC] script=dart_ui/display_feature_type_test.dart sourceBytes=32899 sourceChars=30764 bundleJsonBytes=340238 clearMs=3 readMs=0 bundleMs=18 httpMs=281 totalMs=304 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:35 +69 -2: dart_ui/ engine_layer_test.dart
+[METRIC] script=dart_ui/engine_layer_test.dart sourceBytes=25242 sourceChars=23415 bundleJsonBytes=245098 clearMs=3 readMs=1 bundleMs=16 httpMs=211 totalMs=233 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:35 +70 -2: dart_ui/ filter_quality_test.dart
+[METRIC] script=dart_ui/filter_quality_test.dart sourceBytes=24934 sourceChars=23236 bundleJsonBytes=264968 clearMs=3 readMs=0 bundleMs=14 httpMs=255 totalMs=273 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:35 +71 -2: dart_ui/ font_style_test.dart
+[METRIC] script=dart_ui/font_style_test.dart sourceBytes=27919 sourceChars=25784 bundleJsonBytes=266241 clearMs=3 readMs=1 bundleMs=18 httpMs=210 totalMs=232 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:36 +72 -2: dart_ui/ fragment_program_test.dart
+[METRIC] script=dart_ui/fragment_program_test.dart sourceBytes=26475 sourceChars=24767 bundleJsonBytes=241988 clearMs=3 readMs=0 bundleMs=12 httpMs=255 totalMs=272 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:36 +73 -2: dart_ui/ fragment_shader_test.dart
+[METRIC] script=dart_ui/fragment_shader_test.dart sourceBytes=29402 sourceChars=27260 bundleJsonBytes=281947 clearMs=2 readMs=1 bundleMs=14 httpMs=268 totalMs=286 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+00:36 +74 -2: dart_ui/ frame_phase_test.dart
+[METRIC] script=dart_ui/frame_phase_test.dart sourceBytes=32315 sourceChars=30771 bundleJsonBytes=308793 clearMs=24 readMs=0 bundleMs=16 httpMs=188 totalMs=230 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:36 +75 -2: dart_ui/ image_byte_format_test.dart
+[METRIC] script=dart_ui/image_byte_format_test.dart sourceBytes=40437 sourceChars=39819 bundleJsonBytes=475731 clearMs=3 readMs=0 bundleMs=23 httpMs=405 totalMs=433 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:37 +76 -2: dart_ui/ image_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/image_filter_engine_layer_test.dart sourceBytes=24245 sourceChars=24245 bundleJsonBytes=343962 clearMs=29 readMs=0 bundleMs=21 httpMs=630 totalMs=681 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:38 +77 -2: dart_ui/ image_sampler_slot_test.dart
+[METRIC] script=dart_ui/image_sampler_slot_test.dart sourceBytes=28815 sourceChars=28815 bundleJsonBytes=452088 clearMs=3 readMs=0 bundleMs=46 httpMs=1155 totalMs=1206 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:39 +78 -2: dart_ui/ isolate_name_server_test.dart
+[METRIC] script=dart_ui/isolate_name_server_test.dart sourceBytes=27880 sourceChars=27880 bundleJsonBytes=448618 clearMs=3 readMs=1 bundleMs=26 httpMs=623 totalMs=654 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:39 +79 -2: dart_ui/ key_event_device_type_test.dart
+[METRIC] script=dart_ui/key_event_device_type_test.dart sourceBytes=38576 sourceChars=38576 bundleJsonBytes=603847 clearMs=3 readMs=0 bundleMs=34 httpMs=339 totalMs=377 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:40 +80 -2: dart_ui/ key_event_type_test.dart
+[METRIC] script=dart_ui/key_event_type_test.dart sourceBytes=36897 sourceChars=36897 bundleJsonBytes=612822 clearMs=2 readMs=0 bundleMs=41 httpMs=223 totalMs=267 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/key_event_type_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'label' on bridged instance of 'Key'.
+00:40 +81 -2: dart_ui/ offset_engine_layer_test.dart
+[METRIC] script=dart_ui/offset_engine_layer_test.dart sourceBytes=39808 sourceChars=37068 bundleJsonBytes=472460 clearMs=2 readMs=1 bundleMs=25 httpMs=1227 totalMs=1256 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:41 +82 -2: dart_ui/ opacity_engine_layer_test.dart
+[METRIC] script=dart_ui/opacity_engine_layer_test.dart sourceBytes=37603 sourceChars=35462 bundleJsonBytes=465112 clearMs=3 readMs=1 bundleMs=25 httpMs=11345 totalMs=11374 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+00:53 +83 -2: dart_ui/ painting_style_test.dart
+[METRIC] script=dart_ui/painting_style_test.dart sourceBytes=37855 sourceChars=37799 bundleJsonBytes=539217 clearMs=5 readMs=1 bundleMs=29 httpMs=377 totalMs=413 status=success httpStatus=200 outputLines=64 frameworkErrors=0
+00:53 +84 -2: dart_ui/ path_fill_type_test.dart
+[METRIC] script=dart_ui/path_fill_type_test.dart sourceBytes=35815 sourceChars=35773 bundleJsonBytes=403544 clearMs=2 readMs=1 bundleMs=44 httpMs=344 totalMs=392 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:54 +85 -2: dart_ui/ path_operation_test.dart
+[METRIC] script=dart_ui/path_operation_test.dart sourceBytes=38714 sourceChars=38648 bundleJsonBytes=423847 clearMs=4 readMs=0 bundleMs=34 httpMs=472 totalMs=511 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:54 +86 -2: dart_ui/ picture_rasterization_exception_test.dart
+[METRIC] script=dart_ui/picture_rasterization_exception_test.dart sourceBytes=31224 sourceChars=31224 bundleJsonBytes=552758 clearMs=2 readMs=1 bundleMs=52 httpMs=221 totalMs=277 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:54 +87 -2: dart_ui/ pixel_format_test.dart
+[METRIC] script=dart_ui/pixel_format_test.dart sourceBytes=30018 sourceChars=28804 bundleJsonBytes=376247 clearMs=2 readMs=1 bundleMs=29 httpMs=261 totalMs=294 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:55 +88 -2: dart_ui/ placeholder_alignment_test.dart
+[METRIC] script=dart_ui/placeholder_alignment_test.dart sourceBytes=33296 sourceChars=32094 bundleJsonBytes=391145 clearMs=72 readMs=0 bundleMs=13 httpMs=116 totalMs=202 status=error httpStatus=400 outputLines=118 frameworkErrors=0
+00:55 +88 -3: dart_ui/ placeholder_alignment_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed assertion: line 83 pos 9: 'baseline != null ||
+              !(identical(alignment, ui.PlaceholderAlignment.aboveBaseline) ||
+                  identical(alignment, ui.PlaceholderAlignment.belowBaseline) ||
+                  identical(alignment, ui.PlaceholderAlignment.baseline))': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 648:7      main.<fn>.<fn>
+  
+00:55 +88 -3: dart_ui/ plugin_utilities_test.dart
+[METRIC] script=dart_ui/plugin_utilities_test.dart sourceBytes=29205 sourceChars=29205 bundleJsonBytes=461544 clearMs=2 readMs=0 bundleMs=25 httpMs=193 totalMs=223 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:55 +89 -3: dart_ui/ point_mode_test.dart
+00:55 +89 -4: dart_ui/ point_mode_test.dart [E]
+  type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:71  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 618:35   AstConverter._convertForStatement
+  package:tom_ast_generator/src/converter/ast_converter.dart 87:47    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 561:19   AstConverter._convertBlock
+  package:tom_ast_generator/src/converter/ast_converter.dart 78:40    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 1419:14  AstConverter._convertBlockFunctionBody
+  package:tom_ast_generator/src/converter/ast_converter.dart 189:14   AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:57  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 382:13   AstConverter._convertMethodDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 52:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 402:16   AstConverter._convertClassDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 54:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 28:25    AstConverter.convertCompilationUnit
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 497:23       AstBundler._parseSourceCode
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 220:22       AstBundler.createFromSource
+  package:tom_d4rt_exec/src/d4rt_base.dart 1045:20                    D4rt.createBundleFromSource
+  test/send_test_runner.dart 692:41                                   SendTestRunner.send
+  
+00:55 +89 -4: dart_ui/ pointer_change_test.dart
+[METRIC] script=dart_ui/pointer_change_test.dart sourceBytes=42089 sourceChars=41487 bundleJsonBytes=482476 clearMs=16 readMs=1 bundleMs=60 httpMs=499 totalMs=577 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+00:56 +90 -4: dart_ui/ pointer_device_kind_test.dart
+[METRIC] script=dart_ui/pointer_device_kind_test.dart sourceBytes=31835 sourceChars=31233 bundleJsonBytes=357507 clearMs=64 readMs=1 bundleMs=25 httpMs=387 totalMs=480 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:56 +91 -4: dart_ui/ pointer_signal_kind_test.dart
+[METRIC] script=dart_ui/pointer_signal_kind_test.dart sourceBytes=36378 sourceChars=35774 bundleJsonBytes=413055 clearMs=29 readMs=0 bundleMs=20 httpMs=398 totalMs=449 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:57 +92 -4: dart_ui/ root_isolate_token_test.dart
+[METRIC] script=dart_ui/root_isolate_token_test.dart sourceBytes=2853 sourceChars=2853 bundleJsonBytes=36066 clearMs=6 readMs=0 bundleMs=3 httpMs=81 totalMs=92 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+00:57 +93 -4: dart_ui/ semantics_hit_test_behavior_test.dart
+[METRIC] script=dart_ui/semantics_hit_test_behavior_test.dart sourceBytes=28358 sourceChars=26236 bundleJsonBytes=330287 clearMs=3 readMs=1 bundleMs=22 httpMs=212 totalMs=239 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:57 +94 -4: dart_ui/ semantics_input_type_test.dart
+[METRIC] script=dart_ui/semantics_input_type_test.dart sourceBytes=34714 sourceChars=32582 bundleJsonBytes=392517 clearMs=3 readMs=1 bundleMs=21 httpMs=332 totalMs=358 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:57 +95 -4: dart_ui/ semantics_role_test.dart
+[METRIC] script=dart_ui/semantics_role_test.dart sourceBytes=33883 sourceChars=31727 bundleJsonBytes=377294 clearMs=2 readMs=1 bundleMs=24 httpMs=636 totalMs=664 status=success httpStatus=200 outputLines=82 frameworkErrors=0
+00:58 +96 -4: dart_ui/ semantics_validation_result_test.dart
+[METRIC] script=dart_ui/semantics_validation_result_test.dart sourceBytes=34746 sourceChars=32612 bundleJsonBytes=387513 clearMs=2 readMs=1 bundleMs=22 httpMs=281 totalMs=307 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:58 +97 -4: dart_ui/ shader_mask_engine_layer_test.dart
+[METRIC] script=dart_ui/shader_mask_engine_layer_test.dart sourceBytes=1177 sourceChars=1177 bundleJsonBytes=18844 clearMs=2 readMs=0 bundleMs=2 httpMs=66 totalMs=72 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+00:58 +98 -4: dart_ui/ singleton_flutter_window_test.dart
+[METRIC] script=dart_ui/singleton_flutter_window_test.dart sourceBytes=40041 sourceChars=40041 bundleJsonBytes=569845 clearMs=21 readMs=0 bundleMs=34 httpMs=361 totalMs=417 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+00:59 +99 -4: dart_ui/ stroke_cap_test.dart
+[METRIC] script=dart_ui/stroke_cap_test.dart sourceBytes=45922 sourceChars=45872 bundleJsonBytes=554426 clearMs=2 readMs=1 bundleMs=28 httpMs=346 totalMs=379 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+00:59 +100 -4: dart_ui/ stroke_join_test.dart
+[METRIC] script=dart_ui/stroke_join_test.dart sourceBytes=46947 sourceChars=43027 bundleJsonBytes=510698 clearMs=2 readMs=1 bundleMs=28 httpMs=262 totalMs=294 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+01:00 +101 -4: dart_ui/ system_color_palette_test.dart
+[METRIC] script=dart_ui/system_color_palette_test.dart sourceBytes=30183 sourceChars=28055 bundleJsonBytes=358273 clearMs=53 readMs=0 bundleMs=15 httpMs=64 totalMs=134 status=error httpStatus=400 outputLines=47 frameworkErrors=0
+01:00 +101 -5: dart_ui/ system_color_palette_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Unsupported operation: SystemColor not supported on the current platform.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 747:7      main.<fn>.<fn>
+  
+01:00 +101 -5: dart_ui/ target_pixel_format_test.dart
+[METRIC] script=dart_ui/target_pixel_format_test.dart sourceBytes=32557 sourceChars=30410 bundleJsonBytes=371588 clearMs=4 readMs=1 bundleMs=21 httpMs=259 totalMs=286 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+01:00 +102 -5: dart_ui/ text_affinity_test.dart
+[METRIC] script=dart_ui/text_affinity_test.dart sourceBytes=36547 sourceChars=34412 bundleJsonBytes=431780 clearMs=3 readMs=1 bundleMs=22 httpMs=306 totalMs=333 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+01:00 +103 -5: dart_ui/ text_align_test.dart
+[METRIC] script=dart_ui/text_align_test.dart sourceBytes=40407 sourceChars=36769 bundleJsonBytes=416187 clearMs=4 readMs=1 bundleMs=20 httpMs=338 totalMs=365 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+01:01 +104 -5: dart_ui/ text_baseline_test.dart
+[METRIC] script=dart_ui/text_baseline_test.dart sourceBytes=33790 sourceChars=31968 bundleJsonBytes=397608 clearMs=2 readMs=1 bundleMs=22 httpMs=249 totalMs=275 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+01:01 +105 -5: dart_ui/ text_decoration_style_test.dart
+[METRIC] script=dart_ui/text_decoration_style_test.dart sourceBytes=28809 sourceChars=27581 bundleJsonBytes=333038 clearMs=3 readMs=1 bundleMs=16 httpMs=302 totalMs=323 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+01:01 +106 -5: dart_ui/ text_direction_test.dart
+[METRIC] script=dart_ui/text_direction_test.dart sourceBytes=42363 sourceChars=38400 bundleJsonBytes=451567 clearMs=55 readMs=1 bundleMs=23 httpMs=297 totalMs=377 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+01:02 +107 -5: dart_ui/ text_leading_distribution_test.dart
+[METRIC] script=dart_ui/text_leading_distribution_test.dart sourceBytes=34870 sourceChars=33667 bundleJsonBytes=382478 clearMs=31 readMs=0 bundleMs=18 httpMs=272 totalMs=323 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:02 +108 -5: dart_ui/ tile_mode_test.dart
+[METRIC] script=dart_ui/tile_mode_test.dart sourceBytes=44793 sourceChars=40869 bundleJsonBytes=474371 clearMs=3 readMs=1 bundleMs=25 httpMs=1168 totalMs=1198 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+01:03 +109 -5: dart_ui/ transform_engine_layer_test.dart
+[METRIC] script=dart_ui/transform_engine_layer_test.dart sourceBytes=1123 sourceChars=1123 bundleJsonBytes=14937 clearMs=3 readMs=0 bundleMs=1 httpMs=114 totalMs=121 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:03 +110 -5: dart_ui/ tristate_test.dart
+[METRIC] script=dart_ui/tristate_test.dart sourceBytes=28733 sourceChars=27519 bundleJsonBytes=370442 clearMs=3 readMs=1 bundleMs=17 httpMs=307 totalMs=329 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+01:04 +111 -5: dart_ui/ uniform_float_slot_test.dart
+[METRIC] script=dart_ui/uniform_float_slot_test.dart sourceBytes=2247 sourceChars=2245 bundleJsonBytes=22290 clearMs=29 readMs=0 bundleMs=1 httpMs=92 totalMs=124 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:04 +112 -5: dart_ui/ uniform_vec2_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec2_slot_test.dart sourceBytes=2322 sourceChars=2316 bundleJsonBytes=23989 clearMs=26 readMs=0 bundleMs=1 httpMs=84 totalMs=113 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+01:04 +113 -5: dart_ui/ uniform_vec3_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec3_slot_test.dart sourceBytes=2444 sourceChars=2436 bundleJsonBytes=25351 clearMs=24 readMs=0 bundleMs=2 httpMs=96 totalMs=123 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:04 +114 -5: dart_ui/ uniform_vec4_slot_test.dart
+[METRIC] script=dart_ui/uniform_vec4_slot_test.dart sourceBytes=2681 sourceChars=2673 bundleJsonBytes=27785 clearMs=3 readMs=0 bundleMs=3 httpMs=122 totalMs=129 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:04 +115 -5: dart_ui/ vertex_mode_test.dart
+[METRIC] script=dart_ui/vertex_mode_test.dart sourceBytes=39222 sourceChars=39192 bundleJsonBytes=479272 clearMs=4 readMs=1 bundleMs=25 httpMs=623 totalMs=654 status=success httpStatus=200 outputLines=22 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/vertex_mode_test.dart (3 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+01:05 +116 -5: dart_ui/ view_focus_direction_test.dart
+[METRIC] script=dart_ui/view_focus_direction_test.dart sourceBytes=35548 sourceChars=34942 bundleJsonBytes=417399 clearMs=68 readMs=0 bundleMs=22 httpMs=301 totalMs=393 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:05 +117 -5: dart_ui/ view_focus_state_test.dart
+[METRIC] script=dart_ui/view_focus_state_test.dart sourceBytes=42177 sourceChars=41573 bundleJsonBytes=478656 clearMs=74 readMs=0 bundleMs=21 httpMs=318 totalMs=415 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:06 +118 -5: foundation/ abstract_node_test.dart
+[METRIC] script=foundation/abstract_node_test.dart sourceBytes=3705 sourceChars=3697 bundleJsonBytes=45618 clearMs=3 readMs=1 bundleMs=4 httpMs=104 totalMs=113 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +119 -5: foundation/ caching_iterable_test.dart
+[METRIC] script=foundation/caching_iterable_test.dart sourceBytes=3825 sourceChars=3819 bundleJsonBytes=48982 clearMs=4 readMs=0 bundleMs=3 httpMs=87 totalMs=96 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +120 -5: foundation/ category_test.dart
+[METRIC] script=foundation/category_test.dart sourceBytes=3712 sourceChars=3712 bundleJsonBytes=47261 clearMs=22 readMs=0 bundleMs=3 httpMs=152 totalMs=179 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +121 -5: foundation/ class_test.dart
+[METRIC] script=foundation/class_test.dart sourceBytes=4268 sourceChars=4268 bundleJsonBytes=61785 clearMs=3 readMs=1 bundleMs=5 httpMs=76 totalMs=87 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +122 -5: foundation/ diagnostic_level_test.dart
+[METRIC] script=foundation/diagnostic_level_test.dart sourceBytes=28431 sourceChars=28423 bundleJsonBytes=370994 clearMs=50 readMs=0 bundleMs=17 httpMs=1027 totalMs=1096 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+01:07 +123 -5: foundation/ diagnosticable_node_test.dart
+[METRIC] script=foundation/diagnosticable_node_test.dart sourceBytes=3712 sourceChars=3706 bundleJsonBytes=45510 clearMs=68 readMs=0 bundleMs=3 httpMs=106 totalMs=179 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:07 +124 -5: foundation/ diagnosticable_test.dart
+[METRIC] script=foundation/diagnosticable_test.dart sourceBytes=3656 sourceChars=3656 bundleJsonBytes=46585 clearMs=28 readMs=0 bundleMs=3 httpMs=101 totalMs=134 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +125 -5: foundation/ diagnosticable_tree_mixin_test.dart
+[METRIC] script=foundation/diagnosticable_tree_mixin_test.dart sourceBytes=3420 sourceChars=3412 bundleJsonBytes=49303 clearMs=3 readMs=1 bundleMs=5 httpMs=65 totalMs=75 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+01:08 +126 -5: foundation/ diagnosticable_tree_node_test.dart
+[METRIC] script=foundation/diagnosticable_tree_node_test.dart sourceBytes=3916 sourceChars=3910 bundleJsonBytes=54258 clearMs=2 readMs=1 bundleMs=4 httpMs=72 totalMs=80 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +127 -5: foundation/ diagnosticable_tree_test.dart
+[METRIC] script=foundation/diagnosticable_tree_test.dart sourceBytes=3604 sourceChars=3604 bundleJsonBytes=45587 clearMs=2 readMs=0 bundleMs=3 httpMs=69 totalMs=76 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+01:08 +128 -5: foundation/ diagnostics_block_test.dart
+[METRIC] script=foundation/diagnostics_block_test.dart sourceBytes=3466 sourceChars=3466 bundleJsonBytes=44734 clearMs=3 readMs=1 bundleMs=4 httpMs=90 totalMs=98 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +129 -5: foundation/ diagnostics_property_test.dart
+[METRIC] script=foundation/diagnostics_property_test.dart sourceBytes=1310 sourceChars=1310 bundleJsonBytes=21696 clearMs=3 readMs=0 bundleMs=3 httpMs=235 totalMs=243 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:08 +130 -5: foundation/ diagnostics_serialization_delegate_test.dart
+[METRIC] script=foundation/diagnostics_serialization_delegate_test.dart sourceBytes=3869 sourceChars=3861 bundleJsonBytes=48342 clearMs=3 readMs=0 bundleMs=3 httpMs=78 totalMs=86 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +131 -5: foundation/ diagnostics_stack_trace_test.dart
+[METRIC] script=foundation/diagnostics_stack_trace_test.dart sourceBytes=3765 sourceChars=3765 bundleJsonBytes=52936 clearMs=3 readMs=1 bundleMs=4 httpMs=127 totalMs=135 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+01:08 +132 -5: foundation/ diagnostics_tree_style_test.dart
+[METRIC] script=foundation/diagnostics_tree_style_test.dart sourceBytes=1118 sourceChars=1118 bundleJsonBytes=15342 clearMs=42 readMs=0 bundleMs=1 httpMs=91 totalMs=135 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+01:09 +133 -5: foundation/ documentation_icon_test.dart
+[METRIC] script=foundation/documentation_icon_test.dart sourceBytes=3153 sourceChars=3153 bundleJsonBytes=44123 clearMs=2 readMs=0 bundleMs=3 httpMs=71 totalMs=78 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+01:09 +134 -5: foundation/ double_property_test.dart
+[METRIC] script=foundation/double_property_test.dart sourceBytes=1212 sourceChars=1212 bundleJsonBytes=20444 clearMs=3 readMs=0 bundleMs=2 httpMs=44 totalMs=50 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:09 +135 -5: foundation/ enum_property_test.dart
+[METRIC] script=foundation/enum_property_test.dart sourceBytes=1193 sourceChars=1193 bundleJsonBytes=20508 clearMs=17 readMs=0 bundleMs=1 httpMs=69 totalMs=88 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:09 +136 -5: foundation/ error_spacer_test.dart
+[METRIC] script=foundation/error_spacer_test.dart sourceBytes=2014 sourceChars=2014 bundleJsonBytes=26796 clearMs=3 readMs=0 bundleMs=2 httpMs=59 totalMs=65 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+01:09 +137 -5: foundation/ factory_test.dart
+[METRIC] script=foundation/factory_test.dart sourceBytes=35671 sourceChars=35665 bundleJsonBytes=514277 clearMs=2 readMs=1 bundleMs=46 httpMs=303 totalMs=354 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+01:09 +138 -5: foundation/ flag_property_test.dart
+[METRIC] script=foundation/flag_property_test.dart sourceBytes=1172 sourceChars=1172 bundleJsonBytes=19162 clearMs=3 readMs=0 bundleMs=2 httpMs=121 totalMs=128 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:09 +139 -5: foundation/ flags_summary_test.dart
+[METRIC] script=foundation/flags_summary_test.dart sourceBytes=34070 sourceChars=34060 bundleJsonBytes=493736 clearMs=3 readMs=1 bundleMs=24 httpMs=447 totalMs=475 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+01:10 +140 -5: foundation/ flutter_memory_allocations_test.dart
+[METRIC] script=foundation/flutter_memory_allocations_test.dart sourceBytes=1036 sourceChars=1036 bundleJsonBytes=13488 clearMs=3 readMs=1 bundleMs=2 httpMs=136 totalMs=143 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:10 +141 -5: foundation/ foundation_service_extensions_test.dart
+[METRIC] script=foundation/foundation_service_extensions_test.dart sourceBytes=1202 sourceChars=1202 bundleJsonBytes=15427 clearMs=3 readMs=1 bundleMs=2 httpMs=73 totalMs=80 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+01:10 +142 -5: foundation/ int_property_test.dart
+[METRIC] script=foundation/int_property_test.dart sourceBytes=3880 sourceChars=3880 bundleJsonBytes=59957 clearMs=2 readMs=0 bundleMs=4 httpMs=118 totalMs=127 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+01:10 +143 -5: foundation/ iterable_property_test.dart
+[METRIC] script=foundation/iterable_property_test.dart sourceBytes=1145 sourceChars=1145 bundleJsonBytes=19626 clearMs=3 readMs=1 bundleMs=3 httpMs=185 totalMs=193 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:10 +144 -5: foundation/ message_property_test.dart
+[METRIC] script=foundation/message_property_test.dart sourceBytes=3499 sourceChars=3499 bundleJsonBytes=42892 clearMs=6 readMs=0 bundleMs=3 httpMs=114 totalMs=125 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+01:10 +145 -5: foundation/ object_created_test.dart
+[METRIC] script=foundation/object_created_test.dart sourceBytes=4072 sourceChars=4072 bundleJsonBytes=58802 clearMs=46 readMs=0 bundleMs=4 httpMs=63 totalMs=115 status=error httpStatus=400 outputLines=38 frameworkErrors=0
+01:11 +145 -6: foundation/ object_created_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1053:7     main.<fn>.<fn>
+  
+01:11 +145 -6: foundation/ object_disposed_test.dart
+[METRIC] script=foundation/object_disposed_test.dart sourceBytes=2348 sourceChars=2348 bundleJsonBytes=29098 clearMs=35 readMs=0 bundleMs=2 httpMs=52 totalMs=90 status=error httpStatus=400 outputLines=37 frameworkErrors=0
+01:11 +145 -7: foundation/ object_disposed_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1060:7     main.<fn>.<fn>
+  
+01:11 +145 -7: foundation/ object_event_test.dart
+[METRIC] script=foundation/object_event_test.dart sourceBytes=1181 sourceChars=1181 bundleJsonBytes=14022 clearMs=41 readMs=0 bundleMs=1 httpMs=140 totalMs=183 status=error httpStatus=400 outputLines=37 frameworkErrors=0
+01:11 +145 -8: foundation/ object_event_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1067:7     main.<fn>.<fn>
+  
+01:11 +145 -8: foundation/ object_flag_property_test.dart
+[METRIC] script=foundation/object_flag_property_test.dart sourceBytes=4071 sourceChars=4071 bundleJsonBytes=61628 clearMs=23 readMs=0 bundleMs=4 httpMs=290 totalMs=319 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+01:11 +146 -8: foundation/ percent_property_test.dart
+[METRIC] script=foundation/percent_property_test.dart sourceBytes=1022 sourceChars=1022 bundleJsonBytes=16525 clearMs=3 readMs=0 bundleMs=2 httpMs=106 totalMs=112 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:11 +147 -8: foundation/ string_property_test.dart
+[METRIC] script=foundation/string_property_test.dart sourceBytes=1054 sourceChars=1054 bundleJsonBytes=16686 clearMs=3 readMs=0 bundleMs=2 httpMs=60 totalMs=66 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:11 +148 -8: foundation/ summary_test.dart
+[METRIC] script=foundation/summary_test.dart sourceBytes=3421 sourceChars=3421 bundleJsonBytes=46694 clearMs=2 readMs=0 bundleMs=3 httpMs=122 totalMs=129 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+01:12 +149 -8: foundation/ target_platform_test.dart
+[METRIC] script=foundation/target_platform_test.dart sourceBytes=21328 sourceChars=20070 bundleJsonBytes=295569 clearMs=2 readMs=0 bundleMs=20 httpMs=369 totalMs=394 status=error httpStatus=400 outputLines=138 frameworkErrors=0
+01:12 +149 -9: foundation/ target_platform_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1100:7     main.<fn>.<fn>
+  
+01:12 +149 -9: foundation/ text_tree_configuration_test.dart
+[METRIC] script=foundation/text_tree_configuration_test.dart sourceBytes=3819 sourceChars=3783 bundleJsonBytes=45463 clearMs=2 readMs=0 bundleMs=3 httpMs=138 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:12 +150 -9: foundation/ text_tree_renderer_test.dart
+[METRIC] script=foundation/text_tree_renderer_test.dart sourceBytes=1303 sourceChars=1303 bundleJsonBytes=17635 clearMs=2 readMs=0 bundleMs=1 httpMs=103 totalMs=109 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:12 +151 -9: gestures/ base_tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/base_tap_gesture_recognizer_test.dart sourceBytes=2069 sourceChars=2069 bundleJsonBytes=26150 clearMs=27 readMs=0 bundleMs=1 httpMs=91 totalMs=121 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+01:12 +152 -9: gestures/ class_test.dart
+[METRIC] script=gestures/class_test.dart sourceBytes=20016 sourceChars=18734 bundleJsonBytes=290580 clearMs=50 readMs=0 bundleMs=14 httpMs=74 totalMs=140 status=error httpStatus=400 outputLines=52 frameworkErrors=0
+01:12 +152 -10: gestures/ class_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Failed assertion: line 217 pos 10: 'primaryVelocity == null ||
+               (primaryVelocity == velocity.pixelsPerSecond.dx && velocity.pixelsPerSecond.dy == 0) ||
+               (primaryVelocity == velocity.pixelsPerSecond.dy && velocity.pixelsPerSecond.dx == 0)': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1131:7     main.<fn>.<fn>
+  
+01:12 +152 -10: gestures/ drag_down_details_test.dart
+[METRIC] script=gestures/drag_down_details_test.dart sourceBytes=943 sourceChars=943 bundleJsonBytes=15111 clearMs=3 readMs=0 bundleMs=1 httpMs=79 totalMs=85 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:13 +153 -10: gestures/ drag_start_behavior_test.dart
+[METRIC] script=gestures/drag_start_behavior_test.dart sourceBytes=1072 sourceChars=1072 bundleJsonBytes=15304 clearMs=25 readMs=0 bundleMs=1 httpMs=78 totalMs=105 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:13 +154 -10: gestures/ drag_start_details_test.dart
+[METRIC] script=gestures/drag_start_details_test.dart sourceBytes=1100 sourceChars=1100 bundleJsonBytes=17127 clearMs=2 readMs=0 bundleMs=2 httpMs=116 totalMs=121 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:13 +155 -10: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart
+[METRIC] script=gestures/flutter_error_details_for_pointer_event_dispatcher_test.dart sourceBytes=1113 sourceChars=1113 bundleJsonBytes=14585 clearMs=2 readMs=0 bundleMs=2 httpMs=68 totalMs=74 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:13 +156 -10: gestures/ gesture_disposition_test.dart
+[METRIC] script=gestures/gesture_disposition_test.dart sourceBytes=1054 sourceChars=1054 bundleJsonBytes=14808 clearMs=2 readMs=0 bundleMs=2 httpMs=114 totalMs=120 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:13 +157 -10: gestures/ gesture_recognizer_state_test.dart
+[METRIC] script=gestures/gesture_recognizer_state_test.dart sourceBytes=1102 sourceChars=1102 bundleJsonBytes=14856 clearMs=2 readMs=3 bundleMs=2 httpMs=66 totalMs=74 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:13 +158 -10: gestures/ gesture_recognizer_test.dart
+[METRIC] script=gestures/gesture_recognizer_test.dart sourceBytes=1039 sourceChars=1037 bundleJsonBytes=13532 clearMs=2 readMs=0 bundleMs=2 httpMs=113 totalMs=118 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+01:13 +159 -10: gestures/ hit_test_dispatcher_test.dart
+[METRIC] script=gestures/hit_test_dispatcher_test.dart sourceBytes=2232 sourceChars=2232 bundleJsonBytes=23363 clearMs=2 readMs=1 bundleMs=7 httpMs=68 totalMs=80 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+01:13 +160 -10: gestures/ hit_testable_test.dart
+[METRIC] script=gestures/hit_testable_test.dart sourceBytes=979 sourceChars=977 bundleJsonBytes=11954 clearMs=3 readMs=0 bundleMs=2 httpMs=71 totalMs=78 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+01:13 +161 -10: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/i_o_s_scroll_view_fling_velocity_tracker_test.dart sourceBytes=20156 sourceChars=18900 bundleJsonBytes=275416 clearMs=24 readMs=0 bundleMs=22 httpMs=274 totalMs=322 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+01:14 +162 -10: gestures/ least_squares_solver_test.dart
+[METRIC] script=gestures/least_squares_solver_test.dart sourceBytes=3108 sourceChars=3108 bundleJsonBytes=53007 clearMs=2 readMs=1 bundleMs=5 httpMs=151 totalMs=160 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:14 +163 -10: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart
+[METRIC] script=gestures/mac_o_s_scroll_view_fling_velocity_tracker_test.dart sourceBytes=1179 sourceChars=1179 bundleJsonBytes=17085 clearMs=2 readMs=0 bundleMs=1 httpMs=69 totalMs=74 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:14 +164 -10: gestures/ multitouch_drag_strategy_test.dart
+[METRIC] script=gestures/multitouch_drag_strategy_test.dart sourceBytes=1102 sourceChars=1102 bundleJsonBytes=14856 clearMs=2 readMs=0 bundleMs=1 httpMs=71 totalMs=76 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:14 +165 -10: gestures/ offset_pair_test.dart
+[METRIC] script=gestures/offset_pair_test.dart sourceBytes=2984 sourceChars=2976 bundleJsonBytes=44129 clearMs=2 readMs=0 bundleMs=3 httpMs=146 totalMs=153 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:14 +166 -10: gestures/ one_sequence_gesture_recognizer_test.dart
+[METRIC] script=gestures/one_sequence_gesture_recognizer_test.dart sourceBytes=958 sourceChars=956 bundleJsonBytes=11295 clearMs=2 readMs=0 bundleMs=1 httpMs=97 totalMs=101 status=success httpStatus=200 outputLines=5 frameworkErrors=0
+01:14 +167 -10: gestures/ pointer_added_event_test.dart
+[METRIC] script=gestures/pointer_added_event_test.dart sourceBytes=1010 sourceChars=1010 bundleJsonBytes=16636 clearMs=2 readMs=0 bundleMs=1 httpMs=65 totalMs=71 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:14 +168 -10: gestures/ pointer_cancel_event_test.dart
+[METRIC] script=gestures/pointer_cancel_event_test.dart sourceBytes=1891 sourceChars=1891 bundleJsonBytes=25209 clearMs=2 readMs=0 bundleMs=2 httpMs=123 totalMs=128 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+01:14 +169 -10: gestures/ pointer_down_event_test.dart
+[METRIC] script=gestures/pointer_down_event_test.dart sourceBytes=1177 sourceChars=1177 bundleJsonBytes=19732 clearMs=2 readMs=0 bundleMs=3 httpMs=74 totalMs=81 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:15 +170 -10: gestures/ pointer_enter_event_test.dart
+[METRIC] script=gestures/pointer_enter_event_test.dart sourceBytes=1123 sourceChars=1123 bundleJsonBytes=17693 clearMs=2 readMs=0 bundleMs=1 httpMs=52 totalMs=57 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+01:15 +171 -10: gestures/ pointer_event_converter_test.dart
+[METRIC] script=gestures/pointer_event_converter_test.dart sourceBytes=35554 sourceChars=35554 bundleJsonBytes=480574 clearMs=28 readMs=0 bundleMs=23 httpMs=1095 totalMs=1147 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:16 +172 -10: gestures/ pointer_event_resampler_test.dart
+[METRIC] script=gestures/pointer_event_resampler_test.dart sourceBytes=2865 sourceChars=2865 bundleJsonBytes=46999 clearMs=4 readMs=0 bundleMs=4 httpMs=458 totalMs=468 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:16 +173 -10: gestures/ pointer_event_test.dart
+[METRIC] script=gestures/pointer_event_test.dart sourceBytes=2545 sourceChars=2545 bundleJsonBytes=38760 clearMs=23 readMs=0 bundleMs=2 httpMs=74 totalMs=101 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+01:16 +174 -10: gestures/ pointer_exit_event_test.dart
+[METRIC] script=gestures/pointer_exit_event_test.dart sourceBytes=2254 sourceChars=2254 bundleJsonBytes=31367 clearMs=25 readMs=0 bundleMs=2 httpMs=51 totalMs=80 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+01:16 +175 -10: gestures/ pointer_hover_event_test.dart
+[METRIC] script=gestures/pointer_hover_event_test.dart sourceBytes=2510 sourceChars=2510 bundleJsonBytes=34324 clearMs=3 readMs=1 bundleMs=2 httpMs=114 totalMs=121 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+01:17 +176 -10: gestures/ pointer_move_event_test.dart
+[METRIC] script=gestures/pointer_move_event_test.dart sourceBytes=2615 sourceChars=2615 bundleJsonBytes=37670 clearMs=4 readMs=0 bundleMs=3 httpMs=77 totalMs=85 status=success httpStatus=200 outputLines=33 frameworkErrors=0
+01:17 +177 -10: gestures/ pointer_pan_zoom_end_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_end_event_test.dart sourceBytes=2391 sourceChars=2391 bundleJsonBytes=29049 clearMs=4 readMs=0 bundleMs=3 httpMs=109 totalMs=118 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+01:17 +178 -10: gestures/ pointer_pan_zoom_start_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_start_event_test.dart sourceBytes=2460 sourceChars=2460 bundleJsonBytes=30947 clearMs=52 readMs=0 bundleMs=2 httpMs=58 totalMs=114 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+01:17 +179 -10: gestures/ pointer_pan_zoom_update_event_test.dart
+[METRIC] script=gestures/pointer_pan_zoom_update_event_test.dart sourceBytes=2871 sourceChars=2871 bundleJsonBytes=39377 clearMs=3 readMs=0 bundleMs=3 httpMs=66 totalMs=74 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+01:17 +180 -10: gestures/ pointer_removed_event_test.dart
+[METRIC] script=gestures/pointer_removed_event_test.dart sourceBytes=2546 sourceChars=2546 bundleJsonBytes=33310 clearMs=3 readMs=0 bundleMs=2 httpMs=111 totalMs=118 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+01:17 +181 -10: gestures/ pointer_scale_event_test.dart
+[METRIC] script=gestures/pointer_scale_event_test.dart sourceBytes=2807 sourceChars=2807 bundleJsonBytes=36846 clearMs=3 readMs=0 bundleMs=4 httpMs=95 totalMs=104 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:17 +182 -10: gestures/ pointer_scroll_event_test.dart
+[METRIC] script=gestures/pointer_scroll_event_test.dart sourceBytes=2629 sourceChars=2627 bundleJsonBytes=36854 clearMs=3 readMs=0 bundleMs=3 httpMs=161 totalMs=169 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:17 +183 -10: gestures/ pointer_scroll_inertia_cancel_event_test.dart
+[METRIC] script=gestures/pointer_scroll_inertia_cancel_event_test.dart sourceBytes=2483 sourceChars=2483 bundleJsonBytes=29657 clearMs=43 readMs=0 bundleMs=2 httpMs=81 totalMs=128 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+01:18 +184 -10: gestures/ pointer_signal_event_test.dart
+[METRIC] script=gestures/pointer_signal_event_test.dart sourceBytes=2432 sourceChars=2432 bundleJsonBytes=26611 clearMs=52 readMs=0 bundleMs=1 httpMs=74 totalMs=129 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:18 +185 -10: gestures/ pointer_signal_resolver_test.dart
+[METRIC] script=gestures/pointer_signal_resolver_test.dart sourceBytes=2411 sourceChars=2411 bundleJsonBytes=28885 clearMs=19 readMs=0 bundleMs=2 httpMs=94 totalMs=116 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:18 +186 -10: gestures/ pointer_up_event_test.dart
+[METRIC] script=gestures/pointer_up_event_test.dart sourceBytes=2436 sourceChars=2436 bundleJsonBytes=33078 clearMs=2 readMs=0 bundleMs=2 httpMs=69 totalMs=75 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+01:18 +187 -10: gestures/ polynomial_fit_test.dart
+[METRIC] script=gestures/polynomial_fit_test.dart sourceBytes=3430 sourceChars=3419 bundleJsonBytes=50571 clearMs=40 readMs=0 bundleMs=4 httpMs=105 totalMs=151 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:18 +188 -10: gestures/ primary_pointer_gesture_recognizer_test.dart
+[METRIC] script=gestures/primary_pointer_gesture_recognizer_test.dart sourceBytes=2523 sourceChars=2523 bundleJsonBytes=24701 clearMs=5 readMs=0 bundleMs=2 httpMs=78 totalMs=86 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+01:18 +189 -10: gestures/ sampling_clock_test.dart
+[METRIC] script=gestures/sampling_clock_test.dart sourceBytes=33016 sourceChars=33016 bundleJsonBytes=432707 clearMs=27 readMs=0 bundleMs=20 httpMs=1024 totalMs=1074 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:19 +190 -10: gestures/ tap_and_drag_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_and_drag_gesture_recognizer_test.dart sourceBytes=2531 sourceChars=2531 bundleJsonBytes=29790 clearMs=3 readMs=0 bundleMs=2 httpMs=389 totalMs=395 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+01:20 +191 -10: gestures/ tap_gesture_recognizer_test.dart
+[METRIC] script=gestures/tap_gesture_recognizer_test.dart sourceBytes=2702 sourceChars=2702 bundleJsonBytes=37280 clearMs=3 readMs=0 bundleMs=2 httpMs=127 totalMs=134 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+01:20 +192 -10: gestures/ tap_move_details_test.dart
+[METRIC] script=gestures/tap_move_details_test.dart sourceBytes=2341 sourceChars=2341 bundleJsonBytes=26945 clearMs=42 readMs=0 bundleMs=1 httpMs=66 totalMs=111 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+01:20 +193 -10: gestures/ velocity_estimate_test.dart
+[METRIC] script=gestures/velocity_estimate_test.dart sourceBytes=3260 sourceChars=3252 bundleJsonBytes=44215 clearMs=21 readMs=0 bundleMs=3 httpMs=120 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:20 +194 -10: gestures/ velocity_tracker_test.dart
+[METRIC] script=gestures/velocity_tracker_test.dart sourceBytes=3645 sourceChars=3635 bundleJsonBytes=48799 clearMs=24 readMs=0 bundleMs=3 httpMs=118 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:20 +195 -10: (tearDownAll)
+01:21 +195 -10: Some tests failed.
