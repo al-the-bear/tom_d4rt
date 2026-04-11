@@ -1701,3 +1701,149 @@ Add support for constructor tear-off syntax in the D4rt interpreter. When parsin
 **Batch Number:** 10
 
 ---
+
+## Batch 11
+
+### Issue #55
+
+**Script:** `widgets/animated_cross_fade_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 518
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Bridged class 'List' has no instance method named 'whereType'. Error during extension lookup: Bridged class 'List' has no instance method named 'whereType'.
+```
+
+**Category:** BRIDGE-LIST-METHOD-MISSING
+
+**Root Cause Analysis:**
+
+The script (1359 lines) uses `[...].whereType<Widget>().toList()` at multiple locations (lines 222, 313, 430, 635, 766, 895, 1091, 1216). The `whereType<T>()` method is a built-in Dart `Iterable` method that filters elements by type and returns an `Iterable<T>`. The D4rt List bridge does not implement the `whereType` method, causing a runtime error when the script attempts to call it.
+
+**Fix Description:**
+Add the `whereType<T>()` method to the D4rt List/Iterable bridge. The method should accept a type argument and return a filtered iterable containing only elements of that type. This requires generic type handling in the bridge layer.
+
+**Needs Deeper Analysis:** No — missing List method in bridge; implementation path is clear
+
+**Batch Number:** 11
+
+---
+
+### Issue #56
+
+**Script:** `widgets/animated_fractionally_sized_box_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 519
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+A RenderFlex overflowed by 8.0 pixels on the bottom.
+```
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1185 lines) is an animated fractionally sized box demo. A vertical layout container has content that exceeds the available vertical space by 8 pixels. This is a minor cosmetic layout overflow that does not affect test success. The overflow likely occurs in a constrained container where cumulative padding, margins, or content height slightly exceeds the allocated space.
+
+**Fix Description:**
+Increase the container height by ~10px, reduce padding in the affected section, or add `clipBehavior: Clip.hardEdge` to suppress visual overflow.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow
+
+**Batch Number:** 11
+
+---
+
+### Issue #57
+
+**Script:** `widgets/animated_switcher_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 525
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Bridged class 'List' has no instance method named 'whereType'. Error during extension lookup: Bridged class 'List' has no instance method named 'whereType'.
+```
+
+**Category:** BRIDGE-LIST-METHOD-MISSING
+
+**Root Cause Analysis:**
+
+The script (1440 lines) uses `[...].whereType<Widget>().toList()` at multiple locations (lines 202, 317, 432, 590, 721, 854, 1039). This is the identical issue as Issue #55 — the D4rt List bridge does not implement the `whereType<T>()` method.
+
+**Fix Description:**
+Same fix as Issue #55: add the `whereType<T>()` method to the D4rt List/Iterable bridge.
+
+**Needs Deeper Analysis:** No — identical BRIDGE-LIST-METHOD-MISSING as Issue #55
+
+**Batch Number:** 11
+
+---
+
+### Issue #58
+
+**Script:** `widgets/autofill_group_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 526
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _AutofillGroupLaneState.)`
+2. `Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _AutofillGroupLaneState.)`
+
+**Category:** INTERPRETER-STATE-WIDGET-ACCESS
+
+**Root Cause Analysis:**
+
+The script (1978 lines) defines `_AutofillGroupLaneState extends State<_AutofillGroupLane>` at line 1554. The State class's `widget` property is accessed extensively throughout the build method (lines 1571, 1579, 1580, 1599, etc.) to read widget configuration. The D4rt interpreter cannot properly resolve the `widget` getter on interpreted State subclasses because it doesn't recognize the inheritance relationship from the State bridge. This is the identical issue pattern as Issue #27.
+
+**Fix Description:**
+Same fix as Issue #27: the State bridge needs to properly expose the `widget` getter to interpreted subclasses. The bridge should recognize when an InterpretedInstance extends State<T> and provide access to the widget property that returns the associated StatefulWidget instance.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-STATE-WIDGET-ACCESS as Issue #27
+
+**Batch Number:** 11
+
+---
+
+### Issue #59
+
+**Script:** `widgets/backdrop_filter_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 527
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Bridged class 'List' has no instance method named 'whereType'. Error during extension lookup: Bridged class 'List' has no instance method named 'whereType'.
+```
+
+**Category:** BRIDGE-LIST-METHOD-MISSING
+
+**Root Cause Analysis:**
+
+The script (1201 lines) uses `whereType<Widget>()` to filter list elements by type. This is the identical issue as Issues #55 and #57 — the D4rt List bridge does not implement the `whereType<T>()` method.
+
+**Fix Description:**
+Same fix as Issue #55: add the `whereType<T>()` method to the D4rt List/Iterable bridge.
+
+**Needs Deeper Analysis:** No — identical BRIDGE-LIST-METHOD-MISSING as Issue #55
+
+**Batch Number:** 11
+
+---
