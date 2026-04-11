@@ -1264,3 +1264,148 @@ Add the `characters` extension getter to the D4rt String bridge. The getter shou
 **Batch Number:** 7
 
 ---
+
+## Batch 8
+
+### Issue #40
+
+**Script:** `rendering/render_animated_opacity_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 387
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Undefined variable: _controller (Original error: LateInitializationError: Late variable '_controller' without initializer is accessed before being assigned.)
+```
+
+**Category:** INTERPRETER-LATE-INIT
+
+**Root Cause Analysis:**
+
+The script (1614 lines) defines `late AnimationController _controller;` at line 202 in a StatefulWidget's State class. The controller is initialized in `initState()` at line 238. The D4rt interpreter does not properly handle late variable initialization flow — when code attempts to access `_controller` during widget construction or before `initState()` completes, the interpreter fails to recognize the deferred initialization pattern. This is the same pattern as previously seen INTERPRETER-LATE-INIT issues.
+
+**Fix Description:**
+Either initialize `_controller` inline with a nullable pattern (`AnimationController? _controller;`) and check for null, or ensure the D4rt interpreter correctly supports late variable semantics by tracking initialization state in the Scope. The runtime should defer access validation until actual usage rather than at declaration time.
+
+**Needs Deeper Analysis:** No — known INTERPRETER-LATE-INIT pattern
+
+**Batch Number:** 8
+
+---
+
+### Issue #41
+
+**Script:** `rendering/render_block_semantics_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 392
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 56 pixels on the bottom.`
+2. `A RenderFlex overflowed by 56 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1404 lines) is a block semantics demo. Two inner containers or Column sections have content that exceeds the available vertical space by exactly 56 pixels each. The overflows likely occur in nested constrained containers where text labels, visual elements, or padding exceed the allocated height. Both overflows are the same magnitude, suggesting two similar UI sections with identical layout constraints. These are cosmetic layout overflows that do not affect test success.
+
+**Fix Description:**
+Increase the height of the overflowing containers by ~60px, or add `clipBehavior: Clip.hardEdge` to suppress visual overflow. Alternatively, reduce padding, font sizes, or content density in the affected sections.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow in constrained containers
+
+**Batch Number:** 8
+
+---
+
+### Issue #42
+
+**Script:** `rendering/render_box_container_defaults_mixin_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 393
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(_DefaultsContainer)
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1753 lines) defines `_DefaultsContainer extends MultiChildRenderObjectWidget` at line 1312. When this interpreted class instance is passed to a builder or returned as a widget, the bridge receives an `InterpretedInstance` but expects a native `Widget`. The D4rt interpreter does not coerce interpreted class instances extending native Widget subclasses (including `MultiChildRenderObjectWidget`) to their native supertype. This is the identical issue pattern as Issues #28, #34, #37, #38.
+
+**Fix Description:**
+Same fix as Issue #28: add type coercion in the D4rt bridge layer so that interpreted class instances extending native Widget classes are recognized as proper Widget instances for type-checking purposes.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-INTERPRETED-CLASS-COERCION as Issue #28
+
+**Batch Number:** 8
+
+---
+
+### Issue #43
+
+**Script:** `rendering/render_custom_multi_child_layout_box_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 396
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during default bridged constructor for 'CustomMultiChildLayout': Argument Error: Invalid parameter "delegate": expected MultiChildLayoutDelegate, got InterpretedInstance(_D…
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1656 lines) defines several delegate classes: `_DashboardDelegate`, `_OrbitDelegate`, `_WaterfallDelegate`, etc., all extending `_BaseDelegate extends MultiChildLayoutDelegate`. When an interpreted delegate is passed to `CustomMultiChildLayout(delegate: _DashboardDelegate(...))`, the bridge receives an `InterpretedInstance` but expects a native `MultiChildLayoutDelegate`. This is the same coercion issue pattern but for non-Widget classes extending native abstract classes.
+
+**Fix Description:**
+Extend the D4rt bridge type coercion system to handle non-Widget native class hierarchies. When an interpreted class extends `MultiChildLayoutDelegate` (or other delegate/callback abstract classes), the bridge should recognize the InterpretedInstance as implementing that delegate type and wrap it appropriately for native callback invocation.
+
+**Needs Deeper Analysis:** Yes — requires extending coercion system beyond Widget hierarchy to include delegate pattern classes
+
+**Batch Number:** 8
+
+---
+
+### Issue #44
+
+**Script:** `rendering/render_custom_paint_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 397
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `Runtime Error: Undefined variable: mounted (Original error: Native error in bridged mixin getter 'mounted': Argument Error: Invalid target: expected SingleTickerProviderStateMixin, got InterpretedInst…`
+2. `Bad state: No element`
+
+**Category:** INTERPRETER-STATE-MIXIN-ACCESS (primary), FW-COLLECTION-EMPTY (secondary)
+
+**Root Cause Analysis:**
+
+The script (1509 lines) defines `_RenderCustomPaintStudioState extends State<...> with SingleTickerProviderStateMixin` at line 138. Line 759 uses `if (!mounted)` to check widget mount state. The D4rt interpreter cannot properly access the `mounted` getter from the `SingleTickerProviderStateMixin` because the bridge expects a native mixin instance but receives an InterpretedInstance. The secondary error "Bad state: No element" occurs at line 1439 where `path.computeMetrics().first` is called — if `computeMetrics()` returns an empty iterable, `.first` throws this error.
+
+**Fix Description:**
+For the mixin issue: the State bridge needs to recognize interpreted State subclasses with mixins and properly delegate mixin getter calls. The `mounted` property access should route through the State bridge rather than the mixin bridge. For the collection error: add a guard `if (path.computeMetrics().isNotEmpty)` before accessing `.first`, or use `firstOrNull` extension.
+
+**Needs Deeper Analysis:** Yes — mixin getter resolution in interpreted State classes requires bridge infrastructure work
+
+**Batch Number:** 8
+
+---
