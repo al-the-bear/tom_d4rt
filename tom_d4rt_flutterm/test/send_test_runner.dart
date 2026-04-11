@@ -594,9 +594,6 @@ class SendTestRunner {
       _testAppProcess = null;
       _lastTestAppExitCode = exitCode;
     }
-
-    // Also kill any orphaned processes on the port
-    await _killExistingProcess();
   }
 
   /// Get the FlutterD4rt instance.
