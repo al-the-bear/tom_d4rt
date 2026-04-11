@@ -98,6 +98,9 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// The original [FlutterError.onError] handler, restored when not capturing.
   void Function(FlutterErrorDetails)? _originalFlutterErrorHandler;
 
+  /// The original platform dispatcher error handler.
+  bool Function(Object, StackTrace)? _originalPlatformErrorHandler;
+
   static const int _serverPort = 4247;
 
   @override
@@ -106,8 +109,11 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _tabController = TabController(length: 2, vsync: this);
     // Store the original handler so we can still call it for logging.
     _originalFlutterErrorHandler = FlutterError.onError;
+    _originalPlatformErrorHandler =
+        WidgetsBinding.instance.platformDispatcher.onError;
     // Install our custom handler that captures framework errors during builds.
     FlutterError.onError = _handleFlutterError;
+    WidgetsBinding.instance.platformDispatcher.onError = _handlePlatformError;
     _startServer();
   }
 
@@ -135,10 +141,35 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     _originalFlutterErrorHandler?.call(details);
   }
 
+  bool _handlePlatformError(Object error, StackTrace stackTrace) {
+    _addLogEntry('[platform error] $error');
+    final trace = stackTrace.toString();
+    if (trace.isNotEmpty) {
+      final lines = trace.split('\n');
+      for (final line in lines.take(8)) {
+        if (line.trim().isEmpty) {
+          continue;
+        }
+        _addLogEntry('[platform stack] $line');
+      }
+      if (lines.length > 8) {
+        _addLogEntry('[platform stack] ... ${lines.length - 8} more line(s)');
+      }
+    }
+
+    final handledByOriginal = _originalPlatformErrorHandler?.call(
+      error,
+      stackTrace,
+    );
+    return handledByOriginal ?? true;
+  }
+
   @override
   void dispose() {
     _tabController.dispose();
     FlutterError.onError = _originalFlutterErrorHandler;
+    WidgetsBinding.instance.platformDispatcher.onError =
+        _originalPlatformErrorHandler;
     _server?.close(force: true);
     super.dispose();
   }
@@ -233,7 +264,16 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         _serverPort,
       );
       _log('HTTP server listening on http://localhost:$_serverPort');
-      _server!.listen(_handleRequest);
+      _server!.listen(
+        _handleRequest,
+        onError: (Object error, StackTrace stackTrace) {
+          _log('HTTP server stream error: $error');
+          final trace = stackTrace.toString();
+          if (trace.isNotEmpty) {
+            _log(trace);
+          }
+        },
+      );
     } catch (e) {
       _log('Failed to start server: $e');
     }

@@ -24,6 +24,7 @@ library;
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
@@ -105,6 +106,11 @@ class SendTestRunner {
   static bool _bridgesRegenerated = false;
   static const String _forceBridgeRegenEnv = 'D4RT_FORCE_BRIDGE_REGEN';
   static const String _skipBridgeRegenEnv = 'D4RT_SKIP_BRIDGE_REGEN';
+  static const int _processLogTailLimit = 200;
+
+  static final List<String> _testAppStdoutTail = <String>[];
+  static final List<String> _testAppStderrTail = <String>[];
+  static int? _lastTestAppExitCode;
 
   /// Initialize the test runner (call in setUpAll).
   ///
@@ -477,11 +483,21 @@ class SendTestRunner {
       // Don't inherit stdio to avoid crash when killing process
     );
 
-    // Drain stdout and stderr to prevent blocking
+    _lastTestAppExitCode = null;
+    _testAppStdoutTail.clear();
+    _testAppStderrTail.clear();
+
+    _captureProcessStream(_testAppProcess!.stdout, _testAppStdoutTail);
+    _captureProcessStream(_testAppProcess!.stderr, _testAppStderrTail);
+
     // ignore: unawaited_futures
-    _testAppProcess!.stdout.drain<void>();
-    // ignore: unawaited_futures
-    _testAppProcess!.stderr.drain<void>();
+    _testAppProcess!.exitCode.then((code) {
+      _lastTestAppExitCode = code;
+      _appendProcessTail(
+        _testAppStderrTail,
+        '[process] test app exited with code $code',
+      );
+    });
 
     // Wait for app to be ready
     final deadline = DateTime.now().add(timeout);
@@ -576,6 +592,7 @@ class SendTestRunner {
       }
 
       _testAppProcess = null;
+      _lastTestAppExitCode = exitCode;
     }
 
     // Also kill any orphaned processes on the port
@@ -626,7 +643,19 @@ class SendTestRunner {
 
     // Clear UI first if requested
     if (clearFirst) {
-      await _httpGet(client, '/clear', host: host, port: port);
+      try {
+        await _httpGet(client, '/clear', host: host, port: port);
+      } catch (error, stackTrace) {
+        final diagnostics = await _buildSendDiagnostics(
+          operation: 'GET /clear',
+          scriptPath: scriptPath,
+          error: error,
+          stackTrace: stackTrace,
+          host: host,
+          port: port,
+        );
+        throw StateError(diagnostics);
+      }
     }
 
     // Build bundle from script source
@@ -646,13 +675,26 @@ class SendTestRunner {
 
     // Send bundle to app (pass filename for display in test app UI)
     final encodedPath = Uri.encodeComponent(scriptPath);
-    final response = await _httpPost(
-      client,
-      '/build?filename=$encodedPath',
-      bundleJson,
-      host: host,
-      port: port,
-    );
+    late final Map<String, dynamic> response;
+    try {
+      response = await _httpPost(
+        client,
+        '/build?filename=$encodedPath',
+        bundleJson,
+        host: host,
+        port: port,
+      );
+    } catch (error, stackTrace) {
+      final diagnostics = await _buildSendDiagnostics(
+        operation: 'POST /build?filename=$encodedPath',
+        scriptPath: scriptPath,
+        error: error,
+        stackTrace: stackTrace,
+        host: host,
+        port: port,
+      );
+      throw StateError(diagnostics);
+    }
 
     final status = response['status'] as String;
     final output = (response['output'] as List?)?.cast<String>() ?? [];
@@ -758,6 +800,112 @@ class SendTestRunner {
   static String getRelativePath(File script) {
     final scriptsDir = getScriptsDirectory();
     return p.relative(script.path, from: scriptsDir.path);
+  }
+
+  static void _captureProcessStream(
+    Stream<List<int>> stream,
+    List<String> sink,
+  ) {
+    // ignore: unawaited_futures
+    utf8.decoder.bind(stream).transform(const LineSplitter()).listen((line) {
+      _appendProcessTail(sink, line);
+    });
+  }
+
+  static void _appendProcessTail(List<String> sink, String line) {
+    sink.add(line);
+    if (sink.length > _processLogTailLimit) {
+      sink.removeRange(0, sink.length - _processLogTailLimit);
+    }
+  }
+
+  static Future<String> _buildSendDiagnostics({
+    required String operation,
+    required String scriptPath,
+    required Object error,
+    required StackTrace stackTrace,
+    required String host,
+    required int port,
+  }) async {
+    final buffer = StringBuffer()
+      ..writeln('Transport failure while running "$scriptPath"')
+      ..writeln('Operation: $operation')
+      ..writeln('Error: $error')
+      ..writeln('')
+      ..writeln('Stack trace:')
+      ..writeln(stackTrace);
+
+    final process = _testAppProcess;
+    if (process == null) {
+      buffer
+        ..writeln('')
+        ..writeln('Runner app process: not managed by SendTestRunner')
+        ..writeln('  (likely connected to an externally started app).');
+    } else if (_lastTestAppExitCode == null) {
+      buffer
+        ..writeln('')
+        ..writeln('Runner app process: still running (no exit code observed).');
+    } else {
+      buffer
+        ..writeln('')
+        ..writeln('Runner app process: exited with code $_lastTestAppExitCode');
+    }
+
+    final remoteLogs = await _tryFetchRemoteAppLogs(host: host, port: port);
+    if (remoteLogs.isNotEmpty) {
+      buffer
+        ..writeln('')
+        ..writeln('Recent app /logs tail:');
+      for (final line in remoteLogs) {
+        buffer.writeln('  $line');
+      }
+    }
+
+    if (_testAppStdoutTail.isNotEmpty) {
+      buffer
+        ..writeln('')
+        ..writeln('Captured app STDOUT tail:');
+      for (final line in _testAppStdoutTail) {
+        buffer.writeln('  $line');
+      }
+    }
+
+    if (_testAppStderrTail.isNotEmpty) {
+      buffer
+        ..writeln('')
+        ..writeln('Captured app STDERR tail:');
+      for (final line in _testAppStderrTail) {
+        buffer.writeln('  $line');
+      }
+    }
+
+    return buffer.toString();
+  }
+
+  static Future<List<String>> _tryFetchRemoteAppLogs({
+    required String host,
+    required int port,
+  }) async {
+    try {
+      final tempClient = HttpClient();
+      try {
+        final response = await _httpGet(
+          tempClient,
+          '/logs',
+          host: host,
+          port: port,
+        );
+        final logs = (response['logs'] as List?)?.cast<String>() ?? const [];
+        if (logs.length <= 40) {
+          return logs;
+        }
+        return logs.sublist(logs.length - 40);
+      } finally {
+        tempClient.close();
+      }
+    } catch (_) {
+      return const [];
+    }
   }
 }
 
