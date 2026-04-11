@@ -636,6 +636,14 @@ class SendTestRunner {
     final packageRoot = Directory.current.path;
     final fullPath = p.join(packageRoot, scriptsPath, scriptPath);
     final file = File(fullPath);
+    final totalStopwatch = Stopwatch()..start();
+    var sourceBytes = 0;
+    var sourceChars = 0;
+    var bundleJsonBytes = 0;
+    var clearDuration = Duration.zero;
+    var readDuration = Duration.zero;
+    var bundleDuration = Duration.zero;
+    var httpDuration = Duration.zero;
 
     if (!file.existsSync()) {
       throw StateError('Script not found: $fullPath');
@@ -643,9 +651,12 @@ class SendTestRunner {
 
     // Clear UI first if requested
     if (clearFirst) {
+      final clearStopwatch = Stopwatch()..start();
       try {
         await _httpGet(client, '/clear', host: host, port: port);
+        clearDuration = clearStopwatch.elapsed;
       } catch (error, stackTrace) {
+        clearDuration = clearStopwatch.elapsed;
         final diagnostics = await _buildSendDiagnostics(
           operation: 'GET /clear',
           scriptPath: scriptPath,
@@ -654,12 +665,33 @@ class SendTestRunner {
           host: host,
           port: port,
         );
+        _printSendMetrics(
+          scriptPath: scriptPath,
+          sourceBytes: sourceBytes,
+          sourceChars: sourceChars,
+          bundleJsonBytes: bundleJsonBytes,
+          clearDuration: clearDuration,
+          readDuration: readDuration,
+          bundleDuration: bundleDuration,
+          httpDuration: httpDuration,
+          totalDuration: totalStopwatch.elapsed,
+          status: 'clear_failed',
+          httpStatus: null,
+          outputLines: 0,
+          frameworkErrorCount: 0,
+        );
         throw StateError(diagnostics);
       }
     }
 
     // Build bundle from script source
+    final readStopwatch = Stopwatch()..start();
     final source = await file.readAsString();
+    sourceBytes = await file.length();
+    sourceChars = source.length;
+    readDuration = readStopwatch.elapsed;
+
+    final bundleStopwatch = Stopwatch()..start();
     var bundle = await d4rt.interpreter.createBundleFromSource(source);
 
     // Optionally include source code alongside the AST
@@ -672,10 +704,13 @@ class SendTestRunner {
     }
 
     final bundleJson = jsonEncode(bundle.toJson());
+    bundleJsonBytes = utf8.encode(bundleJson).length;
+    bundleDuration = bundleStopwatch.elapsed;
 
     // Send bundle to app (pass filename for display in test app UI)
     final encodedPath = Uri.encodeComponent(scriptPath);
     late final Map<String, dynamic> response;
+    final httpStopwatch = Stopwatch()..start();
     try {
       response = await _httpPost(
         client,
@@ -684,7 +719,9 @@ class SendTestRunner {
         host: host,
         port: port,
       );
+      httpDuration = httpStopwatch.elapsed;
     } catch (error, stackTrace) {
+      httpDuration = httpStopwatch.elapsed;
       final diagnostics = await _buildSendDiagnostics(
         operation: 'POST /build?filename=$encodedPath',
         scriptPath: scriptPath,
@@ -692,6 +729,21 @@ class SendTestRunner {
         stackTrace: stackTrace,
         host: host,
         port: port,
+      );
+      _printSendMetrics(
+        scriptPath: scriptPath,
+        sourceBytes: sourceBytes,
+        sourceChars: sourceChars,
+        bundleJsonBytes: bundleJsonBytes,
+        clearDuration: clearDuration,
+        readDuration: readDuration,
+        bundleDuration: bundleDuration,
+        httpDuration: httpDuration,
+        totalDuration: totalStopwatch.elapsed,
+        status: 'transport_error',
+        httpStatus: null,
+        outputLines: 0,
+        frameworkErrorCount: 0,
       );
       throw StateError(diagnostics);
     }
@@ -702,6 +754,22 @@ class SendTestRunner {
     final frameworkErrors =
         (response['frameworkErrors'] as List?)?.cast<String>() ?? [];
     final judgment = response['judgment'] as String?;
+
+    _printSendMetrics(
+      scriptPath: scriptPath,
+      sourceBytes: sourceBytes,
+      sourceChars: sourceChars,
+      bundleJsonBytes: bundleJsonBytes,
+      clearDuration: clearDuration,
+      readDuration: readDuration,
+      bundleDuration: bundleDuration,
+      httpDuration: httpDuration,
+      totalDuration: totalStopwatch.elapsed,
+      status: status,
+      httpStatus: httpStatus,
+      outputLines: output.length,
+      frameworkErrorCount: frameworkErrors.length,
+    );
 
     // Log framework errors (red error screens) prominently so they are
     // visible in test output even when the D4rt build itself succeeded.
@@ -880,6 +948,36 @@ class SendTestRunner {
     }
 
     return buffer.toString();
+  }
+
+  static void _printSendMetrics({
+    required String scriptPath,
+    required int sourceBytes,
+    required int sourceChars,
+    required int bundleJsonBytes,
+    required Duration clearDuration,
+    required Duration readDuration,
+    required Duration bundleDuration,
+    required Duration httpDuration,
+    required Duration totalDuration,
+    required String status,
+    required int? httpStatus,
+    required int outputLines,
+    required int frameworkErrorCount,
+  }) {
+    // ignore: avoid_print
+    print(
+      '[METRIC] script=$scriptPath '
+      'sourceBytes=$sourceBytes sourceChars=$sourceChars '
+      'bundleJsonBytes=$bundleJsonBytes '
+      'clearMs=${clearDuration.inMilliseconds} '
+      'readMs=${readDuration.inMilliseconds} '
+      'bundleMs=${bundleDuration.inMilliseconds} '
+      'httpMs=${httpDuration.inMilliseconds} '
+      'totalMs=${totalDuration.inMilliseconds} '
+      'status=$status httpStatus=${httpStatus ?? -1} '
+      'outputLines=$outputLines frameworkErrors=$frameworkErrorCount',
+    );
   }
 
   static Future<List<String>> _tryFetchRemoteAppLogs({
