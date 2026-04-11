@@ -1556,3 +1556,148 @@ Debug the D4rt List bridge to verify that list literals with 4+ elements are cor
 **Batch Number:** 9
 
 ---
+
+## Batch 10
+
+### Issue #50
+
+**Script:** `rendering/render_shrink_wrapping_viewport_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 426
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Error during constructor execution for class '_SizeReporter': Bridged superclass 'SingleChildRenderObjectWidget' does not have a constructor named ''. Check bridge definition.
+```
+
+**Category:** BRIDGE-SUPERCLASS-CONSTRUCTOR-MISSING
+
+**Root Cause Analysis:**
+
+The script (1878 lines) defines `_SizeReporter extends SingleChildRenderObjectWidget` at line 1839. The constructor calls `super(child: child)` at line 1843, invoking the unnamed (default) constructor of `SingleChildRenderObjectWidget`. The D4rt bridge for `SingleChildRenderObjectWidget` does not define the unnamed constructor — only named constructors may be available. When an interpreted class extends a bridged class and calls `super()` or `super(...)` for the unnamed constructor, the bridge fails to find it.
+
+**Fix Description:**
+Add the unnamed constructor to the `SingleChildRenderObjectWidget` bridge definition. The bridge should expose the default constructor so interpreted subclasses can invoke `super(child: child)` during construction. This may require reviewing all RenderObjectWidget subclass bridges to ensure unnamed constructors are available.
+
+**Needs Deeper Analysis:** No — bridge constructor registration gap; implementation path is clear
+
+**Batch Number:** 10
+
+---
+
+### Issue #51
+
+**Script:** `rendering/render_sliver_pinned_persistent_header_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 438
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 3.0 pixels on the bottom.`
+2. `A RenderFlex overflowed by 3.0 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (947 lines) is a sliver pinned persistent header demo. Two vertical layout containers have content that exceeds the available vertical space by 3 pixels each. The overflows are minor and cosmetic, occurring in constrained containers where cumulative padding, margins, or content height slightly exceeds the allocated space. These are identical overflows suggesting two similar UI sections.
+
+**Fix Description:**
+Increase the container height by ~5px, reduce padding in the affected sections, or add `clipBehavior: Clip.hardEdge` to suppress visual overflow.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow
+
+**Batch Number:** 10
+
+---
+
+### Issue #52
+
+**Script:** `rendering/sliver_hit_test_result_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 459
+**Result:** success (test passed)
+**Errors:** 3 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 4.0 pixels on the bottom.`
+2. `A RenderFlex overflowed by 4.0 pixels on the right.`
+3. `A RenderFlex overflowed by 2.0 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1724 lines) is a sliver hit test result demo. Three overflow errors occur: two vertical (4px and 2px bottom) and one horizontal (4px right). The script has multiple layout sections with tight constraints where content slightly exceeds available space. These are cosmetic layout overflows that do not affect test success.
+
+**Fix Description:**
+Increase container dimensions by ~5px in the affected sections, reduce padding, or add `clipBehavior: Clip.hardEdge`. For the horizontal overflow, wrap the Row in `SingleChildScrollView(scrollDirection: Axis.horizontal)` or use `Flexible`/`Expanded` widgets.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex overflows
+
+**Batch Number:** 10
+
+---
+
+### Issue #53
+
+**Script:** `rendering/sliver_layout_dimensions_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 460
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 4.0 pixels on the bottom.`
+2. `A RenderFlex overflowed by 4.0 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1607 lines) is a sliver layout dimensions demo. Two vertical layout containers have content that exceeds the available vertical space by 4 pixels each. The overflows are identical, suggesting two similar UI sections with the same layout constraints. These are cosmetic layout overflows that do not affect test success.
+
+**Fix Description:**
+Increase the container height by ~5px, reduce padding in the affected sections, or add `clipBehavior: Clip.hardEdge` to suppress visual overflow.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow
+
+**Batch Number:** 10
+
+---
+
+### Issue #54
+
+**Script:** `widgets/android_view_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 516
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Undefined static member 'new' on bridged class 'EagerGestureRecognizer'.
+```
+
+**Category:** INTERPRETER-CONSTRUCTOR-TEAROFF
+
+**Root Cause Analysis:**
+
+The script (1886 lines) uses `EagerGestureRecognizer.new` at line 184 as a constructor tear-off to create a `Factory<OneSequenceGestureRecognizer>`. The `.new` syntax is Dart's constructor tear-off feature introduced in Dart 2.15, allowing constructors to be passed as first-class functions. The D4rt interpreter does not support the `.new` constructor tear-off syntax — it treats `new` as a static member access rather than recognizing it as a special constructor reference.
+
+**Fix Description:**
+Add support for constructor tear-off syntax in the D4rt interpreter. When parsing `ClassName.new`, the interpreter should recognize this as a reference to the unnamed constructor and return a callable that invokes that constructor. Alternatively, the script could be rewritten to use a lambda: `() => EagerGestureRecognizer()` instead of `EagerGestureRecognizer.new`.
+
+**Needs Deeper Analysis:** No — interpreter syntax gap for constructor tear-offs; implementation path is clear
+
+**Batch Number:** 10
+
+---
