@@ -277,7 +277,11 @@ Widget buildStyledRichTextDemo() {
                 TextSpan(text: '\n\n'),
                 TextSpan(
                   text: 'By Author Name ',
-                  style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey.shade600),
+                  style: TextStyle(
+                    //TODO: investigate why italic crashes the test app
+                    // fontStyle: FontStyle.italic,
+                    color: Colors.grey.shade600,
+                  ),
                 ),
                 TextSpan(
                   text: '• March 2026',
