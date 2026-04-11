@@ -166,13 +166,13 @@ dynamic build(BuildContext context) {
             _buildLengthLimiting(),
             _buildCustomFormatterAnatomy(),
             _buildFormatEditUpdate(),
-            _buildSelectionPreservation(),
+            _buildSelectionPreservation(), // problem source
             _buildPhoneFormatter(),
             _buildCreditCardFormatter(),
             _buildCurrencyFormatter(),
             _buildChainedFormatters(),
             _buildSimulatedFormatter(),
-            _buildSummary(),
+            _buildSummary(), 
           ],
         ),
       ),
@@ -807,10 +807,12 @@ Widget _buildCursorVisual(String text, int base, int extent) {
               style: const TextStyle(color: _tfDarkBrown)),
           const TextSpan(
               text: '│',
-              style: TextStyle(color: _tfAmber, fontWeight: FontWeight.w900)),
+              style: TextStyle(color: _tfAmber/*, fontWeight: FontWeight.w900*/)),
+          // const TextSpan( text: 'schau mer mal'),
           TextSpan(
               text: text.substring(base + 1),
-              style: const TextStyle(color: _tfDarkBrown)),
+              style: const TextStyle(color: _tfDarkBrown)
+              ),
         ] else ...[
           TextSpan(
               text: text,
