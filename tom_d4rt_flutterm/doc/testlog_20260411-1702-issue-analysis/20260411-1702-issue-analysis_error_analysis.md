@@ -336,3 +336,153 @@ Alternatively, if `ByteData` bridging is out of scope for the Flutter bridge set
 **Batch Number:** 1
 
 ---
+
+## Batch 2
+
+### Issue #10 — services/channels_test.dart
+
+**Index:** #10
+**Test Name:** services_channels
+**Category:** BRIDGE-GENERIC-CALLBACK-TYPE
+**Immediate Fix Possible:** Yes — fix the bridge callback type
+
+**Description:** Test FAILS with error: `type '(dynamic) => Future<dynamic>' is not a subtype of type '((String?) => Future<String>)?' of 'handler'`. The script creates a `BasicMessageChannel<String>` and calls `setMessageHandler((String? message) async { ... })`. The bridge for `BasicMessageChannel.setMessageHandler` (line 8330 of `services_bridges.b.dart`) wraps the interpreter callback in a `(dynamic p0) => Future<dynamic>` closure and passes it via `(t as dynamic).setMessageHandler(...)`. At runtime, the `BasicMessageChannel<String>` expects a handler of type `((String?) => Future<String>)?`, and the `(dynamic) => Future<dynamic>` closure fails the Dart reified generic type check.
+
+**Detailed Analysis:**
+The bridge code at `services_bridges.b.dart:8330` is:
+```dart
+(t as dynamic).setMessageHandler(handlerRaw == null ? null : (dynamic p0) {
+  return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as Future<dynamic>;
+});
+```
+
+The `as dynamic` cast on `t` disables static type checking, but the runtime still enforces the generic type constraint on the handler parameter. `BasicMessageChannel<String>.setMessageHandler` expects `Future<String> Function(String?)?` — the bridge-generated closure `(dynamic) => Future<dynamic>` is not a subtype of `(String?) => Future<String>` because:
+1. The return type `Future<dynamic>` is not a subtype of `Future<String>`
+2. The parameter type `dynamic` vs `String?` would be covariant (acceptable), but the return type mismatch is the blocker
+
+This pattern affects all `BasicMessageChannel<T>` where `T` is not `dynamic`.
+
+**Fix Description:**
+The generic constructor factory for `BasicMessageChannel` must generate type-specific `setMessageHandler` wrappers. For `BasicMessageChannel<String>`, the callback must be wrapped as `(String? p0) => Future<String>`. Options:
+
+1. **In the generic constructor factory:** When `T` is known (e.g., `String`), generate a properly-typed closure wrapper: `(String? p0) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as Future<String>; }`
+2. **In the bridge method:** Use a type-dispatching approach based on the runtime type of the `BasicMessageChannel` instance — check `t.runtimeType` and cast the callback accordingly
+3. **Simplest fix:** Cast the interpreter callback result to `Future<T>` using reflection on the channel's codec type parameter
+
+The same pattern likely affects `send()` (which returns `Future<T?>`) but the test only hits it on `setMessageHandler`.
+
+**Needs Deeper Analysis:** No — root cause clear, fix requires type-aware callback wrapping in bridge
+
+**Batch Number:** 2
+
+---
+
+### Issue #11 — cupertino/cupertino_secondary_test.dart
+
+**Index:** #11
+**Test Name:** cupertino_cupertino_secondary
+**Category:** FW-LAYOUT-CONSTRAINT
+**Immediate Fix Possible:** No — interpreter constraint propagation issue
+
+**Description:** Test passes but produces 3 framework errors. The primary error is `BoxConstraints has a negative minimum height` in `_RenderEditableCustomPaint's layout()`. This is the same root cause as Batch-0 Issues #0, #1, #2 — `CupertinoTextField` embedded inside `CupertinoFormRow` triggers a negative-height constraint from the interpreter's layout system.
+
+**Detailed Analysis:**
+The script creates a `CupertinoFormRow` containing a `CupertinoTextField(placeholder: 'John Doe')` (line 108). Despite being wrapped in `ConstrainedBox(constraints: BoxConstraints(minHeight: 44))`, the internal `_RenderEditableCustomPaint` inside `CupertinoTextField` receives negative minimum height constraints during layout. The 3 errors cascade:
+
+1. `BoxConstraints has a negative minimum height` — the initial constraint violation
+2. `RenderBox was not laid out: _RenderEditableCustomPaint NEEDS-LAYOUT NEEDS-PAINT` — the render object that couldn't lay out due to invalid constraints
+3. `Failed assertion: '!childSemantics.renderObject._needsLayout'` — semantics tree walks into the un-laid-out render object
+
+This is identical to the Batch-0 CupertinoTextField constraint propagation issue. The interpreter's handling of `CupertinoTextField` internal layout (which involves decoration, padding, and edit region sizing) produces negative heights in some configurations.
+
+**Fix Description:**
+Same as Batch-0 Issue #0 — fix the interpreter's constraint propagation for `CupertinoTextField` internal layout. The `_RenderEditableCustomPaint` receives `height = parentHeight - decorationHeight - paddingHeight`, and when `parentHeight` is insufficiently computed, the result goes negative. The fix requires ensuring minimum constraints are clamped to zero in the interpreter's layout pass, or fixing the specific constraint computation in the `CupertinoTextField` render pipeline.
+
+**Needs Deeper Analysis:** No — same root cause as Batch-0 #0/#1/#2
+
+**Batch Number:** 2
+
+---
+
+### Issue #12 — cupertino/cupertino_form_scroll_test.dart
+
+**Index:** #12
+**Test Name:** cupertino_cupertino_form_scroll
+**Category:** FW-LAYOUT-CONSTRAINT
+**Immediate Fix Possible:** No — interpreter constraint propagation issue
+
+**Description:** Test passes but produces 4 framework errors. Same `BoxConstraints has a negative minimum height` root cause from `CupertinoTextFormFieldRow` (which internally uses `CupertinoTextField`), plus an additional `RenderFlex overflowed by 3.4e+38 pixels on the bottom` error indicating an extreme overflow caused by the constraint failure cascading into layout calculations.
+
+**Detailed Analysis:**
+The script creates `CupertinoTextFormFieldRow` widgets (line 12) wrapped in `ConstrainedBox(minHeight: 44)`. The internal text field produces the same negative-height constraint as Issue #11. Additionally, the `CupertinoListSection.insetGrouped` layout at the end of the script (line 100) attempts to lay out a `Column`-like structure where the un-laid-out text field contributes an invalid size, resulting in a massive overflow value (`3.4e+38` — essentially `double.maxFinite`).
+
+The 4 errors:
+1. `BoxConstraints has a negative minimum height` — CupertinoTextField constraint violation
+2. `RenderBox was not laid out: _RenderEditableCustomPaint` — cascading layout failure
+3. `RenderFlex overflowed by 3.4e+38 pixels` — the overflow from invalid size propagation
+4. `Failed assertion: '!childSemantics.renderObject._needsLayout'` — semantics tree issue
+
+**Fix Description:**
+Same root fix as Batch-0 #0 and Batch-2 #11 — fix CupertinoTextField constraint propagation. The overflow is a secondary symptom that will resolve once the primary constraint issue is fixed.
+
+**Needs Deeper Analysis:** No — same root cause as Batch-0 #0/#1/#2
+
+**Batch Number:** 2
+
+---
+
+### Issue #13 — cupertino/cupertino_controls_advanced_test.dart
+
+**Index:** #13
+**Test Name:** cupertino_cupertino_controls_advanced
+**Category:** FW-LAYOUT-CONSTRAINT
+**Immediate Fix Possible:** No — interpreter constraint propagation issue
+
+**Description:** Test passes but produces 4 framework errors. Identical pattern to Issue #12: `BoxConstraints has a negative minimum height` from `CupertinoSearchTextField` (which internally uses the same editable text rendering as `CupertinoTextField`), plus the same `RenderFlex overflowed by 3.4e+38 pixels` cascade.
+
+**Detailed Analysis:**
+The script creates a `CupertinoSearchTextField` (line 63) wrapped in `ConstrainedBox(constraints: BoxConstraints(minHeight: 36))`. The `CupertinoSearchTextField` uses the same `_RenderEditableCustomPaint` internally, triggering the identical negative-height constraint. The Column layout in the return widget (line 90) then produces the extreme overflow.
+
+The 4 errors are structurally identical to Issue #12:
+1. `BoxConstraints has a negative minimum height`
+2. `RenderBox was not laid out: _RenderEditableCustomPaint`
+3. `RenderFlex overflowed by 3.4e+38 pixels`
+4. `Failed assertion: '!childSemantics.renderObject._needsLayout'`
+
+**Fix Description:**
+Same root fix as all other FW-LAYOUT-CONSTRAINT issues — fix CupertinoTextField/`_RenderEditableCustomPaint` constraint propagation in the interpreter. `CupertinoSearchTextField` is affected because it uses the same underlying editable text render object.
+
+**Needs Deeper Analysis:** No — same root cause as Batch-0 #0/#1/#2
+
+**Batch Number:** 2
+
+---
+
+### Issue #14 — cupertino/cupertino_sections_test.dart
+
+**Index:** #14
+**Test Name:** cupertino_cupertino_sections
+**Category:** FW-LAYOUT-CONSTRAINT
+**Immediate Fix Possible:** No — interpreter constraint propagation issue
+
+**Description:** Test passes but produces 5 framework errors. Same `BoxConstraints has a negative minimum height` root cause, but with TWO CupertinoTextFormFieldRow instances (Email and Password fields), each producing their own constraint violation and layout failure, plus the shared semantics assertion.
+
+**Detailed Analysis:**
+The script creates a `CupertinoFormSection` with two `CupertinoTextFormFieldRow` children (lines 23-39): an email field and a password field. Each field triggers the negative-height constraint independently, producing:
+
+1. `BoxConstraints has a negative minimum height` — first text field (Email)
+2. `BoxConstraints has a negative minimum height` — second text field (Password)
+3. `RenderBox was not laid out: _RenderEditableCustomPaint` — first text field
+4. `RenderBox was not laid out: _RenderEditableCustomPaint` — second text field
+5. `Failed assertion: '!childSemantics.renderObject._needsLayout'` — semantics tree (shared)
+
+The 5 errors (vs 3 or 4 in other issues) are simply proportional to the number of `CupertinoTextFormFieldRow` instances in the script.
+
+**Fix Description:**
+Same root fix as all other FW-LAYOUT-CONSTRAINT issues. Once the CupertinoTextField constraint propagation is fixed, all cupertino text field variants (`CupertinoTextField`, `CupertinoTextFormFieldRow`, `CupertinoSearchTextField`) will be resolved across all affected tests.
+
+**Needs Deeper Analysis:** No — same root cause as Batch-0 #0/#1/#2
+
+**Batch Number:** 2
+
+---
