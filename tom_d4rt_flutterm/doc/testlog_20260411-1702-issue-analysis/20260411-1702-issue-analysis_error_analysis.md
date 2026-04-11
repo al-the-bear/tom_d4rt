@@ -1847,3 +1847,194 @@ Same fix as Issue #55: add the `whereType<T>()` method to the D4rt List/Iterable
 **Batch Number:** 11
 
 ---
+
+## Batch 12
+
+### Issue #60
+
+**Script:** `widgets/color_filtered_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 533
+**Result:** success (test passed)
+**Errors:** 9 framework errors (log-only)
+
+**Error Messages:**
+
+```
+RenderFlex children have non-zero flex but incoming height constraints are unbounded.
+```
+
+```
+RenderBox was not laid out: RenderFlex#7a32a relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+```
+
+```
+'package:flutter/src/rendering/sliver_multi_box_adaptor.dart': Failed assertion: line 629 pos 12: 'child.hasSize': is not true.
+```
+
+```
+Null check operator used on a null value
+```
+
+**Category:** FW-LAYOUT-CONSTRAINT
+
+**Root Cause Analysis:**
+
+The script (2426 lines) uses a BottomNavigationBar with scene-based content switching. One or more scene widgets contain a Column with Expanded or Flexible children inside a parent that does not provide bounded height constraints. This causes a cascade of layout failures:
+1. "RenderFlex children have non-zero flex but incoming height constraints are unbounded" — initial constraint failure
+2. Multiple "RenderBox was not laid out" assertions — boxes failing to get sizes
+3. "Null check operator used on a null value" — cascading failures in framework code attempting to read sizes
+
+The structure at fault is likely a scene widget with a Column containing Expanded children placed inside a ListView or unbounded container.
+
+**Fix Description:**
+Audit the scene widgets (`_PrimerStage`, `_BlendModeGallery`, `_MatrixWorkshop`, `_AnimatedFiltersSection`, `_PracticalUseCases`, `_Compendium`) and wrap any Column with flex children in a SizedBox or ConstrainedBox that provides bounded height, or replace Expanded with fixed-height children.
+
+**Needs Deeper Analysis:** Partially — need to locate which scene widget has the constraint violation
+
+**Batch Number:** 12
+
+---
+
+### Issue #61
+
+**Script:** `widgets/composited_transform_follower_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 535
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _LinkPrimerState.)
+```
+
+**Category:** INTERPRETER-STATE-WIDGET-ACCESS
+
+**Root Cause Analysis:**
+
+The script (1844 lines) defines `_LinkPrimerState extends State<_LinkPrimer>` which accesses `widget.skin` and `widget.log` in its `build()` method. The D4rt interpreter does not correctly resolve the implicit `widget` getter inherited from `State<T>`. This is the same fundamental issue as Issues #41, #42, #44, etc.
+
+Relevant code at line 253 of the script:
+```dart
+class _LinkPrimerState extends State<_LinkPrimer> {
+  // ...
+  @override
+  Widget build(BuildContext context) {
+    final s = widget.skin;  // <-- fails here
+```
+
+**Fix Description:**
+Fix the interpreter's State<T> bridge to properly expose the `widget` property getter to interpreted subclasses.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-STATE-WIDGET-ACCESS as previous issues
+
+**Batch Number:** 12
+
+---
+
+### Issue #62
+
+**Script:** `widgets/default_asset_bundle_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 540
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Undefined variable: _oceanBundle (Original error: LateInitializationError: Late variable '_oceanBundle' without initializer is accessed before being assigned.)
+```
+
+**Category:** INTERPRETER-LATE-INIT
+
+**Root Cause Analysis:**
+
+The script (1448 lines) declares `late final _DemoAssetBundle _oceanBundle;` in `_DefaultAssetBundleDemoPageState` and initializes it in `initState()`. The D4rt interpreter does not properly handle late variable initialization — when accessed, the variable appears uninitialized even though `initState()` should have run.
+
+Relevant code at lines 45-47:
+```dart
+late final _DemoAssetBundle _oceanBundle;
+late final _DemoAssetBundle _coralBundle;
+late final _DemoAssetBundle _forestBundle;
+```
+
+And initialized in `initState()` at lines 51-105. The interpreter may not be calling `initState()` before `build()`, or the late variable assignment is not being tracked correctly.
+
+**Fix Description:**
+Ensure the interpreter properly executes `initState()` before `build()` on StatefulWidget State objects, and that late variable assignments are recorded and available for subsequent reads.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-LATE-INIT as Issue #40 and others
+
+**Batch Number:** 12
+
+---
+
+### Issue #63
+
+**Script:** `widgets/default_text_height_behavior_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 541
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Undefined variable: _oceanBundle (Original error: LateInitializationError: Late variable '_oceanBundle' without initializer is accessed before being assigned.)
+```
+
+**Category:** INTERPRETER-LATE-INIT
+
+**Root Cause Analysis:**
+
+The script (1024 lines) has the same structure as Issue #62 — late final variables declared and initialized in `initState()` but failing at runtime because the interpreter does not track late variable initialization.
+
+**Fix Description:**
+Same fix as Issue #62: ensure late variable assignments in `initState()` are properly tracked by the interpreter.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-LATE-INIT as Issue #62
+
+**Batch Number:** 12
+
+---
+
+### Issue #64
+
+**Script:** `widgets/directionality_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 542
+**Result:** error (transport failure)
+**Errors:** Transport error (HTTP connection closed)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/directionality_test.dart"
+Operation: POST /build?filename=widgets%2Fdirectionality_test.dart
+Error: HttpException: Connection closed before full header was received
+```
+
+**Category:** TEST-TRANSPORT-ERROR
+
+**Root Cause Analysis:**
+
+The script (1614 lines) caused a transport-level failure — the HTTP connection to the test server was closed before the response could be received. This is typically caused by:
+1. Server crash or timeout during script processing
+2. Test infrastructure issue (memory, connection limits)
+3. Infinite loop or excessive processing in the script causing server timeout
+
+The app stdout shows the server was processing previous scripts successfully before this failure occurred.
+
+**Fix Description:**
+This is a test infrastructure issue rather than a D4rt interpreter bug. Re-run the test in isolation to determine if it's a transient failure or a reproducible issue. If reproducible, investigate the script for performance issues or patterns that cause server overload.
+
+**Needs Deeper Analysis:** Yes — requires isolation testing to determine root cause
+
+**Batch Number:** 12
+
+---
