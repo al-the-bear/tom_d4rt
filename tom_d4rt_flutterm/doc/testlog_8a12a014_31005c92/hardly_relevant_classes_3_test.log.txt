@@ -1,0 +1,369 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_3_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:11 +1: rendering/ alignment_geometry_tween_test.dart
+00:12 +2: rendering/ alignment_tween_test.dart
+00:13 +3: rendering/ annotated_region_layer_test.dart
+00:14 +4: rendering/ annotation_entry_test.dart
+00:14 +5: rendering/ annotation_result_test.dart
+00:15 +6: rendering/ backdrop_key_test.dart
+00:15 +7: rendering/ cache_extent_style_test.dart
+00:16 +8: rendering/ child_layout_helper_test.dart
+00:16 +8 -1: rendering/ child_layout_helper_test.dart [E]
+  type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:71  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 618:35   AstConverter._convertForStatement
+  package:tom_ast_generator/src/converter/ast_converter.dart 87:47    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 561:19   AstConverter._convertBlock
+  package:tom_ast_generator/src/converter/ast_converter.dart 78:40    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 1419:14  AstConverter._convertBlockFunctionBody
+  package:tom_ast_generator/src/converter/ast_converter.dart 189:14   AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:57  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 382:13   AstConverter._convertMethodDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 52:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 402:16   AstConverter._convertClassDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 54:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 28:25    AstConverter.convertCompilationUnit
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 497:23       AstBundler._parseSourceCode
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 220:22       AstBundler.createFromSource
+  package:tom_d4rt_exec/src/d4rt_base.dart 1045:20                    D4rt.createBundleFromSource
+  test/send_test_runner.dart 634:41                                   SendTestRunner.send
+  
+00:16 +8 -1: rendering/ class_test.dart
+00:16 +9 -1: rendering/ clear_selection_event_test.dart
+00:16 +10 -1: rendering/ const_test.dart
+00:17 +11 -1: rendering/ container_parent_data_mixin_test.dart
+00:17 +12 -1: rendering/ cross_axis_alignment_test.dart
+00:18 +13 -1: rendering/ decoration_position_test.dart
+00:18 +14 -1: rendering/ diagnostics_debug_creator_test.dart
+00:18 +14 -2: rendering/ diagnostics_debug_creator_test.dart [E]
+  Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from main.dart: Package import "package:flutter_test/flutter_test.dart" is not bridged and not in the same package. Either add it to bridgedLibraries or provide it via explicitSources.
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 335:11  AstBundler._resolveImports
+  
+00:18 +14 -2: rendering/ directionally_extend_selection_event_test.dart
+00:19 +15 -2: rendering/ flex_fit_test.dart
+00:19 +16 -2: rendering/ floating_header_snap_configuration_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/floating_header_snap_configuration_test.dart (1 error(s)):
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+00:19 +17 -2: rendering/ flow_painting_context_test.dart
+00:19 +18 -2: rendering/ flow_parent_data_test.dart
+00:20 +19 -2: rendering/ fraction_column_width_test.dart
+00:20 +20 -2: rendering/ fractional_offset_tween_test.dart
+00:21 +21 -2: rendering/ granularly_extend_selection_event_test.dart
+00:21 +22 -2: rendering/ growth_direction_test.dart
+00:22 +23 -2: rendering/ hit_test_behavior_test.dart
+00:22 +23 -3: rendering/ hit_test_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocation.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_3_test.dart 213:7      main.<fn>.<fn>
+  
+00:22 +23 -3: rendering/ image_filter_config_test.dart
+00:22 +24 -3: rendering/ image_filter_context_test.dart
+00:23 +25 -3: rendering/ list_wheel_child_manager_test.dart
+00:23 +26 -3: rendering/ main_axis_alignment_test.dart
+00:23 +27 -3: rendering/ main_axis_size_test.dart
+00:23 +28 -3: rendering/ max_column_width_test.dart
+00:24 +29 -3: rendering/ min_column_width_test.dart
+00:24 +30 -3: rendering/ multi_child_layout_parent_data_test.dart
+00:24 +31 -3: rendering/ over_scroll_header_stretch_configuration_test.dart
+00:24 +31 -4: rendering/ over_scroll_header_stretch_configuration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_3_test.dart 276:7      main.<fn>.<fn>
+  
+00:24 +31 -4: rendering/ overflow_box_fit_test.dart
+00:25 +32 -4: rendering/ performance_overlay_option_test.dart
+00:25 +33 -4: rendering/ persistent_header_show_on_screen_configuration_test.dart
+00:25 +34 -4: rendering/ pipeline_manifold_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/pipeline_manifold_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _manifold (Original error: LateInitializationError: Late variable '_manifold' without initializer is accessed before being assigned.)
+00:25 +35 -4: rendering/ placeholder_span_index_semantics_tag_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/placeholder_span_index_semantics_tag_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tags (Original error: LateInitializationError: Late variable '_tags' without initializer is accessed before being assigned.)
+00:26 +36 -4: rendering/ platform_view_hit_test_behavior_test.dart
+00:27 +37 -4: rendering/ platform_view_render_box_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/platform_view_render_box_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _controller (Original error: LateInitializationError: Late variable '_controller' without initializer is accessed before being assigned.)
+00:27 +38 -4: rendering/ render_abstract_viewport_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_abstract_viewport_test.dart (1 error(s)):
+       A RenderFlex overflowed by 70 pixels on the right.
+00:28 +39 -4: rendering/ render_android_view_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_android_view_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Switch expression was not exhaustive for value: PlatformViewHitTestBehavior.opaque (PlatformViewHitTestBehav…
+00:29 +40 -4: rendering/ render_animated_opacity_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_animated_opacity_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _curvedAnimation (Original error: LateInitializationError: Late variable '_curvedAnimation' without initializer is accessed before being assigned.)
+00:29 +41 -4: rendering/ render_animated_size_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_animated_size_state_test.dart (2 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'ConstrainedBox': Argument Error: Invalid parameter "child": expected Widget?, got InterpretedInstance(_MeasureBox)
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+00:30 +42 -4: rendering/ render_app_kit_view_test.dart
+00:31 +43 -4: rendering/ render_clip_r_superellipse_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_clip_r_superellipse_test.dart (4 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+       Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+00:33 +44 -4: rendering/ render_darwin_platform_view_test.dart
+00:35 +45 -4: rendering/ render_decorated_sliver_test.dart
+00:36 +46 -4: rendering/ render_editable_painter_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_editable_painter_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#fac90 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:36 +47 -4: rendering/ render_inline_children_container_defaults_test.dart
+00:37 +48 -4: rendering/ render_object_with_layout_callback_mixin_test.dart
+00:37 +49 -4: rendering/ render_performance_overlay_test.dart
+00:37 +50 -4: rendering/ render_proxy_sliver_test.dart
+00:38 +51 -4: rendering/ render_sliver_box_child_manager_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_sliver_box_child_manager_test.dart (7 error(s)):
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+       type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+00:38 +52 -4: rendering/ render_sliver_constrained_cross_axis_test.dart
+00:38 +53 -4: rendering/ render_sliver_cross_axis_group_test.dart
+00:39 +54 -4: rendering/ render_sliver_edge_insets_padding_test.dart
+00:39 +55 -4: rendering/ render_sliver_fill_remaining_and_overscroll_test.dart
+00:39 +56 -4: rendering/ render_sliver_fill_remaining_with_scrollable_test.dart
+00:39 +57 -4: rendering/ render_sliver_fixed_extent_box_adaptor_test.dart
+00:39 +58 -4: rendering/ render_sliver_floating_pinned_persistent_header_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_sliver_floating_pinned_persistent_header_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _PrimerSceneState.)
+00:40 +59 -4: rendering/ render_sliver_main_axis_group_test.dart
+00:40 +60 -4: rendering/ render_sliver_semantics_annotations_test.dart
+00:40 +61 -4: rendering/ render_sliver_single_box_adapter_test.dart
+00:41 +62 -4: rendering/ render_ui_kit_view_test.dart
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_ui_kit_view_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _PrimerSceneState.)
+00:41 +63 -4: rendering/ rendering_service_extensions_test.dart
+00:41 +64 -4: rendering/ revealed_offset_test.dart
+00:42 +65 -4: rendering/ scroll_direction_test.dart
+00:42 +66 -4: rendering/ select_all_selection_event_test.dart
+00:42 +67 -4: rendering/ select_paragraph_selection_event_test.dart
+00:42 +68 -4: rendering/ select_word_selection_event_test.dart
+00:42 +69 -4: rendering/ selected_content_range_test.dart
+00:43 +70 -4: rendering/ selection_edge_update_event_test.dart
+00:43 +71 -4: rendering/ selection_event_test.dart
+00:44 +72 -4: rendering/ selection_event_type_test.dart
+00:44 +73 -4: rendering/ selection_extend_direction_test.dart
+00:44 +74 -4: rendering/ selection_handler_test.dart
+00:44 +75 -4: rendering/ selection_registrant_test.dart
+00:44 +76 -4: rendering/ selection_result_test.dart
+00:45 +77 -4: rendering/ selection_status_test.dart
+00:45 +78 -4: rendering/ selection_utils_test.dart
+00:45 +79 -4: rendering/ sliver_logical_container_parent_data_test.dart
+00:45 +80 -4: rendering/ sliver_paint_order_test.dart
+00:46 +81 -4: rendering/ sliver_physical_container_parent_data_test.dart
+00:46 +82 -4: rendering/ stack_fit_test.dart
+00:46 +83 -4: rendering/ table_border_test.dart
+00:46 +84 -4: rendering/ table_cell_vertical_alignment_test.dart
+00:47 +85 -4: rendering/ text_granularity_test.dart
+00:47 +86 -4: rendering/ text_selection_handle_type_test.dart
+00:47 +87 -4: rendering/ texture_box_test.dart
+00:47 +88 -4: rendering/ tree_sliver_indentation_type_test.dart
+00:48 +89 -4: rendering/ tree_sliver_node_parent_data_test.dart
+00:48 +90 -4: rendering/ vertical_caret_movement_run_test.dart
+00:48 +91 -4: rendering/ wrap_alignment_test.dart
+00:49 +92 -4: rendering/ wrap_cross_alignment_test.dart
+00:49 +93 -4: scheduler/ class_test.dart
+00:50 +94 -4: scheduler/ priority_test.dart
+00:50 +95 -4: scheduler/ scheduler_phase_test.dart
+00:50 +96 -4: scheduler/ scheduler_service_extensions_test.dart
+00:50 +97 -4: semantics/ accessibility_focus_block_type_test.dart
+00:50 +98 -4: semantics/ announce_semantics_event_test.dart
+00:50 +99 -4: semantics/ assertiveness_test.dart
+00:50 +100 -4: semantics/ attributed_string_property_test.dart
+00:50 +101 -4: semantics/ class_test.dart
+00:51 +102 -4: semantics/ debug_semantics_dump_order_test.dart
+00:51 +103 -4: semantics/ focus_semantic_event_test.dart
+00:51 +104 -4: semantics/ long_press_semantics_event_test.dart
+00:51 +105 -4: semantics/ tap_semantic_event_test.dart
+00:51 +106 -4: semantics/ tooltip_semantics_event_test.dart
+00:51 +107 -4: services/ android_motion_event_test.dart
+00:51 +108 -4: services/ android_pointer_coords_test.dart
+00:52 +109 -4: services/ android_pointer_properties_test.dart
+00:52 +110 -4: services/ application_switcher_description_test.dart
+00:52 +111 -4: services/ autofill_client_test.dart
+00:52 +112 -4: services/ autofill_hints_test.dart
+00:53 +113 -4: services/ autofill_scope_mixin_test.dart
+00:53 +114 -4: services/ background_isolate_binary_messenger_test.dart
+00:54 +115 -4: services/ binary_messenger_test.dart
+00:54 +116 -4: services/ class_test.dart
+00:54 +117 -4: services/ content_sensitivity_test.dart
+00:54 +118 -4: services/ deferred_component_test.dart
+00:55 +119 -4: services/ delta_text_input_client_test.dart
+00:55 +120 -4: services/ device_orientation_test.dart
+00:55 +121 -4: services/ floating_cursor_drag_state_test.dart
+00:55 +122 -4: services/ g_l_f_w_key_helper_test.dart
+00:56 +123 -4: services/ gtk_key_helper_test.dart
+00:56 +124 -4: services/ i_o_s_system_context_menu_item_data_copy_test.dart
+00:56 +125 -4: services/ i_o_s_system_context_menu_item_data_custom_test.dart
+00:56 +126 -4: services/ i_o_s_system_context_menu_item_data_cut_test.dart
+00:56 +127 -4: services/ i_o_s_system_context_menu_item_data_live_text_test.dart
+00:56 +128 -4: services/ i_o_s_system_context_menu_item_data_look_up_test.dart
+00:56 +129 -4: services/ i_o_s_system_context_menu_item_data_paste_test.dart
+00:57 +130 -4: services/ i_o_s_system_context_menu_item_data_search_web_test.dart
+00:57 +131 -4: services/ i_o_s_system_context_menu_item_data_select_all_test.dart
+00:57 +132 -4: services/ i_o_s_system_context_menu_item_data_share_test.dart
+00:57 +133 -4: services/ i_o_s_system_context_menu_item_data_test.dart
+00:58 +134 -4: services/ key_data_transit_mode_test.dart
+00:58 +135 -4: services/ key_down_event_test.dart
+00:58 +136 -4: services/ key_event_manager_test.dart
+00:58 +137 -4: services/ key_event_test.dart
+00:58 +138 -4: services/ key_helper_test.dart
+00:58 +139 -4: services/ key_message_test.dart
+00:59 +140 -4: services/ key_repeat_event_test.dart
+00:59 +141 -4: services/ key_up_event_test.dart
+00:59 +142 -4: services/ keyboard_key_test.dart
+00:59 +143 -4: services/ keyboard_lock_mode_test.dart
+00:59 +144 -4: services/ keyboard_side_test.dart
+00:59 +145 -4: services/ max_length_enforcement_test.dart
+00:59 +146 -4: services/ message_codec_test.dart
+00:59 +146 -5: services/ message_codec_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined property or method 'lengthInBytes' on _ByteDataView.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_3_test.dart 1089:7     main.<fn>.<fn>
+  
+00:59 +146 -5: services/ method_codec_test.dart
+00:59 +146 -6: services/ method_codec_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot access property 'lengthInBytes' on target of type _ByteDataView.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_3_test.dart 1096:7     main.<fn>.<fn>
+  
+00:59 +146 -6: services/ missing_plugin_exception_test.dart
+01:00 +147 -6: services/ modifier_key_test.dart
+01:00 +148 -6: services/ mouse_cursor_manager_test.dart
+01:00 +149 -6: services/ mouse_cursor_session_test.dart
+01:01 +150 -6: services/ mouse_tracker_annotation_test.dart
+01:01 +151 -6: services/ platform_exception_test.dart
+01:01 +152 -6: services/ raw_floating_cursor_point_test.dart
+01:01 +153 -6: services/ raw_key_down_event_test.dart
+01:02 +154 -6: services/ raw_key_event_data_android_test.dart
+01:02 +155 -6: services/ raw_key_event_data_fuchsia_test.dart
+01:02 +156 -6: services/ raw_key_event_data_ios_test.dart
+01:02 +157 -6: services/ raw_key_event_data_linux_test.dart
+01:02 +158 -6: services/ raw_key_event_data_mac_os_test.dart
+01:02 +159 -6: services/ raw_key_event_data_test.dart
+01:03 +160 -6: services/ raw_key_event_data_web_test.dart
+01:03 +161 -6: services/ raw_key_event_data_windows_test.dart
+01:03 +162 -6: services/ raw_key_event_test.dart
+01:03 +163 -6: services/ raw_key_up_event_test.dart
+
+  ⚠️  FRAMEWORK ERROR in services/raw_key_up_event_test.dart (15 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+01:04 +164 -6: services/ raw_keyboard_test.dart
+01:04 +165 -6: services/ restoration_bucket_test.dart
+01:04 +166 -6: services/ scribble_client_test.dart
+01:04 +167 -6: services/ selection_changed_cause_test.dart
+01:05 +168 -6: services/ selection_rect_test.dart
+01:05 +169 -6: services/ sensitive_content_service_test.dart
+01:05 +170 -6: services/ services_service_extensions_test.dart
+01:05 +171 -6: services/ smart_dashes_type_test.dart
+01:06 +172 -6: services/ smart_quotes_type_test.dart
+01:07 +173 -6: services/ swipe_edge_test.dart
+01:07 +174 -6: services/ system_context_menu_client_test.dart
+01:07 +175 -6: services/ system_context_menu_controller_test.dart
+01:08 +176 -6: services/ system_sound_type_test.dart
+01:08 +177 -6: services/ system_ui_mode_test.dart
+01:08 +178 -6: services/ system_ui_overlay_test.dart
+01:08 +179 -6: services/ text_capitalization_test.dart
+01:09 +180 -6: services/ text_editing_delta_deletion_test.dart
+01:09 +181 -6: services/ text_editing_delta_insertion_test.dart
+01:09 +182 -6: services/ text_editing_delta_non_text_update_test.dart
+01:09 +183 -6: services/ text_editing_delta_replacement_test.dart
+01:09 +184 -6: services/ text_editing_value_test.dart
+01:09 +185 -6: services/ text_input_action_test.dart
+01:09 +186 -6: services/ text_input_client_test.dart
+01:10 +187 -6: services/ text_input_configuration_test.dart
+01:10 +188 -6: services/ text_input_connection_test.dart
+01:11 +189 -6: services/ text_input_control_test.dart
+01:11 +190 -6: services/ text_input_test.dart
+01:12 +191 -6: services/ text_input_type_test.dart
+01:12 +192 -6: services/ text_selection_delegate_test.dart
+01:13 +193 -6: services/ text_selection_test.dart
+01:13 +194 -6: services/ undo_direction_test.dart
+01:13 +195 -6: (tearDownAll)
+unhandled error during finalization of test:
+/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_3_test.dart
+TestDeviceException(Shell subprocess crashed with SIGTERM (-15).)
+#0      FlutterTesterTestDevice.finished (package:flutter_tools/src/test/flutter_tester_device.dart:252:5)
+<asynchronous suspension>
+#1      FlutterTesterTestDevice.kill (package:flutter_tools/src/test/flutter_tester_device.dart:234:5)
+<asynchronous suspension>
+#2      FlutterPlatform._startTest.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:690:9)
+<asynchronous suspension>
+#3      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:592:11)
+<asynchronous suspension>
+#4      FlutterPlatform._startTest (package:flutter_tools/src/test/flutter_platform.dart:763:7)
+<asynchronous suspension>
+
+01:14 +195 -6: (tearDownAll) - did not complete [E]
+01:14 +195 -6: Some tests failed.

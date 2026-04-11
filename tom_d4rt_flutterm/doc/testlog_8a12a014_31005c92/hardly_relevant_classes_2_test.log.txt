@@ -1,0 +1,1295 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_2_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:12 +1: material/ adaptation_test.dart
+00:13 +2: material/ animated_icon_data_test.dart
+00:13 +3: material/ animated_theme_test.dart
+00:15 +4: material/ autocomplete_test.dart
+00:15 +5: material/ back_button_icon_test.dart
+00:15 +6: material/ back_button_test.dart
+00:16 +7: material/ bottom_navigation_bar_landscape_layout_test.dart
+00:16 +8: material/ bottom_navigation_bar_theme_data_test.dart
+00:17 +9: material/ bottom_navigation_bar_theme_test.dart
+00:17 +10: material/ bottom_navigation_bar_type_test.dart
+00:18 +10 -1: material/ bottom_navigation_bar_type_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 112:7      main.<fn>.<fn>
+  
+00:18 +10 -1: material/ button_bar_layout_behavior_test.dart
+00:18 +10 -2: material/ button_bar_layout_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  NoSuchMethodError: The method '>' was called on null.
+  Receiver: null
+  Tried calling: >(0)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 119:7      main.<fn>.<fn>
+  
+00:18 +10 -2: material/ button_bar_test.dart
+00:18 +11 -2: material/ button_bar_theme_data_test.dart
+00:19 +12 -2: material/ button_bar_theme_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/button_bar_theme_test.dart (2 error(s)):
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+00:19 +13 -2: material/ button_text_theme_test.dart
+00:20 +13 -3: material/ button_text_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot access property 'value' on target of type null.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 145:7      main.<fn>.<fn>
+  
+00:20 +13 -3: material/ carousel_controller_test.dart
+00:20 +14 -3: material/ carousel_scroll_physics_test.dart
+00:20 +15 -3: material/ carousel_view_test.dart
+00:21 +16 -3: material/ carousel_view_theme_data_test.dart
+00:22 +17 -3: material/ carousel_view_theme_test.dart
+00:22 +18 -3: material/ checked_popup_menu_item_test.dart
+00:22 +19 -3: material/ class_test.dart
+00:23 +20 -3: material/ close_button_icon_test.dart
+00:23 +21 -3: material/ close_button_test.dart
+00:24 +22 -3: material/ collapse_mode_test.dart
+00:24 +22 -4: material/ collapse_mode_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 213:7      main.<fn>.<fn>
+  
+00:24 +22 -4: material/ cupertino_based_material_theme_data_test.dart
+00:24 +23 -4: material/ date_picker_entry_mode_test.dart
+00:24 +24 -4: material/ date_picker_mode_test.dart
+00:25 +25 -4: material/ day_period_test.dart
+00:25 +26 -4: material/ dialog_route_test.dart
+00:26 +27 -4: material/ drawer_alignment_test.dart
+00:26 +28 -4: material/ drawer_button_icon_test.dart
+00:26 +29 -4: material/ drawer_button_test.dart
+00:27 +30 -4: material/ drawer_controller_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/drawer_controller_state_test.dart (3 error(s)):
+       A RenderFlex overflowed by 46 pixels on the right.
+       A RenderFlex overflowed by 29 pixels on the right.
+       A RenderFlex overflowed by 12 pixels on the right.
+00:27 +31 -4: material/ drawer_controller_test.dart
+00:27 +32 -4: material/ drop_range_slider_value_indicator_shape_test.dart
+00:27 +33 -4: material/ drop_slider_value_indicator_shape_test.dart
+00:28 +34 -4: material/ dropdown_button_hide_underline_test.dart
+00:29 +35 -4: material/ dropdown_menu_close_behavior_test.dart
+00:29 +35 -5: material/ dropdown_menu_close_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: DropdownMenuCloseBehavior.all (DropdownMenuCloseBehavior)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 309:7      main.<fn>.<fn>
+  
+00:29 +35 -5: material/ dropdown_menu_entry_test.dart
+00:30 +36 -5: material/ dropdown_menu_form_field_test.dart
+00:30 +37 -5: material/ dropdown_menu_item_test.dart
+00:31 +38 -5: material/ durations_test.dart
+00:31 +39 -5: material/ dynamic_scheme_variant_test.dart
+00:32 +40 -5: material/ easing_test.dart
+00:32 +41 -5: material/ elevation_overlay_test.dart
+00:32 +42 -5: material/ end_drawer_button_icon_test.dart
+00:33 +43 -5: material/ end_drawer_button_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/end_drawer_button_test.dart (8 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+00:33 +44 -5: material/ expand_icon_test.dart
+00:34 +45 -5: material/ expansion_panel_radio_test.dart
+00:34 +46 -5: material/ fab_center_offset_x_test.dart
+00:34 +47 -5: material/ fab_contained_offset_y_test.dart
+00:35 +48 -5: material/ fab_docked_offset_y_test.dart
+00:35 +49 -5: material/ fab_end_offset_x_test.dart
+00:35 +50 -5: material/ fab_float_offset_y_test.dart
+00:36 +51 -5: material/ fab_mini_offset_adjustment_test.dart
+00:36 +52 -5: material/ fab_start_offset_x_test.dart
+00:36 +53 -5: material/ fab_top_offset_y_test.dart
+00:37 +54 -5: material/ fade_forwards_page_transitions_builder_test.dart
+00:37 +55 -5: material/ flexible_space_bar_settings_test.dart
+00:37 +56 -5: material/ floating_label_alignment_test.dart
+00:38 +57 -5: material/ floating_label_behavior_test.dart
+00:38 +58 -5: material/ gapped_range_slider_track_shape_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_range_slider_track_shape_test.dart (18 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:38 +59 -5: material/ gapped_slider_track_shape_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_slider_track_shape_test.dart (28 error(s)):
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+00:39 +60 -5: material/ gregorian_calendar_delegate_test.dart
+00:40 +61 -5: material/ grid_tile_bar_test.dart
+00:40 +62 -5: material/ grid_tile_test.dart
+00:41 +63 -5: material/ handle_range_slider_thumb_shape_test.dart
+00:41 +64 -5: material/ handle_thumb_shape_test.dart
+00:41 +65 -5: material/ hour_format_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/hour_format_test.dart (1 error(s)):
+       Runtime Error: Cannot invoke method 'withValues' on null. Use '?.' for null-aware method invocation.
+00:42 +66 -5: material/ icon_alignment_test.dart
+00:43 +67 -5: material/ icons_test.dart
+00:44 +68 -5: material/ ink_decoration_test.dart
+00:44 +69 -5: material/ ink_sparkle_test.dart
+00:45 +70 -5: material/ input_date_picker_form_field_test.dart
+00:45 +71 -5: material/ input_decoration_theme_data_test.dart
+00:46 +72 -5: material/ input_decorator_test.dart
+00:46 +73 -5: material/ interactive_ink_feature_factory_test.dart
+00:46 +74 -5: material/ list_tile_control_affinity_test.dart
+00:47 +75 -5: material/ list_tile_style_test.dart
+00:47 +75 -6: material/ list_tile_style_test.dart [E]
+  Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from main.dart: Package import "package:flutter_test/flutter_test.dart" is not bridged and not in the same package. Either add it to bridgedLibraries or provide it via explicitSources.
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 335:11  AstBundler._resolveImports
+  
+00:47 +75 -6: material/ list_tile_title_alignment_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/list_tile_title_alignment_test.dart (3 error(s)):
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+00:48 +76 -6: material/ magnifier_test.dart
+00:49 +77 -6: material/ material_banner_closed_reason_test.dart
+00:49 +77 -7: material/ material_banner_closed_reason_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: MaterialBannerClosedReason.dismiss (MaterialBannerClosedReason)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 607:7      main.<fn>.<fn>
+  
+00:49 +77 -7: material/ material_point_arc_tween_test.dart
+00:50 +78 -7: material/ material_rect_arc_tween_test.dart
+00:50 +79 -7: material/ material_rect_center_arc_tween_test.dart
+00:51 +80 -7: material/ material_scroll_behavior_test.dart
+00:52 +81 -7: material/ material_state_mixin_test.dart
+00:52 +82 -7: material/ material_state_outline_input_border_test.dart
+00:53 +83 -7: material/ material_state_underline_input_border_test.dart
+00:53 +84 -7: material/ material_tap_target_size_test.dart
+00:54 +85 -7: material/ material_text_selection_handle_controls_test.dart
+00:54 +86 -7: material/ menu_accelerator_callback_binding_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/menu_accelerator_callback_binding_test.dart (12 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+00:55 +87 -7: material/ menu_accelerator_label_test.dart
+00:55 +88 -7: material/ menu_button_theme_data_test.dart
+00:55 +89 -7: material/ menu_button_theme_test.dart
+00:56 +90 -7: material/ mergeable_material_item_test.dart
+00:56 +91 -7: material/ modal_bottom_sheet_route_test.dart
+00:57 +92 -7: material/ navigation_destination_label_behavior_test.dart
+00:57 +92 -8: material/ navigation_destination_label_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: NavigationDestinationLabelBehavior.alwaysShow (NavigationDestinationLabelBehavior)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 719:7      main.<fn>.<fn>
+  
+00:57 +92 -8: material/ navigation_drawer_theme_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/navigation_drawer_theme_test.dart (3 error(s)):
+       A RenderFlex overflowed by 29 pixels on the bottom.
+       A RenderFlex overflowed by 29 pixels on the bottom.
+       A RenderFlex overflowed by 29 pixels on the bottom.
+00:57 +93 -8: material/ navigation_indicator_test.dart
+00:58 +94 -8: material/ navigation_rail_label_type_test.dart
+00:58 +94 -9: material/ navigation_rail_label_type_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: NavigationRailLabelType.none (NavigationRailLabelType)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 740:7      main.<fn>.<fn>
+  
+00:58 +94 -9: material/ no_splash_test.dart
+00:58 +95 -9: material/ paddle_range_slider_value_indicator_shape_test.dart
+00:59 +96 -9: material/ paddle_slider_value_indicator_shape_test.dart
+00:59 +97 -9: material/ paginated_data_table_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/paginated_data_table_state_test.dart (36 error(s)):
+       BoxConstraints forces an infinite width.
+These invalid constraints were provided to RenderSemanticsAnnotations's layout() function by the following function, which probably computed the invalid constr…
+       RenderBox was not laid out: RenderFlex#6036a relayoutBoundary=up33 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderLayoutBuilder#9c55f relayoutBoundary=up32 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsAnnotations#35938 relayoutBoundary=up31 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: _RenderInkFeatures#42d86 relayoutBoundary=up30 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderCustomPaint#26263 relayoutBoundary=up29 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderPhysicalShape#7c86e relayoutBoundary=up28 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'has…
+       RenderBox was not laid out: RenderPadding#1f204 relayoutBoundary=up27 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderSemanticsAnnotations#7aae8 relayoutBoundary=up26 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: _RenderSingleChildViewport#0e299 relayoutBoundary=up25 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#588d8 relayoutBoundary=up24 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'has…
+       RenderBox was not laid out: RenderSemanticsAnnotations#bb698 relayoutBoundary=up23 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderPointerListener#d2900 relayoutBoundary=up22 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#81798 relayoutBoundary=up21 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 po…
+       RenderBox was not laid out: RenderPointerListener#008e7 relayoutBoundary=up20 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: _RenderScrollSemantics#707f7 relayoutBoundary=up19 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: '…
+       RenderBox was not laid out: RenderTransform#ca2b2 relayoutBoundary=up18 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize…
+       RenderBox was not laid out: RenderClipRect#a7f27 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#f4a15 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#3c25d relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#72e62 relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderPadding#b4445 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#5d981 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#917ba relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#1e5b1 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#93bef relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#db144 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#4e252 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#dcab9 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#966ab relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#e11be relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#af421 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#4eecd relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderColoredBox#ea8e7 relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSiz…
+       RenderBox was not laid out: _RenderColoredBox#ea8e7 relayoutBoundary=up1
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+01:00 +98 -9: material/ persistent_bottom_sheet_controller_test.dart
+01:00 +99 -9: material/ platform_adaptive_icons_test.dart
+01:01 +100 -9: material/ popup_menu_button_state_test.dart
+01:01 +101 -9: material/ popup_menu_divider_test.dart
+01:01 +102 -9: material/ popup_menu_entry_test.dart
+01:02 +103 -9: material/ popup_menu_item_state_test.dart
+01:02 +104 -9: material/ popup_menu_item_test.dart
+01:03 +105 -9: material/ popup_menu_position_test.dart
+01:03 +105 -10: material/ popup_menu_position_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'PopupMenuButton': 'package:flutter/src/material/popup_menu.dart': Failed assertion: line 1361 pos 15: '!(child != null && icon != null)': You can only pass [child] or [icon], not both.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 822:7      main.<fn>.<fn>
+  
+01:03 +105 -10: material/ predictive_back_fullscreen_page_transitions_builder_test.dart
+01:03 +106 -10: material/ progress_indicator_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/progress_indicator_test.dart (1 error(s)):
+       Progress bar value, minValue, and maxValue must be valid numbers. value: "67%", minValue: "0", maxValue: "100"
+01:04 +107 -10: material/ raw_chip_test.dart
+01:04 +108 -10: material/ rectangular_range_slider_track_shape_test.dart
+01:05 +109 -10: material/ rectangular_range_slider_value_indicator_shape_test.dart
+01:05 +110 -10: material/ rectangular_slider_value_indicator_shape_test.dart
+01:05 +111 -10: material/ refresh_indicator_state_test.dart
+01:06 +112 -10: material/ refresh_indicator_status_test.dart
+01:06 +113 -10: material/ refresh_indicator_trigger_mode_test.dart
+01:06 +114 -10: material/ refresh_progress_indicator_test.dart
+
+  ⚠️  FRAMEWORK ERROR in material/refresh_progress_indicator_test.dart (1 error(s)):
+       Progress bar value, minValue, and maxValue must be valid numbers. value: "50%", minValue: "0", maxValue: "100"
+01:07 +115 -10: material/ restorable_time_of_day_test.dart
+01:07 +116 -10: material/ round_range_slider_thumb_shape_test.dart
+01:08 +117 -10: material/ round_range_slider_tick_mark_shape_test.dart
+01:08 +118 -10: material/ rounded_rect_range_slider_track_shape_test.dart
+01:08 +119 -10: material/ rounded_rect_range_slider_value_indicator_shape_test.dart
+01:09 +120 -10: material/ rounded_rect_slider_value_indicator_shape_test.dart
+01:09 +121 -10: material/ scaffold_geometry_test.dart
+01:10 +122 -10: material/ scaffold_prelayout_geometry_test.dart
+01:10 +123 -10: material/ script_category_test.dart
+01:11 +124 -10: material/ scrollbar_theme_data_test.dart
+01:12 +125 -10: material/ search_controller_test.dart
+01:13 +126 -10: material/ search_delegate_test.dart
+01:13 +127 -10: material/ segmented_button_state_test.dart
+01:14 +128 -10: material/ selection_area_state_test.dart
+01:14 +129 -10: material/ selection_area_test.dart
+01:16 +129 -11: material/ selection_area_test.dart [E]
+  HttpException: Connection closed before full header was received, uri = http://localhost:4247/build?filename=material%2Fselection_area_test.dart
+  dart:_http                                      _HttpClient.getUrl
+  test/send_test_runner.dart 772:32               _httpGet
+  test/send_test_runner.dart 707:30               SendTestRunner.isAppRunning
+  test/hardly_relevant_classes_2_test.dart 34:46  main.<fn>.<fn>
+  
+01:16 +129 -11: material/ shape_border_tween_test.dart
+01:16 +129 -12: material/ shape_border_tween_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33760
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1002:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1002:43  main.<fn>.<fn>
+  
+01:16 +129 -12: material/ show_value_indicator_test.dart
+01:16 +129 -13: material/ show_value_indicator_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33764
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1009:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1009:43  main.<fn>.<fn>
+  
+01:16 +129 -13: material/ simple_dialog_option_test.dart
+01:16 +129 -14: material/ simple_dialog_option_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33776
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1016:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1016:43  main.<fn>.<fn>
+  
+01:16 +129 -14: material/ slider_interaction_test.dart
+01:16 +129 -15: material/ slider_interaction_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33792
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1023:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1023:43  main.<fn>.<fn>
+  
+01:16 +129 -15: material/ snack_bar_theme_data_test.dart
+01:16 +129 -16: material/ snack_bar_theme_data_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33808
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1030:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1030:43  main.<fn>.<fn>
+  
+01:16 +129 -16: material/ spell_check_suggestions_toolbar_layout_delegate_test.dart
+01:16 +129 -17: material/ spell_check_suggestions_toolbar_layout_delegate_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33820
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1037:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1037:43  main.<fn>.<fn>
+  
+01:16 +129 -17: material/ standard_fab_location_test.dart
+01:16 +129 -18: material/ standard_fab_location_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33836
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1044:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1044:43  main.<fn>.<fn>
+  
+01:16 +129 -18: material/ step_style_test.dart
+01:16 +129 -19: material/ step_style_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33838
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1051:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1051:43  main.<fn>.<fn>
+  
+01:16 +129 -19: material/ stretch_mode_test.dart
+01:16 +129 -20: material/ stretch_mode_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33844
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1056:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1056:43  main.<fn>.<fn>
+  
+01:16 +129 -20: material/ tab_alignment_test.dart
+01:16 +129 -21: material/ tab_alignment_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33854
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1063:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1063:43  main.<fn>.<fn>
+  
+01:16 +129 -21: material/ tab_indicator_animation_test.dart
+01:16 +129 -22: material/ tab_indicator_animation_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33864
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1070:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1070:43  main.<fn>.<fn>
+  
+01:16 +129 -22: material/ tab_page_selector_indicator_test.dart
+01:16 +129 -23: material/ tab_page_selector_indicator_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33870
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1077:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1077:43  main.<fn>.<fn>
+  
+01:16 +129 -23: material/ tab_page_selector_test.dart
+01:16 +129 -24: material/ tab_page_selector_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33882
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1084:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1084:43  main.<fn>.<fn>
+  
+01:16 +129 -24: material/ table_row_ink_well_test.dart
+01:16 +129 -25: material/ table_row_ink_well_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33890
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1091:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1091:43  main.<fn>.<fn>
+  
+01:16 +129 -25: material/ tappable_chip_attributes_test.dart
+01:16 +129 -26: material/ tappable_chip_attributes_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33892
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1098:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1098:43  main.<fn>.<fn>
+  
+01:16 +129 -26: material/ text_magnifier_test.dart
+01:16 +129 -27: material/ text_magnifier_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33898
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1105:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1105:43  main.<fn>.<fn>
+  
+01:16 +129 -27: material/ theme_data_tween_test.dart
+01:16 +129 -28: material/ theme_data_tween_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33910
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1112:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1112:43  main.<fn>.<fn>
+  
+01:16 +129 -28: material/ theme_extension_test.dart
+01:16 +129 -29: material/ theme_extension_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33924
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1119:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1119:43  main.<fn>.<fn>
+  
+01:16 +129 -29: material/ theme_mode_test.dart
+01:16 +129 -30: material/ theme_mode_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33936
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1126:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1126:43  main.<fn>.<fn>
+  
+01:16 +129 -30: material/ thumb_test.dart
+01:16 +129 -31: material/ thumb_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33952
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1131:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1131:43  main.<fn>.<fn>
+  
+01:16 +129 -31: material/ time_of_day_format_test.dart
+01:16 +129 -32: material/ time_of_day_format_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33960
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1136:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1136:43  main.<fn>.<fn>
+  
+01:16 +129 -32: material/ time_picker_entry_mode_test.dart
+01:16 +129 -33: material/ time_picker_entry_mode_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33968
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1143:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1143:43  main.<fn>.<fn>
+  
+01:16 +129 -33: material/ toggle_buttons_theme_data_test.dart
+01:16 +129 -34: material/ toggle_buttons_theme_data_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33980
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1150:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1150:43  main.<fn>.<fn>
+  
+01:16 +129 -34: material/ toggle_buttons_theme_test.dart
+01:16 +129 -35: material/ toggle_buttons_theme_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33984
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1157:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1157:43  main.<fn>.<fn>
+  
+01:16 +129 -35: material/ tooltip_state_test.dart
+01:16 +129 -36: material/ tooltip_state_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 33998
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1164:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1164:43  main.<fn>.<fn>
+  
+01:16 +129 -36: material/ underline_tab_indicator_test.dart
+01:16 +129 -37: material/ underline_tab_indicator_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34006
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1171:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1171:43  main.<fn>.<fn>
+  
+01:16 +129 -37: material/ vertical_divider_test.dart
+01:16 +129 -38: material/ vertical_divider_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34018
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1178:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1178:43  main.<fn>.<fn>
+  
+01:16 +129 -38: material/ widget_state_input_border_test.dart
+01:16 +129 -39: material/ widget_state_input_border_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34022
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1185:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1185:43  main.<fn>.<fn>
+  
+01:16 +129 -39: painting/ accumulator_test.dart
+01:16 +129 -40: painting/ accumulator_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34034
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1197:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1197:43  main.<fn>.<fn>
+  
+01:16 +129 -40: painting/ asset_bundle_image_key_test.dart
+01:16 +129 -41: painting/ asset_bundle_image_key_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34036
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1204:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1204:43  main.<fn>.<fn>
+  
+01:16 +129 -41: painting/ asset_bundle_image_provider_test.dart
+01:16 +129 -42: painting/ asset_bundle_image_provider_test.dart [E]
+  Bad state: Script not found: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart
+  test/send_test_runner.dart 624:7                  SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1211:43  main.<fn>.<fn>
+  
+01:16 +129 -42: painting/ axis_direction_test.dart
+01:16 +129 -43: painting/ axis_direction_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34038
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1218:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1218:43  main.<fn>.<fn>
+  
+01:16 +129 -43: painting/ axis_test.dart
+01:16 +129 -44: painting/ axis_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34050
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1225:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1225:43  main.<fn>.<fn>
+  
+01:16 +129 -44: painting/ border_style_test.dart
+01:16 +129 -45: painting/ border_style_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34062
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1230:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1230:43  main.<fn>.<fn>
+  
+01:16 +129 -45: painting/ box_fit_test.dart
+01:16 +129 -46: painting/ box_fit_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34066
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1237:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1237:43  main.<fn>.<fn>
+  
+01:16 +129 -46: painting/ box_shape_test.dart
+01:16 +129 -47: painting/ box_shape_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34082
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1242:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1242:43  main.<fn>.<fn>
+  
+01:16 +129 -47: painting/ class_test.dart
+01:16 +129 -48: painting/ class_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34090
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1247:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1247:43  main.<fn>.<fn>
+  
+01:16 +129 -48: painting/ clip_context_test.dart
+01:16 +129 -49: painting/ clip_context_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34104
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1252:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1252:43  main.<fn>.<fn>
+  
+01:16 +129 -49: painting/ color_property_test.dart
+01:16 +129 -50: painting/ color_property_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34116
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1259:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1259:43  main.<fn>.<fn>
+  
+01:16 +129 -50: painting/ fitted_sizes_test.dart
+01:16 +129 -51: painting/ fitted_sizes_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34118
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1266:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1266:43  main.<fn>.<fn>
+  
+01:16 +129 -51: painting/ flutter_logo_style_test.dart
+01:16 +129 -52: painting/ flutter_logo_style_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34124
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1273:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1273:43  main.<fn>.<fn>
+  
+01:16 +129 -52: painting/ image_repeat_test.dart
+01:16 +129 -53: painting/ image_repeat_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34126
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1280:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1280:43  main.<fn>.<fn>
+  
+01:16 +129 -53: painting/ image_size_info_test.dart
+01:16 +129 -54: painting/ image_size_info_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34142
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1287:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1287:43  main.<fn>.<fn>
+  
+01:16 +129 -54: painting/ image_stream_completer_handle_test.dart
+01:16 +129 -55: painting/ image_stream_completer_handle_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34152
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1294:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1294:43  main.<fn>.<fn>
+  
+01:16 +129 -55: painting/ inline_span_semantics_information_test.dart
+01:16 +129 -56: painting/ inline_span_semantics_information_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34166
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1301:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1301:43  main.<fn>.<fn>
+  
+01:16 +129 -56: painting/ inline_span_test.dart
+01:16 +129 -57: painting/ inline_span_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34168
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1308:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1308:43  main.<fn>.<fn>
+  
+01:16 +129 -57: painting/ matrix_utils_test.dart
+01:17 +129 -58: painting/ matrix_utils_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34174
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1315:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1315:43  main.<fn>.<fn>
+  
+01:17 +129 -58: painting/ multi_frame_image_stream_completer_test.dart
+01:17 +129 -59: painting/ multi_frame_image_stream_completer_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34190
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1322:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1322:43  main.<fn>.<fn>
+  
+01:17 +129 -59: painting/ network_image_load_exception_test.dart
+01:17 +129 -60: painting/ network_image_load_exception_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34192
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1329:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1329:43  main.<fn>.<fn>
+  
+01:17 +129 -60: painting/ one_frame_image_stream_completer_test.dart
+01:17 +129 -61: painting/ one_frame_image_stream_completer_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34196
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1336:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1336:43  main.<fn>.<fn>
+  
+01:17 +129 -61: painting/ painting_binding_test.dart
+01:17 +129 -62: painting/ painting_binding_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34206
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1343:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1343:43  main.<fn>.<fn>
+  
+01:17 +129 -62: painting/ render_comparison_test.dart
+01:17 +129 -63: painting/ render_comparison_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34220
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1350:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1350:43  main.<fn>.<fn>
+  
+01:17 +129 -63: painting/ resize_image_policy_test.dart
+01:17 +129 -64: painting/ resize_image_policy_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34232
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1357:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1357:43  main.<fn>.<fn>
+  
+01:17 +129 -64: painting/ shader_warm_up_test.dart
+01:17 +129 -65: painting/ shader_warm_up_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34246
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1364:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1364:43  main.<fn>.<fn>
+  
+01:17 +129 -65: painting/ text_overflow_test.dart
+01:17 +129 -66: painting/ text_overflow_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34256
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1371:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1371:43  main.<fn>.<fn>
+  
+01:17 +129 -66: painting/ text_width_basis_test.dart
+01:17 +129 -67: painting/ text_width_basis_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34262
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1378:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1378:43  main.<fn>.<fn>
+  
+01:17 +129 -67: painting/ transform_property_test.dart
+01:17 +129 -68: painting/ transform_property_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34264
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1385:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1385:43  main.<fn>.<fn>
+  
+01:17 +129 -68: painting/ vertical_direction_test.dart
+01:17 +129 -69: painting/ vertical_direction_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34272
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1392:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1392:43  main.<fn>.<fn>
+  
+01:17 +129 -69: painting/ web_html_element_strategy_test.dart
+01:17 +129 -70: painting/ web_html_element_strategy_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34286
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1399:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1399:43  main.<fn>.<fn>
+  
+01:17 +129 -70: painting/ web_image_info_test.dart
+01:17 +129 -71: painting/ web_image_info_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34292
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1406:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1406:43  main.<fn>.<fn>
+  
+01:17 +129 -71: physics/ bounded_friction_simulation_test.dart
+01:17 +129 -72: physics/ bounded_friction_simulation_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34300
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1418:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1418:43  main.<fn>.<fn>
+  
+01:17 +129 -72: physics/ class_test.dart
+01:17 +129 -73: physics/ class_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34312
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1425:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1425:43  main.<fn>.<fn>
+  
+01:17 +129 -73: physics/ spring_type_test.dart
+01:17 +129 -74: physics/ spring_type_test.dart [E]
+  SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 34322
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1430:43  main.<fn>.<fn>
+  ===== asynchronous gap ===========================
+  dart:_http                                        _HttpClient.getUrl
+  test/send_test_runner.dart 772:32                 _httpGet
+  test/send_test_runner.dart 629:13                 SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1430:43  main.<fn>.<fn>
+  
+01:17 +129 -74: (tearDownAll)
+unhandled error during finalization of test:
+/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_2_test.dart
+TestDeviceException(Shell subprocess crashed with SIGTERM (-15).)
+#0      FlutterTesterTestDevice.finished (package:flutter_tools/src/test/flutter_tester_device.dart:252:5)
+<asynchronous suspension>
+#1      FlutterTesterTestDevice.kill (package:flutter_tools/src/test/flutter_tester_device.dart:234:5)
+<asynchronous suspension>
+#2      FlutterPlatform._startTest.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:690:9)
+<asynchronous suspension>
+#3      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:592:11)
+<asynchronous suspension>
+#4      FlutterPlatform._startTest (package:flutter_tools/src/test/flutter_platform.dart:763:7)
+<asynchronous suspension>
+
+01:17 +129 -74: (tearDownAll) - did not complete [E]
+01:17 +129 -74: Some tests failed.
