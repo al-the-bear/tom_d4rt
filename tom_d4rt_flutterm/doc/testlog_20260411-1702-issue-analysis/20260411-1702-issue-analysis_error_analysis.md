@@ -967,3 +967,155 @@ Ensure the D4rt bridge correctly resolves numeric properties (`width`, `height`,
 **Batch Number:** 5
 
 ---
+
+## Batch 6
+
+### Issue #30
+
+**Script:** `material/text_selection_toolbar_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 326
+**Result:** success (test passed)
+**Errors:** 4 framework errors (log-only)
+
+**Error Messages:**
+
+1. `RenderCustomSingleChildLayoutBox object was given an infinite size during layout.`
+2. `RenderPadding object was given an infinite size during layout.`
+3. `RenderTransform object was given an infinite size during layout.`
+4. `'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.`
+
+**Category:** FW-LAYOUT-CONSTRAINT
+
+**Root Cause Analysis:**
+
+The script (1559 lines) renders `TextSelectionToolbar` widgets inside `Positioned` children within a `Stack`. The `Positioned` widgets specify only `left` and `top` offsets (e.g., `left: 28, top: 296`) without constraining `right`/`bottom`/`width`/`height`. This gives the `TextSelectionToolbar` unbounded constraints from the Stack. `TextSelectionToolbar` internally uses `CustomSingleChildLayout` which tries to be as big as possible — when given infinite constraints, the `RenderCustomSingleChildLayoutBox` receives infinite size. The `RenderPadding` and `RenderTransform` errors cascade from the same unbounded ancestor. The semantics assertion (#4) cascades from child objects that never complete layout.
+
+**Fix Description:**
+Add explicit width/height constraints to the `Positioned` wrapping the `TextSelectionToolbar`, or add `right` and `bottom` offsets to bound the available space. For example: `Positioned(left: 28, top: 296, right: 28, bottom: 28, child: TextSelectionToolbar(...))`. Alternatively, wrap the toolbar in a `SizedBox` with explicit dimensions.
+
+**Needs Deeper Analysis:** No — standard unbounded-constraint issue from placing TextSelectionToolbar in a partially-constrained Positioned
+
+**Batch Number:** 6
+
+---
+
+### Issue #31
+
+**Script:** `material/text_selection_toolbar_text_button_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 327
+**Result:** success (test passed)
+**Errors:** 4 framework errors (log-only)
+
+**Error Messages:**
+
+1. `RenderCustomSingleChildLayoutBox object was given an infinite size during layout.`
+2. `RenderPadding object was given an infinite size during layout.`
+3. `RenderTransform object was given an infinite size during layout.`
+4. `'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.`
+
+**Category:** FW-LAYOUT-CONSTRAINT
+
+**Root Cause Analysis:**
+
+The script (1724 lines) has the identical pattern as Issue #30: `TextSelectionToolbar` inside `Positioned(left: 30, top: 94, ...)` within a `Stack`, with no `right`/`bottom`/`width`/`height`, giving the toolbar unbounded constraints. The cascade of errors (CustomSingleChildLayoutBox → Padding → Transform → semantics assertion) is the same. This script focuses on `TextSelectionToolbarTextButton` but uses the same toolbar container pattern.
+
+**Fix Description:**
+Same fix as Issue #30: add explicit `right`/`bottom` offsets or `width`/`height` to the `Positioned` wrapping `TextSelectionToolbar`, or wrap in a bounded `SizedBox`.
+
+**Needs Deeper Analysis:** No — identical pattern as Issue #30
+
+**Batch Number:** 6
+
+---
+
+### Issue #32
+
+**Script:** `painting/decoration_image_painter_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 336
+**Result:** failure (test FAILED)
+**Errors:** 1 test failure
+
+**Error Message:**
+
+```
+Expected: true
+  Actual: <false>
+Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+```
+
+**Category:** INTERPRETER-NON-EXHAUSTIVE-SWITCH
+
+**Root Cause Analysis:**
+
+The script (974 lines) defines helper functions `_getBoxFitDescription(BoxFit fit)`, `_getImageRepeatDescription(ImageRepeat repeat)`, and `_getFilterQualityDescription(FilterQuality quality)` that use `switch` statements on enums without a `default` case. In native Dart, these switches are exhaustive (all enum values are covered), so the compiler guarantees a return value. However, the D4rt interpreter does not recognize enum switches as exhaustive — when the interpreter fails to match the enum value in the switch cases (possibly due to different enum representation), the function returns `null` instead of a String. This null is then passed to `Text(null)`, which triggers `Invalid parameter "data": expected String, got Null`. This is a known D4rt interpreter limitation with non-exhaustive switch handling.
+
+**Fix Description:**
+Add a `default` case to each switch statement that returns a fallback string (e.g., `default: return fit.name;`). This ensures the function always returns a non-null String even when the D4rt interpreter cannot match the specific enum case. Alternatively, fix the D4rt interpreter's enum matching in switch statements to correctly identify all enum values.
+
+**Needs Deeper Analysis:** No — known D4rt interpreter limitation with non-exhaustive switch on enums
+
+**Batch Number:** 6
+
+---
+
+### Issue #33
+
+**Script:** `painting/image_info_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 342
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 27 pixels on the bottom.`
+2. `A RenderFlex overflowed by 58 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1178 lines) is an ImageInfo demo. Two inner containers or Column sections have content that exceeds the available vertical space — one by 27 pixels and one by 58 pixels. The outer layout uses `SingleChildScrollView` (based on the pattern), so the overflows occur in nested constrained containers with fixed heights where the content (text + visual elements) exceeds the allocated space. These are cosmetic layout overflows that do not affect test success.
+
+**Fix Description:**
+Increase the height of the overflowing containers by ~30px and ~60px respectively, or add `clipBehavior: Clip.hardEdge` to suppress the visual overflow. Alternatively, reduce padding or font size in the affected sections.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow in constrained containers
+
+**Batch Number:** 6
+
+---
+
+### Issue #34
+
+**Script:** `rendering/box_hit_test_result_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 363
+**Result:** failure (test FAILED)
+**Errors:** 1 test failure
+
+**Error Message:**
+
+```
+Expected: true
+  Actual: <false>
+Expected Widget but got InterpretedInstance
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1528 lines) defines `_BoxHitTestResultDemoApp extends StatelessWidget` and `_BoxHitTestResultDemoScreen extends StatelessWidget`. The `build()` function returns `_BoxHitTestResultDemoApp()` — an instance of an interpreted class extending `StatelessWidget`. The test framework expects a `Widget` but receives an `InterpretedInstance` because the D4rt interpreter does not coerce interpreted class instances to their native supertype. This is the identical issue as Issue #28.
+
+**Fix Description:**
+Same fix as Issue #28: add type coercion in the D4rt bridge layer so that interpreted class instances extending native Widget classes are recognized as proper Widget instances for type-checking purposes. The bridge needs to wrap or register `InterpretedInstance` objects whose class hierarchy includes `StatelessWidget`/`StatefulWidget` as valid Widgets.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-INTERPRETED-CLASS-COERCION as Issue #28
+
+**Batch Number:** 6
+
+---
