@@ -825,3 +825,145 @@ Wrap overflow-prone `Row` children in `Flexible` or `Expanded` to allow them to 
 **Batch Number:** 4
 
 ---
+
+## Batch 5
+
+### Issue #25
+
+**Script:** `dart_ui/string_attribute_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 211
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+1. `A RenderFlex overflowed by 4.0 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (956 lines) is a comprehensive StringAttribute demo using `MaterialApp > Scaffold > SingleChildScrollView > Column` with many helper widget sections (`_buildHeader`, `_buildClassHierarchy`, `_buildSpellOutDemo`, `_buildLocaleDemo`, etc.). The 4px bottom overflow is a minor vertical overflow from one of the `Column` children — likely a section with tightly packed content where the combined height of children slightly exceeds the available vertical space in a `Row` or nested `Column` that has constrained height. Since the outer layout uses `SingleChildScrollView`, this is not the outer column but an inner container with a fixed or constrained height where the content exceeds by exactly 4 pixels.
+
+**Fix Description:**
+Identify the inner container with constrained height that causes the 4px overflow and either increase its height by ~8 pixels or wrap its content in a `SingleChildScrollView` / `Flexible`. Alternatively, reduce padding or font size marginally in the tight section. The overflow is cosmetic (4px) and does not affect functionality.
+
+**Needs Deeper Analysis:** No — minor cosmetic RenderFlex bottom overflow in a constrained inner container
+
+**Batch Number:** 5
+
+---
+
+### Issue #26
+
+**Script:** `dart_ui/target_image_size_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 213
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 16 pixels on the bottom.`
+2. `A RenderFlex overflowed by 16 pixels on the bottom.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (899 lines) is a TargetImageSize demo with many sections containing `Row` widgets with `Expanded` children (`_buildAspectRatioBox` calls at line 355–359) and helper functions that build visual boxes representing image sizes. The two 16px bottom overflows come from inner containers or `Column` sections where the content height exceeds the available space. The script uses `SingleChildScrollView` as the outer wrapper, so the overflow is in nested containers with constrained heights (e.g., the aspect ratio visualization boxes or size comparison cards that have a fixed height but content that overflows by 16 pixels).
+
+**Fix Description:**
+Add `clipBehavior: Clip.hardEdge` to the overflowing containers, or increase the container heights by ~20 pixels to accommodate the content. Alternatively, reduce internal padding in the affected sections.
+
+**Needs Deeper Analysis:** No — standard RenderFlex bottom overflow in constrained inner containers, same pattern as Issue #25
+
+**Batch Number:** 5
+
+---
+
+### Issue #27
+
+**Script:** `gestures/vertical_multi_drag_gesture_recognizer_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 255
+**Result:** success (test passed)
+**Errors:** 3 framework errors (log-only)
+
+**Error Messages:**
+
+1–3. `Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _VerticalTrackState.)` (×3)
+
+**Category:** INTERPRETER-STATE-WIDGET-ACCESS
+
+**Root Cause Analysis:**
+
+The script (94 lines) defines a `_VerticalTrack` StatefulWidget with `_VerticalTrackState` that accesses `widget.color` and `widget.label` in its `build` method. The D4rt interpreter cannot resolve the `widget` property on interpreted `State` subclasses — this is the same issue as Issue #17. The error fires 3 times because there are 3 instances of `_VerticalTrack` ('A', 'B', 'C') in the `Row`, each triggering the same `widget` property access failure. The `_VerticalTrackState.build()` method references `widget.color` (line 82), `widget.label` (line 84), and `widget.color` again (line 82 via `withAlpha`).
+
+**Fix Description:**
+Fix the D4rt interpreter's `State` class bridge to correctly expose the `widget` getter on interpreted State subclasses. The `widget` property should return the associated StatefulWidget instance. This is a known interpreter limitation where interpreted classes extending native bridge classes (like `State<T>`) cannot access inherited getters that are backed by the framework's internal state management.
+
+**Needs Deeper Analysis:** No — same INTERPRETER-STATE-WIDGET-ACCESS as Issue #17
+
+**Batch Number:** 5
+
+---
+
+### Issue #28
+
+**Script:** `material/scaffold_messenger_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 311
+**Result:** failure (test FAILED)
+**Errors:** 1 test failure
+
+**Error Message:**
+
+```
+Expected: true
+  Actual: <false>
+Expected Widget but got InterpretedInstance
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1359 lines) defines multiple `StatelessWidget` and `StatefulWidget` subclasses (`ScaffoldMessengerDemoApp`, `ScaffoldMessengerWrapper`, `SectionHeader`, `BasicSnackBarControls`, `CustomSnackBarControls`, `MaterialBannerControls`, `AdvancedMessengerControls`). The `build` function returns `ScaffoldMessengerDemoApp()` — an instance of an interpreted class that extends `StatelessWidget`. The test framework expects a `Widget` but receives an `InterpretedInstance` because the D4rt interpreter does not automatically coerce interpreted class instances to their native supertype. When the interpreter creates an instance of `ScaffoldMessengerDemoApp`, the result is an `InterpretedInstance` object rather than an actual `Widget` subclass, so the `is Widget` check fails.
+
+**Fix Description:**
+Add type coercion in the D4rt bridge layer so that interpreted class instances extending native Widget classes (StatelessWidget, StatefulWidget) are automatically wrapped or registered as proper Widget instances. The bridge needs to recognize that `InterpretedInstance` objects whose interpreted class extends `StatelessWidget` or `StatefulWidget` should be treated as Widgets for type-checking purposes. This may require a UserBridge registration for the interpreted class → Widget relationship.
+
+**Needs Deeper Analysis:** Yes — need to investigate the interpreted class instantiation path and determine the best coercion strategy (UserBridge wrapper vs automatic type-check override)
+
+**Batch Number:** 5
+
+---
+
+### Issue #29
+
+**Script:** `material/text_button_theme_data_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 325
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+1. `Runtime Error: Cannot invoke method 'toStringAsFixed' on null. Use '?.' for null-aware method invocation.`
+
+**Category:** INTERPRETER-NULL-PROPERTY-RESOLUTION
+
+**Root Cause Analysis:**
+
+The script (1835 lines) builds a comprehensive TextButtonThemeData demo. The error occurs in the `_stateDiagnosticText` function (line ~1193–1197) which resolves `ButtonStyle` properties via `.resolve(states)` and then chains `.toStringAsFixed()`. The code uses null-safe operators (`?.`) in most places (e.g., `textStyle?.fontSize?.toStringAsFixed(1)`), but some chains like `side?.width.toStringAsFixed(1)` assume that if `side` is non-null then `side.width` is also non-null. In the D4rt interpreter, the `BorderSide.width` property or `Size.width`/`Size.height` property may resolve to null instead of a double because the bridge does not correctly resolve these numeric properties on the native objects. Alternatively, one of the `_buildSlider` calls (line ~715–743) passes a variable that the interpreter evaluates as null instead of the expected double value.
+
+**Fix Description:**
+Ensure the D4rt bridge correctly resolves numeric properties (`width`, `height`, `fontSize`) on native Flutter objects like `BorderSide`, `Size`, and `TextStyle` so they return non-null doubles. The bridge getter implementations for these properties should return the actual numeric value rather than null. As a script-side workaround, change `side?.width.toStringAsFixed(1)` to `side?.width?.toStringAsFixed(1)` and similarly for all `.width`/`.height` chains.
+
+**Needs Deeper Analysis:** Yes — need to determine which specific property chain returns null to pinpoint the exact bridge getter that fails
+
+**Batch Number:** 5
+
+---
