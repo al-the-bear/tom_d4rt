@@ -1119,3 +1119,148 @@ Same fix as Issue #28: add type coercion in the D4rt bridge layer so that interp
 **Batch Number:** 6
 
 ---
+
+## Batch 7
+
+### Issue #35
+
+**Script:** `rendering/custom_painter_semantics_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 370
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `Argument Error: Invalid parameter "semanticsBuilder": expected ((Size) => List<CustomPainterSemantics>)?, got InterpretedFunction`
+2. `A RenderFlex overflowed by 3.0 pixels on the bottom.`
+
+**Category:** BRIDGE-INTERPRETED-FUNCTION-COERCION (primary), FW-LAYOUT-OVERFLOW (secondary)
+
+**Root Cause Analysis:**
+
+The script (1281 lines) defines a custom `CustomPainter` class with a `semanticsBuilder` getter that returns a function `(Size) => List<CustomPainterSemantics>`. The D4rt interpreter returns an `InterpretedFunction` for this callback, but the CustomPainter bridge expects a native Dart function type `SemanticsBuilderCallback?` (which is `typedef SemanticsBuilderCallback = List<CustomPainterSemantics> Function(Size size)`). The bridge cannot accept the InterpretedFunction in place of the expected callback type. The secondary overflow (3px bottom) is a minor cosmetic layout issue.
+
+**Fix Description:**
+Add callback coercion in the CustomPainter bridge or implement a general InterpretedFunction-to-native-callback wrapper that can invoke the interpreted function when the native callback is called. The semanticsBuilder setter/constructor parameter needs to detect InterpretedFunction and wrap it in a native closure that invokes the interpreted function. For the overflow: increase container height by 5px or add padding reduction.
+
+**Needs Deeper Analysis:** No — standard BRIDGE-INTERPRETED-FUNCTION-COERCION pattern with minor overflow
+
+**Batch Number:** 7
+
+---
+
+### Issue #36
+
+**Script:** `rendering/platform_view_layer_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 383
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 53 pixels on the right.`
+2. `A RenderFlex overflowed by 70 pixels on the right.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1549 lines) is a platform view layer demo. Two horizontal Row or Flex containers have children whose combined widths exceed the available horizontal space — one by 53 pixels and one by 70 pixels. The outer layout likely has adequate scrolling, but inner constrained containers with fixed width content (buttons, labels, platform view previews) overflow horizontally. These are cosmetic layout overflows that do not affect test success.
+
+**Fix Description:**
+Wrap the overflowing Row sections in a `SingleChildScrollView(scrollDirection: Axis.horizontal)` to allow horizontal scrolling, or reduce the content width by removing padding, using smaller widgets, or switching to a `Wrap` layout. Alternatively, increase the parent container width or use `Flexible`/`Expanded` to distribute space.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex horizontal overflow in constrained containers
+
+**Batch Number:** 7
+
+---
+
+### Issue #37
+
+**Script:** `rendering/relayout_when_system_fonts_change_mixin_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 384
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during bridged constructor 'fill' for class 'Positioned': Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(_RelayoutHostWidget)
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1741 lines) defines `_RelayoutHostWidget extends LeafRenderObjectWidget`. This interpreted class extends a native Flutter widget class. When passed to `Positioned.fill(child: _RelayoutHostWidget(...))`, the bridge receives an `InterpretedInstance` but expects a `Widget`. The D4rt interpreter does not coerce interpreted class instances that extend native Widget subclasses to their native supertype. This is the identical issue pattern as Issues #28, #34.
+
+**Fix Description:**
+Same fix as Issue #28: add type coercion in the D4rt bridge layer so that interpreted class instances extending native Widget classes (including `RenderObjectWidget` subclasses like `LeafRenderObjectWidget`) are recognized as proper Widget instances for type-checking purposes.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-INTERPRETED-CLASS-COERCION as Issue #28
+
+**Batch Number:** 7
+
+---
+
+### Issue #38
+
+**Script:** `rendering/render_absorb_pointer_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 385
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during bridged constructor 'fill' for class 'Positioned': Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(_AbsorbGateHost)
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1645 lines) defines `_AbsorbGateHost extends SingleChildRenderObjectWidget`. This interpreted class extends a native Flutter widget class. When passed to `Positioned.fill(child: _AbsorbGateHost(...))`, the bridge receives an `InterpretedInstance` but expects a `Widget`. The D4rt interpreter does not coerce interpreted class instances that extend native Widget subclasses to their native supertype. This is the identical issue pattern as Issues #28, #34, #37.
+
+**Fix Description:**
+Same fix as Issue #28: add type coercion in the D4rt bridge layer so that interpreted class instances extending native Widget classes (including `SingleChildRenderObjectWidget`) are recognized as proper Widget instances for type-checking purposes.
+
+**Needs Deeper Analysis:** No — identical INTERPRETER-INTERPRETED-CLASS-COERCION as Issue #28
+
+**Batch Number:** 7
+
+---
+
+### Issue #39
+
+**Script:** `rendering/render_aligning_shifted_box_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 386
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Undefined property or method 'characters' on bridged instance of 'String'.
+```
+
+**Category:** BRIDGE-STRING-EXTENSION-MISSING
+
+**Root Cause Analysis:**
+
+The script (1410 lines) uses `preset.label.characters.first` at line 946 to extract the first grapheme cluster of a String for display in an avatar. The `characters` extension property on String is provided by Dart's `package:characters` and exposes a `Characters` iterable for proper Unicode grapheme handling. The D4rt String bridge does not implement the `characters` extension getter, causing a runtime error when the script attempts to access it. The error surfaces during iteration (toList call) because the interpreted code likely maps over items that include the characters access.
+
+**Fix Description:**
+Add the `characters` extension getter to the D4rt String bridge. The getter should return a `Characters(this)` object or a bridge-wrapped equivalent that provides `first`, `last`, `length`, `iterator`, and other `Characters` methods. Alternatively, for a quick workaround, the script could use `preset.label.substring(0, 1)` instead of `preset.label.characters.first`.
+
+**Needs Deeper Analysis:** No — missing String extension in bridge; implementation path is clear
+
+**Batch Number:** 7
+
+---
