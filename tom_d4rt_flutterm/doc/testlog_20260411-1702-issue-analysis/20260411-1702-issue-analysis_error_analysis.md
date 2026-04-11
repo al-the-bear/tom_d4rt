@@ -486,3 +486,193 @@ Same root fix as all other FW-LAYOUT-CONSTRAINT issues. Once the CupertinoTextFi
 **Batch Number:** 2
 
 ---
+
+## Batch 3
+
+### Issue #15 — cupertino/cupertino_tabbar_scaffold_test.dart
+
+**Index:** #15
+**Test Name:** cupertino_cupertino_tabbar_scaffold
+**Category:** FW-LAYOUT-CONSTRAINT
+**Immediate Fix Possible:** No — interpreter constraint propagation issue
+
+**Description:** Test passes but produces 9 framework errors. Same `BoxConstraints has a negative minimum height` root cause from `CupertinoTextFormFieldRow` (which internally uses `CupertinoTextField`). The script contains 4 `CupertinoTextFormFieldRow` instances (lines 168, 175, 194, 201), each producing a negative-height constraint error and a cascading not-laid-out error, plus 1 shared semantics assertion.
+
+**Detailed Analysis:**
+The script tests `CupertinoTabBar`, `CupertinoTabScaffold`, `CupertinoTabController`, and various `CupertinoFormSection`/`CupertinoFormRow` widgets. The form sections contain `CupertinoTextFormFieldRow` fields for name, email, street, and city input. Each text form field triggers the same `_RenderEditableCustomPaint` negative-height layout issue seen in Batch-0 (#0/#1/#2) and Batch-2 (#11-#14).
+
+The 9 errors break down as: 4 × `BoxConstraints has a negative minimum height` + 4 × `RenderBox was not laid out: _RenderEditableCustomPaint` + 1 × `!childSemantics.renderObject._needsLayout` assertion.
+
+**Fix Description:**
+Same root fix as all other FW-LAYOUT-CONSTRAINT issues — fix CupertinoTextField constraint propagation in the interpreter's layout system.
+
+**Needs Deeper Analysis:** No — same root cause as Batch-0 #0/#1/#2
+
+**Batch Number:** 3
+
+---
+
+### Issue #16 — semantics/semantics_config_test.dart
+
+**Index:** #16
+**Test Name:** semantics_semantics_config
+**Category:** BRIDGE-INTERPRETED-FUNCTION-COERCION
+**Immediate Fix Possible:** No — interpreter/bridge limitation
+
+**Description:** Test FAILS with error: `type 'InterpretedFunction' is not a subtype of type '(() => void)?'`. The script assigns interpreter-created closures (e.g., `() { tapCount++; ... }`) to `SemanticsConfiguration` action setters like `configActions.onTap = () { ... }`. The interpreter wraps the closure as an `InterpretedFunction` object, which is not recognized as a native `void Function()` by Dart's runtime type system.
+
+**Detailed Analysis:**
+The script (2053 lines) creates a `SemanticsConfiguration` and assigns callbacks to multiple action properties: `onTap`, `onLongPress`, `onScrollLeft`, `onScrollRight`, `onScrollUp`, `onScrollDown`, `onIncrease`, `onDecrease`, `onCopy`, `onDismiss` (lines 738-784). Each assignment is of the form:
+
+```dart
+configActions.onTap = () {
+  tapCount++;
+  print('  Action: onTap fired ($tapCount)');
+};
+```
+
+The `SemanticsConfiguration.onTap` setter expects `VoidCallback?` (i.e., `void Function()?`). The D4rt interpreter creates an `InterpretedFunction` for the closure literal, which does NOT implement `void Function()` at the Dart runtime level. When the bridge passes this `InterpretedFunction` to the native setter, the runtime rejects it.
+
+This is a fundamental limitation: interpreter-created closures cannot satisfy Dart's reified function type checks without being wrapped in a native trampoline callback.
+
+**Fix Description:**
+The bridge for `SemanticsConfiguration` property setters must detect when the value is an `InterpretedFunction` and wrap it in a native callback trampoline:
+
+```dart
+'onTap': (visitor, target, value) {
+  final t = D4.validateTarget<SemanticsConfiguration>(target, 'SemanticsConfiguration');
+  if (value is InterpretedFunction) {
+    t.onTap = () { D4.callInterpreterCallback(visitor, value, []); };
+  } else {
+    t.onTap = value as VoidCallback?;
+  }
+}
+```
+
+This pattern needs to be applied to all `VoidCallback?` setters on `SemanticsConfiguration`. Alternatively, the bridge generator could automatically detect `VoidCallback?`/`void Function()?` setter types and generate trampoline wrappers. This is the same class of problem as BRIDGE-GENERIC-CALLBACK-TYPE (Issue #10) but for property setters rather than method parameters.
+
+**Needs Deeper Analysis:** No — root cause clear, fix requires callback trampolines in SemanticsConfiguration bridge setters
+
+**Batch Number:** 3
+
+---
+
+### Issue #17 — widgets/gesture_detector_adv_test.dart
+
+**Index:** #17
+**Test Name:** widgets_gesture_detector_adv
+**Category:** INTERPRETER-STATE-WIDGET-ACCESS
+**Immediate Fix Possible:** No — interpreter limitation
+
+**Description:** Test passes but produces 5 framework errors, all identical: `Undefined property 'widget' on _<ClassName>State`. The script defines 5 `State` subclasses (`_ArenaSceneState`, `_PanScaleSceneState`, `_LongPressTimelineSceneState`, `_RawGestureFactorySceneState`, `_PointerAndPracticalSceneState`), each accessing `widget.config` in their `build()` method. The D4rt interpreter does not resolve the inherited `widget` getter from `State<T>` on interpreted State subclasses.
+
+**Detailed Analysis:**
+The script (1363 lines) defines 5 `StatefulWidget`/`State` pairs. Each `State` subclass accesses `widget.config` (lines 474, 598, 728, 885, 984) where `config` is a `final` field declared on the corresponding `StatefulWidget`. In native Dart, `State<T>.widget` returns the current `T` instance. The D4rt interpreter fails to resolve `widget` as an inherited property on interpreted classes extending `State<T>`.
+
+The error message `Undefined property 'widget' on _ArenaSceneState` indicates the interpreter looks for `widget` directly on the interpreted class's property map and does not fall through to the native `State` base class getter. Each of the 5 State subclasses produces exactly one error when its `build()` is first called.
+
+Despite the errors, the test passes because the framework catches and logs the error during build, and each scene likely renders a fallback or partial UI.
+
+**Fix Description:**
+Fix the interpreter's property resolution for interpreted classes that extend native bridge classes. When an interpreted `State<T>` subclass accesses `widget`, the interpreter must:
+1. Check the interpreted class's own fields/getters first
+2. Fall through to the bridge class's registered getters (from the `State` bridge)
+3. The `State` bridge should register `widget` as a getter that returns the native `State.widget` value
+
+This may require the bridge for `State<T>` to expose `widget` as a getter, or the interpreter's `visitPropertyAccess` to check the native superclass bridge when the interpreted class doesn't define the property.
+
+**Needs Deeper Analysis:** Yes — need to verify how the interpreter resolves inherited properties on native base classes and whether the `State` bridge registers `widget` as a getter
+
+**Batch Number:** 3
+
+---
+
+### Issue #18 — widgets/layout_builder_adv_test.dart
+
+**Index:** #18
+**Test Name:** widgets_layout_builder_adv
+**Category:** INTERPRETER-INTERPRETED-CLASS-METHOD
+**Immediate Fix Possible:** No — interpreter limitation
+
+**Description:** Test passes but produces 7 framework errors. The primary error is `Undefined property 'layoutChild' on TestMultiChildLayoutDelegate`. The script defines a `TestMultiChildLayoutDelegate extends MultiChildLayoutDelegate` with a `performLayout(Size size)` method that calls `layoutChild(...)` and `positionChild(...)`. The interpreter does not resolve inherited methods (`layoutChild`, `positionChild`) from the native `MultiChildLayoutDelegate` base class.
+
+**Detailed Analysis:**
+The script defines two custom delegate classes (lines 187-217):
+- `TestMultiChildLayoutDelegate extends MultiChildLayoutDelegate` — calls `layoutChild()` and `positionChild()` in `performLayout()`
+- `TestSingleChildLayoutDelegate extends SingleChildLayoutDelegate` — overrides `getPositionForChild()`
+
+The `layoutChild` error occurs because the interpreter's interpreted class (`TestMultiChildLayoutDelegate`) overrides `performLayout`, but when that method calls `layoutChild(...)`, the interpreter looks for `layoutChild` in the interpreted class scope and doesn't find it. It should fall through to the native `MultiChildLayoutDelegate` bridge which presumably has `layoutChild` as a method.
+
+The cascade errors (6 additional) are all secondary: `RenderCustomSingleChildLayoutBox object was given an infinite size`, `RenderConstrainedOverflowBox object was given an infinite size`, `RenderFlex object was given an infinite size`, `Rect argument contained a NaN value`, `!childSemantics.renderObject._needsLayout`. These occur because the `CustomMultiChildLayout` fails to lay out its children (since `performLayout` errors out), and the invalid/missing sizes propagate through the render tree.
+
+**Fix Description:**
+Same fundamental issue as #17 (INTERPRETER-STATE-WIDGET-ACCESS) — the interpreter needs to resolve method calls on interpreted class instances to the native superclass bridge when the method is not defined on the interpreted class itself. For `TestMultiChildLayoutDelegate`, calling `layoutChild(...)` should resolve to `MultiChildLayoutDelegate.layoutChild()` on the native instance.
+
+This requires the interpreter's method resolution to:
+1. Check the interpreted class's own methods
+2. Fall through to the bridge class's registered methods for the native superclass
+3. Invoke the bridge method on the native backing instance
+
+**Needs Deeper Analysis:** Yes — same class of problem as #17, need to verify interpreter's inherited method resolution for interpreted classes extending bridged natives
+
+**Batch Number:** 3
+
+---
+
+### Issue #19 — widgets/scroll_position_types_test.dart
+
+**Index:** #19
+**Test Name:** widgets_scroll_position_types
+**Category:** SCRIPT-LAYOUT-BUG
+**Immediate Fix Possible:** Yes — fix the test script
+
+**Description:** Test passes but produces 2 framework errors: `RenderFlex children have non-zero flex but incoming height constraints are unbounded` and the cascading semantics assertion. The script wraps a `Column` with an `Expanded(child: ListView.builder(...))` inside `SingleChildScrollView`, creating unbounded height constraints — identical pattern to Batch-1 Issue #6 (refreshindicator_test.dart).
+
+**Detailed Analysis:**
+The return widget (lines 81-103) is structured as:
+
+```dart
+SingleChildScrollView(
+  child: Column(
+    children: [
+      Expanded(
+        child: ListView.builder(...)
+      ),
+      Text('Scroll Position Types Test'),
+    ],
+  ),
+)
+```
+
+`SingleChildScrollView` gives unbounded height to its child. `Column` receives unbounded height. `Expanded` requires finite remaining space to flex into. This is the same illegal layout pattern as Issue #6. This is a script-level bug that would fail identically in native Flutter.
+
+**Fix Description:**
+Replace the layout to avoid `Expanded` inside unbounded parents. Options:
+
+1. Remove `SingleChildScrollView` and use `Column` directly with `Expanded(child: ListView.builder(...))` — this works if the `Scaffold.body` provides bounded constraints
+2. Replace `Expanded` with `SizedBox(height: 400, child: ListView.builder(...))` inside the `SingleChildScrollView`
+3. Remove `Column` entirely and use just `ListView.builder(...)` as the body
+
+Simplest fix:
+```dart
+Scaffold(
+  body: Column(
+    children: [
+      Expanded(
+        child: ListView.builder(
+          controller: scrollController,
+          itemCount: 50,
+          itemBuilder: (context, index) => ListTile(title: Text('Item $index')),
+        ),
+      ),
+      const Text('Scroll Position Types Test'),
+    ],
+  ),
+)
+```
+
+**Needs Deeper Analysis:** No — standard Flutter layout constraint violation in the script
+
+**Batch Number:** 3
+
+---
