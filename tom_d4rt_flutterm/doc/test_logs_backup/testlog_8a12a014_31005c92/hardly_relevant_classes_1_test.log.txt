@@ -1,0 +1,427 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_1_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:11 +1: animation/ animation_behavior_test.dart
+00:12 +2: animation/ animation_eager_listener_mixin_test.dart
+00:13 +3: animation/ animation_lazy_listener_mixin_test.dart
+00:13 +4: animation/ animation_local_listeners_mixin_test.dart
+00:14 +5: animation/ animation_local_status_listeners_mixin_test.dart
+00:14 +6: animation/ animation_status_test.dart
+00:15 +7: animation/ catmull_rom_curve_test.dart
+00:15 +8: animation/ catmull_rom_spline_test.dart
+00:15 +9: animation/ class_test.dart
+00:16 +10: animation/ color_tween_test.dart
+00:16 +11: animation/ constant_tween_test.dart
+00:17 +12: animation/ cubic_test.dart
+00:17 +13: animation/ curve2_d_sample_test.dart
+00:17 +14: animation/ curve2_d_test.dart
+00:18 +15: animation/ curve_tween_test.dart
+00:18 +16: animation/ curves_test.dart
+00:18 +17: animation/ elastic_in_curve_test.dart
+00:19 +18: animation/ elastic_in_out_curve_test.dart
+00:19 +19: animation/ elastic_out_curve_test.dart
+00:20 +20: animation/ flipped_curve_test.dart
+00:20 +21: animation/ int_tween_test.dart
+00:20 +22: animation/ interval_test.dart
+00:21 +23: animation/ parametric_curve_test.dart
+00:21 +24: animation/ rect_tween_test.dart
+00:22 +25: animation/ reverse_tween_test.dart
+00:22 +25 -1: animation/ reverse_tween_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ReverseTween': Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 207:7      main.<fn>.<fn>
+  
+00:22 +25 -1: animation/ saw_tooth_test.dart
+00:23 +26 -1: animation/ size_tween_test.dart
+00:23 +27 -1: animation/ split_test.dart
+00:24 +28 -1: animation/ step_tween_test.dart
+00:24 +29 -1: animation/ three_point_cubic_test.dart
+00:25 +30 -1: animation/ threshold_test.dart
+00:25 +31 -1: cupertino/ class_test.dart
+00:25 +32 -1: cupertino/ cupertino_button_size_test.dart
+00:26 +33 -1: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_desktop_text_selection_controls_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#07d79 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:26 +34 -1: cupertino/ cupertino_expansion_tile_test.dart
+00:26 +35 -1: cupertino/ cupertino_focus_halo_test.dart
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_focus_halo_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#55b3f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:26 +36 -1: cupertino/ cupertino_linear_activity_indicator_test.dart
+00:26 +37 -1: cupertino/ cupertino_list_section_type_test.dart
+00:27 +38 -1: cupertino/ cupertino_list_tile_chevron_test.dart
+00:27 +39 -1: cupertino/ cupertino_text_selection_handle_controls_test.dart
+
+  ⚠️  FRAMEWORK ERROR in cupertino/cupertino_text_selection_handle_controls_test.dart (11 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#4499c NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#55934 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#b45da NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#c5a1f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#4efd0 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:27 +40 -1: cupertino/ cupertino_thumb_painter_test.dart
+00:27 +41 -1: cupertino/ expansion_tile_transition_mode_test.dart
+00:27 +42 -1: cupertino/ inherited_cupertino_theme_test.dart
+
+  ⚠️  FRAMEWORK ERROR in cupertino/inherited_cupertino_theme_test.dart (3 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#06656 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:27 +43 -1: cupertino/ navigation_bar_bottom_mode_test.dart
+00:28 +44 -1: cupertino/ overlay_visibility_mode_test.dart
+
+  ⚠️  FRAMEWORK ERROR in cupertino/overlay_visibility_mode_test.dart (7 error(s)):
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       BoxConstraints has a negative minimum height.
+These invalid constraints were provided to _RenderEditableCustomPaint's layout() function by the following function, which probably computed the invalid c…
+       RenderBox was not laid out: _RenderEditableCustomPaint#069d9 NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#9f05f NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderEditableCustomPaint#3e8eb NEEDS-LAYOUT NEEDS-PAINT
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:28 +45 -1: cupertino/ restorable_cupertino_tab_controller_test.dart
+00:28 +46 -1: dart_ui/ app_exit_response_test.dart
+00:28 +47 -1: dart_ui/ app_exit_type_test.dart
+00:29 +48 -1: dart_ui/ app_lifecycle_state_test.dart
+00:29 +49 -1: dart_ui/ backdrop_filter_engine_layer_test.dart
+00:29 +50 -1: dart_ui/ blend_mode_test.dart
+00:29 +51 -1: dart_ui/ blur_style_test.dart
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/blur_style_test.dart (4 error(s)):
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+       A RenderFlex overflowed by 2.0 pixels on the bottom.
+00:29 +52 -1: dart_ui/ box_height_style_test.dart
+00:30 +53 -1: dart_ui/ box_width_style_test.dart
+00:30 +54 -1: dart_ui/ callback_handle_test.dart
+00:30 +55 -1: dart_ui/ channel_buffers_test.dart
+00:30 +56 -1: dart_ui/ checked_state_test.dart
+00:30 +57 -1: dart_ui/ class_test.dart
+00:31 +58 -1: dart_ui/ clip_op_test.dart
+00:31 +59 -1: dart_ui/ clip_path_engine_layer_test.dart
+00:31 +60 -1: dart_ui/ clip_r_rect_engine_layer_test.dart
+00:31 +61 -1: dart_ui/ clip_r_superellipse_engine_layer_test.dart
+00:32 +62 -1: dart_ui/ clip_rect_engine_layer_test.dart
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/clip_rect_engine_layer_test.dart (3 error(s)):
+       Runtime Error: Undefined property or method 'lineColor' on bridged instance of 'CustomPainter'.
+       Runtime Error: Undefined property or method 'lineColor' on bridged instance of 'CustomPainter'.
+       Runtime Error: Undefined property or method 'lineColor' on bridged instance of 'CustomPainter'.
+00:33 +63 -1: dart_ui/ clip_test.dart
+00:33 +64 -1: dart_ui/ color_filter_engine_layer_test.dart
+00:33 +65 -1: dart_ui/ color_space_test.dart
+00:33 +65 -2: dart_ui/ color_space_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Unsupported target for indexing: null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 484:7      main.<fn>.<fn>
+  
+00:33 +65 -2: dart_ui/ dart_performance_mode_test.dart
+00:34 +66 -2: dart_ui/ dart_plugin_registrant_test.dart
+00:34 +67 -2: dart_ui/ display_feature_state_test.dart
+00:34 +68 -2: dart_ui/ display_feature_type_test.dart
+00:35 +69 -2: dart_ui/ engine_layer_test.dart
+00:35 +70 -2: dart_ui/ filter_quality_test.dart
+00:35 +71 -2: dart_ui/ font_style_test.dart
+00:35 +72 -2: dart_ui/ fragment_program_test.dart
+00:36 +73 -2: dart_ui/ fragment_shader_test.dart
+00:36 +74 -2: dart_ui/ frame_phase_test.dart
+00:36 +75 -2: dart_ui/ image_byte_format_test.dart
+00:37 +76 -2: dart_ui/ image_filter_engine_layer_test.dart
+00:37 +77 -2: dart_ui/ image_sampler_slot_test.dart
+00:39 +78 -2: dart_ui/ isolate_name_server_test.dart
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/isolate_name_server_test.dart (3 error(s)):
+       Runtime Error: Undefined property or method 'seed' on bridged instance of 'CustomPainter'.
+       Runtime Error: Undefined property or method 'seed' on bridged instance of 'CustomPainter'.
+       Runtime Error: Undefined property or method 'seed' on bridged instance of 'CustomPainter'.
+00:39 +79 -2: dart_ui/ key_event_device_type_test.dart
+00:39 +80 -2: dart_ui/ key_event_type_test.dart
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/key_event_type_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'label' on bridged instance of 'Key'.
+00:40 +81 -2: dart_ui/ offset_engine_layer_test.dart
+00:41 +82 -2: dart_ui/ opacity_engine_layer_test.dart
+00:52 +83 -2: dart_ui/ painting_style_test.dart
+00:53 +84 -2: dart_ui/ path_fill_type_test.dart
+00:53 +85 -2: dart_ui/ path_operation_test.dart
+00:54 +86 -2: dart_ui/ picture_rasterization_exception_test.dart
+00:54 +87 -2: dart_ui/ pixel_format_test.dart
+00:54 +88 -2: dart_ui/ placeholder_alignment_test.dart
+00:55 +88 -3: dart_ui/ placeholder_alignment_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'WidgetSpan': 'package:flutter/src/widgets/widget_span.dart': Failed assertion: line 83 pos 9: 'baseline != null ||
+              !(identical(alignment, ui.PlaceholderAlignment.aboveBaseline) ||
+                  identical(alignment, ui.PlaceholderAlignment.belowBaseline) ||
+                  identical(alignment, ui.PlaceholderAlignment.baseline))': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 648:7      main.<fn>.<fn>
+  
+00:55 +88 -3: dart_ui/ plugin_utilities_test.dart
+00:55 +89 -3: dart_ui/ point_mode_test.dart
+00:55 +89 -4: dart_ui/ point_mode_test.dart [E]
+  type '_SUnknownNode' is not a subtype of type 'SForLoopParts?' in type cast
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:71  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 618:35   AstConverter._convertForStatement
+  package:tom_ast_generator/src/converter/ast_converter.dart 87:47    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 561:19   AstConverter._convertBlock
+  package:tom_ast_generator/src/converter/ast_converter.dart 78:40    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 1419:14  AstConverter._convertBlockFunctionBody
+  package:tom_ast_generator/src/converter/ast_converter.dart 189:14   AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2044:57  AstConverter._as
+  package:tom_ast_generator/src/converter/ast_converter.dart 382:13   AstConverter._convertMethodDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 52:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 2050:13  AstConverter._nodesAs
+  package:tom_ast_generator/src/converter/ast_converter.dart 402:16   AstConverter._convertClassDeclaration
+  package:tom_ast_generator/src/converter/ast_converter.dart 54:14    AstConverter.convert
+  package:tom_ast_generator/src/converter/ast_converter.dart 28:25    AstConverter.convertCompilationUnit
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 497:23       AstBundler._parseSourceCode
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 220:22       AstBundler.createFromSource
+  package:tom_d4rt_exec/src/d4rt_base.dart 1045:20                    D4rt.createBundleFromSource
+  test/send_test_runner.dart 634:41                                   SendTestRunner.send
+  
+00:55 +89 -4: dart_ui/ pointer_change_test.dart
+00:55 +90 -4: dart_ui/ pointer_device_kind_test.dart
+00:56 +91 -4: dart_ui/ pointer_signal_kind_test.dart
+00:56 +92 -4: dart_ui/ root_isolate_token_test.dart
+00:56 +93 -4: dart_ui/ semantics_hit_test_behavior_test.dart
+00:57 +94 -4: dart_ui/ semantics_input_type_test.dart
+00:57 +95 -4: dart_ui/ semantics_role_test.dart
+00:57 +96 -4: dart_ui/ semantics_validation_result_test.dart
+00:58 +97 -4: dart_ui/ shader_mask_engine_layer_test.dart
+00:58 +98 -4: dart_ui/ singleton_flutter_window_test.dart
+00:58 +99 -4: dart_ui/ stroke_cap_test.dart
+00:59 +100 -4: dart_ui/ stroke_join_test.dart
+00:59 +101 -4: dart_ui/ system_color_palette_test.dart
+00:59 +101 -5: dart_ui/ system_color_palette_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Unsupported operation: SystemColor not supported on the current platform.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 747:7      main.<fn>.<fn>
+  
+00:59 +101 -5: dart_ui/ target_pixel_format_test.dart
+00:59 +102 -5: dart_ui/ text_affinity_test.dart
+01:00 +103 -5: dart_ui/ text_align_test.dart
+01:00 +104 -5: dart_ui/ text_baseline_test.dart
+01:00 +105 -5: dart_ui/ text_decoration_style_test.dart
+01:00 +106 -5: dart_ui/ text_direction_test.dart
+01:01 +107 -5: dart_ui/ text_leading_distribution_test.dart
+01:01 +108 -5: dart_ui/ tile_mode_test.dart
+01:02 +109 -5: dart_ui/ transform_engine_layer_test.dart
+01:03 +110 -5: dart_ui/ tristate_test.dart
+01:03 +111 -5: dart_ui/ uniform_float_slot_test.dart
+01:03 +112 -5: dart_ui/ uniform_vec2_slot_test.dart
+01:03 +113 -5: dart_ui/ uniform_vec3_slot_test.dart
+01:03 +114 -5: dart_ui/ uniform_vec4_slot_test.dart
+01:03 +115 -5: dart_ui/ vertex_mode_test.dart
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/vertex_mode_test.dart (3 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+       Runtime Error: Native error during default bridged constructor for 'Vertices': Argument Error: Invalid parameter "positions": expected List<Offset>, got null
+01:04 +116 -5: dart_ui/ view_focus_direction_test.dart
+01:04 +117 -5: dart_ui/ view_focus_state_test.dart
+01:05 +118 -5: foundation/ abstract_node_test.dart
+01:05 +119 -5: foundation/ caching_iterable_test.dart
+01:05 +120 -5: foundation/ category_test.dart
+01:05 +121 -5: foundation/ class_test.dart
+01:05 +122 -5: foundation/ diagnostic_level_test.dart
+01:06 +123 -5: foundation/ diagnosticable_node_test.dart
+01:06 +124 -5: foundation/ diagnosticable_test.dart
+01:06 +125 -5: foundation/ diagnosticable_tree_mixin_test.dart
+01:06 +126 -5: foundation/ diagnosticable_tree_node_test.dart
+01:07 +127 -5: foundation/ diagnosticable_tree_test.dart
+01:07 +128 -5: foundation/ diagnostics_block_test.dart
+01:07 +129 -5: foundation/ diagnostics_property_test.dart
+01:07 +130 -5: foundation/ diagnostics_serialization_delegate_test.dart
+01:07 +131 -5: foundation/ diagnostics_stack_trace_test.dart
+01:07 +132 -5: foundation/ diagnostics_tree_style_test.dart
+01:07 +133 -5: foundation/ documentation_icon_test.dart
+01:07 +134 -5: foundation/ double_property_test.dart
+01:08 +135 -5: foundation/ enum_property_test.dart
+01:08 +136 -5: foundation/ error_spacer_test.dart
+01:08 +137 -5: foundation/ factory_test.dart
+01:08 +138 -5: foundation/ flag_property_test.dart
+01:08 +139 -5: foundation/ flags_summary_test.dart
+01:09 +140 -5: foundation/ flutter_memory_allocations_test.dart
+01:09 +141 -5: foundation/ foundation_service_extensions_test.dart
+01:09 +142 -5: foundation/ int_property_test.dart
+01:09 +143 -5: foundation/ iterable_property_test.dart
+01:09 +144 -5: foundation/ message_property_test.dart
+01:09 +145 -5: foundation/ object_created_test.dart
+01:09 +145 -6: foundation/ object_created_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1053:7     main.<fn>.<fn>
+  
+01:10 +145 -6: foundation/ object_disposed_test.dart
+01:10 +145 -7: foundation/ object_disposed_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1060:7     main.<fn>.<fn>
+  
+01:10 +145 -7: foundation/ object_event_test.dart
+01:10 +145 -8: foundation/ object_event_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1067:7     main.<fn>.<fn>
+  
+01:10 +145 -8: foundation/ object_flag_property_test.dart
+01:10 +146 -8: foundation/ percent_property_test.dart
+01:10 +147 -8: foundation/ string_property_test.dart
+01:10 +148 -8: foundation/ summary_test.dart
+01:10 +149 -8: foundation/ target_platform_test.dart
+01:11 +149 -9: foundation/ target_platform_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1100:7     main.<fn>.<fn>
+  
+01:11 +149 -9: foundation/ text_tree_configuration_test.dart
+01:11 +150 -9: foundation/ text_tree_renderer_test.dart
+01:11 +151 -9: gestures/ base_tap_gesture_recognizer_test.dart
+01:11 +152 -9: gestures/ class_test.dart
+01:11 +152 -10: gestures/ class_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'DragEndDetails': 'package:flutter/src/gestures/drag_details.dart': Failed assertion: line 217 pos 10: 'primaryVelocity == null ||
+               (primaryVelocity == velocity.pixelsPerSecond.dx && velocity.pixelsPerSecond.dy == 0) ||
+               (primaryVelocity == velocity.pixelsPerSecond.dy && velocity.pixelsPerSecond.dx == 0)': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_1_test.dart 1131:7     main.<fn>.<fn>
+  
+01:11 +152 -10: gestures/ drag_down_details_test.dart
+01:11 +153 -10: gestures/ drag_start_behavior_test.dart
+01:11 +154 -10: gestures/ drag_start_details_test.dart
+01:12 +155 -10: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart
+01:12 +156 -10: gestures/ gesture_disposition_test.dart
+01:12 +157 -10: gestures/ gesture_recognizer_state_test.dart
+01:12 +158 -10: gestures/ gesture_recognizer_test.dart
+01:12 +159 -10: gestures/ hit_test_dispatcher_test.dart
+01:12 +160 -10: gestures/ hit_testable_test.dart
+01:12 +161 -10: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart
+01:13 +162 -10: gestures/ least_squares_solver_test.dart
+01:13 +163 -10: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart
+01:13 +164 -10: gestures/ multitouch_drag_strategy_test.dart
+01:13 +165 -10: gestures/ offset_pair_test.dart
+01:13 +166 -10: gestures/ one_sequence_gesture_recognizer_test.dart
+01:13 +167 -10: gestures/ pointer_added_event_test.dart
+01:13 +168 -10: gestures/ pointer_cancel_event_test.dart
+01:13 +169 -10: gestures/ pointer_down_event_test.dart
+01:14 +170 -10: gestures/ pointer_enter_event_test.dart
+01:14 +171 -10: gestures/ pointer_event_converter_test.dart
+01:15 +172 -10: gestures/ pointer_event_resampler_test.dart
+01:15 +173 -10: gestures/ pointer_event_test.dart
+01:15 +174 -10: gestures/ pointer_exit_event_test.dart
+01:15 +175 -10: gestures/ pointer_hover_event_test.dart
+01:16 +176 -10: gestures/ pointer_move_event_test.dart
+01:16 +177 -10: gestures/ pointer_pan_zoom_end_event_test.dart
+01:16 +178 -10: gestures/ pointer_pan_zoom_start_event_test.dart
+01:16 +179 -10: gestures/ pointer_pan_zoom_update_event_test.dart
+01:16 +180 -10: gestures/ pointer_removed_event_test.dart
+01:16 +181 -10: gestures/ pointer_scale_event_test.dart
+01:16 +182 -10: gestures/ pointer_scroll_event_test.dart
+01:16 +183 -10: gestures/ pointer_scroll_inertia_cancel_event_test.dart
+01:16 +184 -10: gestures/ pointer_signal_event_test.dart
+01:16 +185 -10: gestures/ pointer_signal_resolver_test.dart
+01:17 +186 -10: gestures/ pointer_up_event_test.dart
+01:17 +187 -10: gestures/ polynomial_fit_test.dart
+01:17 +188 -10: gestures/ primary_pointer_gesture_recognizer_test.dart
+01:17 +189 -10: gestures/ sampling_clock_test.dart
+01:18 +190 -10: gestures/ tap_and_drag_gesture_recognizer_test.dart
+01:18 +191 -10: gestures/ tap_gesture_recognizer_test.dart
+01:19 +192 -10: gestures/ tap_move_details_test.dart
+01:19 +193 -10: gestures/ velocity_estimate_test.dart
+01:19 +194 -10: gestures/ velocity_tracker_test.dart
+01:19 +195 -10: (tearDownAll)
+unhandled error during finalization of test:
+/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_1_test.dart
+TestDeviceException(Shell subprocess crashed with SIGTERM (-15).)
+#0      FlutterTesterTestDevice.finished (package:flutter_tools/src/test/flutter_tester_device.dart:252:5)
+<asynchronous suspension>
+#1      FlutterTesterTestDevice.kill (package:flutter_tools/src/test/flutter_tester_device.dart:234:5)
+<asynchronous suspension>
+#2      FlutterPlatform._startTest.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:690:9)
+<asynchronous suspension>
+#3      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:592:11)
+<asynchronous suspension>
+#4      FlutterPlatform._startTest (package:flutter_tools/src/test/flutter_platform.dart:763:7)
+<asynchronous suspension>
+
+01:20 +195 -10: (tearDownAll) - did not complete [E]
+01:20 +195 -10: Some tests failed.

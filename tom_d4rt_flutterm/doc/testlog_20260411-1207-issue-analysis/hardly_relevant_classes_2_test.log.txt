@@ -1,0 +1,1050 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_2_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: material/ selection_area_test.dart
+[METRIC] script=material/selection_area_test.dart sourceBytes=47574 sourceChars=47572 bundleJsonBytes=605666 clearMs=31 readMs=5 bundleMs=248 httpMs=736 totalMs=1022 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:12 +1: Test App Health app is running
+00:13 +2: material/ adaptation_test.dart
+[METRIC] script=material/adaptation_test.dart sourceBytes=30434 sourceChars=30434 bundleJsonBytes=361780 clearMs=56 readMs=0 bundleMs=56 httpMs=563 totalMs=678 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:13 +3: material/ animated_icon_data_test.dart
+[METRIC] script=material/animated_icon_data_test.dart sourceBytes=26315 sourceChars=26315 bundleJsonBytes=282146 clearMs=4 readMs=1 bundleMs=32 httpMs=715 totalMs=753 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +4: material/ animated_theme_test.dart
+[METRIC] script=material/animated_theme_test.dart sourceBytes=26047 sourceChars=26047 bundleJsonBytes=305764 clearMs=52 readMs=0 bundleMs=30 httpMs=1324 totalMs=1409 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:15 +5: material/ autocomplete_test.dart
+[METRIC] script=material/autocomplete_test.dart sourceBytes=24340 sourceChars=24340 bundleJsonBytes=287281 clearMs=7 readMs=0 bundleMs=29 httpMs=10079 totalMs=10117 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:26 +5 -1: material/ autocomplete_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 77:7       main.<fn>.<fn>
+  
+00:26 +5 -1: material/ back_button_icon_test.dart
+[METRIC] script=material/back_button_icon_test.dart sourceBytes=24110 sourceChars=24110 bundleJsonBytes=287265 clearMs=3 readMs=0 bundleMs=20 httpMs=10016 totalMs=10042 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:36 +5 -2: material/ back_button_icon_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 84:7       main.<fn>.<fn>
+  
+00:36 +5 -2: material/ back_button_test.dart
+[METRIC] script=material/back_button_test.dart sourceBytes=27206 sourceChars=27206 bundleJsonBytes=311899 clearMs=3 readMs=1 bundleMs=39 httpMs=10020 totalMs=10064 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:46 +5 -3: material/ back_button_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 91:7       main.<fn>.<fn>
+  
+00:46 +5 -3: material/ bottom_navigation_bar_landscape_layout_test.dart
+[METRIC] script=material/bottom_navigation_bar_landscape_layout_test.dart sourceBytes=3168 sourceChars=3168 bundleJsonBytes=46175 clearMs=3 readMs=1 bundleMs=51 httpMs=10013 totalMs=10070 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:56 +5 -4: material/ bottom_navigation_bar_landscape_layout_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 98:7       main.<fn>.<fn>
+  
+00:56 +5 -4: material/ bottom_navigation_bar_theme_data_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_data_test.dart sourceBytes=22964 sourceChars=22964 bundleJsonBytes=265125 clearMs=3 readMs=1 bundleMs=34 httpMs=10031 totalMs=10071 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:06 +5 -5: material/ bottom_navigation_bar_theme_data_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 105:7      main.<fn>.<fn>
+  
+01:06 +5 -5: material/ bottom_navigation_bar_theme_test.dart
+[METRIC] script=material/bottom_navigation_bar_theme_test.dart sourceBytes=28106 sourceChars=28106 bundleJsonBytes=342352 clearMs=3 readMs=0 bundleMs=24 httpMs=10019 totalMs=10048 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:16 +5 -6: material/ bottom_navigation_bar_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 112:7      main.<fn>.<fn>
+  
+01:16 +5 -6: material/ bottom_navigation_bar_type_test.dart
+[METRIC] script=material/bottom_navigation_bar_type_test.dart sourceBytes=61834 sourceChars=61826 bundleJsonBytes=723185 clearMs=3 readMs=6 bundleMs=68 httpMs=10050 totalMs=10129 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:26 +5 -7: material/ bottom_navigation_bar_type_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 119:7      main.<fn>.<fn>
+  
+01:26 +5 -7: material/ button_bar_layout_behavior_test.dart
+[METRIC] script=material/button_bar_layout_behavior_test.dart sourceBytes=21216 sourceChars=19888 bundleJsonBytes=281261 clearMs=3 readMs=1 bundleMs=57 httpMs=10027 totalMs=10089 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:36 +5 -8: material/ button_bar_layout_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 126:7      main.<fn>.<fn>
+  
+01:36 +5 -8: material/ button_bar_test.dart
+[METRIC] script=material/button_bar_test.dart sourceBytes=23842 sourceChars=23842 bundleJsonBytes=295299 clearMs=3 readMs=0 bundleMs=17 httpMs=10018 totalMs=10041 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:46 +5 -9: material/ button_bar_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Build timed out after 10 seconds
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 131:7      main.<fn>.<fn>
+  
+01:46 +5 -9: material/ button_bar_theme_data_test.dart
+[METRIC] script=material/button_bar_theme_data_test.dart sourceBytes=23005 sourceChars=23005 bundleJsonBytes=306310 clearMs=3 readMs=1 bundleMs=22 httpMs=4505 totalMs=4532 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:51 +6 -9: material/ button_bar_theme_test.dart
+[METRIC] script=material/button_bar_theme_test.dart sourceBytes=26697 sourceChars=26697 bundleJsonBytes=344429 clearMs=75 readMs=1 bundleMs=18 httpMs=417 totalMs=512 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in material/button_bar_theme_test.dart (2 error(s)):
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+01:51 +7 -9: material/ button_text_theme_test.dart
+[METRIC] script=material/button_text_theme_test.dart sourceBytes=21222 sourceChars=19808 bundleJsonBytes=288454 clearMs=27 readMs=1 bundleMs=18 httpMs=166 totalMs=214 status=error httpStatus=400 outputLines=91 frameworkErrors=0
+01:51 +7 -10: material/ button_text_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot access property 'value' on target of type null.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 152:7      main.<fn>.<fn>
+  
+01:51 +7 -10: material/ carousel_controller_test.dart
+[METRIC] script=material/carousel_controller_test.dart sourceBytes=2894 sourceChars=2894 bundleJsonBytes=38882 clearMs=4 readMs=1 bundleMs=11 httpMs=158 totalMs=174 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:52 +8 -10: material/ carousel_scroll_physics_test.dart
+[METRIC] script=material/carousel_scroll_physics_test.dart sourceBytes=44167 sourceChars=44167 bundleJsonBytes=444887 clearMs=3 readMs=2 bundleMs=33 httpMs=632 totalMs=671 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:52 +9 -10: material/ carousel_view_test.dart
+[METRIC] script=material/carousel_view_test.dart sourceBytes=34722 sourceChars=34722 bundleJsonBytes=370545 clearMs=24 readMs=0 bundleMs=17 httpMs=766 totalMs=809 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:53 +10 -10: material/ carousel_view_theme_data_test.dart
+[METRIC] script=material/carousel_view_theme_data_test.dart sourceBytes=33413 sourceChars=33413 bundleJsonBytes=335157 clearMs=23 readMs=0 bundleMs=16 httpMs=840 totalMs=881 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:54 +11 -10: material/ carousel_view_theme_test.dart
+[METRIC] script=material/carousel_view_theme_test.dart sourceBytes=39516 sourceChars=39516 bundleJsonBytes=376148 clearMs=24 readMs=0 bundleMs=19 httpMs=380 totalMs=426 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:54 +12 -10: material/ checked_popup_menu_item_test.dart
+[METRIC] script=material/checked_popup_menu_item_test.dart sourceBytes=26970 sourceChars=26970 bundleJsonBytes=282427 clearMs=24 readMs=0 bundleMs=13 httpMs=300 totalMs=339 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:55 +13 -10: material/ class_test.dart
+[METRIC] script=material/class_test.dart sourceBytes=33978 sourceChars=33978 bundleJsonBytes=362418 clearMs=24 readMs=0 bundleMs=17 httpMs=321 totalMs=364 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:55 +14 -10: material/ close_button_icon_test.dart
+[METRIC] script=material/close_button_icon_test.dart sourceBytes=29835 sourceChars=29835 bundleJsonBytes=391253 clearMs=27 readMs=0 bundleMs=10 httpMs=346 totalMs=385 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:56 +15 -10: material/ close_button_test.dart
+[METRIC] script=material/close_button_test.dart sourceBytes=29525 sourceChars=29525 bundleJsonBytes=307524 clearMs=2 readMs=0 bundleMs=8 httpMs=347 totalMs=359 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:56 +16 -10: material/ collapse_mode_test.dart
+[METRIC] script=material/collapse_mode_test.dart sourceBytes=48934 sourceChars=48654 bundleJsonBytes=517976 clearMs=33 readMs=1 bundleMs=32 httpMs=144 totalMs=210 status=error httpStatus=400 outputLines=94 frameworkErrors=0
+01:56 +16 -11: material/ collapse_mode_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Text': Argument Error: Invalid parameter "data": expected String, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 220:7      main.<fn>.<fn>
+  
+01:56 +16 -11: material/ cupertino_based_material_theme_data_test.dart
+[METRIC] script=material/cupertino_based_material_theme_data_test.dart sourceBytes=37397 sourceChars=28379 bundleJsonBytes=261950 clearMs=3 readMs=4 bundleMs=14 httpMs=176 totalMs=199 status=success httpStatus=200 outputLines=211 frameworkErrors=0
+01:56 +17 -11: material/ date_picker_entry_mode_test.dart
+[METRIC] script=material/date_picker_entry_mode_test.dart sourceBytes=43423 sourceChars=43125 bundleJsonBytes=459137 clearMs=49 readMs=1 bundleMs=43 httpMs=370 totalMs=465 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+01:57 +18 -11: material/ date_picker_mode_test.dart
+[METRIC] script=material/date_picker_mode_test.dart sourceBytes=54304 sourceChars=54009 bundleJsonBytes=583658 clearMs=3 readMs=1 bundleMs=42 httpMs=360 totalMs=407 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+01:57 +19 -11: material/ day_period_test.dart
+[METRIC] script=material/day_period_test.dart sourceBytes=53059 sourceChars=53055 bundleJsonBytes=665222 clearMs=68 readMs=1 bundleMs=59 httpMs=468 totalMs=596 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:58 +20 -11: material/ dialog_route_test.dart
+[METRIC] script=material/dialog_route_test.dart sourceBytes=26623 sourceChars=26623 bundleJsonBytes=463749 clearMs=79 readMs=0 bundleMs=30 httpMs=329 totalMs=440 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:58 +21 -11: material/ drawer_alignment_test.dart
+[METRIC] script=material/drawer_alignment_test.dart sourceBytes=49465 sourceChars=49449 bundleJsonBytes=554225 clearMs=27 readMs=1 bundleMs=34 httpMs=286 totalMs=349 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:59 +22 -11: material/ drawer_button_icon_test.dart
+[METRIC] script=material/drawer_button_icon_test.dart sourceBytes=25866 sourceChars=25866 bundleJsonBytes=354038 clearMs=67 readMs=0 bundleMs=31 httpMs=256 totalMs=356 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:59 +23 -11: material/ drawer_button_test.dart
+[METRIC] script=material/drawer_button_test.dart sourceBytes=23527 sourceChars=23527 bundleJsonBytes=423594 clearMs=3 readMs=1 bundleMs=23 httpMs=237 totalMs=265 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:59 +24 -11: material/ drawer_controller_state_test.dart
+[METRIC] script=material/drawer_controller_state_test.dart sourceBytes=40177 sourceChars=40177 bundleJsonBytes=465286 clearMs=24 readMs=0 bundleMs=29 httpMs=305 totalMs=360 status=success httpStatus=200 outputLines=0 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in material/drawer_controller_state_test.dart (3 error(s)):
+       A RenderFlex overflowed by 46 pixels on the right.
+       A RenderFlex overflowed by 29 pixels on the right.
+       A RenderFlex overflowed by 12 pixels on the right.
+02:00 +25 -11: material/ drawer_controller_test.dart
+[METRIC] script=material/drawer_controller_test.dart sourceBytes=29159 sourceChars=29159 bundleJsonBytes=424193 clearMs=3 readMs=0 bundleMs=22 httpMs=316 totalMs=344 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:00 +26 -11: material/ drop_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_range_slider_value_indicator_shape_test.dart sourceBytes=4058 sourceChars=4058 bundleJsonBytes=51439 clearMs=22 readMs=0 bundleMs=4 httpMs=134 totalMs=162 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:00 +27 -11: material/ drop_slider_value_indicator_shape_test.dart
+[METRIC] script=material/drop_slider_value_indicator_shape_test.dart sourceBytes=25821 sourceChars=25821 bundleJsonBytes=348604 clearMs=3 readMs=0 bundleMs=18 httpMs=259 totalMs=283 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:00 +28 -11: material/ dropdown_button_hide_underline_test.dart
+[METRIC] script=material/dropdown_button_hide_underline_test.dart sourceBytes=25791 sourceChars=25785 bundleJsonBytes=340700 clearMs=78 readMs=1 bundleMs=18 httpMs=874 totalMs=972 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:01 +29 -11: material/ dropdown_menu_close_behavior_test.dart
+[METRIC] script=material/dropdown_menu_close_behavior_test.dart sourceBytes=21241 sourceChars=18293 bundleJsonBytes=263556 clearMs=25 readMs=1 bundleMs=35 httpMs=804 totalMs=866 status=error httpStatus=400 outputLines=137 frameworkErrors=0
+02:02 +29 -12: material/ dropdown_menu_close_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: DropdownMenuCloseBehavior.all (DropdownMenuCloseBehavior)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 316:7      main.<fn>.<fn>
+  
+02:02 +29 -12: material/ dropdown_menu_entry_test.dart
+[METRIC] script=material/dropdown_menu_entry_test.dart sourceBytes=25059 sourceChars=25055 bundleJsonBytes=361848 clearMs=50 readMs=0 bundleMs=17 httpMs=329 totalMs=398 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:03 +30 -12: material/ dropdown_menu_form_field_test.dart
+[METRIC] script=material/dropdown_menu_form_field_test.dart sourceBytes=26502 sourceChars=26502 bundleJsonBytes=354923 clearMs=5 readMs=0 bundleMs=16 httpMs=473 totalMs=495 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:03 +31 -12: material/ dropdown_menu_item_test.dart
+[METRIC] script=material/dropdown_menu_item_test.dart sourceBytes=25807 sourceChars=25807 bundleJsonBytes=399266 clearMs=34 readMs=0 bundleMs=22 httpMs=277 totalMs=335 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:04 +32 -12: material/ durations_test.dart
+[METRIC] script=material/durations_test.dart sourceBytes=24114 sourceChars=24114 bundleJsonBytes=388960 clearMs=27 readMs=0 bundleMs=14 httpMs=348 totalMs=391 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:04 +33 -12: material/ dynamic_scheme_variant_test.dart
+[METRIC] script=material/dynamic_scheme_variant_test.dart sourceBytes=18923 sourceChars=15975 bundleJsonBytes=227559 clearMs=27 readMs=0 bundleMs=17 httpMs=390 totalMs=436 status=success httpStatus=200 outputLines=143 frameworkErrors=0
+02:04 +34 -12: material/ easing_test.dart
+[METRIC] script=material/easing_test.dart sourceBytes=20063 sourceChars=20063 bundleJsonBytes=298362 clearMs=21 readMs=0 bundleMs=15 httpMs=496 totalMs=534 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:05 +35 -12: material/ elevation_overlay_test.dart
+[METRIC] script=material/elevation_overlay_test.dart sourceBytes=19901 sourceChars=19901 bundleJsonBytes=312464 clearMs=27 readMs=0 bundleMs=19 httpMs=284 totalMs=331 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:05 +36 -12: material/ end_drawer_button_icon_test.dart
+[METRIC] script=material/end_drawer_button_icon_test.dart sourceBytes=28012 sourceChars=28005 bundleJsonBytes=401836 clearMs=25 readMs=1 bundleMs=24 httpMs=243 totalMs=294 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+02:06 +37 -12: material/ end_drawer_button_test.dart
+[METRIC] script=material/end_drawer_button_test.dart sourceBytes=35868 sourceChars=35868 bundleJsonBytes=473176 clearMs=26 readMs=1 bundleMs=25 httpMs=543 totalMs=595 status=success httpStatus=200 outputLines=12 frameworkErrors=8
+
+  ⚠️  FRAMEWORK ERROR in material/end_drawer_button_test.dart (8 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+02:06 +38 -12: material/ expand_icon_test.dart
+[METRIC] script=material/expand_icon_test.dart sourceBytes=31324 sourceChars=31324 bundleJsonBytes=522760 clearMs=60 readMs=0 bundleMs=30 httpMs=291 totalMs=383 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:07 +39 -12: material/ expansion_panel_radio_test.dart
+[METRIC] script=material/expansion_panel_radio_test.dart sourceBytes=39339 sourceChars=39339 bundleJsonBytes=551353 clearMs=27 readMs=0 bundleMs=23 httpMs=273 totalMs=325 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:07 +40 -12: material/ fab_center_offset_x_test.dart
+[METRIC] script=material/fab_center_offset_x_test.dart sourceBytes=36872 sourceChars=36872 bundleJsonBytes=550691 clearMs=75 readMs=0 bundleMs=32 httpMs=235 totalMs=345 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:07 +41 -12: material/ fab_contained_offset_y_test.dart
+[METRIC] script=material/fab_contained_offset_y_test.dart sourceBytes=43395 sourceChars=43395 bundleJsonBytes=618109 clearMs=68 readMs=0 bundleMs=30 httpMs=287 totalMs=387 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:08 +42 -12: material/ fab_docked_offset_y_test.dart
+[METRIC] script=material/fab_docked_offset_y_test.dart sourceBytes=46004 sourceChars=46004 bundleJsonBytes=559607 clearMs=28 readMs=0 bundleMs=30 httpMs=290 totalMs=350 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:08 +43 -12: material/ fab_end_offset_x_test.dart
+[METRIC] script=material/fab_end_offset_x_test.dart sourceBytes=46168 sourceChars=46168 bundleJsonBytes=569383 clearMs=31 readMs=0 bundleMs=27 httpMs=279 totalMs=338 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:08 +44 -12: material/ fab_float_offset_y_test.dart
+[METRIC] script=material/fab_float_offset_y_test.dart sourceBytes=46932 sourceChars=46932 bundleJsonBytes=569256 clearMs=3 readMs=0 bundleMs=28 httpMs=312 totalMs=345 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:09 +45 -12: material/ fab_mini_offset_adjustment_test.dart
+[METRIC] script=material/fab_mini_offset_adjustment_test.dart sourceBytes=38723 sourceChars=38723 bundleJsonBytes=499980 clearMs=28 readMs=0 bundleMs=21 httpMs=284 totalMs=336 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:09 +46 -12: material/ fab_start_offset_x_test.dart
+[METRIC] script=material/fab_start_offset_x_test.dart sourceBytes=49194 sourceChars=49194 bundleJsonBytes=596566 clearMs=4 readMs=1 bundleMs=27 httpMs=284 totalMs=317 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:09 +47 -12: material/ fab_top_offset_y_test.dart
+[METRIC] script=material/fab_top_offset_y_test.dart sourceBytes=49109 sourceChars=49109 bundleJsonBytes=607103 clearMs=3 readMs=0 bundleMs=27 httpMs=285 totalMs=317 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+02:10 +48 -12: material/ fade_forwards_page_transitions_builder_test.dart
+[METRIC] script=material/fade_forwards_page_transitions_builder_test.dart sourceBytes=3040 sourceChars=3040 bundleJsonBytes=38843 clearMs=3 readMs=0 bundleMs=2 httpMs=89 totalMs=96 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:10 +49 -12: material/ flexible_space_bar_settings_test.dart
+[METRIC] script=material/flexible_space_bar_settings_test.dart sourceBytes=36768 sourceChars=36768 bundleJsonBytes=465382 clearMs=3 readMs=1 bundleMs=23 httpMs=296 totalMs=324 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+02:10 +50 -12: material/ floating_label_alignment_test.dart
+[METRIC] script=material/floating_label_alignment_test.dart sourceBytes=63702 sourceChars=63702 bundleJsonBytes=767206 clearMs=3 readMs=1 bundleMs=33 httpMs=492 totalMs=530 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:11 +51 -12: material/ floating_label_behavior_test.dart
+[METRIC] script=material/floating_label_behavior_test.dart sourceBytes=41852 sourceChars=41852 bundleJsonBytes=484040 clearMs=48 readMs=0 bundleMs=16 httpMs=409 totalMs=475 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+02:11 +52 -12: material/ gapped_range_slider_track_shape_test.dart
+[METRIC] script=material/gapped_range_slider_track_shape_test.dart sourceBytes=35597 sourceChars=35597 bundleJsonBytes=433180 clearMs=11 readMs=0 bundleMs=33 httpMs=401 totalMs=447 status=success httpStatus=200 outputLines=42 frameworkErrors=18
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_range_slider_track_shape_test.dart (18 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+02:12 +53 -12: material/ gapped_slider_track_shape_test.dart
+[METRIC] script=material/gapped_slider_track_shape_test.dart sourceBytes=50313 sourceChars=50313 bundleJsonBytes=602083 clearMs=4 readMs=0 bundleMs=29 httpMs=457 totalMs=492 status=success httpStatus=200 outputLines=58 frameworkErrors=28
+
+  ⚠️  FRAMEWORK ERROR in material/gapped_slider_track_shape_test.dart (28 error(s)):
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+       'package:flutter/src/material/slider_parts.dart': Failed assertion: line 1080 pos 12: 'sliderTheme.trackGap != null': is not true.
+02:12 +54 -12: material/ gregorian_calendar_delegate_test.dart
+[METRIC] script=material/gregorian_calendar_delegate_test.dart sourceBytes=37639 sourceChars=37639 bundleJsonBytes=401403 clearMs=59 readMs=0 bundleMs=20 httpMs=865 totalMs=946 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:13 +55 -12: material/ grid_tile_bar_test.dart
+[METRIC] script=material/grid_tile_bar_test.dart sourceBytes=38407 sourceChars=38407 bundleJsonBytes=492302 clearMs=21 readMs=0 bundleMs=31 httpMs=242 totalMs=296 status=success httpStatus=200 outputLines=60 frameworkErrors=0
+02:13 +56 -12: material/ grid_tile_test.dart
+[METRIC] script=material/grid_tile_test.dart sourceBytes=50712 sourceChars=50712 bundleJsonBytes=595046 clearMs=3 readMs=0 bundleMs=25 httpMs=288 totalMs=318 status=success httpStatus=200 outputLines=58 frameworkErrors=0
+02:14 +57 -12: material/ handle_range_slider_thumb_shape_test.dart
+[METRIC] script=material/handle_range_slider_thumb_shape_test.dart sourceBytes=36873 sourceChars=36873 bundleJsonBytes=346301 clearMs=2 readMs=0 bundleMs=16 httpMs=372 totalMs=393 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+02:14 +58 -12: material/ handle_thumb_shape_test.dart
+[METRIC] script=material/handle_thumb_shape_test.dart sourceBytes=53901 sourceChars=53901 bundleJsonBytes=651742 clearMs=26 readMs=0 bundleMs=29 httpMs=375 totalMs=431 status=success httpStatus=200 outputLines=63 frameworkErrors=0
+02:14 +59 -12: material/ hour_format_test.dart
+[METRIC] script=material/hour_format_test.dart sourceBytes=47000 sourceChars=46998 bundleJsonBytes=616122 clearMs=3 readMs=1 bundleMs=41 httpMs=780 totalMs=825 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/hour_format_test.dart (1 error(s)):
+       Runtime Error: Cannot invoke method 'withValues' on null. Use '?.' for null-aware method invocation.
+02:15 +60 -12: material/ icon_alignment_test.dart
+[METRIC] script=material/icon_alignment_test.dart sourceBytes=39824 sourceChars=39812 bundleJsonBytes=465223 clearMs=2 readMs=0 bundleMs=25 httpMs=327 totalMs=357 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+02:16 +61 -12: material/ icons_test.dart
+[METRIC] script=material/icons_test.dart sourceBytes=39794 sourceChars=39794 bundleJsonBytes=513337 clearMs=70 readMs=0 bundleMs=31 httpMs=1083 totalMs=1186 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+02:17 +62 -12: material/ ink_decoration_test.dart
+[METRIC] script=material/ink_decoration_test.dart sourceBytes=54284 sourceChars=54284 bundleJsonBytes=598171 clearMs=24 readMs=0 bundleMs=24 httpMs=322 totalMs=372 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+02:17 +63 -12: material/ ink_sparkle_test.dart
+[METRIC] script=material/ink_sparkle_test.dart sourceBytes=50347 sourceChars=50347 bundleJsonBytes=499349 clearMs=71 readMs=0 bundleMs=23 httpMs=560 totalMs=656 status=success httpStatus=200 outputLines=41 frameworkErrors=0
+02:18 +64 -12: material/ input_date_picker_form_field_test.dart
+[METRIC] script=material/input_date_picker_form_field_test.dart sourceBytes=50909 sourceChars=50909 bundleJsonBytes=433835 clearMs=31 readMs=0 bundleMs=28 httpMs=561 totalMs=623 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:18 +65 -12: material/ input_decoration_theme_data_test.dart
+[METRIC] script=material/input_decoration_theme_data_test.dart sourceBytes=45874 sourceChars=45874 bundleJsonBytes=555125 clearMs=41 readMs=0 bundleMs=31 httpMs=539 totalMs=613 status=success httpStatus=200 outputLines=81 frameworkErrors=0
+02:19 +66 -12: material/ input_decorator_test.dart
+[METRIC] script=material/input_decorator_test.dart sourceBytes=34460 sourceChars=34460 bundleJsonBytes=433227 clearMs=39 readMs=0 bundleMs=21 httpMs=403 totalMs=466 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:20 +67 -12: material/ interactive_ink_feature_factory_test.dart
+[METRIC] script=material/interactive_ink_feature_factory_test.dart sourceBytes=46681 sourceChars=46681 bundleJsonBytes=518575 clearMs=25 readMs=0 bundleMs=23 httpMs=363 totalMs=412 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:20 +68 -12: material/ list_tile_control_affinity_test.dart
+[METRIC] script=material/list_tile_control_affinity_test.dart sourceBytes=41191 sourceChars=41187 bundleJsonBytes=488872 clearMs=3 readMs=1 bundleMs=23 httpMs=820 totalMs=849 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+02:21 +69 -12: material/ list_tile_style_test.dart
+02:21 +69 -13: material/ list_tile_style_test.dart [E]
+  Bad state: Cannot resolve import "package:flutter_test/flutter_test.dart" from main.dart: Package import "package:flutter_test/flutter_test.dart" is not bridged and not in the same package. Either add it to bridgedLibraries or provide it via explicitSources.
+  package:tom_ast_generator/src/bundler/ast_bundler.dart 335:11  AstBundler._resolveImports
+  
+02:21 +69 -13: material/ list_tile_title_alignment_test.dart
+[METRIC] script=material/list_tile_title_alignment_test.dart sourceBytes=55938 sourceChars=55658 bundleJsonBytes=585697 clearMs=26 readMs=1 bundleMs=54 httpMs=951 totalMs=1034 status=success httpStatus=200 outputLines=7 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in material/list_tile_title_alignment_test.dart (3 error(s)):
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+       A RenderFlex overflowed by 1.00 pixels on the bottom.
+02:22 +70 -13: material/ magnifier_test.dart
+[METRIC] script=material/magnifier_test.dart sourceBytes=40877 sourceChars=40789 bundleJsonBytes=513921 clearMs=3 readMs=0 bundleMs=21 httpMs=432 totalMs=458 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:22 +71 -13: material/ material_banner_closed_reason_test.dart
+[METRIC] script=material/material_banner_closed_reason_test.dart sourceBytes=21969 sourceChars=19021 bundleJsonBytes=280381 clearMs=23 readMs=0 bundleMs=21 httpMs=230 totalMs=276 status=error httpStatus=400 outputLines=140 frameworkErrors=0
+02:23 +71 -14: material/ material_banner_closed_reason_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: MaterialBannerClosedReason.dismiss (MaterialBannerClosedReason)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 614:7      main.<fn>.<fn>
+  
+02:23 +71 -14: material/ material_point_arc_tween_test.dart
+[METRIC] script=material/material_point_arc_tween_test.dart sourceBytes=31933 sourceChars=31931 bundleJsonBytes=515729 clearMs=3 readMs=1 bundleMs=26 httpMs=791 totalMs=822 status=success httpStatus=200 outputLines=55 frameworkErrors=0
+02:24 +72 -14: material/ material_rect_arc_tween_test.dart
+[METRIC] script=material/material_rect_arc_tween_test.dart sourceBytes=29725 sourceChars=29723 bundleJsonBytes=429909 clearMs=26 readMs=1 bundleMs=27 httpMs=454 totalMs=510 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:24 +73 -14: material/ material_rect_center_arc_tween_test.dart
+[METRIC] script=material/material_rect_center_arc_tween_test.dart sourceBytes=42386 sourceChars=42386 bundleJsonBytes=608629 clearMs=27 readMs=0 bundleMs=33 httpMs=948 totalMs=1010 status=success httpStatus=200 outputLines=75 frameworkErrors=0
+02:25 +74 -14: material/ material_scroll_behavior_test.dart
+[METRIC] script=material/material_scroll_behavior_test.dart sourceBytes=29731 sourceChars=29731 bundleJsonBytes=351277 clearMs=21 readMs=0 bundleMs=22 httpMs=612 totalMs=658 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+02:26 +75 -14: material/ material_state_mixin_test.dart
+[METRIC] script=material/material_state_mixin_test.dart sourceBytes=52977 sourceChars=52977 bundleJsonBytes=592371 clearMs=22 readMs=0 bundleMs=27 httpMs=548 totalMs=600 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:26 +76 -14: material/ material_state_outline_input_border_test.dart
+[METRIC] script=material/material_state_outline_input_border_test.dart sourceBytes=41971 sourceChars=41971 bundleJsonBytes=500125 clearMs=21 readMs=1 bundleMs=27 httpMs=399 totalMs=450 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:27 +77 -14: material/ material_state_underline_input_border_test.dart
+[METRIC] script=material/material_state_underline_input_border_test.dart sourceBytes=48797 sourceChars=48797 bundleJsonBytes=596292 clearMs=35 readMs=0 bundleMs=29 httpMs=396 totalMs=461 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:27 +78 -14: material/ material_tap_target_size_test.dart
+[METRIC] script=material/material_tap_target_size_test.dart sourceBytes=20036 sourceChars=17088 bundleJsonBytes=242192 clearMs=33 readMs=1 bundleMs=13 httpMs=265 totalMs=313 status=success httpStatus=200 outputLines=96 frameworkErrors=0
+02:28 +79 -14: material/ material_text_selection_handle_controls_test.dart
+[METRIC] script=material/material_text_selection_handle_controls_test.dart sourceBytes=45900 sourceChars=45900 bundleJsonBytes=562166 clearMs=23 readMs=0 bundleMs=25 httpMs=492 totalMs=542 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:28 +80 -14: material/ menu_accelerator_callback_binding_test.dart
+[METRIC] script=material/menu_accelerator_callback_binding_test.dart sourceBytes=42022 sourceChars=41970 bundleJsonBytes=570874 clearMs=10 readMs=1 bundleMs=28 httpMs=564 totalMs=604 status=success httpStatus=200 outputLines=27 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in material/menu_accelerator_callback_binding_test.dart (12 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+02:29 +81 -14: material/ menu_accelerator_label_test.dart
+[METRIC] script=material/menu_accelerator_label_test.dart sourceBytes=32378 sourceChars=32377 bundleJsonBytes=478697 clearMs=3 readMs=0 bundleMs=19 httpMs=400 totalMs=424 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:29 +82 -14: material/ menu_button_theme_data_test.dart
+[METRIC] script=material/menu_button_theme_data_test.dart sourceBytes=45263 sourceChars=45263 bundleJsonBytes=591848 clearMs=22 readMs=0 bundleMs=25 httpMs=384 totalMs=432 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:30 +83 -14: material/ menu_button_theme_test.dart
+[METRIC] script=material/menu_button_theme_test.dart sourceBytes=46376 sourceChars=46376 bundleJsonBytes=571432 clearMs=2 readMs=0 bundleMs=27 httpMs=384 totalMs=415 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:30 +84 -14: material/ mergeable_material_item_test.dart
+[METRIC] script=material/mergeable_material_item_test.dart sourceBytes=37204 sourceChars=37204 bundleJsonBytes=485958 clearMs=2 readMs=0 bundleMs=20 httpMs=518 totalMs=543 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+02:31 +85 -14: material/ modal_bottom_sheet_route_test.dart
+[METRIC] script=material/modal_bottom_sheet_route_test.dart sourceBytes=39758 sourceChars=39758 bundleJsonBytes=538520 clearMs=27 readMs=0 bundleMs=25 httpMs=377 totalMs=430 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:31 +86 -14: material/ navigation_destination_label_behavior_test.dart
+[METRIC] script=material/navigation_destination_label_behavior_test.dart sourceBytes=22665 sourceChars=19717 bundleJsonBytes=268915 clearMs=24 readMs=0 bundleMs=14 httpMs=208 totalMs=248 status=error httpStatus=400 outputLines=137 frameworkErrors=0
+02:31 +86 -15: material/ navigation_destination_label_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: NavigationDestinationLabelBehavior.alwaysShow (NavigationDestinationLabelBehavior)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 726:7      main.<fn>.<fn>
+  
+02:31 +86 -15: material/ navigation_drawer_theme_test.dart
+[METRIC] script=material/navigation_drawer_theme_test.dart sourceBytes=31088 sourceChars=31088 bundleJsonBytes=401367 clearMs=3 readMs=0 bundleMs=17 httpMs=304 totalMs=325 status=success httpStatus=200 outputLines=11 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in material/navigation_drawer_theme_test.dart (3 error(s)):
+       A RenderFlex overflowed by 29 pixels on the bottom.
+       A RenderFlex overflowed by 29 pixels on the bottom.
+       A RenderFlex overflowed by 29 pixels on the bottom.
+02:32 +87 -15: material/ navigation_indicator_test.dart
+[METRIC] script=material/navigation_indicator_test.dart sourceBytes=41690 sourceChars=41690 bundleJsonBytes=539698 clearMs=2 readMs=0 bundleMs=24 httpMs=357 totalMs=384 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:32 +88 -15: material/ navigation_rail_label_type_test.dart
+[METRIC] script=material/navigation_rail_label_type_test.dart sourceBytes=23794 sourceChars=20846 bundleJsonBytes=290669 clearMs=73 readMs=0 bundleMs=14 httpMs=165 totalMs=254 status=error httpStatus=400 outputLines=143 frameworkErrors=0
+02:32 +88 -16: material/ navigation_rail_label_type_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Switch expression was not exhaustive for value: NavigationRailLabelType.none (NavigationRailLabelType)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 747:7      main.<fn>.<fn>
+  
+02:32 +88 -16: material/ no_splash_test.dart
+[METRIC] script=material/no_splash_test.dart sourceBytes=46824 sourceChars=46800 bundleJsonBytes=570479 clearMs=3 readMs=1 bundleMs=46 httpMs=130 totalMs=181 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:32 +89 -16: material/ paddle_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/paddle_range_slider_value_indicator_shape_test.dart sourceBytes=34041 sourceChars=34041 bundleJsonBytes=463327 clearMs=26 readMs=0 bundleMs=23 httpMs=336 totalMs=386 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:33 +90 -16: material/ paddle_slider_value_indicator_shape_test.dart
+[METRIC] script=material/paddle_slider_value_indicator_shape_test.dart sourceBytes=37844 sourceChars=37844 bundleJsonBytes=504527 clearMs=22 readMs=0 bundleMs=26 httpMs=285 totalMs=334 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:33 +91 -16: material/ paginated_data_table_state_test.dart
+[METRIC] script=material/paginated_data_table_state_test.dart sourceBytes=39347 sourceChars=39347 bundleJsonBytes=542140 clearMs=26 readMs=0 bundleMs=25 httpMs=476 totalMs=529 status=success httpStatus=200 outputLines=13 frameworkErrors=36
+
+  ⚠️  FRAMEWORK ERROR in material/paginated_data_table_state_test.dart (36 error(s)):
+       BoxConstraints forces an infinite width.
+These invalid constraints were provided to RenderSemanticsAnnotations's layout() function by the following function, which probably computed the invalid constr…
+       RenderBox was not laid out: RenderFlex#9fcdb relayoutBoundary=up33 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderLayoutBuilder#a3075 relayoutBoundary=up32 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsAnnotations#62c08 relayoutBoundary=up31 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: _RenderInkFeatures#c2054 relayoutBoundary=up30 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderCustomPaint#040a0 relayoutBoundary=up29 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderPhysicalShape#9a6de relayoutBoundary=up28 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'has…
+       RenderBox was not laid out: RenderPadding#e12af relayoutBoundary=up27 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderSemanticsAnnotations#1ff3d relayoutBoundary=up26 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: _RenderSingleChildViewport#21dde relayoutBoundary=up25 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#5f06c relayoutBoundary=up24 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'has…
+       RenderBox was not laid out: RenderSemanticsAnnotations#4d3b0 relayoutBoundary=up23 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderPointerListener#899f2 relayoutBoundary=up22 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#71515 relayoutBoundary=up21 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 po…
+       RenderBox was not laid out: RenderPointerListener#c3068 relayoutBoundary=up20 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: _RenderScrollSemantics#c19d9 relayoutBoundary=up19 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: '…
+       RenderBox was not laid out: RenderTransform#14bf0 relayoutBoundary=up18 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize…
+       RenderBox was not laid out: RenderClipRect#e8480 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#e8ee4 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#4243b relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#24c84 relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderPadding#8f4de relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#de1ec relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#f2ecd relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#729ac relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#d1703 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#9efb9 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#49802 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#8d25c relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#dc461 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#c0d66 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#803e4 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#9a7f9 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderColoredBox#6d72b relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSiz…
+       RenderBox was not laid out: _RenderColoredBox#6d72b relayoutBoundary=up1
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+02:34 +92 -16: material/ persistent_bottom_sheet_controller_test.dart
+[METRIC] script=material/persistent_bottom_sheet_controller_test.dart sourceBytes=40587 sourceChars=40587 bundleJsonBytes=536611 clearMs=52 readMs=0 bundleMs=24 httpMs=322 totalMs=401 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:34 +93 -16: material/ platform_adaptive_icons_test.dart
+[METRIC] script=material/platform_adaptive_icons_test.dart sourceBytes=43848 sourceChars=43848 bundleJsonBytes=518230 clearMs=2 readMs=0 bundleMs=21 httpMs=562 totalMs=587 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:35 +94 -16: material/ popup_menu_button_state_test.dart
+[METRIC] script=material/popup_menu_button_state_test.dart sourceBytes=44992 sourceChars=44992 bundleJsonBytes=546131 clearMs=77 readMs=0 bundleMs=27 httpMs=303 totalMs=409 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+02:35 +95 -16: material/ popup_menu_divider_test.dart
+[METRIC] script=material/popup_menu_divider_test.dart sourceBytes=61161 sourceChars=61161 bundleJsonBytes=623493 clearMs=3 readMs=0 bundleMs=28 httpMs=446 totalMs=478 status=success httpStatus=200 outputLines=36 frameworkErrors=0
+02:36 +96 -16: material/ popup_menu_entry_test.dart
+[METRIC] script=material/popup_menu_entry_test.dart sourceBytes=42069 sourceChars=42069 bundleJsonBytes=479762 clearMs=25 readMs=0 bundleMs=25 httpMs=485 totalMs=537 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+02:36 +97 -16: material/ popup_menu_item_state_test.dart
+[METRIC] script=material/popup_menu_item_state_test.dart sourceBytes=52471 sourceChars=52471 bundleJsonBytes=608708 clearMs=28 readMs=0 bundleMs=28 httpMs=477 totalMs=534 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+02:37 +98 -16: material/ popup_menu_item_test.dart
+[METRIC] script=material/popup_menu_item_test.dart sourceBytes=56032 sourceChars=56032 bundleJsonBytes=686794 clearMs=22 readMs=0 bundleMs=43 httpMs=310 totalMs=377 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:37 +99 -16: material/ popup_menu_position_test.dart
+[METRIC] script=material/popup_menu_position_test.dart sourceBytes=23518 sourceChars=20566 bundleJsonBytes=295127 clearMs=25 readMs=0 bundleMs=16 httpMs=142 totalMs=186 status=error httpStatus=400 outputLines=78 frameworkErrors=0
+02:37 +99 -17: material/ popup_menu_position_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'PopupMenuButton': 'package:flutter/src/material/popup_menu.dart': Failed assertion: line 1361 pos 15: '!(child != null && icon != null)': You can only pass [child] or [icon], not both.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 829:7      main.<fn>.<fn>
+  
+02:37 +99 -17: material/ predictive_back_fullscreen_page_transitions_builder_test.dart
+[METRIC] script=material/predictive_back_fullscreen_page_transitions_builder_test.dart sourceBytes=58595 sourceChars=58587 bundleJsonBytes=702245 clearMs=23 readMs=1 bundleMs=33 httpMs=551 totalMs=610 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+02:38 +100 -17: material/ progress_indicator_test.dart
+[METRIC] script=material/progress_indicator_test.dart sourceBytes=65621 sourceChars=65621 bundleJsonBytes=803614 clearMs=24 readMs=0 bundleMs=38 httpMs=401 totalMs=464 status=success httpStatus=200 outputLines=23 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/progress_indicator_test.dart (1 error(s)):
+       Progress bar value, minValue, and maxValue must be valid numbers. value: "67%", minValue: "0", maxValue: "100"
+02:38 +101 -17: material/ raw_chip_test.dart
+[METRIC] script=material/raw_chip_test.dart sourceBytes=54009 sourceChars=54007 bundleJsonBytes=589748 clearMs=26 readMs=1 bundleMs=27 httpMs=350 totalMs=405 status=success httpStatus=200 outputLines=29 frameworkErrors=0
+02:39 +102 -17: material/ rectangular_range_slider_track_shape_test.dart
+[METRIC] script=material/rectangular_range_slider_track_shape_test.dart sourceBytes=71326 sourceChars=71326 bundleJsonBytes=942224 clearMs=21 readMs=0 bundleMs=45 httpMs=307 totalMs=375 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:39 +103 -17: material/ rectangular_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rectangular_range_slider_value_indicator_shape_test.dart sourceBytes=72484 sourceChars=72484 bundleJsonBytes=952586 clearMs=2 readMs=0 bundleMs=48 httpMs=281 totalMs=334 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:39 +104 -17: material/ rectangular_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rectangular_slider_value_indicator_shape_test.dart sourceBytes=36262 sourceChars=36262 bundleJsonBytes=481825 clearMs=2 readMs=0 bundleMs=21 httpMs=374 totalMs=400 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:40 +105 -17: material/ refresh_indicator_state_test.dart
+[METRIC] script=material/refresh_indicator_state_test.dart sourceBytes=37674 sourceChars=37674 bundleJsonBytes=472873 clearMs=25 readMs=0 bundleMs=26 httpMs=382 totalMs=435 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:40 +106 -17: material/ refresh_indicator_status_test.dart
+[METRIC] script=material/refresh_indicator_status_test.dart sourceBytes=23420 sourceChars=20458 bundleJsonBytes=272826 clearMs=16 readMs=0 bundleMs=14 httpMs=178 totalMs=210 status=success httpStatus=200 outputLines=109 frameworkErrors=0
+02:41 +107 -17: material/ refresh_indicator_trigger_mode_test.dart
+[METRIC] script=material/refresh_indicator_trigger_mode_test.dart sourceBytes=25571 sourceChars=22609 bundleJsonBytes=305526 clearMs=2 readMs=0 bundleMs=16 httpMs=237 totalMs=257 status=success httpStatus=200 outputLines=84 frameworkErrors=0
+02:41 +108 -17: material/ refresh_progress_indicator_test.dart
+[METRIC] script=material/refresh_progress_indicator_test.dart sourceBytes=47457 sourceChars=47457 bundleJsonBytes=589272 clearMs=60 readMs=1 bundleMs=31 httpMs=301 totalMs=393 status=success httpStatus=200 outputLines=13 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/refresh_progress_indicator_test.dart (1 error(s)):
+       Progress bar value, minValue, and maxValue must be valid numbers. value: "50%", minValue: "0", maxValue: "100"
+02:41 +109 -17: material/ restorable_time_of_day_test.dart
+[METRIC] script=material/restorable_time_of_day_test.dart sourceBytes=45042 sourceChars=45042 bundleJsonBytes=654347 clearMs=3 readMs=0 bundleMs=29 httpMs=440 totalMs=474 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+02:42 +110 -17: material/ round_range_slider_thumb_shape_test.dart
+[METRIC] script=material/round_range_slider_thumb_shape_test.dart sourceBytes=40361 sourceChars=40361 bundleJsonBytes=550614 clearMs=23 readMs=0 bundleMs=25 httpMs=391 totalMs=440 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:42 +111 -17: material/ round_range_slider_tick_mark_shape_test.dart
+[METRIC] script=material/round_range_slider_tick_mark_shape_test.dart sourceBytes=40857 sourceChars=40857 bundleJsonBytes=544347 clearMs=23 readMs=0 bundleMs=22 httpMs=392 totalMs=439 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:43 +112 -17: material/ rounded_rect_range_slider_track_shape_test.dart
+[METRIC] script=material/rounded_rect_range_slider_track_shape_test.dart sourceBytes=40683 sourceChars=40682 bundleJsonBytes=541745 clearMs=22 readMs=3 bundleMs=25 httpMs=431 totalMs=484 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:43 +113 -17: material/ rounded_rect_range_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rounded_rect_range_slider_value_indicator_shape_test.dart sourceBytes=40071 sourceChars=40071 bundleJsonBytes=518472 clearMs=22 readMs=0 bundleMs=24 httpMs=361 totalMs=409 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+02:43 +114 -17: material/ rounded_rect_slider_value_indicator_shape_test.dart
+[METRIC] script=material/rounded_rect_slider_value_indicator_shape_test.dart sourceBytes=40041 sourceChars=40041 bundleJsonBytes=543242 clearMs=21 readMs=0 bundleMs=26 httpMs=417 totalMs=465 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+02:44 +115 -17: material/ scaffold_geometry_test.dart
+[METRIC] script=material/scaffold_geometry_test.dart sourceBytes=44554 sourceChars=44554 bundleJsonBytes=531741 clearMs=21 readMs=0 bundleMs=23 httpMs=316 totalMs=361 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:44 +116 -17: material/ scaffold_prelayout_geometry_test.dart
+[METRIC] script=material/scaffold_prelayout_geometry_test.dart sourceBytes=53268 sourceChars=53268 bundleJsonBytes=792148 clearMs=2 readMs=0 bundleMs=36 httpMs=512 totalMs=552 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+02:45 +117 -17: material/ script_category_test.dart
+[METRIC] script=material/script_category_test.dart sourceBytes=23711 sourceChars=20662 bundleJsonBytes=301225 clearMs=2 readMs=0 bundleMs=15 httpMs=256 totalMs=275 status=success httpStatus=200 outputLines=99 frameworkErrors=0
+02:45 +118 -17: material/ scrollbar_theme_data_test.dart
+[METRIC] script=material/scrollbar_theme_data_test.dart sourceBytes=46239 sourceChars=46239 bundleJsonBytes=622406 clearMs=21 readMs=0 bundleMs=24 httpMs=1529 totalMs=1575 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+02:47 +119 -17: material/ search_controller_test.dart
+[METRIC] script=material/search_controller_test.dart sourceBytes=62399 sourceChars=62399 bundleJsonBytes=802093 clearMs=27 readMs=0 bundleMs=37 httpMs=394 totalMs=460 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:47 +120 -17: material/ search_delegate_test.dart
+[METRIC] script=material/search_delegate_test.dart sourceBytes=49716 sourceChars=49716 bundleJsonBytes=606425 clearMs=32 readMs=0 bundleMs=52 httpMs=273 totalMs=359 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+02:48 +121 -17: material/ segmented_button_state_test.dart
+[METRIC] script=material/segmented_button_state_test.dart sourceBytes=47355 sourceChars=47355 bundleJsonBytes=619126 clearMs=31 readMs=0 bundleMs=33 httpMs=608 totalMs=673 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+02:48 +122 -17: material/ selection_area_state_test.dart
+[METRIC] script=material/selection_area_state_test.dart sourceBytes=29317 sourceChars=29297 bundleJsonBytes=328554 clearMs=23 readMs=0 bundleMs=17 httpMs=265 totalMs=307 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+02:48 +123 -17: material/ shape_border_tween_test.dart
+[METRIC] script=material/shape_border_tween_test.dart sourceBytes=36948 sourceChars=36948 bundleJsonBytes=420680 clearMs=4 readMs=0 bundleMs=19 httpMs=479 totalMs=503 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+02:49 +124 -17: material/ show_value_indicator_test.dart
+[METRIC] script=material/show_value_indicator_test.dart sourceBytes=47987 sourceChars=46253 bundleJsonBytes=428742 clearMs=25 readMs=1 bundleMs=23 httpMs=363 totalMs=413 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+02:49 +125 -17: material/ simple_dialog_option_test.dart
+[METRIC] script=material/simple_dialog_option_test.dart sourceBytes=37444 sourceChars=37420 bundleJsonBytes=489406 clearMs=28 readMs=0 bundleMs=24 httpMs=340 totalMs=394 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+02:50 +126 -17: material/ slider_interaction_test.dart
+[METRIC] script=material/slider_interaction_test.dart sourceBytes=48983 sourceChars=47295 bundleJsonBytes=451307 clearMs=2 readMs=1 bundleMs=25 httpMs=391 totalMs=420 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+02:50 +127 -17: material/ snack_bar_theme_data_test.dart
+[METRIC] script=material/snack_bar_theme_data_test.dart sourceBytes=49126 sourceChars=49126 bundleJsonBytes=447625 clearMs=21 readMs=0 bundleMs=19 httpMs=712 totalMs=753 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+02:51 +128 -17: material/ spell_check_suggestions_toolbar_layout_delegate_test.dart
+[METRIC] script=material/spell_check_suggestions_toolbar_layout_delegate_test.dart sourceBytes=69093 sourceChars=69093 bundleJsonBytes=917621 clearMs=24 readMs=0 bundleMs=51 httpMs=267 totalMs=344 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:51 +129 -17: material/ standard_fab_location_test.dart
+[METRIC] script=material/standard_fab_location_test.dart sourceBytes=54228 sourceChars=54228 bundleJsonBytes=640908 clearMs=2 readMs=0 bundleMs=31 httpMs=749 totalMs=784 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+02:52 +130 -17: material/ step_style_test.dart
+[METRIC] script=material/step_style_test.dart sourceBytes=40444 sourceChars=40444 bundleJsonBytes=567089 clearMs=5 readMs=0 bundleMs=28 httpMs=412 totalMs=446 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+02:53 +131 -17: material/ stretch_mode_test.dart
+[METRIC] script=material/stretch_mode_test.dart sourceBytes=50548 sourceChars=48930 bundleJsonBytes=451545 clearMs=27 readMs=1 bundleMs=31 httpMs=512 totalMs=573 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+02:53 +132 -17: material/ tab_alignment_test.dart
+[METRIC] script=material/tab_alignment_test.dart sourceBytes=45501 sourceChars=43873 bundleJsonBytes=400933 clearMs=24 readMs=1 bundleMs=20 httpMs=362 totalMs=408 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+02:54 +133 -17: material/ tab_indicator_animation_test.dart
+[METRIC] script=material/tab_indicator_animation_test.dart sourceBytes=45118 sourceChars=43406 bundleJsonBytes=394797 clearMs=23 readMs=1 bundleMs=18 httpMs=310 totalMs=354 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+02:54 +134 -17: material/ tab_page_selector_indicator_test.dart
+[METRIC] script=material/tab_page_selector_indicator_test.dart sourceBytes=46049 sourceChars=46043 bundleJsonBytes=485739 clearMs=25 readMs=1 bundleMs=24 httpMs=253 totalMs=304 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+02:54 +135 -17: material/ tab_page_selector_test.dart
+[METRIC] script=material/tab_page_selector_test.dart sourceBytes=37715 sourceChars=37715 bundleJsonBytes=427685 clearMs=27 readMs=0 bundleMs=18 httpMs=396 totalMs=444 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+02:55 +136 -17: material/ table_row_ink_well_test.dart
+[METRIC] script=material/table_row_ink_well_test.dart sourceBytes=55303 sourceChars=55303 bundleJsonBytes=607479 clearMs=3 readMs=0 bundleMs=28 httpMs=292 totalMs=325 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+02:55 +137 -17: material/ tappable_chip_attributes_test.dart
+[METRIC] script=material/tappable_chip_attributes_test.dart sourceBytes=68261 sourceChars=68261 bundleJsonBytes=880475 clearMs=28 readMs=0 bundleMs=53 httpMs=349 totalMs=432 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:55 +138 -17: material/ text_magnifier_test.dart
+[METRIC] script=material/text_magnifier_test.dart sourceBytes=49003 sourceChars=48999 bundleJsonBytes=516639 clearMs=63 readMs=0 bundleMs=21 httpMs=224 totalMs=309 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+02:56 +139 -17: material/ theme_data_tween_test.dart
+[METRIC] script=material/theme_data_tween_test.dart sourceBytes=48658 sourceChars=48658 bundleJsonBytes=674974 clearMs=3 readMs=0 bundleMs=58 httpMs=456 totalMs=519 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+02:56 +140 -17: material/ theme_extension_test.dart
+[METRIC] script=material/theme_extension_test.dart sourceBytes=48728 sourceChars=48728 bundleJsonBytes=765174 clearMs=4 readMs=0 bundleMs=60 httpMs=115 totalMs=181 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/theme_extension_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'copyWith' on ThemeData: Argument Error: Invalid parameter "extensions": cannot convert List to List<ThemeExtension<dynamic>> - type 'Interpreted…
+02:56 +141 -17: material/ theme_mode_test.dart
+[METRIC] script=material/theme_mode_test.dart sourceBytes=52532 sourceChars=50948 bundleJsonBytes=477107 clearMs=2 readMs=0 bundleMs=25 httpMs=450 totalMs=479 status=success httpStatus=200 outputLines=7 frameworkErrors=17
+
+  ⚠️  FRAMEWORK ERROR in material/theme_mode_test.dart (17 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       _RenderColoredBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that …
+02:57 +142 -17: material/ thumb_test.dart
+[METRIC] script=material/thumb_test.dart sourceBytes=49923 sourceChars=48293 bundleJsonBytes=432721 clearMs=2 readMs=1 bundleMs=24 httpMs=396 totalMs=425 status=success httpStatus=200 outputLines=6 frameworkErrors=17
+
+  ⚠️  FRAMEWORK ERROR in material/thumb_test.dart (17 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       _RenderColoredBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that …
+02:57 +143 -17: material/ time_of_day_format_test.dart
+[METRIC] script=material/time_of_day_format_test.dart sourceBytes=50175 sourceChars=48601 bundleJsonBytes=461172 clearMs=20 readMs=1 bundleMs=23 httpMs=614 totalMs=660 status=success httpStatus=200 outputLines=10 frameworkErrors=47
+
+  ⚠️  FRAMEWORK ERROR in material/time_of_day_format_test.dart (47 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       _RenderColoredBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that …
+02:58 +144 -17: material/ time_picker_entry_mode_test.dart
+[METRIC] script=material/time_picker_entry_mode_test.dart sourceBytes=57811 sourceChars=56183 bundleJsonBytes=489481 clearMs=45 readMs=1 bundleMs=30 httpMs=529 totalMs=606 status=success httpStatus=200 outputLines=8 frameworkErrors=32
+
+  ⚠️  FRAMEWORK ERROR in material/time_picker_entry_mode_test.dart (32 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderConstrainedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object th…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       _RenderColoredBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that …
+02:59 +145 -17: material/ toggle_buttons_theme_data_test.dart
+[METRIC] script=material/toggle_buttons_theme_data_test.dart sourceBytes=48130 sourceChars=48130 bundleJsonBytes=703543 clearMs=34 readMs=0 bundleMs=37 httpMs=107 totalMs=179 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/toggle_buttons_theme_data_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+02:59 +146 -17: material/ toggle_buttons_theme_test.dart
+[METRIC] script=material/toggle_buttons_theme_test.dart sourceBytes=56958 sourceChars=56958 bundleJsonBytes=766828 clearMs=21 readMs=0 bundleMs=34 httpMs=91 totalMs=148 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/toggle_buttons_theme_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+02:59 +147 -17: material/ tooltip_state_test.dart
+[METRIC] script=material/tooltip_state_test.dart sourceBytes=58686 sourceChars=58686 bundleJsonBytes=776018 clearMs=2 readMs=0 bundleMs=40 httpMs=188 totalMs=233 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in material/tooltip_state_test.dart (1 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Tooltip': 'package:flutter/src/material/tooltip.dart': Failed assertion: line 140 pos 10: '(message == null) != (richMessage == null…
+02:59 +148 -17: material/ underline_tab_indicator_test.dart
+[METRIC] script=material/underline_tab_indicator_test.dart sourceBytes=41656 sourceChars=41656 bundleJsonBytes=543385 clearMs=2 readMs=1 bundleMs=24 httpMs=408 totalMs=437 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+03:00 +149 -17: material/ vertical_divider_test.dart
+[METRIC] script=material/vertical_divider_test.dart sourceBytes=35951 sourceChars=35951 bundleJsonBytes=451737 clearMs=22 readMs=0 bundleMs=20 httpMs=394 totalMs=437 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+03:00 +150 -17: material/ widget_state_input_border_test.dart
+[METRIC] script=material/widget_state_input_border_test.dart sourceBytes=47560 sourceChars=47560 bundleJsonBytes=558175 clearMs=28 readMs=0 bundleMs=21 httpMs=341 totalMs=393 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+03:01 +151 -17: painting/ accumulator_test.dart
+[METRIC] script=painting/accumulator_test.dart sourceBytes=1921 sourceChars=1921 bundleJsonBytes=26065 clearMs=31 readMs=0 bundleMs=1 httpMs=86 totalMs=120 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+03:01 +152 -17: painting/ asset_bundle_image_key_test.dart
+[METRIC] script=painting/asset_bundle_image_key_test.dart sourceBytes=57996 sourceChars=57988 bundleJsonBytes=730979 clearMs=23 readMs=1 bundleMs=32 httpMs=412 totalMs=469 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+03:01 +153 -17: painting/ asset_bundle_image_provider_test.dart
+03:01 +153 -18: painting/ asset_bundle_image_provider_test.dart [E]
+  Bad state: Script not found: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart
+  test/send_test_runner.dart 646:7                  SendTestRunner.send
+  test/hardly_relevant_classes_2_test.dart 1211:43  main.<fn>.<fn>
+  
+03:01 +153 -18: painting/ axis_direction_test.dart
+[METRIC] script=painting/axis_direction_test.dart sourceBytes=43972 sourceChars=43734 bundleJsonBytes=628537 clearMs=17 readMs=1 bundleMs=27 httpMs=110 totalMs=157 status=error httpStatus=400 outputLines=3 frameworkErrors=0
+03:01 +153 -19: painting/ axis_direction_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Cannot invoke method 'withValues' on null. Use '?.' for null-aware method invocation.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_2_test.dart 1221:7     main.<fn>.<fn>
+  
+03:01 +153 -19: painting/ axis_test.dart
+[METRIC] script=painting/axis_test.dart sourceBytes=45296 sourceChars=45062 bundleJsonBytes=655845 clearMs=25 readMs=1 bundleMs=29 httpMs=521 totalMs=577 status=success httpStatus=200 outputLines=24 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in painting/axis_test.dart (3 error(s)):
+       A RenderFlex overflowed by 56 pixels on the right.
+       A RenderFlex overflowed by 22 pixels on the bottom.
+       A RenderFlex overflowed by 5.0 pixels on the bottom.
+03:02 +154 -19: painting/ border_style_test.dart
+[METRIC] script=painting/border_style_test.dart sourceBytes=39338 sourceChars=39104 bundleJsonBytes=559422 clearMs=24 readMs=0 bundleMs=27 httpMs=431 totalMs=484 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:02 +155 -19: painting/ box_fit_test.dart
+[METRIC] script=painting/box_fit_test.dart sourceBytes=43562 sourceChars=43298 bundleJsonBytes=615684 clearMs=26 readMs=2 bundleMs=26 httpMs=610 totalMs=665 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:03 +156 -19: painting/ box_shape_test.dart
+[METRIC] script=painting/box_shape_test.dart sourceBytes=46482 sourceChars=46234 bundleJsonBytes=668676 clearMs=29 readMs=0 bundleMs=31 httpMs=356 totalMs=419 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:03 +157 -19: painting/ class_test.dart
+[METRIC] script=painting/class_test.dart sourceBytes=32878 sourceChars=32876 bundleJsonBytes=489301 clearMs=27 readMs=2 bundleMs=20 httpMs=346 totalMs=397 status=success httpStatus=200 outputLines=116 frameworkErrors=0
+03:04 +158 -19: painting/ clip_context_test.dart
+[METRIC] script=painting/clip_context_test.dart sourceBytes=43581 sourceChars=43581 bundleJsonBytes=632375 clearMs=61 readMs=0 bundleMs=28 httpMs=401 totalMs=492 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+03:04 +159 -19: painting/ color_property_test.dart
+[METRIC] script=painting/color_property_test.dart sourceBytes=1916 sourceChars=1916 bundleJsonBytes=25802 clearMs=22 readMs=0 bundleMs=1 httpMs=101 totalMs=127 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:05 +160 -19: painting/ fitted_sizes_test.dart
+[METRIC] script=painting/fitted_sizes_test.dart sourceBytes=2098 sourceChars=2098 bundleJsonBytes=31231 clearMs=24 readMs=1 bundleMs=2 httpMs=64 totalMs=93 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+03:05 +161 -19: painting/ flutter_logo_style_test.dart
+[METRIC] script=painting/flutter_logo_style_test.dart sourceBytes=41837 sourceChars=41610 bundleJsonBytes=575452 clearMs=3 readMs=1 bundleMs=29 httpMs=430 totalMs=464 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+03:05 +162 -19: painting/ image_repeat_test.dart
+[METRIC] script=painting/image_repeat_test.dart sourceBytes=42052 sourceChars=40719 bundleJsonBytes=550778 clearMs=25 readMs=1 bundleMs=23 httpMs=407 totalMs=458 status=success httpStatus=200 outputLines=78 frameworkErrors=0
+03:06 +163 -19: painting/ image_size_info_test.dart
+[METRIC] script=painting/image_size_info_test.dart sourceBytes=2024 sourceChars=2024 bundleJsonBytes=27373 clearMs=27 readMs=2 bundleMs=1 httpMs=71 totalMs=102 status=success httpStatus=200 outputLines=27 frameworkErrors=0
+03:06 +164 -19: painting/ image_stream_completer_handle_test.dart
+[METRIC] script=painting/image_stream_completer_handle_test.dart sourceBytes=51996 sourceChars=51980 bundleJsonBytes=644555 clearMs=50 readMs=1 bundleMs=30 httpMs=419 totalMs=501 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+03:06 +165 -19: painting/ inline_span_semantics_information_test.dart
+[METRIC] script=painting/inline_span_semantics_information_test.dart sourceBytes=2017 sourceChars=2017 bundleJsonBytes=24174 clearMs=24 readMs=0 bundleMs=1 httpMs=134 totalMs=161 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+03:06 +166 -19: painting/ inline_span_test.dart
+[METRIC] script=painting/inline_span_test.dart sourceBytes=2015 sourceChars=1997 bundleJsonBytes=27080 clearMs=4 readMs=0 bundleMs=2 httpMs=76 totalMs=84 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+03:06 +167 -19: painting/ matrix_utils_test.dart
+[METRIC] script=painting/matrix_utils_test.dart sourceBytes=2269 sourceChars=2269 bundleJsonBytes=29684 clearMs=2 readMs=0 bundleMs=2 httpMs=77 totalMs=83 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+03:07 +168 -19: painting/ multi_frame_image_stream_completer_test.dart
+[METRIC] script=painting/multi_frame_image_stream_completer_test.dart sourceBytes=35866 sourceChars=35866 bundleJsonBytes=451263 clearMs=28 readMs=0 bundleMs=18 httpMs=309 totalMs=357 status=success httpStatus=200 outputLines=68 frameworkErrors=0
+03:07 +169 -19: painting/ network_image_load_exception_test.dart
+[METRIC] script=painting/network_image_load_exception_test.dart sourceBytes=1975 sourceChars=1975 bundleJsonBytes=25756 clearMs=23 readMs=0 bundleMs=1 httpMs=131 totalMs=157 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+03:07 +170 -19: painting/ one_frame_image_stream_completer_test.dart
+[METRIC] script=painting/one_frame_image_stream_completer_test.dart sourceBytes=36482 sourceChars=36482 bundleJsonBytes=406020 clearMs=3 readMs=0 bundleMs=19 httpMs=358 totalMs=382 status=success httpStatus=200 outputLines=134 frameworkErrors=0
+03:07 +171 -19: painting/ painting_binding_test.dart
+[METRIC] script=painting/painting_binding_test.dart sourceBytes=45148 sourceChars=45148 bundleJsonBytes=571608 clearMs=25 readMs=0 bundleMs=22 httpMs=419 totalMs=468 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+03:08 +172 -19: painting/ render_comparison_test.dart
+[METRIC] script=painting/render_comparison_test.dart sourceBytes=48258 sourceChars=46847 bundleJsonBytes=637410 clearMs=25 readMs=2 bundleMs=29 httpMs=426 totalMs=485 status=success httpStatus=200 outputLines=78 frameworkErrors=0
+03:08 +173 -19: painting/ resize_image_policy_test.dart
+[METRIC] script=painting/resize_image_policy_test.dart sourceBytes=44771 sourceChars=43396 bundleJsonBytes=609286 clearMs=24 readMs=1 bundleMs=34 httpMs=304 totalMs=364 status=success httpStatus=200 outputLines=67 frameworkErrors=0
+03:09 +174 -19: painting/ shader_warm_up_test.dart
+[METRIC] script=painting/shader_warm_up_test.dart sourceBytes=56208 sourceChars=56208 bundleJsonBytes=742403 clearMs=21 readMs=0 bundleMs=29 httpMs=382 totalMs=435 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+03:09 +175 -19: painting/ text_overflow_test.dart
+[METRIC] script=painting/text_overflow_test.dart sourceBytes=41930 sourceChars=40558 bundleJsonBytes=543554 clearMs=25 readMs=1 bundleMs=27 httpMs=404 totalMs=459 status=success httpStatus=200 outputLines=70 frameworkErrors=0
+03:10 +176 -19: painting/ text_width_basis_test.dart
+[METRIC] script=painting/text_width_basis_test.dart sourceBytes=45173 sourceChars=43749 bundleJsonBytes=533710 clearMs=24 readMs=1 bundleMs=24 httpMs=342 totalMs=392 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+03:10 +177 -19: painting/ transform_property_test.dart
+[METRIC] script=painting/transform_property_test.dart sourceBytes=1815 sourceChars=1809 bundleJsonBytes=22956 clearMs=25 readMs=0 bundleMs=1 httpMs=121 totalMs=149 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+03:10 +178 -19: painting/ vertical_direction_test.dart
+[METRIC] script=painting/vertical_direction_test.dart sourceBytes=45073 sourceChars=43651 bundleJsonBytes=550828 clearMs=2 readMs=1 bundleMs=28 httpMs=332 totalMs=365 status=success httpStatus=200 outputLines=53 frameworkErrors=0
+03:11 +179 -19: painting/ web_html_element_strategy_test.dart
+[METRIC] script=painting/web_html_element_strategy_test.dart sourceBytes=44356 sourceChars=42858 bundleJsonBytes=538591 clearMs=21 readMs=0 bundleMs=23 httpMs=373 totalMs=419 status=success httpStatus=200 outputLines=54 frameworkErrors=0
+03:11 +180 -19: painting/ web_image_info_test.dart
+[METRIC] script=painting/web_image_info_test.dart sourceBytes=36631 sourceChars=36626 bundleJsonBytes=415174 clearMs=16 readMs=0 bundleMs=19 httpMs=314 totalMs=351 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+03:11 +181 -19: physics/ bounded_friction_simulation_test.dart
+[METRIC] script=physics/bounded_friction_simulation_test.dart sourceBytes=2968 sourceChars=2968 bundleJsonBytes=40417 clearMs=17 readMs=0 bundleMs=2 httpMs=125 totalMs=145 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+03:12 +182 -19: physics/ class_test.dart
+[METRIC] script=physics/class_test.dart sourceBytes=49647 sourceChars=48219 bundleJsonBytes=615965 clearMs=18 readMs=1 bundleMs=25 httpMs=430 totalMs=476 status=success httpStatus=200 outputLines=65 frameworkErrors=0
+03:12 +183 -19: physics/ spring_type_test.dart
+[METRIC] script=physics/spring_type_test.dart sourceBytes=953 sourceChars=953 bundleJsonBytes=14714 clearMs=16 readMs=0 bundleMs=1 httpMs=83 totalMs=102 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+03:12 +184 -19: (tearDownAll)
+03:12 +184 -19: Some tests failed.

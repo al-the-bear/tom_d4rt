@@ -1,0 +1,1128 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_5_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:11 +1: widgets/ pop_navigator_router_delegate_mixin_test.dart
+[METRIC] script=widgets/pop_navigator_router_delegate_mixin_test.dart sourceBytes=49210 sourceChars=41410 bundleJsonBytes=398773 clearMs=11 readMs=4 bundleMs=225 httpMs=477 totalMs=720 status=success httpStatus=200 outputLines=315 frameworkErrors=0
+00:12 +2: widgets/ popup_window_controller_delegate_test.dart
+[METRIC] script=widgets/popup_window_controller_delegate_test.dart sourceBytes=46153 sourceChars=37349 bundleJsonBytes=357209 clearMs=60 readMs=8 bundleMs=57 httpMs=188 totalMs=315 status=success httpStatus=200 outputLines=323 frameworkErrors=0
+00:13 +3: widgets/ popup_window_controller_test.dart
+[METRIC] script=widgets/popup_window_controller_test.dart sourceBytes=50328 sourceChars=40096 bundleJsonBytes=387751 clearMs=26 readMs=1 bundleMs=58 httpMs=200 totalMs=286 status=success httpStatus=200 outputLines=358 frameworkErrors=0
+00:13 +4: widgets/ popup_window_test.dart
+[METRIC] script=widgets/popup_window_test.dart sourceBytes=49319 sourceChars=39907 bundleJsonBytes=379613 clearMs=56 readMs=1 bundleMs=42 httpMs=157 totalMs=257 status=success httpStatus=200 outputLines=369 frameworkErrors=0
+00:13 +5: widgets/ predictive_back_route_test.dart
+[METRIC] script=widgets/predictive_back_route_test.dart sourceBytes=53377 sourceChars=43967 bundleJsonBytes=416063 clearMs=32 readMs=1 bundleMs=46 httpMs=292 totalMs=374 status=success httpStatus=200 outputLines=360 frameworkErrors=0
+00:13 +6: widgets/ preferred_size_test.dart
+[METRIC] script=widgets/preferred_size_test.dart sourceBytes=30061 sourceChars=30015 bundleJsonBytes=355207 clearMs=8 readMs=1 bundleMs=70 httpMs=198 totalMs=279 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:14 +7: widgets/ preferred_size_widget_test.dart
+[METRIC] script=widgets/preferred_size_widget_test.dart sourceBytes=49825 sourceChars=49795 bundleJsonBytes=533568 clearMs=3 readMs=1 bundleMs=48 httpMs=328 totalMs=381 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:14 +8: widgets/ previous_focus_action_test.dart
+[METRIC] script=widgets/previous_focus_action_test.dart sourceBytes=69636 sourceChars=69624 bundleJsonBytes=768175 clearMs=3 readMs=1 bundleMs=75 httpMs=498 totalMs=578 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+00:15 +9: widgets/ previous_focus_intent_test.dart
+[METRIC] script=widgets/previous_focus_intent_test.dart sourceBytes=65629 sourceChars=65599 bundleJsonBytes=734229 clearMs=24 readMs=1 bundleMs=50 httpMs=442 totalMs=518 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+00:15 +10: widgets/ prioritized_action_test.dart
+[METRIC] script=widgets/prioritized_action_test.dart sourceBytes=48022 sourceChars=47948 bundleJsonBytes=512896 clearMs=19 readMs=1 bundleMs=27 httpMs=354 totalMs=403 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:16 +11: widgets/ prioritized_intents_test.dart
+[METRIC] script=widgets/prioritized_intents_test.dart sourceBytes=44115 sourceChars=44065 bundleJsonBytes=474621 clearMs=3 readMs=1 bundleMs=15 httpMs=334 totalMs=354 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:16 +12: widgets/ radio_client_test.dart
+[METRIC] script=widgets/radio_client_test.dart sourceBytes=82197 sourceChars=82115 bundleJsonBytes=881310 clearMs=30 readMs=1 bundleMs=66 httpMs=535 totalMs=632 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+00:17 +13: widgets/ radio_group_registry_test.dart
+[METRIC] script=widgets/radio_group_registry_test.dart sourceBytes=36048 sourceChars=35892 bundleJsonBytes=405807 clearMs=3 readMs=1 bundleMs=27 httpMs=972 totalMs=1003 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:18 +14: widgets/ raw_autocomplete_test.dart
+[METRIC] script=widgets/raw_autocomplete_test.dart sourceBytes=69378 sourceChars=69326 bundleJsonBytes=742387 clearMs=3 readMs=1 bundleMs=38 httpMs=444 totalMs=487 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:18 +15: widgets/ raw_dialog_route_test.dart
+[METRIC] script=widgets/raw_dialog_route_test.dart sourceBytes=59662 sourceChars=59630 bundleJsonBytes=615746 clearMs=33 readMs=1 bundleMs=29 httpMs=524 totalMs=589 status=success httpStatus=200 outputLines=21 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/raw_dialog_route_test.dart (1 error(s)):
+       Runtime Error: Error in generic constructor factory for 'RawDialogRoute': type 'InterpretedFunction' is not a subtype of type '((BuildContext, Animation<double>, Animation<double>) => Widget)?' in typ…
+00:19 +16: widgets/ raw_gesture_detector_state_test.dart
+[METRIC] script=widgets/raw_gesture_detector_state_test.dart sourceBytes=32429 sourceChars=32295 bundleJsonBytes=352358 clearMs=66 readMs=1 bundleMs=27 httpMs=249 totalMs=345 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:19 +17: widgets/ raw_gesture_detector_test.dart
+[METRIC] script=widgets/raw_gesture_detector_test.dart sourceBytes=60023 sourceChars=60005 bundleJsonBytes=611792 clearMs=4 readMs=1 bundleMs=43 httpMs=361 totalMs=411 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:20 +18: widgets/ raw_image_test.dart
+[METRIC] script=widgets/raw_image_test.dart sourceBytes=60089 sourceChars=60026 bundleJsonBytes=641538 clearMs=97 readMs=1 bundleMs=47 httpMs=518 totalMs=664 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:20 +19: widgets/ raw_keyboard_listener_test.dart
+[METRIC] script=widgets/raw_keyboard_listener_test.dart sourceBytes=64612 sourceChars=64572 bundleJsonBytes=731665 clearMs=2 readMs=1 bundleMs=37 httpMs=136 totalMs=177 status=error httpStatus=400 outputLines=42 frameworkErrors=0
+00:20 +19 -1: widgets/ raw_keyboard_listener_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: RawKeyboardListener
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 175:7      main.<fn>.<fn>
+  
+00:20 +19 -1: widgets/ raw_menu_anchor_group_test.dart
+[METRIC] script=widgets/raw_menu_anchor_group_test.dart sourceBytes=44293 sourceChars=44253 bundleJsonBytes=447553 clearMs=27 readMs=1 bundleMs=62 httpMs=229 totalMs=319 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:21 +20 -1: widgets/ raw_menu_anchor_test.dart
+[METRIC] script=widgets/raw_menu_anchor_test.dart sourceBytes=52066 sourceChars=52008 bundleJsonBytes=558613 clearMs=3 readMs=1 bundleMs=29 httpMs=324 totalMs=358 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+00:21 +21 -1: widgets/ raw_menu_overlay_info_test.dart
+[METRIC] script=widgets/raw_menu_overlay_info_test.dart sourceBytes=31347 sourceChars=30753 bundleJsonBytes=345476 clearMs=56 readMs=1 bundleMs=18 httpMs=68 totalMs=144 status=error httpStatus=400 outputLines=42 frameworkErrors=0
+00:21 +21 -2: widgets/ raw_menu_overlay_info_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 196:7      main.<fn>.<fn>
+  
+00:21 +21 -2: widgets/ raw_radio_test.dart
+[METRIC] script=widgets/raw_radio_test.dart sourceBytes=46987 sourceChars=46879 bundleJsonBytes=488712 clearMs=46 readMs=1 bundleMs=53 httpMs=486 totalMs=588 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/raw_radio_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed as…
+00:22 +22 -2: widgets/ raw_scrollbar_state_test.dart
+[METRIC] script=widgets/raw_scrollbar_state_test.dart sourceBytes=33341 sourceChars=33215 bundleJsonBytes=373087 clearMs=3 readMs=1 bundleMs=22 httpMs=298 totalMs=325 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:22 +23 -2: widgets/ raw_tooltip_state_test.dart
+[METRIC] script=widgets/raw_tooltip_state_test.dart sourceBytes=30141 sourceChars=29556 bundleJsonBytes=216004 clearMs=2 readMs=1 bundleMs=11 httpMs=232 totalMs=247 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:22 +24 -2: widgets/ raw_tooltip_test.dart
+[METRIC] script=widgets/raw_tooltip_test.dart sourceBytes=59635 sourceChars=59583 bundleJsonBytes=624686 clearMs=2 readMs=1 bundleMs=29 httpMs=349 totalMs=383 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:23 +25 -2: widgets/ raw_web_image_test.dart
+[METRIC] script=widgets/raw_web_image_test.dart sourceBytes=48289 sourceChars=48265 bundleJsonBytes=509294 clearMs=2 readMs=1 bundleMs=24 httpMs=324 totalMs=353 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:23 +26 -2: widgets/ reading_order_traversal_policy_test.dart
+[METRIC] script=widgets/reading_order_traversal_policy_test.dart sourceBytes=38199 sourceChars=38027 bundleJsonBytes=445430 clearMs=61 readMs=1 bundleMs=25 httpMs=271 totalMs=360 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:24 +27 -2: widgets/ redo_text_intent_test.dart
+[METRIC] script=widgets/redo_text_intent_test.dart sourceBytes=57893 sourceChars=56759 bundleJsonBytes=706451 clearMs=17 readMs=1 bundleMs=86 httpMs=165 totalMs=270 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:24 +27 -3: widgets/ redo_text_intent_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 241:7      main.<fn>.<fn>
+  
+00:24 +27 -3: widgets/ regular_window_controller_delegate_test.dart
+[METRIC] script=widgets/regular_window_controller_delegate_test.dart sourceBytes=69108 sourceChars=67980 bundleJsonBytes=764608 clearMs=3 readMs=1 bundleMs=58 httpMs=78 totalMs=141 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:24 +27 -4: widgets/ regular_window_controller_delegate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 248:7      main.<fn>.<fn>
+  
+00:24 +27 -4: widgets/ regular_window_controller_linux_test.dart
+[METRIC] script=widgets/regular_window_controller_linux_test.dart sourceBytes=64203 sourceChars=63172 bundleJsonBytes=750104 clearMs=28 readMs=1 bundleMs=43 httpMs=63 totalMs=137 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:24 +27 -5: widgets/ regular_window_controller_linux_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 255:7      main.<fn>.<fn>
+  
+00:24 +27 -5: widgets/ regular_window_controller_mac_o_s_test.dart
+[METRIC] script=widgets/regular_window_controller_mac_o_s_test.dart sourceBytes=73966 sourceChars=72928 bundleJsonBytes=830338 clearMs=27 readMs=1 bundleMs=46 httpMs=64 totalMs=139 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:24 +27 -6: widgets/ regular_window_controller_mac_o_s_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 262:7      main.<fn>.<fn>
+  
+00:24 +27 -6: widgets/ regular_window_controller_test.dart
+[METRIC] script=widgets/regular_window_controller_test.dart sourceBytes=98582 sourceChars=96080 bundleJsonBytes=1177415 clearMs=47 readMs=1 bundleMs=100 httpMs=152 totalMs=302 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:25 +27 -7: widgets/ regular_window_controller_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 269:7      main.<fn>.<fn>
+  
+00:25 +27 -7: widgets/ regular_window_controller_win32_test.dart
+[METRIC] script=widgets/regular_window_controller_win32_test.dart sourceBytes=57827 sourceChars=56775 bundleJsonBytes=734414 clearMs=26 readMs=1 bundleMs=55 httpMs=115 totalMs=198 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:25 +27 -8: widgets/ regular_window_controller_win32_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 276:7      main.<fn>.<fn>
+  
+00:25 +27 -8: widgets/ regular_window_test.dart
+[METRIC] script=widgets/regular_window_test.dart sourceBytes=54650 sourceChars=53604 bundleJsonBytes=698386 clearMs=29 readMs=1 bundleMs=33 httpMs=68 totalMs=132 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:25 +27 -9: widgets/ regular_window_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 283:7      main.<fn>.<fn>
+  
+00:25 +27 -9: widgets/ relative_positioned_transition_test.dart
+[METRIC] script=widgets/relative_positioned_transition_test.dart sourceBytes=66770 sourceChars=66729 bundleJsonBytes=733918 clearMs=26 readMs=1 bundleMs=38 httpMs=500 totalMs=566 status=success httpStatus=200 outputLines=25 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in widgets/relative_positioned_transition_test.dart (4 error(s)):
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+00:25 +28 -9: widgets/ relative_rect_tween_test.dart
+[METRIC] script=widgets/relative_rect_tween_test.dart sourceBytes=33341 sourceChars=33219 bundleJsonBytes=391744 clearMs=3 readMs=1 bundleMs=19 httpMs=261 totalMs=285 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:26 +29 -9: widgets/ render_abstract_layout_builder_mixin_test.dart
+[METRIC] script=widgets/render_abstract_layout_builder_mixin_test.dart sourceBytes=43817 sourceChars=42352 bundleJsonBytes=486284 clearMs=4 readMs=1 bundleMs=25 httpMs=102 totalMs=133 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:26 +29 -10: widgets/ render_abstract_layout_builder_mixin_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 304:7      main.<fn>.<fn>
+  
+00:26 +29 -10: widgets/ render_nested_scroll_view_viewport_test.dart
+[METRIC] script=widgets/render_nested_scroll_view_viewport_test.dart sourceBytes=10006 sourceChars=10006 bundleJsonBytes=91599 clearMs=21 readMs=0 bundleMs=7 httpMs=107 totalMs=137 status=success httpStatus=200 outputLines=8 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_nested_scroll_view_viewport_test.dart (1 error(s)):
+       type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast
+00:26 +30 -10: widgets/ render_object_to_widget_adapter_test.dart
+[METRIC] script=widgets/render_object_to_widget_adapter_test.dart sourceBytes=43600 sourceChars=42134 bundleJsonBytes=492227 clearMs=58 readMs=1 bundleMs=31 httpMs=97 totalMs=188 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:26 +30 -11: widgets/ render_object_to_widget_adapter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_BootstrapStepInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 318:7      main.<fn>.<fn>
+  
+00:26 +30 -11: widgets/ render_object_to_widget_element_test.dart
+[METRIC] script=widgets/render_object_to_widget_element_test.dart sourceBytes=10711 sourceChars=10711 bundleJsonBytes=102317 clearMs=52 readMs=0 bundleMs=10 httpMs=112 totalMs=180 status=success httpStatus=200 outputLines=7 frameworkErrors=0
+00:26 +31 -11: widgets/ render_sliver_overlap_absorber_test.dart
+[METRIC] script=widgets/render_sliver_overlap_absorber_test.dart sourceBytes=2024 sourceChars=2024 bundleJsonBytes=17819 clearMs=43 readMs=0 bundleMs=1 httpMs=67 totalMs=112 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:27 +32 -11: widgets/ render_sliver_overlap_injector_test.dart
+[METRIC] script=widgets/render_sliver_overlap_injector_test.dart sourceBytes=2148 sourceChars=2148 bundleJsonBytes=18347 clearMs=44 readMs=0 bundleMs=1 httpMs=57 totalMs=103 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:27 +33 -11: widgets/ render_tap_region_surface_test.dart
+[METRIC] script=widgets/render_tap_region_surface_test.dart sourceBytes=40017 sourceChars=38539 bundleJsonBytes=455349 clearMs=3 readMs=1 bundleMs=25 httpMs=87 totalMs=117 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:27 +33 -12: widgets/ render_tap_region_surface_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 346:7      main.<fn>.<fn>
+  
+00:27 +33 -12: widgets/ render_tap_region_test.dart
+[METRIC] script=widgets/render_tap_region_test.dart sourceBytes=59303 sourceChars=59297 bundleJsonBytes=678709 clearMs=69 readMs=1 bundleMs=42 httpMs=109 totalMs=221 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_tap_region_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:27 +34 -12: widgets/ render_tree_root_element_test.dart
+[METRIC] script=widgets/render_tree_root_element_test.dart sourceBytes=11889 sourceChars=11889 bundleJsonBytes=114775 clearMs=3 readMs=0 bundleMs=12 httpMs=184 totalMs=200 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_tree_root_element_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'visitAncestorElements' on StatelessElement: LateInitializationError: Field '_children@24042623' has not been initialized.
+00:27 +35 -12: widgets/ render_two_dimensional_viewport_test.dart
+[METRIC] script=widgets/render_two_dimensional_viewport_test.dart sourceBytes=61349 sourceChars=61348 bundleJsonBytes=734578 clearMs=24 readMs=2 bundleMs=40 httpMs=82 totalMs=150 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_two_dimensional_viewport_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:27 +36 -12: widgets/ render_web_image_test.dart
+[METRIC] script=widgets/render_web_image_test.dart sourceBytes=58745 sourceChars=58742 bundleJsonBytes=683085 clearMs=2 readMs=1 bundleMs=47 httpMs=112 totalMs=163 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_web_image_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:28 +37 -12: widgets/ reorderable_delayed_drag_start_listener_test.dart
+[METRIC] script=widgets/reorderable_delayed_drag_start_listener_test.dart sourceBytes=59093 sourceChars=59049 bundleJsonBytes=614254 clearMs=29 readMs=0 bundleMs=30 httpMs=318 totalMs=379 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:28 +38 -12: widgets/ reorderable_drag_start_listener_test.dart
+[METRIC] script=widgets/reorderable_drag_start_listener_test.dart sourceBytes=49325 sourceChars=49254 bundleJsonBytes=548717 clearMs=3 readMs=1 bundleMs=25 httpMs=320 totalMs=351 status=success httpStatus=200 outputLines=12 frameworkErrors=0
+00:28 +39 -12: widgets/ reorderable_list_state_test.dart
+[METRIC] script=widgets/reorderable_list_state_test.dart sourceBytes=35625 sourceChars=35501 bundleJsonBytes=405905 clearMs=64 readMs=0 bundleMs=13 httpMs=254 totalMs=332 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:29 +40 -12: widgets/ reorderable_list_test.dart
+[METRIC] script=widgets/reorderable_list_test.dart sourceBytes=45679 sourceChars=45659 bundleJsonBytes=513109 clearMs=28 readMs=0 bundleMs=21 httpMs=275 totalMs=326 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:29 +41 -12: widgets/ repeat_mode_test.dart
+[METRIC] script=widgets/repeat_mode_test.dart sourceBytes=45384 sourceChars=45340 bundleJsonBytes=554019 clearMs=3 readMs=1 bundleMs=34 httpMs=197 totalMs=237 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/repeat_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:29 +42 -12: widgets/ repeating_animation_builder_test.dart
+[METRIC] script=widgets/repeating_animation_builder_test.dart sourceBytes=43398 sourceChars=43350 bundleJsonBytes=473581 clearMs=49 readMs=0 bundleMs=18 httpMs=378 totalMs=447 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:30 +43 -12: widgets/ replace_text_intent_test.dart
+[METRIC] script=widgets/replace_text_intent_test.dart sourceBytes=59816 sourceChars=57840 bundleJsonBytes=596992 clearMs=75 readMs=0 bundleMs=25 httpMs=107 totalMs=209 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:30 +43 -13: widgets/ replace_text_intent_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 421:7      main.<fn>.<fn>
+  
+00:30 +43 -13: widgets/ request_focus_action_test.dart
+[METRIC] script=widgets/request_focus_action_test.dart sourceBytes=51653 sourceChars=49789 bundleJsonBytes=512189 clearMs=50 readMs=0 bundleMs=28 httpMs=73 totalMs=153 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:30 +43 -14: widgets/ request_focus_action_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 428:7      main.<fn>.<fn>
+  
+00:30 +43 -14: widgets/ request_focus_intent_test.dart
+[METRIC] script=widgets/request_focus_intent_test.dart sourceBytes=45816 sourceChars=45814 bundleJsonBytes=555941 clearMs=45 readMs=0 bundleMs=16 httpMs=141 totalMs=204 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/request_focus_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:30 +44 -14: widgets/ restorable_bool_n_test.dart
+[METRIC] script=widgets/restorable_bool_n_test.dart sourceBytes=43759 sourceChars=43759 bundleJsonBytes=554082 clearMs=26 readMs=0 bundleMs=14 httpMs=90 totalMs=131 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_bool_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:30 +45 -14: widgets/ restorable_change_notifier_test.dart
+[METRIC] script=widgets/restorable_change_notifier_test.dart sourceBytes=31780 sourceChars=31648 bundleJsonBytes=340761 clearMs=3 readMs=1 bundleMs=17 httpMs=226 totalMs=248 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:31 +46 -14: widgets/ restorable_date_time_n_test.dart
+[METRIC] script=widgets/restorable_date_time_n_test.dart sourceBytes=51191 sourceChars=51191 bundleJsonBytes=672849 clearMs=69 readMs=0 bundleMs=53 httpMs=85 totalMs=209 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_date_time_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +47 -14: widgets/ restorable_double_n_test.dart
+[METRIC] script=widgets/restorable_double_n_test.dart sourceBytes=46797 sourceChars=46765 bundleJsonBytes=652932 clearMs=3 readMs=1 bundleMs=35 httpMs=103 totalMs=143 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_double_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +48 -14: widgets/ restorable_enum_n_test.dart
+[METRIC] script=widgets/restorable_enum_n_test.dart sourceBytes=45081 sourceChars=45053 bundleJsonBytes=574734 clearMs=27 readMs=1 bundleMs=64 httpMs=145 totalMs=237 status=error httpStatus=400 outputLines=34 frameworkErrors=0
+00:31 +48 -15: widgets/ restorable_enum_n_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: Enum
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 470:7      main.<fn>.<fn>
+  
+00:31 +48 -15: widgets/ restorable_int_n_test.dart
+[METRIC] script=widgets/restorable_int_n_test.dart sourceBytes=46177 sourceChars=46170 bundleJsonBytes=658946 clearMs=3 readMs=1 bundleMs=36 httpMs=120 totalMs=161 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_int_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +49 -15: widgets/ restorable_listenable_test.dart
+[METRIC] script=widgets/restorable_listenable_test.dart sourceBytes=63203 sourceChars=63199 bundleJsonBytes=741356 clearMs=29 readMs=0 bundleMs=28 httpMs=142 totalMs=201 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_listenable_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +50 -15: widgets/ restorable_num_n_test.dart
+[METRIC] script=widgets/restorable_num_n_test.dart sourceBytes=62695 sourceChars=62691 bundleJsonBytes=761105 clearMs=51 readMs=1 bundleMs=46 httpMs=92 totalMs=191 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_num_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +51 -15: widgets/ restorable_num_test.dart
+[METRIC] script=widgets/restorable_num_test.dart sourceBytes=58577 sourceChars=58556 bundleJsonBytes=775330 clearMs=2 readMs=1 bundleMs=39 httpMs=106 totalMs=150 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_num_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +52 -15: widgets/ restorable_route_future_test.dart
+[METRIC] script=widgets/restorable_route_future_test.dart sourceBytes=55150 sourceChars=55144 bundleJsonBytes=695697 clearMs=2 readMs=1 bundleMs=40 httpMs=94 totalMs=139 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_route_future_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +53 -15: widgets/ restorable_string_n_test.dart
+[METRIC] script=widgets/restorable_string_n_test.dart sourceBytes=63138 sourceChars=63007 bundleJsonBytes=768183 clearMs=21 readMs=1 bundleMs=37 httpMs=70 totalMs=130 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_string_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +54 -15: widgets/ root_back_button_dispatcher_test.dart
+[METRIC] script=widgets/root_back_button_dispatcher_test.dart sourceBytes=42518 sourceChars=42488 bundleJsonBytes=458435 clearMs=55 readMs=1 bundleMs=23 httpMs=233 totalMs=314 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:33 +55 -15: widgets/ root_element_mixin_test.dart
+[METRIC] script=widgets/root_element_mixin_test.dart sourceBytes=56634 sourceChars=56582 bundleJsonBytes=714570 clearMs=5 readMs=1 bundleMs=35 httpMs=126 totalMs=169 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/root_element_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:33 +56 -15: widgets/ root_render_object_element_test.dart
+[METRIC] script=widgets/root_render_object_element_test.dart sourceBytes=41914 sourceChars=40572 bundleJsonBytes=475628 clearMs=41 readMs=1 bundleMs=25 httpMs=101 totalMs=169 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/root_render_object_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:33 +57 -15: widgets/ route_aware_test.dart
+[METRIC] script=widgets/route_aware_test.dart sourceBytes=34458 sourceChars=34338 bundleJsonBytes=374495 clearMs=2 readMs=1 bundleMs=19 httpMs=200 totalMs=223 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:33 +58 -15: widgets/ route_information_reporting_type_test.dart
+[METRIC] script=widgets/route_information_reporting_type_test.dart sourceBytes=39730 sourceChars=38382 bundleJsonBytes=463562 clearMs=2 readMs=1 bundleMs=26 httpMs=133 totalMs=164 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/route_information_reporting_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:33 +59 -15: widgets/ route_information_test.dart
+[METRIC] script=widgets/route_information_test.dart sourceBytes=65430 sourceChars=63080 bundleJsonBytes=672187 clearMs=3 readMs=1 bundleMs=33 httpMs=87 totalMs=126 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:33 +59 -16: widgets/ route_information_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 552:7      main.<fn>.<fn>
+  
+00:33 +59 -16: widgets/ route_observer_test.dart
+[METRIC] script=widgets/route_observer_test.dart sourceBytes=3967 sourceChars=3967 bundleJsonBytes=56935 clearMs=26 readMs=0 bundleMs=2 httpMs=429 totalMs=459 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:34 +60 -16: widgets/ route_pop_disposition_test.dart
+[METRIC] script=widgets/route_pop_disposition_test.dart sourceBytes=62082 sourceChars=60018 bundleJsonBytes=589380 clearMs=2 readMs=1 bundleMs=30 httpMs=76 totalMs=111 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:34 +60 -17: widgets/ route_pop_disposition_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 566:7      main.<fn>.<fn>
+  
+00:34 +60 -17: widgets/ route_transition_record_test.dart
+[METRIC] script=widgets/route_transition_record_test.dart sourceBytes=33620 sourceChars=32270 bundleJsonBytes=398681 clearMs=22 readMs=0 bundleMs=19 httpMs=81 totalMs=124 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/route_transition_record_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:34 +61 -17: widgets/ router_config_test.dart
+[METRIC] script=widgets/router_config_test.dart sourceBytes=39204 sourceChars=37598 bundleJsonBytes=427857 clearMs=2 readMs=1 bundleMs=26 httpMs=93 totalMs=123 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:34 +61 -18: widgets/ router_config_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_FlowStage' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 580:7      main.<fn>.<fn>
+  
+00:34 +61 -18: widgets/ scroll_activity_delegate_test.dart
+[METRIC] script=widgets/scroll_activity_delegate_test.dart sourceBytes=36564 sourceChars=35190 bundleJsonBytes=403455 clearMs=42 readMs=0 bundleMs=18 httpMs=63 totalMs=125 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_activity_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:34 +62 -18: widgets/ scroll_activity_test.dart
+[METRIC] script=widgets/scroll_activity_test.dart sourceBytes=40384 sourceChars=39020 bundleJsonBytes=436030 clearMs=3 readMs=1 bundleMs=21 httpMs=63 totalMs=89 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:35 +62 -19: widgets/ scroll_activity_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_SubclassInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 594:7      main.<fn>.<fn>
+  
+00:35 +62 -19: widgets/ scroll_aware_image_provider_test.dart
+[METRIC] script=widgets/scroll_aware_image_provider_test.dart sourceBytes=40151 sourceChars=40108 bundleJsonBytes=434144 clearMs=42 readMs=1 bundleMs=20 httpMs=255 totalMs=319 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:35 +63 -19: widgets/ scroll_context_test.dart
+[METRIC] script=widgets/scroll_context_test.dart sourceBytes=35369 sourceChars=34011 bundleJsonBytes=400546 clearMs=4 readMs=1 bundleMs=20 httpMs=184 totalMs=211 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_context_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +64 -19: widgets/ scroll_deceleration_rate_test.dart
+[METRIC] script=widgets/scroll_deceleration_rate_test.dart sourceBytes=35103 sourceChars=33759 bundleJsonBytes=388157 clearMs=3 readMs=1 bundleMs=24 httpMs=106 totalMs=136 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_deceleration_rate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +65 -19: widgets/ scroll_drag_controller_test.dart
+[METRIC] script=widgets/scroll_drag_controller_test.dart sourceBytes=43313 sourceChars=41958 bundleJsonBytes=507836 clearMs=29 readMs=1 bundleMs=24 httpMs=90 totalMs=145 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_drag_controller_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +66 -19: widgets/ scroll_end_notification_test.dart
+[METRIC] script=widgets/scroll_end_notification_test.dart sourceBytes=35849 sourceChars=34382 bundleJsonBytes=420764 clearMs=3 readMs=1 bundleMs=24 httpMs=92 totalMs=121 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_end_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +67 -19: widgets/ scroll_hold_controller_test.dart
+[METRIC] script=widgets/scroll_hold_controller_test.dart sourceBytes=36284 sourceChars=34928 bundleJsonBytes=431141 clearMs=48 readMs=2 bundleMs=21 httpMs=97 totalMs=169 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_hold_controller_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +68 -19: widgets/ scroll_increment_details_test.dart
+[METRIC] script=widgets/scroll_increment_details_test.dart sourceBytes=39460 sourceChars=38114 bundleJsonBytes=460772 clearMs=3 readMs=1 bundleMs=24 httpMs=103 totalMs=133 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_increment_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +69 -19: widgets/ scroll_increment_type_test.dart
+[METRIC] script=widgets/scroll_increment_type_test.dart sourceBytes=39555 sourceChars=38176 bundleJsonBytes=496405 clearMs=24 readMs=1 bundleMs=31 httpMs=71 totalMs=128 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_increment_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +70 -19: widgets/ scroll_metrics_notification_test.dart
+[METRIC] script=widgets/scroll_metrics_notification_test.dart sourceBytes=51635 sourceChars=49867 bundleJsonBytes=537746 clearMs=45 readMs=1 bundleMs=25 httpMs=92 totalMs=165 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:36 +70 -20: widgets/ scroll_metrics_notification_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 657:7      main.<fn>.<fn>
+  
+00:36 +70 -20: widgets/ scroll_notification_observer_state_test.dart
+[METRIC] script=widgets/scroll_notification_observer_state_test.dart sourceBytes=39613 sourceChars=37935 bundleJsonBytes=475281 clearMs=30 readMs=1 bundleMs=61 httpMs=197 totalMs=290 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_notification_observer_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:36 +71 -20: widgets/ scroll_notification_observer_test.dart
+[METRIC] script=widgets/scroll_notification_observer_test.dart sourceBytes=61384 sourceChars=58299 bundleJsonBytes=638606 clearMs=3 readMs=1 bundleMs=35 httpMs=126 totalMs=166 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_notification_observer_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +72 -20: widgets/ scroll_position_alignment_policy_test.dart
+[METRIC] script=widgets/scroll_position_alignment_policy_test.dart sourceBytes=43985 sourceChars=42033 bundleJsonBytes=447619 clearMs=23 readMs=1 bundleMs=25 httpMs=62 totalMs=111 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:37 +72 -21: widgets/ scroll_position_alignment_policy_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 678:7      main.<fn>.<fn>
+  
+00:37 +72 -21: widgets/ scroll_position_with_single_context_test.dart
+[METRIC] script=widgets/scroll_position_with_single_context_test.dart sourceBytes=40300 sourceChars=38744 bundleJsonBytes=449845 clearMs=27 readMs=1 bundleMs=21 httpMs=113 totalMs=164 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_position_with_single_context_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +73 -21: widgets/ scroll_start_notification_test.dart
+[METRIC] script=widgets/scroll_start_notification_test.dart sourceBytes=38429 sourceChars=36887 bundleJsonBytes=439853 clearMs=41 readMs=0 bundleMs=14 httpMs=53 totalMs=110 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_start_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +74 -21: widgets/ scroll_to_document_boundary_intent_test.dart
+[METRIC] script=widgets/scroll_to_document_boundary_intent_test.dart sourceBytes=43738 sourceChars=42176 bundleJsonBytes=498097 clearMs=2 readMs=1 bundleMs=24 httpMs=102 totalMs=131 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_to_document_boundary_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +75 -21: widgets/ scroll_update_notification_test.dart
+[METRIC] script=widgets/scroll_update_notification_test.dart sourceBytes=43769 sourceChars=42226 bundleJsonBytes=537101 clearMs=50 readMs=1 bundleMs=30 httpMs=88 totalMs=170 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_update_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +76 -21: widgets/ scroll_view_keyboard_dismiss_behavior_test.dart
+[METRIC] script=widgets/scroll_view_keyboard_dismiss_behavior_test.dart sourceBytes=57388 sourceChars=55210 bundleJsonBytes=564844 clearMs=2 readMs=1 bundleMs=26 httpMs=84 totalMs=115 status=error httpStatus=400 outputLines=1 frameworkErrors=0
+00:37 +76 -22: widgets/ scroll_view_keyboard_dismiss_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 713:7      main.<fn>.<fn>
+  
+00:37 +76 -22: widgets/ scroll_view_test.dart
+[METRIC] script=widgets/scroll_view_test.dart sourceBytes=55159 sourceChars=52033 bundleJsonBytes=562434 clearMs=51 readMs=1 bundleMs=30 httpMs=96 totalMs=179 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_view_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:38 +77 -22: widgets/ scrollable_details_test.dart
+[METRIC] script=widgets/scrollable_details_test.dart sourceBytes=52862 sourceChars=51298 bundleJsonBytes=621151 clearMs=42 readMs=1 bundleMs=31 httpMs=99 totalMs=174 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollable_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:38 +78 -22: widgets/ scrollbar_orientation_test.dart
+[METRIC] script=widgets/scrollbar_orientation_test.dart sourceBytes=31402 sourceChars=30200 bundleJsonBytes=353074 clearMs=3 readMs=1 bundleMs=18 httpMs=442 totalMs=466 status=success httpStatus=200 outputLines=4 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollbar_orientation_test.dart (4 error(s)):
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+00:38 +79 -22: widgets/ scrollbar_painter_test.dart
+[METRIC] script=widgets/scrollbar_painter_test.dart sourceBytes=56407 sourceChars=53335 bundleJsonBytes=575852 clearMs=64 readMs=1 bundleMs=29 httpMs=115 totalMs=210 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollbar_painter_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:38 +80 -22: widgets/ select_action_test.dart
+[METRIC] script=widgets/select_action_test.dart sourceBytes=58208 sourceChars=56158 bundleJsonBytes=614627 clearMs=49 readMs=1 bundleMs=31 httpMs=107 totalMs=189 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:39 +80 -23: widgets/ select_action_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_ChainItem' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 746:7      main.<fn>.<fn>
+  
+00:39 +80 -23: widgets/ select_all_text_intent_test.dart
+[METRIC] script=widgets/select_all_text_intent_test.dart sourceBytes=48245 sourceChars=46699 bundleJsonBytes=536695 clearMs=2 readMs=1 bundleMs=25 httpMs=119 totalMs=148 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/select_all_text_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:39 +81 -23: widgets/ select_intent_test.dart
+[METRIC] script=widgets/select_intent_test.dart sourceBytes=50678 sourceChars=49124 bundleJsonBytes=544537 clearMs=2 readMs=1 bundleMs=28 httpMs=118 totalMs=150 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/select_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:39 +82 -23: widgets/ selectable_region_selection_status_scope_test.dart
+[METRIC] script=widgets/selectable_region_selection_status_scope_test.dart sourceBytes=46645 sourceChars=46619 bundleJsonBytes=531736 clearMs=26 readMs=0 bundleMs=25 httpMs=190 totalMs=244 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:39 +83 -23: widgets/ selectable_region_selection_status_test.dart
+[METRIC] script=widgets/selectable_region_selection_status_test.dart sourceBytes=53945 sourceChars=53871 bundleJsonBytes=659246 clearMs=45 readMs=1 bundleMs=30 httpMs=219 totalMs=297 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:40 +84 -23: widgets/ selectable_region_state_test.dart
+[METRIC] script=widgets/selectable_region_state_test.dart sourceBytes=52368 sourceChars=50832 bundleJsonBytes=565122 clearMs=21 readMs=1 bundleMs=28 httpMs=209 totalMs=261 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/selectable_region_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +85 -23: widgets/ selection_container_delegate_test.dart
+[METRIC] script=widgets/selection_container_delegate_test.dart sourceBytes=54659 sourceChars=53135 bundleJsonBytes=579325 clearMs=49 readMs=1 bundleMs=32 httpMs=101 totalMs=184 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/selection_container_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +86 -23: widgets/ selection_details_test.dart
+[METRIC] script=widgets/selection_details_test.dart sourceBytes=53926 sourceChars=52386 bundleJsonBytes=571761 clearMs=2 readMs=1 bundleMs=30 httpMs=104 totalMs=139 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/selection_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +87 -23: widgets/ selection_listener_notifier_test.dart
+[METRIC] script=widgets/selection_listener_notifier_test.dart sourceBytes=46212 sourceChars=46208 bundleJsonBytes=533729 clearMs=26 readMs=1 bundleMs=28 httpMs=152 totalMs=208 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:40 +88 -23: widgets/ selection_registrar_scope_test.dart
+[METRIC] script=widgets/selection_registrar_scope_test.dart sourceBytes=45987 sourceChars=45981 bundleJsonBytes=485670 clearMs=2 readMs=1 bundleMs=25 httpMs=187 totalMs=217 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:41 +89 -23: widgets/ semantics_debugger_test.dart
+[METRIC] script=widgets/semantics_debugger_test.dart sourceBytes=39544 sourceChars=39540 bundleJsonBytes=436700 clearMs=24 readMs=1 bundleMs=25 httpMs=170 totalMs=222 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:41 +90 -23: widgets/ semantics_gesture_delegate_test.dart
+[METRIC] script=widgets/semantics_gesture_delegate_test.dart sourceBytes=56791 sourceChars=55223 bundleJsonBytes=625037 clearMs=2 readMs=1 bundleMs=28 httpMs=117 totalMs=150 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/semantics_gesture_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:41 +91 -23: widgets/ sensitive_content_host_test.dart
+[METRIC] script=widgets/sensitive_content_host_test.dart sourceBytes=47363 sourceChars=47337 bundleJsonBytes=528204 clearMs=2 readMs=1 bundleMs=29 httpMs=192 totalMs=226 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:41 +92 -23: widgets/ sensitive_content_test.dart
+[METRIC] script=widgets/sensitive_content_test.dart sourceBytes=47831 sourceChars=47823 bundleJsonBytes=541015 clearMs=29 readMs=0 bundleMs=24 httpMs=179 totalMs=233 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:41 +93 -23: widgets/ shortcut_activator_test.dart
+[METRIC] script=widgets/shortcut_activator_test.dart sourceBytes=53294 sourceChars=51872 bundleJsonBytes=581872 clearMs=2 readMs=1 bundleMs=29 httpMs=117 totalMs=150 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_activator_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:42 +94 -23: widgets/ shortcut_manager_test.dart
+[METRIC] script=widgets/shortcut_manager_test.dart sourceBytes=29613 sourceChars=28667 bundleJsonBytes=325117 clearMs=27 readMs=0 bundleMs=27 httpMs=264 totalMs=320 status=success httpStatus=200 outputLines=4 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_manager_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _loggingManager (Original error: LateInitializationError: Late variable '_loggingManager' without initializer is accessed before being assigned.)
+00:42 +95 -23: widgets/ shortcut_map_property_test.dart
+[METRIC] script=widgets/shortcut_map_property_test.dart sourceBytes=41201 sourceChars=39759 bundleJsonBytes=448321 clearMs=43 readMs=0 bundleMs=23 httpMs=102 totalMs=171 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_map_property_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:42 +96 -23: widgets/ shortcut_registrar_test.dart
+[METRIC] script=widgets/shortcut_registrar_test.dart sourceBytes=49397 sourceChars=49387 bundleJsonBytes=594562 clearMs=3 readMs=1 bundleMs=29 httpMs=162 totalMs=196 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:42 +97 -23: widgets/ shortcut_registry_entry_test.dart
+[METRIC] script=widgets/shortcut_registry_entry_test.dart sourceBytes=55781 sourceChars=54345 bundleJsonBytes=557841 clearMs=3 readMs=1 bundleMs=32 httpMs=94 totalMs=131 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:42 +97 -24: widgets/ shortcut_registry_entry_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Phase' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 872:7      main.<fn>.<fn>
+  
+00:42 +97 -24: widgets/ shortcut_registry_test.dart
+[METRIC] script=widgets/shortcut_registry_test.dart sourceBytes=49775 sourceChars=49769 bundleJsonBytes=597725 clearMs=39 readMs=1 bundleMs=41 httpMs=169 totalMs=251 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:43 +98 -24: widgets/ shortcut_serialization_test.dart
+[METRIC] script=widgets/shortcut_serialization_test.dart sourceBytes=53949 sourceChars=52533 bundleJsonBytes=588585 clearMs=3 readMs=1 bundleMs=33 httpMs=90 totalMs=129 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:43 +98 -25: widgets/ shortcut_serialization_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_TriggerInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 886:7      main.<fn>.<fn>
+  
+00:43 +98 -25: widgets/ single_activator_test.dart
+[METRIC] script=widgets/single_activator_test.dart sourceBytes=53859 sourceChars=52443 bundleJsonBytes=612503 clearMs=27 readMs=1 bundleMs=27 httpMs=72 totalMs=128 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:43 +98 -26: widgets/ single_activator_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Key' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 893:7      main.<fn>.<fn>
+  
+00:43 +98 -26: widgets/ size_changed_layout_notification_test.dart
+[METRIC] script=widgets/size_changed_layout_notification_test.dart sourceBytes=37496 sourceChars=37494 bundleJsonBytes=410755 clearMs=28 readMs=0 bundleMs=22 httpMs=139 totalMs=192 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/size_changed_layout_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:43 +99 -26: widgets/ size_changed_layout_notifier_test.dart
+[METRIC] script=widgets/size_changed_layout_notifier_test.dart sourceBytes=71236 sourceChars=71153 bundleJsonBytes=801367 clearMs=3 readMs=1 bundleMs=38 httpMs=248 totalMs=291 status=success httpStatus=200 outputLines=32 frameworkErrors=0
+00:43 +100 -26: widgets/ sized_overflow_box_test.dart
+[METRIC] script=widgets/sized_overflow_box_test.dart sourceBytes=66939 sourceChars=66896 bundleJsonBytes=773908 clearMs=2 readMs=1 bundleMs=36 httpMs=246 totalMs=287 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+00:44 +101 -26: widgets/ sliver_animated_grid_state_test.dart
+[METRIC] script=widgets/sliver_animated_grid_state_test.dart sourceBytes=33309 sourceChars=33305 bundleJsonBytes=467348 clearMs=2 readMs=1 bundleMs=22 httpMs=120 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_animated_grid_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:44 +102 -26: widgets/ sliver_animated_list_state_test.dart
+[METRIC] script=widgets/sliver_animated_list_state_test.dart sourceBytes=32173 sourceChars=31069 bundleJsonBytes=412431 clearMs=22 readMs=1 bundleMs=19 httpMs=88 totalMs=131 status=success httpStatus=200 outputLines=4 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_animated_list_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:44 +103 -26: widgets/ sliver_child_builder_delegate_test.dart
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceBytes=32659 sourceChars=31167 bundleJsonBytes=361232 clearMs=49 readMs=0 bundleMs=17 httpMs=61 totalMs=128 status=success httpStatus=200 outputLines=4 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_child_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:44 +104 -26: widgets/ sliver_child_delegate_test.dart
+[METRIC] script=widgets/sliver_child_delegate_test.dart sourceBytes=34760 sourceChars=34756 bundleJsonBytes=472132 clearMs=42 readMs=0 bundleMs=26 httpMs=100 totalMs=170 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_child_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:44 +105 -26: widgets/ sliver_child_list_delegate_test.dart
+[METRIC] script=widgets/sliver_child_list_delegate_test.dart sourceBytes=33276 sourceChars=31762 bundleJsonBytes=377125 clearMs=3 readMs=1 bundleMs=18 httpMs=454 totalMs=477 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:45 +106 -26: widgets/ sliver_ensure_semantics_test.dart
+[METRIC] script=widgets/sliver_ensure_semantics_test.dart sourceBytes=69892 sourceChars=69780 bundleJsonBytes=685886 clearMs=2 readMs=1 bundleMs=34 httpMs=216 totalMs=255 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+00:45 +107 -26: widgets/ sliver_fade_transition_test.dart
+[METRIC] script=widgets/sliver_fade_transition_test.dart sourceBytes=46503 sourceChars=45901 bundleJsonBytes=422835 clearMs=45 readMs=1 bundleMs=20 httpMs=351 totalMs=418 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:46 +108 -26: widgets/ sliver_multi_box_adaptor_element_test.dart
+[METRIC] script=widgets/sliver_multi_box_adaptor_element_test.dart sourceBytes=33940 sourceChars=33940 bundleJsonBytes=424235 clearMs=2 readMs=0 bundleMs=19 httpMs=147 totalMs=170 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_multi_box_adaptor_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:46 +109 -26: widgets/ sliver_multi_box_adaptor_widget_test.dart
+[METRIC] script=widgets/sliver_multi_box_adaptor_widget_test.dart sourceBytes=31187 sourceChars=31187 bundleJsonBytes=433193 clearMs=2 readMs=0 bundleMs=19 httpMs=117 totalMs=141 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_multi_box_adaptor_widget_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:46 +110 -26: widgets/ sliver_overlap_absorber_handle_test.dart
+[METRIC] script=widgets/sliver_overlap_absorber_handle_test.dart sourceBytes=48197 sourceChars=48173 bundleJsonBytes=487035 clearMs=2 readMs=1 bundleMs=21 httpMs=181 totalMs=207 status=success httpStatus=200 outputLines=40 frameworkErrors=0
+00:46 +111 -26: widgets/ sliver_overlap_absorber_test.dart
+[METRIC] script=widgets/sliver_overlap_absorber_test.dart sourceBytes=54023 sourceChars=53991 bundleJsonBytes=534829 clearMs=2 readMs=1 bundleMs=27 httpMs=207 totalMs=238 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:46 +112 -26: widgets/ sliver_overlap_injector_test.dart
+[METRIC] script=widgets/sliver_overlap_injector_test.dart sourceBytes=54279 sourceChars=54249 bundleJsonBytes=550642 clearMs=21 readMs=1 bundleMs=25 httpMs=212 totalMs=260 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+00:47 +113 -26: widgets/ sliver_persistent_header_delegate_test.dart
+[METRIC] script=widgets/sliver_persistent_header_delegate_test.dart sourceBytes=30041 sourceChars=29061 bundleJsonBytes=332796 clearMs=3 readMs=0 bundleMs=18 httpMs=361 totalMs=384 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:47 +114 -26: widgets/ sliver_reorderable_list_state_test.dart
+[METRIC] script=widgets/sliver_reorderable_list_state_test.dart sourceBytes=32958 sourceChars=32956 bundleJsonBytes=452686 clearMs=2 readMs=2 bundleMs=25 httpMs=131 totalMs=161 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_reorderable_list_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:47 +115 -26: widgets/ sliver_with_keep_alive_widget_test.dart
+[METRIC] script=widgets/sliver_with_keep_alive_widget_test.dart sourceBytes=41867 sourceChars=41821 bundleJsonBytes=440783 clearMs=3 readMs=0 bundleMs=12 httpMs=181 totalMs=198 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+00:47 +116 -26: widgets/ slotted_container_render_object_mixin_test.dart
+[METRIC] script=widgets/slotted_container_render_object_mixin_test.dart sourceBytes=29481 sourceChars=29481 bundleJsonBytes=379618 clearMs=2 readMs=0 bundleMs=20 httpMs=121 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_container_render_object_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:47 +117 -26: widgets/ slotted_multi_child_render_object_widget_mixin_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_mixin_test.dart sourceBytes=28845 sourceChars=28845 bundleJsonBytes=378412 clearMs=3 readMs=0 bundleMs=18 httpMs=50 totalMs=74 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +118 -26: widgets/ slotted_multi_child_render_object_widget_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_test.dart sourceBytes=41027 sourceChars=41027 bundleJsonBytes=518828 clearMs=3 readMs=0 bundleMs=54 httpMs=86 totalMs=145 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +119 -26: widgets/ slotted_render_object_element_test.dart
+[METRIC] script=widgets/slotted_render_object_element_test.dart sourceBytes=33300 sourceChars=33300 bundleJsonBytes=434374 clearMs=29 readMs=0 bundleMs=23 httpMs=92 totalMs=146 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_render_object_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +120 -26: widgets/ snapshot_controller_test.dart
+[METRIC] script=widgets/snapshot_controller_test.dart sourceBytes=33167 sourceChars=33049 bundleJsonBytes=360366 clearMs=2 readMs=1 bundleMs=22 httpMs=171 totalMs=198 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:48 +121 -26: widgets/ snapshot_mode_test.dart
+[METRIC] script=widgets/snapshot_mode_test.dart sourceBytes=34978 sourceChars=34978 bundleJsonBytes=472127 clearMs=3 readMs=1 bundleMs=28 httpMs=121 totalMs=154 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/snapshot_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +122 -26: widgets/ snapshot_painter_test.dart
+[METRIC] script=widgets/snapshot_painter_test.dart sourceBytes=41039 sourceChars=41031 bundleJsonBytes=436846 clearMs=48 readMs=0 bundleMs=24 httpMs=206 totalMs=281 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:48 +123 -26: widgets/ snapshot_widget_test.dart
+[METRIC] script=widgets/snapshot_widget_test.dart sourceBytes=43871 sourceChars=43861 bundleJsonBytes=457690 clearMs=3 readMs=0 bundleMs=25 httpMs=204 totalMs=234 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+00:49 +124 -26: widgets/ standard_component_type_test.dart
+[METRIC] script=widgets/standard_component_type_test.dart sourceBytes=30245 sourceChars=30245 bundleJsonBytes=408929 clearMs=2 readMs=0 bundleMs=21 httpMs=107 totalMs=132 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/standard_component_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:49 +125 -26: widgets/ static_selection_container_delegate_test.dart
+[METRIC] script=widgets/static_selection_container_delegate_test.dart sourceBytes=26909 sourceChars=26909 bundleJsonBytes=392283 clearMs=3 readMs=0 bundleMs=18 httpMs=111 totalMs=133 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/static_selection_container_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:49 +126 -26: widgets/ status_transition_widget_test.dart
+[METRIC] script=widgets/status_transition_widget_test.dart sourceBytes=41688 sourceChars=41666 bundleJsonBytes=471903 clearMs=46 readMs=0 bundleMs=23 httpMs=216 totalMs=287 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:49 +127 -26: widgets/ stream_builder_base_test.dart
+[METRIC] script=widgets/stream_builder_base_test.dart sourceBytes=33902 sourceChars=33772 bundleJsonBytes=375541 clearMs=3 readMs=1 bundleMs=18 httpMs=256 totalMs=278 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:50 +128 -26: widgets/ stretch_effect_test.dart
+[METRIC] script=widgets/stretch_effect_test.dart sourceBytes=40374 sourceChars=40368 bundleJsonBytes=444130 clearMs=2 readMs=0 bundleMs=24 httpMs=242 totalMs=270 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+00:50 +129 -26: widgets/ system_context_menu_test.dart
+[METRIC] script=widgets/system_context_menu_test.dart sourceBytes=42584 sourceChars=42578 bundleJsonBytes=468504 clearMs=36 readMs=0 bundleMs=22 httpMs=180 totalMs=239 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+00:50 +130 -26: widgets/ system_text_scaler_test.dart
+[METRIC] script=widgets/system_text_scaler_test.dart sourceBytes=43689 sourceChars=43679 bundleJsonBytes=459153 clearMs=41 readMs=1 bundleMs=21 httpMs=160 totalMs=225 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:50 +131 -26: widgets/ tap_region_registry_test.dart
+[METRIC] script=widgets/tap_region_registry_test.dart sourceBytes=48709 sourceChars=48699 bundleJsonBytes=525572 clearMs=3 readMs=2 bundleMs=24 httpMs=300 totalMs=330 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+00:51 +132 -26: widgets/ text_selection_gesture_detector_builder_delegate_test.dart
+[METRIC] script=widgets/text_selection_gesture_detector_builder_delegate_test.dart sourceBytes=26746 sourceChars=26746 bundleJsonBytes=360511 clearMs=4 readMs=0 bundleMs=17 httpMs=123 totalMs=145 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/text_selection_gesture_detector_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:51 +133 -26: widgets/ text_selection_gesture_detector_builder_test.dart
+[METRIC] script=widgets/text_selection_gesture_detector_builder_test.dart sourceBytes=3384 sourceChars=3384 bundleJsonBytes=31856 clearMs=26 readMs=0 bundleMs=1 httpMs=83 totalMs=113 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:51 +134 -26: widgets/ text_selection_handle_controls_test.dart
+[METRIC] script=widgets/text_selection_handle_controls_test.dart sourceBytes=3243 sourceChars=3243 bundleJsonBytes=31789 clearMs=3 readMs=1 bundleMs=2 httpMs=98 totalMs=105 status=success httpStatus=200 outputLines=48 frameworkErrors=0
+00:51 +135 -26: widgets/ text_selection_toolbar_layout_delegate_test.dart
+[METRIC] script=widgets/text_selection_toolbar_layout_delegate_test.dart sourceBytes=3052 sourceChars=3052 bundleJsonBytes=32413 clearMs=4 readMs=0 bundleMs=2 httpMs=69 totalMs=76 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+00:51 +136 -26: widgets/ text_style_tween_test.dart
+[METRIC] script=widgets/text_style_tween_test.dart sourceBytes=32366 sourceChars=32238 bundleJsonBytes=385914 clearMs=3 readMs=1 bundleMs=17 httpMs=249 totalMs=270 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:51 +137 -26: widgets/ texture_test.dart
+[METRIC] script=widgets/texture_test.dart sourceBytes=41807 sourceChars=41803 bundleJsonBytes=453048 clearMs=2 readMs=1 bundleMs=23 httpMs=267 totalMs=295 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+00:52 +138 -26: widgets/ ticker_mode_data_test.dart
+[METRIC] script=widgets/ticker_mode_data_test.dart sourceBytes=38685 sourceChars=38683 bundleJsonBytes=416439 clearMs=2 readMs=0 bundleMs=20 httpMs=216 totalMs=240 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:52 +139 -26: widgets/ toggleable_painter_test.dart
+[METRIC] script=widgets/toggleable_painter_test.dart sourceBytes=3360 sourceChars=3360 bundleJsonBytes=34858 clearMs=2 readMs=0 bundleMs=2 httpMs=82 totalMs=88 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+00:52 +140 -26: widgets/ toggleable_state_mixin_test.dart
+[METRIC] script=widgets/toggleable_state_mixin_test.dart sourceBytes=34472 sourceChars=34324 bundleJsonBytes=371957 clearMs=2 readMs=0 bundleMs=16 httpMs=225 totalMs=246 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:52 +141 -26: widgets/ toolbar_items_parent_data_test.dart
+[METRIC] script=widgets/toolbar_items_parent_data_test.dart sourceBytes=26251 sourceChars=26247 bundleJsonBytes=358445 clearMs=3 readMs=1 bundleMs=18 httpMs=121 totalMs=143 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:52 +141 -27: widgets/ toolbar_items_parent_data_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_TimelineStep' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1202:7     main.<fn>.<fn>
+  
+00:52 +141 -27: widgets/ toolbar_options_test.dart
+[METRIC] script=widgets/toolbar_options_test.dart sourceBytes=18490 sourceChars=18488 bundleJsonBytes=250290 clearMs=3 readMs=0 bundleMs=14 httpMs=85 totalMs=103 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:53 +141 -28: widgets/ toolbar_options_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_LegacyToolbarProfile' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1209:7     main.<fn>.<fn>
+  
+00:53 +141 -28: widgets/ tooltip_position_context_test.dart
+[METRIC] script=widgets/tooltip_position_context_test.dart sourceBytes=16399 sourceChars=16399 bundleJsonBytes=240709 clearMs=27 readMs=0 bundleMs=12 httpMs=60 totalMs=102 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:53 +141 -29: widgets/ tooltip_position_context_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_CaseDefinition' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1216:7     main.<fn>.<fn>
+  
+00:53 +141 -29: widgets/ tooltip_window_controller_delegate_test.dart
+[METRIC] script=widgets/tooltip_window_controller_delegate_test.dart sourceBytes=16347 sourceChars=16341 bundleJsonBytes=217101 clearMs=41 readMs=1 bundleMs=12 httpMs=83 totalMs=139 status=error httpStatus=400 outputLines=27 frameworkErrors=0
+00:53 +141 -30: widgets/ tooltip_window_controller_delegate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_PolicyPreset' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1223:7     main.<fn>.<fn>
+  
+00:53 +141 -30: widgets/ tooltip_window_controller_test.dart
+[METRIC] script=widgets/tooltip_window_controller_test.dart sourceBytes=16337 sourceChars=16331 bundleJsonBytes=231500 clearMs=18 readMs=0 bundleMs=13 httpMs=74 totalMs=108 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+00:53 +141 -31: widgets/ tooltip_window_controller_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Pattern' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1230:7     main.<fn>.<fn>
+  
+00:53 +141 -31: widgets/ tooltip_window_test.dart
+[METRIC] script=widgets/tooltip_window_test.dart sourceBytes=23125 sourceChars=23121 bundleJsonBytes=336386 clearMs=38 readMs=0 bundleMs=19 httpMs=47 totalMs=105 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/tooltip_window_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:53 +142 -31: widgets/ tracking_scroll_controller_test.dart
+[METRIC] script=widgets/tracking_scroll_controller_test.dart sourceBytes=28296 sourceChars=28172 bundleJsonBytes=308863 clearMs=2 readMs=0 bundleMs=14 httpMs=185 totalMs=202 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:53 +143 -31: widgets/ transformation_controller_test.dart
+[METRIC] script=widgets/transformation_controller_test.dart sourceBytes=34058 sourceChars=33935 bundleJsonBytes=413584 clearMs=2 readMs=0 bundleMs=18 httpMs=242 totalMs=265 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:54 +144 -31: widgets/ transition_delegate_test.dart
+[METRIC] script=widgets/transition_delegate_test.dart sourceBytes=34960 sourceChars=33755 bundleJsonBytes=396518 clearMs=3 readMs=1 bundleMs=21 httpMs=477 totalMs=503 status=success httpStatus=200 outputLines=4 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/transition_delegate_test.dart (2 error(s)):
+       Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _DefaultDemoPageState.)
+       Runtime Error: Native error during default bridged constructor for 'Navigator': Argument Error: Invalid parameter "transitionDelegate": expected TransitionDelegate<dynamic>, got InterpretedInstance(_I…
+00:54 +145 -31: widgets/ transition_route_test.dart
+[METRIC] script=widgets/transition_route_test.dart sourceBytes=33128 sourceChars=32964 bundleJsonBytes=362440 clearMs=3 readMs=0 bundleMs=17 httpMs=247 totalMs=269 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:54 +146 -31: widgets/ transpose_characters_intent_test.dart
+[METRIC] script=widgets/transpose_characters_intent_test.dart sourceBytes=17829 sourceChars=17815 bundleJsonBytes=243634 clearMs=3 readMs=0 bundleMs=12 httpMs=89 totalMs=106 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/transpose_characters_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:54 +147 -31: widgets/ traversal_direction_test.dart
+[METRIC] script=widgets/traversal_direction_test.dart sourceBytes=16048 sourceChars=16042 bundleJsonBytes=220775 clearMs=2 readMs=0 bundleMs=14 httpMs=99 totalMs=117 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+00:55 +147 -32: widgets/ traversal_direction_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_PolicyProfile' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1279:7     main.<fn>.<fn>
+  
+00:55 +147 -32: widgets/ traversal_edge_behavior_test.dart
+[METRIC] script=widgets/traversal_edge_behavior_test.dart sourceBytes=14755 sourceChars=14751 bundleJsonBytes=197759 clearMs=2 readMs=0 bundleMs=11 httpMs=102 totalMs=116 status=error httpStatus=400 outputLines=35 frameworkErrors=0
+00:55 +147 -33: widgets/ traversal_edge_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Playbook' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1286:7     main.<fn>.<fn>
+  
+00:55 +147 -33: widgets/ tree_sliver_controller_test.dart
+[METRIC] script=widgets/tree_sliver_controller_test.dart sourceBytes=30518 sourceChars=30272 bundleJsonBytes=331786 clearMs=3 readMs=0 bundleMs=15 httpMs=173 totalMs=193 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+00:55 +148 -33: widgets/ tree_sliver_node_test.dart
+[METRIC] script=widgets/tree_sliver_node_test.dart sourceBytes=41365 sourceChars=41359 bundleJsonBytes=465904 clearMs=3 readMs=1 bundleMs=25 httpMs=258 totalMs=288 status=success httpStatus=200 outputLines=47 frameworkErrors=0
+00:55 +149 -33: widgets/ tree_sliver_state_mixin_test.dart
+[METRIC] script=widgets/tree_sliver_state_mixin_test.dart sourceBytes=17109 sourceChars=17103 bundleJsonBytes=243510 clearMs=2 readMs=0 bundleMs=14 httpMs=60 totalMs=78 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/tree_sliver_state_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:55 +150 -33: widgets/ tree_sliver_test.dart
+[METRIC] script=widgets/tree_sliver_test.dart sourceBytes=41332 sourceChars=41326 bundleJsonBytes=445618 clearMs=41 readMs=0 bundleMs=21 httpMs=294 totalMs=359 status=success httpStatus=200 outputLines=45 frameworkErrors=0
+00:56 +151 -33: widgets/ two_dimensional_child_builder_delegate_test.dart
+[METRIC] script=widgets/two_dimensional_child_builder_delegate_test.dart sourceBytes=27069 sourceChars=27065 bundleJsonBytes=397264 clearMs=3 readMs=0 bundleMs=22 httpMs=115 totalMs=141 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:56 +152 -33: widgets/ two_dimensional_child_delegate_test.dart
+[METRIC] script=widgets/two_dimensional_child_delegate_test.dart sourceBytes=21357 sourceChars=21353 bundleJsonBytes=297503 clearMs=3 readMs=1 bundleMs=15 httpMs=95 totalMs=116 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +153 -33: widgets/ two_dimensional_child_list_delegate_test.dart
+[METRIC] script=widgets/two_dimensional_child_list_delegate_test.dart sourceBytes=21376 sourceChars=21370 bundleJsonBytes=319817 clearMs=23 readMs=0 bundleMs=16 httpMs=74 totalMs=115 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_list_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +154 -33: widgets/ two_dimensional_child_manager_test.dart
+[METRIC] script=widgets/two_dimensional_child_manager_test.dart sourceBytes=21882 sourceChars=21870 bundleJsonBytes=311878 clearMs=50 readMs=0 bundleMs=20 httpMs=45 totalMs=116 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_manager_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +155 -33: widgets/ two_dimensional_scroll_view_test.dart
+[METRIC] script=widgets/two_dimensional_scroll_view_test.dart sourceBytes=50062 sourceChars=50030 bundleJsonBytes=550588 clearMs=3 readMs=1 bundleMs=27 httpMs=267 totalMs=300 status=success httpStatus=200 outputLines=43 frameworkErrors=0
+00:56 +156 -33: widgets/ two_dimensional_scrollable_state_test.dart
+[METRIC] script=widgets/two_dimensional_scrollable_state_test.dart sourceBytes=18520 sourceChars=18504 bundleJsonBytes=243682 clearMs=3 readMs=1 bundleMs=15 httpMs=108 totalMs=128 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_scrollable_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +157 -33: widgets/ two_dimensional_scrollable_test.dart
+[METRIC] script=widgets/two_dimensional_scrollable_test.dart sourceBytes=38688 sourceChars=38670 bundleJsonBytes=406827 clearMs=3 readMs=1 bundleMs=21 httpMs=194 totalMs=219 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+00:57 +158 -33: widgets/ two_dimensional_viewport_parent_data_test.dart
+[METRIC] script=widgets/two_dimensional_viewport_parent_data_test.dart sourceBytes=25793 sourceChars=25789 bundleJsonBytes=407538 clearMs=52 readMs=1 bundleMs=21 httpMs=88 totalMs=163 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_viewport_parent_data_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:57 +159 -33: widgets/ two_dimensional_viewport_test.dart
+[METRIC] script=widgets/two_dimensional_viewport_test.dart sourceBytes=39339 sourceChars=39337 bundleJsonBytes=431836 clearMs=3 readMs=0 bundleMs=21 httpMs=194 totalMs=221 status=success httpStatus=200 outputLines=44 frameworkErrors=0
+00:57 +160 -33: widgets/ undo_history_state_test.dart
+[METRIC] script=widgets/undo_history_state_test.dart sourceBytes=19765 sourceChars=19761 bundleJsonBytes=281423 clearMs=5 readMs=0 bundleMs=15 httpMs=94 totalMs=115 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_history_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +161 -33: widgets/ undo_history_value_test.dart
+[METRIC] script=widgets/undo_history_value_test.dart sourceBytes=16497 sourceChars=16493 bundleJsonBytes=233954 clearMs=25 readMs=0 bundleMs=11 httpMs=75 totalMs=113 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_history_value_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +162 -33: widgets/ undo_text_intent_test.dart
+[METRIC] script=widgets/undo_text_intent_test.dart sourceBytes=17727 sourceChars=17719 bundleJsonBytes=240090 clearMs=21 readMs=0 bundleMs=12 httpMs=82 totalMs=118 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_text_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +163 -33: widgets/ unfocus_disposition_test.dart
+[METRIC] script=widgets/unfocus_disposition_test.dart sourceBytes=18890 sourceChars=18882 bundleJsonBytes=253104 clearMs=3 readMs=0 bundleMs=14 httpMs=52 totalMs=71 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/unfocus_disposition_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +164 -33: widgets/ unique_widget_test.dart
+[METRIC] script=widgets/unique_widget_test.dart sourceBytes=38965 sourceChars=38943 bundleJsonBytes=423089 clearMs=19 readMs=0 bundleMs=19 httpMs=208 totalMs=248 status=success httpStatus=200 outputLines=49 frameworkErrors=0
+00:58 +165 -33: widgets/ unmanaged_restoration_scope_test.dart
+[METRIC] script=widgets/unmanaged_restoration_scope_test.dart sourceBytes=39284 sourceChars=39278 bundleJsonBytes=425643 clearMs=46 readMs=0 bundleMs=18 httpMs=217 totalMs=283 status=success httpStatus=200 outputLines=54 frameworkErrors=0
+00:58 +166 -33: widgets/ update_selection_intent_test.dart
+[METRIC] script=widgets/update_selection_intent_test.dart sourceBytes=20557 sourceChars=20549 bundleJsonBytes=292472 clearMs=4 readMs=0 bundleMs=17 httpMs=115 totalMs=137 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/update_selection_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +167 -33: widgets/ user_scroll_notification_test.dart
+[METRIC] script=widgets/user_scroll_notification_test.dart sourceBytes=16317 sourceChars=16311 bundleJsonBytes=204709 clearMs=42 readMs=0 bundleMs=10 httpMs=61 totalMs=115 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/user_scroll_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +168 -33: widgets/ viewport_element_mixin_test.dart
+[METRIC] script=widgets/viewport_element_mixin_test.dart sourceBytes=14769 sourceChars=14765 bundleJsonBytes=195868 clearMs=3 readMs=1 bundleMs=10 httpMs=55 totalMs=71 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/viewport_element_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +169 -33: widgets/ viewport_notification_mixin_test.dart
+[METRIC] script=widgets/viewport_notification_mixin_test.dart sourceBytes=16936 sourceChars=16930 bundleJsonBytes=218882 clearMs=3 readMs=0 bundleMs=11 httpMs=100 totalMs=116 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/viewport_notification_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +170 -33: widgets/ void_callback_action_test.dart
+[METRIC] script=widgets/void_callback_action_test.dart sourceBytes=21318 sourceChars=21310 bundleJsonBytes=263529 clearMs=39 readMs=0 bundleMs=15 httpMs=52 totalMs=107 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/void_callback_action_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +171 -33: widgets/ void_callback_intent_test.dart
+[METRIC] script=widgets/void_callback_intent_test.dart sourceBytes=19025 sourceChars=19017 bundleJsonBytes=249894 clearMs=2 readMs=0 bundleMs=12 httpMs=101 totalMs=118 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/void_callback_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +172 -33: widgets/ weak_map_test.dart
+[METRIC] script=widgets/weak_map_test.dart sourceBytes=20758 sourceChars=20750 bundleJsonBytes=291308 clearMs=3 readMs=1 bundleMs=15 httpMs=53 totalMs=73 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/weak_map_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +173 -33: widgets/ web_browser_detection_test.dart
+[METRIC] script=widgets/web_browser_detection_test.dart sourceBytes=23259 sourceChars=23253 bundleJsonBytes=296913 clearMs=24 readMs=0 bundleMs=16 httpMs=78 totalMs=120 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/web_browser_detection_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +174 -33: widgets/ widget_inspector_service_extensions_test.dart
+[METRIC] script=widgets/widget_inspector_service_extensions_test.dart sourceBytes=22349 sourceChars=22337 bundleJsonBytes=303169 clearMs=3 readMs=1 bundleMs=38 httpMs=69 totalMs=113 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_inspector_service_extensions_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +175 -33: widgets/ widget_inspector_service_test.dart
+[METRIC] script=widgets/widget_inspector_service_test.dart sourceBytes=21421 sourceChars=21409 bundleJsonBytes=282981 clearMs=24 readMs=0 bundleMs=13 httpMs=64 totalMs=103 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_inspector_service_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +176 -33: widgets/ widget_order_traversal_policy_test.dart
+[METRIC] script=widgets/widget_order_traversal_policy_test.dart sourceBytes=18248 sourceChars=18242 bundleJsonBytes=230753 clearMs=44 readMs=0 bundleMs=13 httpMs=38 totalMs=97 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_order_traversal_policy_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +177 -33: widgets/ widget_state_border_side_test.dart
+[METRIC] script=widgets/widget_state_border_side_test.dart sourceBytes=17725 sourceChars=17719 bundleJsonBytes=240034 clearMs=2 readMs=0 bundleMs=12 httpMs=44 totalMs=60 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_border_side_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +178 -33: widgets/ widget_state_color_test.dart
+[METRIC] script=widgets/widget_state_color_test.dart sourceBytes=17458 sourceChars=17454 bundleJsonBytes=235792 clearMs=35 readMs=0 bundleMs=11 httpMs=50 totalMs=98 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_color_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +179 -33: widgets/ widget_state_mapper_test.dart
+[METRIC] script=widgets/widget_state_mapper_test.dart sourceBytes=26459 sourceChars=26457 bundleJsonBytes=331988 clearMs=2 readMs=0 bundleMs=35 httpMs=63 totalMs=102 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_mapper_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +180 -33: widgets/ widget_state_mouse_cursor_test.dart
+[METRIC] script=widgets/widget_state_mouse_cursor_test.dart sourceBytes=24483 sourceChars=24481 bundleJsonBytes=303525 clearMs=2 readMs=0 bundleMs=23 httpMs=87 totalMs=114 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_mouse_cursor_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +181 -33: widgets/ widget_state_outlined_border_test.dart
+[METRIC] script=widgets/widget_state_outlined_border_test.dart sourceBytes=25913 sourceChars=25911 bundleJsonBytes=328279 clearMs=3 readMs=1 bundleMs=23 httpMs=92 totalMs=120 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_outlined_border_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +182 -33: widgets/ widget_state_property_all_test.dart
+[METRIC] script=widgets/widget_state_property_all_test.dart sourceBytes=23849 sourceChars=23847 bundleJsonBytes=305812 clearMs=3 readMs=0 bundleMs=17 httpMs=50 totalMs=72 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_property_all_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +183 -33: widgets/ widget_state_test.dart
+[METRIC] script=widgets/widget_state_test.dart sourceBytes=23852 sourceChars=23850 bundleJsonBytes=309616 clearMs=19 readMs=0 bundleMs=16 httpMs=80 totalMs=117 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +184 -33: widgets/ widget_state_text_style_test.dart
+[METRIC] script=widgets/widget_state_text_style_test.dart sourceBytes=28393 sourceChars=28393 bundleJsonBytes=386480 clearMs=2 readMs=0 bundleMs=23 httpMs=42 totalMs=69 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_text_style_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +185 -33: widgets/ widget_states_constraint_test.dart
+[METRIC] script=widgets/widget_states_constraint_test.dart sourceBytes=23922 sourceChars=23922 bundleJsonBytes=310956 clearMs=2 readMs=0 bundleMs=17 httpMs=90 totalMs=111 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_states_constraint_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +186 -33: widgets/ widget_to_render_box_adapter_test.dart
+[METRIC] script=widgets/widget_to_render_box_adapter_test.dart sourceBytes=38824 sourceChars=38816 bundleJsonBytes=420451 clearMs=2 readMs=1 bundleMs=22 httpMs=209 totalMs=235 status=success httpStatus=200 outputLines=51 frameworkErrors=0
+01:01 +187 -33: widgets/ widgets_localizations_test.dart
+[METRIC] script=widgets/widgets_localizations_test.dart sourceBytes=25746 sourceChars=25671 bundleJsonBytes=333687 clearMs=2 readMs=0 bundleMs=20 httpMs=379 totalMs=403 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+01:01 +188 -33: widgets/ widgets_service_extensions_test.dart
+[METRIC] script=widgets/widgets_service_extensions_test.dart sourceBytes=31947 sourceChars=31947 bundleJsonBytes=404992 clearMs=27 readMs=0 bundleMs=27 httpMs=161 totalMs=217 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+01:01 +189 -33: widgets/ window_positioner_anchor_test.dart
+[METRIC] script=widgets/window_positioner_anchor_test.dart sourceBytes=33257 sourceChars=33257 bundleJsonBytes=486644 clearMs=3 readMs=1 bundleMs=24 httpMs=108 totalMs=136 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+01:01 +189 -34: widgets/ window_positioner_anchor_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1583:7     main.<fn>.<fn>
+  
+01:01 +189 -34: widgets/ window_positioner_constraint_adjustment_test.dart
+[METRIC] script=widgets/window_positioner_constraint_adjustment_test.dart sourceBytes=35281 sourceChars=35281 bundleJsonBytes=548460 clearMs=44 readMs=0 bundleMs=23 httpMs=101 totalMs=171 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+01:01 +189 -35: widgets/ window_positioner_constraint_adjustment_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1590:7     main.<fn>.<fn>
+  
+01:01 +189 -35: widgets/ window_positioner_test.dart
+[METRIC] script=widgets/window_positioner_test.dart sourceBytes=44100 sourceChars=44100 bundleJsonBytes=651782 clearMs=21 readMs=0 bundleMs=25 httpMs=58 totalMs=106 status=error httpStatus=400 outputLines=36 frameworkErrors=0
+01:02 +189 -36: widgets/ window_positioner_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1597:7     main.<fn>.<fn>
+  
+01:02 +189 -36: widgets/ window_scope_test.dart
+[METRIC] script=widgets/window_scope_test.dart sourceBytes=27119 sourceChars=27119 bundleJsonBytes=367296 clearMs=31 readMs=0 bundleMs=35 httpMs=94 totalMs=161 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/window_scope_test.dart (1 error(s)):
+       type 'InterpretedInstance' is not a subtype of type 'Widget' in type cast
+01:02 +190 -36: widgets/ windowing_owner_linux_test.dart
+[METRIC] script=widgets/windowing_owner_linux_test.dart sourceBytes=33676 sourceChars=33675 bundleJsonBytes=458625 clearMs=3 readMs=2 bundleMs=23 httpMs=86 totalMs=116 status=error httpStatus=400 outputLines=17 frameworkErrors=0
+01:02 +190 -37: widgets/ windowing_owner_linux_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1611:7     main.<fn>.<fn>
+  
+01:02 +190 -37: widgets/ windowing_owner_mac_o_s_test.dart
+[METRIC] script=widgets/windowing_owner_mac_o_s_test.dart sourceBytes=32763 sourceChars=32763 bundleJsonBytes=443597 clearMs=47 readMs=0 bundleMs=26 httpMs=88 totalMs=162 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:02 +190 -38: widgets/ windowing_owner_mac_o_s_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1618:7     main.<fn>.<fn>
+  
+01:02 +190 -38: widgets/ windowing_owner_test.dart
+[METRIC] script=widgets/windowing_owner_test.dart sourceBytes=33101 sourceChars=33101 bundleJsonBytes=435841 clearMs=3 readMs=0 bundleMs=22 httpMs=98 totalMs=124 status=error httpStatus=400 outputLines=0 frameworkErrors=0
+01:02 +190 -39: widgets/ windowing_owner_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1625:7     main.<fn>.<fn>
+  
+01:02 +190 -39: widgets/ windowing_owner_win32_test.dart
+[METRIC] script=widgets/windowing_owner_win32_test.dart sourceBytes=48132 sourceChars=48132 bundleJsonBytes=596135 clearMs=43 readMs=0 bundleMs=36 httpMs=95 totalMs=175 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/windowing_owner_win32_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:02 +191 -39: (tearDownAll)
+01:03 +191 -39: Some tests failed.

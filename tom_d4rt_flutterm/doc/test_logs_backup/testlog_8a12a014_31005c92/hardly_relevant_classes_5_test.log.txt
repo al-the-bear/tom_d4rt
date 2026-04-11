@@ -1,0 +1,919 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_5_test.dart
+00:00 +0: (setUpAll)
+Bridge regeneration skipped: all bridge outputs are up-to-date; newest input buildkit.yaml (2026-03-26T15:39:51.000), oldest output lib/src/bridges/dart_ui_bridges.b.dart (2026-04-07T02:46:24.000)
+00:11 +0: Test App Health app is running
+00:11 +1: widgets/ pop_navigator_router_delegate_mixin_test.dart
+00:12 +2: widgets/ popup_window_controller_delegate_test.dart
+00:13 +3: widgets/ popup_window_controller_test.dart
+00:13 +4: widgets/ popup_window_test.dart
+00:13 +5: widgets/ predictive_back_route_test.dart
+00:14 +6: widgets/ preferred_size_test.dart
+00:14 +7: widgets/ preferred_size_widget_test.dart
+00:14 +8: widgets/ previous_focus_action_test.dart
+00:15 +9: widgets/ previous_focus_intent_test.dart
+00:15 +10: widgets/ prioritized_action_test.dart
+00:16 +11: widgets/ prioritized_intents_test.dart
+00:16 +12: widgets/ radio_client_test.dart
+00:17 +13: widgets/ radio_group_registry_test.dart
+00:18 +14: widgets/ raw_autocomplete_test.dart
+00:18 +15: widgets/ raw_dialog_route_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/raw_dialog_route_test.dart (1 error(s)):
+       Runtime Error: Error in generic constructor factory for 'RawDialogRoute': type 'InterpretedFunction' is not a subtype of type '((BuildContext, Animation<double>, Animation<double>) => Widget)?' in typ…
+00:19 +16: widgets/ raw_gesture_detector_state_test.dart
+00:19 +17: widgets/ raw_gesture_detector_test.dart
+00:20 +18: widgets/ raw_image_test.dart
+00:20 +19: widgets/ raw_keyboard_listener_test.dart
+00:21 +19 -1: widgets/ raw_keyboard_listener_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: RawKeyboardListener
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 175:7      main.<fn>.<fn>
+  
+00:21 +19 -1: widgets/ raw_menu_anchor_group_test.dart
+00:21 +20 -1: widgets/ raw_menu_anchor_test.dart
+00:21 +21 -1: widgets/ raw_menu_overlay_info_test.dart
+00:21 +21 -2: widgets/ raw_menu_overlay_info_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: 'Object' is not callable (no default constructor bridge found).
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 196:7      main.<fn>.<fn>
+  
+00:21 +21 -2: widgets/ raw_radio_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/raw_radio_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed as…
+00:22 +22 -2: widgets/ raw_scrollbar_state_test.dart
+00:22 +23 -2: widgets/ raw_tooltip_state_test.dart
+00:23 +24 -2: widgets/ raw_tooltip_test.dart
+00:23 +25 -2: widgets/ raw_web_image_test.dart
+00:23 +26 -2: widgets/ reading_order_traversal_policy_test.dart
+00:24 +27 -2: widgets/ redo_text_intent_test.dart
+00:24 +27 -3: widgets/ redo_text_intent_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 241:7      main.<fn>.<fn>
+  
+00:24 +27 -3: widgets/ regular_window_controller_delegate_test.dart
+00:24 +27 -4: widgets/ regular_window_controller_delegate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 248:7      main.<fn>.<fn>
+  
+00:24 +27 -4: widgets/ regular_window_controller_linux_test.dart
+00:24 +27 -5: widgets/ regular_window_controller_linux_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 255:7      main.<fn>.<fn>
+  
+00:24 +27 -5: widgets/ regular_window_controller_mac_o_s_test.dart
+00:25 +27 -6: widgets/ regular_window_controller_mac_o_s_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 262:7      main.<fn>.<fn>
+  
+00:25 +27 -6: widgets/ regular_window_controller_test.dart
+00:25 +27 -7: widgets/ regular_window_controller_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 269:7      main.<fn>.<fn>
+  
+00:25 +27 -7: widgets/ regular_window_controller_win32_test.dart
+00:25 +27 -8: widgets/ regular_window_controller_win32_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 276:7      main.<fn>.<fn>
+  
+00:25 +27 -8: widgets/ regular_window_test.dart
+00:25 +27 -9: widgets/ regular_window_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 283:7      main.<fn>.<fn>
+  
+00:25 +27 -9: widgets/ relative_positioned_transition_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/relative_positioned_transition_test.dart (4 error(s)):
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+       A RenderFlex overflowed by 4.0 pixels on the bottom.
+00:26 +28 -9: widgets/ relative_rect_tween_test.dart
+00:26 +29 -9: widgets/ render_abstract_layout_builder_mixin_test.dart
+00:26 +29 -10: widgets/ render_abstract_layout_builder_mixin_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 304:7      main.<fn>.<fn>
+  
+00:26 +29 -10: widgets/ render_nested_scroll_view_viewport_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_nested_scroll_view_viewport_test.dart (1 error(s)):
+       type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast
+00:26 +30 -10: widgets/ render_object_to_widget_adapter_test.dart
+00:27 +30 -11: widgets/ render_object_to_widget_adapter_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_BootstrapStepInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 318:7      main.<fn>.<fn>
+  
+00:27 +30 -11: widgets/ render_object_to_widget_element_test.dart
+00:27 +31 -11: widgets/ render_sliver_overlap_absorber_test.dart
+00:27 +32 -11: widgets/ render_sliver_overlap_injector_test.dart
+00:27 +33 -11: widgets/ render_tap_region_surface_test.dart
+00:27 +33 -12: widgets/ render_tap_region_surface_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 346:7      main.<fn>.<fn>
+  
+00:27 +33 -12: widgets/ render_tap_region_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_tap_region_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:27 +34 -12: widgets/ render_tree_root_element_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_tree_root_element_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'visitAncestorElements' on StatelessElement: LateInitializationError: Field '_children@24042623' has not been initialized.
+00:28 +35 -12: widgets/ render_two_dimensional_viewport_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_two_dimensional_viewport_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:28 +36 -12: widgets/ render_web_image_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/render_web_image_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:28 +37 -12: widgets/ reorderable_delayed_drag_start_listener_test.dart
+00:28 +38 -12: widgets/ reorderable_drag_start_listener_test.dart
+00:29 +39 -12: widgets/ reorderable_list_state_test.dart
+00:29 +40 -12: widgets/ reorderable_list_test.dart
+00:29 +41 -12: widgets/ repeat_mode_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/repeat_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:30 +42 -12: widgets/ repeating_animation_builder_test.dart
+00:30 +43 -12: widgets/ replace_text_intent_test.dart
+00:30 +43 -13: widgets/ replace_text_intent_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 421:7      main.<fn>.<fn>
+  
+00:30 +43 -13: widgets/ request_focus_action_test.dart
+00:30 +43 -14: widgets/ request_focus_action_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 428:7      main.<fn>.<fn>
+  
+00:30 +43 -14: widgets/ request_focus_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/request_focus_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +44 -14: widgets/ restorable_bool_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_bool_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +45 -14: widgets/ restorable_change_notifier_test.dart
+00:31 +46 -14: widgets/ restorable_date_time_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_date_time_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +47 -14: widgets/ restorable_double_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_double_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:31 +48 -14: widgets/ restorable_enum_n_test.dart
+00:32 +48 -15: widgets/ restorable_enum_n_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: Enum
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 470:7      main.<fn>.<fn>
+  
+00:32 +48 -15: widgets/ restorable_int_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_int_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +49 -15: widgets/ restorable_listenable_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_listenable_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +50 -15: widgets/ restorable_num_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_num_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +51 -15: widgets/ restorable_num_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_num_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +52 -15: widgets/ restorable_route_future_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_route_future_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:32 +53 -15: widgets/ restorable_string_n_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_string_n_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:33 +54 -15: widgets/ root_back_button_dispatcher_test.dart
+00:33 +55 -15: widgets/ root_element_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/root_element_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:33 +56 -15: widgets/ root_render_object_element_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/root_render_object_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:33 +57 -15: widgets/ route_aware_test.dart
+00:33 +58 -15: widgets/ route_information_reporting_type_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/route_information_reporting_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:34 +59 -15: widgets/ route_information_test.dart
+00:34 +59 -16: widgets/ route_information_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 552:7      main.<fn>.<fn>
+  
+00:34 +59 -16: widgets/ route_observer_test.dart
+00:34 +60 -16: widgets/ route_pop_disposition_test.dart
+00:34 +60 -17: widgets/ route_pop_disposition_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 566:7      main.<fn>.<fn>
+  
+00:34 +60 -17: widgets/ route_transition_record_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/route_transition_record_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +61 -17: widgets/ router_config_test.dart
+00:35 +61 -18: widgets/ router_config_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_FlowStage' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 580:7      main.<fn>.<fn>
+  
+00:35 +61 -18: widgets/ scroll_activity_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_activity_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +62 -18: widgets/ scroll_activity_test.dart
+00:35 +62 -19: widgets/ scroll_activity_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_SubclassInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 594:7      main.<fn>.<fn>
+  
+00:35 +62 -19: widgets/ scroll_aware_image_provider_test.dart
+00:35 +63 -19: widgets/ scroll_context_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_context_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:35 +64 -19: widgets/ scroll_deceleration_rate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_deceleration_rate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +65 -19: widgets/ scroll_drag_controller_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_drag_controller_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +66 -19: widgets/ scroll_end_notification_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_end_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +67 -19: widgets/ scroll_hold_controller_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_hold_controller_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +68 -19: widgets/ scroll_increment_details_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_increment_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +69 -19: widgets/ scroll_increment_type_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_increment_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:36 +70 -19: widgets/ scroll_metrics_notification_test.dart
+00:36 +70 -20: widgets/ scroll_metrics_notification_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 657:7      main.<fn>.<fn>
+  
+00:36 +70 -20: widgets/ scroll_notification_observer_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_notification_observer_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +71 -20: widgets/ scroll_notification_observer_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_notification_observer_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +72 -20: widgets/ scroll_position_alignment_policy_test.dart
+00:37 +72 -21: widgets/ scroll_position_alignment_policy_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 678:7      main.<fn>.<fn>
+  
+00:37 +72 -21: widgets/ scroll_position_with_single_context_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_position_with_single_context_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +73 -21: widgets/ scroll_start_notification_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_start_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +74 -21: widgets/ scroll_to_document_boundary_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_to_document_boundary_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +75 -21: widgets/ scroll_update_notification_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_update_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:37 +76 -21: widgets/ scroll_view_keyboard_dismiss_behavior_test.dart
+00:38 +76 -22: widgets/ scroll_view_keyboard_dismiss_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Expected Widget but got InterpretedInstance
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 713:7      main.<fn>.<fn>
+  
+00:38 +76 -22: widgets/ scroll_view_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_view_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:38 +77 -22: widgets/ scrollable_details_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollable_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:38 +78 -22: widgets/ scrollbar_orientation_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollbar_orientation_test.dart (4 error(s)):
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+       Runtime Error: Undefined variable: widget (Original error: Undefined property 'widget' on _OrientedPanelState.)
+00:38 +79 -22: widgets/ scrollbar_painter_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/scrollbar_painter_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:39 +80 -22: widgets/ select_action_test.dart
+00:39 +80 -23: widgets/ select_action_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_ChainItem' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 746:7      main.<fn>.<fn>
+  
+00:39 +80 -23: widgets/ select_all_text_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/select_all_text_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:39 +81 -23: widgets/ select_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/select_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:39 +82 -23: widgets/ selectable_region_selection_status_scope_test.dart
+00:39 +83 -23: widgets/ selectable_region_selection_status_test.dart
+00:40 +84 -23: widgets/ selectable_region_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/selectable_region_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +85 -23: widgets/ selection_container_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/selection_container_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +86 -23: widgets/ selection_details_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/selection_details_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:40 +87 -23: widgets/ selection_listener_notifier_test.dart
+00:40 +88 -23: widgets/ selection_registrar_scope_test.dart
+00:41 +89 -23: widgets/ semantics_debugger_test.dart
+00:41 +90 -23: widgets/ semantics_gesture_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/semantics_gesture_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:41 +91 -23: widgets/ sensitive_content_host_test.dart
+00:41 +92 -23: widgets/ sensitive_content_test.dart
+00:41 +93 -23: widgets/ shortcut_activator_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_activator_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:41 +94 -23: widgets/ shortcut_manager_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_manager_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _loggingManager (Original error: LateInitializationError: Late variable '_loggingManager' without initializer is accessed before being assigned.)
+00:42 +95 -23: widgets/ shortcut_map_property_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/shortcut_map_property_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabCtrl (Original error: LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)
+00:42 +96 -23: widgets/ shortcut_registrar_test.dart
+00:42 +97 -23: widgets/ shortcut_registry_entry_test.dart
+00:42 +97 -24: widgets/ shortcut_registry_entry_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Phase' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 872:7      main.<fn>.<fn>
+  
+00:42 +97 -24: widgets/ shortcut_registry_test.dart
+00:42 +98 -24: widgets/ shortcut_serialization_test.dart
+00:43 +98 -25: widgets/ shortcut_serialization_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_TriggerInfo' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 886:7      main.<fn>.<fn>
+  
+00:43 +98 -25: widgets/ single_activator_test.dart
+00:43 +98 -26: widgets/ single_activator_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Key' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 893:7      main.<fn>.<fn>
+  
+00:43 +98 -26: widgets/ size_changed_layout_notification_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/size_changed_layout_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:43 +99 -26: widgets/ size_changed_layout_notifier_test.dart
+00:43 +100 -26: widgets/ sized_overflow_box_test.dart
+00:44 +101 -26: widgets/ sliver_animated_grid_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_animated_grid_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:44 +102 -26: widgets/ sliver_animated_list_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_animated_list_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _InteractivePageState.)
+00:44 +103 -26: widgets/ sliver_child_builder_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_child_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Bridged class 'Map' has no instance method named 'contains'. Error during extension lookup: Bridged class 'Map' has no instance method named 'contains'.
+00:44 +104 -26: widgets/ sliver_child_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_child_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:45 +105 -26: widgets/ sliver_child_list_delegate_test.dart
+00:45 +106 -26: widgets/ sliver_ensure_semantics_test.dart
+00:45 +107 -26: widgets/ sliver_fade_transition_test.dart
+00:45 +108 -26: widgets/ sliver_multi_box_adaptor_element_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_multi_box_adaptor_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:46 +109 -26: widgets/ sliver_multi_box_adaptor_widget_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_multi_box_adaptor_widget_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:46 +110 -26: widgets/ sliver_overlap_absorber_handle_test.dart
+00:46 +111 -26: widgets/ sliver_overlap_absorber_test.dart
+00:46 +112 -26: widgets/ sliver_overlap_injector_test.dart
+00:46 +113 -26: widgets/ sliver_persistent_header_delegate_test.dart
+00:47 +114 -26: widgets/ sliver_reorderable_list_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_reorderable_list_state_test.dart (4 error(s)):
+       Runtime Error: Undefined property or method 'label' on bridged instance of 'SliverPersistentHeaderDelegate'.
+       A RenderViewport expected a child of type RenderSliver but received a child of type RenderErrorBox.
+RenderObjects expect specific types of children because they coordinate with their children during l…
+       Runtime Error: Undefined property or method 'label' on bridged instance of 'SliverPersistentHeaderDelegate'.
+       A RenderViewport expected a child of type RenderSliver but received a child of type RenderErrorBox.
+RenderObjects expect specific types of children because they coordinate with their children during l…
+00:47 +115 -26: widgets/ sliver_with_keep_alive_widget_test.dart
+00:47 +116 -26: widgets/ slotted_container_render_object_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_container_render_object_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +117 -26: widgets/ slotted_multi_child_render_object_widget_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +118 -26: widgets/ slotted_multi_child_render_object_widget_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +119 -26: widgets/ slotted_render_object_element_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_render_object_element_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +120 -26: widgets/ snapshot_controller_test.dart
+00:48 +121 -26: widgets/ snapshot_mode_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/snapshot_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:48 +122 -26: widgets/ snapshot_painter_test.dart
+00:49 +123 -26: widgets/ snapshot_widget_test.dart
+00:49 +124 -26: widgets/ standard_component_type_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/standard_component_type_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:49 +125 -26: widgets/ static_selection_container_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/static_selection_container_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:49 +126 -26: widgets/ status_transition_widget_test.dart
+00:49 +127 -26: widgets/ stream_builder_base_test.dart
+00:50 +128 -26: widgets/ stretch_effect_test.dart
+00:50 +129 -26: widgets/ system_context_menu_test.dart
+00:50 +130 -26: widgets/ system_text_scaler_test.dart
+00:50 +131 -26: widgets/ tap_region_registry_test.dart
+00:51 +132 -26: widgets/ text_selection_gesture_detector_builder_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/text_selection_gesture_detector_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:51 +133 -26: widgets/ text_selection_gesture_detector_builder_test.dart
+00:51 +134 -26: widgets/ text_selection_handle_controls_test.dart
+00:51 +135 -26: widgets/ text_selection_toolbar_layout_delegate_test.dart
+00:51 +136 -26: widgets/ text_style_tween_test.dart
+00:51 +137 -26: widgets/ texture_test.dart
+00:52 +138 -26: widgets/ ticker_mode_data_test.dart
+00:52 +139 -26: widgets/ toggleable_painter_test.dart
+00:52 +140 -26: widgets/ toggleable_state_mixin_test.dart
+00:52 +141 -26: widgets/ toolbar_items_parent_data_test.dart
+00:52 +141 -27: widgets/ toolbar_items_parent_data_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_TimelineStep' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1202:7     main.<fn>.<fn>
+  
+00:52 +141 -27: widgets/ toolbar_options_test.dart
+00:52 +141 -28: widgets/ toolbar_options_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_LegacyToolbarProfile' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1209:7     main.<fn>.<fn>
+  
+00:52 +141 -28: widgets/ tooltip_position_context_test.dart
+00:53 +141 -29: widgets/ tooltip_position_context_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_CaseDefinition' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1216:7     main.<fn>.<fn>
+  
+00:53 +141 -29: widgets/ tooltip_window_controller_delegate_test.dart
+00:53 +141 -30: widgets/ tooltip_window_controller_delegate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_PolicyPreset' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1223:7     main.<fn>.<fn>
+  
+00:53 +141 -30: widgets/ tooltip_window_controller_test.dart
+00:53 +141 -31: widgets/ tooltip_window_controller_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Pattern' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1230:7     main.<fn>.<fn>
+  
+00:53 +141 -31: widgets/ tooltip_window_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/tooltip_window_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:53 +142 -31: widgets/ tracking_scroll_controller_test.dart
+00:53 +143 -31: widgets/ transformation_controller_test.dart
+00:53 +144 -31: widgets/ transition_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/transition_delegate_test.dart (2 error(s)):
+       Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _DefaultDemoPageState.)
+       Runtime Error: Native error during default bridged constructor for 'Navigator': Argument Error: Invalid parameter "transitionDelegate": expected TransitionDelegate<dynamic>, got InterpretedInstance(_I…
+00:54 +145 -31: widgets/ transition_route_test.dart
+00:54 +146 -31: widgets/ transpose_characters_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/transpose_characters_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:54 +147 -31: widgets/ traversal_direction_test.dart
+00:54 +147 -32: widgets/ traversal_direction_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_PolicyProfile' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1279:7     main.<fn>.<fn>
+  
+00:54 +147 -32: widgets/ traversal_edge_behavior_test.dart
+00:55 +147 -33: widgets/ traversal_edge_behavior_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Class '_Playbook' does not have an unnamed constructor that accepts arguments.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1286:7     main.<fn>.<fn>
+  
+00:55 +147 -33: widgets/ tree_sliver_controller_test.dart
+00:55 +148 -33: widgets/ tree_sliver_node_test.dart
+00:55 +149 -33: widgets/ tree_sliver_state_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/tree_sliver_state_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:55 +150 -33: widgets/ tree_sliver_test.dart
+00:55 +151 -33: widgets/ two_dimensional_child_builder_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:55 +152 -33: widgets/ two_dimensional_child_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +153 -33: widgets/ two_dimensional_child_list_delegate_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_list_delegate_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +154 -33: widgets/ two_dimensional_child_manager_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_child_manager_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:56 +155 -33: widgets/ two_dimensional_scroll_view_test.dart
+00:56 +156 -33: widgets/ two_dimensional_scrollable_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_scrollable_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:56 +157 -33: widgets/ two_dimensional_scrollable_test.dart
+00:56 +158 -33: widgets/ two_dimensional_viewport_parent_data_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_viewport_parent_data_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabController (Original error: LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)
+00:57 +159 -33: widgets/ two_dimensional_viewport_test.dart
+00:57 +160 -33: widgets/ undo_history_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_history_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +161 -33: widgets/ undo_history_value_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_history_value_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +162 -33: widgets/ undo_text_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/undo_text_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +163 -33: widgets/ unfocus_disposition_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/unfocus_disposition_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:57 +164 -33: widgets/ unique_widget_test.dart
+00:57 +165 -33: widgets/ unmanaged_restoration_scope_test.dart
+00:58 +166 -33: widgets/ update_selection_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/update_selection_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +167 -33: widgets/ user_scroll_notification_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/user_scroll_notification_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +168 -33: widgets/ viewport_element_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/viewport_element_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +169 -33: widgets/ viewport_notification_mixin_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/viewport_notification_mixin_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +170 -33: widgets/ void_callback_action_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/void_callback_action_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +171 -33: widgets/ void_callback_intent_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/void_callback_intent_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +172 -33: widgets/ weak_map_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/weak_map_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:58 +173 -33: widgets/ web_browser_detection_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/web_browser_detection_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +174 -33: widgets/ widget_inspector_service_extensions_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_inspector_service_extensions_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +175 -33: widgets/ widget_inspector_service_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_inspector_service_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +176 -33: widgets/ widget_order_traversal_policy_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_order_traversal_policy_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +177 -33: widgets/ widget_state_border_side_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_border_side_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +178 -33: widgets/ widget_state_color_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_color_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +179 -33: widgets/ widget_state_mapper_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_mapper_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +180 -33: widgets/ widget_state_mouse_cursor_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_mouse_cursor_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+00:59 +181 -33: widgets/ widget_state_outlined_border_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_outlined_border_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +182 -33: widgets/ widget_state_property_all_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_property_all_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +183 -33: widgets/ widget_state_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +184 -33: widgets/ widget_state_text_style_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_text_style_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +185 -33: widgets/ widget_states_constraint_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_states_constraint_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:00 +186 -33: widgets/ widget_to_render_box_adapter_test.dart
+01:00 +187 -33: widgets/ widgets_localizations_test.dart
+01:01 +188 -33: widgets/ widgets_service_extensions_test.dart
+01:01 +189 -33: widgets/ window_positioner_anchor_test.dart
+01:01 +189 -34: widgets/ window_positioner_anchor_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1583:7     main.<fn>.<fn>
+  
+01:01 +189 -34: widgets/ window_positioner_constraint_adjustment_test.dart
+01:01 +189 -35: widgets/ window_positioner_constraint_adjustment_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1590:7     main.<fn>.<fn>
+  
+01:01 +189 -35: widgets/ window_positioner_test.dart
+01:01 +189 -36: widgets/ window_positioner_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1597:7     main.<fn>.<fn>
+  
+01:01 +189 -36: widgets/ window_scope_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/window_scope_test.dart (1 error(s)):
+       type 'InterpretedInstance' is not a subtype of type 'Widget' in type cast
+01:02 +190 -36: widgets/ windowing_owner_linux_test.dart
+01:02 +190 -37: widgets/ windowing_owner_linux_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1611:7     main.<fn>.<fn>
+  
+01:02 +190 -37: widgets/ windowing_owner_mac_o_s_test.dart
+01:02 +190 -38: widgets/ windowing_owner_mac_o_s_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1618:7     main.<fn>.<fn>
+  
+01:02 +190 -38: widgets/ windowing_owner_test.dart
+01:02 +190 -39: widgets/ windowing_owner_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/hardly_relevant_classes_5_test.dart 1625:7     main.<fn>.<fn>
+  
+01:02 +190 -39: widgets/ windowing_owner_win32_test.dart
+
+  ⚠️  FRAMEWORK ERROR in widgets/windowing_owner_win32_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: _tabs (Original error: LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)
+01:02 +191 -39: (tearDownAll)
+unhandled error during finalization of test:
+/srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_5_test.dart
+TestDeviceException(Shell subprocess crashed with SIGTERM (-15).)
+#0      FlutterTesterTestDevice.finished (package:flutter_tools/src/test/flutter_tester_device.dart:252:5)
+<asynchronous suspension>
+#1      FlutterTesterTestDevice.kill (package:flutter_tools/src/test/flutter_tester_device.dart:234:5)
+<asynchronous suspension>
+#2      FlutterPlatform._startTest.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:690:9)
+<asynchronous suspension>
+#3      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:592:11)
+<asynchronous suspension>
+#4      FlutterPlatform._startTest (package:flutter_tools/src/test/flutter_platform.dart:763:7)
+<asynchronous suspension>
+
+01:03 +191 -39: (tearDownAll) - did not complete [E]
+01:03 +191 -39: Some tests failed.
