@@ -676,3 +676,152 @@ Scaffold(
 **Batch Number:** 3
 
 ---
+
+## Batch 4
+
+### Issue #20
+
+**Script:** `widgets/scroll_controllers_types_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 158
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `RenderFlex children have non-zero flex but incoming height constraints are unbounded.`
+2. `'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.`
+
+**Category:** SCRIPT-LAYOUT-BUG
+
+**Root Cause Analysis:**
+
+The script (103 lines) builds `MaterialApp > Scaffold > Center > SingleChildScrollView > Column > [Expanded(child: ListView.builder(...)), Text(...)]`. This is the identical illegal layout pattern as Issues #6 and #19: `Expanded` inside `SingleChildScrollView` gives the `Column` unbounded height, and `Expanded` requires finite remaining space to flex into. The semantics assertion (#2) is a cascading failure from the layout error — the child never gets laid out, so its semantics RenderObject remains in a `_needsLayout` state.
+
+**Fix Description:**
+Remove `SingleChildScrollView` and use `Column` directly inside `Scaffold.body` with `Expanded(child: ListView.builder(...))`. The `ListView.builder` already handles scrolling internally. Alternatively, replace `Expanded` with `SizedBox(height: N)` if the `SingleChildScrollView` wrapper is intentional.
+
+**Needs Deeper Analysis:** No — identical SCRIPT-LAYOUT-BUG as Issues #6 and #19
+
+**Batch Number:** 4
+
+---
+
+### Issue #21
+
+**Script:** `cupertino/cupertino_text_selection_controls_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 177
+**Result:** success (test passed)
+**Errors:** 9 framework errors (log-only)
+
+**Error Messages:**
+
+1–4. `BoxConstraints has a negative minimum height. These invalid constraints were provided to _RenderEditableCustomPaint's layout() function` (×4)
+5–8. `RenderBox was not laid out: _RenderEditableCustomPaint#xxxxx NEEDS-LAYOUT NEEDS-PAINT` (×4)
+9. `'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.`
+
+**Category:** FW-LAYOUT-CONSTRAINT
+
+**Root Cause Analysis:**
+
+The script (88 lines) creates 4 `CupertinoTextField` instances — one standalone and three in a loop (sharing the same `cupertinoTextSelectionControls`). Each `CupertinoTextField` produces a negative-height constraint error and a subsequent `NEEDS-LAYOUT` assertion (4 fields × 2 errors = 8), plus one final semantics assertion cascading from the layout failures. This is the same CupertinoTextField-in-D4rt issue as Issues #0–#3, #11–#15: the D4rt interpreter's rendering pipeline computes a negative minimum height for `_RenderEditableCustomPaint` inside `CupertinoTextField`.
+
+**Fix Description:**
+Add an explicit `minHeight: 0.0` constraint normalization in the D4rt rendering bridge before passing constraints to `_RenderEditableCustomPaint.layout()`. This would clamp `minHeight` to `max(0, minHeight)` so the Cupertino text field's internal render objects never receive negative constraints. Alternatively, wrap each `CupertinoTextField` in a `SizedBox(height: 48)` to guarantee positive incoming constraints.
+
+**Needs Deeper Analysis:** No — same FW-LAYOUT-CONSTRAINT as all other CupertinoTextField issues
+
+**Batch Number:** 4
+
+---
+
+### Issue #22
+
+**Script:** `dart_ui/ztmp_path_metrics_access_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 197
+**Result:** failure (test FAILED)
+**Errors:** 1 test failure
+
+**Error Message:**
+
+```
+Expected: true
+  Actual: <false>
+Bad state: No element
+```
+
+**Category:** BRIDGE-ITERATOR-SUPPORT
+
+**Root Cause Analysis:**
+
+The script is very small (16 lines). It creates a `Path`, adds a `moveTo`/`lineTo` segment, then calls `path1.computeMetrics().first`. The `.first` accessor on the `PathMetrics` iterable throws `Bad state: No element`, meaning the iterable returned by `computeMetrics()` is empty. In native Dart/Flutter, `computeMetrics()` on a path with at least one contour returns a non-empty iterable with one `PathMetric` per contour. In the D4rt bridge, either `computeMetrics()` returns an empty iterable because the bridge does not properly iterate the underlying `PathMetrics` object, or the `.first` accessor on the bridge's iterable wrapper is not correctly implemented.
+
+**Fix Description:**
+Implement or fix the `PathMetrics` iterable bridge so that `computeMetrics()` returns a proper iterable that yields `PathMetric` objects for each contour. The bridge needs to support the `Iterator` protocol (`moveNext()` / `current`) and derived accessors like `.first`, `.isEmpty`, `.length` on the `PathMetrics` object returned by `Path.computeMetrics()`.
+
+**Needs Deeper Analysis:** Yes — need to verify whether `PathMetrics` bridge exists and whether it implements the Iterable protocol correctly, specifically `moveNext()`/`current` and the `.first` getter
+
+**Batch Number:** 4
+
+---
+
+### Issue #23
+
+**Script:** `dart_ui/scene_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 203
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+'dart:ui/math.dart': Failed assertion: line 14 pos 10: '<optimized out>': is not true.
+```
+
+**Category:** FW-INTERNAL-ASSERTION
+
+**Root Cause Analysis:**
+
+The script (1484 lines) is a complex Scene composition studio that uses `SceneBuilder` to construct layered scenes with `pushTransform`, `pushOpacity`, `pushClipRect`, `pushClipRRect`, `pushClipPath`, `addPicture`, and then rasterizes via `scene.toImage()` / `scene.toImageSync()`. The assertion comes from `dart:ui/math.dart` line 14 — this is a Flutter engine internal math validation (likely a range/NaN/finite check) that fires during the scene rasterization pipeline. The script uses `math.cos`, `math.sin`, `math.pi`, `math.max`, `math.min` extensively for orbit calculations, transform matrices, and star-path generation. An `<optimized out>` assertion message means the engine's debug assertion lost the expression text at compile time.
+
+The most likely trigger is that a computed value (such as a transform matrix element or an opacity clamped to `(opacity * 255).round().clamp(0, 255)`) passes through a `dart:ui` internal math check that expects values within a specific range, and some floating-point edge case (e.g., very small scale or rotation producing a subnormal value) triggers the assertion during the scene's `toImage` or `toImageSync` call.
+
+**Fix Description:**
+Add explicit finite-value guards in the D4rt bridge's `SceneBuilder.pushTransform` and `SceneBuilder.pushOpacity` implementations to validate that all matrix elements are finite and opacity values are within `[0, 255]` before forwarding to the engine. For the script side, ensure the `Float64List` transform matrix elements are clamped to reasonable ranges (e.g., `clampDouble(value, -1e6, 1e6)`) to prevent edge-case floating-point values from reaching the engine's internal math assertions.
+
+**Needs Deeper Analysis:** Yes — need to reproduce with specific parameter combinations to identify exactly which math check fails; the `<optimized out>` message obscures the actual assertion condition
+
+**Batch Number:** 4
+
+---
+
+### Issue #24
+
+**Script:** `dart_ui/semantics_action_event_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 204
+**Result:** success (test passed)
+**Errors:** 2 framework errors (log-only)
+
+**Error Messages:**
+
+1. `A RenderFlex overflowed by 24 pixels on the right.`
+2. `A RenderFlex overflowed by 158 pixels on the right.`
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1413 lines) is a comprehensive SemanticsActionEvent demo with multiple `Wrap` and `Row` containers holding fixed-width `SizedBox` children (e.g., `SizedBox(width: 250)`, `SizedBox(width: 260)`, `SizedBox(width: 160)`). While `Wrap` handles overflow by wrapping to new lines, the script also contains several `Row` widgets (lines 310, 770, 862, 1048) with children that have fixed widths or text content that can exceed the available horizontal space. When the D4rt interpreter renders the script in a constrained viewport, two of these `Row` widgets produce overflow: one by 24 pixels (a tight fit where children barely exceed the width) and one by 158 pixels (a wider layout mismatch). The `_SemanticsMapPainter` custom painter section calculates node positions using `42 + t * (size.width - 84)` which could also produce painting outside bounds, but the logged errors specifically cite `RenderFlex` (Row/Column), not CustomPaint.
+
+**Fix Description:**
+Wrap overflow-prone `Row` children in `Flexible` or `Expanded` to allow them to shrink within the available space. Alternatively, replace `Row` with `Wrap` for sections containing multiple fixed-width children (such as the miniMetric cards at ~line 940). For text-heavy Row children, add `overflow: TextOverflow.ellipsis` and `maxLines: 1` to prevent text from pushing the Row beyond bounds.
+
+**Needs Deeper Analysis:** No — standard RenderFlex overflow from fixed-width children in constrained viewport
+
+**Batch Number:** 4
+
+---
