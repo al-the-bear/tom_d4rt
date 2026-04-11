@@ -5,6 +5,8 @@ Updated: 2026-07-17 (Batch 36: 20 print-only tests - services: SmartDashesType, 
 
 Batch-0 run note (20260411-1207-issue-analysis): first-batch suite-reference scan found 1334 referenced scripts, 1 missing referenced script, and 655 existing out-of-batch scripts (classified as stray candidates for this batch only, not globally missing).
 
+Full run note (20260411-1207-issue-analysis): all 8 suites scanned — 1973 referenced scripts, 0 missing, 15 stray (on disk but unreferenced by any suite): dart_ui/display_feature_test.dart, dart_ui/point_mode_test.dart, material/button_styles_misc_test.dart, material/button_types_test.dart, material/list_tile_style_test.dart, material/showbottomsheet_test.dart, material/showdatepicker_test.dart, material/showdialog_test.dart, material/showmenu_test.dart, material/showtimepicker_test.dart, material/stepper_state_test.dart, material/toggle_segmented_test.dart, rendering/child_layout_helper_test.dart, rendering/diagnostics_debug_creator_test.dart, widgets/platform_menu_widgets_test.dart. See error_analysis.md for classification of 551 issues across 29 categories.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
