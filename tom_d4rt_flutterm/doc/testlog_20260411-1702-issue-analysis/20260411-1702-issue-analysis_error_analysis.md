@@ -2038,3 +2038,162 @@ This is a test infrastructure issue rather than a D4rt interpreter bug. Re-run t
 **Batch Number:** 12
 
 ---
+
+## Batch 13
+
+### Issue #65
+
+**Script:** `widgets/display_feature_sub_screen_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 543
+**Result:** error (connection refused)
+**Errors:** Transport error (server unreachable)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/display_feature_sub_screen_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51330
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+This test failed because the test server crashed during the previous test (Issue #64: directionality_test.dart). The "Connection refused" error indicates the server process is no longer running. The app stdout confirms the server "Lost connection to device" while building directionality_test.dart.
+
+This is a cascading failure — the script itself was never executed. The status shows `status=clear_failed` with 0 bytes read/processed.
+
+**Fix Description:**
+No script fix needed. This is an infrastructure failure caused by the server crash in Issue #64. Re-running the entire test suite after investigating the directionality_test.dart crash will allow this test to execute.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 13
+
+---
+
+### Issue #66
+
+**Script:** `widgets/dual_transition_builder_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 544
+**Result:** error (connection refused)
+**Errors:** Transport error (server unreachable)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/dual_transition_builder_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51346
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issue #65 — cascading failure due to server crash in Issue #64. The test server was already down when this test attempted to run. The script was never executed (`status=clear_failed`, 0 bytes processed).
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 13
+
+---
+
+### Issue #67
+
+**Script:** `widgets/editable_text_state_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 545
+**Result:** error (connection refused)
+**Errors:** Transport error (server unreachable)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/editable_text_state_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51362
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #65-#66 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 13
+
+---
+
+### Issue #68
+
+**Script:** `widgets/element_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 546
+**Result:** error (connection refused)
+**Errors:** Transport error (server unreachable)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/element_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51384
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #65-#67 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 13
+
+---
+
+### Issue #69
+
+**Script:** `widgets/fade_in_image_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 547
+**Result:** error (connection refused)
+**Errors:** Transport error (server unreachable)
+
+**Error Message:**
+
+```
+Bad state: Transport failure while running "widgets/fade_in_image_test.dart"
+Operation: GET /clear
+Error: SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = localhost, port = 51394
+```
+
+**Category:** TEST-SERVER-CRASH
+
+**Root Cause Analysis:**
+
+Same as Issues #65-#68 — cascading failure due to server crash in Issue #64. The script was never executed.
+
+**Fix Description:**
+No script fix needed. Cascading failure from Issue #64.
+
+**Needs Deeper Analysis:** No — cascading failure from Issue #64
+
+**Batch Number:** 13
+
+---
