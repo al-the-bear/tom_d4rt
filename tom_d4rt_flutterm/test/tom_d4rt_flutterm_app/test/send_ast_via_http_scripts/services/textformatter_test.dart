@@ -807,7 +807,8 @@ Widget _buildCursorVisual(String text, int base, int extent) {
               style: const TextStyle(color: _tfDarkBrown)),
           const TextSpan(
               text: '│',
-              style: TextStyle(color: _tfAmber/*, fontWeight: FontWeight.w900*/)),
+              // TODO: FontWeight.w900 causes crash
+              style: TextStyle(color: _tfAmber, fontWeight: FontWeight.w400)),
           // const TextSpan( text: 'schau mer mal'),
           TextSpan(
               text: text.substring(base + 1),
