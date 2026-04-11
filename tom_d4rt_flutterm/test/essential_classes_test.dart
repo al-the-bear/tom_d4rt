@@ -490,18 +490,6 @@ void main() {
   });
 
   // ============================================================
-  // SERVICES PACKAGE TESTS (1 file)
-  // ============================================================
-  group('services/', () {
-    test('textformatter_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'services/textformatter_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-  });
-
-  // ============================================================
   // WIDGETS PACKAGE TESTS (35 files)
   // ============================================================
   group('widgets/', () {
@@ -685,6 +673,18 @@ void main() {
 
     test('wrap_test.dart', () async {
       final result = await SendTestRunner.send('widgets/wrap_test.dart');
+      expect(result.success, isTrue, reason: result.error);
+    });
+  });
+
+  // ============================================================
+  // SERVICES PACKAGE TESTS (1 file)
+  // ============================================================
+  group('services/', () {
+    test('textformatter_test.dart', () async {
+      final result = await SendTestRunner.send(
+        'services/textformatter_test.dart',
+      );
       expect(result.success, isTrue, reason: result.error);
     });
   });
