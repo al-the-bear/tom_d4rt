@@ -1409,3 +1409,150 @@ For the mixin issue: the State bridge needs to recognize interpreted State subcl
 **Batch Number:** 8
 
 ---
+
+## Batch 9
+
+### Issue #45
+
+**Script:** `rendering/render_custom_single_child_layout_box_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 398
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during default bridged constructor for 'CustomSingleChildLayout': Argument Error: Invalid parameter "delegate": expected SingleChildLayoutDelegate, got InterpretedInstance(…
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1793 lines) defines several delegate classes: `_AnchorDelegate`, `_OrbitDelegate`, `_DockDelegate`, `_FitDelegate`, `_InsetsDelegate`, all extending `_BaseDelegate extends SingleChildLayoutDelegate`. When an interpreted delegate is passed to `CustomSingleChildLayout(delegate: _AnchorDelegate(...))`, the bridge receives an `InterpretedInstance` but expects a native `SingleChildLayoutDelegate`. This is the same coercion issue pattern as Issue #43 but for a different delegate base class.
+
+**Fix Description:**
+Same fix as Issue #43: extend the D4rt bridge type coercion system to handle non-Widget native class hierarchies. When an interpreted class extends `SingleChildLayoutDelegate`, the bridge should recognize the InterpretedInstance as implementing that delegate type and wrap it appropriately.
+
+**Needs Deeper Analysis:** No — same pattern as #43, delegate coercion needed
+
+**Batch Number:** 9
+
+---
+
+### Issue #46
+
+**Script:** `rendering/render_editable_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 399
+**Result:** success (test passed)
+**Errors:** 3 framework errors (log-only)
+
+**Error Messages:**
+
+1. `BoxConstraints has a negative minimum height.`
+2. `RenderBox was not laid out: _RenderEditableCustomPaint#12c85 NEEDS-LAYOUT NEEDS-PAINT`
+3. `Failed assertion: '!childSemantics.renderObject._needsLayout': is not true.`
+
+**Category:** FW-INTERNAL-ASSERTION
+
+**Root Cause Analysis:**
+
+The script (420 lines) uses TextField and EditableText widgets to demonstrate RenderEditable. The `_RenderEditableCustomPaint` is an internal Flutter render object used by TextField. The errors indicate a layout constraint violation cascade: (1) something provides negative constraints, (2) the render object isn't laid out properly as a consequence, (3) semantics access fails because layout wasn't completed. This is likely caused by an interpreted layout callback or constraint computation returning invalid values, or by widget tree interruption during D4rt execution.
+
+**Fix Description:**
+Investigate whether the script's layout configuration is causing negative constraints through interpreted code. Check if any SizedBox or constraint wrapper has computed dimensions that become negative. The fix may require sanitizing constraint values in the bridge layer or ensuring interpreted layout code cannot return negative dimensions.
+
+**Needs Deeper Analysis:** Yes — requires debugging the constraint flow to find the source of negative height
+
+**Batch Number:** 9
+
+---
+
+### Issue #47
+
+**Script:** `rendering/render_ignore_pointer_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 406
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+A RenderFlex overflowed by 4.0 pixels on the bottom.
+```
+
+**Category:** FW-LAYOUT-OVERFLOW
+
+**Root Cause Analysis:**
+
+The script (1181 lines) is a render ignore pointer demo. A vertical layout container has content that exceeds the available vertical space by 4 pixels. This is a minor cosmetic layout overflow that does not affect test success. The overflow likely occurs in a constrained container where cumulative padding, margins, or content height slightly exceeds the allocated space.
+
+**Fix Description:**
+Increase the container height by ~5px, reduce padding in the affected section, or add `clipBehavior: Clip.hardEdge` to suppress visual overflow.
+
+**Needs Deeper Analysis:** No — standard cosmetic RenderFlex bottom overflow
+
+**Batch Number:** 9
+
+---
+
+### Issue #48
+
+**Script:** `rendering/render_physical_shape_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 417
+**Result:** success (test passed)
+**Errors:** 1 framework error (log-only)
+
+**Error Message:**
+
+```
+Runtime Error: Native error during default bridged constructor for 'PhysicalShape': Argument Error: Invalid parameter "clipper": expected CustomClipper<Path>, got InterpretedInstance(_BevelClipper)
+```
+
+**Category:** INTERPRETER-INTERPRETED-CLASS-COERCION
+
+**Root Cause Analysis:**
+
+The script (1686 lines) defines several clipper classes: `_BevelClipper`, `_WaveClipper`, `_TicketClipper`, `_BlobClipper`, `_MorphClipper`, all extending `CustomClipper<Path>`. When an interpreted clipper is passed to `PhysicalShape(clipper: _BevelClipper(...))`, the bridge receives an `InterpretedInstance` but expects a native `CustomClipper<Path>`. This is the same coercion issue pattern as Issues #43, #45 but for clipper classes.
+
+**Fix Description:**
+Same fix as Issue #43: extend the D4rt bridge type coercion system to handle `CustomClipper<T>` abstract classes. When an interpreted class extends `CustomClipper<Path>`, the bridge should recognize the InterpretedInstance as implementing that clipper type and wrap it appropriately to support `getClip()` and `shouldReclip()` method calls.
+
+**Needs Deeper Analysis:** No — same pattern as #43/#45, clipper coercion needed
+
+**Batch Number:** 9
+
+---
+
+### Issue #49
+
+**Script:** `rendering/render_shader_mask_test.dart`
+**Suite:** `secondary_classes`
+**Test ID:** 425
+**Result:** success (test passed)
+**Errors:** 3 framework errors (log-only)
+
+**Error Messages:**
+
+1. `Runtime Error: Index out of range: 3`
+2. `Runtime Error: Index out of range: 3`
+3. `Runtime Error: Index out of range: 3`
+
+**Category:** INTERPRETER-LIST-INDEX
+
+**Root Cause Analysis:**
+
+The script (2541 lines) creates numerous LinearGradient and RadialGradient instances with `colors` and `stops` arrays. The "Index out of range: 3" error occurs 3 times, suggesting that list indexing operations fail when accessing element at index 3 (the 4th element). This could be caused by: (1) the D4rt interpreter mishandling List literal creation where elements beyond index 2 aren't properly added, (2) a gradient constructor accessing colors/stops arrays incorrectly, or (3) interpreted list operations failing for lists with 4+ elements. The repeated index 3 suggests a pattern rather than random access failures.
+
+**Fix Description:**
+Debug the D4rt List bridge to verify that list literals with 4+ elements are correctly constructed. Check if the issue is in list construction (elements at index 3+ not being added) or in list access (indexing beyond initialized bounds). Test with a simple list literal `[1, 2, 3, 4, 5]` to isolate whether the problem is list creation or gradient-specific.
+
+**Needs Deeper Analysis:** Yes — requires debugging list construction and indexing in interpreter
+
+**Batch Number:** 9
+
+---
