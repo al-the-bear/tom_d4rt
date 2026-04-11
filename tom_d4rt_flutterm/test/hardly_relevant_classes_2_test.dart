@@ -29,6 +29,13 @@ void main() {
     await SendTestRunner.tearDown();
   });
 
+  test('material/ selection_area_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'material/selection_area_test.dart',
+    );
+    expect(result.success, isTrue, reason: result.error);
+  });
+
   group('Test App Health', () {
     test('app is running', () async {
       final isRunning = await SendTestRunner.isAppRunning();
@@ -987,13 +994,6 @@ void main() {
     test('selection_area_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/selection_area_state_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('selection_area_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'material/selection_area_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });
