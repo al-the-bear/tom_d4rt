@@ -3,6 +3,8 @@
 Generated: 2026-03-08  
 Updated: 2026-07-17 (Batch 36: 20 print-only tests - services: SmartDashesType, SmartQuotesType, AutofillHints, AutofillClient, AutofillScope, BrowserContextMenu, DeltaTextInputClient, RestorationManager; rendering: RenderBackdropFilter, RenderAndroidView, WrapCrossAlignment, TableBorder, RenderSliverFillRemaining, RenderProxySliver, RenderAnimatedOpacity, RenderClipRSuperellipse, RenderBoxContainerDefaultsMixin; semantics: Semantics, SemanticsBinding, SemanticsConfiguration. 1343 ≥80L, 645 <80L.)
 
+Batch-0 run note (20260411-1207-issue-analysis): first-batch suite-reference scan found 1334 referenced scripts, 1 missing referenced script, and 655 existing out-of-batch scripts (classified as stray candidates for this batch only, not globally missing).
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -762,7 +764,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [advanced_decorations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/advanced_decorations_test.dart) | advanced | No | Yes | No | Checked. |
 | [alignment_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/alignment_test.dart) | Alignment | No | Yes | No |
 | [asset_bundle_image_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_key_test.dart) | AssetBundleImageKey | No | Yes | No | Checked. |
-| [asset_bundle_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart) | AssetBundleImageProvider | No | Yes | No | Created on 2026-03-22 at 10:30 |
+| [asset_bundle_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/asset_bundle_image_provider_test.dart) | AssetBundleImageProvider | No | No | No | Needs to be created (referenced by batch-0 suite; file missing in send_ast_via_http_scripts). |
 | [automatic_notched_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/automatic_notched_shape_test.dart) | AutomaticNotchedShape | No | Yes | No | Checked. |
 | [axis_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart) | AxisDirection | No | Yes | No | B63: Deep demo 1182 lines, Steel/Iron theme, prefix ad. |
 | [axis_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_test.dart) | Axis | No | Yes | No | B63: Deep demo 1225 lines, Rosewood/Blush theme, prefix ax. |
