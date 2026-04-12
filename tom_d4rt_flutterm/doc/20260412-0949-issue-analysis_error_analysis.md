@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-12 (issues 0..64 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-13 (issues 0..69 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -897,3 +897,72 @@ Scope: Batch-0 to Batch-12 (issues 0..64 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: three state-initialization warning issues (`placeholder_span_index_semantics_tag_test`, `platform_view_render_box_test`, `render_animated_opacity_mixin_test`) and one overflow issue (`render_abstract_viewport_test`).
 - Bridge/generator/interpreter classification: one known interpreter non-exhaustive switch issue (`render_android_view_test`) in bridged list-conversion flow.
 - Known non-exhaustive switch signature in Batch-12: detected in `render_android_view_test` for `PlatformViewHitTestBehavior.opaque`.
+
+## Batch-13
+
+### Index 65
+
+- Index: 65
+- testname: `rendering/render_animated_size_state_test.dart`
+- category: `BRIDGE-WIDGET-COERCION + TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted two framework errors: bridged `ConstrainedBox` child argument type mismatch (`Widget?` expected, got `InterpretedInstance(_MeasureBox)`) and a `RenderFlex` bottom overflow.
+- detailed analysis what the problem is: This issue contains two defects: (1) a bridge coercion gap at constructor argument boundary where interpreted widget instances are not converted to native `Widget`; and (2) script layout sizing that still overflows slightly. The test assertion itself is not failing, but warning output confirms runtime and layout debt.
+- fix description (if clear): Add bridge/UserBridge conversion for `ConstrainedBox(child: ...)` widget arguments to coerce interpreted instances to native widgets, and adjust scenario layout bounds to eliminate overflow warnings.
+- need for deeper analysis?: `yes`
+- batch number: `13`
+
+### Index 66
+
+- Index: 66
+- testname: `rendering/render_clip_r_superellipse_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but repeated native constructor errors show `Text` received null `data` where `String` is required.
+- detailed analysis what the problem is: This is a script input-contract problem where one or more code paths pass null into `Text(data: ...)`. Repetition indicates shared helper/state path reuse rather than a one-off instance.
+- fix description (if clear): Ensure all `Text` constructor invocations in the scenario provide non-null string values (default/fallback labels where needed) and fail fast if null data would be passed.
+- need for deeper analysis?: `no`
+- batch number: `13`
+
+### Index 67
+
+- Index: 67
+- testname: `rendering/render_editable_painter_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted the recurring editable layout chain: negative minimum height, `_RenderEditableCustomPaint` not laid out, and semantics assertion failure.
+- detailed analysis what the problem is: This matches known script-side invalid constraint composition around editable render objects and is not a bridge/generator defect signal by itself. It is a recurrent framework-layout warning pattern seen in earlier batches.
+- fix description (if clear): Rework editable host constraints to always provide bounded non-negative dimensions and validate zero framework warnings in the script.
+- need for deeper analysis?: `no`
+- batch number: `13`
+
+### Index 68
+
+- Index: 68
+- testname: `rendering/render_sliver_box_child_manager_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted repeated type-cast errors: `InterpretedInstance` is not a subtype of `Widget?`.
+- detailed analysis what the problem is: This is a direct bridge conversion gap where interpreted objects are flowing into widget-typed fields without proper coercion/unwrapping. The high repetition suggests a shared child-building path used multiple times.
+- fix description (if clear): Add/adjust bridge conversion in the sliver child manager path so interpreted instances are converted to native `Widget` before assignment/cast.
+- need for deeper analysis?: `yes`
+- batch number: `13`
+
+### Index 69
+
+- Index: 69
+- testname: `rendering/render_sliver_floating_pinned_persistent_header_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `widget` (`Undefined property 'widget' on _PrimerSceneState`).
+- detailed analysis what the problem is: The script uses a state/context access pattern where `widget` is referenced outside a valid State context or on an object that does not expose that property in interpreted execution.
+- fix description (if clear): Refactor the script to pass required configuration explicitly instead of implicit `widget` access on `_PrimerSceneState`, and add guards for state-context availability.
+- need for deeper analysis?: `yes`
+- batch number: `13`
+
+## Batch-13 Classification Summary
+
+- Missing/stray status for Batch-13 scripts: none missing, none stray.
+- Test-script issue classification: one constructor-arg contract issue (`render_clip_r_superellipse_test`), one editable layout-constraints issue (`render_editable_painter_test`), one state-context variable resolution issue (`render_sliver_floating_pinned_persistent_header_test`), and one additional overflow warning coupled with bridge defect in `render_animated_size_state_test`.
+- Bridge/generator/interpreter classification: two widget coercion issues (`render_animated_size_state_test`, `render_sliver_box_child_manager_test`).
+- Known non-exhaustive switch signature in Batch-13: not detected in this batch.
