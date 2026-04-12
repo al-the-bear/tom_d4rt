@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-64 (issues 0..324 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-65 (issues 0..329 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4518,4 +4518,75 @@ Scope: Batch-0 to Batch-64 (issues 0..324 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-64 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: two layout/overflow defects (`render_editable_test`, `render_ignore_pointer_test`) and one index-bounds defect (`render_shader_mask_test`).
 - Bridge/generator/interpreter classification: one delegate coercion issue (`render_custom_single_child_layout_box_test`) and one clipper coercion issue (`render_physical_shape_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-65 (Issues 325-329)
+
+### Index 325
+
+- Index: 325
+- testname: `rendering/render_shrink_wrapping_viewport_test.dart`
+- category: `BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION`
+- immediate fix possible: `no — requires bridge/generator constructor mapping update`
+- description: Test passes but logs constructor failure for `_SizeReporter`: bridged superclass `SingleChildRenderObjectWidget` has no constructor named `''`.
+- detailed analysis what the problem is: The interpreted class constructor dispatch to bridged superclass is unresolved for unnamed/default constructor mapping, indicating a bridge/generator constructor-lookup gap for this inheritance path.
+- fix description (if clear): Add explicit constructor mapping/alias for the default `SingleChildRenderObjectWidget` constructor in bridge definitions used by interpreted subclasses, and verify superclass constructor forwarding for `_SizeReporter`-like patterns.
+- need for deeper analysis?: `yes — superclass constructor bridge path`
+- batch number: `65`
+
+### Index 326
+
+- Index: 326
+- testname: `rendering/render_sliver_pinned_persistent_header_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated bottom RenderFlex overflow (3 px).
+- detailed analysis what the problem is: Scripted scene has small but repeated layout overflow in pinned sliver header states, producing framework warnings despite pass status.
+- fix description (if clear): Adjust scene constraints/spacing and flex distribution for pinned header layout to eliminate overflow output.
+- need for deeper analysis?: `no`
+- batch number: `65`
+
+### Index 327
+
+- Index: 327
+- testname: `rendering/sliver_hit_test_result_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs multiple overflow directions (bottom and right).
+- detailed analysis what the problem is: The test layout exceeds available bounds in multiple axes under one or more branches; this is a script composition issue, not a bridge failure.
+- fix description (if clear): Rework layout container constraints and responsive sizing in hit-test demo scenes to stay within viewport bounds in all branches.
+- need for deeper analysis?: `no`
+- batch number: `65`
+
+### Index 328
+
+- Index: 328
+- testname: `rendering/sliver_layout_dimensions_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated bottom overflow (4 px).
+- detailed analysis what the problem is: Scripted sliver layout dimension scene slightly exceeds vertical constraints in repeated states.
+- fix description (if clear): Tighten vertical sizing/spacing and ensure sliver test harness viewport provides adequate constrained height for all test branches.
+- need for deeper analysis?: `no`
+- batch number: `65`
+
+### Index 329
+
+- Index: 329
+- testname: `widgets/android_view_test.dart`
+- category: `BRIDGE-STATIC-MEMBER-EXPOSURE`
+- immediate fix possible: `no — requires bridge static-member support`
+- description: Test passes but logs: undefined static member `new` on bridged class `EagerGestureRecognizer`.
+- detailed analysis what the problem is: Bridge static-member/constructor-tearoff exposure is incomplete for `EagerGestureRecognizer.new`, so constructor tearoff lookup fails at runtime.
+- fix description (if clear): Extend bridge static member exposure to support constructor tearoffs (`.new`) for this recognizer class (or adapt call sites to supported constructor invocation path until bridge support lands).
+- need for deeper analysis?: `yes — static member/constructor tearoff bridging`
+- batch number: `65`
+
+## Batch-65 Classification Summary
+
+- Missing/stray status for Batch-65 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: three overflow/layout defects (`render_sliver_pinned_persistent_header_test`, `sliver_hit_test_result_test`, `sliver_layout_dimensions_test`).
+- Bridge/generator/interpreter classification: one superclass constructor resolution issue (`render_shrink_wrapping_viewport_test`) and one static member exposure issue (`android_view_test` with `EagerGestureRecognizer.new`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
