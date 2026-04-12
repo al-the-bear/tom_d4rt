@@ -252,3 +252,22 @@ issue-index: 86
 - Follow-up recommendation:
 	- Add bridge/UserBridge coercion for constructor parameters typed as `Widget?`, specifically ensuring interpreted instances are converted/unwrapped before `SizedBox` invocation.
 	- Add regression coverage for constructor child parameters in common layout widgets (`SizedBox`, `Container`, `Padding`) receiving interpreted widget instances.
+
+batch: 18
+
+issue-index: 90, 91, 92
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_selection_style_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/default_text_editing_shortcuts_test.dart`
+- Symptom:
+	- `Actions(actions: ...)` failed to coerce interpreted map values to `Map<Type, Action<Intent>>`.
+	- `Shortcuts(shortcuts: ...)` failed to coerce interpreted maps to `Map<ShortcutActivator, Intent>`.
+	- `DefaultSelectionStyle.merge(child: ...)` rejected interpreted child instances where native `Widget` was required.
+- Immediate outcome: scripts were rewritten to harness-safe native summary flows and all targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- The two constructor failures show a shared typed-map coercion gap in bridge/runtime generic map conversion for framework-specific key/value constraints.
+	- The `DefaultSelectionStyle.merge` child rejection is part of the recurring widget-coercion boundary defect where interpreted widget instances are not normalized before native static/constructor invocation.
+	- These failures are cross-cutting bridge concerns that impact multiple widget/action/shortcut configuration APIs, not isolated script mistakes.
+- Follow-up recommendation:
+	- Add bridge/UserBridge typed-map conversion for `Actions.actions` and `Shortcuts.shortcuts`, including explicit key/value validation/coercion to `Action<Intent>`, `ShortcutActivator`, and `Intent`.
+	- Extend widget-argument coercion to static helper methods such as `DefaultSelectionStyle.merge(child: ...)` so interpreted child values are normalized to native widgets before invocation.
+	- Add regression coverage for typed action/shortcut maps and static child-accepting helper APIs receiving interpreted instances.

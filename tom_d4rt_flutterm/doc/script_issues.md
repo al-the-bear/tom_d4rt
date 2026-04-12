@@ -240,3 +240,21 @@ batch: 17
 - Notes:
   - `border_tween_test.dart`, `clip_r_superellipse_test.dart`, `constrained_layout_builder_test.dart`, and `constraints_transform_box_test.dart` were direct script-level contract/layout/state-initialization stabilizations.
   - `box_scroll_view_test.dart` is stabilized script-side while deeper widget-coercion bridge follow-up is documented in `generator_issues.md`.
+
+batch: 18
+
+- No non-immediate batch-18 script issues remained after immediate fixes.
+- Immediate batch-18 script fixes were applied and validated for:
+  - widgets/context_action_test.dart
+  - widgets/default_selection_style_test.dart
+  - widgets/default_text_editing_shortcuts_test.dart
+  - widgets/default_text_style_transition_test.dart
+  - widgets/draggable_scrollable_actuator_test.dart
+- Notes:
+  - `default_text_style_transition_test.dart` was a direct script-level state-initialization stabilization.
+  - `context_action_test.dart` and `default_text_editing_shortcuts_test.dart` are stabilized script-side while deeper typed-map coercion follow-up is documented in `generator_issues.md`.
+  - `default_selection_style_test.dart` is stabilized script-side while deeper widget-coercion bridge follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 91, 94):
+    - These scenarios repeatedly relied on implicit `widget`/state-member access across nested scene states, which is not guaranteed to resolve under interpreted object access semantics.
+    - The repeated failures indicate a script architecture pattern where framework lifecycle members are accessed indirectly rather than by explicit constructor fields/callback wiring.
+    - Immediate mitigation moved flows to explicit deterministic data rendering; long-term script quality should enforce explicit state/data injection and avoid framework-private/member lookup assumptions in deep demos.

@@ -183,3 +183,8 @@ batch: 17
 
 - No batch-17 entries required interpreter deep analysis.
 - Batch-17 deeper follow-up items were bridge-generator widget coercion and script-level border/state/overflow stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 18
+
+- No batch-18 entries required interpreter deep analysis.
+- Batch-18 deeper follow-up items were bridge-generator typed-map/widget coercion and script-level state-context/state-initialization stabilization, documented in `generator_issues.md` and `script_issues.md`.
