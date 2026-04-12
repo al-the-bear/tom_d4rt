@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-19 (issues 0..99 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-20 (issues 0..104 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1380,3 +1380,72 @@ Scope: Batch-0 to Batch-19 (issues 0..99 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: five state-context access issue groups (`expansible_test`, `flex_test`, `fractional_translation_test`, `hero_controller_scope_test`, `hero_controller_test`).
 - Bridge/generator/interpreter classification: no direct new bridge/generator/interpreter signature beyond the repeated script state-context property resolution pattern.
 - Known non-exhaustive switch signature in Batch-19: not detected in this batch.
+
+## Batch-20
+
+### Index 100
+
+- Index: 100
+- testname: `widgets/icon_data_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across icon-data deep-demo scene states.
+- detailed analysis what the problem is: Scene state classes (`_CodePointComposerSceneState`, `_EqualityHashSceneState`, `_DirectionalitySceneState`, `_FamilyFallbackSceneState`, `_PracticalRegistrySceneState`) access `widget` through paths not resolved in interpreted execution.
+- fix description (if clear): Move required config/data into explicit fields passed to each scene state and remove implicit `widget` property lookups.
+- need for deeper analysis?: `yes`
+- batch number: `20`
+
+### Index 101
+
+- Index: 101
+- testname: `widgets/icon_theme_data_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across icon-theme scene states.
+- detailed analysis what the problem is: Runtime logs show undefined `widget` on `_FundamentalsSceneState`, `_MergeAndCopySceneState`, `_LerpSceneState`, `_PrecedenceSceneState`, and `_PracticalDashboardSceneState`, indicating repeated state-context misuse.
+- fix description (if clear): Refactor scenes to consume explicit constructor parameters/captured values rather than implicit `widget` property access.
+- need for deeper analysis?: `yes`
+- batch number: `20`
+
+### Index 102
+
+- Index: 102
+- testname: `widgets/ignore_baseline_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted six runtime warnings for undefined `widget` across baseline/comparison/flex/rhythm/practical scenes.
+- detailed analysis what the problem is: The same undefined-property pattern appears on `_BaselinePrimerSceneState`, `_ComparisonSceneState`, `_NestedFlexSceneState`, `_RhythmStudioSceneState`, `_StressMatrixSceneState`, and `_PracticalSceneState`.
+- fix description (if clear): Apply the deep-demo state wiring fix consistently across all ignore-baseline scenes and add guard checks against unresolved state properties.
+- need for deeper analysis?: `yes`
+- batch number: `20`
+
+### Index 103
+
+- Index: 103
+- testname: `widgets/image_icon_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted one runtime warning where late variable `_bundleFuture` was accessed before assignment.
+- detailed analysis what the problem is: The scene flow reads `_bundleFuture` before initialization completes, triggering `LateInitializationError` under interpreted execution timing.
+- fix description (if clear): Initialize `_bundleFuture` eagerly (or nullable + guarded access) before any read path and enforce setup ordering in scene lifecycle.
+- need for deeper analysis?: `yes`
+- batch number: `20`
+
+### Index 104
+
+- Index: 104
+- testname: `widgets/img_element_platform_view_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across source/layout/hit-test/fallback/practical scenes.
+- detailed analysis what the problem is: Undefined-property warnings on `_SourceStudioSceneState`, `_LayoutMatrixSceneState`, `_LayerHitTestSceneState`, `_FallbackDiagnosticsSceneState`, and `_PracticalBoardSceneState` show recurring unresolved state-context access.
+- fix description (if clear): Replace implicit `widget` reads with explicit scene configuration injection and shared helper accessors.
+- need for deeper analysis?: `yes`
+- batch number: `20`
+
+## Batch-20 Classification Summary
+
+- Missing/stray status for Batch-20 scripts: none missing, none stray.
+- Test-script issue classification: four state-context access issue groups (`icon_data_test`, `icon_theme_data_test`, `ignore_baseline_test`, `img_element_platform_view_test`) and one state-initialization issue (`image_icon_test`).
+- Bridge/generator/interpreter classification: no new bridge/generator signature beyond recurring deep-demo state-context property resolution and one script-level late-initialization ordering defect.
+- Known non-exhaustive switch signature in Batch-20: not detected in this batch.

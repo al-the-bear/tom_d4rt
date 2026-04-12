@@ -47,6 +47,8 @@ Batch-18 follow-up note (20260412-0949-issue-analysis): the five Batch-18 script
 
 Batch-19 follow-up note (20260412-0949-issue-analysis): the five Batch-19 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/expansible_test.dart`, `widgets/flex_test.dart`, `widgets/fractional_translation_test.dart`, `widgets/hero_controller_scope_test.dart`, `widgets/hero_controller_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-19. A dedicated regression test script for deep-demo state-context `widget` property resolution is still missing and is tracked below as a file that needs to be created.
 
+Batch-20 follow-up note (20260412-0949-issue-analysis): the five Batch-20 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/icon_data_test.dart`, `widgets/icon_theme_data_test.dart`, `widgets/ignore_baseline_test.dart`, `widgets/image_icon_test.dart`, `widgets/img_element_platform_view_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-20. A dedicated regression test script for `ImageIcon` late-initialization guard coverage around `_bundleFuture` is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1612,6 +1614,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [ignore_baseline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/ignore_baseline_test.dart) | IgnoreBaseline | No | Yes | No | Created on 31.03.2026 at 20:20 |
 | [image_filtered_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_filtered_test.dart) | ImageFiltered | No | Yes | No | Created on 31.03.2026 at 20:28 |
 | [image_icon_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_test.dart) | ImageIcon | No | Yes | No | Created on 2026-04-01 at 12:43. |
+| [image_icon_bundle_future_late_init_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_icon_bundle_future_late_init_regression_test.dart) | ImageIconBundleFutureLateInitRegression | No | No | No | Needs to be created (Batch-20 failure pattern: late-initialized `_bundleFuture` accessed before assignment in `ImageIcon` scene flow). |
 | [image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/image_test.dart) | Image | No | Yes | No |
 | [img_element_platform_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/img_element_platform_view_test.dart) | ImgElementPlatformView | No | Yes | No | Created on 2026-04-01 at 12:55. |
 | [implicitly_animated_widget_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/implicitly_animated_widget_state_test.dart) | ImplicitlyAnimatedWidgetState | No | Yes | No | Created on 2026-04-09 at 01:57. |
