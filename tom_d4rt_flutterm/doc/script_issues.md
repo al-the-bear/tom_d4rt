@@ -291,3 +291,21 @@ batch: 20
     - Four of the five failures are the same recurring scene-state architecture defect: indirect access to framework-owned lifecycle members (`State.widget`) through interpreted object paths that do not guarantee those members.
     - The remaining failure (`image_icon_test.dart`) is an ordering defect where a late variable was read before initialization under interpreted timing, indicating async/lifecycle setup coupling that is too brittle for harness execution.
     - Immediate mitigation converted all five demos to deterministic explicit-data summary flows; long-term script quality should enforce explicit configuration injection for scenes and a strict "initialize before read" rule for async state in deep-demo scripts.
+
+batch: 21
+
+- No non-immediate batch-21 script issues remained after immediate fixes.
+- Immediate batch-21 script fixes were applied and validated for:
+  - widgets/keep_alive_handle_test.dart
+  - widgets/keyboard_listener_test.dart
+  - widgets/layout_id_test.dart
+  - widgets/live_text_input_status_test.dart
+  - widgets/lock_state_test.dart
+- Notes:
+  - `keep_alive_handle_test.dart` was a direct script-level finite-constraints stabilization; unbounded flex/viewport composition was replaced by bounded list rendering to eliminate cascading `RenderBox was not laid out` failures.
+  - `keyboard_listener_test.dart` and `layout_id_test.dart` were direct script-level state-context stabilizations by removing implicit `widget` member lookup paths.
+  - `live_text_input_status_test.dart` and `lock_state_test.dart` were stabilized script-side with deterministic null-safe flows; deeper interpreter follow-up for nullable `withValues` receiver invocation is documented in `interpreter_issues.md`.
+  - Complex script deep analysis (issue-index: 105, 106, 107):
+    - These failures combine two recurring script architecture defects: unbounded layout composition in demo scaffolds and implicit lifecycle member (`widget`) lookups in scene-state modules.
+    - Both defect classes are warning-heavy in harness execution and can hide behavior regressions because tests may still report pass unless explicit guards are present.
+    - Immediate mitigation moved all three scripts to explicit, bounded, deterministic rendering paths; long-term script quality should enforce finite-layout helpers and explicit scene configuration injection as mandatory deep-demo patterns.

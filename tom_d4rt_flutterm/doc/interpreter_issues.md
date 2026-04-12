@@ -198,3 +198,18 @@ batch: 20
 
 - No batch-20 entries required interpreter deep analysis.
 - Batch-20 deeper follow-up items were script-level state-context and state-initialization stabilization, documented in `script_issues.md`.
+
+batch: 21
+
+issue-index: 108, 109
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart`
+- Symptom: runtime hard failures with nullable receiver method invocation (`Cannot invoke method 'withValues' on null`).
+- Immediate outcome: both scripts were rewritten to deterministic harness-safe flows and now pass targeted reruns with `frameworkErrors=0`.
+- Deep analysis:
+	- The shared failure signature indicates an interpreter/runtime dispatch null-receiver guard gap in color/value transformation paths where `withValues` can be invoked before receiver normalization.
+	- Both failures surfaced in separate widget domains (live-text status and lock-state) but collapse to the same runtime behavior, indicating a cross-cutting invocation semantics issue rather than isolated script logic.
+	- Script-side mitigation removes batch noise, but interpreter null-aware invocation semantics remain incomplete for this method family.
+- Follow-up recommendation:
+	- Add interpreter-level nullable receiver handling for transformation method dispatch so null receivers are short-circuited or default-normalized before invocation.
+	- Add focused regressions covering nullable `withValues` receiver cases in both text-input status and lock-state style/value pipelines.
