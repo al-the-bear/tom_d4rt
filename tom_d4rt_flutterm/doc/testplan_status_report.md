@@ -101,6 +101,8 @@ Batch-45 follow-up note (20260412-0949-issue-analysis): the five Batch-45 script
 
 Batch-46 follow-up note (20260412-0949-issue-analysis): the five Batch-46 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/two_dimensional_child_list_delegate_test.dart`, `widgets/two_dimensional_child_manager_test.dart`, `widgets/two_dimensional_scrollable_state_test.dart`, `widgets/two_dimensional_viewport_parent_data_test.dart`, `widgets/undo_history_state_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-46. All five issues are late-init template defects (four `_tabs`, one `_tabController`). No bridge or interpreter issues in this batch. No regression test rows needed.
 
+Batch-47 follow-up note (20260412-0949-issue-analysis): the five Batch-47 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/undo_history_value_test.dart`, `widgets/undo_text_intent_test.dart`, `widgets/unfocus_disposition_test.dart`, `widgets/update_selection_intent_test.dart`, `widgets/user_scroll_notification_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-47. All five issues are `_tabs` late-init template defects. No bridge or interpreter issues in this batch. No regression test rows needed.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**

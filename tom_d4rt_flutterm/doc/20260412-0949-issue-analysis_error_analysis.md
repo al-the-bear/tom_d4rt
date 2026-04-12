@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-46 (issues 0..234 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-47 (issues 0..239 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3238,5 +3238,76 @@ Scope: Batch-0 to Batch-46 (issues 0..234 from `20260412-0949-issue-analysis_tes
 
 - Missing/stray status for Batch-46 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five late-initialization errors — four `_tabs` (`two_dimensional_child_list_delegate_test`, `two_dimensional_child_manager_test`, `two_dimensional_scrollable_state_test`, `undo_history_state_test`) and one `_tabController` (`two_dimensional_viewport_parent_data_test`).
+- Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-47 (Issues 235-239)
+
+### Index 235
+
+- Index: 235
+- testname: `widgets/undo_history_value_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `UndoHistoryValue` demo script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `47`
+
+### Index 236
+
+- Index: 236
+- testname: `widgets/undo_text_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 235.
+- fix description (if clear): Same template-level fix as Index 235.
+- need for deeper analysis?: `no`
+- batch number: `47`
+
+### Index 237
+
+- Index: 237
+- testname: `widgets/unfocus_disposition_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 235.
+- fix description (if clear): Same template-level fix as Index 235.
+- need for deeper analysis?: `no`
+- batch number: `47`
+
+### Index 238
+
+- Index: 238
+- testname: `widgets/update_selection_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 235.
+- fix description (if clear): Same template-level fix as Index 235.
+- need for deeper analysis?: `no`
+- batch number: `47`
+
+### Index 239
+
+- Index: 239
+- testname: `widgets/user_scroll_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 235. All five Batch-47 issues are the same `_tabs` late-init variant.
+- fix description (if clear): Same template-level fix. The late-init issue now spans Batches 28-47 (60+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `47`
+
+## Batch-47 Classification Summary
+
+- Missing/stray status for Batch-47 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`undo_history_value_test`, `undo_text_intent_test`, `unfocus_disposition_test`, `update_selection_intent_test`, `user_scroll_notification_test`).
 - Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
