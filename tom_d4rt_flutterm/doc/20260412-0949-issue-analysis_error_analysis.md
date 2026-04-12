@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-50 (issues 0..254 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-51 (issues 0..259 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3523,4 +3523,75 @@ Scope: Batch-0 to Batch-50 (issues 0..254 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-50 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`widget_state_color_test`, `widget_state_mapper_test`, `widget_state_mouse_cursor_test`, `widget_state_outlined_border_test`, `widget_state_property_all_test`).
 - Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-51 (Issues 255-259)
+
+### Index 255
+
+- Index: 255
+- testname: `widgets/widget_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `WidgetState` demo script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `51`
+
+### Index 256
+
+- Index: 256
+- testname: `widgets/widget_state_text_style_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 255.
+- fix description (if clear): Same template-level fix as Index 255.
+- need for deeper analysis?: `no`
+- batch number: `51`
+
+### Index 257
+
+- Index: 257
+- testname: `widgets/widget_states_constraint_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 255.
+- fix description (if clear): Same template-level fix as Index 255.
+- need for deeper analysis?: `no`
+- batch number: `51`
+
+### Index 258
+
+- Index: 258
+- testname: `widgets/window_positioner_anchor_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: The generic constructor factory path for `ValueNotifier<double>` is performing a strict runtime cast and receives an `int` value from interpreted execution. This indicates missing numeric coercion (or missing type adaptation) in the bridge's generic constructor handling, causing cast failure in otherwise valid scenario flows for this demo.
+- fix description (if clear): Add bridge-side generic numeric coercion/adaptation for constructor arguments (e.g., `int` to `double` where appropriate), or normalize numeric literals in the generated script path before invoking the generic constructor.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `51`
+
+### Index 259
+
+- Index: 259
+- testname: `widgets/window_positioner_constraint_adjustment_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: Same as Index 258. The generic constructor factory for `ValueNotifier` fails type coercion when handling numeric argument types.
+- fix description (if clear): Same bridge-side generic coercion enhancement as Index 258.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `51`
+
+## Batch-51 Classification Summary
+
+- Missing/stray status for Batch-51 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabs` late-initialization errors (`widget_state_test`, `widget_state_text_style_test`, `widget_states_constraint_test`).
+- Bridge/generator/interpreter classification: two `BRIDGE-GENERIC-TYPE-COERCION` failures (`window_positioner_anchor_test`, `window_positioner_constraint_adjustment_test`) in generic constructor factory handling for `ValueNotifier<double>`.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
