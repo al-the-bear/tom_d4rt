@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-49 (issues 0..249 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-50 (issues 0..254 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3451,5 +3451,76 @@ Scope: Batch-0 to Batch-49 (issues 0..249 from `20260412-0949-issue-analysis_tes
 
 - Missing/stray status for Batch-49 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`web_browser_detection_test`, `widget_inspector_service_extensions_test`, `widget_inspector_service_test`, `widget_order_traversal_policy_test`, `widget_state_border_side_test`).
+- Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-50 (Issues 250-254)
+
+### Index 250
+
+- Index: 250
+- testname: `widgets/widget_state_color_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `WidgetStateColor` demo script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `50`
+
+### Index 251
+
+- Index: 251
+- testname: `widgets/widget_state_mapper_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 250.
+- fix description (if clear): Same template-level fix as Index 250.
+- need for deeper analysis?: `no`
+- batch number: `50`
+
+### Index 252
+
+- Index: 252
+- testname: `widgets/widget_state_mouse_cursor_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 250.
+- fix description (if clear): Same template-level fix as Index 250.
+- need for deeper analysis?: `no`
+- batch number: `50`
+
+### Index 253
+
+- Index: 253
+- testname: `widgets/widget_state_outlined_border_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 250.
+- fix description (if clear): Same template-level fix as Index 250.
+- need for deeper analysis?: `no`
+- batch number: `50`
+
+### Index 254
+
+- Index: 254
+- testname: `widgets/widget_state_property_all_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 250. All five Batch-50 issues are the same `_tabs` late-init variant.
+- fix description (if clear): Same template-level fix. The late-init issue now spans Batches 28-50 (75+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `50`
+
+## Batch-50 Classification Summary
+
+- Missing/stray status for Batch-50 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`widget_state_color_test`, `widget_state_mapper_test`, `widget_state_mouse_cursor_test`, `widget_state_outlined_border_test`, `widget_state_property_all_test`).
 - Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

@@ -107,6 +107,8 @@ Batch-48 follow-up note (20260412-0949-issue-analysis): the five Batch-48 script
 
 Batch-49 follow-up note (20260412-0949-issue-analysis): the five Batch-49 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/web_browser_detection_test.dart`, `widgets/widget_inspector_service_extensions_test.dart`, `widgets/widget_inspector_service_test.dart`, `widgets/widget_order_traversal_policy_test.dart`, `widgets/widget_state_border_side_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-49. All five issues are `_tabs` late-init template defects. No bridge or interpreter issues in this batch. No regression test rows needed.
 
+Batch-50 follow-up note (20260412-0949-issue-analysis): the five Batch-50 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/widget_state_color_test.dart`, `widgets/widget_state_mapper_test.dart`, `widgets/widget_state_mouse_cursor_test.dart`, `widgets/widget_state_outlined_border_test.dart`, `widgets/widget_state_property_all_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-50. All five issues are `_tabs` late-init template defects. No bridge or interpreter issues in this batch. No regression test rows needed.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
