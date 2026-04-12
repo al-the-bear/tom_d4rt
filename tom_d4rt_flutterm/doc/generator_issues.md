@@ -222,3 +222,18 @@ issue-index: 77, 79
 - Follow-up recommendation:
 	- Add bridge/UserBridge constructor mapping so `EagerGestureRecognizer.new` is resolvable and callable in interpreted execution.
 	- Add regression coverage for platform-view gesture recognizer construction across both AndroidViewSurface and AppKitView script paths.
+
+batch: 16
+
+issue-index: 83
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart`
+- Symptom: generic constructor factory failure in bridged `Router` construction (`Null check operator used on a null value`).
+- Immediate outcome: script was rewritten to a harness-safe back-button summary flow that avoids the unstable generic constructor path and now passes targeted rerun with `frameworkErrors=0`.
+- Deep analysis:
+	- The error signature matches the existing generic-constructor factory defect class where constructor argument/type extraction can become null before non-null assertions.
+	- In this case, `Router` generic constructor mapping is not consistently materialized in the bridge factory path, causing runtime null-check failures despite otherwise valid script intent.
+	- Script-level mitigation keeps batch execution stable but does not restore true interpreted coverage for `Router`-based navigation/listener integration.
+- Follow-up recommendation:
+	- Harden generator/UserBridge generic constructor handling for `Router` by ensuring non-null typed argument extraction before null-check assertions.
+	- Add regression tests for `Router` constructor factory flows, including back-button listener integration paths and null-argument diagnostics.

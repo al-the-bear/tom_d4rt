@@ -210,3 +210,20 @@ batch: 15
     - The warning originated from implicit `context` property access on a state object path that is not guaranteed to provide `BuildContext` in interpreted member lookup.
     - This reflects a recurring script-state coupling pattern where context-dependent values are retrieved indirectly from framework state instead of being passed explicitly.
     - Immediate mitigation replaced the scenario with deterministic explicit state descriptors; long-term script quality should enforce explicit context injection and avoid framework-private state/property assumptions.
+
+batch: 16
+
+- No non-immediate batch-16 script issues remained after immediate fixes.
+- Immediate batch-16 script fixes were applied and validated for:
+  - widgets/autocomplete_highlighted_option_test.dart
+  - widgets/autofill_group_state_test.dart
+  - widgets/automatic_keep_alive_client_mixin_test.dart
+  - widgets/back_button_listener_test.dart
+  - widgets/backdrop_group_test.dart
+- Notes:
+  - `automatic_keep_alive_client_mixin_test.dart` was a direct script-level layout-bounding stabilization (removing cascading infinite-size errors).
+  - `back_button_listener_test.dart` is stabilized script-side while deeper generic-constructor factory follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 80, 81, 84):
+    - These failures share the same state-context coupling pattern: script logic attempts to read framework-owned members (`widget`, `setState`) through object paths that are not guaranteed to expose `State` lifecycle members in interpreted execution.
+    - The repeated pattern across autocomplete, autofill, and backdrop flows indicates a reusable script design risk rather than isolated logic mistakes.
+    - Immediate mitigation moved each scenario to explicit deterministic data rendering; long-term script quality should enforce explicit callback/data injection patterns and avoid relying on implicit framework state-member lookup.

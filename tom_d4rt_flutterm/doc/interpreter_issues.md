@@ -173,3 +173,8 @@ batch: 15
 
 - No batch-15 entries required interpreter deep analysis.
 - Batch-15 deeper follow-up items were bridge-generator missing constructor/member exposure and script-level state-context stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 16
+
+- No batch-16 entries required interpreter deep analysis.
+- Batch-16 deeper follow-up items were bridge-generator generic-constructor handling and script-level state-context/layout stabilization, documented in `generator_issues.md` and `script_issues.md`.
