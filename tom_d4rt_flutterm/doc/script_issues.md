@@ -258,3 +258,19 @@ batch: 18
     - These scenarios repeatedly relied on implicit `widget`/state-member access across nested scene states, which is not guaranteed to resolve under interpreted object access semantics.
     - The repeated failures indicate a script architecture pattern where framework lifecycle members are accessed indirectly rather than by explicit constructor fields/callback wiring.
     - Immediate mitigation moved flows to explicit deterministic data rendering; long-term script quality should enforce explicit state/data injection and avoid framework-private/member lookup assumptions in deep demos.
+
+batch: 19
+
+- No non-immediate batch-19 script issues remained after immediate fixes.
+- Immediate batch-19 script fixes were applied and validated for:
+  - widgets/expansible_test.dart
+  - widgets/flex_test.dart
+  - widgets/fractional_translation_test.dart
+  - widgets/hero_controller_scope_test.dart
+  - widgets/hero_controller_test.dart
+- Notes:
+  - All five batch-19 failures belong to the same script-level state-context defect family (implicit `widget` property access on interpreted scene-state paths).
+  - Complex script deep analysis (issue-index: 95, 96, 97, 98, 99):
+    - The repeated undefined-property warnings across five independent demos indicate a common architecture pattern: scene logic depends on framework lifecycle members through indirect object paths.
+    - Under interpreted execution, those paths do not guarantee `State.widget` availability, producing warning-only failures that can mask real behavioral regressions.
+    - Immediate mitigation converted each demo to explicit deterministic state/data rendering; long-term script quality should enforce explicit field/callback wiring and prohibit implicit `widget` property lookup in deep-demo scene modules.

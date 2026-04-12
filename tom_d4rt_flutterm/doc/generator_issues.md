@@ -271,3 +271,8 @@ issue-index: 90, 91, 92
 	- Add bridge/UserBridge typed-map conversion for `Actions.actions` and `Shortcuts.shortcuts`, including explicit key/value validation/coercion to `Action<Intent>`, `ShortcutActivator`, and `Intent`.
 	- Extend widget-argument coercion to static helper methods such as `DefaultSelectionStyle.merge(child: ...)` so interpreted child values are normalized to native widgets before invocation.
 	- Add regression coverage for typed action/shortcut maps and static child-accepting helper APIs receiving interpreted instances.
+
+batch: 19
+
+- No batch-19 entries required bridge-generator deep analysis.
+- Batch-19 deeper follow-up items were script-level state-context architecture issues, documented in `script_issues.md`.
