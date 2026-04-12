@@ -162,3 +162,16 @@ batch: 12
 - Notes:
   - `placeholder_span_index_semantics_tag_test.dart`, `platform_view_render_box_test.dart`, `render_abstract_viewport_test.dart`, and `render_animated_opacity_mixin_test.dart` were direct script-level state/layout stabilizations.
   - `render_android_view_test.dart` is stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.
+
+batch: 13
+
+- No non-immediate batch-13 script issues remained after immediate fixes.
+- Immediate batch-13 script fixes were applied and validated for:
+  - rendering/render_animated_size_state_test.dart
+  - rendering/render_clip_r_superellipse_test.dart
+  - rendering/render_editable_painter_test.dart
+  - rendering/render_sliver_box_child_manager_test.dart
+  - rendering/render_sliver_floating_pinned_persistent_header_test.dart
+- Notes:
+  - `render_clip_r_superellipse_test.dart`, `render_editable_painter_test.dart`, and `render_sliver_floating_pinned_persistent_header_test.dart` were direct script-level null-contract/layout/state-context stabilizations.
+  - `render_animated_size_state_test.dart` and `render_sliver_box_child_manager_test.dart` are stabilized script-side while deeper bridge-generator follow-up is documented in `generator_issues.md`.

@@ -158,3 +158,8 @@ issue-index: 63
 - Follow-up recommendation:
 	- Extend interpreter enum dispatch/mapping to fully cover `PlatformViewHitTestBehavior` members, including `opaque`, across direct and collection-conversion paths.
 	- Add targeted interpreter regressions for bridged `Iterable.toList` flows that include platform-view enum values.
+
+batch: 13
+
+- No batch-13 entries required interpreter deep analysis.
+- Batch-13 deeper follow-up items were bridge-generator widget coercion and script-level layout/state stabilization, documented in `generator_issues.md` and `script_issues.md`.

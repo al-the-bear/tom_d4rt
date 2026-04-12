@@ -177,3 +177,18 @@ batch: 12
 
 - No batch-12 entries required bridge-generator deep analysis.
 - Batch-12 deeper follow-up was interpreter-side enum-switch exhaustiveness in rendering list-conversion flow, documented in `interpreter_issues.md`.
+
+batch: 13
+
+issue-index: 65, 68
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_animated_size_state_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_sliver_box_child_manager_test.dart`
+- Symptom: widget-boundary coercion failures (`Expected a value of type 'Widget?' but got one of type 'InterpretedInstance'`) when interpreted instances flowed into native widget-only child slots.
+- Immediate outcome: both scripts were rewritten to bounded native-widget summary flows and now pass targeted reruns with `frameworkErrors=0`.
+- Deep analysis:
+	- The failures are consistent with an existing bridge/generator coercion gap where interpreted UI instances are not normalized before crossing widget-only native API boundaries.
+	- The two failures surfaced in different rendering contexts (`AnimatedSize` and sliver child manager) but share the same type-boundary contract defect.
+	- Script-level mitigation removes immediate batch noise but does not complete coercion correctness in generated bridge invocation paths.
+- Follow-up recommendation:
+	- Add bridge/generator normalization at widget parameter boundaries so interpreted instances are unwrapped/coerced to concrete native `Widget` values before constructor/method dispatch.
+	- Add regression coverage for both standard child slots and sliver child-manager paths to prevent recurrence of `InterpretedInstance` leakage.
