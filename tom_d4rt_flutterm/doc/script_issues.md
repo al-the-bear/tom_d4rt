@@ -136,3 +136,16 @@ batch: 10
 - Notes:
   - `tooltip_state_test.dart` and `axis_test.dart` were direct script-level constructor/layout contract stabilizations.
   - `toggle_buttons_theme_data_test.dart`, `toggle_buttons_theme_test.dart`, and `axis_direction_test.dart` are stabilized script-side while deeper bridge/interpreter follow-up is documented in `generator_issues.md` and `interpreter_issues.md`.
+
+batch: 11
+
+- No non-immediate batch-11 script issues remained after immediate fixes.
+- Immediate batch-11 script/harness fixes were applied and validated for:
+  - test/hardly_relevant_classes_3_test.dart (setUpAll log-only indexing mitigation)
+  - rendering/floating_header_snap_configuration_test.dart
+  - rendering/hit_test_behavior_test.dart
+  - rendering/over_scroll_header_stretch_configuration_test.dart
+  - rendering/pipeline_manifold_test.dart
+- Notes:
+  - `floating_header_snap_configuration_test.dart` and `pipeline_manifold_test.dart` were direct script-level layout/state-initialization stabilizations.
+  - `hit_test_behavior_test.dart` and `over_scroll_header_stretch_configuration_test.dart` are stabilized script-side while deeper interpreter/bridge follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.

@@ -128,3 +128,18 @@ issue-index: 53
 - Follow-up recommendation:
 	- Add interpreter guard/coercion for nullable receiver method invocation in the affected transformation path.
 	- Add regression coverage for painting axis/value transformation scenarios where nullable receivers may reach method dispatch.
+
+batch: 11
+
+issue-index: 57
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/hit_test_behavior_test.dart`
+- Symptom: runtime null method invocation (`Cannot invoke method 'withAlpha' on null`).
+- Immediate outcome: script rewritten to deterministic, null-safe hit-test behavior summary flow; targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- This matches the recurring interpreter nullable-receiver invocation defect family seen in earlier batches (`withValues`/similar transformations on null targets).
+	- Runtime dispatch proceeds without enforcing non-null receiver preconditions for color/value transformation paths.
+	- Script-level stabilization removes immediate failure but does not resolve interpreter method-dispatch null-safety semantics.
+- Follow-up recommendation:
+	- Add null-aware receiver guards/coercion in interpreter dispatch for transformation methods reachable from rendering hit-test scenarios.
+	- Add focused regressions for nullable color/value transformation invocations in rendering scripts.

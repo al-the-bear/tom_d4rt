@@ -157,3 +157,18 @@ issue-index: 50, 51
 - Follow-up recommendation:
 	- Harden bridge/generator operator argument extraction for `BoxConstraints ==` to reject or coerce null `other` before native invocation.
 	- Add regression tests for valid equality operands and explicit null-operand handling diagnostics across operator bridge paths.
+
+batch: 11
+
+issue-index: 58
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/over_scroll_header_stretch_configuration_test.dart`
+- Symptom: widget boundary coercion failure (`Expected Widget but got InterpretedInstance`).
+- Immediate outcome: script rewritten to harness-safe native widget summary flow; targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- Failure signature matches existing bridge/generator widget coercion defects where interpreted instances leak through native widget-only boundaries.
+	- This indicates incomplete conversion/unwrapping in generated bridge call paths for rendering-layer widget construction.
+	- Script mitigation avoids immediate failure but does not complete bridge-level widget coercion correctness.
+- Follow-up recommendation:
+	- Extend bridge/generator coercion to normalize interpreted instances to native `Widget` before constructor/method boundaries that require concrete widget types.
+	- Add regression coverage for rendering-layer widget coercion paths, including over-scroll header configuration flows.
