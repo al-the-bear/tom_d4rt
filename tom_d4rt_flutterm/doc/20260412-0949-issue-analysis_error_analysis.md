@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-25 (issues 0..129 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-26 (issues 0..134 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1794,4 +1794,72 @@ Scope: Batch-0 to Batch-25 (issues 0..129 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-25 scripts: none missing, none stray.
 - Test-script issue classification: no standalone script-only warning class in this batch; failures are dominated by bridge/type-resolution/coercion defects.
 - Bridge/generator/interpreter classification: two generic-constructor-factory issues (`raw_dialog_route_test`, `raw_radio_test`), one missing symbol registration (`raw_keyboard_listener_test`), one missing default-constructor support path (`raw_menu_overlay_info_test`), and one widget coercion defect (`redo_text_intent_test`).
+
+## Batch-26
+
+### Index 130
+
+- Index: 130
+- testname: `widgets/regular_window_controller_delegate_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The test script creates a `RegularWindowControllerDelegate` widget and pumps it, but the interpreter returns an `InterpretedInstance` instead of a concrete `Widget`. The bridge does not coerce interpreted widget instances back to their native Flutter `Widget` type when the test harness validates the result via `result.success`.
+- fix description (if clear): Add widget coercion mapping for `RegularWindowControllerDelegate` at the bridge boundary so `InterpretedInstance` wrapping a Widget subclass is unwrapped to a proper `Widget` before the test assertion. Ensure the bridge `$RegularWindowControllerDelegate` type is registered with the widget coercion handler.
+- need for deeper analysis?: `yes`
+- batch number: `26`
+
+### Index 131
+
+- Index: 131
+- testname: `widgets/regular_window_controller_linux_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: Same widget coercion gap as Index 130 — the Linux-specific `RegularWindowControllerLinux` widget is constructed in the interpreter but returned as `InterpretedInstance` rather than a proper `Widget`. The bridge lacks the coercion path for this platform-specific controller variant.
+- fix description (if clear): Register `RegularWindowControllerLinux` in the bridge widget coercion handler so that the interpreted result is unwrapped to a native `Widget`.
+- need for deeper analysis?: `yes`
+- batch number: `26`
+
+### Index 132
+
+- Index: 132
+- testname: `widgets/regular_window_controller_mac_o_s_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: Same pattern as Indices 130–131. The macOS variant `RegularWindowControllerMacOS` is interpreted but the bridge does not coerce the instance back to a `Widget` type. The test expects `result.success == true` which requires widget detection.
+- fix description (if clear): Register `RegularWindowControllerMacOS` in the widget coercion handler.
+- need for deeper analysis?: `yes`
+- batch number: `26`
+
+### Index 133
+
+- Index: 133
+- testname: `widgets/regular_window_controller_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The base `RegularWindowController` widget test fails with the same coercion gap. The bridge produces an `InterpretedInstance` wrapping the controller widget, but the harness cannot recognize it as a `Widget` for the success assertion.
+- fix description (if clear): Register `RegularWindowController` in the widget coercion handler so the interpreted object is unwrapped.
+- need for deeper analysis?: `yes`
+- batch number: `26`
+
+### Index 134
+
+- Index: 134
+- testname: `widgets/regular_window_controller_win32_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The Win32 variant `RegularWindowControllerWin32` test shows the identical widget coercion defect. All five `RegularWindowController*` tests in this batch share the same root cause — the bridge does not unwrap `InterpretedInstance` to a native `Widget` for these controller classes.
+- fix description (if clear): Register `RegularWindowControllerWin32` in the widget coercion handler. A batch fix registering all `RegularWindowController*` variants at once would resolve all five issues simultaneously.
+- need for deeper analysis?: `yes`
+- batch number: `26`
+
+## Batch-26 Classification Summary
+
+- Missing/stray status for Batch-26 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: no standalone script-only warnings in this batch; all five failures are bridge-level coercion defects.
+- Bridge/generator/interpreter classification: all five issues are `BRIDGE-WIDGET-COERCION` — the `RegularWindowController*` family (delegate, linux, macOS, base, win32) all fail identically because the interpreter returns `InterpretedInstance` where a concrete `Widget` is expected. A single coercion-handler registration covering the `RegularWindowController` hierarchy would resolve the entire batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

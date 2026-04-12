@@ -59,6 +59,8 @@ Batch-24 follow-up note (20260412-0949-issue-analysis): the five Batch-24 entrie
 
 Batch-25 follow-up note (20260412-0949-issue-analysis): the five Batch-25 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/raw_dialog_route_test.dart`, `widgets/raw_keyboard_listener_test.dart`, `widgets/raw_menu_overlay_info_test.dart`, `widgets/raw_radio_test.dart`, `widgets/redo_text_intent_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-25. A dedicated regression test script for bridged `RawDialogRoute` generic-constructor callback coercion is still missing and is tracked below as a file that needs to be created.
 
+Batch-26 follow-up note (20260412-0949-issue-analysis): the five Batch-26 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/regular_window_controller_delegate_test.dart`, `widgets/regular_window_controller_linux_test.dart`, `widgets/regular_window_controller_mac_o_s_test.dart`, `widgets/regular_window_controller_test.dart`, `widgets/regular_window_controller_win32_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-26. A dedicated regression test script for `RegularWindowController*` widget coercion hierarchy is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1815,6 +1817,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [regular_window_controller_mac_o_s_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_mac_o_s_test.dart) | RegularWindowControllerMacOS | No | Yes | No | Created on 2026-04-10 at 17:45. |
 | [regular_window_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_test.dart) | RegularWindowController | No | Yes | No | Created on 2026-04-10 at 18:00. |
 | [regular_window_controller_win32_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_win32_test.dart) | RegularWindowControllerWin32 | No | Yes | No | Deep demo (1561 lines): Win32 API mapping, HWND lifecycle, DPI awareness, Aero Snap simulation, platform comparison. |
+| regular_window_controller_widget_coercion_hierarchy_regression_test.dart | RegularWindowController* coercion | No | No | No | Needs to be created |
 | [regular_window_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_test.dart) | RegularWindow | No | Yes | No | Deep demo (1505 lines): Widget tree structure, View integration, multi-window lab, lifecycle flow, scope access patterns. |
 | [relative_positioned_transition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/relative_positioned_transition_test.dart) | RelativePositionedTransition | No | Yes | No | Created on 2026-04-07 at 12:12. |
 | [relative_rect_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/relative_rect_tween_test.dart) | RelativeRectTween | No | Yes | No | Created on 2026-04-10 at 14:30. |
