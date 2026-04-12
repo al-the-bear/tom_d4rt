@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-17 (issues 0..89 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-18 (issues 0..94 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1242,3 +1242,72 @@ Scope: Batch-0 to Batch-17 (issues 0..89 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one border-contract issue (`border_tween_test`), one state-initialization issue (`clip_r_superellipse_test`), and two overflow groups (`constrained_layout_builder_test`, `constraints_transform_box_test`).
 - Bridge/generator/interpreter classification: one widget coercion issue in `SizedBox` child handling (`box_scroll_view_test`).
 - Known non-exhaustive switch signature in Batch-17: not detected in this batch.
+
+## Batch-18
+
+### Index 90
+
+- Index: 90
+- testname: `widgets/context_action_test.dart`
+- category: `BRIDGE-MAP-TYPE-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure in `Actions` constructor because interpreted map values cannot be converted to `Map<Type, Action<Intent>>`.
+- detailed analysis what the problem is: This is a typed-map coercion gap in bridge/runtime argument conversion for generic map values (`Action<Intent>`), not a script layout warning.
+- fix description (if clear): Add bridge/UserBridge conversion for `Actions(actions: ...)` map entries so interpreted values are converted/validated as `Action<Intent>` before native constructor invocation.
+- need for deeper analysis?: `yes`
+- batch number: `18`
+
+### Index 91
+
+- Index: 91
+- testname: `widgets/default_selection_style_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT + BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted repeated `widget` undefined-property warnings plus `DefaultSelectionStyle.merge` child parameter type mismatch (`expected Widget`, got interpreted instances).
+- detailed analysis what the problem is: Two defects co-exist: (1) script state-context property access (`widget`) on incompatible state path, and (2) bridge coercion gap for `child` widget arguments in static `DefaultSelectionStyle.merge` call paths.
+- fix description (if clear): Refactor script to avoid implicit `widget` property reads and add bridge conversion for `DefaultSelectionStyle.merge(child: ...)` so interpreted children coerce to native widgets.
+- need for deeper analysis?: `yes`
+- batch number: `18`
+
+### Index 92
+
+- Index: 92
+- testname: `widgets/default_text_editing_shortcuts_test.dart`
+- category: `BRIDGE-MAP-TYPE-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but repeated `Shortcuts` constructor failures report inability to convert interpreted map to `Map<ShortcutActivator, Intent>`.
+- detailed analysis what the problem is: This is another typed-map coercion deficiency in bridge conversion logic for generic key/value map types used by shortcut configuration.
+- fix description (if clear): Add bridge/generator conversion for `Shortcuts(shortcuts: ...)` map keys and values to correctly materialize `ShortcutActivator` and `Intent` types.
+- need for deeper analysis?: `yes`
+- batch number: `18`
+
+### Index 93
+
+- Index: 93
+- testname: `widgets/default_text_style_transition_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports late variable `_heroStyle` accessed before assignment.
+- detailed analysis what the problem is: The style variable initialization order is incorrect in at least one script path, producing late-init runtime warnings despite successful test completion.
+- fix description (if clear): Initialize `_heroStyle` before any reads in all branches and add explicit initialized-state checks in the script.
+- need for deeper analysis?: `no`
+- batch number: `18`
+
+### Index 94
+
+- Index: 94
+- testname: `widgets/draggable_scrollable_actuator_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted six runtime warnings where `widget` is undefined across multiple scene-state classes.
+- detailed analysis what the problem is: The scenario repeatedly uses implicit `widget` property access on state/object paths that do not expose it in interpreted execution, indicating a shared script pattern issue.
+- fix description (if clear): Replace implicit `widget` property accesses with explicit constructor/state fields or pass required values through callbacks/parameters for each affected scene state.
+- need for deeper analysis?: `yes`
+- batch number: `18`
+
+## Batch-18 Classification Summary
+
+- Missing/stray status for Batch-18 scripts: none missing, none stray.
+- Test-script issue classification: one state-initialization issue (`default_text_style_transition_test`) and two state-context issue groups (`default_selection_style_test`, `draggable_scrollable_actuator_test`).
+- Bridge/generator/interpreter classification: map-type coercion issues in `Actions`/`Shortcuts` constructor paths (`context_action_test`, `default_text_editing_shortcuts_test`) and widget-coercion gap in `DefaultSelectionStyle.merge` (`default_selection_style_test`).
+- Known non-exhaustive switch signature in Batch-18: not detected in this batch.

@@ -43,6 +43,8 @@ Batch-16 follow-up note (20260412-0949-issue-analysis): the five Batch-16 script
 
 Batch-17 follow-up note (20260412-0949-issue-analysis): the five Batch-17 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/border_tween_test.dart`, `widgets/box_scroll_view_test.dart`, `widgets/clip_r_superellipse_test.dart`, `widgets/constrained_layout_builder_test.dart`, `widgets/constraints_transform_box_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-17. A dedicated regression test script for bridged `SizedBox` child widget coercion in box-scroll-view flows is still missing and is tracked below as a file that needs to be created.
 
+Batch-18 follow-up note (20260412-0949-issue-analysis): the five Batch-18 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/context_action_test.dart`, `widgets/default_selection_style_test.dart`, `widgets/default_text_editing_shortcuts_test.dart`, `widgets/default_text_style_transition_test.dart`, `widgets/draggable_scrollable_actuator_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-18. A dedicated regression test script for bridged `Actions(actions: ...)` map coercion (`Map<Type, Action<Intent>>`) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1453,6 +1455,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [container_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/container_test.dart) | Container | No | Yes | No | Checked. |
 | [content_insertion_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/content_insertion_configuration_test.dart) | ContentInsertionConfiguration | No | Yes | No | Created on 2026-04-08. |
 | [context_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_action_test.dart) | ContextAction | No | Yes | No | Created on 2026-03-30 at 20:30. |
+| [actions_map_type_intent_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/actions_map_type_intent_coercion_regression_test.dart) | ActionsMapTypeIntentCoercionRegression | No | No | No | Needs to be created (Batch-18 failure pattern: `Actions` constructor map coercion from interpreted values to `Map<Type, Action<Intent>>`). |
 | [context_menu_button_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_button_item_test.dart) | ContextMenuButtonItem | No | Yes | No | Created on 2026-04-08. |
 | [context_menu_button_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_button_type_test.dart) | ContextMenuButtonType | No | Yes | No | Created on 2026-04-08. |
 | [context_menu_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/context_menu_controller_test.dart) | ContextMenuController | No | Yes | No | Created on 2026-03-30 at 21:05. |
