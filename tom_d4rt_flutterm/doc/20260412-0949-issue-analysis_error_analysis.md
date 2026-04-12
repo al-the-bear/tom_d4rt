@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-65 (issues 0..329 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-66 (issues 0..334 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4589,4 +4589,75 @@ Scope: Batch-0 to Batch-65 (issues 0..329 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-65 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: three overflow/layout defects (`render_sliver_pinned_persistent_header_test`, `sliver_hit_test_result_test`, `sliver_layout_dimensions_test`).
 - Bridge/generator/interpreter classification: one superclass constructor resolution issue (`render_shrink_wrapping_viewport_test`) and one static member exposure issue (`android_view_test` with `EagerGestureRecognizer.new`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-66 (Issues 330-334)
+
+### Index 330
+
+- Index: 330
+- testname: `widgets/animated_cross_fade_test.dart`
+- category: `BRIDGE-MISSING-INSTANCE-METHOD`
+- immediate fix possible: `no — requires bridge method/extension exposure`
+- description: Test passes but logs missing `whereType` on bridged `List` during extension lookup.
+- detailed analysis what the problem is: Runtime bridge for `List`/iterable extension path does not expose `whereType`, so calls that rely on this typed filtering method fail at runtime.
+- fix description (if clear): Add bridge support for `whereType` on the relevant iterable/list path (or adapter route to equivalent filtering behavior with correct generic typing).
+- need for deeper analysis?: `yes — iterable extension/method bridging`
+- batch number: `66`
+
+### Index 331
+
+- Index: 331
+- testname: `widgets/animated_fractionally_sized_box_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs a bottom RenderFlex overflow (8 px).
+- detailed analysis what the problem is: Script layout exceeds vertical constraints in at least one branch/state, producing framework overflow output despite success status.
+- fix description (if clear): Adjust vertical constraints/flex behavior in the scripted scene to remove overflow warnings.
+- need for deeper analysis?: `no`
+- batch number: `66`
+
+### Index 332
+
+- Index: 332
+- testname: `widgets/animated_switcher_test.dart`
+- category: `BRIDGE-MISSING-INSTANCE-METHOD`
+- immediate fix possible: `no — requires bridge method/extension exposure`
+- description: Test passes but logs the same missing `whereType` method on bridged `List`.
+- detailed analysis what the problem is: Same bridge method exposure gap as Index 330, now in a second widget scenario, indicating shared runtime mapping defect.
+- fix description (if clear): Reuse the `List`/iterable `whereType` bridge exposure fix identified for Index 330.
+- need for deeper analysis?: `yes — shared iterable method bridge path`
+- batch number: `66`
+
+### Index 333
+
+- Index: 333
+- testname: `widgets/autofill_group_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires state property bridge support`
+- description: Test passes but logs undefined `widget` property on `_AutofillGroupLaneState`.
+- detailed analysis what the problem is: Interpreted `State` subclass access to inherited `widget` property is not being resolved/exposed correctly by bridge runtime, causing repeated runtime property lookup failures.
+- fix description (if clear): Extend state-object property exposure to include inherited `State.widget` resolution for interpreted subclasses.
+- need for deeper analysis?: `yes — state inheritance property resolution`
+- batch number: `66`
+
+### Index 334
+
+- Index: 334
+- testname: `widgets/backdrop_filter_test.dart`
+- category: `BRIDGE-MISSING-INSTANCE-METHOD`
+- immediate fix possible: `no — requires bridge method/extension exposure`
+- description: Test passes but logs missing `whereType` on bridged `List` during extension lookup.
+- detailed analysis what the problem is: Same `whereType` bridge gap as Index 330 and 332, demonstrating repeated failure across multiple widget scenarios.
+- fix description (if clear): Apply shared bridge fix for iterable/list `whereType` method exposure with correct generic behavior.
+- need for deeper analysis?: `yes — shared iterable method bridge path`
+- batch number: `66`
+
+## Batch-66 Classification Summary
+
+- Missing/stray status for Batch-66 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one overflow/layout defect (`animated_fractionally_sized_box_test`).
+- Bridge/generator/interpreter classification: three missing-method bridge issues (`animated_cross_fade_test`, `animated_switcher_test`, `backdrop_filter_test` for `List.whereType`) and one state-property exposure issue (`autofill_group_test` for inherited `widget`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
