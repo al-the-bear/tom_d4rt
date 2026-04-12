@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-63 (issues 0..319 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-64 (issues 0..324 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4447,4 +4447,75 @@ Scope: Batch-0 to Batch-63 (issues 0..319 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-63 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one state-context initialization issue (`render_animated_opacity_test`) and one overflow issue (`render_block_semantics_test`).
 - Bridge/generator/interpreter classification: one widget coercion issue (`render_box_container_defaults_mixin_test`), one delegate type coercion issue (`render_custom_multi_child_layout_box_test`), and one mixin target coercion issue with follow-on assertion instability (`render_custom_paint_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-64 (Issues 320-324)
+
+### Index 320
+
+- Index: 320
+- testname: `rendering/render_custom_single_child_layout_box_test.dart`
+- category: `BRIDGE-DELEGATE-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge delegate coercion`
+- description: Test passes but logs constructor failure for `CustomSingleChildLayout`: expected `SingleChildLayoutDelegate`, got interpreted delegate instance.
+- detailed analysis what the problem is: Bridged constructor path does not adapt interpreted delegate objects to native `SingleChildLayoutDelegate`, causing runtime type rejection.
+- fix description (if clear): Add bridge adaptation for `SingleChildLayoutDelegate`-typed constructor arguments (custom adapter/user-bridge mapping for interpreted delegate instances).
+- need for deeper analysis?: `yes — delegate adaptation path`
+- batch number: `64`
+
+### Index 321
+
+- Index: 321
+- testname: `rendering/render_editable_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs negative min-height constraints for editable render path plus not-laid-out and semantics assertions.
+- detailed analysis what the problem is: Scripted scene produces invalid constraints for `_RenderEditableCustomPaint`, cascading into missing layout size and semantics assertion failures. This matches script-level layout contract violations, not a bridge/interpreter limitation.
+- fix description (if clear): Rework editable scene constraints to enforce bounded, non-negative sizes (explicit `SizedBox`/`ConstrainedBox`, avoid conflicting nested constraints) and ensure no framework errors are emitted.
+- need for deeper analysis?: `no`
+- batch number: `64`
+
+### Index 322
+
+- Index: 322
+- testname: `rendering/render_ignore_pointer_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs a bottom RenderFlex overflow (4 px).
+- detailed analysis what the problem is: Minor layout overflow in scripted UI state indicates insufficient vertical space budgeting.
+- fix description (if clear): Adjust vertical constraints/flex distribution or wrap overflow-prone sections to remove warning output.
+- need for deeper analysis?: `no`
+- batch number: `64`
+
+### Index 323
+
+- Index: 323
+- testname: `rendering/render_physical_shape_test.dart`
+- category: `BRIDGE-CLIPPER-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge clipper coercion`
+- description: Test passes but logs constructor failure for `PhysicalShape`: expected `CustomClipper<Path>`, got interpreted `_BevelClipper`.
+- detailed analysis what the problem is: Bridge constructor dispatch does not coerce interpreted clipper implementations to native `CustomClipper<Path>` for `clipper` parameter, causing runtime argument rejection.
+- fix description (if clear): Extend constructor arg coercion for `CustomClipper<Path>` to adapt interpreted clipper instances at native boundary.
+- need for deeper analysis?: `yes — clipper coercion path`
+- batch number: `64`
+
+### Index 324
+
+- Index: 324
+- testname: `rendering/render_shader_mask_test.dart`
+- category: `TEST-SCRIPT-INDEX-BOUNDS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated runtime `Index out of range: 3` errors.
+- detailed analysis what the problem is: Script runtime logic indexes into a collection with insufficient length under one or more scenario branches, producing repeated bounds errors. Current evidence points to script-side indexing/precondition handling rather than a known interpreter limitation.
+- fix description (if clear): Guard index access by validating collection length, or construct deterministic test data with required element count before index-based reads.
+- need for deeper analysis?: `yes — confirm all indexed collections in script branches`
+- batch number: `64`
+
+## Batch-64 Classification Summary
+
+- Missing/stray status for Batch-64 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: two layout/overflow defects (`render_editable_test`, `render_ignore_pointer_test`) and one index-bounds defect (`render_shader_mask_test`).
+- Bridge/generator/interpreter classification: one delegate coercion issue (`render_custom_single_child_layout_box_test`) and one clipper coercion issue (`render_physical_shape_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
