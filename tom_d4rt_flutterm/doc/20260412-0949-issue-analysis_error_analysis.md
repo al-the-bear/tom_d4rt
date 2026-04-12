@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-62 (issues 0..314 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-63 (issues 0..319 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4376,4 +4376,75 @@ Scope: Batch-0 to Batch-62 (issues 0..314 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-62 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one overflow-only issue (`platform_view_layer_test`) and one mixed overflow issue paired with callback coercion (`custom_painter_semantics_test`).
 - Bridge/generator/interpreter classification: one callback coercion issue (`custom_painter_semantics_test`), two widget coercion issues (`relayout_when_system_fonts_change_mixin_test`, `render_absorb_pointer_test`), and one missing member exposure issue (`render_aligning_shifted_box_test` for `String.characters`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-63 (Issues 315-319)
+
+### Index 315
+
+- Index: 315
+- testname: `rendering/render_animated_opacity_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init state access (`_controller`) before assignment.
+- detailed analysis what the problem is: The script lifecycle/state setup accesses `_controller` before initialization, producing `LateInitializationError` surfaced as framework log output. This is test-script state-context sequencing, not a bridge/generator failure.
+- fix description (if clear): Ensure `_controller` is initialized during setup (`initState`/pre-pump path) before any listener/build path reads it; add guard assertions to prevent uninitialized access.
+- need for deeper analysis?: `no`
+- batch number: `63`
+
+### Index 316
+
+- Index: 316
+- testname: `rendering/render_block_semantics_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated bottom RenderFlex overflow (`56 px`).
+- detailed analysis what the problem is: Scripted layout exceeds vertical constraints in the test scene, generating framework overflow errors despite pass status.
+- fix description (if clear): Rebalance vertical layout constraints (flex/scroll/sizing adjustments) to eliminate overflow warnings.
+- need for deeper analysis?: `no`
+- batch number: `63`
+
+### Index 317
+
+- Index: 317
+- testname: `rendering/render_box_container_defaults_mixin_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs constructor/parameter coercion failure: expected `Widget`, got `InterpretedInstance(_DefaultsContainer)`.
+- detailed analysis what the problem is: Bridge invocation path does not coerce interpreted widget instances to native `Widget` for this build parameter path, matching recurring widget coercion gaps.
+- fix description (if clear): Extend bridge argument coercion for widget-typed build parameters to unwrap/coerce interpreted widget instances before native call boundaries.
+- need for deeper analysis?: `yes — widget coercion path`
+- batch number: `63`
+
+### Index 318
+
+- Index: 318
+- testname: `rendering/render_custom_multi_child_layout_box_test.dart`
+- category: `BRIDGE-DELEGATE-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge delegate coercion`
+- description: Test passes but logs constructor failure for `CustomMultiChildLayout`: expected `MultiChildLayoutDelegate`, got interpreted delegate instance.
+- detailed analysis what the problem is: Default bridged constructor path does not adapt interpreted delegate objects to native `MultiChildLayoutDelegate`, causing runtime type rejection.
+- fix description (if clear): Add bridge adaptation for `MultiChildLayoutDelegate`-typed constructor arguments (explicit adapter/custom bridge mapping for interpreted delegate instances).
+- need for deeper analysis?: `yes — delegate adaptation path`
+- batch number: `63`
+
+### Index 319
+
+- Index: 319
+- testname: `rendering/render_custom_paint_test.dart`
+- category: `BRIDGE-MIXIN-TARGET-COERCION + TEST-SCRIPT-ASSERTION-PRECONDITION`
+- immediate fix possible: `no — mixed bridge and script fixes required`
+- description: Test passes but logs invalid bridged `mounted` mixin target plus `Bad state: No element`.
+- detailed analysis what the problem is: Primary failure is bridge-side mixin target mismatch (`mounted` getter expects `SingleTickerProviderStateMixin` target but receives interpreted instance). Secondary `Bad state: No element` indicates script assertions/state queries occur after the bridge error path destabilizes expected collections.
+- fix description (if clear): (1) Add mixin target coercion/dispatch support for `SingleTickerProviderStateMixin`-bound getter path (`mounted`). (2) Harden test assertions to avoid `No element` on empty collections after runtime errors.
+- need for deeper analysis?: `yes — mixin getter dispatch/coercion path`
+- batch number: `63`
+
+## Batch-63 Classification Summary
+
+- Missing/stray status for Batch-63 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one state-context initialization issue (`render_animated_opacity_test`) and one overflow issue (`render_block_semantics_test`).
+- Bridge/generator/interpreter classification: one widget coercion issue (`render_box_container_defaults_mixin_test`), one delegate type coercion issue (`render_custom_multi_child_layout_box_test`), and one mixin target coercion issue with follow-on assertion instability (`render_custom_paint_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
