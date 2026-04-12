@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-42 (issues 0..214 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-43 (issues 0..219 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2958,4 +2958,74 @@ Scope: Batch-0 to Batch-42 (issues 0..214 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-42 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`slotted_multi_child_render_object_widget_mixin_test`, `slotted_multi_child_render_object_widget_test`, `slotted_render_object_element_test`, `snapshot_mode_test`, `standard_component_type_test`) — continuing the `_tabs` late-init template pattern.
 - Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
+
+---
+
+# Batch-43 (Issues 215-219)
+
+### Index 215
+
+- Index: 215
+- testname: `widgets/static_selection_container_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern continuing from previous batches. The `StaticSelectionContainerDelegate` demo script references a `_tabs` field that is never initialized in `initState()`.
+- fix description (if clear): Same template-level fix — initialize `_tabs` in `initState()` or replace with proper state setup.
+- need for deeper analysis?: `no`
+- batch number: `43`
+
+### Index 216
+
+- Index: 216
+- testname: `widgets/text_selection_gesture_detector_builder_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 215.
+- need for deeper analysis?: `no`
+- batch number: `43`
+
+### Index 217
+
+- Index: 217
+- testname: `widgets/toolbar_items_parent_data_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_TimelineStep' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Private class `_TimelineStep` constructor is not bridged. The D4rt bridge generator does not generate unnamed constructor support for private classes with positional/named parameters. Same category as previous BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issues (Batches 37, 39, 40).
+- fix description (if clear): Generator enhancement for private class constructor support, or register a custom UserBridge/factory.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `43`
+
+### Index 218
+
+- Index: 218
+- testname: `widgets/toolbar_options_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_LegacyToolbarProfile' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same as Index 217 — private class `_LegacyToolbarProfile` constructor not bridged.
+- fix description (if clear): Same generator enhancement as Index 217.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `43`
+
+### Index 219
+
+- Index: 219
+- testname: `widgets/tooltip_position_context_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_CaseDefinition' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same as Index 217 — private class `_CaseDefinition` constructor not bridged.
+- fix description (if clear): Same generator enhancement as Index 217.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `43`
+
+## Batch-43 Classification Summary
+
+- Missing/stray status for Batch-43 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: two `_tabs` late-initialization errors (`static_selection_container_delegate_test`, `text_selection_gesture_detector_builder_delegate_test`).
+- Bridge/generator/interpreter classification: three BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`toolbar_items_parent_data_test` — `_TimelineStep`, `toolbar_options_test` — `_LegacyToolbarProfile`, `tooltip_position_context_test` — `_CaseDefinition`). All three require generator enhancement for private class constructors.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
