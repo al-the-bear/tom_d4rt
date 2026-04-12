@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-70 (issues 0..354 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-71 (issues 0..359 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4944,4 +4944,75 @@ Scope: Batch-0 to Batch-70 (issues 0..354 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-70 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: none primary in this batch.
 - Bridge/generator/interpreter classification: five state-property exposure issues (`magnifier_decoration_test`, `navigation_toolbar_test`, `overflow_bar_test`, `overflow_box_test`, `page_storage_bucket_test`) from unresolved inherited `State.widget` on interpreted states.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-71 (Issues 355-359)
+
+### Index 355
+
+- Index: 355
+- testname: `widgets/page_storage_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across page-storage scene states.
+- detailed analysis what the problem is: Interpreted `State` subclasses in this scenario still cannot resolve inherited `State.widget`, matching the recurring bridge property-exposure gap seen in recent widget batches.
+- fix description (if clear): Apply the generalized inherited `State.widget` bridge-property exposure fix used for other deep-demo state scenes.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `71`
+
+### Index 356
+
+- Index: 356
+- testname: `widgets/parent_data_widget_test.dart`
+- category: `BRIDGE-MISSING-METHOD-DISPATCH + TEST-SCRIPT-LAYOUT-CONSTRAINT`
+- immediate fix possible: `no — mixed bridge and script fixes required`
+- description: Test passes but logs `Undefined variable: layoutChild` on `_DemoLayoutDelegate` and a downstream layout/semantics assertion (`!childSemantics.renderObject._needsLayout`).
+- detailed analysis what the problem is: This is a mixed defect. The bridge/runtime path does not resolve delegate method dispatch for `layoutChild` in the interpreted `MultiChildLayoutDelegate` flow, and the resulting incomplete child layout triggers the follow-on framework assertion.
+- fix description (if clear): (1) Add/repair delegate method dispatch exposure for `layoutChild` in the bridge/runtime delegate path. (2) Re-run and stabilize script layout sequencing to ensure child render objects are fully laid out before semantics checks.
+- need for deeper analysis?: `yes — mixed delegate dispatch and layout pipeline`
+- batch number: `71`
+
+### Index 357
+
+- Index: 357
+- testname: `widgets/performance_overlay_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION + TEST-SCRIPT-OVERFLOW`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access for `_controller` and a severe bottom overflow (`RenderFlex overflowed by 99738 pixels`).
+- detailed analysis what the problem is: The script has a state-initialization defect (`_controller` read before assignment) and an independent layout sizing defect that allows content to exceed viewport bounds massively.
+- fix description (if clear): Initialize `_controller` on all execution paths before first use and rework layout constraints/flex sizing (or scrolling fallback) to eliminate overflow warnings.
+- need for deeper analysis?: `no`
+- batch number: `71`
+
+### Index 358
+
+- Index: 358
+- testname: `widgets/physical_model_test.dart`
+- category: `BRIDGE-MISSING-INSTANCE-METHOD (List.whereType)`
+- immediate fix possible: `no — requires bridge collection method support`
+- description: Test passes but logs `Bridged class 'List' has no instance method named 'whereType'` during extension lookup.
+- detailed analysis what the problem is: This is the recurring bridge/runtime collection-method exposure gap where interpreted/bridged `List` does not surface `whereType` for widget flows.
+- fix description (if clear): Extend bridge/runtime `List` method exposure to include `whereType` in the same path as other iterable extension-compatible methods.
+- need for deeper analysis?: `yes — shared collection method exposure path`
+- batch number: `71`
+
+### Index 359
+
+- Index: 359
+- testname: `widgets/render_object_element_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires constructor argument coercion enhancement`
+- description: Test passes but `Container` constructor rejects `child` because `Widget?` is expected and an interpreted widget instance is provided.
+- detailed analysis what the problem is: This is a constructor-boundary coercion gap: interpreted widget subclasses are not being unwrapped/coerced to native `Widget` for `Container(child: ...)` invocation.
+- fix description (if clear): Add constructor argument coercion for `Container.child` (and equivalent widget-typed constructor parameters) so interpreted widget instances are converted before native invocation.
+- need for deeper analysis?: `yes — constructor widget coercion path`
+- batch number: `71`
+
+## Batch-71 Classification Summary
+
+- Missing/stray status for Batch-71 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one mixed bridge+layout issue (`parent_data_widget_test`) and one script-only state-init/overflow issue (`performance_overlay_test`).
+- Bridge/generator/interpreter classification: one state-property exposure issue (`page_storage_test`), one collection-method exposure issue (`physical_model_test`), one widget constructor coercion issue (`render_object_element_test`), plus the delegate dispatch part of the mixed `parent_data_widget_test` issue.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
