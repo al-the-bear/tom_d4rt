@@ -61,6 +61,8 @@ Batch-25 follow-up note (20260412-0949-issue-analysis): the five Batch-25 script
 
 Batch-26 follow-up note (20260412-0949-issue-analysis): the five Batch-26 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/regular_window_controller_delegate_test.dart`, `widgets/regular_window_controller_linux_test.dart`, `widgets/regular_window_controller_mac_o_s_test.dart`, `widgets/regular_window_controller_test.dart`, `widgets/regular_window_controller_win32_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-26. A dedicated regression test script for `RegularWindowController*` widget coercion hierarchy is still missing and is tracked below as a file that needs to be created.
 
+Batch-27 follow-up note (20260412-0949-issue-analysis): the five Batch-27 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/regular_window_test.dart`, `widgets/relative_positioned_transition_test.dart`, `widgets/render_abstract_layout_builder_mixin_test.dart`, `widgets/render_nested_scroll_view_viewport_test.dart`, `widgets/render_object_to_widget_adapter_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-27. A dedicated regression test script for `_BootstrapStepInfo` private-class constructor bridge handling is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1825,6 +1827,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [render_nested_scroll_view_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_nested_scroll_view_viewport_test.dart) | RenderNestedScrollViewViewport | Yes | Yes | No |
 | [render_object_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_element_test.dart) | RenderObjectElement | No | Yes | No | Created on 2026-04-15 at 10:00. |
 | [render_object_to_widget_adapter_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_adapter_test.dart) | RenderObjectToWidgetAdapter | No | Yes | No | Deep demo (1255 lines): Adapter bridging, attachToRenderTree, bootstrap lab, element lifecycle phases. |
+| render_object_to_widget_adapter_bootstrap_private_constructor_regression_test.dart | _BootstrapStepInfo constructor | No | No | No | Needs to be created |
 | [render_object_to_widget_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_element_test.dart) | RenderObjectToWidgetElement | Yes | Yes | No |
 | [render_object_widget_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_widget_test.dart) | RenderObjectWidget | No | Yes | No | Created on 2026-04-10 at 17:00. |
 | [render_object_widgets_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_widgets_adv_test.dart) | RenderObjectWidgetsAdv | No | Yes | No | Checked. |

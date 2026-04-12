@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-26 (issues 0..134 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-27 (issues 0..139 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1862,4 +1862,72 @@ Scope: Batch-0 to Batch-26 (issues 0..134 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-26 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: no standalone script-only warnings in this batch; all five failures are bridge-level coercion defects.
 - Bridge/generator/interpreter classification: all five issues are `BRIDGE-WIDGET-COERCION` — the `RegularWindowController*` family (delegate, linux, macOS, base, win32) all fail identically because the interpreter returns `InterpretedInstance` where a concrete `Widget` is expected. A single coercion-handler registration covering the `RegularWindowController` hierarchy would resolve the entire batch.
+
+## Batch-27
+
+### Index 135
+
+- Index: 135
+- testname: `widgets/regular_window_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The `RegularWindow` widget is constructed inside the interpreter but returned as an `InterpretedInstance` rather than a concrete `Widget`. Same coercion gap as the `RegularWindowController*` family in Batch-26, now affecting the base `RegularWindow` class itself.
+- fix description (if clear): Register `RegularWindow` in the widget coercion handler so interpretated instances are unwrapped to native `Widget` type.
+- need for deeper analysis?: `yes`
+- batch number: `27`
+
+### Index 136
+
+- Index: 136
+- testname: `widgets/relative_positioned_transition_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but produces 4 framework error logs: `A RenderFlex overflowed by 4.0 pixels on the bottom`.
+- detailed analysis what the problem is: The test script creates a layout scenario with `RelativePositionedTransition` that causes RenderFlex overflow during animation. The test does not fail because the overflow is caught as a non-fatal framework error, but the log output indicates the demo layout constraints are too tight for the content at certain animation phases.
+- fix description (if clear): Adjust the test script's container constraints (increase height or reduce child content) to prevent the 4.0-pixel bottom overflow. Alternatively, wrap the overflowing Flex in a `SingleChildScrollView` or increase the parent's `maxHeight`.
+- need for deeper analysis?: `no`
+- batch number: `27`
+
+### Index 137
+
+- Index: 137
+- testname: `widgets/render_abstract_layout_builder_mixin_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The deep demo (1215 lines) for `RenderAbstractLayoutBuilderMixin` constructs a widget tree in the interpreter, but the mixin's widget result is returned as `InterpretedInstance` instead of a concrete `Widget`. The bridge does not coerce mixin-based render objects back to their widget representation.
+- fix description (if clear): Register `RenderAbstractLayoutBuilderMixin` and its associated widget wrappers in the widget coercion handler, or add a UserBridge that maps the mixin's interpreted output to a `Widget`.
+- need for deeper analysis?: `yes`
+- batch number: `27`
+
+### Index 138
+
+- Index: 138
+- testname: `widgets/render_nested_scroll_view_viewport_test.dart`
+- category: `BRIDGE-LIST-TYPE-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast`.
+- detailed analysis what the problem is: The interpreter produces a `List<Object?>` when the `RenderNestedScrollViewViewport` constructor or child builder expects a `List<Widget>`. The bridge does not automatically coerce generic list types with `Object?` elements to the expected `List<Widget>` target type. This is the same `BRIDGE-LIST-TYPE-COERCION` pattern seen in earlier batches (e.g., Batch-23 Index 117).
+- fix description (if clear): Add a list coercion handler that casts `List<Object?>` to `List<Widget>` when the target parameter type is `List<Widget>`. Each element should be individually coerced through the widget coercion handler.
+- need for deeper analysis?: `no`
+- batch number: `27`
+
+### Index 139
+
+- Index: 139
+- testname: `widgets/render_object_to_widget_adapter_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (needs correction)`
+- immediate fix possible: `no`
+- description: Test failed with `Class '_BootstrapStepInfo' does not have an unnamed constructor that accepts arguments`.
+- detailed analysis what the problem is: The deep demo (1255 lines) for `RenderObjectToWidgetAdapter` uses a private class `_BootstrapStepInfo` in its bootstrap lab. The interpreter cannot find an unnamed constructor for `_BootstrapStepInfo` that accepts arguments because private-class constructors are not bridged automatically. The bridge generator does not produce constructor bindings for private classes.
+- fix description (if clear): Either make `_BootstrapStepInfo` a public class in the test script, or add a custom UserBridge that provides a factory for the private helper class. Alternatively, refactor the test to avoid private-class instantiation in interpreted code.
+- need for deeper analysis?: `yes`
+- batch number: `27`
+
+## Batch-27 Classification Summary
+
+- Missing/stray status for Batch-27 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: one layout-overflow log issue (`relative_positioned_transition_test` — RenderFlex overflow 4px, needs script constraint fix) and one list-type coercion log issue (`render_nested_scroll_view_viewport_test` — List<Object?> to List<Widget>).
+- Bridge/generator/interpreter classification: two widget coercion defects (`regular_window_test`, `render_abstract_layout_builder_mixin_test`), one list-type coercion issue (`render_nested_scroll_view_viewport_test`), and one missing default-constructor support for private class `_BootstrapStepInfo` (`render_object_to_widget_adapter_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
