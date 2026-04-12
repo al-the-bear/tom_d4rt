@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-16 (issues 0..84 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-17 (issues 0..89 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1173,3 +1173,72 @@ Scope: Batch-0 to Batch-16 (issues 0..84 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: three state-context access issues (`autocomplete_highlighted_option_test`, `autofill_group_state_test`, `backdrop_group_test`) and one major layout-constraints issue (`automatic_keep_alive_client_mixin_test`).
 - Bridge/generator/interpreter classification: one generic-constructor factory issue in `Router` handling (`back_button_listener_test`).
 - Known non-exhaustive switch signature in Batch-16: not detected in this batch.
+
+## Batch-17
+
+### Index 85
+
+- Index: 85
+- testname: `widgets/border_tween_test.dart`
+- category: `TEST-SCRIPT-BORDER-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted border assertions: borderRadius requires uniform border colors and hairline borders cannot use non-zero borderRadius.
+- detailed analysis what the problem is: The scenario constructs border combinations that violate Flutter border painting invariants (non-uniform `BorderSide.color` with rounded radius, and hairline border with radius). This is a script input-contract problem.
+- fix description (if clear): Adjust test/demo border inputs to use uniform colors when radius is applied and avoid hairline `BorderSide(width: 0.0)` with non-zero borderRadius.
+- need for deeper analysis?: `no`
+- batch number: `17`
+
+### Index 86
+
+- Index: 86
+- testname: `widgets/box_scroll_view_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but bridged `SizedBox` constructor rejected `child` because `Widget?` was expected and `InterpretedInstance(_PaletteStripBoxScrollView)` was provided.
+- detailed analysis what the problem is: This is a bridge coercion gap at constructor argument boundary where interpreted widget instances are not converted/unwrapped to native Flutter `Widget`.
+- fix description (if clear): Add bridge/UserBridge coercion for `SizedBox(child: ...)` argument handling so interpreted widget instances are converted to native widgets before constructor invocation.
+- need for deeper analysis?: `yes`
+- batch number: `17`
+
+### Index 87
+
+- Index: 87
+- testname: `widgets/clip_r_superellipse_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning shows late variable `_pulse` accessed before assignment.
+- detailed analysis what the problem is: The script accesses animation/state variable `_pulse` before initialization in one or more execution branches.
+- fix description (if clear): Ensure `_pulse` is initialized in all setup paths before use and add explicit initialized-state checks.
+- need for deeper analysis?: `no`
+- batch number: `17`
+
+### Index 88
+
+- Index: 88
+- testname: `widgets/constrained_layout_builder_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted repeated `RenderFlex` overflow warnings (multiple bottom/right overflow amounts).
+- detailed analysis what the problem is: Layout variants in the constrained-layout-builder scenario exceed available viewport constraints, causing recurring overflow in multiple states.
+- fix description (if clear): Rework sizing and responsive constraints for each layout branch (bounded heights/widths, `Flexible`/`Expanded`, or scroll fallback) and enforce zero overflow warnings.
+- need for deeper analysis?: `no`
+- batch number: `17`
+
+### Index 89
+
+- Index: 89
+- testname: `widgets/constraints_transform_box_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted multiple `RenderConstraintsTransformBox` overflow warnings on several sides.
+- detailed analysis what the problem is: The transformed constraints in the scenario push render bounds beyond available region in several configurations, indicating script-side sizing/transform mismatch.
+- fix description (if clear): Tune transform and constraint parameters to keep transformed child bounds within viewport/container limits, and fail script when overflow warnings occur.
+- need for deeper analysis?: `no`
+- batch number: `17`
+
+## Batch-17 Classification Summary
+
+- Missing/stray status for Batch-17 scripts: none missing, none stray.
+- Test-script issue classification: one border-contract issue (`border_tween_test`), one state-initialization issue (`clip_r_superellipse_test`), and two overflow groups (`constrained_layout_builder_test`, `constraints_transform_box_test`).
+- Bridge/generator/interpreter classification: one widget coercion issue in `SizedBox` child handling (`box_scroll_view_test`).
+- Known non-exhaustive switch signature in Batch-17: not detected in this batch.

@@ -41,6 +41,8 @@ Batch-15 follow-up note (20260412-0949-issue-analysis): the five Batch-15 script
 
 Batch-16 follow-up note (20260412-0949-issue-analysis): the five Batch-16 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/autocomplete_highlighted_option_test.dart`, `widgets/autofill_group_state_test.dart`, `widgets/automatic_keep_alive_client_mixin_test.dart`, `widgets/back_button_listener_test.dart`, `widgets/backdrop_group_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-16. A dedicated regression test script for `Router` generic-constructor factory null-check handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-17 follow-up note (20260412-0949-issue-analysis): the five Batch-17 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/border_tween_test.dart`, `widgets/box_scroll_view_test.dart`, `widgets/clip_r_superellipse_test.dart`, `widgets/constrained_layout_builder_test.dart`, `widgets/constraints_transform_box_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-17. A dedicated regression test script for bridged `SizedBox` child widget coercion in box-scroll-view flows is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1417,6 +1419,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [bouncing_scroll_simulation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/bouncing_scroll_simulation_test.dart) | BouncingScrollSimulation | No | Yes | No | Created on 2026-04-08. |
 | [box_constraints_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_constraints_tween_test.dart) | BoxConstraintsTween | No | Yes | No | Created on 2026-04-08. |
 | [box_scroll_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart) | BoxScrollView | No | Yes | No | Created on 2026-03-30 at 15:21. |
+| [box_scroll_view_sizedbox_child_widget_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_sizedbox_child_widget_coercion_regression_test.dart) | BoxScrollViewSizedBoxChildWidgetCoercionRegression | No | No | No | Needs to be created (Batch-17 failure pattern: bridged `SizedBox` constructor receives interpreted child where `Widget?` is required). |
 | [build_owner_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_owner_test.dart) | BuildOwner | No | Yes | No | Created on 2026-04-08. |
 | [build_scope_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/build_scope_test.dart) | BuildScope | No | Yes | No | Created on 2026-04-08. |
 | [builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/builder_test.dart) | Builder | No | Yes | No |
