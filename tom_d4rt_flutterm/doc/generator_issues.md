@@ -237,3 +237,18 @@ issue-index: 83
 - Follow-up recommendation:
 	- Harden generator/UserBridge generic constructor handling for `Router` by ensuring non-null typed argument extraction before null-check assertions.
 	- Add regression tests for `Router` constructor factory flows, including back-button listener integration paths and null-argument diagnostics.
+
+batch: 17
+
+issue-index: 86
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/box_scroll_view_test.dart`
+- Symptom: widget coercion failure at `SizedBox(child: ...)` boundary (`expected Widget?, got InterpretedInstance(_PaletteStripBoxScrollView)`).
+- Immediate outcome: script was rewritten to use bounded native widget children directly and now passes targeted rerun with `frameworkErrors=0`.
+- Deep analysis:
+	- This failure matches the recurring bridge/generator widget coercion defect class where interpreted widget instances are not normalized before native constructor invocation.
+	- The boundary-specific signature in `SizedBox` indicates child-argument coercion is still inconsistent for constructor parameters typed as `Widget?`.
+	- Script-level mitigation stabilizes the batch but does not restore full interpreted widget composition support through native constructor paths.
+- Follow-up recommendation:
+	- Add bridge/UserBridge coercion for constructor parameters typed as `Widget?`, specifically ensuring interpreted instances are converted/unwrapped before `SizedBox` invocation.
+	- Add regression coverage for constructor child parameters in common layout widgets (`SizedBox`, `Container`, `Padding`) receiving interpreted widget instances.

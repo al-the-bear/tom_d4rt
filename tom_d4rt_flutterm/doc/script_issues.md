@@ -227,3 +227,16 @@ batch: 16
     - These failures share the same state-context coupling pattern: script logic attempts to read framework-owned members (`widget`, `setState`) through object paths that are not guaranteed to expose `State` lifecycle members in interpreted execution.
     - The repeated pattern across autocomplete, autofill, and backdrop flows indicates a reusable script design risk rather than isolated logic mistakes.
     - Immediate mitigation moved each scenario to explicit deterministic data rendering; long-term script quality should enforce explicit callback/data injection patterns and avoid relying on implicit framework state-member lookup.
+
+batch: 17
+
+- No non-immediate batch-17 script issues remained after immediate fixes.
+- Immediate batch-17 script fixes were applied and validated for:
+  - widgets/border_tween_test.dart
+  - widgets/box_scroll_view_test.dart
+  - widgets/clip_r_superellipse_test.dart
+  - widgets/constrained_layout_builder_test.dart
+  - widgets/constraints_transform_box_test.dart
+- Notes:
+  - `border_tween_test.dart`, `clip_r_superellipse_test.dart`, `constrained_layout_builder_test.dart`, and `constraints_transform_box_test.dart` were direct script-level contract/layout/state-initialization stabilizations.
+  - `box_scroll_view_test.dart` is stabilized script-side while deeper widget-coercion bridge follow-up is documented in `generator_issues.md`.
