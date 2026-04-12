@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-3 (issues 0..19 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-4 (issues 0..24 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -276,3 +276,72 @@ Scope: Batch-0 to Batch-3 (issues 0..19 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: one script constructor-argument misuse (`placeholder_alignment_test`) and one platform-guard issue (`system_color_palette_test`).
 - Bridge/generator/interpreter classification: one `Vertices` constructor argument-coercion bridge issue and one shared missing `Object` default-constructor bridge issue (affecting two tests).
 - Known non-exhaustive switch signature in Batch-3: not detected in this batch.
+
+## Batch-4
+
+### Index 20
+
+- Index: 20
+- testname: `foundation/object_event_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: 'Object' is not callable (no default constructor bridge found).`
+- detailed analysis what the problem is: This is the same root constructor-bridge gap already observed in Batch-3 for `Object` instantiation. The failure confirms the issue affects multiple object lifecycle scripts and should be fixed centrally in bridge/runtime behavior.
+- fix description (if clear): Add default constructor support/fallback for `Object` in bridge/runtime resolution and rerun object lifecycle tests (`object_created`, `object_disposed`, `object_event`).
+- need for deeper analysis?: `yes`
+- batch number: `4`
+
+### Index 21
+
+- Index: 21
+- testname: `foundation/target_platform_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with native constructor error for `Text`: `Invalid parameter "data": expected String, got Null`.
+- detailed analysis what the problem is: The failing path attempts to construct `Text` with a null `data` argument. This is primarily a script/test construction contract issue (non-null string required), not a non-exhaustive-switch case.
+- fix description (if clear): Ensure the script always passes a non-null string to `Text` (fallback/default value before constructor call) and keep the assertion logic unchanged.
+- need for deeper analysis?: `no`
+- batch number: `4`
+
+### Index 22
+
+- Index: 22
+- testname: `gestures/class_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure from `DragEndDetails` constructor assertion about inconsistent `primaryVelocity` versus 2D velocity vector.
+- detailed analysis what the problem is: The test script passes argument combinations that violate Flutter's constructor invariants for `DragEndDetails` (`primaryVelocity` must align with exactly one axis or be null).
+- fix description (if clear): Adjust script input generation so `primaryVelocity` is null or axis-consistent with `velocity.pixelsPerSecond`; add explicit constructor invariant checks in the test setup.
+- need for deeper analysis?: `no`
+- batch number: `4`
+
+### Index 23
+
+- Index: 23
+- testname: `(setUpAll)` in `test/hardly_relevant_classes_2_test.dart`
+- category: `TEST-HARNESS-LOG-ONLY`
+- immediate fix possible: `yes`
+- description: Non-failing setup output is indexed as an issue due to current non-metric log extraction behavior.
+- detailed analysis what the problem is: The bridge-regeneration skipped message is operational and expected, not a runtime or script defect.
+- fix description (if clear): Treat this setup message as informational and exclude it from issue indexing while retaining it in raw logs.
+- need for deeper analysis?: `no`
+- batch number: `4`
+
+### Index 24
+
+- Index: 24
+- testname: `material/bottom_navigation_bar_type_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The bridge/interpreter path returns an interpreted object where a concrete `Widget` is required. This is a known coercion gap also seen in other material/widget tests.
+- fix description (if clear): Add bridge coercion handling to unwrap/convert `InterpretedInstance` to native `Widget` at the relevant boundary (constructor/method return path), and add a focused regression script for this pattern.
+- need for deeper analysis?: `yes`
+- batch number: `4`
+
+## Batch-4 Classification Summary
+
+- Missing/stray status for Batch-4 scripts: none missing, none stray.
+- Test-script issue classification: two constructor-contract issues in script inputs (`target_platform_test`, `gestures/class_test`).
+- Bridge/generator/interpreter classification: one shared missing `Object` default-constructor bridge issue and one widget coercion gap (`Expected Widget but got InterpretedInstance`).
+- Known non-exhaustive switch signature in Batch-4: not detected in this batch.

@@ -15,6 +15,8 @@ Batch-2 follow-up note (20260412-0949-issue-analysis): the five Batch-2 scripts 
 
 Batch-3 follow-up note (20260412-0949-issue-analysis): the five Batch-3 scripts from `hardly_relevant_classes_1_test.dart` (`dart_ui/placeholder_alignment_test.dart`, `dart_ui/system_color_palette_test.dart`, `dart_ui/vertex_mode_test.dart`, `foundation/object_created_test.dart`, `foundation/object_disposed_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-3. A dedicated regression test script for missing default constructor bridge support on `Object` is still missing and is tracked below as a file that needs to be created.
 
+Batch-4 follow-up note (20260412-0949-issue-analysis): the four Batch-4 scripts (`foundation/object_event_test.dart`, `foundation/target_platform_test.dart`, `gestures/class_test.dart` from `hardly_relevant_classes_1_test.dart`, and `material/bottom_navigation_bar_type_test.dart` from `hardly_relevant_classes_2_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-4. A dedicated regression test script for widget coercion mismatches (`Expected Widget but got InterpretedInstance`) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -443,6 +445,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [bottom_navigation_bar_theme_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_data_test.dart) | BottomNavigationBarThemeData | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [bottom_navigation_bar_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_theme_test.dart) | BottomNavigationBarTheme | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [bottom_navigation_bar_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart) | BottomNavigationBarType | No | Yes | No | Verified 25.03.2026 - 1950 lines |
+| [bottom_navigation_widget_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_widget_coercion_regression_test.dart) | BottomNavigationWidgetCoercionRegression | No | No | No | Needs to be created (Batch-4 failure pattern: expected `Widget`, got `InterpretedInstance`). |
 | [bottomappbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomappbar_test.dart) | BottomAppBar | No | Yes | No |
 | [bottomnavigationbar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottomnavigationbar_test.dart) | BottomNavigationBar | No | Yes | No | Checked. |
 | [button_bar_layout_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart) | ButtonBarLayoutBehavior | No | Yes | No | Batch 58 deep demo. |
