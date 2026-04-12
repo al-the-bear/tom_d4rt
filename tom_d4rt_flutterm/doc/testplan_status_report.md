@@ -83,6 +83,8 @@ Batch-36 follow-up note (20260412-0949-issue-analysis): the five Batch-36 script
 
 Batch-37 follow-up note (20260412-0949-issue-analysis): the five Batch-37 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/scrollable_details_test.dart`, `widgets/scrollbar_orientation_test.dart`, `widgets/scrollbar_painter_test.dart`, `widgets/select_action_test.dart`, `widgets/select_all_text_intent_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-37. Three issues are `_tabCtrl` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). One issue is BRIDGE-MISSING-STATE-WIDGET-ACCESSOR (`scrollbar_orientation_test` — inherited `widget` getter not resolved on private State subclass). One issue is BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (`select_action_test` — private `_ChainItem` constructor). Regression test rows for both are tracked below.
 
+Batch-38 follow-up note (20260412-0949-issue-analysis): the five Batch-38 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/select_intent_test.dart`, `widgets/selectable_region_state_test.dart`, `widgets/selection_container_delegate_test.dart`, `widgets/selection_details_test.dart`, `widgets/semantics_gesture_delegate_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-38. All five issues are `_tabCtrl` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**

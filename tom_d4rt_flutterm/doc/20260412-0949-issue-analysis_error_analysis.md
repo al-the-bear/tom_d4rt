@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-37 (issues 0..189 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-38 (issues 0..194 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2610,4 +2610,72 @@ Scope: Batch-0 to Batch-37 (issues 0..189 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-37 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three `_tabCtrl` late-initialization errors (`scrollable_details_test`, `scrollbar_painter_test`, `select_all_text_intent_test`) — continuing the `_tabCtrl` late-init template pattern.
 - Bridge/generator/interpreter classification: one BRIDGE-MISSING-STATE-WIDGET-ACCESSOR (`scrollbar_orientation_test`) — inherited `widget` getter not resolved on private `_OrientedPanelState`; one BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (`select_action_test`) — private `_ChainItem` constructor not bridged.
+
+## Batch-38
+
+### Index 190
+
+- Index: 190
+- testname: `widgets/select_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern continuing from Batches 35-37. The `SelectIntent` deep demo (1545 lines) has an uninitialized late `_tabCtrl` field in its demo state class.
+- fix description (if clear): Initialize `_tabCtrl` in `initState()` or replace with a non-late field. Same template-level fix as Batches 28-37.
+- need for deeper analysis?: `no`
+- batch number: `38`
+
+### Index 191
+
+- Index: 191
+- testname: `widgets/selectable_region_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `SelectableRegionState` deep demo (1526 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 190.
+- need for deeper analysis?: `no`
+- batch number: `38`
+
+### Index 192
+
+- Index: 192
+- testname: `widgets/selection_container_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `SelectionContainerDelegate` deep demo (1589 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 190.
+- need for deeper analysis?: `no`
+- batch number: `38`
+
+### Index 193
+
+- Index: 193
+- testname: `widgets/selection_details_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `SelectionDetails` demo script has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 190.
+- need for deeper analysis?: `no`
+- batch number: `38`
+
+### Index 194
+
+- Index: 194
+- testname: `widgets/semantics_gesture_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `SemanticsGestureDelegate` demo script has the identical uninitialized late field. All five Batch-38 issues are the same `_tabCtrl` late-init variant.
+- fix description (if clear): Same template-level fix. The `_tabCtrl`/`_tabs`/`_tabController` late-init issue now spans Batches 28-38 (35+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `38`
+
+## Batch-38 Classification Summary
+
+- Missing/stray status for Batch-38 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabCtrl` late-initialization errors (`select_intent_test`, `selectable_region_state_test`, `selection_container_delegate_test`, `selection_details_test`, `semantics_gesture_delegate_test`) — continuing the `_tabCtrl` late-init template pattern from Batches 35-37.
+- Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
