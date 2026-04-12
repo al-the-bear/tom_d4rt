@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-44 (issues 0..224 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-45 (issues 0..229 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3098,4 +3098,74 @@ Scope: Batch-0 to Batch-44 (issues 0..224 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-44 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: two `_tabController` late-initialization errors (`tooltip_window_test`, `transpose_characters_intent_test`).
 - Bridge/generator/interpreter classification: two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`tooltip_window_controller_delegate_test` — `_PolicyPreset`, `tooltip_window_controller_test` — `_Pattern`). One combined BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION issue (`transition_delegate_test` — `setState` on `_DefaultDemoPageState` plus `TransitionDelegate` coercion failure).
+
+---
+
+# Batch-45 (Issues 225-229)
+
+### Index 225
+
+- Index: 225
+- testname: `widgets/traversal_direction_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_PolicyProfile' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Private class `_PolicyProfile` constructor is not bridged. Same category as previous BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issues. The D4rt bridge generator does not generate unnamed constructor support for private classes with positional/named parameters.
+- fix description (if clear): Generator enhancement for private class constructor support, or register a custom UserBridge/factory.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `45`
+
+### Index 226
+
+- Index: 226
+- testname: `widgets/traversal_edge_behavior_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_Playbook' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same as Index 225 — private class `_Playbook` constructor not bridged.
+- fix description (if clear): Same generator enhancement as Index 225.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `45`
+
+### Index 227
+
+- Index: 227
+- testname: `widgets/tree_sliver_state_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template pattern, `_tabController` variant. The `TreeSliverStateMixin` demo script references a `_tabController` field that is never initialized.
+- fix description (if clear): Same template-level fix — initialize `_tabController` in `initState()`.
+- need for deeper analysis?: `no`
+- batch number: `45`
+
+### Index 228
+
+- Index: 228
+- testname: `widgets/two_dimensional_child_builder_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template pattern, `_tabs` variant.
+- fix description (if clear): Same template-level fix — initialize `_tabs` in `initState()`.
+- need for deeper analysis?: `no`
+- batch number: `45`
+
+### Index 229
+
+- Index: 229
+- testname: `widgets/two_dimensional_child_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern. All three TEST-SCRIPT-STATE-CONTEXT issues in this batch are the same root cause with mixed variable names (`_tabController` and `_tabs`).
+- fix description (if clear): Same template-level fix. The late-init issue now spans Batches 28-45 (50+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `45`
+
+## Batch-45 Classification Summary
+
+- Missing/stray status for Batch-45 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three late-initialization errors — two `_tabController` (`tree_sliver_state_mixin_test`, `two_dimensional_child_delegate_test`) and one `_tabs` (`two_dimensional_child_builder_delegate_test`).
+- Bridge/generator/interpreter classification: two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`traversal_direction_test` — `_PolicyProfile`, `traversal_edge_behavior_test` — `_Playbook`). Both require generator enhancement for private class constructors.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
