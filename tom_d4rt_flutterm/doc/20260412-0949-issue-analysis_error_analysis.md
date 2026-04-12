@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-56 (issues 0..284 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-57 (issues 0..289 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3950,4 +3950,75 @@ Scope: Batch-0 to Batch-56 (issues 0..284 from `20260412-0949-issue-analysis_tes
 - Test-script issue classification: three layout-constraint defects requiring script correction (`cupertino_secondary_test`, `cupertino_form_scroll_test`, `cupertino_controls_advanced_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-CALLBACK-TYPE-COERCION` failure (`services/channels_test` `BasicMessageChannel.setMessageHandler` callback signature mismatch).
 - Harness/log-only classification: one setup informational output (`setUpAll` in `secondary_classes_test.dart`) with no functional defect.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-57 (Issues 285-289)
+
+### Index 285
+
+- Index: 285
+- testname: `cupertino/cupertino_sections_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework errors: repeated negative minimum-height constraints, `_RenderEditableCustomPaint` not laid out, and semantics/layout assertions.
+- detailed analysis what the problem is: The script composes editable Cupertino content under invalid constraints, producing the same render/layout assertion cascade seen in adjacent batches. This signature indicates script-level layout contract violations, not a bridge/generator/interpreter failure.
+- fix description (if clear): Adjust layout composition to enforce bounded, non-negative constraints for editable descendants and validate the scenario with zero framework errors in the test log.
+- need for deeper analysis?: `no`
+- batch number: `57`
+
+### Index 286
+
+- Index: 286
+- testname: `cupertino/cupertino_tabbar_scaffold_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs many framework errors: repeated negative minimum-height constraints, multiple `_RenderEditableCustomPaint` layout assertions, and semantics/layout assertion failure.
+- detailed analysis what the problem is: Same layout-constraint defect family as Index 285, with higher multiplicity due more affected widget paths in the tab scaffold scenario. No direct signal of runtime bridge/interpreter limitation.
+- fix description (if clear): Refactor script layout around tab/content sections to provide stable bounded constraints for editable/render objects and remove assertion-producing nesting patterns.
+- need for deeper analysis?: `no`
+- batch number: `57`
+
+### Index 287
+
+- Index: 287
+- testname: `material/button_types_test.dart`
+- category: `TEST-SCRIPT-DEPRECATED-API-SKIP`
+- immediate fix possible: `yes`
+- description: Skipped with log: `Uses deprecated Flutter API: ButtonBar`.
+- detailed analysis what the problem is: This is an intentional compatibility skip because the script depends on deprecated API usage. It is not a bridge/generator/interpreter failure.
+- fix description (if clear): Migrate the script away from deprecated `ButtonBar` usage (for example to current button layout widgets) and re-enable execution; until migrated, keep explicit skip classification.
+- need for deeper analysis?: `no`
+- batch number: `57`
+
+### Index 288
+
+- Index: 288
+- testname: `material/toggle_segmented_test.dart`
+- category: `TEST-SCRIPT-DEPRECATED-API-SKIP`
+- immediate fix possible: `yes`
+- description: Skipped with log: `Uses deprecated Flutter API: ButtonBar`.
+- detailed analysis what the problem is: Same deprecated-API skip pattern as Index 287. This is intentional script gating, not runtime bridge/interpreter breakage.
+- fix description (if clear): Replace deprecated `ButtonBar` usage with supported widgets and remove skip once migration is complete.
+- need for deeper analysis?: `no`
+- batch number: `57`
+
+### Index 289
+
+- Index: 289
+- testname: `material/button_styles_misc_test.dart`
+- category: `TEST-SCRIPT-DEPRECATED-API-SKIP`
+- immediate fix possible: `yes`
+- description: Skipped with log: `Uses deprecated Flutter API: ButtonBarThemeData`.
+- detailed analysis what the problem is: Intentional skip due deprecated Flutter API dependency in script. Not a bridge/generator/interpreter issue.
+- fix description (if clear): Migrate from deprecated `ButtonBarThemeData` usage to current theming approach and re-enable the test script.
+- need for deeper analysis?: `no`
+- batch number: `57`
+
+## Batch-57 Classification Summary
+
+- Missing/stray status for Batch-57 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: two layout-constraint defects (`cupertino_sections_test`, `cupertino_tabbar_scaffold_test`) and three intentional deprecated-API skips (`button_types_test`, `toggle_segmented_test`, `button_styles_misc_test`).
+- Bridge/generator/interpreter classification: none identified in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
