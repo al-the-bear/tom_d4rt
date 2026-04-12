@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-69 (issues 0..349 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-70 (issues 0..354 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4873,4 +4873,75 @@ Scope: Batch-0 to Batch-69 (issues 0..349 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-69 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one state-context initialization defect (`inherited_notifier_test`).
 - Bridge/generator/interpreter classification: two widget coercion issues (`inherited_theme_test`, `inherited_widget_test` for `Directionality.child`) and two state-property exposure issues (`list_wheel_scroll_view_test`, `list_wheel_viewport_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-70 (Issues 350-354)
+
+### Index 350
+
+- Index: 350
+- testname: `widgets/magnifier_decoration_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across magnifier scene states.
+- detailed analysis what the problem is: Interpreted `State` subclasses cannot resolve inherited `State.widget`, matching the recurring state-context bridge exposure gap.
+- fix description (if clear): Apply generalized inherited `State.widget` property exposure fix for interpreted deep-demo state classes.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `70`
+
+### Index 351
+
+- Index: 351
+- testname: `widgets/navigation_toolbar_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across navigation-toolbar scene states.
+- detailed analysis what the problem is: Same bridge runtime property-resolution defect (`State.widget`) affecting interpreted state subclasses in this scenario.
+- fix description (if clear): Reuse the shared inherited `State.widget` exposure fix used for prior widget scene-state failures.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `70`
+
+### Index 352
+
+- Index: 352
+- testname: `widgets/overflow_bar_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across overflow-bar scene states.
+- detailed analysis what the problem is: Inherited `State.widget` lookup is not exposed for interpreted state classes in this deep-demo flow.
+- fix description (if clear): Apply generalized bridge property exposure for inherited `State.widget` in interpreted `State` subclasses.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `70`
+
+### Index 353
+
+- Index: 353
+- testname: `widgets/overflow_box_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across overflow-box scene states.
+- detailed analysis what the problem is: Same inherited `State.widget` bridge-property resolution failure as other deep-demo widget scene tests.
+- fix description (if clear): Reuse shared `State.widget` bridge-property exposure fix path.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `70`
+
+### Index 354
+
+- Index: 354
+- testname: `widgets/page_storage_bucket_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across page-storage scene states.
+- detailed analysis what the problem is: Same recurring inherited `State.widget` exposure gap in interpreted state objects.
+- fix description (if clear): Apply the generalized inherited `State.widget` bridge-property exposure fix across all affected scene states.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `70`
+
+## Batch-70 Classification Summary
+
+- Missing/stray status for Batch-70 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: none primary in this batch.
+- Bridge/generator/interpreter classification: five state-property exposure issues (`magnifier_decoration_test`, `navigation_toolbar_test`, `overflow_bar_test`, `overflow_box_test`, `page_storage_bucket_test`) from unresolved inherited `State.widget` on interpreted states.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
