@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-13 (issues 0..69 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-14 (issues 0..74 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -966,3 +966,72 @@ Scope: Batch-0 to Batch-13 (issues 0..69 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one constructor-arg contract issue (`render_clip_r_superellipse_test`), one editable layout-constraints issue (`render_editable_painter_test`), one state-context variable resolution issue (`render_sliver_floating_pinned_persistent_header_test`), and one additional overflow warning coupled with bridge defect in `render_animated_size_state_test`.
 - Bridge/generator/interpreter classification: two widget coercion issues (`render_animated_size_state_test`, `render_sliver_box_child_manager_test`).
 - Known non-exhaustive switch signature in Batch-13: not detected in this batch.
+
+## Batch-14
+
+### Index 70
+
+- Index: 70
+- testname: `rendering/render_ui_kit_view_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `widget` (`Undefined property 'widget' on _PrimerSceneState`).
+- detailed analysis what the problem is: This mirrors the same state-context access problem seen in adjacent rendering scripts where `widget` is referenced on a state object/path that does not expose it in interpreted execution.
+- fix description (if clear): Refactor scenario data flow to pass required values explicitly instead of implicit `widget` access, and assert valid state context before reads.
+- need for deeper analysis?: `yes`
+- batch number: `14`
+
+### Index 71
+
+- Index: 71
+- testname: `services/message_codec_test.dart`
+- category: `BRIDGE-MISSING-MEMBER (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Undefined property or method 'lengthInBytes' on _ByteDataView`.
+- detailed analysis what the problem is: The codec path expects `lengthInBytes` to be available on the bridged byte-data view object, but bridge/runtime exposure is incomplete for this member.
+- fix description (if clear): Add bridge support/UserBridge override so `_ByteDataView.lengthInBytes` is exposed and typed correctly in message codec execution paths.
+- need for deeper analysis?: `yes`
+- batch number: `14`
+
+### Index 72
+
+- Index: 72
+- testname: `services/method_codec_test.dart`
+- category: `BRIDGE-MISSING-MEMBER (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Cannot access property 'lengthInBytes' on target of type _ByteDataView`.
+- detailed analysis what the problem is: This is the same root bridge-member exposure/coercion gap as Index 71, confirmed by a second codec path.
+- fix description (if clear): Resolve `_ByteDataView.lengthInBytes` bridge exposure centrally and re-run both message and method codec tests.
+- need for deeper analysis?: `yes`
+- batch number: `14`
+
+### Index 73
+
+- Index: 73
+- testname: `services/raw_key_up_event_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted 15 framework layout errors about infinite size across paragraph/padding/flex/decorated/constrained boxes.
+- detailed analysis what the problem is: The script composes a subtree under unbounded constraints, repeatedly triggering infinite-size layout assertions. This is a script scaffold/layout-contract issue rather than a bridge/generator defect.
+- fix description (if clear): Constrain parent/container sizes in the raw-key-up scenario, ensure bounded layout for descendants, and enforce zero framework warning output.
+- need for deeper analysis?: `no`
+- batch number: `14`
+
+### Index 74
+
+- Index: 74
+- testname: `(setUpAll)` in `test/hardly_relevant_classes_4_test.dart`
+- category: `TEST-HARNESS-LOG-ONLY`
+- immediate fix possible: `yes`
+- description: Non-failing setup output is indexed as an issue due to log extraction rules.
+- detailed analysis what the problem is: The bridge-regeneration skipped message is expected setup telemetry and not an actual runtime/script defect.
+- fix description (if clear): Keep this output in raw logs but classify it as informational so it is excluded from issue indexing.
+- need for deeper analysis?: `no`
+- batch number: `14`
+
+## Batch-14 Classification Summary
+
+- Missing/stray status for Batch-14 scripts: none missing, none stray.
+- Test-script issue classification: one state-context issue (`render_ui_kit_view_test`), one large unbounded-layout issue (`raw_key_up_event_test`), and one harness-log classification item (`setUpAll` in `hardly_relevant_classes_4_test.dart`).
+- Bridge/generator/interpreter classification: shared bridge missing-member issue for `_ByteDataView.lengthInBytes` affecting `message_codec_test` and `method_codec_test`.
+- Known non-exhaustive switch signature in Batch-14: not detected in this batch.

@@ -35,6 +35,8 @@ Batch-12 follow-up note (20260412-0949-issue-analysis): the five Batch-12 script
 
 Batch-13 follow-up note (20260412-0949-issue-analysis): the five Batch-13 scripts from `hardly_relevant_classes_3_test.dart` (`rendering/render_animated_size_state_test.dart`, `rendering/render_clip_r_superellipse_test.dart`, `rendering/render_editable_painter_test.dart`, `rendering/render_sliver_box_child_manager_test.dart`, `rendering/render_sliver_floating_pinned_persistent_header_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-13. A dedicated regression test script for bridged `ConstrainedBox` child widget coercion in animated-size state flows is still missing and is tracked below as a file that needs to be created.
 
+Batch-14 follow-up note (20260412-0949-issue-analysis): the five Batch-14 scripts from `hardly_relevant_classes_3_test.dart`/`hardly_relevant_classes_4_test.dart` (`rendering/render_ui_kit_view_test.dart`, `services/message_codec_test.dart`, `services/method_codec_test.dart`, `services/raw_key_up_event_test.dart`, `(setUpAll)` in `hardly_relevant_classes_4_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-14. A dedicated regression test script for bridged `_ByteDataView.lengthInBytes` codec access handling is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1233,6 +1235,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [max_length_enforcement_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/max_length_enforcement_test.dart) | MaxLengthEnforcement | No | Yes | No | Checked. |
 | [message_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/message_codec_test.dart) | MessageCodec | No | Yes | No | Checked. |
 | [method_codec_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/method_codec_test.dart) | MethodCodec | No | Yes | No | Checked. |
+| [codec_byte_data_view_length_in_bytes_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/codec_byte_data_view_length_in_bytes_regression_test.dart) | CodecByteDataViewLengthInBytesRegression | No | No | No | Needs to be created (Batch-14 failure pattern: `_ByteDataView.lengthInBytes` missing/inaccessible in message/method codec flows). |
 | [missing_plugin_exception_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/missing_plugin_exception_test.dart) | MissingPluginException | No | Yes | No | Checked. |
 | [modifier_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/modifier_key_test.dart) | ModifierKey | No | Yes | No | Checked. |
 | [mouse_cursor_manager_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/mouse_cursor_manager_test.dart) | MouseCursorManager | No | Deep-Demo DONE | No | B71: Slate/Silver theme, 16 sections, mc prefix. |
