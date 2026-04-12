@@ -67,3 +67,16 @@ batch: 5
 - Notes:
   - `collapse_mode_test.dart` and `drawer_controller_state_test.dart` were direct script-level contract/layout fixes.
   - `button_bar_layout_behavior_test.dart`, `button_bar_theme_test.dart`, and `button_text_theme_test.dart` are stabilized script-side while deeper interpreter/bridge follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.
+
+batch: 6
+
+- No non-immediate batch-6 script issues remained after immediate fixes.
+- Immediate batch-6 script fixes were applied and validated for:
+  - material/dropdown_menu_close_behavior_test.dart
+  - material/end_drawer_button_test.dart
+  - material/gapped_range_slider_track_shape_test.dart
+  - material/gapped_slider_track_shape_test.dart
+  - material/hour_format_test.dart
+- Notes:
+  - `end_drawer_button_test.dart` and `gapped_slider_track_shape_test.dart` were direct script-level layout/theme-contract stabilizations.
+  - `dropdown_menu_close_behavior_test.dart`, `gapped_range_slider_track_shape_test.dart`, and `hour_format_test.dart` are stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.

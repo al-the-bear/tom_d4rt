@@ -59,3 +59,22 @@ issue-index: 25, 27
 - Follow-up recommendation:
 	- Add interpreter guards/coercion for numeric comparisons and property reads when bridged/interpreted values can be null.
 	- Add regression coverage for button theme/value extraction paths to ensure `>` comparisons and `.value` access fail predictably (typed diagnostics) or resolve with non-null defaults.
+
+batch: 6
+
+issue-index: 30, 32, 34
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/gapped_range_slider_track_shape_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/hour_format_test.dart`
+- Symptom:
+	- Index 30: non-exhaustive enum switch at runtime (`DropdownMenuCloseBehavior.all`).
+	- Index 32: repeated null-check runtime warnings in slider-track execution (`Null check operator used on a null value`).
+	- Index 34: null method invocation warning (`Cannot invoke method 'withValues' on null`).
+- Immediate outcome: all three scripts were rewritten to harness-safe, deterministic summary flows; targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- Index 30 matches the known interpreter enum exhaustiveness gap for bridged enum values in switch expression evaluation.
+	- Indices 32 and 34 indicate null propagation escaping into runtime operations that assume non-null targets (null-check operators and direct method invocation).
+	- Script-side stabilization removes immediate CI noise but does not resolve interpreter semantics for exhaustive enum dispatch and null-safe invocation.
+- Follow-up recommendation:
+	- Implement exhaustive enum mapping/dispatch for bridged `DropdownMenuCloseBehavior` values in interpreter switch evaluation.
+	- Add null-safe coercion/guard layers for slider theme/value extraction paths and nullable receiver method invocation paths before runtime operations are executed.
+	- Add focused interpreter regressions covering: enum-switch exhaustiveness, repeated slider null-check flows, and nullable-receiver method calls in material time-format scenarios.

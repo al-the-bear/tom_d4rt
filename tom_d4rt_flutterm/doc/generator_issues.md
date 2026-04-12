@@ -102,3 +102,8 @@ issue-index: 26
 - Follow-up recommendation:
 	- Harden bridge/generator widget coercion so interpreted widget/theme instances are converted before reaching native Flutter widget-only parameters.
 	- Add targeted regression tests for `ButtonBarTheme`-style interpreted widget flows crossing native build boundaries.
+
+batch: 6
+
+- No batch-6 entries required bridge-generator deep analysis.
+- Batch-6 deeper follow-up items were interpreter-side (enum switch exhaustiveness and null-runtime handling), documented in `interpreter_issues.md`.
