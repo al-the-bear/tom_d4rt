@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-68 (issues 0..344 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-69 (issues 0..349 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4802,4 +4802,75 @@ Scope: Batch-0 to Batch-68 (issues 0..344 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-68 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: none primary; issue 340 is a plain failing test but currently indicates bridge/interpreter cast mismatch rather than script logic defect.
 - Bridge/generator/interpreter classification: one cast failure (`fixed_extent_metrics_test`), one mixed operator/state/widget coercion cluster (`glowing_overscroll_indicator_test`), and three state-property exposure issues (`html_element_view_test`, `image_filtered_test`, `indexed_stack_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-69 (Issues 345-349)
+
+### Index 345
+
+- Index: 345
+- testname: `widgets/inherited_notifier_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access to `_hub` before assignment.
+- detailed analysis what the problem is: Script state initialization order is incorrect for `_hub`, causing `LateInitializationError` runtime output.
+- fix description (if clear): Initialize `_hub` deterministically before first read (setup/initState) and guard any access until assignment is complete.
+- need for deeper analysis?: `no`
+- batch number: `69`
+
+### Index 346
+
+- Index: 346
+- testname: `widgets/inherited_theme_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs `Directionality` constructor child type mismatch: expected `Widget`, got `InterpretedInstance(PanelTheme)`.
+- detailed analysis what the problem is: Bridge constructor argument coercion fails to adapt interpreted widget instances to native `Widget` for `Directionality.child`.
+- fix description (if clear): Extend constructor-arg widget coercion for `Directionality.child` to unwrap/coerce interpreted widget instances before native invocation.
+- need for deeper analysis?: `yes — directionality child coercion path`
+- batch number: `69`
+
+### Index 347
+
+- Index: 347
+- testname: `widgets/inherited_widget_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs same `Directionality.child` type mismatch (`InterpretedInstance(AppStateScope)`).
+- detailed analysis what the problem is: Same shared widget-coercion gap as Index 346 on `Directionality` constructor child parameter.
+- fix description (if clear): Reuse the `Directionality.child` coercion fix from Index 346.
+- need for deeper analysis?: `yes — shared constructor bridge path`
+- batch number: `69`
+
+### Index 348
+
+- Index: 348
+- testname: `widgets/list_wheel_scroll_view_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across list-wheel scene states.
+- detailed analysis what the problem is: Interpreted `State` subclasses in this scenario cannot resolve inherited `State.widget`, matching prior recurring state-property bridge gap.
+- fix description (if clear): Apply generalized inherited `State.widget` exposure fix used for prior widget deep-demo state scenes.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `69`
+
+### Index 349
+
+- Index: 349
+- testname: `widgets/list_wheel_viewport_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across viewport scene states.
+- detailed analysis what the problem is: Same inherited `State.widget` exposure gap as Index 348, reproduced across list-wheel viewport deep-demo states.
+- fix description (if clear): Reuse the generalized inherited `State.widget` bridge-property exposure fix.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `69`
+
+## Batch-69 Classification Summary
+
+- Missing/stray status for Batch-69 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one state-context initialization defect (`inherited_notifier_test`).
+- Bridge/generator/interpreter classification: two widget coercion issues (`inherited_theme_test`, `inherited_widget_test` for `Directionality.child`) and two state-property exposure issues (`list_wheel_scroll_view_test`, `list_wheel_viewport_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
