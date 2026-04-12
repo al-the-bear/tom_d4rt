@@ -117,6 +117,8 @@ Batch-53 follow-up note (20260412-0949-issue-analysis): Batch-53 contains four w
 
 Batch-54 follow-up note (20260412-0949-issue-analysis): Batch-54 issues come from `important_classes_test.dart` material batches. All referenced scripts (`material/refreshindicator_test.dart`, `material/timeofday_test.dart`, `material/showdialog_test.dart`, `material/showbottomsheet_test.dart`, `material/showmenu_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-54. Two issues are test-script layout-constraint defects (`refreshindicator_test`, `timeofday_test`) producing render/layout assertions. Three entries are intentional interactive skips (`showdialog_test`, `showbottomsheet_test`, `showmenu_test`) and do not require bridge/interpreter fixes. No regression test rows needed for this batch.
 
+Batch-55 follow-up note (20260412-0949-issue-analysis): Batch-55 issues come from `important_classes_test.dart`. All referenced scripts (`material/showdatepicker_test.dart`, `material/showtimepicker_test.dart`, `widgets/actions_test.dart`, `animation/tweensequence_test.dart`, `services/codecs_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-55. Two entries are intentional interactive skips (`showdatepicker_test`, `showtimepicker_test`). One issue is a late-init test-script state-context defect (`actions_test` — `_dispatcher`). Two issues are bridge/runtime defects: generic constructor null handling (`tweensequence_test` / `TweenSequenceItem`) and SDK symbol resolution (`codecs_test` / `ByteData`). Regression test rows tracked below.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -170,6 +172,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [threshold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/threshold_test.dart) | Threshold | No | Yes | No | Created on 2026-03-17 at 16:30 |
 | [tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/tween_test.dart) | Tween | No | Yes | No |
 | [tweensequence_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/tweensequence_test.dart) | TweenSequence | No | Yes | No |
+| tweensequence_generic_factory_null_handling_regression_test.dart | TweenSequence (regression) | No | No | No | Needs to be created. Regression test for `BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING`: `TweenSequenceItem` generic constructor factory null-check crash (Batch-55 Index 278). |
 | [reverse_tween_generic_factory_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/reverse_tween_generic_factory_regression_test.dart) | ReverseTweenGenericFactoryRegression | No | No | No | Needs to be created (Batch-1 failure pattern: generic constructor factory null-check in `ReverseTween<T>`). |
 ## cupertino/ (60 files)
 
@@ -1272,6 +1275,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [channels_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/channels_test.dart) | BasicMessageChannel | No | Yes | No | Checked. |
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/class_test.dart) | Class | No | Yes | No | Created on 2026-04-08. |
 | [codecs_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/codecs_test.dart) | StandardMessageCodec | No | Yes | No | Checked. |
+| codecs_bytedata_symbol_resolution_regression_test.dart | StandardMessageCodec (regression) | No | No | No | Needs to be created. Regression test for `BRIDGE-SDK-SYMBOL-RESOLUTION`: unresolved `ByteData` symbol in runtime bridge context (Batch-55 Index 279). |
 | [content_sensitivity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/content_sensitivity_test.dart) | ContentSensitivity | No | Yes | No | Checked. |
 | [cursor_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/cursor_test.dart) | MouseCursor | No | Yes | No | Checked. |
 | [darwin_platform_view_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/darwin_platform_view_controller_test.dart) | DarwinPlatformViewController | No | Deep-Demo DONE | No | B69: Plum/Orchid theme, 16 sections, dp prefix. |

@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-54 (issues 0..274 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-55 (issues 0..279 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3807,4 +3807,75 @@ Scope: Batch-0 to Batch-54 (issues 0..274 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-54 scripts: none missing, none stray. All referenced material scripts are present and listed in the status report.
 - Test-script issue classification: two layout-constraint/lifecycle rendering defects (`refreshindicator_test`, `timeofday_test`) and three intentional interactive skips (`showdialog_test`, `showbottomsheet_test`, `showmenu_test`).
 - Bridge/generator/interpreter classification: none identified in this batch.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-55 (Issues 275-279)
+
+### Index 275
+
+- Index: 275
+- testname: `material/showdatepicker_test.dart`
+- category: `TEST-SCRIPT-INTENTIONAL-SKIP`
+- immediate fix possible: `not needed`
+- description: `Skip: Shows date picker requiring user interaction`.
+- detailed analysis what the problem is: Intentional skip for interaction-dependent scenario; expected behavior.
+- fix description (if clear): No fix required unless interaction automation is added.
+- need for deeper analysis?: `no`
+- batch number: `55`
+
+### Index 276
+
+- Index: 276
+- testname: `material/showtimepicker_test.dart`
+- category: `TEST-SCRIPT-INTENTIONAL-SKIP`
+- immediate fix possible: `not needed`
+- description: `Skip: Shows time picker requiring user interaction`.
+- detailed analysis what the problem is: Intentional skip for interaction-dependent scenario; expected behavior.
+- fix description (if clear): No fix required unless interaction automation is added.
+- need for deeper analysis?: `no`
+- batch number: `55`
+
+### Index 277
+
+- Index: 277
+- testname: `widgets/actions_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _dispatcher (LateInitializationError: Late variable '_dispatcher' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template family as prior batches, with `_dispatcher` as the variable variant. The script references a `late` field before initialization.
+- fix description (if clear): Initialize `_dispatcher` in setup/init path before first read, or replace with non-late initialized field.
+- need for deeper analysis?: `no`
+- batch number: `55`
+
+### Index 278
+
+- Index: 278
+- testname: `animation/tweensequence_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING`
+- immediate fix possible: `no — requires generic factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'TweenSequenceItem': Null check operator used on a null value`.
+- detailed analysis what the problem is: Generic constructor factory path for `TweenSequenceItem` dereferences a nullable value with `!` during construction, indicating missing null-safety handling in bridge factory argument processing.
+- fix description (if clear): Harden generic constructor factory null handling for `TweenSequenceItem` (and similar generic animation items), validating/normalizing nullable fields before forced casts.
+- need for deeper analysis?: `yes — generic constructor factory`
+- batch number: `55`
+
+### Index 279
+
+- Index: 279
+- testname: `services/codecs_test.dart`
+- category: `BRIDGE-SDK-SYMBOL-RESOLUTION`
+- immediate fix possible: `no — requires symbol exposure/import bridging`
+- description: Test fails with: `Runtime Error: Undefined variable: ByteData`.
+- detailed analysis what the problem is: `ByteData` symbol from `dart:typed_data` is not resolved in interpreted runtime path for this services script, indicating missing SDK symbol registration/import exposure in bridge/interpreter context.
+- fix description (if clear): Ensure `ByteData` (and typed_data symbols) are exposed/resolved in the runtime bridge symbol table for script execution.
+- need for deeper analysis?: `yes — SDK symbol mapping path`
+- batch number: `55`
+
+## Batch-55 Classification Summary
+
+- Missing/stray status for Batch-55 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one late-init state-context defect (`actions_test`) and two intentional interaction skips (`showdatepicker_test`, `showtimepicker_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING` issue (`tweensequence_test`) and one `BRIDGE-SDK-SYMBOL-RESOLUTION` issue (`codecs_test` ByteData unresolved).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
