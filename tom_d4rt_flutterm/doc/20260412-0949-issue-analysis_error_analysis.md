@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-36 (issues 0..184 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-37 (issues 0..189 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2542,4 +2542,72 @@ Scope: Batch-0 to Batch-36 (issues 0..184 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-36 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: four `_tabCtrl` late-initialization errors (`scroll_start_notification_test`, `scroll_to_document_boundary_intent_test`, `scroll_update_notification_test`, `scroll_view_test`) — continuing the `_tabCtrl` late-init template pattern from Batch-35.
 - Bridge/generator/interpreter classification: one BRIDGE-WIDGET-COERCION failure (`scroll_view_keyboard_dismiss_behavior_test`) — `InterpretedInstance` not coerced to `Widget`. Same coercion pattern as Batch-35 indices 176 and 178.
+
+## Batch-37
+
+### Index 185
+
+- Index: 185
+- testname: `widgets/scrollable_details_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern continuing from Batches 35-36. The `ScrollableDetails` deep demo (1686 lines) has an uninitialized late `_tabCtrl` field in its demo state class.
+- fix description (if clear): Initialize `_tabCtrl` in `initState()` or replace with a non-late field. Same template-level fix as Batches 28-36.
+- need for deeper analysis?: `no`
+- batch number: `37`
+
+### Index 186
+
+- Index: 186
+- testname: `widgets/scrollbar_orientation_test.dart`
+- category: `BRIDGE-MISSING-STATE-WIDGET-ACCESSOR`
+- immediate fix possible: `no`
+- description: Test passes but logs 4 errors: `Undefined property 'widget' on _OrientedPanelState.` The interpreter does not resolve the inherited `widget` getter on a `State<T>` subclass.
+- detailed analysis what the problem is: The `ScrollbarOrientation` deep demo (824 lines) defines a private `_OrientedPanelState` class extending `State<_OrientedPanel>`. The interpreter cannot resolve `this.widget` (the inherited getter from `State<T>`) on the private State subclass, because the bridge layer does not synthesize the `widget` accessor for interpreted State subclasses. This is distinct from the `_tabCtrl` late-init issue — it is a bridge/interpreter limitation where inherited getters from generic superclasses are not available on private subclasses.
+- fix description (if clear): The bridge generator or interpreter needs to synthesize the `widget` getter for State subclasses, or a UserBridge must be added to expose it. This requires interpreter-level support for inherited generic accessors.
+- need for deeper analysis?: `yes — interpreter needs to resolve inherited getters from generic superclasses on private State subclasses`
+- batch number: `37`
+
+### Index 187
+
+- Index: 187
+- testname: `widgets/scrollbar_painter_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollbarPainter` demo script has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 185.
+- need for deeper analysis?: `no`
+- batch number: `37`
+
+### Index 188
+
+- Index: 188
+- testname: `widgets/select_action_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no`
+- description: Test fails with `Class '_ChainItem' does not have an unnamed constructor that accepts arguments.` The interpreter cannot instantiate the private class `_ChainItem` because its constructor is not registered in the bridge.
+- detailed analysis what the problem is: The `SelectAction` deep demo (1629 lines) defines a private `_ChainItem` class with a constructor that takes arguments. The bridge generator does not generate constructor bridges for private classes, so the interpreter fails when trying to instantiate `_ChainItem(...)`. Stack trace confirms the failure at test line 746 in `hardly_relevant_classes_5_test.dart`. This is the same category as Batch-33 issues (indices 168, 169) where `_FlowStage` and `_SubclassInfo` had the same problem.
+- fix description (if clear): Either make `_ChainItem` public, add a UserBridge for its constructor, or enhance the bridge generator to support private class constructors. Same pattern as Batch-33 BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT.
+- need for deeper analysis?: `yes — private class constructor support needs bridge generator enhancement`
+- batch number: `37`
+
+### Index 189
+
+- Index: 189
+- testname: `widgets/select_all_text_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `SelectAllTextIntent` deep demo (1479 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix. The `_tabCtrl`/`_tabs`/`_tabController` late-init issue now spans Batches 28-37.
+- need for deeper analysis?: `no`
+- batch number: `37`
+
+## Batch-37 Classification Summary
+
+- Missing/stray status for Batch-37 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabCtrl` late-initialization errors (`scrollable_details_test`, `scrollbar_painter_test`, `select_all_text_intent_test`) — continuing the `_tabCtrl` late-init template pattern.
+- Bridge/generator/interpreter classification: one BRIDGE-MISSING-STATE-WIDGET-ACCESSOR (`scrollbar_orientation_test`) — inherited `widget` getter not resolved on private `_OrientedPanelState`; one BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (`select_action_test`) — private `_ChainItem` constructor not bridged.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
