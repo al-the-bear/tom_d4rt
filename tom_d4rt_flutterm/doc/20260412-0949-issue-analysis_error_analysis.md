@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-8 (issues 0..44 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-9 (issues 0..49 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -621,3 +621,72 @@ Scope: Batch-0 to Batch-8 (issues 0..44 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: one layout-constraint cascade (`paginated_data_table_state_test`) and two progress value-type contract issues (`progress_indicator_test`, `refresh_progress_indicator_test`).
 - Bridge/generator/interpreter classification: one known non-exhaustive enum switch issue (`navigation_rail_label_type_test`) and one generic-constructor argument mapping/contract issue (`popup_menu_position_test`).
 - Known non-exhaustive switch signature in Batch-8: detected in `navigation_rail_label_type_test`.
+
+## Batch-9
+
+### Index 45
+
+- Index: 45
+- testname: `material/theme_extension_test.dart`
+- category: `BRIDGE-LIST-TYPE-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports `ThemeData.copyWith` bridge conversion failure: cannot convert interpreted `List` to `List<ThemeExtension<dynamic>>`.
+- detailed analysis what the problem is: This indicates a bridge/runtime typed-list coercion gap for generic collection parameters in bridged method calls. The failure is not from test logic alone; it reflects missing conversion from interpreted list elements to native `ThemeExtension`-typed entries.
+- fix description (if clear): Add UserBridge/generator conversion logic for `ThemeData.copyWith(extensions: ...)` so interpreted lists are mapped to `List<ThemeExtension<dynamic>>` with element-type validation.
+- need for deeper analysis?: `yes`
+- batch number: `9`
+
+### Index 46
+
+- Index: 46
+- testname: `material/theme_mode_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 17 errors about infinite-size layout across paragraph/padding/flex/decorated/constrained boxes.
+- detailed analysis what the problem is: The script layout composition allows unbounded constraints in one or more subtrees, causing repeated infinite-size render errors. This is a test-script scaffold/layout-contract issue that should be corrected despite success status.
+- fix description (if clear): Bound the scenario containers and nested layout widgets with explicit constraints and ensure no framework warnings are emitted.
+- need for deeper analysis?: `no`
+- batch number: `9`
+
+### Index 47
+
+- Index: 47
+- testname: `material/thumb_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 17 infinite-size layout errors with the same signature as `theme_mode_test`.
+- detailed analysis what the problem is: This shows the same unbounded-constraint scaffold pattern in the thumb scenario. No direct bridge switch signature appears; root cause is script layout bounds.
+- fix description (if clear): Reuse the bounded-container/layout fix pattern from `theme_mode_test` in thumb scenario and fail on any framework warning output.
+- need for deeper analysis?: `no`
+- batch number: `9`
+
+### Index 48
+
+- Index: 48
+- testname: `material/time_of_day_format_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 47 errors, predominantly infinite-size layout assertions.
+- detailed analysis what the problem is: Large-volume repeated layout errors indicate broad unbounded layout flow in this time-format scenario. This is script-level composition quality debt rather than a single bridge runtime crash.
+- fix description (if clear): Refactor the test scaffold to enforce bounded dimensions for each interactive section and verify all render/layout warnings are eliminated.
+- need for deeper analysis?: `yes`
+- batch number: `9`
+
+### Index 49
+
+- Index: 49
+- testname: `material/time_picker_entry_mode_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 32 infinite-size layout errors similar to adjacent time/theme tests.
+- detailed analysis what the problem is: Same recurring pattern of unbounded layout constraints in script composition affecting time picker entry mode rendering paths. This should be treated as script correction work, not ignored as warning-only output.
+- fix description (if clear): Apply the same bounded-layout scaffold corrections used for other Batch-9 material scripts and enforce zero-warning policy.
+- need for deeper analysis?: `no`
+- batch number: `9`
+
+## Batch-9 Classification Summary
+
+- Missing/stray status for Batch-9 scripts: none missing, none stray.
+- Test-script issue classification: four layout-constraint warning groups (`theme_mode_test`, `thumb_test`, `time_of_day_format_test`, `time_picker_entry_mode_test`).
+- Bridge/generator/interpreter classification: one typed-list bridge coercion issue in `ThemeData.copyWith` extensions handling (`theme_extension_test`).
+- Known non-exhaustive switch signature in Batch-9: not detected in this batch.

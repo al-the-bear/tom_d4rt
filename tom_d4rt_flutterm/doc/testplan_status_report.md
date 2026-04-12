@@ -25,6 +25,8 @@ Batch-7 follow-up note (20260412-0949-issue-analysis): the five Batch-7 scripts 
 
 Batch-8 follow-up note (20260412-0949-issue-analysis): the five Batch-8 scripts from `hardly_relevant_classes_2_test.dart` (`material/navigation_rail_label_type_test.dart`, `material/paginated_data_table_state_test.dart`, `material/popup_menu_position_test.dart`, `material/progress_indicator_test.dart`, `material/refresh_progress_indicator_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-8. A dedicated regression test script for popup menu generic-constructor argument exclusivity handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-9 follow-up note (20260412-0949-issue-analysis): the five Batch-9 scripts from `hardly_relevant_classes_2_test.dart` (`material/theme_extension_test.dart`, `material/theme_mode_test.dart`, `material/thumb_test.dart`, `material/time_of_day_format_test.dart`, `material/time_picker_entry_mode_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-9. A dedicated regression test script for `ThemeData.copyWith` extension-list bridge conversion is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -763,6 +765,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [themadata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themadata_test.dart) | Themadata | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [theme_data_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_data_tween_test.dart) | ThemeDataTween | No | Yes | No | Created on 2026-03-29 at 15:00 |
 | [theme_extension_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart) | ThemeExtension | No | Yes | No | Created on 2026-03-29 at 15:12 |
+| [theme_extension_copywith_extensions_bridge_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_copywith_extensions_bridge_regression_test.dart) | ThemeExtensionCopyWithExtensionsBridgeRegression | No | No | No | Needs to be created (Batch-9 failure pattern: bridge conversion of `ThemeData.copyWith(extensions: ...)` from interpreted list to `List<ThemeExtension<dynamic>>`). |
 | [theme_mode_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_mode_test.dart) | ThemeMode | No | Yes | No | Batch 62. |
 | [theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_test.dart) | Theme | No | Yes | No |
 | [themes_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/themes_advanced_test.dart) | material | No | Yes | No | Created on 2026-03-21 at 12:30 |
