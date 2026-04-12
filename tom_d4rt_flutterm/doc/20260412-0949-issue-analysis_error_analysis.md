@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-55 (issues 0..279 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-56 (issues 0..284 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3878,4 +3878,76 @@ Scope: Batch-0 to Batch-55 (issues 0..279 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-55 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one late-init state-context defect (`actions_test`) and two intentional interaction skips (`showdatepicker_test`, `showtimepicker_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING` issue (`tweensequence_test`) and one `BRIDGE-SDK-SYMBOL-RESOLUTION` issue (`codecs_test` ByteData unresolved).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-56 (Issues 280-284)
+
+### Index 280
+
+- Index: 280
+- testname: `services/channels_test.dart`
+- category: `BRIDGE-CALLBACK-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge callback adaptation`
+- description: Test fails with: `Runtime Error: Native error during bridged method call 'setMessageHandler' on BasicMessageChannel: type '(dynamic) => Future<dynamic>' is not a subtype of type '((String?) => Future<String>)?' of 'handler'`.
+- detailed analysis what the problem is: The bridge/runtime method adapter for `BasicMessageChannel.setMessageHandler` forwards an untyped interpreted callback `(dynamic) => Future<dynamic>` into a native API that expects a strictly typed nullable callback for `String` payloads. The mismatch is in function signature and generic/nullability adaptation during method-call bridging.
+- fix description (if clear): Add callback-signature coercion in the `BasicMessageChannel` bridge path so interpreted handlers are wrapped/adapted to the target typed signature `String? -> Future<String?>` (including nullable input/output handling) before calling native `setMessageHandler`.
+- need for deeper analysis?: `yes — services callback bridging path`
+- batch number: `56`
+
+### Index 281
+
+- Index: 281
+- testname: `(setUpAll)`
+- category: `TEST-HARNESS-INFO (no correction needed)`
+- immediate fix possible: `not applicable`
+- description: Informational log only: `Bridge regeneration skipped: all bridge outputs are up-to-date...`.
+- detailed analysis what the problem is: This is an operational setup/caching message from `secondary_classes_test.dart`, not a runtime failure and not a bridge/interpreter defect.
+- fix description (if clear): No functional fix required; optionally demote/filter this message in issue extraction if cleaner reports are desired.
+- need for deeper analysis?: `no`
+- batch number: `56`
+
+### Index 282
+
+- Index: 282
+- testname: `cupertino/cupertino_secondary_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework errors: negative minimum height constraints, `_RenderEditableCustomPaint` not laid out, and semantics/layout assertions.
+- detailed analysis what the problem is: The test script builds editable Cupertino content under invalid constraints, leading to a render/layout assertion cascade. The signature matches known script composition/constraint issues, not a bridge/generator/interpreter limitation.
+- fix description (if clear): Rework script widget composition to enforce bounded, non-negative constraints for editable/render objects (for example, constrain form rows/scroll regions with explicit size rules) and assert zero framework errors in the test harness.
+- need for deeper analysis?: `no`
+- batch number: `56`
+
+### Index 283
+
+- Index: 283
+- testname: `cupertino/cupertino_form_scroll_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework errors: negative minimum height constraints, `_RenderEditableCustomPaint` not laid out, `RenderFlex` overflow, and semantics/layout assertions.
+- detailed analysis what the problem is: Same layout-contract defect family as Index 282 with additional overflow symptoms, indicating the script's scroll/form composition allows invalid/unstable constraints during render.
+- fix description (if clear): Refactor the demo layout to provide bounded height/width for editable descendants and flex children; remove overflow-prone nesting patterns and keep post-layout assertions clean.
+- need for deeper analysis?: `no`
+- batch number: `56`
+
+### Index 284
+
+- Index: 284
+- testname: `cupertino/cupertino_controls_advanced_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework errors: negative minimum height constraints, `_RenderEditableCustomPaint` not laid out, `RenderFlex` overflow, and semantics/layout assertions.
+- detailed analysis what the problem is: Repeats the same Cupertino layout-constraint failure signature as indices 282-283, pointing to test-script UI composition issues rather than runtime bridge/interpreter failures.
+- fix description (if clear): Apply the same constraint-hardening changes used for related Cupertino scripts (bounded containers, corrected flex/scroll nesting, stable layout before assertions).
+- need for deeper analysis?: `no`
+- batch number: `56`
+
+## Batch-56 Classification Summary
+
+- Missing/stray status for Batch-56 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: three layout-constraint defects requiring script correction (`cupertino_secondary_test`, `cupertino_form_scroll_test`, `cupertino_controls_advanced_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-CALLBACK-TYPE-COERCION` failure (`services/channels_test` `BasicMessageChannel.setMessageHandler` callback signature mismatch).
+- Harness/log-only classification: one setup informational output (`setUpAll` in `secondary_classes_test.dart`) with no functional defect.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
