@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-43 (issues 0..219 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-44 (issues 0..224 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3028,4 +3028,74 @@ Scope: Batch-0 to Batch-43 (issues 0..219 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-43 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: two `_tabs` late-initialization errors (`static_selection_container_delegate_test`, `text_selection_gesture_detector_builder_delegate_test`).
 - Bridge/generator/interpreter classification: three BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`toolbar_items_parent_data_test` — `_TimelineStep`, `toolbar_options_test` — `_LegacyToolbarProfile`, `tooltip_position_context_test` — `_CaseDefinition`). All three require generator enhancement for private class constructors.
+
+---
+
+# Batch-44 (Issues 220-224)
+
+### Index 220
+
+- Index: 220
+- testname: `widgets/tooltip_window_controller_delegate_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_PolicyPreset' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Private class `_PolicyPreset` constructor is not bridged. Same category as previous BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issues. The D4rt bridge generator does not generate unnamed constructor support for private classes with positional/named parameters.
+- fix description (if clear): Generator enhancement for private class constructor support, or register a custom UserBridge/factory.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `44`
+
+### Index 221
+
+- Index: 221
+- testname: `widgets/tooltip_window_controller_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_Pattern' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same as Index 220 — private class `_Pattern` constructor not bridged.
+- fix description (if clear): Same generator enhancement as Index 220.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `44`
+
+### Index 222
+
+- Index: 222
+- testname: `widgets/tooltip_window_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template pattern, `_tabController` variant (returning to the original variant name from Batches 28-31). The `TooltipWindow` demo script references a `_tabController` field that is never initialized.
+- fix description (if clear): Same template-level fix — initialize `_tabController` in `initState()`.
+- need for deeper analysis?: `no`
+- batch number: `44`
+
+### Index 223
+
+- Index: 223
+- testname: `widgets/transition_delegate_test.dart`
+- category: `BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge enhancements`
+- description: Test passes but logs two errors: (1) `Undefined variable: setState (Undefined property 'setState' on _DefaultDemoPageState.)` and (2) `Native error during default bridged constructor for 'Navigator': Argument Error: Invalid parameter "transitionDelegate": expected TransitionDelegate<dynamic>, got InterpretedInstance`.
+- detailed analysis what the problem is: Two distinct bridge issues in the same script. First: `setState` is not resolved on `_DefaultDemoPageState` — same BRIDGE-MISSING-STATE-WIDGET-ACCESSOR pattern as Batch-40 (indices 203-204). Second: the `TransitionDelegate` custom subclass created by the interpreter is passed as an `InterpretedInstance` to the `Navigator` constructor, which expects a `TransitionDelegate<dynamic>` — this is a BRIDGE-WIDGET-COERCION issue where the bridge cannot coerce the interpreted instance to the expected native type.
+- fix description (if clear): (1) Bridge generator needs to resolve inherited `setState` on private State subclasses. (2) A UserBridge or type coercion handler for `TransitionDelegate` is needed so interpreted subclass instances are properly wrapped for native consumption.
+- need for deeper analysis?: `yes — both bridge enhancements needed`
+- batch number: `44`
+
+### Index 224
+
+- Index: 224
+- testname: `widgets/transpose_characters_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern as Index 222.
+- fix description (if clear): Same template-level fix as Index 222.
+- need for deeper analysis?: `no`
+- batch number: `44`
+
+## Batch-44 Classification Summary
+
+- Missing/stray status for Batch-44 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: two `_tabController` late-initialization errors (`tooltip_window_test`, `transpose_characters_intent_test`).
+- Bridge/generator/interpreter classification: two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`tooltip_window_controller_delegate_test` — `_PolicyPreset`, `tooltip_window_controller_test` — `_Pattern`). One combined BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION issue (`transition_delegate_test` — `setState` on `_DefaultDemoPageState` plus `TransitionDelegate` coercion failure).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
