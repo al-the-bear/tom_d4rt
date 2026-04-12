@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-6 (issues 0..34 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-7 (issues 0..39 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -483,3 +483,72 @@ Scope: Batch-0 to Batch-6 (issues 0..34 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: two script-side configuration/layout issues (`end_drawer_button_test`, `gapped_slider_track_shape_test`).
 - Bridge/generator/interpreter classification: one known non-exhaustive enum switch limitation (`dropdown_menu_close_behavior_test`) and two null-runtime handling issues (`gapped_range_slider_track_shape_test`, `hour_format_test`).
 - Known non-exhaustive switch signature in Batch-6: detected in `dropdown_menu_close_behavior_test`.
+
+## Batch-7
+
+### Index 35
+
+- Index: 35
+- testname: `material/list_tile_title_alignment_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 overflow warnings (`RenderFlex overflowed by 1.00 pixels on the bottom`).
+- detailed analysis what the problem is: This is a script-level layout sizing problem where list-tile title alignment scenarios slightly exceed vertical constraints. The test result is success, but the warning output indicates an invalid layout state that should be removed.
+- fix description (if clear): Adjust vertical constraints/padding in the scenario (for example tighter text scale/line-height handling, bounded parent height, or scroll wrapping) and enforce zero framework warnings as pass criteria.
+- need for deeper analysis?: `no`
+- batch number: `7`
+
+### Index 36
+
+- Index: 36
+- testname: `material/material_banner_closed_reason_test.dart`
+- category: `INTERPRETER-NON-EXHAUSTIVE-SWITCH (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Switch expression was not exhaustive for value: MaterialBannerClosedReason.dismiss (MaterialBannerClosedReason)`.
+- detailed analysis what the problem is: This matches the known interpreter enum-switch limitation pattern already seen in other batches. The assertion failure is caused by non-exhaustive runtime switch handling for bridged enum values, not by a clearly invalid test assertion.
+- fix description (if clear): Add script workaround for unsupported enum-switch path and implement interpreter-side exhaustive enum handling for `MaterialBannerClosedReason` through bridge/runtime updates.
+- need for deeper analysis?: `yes`
+- batch number: `7`
+
+### Index 37
+
+- Index: 37
+- testname: `material/menu_accelerator_callback_binding_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 12 infinite-size layout errors across `RenderParagraph`, `RenderFlex`, `RenderPadding`, and `RenderDecoratedBox`.
+- detailed analysis what the problem is: The script uses a menu layout composition that allows unbounded dimensions, causing repeated infinite-size render errors in descendant widgets. This is a test script scaffold/constraint issue and should be corrected even though the test did not fail.
+- fix description (if clear): Constrain the menu accelerator scenario with bounded container sizes and explicit layout limits, then treat any framework warning output as failure to prevent regressions.
+- need for deeper analysis?: `no`
+- batch number: `7`
+
+### Index 38
+
+- Index: 38
+- testname: `material/navigation_destination_label_behavior_test.dart`
+- category: `INTERPRETER-NON-EXHAUSTIVE-SWITCH (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Switch expression was not exhaustive for value: NavigationDestinationLabelBehavior.alwaysShow (NavigationDestinationLabelBehavior)`.
+- detailed analysis what the problem is: This is another direct hit of the known non-exhaustive interpreter switch behavior for material enums. The failing expectation is likely valid; runtime enum handling needs to support all mapped values.
+- fix description (if clear): Extend interpreter/bridge enum switch support for `NavigationDestinationLabelBehavior` values (including `alwaysShow`) and keep a script-level guard/workaround until runtime support is complete.
+- need for deeper analysis?: `yes`
+- batch number: `7`
+
+### Index 39
+
+- Index: 39
+- testname: `material/navigation_drawer_theme_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 overflow warnings (`RenderFlex overflowed by 29 pixels on the bottom`).
+- detailed analysis what the problem is: The navigation drawer theme scenario is rendering with insufficient vertical space for one or more composed children. This is script-level layout sizing and not a bridge/interpreter hard failure, but should still be corrected to remove warnings.
+- fix description (if clear): Rework drawer theme demo layout constraints (bounded heights, flexible child sizing, or scroll handling) so no RenderFlex overflow warnings are emitted.
+- need for deeper analysis?: `no`
+- batch number: `7`
+
+## Batch-7 Classification Summary
+
+- Missing/stray status for Batch-7 scripts: none missing, none stray.
+- Test-script issue classification: three layout-constraint/overflow warning issues (`list_tile_title_alignment_test`, `menu_accelerator_callback_binding_test`, `navigation_drawer_theme_test`).
+- Bridge/generator/interpreter classification: two known non-exhaustive enum switch failures (`material_banner_closed_reason_test`, `navigation_destination_label_behavior_test`).
+- Known non-exhaustive switch signature in Batch-7: detected in `material_banner_closed_reason_test` and `navigation_destination_label_behavior_test`.

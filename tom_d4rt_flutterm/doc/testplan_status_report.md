@@ -21,6 +21,8 @@ Batch-5 follow-up note (20260412-0949-issue-analysis): the five Batch-5 scripts 
 
 Batch-6 follow-up note (20260412-0949-issue-analysis): the five Batch-6 scripts from `hardly_relevant_classes_2_test.dart` (`material/dropdown_menu_close_behavior_test.dart`, `material/end_drawer_button_test.dart`, `material/gapped_range_slider_track_shape_test.dart`, `material/gapped_slider_track_shape_test.dart`, `material/hour_format_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-6. A dedicated regression test script for enum switch-exhaustiveness interpreter handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-7 follow-up note (20260412-0949-issue-analysis): the five Batch-7 scripts from `hardly_relevant_classes_2_test.dart` (`material/list_tile_title_alignment_test.dart`, `material/material_banner_closed_reason_test.dart`, `material/menu_accelerator_callback_binding_test.dart`, `material/navigation_destination_label_behavior_test.dart`, `material/navigation_drawer_theme_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-7. A dedicated regression test script for recurring material enum switch-exhaustiveness interpreter failures is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -596,6 +598,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [listtile_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/listtile_test.dart) | ListTile | No | Yes | No |
 | [magnifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/magnifier_test.dart) | Magnifier | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_banner_closed_reason_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_banner_closed_reason_test.dart) | MaterialBannerClosedReason | No | Yes | No | Batch 59 deep-demo. 440 lines, Crimson/Ruby, prefix mb. |
+| [material_enum_switch_exhaustiveness_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_enum_switch_exhaustiveness_regression_test.dart) | MaterialEnumSwitchExhaustivenessRegression | No | No | No | Needs to be created (Batch-7 failure pattern: non-exhaustive interpreter switches for material enums such as `MaterialBannerClosedReason` and `NavigationDestinationLabelBehavior`). |
 | [material_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_button_test.dart) | MaterialButton | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_localizations_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_localizations_test.dart) | MaterialLocalizations | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [material_point_arc_tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_point_arc_tween_test.dart) | MaterialPointArcTween | No | Yes | No | Created on 2026-03-21 at 09:34 |
