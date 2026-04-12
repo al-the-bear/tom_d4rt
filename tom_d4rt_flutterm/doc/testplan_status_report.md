@@ -91,6 +91,8 @@ Batch-40 follow-up note (20260412-0949-issue-analysis): the five Batch-40 script
 
 Batch-41 follow-up note (20260412-0949-issue-analysis): the five Batch-41 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/sliver_child_delegate_test.dart`, `widgets/sliver_multi_box_adaptor_element_test.dart`, `widgets/sliver_multi_box_adaptor_widget_test.dart`, `widgets/sliver_reorderable_list_state_test.dart`, `widgets/slotted_container_render_object_mixin_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-41. All five issues are `_tabs` late-init template defects. No bridge or interpreter issues in this batch. No regression test rows needed.
 
+Batch-42 follow-up note (20260412-0949-issue-analysis): the five Batch-42 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/slotted_multi_child_render_object_widget_mixin_test.dart`, `widgets/slotted_multi_child_render_object_widget_test.dart`, `widgets/slotted_render_object_element_test.dart`, `widgets/snapshot_mode_test.dart`, `widgets/standard_component_type_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-42. All five issues are `_tabs` late-init template defects. No bridge or interpreter issues in this batch. No regression test rows needed.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**

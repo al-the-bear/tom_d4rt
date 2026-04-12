@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-41 (issues 0..209 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-42 (issues 0..214 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2887,5 +2887,75 @@ Scope: Batch-0 to Batch-41 (issues 0..209 from `20260412-0949-issue-analysis_tes
 
 - Missing/stray status for Batch-41 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`sliver_child_delegate_test`, `sliver_multi_box_adaptor_element_test`, `sliver_multi_box_adaptor_widget_test`, `sliver_reorderable_list_state_test`, `slotted_container_render_object_mixin_test`) — continuing the `_tabs` late-init template pattern from Batches 32-34 and 40.
+- Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
+
+---
+
+# Batch-42 (Issues 210-214)
+
+### Index 210
+
+- Index: 210
+- testname: `widgets/slotted_multi_child_render_object_widget_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern continuing from previous batches. The `SlottedMultiChildRenderObjectWidgetMixin` demo script references a `_tabs` field that is never initialized in `initState()`.
+- fix description (if clear): Same template-level fix — initialize `_tabs` in `initState()` or replace with proper state setup.
+- need for deeper analysis?: `no`
+- batch number: `42`
+
+### Index 211
+
+- Index: 211
+- testname: `widgets/slotted_multi_child_render_object_widget_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 210.
+- need for deeper analysis?: `no`
+- batch number: `42`
+
+### Index 212
+
+- Index: 212
+- testname: `widgets/slotted_render_object_element_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 210.
+- need for deeper analysis?: `no`
+- batch number: `42`
+
+### Index 213
+
+- Index: 213
+- testname: `widgets/snapshot_mode_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 210.
+- need for deeper analysis?: `no`
+- batch number: `42`
+
+### Index 214
+
+- Index: 214
+- testname: `widgets/standard_component_type_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. All five Batch-42 issues are the same `_tabs` late-init variant.
+- fix description (if clear): Same template-level fix. The `_tabs`/`_tabCtrl`/`_tabController`/`_loggingManager` late-init issue now spans Batches 28-42 (45+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `42`
+
+## Batch-42 Classification Summary
+
+- Missing/stray status for Batch-42 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`slotted_multi_child_render_object_widget_mixin_test`, `slotted_multi_child_render_object_widget_test`, `slotted_render_object_element_test`, `snapshot_mode_test`, `standard_component_type_test`) — continuing the `_tabs` late-init template pattern.
 - Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
