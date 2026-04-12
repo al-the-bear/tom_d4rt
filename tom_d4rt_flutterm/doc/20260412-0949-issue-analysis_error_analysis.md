@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-33 (issues 0..169 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-34 (issues 0..174 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2338,4 +2338,72 @@ Scope: Batch-0 to Batch-33 (issues 0..169 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-33 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three `_tabs` late-initialization errors (`scroll_activity_delegate_test`, `scroll_context_test`, `scroll_deceleration_rate_test`) — continuing the late-init template pattern.
 - Bridge/generator/interpreter classification: two `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT` failures (`router_config_test` with `_FlowStage`, `scroll_activity_test` with `_SubclassInfo`) — the interpreter cannot resolve unnamed constructors on private classes defined in interpreted code. Same pattern as Batch-27's `_BootstrapStepInfo`.
+
+## Batch-34
+
+### Index 170
+
+- Index: 170
+- testname: `widgets/scroll_drag_controller_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern seen since Batch-32. The script was created on 2026-04-10 and uses `_tabs` as the late field that is accessed before `initState` assigns it.
+- fix description (if clear): Initialize `_tabs` at declaration or in the constructor body.
+- need for deeper analysis?: `no`
+- batch number: `34`
+
+### Index 171
+
+- Index: 171
+- testname: `widgets/scroll_end_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `ScrollEndNotification` deep demo (992 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 170.
+- need for deeper analysis?: `no`
+- batch number: `34`
+
+### Index 172
+
+- Index: 172
+- testname: `widgets/scroll_hold_controller_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `ScrollHoldController` deep demo (1046 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 170.
+- need for deeper analysis?: `no`
+- batch number: `34`
+
+### Index 173
+
+- Index: 173
+- testname: `widgets/scroll_increment_details_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `ScrollIncrementDetails` deep demo (1098 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 170.
+- need for deeper analysis?: `no`
+- batch number: `34`
+
+### Index 174
+
+- Index: 174
+- testname: `widgets/scroll_increment_type_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `ScrollIncrementType` deep demo (1168 lines) has the identical uninitialized late field. All five Batch-34 issues are the same `_tabs` late-init variant, continuing the pattern from Batches 32-33.
+- fix description (if clear): Same template-level fix. The `_tabs`/`_tabController` late-init issue now spans Batches 28-34 (25+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `34`
+
+## Batch-34 Classification Summary
+
+- Missing/stray status for Batch-34 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`scroll_drag_controller_test`, `scroll_end_notification_test`, `scroll_hold_controller_test`, `scroll_increment_details_test`, `scroll_increment_type_test`) — continuing the late-init template pattern from Batches 32-33.
+- Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

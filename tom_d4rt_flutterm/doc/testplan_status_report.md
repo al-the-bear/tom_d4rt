@@ -75,6 +75,8 @@ Batch-32 follow-up note (20260412-0949-issue-analysis): the five Batch-32 script
 
 Batch-33 follow-up note (20260412-0949-issue-analysis): the five Batch-33 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/router_config_test.dart`, `widgets/scroll_activity_delegate_test.dart`, `widgets/scroll_activity_test.dart`, `widgets/scroll_context_test.dart`, `widgets/scroll_deceleration_rate_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-33. Three issues are `_tabs` late-init template defects. Two issues are BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures for private classes (`_FlowStage`, `_SubclassInfo`). A regression test row for private-class constructor handling is tracked below.
 
+Batch-34 follow-up note (20260412-0949-issue-analysis): the five Batch-34 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/scroll_drag_controller_test.dart`, `widgets/scroll_end_notification_test.dart`, `widgets/scroll_hold_controller_test.dart`, `widgets/scroll_increment_details_test.dart`, `widgets/scroll_increment_type_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-34. All five issues are `_tabs` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
