@@ -143,3 +143,18 @@ issue-index: 57
 - Follow-up recommendation:
 	- Add null-aware receiver guards/coercion in interpreter dispatch for transformation methods reachable from rendering hit-test scenarios.
 	- Add focused regressions for nullable color/value transformation invocations in rendering scripts.
+
+batch: 12
+
+issue-index: 63
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_android_view_test.dart`
+- Symptom: non-exhaustive enum switch warning for bridged `PlatformViewHitTestBehavior.opaque` surfaced during bridged `Iterable.toList` path.
+- Immediate outcome: script rewritten to deterministic enum-summary flow; targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- This is consistent with the recurring interpreter enum-switch exhaustiveness limitation for bridged enum values.
+	- In this case the defect appears in a bridged collection-conversion path, showing enum dispatch gaps can surface indirectly during native/bridged list materialization.
+	- Script mitigation stabilizes execution but does not resolve interpreter enum handling completeness for platform view hit-test behavior.
+- Follow-up recommendation:
+	- Extend interpreter enum dispatch/mapping to fully cover `PlatformViewHitTestBehavior` members, including `opaque`, across direct and collection-conversion paths.
+	- Add targeted interpreter regressions for bridged `Iterable.toList` flows that include platform-view enum values.

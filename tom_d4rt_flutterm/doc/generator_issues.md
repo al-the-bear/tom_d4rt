@@ -172,3 +172,8 @@ issue-index: 58
 - Follow-up recommendation:
 	- Extend bridge/generator coercion to normalize interpreted instances to native `Widget` before constructor/method boundaries that require concrete widget types.
 	- Add regression coverage for rendering-layer widget coercion paths, including over-scroll header configuration flows.
+
+batch: 12
+
+- No batch-12 entries required bridge-generator deep analysis.
+- Batch-12 deeper follow-up was interpreter-side enum-switch exhaustiveness in rendering list-conversion flow, documented in `interpreter_issues.md`.

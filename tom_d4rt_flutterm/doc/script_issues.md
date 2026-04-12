@@ -149,3 +149,16 @@ batch: 11
 - Notes:
   - `floating_header_snap_configuration_test.dart` and `pipeline_manifold_test.dart` were direct script-level layout/state-initialization stabilizations.
   - `hit_test_behavior_test.dart` and `over_scroll_header_stretch_configuration_test.dart` are stabilized script-side while deeper interpreter/bridge follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.
+
+batch: 12
+
+- No non-immediate batch-12 script issues remained after immediate fixes.
+- Immediate batch-12 script fixes were applied and validated for:
+  - rendering/placeholder_span_index_semantics_tag_test.dart
+  - rendering/platform_view_render_box_test.dart
+  - rendering/render_abstract_viewport_test.dart
+  - rendering/render_android_view_test.dart
+  - rendering/render_animated_opacity_mixin_test.dart
+- Notes:
+  - `placeholder_span_index_semantics_tag_test.dart`, `platform_view_render_box_test.dart`, `render_abstract_viewport_test.dart`, and `render_animated_opacity_mixin_test.dart` were direct script-level state/layout stabilizations.
+  - `render_android_view_test.dart` is stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.
