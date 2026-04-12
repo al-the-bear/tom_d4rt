@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-5 (issues 0..29 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-6 (issues 0..34 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -414,3 +414,72 @@ Scope: Batch-0 to Batch-5 (issues 0..29 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: one constructor-argument contract issue (`collapse_mode_test`) and one layout overflow warning issue (`drawer_controller_state_test`).
 - Bridge/generator/interpreter classification: one widget coercion mismatch (`button_bar_theme_test`) and two null-target runtime handling issues in button-theme flows (`button_bar_layout_behavior_test`, `button_text_theme_test`).
 - Known non-exhaustive switch signature in Batch-5: not detected in this batch.
+
+## Batch-6
+
+### Index 30
+
+- Index: 30
+- testname: `material/dropdown_menu_close_behavior_test.dart`
+- category: `INTERPRETER-NON-EXHAUSTIVE-SWITCH (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Switch expression was not exhaustive for value: DropdownMenuCloseBehavior.all (DropdownMenuCloseBehavior)`.
+- detailed analysis what the problem is: This directly matches a known interpreter limitation pattern where enum switch handling is not exhaustive at runtime for bridged values. The assertion failure is caused by runtime evaluation behavior, not by a Flutter layout warning or a clearly invalid test expectation.
+- fix description (if clear): Add a workaround in script logic (avoid relying on non-exhaustive switch path) and implement interpreter-side exhaustive enum handling for `DropdownMenuCloseBehavior` values via bridge/runtime mapping updates.
+- need for deeper analysis?: `yes`
+- batch number: `6`
+
+### Index 31
+
+- Index: 31
+- testname: `material/end_drawer_button_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 8 errors about infinite-size layout (`RenderParagraph`, `RenderFlex`, `RenderPadding`, `RenderDecoratedBox`).
+- detailed analysis what the problem is: The script composes widgets in a layout context that permits unbounded/infinite constraints, causing downstream render objects to request infinite size. This is a script-level layout/scaffold issue and should be treated as a failing quality condition even though the test result is success.
+- fix description (if clear): Constrain the end-drawer scenario with bounded parent sizes (for example `SizedBox`/`ConstrainedBox` and explicit width limits for drawer content), then enforce zero framework errors as pass criteria.
+- need for deeper analysis?: `no`
+- batch number: `6`
+
+### Index 32
+
+- Index: 32
+- testname: `material/gapped_range_slider_track_shape_test.dart`
+- category: `INTERPRETER-NULL-CHECK-RUNTIME (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 18 repeated runtime warnings: `Null check operator used on a null value`.
+- detailed analysis what the problem is: Repeated null-check crashes during script execution indicate null propagation through interpreter/bridge paths used by slider track-shape logic. This is not a simple visual overflow warning; it points to missing null-safe coercion/defaulting in runtime handling of slider theme inputs.
+- fix description (if clear): Add null-safe extraction/coercion for the relevant slider track-shape inputs in bridge/runtime paths and ensure script data initialization avoids null before null-check operators are applied.
+- need for deeper analysis?: `yes`
+- batch number: `6`
+
+### Index 33
+
+- Index: 33
+- testname: `material/gapped_slider_track_shape_test.dart`
+- category: `TEST-SCRIPT-THEME-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 28 assertion errors: `'sliderTheme.trackGap != null': is not true`.
+- detailed analysis what the problem is: The scenario invokes slider painting/track-shape paths without satisfying required theme contract fields (`trackGap`). This is primarily a script/theme setup issue; the test currently exercises invalid configuration repeatedly.
+- fix description (if clear): Update the script to provide a valid `SliderThemeData.trackGap` (or use configuration paths that guarantee it) before invoking gapped slider track-shape rendering; keep warning output as failure criteria.
+- need for deeper analysis?: `no`
+- batch number: `6`
+
+### Index 34
+
+- Index: 34
+- testname: `material/hour_format_test.dart`
+- category: `INTERPRETER-NULL-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted runtime warning: `Cannot invoke method 'withValues' on null. Use '?.' for null-aware method invocation.`
+- detailed analysis what the problem is: A method call is attempted on a null object in the interpreted execution path, indicating missing null-aware handling for value transformations in this hour-format flow.
+- fix description (if clear): Add null-aware method invocation/guarding in the relevant script/runtime path and ensure non-null defaults are prepared before calling `withValues`.
+- need for deeper analysis?: `yes`
+- batch number: `6`
+
+## Batch-6 Classification Summary
+
+- Missing/stray status for Batch-6 scripts: none missing, none stray.
+- Test-script issue classification: two script-side configuration/layout issues (`end_drawer_button_test`, `gapped_slider_track_shape_test`).
+- Bridge/generator/interpreter classification: one known non-exhaustive enum switch limitation (`dropdown_menu_close_behavior_test`) and two null-runtime handling issues (`gapped_range_slider_track_shape_test`, `hour_format_test`).
+- Known non-exhaustive switch signature in Batch-6: detected in `dropdown_menu_close_behavior_test`.

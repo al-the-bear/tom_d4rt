@@ -19,6 +19,8 @@ Batch-4 follow-up note (20260412-0949-issue-analysis): the four Batch-4 scripts 
 
 Batch-5 follow-up note (20260412-0949-issue-analysis): the five Batch-5 scripts from `hardly_relevant_classes_2_test.dart` (`material/button_bar_layout_behavior_test.dart`, `material/button_bar_theme_test.dart`, `material/button_text_theme_test.dart`, `material/collapse_mode_test.dart`, `material/drawer_controller_state_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-5. A dedicated regression test script for the recurring null-target button-theme failure patterns (null comparison/property access and widget coercion) is still missing and is tracked below as a file that needs to be created.
 
+Batch-6 follow-up note (20260412-0949-issue-analysis): the five Batch-6 scripts from `hardly_relevant_classes_2_test.dart` (`material/dropdown_menu_close_behavior_test.dart`, `material/end_drawer_button_test.dart`, `material/gapped_range_slider_track_shape_test.dart`, `material/gapped_slider_track_shape_test.dart`, `material/hour_format_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-6. A dedicated regression test script for enum switch-exhaustiveness interpreter handling is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -525,6 +527,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [drop_slider_value_indicator_shape_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/drop_slider_value_indicator_shape_test.dart) | DropSliderValueIndicatorShape | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_button_hide_underline_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_button_hide_underline_test.dart) | DropdownButtonHideUnderline | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_menu_close_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_test.dart) | DropdownMenuCloseBehavior | No | Yes | No | Batch 59 deep-demo. 448 lines, Indigo/Periwinkle, prefix dm. |
+| [dropdown_menu_close_behavior_switch_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_switch_regression_test.dart) | DropdownMenuCloseBehaviorSwitchRegression | No | No | No | Needs to be created (Batch-6 failure pattern: non-exhaustive interpreter switch on `DropdownMenuCloseBehavior`). |
 | [dropdown_menu_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_entry_test.dart) | DropdownMenuEntry | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_menu_form_field_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_form_field_test.dart) | DropdownMenuFormField | No | Yes | No | Created on 2026-03-21 at 09:34 |
 | [dropdown_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_item_test.dart) | DropdownMenuItem | No | Yes | No | Created on 2026-03-21 at 09:34 |
