@@ -193,3 +193,20 @@ batch: 14
     - The runtime warning originated from implicit `widget` lookup on a state path that is not guaranteed to expose `State.widget` semantics in interpreted execution.
     - This failure pattern matches prior state-context defects where script code couples runtime behavior to framework-owned state properties instead of explicit data plumbing.
     - Immediate mitigation moved the scenario to deterministic local configuration values, but long-term script quality should enforce explicit context/data passing patterns for stateful deep demos.
+
+batch: 15
+
+- No non-immediate batch-15 script issues remained after immediate fixes.
+- Immediate batch-15 script fixes were applied and validated for:
+  - widgets/action_listener_test.dart
+  - widgets/align_transition_test.dart
+  - widgets/android_view_surface_test.dart
+  - widgets/animated_positioned_directional_test.dart
+  - widgets/app_kit_view_test.dart
+- Notes:
+  - `action_listener_test.dart` and `align_transition_test.dart` were direct script-level state-initialization stabilizations.
+  - `android_view_surface_test.dart` and `app_kit_view_test.dart` are stabilized script-side while deeper bridge-generator follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 78, `animated_positioned_directional_test.dart`):
+    - The warning originated from implicit `context` property access on a state object path that is not guaranteed to provide `BuildContext` in interpreted member lookup.
+    - This reflects a recurring script-state coupling pattern where context-dependent values are retrieved indirectly from framework state instead of being passed explicitly.
+    - Immediate mitigation replaced the scenario with deterministic explicit state descriptors; long-term script quality should enforce explicit context injection and avoid framework-private state/property assumptions.
