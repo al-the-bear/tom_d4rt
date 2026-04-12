@@ -57,6 +57,8 @@ Batch-23 follow-up note (20260412-0949-issue-analysis): the five Batch-23 script
 
 Batch-24 follow-up note (20260412-0949-issue-analysis): the five Batch-24 entries from `hardly_relevant_classes_4_test.dart`/`hardly_relevant_classes_5_test.dart` (`widgets/object_key_test.dart`, `widgets/orientation_builder_test.dart`, `widgets/overlay_child_location_test.dart`, `widgets/overlay_state_test.dart`, `(setUpAll)` in `hardly_relevant_classes_5_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-24. A dedicated regression test script for overlay-child flex overflow guard coverage is still missing and is tracked below as a file that needs to be created.
 
+Batch-25 follow-up note (20260412-0949-issue-analysis): the five Batch-25 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/raw_dialog_route_test.dart`, `widgets/raw_keyboard_listener_test.dart`, `widgets/raw_menu_overlay_info_test.dart`, `widgets/raw_radio_test.dart`, `widgets/redo_text_intent_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-25. A dedicated regression test script for bridged `RawDialogRoute` generic-constructor callback coercion is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1790,6 +1792,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [range_maintaining_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/range_maintaining_scroll_physics_test.dart) | RangeMaintainingScrollPhysics | No | Yes | No | Created on 2026-04-10 at 10:30. |
 | [raw_autocomplete_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_autocomplete_test.dart) | RawAutocomplete | No | Yes | No | Created on 2026-04-07 at 07:15 |
 | [raw_dialog_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart) | RawDialogRoute | No | Yes | No | Created on 2026-04-07 at 07:15 |
+| [raw_dialog_route_generic_constructor_callback_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_generic_constructor_callback_coercion_regression_test.dart) | RawDialogRouteGenericConstructorCallbackCoercionRegression | No | No | No | Needs to be created (Batch-25 failure pattern: `RawDialogRoute` generic constructor receives incompatible interpreted callback type). |
 | [raw_gesture_detector_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_gesture_detector_state_test.dart) | RawGestureDetectorState | No | Yes | No | Created on 2026-04-10 at 10:30. |
 | [raw_gesture_detector_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_gesture_detector_test.dart) | RawGestureDetector | No | Yes | No | Created on 2026-04-07 at 07:15 |
 | [raw_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_image_test.dart) | RawImage | No | Yes | No | Created on 2026-04-07 at 07:15 |

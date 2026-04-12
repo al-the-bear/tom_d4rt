@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-24 (issues 0..124 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-25 (issues 0..129 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1726,3 +1726,72 @@ Scope: Batch-0 to Batch-24 (issues 0..124 from `20260412-0949-issue-analysis_tes
 - Bridge/generator/interpreter classification: one missing default-constructor bridge support failure (`object_key_test`); no new non-exhaustive switch signature in this batch.
 - Harness/log-only classification: one informational setup log (`setUpAll` in `hardly_relevant_classes_5_test.dart`) with no functional defect.
 - Known non-exhaustive switch signature in Batch-24: not detected in this batch.
+
+## Batch-25
+
+### Index 125
+
+- Index: 125
+- testname: `widgets/raw_dialog_route_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-FACTORY (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted runtime error from generic constructor factory for `RawDialogRoute` due to incompatible callback type.
+- detailed analysis what the problem is: Bridge conversion passes an `InterpretedFunction` where `RawDialogRoute` expects a typed transition-builder callback `((BuildContext, Animation<double>, Animation<double>) => Widget)?`, causing runtime type mismatch.
+- fix description (if clear): Add callback signature coercion in bridge/custom factory mapping for `RawDialogRoute` and validate function-type adaptation before constructor invocation.
+- need for deeper analysis?: `yes`
+- batch number: `25`
+
+### Index 126
+
+- Index: 126
+- testname: `widgets/raw_keyboard_listener_test.dart`
+- category: `BRIDGE-MISSING-SYMBOL-REGISTRATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Undefined variable: RawKeyboardListener`.
+- detailed analysis what the problem is: The runtime could not resolve `RawKeyboardListener` symbol in interpreted context, indicating missing or incomplete bridge/class registration/export path.
+- fix description (if clear): Ensure `RawKeyboardListener` is exposed by the widget bridge set and available in script import/registry resolution paths.
+- need for deeper analysis?: `yes`
+- batch number: `25`
+
+### Index 127
+
+- Index: 127
+- testname: `widgets/raw_menu_overlay_info_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with runtime error `'Object' is not callable (no default constructor bridge found)`.
+- detailed analysis what the problem is: The raw-menu-overlay flow reaches an object-construction path that depends on default constructor bridging not currently available for the involved base object path.
+- fix description (if clear): Reuse default-constructor bridge support pattern for object creation in this widget flow and avoid unbridged direct constructor calls.
+- need for deeper analysis?: `yes`
+- batch number: `25`
+
+### Index 128
+
+- Index: 128
+- testname: `widgets/raw_radio_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-FACTORY (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted native runtime error while bridging `Iterable.toList` through generic constructor factory for `RawRadio`.
+- detailed analysis what the problem is: Constructor generic adaptation for `RawRadio` fails during iterable/list conversion in bridged method flow, indicating incomplete generic factory typing/casting for this path.
+- fix description (if clear): Harden generic factory coercion for `RawRadio` constructor arguments and iterable element typing before `toList` conversion.
+- need for deeper analysis?: `yes`
+- batch number: `25`
+
+### Index 129
+
+- Index: 129
+- testname: `widgets/redo_text_intent_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: Redo-intent scenario returns an interpreted object where a concrete `Widget` is required, showing unresolved widget coercion/conversion at bridge boundary.
+- fix description (if clear): Apply widget coercion mapping (interpreted-instance to `Widget`) for this intent/action rendering path and add guard assertions in script setup.
+- need for deeper analysis?: `yes`
+- batch number: `25`
+
+## Batch-25 Classification Summary
+
+- Missing/stray status for Batch-25 scripts: none missing, none stray.
+- Test-script issue classification: no standalone script-only warning class in this batch; failures are dominated by bridge/type-resolution/coercion defects.
+- Bridge/generator/interpreter classification: two generic-constructor-factory issues (`raw_dialog_route_test`, `raw_radio_test`), one missing symbol registration (`raw_keyboard_listener_test`), one missing default-constructor support path (`raw_menu_overlay_info_test`), and one widget coercion defect (`redo_text_intent_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
