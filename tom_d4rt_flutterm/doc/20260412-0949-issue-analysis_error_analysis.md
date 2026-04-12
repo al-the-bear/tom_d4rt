@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-20 (issues 0..104 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-21 (issues 0..109 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1449,3 +1449,72 @@ Scope: Batch-0 to Batch-20 (issues 0..104 from `20260412-0949-issue-analysis_tes
 - Test-script issue classification: four state-context access issue groups (`icon_data_test`, `icon_theme_data_test`, `ignore_baseline_test`, `img_element_platform_view_test`) and one state-initialization issue (`image_icon_test`).
 - Bridge/generator/interpreter classification: no new bridge/generator signature beyond recurring deep-demo state-context property resolution and one script-level late-initialization ordering defect.
 - Known non-exhaustive switch signature in Batch-20: not detected in this batch.
+
+## Batch-21
+
+### Index 105
+
+- Index: 105
+- testname: `widgets/keep_alive_handle_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted 27 framework/layout errors (unbounded width constraints and repeated `RenderBox was not laid out` assertions).
+- detailed analysis what the problem is: The demo composes flex-based rows in a horizontally unconstrained viewport path; this produces cascading layout failures (`hasSize` assertions) and semantics/layout invalid state while still reporting success.
+- fix description (if clear): Constrain horizontal size explicitly (e.g., `SizedBox`/`ConstrainedBox`), avoid `Expanded/Flexible` in unbounded axis contexts, and add a guard assertion that fails the test when framework layout errors are logged.
+- need for deeper analysis?: `yes`
+- batch number: `21`
+
+### Index 106
+
+- Index: 106
+- testname: `widgets/keyboard_listener_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across keyboard-listener scene states.
+- detailed analysis what the problem is: Scene states (`_FocusArenaSceneState`, `_KeyStreamAnalyzerSceneState`, `_ShortcutConsoleSceneState`, `_BoundaryLabSceneState`, `_PracticalWorkspaceSceneState`) rely on implicit `widget` access paths unresolved in interpreted execution.
+- fix description (if clear): Refactor scene state objects to receive explicit configuration values and remove implicit `widget` property lookups.
+- need for deeper analysis?: `yes`
+- batch number: `21`
+
+### Index 107
+
+- Index: 107
+- testname: `widgets/layout_id_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across layout-id scene states.
+- detailed analysis what the problem is: Runtime logs show the same unresolved state-context pattern on `_FundamentalsSceneState`, `_PatternGallerySceneState`, `_ConstraintLabSceneState`, `_ResponsiveSceneState`, and `_PracticalWorkspaceSceneState`.
+- fix description (if clear): Apply the shared deep-demo state wiring approach with explicit constructor fields/captured references instead of `widget` property reads.
+- need for deeper analysis?: `yes`
+- batch number: `21`
+
+### Index 108
+
+- Index: 108
+- testname: `widgets/live_text_input_status_test.dart`
+- category: `BRIDGE-NULL-RECEIVER-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with runtime error `Cannot invoke method 'withValues' on null`.
+- detailed analysis what the problem is: A color/value transformation path calls `withValues` on a nullable receiver under interpreted/bridged execution, causing a hard failure before expected assertions complete.
+- fix description (if clear): Introduce null-safe receiver handling in the affected script path and add bridge-side/custom-cast safeguards so nullable color values are normalized before invoking `withValues`.
+- need for deeper analysis?: `yes`
+- batch number: `21`
+
+### Index 109
+
+- Index: 109
+- testname: `widgets/lock_state_test.dart`
+- category: `BRIDGE-NULL-RECEIVER-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with the same runtime error: `Cannot invoke method 'withValues' on null`.
+- detailed analysis what the problem is: The lock-state flow hits the same nullable receiver invocation defect as Index 108, indicating a shared conversion/normalization gap in the live-text/lock-state value pipeline.
+- fix description (if clear): Reuse the Batch-21 null-receiver mitigation: enforce non-null defaults or null-aware invocation before `withValues`, and validate in bridge/custom conversion hooks.
+- need for deeper analysis?: `yes`
+- batch number: `21`
+
+## Batch-21 Classification Summary
+
+- Missing/stray status for Batch-21 scripts: none missing, none stray.
+- Test-script issue classification: one layout-constraints warning cluster (`keep_alive_handle_test`) and two state-context warning groups (`keyboard_listener_test`, `layout_id_test`).
+- Bridge/generator/interpreter classification: two null-receiver method-invocation failures (`live_text_input_status_test`, `lock_state_test`) likely requiring script null-guarding plus bridge/custom-cast normalization for `withValues` receiver values.
+- Known non-exhaustive switch signature in Batch-21: not detected in this batch.
