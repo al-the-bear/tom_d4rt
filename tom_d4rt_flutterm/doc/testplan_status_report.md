@@ -63,6 +63,8 @@ Batch-26 follow-up note (20260412-0949-issue-analysis): the five Batch-26 script
 
 Batch-27 follow-up note (20260412-0949-issue-analysis): the five Batch-27 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/regular_window_test.dart`, `widgets/relative_positioned_transition_test.dart`, `widgets/render_abstract_layout_builder_mixin_test.dart`, `widgets/render_nested_scroll_view_viewport_test.dart`, `widgets/render_object_to_widget_adapter_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-27. A dedicated regression test script for `_BootstrapStepInfo` private-class constructor bridge handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-28 follow-up note (20260412-0949-issue-analysis): the five Batch-28 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/render_tap_region_surface_test.dart`, `widgets/render_tap_region_test.dart`, `widgets/render_tree_root_element_test.dart`, `widgets/render_two_dimensional_viewport_test.dart`, `widgets/render_web_image_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-28. A dedicated regression test script for `visitAncestorElements` bridge call on uninitialized element tree is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1838,6 +1840,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [render_tree_root_element_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_tree_root_element_test.dart) | RenderTreeRootElement | Yes | Yes | No |
 | [render_two_dimensional_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_two_dimensional_viewport_test.dart) | RenderTwoDimensionalViewport | Yes | Deep-Visual | Yes | Batch 12: 2D grid lab with axis directions, cache extent, and scrolling demo. |
 | [render_web_image_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_web_image_test.dart) | RenderWebImage | Yes | Deep-Visual | Yes | Batch 12: Web image with BoxFit lab, RTL flip, and alignment picker. |
+| render_tree_root_element_visit_ancestor_bridge_regression_test.dart | visitAncestorElements bridge | No | No | No | Needs to be created |
 | [reorderable_delayed_drag_start_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/reorderable_delayed_drag_start_listener_test.dart) | ReorderableDelayedDragStartListener | No | Yes | No | Created on 2026-04-07 at 12:12. |
 | [reorderable_drag_start_listener_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/reorderable_drag_start_listener_test.dart) | ReorderableDragStartListener | No | Yes | No | Created on 2026-04-07 at 12:12. |
 | [reorderable_list_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/reorderable_list_state_test.dart) | ReorderableListState | No | Yes | No | Created on 2026-04-10 at 14:30. |

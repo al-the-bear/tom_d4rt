@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-27 (issues 0..139 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-28 (issues 0..144 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1930,4 +1930,72 @@ Scope: Batch-0 to Batch-27 (issues 0..139 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-27 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: one layout-overflow log issue (`relative_positioned_transition_test` — RenderFlex overflow 4px, needs script constraint fix) and one list-type coercion log issue (`render_nested_scroll_view_viewport_test` — List<Object?> to List<Widget>).
 - Bridge/generator/interpreter classification: two widget coercion defects (`regular_window_test`, `render_abstract_layout_builder_mixin_test`), one list-type coercion issue (`render_nested_scroll_view_viewport_test`), and one missing default-constructor support for private class `_BootstrapStepInfo` (`render_object_to_widget_adapter_test`).
+
+## Batch-28
+
+### Index 140
+
+- Index: 140
+- testname: `widgets/render_tap_region_surface_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The deep demo (1145 lines) for `RenderTapRegionSurface` constructs a widget tree with TapRegionRegistry and hit-test scenarios, but the interpreter returns the widget as `InterpretedInstance` instead of a concrete `Widget`. The bridge does not coerce `RenderTapRegionSurface` (or its wrapping widget) back to the native `Widget` type.
+- fix description (if clear): Register `RenderTapRegionSurface` and its related widget wrappers in the widget coercion handler so interpreted instances are unwrapped to native `Widget` type.
+- need for deeper analysis?: `yes`
+- batch number: `28`
+
+### Index 141
+
+- Index: 141
+- testname: `widgets/render_tap_region_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: The deep-visual demo references a `_tabController` late variable that is declared but never initialized before being accessed in the interpreted script execution. The script likely has a `State.initState()` callback that should assign the tab controller, but the interpreter does not call the state lifecycle method in the correct order or the assignment path is not bridged.
+- fix description (if clear): Ensure `_tabController` is initialized before use — either move the initialization from a lifecycle callback to the constructor/declaration, or verify the `initState` bridge path invokes properly. Alternatively, add a null guard or replace the late field with a nullable field plus null-check.
+- need for deeper analysis?: `no`
+- batch number: `28`
+
+### Index 142
+
+- Index: 142
+- testname: `widgets/render_tree_root_element_test.dart`
+- category: `BRIDGE-NULL-RECEIVER-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `no`
+- description: Test passes but logs: `Native error during bridged method call 'visitAncestorElements' on StatelessElement: LateInitializationError: Field '_children@24042623' has not been initialized.`
+- detailed analysis what the problem is: The test calls `visitAncestorElements` on a `StatelessElement`, but the element's internal `_children` field (a framework-private late field) has not been initialized at the point of the call. This happens because the element tree is not fully mounted when the interpreted code traverses it. The bridge invokes the native method, which throws a `LateInitializationError` on the uninitialized private field.
+- fix description (if clear): Defer the `visitAncestorElements` call until after the element tree is fully built and mounted (e.g., inside `WidgetsBinding.instance.addPostFrameCallback`). Alternatively, wrap the call in a try-catch in the test script to handle the case where the tree is not yet ready.
+- need for deeper analysis?: `yes`
+- batch number: `28`
+
+### Index 143
+
+- Index: 143
+- testname: `widgets/render_two_dimensional_viewport_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same pattern as Index 141 — the deep-visual demo for `RenderTwoDimensionalViewport` references a `_tabController` late variable that is not initialized before access. The state lifecycle bridge does not call `initState` properly or the assignment is not reflected in the interpreter's variable scope.
+- fix description (if clear): Same fix as Index 141 — initialize `_tabController` in the constructor/declaration or guard with null-check. This is likely a shared tab-controller initialization pattern across multiple deep-visual demos.
+- need for deeper analysis?: `no`
+- batch number: `28`
+
+### Index 144
+
+- Index: 144
+- testname: `widgets/render_web_image_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same pattern as Indices 141 and 143 — the deep-visual demo for `RenderWebImage` references a `_tabController` late variable that is not initialized. Three of the five Batch-28 issues share this identical `_tabController` late-init pattern, indicating a systematic issue in the deep-visual demo template used for these scripts.
+- fix description (if clear): Same fix as Indices 141/143. A template-level fix initializing `_tabController` inline or in the constructor body would resolve all three scripts at once.
+- need for deeper analysis?: `no`
+- batch number: `28`
+
+## Batch-28 Classification Summary
+
+- Missing/stray status for Batch-28 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabController` late-initialization errors (`render_tap_region_test`, `render_two_dimensional_viewport_test`, `render_web_image_test`) — these are deep-visual demo template issues, fixable by adjusting the tab-controller setup pattern.
+- Bridge/generator/interpreter classification: one widget coercion defect (`render_tap_region_surface_test`), and one `visitAncestorElements` bridge call hitting uninitialized `_children` field (`render_tree_root_element_test` — BRIDGE-NULL-RECEIVER-METHOD-INVOCATION).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
