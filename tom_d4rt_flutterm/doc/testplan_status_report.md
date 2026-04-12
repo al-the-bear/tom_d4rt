@@ -27,6 +27,8 @@ Batch-8 follow-up note (20260412-0949-issue-analysis): the five Batch-8 scripts 
 
 Batch-9 follow-up note (20260412-0949-issue-analysis): the five Batch-9 scripts from `hardly_relevant_classes_2_test.dart` (`material/theme_extension_test.dart`, `material/theme_mode_test.dart`, `material/thumb_test.dart`, `material/time_of_day_format_test.dart`, `material/time_picker_entry_mode_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-9. A dedicated regression test script for `ThemeData.copyWith` extension-list bridge conversion is still missing and is tracked below as a file that needs to be created.
 
+Batch-10 follow-up note (20260412-0949-issue-analysis): the five Batch-10 scripts from `hardly_relevant_classes_2_test.dart` (`material/toggle_buttons_theme_data_test.dart`, `material/toggle_buttons_theme_test.dart`, `material/tooltip_state_test.dart`, `painting/axis_direction_test.dart`, `painting/axis_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-10. A dedicated regression test script for bridged `BoxConstraints` equality null-operand handling is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -779,6 +781,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [toggle_segmented_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_segmented_test.dart) | ToggleButtons | No | Yes | No |
 | [togglebuttons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/togglebuttons_test.dart) | ToggleButtons | No | Yes | No |
 | [tooltip_badge_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_badge_test.dart) | Tooltip | No | Yes | No |
+| [toggle_buttons_box_constraints_eq_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_box_constraints_eq_regression_test.dart) | ToggleButtonsBoxConstraintsEqRegression | No | No | No | Needs to be created (Batch-10 failure pattern: bridged `BoxConstraints` operator `==` receives null `other` in toggle buttons theme flows). |
 | [tooltip_feedback_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_feedback_test.dart) | Tooltip | No | Yes | No | Checked. |
 | [tooltip_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_state_test.dart) | TooltipState | No | Yes | No | Created on 2026-03-29 at 15:24 |
 | [tooltip_visibility_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/tooltip_visibility_test.dart) | TooltipVisibility | No | Yes | No | Deep demo created 2025-03-28 |

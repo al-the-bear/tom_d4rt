@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-9 (issues 0..49 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-10 (issues 0..54 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -690,3 +690,72 @@ Scope: Batch-0 to Batch-9 (issues 0..49 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: four layout-constraint warning groups (`theme_mode_test`, `thumb_test`, `time_of_day_format_test`, `time_picker_entry_mode_test`).
 - Bridge/generator/interpreter classification: one typed-list bridge coercion issue in `ThemeData.copyWith` extensions handling (`theme_extension_test`).
 - Known non-exhaustive switch signature in Batch-9: not detected in this batch.
+
+## Batch-10
+
+### Index 50
+
+- Index: 50
+- testname: `material/toggle_buttons_theme_data_test.dart`
+- category: `BRIDGE-OPERATOR-ARG-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning indicates bridged operator `==` on `BoxConstraints` received invalid parameter `other` as null.
+- detailed analysis what the problem is: This is a bridge/runtime operator argument coercion issue where null is propagated into a path expecting a non-null object for equality checks. It is not primarily a layout warning.
+- fix description (if clear): Add null-safe guard/coercion in the `BoxConstraints` bridged equality operator path and ensure script inputs avoid null `other` operands.
+- need for deeper analysis?: `yes`
+- batch number: `10`
+
+### Index 51
+
+- Index: 51
+- testname: `material/toggle_buttons_theme_test.dart`
+- category: `BRIDGE-OPERATOR-ARG-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted the same `BoxConstraints ==` null-operand runtime warning as Index 50.
+- detailed analysis what the problem is: Same root defect as Index 50, confirming a shared bridge/runtime handling gap rather than a one-off script issue.
+- fix description (if clear): Fix bridged equality operator argument handling once and rerun both toggle-buttons theme tests.
+- need for deeper analysis?: `yes`
+- batch number: `10`
+
+### Index 52
+
+- Index: 52
+- testname: `material/tooltip_state_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but warning shows native `Tooltip` constructor assertion failure requiring exactly one of `message` or `richMessage`.
+- detailed analysis what the problem is: The script is constructing `Tooltip` with invalid constructor argument combination (both null or both non-null). This is primarily script-side argument-contract misuse.
+- fix description (if clear): Update script construction logic to provide exactly one of `message` or `richMessage`, and treat any constructor assertion output as failure.
+- need for deeper analysis?: `no`
+- batch number: `10`
+
+### Index 53
+
+- Index: 53
+- testname: `painting/axis_direction_test.dart`
+- category: `INTERPRETER-NULL-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Cannot invoke method 'withValues' on null. Use '?.' for null-aware method invocation.`
+- detailed analysis what the problem is: The interpreted path calls `withValues` on a null target, matching previously seen null-method-invocation runtime behavior in related tests.
+- fix description (if clear): Add null-aware method invocation/guarding in the affected path and ensure required objects are non-null before transformation calls.
+- need for deeper analysis?: `yes`
+- batch number: `10`
+
+### Index 54
+
+- Index: 54
+- testname: `painting/axis_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 RenderFlex overflow warnings (right and bottom overflows).
+- detailed analysis what the problem is: Script layout sizing in the axis demo exceeds available space in some states. This is a test-script layout quality issue and should be corrected to remove warning output.
+- fix description (if clear): Constrain or adapt axis demo layout (bounded sizes, flexible wrapping, scroll fallback) so no RenderFlex overflow warnings remain.
+- need for deeper analysis?: `no`
+- batch number: `10`
+
+## Batch-10 Classification Summary
+
+- Missing/stray status for Batch-10 scripts: none missing, none stray.
+- Test-script issue classification: one constructor-argument contract issue (`tooltip_state_test`) and one overflow/layout issue (`axis_test`).
+- Bridge/generator/interpreter classification: two `BoxConstraints` operator argument-coercion issues (`toggle_buttons_theme_data_test`, `toggle_buttons_theme_test`) and one null-method-invocation issue (`axis_direction_test`).
+- Known non-exhaustive switch signature in Batch-10: not detected in this batch.
