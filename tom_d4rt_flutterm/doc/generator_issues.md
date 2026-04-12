@@ -112,3 +112,18 @@ batch: 7
 
 - No batch-7 entries required bridge-generator deep analysis.
 - Batch-7 deeper follow-up items were interpreter-side enum-switch exhaustiveness gaps, documented in `interpreter_issues.md`.
+
+batch: 8
+
+issue-index: 42
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart`
+- Symptom: generic constructor factory failure for `PopupMenuButton` due to conflicting argument mapping (`child` and `icon` both present).
+- Immediate outcome: script rewritten to provide a single explicit `child` path and now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- The failure signature directly implicates constructor argument mapping in the generic bridge factory path.
+	- Even when script inputs are corrected, this class of defect indicates bridge/generator extraction/defaulting can produce mutually exclusive constructor parameters simultaneously.
+	- Script mitigation removes immediate failure but does not guarantee robust argument contract enforcement in bridge factory generation.
+- Follow-up recommendation:
+	- Harden generic constructor factory mapping for `PopupMenuButton` so mutually exclusive parameters (`child` vs `icon`) are validated and normalized before native invocation.
+	- Add generator regression tests covering both valid constructor modes (child-only, icon-only) and explicit conflict rejection.

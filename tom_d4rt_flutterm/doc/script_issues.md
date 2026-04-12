@@ -93,3 +93,16 @@ batch: 7
 - Notes:
   - `list_tile_title_alignment_test.dart`, `menu_accelerator_callback_binding_test.dart`, and `navigation_drawer_theme_test.dart` were direct script-level layout/constraint stabilizations.
   - `material_banner_closed_reason_test.dart` and `navigation_destination_label_behavior_test.dart` are stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.
+
+batch: 8
+
+- No non-immediate batch-8 script issues remained after immediate fixes.
+- Immediate batch-8 script fixes were applied and validated for:
+  - material/navigation_rail_label_type_test.dart
+  - material/paginated_data_table_state_test.dart
+  - material/popup_menu_position_test.dart
+  - material/progress_indicator_test.dart
+  - material/refresh_progress_indicator_test.dart
+- Notes:
+  - `paginated_data_table_state_test.dart`, `progress_indicator_test.dart`, and `refresh_progress_indicator_test.dart` were direct script-level layout/value-contract stabilizations.
+  - `navigation_rail_label_type_test.dart` and `popup_menu_position_test.dart` are stabilized script-side while deeper interpreter/generator follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.

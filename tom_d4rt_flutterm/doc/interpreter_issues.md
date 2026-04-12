@@ -93,3 +93,18 @@ issue-index: 36, 38
 - Follow-up recommendation:
 	- Extend interpreter enum dispatch/mapping to guarantee exhaustive handling for `MaterialBannerClosedReason` and `NavigationDestinationLabelBehavior` values.
 	- Add interpreter regression tests for these enums, including the failing members (`dismiss`, `alwaysShow`) to prevent recurrence.
+
+batch: 8
+
+issue-index: 40
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_rail_label_type_test.dart`
+- Symptom: non-exhaustive enum switch runtime failure for bridged `NavigationRailLabelType.none`.
+- Immediate outcome: script rewritten to a harness-safe deterministic enum summary flow; targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- This is the same interpreter enum-switch exhaustiveness limitation seen in earlier material enum cases.
+	- Bridged enum values reach switch evaluation without complete runtime branch coverage for all enum members.
+	- Script-level mitigation stabilizes test execution but does not resolve interpreter enum-switch semantics.
+- Follow-up recommendation:
+	- Extend interpreter enum mapping/dispatch to cover all `NavigationRailLabelType` members during switch evaluation.
+	- Add targeted interpreter regressions for `NavigationRailLabelType` with explicit coverage of `none` and other members to prevent recurrence.
