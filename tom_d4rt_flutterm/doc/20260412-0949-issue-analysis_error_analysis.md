@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-51 (issues 0..259 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-52 (issues 0..264 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3594,4 +3594,75 @@ Scope: Batch-0 to Batch-51 (issues 0..259 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-51 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three `_tabs` late-initialization errors (`widget_state_test`, `widget_state_text_style_test`, `widget_states_constraint_test`).
 - Bridge/generator/interpreter classification: two `BRIDGE-GENERIC-TYPE-COERCION` failures (`window_positioner_anchor_test`, `window_positioner_constraint_adjustment_test`) in generic constructor factory handling for `ValueNotifier<double>`.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-52 (Issues 260-264)
+
+### Index 260
+
+- Index: 260
+- testname: `widgets/window_positioner_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: Same generic constructor factory issue as Batch-51. The `ValueNotifier<double>` construction path receives an `int` from interpreted execution and performs a strict cast instead of numeric adaptation.
+- fix description (if clear): Add bridge-side numeric coercion/adaptation in generic constructor factory handling (e.g., permit `int` to `double` conversion when target type is `double`) or normalize numeric literals before generic constructor dispatch.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `52`
+
+### Index 261
+
+- Index: 261
+- testname: `widgets/window_scope_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires widget coercion enhancement`
+- description: Test passes but logs: `type 'InterpretedInstance' is not a subtype of type 'Widget' in type cast`.
+- detailed analysis what the problem is: A script-created/interpreted widget instance is being passed through a native path expecting a concrete `Widget`, but the bridge fails to coerce/wrap `InterpretedInstance` into an accepted widget representation.
+- fix description (if clear): Extend widget coercion/UserBridge logic for this path so interpreted widget instances are converted to native-compatible `Widget` values.
+- need for deeper analysis?: `yes — widget coercion path`
+- batch number: `52`
+
+### Index 262
+
+- Index: 262
+- testname: `widgets/windowing_owner_linux_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: Same as Index 260 — generic constructor factory for `ValueNotifier<double>` fails numeric type adaptation.
+- fix description (if clear): Same generic numeric coercion enhancement as Index 260.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `52`
+
+### Index 263
+
+- Index: 263
+- testname: `widgets/windowing_owner_mac_o_s_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: Same as Index 260 — generic constructor factory for `ValueNotifier<double>` fails numeric type adaptation.
+- fix description (if clear): Same generic numeric coercion enhancement as Index 260.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `52`
+
+### Index 264
+
+- Index: 264
+- testname: `widgets/windowing_owner_test.dart`
+- category: `BRIDGE-GENERIC-TYPE-COERCION`
+- immediate fix possible: `no — requires bridge/generic-factory enhancement`
+- description: Test fails with: `Error in generic constructor factory for 'ValueNotifier': type 'int' is not a subtype of type 'double' in type cast`.
+- detailed analysis what the problem is: Same as Index 260 — generic constructor factory for `ValueNotifier<double>` fails numeric type adaptation.
+- fix description (if clear): Same generic numeric coercion enhancement as Index 260.
+- need for deeper analysis?: `yes — bridge generic factory path`
+- batch number: `52`
+
+## Batch-52 Classification Summary
+
+- Missing/stray status for Batch-52 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: none in this batch.
+- Bridge/generator/interpreter classification: four `BRIDGE-GENERIC-TYPE-COERCION` failures (`window_positioner_test`, `windowing_owner_linux_test`, `windowing_owner_mac_o_s_test`, `windowing_owner_test`) and one `BRIDGE-WIDGET-COERCION` issue (`window_scope_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
