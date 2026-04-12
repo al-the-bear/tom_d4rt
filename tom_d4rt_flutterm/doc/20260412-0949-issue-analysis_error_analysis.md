@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-59 (issues 0..299 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-60 (issues 0..304 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4163,4 +4163,75 @@ Scope: Batch-0 to Batch-59 (issues 0..299 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-59 scripts: none missing, none stray. All referenced scripts are present on disk; `ztmp_path_metrics_access_test.dart` was added to the status report list for tracking completeness.
 - Test-script issue classification: two layout-constraint defects (`scroll_controllers_types_test`, `cupertino_text_selection_controls_test`), one assertion-precondition failure (`ztmp_path_metrics_access_test`), one math-contract assertion warning (`scene_test`), and one overflow warning (`semantics_action_event_test`).
 - Bridge/generator/interpreter classification: none conclusively identified in this batch.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-60 (Issues 300-304)
+
+### Index 300
+
+- Index: 300
+- testname: `dart_ui/string_attribute_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs bottom overflow: `A RenderFlex overflowed by 4.0 pixels on the bottom.`
+- detailed analysis what the problem is: Scripted layout exceeds available vertical space in at least one state. This is a test-scene composition issue, not a bridge/runtime failure.
+- fix description (if clear): Constrain vertical layout or reduce child sizing so the RenderFlex remains within bounds across all scene states.
+- need for deeper analysis?: `no`
+- batch number: `60`
+
+### Index 301
+
+- Index: 301
+- testname: `dart_ui/target_image_size_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated bottom overflow (`RenderFlex overflowed by 16 pixels on the bottom`).
+- detailed analysis what the problem is: Same overflow family as Index 300 with repeated occurrences, indicating fixed-size content exceeds constrained viewport height in multiple states.
+- fix description (if clear): Rework scene sizing/responsiveness and constrain vertical content to prevent repeated overflow warnings.
+- need for deeper analysis?: `no`
+- batch number: `60`
+
+### Index 302
+
+- Index: 302
+- testname: `gestures/vertical_multi_drag_gesture_recognizer_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated runtime warnings: `Undefined variable: widget` on `_VerticalTrackState`.
+- detailed analysis what the problem is: Recurring state-context access defect where the script relies on implicit `widget` access path that is unresolved in interpreted execution for this scene state.
+- fix description (if clear): Replace implicit `widget` reads with explicit state fields/constructor parameters or ensure valid state-context access before use.
+- need for deeper analysis?: `no`
+- batch number: `60`
+
+### Index 303
+
+- Index: 303
+- testname: `material/scaffold_messenger_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test fails with: `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: Interpreter returns an `InterpretedInstance` where native code path asserts `Widget`. This matches established widget-coercion bridge gap patterns from earlier batches.
+- fix description (if clear): Extend widget coercion bridge handling for this ScaffoldMessenger path so interpreted widget instances are unwrapped/coerced to native `Widget` before assertion boundary.
+- need for deeper analysis?: `yes — bridge widget coercion path`
+- batch number: `60`
+
+### Index 304
+
+- Index: 304
+- testname: `material/text_button_theme_data_test.dart`
+- category: `TEST-SCRIPT-NULL-RECEIVER (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs runtime error: `Cannot invoke method 'toStringAsFixed' on null. Use '?.' for null-aware method invocation.`
+- detailed analysis what the problem is: Script executes numeric formatting on a nullable value without null guarding, producing runtime warning output in a success run.
+- fix description (if clear): Add null-aware formatting (`?.`) or explicit null defaulting before `toStringAsFixed` call in the test scene.
+- need for deeper analysis?: `no`
+- batch number: `60`
+
+## Batch-60 Classification Summary
+
+- Missing/stray status for Batch-60 scripts: none missing, none stray. All referenced scripts are present and already listed in the status report.
+- Test-script issue classification: two overflow issues (`string_attribute_test`, `target_image_size_test`), one state-context warning group (`vertical_multi_drag_gesture_recognizer_test`), and one null-receiver warning (`text_button_theme_data_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-WIDGET-COERCION` failure (`scaffold_messenger_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
