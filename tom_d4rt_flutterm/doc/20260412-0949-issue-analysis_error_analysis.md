@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-10 (issues 0..54 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-11 (issues 0..59 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -759,3 +759,72 @@ Scope: Batch-0 to Batch-10 (issues 0..54 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one constructor-argument contract issue (`tooltip_state_test`) and one overflow/layout issue (`axis_test`).
 - Bridge/generator/interpreter classification: two `BoxConstraints` operator argument-coercion issues (`toggle_buttons_theme_data_test`, `toggle_buttons_theme_test`) and one null-method-invocation issue (`axis_direction_test`).
 - Known non-exhaustive switch signature in Batch-10: not detected in this batch.
+
+## Batch-11
+
+### Index 55
+
+- Index: 55
+- testname: `(setUpAll)` in `test/hardly_relevant_classes_3_test.dart`
+- category: `TEST-HARNESS-LOG-ONLY`
+- immediate fix possible: `yes`
+- description: Non-failing setup output is indexed as an issue because batch extraction includes operational log messages.
+- detailed analysis what the problem is: The log (`Bridge regeneration skipped: all bridge outputs are up-to-date`) is expected setup telemetry and not a bridge/generator/interpreter failure. This is a reporting-classification issue in the issue extraction process.
+- fix description (if clear): Keep the setup log for traceability but mark this exact message as informational so it is excluded from issue indexing.
+- need for deeper analysis?: `no`
+- batch number: `11`
+
+### Index 56
+
+- Index: 56
+- testname: `rendering/floating_header_snap_configuration_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted an overflow warning (`RenderFlex overflowed by 2.0 pixels on the bottom`).
+- detailed analysis what the problem is: This is a script-level layout sizing issue in the floating-header scenario where content slightly exceeds vertical constraints. It is not a bridge registration, generator, or interpreter-language limitation.
+- fix description (if clear): Adjust layout bounds in the script (bounded parent height, flexible children, or scroll fallback) and enforce zero framework warning output.
+- need for deeper analysis?: `no`
+- batch number: `11`
+
+### Index 57
+
+- Index: 57
+- testname: `rendering/hit_test_behavior_test.dart`
+- category: `INTERPRETER-NULL-METHOD-INVOCATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Cannot invoke method 'withAlpha' on null. Use '?.' for null-aware method invocation.`
+- detailed analysis what the problem is: The interpreted execution path attempts to call `withAlpha` on a null target, matching known null-method-invocation runtime behavior seen in other batches. The assertion failure reflects runtime null handling gaps rather than a test-only formatting warning.
+- fix description (if clear): Add null-aware invocation/guards in the affected interpreter or bridge conversion path and ensure values are initialized before color transformation calls.
+- need for deeper analysis?: `yes`
+- batch number: `11`
+
+### Index 58
+
+- Index: 58
+- testname: `rendering/over_scroll_header_stretch_configuration_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: This indicates a bridge coercion mismatch at a widget boundary where an interpreted object is passed through instead of a native Flutter `Widget`. This pattern matches prior widget coercion defects and is typically resolved with bridge conversion overrides/UserBridge handling.
+- fix description (if clear): Add/adjust bridge conversion so interpreted instances are unwrapped/coerced to native `Widget` at the receiving constructor/method boundary; retain the test expectation and add regression coverage.
+- need for deeper analysis?: `yes`
+- batch number: `11`
+
+### Index 59
+
+- Index: 59
+- testname: `rendering/pipeline_manifold_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted runtime warning: undefined `_manifold` caused by `LateInitializationError` (late variable accessed before assignment).
+- detailed analysis what the problem is: The scenario path reaches `_manifold` usage before initialization, indicating script state/order-of-operations debt. Because this surfaces as warning output in a success result, it should be treated as script correctness debt rather than ignored harness noise.
+- fix description (if clear): Ensure `_manifold` is assigned on all execution paths before access, or refactor to nullable/state-guarded access with explicit initialization checks.
+- need for deeper analysis?: `no`
+- batch number: `11`
+
+## Batch-11 Classification Summary
+
+- Missing/stray status for Batch-11 scripts: none missing, none stray.
+- Test-script issue classification: one harness-log classification item (`setUpAll`), one overflow warning (`floating_header_snap_configuration_test`), and one late-initialization/state-order issue (`pipeline_manifold_test`).
+- Bridge/generator/interpreter classification: one bridge widget-coercion mismatch (`over_scroll_header_stretch_configuration_test`) and one interpreter null-method-invocation failure (`hit_test_behavior_test`).
+- Known non-exhaustive switch signature in Batch-11: not detected in this batch.

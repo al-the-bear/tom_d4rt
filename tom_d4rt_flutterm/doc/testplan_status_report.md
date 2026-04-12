@@ -29,6 +29,8 @@ Batch-9 follow-up note (20260412-0949-issue-analysis): the five Batch-9 scripts 
 
 Batch-10 follow-up note (20260412-0949-issue-analysis): the five Batch-10 scripts from `hardly_relevant_classes_2_test.dart` (`material/toggle_buttons_theme_data_test.dart`, `material/toggle_buttons_theme_test.dart`, `material/tooltip_state_test.dart`, `painting/axis_direction_test.dart`, `painting/axis_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-10. A dedicated regression test script for bridged `BoxConstraints` equality null-operand handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-11 follow-up note (20260412-0949-issue-analysis): the five Batch-11 scripts from `hardly_relevant_classes_3_test.dart` (`(setUpAll)`, `rendering/floating_header_snap_configuration_test.dart`, `rendering/hit_test_behavior_test.dart`, `rendering/over_scroll_header_stretch_configuration_test.dart`, `rendering/pipeline_manifold_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-11. A dedicated regression test script for rendering widget-coercion failure (`Expected Widget but got InterpretedInstance`) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -951,6 +953,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [mouse_tracker_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/mouse_tracker_test.dart) | MouseTracker | No | Yes | No | Checked. |
 | [multi_child_layout_parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/multi_child_layout_parent_data_test.dart) | MultiChildLayoutParentData | No | Yes | No | Checked. |
 | [over_scroll_header_stretch_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/over_scroll_header_stretch_configuration_test.dart) | OverScrollHeaderStretchConfiguration | No | Yes | No | Created on 2026-03-22 at 14:00 |
+| [over_scroll_header_widget_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/over_scroll_header_widget_coercion_regression_test.dart) | OverScrollHeaderWidgetCoercionRegression | No | No | No | Needs to be created (Batch-11 failure pattern: `Expected Widget but got InterpretedInstance` in over-scroll header stretch configuration flows). |
 | [overflow_box_fit_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/overflow_box_fit_test.dart) | OverflowBoxFit | No | Yes | No | Created on 2026-03-22 at 14:00 |
 | [parent_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/parent_data_test.dart) | ParentData | No | Yes | No | Created on 2026-03-22 at 14:00 |
 | [parentdata_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/parentdata_test.dart) | StackParentData | No | Yes | No | Checked. |
