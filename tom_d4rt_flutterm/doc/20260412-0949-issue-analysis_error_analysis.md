@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-60 (issues 0..304 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-61 (issues 0..309 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4234,4 +4234,75 @@ Scope: Batch-0 to Batch-60 (issues 0..304 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-60 scripts: none missing, none stray. All referenced scripts are present and already listed in the status report.
 - Test-script issue classification: two overflow issues (`string_attribute_test`, `target_image_size_test`), one state-context warning group (`vertical_multi_drag_gesture_recognizer_test`), and one null-receiver warning (`text_button_theme_data_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-WIDGET-COERCION` failure (`scaffold_messenger_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-61 (Issues 305-309)
+
+### Index 305
+
+- Index: 305
+- testname: `material/text_selection_toolbar_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs infinite-size layout assertions (`RenderCustomSingleChildLayoutBox`, `RenderPadding`, `RenderTransform`) and a semantics/layout assertion.
+- detailed analysis what the problem is: Script composes toolbar layout in an unconstrained sizing context, triggering infinite-size render-object assertions and follow-on semantics failures.
+- fix description (if clear): Constrain toolbar scene layout with finite bounds and avoid unconstrained parent chains before semantics checks.
+- need for deeper analysis?: `no`
+- batch number: `61`
+
+### Index 306
+
+- Index: 306
+- testname: `material/text_selection_toolbar_text_button_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs the same infinite-size layout assertion pattern and semantics/layout assertion as Index 305.
+- detailed analysis what the problem is: Same layout-contract defect family as Index 305 in a sibling toolbar-text-button scenario.
+- fix description (if clear): Apply the same finite-constraint layout hardening and scene-structure cleanup as Index 305.
+- need for deeper analysis?: `no`
+- batch number: `61`
+
+### Index 307
+
+- Index: 307
+- testname: `painting/decoration_image_painter_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test fails with native constructor error for `Text`: `Invalid parameter \"data\": expected String, got Null`.
+- detailed analysis what the problem is: The script path passes null into `Text` data argument, violating non-null constructor contract. Although surfaced through bridge constructor dispatch, this pattern is script argument misuse unless proven otherwise by deeper runtime tracing.
+- fix description (if clear): Ensure non-null fallback/default string is supplied before `Text` construction in the test scene.
+- need for deeper analysis?: `no`
+- batch number: `61`
+
+### Index 308
+
+- Index: 308
+- testname: `painting/image_info_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs bottom RenderFlex overflows (27 px and 58 px).
+- detailed analysis what the problem is: Scripted UI layout exceeds vertical bounds in multiple states, producing overflow warnings.
+- fix description (if clear): Add responsive/flexible vertical constraints and reduce fixed-height pressure in the affected scene blocks.
+- need for deeper analysis?: `no`
+- batch number: `61`
+
+### Index 309
+
+- Index: 309
+- testname: `rendering/box_hit_test_result_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test fails with: `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: Runtime returns `InterpretedInstance` where native assertion path expects concrete `Widget`, matching the recurring widget-coercion bridge gap pattern.
+- fix description (if clear): Extend widget coercion handling for this rendering path to unwrap/coerce interpreted widget instances to native `Widget` before assertion boundaries.
+- need for deeper analysis?: `yes — bridge widget coercion path`
+- batch number: `61`
+
+## Batch-61 Classification Summary
+
+- Missing/stray status for Batch-61 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: two layout-constraint defects (`text_selection_toolbar_test`, `text_selection_toolbar_text_button_test`), one constructor-arg misuse (`decoration_image_painter_test`), and one overflow warning (`image_info_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-WIDGET-COERCION` failure (`box_hit_test_result_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

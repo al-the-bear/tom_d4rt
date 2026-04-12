@@ -129,6 +129,8 @@ Batch-59 follow-up note (20260412-0949-issue-analysis): Batch-59 issues come fro
 
 Batch-60 follow-up note (20260412-0949-issue-analysis): Batch-60 issues come from `secondary_classes_test.dart`. All referenced scripts (`dart_ui/string_attribute_test.dart`, `dart_ui/target_image_size_test.dart`, `gestures/vertical_multi_drag_gesture_recognizer_test.dart`, `material/scaffold_messenger_test.dart`, `material/text_button_theme_data_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-60. Four issues are script-level corrections (two layout overflows, one state-context warning group, one null-receiver method invocation warning). One issue is a bridge defect (`scaffold_messenger_test`: `Expected Widget but got InterpretedInstance` -> widget coercion gap). Regression row tracked below for the bridge coercion failure.
 
+Batch-61 follow-up note (20260412-0949-issue-analysis): Batch-61 issues come from `secondary_classes_test.dart`. All referenced scripts (`material/text_selection_toolbar_test.dart`, `material/text_selection_toolbar_text_button_test.dart`, `painting/decoration_image_painter_test.dart`, `painting/image_info_test.dart`, `rendering/box_hit_test_result_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-61. Four issues are script-level corrections (two layout-constraint failures, one constructor-arg misuse with null `Text.data`, one overflow warning). One issue is a bridge defect (`box_hit_test_result_test`: `Expected Widget but got InterpretedInstance` -> widget coercion gap). Regression row tracked below for the bridge coercion failure.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1003,6 +1005,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [backdrop_key_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/backdrop_key_test.dart) | BackdropKey | No | Yes | No | Created on 2026-03-22 at 10:30 |
 | [box_hit_test_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/box_hit_test_entry_test.dart) | BoxHitTestEntry | No | Yes | No | Checked. |
 | [box_hit_test_result_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/box_hit_test_result_test.dart) | BoxHitTestResult | No | Yes | No | Created on 2026-03-22 at 10:30 |
+| box_hit_test_result_widget_coercion_regression_test.dart | BoxHitTestResult (regression) | No | No | No | Needs to be created. Regression test for `BRIDGE-WIDGET-COERCION`: `Expected Widget but got InterpretedInstance` in `box_hit_test_result_test` (Batch-61 Index 309). |
 | [boxconstraints_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/boxconstraints_test.dart) | BoxConstraints | No | Yes | No |
 | [cache_extent_style_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/cache_extent_style_test.dart) | CacheExtentStyle | No | Yes | No | Checked. |
 | [canvas_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/canvas_test.dart) | Canvas | No | Yes | No | Checked. |
