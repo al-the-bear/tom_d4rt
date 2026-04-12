@@ -11,6 +11,8 @@ Batch-0 follow-up note (20260412-0949-issue-analysis): the four Batch-0 scripts 
 
 Batch-1 follow-up note (20260412-0949-issue-analysis): the four Batch-1 scripts from `hardly_relevant_classes_1_test.dart` (`animation/reverse_tween_test.dart`, `cupertino/cupertino_desktop_text_selection_controls_test.dart`, `cupertino/cupertino_focus_halo_test.dart`, `cupertino/cupertino_text_selection_handle_controls_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-1. A dedicated regression test script for the generic constructor factory null-check failure pattern is still missing and is tracked below as a file that needs to be created.
 
+Batch-2 follow-up note (20260412-0949-issue-analysis): the five Batch-2 scripts from `hardly_relevant_classes_1_test.dart` (`cupertino/inherited_cupertino_theme_test.dart`, `cupertino/overlay_visibility_mode_test.dart`, `dart_ui/blur_style_test.dart`, `dart_ui/color_space_test.dart`, `dart_ui/key_event_type_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-2. A dedicated regression test script for missing bridged key member access is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -192,6 +194,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [key_data_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_data_test.dart) | KeyData | No | Yes | No | Created on 2026-03-28 at 18:14. |
 | [key_event_device_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_device_type_test.dart) | KeyEventDeviceType | No | Yes | No | Created on 2026-03-28 at 18:17. |
 | [key_event_type_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart) | KeyEventType | No | Yes | No | Created on 2026-03-28 at 18:21. |
+| [key_member_bridge_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_member_bridge_regression_test.dart) | KeyMemberBridgeRegression | No | No | No | Needs to be created (Batch-2 runtime warning: missing bridged `Key.label` member access). |
 | [locale_string_attribute_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/locale_string_attribute_test.dart) | LocaleStringAttribute | No | Yes | No | Created on 2026-03-28 at 18:40. |
 | [offset_base_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/offset_base_test.dart) | OffsetBase | No | Yes | No | Checked. |
 | [offset_engine_layer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/offset_engine_layer_test.dart) | OffsetEngineLayer | No | Yes | No | Checked. |

@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 and Batch-1 (issues 0..9 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-2 (issues 0..14 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -138,3 +138,72 @@ Scope: Batch-0 and Batch-1 (issues 0..9 from `20260412-0949-issue-analysis_test_
 - Missing/stray status for Batch-1 scripts: none missing, none stray.
 - Bridge/generator/interpreter classification: one direct bridge/generator generic-constructor issue (`ReverseTween<T>` factory path) and no Batch-1 non-exhaustive-switch signature.
 - Test script issue classification: three Cupertino scripts with framework layout/semantics warnings that require script correction so warning output is removed.
+
+## Batch-2
+
+### Index 10
+
+- Index: 10
+- testname: `cupertino/inherited_cupertino_theme_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 errors (`negative minimum height`, `_RenderEditableCustomPaint` not laid out, semantics assertion).
+- detailed analysis what the problem is: The warning signature is the same recurring Cupertino editable-layout issue seen in Batch-0/Batch-1. This points to script-level constraint composition problems rather than bridge/generator/interpreter core defects.
+- fix description (if clear): Refactor the script's editable/form widget constraints to enforce bounded, non-negative layout constraints and fail the test on any framework error lines.
+- need for deeper analysis?: `no`
+- batch number: `2`
+
+### Index 11
+
+- Index: 11
+- testname: `cupertino/overlay_visibility_mode_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 7 errors with repeated negative-height and not-laid-out render object messages.
+- detailed analysis what the problem is: Repetition across interactions indicates the script repeatedly enters invalid editable layout states. This remains a script/harness quality problem; there is no non-exhaustive-switch or generic-factory signature in this issue.
+- fix description (if clear): Consolidate with the shared Cupertino constraint fix path (bounded editable host, stable parent constraints), then validate zero framework warnings.
+- need for deeper analysis?: `yes` (only if warnings persist after shared constraint fix)
+- batch number: `2`
+
+### Index 12
+
+- Index: 12
+- testname: `dart_ui/blur_style_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 4 overflow warnings (`RenderFlex overflowed by 2.0 pixels on the bottom`).
+- detailed analysis what the problem is: This is a test-script layout sizing problem in the blur-style demo composition and not a hard interpreter failure. The script currently allows bottom overflow under test viewport constraints.
+- fix description (if clear): Adjust demo layout sizing (`Expanded`/`Flexible`, constrained heights, scroll fallback) so no overflow is produced in the test viewport.
+- need for deeper analysis?: `no`
+- batch number: `2`
+
+### Index 13
+
+- Index: 13
+- testname: `dart_ui/color_space_test.dart`
+- category: `INTERPRETER-INDEXING-NULL (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Unsupported target for indexing: null` (assertion expected success).
+- detailed analysis what the problem is: This matches previously documented interpreter behavior for `color_space_test.dart` and indicates an interpreter/runtime evaluation gap around indexed access/target resolution (likely enum/value resolution path). The test expectation is valid and should remain; runtime behavior needs correction.
+- fix description (if clear): Implement interpreter-side guard/fix for null index targets in this evaluation path, and/or add explicit UserBridge handling for the affected `ColorSpace` access pattern to guarantee non-null index targets before evaluation.
+- need for deeper analysis?: `yes`
+- batch number: `2`
+
+### Index 14
+
+- Index: 14
+- testname: `dart_ui/key_event_type_test.dart`
+- category: `BRIDGE-MISSING-MEMBER (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted runtime warning: `Undefined property or method 'label' on bridged instance of 'Key'.`
+- detailed analysis what the problem is: The script accesses a key member (`label`) that is not currently exposed in the bridged `Key` API surface. This is a bridge coverage gap (member not registered/exposed), not a layout issue.
+- fix description (if clear): Add/override bridge support for the missing `Key.label` member via UserBridge/custom bridge definition and add a focused regression script to lock this behavior.
+- need for deeper analysis?: `yes` (to verify all key-related member mappings)
+- batch number: `2`
+
+## Batch-2 Classification Summary
+
+- Missing/stray status for Batch-2 scripts: none missing, none stray.
+- Test-script issue classification: three non-failing scripts emit framework warnings and need script correction (`inherited_cupertino_theme`, `overlay_visibility_mode`, `blur_style`).
+- Bridge/generator/interpreter classification: one interpreter indexing target issue (`color_space_test`) and one bridge missing-member issue (`key_event_type_test`).
+- Known non-exhaustive switch signature in Batch-2: not detected in this batch.
