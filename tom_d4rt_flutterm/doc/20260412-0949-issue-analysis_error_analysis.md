@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-4 (issues 0..24 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-5 (issues 0..29 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -345,3 +345,72 @@ Scope: Batch-0 to Batch-4 (issues 0..24 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: two constructor-contract issues in script inputs (`target_platform_test`, `gestures/class_test`).
 - Bridge/generator/interpreter classification: one shared missing `Object` default-constructor bridge issue and one widget coercion gap (`Expected Widget but got InterpretedInstance`).
 - Known non-exhaustive switch signature in Batch-4: not detected in this batch.
+
+## Batch-5
+
+### Index 25
+
+- Index: 25
+- testname: `material/button_bar_layout_behavior_test.dart`
+- category: `INTERPRETER-NULL-TARGET-COMPARISON (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `NoSuchMethodError: The method '>' was called on null.`
+- detailed analysis what the problem is: The runtime attempts a numeric comparison (`>`) on a null target. In this suite context, this points to a null value escaping from interpreted/bridged enum or property extraction before comparison, rather than a Flutter layout warning. The test expectation (`Expected: true`) is structurally valid, so this should be treated as a runtime handling defect.
+- fix description (if clear): Add null-safe coercion/guards before numeric comparison in the affected interpretation path and verify the related button-bar enum/value bridge extraction so a valid numeric value is always produced (or fail with a clear typed error).
+- need for deeper analysis?: `yes`
+- batch number: `5`
+
+### Index 26
+
+- Index: 26
+- testname: `material/button_bar_theme_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 2 errors: `Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)`.
+- detailed analysis what the problem is: This is a bridge coercion mismatch at a widget boundary. A bridged/interpreted object is being passed where a concrete Flutter `Widget` is required. This is the same family as prior widget coercion failures and should not remain as warning-only output.
+- fix description (if clear): Add/adjust bridge conversion so `InterpretedInstance(ButtonBarTheme)` is unwrapped or converted into the native widget/type expected by the receiving API, and make the test fail on framework warnings until this is resolved.
+- need for deeper analysis?: `yes`
+- batch number: `5`
+
+### Index 27
+
+- Index: 27
+- testname: `material/button_text_theme_test.dart`
+- category: `INTERPRETER-NULL-PROPERTY-ACCESS (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Cannot access property 'value' on target of type null.`
+- detailed analysis what the problem is: The interpreted execution path dereferences `.value` on a null object. This is consistent with missing null-safety/coercion in enum/property extraction, and aligns with the Batch-5 button-theme null-target failure family.
+- fix description (if clear): Introduce null-safe property extraction and typed fallback handling in the affected interpreter/bridge path; verify that button text/theme values are always initialized before property access.
+- need for deeper analysis?: `yes`
+- batch number: `5`
+
+### Index 28
+
+- Index: 28
+- testname: `material/collapse_mode_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure from native `Text` constructor validation: `Invalid parameter "data": expected String, got Null`.
+- detailed analysis what the problem is: The test path constructs `Text` with a null `data` argument. This is a script/input contract violation first, not a non-exhaustive switch issue.
+- fix description (if clear): Ensure non-null string data is passed to `Text` in all branches of the collapse-mode script (default/fallback label before constructor invocation).
+- need for deeper analysis?: `no`
+- batch number: `5`
+
+### Index 29
+
+- Index: 29
+- testname: `material/drawer_controller_state_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 overflow warnings (`RenderFlex overflowed by 46/29/12 pixels on the right`).
+- detailed analysis what the problem is: This is a script-level layout sizing issue in the drawer-controller scenario. It is not a plain runtime assertion failure, but these framework warnings still indicate an invalid visual/layout state that should be eliminated.
+- fix description (if clear): Rework horizontal layout constraints in the script (`Expanded`/`Flexible`/width constraints or scroll strategy) so no RenderFlex overflow warnings are emitted under the test viewport.
+- need for deeper analysis?: `no`
+- batch number: `5`
+
+## Batch-5 Classification Summary
+
+- Missing/stray status for Batch-5 scripts: none missing, none stray.
+- Test-script issue classification: one constructor-argument contract issue (`collapse_mode_test`) and one layout overflow warning issue (`drawer_controller_state_test`).
+- Bridge/generator/interpreter classification: one widget coercion mismatch (`button_bar_theme_test`) and two null-target runtime handling issues in button-theme flows (`button_bar_layout_behavior_test`, `button_text_theme_test`).
+- Known non-exhaustive switch signature in Batch-5: not detected in this batch.

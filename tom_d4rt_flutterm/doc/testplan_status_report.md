@@ -17,6 +17,8 @@ Batch-3 follow-up note (20260412-0949-issue-analysis): the five Batch-3 scripts 
 
 Batch-4 follow-up note (20260412-0949-issue-analysis): the four Batch-4 scripts (`foundation/object_event_test.dart`, `foundation/target_platform_test.dart`, `gestures/class_test.dart` from `hardly_relevant_classes_1_test.dart`, and `material/bottom_navigation_bar_type_test.dart` from `hardly_relevant_classes_2_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-4. A dedicated regression test script for widget coercion mismatches (`Expected Widget but got InterpretedInstance`) is still missing and is tracked below as a file that needs to be created.
 
+Batch-5 follow-up note (20260412-0949-issue-analysis): the five Batch-5 scripts from `hardly_relevant_classes_2_test.dart` (`material/button_bar_layout_behavior_test.dart`, `material/button_bar_theme_test.dart`, `material/button_text_theme_test.dart`, `material/collapse_mode_test.dart`, `material/drawer_controller_state_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-5. A dedicated regression test script for the recurring null-target button-theme failure patterns (null comparison/property access and widget coercion) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -455,6 +457,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [button_style_button_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_style_button_test.dart) | ButtonStyleButton | No | Yes | No | Created on 20.03.2026 at 19:11 |
 | [button_styles_misc_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_styles_misc_test.dart) | ButtonBarTheme | No | Yes | No | Checked. |
 | [button_text_theme_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart) | ButtonTextTheme | No | Yes | No | Batch 58 deep demo. |
+| [button_bar_null_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_null_coercion_regression_test.dart) | ButtonBarNullCoercionRegression | No | No | No | Needs to be created (Batch-5 failure patterns: null comparison/property access and expected `Widget` vs `InterpretedInstance` coercion around button bar/theme flows). |
 | [button_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_types_test.dart) | MaterialButton | No | Yes | No | Checked. |
 | [buttons_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/buttons_test.dart) | OutlinedButton | No | Yes | No |
 | [buttonstyle_popup_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/buttonstyle_popup_test.dart) | ButtonStyle | No | Yes | No |
