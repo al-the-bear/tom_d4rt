@@ -77,6 +77,8 @@ Batch-33 follow-up note (20260412-0949-issue-analysis): the five Batch-33 script
 
 Batch-34 follow-up note (20260412-0949-issue-analysis): the five Batch-34 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/scroll_drag_controller_test.dart`, `widgets/scroll_end_notification_test.dart`, `widgets/scroll_hold_controller_test.dart`, `widgets/scroll_increment_details_test.dart`, `widgets/scroll_increment_type_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-34. All five issues are `_tabs` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed.
 
+Batch-35 follow-up note (20260412-0949-issue-analysis): the five Batch-35 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/scroll_metrics_notification_test.dart`, `widgets/scroll_notification_observer_state_test.dart`, `widgets/scroll_notification_observer_test.dart`, `widgets/scroll_position_alignment_policy_test.dart`, `widgets/scroll_position_with_single_context_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-35. Three issues are `_tabCtrl` late-init template defects (new variant name). Two issues are BRIDGE-WIDGET-COERCION failures. A regression test row for scroll-related widget coercion is tracked below.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1935,6 +1937,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_notifications_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notifications_adv_test.dart) | ScrollStartNotification | No | Yes | No | Checked. |
 | [scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_physics_test.dart) | ScrollPhysics | No | Yes | No | Created on 2026-04-10 at 14:30. |
 | [scroll_position_alignment_policy_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_alignment_policy_test.dart) | ScrollPositionAlignmentPolicy | No | Yes | No | Created on 2026-04-15 at 14:00. Deep demo (1207 lines): 3 policies, side-by-side comparison, alignment slider, scroll log. |
+| scroll_metrics_alignment_widget_coercion_regression_test.dart | ScrollMetrics/AlignmentPolicy coercion | No | No | No | Needs to be created |
 | [scroll_position_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_test.dart) | ScrollPosition | No | Yes | No | Created on 2026-04-15 at 10:00. |
 | [scroll_position_types_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_types_test.dart) | ScrollPositionTypes | No | Yes | No | Checked. |
 | [scroll_position_with_single_context_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_with_single_context_test.dart) | ScrollPositionWithSingleContext | No | Yes | No | Created on 2026-04-22 at 18:00. Deep demo (1260 lines): position metrics, activity state machine, absorb and PageStorage. |

@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-34 (issues 0..174 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-35 (issues 0..179 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
