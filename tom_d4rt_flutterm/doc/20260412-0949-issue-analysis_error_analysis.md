@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-15 (issues 0..79 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-16 (issues 0..84 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1104,3 +1104,72 @@ Scope: Batch-0 to Batch-15 (issues 0..79 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: two state-initialization issues (`action_listener_test`, `align_transition_test`) and one state-context access issue (`animated_positioned_directional_test`).
 - Bridge/generator/interpreter classification: shared missing constructor/member bridge exposure for `EagerGestureRecognizer` affecting `android_view_surface_test` and `app_kit_view_test`.
 - Known non-exhaustive switch signature in Batch-15: not detected in this batch.
+
+## Batch-16
+
+### Index 80
+
+- Index: 80
+- testname: `widgets/autocomplete_highlighted_option_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `widget` (`Undefined property 'widget' on _HighlightLaneState`).
+- detailed analysis what the problem is: The script accesses `widget` on a state/object path where that property is not available in interpreted execution context.
+- fix description (if clear): Refactor state/context handling to pass needed values explicitly and avoid implicit `widget` property access on incompatible objects.
+- need for deeper analysis?: `yes`
+- batch number: `16`
+
+### Index 81
+
+- Index: 81
+- testname: `widgets/autofill_group_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `widget` (`Undefined property 'widget' on _AutofillLaneState`).
+- detailed analysis what the problem is: Same state-context access pattern as Index 80, confirming script paths relying on unavailable `widget` access during interpreted execution.
+- fix description (if clear): Apply the same explicit data/context passing pattern and remove implicit `widget` property reads from this state path.
+- need for deeper analysis?: `yes`
+- batch number: `16`
+
+### Index 82
+
+- Index: 82
+- testname: `widgets/automatic_keep_alive_client_mixin_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted 51 framework errors about infinite-size layout across multiple render object types.
+- detailed analysis what the problem is: The scenario composes a large subtree under unbounded constraints, causing cascading infinite-size assertions (`RenderParagraph`, `RenderPadding`, `RenderFlex`, `RenderDecoratedBox`, `RenderConstrainedBox`, `_RenderColoredBox`). This is a script scaffold/layout-contract issue.
+- fix description (if clear): Constrain parent/container dimensions for all branches in the automatic-keep-alive scenario and enforce zero framework warning output.
+- need for deeper analysis?: `no`
+- batch number: `16`
+
+### Index 83
+
+- Index: 83
+- testname: `widgets/back_button_listener_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-FACTORY (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning shows generic constructor factory error for `Router`: null-check operator used on a null value.
+- detailed analysis what the problem is: This matches the known generic-constructor factory failure class where type extraction/constructor argument mapping is incomplete in bridge/runtime factory handling.
+- fix description (if clear): Add/adjust UserBridge or generator-side generic constructor factory handling for `Router`, ensuring non-null typed extraction before null-checks.
+- need for deeper analysis?: `yes`
+- batch number: `16`
+
+### Index 84
+
+- Index: 84
+- testname: `widgets/backdrop_group_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `setState` (`Undefined property 'setState' on _BackdropGroupDeepDemoState`).
+- detailed analysis what the problem is: The script is calling `setState` through an object path that does not expose state lifecycle methods in this interpreted context.
+- fix description (if clear): Rework state update flow to invoke updates from a valid `State` context or use explicit callback/state handlers instead of direct property lookup.
+- need for deeper analysis?: `yes`
+- batch number: `16`
+
+## Batch-16 Classification Summary
+
+- Missing/stray status for Batch-16 scripts: none missing, none stray.
+- Test-script issue classification: three state-context access issues (`autocomplete_highlighted_option_test`, `autofill_group_state_test`, `backdrop_group_test`) and one major layout-constraints issue (`automatic_keep_alive_client_mixin_test`).
+- Bridge/generator/interpreter classification: one generic-constructor factory issue in `Router` handling (`back_button_listener_test`).
+- Known non-exhaustive switch signature in Batch-16: not detected in this batch.
