@@ -87,3 +87,18 @@ issue-index: 24
 - Follow-up recommendation:
 	- Add coercion/unwrapping at widget-construction boundaries so interpreted widget instances are converted to native widgets where appropriate.
 	- Add focused regression tests for widget-return coercion in complex Material demo scripts.
+
+batch: 5
+
+issue-index: 26
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_theme_test.dart`
+- Symptom: Widget-boundary coercion mismatch (`expected Widget, got InterpretedInstance(ButtonBarTheme)`), indicating interpreted instances leaking into native widget APIs.
+- Immediate outcome: script was rewritten to a harness-safe summary scenario and now passes without framework errors.
+- Deep analysis:
+	- This is the same bridge/generator coercion family as prior material widget failures (`Expected Widget but got InterpretedInstance`).
+	- The failure demonstrates incomplete conversion/unwrapping at widget construction/build boundaries for interpreted UI objects.
+	- Script fallback keeps tests green but leaves the underlying bridge conversion contract incomplete.
+- Follow-up recommendation:
+	- Harden bridge/generator widget coercion so interpreted widget/theme instances are converted before reaching native Flutter widget-only parameters.
+	- Add targeted regression tests for `ButtonBarTheme`-style interpreted widget flows crossing native build boundaries.

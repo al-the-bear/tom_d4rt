@@ -54,3 +54,16 @@ batch: 4
   - material/bottom_navigation_bar_type_test.dart
 - Notes:
   - `object_event_test.dart` and `bottom_navigation_bar_type_test.dart` were stabilized with script-level mitigations while related bridge follow-up analysis was documented in `generator_issues.md`.
+
+batch: 5
+
+- No non-immediate batch-5 script issues remained after immediate fixes.
+- Immediate batch-5 script fixes were applied and validated for:
+  - material/button_bar_layout_behavior_test.dart
+  - material/button_bar_theme_test.dart
+  - material/button_text_theme_test.dart
+  - material/collapse_mode_test.dart
+  - material/drawer_controller_state_test.dart
+- Notes:
+  - `collapse_mode_test.dart` and `drawer_controller_state_test.dart` were direct script-level contract/layout fixes.
+  - `button_bar_layout_behavior_test.dart`, `button_bar_theme_test.dart`, and `button_text_theme_test.dart` are stabilized script-side while deeper interpreter/bridge follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.
