@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-28 (issues 0..144 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-29 (issues 0..149 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1998,4 +1998,72 @@ Scope: Batch-0 to Batch-28 (issues 0..144 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-28 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three `_tabController` late-initialization errors (`render_tap_region_test`, `render_two_dimensional_viewport_test`, `render_web_image_test`) — these are deep-visual demo template issues, fixable by adjusting the tab-controller setup pattern.
 - Bridge/generator/interpreter classification: one widget coercion defect (`render_tap_region_surface_test`), and one `visitAncestorElements` bridge call hitting uninitialized `_children` field (`render_tree_root_element_test` — BRIDGE-NULL-RECEIVER-METHOD-INVOCATION).
+
+## Batch-29
+
+### Index 145
+
+- Index: 145
+- testname: `widgets/repeat_mode_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: The deep-visual demo for `RepeatMode` references a `_tabController` late variable that is not initialized before access. This is the same systematic deep-visual demo template issue seen in Batch-28 (Indices 141, 143, 144). The state lifecycle bridge does not call `initState` in the correct order or the assignment is skipped.
+- fix description (if clear): Initialize `_tabController` inline at declaration or in the constructor body instead of relying on `initState`. Template-level fix across all affected deep-visual demos.
+- need for deeper analysis?: `no`
+- batch number: `29`
+
+### Index 146
+
+- Index: 146
+- testname: `widgets/replace_text_intent_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The deep demo (1625 lines) for `ReplaceTextIntent` constructs a widget tree with interactive text field scenarios, but the interpreter returns the top-level widget as `InterpretedInstance` instead of a concrete `Widget`. The bridge does not coerce `ReplaceTextIntent`-related widget wrappers back to native `Widget` type.
+- fix description (if clear): Register the widget wrappers used in the `ReplaceTextIntent` demo in the widget coercion handler so interpreted instances are unwrapped to native `Widget`.
+- need for deeper analysis?: `yes`
+- batch number: `29`
+
+### Index 147
+
+- Index: 147
+- testname: `widgets/request_focus_action_test.dart`
+- category: `BRIDGE-WIDGET-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The deep demo (1367 lines) for `RequestFocusAction` constructs a focus ring grid and multi-node form, but the interpreter returns the widget as `InterpretedInstance`. Same coercion gap as Index 146 — the bridge does not unwrap interpreted widget instances for action/focus-related demo widgets.
+- fix description (if clear): Register `RequestFocusAction` demo widget wrappers in the widget coercion handler.
+- need for deeper analysis?: `yes`
+- batch number: `29`
+
+### Index 148
+
+- Index: 148
+- testname: `widgets/request_focus_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init pattern as Index 145. The deep-visual demo for `RequestFocusIntent` references an uninitialized late field. Part of the systematic template issue.
+- fix description (if clear): Same template-level fix — initialize `_tabController` at declaration or in constructor.
+- need for deeper analysis?: `no`
+- batch number: `29`
+
+### Index 149
+
+- Index: 149
+- testname: `widgets/restorable_bool_n_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init pattern as Indices 145 and 148. The deep-visual demo for `RestorableBoolN` uses the same template with the uninitialized late field. Three of the five Batch-29 issues share this pattern, continuing the trend from Batch-28.
+- fix description (if clear): Same template-level fix. A bulk find-and-replace across all deep-visual demos changing `late TabController _tabController;` to an inline-initialized or nullable pattern would resolve all occurrences.
+- need for deeper analysis?: `no`
+- batch number: `29`
+
+## Batch-29 Classification Summary
+
+- Missing/stray status for Batch-29 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabController` late-initialization errors (`repeat_mode_test`, `request_focus_intent_test`, `restorable_bool_n_test`) — continuing the deep-visual demo template pattern from Batch-28.
+- Bridge/generator/interpreter classification: two widget coercion defects (`replace_text_intent_test`, `request_focus_action_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
