@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-40 (issues 0..204 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-41 (issues 0..209 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2677,5 +2677,215 @@ Scope: Batch-0 to Batch-40 (issues 0..204 from `20260412-0949-issue-analysis_tes
 
 - Missing/stray status for Batch-38 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabCtrl` late-initialization errors (`select_intent_test`, `selectable_region_state_test`, `selection_container_delegate_test`, `selection_details_test`, `semantics_gesture_delegate_test`) — continuing the `_tabCtrl` late-init template pattern from Batches 35-37.
+- Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
+
+---
+
+# Batch-39 (Issues 195-199)
+
+### Index 195
+
+- Index: 195
+- testname: `widgets/shortcut_activator_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern as previous batches. The `ShortcutActivator` demo script references a `_tabCtrl` field that is never initialized.
+- fix description (if clear): Same template-level fix — ensure `_tabCtrl` is initialized in `initState()` or replaced with proper state setup.
+- need for deeper analysis?: `no`
+- batch number: `39`
+
+### Index 196
+
+- Index: 196
+- testname: `widgets/shortcut_manager_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _loggingManager (LateInitializationError: Late variable '_loggingManager' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: New late-init variant — `_loggingManager` instead of `_tabCtrl`/`_tabs`. The `ShortcutManager` demo script declares a `late` field `_loggingManager` that is never assigned before use. Same root cause (template-generated state class with uninitialized late field) but different variable name.
+- fix description (if clear): Initialize `_loggingManager` in `initState()` or remove the late field if unused.
+- need for deeper analysis?: `no`
+- batch number: `39`
+
+### Index 197
+
+- Index: 197
+- testname: `widgets/shortcut_map_property_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 195.
+- need for deeper analysis?: `no`
+- batch number: `39`
+
+### Index 198
+
+- Index: 198
+- testname: `widgets/shortcut_registry_entry_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_Phase' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: The test instantiates a private class `_Phase` whose constructor is not bridged by the D4rt generator. The bridge does not generate unnamed constructor support for private classes with positional/named parameters. This is the same category as previous BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issues (Batches 37, 39).
+- fix description (if clear): The D4rt bridge generator needs to support unnamed constructors for private classes, or a UserBridge / custom factory must be registered.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `39`
+
+### Index 199
+
+- Index: 199
+- testname: `widgets/shortcut_serialization_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_TriggerInfo' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same as Index 198 — private class `_TriggerInfo` constructor not bridged. The bridge generator lacks support for constructing private classes with positional arguments.
+- fix description (if clear): Same generator enhancement as Index 198.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `39`
+
+## Batch-39 Classification Summary
+
+- Missing/stray status for Batch-39 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three late-initialization errors — two `_tabCtrl` (`shortcut_activator_test`, `shortcut_map_property_test`) and one new variant `_loggingManager` (`shortcut_manager_test`).
+- Bridge/generator/interpreter classification: two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`shortcut_registry_entry_test` — `_Phase`, `shortcut_serialization_test` — `_TriggerInfo`). Both require generator enhancement for private class constructors.
+
+---
+
+# Batch-40 (Issues 200-204)
+
+### Index 200
+
+- Index: 200
+- testname: `widgets/single_activator_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge/generator enhancement`
+- description: Test fails with: `Class '_Key' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Private class `_Key` constructor is not bridged. Same category as Batch-39 indices 198-199. The D4rt bridge generator does not generate constructors for private classes.
+- fix description (if clear): Generator enhancement for private class constructor support, or register a custom UserBridge/factory.
+- need for deeper analysis?: `yes — generator enhancement needed`
+- batch number: `40`
+
+### Index 201
+
+- Index: 201
+- testname: `widgets/size_changed_layout_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template pattern, `_tabs` variant (continuing from Batches 32-34).
+- fix description (if clear): Same template-level fix — initialize `_tabs` in `initState()`.
+- need for deeper analysis?: `no`
+- batch number: `40`
+
+### Index 202
+
+- Index: 202
+- testname: `widgets/sliver_animated_grid_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init pattern.
+- fix description (if clear): Same template-level fix as Index 201.
+- need for deeper analysis?: `no`
+- batch number: `40`
+
+### Index 203
+
+- Index: 203
+- testname: `widgets/sliver_animated_list_state_test.dart`
+- category: `BRIDGE-MISSING-STATE-WIDGET-ACCESSOR`
+- immediate fix possible: `no — requires bridge enhancement`
+- description: Test passes but logs: `Undefined variable: setState (Original error: Undefined property 'setState' on _InteractivePageState.)`.
+- detailed analysis what the problem is: The bridge does not resolve inherited `setState` on the private class `_InteractivePageState`. This extends the BRIDGE-MISSING-STATE-WIDGET-ACCESSOR category introduced in Batch-37 (Index 186, `widget` getter) to include `setState` as another inherited member not resolved on private State subclasses.
+- fix description (if clear): The bridge generator needs to resolve inherited members (`setState`, `widget`) on private State subclasses.
+- need for deeper analysis?: `yes — bridge enhancement needed`
+- batch number: `40`
+
+### Index 204
+
+- Index: 204
+- testname: `widgets/sliver_child_builder_delegate_test.dart`
+- category: `BRIDGE-MISSING-STATE-WIDGET-ACCESSOR`
+- immediate fix possible: `no — requires bridge enhancement`
+- description: Test passes but logs: `Undefined variable: setState (Original error: Undefined property 'setState' on _InteractivePageState.)`.
+- detailed analysis what the problem is: Same as Index 203 — `setState` not resolved on `_InteractivePageState`.
+- fix description (if clear): Same bridge enhancement as Index 203.
+- need for deeper analysis?: `yes — bridge enhancement needed`
+- batch number: `40`
+
+## Batch-40 Classification Summary
+
+- Missing/stray status for Batch-40 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: two `_tabs` late-initialization errors (`size_changed_layout_notification_test`, `sliver_animated_grid_state_test`).
+- Bridge/generator/interpreter classification: one BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (`single_activator_test` — `_Key`), two BRIDGE-MISSING-STATE-WIDGET-ACCESSOR (`sliver_animated_list_state_test`, `sliver_child_builder_delegate_test` — `setState` on `_InteractivePageState`).
+
+---
+
+# Batch-41 (Issues 205-209)
+
+### Index 205
+
+- Index: 205
+- testname: `widgets/sliver_child_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern continuing from Batches 32-34 and 40. The `SliverChildDelegate` demo script references a `_tabs` field that is never initialized in `initState()`.
+- fix description (if clear): Same template-level fix — initialize `_tabs` in `initState()` or replace with proper state setup.
+- need for deeper analysis?: `no`
+- batch number: `41`
+
+### Index 206
+
+- Index: 206
+- testname: `widgets/sliver_multi_box_adaptor_element_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 205.
+- need for deeper analysis?: `no`
+- batch number: `41`
+
+### Index 207
+
+- Index: 207
+- testname: `widgets/sliver_multi_box_adaptor_widget_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 205.
+- need for deeper analysis?: `no`
+- batch number: `41`
+
+### Index 208
+
+- Index: 208
+- testname: `widgets/sliver_reorderable_list_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern.
+- fix description (if clear): Same template-level fix as Index 205.
+- need for deeper analysis?: `no`
+- batch number: `41`
+
+### Index 209
+
+- Index: 209
+- testname: `widgets/slotted_container_render_object_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. All five Batch-41 issues are the same `_tabs` late-init variant.
+- fix description (if clear): Same template-level fix. The `_tabs`/`_tabCtrl`/`_tabController`/`_loggingManager` late-init issue now spans Batches 28-41 (40+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `41`
+
+## Batch-41 Classification Summary
+
+- Missing/stray status for Batch-41 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`sliver_child_delegate_test`, `sliver_multi_box_adaptor_element_test`, `sliver_multi_box_adaptor_widget_test`, `sliver_reorderable_list_state_test`, `slotted_container_render_object_mixin_test`) — continuing the `_tabs` late-init template pattern from Batches 32-34 and 40.
 - Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
