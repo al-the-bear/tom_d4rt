@@ -85,6 +85,8 @@ Batch-37 follow-up note (20260412-0949-issue-analysis): the five Batch-37 script
 
 Batch-38 follow-up note (20260412-0949-issue-analysis): the five Batch-38 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/select_intent_test.dart`, `widgets/selectable_region_state_test.dart`, `widgets/selection_container_delegate_test.dart`, `widgets/selection_details_test.dart`, `widgets/semantics_gesture_delegate_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-38. All five issues are `_tabCtrl` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed.
 
+Batch-39 follow-up note (20260412-0949-issue-analysis): the five Batch-39 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/shortcut_activator_test.dart`, `widgets/shortcut_manager_test.dart`, `widgets/shortcut_map_property_test.dart`, `widgets/shortcut_registry_entry_test.dart`, `widgets/shortcut_serialization_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-39. Three issues are late-init template defects (two `_tabCtrl`, one `_loggingManager` new variant). Two issues are BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`_Phase` and `_TriggerInfo` private class constructors). Regression test rows for both are tracked below.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1991,8 +1993,10 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [shortcut_map_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_map_property_test.dart) | ShortcutMapProperty | No | Yes | No | Created on 2026-04-21 at 21:20. |
 | [shortcut_registrar_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registrar_test.dart) | ShortcutRegistrar | No | Yes | No | Created on 2026-04-07 at 20:00. |
 | [shortcut_registry_entry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart) | ShortcutRegistryEntry | No | Yes | No | Created on 2026-04-21 at 21:20. |
+| shortcut_registry_entry_private_constructor_regression_test.dart | _Phase private constructor | No | No | No | Needs to be created |
 | [shortcut_registry_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_test.dart) | ShortcutRegistry | No | Yes | No | Created on 2026-04-07 at 20:15. |
 | [shortcut_serialization_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart) | ShortcutSerialization | No | Yes | No | Created on 2026-04-21 at 21:20. |
+| shortcut_serialization_private_constructor_regression_test.dart | _TriggerInfo private constructor | No | No | No | Needs to be created |
 | [shortcuts_actions_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_adv_test.dart) | ShortcutsActionsAdv | No | Yes | No | Checked. |
 | [shortcuts_actions_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcuts_actions_test.dart) | DoNothingAction | No | Yes | No | Checked. |
 | [shrink_wrapping_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shrink_wrapping_viewport_test.dart) | ShrinkWrappingViewport | No | Yes | No | Created on 2026-04-07 at 21:00. |
