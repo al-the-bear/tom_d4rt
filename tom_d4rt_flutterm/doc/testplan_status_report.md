@@ -55,6 +55,8 @@ Batch-22 follow-up note (20260412-0949-issue-analysis): the five Batch-22 script
 
 Batch-23 follow-up note (20260412-0949-issue-analysis): the five Batch-23 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/navigator_pop_handler_test.dart`, `widgets/nested_scroll_view_state_test.dart`, `widgets/nested_scroll_view_viewport_test.dart`, `widgets/next_focus_intent_test.dart`, `widgets/notifiable_element_mixin_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-23. A dedicated regression test script for nested-scroll header list coercion (`List<Object?>` to `List<Widget>`) is still missing and is tracked below as a file that needs to be created.
 
+Batch-24 follow-up note (20260412-0949-issue-analysis): the five Batch-24 entries from `hardly_relevant_classes_4_test.dart`/`hardly_relevant_classes_5_test.dart` (`widgets/object_key_test.dart`, `widgets/orientation_builder_test.dart`, `widgets/overlay_child_location_test.dart`, `widgets/overlay_state_test.dart`, `(setUpAll)` in `hardly_relevant_classes_5_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-24. A dedicated regression test script for overlay-child flex overflow guard coverage is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1721,6 +1723,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [overflow_box_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overflow_box_test.dart) | OverflowBox | No | Yes | No | Created on 2026-04-02 at 12:51. |
 | [overlay_child_layout_info_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_layout_info_test.dart) | OverlayChildLayoutInfo | No | Yes | No | Created on 2026-04-09 at 17:36. |
 | [overlay_child_location_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_test.dart) | OverlayChildLocation | No | Yes | No | Created on 2026-04-09 at 17:36. |
+| [overlay_child_location_flex_overflow_guard_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_child_location_flex_overflow_guard_regression_test.dart) | OverlayChildLocationFlexOverflowGuardRegression | No | No | No | Needs to be created (Batch-24 failure pattern: RenderFlex overflow in overlay child location scene). |
 | [overlay_portal_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_controller_test.dart) | OverlayPortalController | No | Yes | No | Created on 2026-04-09 at 17:36. |
 | [overlay_portal_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_portal_test.dart) | Overlay | No | Yes | No |
 | [overlay_route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/overlay_route_test.dart) | OverlayRoute | No | Yes | No | Created on 2026-04-10 at 09:30. |

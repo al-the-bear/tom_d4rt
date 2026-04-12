@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-23 (issues 0..119 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-24 (issues 0..124 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1656,3 +1656,73 @@ Scope: Batch-0 to Batch-23 (issues 0..119 from `20260412-0949-issue-analysis_tes
 - Test-script issue classification: two state-context warning groups (`navigator_pop_handler_test`, `nested_scroll_view_viewport_test`) and one layout-constraints warning cluster (`notifiable_element_mixin_test`).
 - Bridge/generator/interpreter classification: one list-type coercion failure (`nested_scroll_view_state_test`) and one bridged static method assertion path (`next_focus_intent_test`), both candidates for custom cast/UserBridge hardening.
 - Known non-exhaustive switch signature in Batch-23: not detected in this batch.
+
+## Batch-24
+
+### Index 120
+
+- Index: 120
+- testname: `widgets/object_key_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test failed with runtime error `'Object' is not callable (no default constructor bridge found)`.
+- detailed analysis what the problem is: The object-key scenario reaches a path that requires callable default-constructor bridging for `Object`, but bridge metadata does not provide a usable constructor entry in interpreted execution.
+- fix description (if clear): Reuse/extend default-constructor bridge handling for `Object` in the relevant bridge layer and ensure the script path does not attempt unbridged constructor invocation.
+- need for deeper analysis?: `yes`
+- batch number: `24`
+
+### Index 121
+
+- Index: 121
+- testname: `widgets/orientation_builder_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across orientation scenes.
+- detailed analysis what the problem is: `_FundamentalsSceneState`, `_AdaptiveShellSceneState`, `_ViewportLabSceneState`, `_ReflowSceneState`, and `_PracticalSceneState` all rely on implicit `widget` access unresolved in interpreted execution.
+- fix description (if clear): Apply explicit scene configuration wiring and remove implicit `widget` property reads.
+- need for deeper analysis?: `yes`
+- batch number: `24`
+
+### Index 122
+
+- Index: 122
+- testname: `widgets/overlay_child_location_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted a `RenderFlex overflowed by 8.6 pixels on the right` warning.
+- detailed analysis what the problem is: The overlay-child location demo has a constrained horizontal layout case where flex distribution exceeds available width, causing overflow diagnostics despite overall test success.
+- fix description (if clear): Adjust row/flex sizing with explicit width constraints or wrapping behavior and add assertion guards that fail on overflow logs.
+- need for deeper analysis?: `yes`
+- batch number: `24`
+
+### Index 123
+
+- Index: 123
+- testname: `widgets/overlay_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across overlay-state scenes.
+- detailed analysis what the problem is: `_EntryManagementSceneState`, `_RearrangeSceneState`, `_AccessSceneState`, `_PropertiesSceneState`, and `_PracticalSceneState` use unresolved implicit `widget` property access.
+- fix description (if clear): Refactor scene state objects to consume explicit constructor/state values rather than `widget` property lookups.
+- need for deeper analysis?: `yes`
+- batch number: `24`
+
+### Index 124
+
+- Index: 124
+- testname: `(setUpAll) [test/hardly_relevant_classes_5_test.dart]`
+- category: `TEST-HARNESS-LOG-ONLY (informational)`
+- immediate fix possible: `no`
+- description: Non-error informational log reported bridge regeneration was skipped because outputs are up to date.
+- detailed analysis what the problem is: This message is operational status output from bridge generation checks, not a test failure or runtime warning; it indicates normal incremental behavior.
+- fix description (if clear): No functional fix required; optionally route this message to debug-level output if cleaner test logs are desired.
+- need for deeper analysis?: `no`
+- batch number: `24`
+
+## Batch-24 Classification Summary
+
+- Missing/stray status for Batch-24 entries: none missing, none stray.
+- Test-script issue classification: two state-context warning groups (`orientation_builder_test`, `overlay_state_test`) and one layout-overflow warning group (`overlay_child_location_test`).
+- Bridge/generator/interpreter classification: one missing default-constructor bridge support failure (`object_key_test`); no new non-exhaustive switch signature in this batch.
+- Harness/log-only classification: one informational setup log (`setUpAll` in `hardly_relevant_classes_5_test.dart`) with no functional defect.
+- Known non-exhaustive switch signature in Batch-24: not detected in this batch.
