@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-52 (issues 0..264 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-53 (issues 0..269 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3665,4 +3665,75 @@ Scope: Batch-0 to Batch-52 (issues 0..264 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-52 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: none in this batch.
 - Bridge/generator/interpreter classification: four `BRIDGE-GENERIC-TYPE-COERCION` failures (`window_positioner_test`, `windowing_owner_linux_test`, `windowing_owner_mac_o_s_test`, `windowing_owner_test`) and one `BRIDGE-WIDGET-COERCION` issue (`window_scope_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-53 (Issues 265-269)
+
+### Index 265
+
+- Index: 265
+- testname: `widgets/windowing_owner_win32_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern recurring across earlier batches. The script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `53`
+
+### Index 266
+
+- Index: 266
+- testname: `(setUpAll)`
+- category: `TEST-HARNESS-INFO (no correction needed)`
+- immediate fix possible: `not applicable`
+- description: Informational log only: `Bridge regeneration skipped: all bridge outputs are up-to-date...`.
+- detailed analysis what the problem is: This is not a runtime/interpreter failure; it is a normal build/cache status message from setup in `important_classes_test.dart`.
+- fix description (if clear): No fix required.
+- need for deeper analysis?: `no`
+- batch number: `53`
+
+### Index 267
+
+- Index: 267
+- testname: `widgets/slidetransition_test.dart`
+- category: `BRIDGE-MISSING-METHOD-DISPATCH`
+- immediate fix possible: `no — requires bridge/runtime enhancement`
+- description: Test passes but logs: `NoSuchMethodError: Class '$RelaxedAnimation<Offset>' has no instance method 'addListener' with matching arguments`.
+- detailed analysis what the problem is: The interpreter/bridge wrapper for relaxed animation values (`$RelaxedAnimation<Offset>`) does not expose `Animation` listener APIs (`addListener`) expected by `SlideTransition` flow. This is a method dispatch gap on a wrapped animation type.
+- fix description (if clear): Extend bridge/runtime wrapper for relaxed animation objects to forward `addListener`/`removeListener` and related `Listenable` behavior.
+- need for deeper analysis?: `yes — animation wrapper dispatch path`
+- batch number: `53`
+
+### Index 268
+
+- Index: 268
+- testname: `widgets/sliverlist_test.dart`
+- category: `TEST-SCRIPT-WIDGET-LIFECYCLE (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework assertion + `Duplicate GlobalKey detected in widget tree`.
+- detailed analysis what the problem is: The generated demo/test script appears to reuse a `GlobalKey` across simultaneously active widget subtrees, causing framework lifecycle assertion failures (`element._lifecycleState == _ElementLifecycle.active`) and duplicate-key truncation behavior.
+- fix description (if clear): Update demo/test script to ensure unique key ownership per mounted subtree and avoid key reuse across active branches.
+- need for deeper analysis?: `no`
+- batch number: `53`
+
+### Index 269
+
+- Index: 269
+- testname: `widgets/nestedscrollview_test.dart`
+- category: `BRIDGE-WIDGET-LIST-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs repeated casts: `type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast`.
+- detailed analysis what the problem is: The bridge path handling child collections in `NestedScrollView` is producing/interpreting a generic object list that is not coerced to `List<Widget>`. This is a list-element widget coercion gap (similar family to prior list coercion issues).
+- fix description (if clear): Add coercion for interpreted `List<Object?>` into typed `List<Widget>` where widget collection APIs are expected.
+- need for deeper analysis?: `yes — widget list coercion path`
+- batch number: `53`
+
+## Batch-53 Classification Summary
+
+- Missing/stray status for Batch-53 scripts: none missing, none stray. All four script files are present and referenced; index 266 is setup-level informational output from `important_classes_test.dart`.
+- Test-script issue classification: one `_tabs` late-init defect (`windowing_owner_win32_test`) and one widget lifecycle/key misuse defect (`sliverlist_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-MISSING-METHOD-DISPATCH` (`slidetransition_test` addListener on relaxed animation wrapper) and one `BRIDGE-WIDGET-LIST-COERCION` (`nestedscrollview_test` list cast to `List<Widget>`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
