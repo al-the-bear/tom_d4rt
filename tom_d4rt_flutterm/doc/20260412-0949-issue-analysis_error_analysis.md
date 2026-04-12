@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-66 (issues 0..334 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-67 (issues 0..339 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4660,4 +4660,75 @@ Scope: Batch-0 to Batch-66 (issues 0..334 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-66 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one overflow/layout defect (`animated_fractionally_sized_box_test`).
 - Bridge/generator/interpreter classification: three missing-method bridge issues (`animated_cross_fade_test`, `animated_switcher_test`, `backdrop_filter_test` for `List.whereType`) and one state-property exposure issue (`autofill_group_test` for inherited `widget`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-67 (Issues 335-339)
+
+### Index 335
+
+- Index: 335
+- testname: `widgets/color_filtered_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs unbounded flex/layout assertions, multiple not-laid-out render objects, and follow-on null-check failures.
+- detailed analysis what the problem is: The scripted scene builds flex content under unbounded height constraints, triggering a cascade (`non-zero flex in unbounded height` -> `RenderBox was not laid out` -> downstream null-check failures). This aligns with script-level layout composition faults rather than a bridge/generator defect.
+- fix description (if clear): Constrain vertical layout (bounded parent for flex widgets, avoid conflicting unbounded columns/slivers), then rerun to ensure downstream null-check errors disappear with valid layout state.
+- need for deeper analysis?: `yes — verify all downstream null-checks are secondary to layout`
+- batch number: `67`
+
+### Index 336
+
+- Index: 336
+- testname: `widgets/composited_transform_follower_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs undefined inherited `widget` property on `_LinkPrimerState`.
+- detailed analysis what the problem is: Interpreted `State` subclass property resolution for inherited `State.widget` is missing in this path, matching the state-property bridge gap pattern seen in Batch-66.
+- fix description (if clear): Extend state-object property exposure to consistently resolve inherited `State.widget` on interpreted subclasses used by widget test scenes.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `67`
+
+### Index 337
+
+- Index: 337
+- testname: `widgets/default_asset_bundle_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access to `_oceanBundle` before assignment.
+- detailed analysis what the problem is: Script state initialization/order is incorrect for `_oceanBundle` lifecycle, causing `LateInitializationError` surfaced as runtime warning.
+- fix description (if clear): Initialize `_oceanBundle` before any read path (setup/initState/pre-pump) and guard access until assignment is guaranteed.
+- need for deeper analysis?: `no`
+- batch number: `67`
+
+### Index 338
+
+- Index: 338
+- testname: `widgets/dual_transition_builder_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated late-init access for `_controller`, `_dualController`, and `_detailController`.
+- detailed analysis what the problem is: Multiple controller fields are read before initialization across scene branches, indicating script lifecycle sequencing defects.
+- fix description (if clear): Ensure all controllers are initialized prior to usage in every branch (centralized setup/initState) and enforce branch-safe checks before access.
+- need for deeper analysis?: `no`
+- batch number: `67`
+
+### Index 339
+
+- Index: 339
+- testname: `widgets/fade_in_image_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access for `_imagesFuture` before assignment.
+- detailed analysis what the problem is: Script reads `_imagesFuture` before it is initialized, producing `LateInitializationError` and noisy runtime output.
+- fix description (if clear): Assign `_imagesFuture` during deterministic setup before first read and add guard/assertion to prevent uninitialized access.
+- need for deeper analysis?: `no`
+- batch number: `67`
+
+## Batch-67 Classification Summary
+
+- Missing/stray status for Batch-67 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one major layout-constraints defect (`color_filtered_test`) and three state-context initialization defects (`default_asset_bundle_test`, `dual_transition_builder_test`, `fade_in_image_test`).
+- Bridge/generator/interpreter classification: one state-property exposure issue (`composited_transform_follower_test` for inherited `State.widget`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
