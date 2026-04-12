@@ -36,7 +36,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
   double _logicalSeed = 88;
   int _themeIndex = 0;
 
-  double _animValue = 0.0;
+  final double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
     <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
@@ -74,6 +74,35 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
       return 'Up';
     }
     return 'Repeat';
+  }
+
+  String _phaseLabel(ui.KeyEventType t) {
+    if (t == ui.KeyEventType.down) {
+      return 'Key Down';
+    }
+    if (t == ui.KeyEventType.up) {
+      return 'Key Up';
+    }
+    return 'Key Repeat';
+  }
+
+  String _deviceTypeName(ui.KeyEventDeviceType type) {
+    if (type == ui.KeyEventDeviceType.keyboard) {
+      return 'keyboard';
+    }
+    if (type == ui.KeyEventDeviceType.directionalPad) {
+      return 'directionalPad';
+    }
+    if (type == ui.KeyEventDeviceType.gamepad) {
+      return 'gamepad';
+    }
+    if (type == ui.KeyEventDeviceType.joystick) {
+      return 'joystick';
+    }
+    if (type == ui.KeyEventDeviceType.hdmi) {
+      return 'hdmi';
+    }
+    return 'unknown';
   }
 
   Color _phaseColor(ui.KeyEventType t) {
@@ -174,9 +203,9 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
     probe('repeat index is 2', ui.KeyEventType.repeat.index == 2);
     probe('down and up are distinct', ui.KeyEventType.down != ui.KeyEventType.up);
     probe('repeat differs from down', ui.KeyEventType.repeat != ui.KeyEventType.down);
-    probe('down label is Key Down', ui.KeyEventType.down.label == 'Key Down');
-    probe('up label is Key Up', ui.KeyEventType.up.label == 'Key Up');
-    probe('repeat label is Key Repeat', ui.KeyEventType.repeat.label == 'Key Repeat');
+    probe('down label is Key Down', _phaseLabel(ui.KeyEventType.down) == 'Key Down');
+    probe('up label is Key Up', _phaseLabel(ui.KeyEventType.up) == 'Key Up');
+    probe('repeat label is Key Repeat', _phaseLabel(ui.KeyEventType.repeat) == 'Key Repeat');
     probe('toString preserves enum token', ui.KeyEventType.repeat.toString().contains('repeat'));
 
     final ui.KeyData repeatData = _sampleKeyData(ui.KeyEventType.repeat);
@@ -557,7 +586,7 @@ class _KeyEventTypeDeepDemoPageState extends State<_KeyEventTypeDeepDemoPage> {
               _kv('logical', _fmt(sample.logical)),
               _kv('character', sample.character ?? 'null'),
               _kv('synthesized', sample.synthesized ? 'true' : 'false'),
-              _kv('deviceType', sample.deviceType.label),
+              _kv('deviceType', _deviceTypeName(sample.deviceType)),
             ],
           ),
           const SizedBox(height: 8),

@@ -19,3 +19,18 @@ issue-index: 6
 - Follow-up recommendation:
 	- In bridge generation, add explicit support for `ReverseTween<T>` construction dispatch with retained concrete tween subtype metadata.
 	- Add generator/runtime tests that cover `ReverseTween<double>`, `ReverseTween<Color>`, and additional common typed tweens to prevent regression.
+
+batch: 2
+
+issue-index: 14
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/key_event_type_test.dart`
+- Symptom: Runtime warning `Undefined property or method 'label' on bridged instance of 'Key'.`
+- Immediate outcome: script now uses local helper mapping for event/device labels, removing direct `.label` member dependency in the harness.
+- Deep analysis:
+	- The bridge surface currently does not expose all label-style members needed by this script path.
+	- This is a bridge coverage gap, not a layout/rendering issue.
+	- The script workaround is valid for immediate stabilization, but it does not expand bridge API coverage.
+- Follow-up recommendation:
+	- Add/verify bridge member exposure for key-related label access in the relevant `dart:ui` key bridge definitions.
+	- Add focused regression tests for key/device label access so missing-member regressions are caught early.

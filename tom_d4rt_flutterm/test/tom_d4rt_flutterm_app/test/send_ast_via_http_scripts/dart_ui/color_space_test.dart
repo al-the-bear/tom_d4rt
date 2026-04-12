@@ -525,25 +525,30 @@ Widget _sectionTitle(String title) {
 }
 
 Map<String, dynamic> _colorSpaceInfo(ui.ColorSpace cs) {
-  switch (cs) {
-    case ui.ColorSpace.sRGB:
-      return {
-        'color': Color(0xFF1A237E),
-        'description': 'Standard RGB — the default web/display color space',
-      };
-    case ui.ColorSpace.extendedSRGB:
-      return {
-        'color': Color(0xFF7C4DFF),
-        'description':
-            'Extended sRGB — same primaries, allows values outside 0-1 range for HDR',
-      };
-    case ui.ColorSpace.displayP3:
-      return {
-        'color': Color(0xFFE040FB),
-        'description':
-            'Display P3 — wider gamut used by Apple displays and modern screens',
-      };
+  if (cs == ui.ColorSpace.sRGB) {
+    return {
+      'color': Color(0xFF1A237E),
+      'description': 'Standard RGB — the default web/display color space',
+    };
   }
+  if (cs == ui.ColorSpace.extendedSRGB) {
+    return {
+      'color': Color(0xFF7C4DFF),
+      'description':
+          'Extended sRGB — same primaries, allows values outside 0-1 range for HDR',
+    };
+  }
+  if (cs == ui.ColorSpace.displayP3) {
+    return {
+      'color': Color(0xFFE040FB),
+      'description':
+          'Display P3 — wider gamut used by Apple displays and modern screens',
+    };
+  }
+  return {
+    'color': Color(0xFF455A64),
+    'description': 'Unrecognized color space value (${cs.name})',
+  };
 }
 
 Widget _colorDot(Color color, String label) {

@@ -328,7 +328,7 @@ dynamic build(BuildContext context) {
 Widget _buildBlurDemo(String name, BlurStyle style, MaterialColor color) {
   return Expanded(
     child: Container(
-      height: 100,
+      height: 108,
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,

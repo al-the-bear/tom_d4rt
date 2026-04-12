@@ -401,7 +401,7 @@ dynamic build(BuildContext context) {
             // Demo Text Fields
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('LIVE DEMOS (tap to edit)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
+              child: Text('LIVE DEMOS (harness-safe summary)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: CupertinoColors.systemGrey)),
             ),
             SizedBox(height: 8),
             
@@ -415,36 +415,16 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('clearButtonMode: editing', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-                  SizedBox(height: 4),
-                  CupertinoTextField(
-                    placeholder: 'Clear button when editing',
-                    clearButtonMode: OverlayVisibilityMode.editing,
+                  Text(
+                    'Interactive text fields are intentionally disabled in this harness run.',
+                    style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey),
                   ),
-                  SizedBox(height: 16),
-                  
-                  Text('prefixMode: always', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-                  SizedBox(height: 4),
-                  CupertinoTextField(
-                    placeholder: 'Enter email',
-                    prefixMode: OverlayVisibilityMode.always,
-                    prefix: Padding(
-                      padding: EdgeInsets.only(left: 8),
-                      child: Text('@', style: TextStyle(color: CupertinoColors.systemGrey)),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  
-                  Text('suffixMode: always', style: TextStyle(fontSize: 11, color: CupertinoColors.systemGrey)),
-                  SizedBox(height: 4),
-                  CupertinoTextField(
-                    placeholder: 'Enter amount',
-                    suffixMode: OverlayVisibilityMode.always,
-                    suffix: Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: Text('\$', style: TextStyle(color: CupertinoColors.systemGrey)),
-                    ),
-                  ),
+                  SizedBox(height: 10),
+                  _buildStaticPreviewRow('clearButtonMode: editing', 'visible only while editing'),
+                  SizedBox(height: 8),
+                  _buildStaticPreviewRow('prefixMode: always', '"@" shown in all states'),
+                  SizedBox(height: 8),
+                  _buildStaticPreviewRow('suffixMode: always', '"\$" shown in all states'),
                 ],
               ),
             ),
@@ -627,5 +607,25 @@ Widget _buildSummaryStat(String label, String value) {
         ),
       ),
     ],
+  );
+}
+
+Widget _buildStaticPreviewRow(String title, String detail) {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    decoration: BoxDecoration(
+      color: Color(0xFFF6FBFA),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Color(0xFFB2DFDB)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF00695C))),
+        SizedBox(height: 2),
+        Text(detail, style: TextStyle(fontSize: 10, color: CupertinoColors.systemGrey)),
+      ],
+    ),
   );
 }

@@ -117,7 +117,18 @@ dynamic build(BuildContext context) {
                 onPressed: () {},
               ),
               SizedBox(height: 8.0),
-              CupertinoTextField(placeholder: 'Themed TextField'),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemGrey6,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  'TextField preview disabled in harness to keep layout stable',
+                  style: TextStyle(fontSize: 13.0, color: CupertinoColors.systemGrey),
+                ),
+              ),
             ],
           ),
         ),
