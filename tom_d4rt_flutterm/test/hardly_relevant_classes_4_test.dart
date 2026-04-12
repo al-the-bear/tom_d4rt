@@ -22,7 +22,7 @@ import 'send_test_runner.dart';
 
 void main() {
   setUpAll(() async {
-    await SendTestRunner.setUp();
+    await SendTestRunner.setUp(regenerateBridges: false);
   });
 
   tearDownAll(() async {

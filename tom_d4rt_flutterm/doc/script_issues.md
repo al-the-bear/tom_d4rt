@@ -175,3 +175,21 @@ batch: 13
 - Notes:
   - `render_clip_r_superellipse_test.dart`, `render_editable_painter_test.dart`, and `render_sliver_floating_pinned_persistent_header_test.dart` were direct script-level null-contract/layout/state-context stabilizations.
   - `render_animated_size_state_test.dart` and `render_sliver_box_child_manager_test.dart` are stabilized script-side while deeper bridge-generator follow-up is documented in `generator_issues.md`.
+
+batch: 14
+
+- No non-immediate batch-14 script issues remained after immediate fixes.
+- Immediate batch-14 script/harness fixes were applied and validated for:
+  - rendering/render_ui_kit_view_test.dart
+  - services/message_codec_test.dart
+  - services/method_codec_test.dart
+  - services/raw_key_up_event_test.dart
+  - test/hardly_relevant_classes_4_test.dart (setUpAll log-only indexing mitigation)
+- Notes:
+  - `render_ui_kit_view_test.dart` and `raw_key_up_event_test.dart` were direct script-level state-context/layout-bounding stabilizations.
+  - `test/hardly_relevant_classes_4_test.dart` now uses `SendTestRunner.setUp(regenerateBridges: false)` to keep setup telemetry from being indexed as runtime issues.
+  - `message_codec_test.dart` and `method_codec_test.dart` are stabilized script-side while deeper bridge-generator follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 70, `render_ui_kit_view_test.dart`):
+    - The runtime warning originated from implicit `widget` lookup on a state path that is not guaranteed to expose `State.widget` semantics in interpreted execution.
+    - This failure pattern matches prior state-context defects where script code couples runtime behavior to framework-owned state properties instead of explicit data plumbing.
+    - Immediate mitigation moved the scenario to deterministic local configuration values, but long-term script quality should enforce explicit context/data passing patterns for stateful deep demos.

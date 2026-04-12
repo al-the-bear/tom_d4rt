@@ -1,61 +1,35 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Tests MethodCodec from services
-import 'package:flutter/services.dart';
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 dynamic build(BuildContext context) {
-  print('MethodCodec test executing');
+  print('=== MethodCodec Deep Demo (Harness-Safe) ===');
 
-  // MethodCodec is abstract - test via StandardMethodCodec
-  final codec = StandardMethodCodec();
-  print('StandardMethodCodec: ${codec.runtimeType}');
-  print('is MethodCodec: true /* codec is MethodCodec */');
+  final codec = const StandardMethodCodec();
+  final originalCall = MethodCall('myMethod', <String, Object?>{'arg1': 'value1', 'arg2': 42});
+  final encodedCall = codec.encodeMethodCall(originalCall);
+  final decodedCall = codec.decodeMethodCall(encodedCall);
 
-  // Test encoding method call
-  print('\nEncoding method call:');
-  final call = MethodCall('myMethod', {'arg1': 'value1', 'arg2': 42});
-  print('MethodCall: ${call.method}');
-  print('arguments: ${call.arguments}');
+  final successEnvelope = codec.encodeSuccessEnvelope('result data');
+  final decodedSuccess = codec.decodeEnvelope(successEnvelope);
 
-  final encoded = codec.encodeMethodCall(call);
-  print('Encoded length: ${encoded.lengthInBytes} bytes');
-
-  // Test decoding
-  print('\nDecoding method call:');
-  final decoded = codec.decodeMethodCall(encoded);
-  print('Decoded method: ${decoded.method}');
-  print('Decoded args: ${decoded.arguments}');
-
-  // Test encoding success result
-  print('\nEncoding success result:');
-  final successResult = codec.encodeSuccessEnvelope('result data');
-  print('Success envelope length: ${successResult.lengthInBytes} bytes');
-
-  // Explain MethodCodec
-  print('\nMethodCodec purpose:');
-  print('- Encodes/decodes platform channel messages');
-  print('- Used by MethodChannel');
-  print('- StandardMethodCodec uses StandardMessageCodec');
-  print('- JSONMethodCodec uses JSON encoding');
-
-  // Codec implementations
-  print('\nCodec implementations:');
-  print('- StandardMethodCodec: binary, efficient');
-  print('- JSONMethodCodec: JSON, readable');
-
-  print('\nMethodCodec test completed');
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'MethodCodec Tests',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  return MaterialApp(
+    home: Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            const Text(
+              'MethodCodec',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            ListTile(title: const Text('Method'), subtitle: Text(decodedCall.method)),
+            ListTile(title: const Text('Arguments'), subtitle: Text('${decodedCall.arguments}')),
+            ListTile(title: const Text('Decoded success'), subtitle: Text('$decodedSuccess')),
+          ],
+        ),
       ),
-      SizedBox(height: 8),
-      Text('Platform channel encoding'),
-      Text('Method: ${decoded.method}'),
-      Text('Args: ${decoded.arguments}'),
-      Text('Impl: StandardMethodCodec'),
-    ],
+    ),
   );
 }

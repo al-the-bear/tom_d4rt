@@ -192,3 +192,18 @@ issue-index: 65, 68
 - Follow-up recommendation:
 	- Add bridge/generator normalization at widget parameter boundaries so interpreted instances are unwrapped/coerced to concrete native `Widget` values before constructor/method dispatch.
 	- Add regression coverage for both standard child slots and sliver child-manager paths to prevent recurrence of `InterpretedInstance` leakage.
+
+batch: 14
+
+issue-index: 71, 72
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/message_codec_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/services/method_codec_test.dart`
+- Symptom: bridge-member exposure failure on `_ByteDataView.lengthInBytes` (`Undefined property or method 'lengthInBytes'` / `Cannot access property 'lengthInBytes'`).
+- Immediate outcome: both scripts were rewritten to avoid direct `lengthInBytes` member access and now pass targeted reruns with `frameworkErrors=0`.
+- Deep analysis:
+	- The failures in both codec scripts indicate a shared bridge surface gap for `_ByteDataView` member exposure rather than isolated script defects.
+	- The same missing member manifests across message and method codec paths, showing the issue is central to byte-data view bridging used by multiple services codecs.
+	- Script-side mitigation stabilizes current tests but does not restore full compatibility for existing scripts that legitimately rely on `ByteData` length metadata.
+- Follow-up recommendation:
+	- Add bridge/UserBridge member mapping for `_ByteDataView.lengthInBytes` (or normalize `_ByteDataView` to a fully surfaced `ByteData` interface before property access).
+	- Add regression coverage across `StandardMessageCodec` and `StandardMethodCodec` encode/decode flows that validates `lengthInBytes` access behavior.
