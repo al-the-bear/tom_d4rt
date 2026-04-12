@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-57 (issues 0..289 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-58 (issues 0..294 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4021,4 +4021,75 @@ Scope: Batch-0 to Batch-57 (issues 0..289 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-57 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: two layout-constraint defects (`cupertino_sections_test`, `cupertino_tabbar_scaffold_test`) and three intentional deprecated-API skips (`button_types_test`, `toggle_segmented_test`, `button_styles_misc_test`).
 - Bridge/generator/interpreter classification: none identified in this batch.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-58 (Issues 290-294)
+
+### Index 290
+
+- Index: 290
+- testname: `semantics/semantics_config_test.dart`
+- category: `BRIDGE-CALLBACK-TYPE-COERCION`
+- immediate fix possible: `no — requires callback bridge adaptation`
+- description: Test fails with: `type 'InterpretedFunction' is not a subtype of type '(() => void)?'`.
+- detailed analysis what the problem is: The semantics config path expects a nullable native zero-argument callback `VoidCallback?`, but runtime bridge dispatch passes an uncoerced `InterpretedFunction`. This is the same callback-signature adaptation class as prior `setMessageHandler` mismatch issues, now on the semantics callback boundary.
+- fix description (if clear): Add bridge callback coercion for nullable `VoidCallback` parameters so interpreted functions are wrapped into native callable adapters before invocation/assignment.
+- need for deeper analysis?: `yes — callback adaptation path in semantics bridge/runtime`
+- batch number: `58`
+
+### Index 291
+
+- Index: 291
+- testname: `widgets/gesture_detector_adv_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated runtime errors: `Undefined variable: widget` on multiple scene `State` classes.
+- detailed analysis what the problem is: The script references implicit `widget` state context in several scene states where generated/interpreted access path is unresolved in this scenario, producing non-failing runtime warnings. This matches the recurring state-context defect pattern already seen across earlier batches.
+- fix description (if clear): Refactor affected scene states to pass required values explicitly (constructor fields/callbacks) or ensure state context access is valid before use; eliminate runtime warning output in success runs.
+- need for deeper analysis?: `no`
+- batch number: `58`
+
+### Index 292
+
+- Index: 292
+- testname: `widgets/layout_builder_adv_test.dart`
+- category: `BRIDGE-MISSING-METHOD-DISPATCH + TEST-SCRIPT-LAYOUT-CONSTRAINT`
+- immediate fix possible: `no — mixed bridge and script fixes required`
+- description: Test passes but logs runtime and framework errors including `Undefined variable: layoutChild` on `TestMultiChildLayoutDelegate`, multiple infinite-size layout assertions, NaN rect assertion, and semantics/layout assertion.
+- detailed analysis what the problem is: This issue combines a bridge/runtime dispatch gap (`layoutChild` unresolved on delegate) with unstable test-script layout composition (infinite constraints and downstream render assertions). The unresolved delegate method indicates missing method dispatch exposure for the delegate path, while the remaining errors indicate constraint misuse in the demo tree.
+- fix description (if clear): (1) Add/repair delegate method dispatch exposure for `layoutChild` in bridge/runtime handling. (2) Rework layout-builder demo composition to avoid infinite constraints and NaN geometry paths, then assert no framework errors.
+- need for deeper analysis?: `yes — mixed bridge dispatch and layout composition path`
+- batch number: `58`
+
+### Index 293
+
+- Index: 293
+- testname: `widgets/platform_menu_widgets_test.dart`
+- category: `TEST-SCRIPT-DEPRECATED-API-SKIP`
+- immediate fix possible: `yes`
+- description: Skipped with log: `Uses deprecated Flutter API: RawKeyboardListener`.
+- detailed analysis what the problem is: Intentional deprecated-API skip; this is not a bridge/generator/interpreter failure.
+- fix description (if clear): Migrate script away from `RawKeyboardListener` to supported keyboard/input APIs, then remove skip.
+- need for deeper analysis?: `no`
+- batch number: `58`
+
+### Index 294
+
+- Index: 294
+- testname: `widgets/scroll_position_types_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs unbounded-height flex constraint error and semantics/layout assertion.
+- detailed analysis what the problem is: The script builds flex content under unconstrained vertical layout, creating the standard unbounded `RenderFlex` failure signature and follow-on semantics assertion.
+- fix description (if clear): Constrain vertical layout bounds for flex content (or restructure flex/scroll nesting) and verify the test run emits no framework errors.
+- need for deeper analysis?: `no`
+- batch number: `58`
+
+## Batch-58 Classification Summary
+
+- Missing/stray status for Batch-58 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one state-context warning group (`gesture_detector_adv_test`), one layout-constraint issue (`scroll_position_types_test`), one mixed bridge+layout issue (`layout_builder_adv_test`), and one deprecated-API skip (`platform_menu_widgets_test`).
+- Bridge/generator/interpreter classification: one `BRIDGE-CALLBACK-TYPE-COERCION` failure (`semantics_config_test`) and one `BRIDGE-MISSING-METHOD-DISPATCH` component in `layout_builder_adv_test`.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
