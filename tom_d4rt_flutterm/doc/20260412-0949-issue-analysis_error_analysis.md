@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 only (issues 0..4 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 and Batch-1 (issues 0..9 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -70,3 +70,71 @@ Scope: Batch-0 only (issues 0..4 from `20260412-0949-issue-analysis_test_summary
 - Generator issue classification: no generator defect signal identified in Batch-0.
 - Interpreter issue classification: no direct interpreter limitation signature identified in Batch-0 (for example, no non-exhaustive switch, no generic callback cast mismatch, no missing bridged method/runtime signature tied to known interpreter docs).
 - Primary problem class for Batch-0: test script and harness quality (layout constraint misuse, overflow handling, and informational setup log classification).
+
+## Batch-1
+
+### Index 5
+
+- Index: 5
+- testname: `(setUpAll)` in `test/hardly_relevant_classes_1_test.dart`
+- category: `TEST-HARNESS-LOG-ONLY`
+- immediate fix possible: `yes`
+- description: Non-failing setup output is indexed as an issue because the summary includes all non-metric log output entries.
+- detailed analysis what the problem is: The message (`Bridge regeneration skipped: all bridge outputs are up-to-date`) is expected operational status output and not an error. This is a report-classification issue and should not be treated as a runtime/test defect.
+- fix description (if clear): Keep message in raw log, but treat it as informational and exclude it from issue indexing.
+- need for deeper analysis?: `no`
+- batch number: `1`
+
+### Index 6
+
+- Index: 6
+- testname: `animation/reverse_tween_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-FACTORY (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain test failure (`Expected: true, Actual: false`) with runtime error `Error in generic constructor factory for 'ReverseTween': Null check operator used on a null value`.
+- detailed analysis what the problem is: This is consistent with previously documented generic constructor factory limitations in the bridge/interpreter pipeline (`ReverseTween<T>` path). The failure is not a layout warning and not a flaky assertion. The test expectation is valid; runtime factory resolution for generic types is currently incorrect, causing null-check crashes during interpreted generic constructor handling.
+- fix description (if clear): Implement a focused UserBridge override for `ReverseTween` generic constructor handling (type-parameter-aware extraction/casting) and align generator behavior for generic factory constructors. Keep the test as-is and mark the underlying bridge/generator path as needs correction.
+- need for deeper analysis?: `yes` (for generator-side generalization beyond `ReverseTween`)
+- batch number: `1`
+
+### Index 7
+
+- Index: 7
+- testname: `cupertino/cupertino_desktop_text_selection_controls_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 errors (`negative minimum height`, `_RenderEditableCustomPaint` layout failure, semantics assertion).
+- detailed analysis what the problem is: This is the same Cupertino editable-layout warning chain as Batch-0 and indicates script composition with invalid constraints. There is no signature of bridge/generator/interpreter type-resolution failure here.
+- fix description (if clear): Correct script layout constraints for editable controls (bounded/positive constraints and stable parent sizing). Add script-level guard to fail when framework errors are present so warnings are not silently accepted.
+- need for deeper analysis?: `no`
+- batch number: `1`
+
+### Index 8
+
+- Index: 8
+- testname: `cupertino/cupertino_focus_halo_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 3 errors with the same editable-constraint signature as Index 7.
+- detailed analysis what the problem is: The issue pattern is script-level Flutter layout misuse around editable rendering pipeline and semantics update timing after failed layout. No indicator of interpreter non-exhaustive switch or bridge method absence.
+- fix description (if clear): Rework focus-halo scenario scaffold constraints and editable host sizing; validate by rerun that framework warning count is zero.
+- need for deeper analysis?: `no`
+- batch number: `1`
+
+### Index 9
+
+- Index: 9
+- testname: `cupertino/cupertino_text_selection_handle_controls_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 11 errors, repeating the same negative-height and not-laid-out sequence.
+- detailed analysis what the problem is: High repetition indicates the same layout defect is triggered across multiple states/interactions in this script. This is a test-script quality problem; no direct evidence of bridge/generator/interpreter core limitation for this specific issue.
+- fix description (if clear): Consolidate with Cupertino text-selection constraint fixes, enforce bounded editable layout in all interaction states, and fail the script when any framework error line is produced.
+- need for deeper analysis?: `yes` (only if warnings remain after shared layout fix)
+- batch number: `1`
+
+## Batch-1 Classification Summary
+
+- Missing/stray status for Batch-1 scripts: none missing, none stray.
+- Bridge/generator/interpreter classification: one direct bridge/generator generic-constructor issue (`ReverseTween<T>` factory path) and no Batch-1 non-exhaustive-switch signature.
+- Test script issue classification: three Cupertino scripts with framework layout/semantics warnings that require script correction so warning output is removed.

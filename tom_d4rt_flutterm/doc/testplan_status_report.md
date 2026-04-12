@@ -9,6 +9,8 @@ Full run note (20260411-1207-issue-analysis): all 8 suites scanned — 1973 refe
 
 Batch-0 follow-up note (20260412-0949-issue-analysis): the four Batch-0 scripts from `essential_classes_test.dart` (`cupertino/controls_test.dart`, `cupertino/form_test.dart`, `cupertino/textfield_test.dart`, `rendering/viewport_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-0. A dedicated regression script is still missing for the recurring Cupertino layout warning pattern and is tracked below as a file that needs to be created.
 
+Batch-1 follow-up note (20260412-0949-issue-analysis): the four Batch-1 scripts from `hardly_relevant_classes_1_test.dart` (`animation/reverse_tween_test.dart`, `cupertino/cupertino_desktop_text_selection_controls_test.dart`, `cupertino/cupertino_focus_halo_test.dart`, `cupertino/cupertino_text_selection_handle_controls_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-1. A dedicated regression test script for the generic constructor factory null-check failure pattern is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -62,6 +64,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [threshold_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/threshold_test.dart) | Threshold | No | Yes | No | Created on 2026-03-17 at 16:30 |
 | [tween_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/tween_test.dart) | Tween | No | Yes | No |
 | [tweensequence_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/tweensequence_test.dart) | TweenSequence | No | Yes | No |
+| [reverse_tween_generic_factory_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/animation/reverse_tween_generic_factory_regression_test.dart) | ReverseTweenGenericFactoryRegression | No | No | No | Needs to be created (Batch-1 failure pattern: generic constructor factory null-check in `ReverseTween<T>`). |
 ## cupertino/ (60 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
