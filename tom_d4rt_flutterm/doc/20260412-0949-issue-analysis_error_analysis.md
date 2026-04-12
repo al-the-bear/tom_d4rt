@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-7 (issues 0..39 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-8 (issues 0..44 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -552,3 +552,72 @@ Scope: Batch-0 to Batch-7 (issues 0..39 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: three layout-constraint/overflow warning issues (`list_tile_title_alignment_test`, `menu_accelerator_callback_binding_test`, `navigation_drawer_theme_test`).
 - Bridge/generator/interpreter classification: two known non-exhaustive enum switch failures (`material_banner_closed_reason_test`, `navigation_destination_label_behavior_test`).
 - Known non-exhaustive switch signature in Batch-7: detected in `material_banner_closed_reason_test` and `navigation_destination_label_behavior_test`.
+
+## Batch-8
+
+### Index 40
+
+- Index: 40
+- testname: `material/navigation_rail_label_type_test.dart`
+- category: `INTERPRETER-NON-EXHAUSTIVE-SWITCH (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: Switch expression was not exhaustive for value: NavigationRailLabelType.none (NavigationRailLabelType)`.
+- detailed analysis what the problem is: This is the same known enum-switch exhaustiveness limitation seen in prior batches, now triggered for `NavigationRailLabelType`. The test expectation is likely correct; runtime enum switch handling is incomplete.
+- fix description (if clear): Add a short-term script workaround and implement interpreter/bridge exhaustive enum handling for all `NavigationRailLabelType` values.
+- need for deeper analysis?: `yes`
+- batch number: `8`
+
+### Index 41
+
+- Index: 41
+- testname: `material/paginated_data_table_state_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted 36 errors including infinite width constraints and repeated `RenderBox was not laid out` assertions.
+- detailed analysis what the problem is: The scenario is building paginated table widgets under invalid/unbounded layout constraints, causing cascading render/layout failures and semantics assertions. This is a script scaffold/layout-contract problem rather than a plain interpreter switch failure.
+- fix description (if clear): Rework the script scaffold to provide bounded width/height constraints for paginated table containers (and nested scroll/viewport structure), then enforce zero framework errors as pass criteria.
+- need for deeper analysis?: `no`
+- batch number: `8`
+
+### Index 42
+
+- Index: 42
+- testname: `material/popup_menu_position_test.dart`
+- category: `BRIDGE-GENERIC-CONSTRUCTOR-FACTORY-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with generic constructor factory error for `PopupMenuButton`: assertion `'!(child != null && icon != null)'` failed.
+- detailed analysis what the problem is: The failure originates in the generic constructor factory path and indicates conflicting constructor argument mapping for `PopupMenuButton` (both `child` and `icon` becoming non-null). This can come from script input or bridge argument extraction/defaulting behavior; the generic factory path itself is explicitly implicated.
+- fix description (if clear): Verify script constructor usage first, then adjust UserBridge/generator constructor argument mapping so only one of `child` or `icon` is populated in the native call path.
+- need for deeper analysis?: `yes`
+- batch number: `8`
+
+### Index 43
+
+- Index: 43
+- testname: `material/progress_indicator_test.dart`
+- category: `TEST-SCRIPT-VALUE-TYPE-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted value-contract warning: progress bar values must be numeric (`value: "67%"`, `minValue: "0"`, `maxValue: "100"`).
+- detailed analysis what the problem is: The scenario sends string-formatted values into a path expecting numeric values for progress semantics/metrics. This is a test-script data typing contract issue.
+- fix description (if clear): Provide numeric values (`double`/`num`) for progress, min, and max fields rather than formatted strings, and keep warning output as failure criteria.
+- need for deeper analysis?: `no`
+- batch number: `8`
+
+### Index 44
+
+- Index: 44
+- testname: `material/refresh_progress_indicator_test.dart`
+- category: `TEST-SCRIPT-VALUE-TYPE-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted the same value-contract warning (`value: "50%"` string, numeric values expected).
+- detailed analysis what the problem is: This mirrors Index 43 and confirms a shared script data formatting pattern that violates expected numeric progress semantics.
+- fix description (if clear): Align refresh progress inputs with numeric value types (`num`/`double`) and remove percent-string formatting in the tested path.
+- need for deeper analysis?: `no`
+- batch number: `8`
+
+## Batch-8 Classification Summary
+
+- Missing/stray status for Batch-8 scripts: none missing, none stray.
+- Test-script issue classification: one layout-constraint cascade (`paginated_data_table_state_test`) and two progress value-type contract issues (`progress_indicator_test`, `refresh_progress_indicator_test`).
+- Bridge/generator/interpreter classification: one known non-exhaustive enum switch issue (`navigation_rail_label_type_test`) and one generic-constructor argument mapping/contract issue (`popup_menu_position_test`).
+- Known non-exhaustive switch signature in Batch-8: detected in `navigation_rail_label_type_test`.

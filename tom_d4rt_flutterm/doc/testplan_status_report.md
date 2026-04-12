@@ -23,6 +23,8 @@ Batch-6 follow-up note (20260412-0949-issue-analysis): the five Batch-6 scripts 
 
 Batch-7 follow-up note (20260412-0949-issue-analysis): the five Batch-7 scripts from `hardly_relevant_classes_2_test.dart` (`material/list_tile_title_alignment_test.dart`, `material/material_banner_closed_reason_test.dart`, `material/menu_accelerator_callback_binding_test.dart`, `material/navigation_destination_label_behavior_test.dart`, `material/navigation_drawer_theme_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-7. A dedicated regression test script for recurring material enum switch-exhaustiveness interpreter failures is still missing and is tracked below as a file that needs to be created.
 
+Batch-8 follow-up note (20260412-0949-issue-analysis): the five Batch-8 scripts from `hardly_relevant_classes_2_test.dart` (`material/navigation_rail_label_type_test.dart`, `material/paginated_data_table_state_test.dart`, `material/popup_menu_position_test.dart`, `material/progress_indicator_test.dart`, `material/refresh_progress_indicator_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-8. A dedicated regression test script for popup menu generic-constructor argument exclusivity handling is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -654,6 +656,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [popup_menu_item_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_state_test.dart) | PopupMenuItemState | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [popup_menu_item_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_item_test.dart) | PopupMenuItem | No | Yes | No | Checked. |
 | [popup_menu_position_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_position_test.dart) | PopupMenuPosition | No | Yes | No | Batch 60. 515 lines, Amber/Honey, prefix pm. Placement diagrams, live buttons, geometry table, use-case scenarios, interaction flow. |
+| [popup_menu_constructor_exclusivity_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/popup_menu_constructor_exclusivity_regression_test.dart) | PopupMenuConstructorExclusivityRegression | No | No | No | Needs to be created (Batch-8 failure pattern: generic constructor path passes conflicting `PopupMenuButton` args `child` + `icon`). |
 | [predictive_back_fullscreen_page_transitions_builder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/predictive_back_fullscreen_page_transitions_builder_test.dart) | PredictiveBackFullscreenPageTransitionsBuilder | No | Yes | No | Checked. |
 | [progress_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_indicator_test.dart) | ProgressIndicator | No | Yes | No | Created on 2026-03-21 at 12:30 |
 | [progress_sheet_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/progress_sheet_test.dart) | LinearProgressIndicator | No | Yes | No |
