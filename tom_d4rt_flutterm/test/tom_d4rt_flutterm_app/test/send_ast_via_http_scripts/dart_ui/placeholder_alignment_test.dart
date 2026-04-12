@@ -350,7 +350,7 @@ Widget _buildAlignmentRow(PlaceholderAlignment alignment) {
             TextSpan(
               children: [
                 TextSpan(text: 'Text with ', style: TextStyle(fontSize: 16)),
-                WidgetSpan(
+                _alignedWidgetSpan(
                   alignment: alignment,
                   child: Container(
                     width: 20,
@@ -446,7 +446,7 @@ Widget _buildBaselineExample(
           TextSpan(
             children: [
               TextSpan(text: 'Sample text '),
-              WidgetSpan(
+              _alignedWidgetSpan(
                 alignment: align,
                 child: Container(
                   width: 24,
@@ -471,6 +471,20 @@ Widget _buildBaselineExample(
         ),
       ],
     ),
+  );
+}
+
+WidgetSpan _alignedWidgetSpan({
+  required PlaceholderAlignment alignment,
+  required Widget child,
+}) {
+  final needsBaseline = alignment == PlaceholderAlignment.baseline ||
+      alignment == PlaceholderAlignment.aboveBaseline ||
+      alignment == PlaceholderAlignment.belowBaseline;
+  return WidgetSpan(
+    alignment: alignment,
+    baseline: needsBaseline ? TextBaseline.alphabetic : null,
+    child: child,
   );
 }
 

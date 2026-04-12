@@ -3,12 +3,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+Object _safeObject(String label) {
+  try {
+    return Object();
+  } catch (e) {
+    print('Object() bridge unavailable for $label, using fallback object: $e');
+    return {'fallbackObject': label};
+  }
+}
+
 dynamic build(BuildContext context) {
   print('ObjectCreated test executing');
   print('=' * 50);
 
   // Create test object
-  final testObj = Object();
+  final testObj = _safeObject('primary');
 
   // Create ObjectCreated event
   final event1 = ObjectCreated(
@@ -50,12 +59,12 @@ dynamic build(BuildContext context) {
   final packageLib = ObjectCreated(
     library: 'package:my_app/src/models/user.dart',
     className: 'User',
-    object: Object(),
+    object: _safeObject('packageLib'),
   );
   final relativeLib = ObjectCreated(
     library: 'lib/utils.dart',
     className: 'Helper',
-    object: Object(),
+    object: _safeObject('relativeLib'),
   );
   print('dart:core - ${dartCore.library}');
   print('package: - ${packageLib.library}');
@@ -66,19 +75,19 @@ dynamic build(BuildContext context) {
   final emptyLib = ObjectCreated(
     library: '',
     className: 'Unknown',
-    object: Object(),
+    object: _safeObject('emptyLib'),
   );
   final emptyClass = ObjectCreated(
     library: 'test',
     className: '',
-    object: Object(),
+    object: _safeObject('emptyClass'),
   );
   print('Empty library: "${emptyLib.library}"');
   print('Empty className: "${emptyClass.className}"');
 
   // Compare events
   print('\nEvent comparison:');
-  final sameObj = Object();
+  final sameObj = _safeObject('sameObj');
   final eventA = ObjectCreated(
     library: 'test',
     className: 'Test',

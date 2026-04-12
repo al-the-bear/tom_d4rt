@@ -34,3 +34,30 @@ issue-index: 14
 - Follow-up recommendation:
 	- Add/verify bridge member exposure for key-related label access in the relevant `dart:ui` key bridge definitions.
 	- Add focused regression tests for key/device label access so missing-member regressions are caught early.
+
+batch: 3
+
+issue-index: 17
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/vertex_mode_test.dart`
+- Symptom: Runtime warnings from bridged `Vertices` construction: `Invalid parameter "positions": expected List<Offset>, got null`.
+- Immediate outcome: script now guarantees non-null `positions`/`colors` defaults and explicit mode dispatch, removing warnings in harness execution.
+- Deep analysis:
+	- Constructor argument extraction/coercion in the bridge path is brittle when mode dispatch fails or yields incomplete argument state.
+	- The script-side guard prevents null constructor args, but the bridge should still defensively validate/coerce typed list arguments.
+- Follow-up recommendation:
+	- Harden bridge constructor adapters for `Vertices` to reject null typed lists early with clearer diagnostics and optional safe defaults.
+	- Add regression coverage for all `VertexMode` variants with constructor argument validation.
+
+issue-index: 18, 19
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart`
+- Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
+- Immediate outcome: scripts now use `_safeObject(...)` fallback to avoid direct dependency on missing `Object()` bridge constructor support.
+- Deep analysis:
+	- This is a shared bridge/runtime coverage gap for root/core class constructor availability.
+	- Multiple lifecycle scripts fail on the same missing default-constructor path, confirming a central bridge deficiency rather than isolated script misuse.
+	- Script fallback unblocks tests but does not restore canonical `Object()` constructor semantics.
+- Follow-up recommendation:
+	- Add default constructor bridge support (or explicit native fallback) for `Object()` and validate in all object-lifecycle scripts.
+	- Add core-constructor smoke tests for other root classes to avoid similar gaps.

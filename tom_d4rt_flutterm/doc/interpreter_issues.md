@@ -24,3 +24,18 @@ issue-index: 13
 - Follow-up recommendation:
 	- Add interpreter regression coverage for `switch` and `==` matching on bridged `dart:ui` enums (`ColorSpace`, `KeyEventType`, `Brightness`) to confirm exhaustive behavior.
 	- If mismatch is confirmed, patch enum-dispatch/equality handling in interpreter runtime so enum switches behave like VM Dart semantics.
+
+batch: 3
+
+issue-index: 16
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/system_color_palette_test.dart`
+- Symptom: Runtime failure `Unsupported operation: SystemColor not supported on the current platform.`
+- Immediate outcome: script switched to deterministic fallback-render mode for unsupported runtimes so the harness no longer fails.
+- Deep analysis:
+	- This is an interpreter/runtime platform capability gap, not a layout/script invariant issue.
+	- Accessing `SystemColor` APIs can throw on runtimes where the engine/platform backend does not expose system palette data.
+	- The immediate script fallback keeps CI green but does not provide true runtime support for system palette APIs.
+- Follow-up recommendation:
+	- Add a capability probe in runtime/bridge bootstrapping for system-color support and expose it as a stable flag for interpreted scripts.
+	- Where supported, validate full `SystemColor.light/dark` access; where unsupported, ensure a documented, non-throwing fallback contract.

@@ -29,3 +29,16 @@ batch: 2
   - dart_ui/key_event_type_test.dart
 - Notes:
   - `color_space_test.dart` and `key_event_type_test.dart` were stabilized with script-level mitigations while related interpreter/bridge follow-up analysis was documented in `interpreter_issues.md` and `generator_issues.md`.
+
+batch: 3
+
+- No non-immediate batch-3 script issues remained after immediate fixes.
+- Immediate batch-3 script fixes were applied and validated for:
+  - dart_ui/placeholder_alignment_test.dart
+  - dart_ui/system_color_palette_test.dart
+  - dart_ui/vertex_mode_test.dart
+  - foundation/object_created_test.dart
+  - foundation/object_disposed_test.dart
+- Notes:
+  - `system_color_palette_test.dart` was stabilized with unsupported-platform fallback rendering while interpreter platform capability follow-up was documented in `interpreter_issues.md`.
+  - `vertex_mode_test.dart`, `object_created_test.dart`, and `object_disposed_test.dart` include script-level mitigations with bridge follow-up items documented in `generator_issues.md`.

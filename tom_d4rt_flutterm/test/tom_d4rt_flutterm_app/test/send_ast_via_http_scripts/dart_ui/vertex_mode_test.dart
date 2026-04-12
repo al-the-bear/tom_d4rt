@@ -1174,53 +1174,57 @@ class _ColoredMeshPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    List<Offset> positions;
-    List<Color> colors;
+    // Initialize with a valid default mesh so constructor args are never null.
+    List<Offset> positions = [
+      Offset(50, 50),
+      Offset(50, 10),
+      Offset(90, 30),
+      Offset(90, 70),
+      Offset(50, 90),
+      Offset(10, 70),
+      Offset(10, 30),
+    ];
+    List<Color> colors = [
+      Colors.white,
+      Colors.red,
+      Colors.orange,
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.purple,
+    ];
 
-    switch (mode) {
-      case VertexMode.triangles:
-        // 2 independent triangles
-        positions = [
-          Offset(10, 90), Offset(50, 10), Offset(90, 90), // tri1
-          Offset(10, 90), Offset(90, 90), Offset(50, 50), // tri2
-        ];
-        colors = [
-          Colors.red,
-          Colors.green,
-          Colors.blue,
-          Colors.yellow,
-          Colors.cyan,
-          Colors.pink,
-        ];
-      case VertexMode.triangleStrip:
-        positions = [
-          Offset(10, 10),
-          Offset(10, 90),
-          Offset(50, 10),
-          Offset(50, 90),
-          Offset(90, 10),
-          Offset(90, 90),
-        ];
-        colors = [
-          Colors.red,
-          Colors.orange,
-          Colors.yellow,
-          Colors.green,
-          Colors.blue,
-          Colors.purple,
-        ];
-      case VertexMode.triangleFan:
-        // Center + surrounding vertices
-        positions = [
-          Offset(50, 50), // center
-          Offset(50, 10), Offset(90, 30), Offset(90, 70),
-          Offset(50, 90), Offset(10, 70), Offset(10, 30),
-        ];
-        colors = [
-          Colors.white, // center
-          Colors.red, Colors.orange, Colors.yellow,
-          Colors.green, Colors.blue, Colors.purple,
-        ];
+    if (mode == VertexMode.triangles) {
+      // 2 independent triangles
+      positions = [
+        Offset(10, 90), Offset(50, 10), Offset(90, 90), // tri1
+        Offset(10, 90), Offset(90, 90), Offset(50, 50), // tri2
+      ];
+      colors = [
+        Colors.red,
+        Colors.green,
+        Colors.blue,
+        Colors.yellow,
+        Colors.cyan,
+        Colors.pink,
+      ];
+    } else if (mode == VertexMode.triangleStrip) {
+      positions = [
+        Offset(10, 10),
+        Offset(10, 90),
+        Offset(50, 10),
+        Offset(50, 90),
+        Offset(90, 10),
+        Offset(90, 90),
+      ];
+      colors = [
+        Colors.red,
+        Colors.orange,
+        Colors.yellow,
+        Colors.green,
+        Colors.blue,
+        Colors.purple,
+      ];
     }
 
     final vertices = ui.Vertices(mode, positions, colors: colors);

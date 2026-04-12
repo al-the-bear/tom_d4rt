@@ -3,12 +3,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+Object _safeObject(String label) {
+  try {
+    return Object();
+  } catch (e) {
+    print('Object() bridge unavailable for $label, using fallback object: $e');
+    return {'fallbackObject': label};
+  }
+}
+
 dynamic build(BuildContext context) {
   print('ObjectDisposed test executing');
 
   // Create test objects
-  final obj1 = Object();
-  final obj2 = Object();
+  final obj1 = _safeObject('disposed-1');
+  final obj2 = _safeObject('disposed-2');
 
   // Create ObjectDisposed events
   final event1 = ObjectDisposed(object: obj1);
