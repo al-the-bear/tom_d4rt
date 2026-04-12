@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-11 (issues 0..59 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-12 (issues 0..64 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -828,3 +828,72 @@ Scope: Batch-0 to Batch-11 (issues 0..59 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one harness-log classification item (`setUpAll`), one overflow warning (`floating_header_snap_configuration_test`), and one late-initialization/state-order issue (`pipeline_manifold_test`).
 - Bridge/generator/interpreter classification: one bridge widget-coercion mismatch (`over_scroll_header_stretch_configuration_test`) and one interpreter null-method-invocation failure (`hit_test_behavior_test`).
 - Known non-exhaustive switch signature in Batch-11: not detected in this batch.
+
+## Batch-12
+
+### Index 60
+
+- Index: 60
+- testname: `rendering/placeholder_span_index_semantics_tag_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted runtime warning: undefined `_manifold` due to `LateInitializationError` (late variable accessed before assignment).
+- detailed analysis what the problem is: The script reaches `_manifold` usage before initialization in at least one path. This is script-level state sequencing debt and not a direct bridge/generator/interpreter type-cast issue.
+- fix description (if clear): Initialize `_manifold` before all dependent operations, or gate access behind explicit initialized-state checks.
+- need for deeper analysis?: `no`
+- batch number: `12`
+
+### Index 61
+
+- Index: 61
+- testname: `rendering/platform_view_render_box_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted runtime warning: undefined `_controller` caused by `LateInitializationError`.
+- detailed analysis what the problem is: The script accesses a late-bound controller before assignment. This is a scenario initialization-order problem and should be corrected even though the test result is success.
+- fix description (if clear): Ensure `_controller` is assigned on every setup path before it is used; add guard assertions to fail fast on uninitialized state.
+- need for deeper analysis?: `no`
+- batch number: `12`
+
+### Index 62
+
+- Index: 62
+- testname: `rendering/render_abstract_viewport_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted overflow warning (`RenderFlex overflowed by 70 pixels on the right`).
+- detailed analysis what the problem is: The scripted viewport/layout composition exceeds horizontal constraints significantly. This is a script-level layout contract issue and not an interpreter limitation signature.
+- fix description (if clear): Constrain horizontal layout (use `Expanded`/`Flexible`, width constraints, or scroll strategy) and enforce zero framework warnings.
+- need for deeper analysis?: `no`
+- batch number: `12`
+
+### Index 63
+
+- Index: 63
+- testname: `rendering/render_android_view_test.dart`
+- category: `INTERPRETER-NON-EXHAUSTIVE-SWITCH (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted runtime warning during bridged `Iterable.toList`: switch expression not exhaustive for `PlatformViewHitTestBehavior.opaque`.
+- detailed analysis what the problem is: This matches a known interpreter limitation pattern where enum-switch handling is incomplete for bridged values. In this case it surfaces inside native/bridged list conversion path and should be treated as runtime handling debt, not harmless script noise.
+- fix description (if clear): Add interpreter/bridge exhaustive enum handling for all `PlatformViewHitTestBehavior` values (including `opaque`), and keep a script-level workaround only if runtime fix cannot be delivered immediately.
+- need for deeper analysis?: `yes`
+- batch number: `12`
+
+### Index 64
+
+- Index: 64
+- testname: `rendering/render_animated_opacity_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but framework emitted runtime warning: undefined `_curvedAnimation` due to `LateInitializationError`.
+- detailed analysis what the problem is: The script references a late-bound animation object before it is initialized in one or more execution branches. This is script state orchestration debt and not a bridge registration gap.
+- fix description (if clear): Initialize `_curvedAnimation` during setup before use and add explicit initialization-path assertions.
+- need for deeper analysis?: `no`
+- batch number: `12`
+
+## Batch-12 Classification Summary
+
+- Missing/stray status for Batch-12 scripts: none missing, none stray.
+- Test-script issue classification: three state-initialization warning issues (`placeholder_span_index_semantics_tag_test`, `platform_view_render_box_test`, `render_animated_opacity_mixin_test`) and one overflow issue (`render_abstract_viewport_test`).
+- Bridge/generator/interpreter classification: one known interpreter non-exhaustive switch issue (`render_android_view_test`) in bridged list-conversion flow.
+- Known non-exhaustive switch signature in Batch-12: detected in `render_android_view_test` for `PlatformViewHitTestBehavior.opaque`.
