@@ -42,3 +42,15 @@ batch: 3
 - Notes:
   - `system_color_palette_test.dart` was stabilized with unsupported-platform fallback rendering while interpreter platform capability follow-up was documented in `interpreter_issues.md`.
   - `vertex_mode_test.dart`, `object_created_test.dart`, and `object_disposed_test.dart` include script-level mitigations with bridge follow-up items documented in `generator_issues.md`.
+
+batch: 4
+
+- No non-immediate batch-4 script issues remained after immediate fixes.
+- Immediate batch-4 script/harness fixes were applied and validated for:
+  - foundation/object_event_test.dart
+  - foundation/target_platform_test.dart
+  - gestures/class_test.dart
+  - test/hardly_relevant_classes_2_test.dart (setUpAll log-only indexing mitigation)
+  - material/bottom_navigation_bar_type_test.dart
+- Notes:
+  - `object_event_test.dart` and `bottom_navigation_bar_type_test.dart` were stabilized with script-level mitigations while related bridge follow-up analysis was documented in `generator_issues.md`.

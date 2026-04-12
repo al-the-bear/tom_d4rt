@@ -61,3 +61,29 @@ issue-index: 18, 19
 - Follow-up recommendation:
 	- Add default constructor bridge support (or explicit native fallback) for `Object()` and validate in all object-lifecycle scripts.
 	- Add core-constructor smoke tests for other root classes to avoid similar gaps.
+
+batch: 4
+
+issue-index: 20
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart`
+- Symptom: Runtime failure `Object is not callable (no default constructor bridge found)`.
+- Immediate outcome: script now uses `_safeObject(...)` fallback and executes successfully.
+- Deep analysis:
+	- This is the same root constructor bridge coverage gap already observed in batch-3 object lifecycle scripts.
+	- The defect is centralized in bridge/runtime constructor availability for root `Object` and should be solved once centrally rather than repeatedly patched in scripts.
+- Follow-up recommendation:
+	- Add default `Object()` constructor bridge/fallback in runtime constructor resolution.
+	- Validate across all object lifecycle scripts (`object_created`, `object_disposed`, `object_event`) and add shared regression tests.
+
+issue-index: 24
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/bottom_navigation_bar_type_test.dart`
+- Symptom: Runtime failure `Expected Widget but got InterpretedInstance`.
+- Immediate outcome: script replaced with harness-safe native widget summary demo that avoids returning interpreted custom widget instances.
+- Deep analysis:
+	- The failure indicates bridge/widget coercion boundaries still permit interpreted objects to leak into APIs requiring concrete Flutter `Widget` instances.
+	- Script fallback removes immediate failure but does not close the systemic coercion gap.
+- Follow-up recommendation:
+	- Add coercion/unwrapping at widget-construction boundaries so interpreted widget instances are converted to native widgets where appropriate.
+	- Add focused regression tests for widget-return coercion in complex Material demo scripts.

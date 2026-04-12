@@ -46,7 +46,7 @@ dynamic build(BuildContext context) {
 
   // ── 4. DragEndDetails ─────────────────────────────────────────
   final ded = DragEndDetails(
-    velocity: const Velocity(pixelsPerSecond: Offset(300, 400)),
+    velocity: const Velocity(pixelsPerSecond: Offset(300, 0)),
     primaryVelocity: 300.0,
   );
   print('\nDragEndDetails:');

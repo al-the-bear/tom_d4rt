@@ -39,3 +39,8 @@ issue-index: 16
 - Follow-up recommendation:
 	- Add a capability probe in runtime/bridge bootstrapping for system-color support and expose it as a stable flag for interpreted scripts.
 	- Where supported, validate full `SystemColor.light/dark` access; where unsupported, ensure a documented, non-throwing fallback contract.
+
+batch: 4
+
+- No batch-4 entries required standalone interpreter deep analysis.
+- Batch-4 non-script follow-up items were bridge/generator related (`Object()` default constructor exposure and widget coercion for bottom navigation demo widgets).
