@@ -213,3 +213,8 @@ issue-index: 108, 109
 - Follow-up recommendation:
 	- Add interpreter-level nullable receiver handling for transformation method dispatch so null receivers are short-circuited or default-normalized before invocation.
 	- Add focused regressions covering nullable `withValues` receiver cases in both text-input status and lock-state style/value pipelines.
+
+batch: 22
+
+- No batch-22 entries required interpreter deep analysis.
+- Batch-22 deeper follow-up items were script-level finite-constraints/semantics stabilization and recurring state-context architecture issues, documented in `script_issues.md`.

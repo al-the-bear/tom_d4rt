@@ -309,3 +309,20 @@ batch: 21
     - These failures combine two recurring script architecture defects: unbounded layout composition in demo scaffolds and implicit lifecycle member (`widget`) lookups in scene-state modules.
     - Both defect classes are warning-heavy in harness execution and can hide behavior regressions because tests may still report pass unless explicit guards are present.
     - Immediate mitigation moved all three scripts to explicit, bounded, deterministic rendering paths; long-term script quality should enforce finite-layout helpers and explicit scene configuration injection as mandatory deep-demo patterns.
+
+batch: 22
+
+- No non-immediate batch-22 script issues remained after immediate fixes.
+- Immediate batch-22 script fixes were applied and validated for:
+  - widgets/logical_key_set_test.dart
+  - widgets/lookup_boundary_test.dart
+  - widgets/matrix_transition_test.dart
+  - widgets/meta_data_test.dart
+  - widgets/modal_barrier_test.dart
+- Notes:
+  - `logical_key_set_test.dart` was a direct script-level finite-constraints and semantics stabilization; unbounded layout chains were replaced with bounded list/container rendering to remove infinite-size and non-finite semantics rect failures.
+  - `lookup_boundary_test.dart`, `matrix_transition_test.dart`, `meta_data_test.dart`, and `modal_barrier_test.dart` were direct script-level state-context stabilizations by removing implicit `widget` member lookup paths.
+  - Complex script deep analysis (issue-index: 110, 111, 112, 113, 114):
+    - Batch-22 combines two known deep-demo architecture defects: missing finite layout constraints in composition-heavy scenes and reliance on implicit framework lifecycle members (`State.widget`) on interpreted paths.
+    - The layout defect (index 110) propagates across render and semantics layers, producing high-noise warning cascades while tests may still report pass; this makes regression detection fragile without explicit guardrails.
+    - Immediate mitigation moved all five scripts to deterministic bounded flows; long-term script quality should enforce reusable finite-layout scaffolds and explicit scene configuration injection as baseline standards for deep-demo scripts.

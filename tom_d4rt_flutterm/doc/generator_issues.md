@@ -286,3 +286,8 @@ batch: 21
 
 - No batch-21 entries required bridge-generator deep analysis.
 - Batch-21 deeper follow-up items were interpreter null-receiver invocation semantics (`withValues`) and script-level layout/state-context stabilization, documented in `interpreter_issues.md` and `script_issues.md`.
+
+batch: 22
+
+- No batch-22 entries required bridge-generator deep analysis.
+- Batch-22 deeper follow-up items were script-level finite-constraints/semantics stabilization and recurring state-context architecture issues, documented in `script_issues.md`.
