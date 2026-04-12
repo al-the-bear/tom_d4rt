@@ -106,3 +106,20 @@ batch: 8
 - Notes:
   - `paginated_data_table_state_test.dart`, `progress_indicator_test.dart`, and `refresh_progress_indicator_test.dart` were direct script-level layout/value-contract stabilizations.
   - `navigation_rail_label_type_test.dart` and `popup_menu_position_test.dart` are stabilized script-side while deeper interpreter/generator follow-up is documented in `interpreter_issues.md` and `generator_issues.md`.
+
+batch: 9
+
+- No non-immediate batch-9 script issues remained after immediate fixes.
+- Immediate batch-9 script fixes were applied and validated for:
+  - material/theme_extension_test.dart
+  - material/theme_mode_test.dart
+  - material/thumb_test.dart
+  - material/time_of_day_format_test.dart
+  - material/time_picker_entry_mode_test.dart
+- Notes:
+  - `theme_mode_test.dart`, `thumb_test.dart`, and `time_picker_entry_mode_test.dart` were direct script-level layout-bounding stabilizations.
+  - `theme_extension_test.dart` is stabilized script-side while deeper bridge-generator follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 48, `time_of_day_format_test.dart`):
+    - The prior script produced a high-volume cascade of infinite-size errors (47) across multiple render layers, indicating broad unbounded composition rather than a single widget misuse.
+    - Repeated failure signatures across adjacent time-related scripts suggest a shared scaffold pattern with missing size constraints in interactive sections.
+    - Immediate mitigation moved the scenario to a bounded `ListView`-based summary flow, eliminating framework errors, but long-term script quality should enforce reusable bounded-layout helpers for material time demos.

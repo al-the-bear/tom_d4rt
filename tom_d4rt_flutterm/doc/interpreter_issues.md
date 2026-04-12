@@ -108,3 +108,8 @@ issue-index: 40
 - Follow-up recommendation:
 	- Extend interpreter enum mapping/dispatch to cover all `NavigationRailLabelType` members during switch evaluation.
 	- Add targeted interpreter regressions for `NavigationRailLabelType` with explicit coverage of `none` and other members to prevent recurrence.
+
+batch: 9
+
+- No batch-9 entries required interpreter deep analysis.
+- Batch-9 deeper follow-up items were bridge-generator typed-list coercion and complex script layout stability, documented in `generator_issues.md` and `script_issues.md`.

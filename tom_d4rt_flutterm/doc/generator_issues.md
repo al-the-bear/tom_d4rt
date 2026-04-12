@@ -127,3 +127,18 @@ issue-index: 42
 - Follow-up recommendation:
 	- Harden generic constructor factory mapping for `PopupMenuButton` so mutually exclusive parameters (`child` vs `icon`) are validated and normalized before native invocation.
 	- Add generator regression tests covering both valid constructor modes (child-only, icon-only) and explicit conflict rejection.
+
+batch: 9
+
+issue-index: 45
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/theme_extension_test.dart`
+- Symptom: typed-list coercion failure on bridged `ThemeData.copyWith` call (`extensions` cannot convert interpreted list to `List<ThemeExtension<dynamic>>`).
+- Immediate outcome: script was rewritten to avoid the unstable `extensions` typed-list bridge path and now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- The failure indicates bridge/generator typed generic list coercion is incomplete for `ThemeExtension` collection parameters.
+	- Interpreted list instances are not being normalized to native typed elements before method invocation, causing runtime argument conversion failure.
+	- Script-level mitigation avoids immediate failure but does not resolve generator/runtime typed-list conversion correctness for this API.
+- Follow-up recommendation:
+	- Add typed-list coercion support for `ThemeData.copyWith(extensions: ...)` so interpreted list elements are converted and validated as `ThemeExtension<dynamic>`.
+	- Add generator/runtime regression coverage for empty list, populated list, and invalid element-type scenarios to ensure robust conversion diagnostics.
