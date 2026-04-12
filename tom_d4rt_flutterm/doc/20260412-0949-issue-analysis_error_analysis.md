@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-76 (issues 0..384 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-77 (issues 0..388 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5370,4 +5370,63 @@ Scope: Batch-0 to Batch-76 (issues 0..384 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-76 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: three late-initialization defects (`text_magnifier_configuration_test`, `text_selection_controls_test`, `undo_history_controller_test` with `_tabs`).
 - Bridge/generator/interpreter classification: two state-property exposure issues (`stateful_element_test`, `stateless_element_test` unresolved inherited `State.widget`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-77 (Issues 385-388)
+
+### Index 385
+
+- Index: 385
+- testname: `widgets/widget_inspector_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: This is the recurring deep-demo `_tabs` initialization-order defect where build/runtime paths can read `_tabs` before initialization completes.
+- fix description (if clear): Initialize `_tabs` deterministically before first read and guard pre-initialization execution branches.
+- need for deeper analysis?: `no`
+- batch number: `77`
+
+### Index 386
+
+- Index: 386
+- testname: `widgets/widget_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` late-init template issue as Index 385.
+- fix description (if clear): Reuse the shared `_tabs` initialization fix pattern and verify success runs emit no runtime warnings.
+- need for deeper analysis?: `no`
+- batch number: `77`
+
+### Index 387
+
+- Index: 387
+- testname: `widgets/widgets_binding_observer_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` initialization-order defect in this deep-demo flow.
+- fix description (if clear): Ensure `_tabs` is initialized before any dependent UI/runtime reads.
+- need for deeper analysis?: `no`
+- batch number: `77`
+
+### Index 388
+
+- Index: 388
+- testname: `widgets/widgets_binding_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` late-init template defect as other Batch-77 entries.
+- fix description (if clear): Apply the same shared `_tabs` initialization fix and verify warning-free success output.
+- need for deeper analysis?: `no`
+- batch number: `77`
+
+## Batch-77 Classification Summary
+
+- Missing/stray status for Batch-77 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: four late-initialization defects (`widget_inspector_test`, `widget_test`, `widgets_binding_observer_test`, `widgets_binding_test` with `_tabs`).
+- Bridge/generator/interpreter classification: none primary in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
