@@ -13,6 +13,8 @@ Batch-1 follow-up note (20260412-0949-issue-analysis): the four Batch-1 scripts 
 
 Batch-2 follow-up note (20260412-0949-issue-analysis): the five Batch-2 scripts from `hardly_relevant_classes_1_test.dart` (`cupertino/inherited_cupertino_theme_test.dart`, `cupertino/overlay_visibility_mode_test.dart`, `dart_ui/blur_style_test.dart`, `dart_ui/color_space_test.dart`, `dart_ui/key_event_type_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-2. A dedicated regression test script for missing bridged key member access is still missing and is tracked below as a file that needs to be created.
 
+Batch-3 follow-up note (20260412-0949-issue-analysis): the five Batch-3 scripts from `hardly_relevant_classes_1_test.dart` (`dart_ui/placeholder_alignment_test.dart`, `dart_ui/system_color_palette_test.dart`, `dart_ui/vertex_mode_test.dart`, `foundation/object_created_test.dart`, `foundation/object_disposed_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-3. A dedicated regression test script for missing default constructor bridge support on `Object` is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -312,6 +314,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [notifier_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/notifier_test.dart) | ChangeNotifier | No | Yes | No |
 | [object_created_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_created_test.dart) | ObjectCreated | No | Yes | No | Checked. |
 | [object_disposed_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_disposed_test.dart) | ObjectDisposed | No | Yes | No | Checked. |
+| [object_default_constructor_bridge_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_default_constructor_bridge_regression_test.dart) | ObjectDefaultConstructorBridgeRegression | No | No | No | Needs to be created (Batch-3 failure pattern: `Object` default constructor not callable in bridge). |
 | [object_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_event_test.dart) | ObjectEvent | No | Yes | No | Checked. |
 | [object_flag_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/object_flag_property_test.dart) | ObjectFlagProperty | No | Yes | No | Checked. |
 | [observer_list_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/foundation/observer_list_test.dart) | ObserverList | No | Yes | No | Checked. |

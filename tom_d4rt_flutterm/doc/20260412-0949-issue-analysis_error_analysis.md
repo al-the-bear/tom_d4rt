@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-2 (issues 0..14 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-3 (issues 0..19 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -207,3 +207,72 @@ Scope: Batch-0 to Batch-2 (issues 0..14 from `20260412-0949-issue-analysis_test_
 - Test-script issue classification: three non-failing scripts emit framework warnings and need script correction (`inherited_cupertino_theme`, `overlay_visibility_mode`, `blur_style`).
 - Bridge/generator/interpreter classification: one interpreter indexing target issue (`color_space_test`) and one bridge missing-member issue (`key_event_type_test`).
 - Known non-exhaustive switch signature in Batch-2: not detected in this batch.
+
+## Batch-3
+
+### Index 15
+
+- Index: 15
+- testname: `dart_ui/placeholder_alignment_test.dart`
+- category: `TEST-SCRIPT-CONSTRUCTOR-ARGS (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure from `WidgetSpan` constructor assertion requiring baseline when specific placeholder alignments are used.
+- detailed analysis what the problem is: The failure is triggered by script-level constructor argument contract violation (`baseline` missing for baseline-related alignment). This is not a non-exhaustive-switch issue and not a generic constructor factory failure.
+- fix description (if clear): Update script to provide `baseline: TextBaseline.alphabetic` when using baseline-dependent placeholder alignment values, or use a non-baseline alignment mode.
+- need for deeper analysis?: `no`
+- batch number: `3`
+
+### Index 16
+
+- Index: 16
+- testname: `dart_ui/system_color_palette_test.dart`
+- category: `INTERPRETER-PLATFORM-LIMITATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Unsupported operation: SystemColor not supported on the current platform.`
+- detailed analysis what the problem is: This is a known platform/engine support limitation for system color APIs under the current execution environment. The test expectation should be platform-aware instead of assuming universal support.
+- fix description (if clear): Add platform capability guard/workaround in the script (skip or alternate assertion when system colors are unsupported), and optionally document/extend interpreter support path for platforms where this API should be available.
+- need for deeper analysis?: `yes` (for broader platform support strategy)
+- batch number: `3`
+
+### Index 17
+
+- Index: 17
+- testname: `dart_ui/vertex_mode_test.dart`
+- category: `BRIDGE-CONSTRUCTOR-ARG-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted runtime warnings from `Vertices` constructor: `positions` expected `List<Offset>`, got null.
+- detailed analysis what the problem is: The warning indicates constructor argument extraction/coercion for bridged `Vertices` is not robust for this invocation path. This aligns with existing bridge issue notes for `Vertices` parameter handling.
+- fix description (if clear): Add/adjust UserBridge override for `Vertices` constructor argument extraction (explicit non-null and typed list coercion), and tighten script inputs to ensure `positions` is always populated with valid `List<Offset>`.
+- need for deeper analysis?: `yes`
+- batch number: `3`
+
+### Index 18
+
+- Index: 18
+- testname: `foundation/object_created_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with `Runtime Error: 'Object' is not callable (no default constructor bridge found).`
+- detailed analysis what the problem is: The script attempts to instantiate `Object()`, but bridge/runtime does not expose a callable default constructor for `Object`. This is a bridge coverage/generator gap for a core type.
+- fix description (if clear): Add default constructor bridge handling for `Object` (or special-case native fallback for `Object()`), then keep test expectation unchanged.
+- need for deeper analysis?: `yes` (to validate behavior for all root/core class constructors)
+- batch number: `3`
+
+### Index 19
+
+- Index: 19
+- testname: `foundation/object_disposed_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR (needs correction)`
+- immediate fix possible: `yes`
+- description: Plain failure with the same `Object` constructor bridge gap as Index 18.
+- detailed analysis what the problem is: The same root defect is exercised by a second script path, confirming this is not an isolated test mistake but a shared bridge/runtime constructor availability problem.
+- fix description (if clear): Resolve at bridge/runtime layer once (default constructor support for `Object`) and rerun both object lifecycle tests.
+- need for deeper analysis?: `yes`
+- batch number: `3`
+
+## Batch-3 Classification Summary
+
+- Missing/stray status for Batch-3 scripts: none missing, none stray.
+- Test-script issue classification: one script constructor-argument misuse (`placeholder_alignment_test`) and one platform-guard issue (`system_color_palette_test`).
+- Bridge/generator/interpreter classification: one `Vertices` constructor argument-coercion bridge issue and one shared missing `Object` default-constructor bridge issue (affecting two tests).
+- Known non-exhaustive switch signature in Batch-3: not detected in this batch.
