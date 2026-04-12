@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-72 (issues 0..364 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-73 (issues 0..369 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5086,4 +5086,75 @@ Scope: Batch-0 to Batch-72 (issues 0..364 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-72 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: three `_tabController` late-initialization defects (`restorable_bool_test`, `restorable_date_time_test`, `restorable_double_test`).
 - Bridge/generator/interpreter classification: two widget coercion issues (`render_object_widget_test` constructor child coercion and `restorable_enum_test` interpreted-widget return coercion).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-73 (Issues 365-369)
+
+### Index 365
+
+- Index: 365
+- testname: `widgets/restorable_int_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: This is the recurring deep-visual template initialization defect where `_tabController` can be read before lifecycle initialization completes.
+- fix description (if clear): Initialize `_tabController` deterministically before first UI/build access (typically in `initState`) and guard paths that can execute pre-initialization.
+- need for deeper analysis?: `no`
+- batch number: `73`
+
+### Index 366
+
+- Index: 366
+- testname: `widgets/restorable_property_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same `_tabController` template defect as Index 365, repeated in another restorable deep-demo.
+- fix description (if clear): Apply the same initialization-order fix pattern and verify runtime warnings are eliminated.
+- need for deeper analysis?: `no`
+- batch number: `73`
+
+### Index 367
+
+- Index: 367
+- testname: `widgets/restorable_string_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabController` late-init issue in restorable string scenario flow.
+- fix description (if clear): Reuse the shared `_tabController` initialization fix template used across prior restorable batches.
+- need for deeper analysis?: `no`
+- batch number: `73`
+
+### Index 368
+
+- Index: 368
+- testname: `widgets/restorable_text_editing_controller_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge widget coercion support`
+- description: Plain test failure: `Expected Widget but got InterpretedInstance`.
+- detailed analysis what the problem is: The test assertion is valid and indicates a bridge/runtime coercion gap where interpreted widget output is not converted to a native `Widget` at the assertion/API boundary.
+- fix description (if clear): Add/extend widget coercion at the relevant bridge boundary for this restorable text-editing-controller flow so interpreted instances resolve to native widgets before assertion/use.
+- need for deeper analysis?: `yes — isolate exact coercion boundary in this flow`
+- batch number: `73`
+
+### Index 369
+
+- Index: 369
+- testname: `widgets/restorable_value_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabController` initialization defect as indices 365-367.
+- fix description (if clear): Apply the shared `_tabController` initialization fix and ensure success runs emit no runtime warning logs.
+- need for deeper analysis?: `no`
+- batch number: `73`
+
+## Batch-73 Classification Summary
+
+- Missing/stray status for Batch-73 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: four `_tabController` late-initialization defects (`restorable_int_test`, `restorable_property_test`, `restorable_string_test`, `restorable_value_test`).
+- Bridge/generator/interpreter classification: one widget coercion issue (`restorable_text_editing_controller_test` plain failure expecting native `Widget`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
