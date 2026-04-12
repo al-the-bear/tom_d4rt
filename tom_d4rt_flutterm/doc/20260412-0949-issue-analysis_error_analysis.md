@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-53 (issues 0..269 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-54 (issues 0..274 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3736,4 +3736,75 @@ Scope: Batch-0 to Batch-53 (issues 0..269 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-53 scripts: none missing, none stray. All four script files are present and referenced; index 266 is setup-level informational output from `important_classes_test.dart`.
 - Test-script issue classification: one `_tabs` late-init defect (`windowing_owner_win32_test`) and one widget lifecycle/key misuse defect (`sliverlist_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-MISSING-METHOD-DISPATCH` (`slidetransition_test` addListener on relaxed animation wrapper) and one `BRIDGE-WIDGET-LIST-COERCION` (`nestedscrollview_test` list cast to `List<Widget>`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-54 (Issues 270-274)
+
+### Index 270
+
+- Index: 270
+- testname: `material/refreshindicator_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs a cascade beginning with `RenderFlex children have non-zero flex but incoming height constraints are unbounded`, followed by multiple `RenderBox was not laid out` assertions and semantics/layout assertions.
+- detailed analysis what the problem is: The generated test scene composes a flex-based child in an unbounded-height parent context (likely inside scroll/view structures) without constraining layout, triggering a chain of render/layout failures and semantics assertion fallout.
+- fix description (if clear): Adjust test/demo composition to provide bounded height constraints for flex children (e.g., wrap with `Expanded` within bounded parent, constrain via `SizedBox`, or restructure scroll/flex nesting).
+- need for deeper analysis?: `no`
+- batch number: `54`
+
+### Index 271
+
+- Index: 271
+- testname: `material/timeofday_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `RenderBox was not laid out: RenderTransform ... 'hasSize'`.
+- detailed analysis what the problem is: Likely residual layout instability in the same important-classes run context, with transform/render object accessing size before layout completion.
+- fix description (if clear): Ensure the tested widget tree reaches a stable layout phase with bounded constraints before transform-dependent operations/assertions.
+- need for deeper analysis?: `no`
+- batch number: `54`
+
+### Index 272
+
+- Index: 272
+- testname: `material/showdialog_test.dart`
+- category: `TEST-SCRIPT-INTENTIONAL-SKIP`
+- immediate fix possible: `not needed`
+- description: `Skip: Shows popup dialog requiring user interaction`.
+- detailed analysis what the problem is: Intentional skip for interaction-dependent scenario; this is expected and not a runtime/interpreter defect.
+- fix description (if clear): No fix required unless automation strategy for interaction is introduced.
+- need for deeper analysis?: `no`
+- batch number: `54`
+
+### Index 273
+
+- Index: 273
+- testname: `material/showbottomsheet_test.dart`
+- category: `TEST-SCRIPT-INTENTIONAL-SKIP`
+- immediate fix possible: `not needed`
+- description: `Skip: Shows bottom sheet requiring user interaction`.
+- detailed analysis what the problem is: Intentional skip for interaction-dependent scenario; expected behavior.
+- fix description (if clear): No fix required unless interaction automation is added.
+- need for deeper analysis?: `no`
+- batch number: `54`
+
+### Index 274
+
+- Index: 274
+- testname: `material/showmenu_test.dart`
+- category: `TEST-SCRIPT-INTENTIONAL-SKIP`
+- immediate fix possible: `not needed`
+- description: `Skip: Shows popup menu requiring user interaction`.
+- detailed analysis what the problem is: Intentional skip for interaction-dependent scenario; expected behavior.
+- fix description (if clear): No fix required unless interaction automation is added.
+- need for deeper analysis?: `no`
+- batch number: `54`
+
+## Batch-54 Classification Summary
+
+- Missing/stray status for Batch-54 scripts: none missing, none stray. All referenced material scripts are present and listed in the status report.
+- Test-script issue classification: two layout-constraint/lifecycle rendering defects (`refreshindicator_test`, `timeofday_test`) and three intentional interactive skips (`showdialog_test`, `showbottomsheet_test`, `showmenu_test`).
+- Bridge/generator/interpreter classification: none identified in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
