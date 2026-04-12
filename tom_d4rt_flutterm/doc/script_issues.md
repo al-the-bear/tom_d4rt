@@ -274,3 +274,20 @@ batch: 19
     - The repeated undefined-property warnings across five independent demos indicate a common architecture pattern: scene logic depends on framework lifecycle members through indirect object paths.
     - Under interpreted execution, those paths do not guarantee `State.widget` availability, producing warning-only failures that can mask real behavioral regressions.
     - Immediate mitigation converted each demo to explicit deterministic state/data rendering; long-term script quality should enforce explicit field/callback wiring and prohibit implicit `widget` property lookup in deep-demo scene modules.
+
+batch: 20
+
+- No non-immediate batch-20 script issues remained after immediate fixes.
+- Immediate batch-20 script fixes were applied and validated for:
+  - widgets/icon_data_test.dart
+  - widgets/icon_theme_data_test.dart
+  - widgets/ignore_baseline_test.dart
+  - widgets/image_icon_test.dart
+  - widgets/img_element_platform_view_test.dart
+- Notes:
+  - `icon_data_test.dart`, `icon_theme_data_test.dart`, `ignore_baseline_test.dart`, and `img_element_platform_view_test.dart` were direct script-level state-context stabilizations by removing implicit `widget` member lookup paths.
+  - `image_icon_test.dart` was a direct script-level state-initialization stabilization by removing the late-initialized async field access pattern (`_bundleFuture`) from the interpreted execution path.
+  - Complex script deep analysis (issue-index: 100, 101, 102, 103, 104):
+    - Four of the five failures are the same recurring scene-state architecture defect: indirect access to framework-owned lifecycle members (`State.widget`) through interpreted object paths that do not guarantee those members.
+    - The remaining failure (`image_icon_test.dart`) is an ordering defect where a late variable was read before initialization under interpreted timing, indicating async/lifecycle setup coupling that is too brittle for harness execution.
+    - Immediate mitigation converted all five demos to deterministic explicit-data summary flows; long-term script quality should enforce explicit configuration injection for scenes and a strict "initialize before read" rule for async state in deep-demo scripts.

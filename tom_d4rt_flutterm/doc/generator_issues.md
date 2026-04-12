@@ -276,3 +276,8 @@ batch: 19
 
 - No batch-19 entries required bridge-generator deep analysis.
 - Batch-19 deeper follow-up items were script-level state-context architecture issues, documented in `script_issues.md`.
+
+batch: 20
+
+- No batch-20 entries required bridge-generator deep analysis.
+- Batch-20 deeper follow-up items were script-level state-context and state-initialization architecture issues, documented in `script_issues.md`.
