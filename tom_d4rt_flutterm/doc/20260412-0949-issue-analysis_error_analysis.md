@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-71 (issues 0..359 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-72 (issues 0..364 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5015,4 +5015,75 @@ Scope: Batch-0 to Batch-71 (issues 0..359 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-71 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one mixed bridge+layout issue (`parent_data_widget_test`) and one script-only state-init/overflow issue (`performance_overlay_test`).
 - Bridge/generator/interpreter classification: one state-property exposure issue (`page_storage_test`), one collection-method exposure issue (`physical_model_test`), one widget constructor coercion issue (`render_object_element_test`), plus the delegate dispatch part of the mixed `parent_data_widget_test` issue.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-72 (Issues 360-364)
+
+### Index 360
+
+- Index: 360
+- testname: `widgets/render_object_widget_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires constructor argument coercion enhancement`
+- description: Test passes but `Center` constructor rejects `child` because `Widget?` is expected and an interpreted widget instance is provided.
+- detailed analysis what the problem is: This is the same constructor-boundary coercion gap seen in prior batches, now on `Center(child: ...)`: interpreted widget instances are not converted to native `Widget` before constructor invocation.
+- fix description (if clear): Extend constructor argument coercion for widget-typed `child` parameters (including `Center.child`) so interpreted widget subclasses are unwrapped/coerced prior to native constructor calls.
+- need for deeper analysis?: `yes — shared constructor widget coercion path`
+- batch number: `72`
+
+### Index 361
+
+- Index: 361
+- testname: `widgets/restorable_bool_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: This matches the recurring deep-visual template defect where `_tabController` is read from build/UI paths before being initialized in all lifecycle branches.
+- fix description (if clear): Ensure `_tabController` is initialized deterministically before first read (typically in `initState`) and guard any conditional branches that can execute before initialization.
+- need for deeper analysis?: `no`
+- batch number: `72`
+
+### Index 362
+
+- Index: 362
+- testname: `widgets/restorable_date_time_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabController` initialization template defect as Index 361.
+- fix description (if clear): Apply the same initialization-order fix pattern used for prior `_tabController` late-init batches.
+- need for deeper analysis?: `no`
+- batch number: `72`
+
+### Index 363
+
+- Index: 363
+- testname: `widgets/restorable_double_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same `_tabController` late-init template issue, reproduced in another restorable deep-demo flow.
+- fix description (if clear): Reuse the shared `_tabController` initialization fix and verify this script no longer emits runtime warnings.
+- need for deeper analysis?: `no`
+- batch number: `72`
+
+### Index 364
+
+- Index: 364
+- testname: `widgets/restorable_enum_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge widget coercion support`
+- description: Plain test failure (`Expected Widget but got InterpretedInstance`), with assertion expecting a native widget instance.
+- detailed analysis what the problem is: The assertion intent is valid; the failure indicates runtime bridge output remains an interpreted wrapper where the test and Flutter API boundary expect a concrete `Widget`.
+- fix description (if clear): Add/extend widget coercion at the relevant bridge boundary so interpreted widget results are converted before assertion and downstream API use.
+- need for deeper analysis?: `yes — identify exact bridge return boundary for restorable enum flow`
+- batch number: `72`
+
+## Batch-72 Classification Summary
+
+- Missing/stray status for Batch-72 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: three `_tabController` late-initialization defects (`restorable_bool_test`, `restorable_date_time_test`, `restorable_double_test`).
+- Bridge/generator/interpreter classification: two widget coercion issues (`render_object_widget_test` constructor child coercion and `restorable_enum_test` interpreted-widget return coercion).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
