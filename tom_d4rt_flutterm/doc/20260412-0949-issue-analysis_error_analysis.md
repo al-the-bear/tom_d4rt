@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-18 (issues 0..94 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-19 (issues 0..99 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1311,3 +1311,72 @@ Scope: Batch-0 to Batch-18 (issues 0..94 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one state-initialization issue (`default_text_style_transition_test`) and two state-context issue groups (`default_selection_style_test`, `draggable_scrollable_actuator_test`).
 - Bridge/generator/interpreter classification: map-type coercion issues in `Actions`/`Shortcuts` constructor paths (`context_action_test`, `default_text_editing_shortcuts_test`) and widget-coercion gap in `DefaultSelectionStyle.merge` (`default_selection_style_test`).
 - Known non-exhaustive switch signature in Batch-18: not detected in this batch.
+
+## Batch-19
+
+### Index 95
+
+- Index: 95
+- testname: `widgets/expansible_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings where `widget` is undefined across scene-state classes.
+- detailed analysis what the problem is: The deep-demo scenario accesses `widget` via state/object paths that do not expose that property in interpreted execution, causing repeated undefined-property warnings.
+- fix description (if clear): Refactor scene state code to pass required values explicitly (constructor fields/callbacks) rather than implicit `widget` property lookups.
+- need for deeper analysis?: `yes`
+- batch number: `19`
+
+### Index 96
+
+- Index: 96
+- testname: `widgets/flex_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted four runtime warnings for undefined `widget` on multiple flex demo scene states.
+- detailed analysis what the problem is: Same state-context access pattern as Index 95, indicating script architecture relying on unavailable implicit state properties.
+- fix description (if clear): Apply the same explicit state/data wiring pattern for all flex scene states and remove direct `widget` property reads on incompatible objects.
+- need for deeper analysis?: `yes`
+- batch number: `19`
+
+### Index 97
+
+- Index: 97
+- testname: `widgets/fractional_translation_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted four runtime warnings for undefined `widget` across comparison/hit-test/clip/practical scene states.
+- detailed analysis what the problem is: Repeated undefined-property warnings confirm the same script-level state-context pattern issue across multiple scene modules.
+- fix description (if clear): Replace implicit `widget` access with explicit props or captured values in each scene state lifecycle.
+- need for deeper analysis?: `yes`
+- batch number: `19`
+
+### Index 98
+
+- Index: 98
+- testname: `widgets/hero_controller_scope_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across hero controller scope scene states.
+- detailed analysis what the problem is: The demo’s state objects depend on implicit `widget` lookup not available in interpreted path, producing repetitive warning-only failures.
+- fix description (if clear): Refactor hero scope scenes to use explicit field/config passing and avoid direct `widget` property reads.
+- need for deeper analysis?: `yes`
+- batch number: `19`
+
+### Index 99
+
+- Index: 99
+- testname: `widgets/hero_controller_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across observer/tween/diversion/controller/practical hero scene states.
+- detailed analysis what the problem is: Same root state-context resolution issue as indices 95-98, replicated in hero controller variants.
+- fix description (if clear): Apply shared deep-demo state-context fix pattern and add guard assertions to fail when undefined-state property access occurs.
+- need for deeper analysis?: `yes`
+- batch number: `19`
+
+## Batch-19 Classification Summary
+
+- Missing/stray status for Batch-19 scripts: none missing, none stray.
+- Test-script issue classification: five state-context access issue groups (`expansible_test`, `flex_test`, `fractional_translation_test`, `hero_controller_scope_test`, `hero_controller_test`).
+- Bridge/generator/interpreter classification: no direct new bridge/generator/interpreter signature beyond the repeated script state-context property resolution pattern.
+- Known non-exhaustive switch signature in Batch-19: not detected in this batch.

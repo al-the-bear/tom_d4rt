@@ -45,6 +45,8 @@ Batch-17 follow-up note (20260412-0949-issue-analysis): the five Batch-17 script
 
 Batch-18 follow-up note (20260412-0949-issue-analysis): the five Batch-18 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/context_action_test.dart`, `widgets/default_selection_style_test.dart`, `widgets/default_text_editing_shortcuts_test.dart`, `widgets/default_text_style_transition_test.dart`, `widgets/draggable_scrollable_actuator_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-18. A dedicated regression test script for bridged `Actions(actions: ...)` map coercion (`Map<Type, Action<Intent>>`) is still missing and is tracked below as a file that needs to be created.
 
+Batch-19 follow-up note (20260412-0949-issue-analysis): the five Batch-19 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/expansible_test.dart`, `widgets/flex_test.dart`, `widgets/fractional_translation_test.dart`, `widgets/hero_controller_scope_test.dart`, `widgets/hero_controller_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-19. A dedicated regression test script for deep-demo state-context `widget` property resolution is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1576,6 +1578,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [form_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/form_test.dart) | Form | No | Yes | No |
 | [formstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/formstate_test.dart) | FormState | No | Yes | No | Checked. |
 | [fractional_translation_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/fractional_translation_test.dart) | FractionalTranslation | No | Yes | No | Created on 2026-03-31 at 12:50. |
+| [widget_state_context_resolution_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_state_context_resolution_regression_test.dart) | WidgetStateContextResolutionRegression | No | No | No | Needs to be created (Batch-19 failure pattern: undefined `widget` property across deep-demo state scenes). |
 | [futurebuilder_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/futurebuilder_test.dart) | FutureBuilder | No | Yes | No | Checked. |
 | [gesture_detector_adv_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_detector_adv_test.dart) | Dismissible | No | Yes | No | Created on 2026-03-31 at 12:56. |
 | [gesture_recognizer_factory_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/gesture_recognizer_factory_test.dart) | GestureRecognizerFactory | No | Yes | No | Created on 2026-04-08. |
