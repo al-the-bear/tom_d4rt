@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-47 (issues 0..239 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-48 (issues 0..244 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3309,5 +3309,76 @@ Scope: Batch-0 to Batch-47 (issues 0..239 from `20260412-0949-issue-analysis_tes
 
 - Missing/stray status for Batch-47 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`undo_history_value_test`, `undo_text_intent_test`, `unfocus_disposition_test`, `update_selection_intent_test`, `user_scroll_notification_test`).
+- Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-48 (Issues 240-244)
+
+### Index 240
+
+- Index: 240
+- testname: `widgets/viewport_element_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `ViewportElementMixin` demo script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `48`
+
+### Index 241
+
+- Index: 241
+- testname: `widgets/viewport_notification_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 240.
+- fix description (if clear): Same template-level fix as Index 240.
+- need for deeper analysis?: `no`
+- batch number: `48`
+
+### Index 242
+
+- Index: 242
+- testname: `widgets/void_callback_action_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 240.
+- fix description (if clear): Same template-level fix as Index 240.
+- need for deeper analysis?: `no`
+- batch number: `48`
+
+### Index 243
+
+- Index: 243
+- testname: `widgets/void_callback_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 240.
+- fix description (if clear): Same template-level fix as Index 240.
+- need for deeper analysis?: `no`
+- batch number: `48`
+
+### Index 244
+
+- Index: 244
+- testname: `widgets/weak_map_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 240. All five Batch-48 issues are the same `_tabs` late-init variant.
+- fix description (if clear): Same template-level fix. The late-init issue now spans Batches 28-48 (65+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `48`
+
+## Batch-48 Classification Summary
+
+- Missing/stray status for Batch-48 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five `_tabs` late-initialization errors (`viewport_element_mixin_test`, `viewport_notification_mixin_test`, `void_callback_action_test`, `void_callback_intent_test`, `weak_map_test`).
 - Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
