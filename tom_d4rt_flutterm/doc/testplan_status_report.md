@@ -69,6 +69,8 @@ Batch-29 follow-up note (20260412-0949-issue-analysis): the five Batch-29 script
 
 Batch-30 follow-up note (20260412-0949-issue-analysis): the five Batch-30 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/restorable_date_time_n_test.dart`, `widgets/restorable_double_n_test.dart`, `widgets/restorable_enum_n_test.dart`, `widgets/restorable_int_n_test.dart`, `widgets/restorable_listenable_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-30. A dedicated regression test script for dart:core `Enum` symbol registration in the interpreter is still missing and is tracked below as a file that needs to be created.
 
+Batch-31 follow-up note (20260412-0949-issue-analysis): the five Batch-31 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/restorable_num_n_test.dart`, `widgets/restorable_num_test.dart`, `widgets/restorable_route_future_test.dart`, `widgets/restorable_string_n_test.dart`, `widgets/root_element_mixin_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-31. All five issues are `_tabController` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed — the late-init regression test was already added in Batch-29.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
