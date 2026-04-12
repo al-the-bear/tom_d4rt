@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-35 (issues 0..179 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-36 (issues 0..184 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2406,4 +2406,140 @@ Scope: Batch-0 to Batch-35 (issues 0..179 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-34 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabs` late-initialization errors (`scroll_drag_controller_test`, `scroll_end_notification_test`, `scroll_hold_controller_test`, `scroll_increment_details_test`, `scroll_increment_type_test`) — continuing the late-init template pattern from Batches 32-33.
 - Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
+
+## Batch-35
+
+### Index 175
+
+- Index: 175
+- testname: `widgets/scroll_metrics_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template defect, now using the `_tabCtrl` variable name variant (first seen in Batch-35). The `ScrollMetricsNotification` deep demo has an uninitialized late field in its demo state class.
+- fix description (if clear): Initialize `_tabCtrl` in `initState()` or replace with a non-late field. Same template-level fix as previous batches but for the `_tabCtrl` variant.
+- need for deeper analysis?: `no`
+- batch number: `35`
+
+### Index 176
+
+- Index: 176
+- testname: `widgets/scroll_notification_observer_state_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no`
+- description: Test fails with `Expected Widget but got InterpretedInstance`. The bridge does not coerce `InterpretedInstance` to `Widget` when the interpreter returns a widget subclass instance.
+- detailed analysis what the problem is: The `ScrollNotificationObserverState` deep demo constructs a widget tree where the interpreter returns an `InterpretedInstance` wrapping a `Widget`. The test framework's `expect(..., isA<Widget>())` check fails because the bridge layer does not unwrap or coerce the instance to its native type.
+- fix description (if clear): Add widget coercion logic in the bridge layer to unwrap `InterpretedInstance` to `Widget` when the underlying value is a widget subclass.
+- need for deeper analysis?: `yes — bridge coercion pattern needs to handle ScrollNotificationObserverState context`
+- batch number: `35`
+
+### Index 177
+
+- Index: 177
+- testname: `widgets/scroll_notification_observer_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollNotificationObserver` deep demo has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 175.
+- need for deeper analysis?: `no`
+- batch number: `35`
+
+### Index 178
+
+- Index: 178
+- testname: `widgets/scroll_position_alignment_policy_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no`
+- description: Test fails with `Expected Widget but got InterpretedInstance`. Widget coercion failure in ScrollPositionAlignmentPolicy context.
+- detailed analysis what the problem is: The deep demo (1207 lines) constructs alignment policy comparisons. The interpreter returns a widget instance as `InterpretedInstance` but the test expectation requires a native `Widget` type.
+- fix description (if clear): Same bridge-level widget coercion fix as Index 176.
+- need for deeper analysis?: `yes — same coercion pattern as Index 176`
+- batch number: `35`
+
+### Index 179
+
+- Index: 179
+- testname: `widgets/scroll_position_with_single_context_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollPositionWithSingleContext` deep demo has the identical uninitialized late field. All three `_tabCtrl` late-init issues in Batch-35 are the same template defect.
+- fix description (if clear): Same template-level fix. The `_tabCtrl` variant joins the `_tabController`/`_tabs` late-init issue family spanning Batches 28-35.
+- need for deeper analysis?: `no`
+- batch number: `35`
+
+## Batch-35 Classification Summary
+
+- Missing/stray status for Batch-35 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabCtrl` late-initialization errors (`scroll_metrics_notification_test`, `scroll_notification_observer_test`, `scroll_position_with_single_context_test`) — new `_tabCtrl` variant name, same underlying template defect.
+- Bridge/generator/interpreter classification: two BRIDGE-WIDGET-COERCION failures (`scroll_notification_observer_state_test`, `scroll_position_alignment_policy_test`) — `InterpretedInstance` not coerced to `Widget`.
+
+## Batch-36
+
+### Index 180
+
+- Index: 180
+- testname: `widgets/scroll_start_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern continuing from Batch-35. The `ScrollStartNotification` deep demo (1230 lines) has an uninitialized late `_tabCtrl` field in its demo state class.
+- fix description (if clear): Initialize `_tabCtrl` in `initState()` or replace with a non-late field. Same template-level fix as Batches 28-35.
+- need for deeper analysis?: `no`
+- batch number: `36`
+
+### Index 181
+
+- Index: 181
+- testname: `widgets/scroll_to_document_boundary_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollToDocumentBoundaryIntent` deep demo (1380 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 180.
+- need for deeper analysis?: `no`
+- batch number: `36`
+
+### Index 182
+
+- Index: 182
+- testname: `widgets/scroll_update_notification_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollUpdateNotification` deep demo (1403 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 180.
+- need for deeper analysis?: `no`
+- batch number: `36`
+
+### Index 183
+
+- Index: 183
+- testname: `widgets/scroll_view_keyboard_dismiss_behavior_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no`
+- description: Test fails with `Expected: true / Actual: <false> — Expected Widget but got InterpretedInstance`. The bridge does not coerce `InterpretedInstance` to `Widget` when the interpreter returns a widget subclass instance.
+- detailed analysis what the problem is: The `ScrollViewKeyboardDismissBehavior` deep demo (1554 lines) constructs a widget tree with enum-driven behavior variants. The test at line 713 in `hardly_relevant_classes_5_test.dart` calls `expect(result, isTrue)` after a widget type check, but the bridge layer returns an `InterpretedInstance` instead of a native `Widget`, causing the type check to fail. Stack trace confirms the failure originates in the main test harness, not in the demo script itself.
+- fix description (if clear): Add widget coercion logic in the bridge layer to unwrap `InterpretedInstance` to `Widget` when the underlying value is a widget subclass. Same pattern as Batch-35 BRIDGE-WIDGET-COERCION issues (indices 176, 178).
+- need for deeper analysis?: `yes — bridge coercion pattern needs to handle ScrollViewKeyboardDismissBehavior context`
+- batch number: `36`
+
+### Index 184
+
+- Index: 184
+- testname: `widgets/scroll_view_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabCtrl (LateInitializationError: Late variable '_tabCtrl' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabCtrl` late-init template pattern. The `ScrollView` demo script has the identical uninitialized late field. All four `_tabCtrl` late-init issues in Batch-36 are the same template defect, continuing the pattern from Batches 35 and earlier.
+- fix description (if clear): Same template-level fix. The `_tabCtrl`/`_tabs`/`_tabController` late-init issue now spans Batches 28-36 (30+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `36`
+
+## Batch-36 Classification Summary
+
+- Missing/stray status for Batch-36 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: four `_tabCtrl` late-initialization errors (`scroll_start_notification_test`, `scroll_to_document_boundary_intent_test`, `scroll_update_notification_test`, `scroll_view_test`) — continuing the `_tabCtrl` late-init template pattern from Batch-35.
+- Bridge/generator/interpreter classification: one BRIDGE-WIDGET-COERCION failure (`scroll_view_keyboard_dismiss_behavior_test`) — `InterpretedInstance` not coerced to `Widget`. Same coercion pattern as Batch-35 indices 176 and 178.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
