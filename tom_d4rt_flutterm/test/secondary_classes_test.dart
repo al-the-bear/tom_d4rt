@@ -3695,19 +3695,11 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('directionality_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/directionality_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // MOVED to crashing_tests_test.dart - crashes the test app
+    // test('directionality_test.dart', ...)
 
-    test('display_feature_sub_screen_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/display_feature_sub_screen_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // MOVED to crashing_tests_test.dart - crashes the test app
+    // test('display_feature_sub_screen_test.dart', ...)
 
     test('dual_transition_builder_test.dart', () async {
       final result = await SendTestRunner.send(

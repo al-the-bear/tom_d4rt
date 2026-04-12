@@ -885,12 +885,8 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('extend_selection_to_line_break_intent_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/extend_selection_to_line_break_intent_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // MOVED to crashing_tests_test.dart - crashes the test app
+    // test('extend_selection_to_line_break_intent_test.dart', ...)
 
     test(
       'extend_selection_to_next_paragraph_boundary_intent_test.dart',
