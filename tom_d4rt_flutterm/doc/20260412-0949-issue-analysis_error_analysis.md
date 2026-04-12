@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-32 (issues 0..164 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-33 (issues 0..169 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2270,4 +2270,72 @@ Scope: Batch-0 to Batch-32 (issues 0..164 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-32 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three late-initialization errors — one `_tabController` (`root_render_object_element_test`) and two `_tabs` (`route_information_reporting_type_test`, `route_transition_record_test`). The `_tabs` variant is a new late-init variable name but the same root cause as the `_tabController` pattern.
 - Bridge/generator/interpreter classification: two `BRIDGE-WIDGET-COERCION` failures (`route_information_test`, `route_pop_disposition_test`) — the interpreter returns `InterpretedInstance` where native `Widget` is expected, causing `is Widget` type checks to fail.
+
+## Batch-33
+
+### Index 165
+
+- Index: 165
+- testname: `widgets/router_config_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no`
+- description: Test fails with: `Runtime Error: Class '_FlowStage' does not have an unnamed constructor that accepts arguments.` Stack trace at `test/hardly_relevant_classes_5_test.dart:580`.
+- detailed analysis what the problem is: The test script defines a private class `_FlowStage` with constructor arguments that the interpreter cannot resolve. The bridge does not support unnamed constructors on private (underscore-prefixed) classes defined in interpreted code. This is the same pattern seen in Batch-27 (Index 139, `_BootstrapStepInfo`) — private classes with parameterized constructors are not handled by the bridge generator.
+- fix description (if clear): Requires bridge-level support for private class constructors in interpreted code, or refactoring the test script to avoid private classes with constructor arguments.
+- need for deeper analysis?: `yes — same private-class constructor pattern as Batch-27`
+- batch number: `33`
+
+### Index 166
+
+- Index: 166
+- testname: `widgets/scroll_activity_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init variant seen since Batch-32. The script was created on 2026-04-10 and uses `_tabs` as the late field name that is accessed before `initState` assigns it.
+- fix description (if clear): Initialize `_tabs` at declaration or in the constructor body.
+- need for deeper analysis?: `no`
+- batch number: `33`
+
+### Index 167
+
+- Index: 167
+- testname: `widgets/scroll_activity_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no`
+- description: Test fails with: `Runtime Error: Class '_SubclassInfo' does not have an unnamed constructor that accepts arguments.` Stack trace at `test/hardly_relevant_classes_5_test.dart:594`.
+- detailed analysis what the problem is: Same private-class constructor pattern as Index 165. The test script defines `_SubclassInfo` with constructor arguments that the interpreter cannot resolve. The bridge does not handle unnamed constructors on private classes defined in interpreted code.
+- fix description (if clear): Same as Index 165 — bridge-level fix or test script refactoring.
+- need for deeper analysis?: `yes — same private-class constructor pattern`
+- batch number: `33`
+
+### Index 168
+
+- Index: 168
+- testname: `widgets/scroll_context_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init variant. The script was created on 2026-04-10.
+- fix description (if clear): Same template-level fix: initialize `_tabs` at declaration or in the constructor body.
+- need for deeper analysis?: `no`
+- batch number: `33`
+
+### Index 169
+
+- Index: 169
+- testname: `widgets/scroll_deceleration_rate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init variant. The script was created on 2026-04-10. All three late-init issues in Batch-33 use the `_tabs` variant.
+- fix description (if clear): Same template-level fix.
+- need for deeper analysis?: `no`
+- batch number: `33`
+
+## Batch-33 Classification Summary
+
+- Missing/stray status for Batch-33 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three `_tabs` late-initialization errors (`scroll_activity_delegate_test`, `scroll_context_test`, `scroll_deceleration_rate_test`) — continuing the late-init template pattern.
+- Bridge/generator/interpreter classification: two `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT` failures (`router_config_test` with `_FlowStage`, `scroll_activity_test` with `_SubclassInfo`) — the interpreter cannot resolve unnamed constructors on private classes defined in interpreted code. Same pattern as Batch-27's `_BootstrapStepInfo`.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

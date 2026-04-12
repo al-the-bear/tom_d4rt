@@ -73,6 +73,8 @@ Batch-31 follow-up note (20260412-0949-issue-analysis): the five Batch-31 script
 
 Batch-32 follow-up note (20260412-0949-issue-analysis): the five Batch-32 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/root_render_object_element_test.dart`, `widgets/route_information_reporting_type_test.dart`, `widgets/route_information_test.dart`, `widgets/route_pop_disposition_test.dart`, `widgets/route_transition_record_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-32. Three issues are late-init template defects (one `_tabController`, two `_tabs` variant). Two issues are BRIDGE-WIDGET-COERCION failures. A regression test row for the route-related widget coercion failures is tracked below.
 
+Batch-33 follow-up note (20260412-0949-issue-analysis): the five Batch-33 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/router_config_test.dart`, `widgets/scroll_activity_delegate_test.dart`, `widgets/scroll_activity_test.dart`, `widgets/scroll_context_test.dart`, `widgets/scroll_deceleration_rate_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-33. Three issues are `_tabs` late-init template defects. Two issues are BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures for private classes (`_FlowStage`, `_SubclassInfo`). A regression test row for private-class constructor handling is tracked below.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1911,6 +1913,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [scroll_action_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_action_test.dart) | ScrollAction | No | Yes | No | Created on 2026-04-10 at 19:00 |
 | [scroll_activity_delegate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_delegate_test.dart) | ScrollActivityDelegate | No | Yes | No | Created on 2026-04-10 at 21:30 |
 | [scroll_activity_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart) | ScrollActivity | No | Yes | No | Created on 2026-04-10 at 21:30 |
+| scroll_private_class_constructor_regression_test.dart | Private-class constructor support | No | No | No | Needs to be created |
 | [scroll_aware_image_provider_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_aware_image_provider_test.dart) | ScrollAwareImageProvider | No | Yes | No | Created on 2026-04-07 at 15:00. |
 | [scroll_behavior_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_behavior_test.dart) | ScrollConfiguration | No | Yes | No | Checked. |
 | [scroll_configuration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_configuration_test.dart) | ScrollConfiguration | No | Yes | No | Created on 2026-04-07 at 12:54. |
