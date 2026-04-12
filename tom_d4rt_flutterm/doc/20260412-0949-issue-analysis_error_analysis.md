@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-58 (issues 0..294 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-59 (issues 0..299 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4092,4 +4092,75 @@ Scope: Batch-0 to Batch-58 (issues 0..294 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-58 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one state-context warning group (`gesture_detector_adv_test`), one layout-constraint issue (`scroll_position_types_test`), one mixed bridge+layout issue (`layout_builder_adv_test`), and one deprecated-API skip (`platform_menu_widgets_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-CALLBACK-TYPE-COERCION` failure (`semantics_config_test`) and one `BRIDGE-MISSING-METHOD-DISPATCH` component in `layout_builder_adv_test`.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-59 (Issues 295-299)
+
+### Index 295
+
+- Index: 295
+- testname: `widgets/scroll_controllers_types_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs a long render/layout assertion cascade beginning with unbounded-height flex constraints and multiple `RenderBox was not laid out` failures.
+- detailed analysis what the problem is: The script builds flex/scroll content under unconstrained vertical layout, causing repeated downstream layout failures and semantics assertions. This matches recurring script-level layout-constraint defects, not a bridge/runtime signature.
+- fix description (if clear): Constrain vertical layout bounds for flex children and simplify nested scroll/flex composition so render objects receive finite constraints before assertions.
+- need for deeper analysis?: `no`
+- batch number: `59`
+
+### Index 296
+
+- Index: 296
+- testname: `cupertino/cupertino_text_selection_controls_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated negative minimum-height constraints and `_RenderEditableCustomPaint` layout assertions.
+- detailed analysis what the problem is: Same Cupertino editable-layout constraint failure family seen in previous batches; invalid constraints propagate into repeated render/layout assertion failures.
+- fix description (if clear): Rework the script UI composition around editable controls to ensure bounded, non-negative constraints and stable layout before semantics checks.
+- need for deeper analysis?: `no`
+- batch number: `59`
+
+### Index 297
+
+- Index: 297
+- testname: `dart_ui/ztmp_path_metrics_access_test.dart`
+- category: `TEST-SCRIPT-ASSERTION-PRECONDITION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test fails with: `Bad state: No element`.
+- detailed analysis what the problem is: The test accesses an element from an empty sequence (likely first path metric) without guarding for empty results. This is a test-script precondition/assertion defect unless proven otherwise by deeper runtime instrumentation.
+- fix description (if clear): Ensure the script builds a path/fixture that guarantees at least one metric before element access, or add explicit empty-check guards with deterministic assertions.
+- need for deeper analysis?: `yes — verify fixture construction vs runtime behavior`
+- batch number: `59`
+
+### Index 298
+
+- Index: 298
+- testname: `dart_ui/scene_test.dart`
+- category: `TEST-SCRIPT-MATH-CONTRACT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs assertion from `dart:ui/math.dart` (`... is not true`).
+- detailed analysis what the problem is: A math/geometry precondition in the scene demo is violated during execution (invalid numeric state/transform input), yielding framework assertion output in an otherwise passing run.
+- fix description (if clear): Validate and clamp geometry/transform inputs used by the scene test path so math preconditions remain valid throughout the scenario.
+- need for deeper analysis?: `no`
+- batch number: `59`
+
+### Index 299
+
+- Index: 299
+- testname: `dart_ui/semantics_action_event_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs two horizontal `RenderFlex overflowed` warnings.
+- detailed analysis what the problem is: The scripted UI composes content wider than available horizontal bounds in at least two states; this is a script layout/overflow quality issue.
+- fix description (if clear): Add responsive constraints/wrapping or adjust row layout to prevent horizontal overflow in all tested states.
+- need for deeper analysis?: `no`
+- batch number: `59`
+
+## Batch-59 Classification Summary
+
+- Missing/stray status for Batch-59 scripts: none missing, none stray. All referenced scripts are present on disk; `ztmp_path_metrics_access_test.dart` was added to the status report list for tracking completeness.
+- Test-script issue classification: two layout-constraint defects (`scroll_controllers_types_test`, `cupertino_text_selection_controls_test`), one assertion-precondition failure (`ztmp_path_metrics_access_test`), one math-contract assertion warning (`scene_test`), and one overflow warning (`semantics_action_event_test`).
+- Bridge/generator/interpreter classification: none conclusively identified in this batch.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

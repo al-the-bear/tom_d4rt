@@ -125,6 +125,8 @@ Batch-57 follow-up note (20260412-0949-issue-analysis): Batch-57 issues come fro
 
 Batch-58 follow-up note (20260412-0949-issue-analysis): Batch-58 issues come from `secondary_classes_test.dart`. All referenced scripts (`semantics/semantics_config_test.dart`, `widgets/gesture_detector_adv_test.dart`, `widgets/layout_builder_adv_test.dart`, `widgets/platform_menu_widgets_test.dart`, `widgets/scroll_position_types_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-58. One issue is a bridge callback-signature coercion failure (`semantics_config_test` — `InterpretedFunction` not coercible to nullable `VoidCallback`). One issue is a mixed bridge+script issue (`layout_builder_adv_test`: missing `layoutChild` method dispatch plus layout-constraint failures). Two issues are script-level corrections (`gesture_detector_adv_test` state-context warnings, `scroll_position_types_test` layout constraints). One entry is an intentional deprecated-API skip (`platform_menu_widgets_test`, `RawKeyboardListener`). Regression row tracked below for the callback mismatch.
 
+Batch-59 follow-up note (20260412-0949-issue-analysis): Batch-59 issues come from `secondary_classes_test.dart`. All referenced scripts (`widgets/scroll_controllers_types_test.dart`, `cupertino/cupertino_text_selection_controls_test.dart`, `dart_ui/ztmp_path_metrics_access_test.dart`, `dart_ui/scene_test.dart`, `dart_ui/semantics_action_event_test.dart`) are present on disk and referenced by suites (not stray). No missing referenced scripts were found for Batch-59. Two issues are script-level layout-constraint defects (`scroll_controllers_types_test`, `cupertino_text_selection_controls_test`). One issue is a test-script assertion-precondition failure (`ztmp_path_metrics_access_test`: `Bad state: No element`). One issue is a math-contract assertion warning (`scene_test`). One issue is a layout overflow warning (`semantics_action_event_test`). No regression placeholder rows were added for this batch.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -381,6 +383,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [view_focus_direction_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/view_focus_direction_test.dart) | ViewFocusDirection | No | Yes | No | Checked. |
 | [view_focus_event_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/view_focus_event_test.dart) | ViewFocusEvent | No | Yes | No | Checked. |
 | [view_focus_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/view_focus_state_test.dart) | ViewFocusState | No | Yes | No | Checked. |
+| [ztmp_path_metrics_access_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/ztmp_path_metrics_access_test.dart) | PathMetricsAccess | No | Yes | No | Added from Batch-59 run tracking. |
 ## foundation/ (60 files)
 
 | Filename | Class to Test | Fully Implemented in backup | Fully implemented in send_ast | Dummy |
