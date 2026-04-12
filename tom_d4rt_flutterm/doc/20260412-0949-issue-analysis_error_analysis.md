@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-31 (issues 0..159 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-32 (issues 0..164 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2202,4 +2202,72 @@ Scope: Batch-0 to Batch-31 (issues 0..159 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-31 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: five `_tabController` late-initialization errors (`restorable_num_n_test`, `restorable_num_test`, `restorable_route_future_test`, `restorable_string_n_test`, `root_element_mixin_test`) — continuing the deep-visual demo template pattern from Batches 28-30.
 - Bridge/generator/interpreter classification: none. All five issues are test-script-level template defects, no bridge or interpreter issues in this batch.
+
+## Batch-32
+
+### Index 160
+
+- Index: 160
+- testname: `widgets/root_render_object_element_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern seen since Batch-28. The script was created on 2026-04-10 and lacks proper `_tabController` initialization before first access.
+- fix description (if clear): Initialize `_tabController` at declaration or move initialization to the constructor body so it is available before `build()` runs.
+- need for deeper analysis?: `no`
+- batch number: `32`
+
+### Index 161
+
+- Index: 161
+- testname: `widgets/route_information_reporting_type_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Variant of the late-init template pattern — this script uses `_tabs` instead of `_tabController` as the late variable name, but the root cause is identical: a `late` field is accessed before `initState` assigns it. The script was created on 2026-04-10.
+- fix description (if clear): Same template-level fix: initialize `_tabs` at declaration or in the constructor body.
+- need for deeper analysis?: `no`
+- batch number: `32`
+
+### Index 162
+
+- Index: 162
+- testname: `widgets/route_information_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no`
+- description: Test fails with: `Expected: true / Actual: <false> / Expected Widget but got InterpretedInstance`. Stack trace points to `test/hardly_relevant_classes_5_test.dart:552`.
+- detailed analysis what the problem is: The deep demo script (1750 lines, RouteInformation class with URI anatomy, Navigator 2.0 role, Builder with live URI preview) constructs a widget tree in the interpreter. The bridge returns an `InterpretedInstance` instead of a native `Widget` subclass. The `is Widget` type check fails because the interpreter's runtime type system does not automatically coerce `InterpretedInstance` wrappers to their bridged Flutter counterparts.
+- fix description (if clear): Requires bridge-level coercion fix — either a custom `UserBridge` for the widget hierarchy or a general `InterpretedInstance`-to-`Widget` coercion layer in the test harness.
+- need for deeper analysis?: `yes — same systemic widget coercion issue seen in Batches 4, 11, 13, 17, 23, 26`
+- batch number: `32`
+
+### Index 163
+
+- Index: 163
+- testname: `widgets/route_pop_disposition_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no`
+- description: Test fails with: `Expected: true / Actual: <false> / Expected Widget but got InterpretedInstance`. Stack trace points to `test/hardly_relevant_classes_5_test.dart:566`.
+- detailed analysis what the problem is: The deep demo script (1642 lines, 3 dispositions, pop simulation, decision flow, nested navigator scenario) constructs a widget tree in the interpreter. Same `InterpretedInstance`-to-`Widget` coercion failure. The `is Widget` type check at line 566 receives an `InterpretedInstance` wrapper instead of a native `Widget`.
+- fix description (if clear): Same bridge-level coercion fix as Index 162.
+- need for deeper analysis?: `yes — same systemic widget coercion issue`
+- batch number: `32`
+
+### Index 164
+
+- Index: 164
+- testname: `widgets/route_transition_record_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init variant as Index 161. The script was created on 2026-04-10 and uses `_tabs` (not `_tabController`) as the late field name, but the pattern is identical.
+- fix description (if clear): Same template-level fix: initialize `_tabs` at declaration or in the constructor body.
+- need for deeper analysis?: `no`
+- batch number: `32`
+
+## Batch-32 Classification Summary
+
+- Missing/stray status for Batch-32 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: three late-initialization errors — one `_tabController` (`root_render_object_element_test`) and two `_tabs` (`route_information_reporting_type_test`, `route_transition_record_test`). The `_tabs` variant is a new late-init variable name but the same root cause as the `_tabController` pattern.
+- Bridge/generator/interpreter classification: two `BRIDGE-WIDGET-COERCION` failures (`route_information_test`, `route_pop_disposition_test`) — the interpreter returns `InterpretedInstance` where native `Widget` is expected, causing `is Widget` type checks to fail.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.

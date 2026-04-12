@@ -71,6 +71,8 @@ Batch-30 follow-up note (20260412-0949-issue-analysis): the five Batch-30 script
 
 Batch-31 follow-up note (20260412-0949-issue-analysis): the five Batch-31 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/restorable_num_n_test.dart`, `widgets/restorable_num_test.dart`, `widgets/restorable_route_future_test.dart`, `widgets/restorable_string_n_test.dart`, `widgets/root_element_mixin_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-31. All five issues are `_tabController` late-init template defects (TEST-SCRIPT-STATE-CONTEXT). No new regression test rows needed — the late-init regression test was already added in Batch-29.
 
+Batch-32 follow-up note (20260412-0949-issue-analysis): the five Batch-32 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/root_render_object_element_test.dart`, `widgets/route_information_reporting_type_test.dart`, `widgets/route_information_test.dart`, `widgets/route_pop_disposition_test.dart`, `widgets/route_transition_record_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-32. Three issues are late-init template defects (one `_tabController`, two `_tabs` variant). Two issues are BRIDGE-WIDGET-COERCION failures. A regression test row for the route-related widget coercion failures is tracked below.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1896,6 +1898,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [route_information_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart) | RouteInformation | No | Yes | No | Created on 2026-04-22 at 14:00. Deep demo (1750 lines): RouteInformation class, URI anatomy, Navigator 2.0 role, Builder with live URI preview and query params, Nav 2 Flow with 6-step pipeline. |
 | [route_observer_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_observer_test.dart) | RouteObserver | No | Yes | No | Checked. |
 | [route_pop_disposition_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart) | RoutePopDisposition | No | Yes | No | Created on 2026-04-15 at 14:00. Deep demo (1642 lines): 3 dispositions, pop simulation, decision flow, nested navigator scenario. |
+| route_info_pop_disposition_widget_coercion_regression_test.dart | RouteInformation/RoutePopDisposition coercion | No | No | No | Needs to be created |
 | [route_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_test.dart) | Route | No | Yes | No | Checked. |
 | [route_transition_record_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_transition_record_test.dart) | RouteTransitionRecord | No | Yes | No | Created on 2026-04-10 at 19:00 |
 | [router_config_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart) | RouterConfig | No | Yes | No | Created on 2026-04-10 at 17:00. |
