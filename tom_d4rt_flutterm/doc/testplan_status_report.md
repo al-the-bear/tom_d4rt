@@ -67,6 +67,8 @@ Batch-28 follow-up note (20260412-0949-issue-analysis): the five Batch-28 script
 
 Batch-29 follow-up note (20260412-0949-issue-analysis): the five Batch-29 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/repeat_mode_test.dart`, `widgets/replace_text_intent_test.dart`, `widgets/request_focus_action_test.dart`, `widgets/request_focus_intent_test.dart`, `widgets/restorable_bool_n_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-29. A dedicated regression test script for deep-visual demo `_tabController` late-init template fix is still missing and is tracked below as a file that needs to be created.
 
+Batch-30 follow-up note (20260412-0949-issue-analysis): the five Batch-30 scripts from `hardly_relevant_classes_5_test.dart` (`widgets/restorable_date_time_n_test.dart`, `widgets/restorable_double_n_test.dart`, `widgets/restorable_enum_n_test.dart`, `widgets/restorable_int_n_test.dart`, `widgets/restorable_listenable_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-30. A dedicated regression test script for dart:core `Enum` symbol registration in the interpreter is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1866,6 +1868,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [restorable_int_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_n_test.dart) | RestorableIntN | No | Yes | No | Already converted to deep demo (1498 lines). Testplan updated. |
 | [restorable_int_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_int_test.dart) | RestorableInt | No | Yes | No | Already converted to deep demo (1339 lines). Testplan updated. |
 | [restorable_listenable_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_listenable_test.dart) | RestorableListenable | Yes | Deep Visual | Yes | Batch 14. 2045 lines. Cyan/Orange palette. Theory/Listenable Lab/Pattern Explorer tabs. |
+| restorable_enum_n_core_enum_symbol_regression_test.dart | Enum symbol registration | No | No | No | Needs to be created |
 | [restorable_num_n_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_n_test.dart) | RestorableNumN | Yes | Deep Visual | Yes | Batch 14. 2083 lines. DeepOrange/Cyan palette. Theory/Nullable Explorer/Serialization Lab tabs. |
 | [restorable_num_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_num_test.dart) | RestorableNum | Yes | Deep Visual | Yes | Batch 14. 1859 lines. Green/Purple palette. Theory/Math Lab/Family Tree tabs. |
 | [restorable_property_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_property_test.dart) | RestorableProperty | Yes | Deep Visual | Yes | Batch 14. 1649 lines. Amber/Blue palette. Contract/Lifecycle/Catalog tabs. |

@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-29 (issues 0..149 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-30 (issues 0..154 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -2066,4 +2066,72 @@ Scope: Batch-0 to Batch-29 (issues 0..149 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-29 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three `_tabController` late-initialization errors (`repeat_mode_test`, `request_focus_intent_test`, `restorable_bool_n_test`) — continuing the deep-visual demo template pattern from Batch-28.
 - Bridge/generator/interpreter classification: two widget coercion defects (`replace_text_intent_test`, `request_focus_action_test`).
+
+## Batch-30
+
+### Index 150
+
+- Index: 150
+- testname: `widgets/restorable_date_time_n_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init deep-visual demo template issue seen across Batches 28-29. The `RestorableDateTimeN` demo declares a late `_tabController` that is never initialized before access in the interpreted execution path.
+- fix description (if clear): Template-level fix — initialize `_tabController` at declaration or in constructor body. Part of the bulk fix for all deep-visual demos.
+- need for deeper analysis?: `no`
+- batch number: `30`
+
+### Index 151
+
+- Index: 151
+- testname: `widgets/restorable_double_n_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern. The `RestorableDoubleN` deep-visual demo has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Index 150.
+- need for deeper analysis?: `no`
+- batch number: `30`
+
+### Index 152
+
+- Index: 152
+- testname: `widgets/restorable_enum_n_test.dart`
+- category: `BRIDGE-MISSING-SYMBOL-REGISTRATION (needs correction)`
+- immediate fix possible: `no`
+- description: Test failed with `Undefined variable: Enum`.
+- detailed analysis what the problem is: The deep demo (1359 lines) for `RestorableEnumN` references the Dart core `Enum` type, but the interpreter does not have `Enum` registered as a known symbol. The `Enum` class is a dart:core abstract type that serves as the base for all enums; the bridge generator does not automatically register it because it is a special compiler-handled type. The test script likely uses `Enum` in a type check or generic constraint that the interpreter cannot resolve.
+- fix description (if clear): Register `Enum` as a known symbol in the interpreter's core type registry or add a UserBridge that maps `Enum` to the dart:core `Enum` base class. Alternatively, refactor the test script to avoid direct `Enum` type references and use concrete enum types instead.
+- need for deeper analysis?: `yes`
+- batch number: `30`
+
+### Index 153
+
+- Index: 153
+- testname: `widgets/restorable_int_n_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern. The `RestorableIntN` deep demo (1498 lines) has the identical uninitialized late field.
+- fix description (if clear): Same template-level fix as Indices 150-151.
+- need for deeper analysis?: `no`
+- batch number: `30`
+
+### Index 154
+
+- Index: 154
+- testname: `widgets/restorable_listenable_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabController` late-init template pattern. The `RestorableListenable` deep-visual demo (2045 lines) has the identical uninitialized late field. Four of the five Batch-30 issues share this pattern, confirming the systematic template defect across all deep-visual demos.
+- fix description (if clear): Same template-level fix. The `_tabController` late-init issue now spans Batches 28-30 (10+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `30`
+
+## Batch-30 Classification Summary
+
+- Missing/stray status for Batch-30 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: four `_tabController` late-initialization errors (`restorable_date_time_n_test`, `restorable_double_n_test`, `restorable_int_n_test`, `restorable_listenable_test`) — continuing the deep-visual demo template pattern from Batches 28-29.
+- Bridge/generator/interpreter classification: one `BRIDGE-MISSING-SYMBOL-REGISTRATION` for the dart:core `Enum` type (`restorable_enum_n_test`) — the interpreter does not have `Enum` registered as a known variable.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
