@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-45 (issues 0..229 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-46 (issues 0..234 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -3168,4 +3168,75 @@ Scope: Batch-0 to Batch-45 (issues 0..229 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-45 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
 - Test-script issue classification: three late-initialization errors — two `_tabController` (`tree_sliver_state_mixin_test`, `two_dimensional_child_delegate_test`) and one `_tabs` (`two_dimensional_child_builder_delegate_test`).
 - Bridge/generator/interpreter classification: two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures (`traversal_direction_test` — `_PolicyProfile`, `traversal_edge_behavior_test` — `_Playbook`). Both require generator enhancement for private class constructors.
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-46 (Issues 230-234)
+
+### Index 230
+
+- Index: 230
+- testname: `widgets/two_dimensional_child_list_delegate_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template pattern. The `TwoDimensionalChildListDelegate` demo script references a `late` `_tabs` field before initialization.
+- fix description (if clear): Initialize `_tabs` in `initState()` or remove/replace the late field with initialized state setup.
+- need for deeper analysis?: `no`
+- batch number: `46`
+
+### Index 231
+
+- Index: 231
+- testname: `widgets/two_dimensional_child_manager_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 230.
+- fix description (if clear): Same template-level fix as Index 230.
+- need for deeper analysis?: `no`
+- batch number: `46`
+
+### Index 232
+
+- Index: 232
+- testname: `widgets/two_dimensional_scrollable_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 230.
+- fix description (if clear): Same template-level fix as Index 230.
+- need for deeper analysis?: `no`
+- batch number: `46`
+
+### Index 233
+
+- Index: 233
+- testname: `widgets/two_dimensional_viewport_parent_data_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabController (LateInitializationError: Late variable '_tabController' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same late-init template defect with the `_tabController` variable-name variant.
+- fix description (if clear): Initialize `_tabController` in `initState()` and ensure any dependent setup runs after initialization.
+- need for deeper analysis?: `no`
+- batch number: `46`
+
+### Index 234
+
+- Index: 234
+- testname: `widgets/undo_history_state_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs: `Undefined variable: _tabs (LateInitializationError: Late variable '_tabs' without initializer is accessed before being assigned.)`.
+- detailed analysis what the problem is: Same `_tabs` late-init template defect as Index 230. All five Batch-46 issues are late-init state-context defects with mixed variable names (`_tabs` and `_tabController`).
+- fix description (if clear): Same template-level fix. The late-init issue now spans Batches 28-46 (55+ demos total).
+- need for deeper analysis?: `no`
+- batch number: `46`
+
+## Batch-46 Classification Summary
+
+- Missing/stray status for Batch-46 scripts: none missing, none stray. All five scripts exist and are referenced by their test suite.
+- Test-script issue classification: five late-initialization errors — four `_tabs` (`two_dimensional_child_list_delegate_test`, `two_dimensional_child_manager_test`, `two_dimensional_scrollable_state_test`, `undo_history_state_test`) and one `_tabController` (`two_dimensional_viewport_parent_data_test`).
+- Bridge/generator/interpreter classification: none in this batch. All five issues are test-script template defects.
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
