@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-75 (issues 0..379 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-76 (issues 0..384 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5299,4 +5299,75 @@ Scope: Batch-0 to Batch-75 (issues 0..379 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-75 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one mixed initialization/layout issue (`single_ticker_provider_state_mixin_test`) and one late-init issue (`spell_check_configuration_test` `_tabs`).
 - Bridge/generator/interpreter classification: one missing `List.whereType` method exposure issue (`shader_mask_test`) and two private constructor-support issues (`single_child_render_object_element_test`, `single_child_render_object_widget_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-76 (Issues 380-384)
+
+### Index 380
+
+- Index: 380
+- testname: `widgets/stateful_element_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs undefined inherited `widget` property on `_TrackedChildState` and `_CounterChildState`.
+- detailed analysis what the problem is: This matches the recurring bridge property-exposure gap where interpreted `State` subclasses cannot resolve inherited `State.widget` on runtime access paths.
+- fix description (if clear): Apply the generalized inherited `State.widget` property exposure fix in bridge/runtime state access used by prior widget-state failures.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `76`
+
+### Index 381
+
+- Index: 381
+- testname: `widgets/stateless_element_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs the same undefined inherited `widget` property errors on `_TrackedChildState` and `_CounterChildState`.
+- detailed analysis what the problem is: Same recurring inherited `State.widget` bridge exposure defect as Index 380, reproduced through stateless-element scenario flow.
+- fix description (if clear): Reuse the shared inherited `State.widget` bridge-property exposure fix path.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `76`
+
+### Index 382
+
+- Index: 382
+- testname: `widgets/text_magnifier_configuration_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Recurring deep-demo `_tabs` initialization-order defect where UI/build paths can execute before `_tabs` initialization.
+- fix description (if clear): Initialize `_tabs` deterministically before first read and guard any pre-initialization execution branches.
+- need for deeper analysis?: `no`
+- batch number: `76`
+
+### Index 383
+
+- Index: 383
+- testname: `widgets/text_selection_controls_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` late-init template defect as Index 382.
+- fix description (if clear): Reuse the shared `_tabs` initialization fix pattern and verify no runtime warnings on success runs.
+- need for deeper analysis?: `no`
+- batch number: `76`
+
+### Index 384
+
+- Index: 384
+- testname: `widgets/undo_history_controller_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` initialization-order defect in this deep-demo flow.
+- fix description (if clear): Ensure `_tabs` is initialized before any dependent build/runtime reads.
+- need for deeper analysis?: `no`
+- batch number: `76`
+
+## Batch-76 Classification Summary
+
+- Missing/stray status for Batch-76 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: three late-initialization defects (`text_magnifier_configuration_test`, `text_selection_controls_test`, `undo_history_controller_test` with `_tabs`).
+- Bridge/generator/interpreter classification: two state-property exposure issues (`stateful_element_test`, `stateless_element_test` unresolved inherited `State.widget`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
