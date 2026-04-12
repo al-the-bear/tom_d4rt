@@ -7,6 +7,8 @@ Batch-0 run note (20260411-1207-issue-analysis): first-batch suite-reference sca
 
 Full run note (20260411-1207-issue-analysis): all 8 suites scanned — 1973 referenced scripts, 0 missing, 15 stray (on disk but unreferenced by any suite): dart_ui/display_feature_test.dart, dart_ui/point_mode_test.dart, material/button_styles_misc_test.dart, material/button_types_test.dart, material/list_tile_style_test.dart, material/showbottomsheet_test.dart, material/showdatepicker_test.dart, material/showdialog_test.dart, material/showmenu_test.dart, material/showtimepicker_test.dart, material/stepper_state_test.dart, material/toggle_segmented_test.dart, rendering/child_layout_helper_test.dart, rendering/diagnostics_debug_creator_test.dart, widgets/platform_menu_widgets_test.dart. See error_analysis.md for classification of 551 issues across 29 categories.
 
+Batch-0 follow-up note (20260412-0949-issue-analysis): the four Batch-0 scripts from `essential_classes_test.dart` (`cupertino/controls_test.dart`, `cupertino/form_test.dart`, `cupertino/textfield_test.dart`, `rendering/viewport_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-0. A dedicated regression script is still missing for the recurring Cupertino layout warning pattern and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -68,6 +70,7 @@ Tests with fewer than 80 lines cannot comprehensively test a Flutter class - the
 | [class_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/class_test.dart) | Class | No | Yes | No | Visual demo verified 2026-04-09 (130 lines, CupertinoApp with theme/colors/icons). |
 | [contextmenu_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/contextmenu_test.dart) | Contextmenu | No | Yes | No |
 | [controls_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/controls_test.dart) | Controls | No | Yes | No |
+| [cupertino_layout_warnings_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_layout_warnings_regression_test.dart) | CupertinoLayoutWarningsRegression | No | No | No | Needs to be created (Batch-0 recurring framework warning pattern without hard failure). |
 | [cupertino_button_size_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_button_size_test.dart) | CupertinoButtonSize | No | Yes | No | Created on 2026-03-17 at 16:38 |
 | [cupertino_colors_system_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_colors_system_test.dart) | CupertinoColors | No | Yes | No |
 | [cupertino_controls_advanced_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/cupertino/cupertino_controls_advanced_test.dart) | CupertinoSwitch | No | Yes | No |
