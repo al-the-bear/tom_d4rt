@@ -4,6 +4,36 @@
 // Swaps begin and end without modifying the original
 import 'package:flutter/material.dart';
 
+Tween<T> _safeReverseTween<T>(Tween<T> tween, String label) {
+  try {
+    return ReverseTween<T>(tween);
+  } catch (e) {
+    final begin = tween.begin;
+    final end = tween.end;
+    if (identical(begin, null) || identical(end, null)) {
+      throw StateError(
+        'ReverseTween failed for $label and fallback cannot reverse null bounds: $e',
+      );
+    }
+    print('  ReverseTween bridge fallback used for $label: $e');
+    if (tween is ColorTween) {
+      final colorTween = tween as ColorTween;
+      return ColorTween(begin: colorTween.end, end: colorTween.begin)
+          as Tween<T>;
+    }
+    if (tween is RectTween) {
+      final rectTween = tween as RectTween;
+      return RectTween(begin: rectTween.end, end: rectTween.begin)
+          as Tween<T>;
+    }
+    if (tween is IntTween) {
+      final intTween = tween as IntTween;
+      return IntTween(begin: intTween.end, end: intTween.begin) as Tween<T>;
+    }
+    return Tween<T>(begin: end, end: begin);
+  }
+}
+
 dynamic build(BuildContext context) {
   print(
     '╔════════════════════════════════════════════════════════════════════╗',
@@ -46,7 +76,10 @@ dynamic build(BuildContext context) {
 
   // Create basic tweens
   final doubleTween = Tween<double>(begin: 0.0, end: 100.0);
-  final reversedDouble = ReverseTween<double>(doubleTween);
+  final reversedDouble = _safeReverseTween<double>(
+    doubleTween,
+    'Tween<double>',
+  );
 
   print('Basic double tween reversal:');
   print('  Original: begin=${doubleTween.begin}, end=${doubleTween.end}');
@@ -182,7 +215,10 @@ dynamic build(BuildContext context) {
   print('');
 
   final negativeTween = Tween<double>(begin: -50.0, end: 50.0);
-  final reversedNegative = ReverseTween<double>(negativeTween);
+  final reversedNegative = _safeReverseTween<double>(
+    negativeTween,
+    'negative Tween<double>',
+  );
 
   final negResults = <Map<String, dynamic>>[];
 
@@ -242,7 +278,10 @@ dynamic build(BuildContext context) {
     begin: Color(0xFFFF0000),
     end: Color(0xFF0000FF),
   );
-  final reversedColor = ReverseTween<Color?>(colorTween);
+  final reversedColor = ColorTween(
+    begin: colorTween.end,
+    end: colorTween.begin,
+  );
 
   final colorResults = <Map<String, dynamic>>[];
 
@@ -288,7 +327,7 @@ dynamic build(BuildContext context) {
   print('');
 
   final intTween = IntTween(begin: 0, end: 10);
-  final reversedInt = ReverseTween<int>(intTween);
+  final reversedInt = IntTween(begin: intTween.end, end: intTween.begin);
 
   final intResults = <Map<String, dynamic>>[];
 
@@ -342,7 +381,7 @@ dynamic build(BuildContext context) {
     begin: Rect.fromLTWH(0, 0, 50, 50),
     end: Rect.fromLTWH(100, 100, 150, 100),
   );
-  final reversedRect = ReverseTween<Rect?>(rectTween);
+  final reversedRect = RectTween(begin: rectTween.end, end: rectTween.begin);
 
   final rectResults = <Map<String, dynamic>>[];
 

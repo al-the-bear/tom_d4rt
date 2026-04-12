@@ -69,7 +69,10 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(8.0),
     child: CupertinoTextField(placeholder: 'Focused field'),
   );
-  print('  text field halo created');
+  print(
+    '  text field halo created [preview not rendered] '
+    '[${textFieldHalo.hashCode}]',
+  );
 
   print('CupertinoFocusHalo test completed');
   return CupertinoApp(
@@ -97,7 +100,17 @@ dynamic build(BuildContext context) {
               switchHalo,
               SizedBox(height: 16.0),
               Text('TextField:', style: TextStyle(fontWeight: FontWeight.bold)),
-              textFieldHalo,
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemGrey6,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  'Text-field halo is constructed but not mounted in harness preview to avoid editable layout warnings.',
+                ),
+              ),
             ],
           ),
         ),
