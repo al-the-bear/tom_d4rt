@@ -37,6 +37,8 @@ Batch-13 follow-up note (20260412-0949-issue-analysis): the five Batch-13 script
 
 Batch-14 follow-up note (20260412-0949-issue-analysis): the five Batch-14 scripts from `hardly_relevant_classes_3_test.dart`/`hardly_relevant_classes_4_test.dart` (`rendering/render_ui_kit_view_test.dart`, `services/message_codec_test.dart`, `services/method_codec_test.dart`, `services/raw_key_up_event_test.dart`, `(setUpAll)` in `hardly_relevant_classes_4_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-14. A dedicated regression test script for bridged `_ByteDataView.lengthInBytes` codec access handling is still missing and is tracked below as a file that needs to be created.
 
+Batch-15 follow-up note (20260412-0949-issue-analysis): the five Batch-15 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/action_listener_test.dart`, `widgets/align_transition_test.dart`, `widgets/android_view_surface_test.dart`, `widgets/animated_positioned_directional_test.dart`, `widgets/app_kit_view_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-15. A dedicated regression test script for `EagerGestureRecognizer` constructor bridging (`new` static member availability) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1351,6 +1353,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [always_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/always_scrollable_scroll_physics_test.dart) | AlwaysScrollableScrollPhysics | No | Yes | No | Created on 2026-04-08. |
 | [android_overscroll_indicator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_overscroll_indicator_test.dart) | AndroidOverscrollIndicator | No | Yes | No | Created on 2026-03-30 at 10:36. |
 | [android_view_surface_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_surface_test.dart) | AndroidViewSurface | No | Yes | No | Created on 2026-03-30 at 10:49. |
+| [eager_gesture_recognizer_constructor_bridge_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/eager_gesture_recognizer_constructor_bridge_regression_test.dart) | EagerGestureRecognizerConstructorBridgeRegression | No | No | No | Needs to be created (Batch-15 failure pattern: undefined static member `new` on bridged `EagerGestureRecognizer`). |
 | [android_view_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/android_view_test.dart) | AndroidView | No | Yes | No | Created on 2026-03-30 at 13:58. |
 | [animated_align_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_align_test.dart) | AnimatedAlign | No | Yes | No | Deep demo created 2025-03-28 |
 | [animated_cross_fade_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/animated_cross_fade_test.dart) | AnimatedCrossFade | No | Yes | No | Deep demo created 2025-03-28 |

@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-14 (issues 0..74 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-15 (issues 0..79 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1035,3 +1035,72 @@ Scope: Batch-0 to Batch-14 (issues 0..74 from `20260412-0949-issue-analysis_test
 - Test-script issue classification: one state-context issue (`render_ui_kit_view_test`), one large unbounded-layout issue (`raw_key_up_event_test`), and one harness-log classification item (`setUpAll` in `hardly_relevant_classes_4_test.dart`).
 - Bridge/generator/interpreter classification: shared bridge missing-member issue for `_ByteDataView.lengthInBytes` affecting `message_codec_test` and `method_codec_test`.
 - Known non-exhaustive switch signature in Batch-14: not detected in this batch.
+
+## Batch-15
+
+### Index 75
+
+- Index: 75
+- testname: `widgets/action_listener_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined `_dispatcher` due to late initialization before assignment.
+- detailed analysis what the problem is: The scenario accesses a late-bound dispatcher before initialization, indicating script setup ordering debt.
+- fix description (if clear): Initialize `_dispatcher` in all setup paths before use and add guard assertions for initialized state.
+- need for deeper analysis?: `no`
+- batch number: `15`
+
+### Index 76
+
+- Index: 76
+- testname: `widgets/align_transition_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined `_alignmentAnimation` due to late initialization before assignment.
+- detailed analysis what the problem is: This is another script state-order issue where animation state is consumed before initialization.
+- fix description (if clear): Ensure `_alignmentAnimation` is initialized before widget build/use paths and enforce initialization checks.
+- need for deeper analysis?: `no`
+- batch number: `15`
+
+### Index 77
+
+- Index: 77
+- testname: `widgets/android_view_surface_test.dart`
+- category: `BRIDGE-MISSING-CONSTRUCTOR-MEMBER (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning: `Undefined static member 'new' on bridged class 'EagerGestureRecognizer'.`
+- detailed analysis what the problem is: Constructor/static-member bridge exposure for `EagerGestureRecognizer` is incomplete, so scripted constructor invocation cannot resolve the expected entry point.
+- fix description (if clear): Add bridge/UserBridge constructor mapping so `EagerGestureRecognizer` constructor (`new`) is exposed and callable in interpreted execution.
+- need for deeper analysis?: `yes`
+- batch number: `15`
+
+### Index 78
+
+- Index: 78
+- testname: `widgets/animated_positioned_directional_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning reports undefined variable `context` (`Undefined property 'context' on _AnimatedPositionedDirectionalDemoState`).
+- detailed analysis what the problem is: The script relies on implicit state/context access where `context` is unavailable on the object path being used in interpreted execution.
+- fix description (if clear): Refactor the demo script to pass context-dependent values explicitly and avoid property lookups on incompatible state objects.
+- need for deeper analysis?: `yes`
+- batch number: `15`
+
+### Index 79
+
+- Index: 79
+- testname: `widgets/app_kit_view_test.dart`
+- category: `BRIDGE-MISSING-CONSTRUCTOR-MEMBER (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but runtime warning repeats `Undefined static member 'new' on bridged class 'EagerGestureRecognizer'.`
+- detailed analysis what the problem is: Same bridge constructor/member exposure gap as Index 77, now triggered through app-kit view scenario path.
+- fix description (if clear): Resolve `EagerGestureRecognizer` constructor bridge support once and re-run both `android_view_surface_test` and `app_kit_view_test`.
+- need for deeper analysis?: `yes`
+- batch number: `15`
+
+## Batch-15 Classification Summary
+
+- Missing/stray status for Batch-15 scripts: none missing, none stray.
+- Test-script issue classification: two state-initialization issues (`action_listener_test`, `align_transition_test`) and one state-context access issue (`animated_positioned_directional_test`).
+- Bridge/generator/interpreter classification: shared missing constructor/member bridge exposure for `EagerGestureRecognizer` affecting `android_view_surface_test` and `app_kit_view_test`.
+- Known non-exhaustive switch signature in Batch-15: not detected in this batch.
