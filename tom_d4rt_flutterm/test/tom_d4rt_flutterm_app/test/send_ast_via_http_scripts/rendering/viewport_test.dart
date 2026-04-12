@@ -35,8 +35,22 @@ Widget vpInfoRow(String label, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 140.0,
-          child: Text(label, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Color(0xFF1B5E20)))),
+        Flexible(
+          flex: 0,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 96.0),
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF1B5E20),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 6.0),
         Expanded(
           child: Text(value, style: TextStyle(fontSize: 12.0, color: Color(0xFF4E6B4E)))),
       ],
@@ -314,8 +328,10 @@ dynamic build(BuildContext context) {
         Text('Direction of user scroll gesture',
             style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
         SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          alignment: WrapAlignment.spaceEvenly,
           children: directions.map((d) {
             final dir = d['value'] as ScrollDirection;
             return Container(
@@ -688,9 +704,11 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 12.0),
-            SizedBox(
-              width: 120.0,
-              child: Column(
+            Flexible(
+              flex: 0,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 120.0),
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   vpInfoRow('Content:', '1000px'),
@@ -699,6 +717,7 @@ dynamic build(BuildContext context) {
                   vpInfoRow('Visible:', '100-500'),
                 ],
               ),
+            ),
             ),
           ],
         ),
@@ -898,8 +917,10 @@ dynamic build(BuildContext context) {
         Text('Direction slivers grow relative to scroll offset',
             style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
         SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          alignment: WrapAlignment.spaceEvenly,
           children: GrowthDirection.values.map((gd) {
             final isForward = gd == GrowthDirection.forward;
             return Container(
@@ -952,8 +973,10 @@ dynamic build(BuildContext context) {
         Text('Viewport & Scroll Dashboard',
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
         SizedBox(height: 10.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          spacing: 20.0,
+          runSpacing: 10.0,
+          alignment: WrapAlignment.center,
           children: [
             Column(children: [
               Icon(Icons.swap_vert, color: Color(0xFFC8E6C9), size: 28.0),

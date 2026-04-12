@@ -151,7 +151,8 @@ class SendTestRunner {
     }
 
     if (_isEnvEnabled(_skipBridgeRegenEnv)) {
-      print('Bridge regeneration skipped via $_skipBridgeRegenEnv.');
+      // Keep setUpAll output clean so operational status lines do not get
+      // indexed as test issues in summary reports.
       _bridgesRegenerated = true;
       return;
     }
@@ -160,12 +161,9 @@ class SendTestRunner {
         ? (stale: true, reason: 'forced via $_forceBridgeRegenEnv')
         : await _evaluateBridgeStaleness();
     if (!staleness.stale) {
-      print('Bridge regeneration skipped: ${staleness.reason}');
       _bridgesRegenerated = true;
       return;
     }
-
-    print('Bridge regeneration triggered: ${staleness.reason}');
 
     final packageRoot = Directory.current.path;
     final dartExecutable = await _resolveDartExecutable();
@@ -184,7 +182,6 @@ class SendTestRunner {
       throw StateError('Bridge regeneration failed before tests.\n$output');
     }
 
-    print('Bridge regeneration completed successfully.');
     _bridgesRegenerated = true;
   }
 
