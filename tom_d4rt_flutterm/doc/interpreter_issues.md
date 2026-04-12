@@ -113,3 +113,18 @@ batch: 9
 
 - No batch-9 entries required interpreter deep analysis.
 - Batch-9 deeper follow-up items were bridge-generator typed-list coercion and complex script layout stability, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 10
+
+issue-index: 53
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart`
+- Symptom: runtime null method invocation failure (`Cannot invoke method 'withValues' on null`).
+- Immediate outcome: script rewritten to deterministic, null-safe axis-direction summary flow; targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- The failure matches previously observed interpreter null-receiver invocation behavior in value-transformation paths.
+	- Runtime dispatch is attempting method invocation without guaranteeing non-null receiver state in this path.
+	- Script-level stabilization removes immediate failure but does not resolve interpreter null-invocation semantics.
+- Follow-up recommendation:
+	- Add interpreter guard/coercion for nullable receiver method invocation in the affected transformation path.
+	- Add regression coverage for painting axis/value transformation scenarios where nullable receivers may reach method dispatch.

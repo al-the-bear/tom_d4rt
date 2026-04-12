@@ -123,3 +123,16 @@ batch: 9
     - The prior script produced a high-volume cascade of infinite-size errors (47) across multiple render layers, indicating broad unbounded composition rather than a single widget misuse.
     - Repeated failure signatures across adjacent time-related scripts suggest a shared scaffold pattern with missing size constraints in interactive sections.
     - Immediate mitigation moved the scenario to a bounded `ListView`-based summary flow, eliminating framework errors, but long-term script quality should enforce reusable bounded-layout helpers for material time demos.
+
+batch: 10
+
+- No non-immediate batch-10 script issues remained after immediate fixes.
+- Immediate batch-10 script fixes were applied and validated for:
+  - material/toggle_buttons_theme_data_test.dart
+  - material/toggle_buttons_theme_test.dart
+  - material/tooltip_state_test.dart
+  - painting/axis_direction_test.dart
+  - painting/axis_test.dart
+- Notes:
+  - `tooltip_state_test.dart` and `axis_test.dart` were direct script-level constructor/layout contract stabilizations.
+  - `toggle_buttons_theme_data_test.dart`, `toggle_buttons_theme_test.dart`, and `axis_direction_test.dart` are stabilized script-side while deeper bridge/interpreter follow-up is documented in `generator_issues.md` and `interpreter_issues.md`.

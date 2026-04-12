@@ -142,3 +142,18 @@ issue-index: 45
 - Follow-up recommendation:
 	- Add typed-list coercion support for `ThemeData.copyWith(extensions: ...)` so interpreted list elements are converted and validated as `ThemeExtension<dynamic>`.
 	- Add generator/runtime regression coverage for empty list, populated list, and invalid element-type scenarios to ensure robust conversion diagnostics.
+
+batch: 10
+
+issue-index: 50, 51
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_data_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/toggle_buttons_theme_test.dart`
+- Symptom: bridged `BoxConstraints` equality operator (`==`) receives invalid null `other` operand (`expected Object, got Null`).
+- Immediate outcome: both scripts rewritten to harness-safe scenarios that avoid the unstable operator-coercion path; targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- Repeated failures across two scripts confirm shared bridge/generator operator argument coercion gap, not a single-script defect.
+	- Operator mapping currently allows nullable argument propagation into native equality path requiring non-null object operand.
+	- Script-level mitigation removes immediate warnings but leaves bridge operator contract enforcement incomplete.
+- Follow-up recommendation:
+	- Harden bridge/generator operator argument extraction for `BoxConstraints ==` to reject or coerce null `other` before native invocation.
+	- Add regression tests for valid equality operands and explicit null-operand handling diagnostics across operator bridge paths.
