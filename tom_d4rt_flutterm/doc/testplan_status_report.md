@@ -53,6 +53,8 @@ Batch-21 follow-up note (20260412-0949-issue-analysis): the five Batch-21 script
 
 Batch-22 follow-up note (20260412-0949-issue-analysis): the five Batch-22 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/logical_key_set_test.dart`, `widgets/lookup_boundary_test.dart`, `widgets/matrix_transition_test.dart`, `widgets/meta_data_test.dart`, `widgets/modal_barrier_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-22. A dedicated regression test script for finite-layout/semantics guard handling in logical-key-set flows is still missing and is tracked below as a file that needs to be created.
 
+Batch-23 follow-up note (20260412-0949-issue-analysis): the five Batch-23 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/navigator_pop_handler_test.dart`, `widgets/nested_scroll_view_state_test.dart`, `widgets/nested_scroll_view_viewport_test.dart`, `widgets/next_focus_intent_test.dart`, `widgets/notifiable_element_mixin_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-23. A dedicated regression test script for nested-scroll header list coercion (`List<Object?>` to `List<Widget>`) is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1695,6 +1697,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [navigator_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigator_test.dart) | Navigator | No | Yes | No |
 | [navigatorstate_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/navigatorstate_test.dart) | NavigatorState | No | Yes | No | Checked. |
 | [nested_scroll_view_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart) | NestedScrollViewState | No | Yes | No | Created on 2026-04-09 at 15:30. |
+| [nested_scroll_view_header_list_widget_coercion_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_header_list_widget_coercion_regression_test.dart) | NestedScrollViewHeaderListWidgetCoercionRegression | No | No | No | Needs to be created (Batch-23 failure pattern: `List<Object?>` not coercing to `List<Widget>` in nested scroll state scenes). |
 | [nested_scroll_view_viewport_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_viewport_test.dart) | NestedScrollViewViewport | No | Yes | No | Created on 2026-04-02 at 11:21. |
 | [nestedscrollview_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nestedscrollview_test.dart) | NestedScrollView | No | Yes | No |
 | [never_scrollable_scroll_physics_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/never_scrollable_scroll_physics_test.dart) | NeverScrollableScrollPhysics | No | Yes | No | Created on 2026-04-09 at 15:30. |

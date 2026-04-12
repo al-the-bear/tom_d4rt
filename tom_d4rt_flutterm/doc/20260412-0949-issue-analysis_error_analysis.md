@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-22 (issues 0..114 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-23 (issues 0..119 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1587,3 +1587,72 @@ Scope: Batch-0 to Batch-22 (issues 0..114 from `20260412-0949-issue-analysis_tes
 - Test-script issue classification: one layout-constraints/semantics warning cluster (`logical_key_set_test`) and four state-context warning groups (`lookup_boundary_test`, `matrix_transition_test`, `meta_data_test`, `modal_barrier_test`).
 - Bridge/generator/interpreter classification: no new direct bridge/generator/interpreter signature beyond recurring deep-demo state-context property-resolution pattern; primary additional defect is script-side finite-constraints layout handling.
 - Known non-exhaustive switch signature in Batch-22: not detected in this batch.
+
+## Batch-23
+
+### Index 115
+
+- Index: 115
+- testname: `widgets/navigator_pop_handler_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across navigator-pop-handler scenes.
+- detailed analysis what the problem is: Scene states (`_FundamentalsSceneState`, `_ComparisonSceneState`, `_ResultSceneState`, `_WorkflowSceneState`, `_PracticalSceneState`) access `widget` via unresolved state-context paths in interpreted execution.
+- fix description (if clear): Replace implicit `widget` lookups with explicit scene configuration fields and shared helper accessors.
+- need for deeper analysis?: `yes`
+- batch number: `23`
+
+### Index 116
+
+- Index: 116
+- testname: `widgets/nested_scroll_view_state_test.dart`
+- category: `BRIDGE-LIST-TYPE-COERCION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted three runtime cast errors: `List<Object?>` is not a subtype of `List<Widget>`.
+- detailed analysis what the problem is: Nested-scroll state flow passes interpreted list values through a typed widget-list boundary without coercion, causing runtime cast failures in header/body composition.
+- fix description (if clear): Add bridge/custom cast normalization for list element coercion to `Widget` and enforce typed list construction in the script before crossing bridge boundaries.
+- need for deeper analysis?: `yes`
+- batch number: `23`
+
+### Index 117
+
+- Index: 117
+- testname: `widgets/nested_scroll_view_viewport_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across viewport/coordinator/overlap scenes.
+- detailed analysis what the problem is: `_ViewportAnatomySceneState`, `_CoordinatorSceneState`, `_OverlapComparisonSceneState`, `_AnchorClipSceneState`, and `_PracticalSceneState` use unresolved implicit `widget` access.
+- fix description (if clear): Apply the shared deep-demo state-context remediation pattern with explicit scene wiring.
+- need for deeper analysis?: `yes`
+- batch number: `23`
+
+### Index 118
+
+- Index: 118
+- testname: `widgets/next_focus_intent_test.dart`
+- category: `BRIDGE-STATIC-METHOD-ASSERTION (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted a native bridge assertion during static call `Actions.maybeFind` (`type != Intent`).
+- detailed analysis what the problem is: The bridged static invocation path forwards an invalid or too-generic intent type into `Actions.maybeFind`, tripping framework assertion guards for intent lookup.
+- fix description (if clear): Tighten static bridge argument typing for intent classes and add script-side validation to ensure a concrete non-`Intent` subclass type is passed.
+- need for deeper analysis?: `yes`
+- batch number: `23`
+
+### Index 119
+
+- Index: 119
+- testname: `widgets/notifiable_element_mixin_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted 13 layout warnings with repeated infinite-size render-object failures.
+- detailed analysis what the problem is: Notifiable-element scene composition enters unbounded layout paths (`RenderParagraph`/`RenderPositionedBox`/`RenderFlex`/`RenderPadding`) that cascade into repeated infinite-size diagnostics.
+- fix description (if clear): Introduce explicit finite constraints in demo containers, avoid unbounded flex compositions, and fail test runs when framework layout warnings are reported.
+- need for deeper analysis?: `yes`
+- batch number: `23`
+
+## Batch-23 Classification Summary
+
+- Missing/stray status for Batch-23 scripts: none missing, none stray.
+- Test-script issue classification: two state-context warning groups (`navigator_pop_handler_test`, `nested_scroll_view_viewport_test`) and one layout-constraints warning cluster (`notifiable_element_mixin_test`).
+- Bridge/generator/interpreter classification: one list-type coercion failure (`nested_scroll_view_state_test`) and one bridged static method assertion path (`next_focus_intent_test`), both candidates for custom cast/UserBridge hardening.
+- Known non-exhaustive switch signature in Batch-23: not detected in this batch.
