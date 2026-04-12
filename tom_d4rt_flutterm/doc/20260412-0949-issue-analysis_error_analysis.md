@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-67 (issues 0..339 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-68 (issues 0..344 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4731,4 +4731,75 @@ Scope: Batch-0 to Batch-67 (issues 0..339 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-67 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one major layout-constraints defect (`color_filtered_test`) and three state-context initialization defects (`default_asset_bundle_test`, `dual_transition_builder_test`, `fade_in_image_test`).
 - Bridge/generator/interpreter classification: one state-property exposure issue (`composited_transform_follower_test` for inherited `State.widget`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-68 (Issues 340-344)
+
+### Index 340
+
+- Index: 340
+- testname: `widgets/fixed_extent_metrics_test.dart`
+- category: `BRIDGE-TYPE-CAST-FAILURE`
+- immediate fix possible: `no — requires bridge/interpreter cast-path correction`
+- description: Test fails (`result status: failure`) with runtime cast failure on `as` involving `SNamedType`, causing expectation mismatch.
+- detailed analysis what the problem is: This is a plain test failure, and the error indicates bridge/interpreter type-cast mismatch rather than a script assertion typo. The failing cast (`Instance of 'SNamedType'`) suggests runtime type-shape incompatibility in the bridged/inferred type path used by this metrics scenario.
+- fix description (if clear): Investigate and correct cast compatibility for the affected `SNamedType` bridge/interpreter mapping path, then re-run the failing assertion to confirm semantic correctness.
+- need for deeper analysis?: `yes — cast/inference bridge path`
+- batch number: `68`
+
+### Index 341
+
+- Index: 341
+- testname: `widgets/glowing_overscroll_indicator_test.dart`
+- category: `BRIDGE-OPERATOR-COERCION + BRIDGE-STATE-PROPERTY-EXPOSURE + BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — mixed bridge fixes required`
+- description: Test passes but logs mixed bridge errors: `Color` operator `==` parameter mismatch, multiple inherited `widget` property misses, and `InterpretedInstance` to `Widget?` cast failures.
+- detailed analysis what the problem is: This scenario exercises several bridge gaps concurrently: operator coercion for `Color == other`, inherited `State.widget` property resolution, and widget-typed cast/coercion boundaries. Failures are bridge/runtime adaptation issues rather than script-only defects.
+- fix description (if clear): (1) add `Color` operator coercion for `other` parameter, (2) ensure inherited `State.widget` exposure on interpreted state subclasses, and (3) harden widget coercion for `Widget?` cast boundaries.
+- need for deeper analysis?: `yes — multi-path bridge adaptation`
+- batch number: `68`
+
+### Index 342
+
+- Index: 342
+- testname: `widgets/html_element_view_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across multiple scene states.
+- detailed analysis what the problem is: Repeated `Undefined property 'widget'` on interpreted state classes indicates unresolved inherited `State.widget` exposure in this widget flow.
+- fix description (if clear): Reuse/extend the inherited `State.widget` bridge-property resolution fix so all scene state subclasses resolve correctly.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `68`
+
+### Index 343
+
+- Index: 343
+- testname: `widgets/image_filtered_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across all deep-demo scene states.
+- detailed analysis what the problem is: Same inherited `State.widget` exposure gap as Index 342, now reproduced across multiple scene variants in image filtering flows.
+- fix description (if clear): Apply shared inherited `State.widget` exposure fix for interpreted state subclasses used in multi-scene deep demos.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `68`
+
+### Index 344
+
+- Index: 344
+- testname: `widgets/indexed_stack_test.dart`
+- category: `BRIDGE-STATE-PROPERTY-EXPOSURE`
+- immediate fix possible: `no — requires bridge state-property support`
+- description: Test passes but logs repeated undefined inherited `widget` property across indexed-stack scene states.
+- detailed analysis what the problem is: Same bridge runtime property-resolution defect (`State.widget`) affecting interpreted state classes in this scenario.
+- fix description (if clear): Reuse the generalized inherited `State.widget` bridge-property fix from Index 342/343.
+- need for deeper analysis?: `yes — shared state inheritance property resolution`
+- batch number: `68`
+
+## Batch-68 Classification Summary
+
+- Missing/stray status for Batch-68 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: none primary; issue 340 is a plain failing test but currently indicates bridge/interpreter cast mismatch rather than script logic defect.
+- Bridge/generator/interpreter classification: one cast failure (`fixed_extent_metrics_test`), one mixed operator/state/widget coercion cluster (`glowing_overscroll_indicator_test`), and three state-property exposure issues (`html_element_view_test`, `image_filtered_test`, `indexed_stack_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
