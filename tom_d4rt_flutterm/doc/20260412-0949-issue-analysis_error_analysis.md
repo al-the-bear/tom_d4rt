@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-73 (issues 0..369 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-74 (issues 0..374 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5157,4 +5157,75 @@ Scope: Batch-0 to Batch-73 (issues 0..369 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-73 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: four `_tabController` late-initialization defects (`restorable_int_test`, `restorable_property_test`, `restorable_string_test`, `restorable_value_test`).
 - Bridge/generator/interpreter classification: one widget coercion issue (`restorable_text_editing_controller_test` plain failure expecting native `Widget`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-74 (Issues 370-374)
+
+### Index 370
+
+- Index: 370
+- testname: `widgets/restoration_mixin_test.dart`
+- category: `TEST-SCRIPT-RESTORATION-LIFECYCLE`
+- immediate fix possible: `yes`
+- description: Test passes but logs framework assertion `'isRegistered': is not true` from `restoration_properties.dart`.
+- detailed analysis what the problem is: The scenario reaches a restoration-property path before registration lifecycle completion, causing an assertion in Flutter restoration internals. This is a script lifecycle ordering defect, not a bridge type-coercion failure.
+- fix description (if clear): Ensure restoration properties are registered before access/use in all code paths (registration during proper lifecycle hook and guarded reads/writes until registration is complete).
+- need for deeper analysis?: `no`
+- batch number: `74`
+
+### Index 371
+
+- Index: 371
+- testname: `widgets/root_element_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabController` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring deep-demo state initialization defect where `_tabController` can be used before lifecycle initialization finalizes.
+- fix description (if clear): Initialize `_tabController` deterministically before first read and guard pre-initialization execution branches.
+- need for deeper analysis?: `no`
+- batch number: `74`
+
+### Index 372
+
+- Index: 372
+- testname: `widgets/root_widget_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge constructor support`
+- description: Plain test failure: `Class '_AttachStep' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: This matches the recurring private-class constructor bridge gap: interpreted/private helper class construction cannot resolve the expected unnamed constructor signature.
+- fix description (if clear): Extend constructor bridge handling for private/helper class instantiation paths (or adjust generated call path) so unnamed constructor invocation is supported for this scenario.
+- need for deeper analysis?: `yes — constructor mapping path for private helper classes`
+- batch number: `74`
+
+### Index 373
+
+- Index: 373
+- testname: `widgets/scroll_action_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Recurring `_tabs` template initialization defect in deep-demo state setup.
+- fix description (if clear): Ensure `_tabs` is initialized on every lifecycle path before use and remove any build-time reads that can happen before initialization.
+- need for deeper analysis?: `no`
+- batch number: `74`
+
+### Index 374
+
+- Index: 374
+- testname: `widgets/scroll_intent_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Same recurring `_tabs` late-initialization pattern as Index 373.
+- fix description (if clear): Reuse shared `_tabs` initialization fix pattern and verify success runs emit no runtime warning output.
+- need for deeper analysis?: `no`
+- batch number: `74`
+
+## Batch-74 Classification Summary
+
+- Missing/stray status for Batch-74 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one restoration lifecycle registration-order defect (`restoration_mixin_test`) and three late-initialization defects (`root_element_test` `_tabController`, `scroll_action_test`/`scroll_intent_test` `_tabs`).
+- Bridge/generator/interpreter classification: one constructor-support defect (`root_widget_test` private helper class unnamed constructor resolution).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
