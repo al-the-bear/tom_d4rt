@@ -78,3 +78,18 @@ issue-index: 30, 32, 34
 	- Implement exhaustive enum mapping/dispatch for bridged `DropdownMenuCloseBehavior` values in interpreter switch evaluation.
 	- Add null-safe coercion/guard layers for slider theme/value extraction paths and nullable receiver method invocation paths before runtime operations are executed.
 	- Add focused interpreter regressions covering: enum-switch exhaustiveness, repeated slider null-check flows, and nullable-receiver method calls in material time-format scenarios.
+
+batch: 7
+
+issue-index: 36, 38
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_banner_closed_reason_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_destination_label_behavior_test.dart`
+- Symptom: non-exhaustive enum switch runtime failures for bridged material enums (`MaterialBannerClosedReason.dismiss`, `NavigationDestinationLabelBehavior.alwaysShow`).
+- Immediate outcome: both scripts were rewritten to harness-safe deterministic enum summary flows and now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- Both failures are the same interpreter enum-dispatch limitation already seen in earlier batches.
+	- Bridged enum values reach switch evaluation without complete exhaustiveness mapping, causing runtime failure instead of matching valid enum branches.
+	- Script-side stabilization unblocks CI but leaves interpreter enum switch semantics incomplete for these material enums.
+- Follow-up recommendation:
+	- Extend interpreter enum dispatch/mapping to guarantee exhaustive handling for `MaterialBannerClosedReason` and `NavigationDestinationLabelBehavior` values.
+	- Add interpreter regression tests for these enums, including the failing members (`dismiss`, `alwaysShow`) to prevent recurrence.

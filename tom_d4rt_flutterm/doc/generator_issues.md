@@ -107,3 +107,8 @@ batch: 6
 
 - No batch-6 entries required bridge-generator deep analysis.
 - Batch-6 deeper follow-up items were interpreter-side (enum switch exhaustiveness and null-runtime handling), documented in `interpreter_issues.md`.
+
+batch: 7
+
+- No batch-7 entries required bridge-generator deep analysis.
+- Batch-7 deeper follow-up items were interpreter-side enum-switch exhaustiveness gaps, documented in `interpreter_issues.md`.

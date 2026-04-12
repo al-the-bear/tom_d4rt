@@ -80,3 +80,16 @@ batch: 6
 - Notes:
   - `end_drawer_button_test.dart` and `gapped_slider_track_shape_test.dart` were direct script-level layout/theme-contract stabilizations.
   - `dropdown_menu_close_behavior_test.dart`, `gapped_range_slider_track_shape_test.dart`, and `hour_format_test.dart` are stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.
+
+batch: 7
+
+- No non-immediate batch-7 script issues remained after immediate fixes.
+- Immediate batch-7 script fixes were applied and validated for:
+  - material/list_tile_title_alignment_test.dart
+  - material/material_banner_closed_reason_test.dart
+  - material/menu_accelerator_callback_binding_test.dart
+  - material/navigation_destination_label_behavior_test.dart
+  - material/navigation_drawer_theme_test.dart
+- Notes:
+  - `list_tile_title_alignment_test.dart`, `menu_accelerator_callback_binding_test.dart`, and `navigation_drawer_theme_test.dart` were direct script-level layout/constraint stabilizations.
+  - `material_banner_closed_reason_test.dart` and `navigation_destination_label_behavior_test.dart` are stabilized script-side while deeper interpreter follow-up is documented in `interpreter_issues.md`.
