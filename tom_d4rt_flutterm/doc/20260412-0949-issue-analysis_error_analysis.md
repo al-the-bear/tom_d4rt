@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-21 (issues 0..109 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-22 (issues 0..114 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -1518,3 +1518,72 @@ Scope: Batch-0 to Batch-21 (issues 0..109 from `20260412-0949-issue-analysis_tes
 - Test-script issue classification: one layout-constraints warning cluster (`keep_alive_handle_test`) and two state-context warning groups (`keyboard_listener_test`, `layout_id_test`).
 - Bridge/generator/interpreter classification: two null-receiver method-invocation failures (`live_text_input_status_test`, `lock_state_test`) likely requiring script null-guarding plus bridge/custom-cast normalization for `withValues` receiver values.
 - Known non-exhaustive switch signature in Batch-21: not detected in this batch.
+
+## Batch-22
+
+### Index 110
+
+- Index: 110
+- testname: `widgets/logical_key_set_test.dart`
+- category: `TEST-SCRIPT-LAYOUT-CONSTRAINTS (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted 13 framework/layout warnings including repeated infinite-size layout errors and non-finite semantics rect assertion.
+- detailed analysis what the problem is: Logical-key-set scene composition triggers unbounded-layout chains (`RenderParagraph`/`RenderPadding`/`RenderFlex`/`RenderTable`) that propagate invalid geometry into semantics (`SemanticsNode` non-finite rect), indicating missing finite constraints in the demo layout path.
+- fix description (if clear): Apply explicit finite constraints for key-set demo containers, remove unbounded flex combinations, and add fail-fast assertions when non-finite layout/semantics diagnostics are emitted.
+- need for deeper analysis?: `yes`
+- batch number: `22`
+
+### Index 111
+
+- Index: 111
+- testname: `widgets/lookup_boundary_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across lookup-boundary scenes.
+- detailed analysis what the problem is: Scene states (`_BoundaryVisibilitySceneState`, `_InheritedScopeSceneState`, `_StateLookupSceneState`, `_TraversalRenderSceneState`, `_PracticalSandboxSceneState`) rely on implicit `widget` access not resolved in interpreted execution.
+- fix description (if clear): Refactor scenes to pass required values explicitly and remove implicit `widget` property reads.
+- need for deeper analysis?: `yes`
+- batch number: `22`
+
+### Index 112
+
+- Index: 112
+- testname: `widgets/matrix_transition_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across matrix-transition scenes.
+- detailed analysis what the problem is: Runtime warnings on `_FundamentalsSceneState`, `_WorkshopSceneState`, `_AlignmentFilterSceneState`, `_KeyframeSceneState`, and `_PracticalSceneState` match the recurring deep-demo state-context resolution defect.
+- fix description (if clear): Use explicit scene config injection/captured references instead of implicit `widget` property access paths.
+- need for deeper analysis?: `yes`
+- batch number: `22`
+
+### Index 113
+
+- Index: 113
+- testname: `widgets/meta_data_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across metadata scenes.
+- detailed analysis what the problem is: Undefined-property warnings on `_FundamentalsSceneState`, `_OverlapBehaviorSceneState`, `_HoverInspectorSceneState`, `_CatalogSceneState`, and `_PracticalSceneState` indicate the same unresolved state-context pattern.
+- fix description (if clear): Apply the shared deep-demo state-context remediation by wiring explicit fields into scene state objects.
+- need for deeper analysis?: `yes`
+- batch number: `22`
+
+### Index 114
+
+- Index: 114
+- testname: `widgets/modal_barrier_test.dart`
+- category: `TEST-SCRIPT-STATE-CONTEXT (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passed, but emitted five runtime warnings for undefined `widget` across modal-barrier scenes.
+- detailed analysis what the problem is: Scene states (`_FundamentalsSceneState`, `_BlockingLabSceneState`, `_WorkflowStageSceneState`, `_MatrixSceneState`, `_PracticalSceneState`) access unresolved `widget` paths in interpreted execution.
+- fix description (if clear): Replace implicit `widget` lookups with explicit scene configuration passing and helper accessors.
+- need for deeper analysis?: `yes`
+- batch number: `22`
+
+## Batch-22 Classification Summary
+
+- Missing/stray status for Batch-22 scripts: none missing, none stray.
+- Test-script issue classification: one layout-constraints/semantics warning cluster (`logical_key_set_test`) and four state-context warning groups (`lookup_boundary_test`, `matrix_transition_test`, `meta_data_test`, `modal_barrier_test`).
+- Bridge/generator/interpreter classification: no new direct bridge/generator/interpreter signature beyond recurring deep-demo state-context property-resolution pattern; primary additional defect is script-side finite-constraints layout handling.
+- Known non-exhaustive switch signature in Batch-22: not detected in this batch.

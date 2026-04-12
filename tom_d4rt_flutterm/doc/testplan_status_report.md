@@ -51,6 +51,8 @@ Batch-20 follow-up note (20260412-0949-issue-analysis): the five Batch-20 script
 
 Batch-21 follow-up note (20260412-0949-issue-analysis): the five Batch-21 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/keep_alive_handle_test.dart`, `widgets/keyboard_listener_test.dart`, `widgets/layout_id_test.dart`, `widgets/live_text_input_status_test.dart`, `widgets/lock_state_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-21. A dedicated regression test script for null-receiver `Color.withValues` handling in live-text/lock-state flows is still missing and is tracked below as a file that needs to be created.
 
+Batch-22 follow-up note (20260412-0949-issue-analysis): the five Batch-22 scripts from `hardly_relevant_classes_4_test.dart` (`widgets/logical_key_set_test.dart`, `widgets/lookup_boundary_test.dart`, `widgets/matrix_transition_test.dart`, `widgets/meta_data_test.dart`, `widgets/modal_barrier_test.dart`) are present in this report and referenced by suites (not stray). No missing referenced scripts were found for Batch-22. A dedicated regression test script for finite-layout/semantics guard handling in logical-key-set flows is still missing and is tracked below as a file that needs to be created.
+
 ## Implementation Threshold
 
 **A test is considered "implemented" if it has ≥80 lines of code.**
@@ -1670,6 +1672,7 @@ The following files test **intentionally deprecated Flutter APIs** that still ex
 | [lock_state_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart) | LockState | No | Yes | No | Created on 2025-04-09 at 14:30. |
 | [color_with_values_null_receiver_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/color_with_values_null_receiver_regression_test.dart) | ColorWithValuesNullReceiverRegression | No | No | No | Needs to be created (Batch-21 failure pattern: `withValues` invoked on null receiver in live-text/lock-state flows). |
 | [logical_key_set_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_test.dart) | LogicalKeySet | No | Yes | No | Created on 2025-04-09 at 16:10. |
+| [logical_key_set_finite_layout_semantics_regression_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/logical_key_set_finite_layout_semantics_regression_test.dart) | LogicalKeySetFiniteLayoutSemanticsRegression | No | No | No | Needs to be created (Batch-22 failure pattern: infinite-size layout cascade and non-finite semantics rect in logical-key-set scenes). |
 | [lookup_boundary_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lookup_boundary_test.dart) | LookupBoundary | No | Yes | No | Created on 2026-04-01 at 18:17. |
 | [magnifier_controller_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_controller_test.dart) | MagnifierController | No | Yes | No | Created on 2025-04-09 at 16:20. |
 | [magnifier_decoration_test.dart](../test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/magnifier_decoration_test.dart) | MagnifierDecoration | No | Yes | No | Created on 2026-04-01 at 18:25. |
