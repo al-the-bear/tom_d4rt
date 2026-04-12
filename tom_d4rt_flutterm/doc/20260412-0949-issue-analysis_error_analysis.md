@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-61 (issues 0..309 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-62 (issues 0..314 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -4305,4 +4305,75 @@ Scope: Batch-0 to Batch-61 (issues 0..309 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-61 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: two layout-constraint defects (`text_selection_toolbar_test`, `text_selection_toolbar_text_button_test`), one constructor-arg misuse (`decoration_image_painter_test`), and one overflow warning (`image_info_test`).
 - Bridge/generator/interpreter classification: one `BRIDGE-WIDGET-COERCION` failure (`box_hit_test_result_test`).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-62 (Issues 310-314)
+
+### Index 310
+
+- Index: 310
+- testname: `rendering/custom_painter_semantics_test.dart`
+- category: `BRIDGE-CALLBACK-TYPE-COERCION + TEST-SCRIPT-OVERFLOW`
+- immediate fix possible: `no — mixed bridge and script fixes required`
+- description: Test passes but logs callback signature mismatch for `semanticsBuilder` plus a bottom overflow warning.
+- detailed analysis what the problem is: The bridge constructor path expects `((Size) => List<CustomPainterSemantics>)?` but receives an unadapted `InterpretedFunction`. In parallel, the scene has minor layout overflow. This combines callback adaptation gap and script layout quality issue.
+- fix description (if clear): (1) Add callback-signature coercion for `semanticsBuilder` function type in bridge constructor adaptation. (2) Tighten scene layout to eliminate overflow warning output.
+- need for deeper analysis?: `yes — callback adaptation path`
+- batch number: `62`
+
+### Index 311
+
+- Index: 311
+- testname: `rendering/platform_view_layer_test.dart`
+- category: `TEST-SCRIPT-OVERFLOW (needs correction)`
+- immediate fix possible: `yes`
+- description: Test passes but logs horizontal RenderFlex overflows (53 px and 70 px).
+- detailed analysis what the problem is: Scripted layout exceeds horizontal bounds in multiple states; this is a layout composition issue rather than bridge/runtime failure.
+- fix description (if clear): Add responsive width constraints/wrapping and reduce fixed-width pressure in affected rows.
+- need for deeper analysis?: `no`
+- batch number: `62`
+
+### Index 312
+
+- Index: 312
+- testname: `rendering/relayout_when_system_fonts_change_mixin_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs `Positioned.fill` constructor error: expected `Widget` child, got `InterpretedInstance(_RelayoutHostWidget)`.
+- detailed analysis what the problem is: Widget child argument is not coerced from interpreted instance to native `Widget` in bridged constructor path, matching recurring widget coercion gap pattern.
+- fix description (if clear): Extend constructor-arg widget coercion for `Positioned.fill` child parameter to unwrap interpreted widget instances before native invocation.
+- need for deeper analysis?: `yes — widget coercion path in constructor bridging`
+- batch number: `62`
+
+### Index 313
+
+- Index: 313
+- testname: `rendering/render_absorb_pointer_test.dart`
+- category: `BRIDGE-WIDGET-COERCION`
+- immediate fix possible: `no — requires bridge coercion enhancement`
+- description: Test passes but logs the same `Positioned.fill` child coercion error (`expected Widget, got InterpretedInstance(_AbsorbGateHost)`).
+- detailed analysis what the problem is: Same widget child coercion gap as Index 312 in a sibling rendering scenario, indicating shared constructor adaptation defect.
+- fix description (if clear): Reuse `Positioned.fill` child widget coercion fix from Index 312; this should resolve both cases.
+- need for deeper analysis?: `yes — shared constructor bridge path`
+- batch number: `62`
+
+### Index 314
+
+- Index: 314
+- testname: `rendering/render_aligning_shifted_box_test.dart`
+- category: `BRIDGE-MISSING-MEMBER`
+- immediate fix possible: `no — requires bridge/member exposure`
+- description: Test passes but logs runtime error in `Iterable.toList` flow: `Undefined property or method 'characters' on bridged instance of 'String'.`
+- detailed analysis what the problem is: The runtime bridge for `String` does not expose the `characters` member used by this script path (likely extension/member resolution gap), causing downstream method-call failure.
+- fix description (if clear): Add member exposure/bridge support for `String.characters` access path (or equivalent bridging for required extension behavior) before `toList` evaluation.
+- need for deeper analysis?: `yes — String member/extension bridge mapping`
+- batch number: `62`
+
+## Batch-62 Classification Summary
+
+- Missing/stray status for Batch-62 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one overflow-only issue (`platform_view_layer_test`) and one mixed overflow issue paired with callback coercion (`custom_painter_semantics_test`).
+- Bridge/generator/interpreter classification: one callback coercion issue (`custom_painter_semantics_test`), two widget coercion issues (`relayout_when_system_fonts_change_mixin_test`, `render_absorb_pointer_test`), and one missing member exposure issue (`render_aligning_shifted_box_test` for `String.characters`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
