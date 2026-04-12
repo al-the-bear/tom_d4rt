@@ -1,6 +1,6 @@
 # 20260412-0949-issue-analysis Error Analysis
 
-Scope: Batch-0 to Batch-74 (issues 0..374 from `20260412-0949-issue-analysis_test_summary.md`).
+Scope: Batch-0 to Batch-75 (issues 0..379 from `20260412-0949-issue-analysis_test_summary.md`).
 
 ## Batch-0
 
@@ -5228,4 +5228,75 @@ Scope: Batch-0 to Batch-74 (issues 0..374 from `20260412-0949-issue-analysis_tes
 - Missing/stray status for Batch-74 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
 - Test-script issue classification: one restoration lifecycle registration-order defect (`restoration_mixin_test`) and three late-initialization defects (`root_element_test` `_tabController`, `scroll_action_test`/`scroll_intent_test` `_tabs`).
 - Bridge/generator/interpreter classification: one constructor-support defect (`root_widget_test` private helper class unnamed constructor resolution).
+- Known non-exhaustive switch signature in Batch-25: not detected in this batch.
+
+---
+
+# Batch-75 (Issues 375-379)
+
+### Index 375
+
+- Index: 375
+- testname: `widgets/shader_mask_test.dart`
+- category: `BRIDGE-MISSING-INSTANCE-METHOD (List.whereType)`
+- immediate fix possible: `no — requires bridge collection method support`
+- description: Test passes but logs `Bridged class 'List' has no instance method named 'whereType'` during extension lookup.
+- detailed analysis what the problem is: This is the recurring bridge/runtime collection-method exposure gap where interpreted/bridged `List` does not expose `whereType` in widget flows.
+- fix description (if clear): Extend bridge/runtime `List` method exposure to include `whereType` in the same iterable-extension path used by existing supported methods.
+- need for deeper analysis?: `yes — shared collection method exposure path`
+- batch number: `75`
+
+### Index 376
+
+- Index: 376
+- testname: `widgets/single_child_render_object_element_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge constructor support`
+- description: Plain test failure: `Class '_MethodInfo' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: This matches the recurring private/helper class constructor bridge gap where unnamed constructor mapping for interpreted private classes is missing or not reachable.
+- fix description (if clear): Extend constructor bridge handling for private/helper class instantiation so unnamed constructor invocation with arguments resolves for this path.
+- need for deeper analysis?: `yes — constructor mapping for private helper classes`
+- batch number: `75`
+
+### Index 377
+
+- Index: 377
+- testname: `widgets/single_child_render_object_widget_test.dart`
+- category: `BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT`
+- immediate fix possible: `no — requires bridge constructor support`
+- description: Plain test failure: `Class '_SubclassEntry' does not have an unnamed constructor that accepts arguments.`
+- detailed analysis what the problem is: Same private/helper class constructor resolution gap as Index 376, now triggered on a different helper type.
+- fix description (if clear): Reuse the same constructor bridge enhancement so unnamed constructor mapping works for this private helper class path as well.
+- need for deeper analysis?: `yes — shared constructor bridge path`
+- batch number: `75`
+
+### Index 378
+
+- Index: 378
+- testname: `widgets/single_ticker_provider_state_mixin_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION + TEST-SCRIPT-LAYOUT-CONSTRAINT`
+- immediate fix possible: `yes`
+- description: Test passes but logs repeated `_controller` late-init errors and cascading infinite-size layout assertions across multiple render objects.
+- detailed analysis what the problem is: This is a mixed script defect: controller lifecycle initialization is incomplete (`_controller` read before assignment) and the demo composition allows unbounded/infinite constraints, causing repeated render-object infinite-size assertions.
+- fix description (if clear): Initialize `_controller` on all execution paths before use and rework layout scaffold to enforce bounded constraints (or scroll/flexible containment) so success runs emit no framework errors.
+- need for deeper analysis?: `no`
+- batch number: `75`
+
+### Index 379
+
+- Index: 379
+- testname: `widgets/spell_check_configuration_test.dart`
+- category: `TEST-SCRIPT-STATE-INITIALIZATION`
+- immediate fix possible: `yes`
+- description: Test passes but logs late-init access: `_tabs` is accessed before assignment.
+- detailed analysis what the problem is: Recurring deep-demo `_tabs` initialization-order defect where build-time access can occur before initialization.
+- fix description (if clear): Ensure `_tabs` is initialized before any read and guard pre-initialization paths.
+- need for deeper analysis?: `no`
+- batch number: `75`
+
+## Batch-75 Classification Summary
+
+- Missing/stray status for Batch-75 scripts: none missing, none stray. All referenced scripts are present and listed in the status report.
+- Test-script issue classification: one mixed initialization/layout issue (`single_ticker_provider_state_mixin_test`) and one late-init issue (`spell_check_configuration_test` `_tabs`).
+- Bridge/generator/interpreter classification: one missing `List.whereType` method exposure issue (`shader_mask_test`) and two private constructor-support issues (`single_child_render_object_element_test`, `single_child_render_object_widget_test`).
 - Known non-exhaustive switch signature in Batch-25: not detected in this batch.
