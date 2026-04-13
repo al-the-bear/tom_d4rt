@@ -528,3 +528,31 @@ batch: 38
 
 - No batch-38 entries required bridge-generator deep analysis.
 - Batch-38 issues were script-level state-context template defects and are documented in `script_issues.md`.
+
+batch: 39
+
+issue-index: 198
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
+- Symptom: constructor invocation failure for private class `_Phase` (`Class '_Phase' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 198 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- The failure matches the recurring private-class constructor bridge limitation where unnamed constructors with parameters are not exposed for underscore-prefixed classes.
+	- Runtime reaches instantiation but constructor lookup cannot resolve a bridged callable for `_Phase`, indicating missing generated constructor registration rather than script-level control-flow defects.
+	- This extends the same systemic defect family seen in prior batches (`_ChainItem`, `_FlowStage`, `_SubclassInfo`) and confirms the gap is generator/runtime constructor surface, not widget-specific.
+- Follow-up recommendation:
+	- Extend bridge-generator support (or explicit fallback strategy) for unnamed constructors on private classes with parameters.
+	- Add regression coverage around private constructor invocation in shortcut-registry and similar state-tracking helper models.
+
+issue-index: 199
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_serialization_test.dart`
+- Symptom: constructor invocation failure for private class `_TriggerInfo` (`Class '_TriggerInfo' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 199 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- The failure is the same constructor-binding limitation as index 198, now reproduced in shortcut serialization flow.
+	- The repeated private-class instantiation failure across registry and serialization contexts indicates class-name-specific scripting fixes would be brittle and non-durable.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy so interpreted code can instantiate private helper models consistently.
+- Follow-up recommendation:
+	- Implement shared generator/runtime handling for private unnamed constructors with positional/named parameters.
+	- Add regression tests for private constructor invocation in serialization and registry data models to prevent recurrence.

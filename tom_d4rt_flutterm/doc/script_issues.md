@@ -598,3 +598,18 @@ batch: 38
     - Batch-38 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-37.
     - The `_tabCtrl` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 39
+
+- Immediate batch-39 script fixes were applied and validated for:
+  - widgets/shortcut_activator_test.dart
+  - widgets/shortcut_manager_test.dart
+  - widgets/shortcut_map_property_test.dart
+- Routed non-immediate items:
+  - widgets/shortcut_registry_entry_test.dart (issue-index: 198) was not modified because `immediate fix possible` is `no`; full bridge-generator deep analysis is documented in `generator_issues.md`.
+  - widgets/shortcut_serialization_test.dart (issue-index: 199) was not modified because `immediate fix possible` is `no`; full bridge-generator deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - Batch-39 immediate fixes removed recurring late-initialization template defects (`_tabCtrl` and `_loggingManager`) by replacing lifecycle-dependent state templates with deterministic explicit-data script flows.
+  - Complex script deep-analysis pattern (issue-index: 195, 196, 197 immediate):
+    - Batch-39 extends the same architecture-level template defect family seen across prior batches, with `_loggingManager` as a new variable-name variant of uninitialized late state fields.
+    - Long-term prevention requires template rules that avoid late lifecycle controller/manager fields in interpreted deep-demo scripts.

@@ -308,3 +308,8 @@ batch: 38
 
 - No batch-38 entries required interpreter deep analysis.
 - Batch-38 deeper follow-up items were script-level state-context template stabilization, documented in `script_issues.md`.
+
+batch: 39
+
+- No batch-39 entries required interpreter deep analysis.
+- Batch-39 deeper follow-up items were bridge private-constructor support limitations and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
