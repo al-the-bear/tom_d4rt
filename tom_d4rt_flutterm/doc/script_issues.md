@@ -408,3 +408,21 @@ batch: 27
 - Notes:
   - `relative_positioned_transition_test.dart` was a direct script-level finite-constraint/overflow stabilization.
   - Other immediate fixes in this batch were tactical script stabilizations for bridge-coercion/log paths while durable remediation remains bridge-level.
+
+batch: 28
+
+- One non-immediate batch-28 issue remained after immediate fixes and was routed for deep bridge analysis (issue-index: 142).
+- Immediate batch-28 script fixes were applied and validated for:
+  - widgets/render_tap_region_surface_test.dart
+  - widgets/render_tap_region_test.dart
+  - widgets/render_two_dimensional_viewport_test.dart
+  - widgets/render_web_image_test.dart
+- Routed non-immediate item:
+  - widgets/render_tree_root_element_test.dart (issue-index: 142) was not modified because `immediate fix possible` is `no`; full deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - `render_tap_region_test.dart`, `render_two_dimensional_viewport_test.dart`, and `render_web_image_test.dart` were direct script-level state-context stabilizations removing recurring `_tabController` late-initialization paths.
+  - `render_tap_region_surface_test.dart` was stabilized script-side while durable widget-coercion remediation remains bridge-level and is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 141, 143, 144):
+    - Three scripts shared the same deep-visual template defect: late `_tabController` access before guaranteed initialization in interpreted execution.
+    - This recurring pattern is architecture-level script coupling to lifecycle timing, not isolated per-script logic drift.
+    - Immediate mitigation replaced affected flows with deterministic explicit-data rendering; long-term script quality should avoid template-level late lifecycle dependencies in interpreted demo paths.

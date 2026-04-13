@@ -386,3 +386,23 @@ issue-index: 135, 137, 138, 139
 	- Harden list coercion from interpreted collections to `List<Widget>` with per-element widget coercion before cast boundaries.
 	- For `_BootstrapStepInfo`, either refactor script bootstrap to avoid private helper instantiation in interpreted code, or add a public factory/UserBridge-accessible construction path; private unnamed constructor reliance is not stable under current bridge generation.
 	- Add regression coverage for all three classes of failures: widget coercion, list coercion, and private-constructor bootstrap paths.
+
+batch: 28
+
+issue-index: 140, 142
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_tap_region_surface_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_tree_root_element_test.dart`
+- Symptom:
+	- `render_tap_region_surface_test.dart`: widget-boundary coercion failure (`Expected Widget but got InterpretedInstance`).
+	- `render_tree_root_element_test.dart`: bridged method lifecycle timing failure on `visitAncestorElements` (`LateInitializationError: Field '_children...' has not been initialized`).
+- Immediate outcome:
+	- Index 140 was stabilized via script rewrite and now passes targeted rerun with `frameworkErrors=0`.
+	- Index 142 is non-immediate and remains warning-producing (`frameworkErrors=1`), so it was left unchanged for bridge-level remediation.
+- Deep analysis:
+	- Index 140 is another widget coercion boundary defect where interpreted values are not normalized to native `Widget` before harness validation.
+	- Index 142 indicates bridged invocation timing is allowing element-tree traversal (`visitAncestorElements`) before framework-private child state is fully initialized; this is a bridge/runtime call-order contract gap rather than a pure layout script issue.
+	- Together, batch-28 bridge issues show two separate bridge-surface reliability gaps: type coercion at widget boundaries and lifecycle-aware guardrails for bridged element-tree methods.
+- Follow-up recommendation:
+	- Extend widget coercion normalization to cover the `RenderTapRegionSurface` script path and related wrappers before native widget assertions.
+	- Add lifecycle guardrails for bridged element traversal methods (including `visitAncestorElements`) so calls are deferred/validated until mount completion, or return typed diagnostics instead of propagating private-field late-init failures.
+	- Add regressions for both defect families: widget coercion in render-tap-region flows and post-mount safe invocation semantics for element-tree traversal APIs.
