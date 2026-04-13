@@ -426,3 +426,20 @@ batch: 28
     - Three scripts shared the same deep-visual template defect: late `_tabController` access before guaranteed initialization in interpreted execution.
     - This recurring pattern is architecture-level script coupling to lifecycle timing, not isolated per-script logic drift.
     - Immediate mitigation replaced affected flows with deterministic explicit-data rendering; long-term script quality should avoid template-level late lifecycle dependencies in interpreted demo paths.
+
+batch: 29
+
+- No non-immediate batch-29 script issues remained after immediate fixes.
+- Immediate batch-29 script fixes were applied and validated for:
+  - widgets/repeat_mode_test.dart
+  - widgets/replace_text_intent_test.dart
+  - widgets/request_focus_action_test.dart
+  - widgets/request_focus_intent_test.dart
+  - widgets/restorable_bool_n_test.dart
+- Notes:
+  - `repeat_mode_test.dart`, `request_focus_intent_test.dart`, and `restorable_bool_n_test.dart` were direct script-level state-context stabilizations removing the recurring `_tabController` late-initialization path.
+  - `replace_text_intent_test.dart` and `request_focus_action_test.dart` were stabilized script-side while deeper bridge-widget-coercion follow-up is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 145, 148, 149):
+    - Batch-29 continues the same deep-visual template defect seen in batch-28: lifecycle-dependent late `_tabController` usage without guaranteed initialization in interpreted execution.
+    - The repeated pattern across three scripts indicates a reusable template architecture issue rather than isolated script logic mistakes.
+    - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.

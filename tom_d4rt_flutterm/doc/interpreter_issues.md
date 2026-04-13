@@ -248,3 +248,8 @@ batch: 28
 
 - No batch-28 entries required interpreter deep analysis.
 - Batch-28 deeper follow-up items were bridge-widget coercion and bridged lifecycle timing defects, documented in `generator_issues.md`.
+
+batch: 29
+
+- No batch-29 entries required interpreter deep analysis.
+- Batch-29 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.

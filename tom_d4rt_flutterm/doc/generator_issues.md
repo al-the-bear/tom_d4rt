@@ -406,3 +406,18 @@ issue-index: 140, 142
 	- Extend widget coercion normalization to cover the `RenderTapRegionSurface` script path and related wrappers before native widget assertions.
 	- Add lifecycle guardrails for bridged element traversal methods (including `visitAncestorElements`) so calls are deferred/validated until mount completion, or return typed diagnostics instead of propagating private-field late-init failures.
 	- Add regressions for both defect families: widget coercion in render-tap-region flows and post-mount safe invocation semantics for element-tree traversal APIs.
+
+batch: 29
+
+issue-index: 146, 147
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/replace_text_intent_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/request_focus_action_test.dart`
+- Symptom: both scripts failed with widget-boundary coercion errors (`Expected Widget but got InterpretedInstance`).
+- Immediate outcome: both scripts were rewritten to deterministic harness-safe native-widget flows and now pass targeted reruns with `frameworkErrors=0`.
+- Deep analysis:
+	- The two failures are the same bridge coercion defect family observed in prior batches: interpreted wrapper instances are not normalized before native widget assertion boundaries.
+	- The recurrence in text-intent and focus-action domains suggests coercion coverage is still incomplete across action/intent-oriented widget wrapper paths, not limited to a single component.
+	- Script-level mitigations remove immediate CI failures but do not restore canonical interpreted widget composition across these bridge surfaces.
+- Follow-up recommendation:
+	- Extend widget coercion registration/normalization for wrappers used by `ReplaceTextIntent` and `RequestFocusAction` demo paths so interpreted values are unwrapped before widget-only boundaries.
+	- Add focused regressions for action/intent-oriented demo wrappers to verify coercion succeeds for both top-level return values and nested child widget parameters.
