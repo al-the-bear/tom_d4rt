@@ -622,3 +622,45 @@ issue-index: 219
 - Follow-up recommendation:
 	- Same as indices 217-218: extend bridge-generator private constructor support.
 	- Add regression coverage for tooltip positioning case-definition model instantiation.
+
+batch: 44
+
+issue-index: 220
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_delegate_test.dart`
+- Symptom: constructor invocation failure for private class `_PolicyPreset` (`Class '_PolicyPreset' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 220 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Continues the recurring private-class constructor bridge limitation from batches 37, 39, 40, 43 (`_Phase`, `_TriggerInfo`, `_ChainItem`, `_Key`, `_TimelineStep`, `_LegacyToolbarProfile`, `_CaseDefinition`).
+	- Runtime reaches class instantiation but cannot resolve a bridged unnamed constructor callable for the underscore-prefixed type.
+	- Durable remediation belongs in bridge-generator/private-constructor handling strategy.
+- Follow-up recommendation:
+	- Extend bridge-generator output to support unnamed constructors with parameters for private classes.
+	- Add regression coverage for policy-preset model instantiation in tooltip controller delegates.
+
+issue-index: 221
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_window_controller_test.dart`
+- Symptom: constructor invocation failure for private class `_Pattern` (`Class '_Pattern' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 221 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Same defect family as index 220 — private-class constructor bridge limitation.
+	- Runtime cannot resolve unnamed constructor for `_Pattern`.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy.
+- Follow-up recommendation:
+	- Same as index 220: extend bridge-generator private constructor support.
+	- Add regression coverage for pattern model instantiation in tooltip window controllers.
+
+issue-index: 223
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/transition_delegate_test.dart`
+- Symptom: two distinct bridge errors — (1) `Undefined property 'setState' on _DefaultDemoPageState` and (2) `Native error during default bridged constructor for 'Navigator': expected TransitionDelegate<dynamic>, got InterpretedInstance`.
+- Immediate outcome: index 223 is non-immediate and remains failing; script was left unchanged for bridge-level remediation.
+- Deep analysis:
+	- Error (1): BRIDGE-MISSING-STATE-WIDGET-ACCESSOR — same defect family as batch-40 indices 203-204. `setState` is not resolved on the private `_DefaultDemoPageState` subclass of `State`. The interpreter cannot dispatch inherited `State<T>.setState` for private subclasses.
+	- Error (2): BRIDGE-WIDGET-COERCION — the `TransitionDelegate` custom subclass created by the interpreter is passed as an `InterpretedInstance` to the `Navigator` constructor, which expects `TransitionDelegate<dynamic>`. The bridge cannot coerce the interpreted instance to the expected native type.
+	- Both defect families require separate bridge enhancements: inherited member resolution for State subclasses, and type coercion for interpreted subclass instances of framework abstract classes.
+- Follow-up recommendation:
+	- (1) Extend interpreter member resolution to include inherited methods from generic superclasses (`State<T>.setState`) for interpreted subclasses.
+	- (2) Add UserBridge or type coercion handler for `TransitionDelegate` so interpreted subclass instances are properly wrapped for native consumption.
+	- Add regression coverage for combined State-accessor + widget-coercion scenarios in navigation delegate scripts.

@@ -673,3 +673,18 @@ batch: 43
     - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
   - Three additional batch-43 entries (issue-index: 217, 218, 219) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.
+
+batch: 44
+
+- No non-immediate batch-44 script issues remained after immediate fixes.
+- Immediate batch-44 script fixes were applied and validated for:
+  - widgets/tooltip_window_test.dart
+  - widgets/transpose_characters_intent_test.dart
+- Notes:
+  - Both batch-44 immediate-fix issues were direct script-level state-context stabilizations removing the recurring `_tabController` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 222, 224):
+    - Batch-44 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-43.
+    - The `_tabController` variant is the original naming from batches 28-31, now recurring.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+  - Two batch-44 entries (issue-index: 220, 221) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.
+  - One batch-44 entry (issue-index: 223) was a combined BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION issue; documented in `generator_issues.md`.
