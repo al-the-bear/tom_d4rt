@@ -478,3 +478,18 @@ batch: 34
 
 - No batch-34 entries required bridge-generator deep analysis.
 - Batch-34 issues were script-level state-context template defects and are documented in `script_issues.md`.
+
+batch: 35
+
+issue-index: 178
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_position_alignment_policy_test.dart`
+- Symptom: runtime hard failure at widget boundary (`Expected Widget but got InterpretedInstance`).
+- Immediate outcome: index 178 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-level remediation.
+- Deep analysis:
+	- The failure matches the established bridge-widget coercion defect family where interpreted wrapper values are not normalized to concrete Flutter `Widget` types before native type assertions.
+	- The recurrence in the scroll-position alignment-policy flow confirms coercion gaps remain in scroll-notification/alignment wrapper paths, not only earlier route/navigation paths.
+	- Durable remediation belongs in bridge/runtime coercion semantics, not per-script tactical patching for non-immediate entries.
+- Follow-up recommendation:
+	- Extend widget coercion normalization to unwrap `InterpretedInstance` before widget-boundary checks in alignment-policy and adjacent scroll-observer paths.
+	- Add targeted regressions for scroll alignment/observer bridge paths to ensure interpreted widget subclasses consistently satisfy native `Widget` expectations.

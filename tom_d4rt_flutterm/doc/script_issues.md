@@ -528,3 +528,23 @@ batch: 34
     - Batch-34 continues the late-init deep-visual template defect pattern seen in batches 28-33.
     - The repeated `_tabs` variant confirms the defect is template-architecture driven and independent of a single field identifier.
     - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
+
+batch: 35
+
+- Immediate batch-35 script fixes were applied and validated for:
+  - widgets/scroll_metrics_notification_test.dart
+  - widgets/scroll_notification_observer_test.dart
+  - widgets/scroll_position_with_single_context_test.dart
+- Routed non-immediate items:
+  - widgets/scroll_notification_observer_state_test.dart (issue-index: 176) was not modified because `immediate fix possible` is `no`; deep analysis below captures the recurring late-init template failure observed in targeted reruns.
+  - widgets/scroll_position_alignment_policy_test.dart (issue-index: 178) was not modified because `immediate fix possible` is `no`; full bridge-coercion analysis is documented in `generator_issues.md`.
+- Deep analysis (non-immediate script issue-index: 176):
+  - Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_notification_observer_state_test.dart`
+  - Symptom: targeted rerun reports `Undefined variable: _tabCtrl` with `LateInitializationError` (`frameworkErrors=1`).
+  - Pattern: same lifecycle-dependent state-context defect family seen across batches 28-35 (`_tabController` -> `_tabs` -> `_tabCtrl` variable-name variants) where late fields are read before guaranteed initialization in interpreted execution.
+  - Scope: although batch metadata classifies this index as non-immediate, the observed runtime signature is script-template-state driven rather than interpreter-core.
+- Notes:
+  - Batch-35 immediate scripts were stabilized via deterministic explicit-data flows to remove lifecycle-dependent late tab-controller fields.
+  - Complex script deep-analysis pattern (issue-index: 175, 177, 179 immediate; 176 non-immediate):
+    - The `_tabCtrl` variant is a naming variation of the same longstanding template defect family.
+    - Continued prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
