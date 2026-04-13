@@ -556,3 +556,18 @@ issue-index: 199
 - Follow-up recommendation:
 	- Implement shared generator/runtime handling for private unnamed constructors with positional/named parameters.
 	- Add regression tests for private constructor invocation in serialization and registry data models to prevent recurrence.
+
+batch: 40
+
+issue-index: 200
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/single_activator_test.dart`
+- Symptom: constructor invocation failure for private class `_Key` (`Class '_Key' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 200 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- The failure continues the recurring private-class constructor bridge limitation from recent batches (`_Phase`, `_TriggerInfo`, `_ChainItem`).
+	- Runtime reaches class instantiation but cannot resolve a bridged unnamed constructor callable for the underscore-prefixed type, indicating missing constructor registration support for private classes with parameters.
+	- Durable remediation belongs in bridge-generator/private-constructor handling strategy, not per-script tactical edits.
+- Follow-up recommendation:
+	- Extend bridge-generator output (or documented fallback path) to support unnamed constructors with parameters for private classes used by interpreted scripts.
+	- Add regression coverage around private constructor invocation in keyboard-shortcut model flows.

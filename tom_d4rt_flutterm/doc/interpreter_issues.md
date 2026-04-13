@@ -313,3 +313,31 @@ batch: 39
 
 - No batch-39 entries required interpreter deep analysis.
 - Batch-39 deeper follow-up items were bridge private-constructor support limitations and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 40
+
+issue-index: 203
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart`
+- Symptom: runtime member-access failure on private State subclass (`Undefined variable: setState`, original error: `Undefined property 'setState' on _InteractivePageState`).
+- Immediate outcome: index 203 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter-level remediation.
+- Deep analysis:
+	- This is the same inherited-State-accessor defect family as batch-37 index 186 (`widget` getter), now reproduced for inherited method lookup (`setState`) on a private `State` subclass.
+	- Runtime resolves the interpreted class instance but fails superclass-member lookup against `State<T>`, indicating inherited member dispatch gaps rather than script lifecycle/template issues.
+	- Durable remediation belongs in interpreter inherited member resolution for private/public `State` subclasses, not in per-script tactical edits.
+- Follow-up recommendation:
+	- Extend interpreter member resolution to include inherited methods from generic superclasses (`State<T>.setState`) for interpreted subclasses.
+	- Add focused regressions for inherited `State` API access (`widget`, `setState`, `mounted`) on private and public subclasses.
+
+issue-index: 204
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart`
+- Symptom: runtime bridge/member failure in builder state tracking (`Bridged class 'Map' has no instance method named 'contains'`).
+- Immediate outcome: index 204 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter/bridge-level remediation.
+- Deep analysis:
+	- Current runtime behavior diverges from the original batch note (`setState` accessor): targeted reruns consistently fail earlier on `.contains` during set-membership checks in `_builtIndices.contains(index)`.
+	- The script declares `_builtIndices` as `Set<int>`, but interpreted execution appears to surface Map-like behavior for the backing value, suggesting collection-literal/type-resolution mismatch in interpreted state initialization.
+	- This is not an immediate script-template late-init defect; it indicates interpreter/bridge collection semantics or type inference gaps for `{}`-initialized typed sets.
+- Follow-up recommendation:
+	- Validate interpreted handling of typed set literals (`Set<int> s = {}`) and ensure method dispatch resolves to `Set.contains`, not `Map` bridge surfaces.
+	- Add regressions for set-literal initialization and method dispatch (`contains`, `add`, `clear`) in interpreted widget state classes.

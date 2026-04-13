@@ -613,3 +613,17 @@ batch: 39
   - Complex script deep-analysis pattern (issue-index: 195, 196, 197 immediate):
     - Batch-39 extends the same architecture-level template defect family seen across prior batches, with `_loggingManager` as a new variable-name variant of uninitialized late state fields.
     - Long-term prevention requires template rules that avoid late lifecycle controller/manager fields in interpreted deep-demo scripts.
+
+batch: 40
+
+- Immediate batch-40 script fixes were applied and validated for:
+  - widgets/size_changed_layout_notification_test.dart
+  - widgets/sliver_animated_grid_state_test.dart
+- Routed non-immediate items:
+  - widgets/single_activator_test.dart (issue-index: 200) was not modified because `immediate fix possible` is `no`; full bridge-generator deep analysis is documented in `generator_issues.md`.
+  - widgets/sliver_animated_list_state_test.dart (issue-index: 203) was not modified because `immediate fix possible` is `no`; full interpreter-level deep analysis is documented in `interpreter_issues.md`.
+  - widgets/sliver_child_builder_delegate_test.dart (issue-index: 204) was not modified because `immediate fix possible` is `no`; full interpreter/bridge-level deep analysis is documented in `interpreter_issues.md`.
+- Notes:
+  - Immediate batch-40 fixes removed recurring `_tabs` late-initialization template defects by replacing lifecycle-dependent tab-controller scripts with deterministic explicit-data flows.
+  - Non-immediate behavior note:
+    - issue-index 204 currently reproduces as `Map.contains` bridge/member failure, which diverges from the original batch annotation (`setState` accessor). The rerun-observed failure is documented in interpreter deep analysis for durable remediation planning.
