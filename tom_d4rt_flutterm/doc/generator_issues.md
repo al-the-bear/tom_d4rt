@@ -333,3 +333,19 @@ issue-index: 125, 126, 127, 128, 129
 	- Extend default-constructor support fallback for object-creation paths used by raw-menu overlay flows.
 	- Add widget coercion normalization at boundary checks so interpreted widget instances are unwrapped before native widget assertions.
 	- Add focused regressions for all five bridge defect classes above to prevent recurrence.
+
+batch: 26
+
+issue-index: 130, 131, 132, 133, 134
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_delegate_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_linux_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_mac_o_s_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_controller_win32_test.dart`
+- Symptom: all five tests fail with the same bridge-boundary coercion error (`Expected Widget but got InterpretedInstance`).
+- Immediate outcome: all five scripts were rewritten to deterministic harness-safe native-widget flows and targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- The failure signature is uniform across delegate/base/platform-specific controller variants, indicating a shared coercion gap rather than class-specific script defects.
+	- Interpreted widget instances for the `RegularWindowController*` hierarchy are not being normalized to concrete `Widget` values at the harness validation boundary.
+	- Because the defect is systemic to the hierarchy, a centralized bridge coercion registration/update would likely resolve the full batch with one fix pattern.
+- Follow-up recommendation:
+	- Add/verify widget coercion normalization for the full `RegularWindowController*` family in bridge runtime handling, not per-script patches.
+	- Ensure hierarchy-wide registration includes delegate, base, and platform variants (linux, macOS, win32) in the active widget coercion map.
+	- Add regression tests that assert interpreted instances are unwrapped to native widgets for each `RegularWindowController*` variant before success checks.

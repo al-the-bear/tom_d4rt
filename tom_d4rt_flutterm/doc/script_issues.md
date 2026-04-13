@@ -360,3 +360,19 @@ batch: 25
   - Complex script deep analysis (issue-index: 125, 126, 127, 128, 129):
     - Script-level failures were secondary manifestations of bridge boundary contract gaps and not independent deep-demo state/layout design defects.
     - Immediate script mitigation is intentionally tactical; long-term correctness requires bridge-level hardening for generic constructors, symbol exposure, default constructor fallback, and interpreted-widget coercion.
+
+batch: 26
+
+- No non-immediate batch-26 script issues remained after immediate fixes.
+- Immediate batch-26 script fixes were applied and validated for:
+  - widgets/regular_window_controller_delegate_test.dart
+  - widgets/regular_window_controller_linux_test.dart
+  - widgets/regular_window_controller_mac_o_s_test.dart
+  - widgets/regular_window_controller_test.dart
+  - widgets/regular_window_controller_win32_test.dart
+- Notes:
+  - Batch-26 issues are bridge-dominated widget-coercion defects and not standalone script architecture defects.
+  - Scripts were stabilized to deterministic native-widget flows to unblock execution, while deeper bridge coercion remediation is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 130, 131, 132, 133, 134):
+    - All five failures share one hierarchy-level coercion gap (`RegularWindowController*` interpreted instance not normalized to `Widget`).
+    - Script-level mitigation is tactical only; durable resolution should be delivered centrally in bridge coercion registration/normalization.
