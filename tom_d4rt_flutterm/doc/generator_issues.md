@@ -441,3 +441,18 @@ batch: 31
 
 - No batch-31 entries required bridge-generator deep analysis.
 - Batch-31 issues were script-level state-context template defects and are documented in `script_issues.md`.
+
+batch: 32
+
+issue-index: 162, 163
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_information_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/route_pop_disposition_test.dart`
+- Symptom: both scripts fail with widget-boundary coercion mismatch (`Expected Widget but got InterpretedInstance`).
+- Immediate outcome: both entries are non-immediate and remain failing in targeted reruns; scripts were left unchanged for bridge-level remediation.
+- Deep analysis:
+	- The failures match the established systemic coercion defect family where interpreted wrapper instances are not normalized to concrete Flutter `Widget` values before native/widget-only assertions.
+	- Recurrence in route-information and route-pop-disposition flows indicates coercion gaps persist in navigator/route-oriented wrapper paths, not only in previously patched action/render families.
+	- Script-level mitigation is intentionally deferred for these non-immediate entries because durable resolution belongs in bridge/runtime coercion semantics.
+- Follow-up recommendation:
+	- Extend bridge/widget coercion normalization for route-information and route-pop-disposition wrapper paths so interpreted instances are unwrapped before widget-boundary checks.
+	- Add focused regressions for route-oriented demo wrappers to verify both top-level widget returns and nested route widget parameters are normalized consistently.

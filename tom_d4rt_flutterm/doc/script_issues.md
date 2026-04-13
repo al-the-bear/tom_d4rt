@@ -476,3 +476,20 @@ batch: 31
     - Batch-31 continues the same deep-visual template defect seen in batches 28-30: lifecycle-dependent late `_tabController` usage without guaranteed initialization in interpreted execution.
     - The repeated pattern across all five scripts confirms a template-level architecture issue rather than isolated per-script defects.
     - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
+
+batch: 32
+
+- No non-immediate batch-32 script issues remained after immediate fixes.
+- Immediate batch-32 script fixes were applied and validated for:
+  - widgets/root_render_object_element_test.dart
+  - widgets/route_information_reporting_type_test.dart
+  - widgets/route_transition_record_test.dart
+- Routed non-immediate items:
+  - widgets/route_information_test.dart (issue-index: 162) was not modified because `immediate fix possible` is `no`; full deep analysis is documented in `generator_issues.md`.
+  - widgets/route_pop_disposition_test.dart (issue-index: 163) was not modified because `immediate fix possible` is `no`; full deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - All immediate batch-32 script fixes were direct script-level state-context stabilizations removing recurring late-initialization paths (`_tabs` variant and same template family as `_tabController`).
+  - Complex script deep analysis (issue-index: 160, 161, 164):
+    - Batch-32 continues the deep-visual template defect pattern from batches 28-31, with late lifecycle field access before guaranteed initialization.
+    - The `_tabs` variant confirms the issue is template-architecture driven and not tied to one specific field name.
+    - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
