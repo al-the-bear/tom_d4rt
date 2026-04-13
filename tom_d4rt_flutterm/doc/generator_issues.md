@@ -736,3 +736,35 @@ batch: 52
 - One BRIDGE-WIDGET-COERCION issue detected in batch-52:
   - issue-index 261: `widgets/window_scope_test.dart` — `InterpretedInstance` is not coerced to `Widget` type. A script-created widget instance passes through a native path expecting concrete `Widget`, but bridge fails to wrap it.
 - Fix requires: Extend widget coercion/UserBridge logic so interpreted widget instances are converted to native-compatible `Widget` values.
+
+batch: 53
+
+- One BRIDGE-MISSING-METHOD-DISPATCH issue detected in batch-53:
+  - issue-index 267: `widgets/slidetransition_test.dart` — `$RelaxedAnimation<Offset>` wrapper does not expose `addListener` method. The bridge/runtime wrapper for relaxed animation values lacks `Animation` listener APIs (`addListener`/`removeListener`) expected by `SlideTransition` flow.
+  - Fix requires: Extend bridge/runtime wrapper for relaxed animation objects to forward `addListener`/`removeListener` and related `Listenable` behavior.
+- One BRIDGE-WIDGET-LIST-COERCION issue detected in batch-53:
+  - issue-index 269: `widgets/nestedscrollview_test.dart` — `List<Object?>` not coerced to `List<Widget>`. The bridge path handling child collections in `NestedScrollView` produces a generic object list that is not coerced to typed `List<Widget>`.
+  - Fix requires: Add coercion for interpreted `List<Object?>` into typed `List<Widget>` where widget collection APIs are expected.
+- One script fix (issue-index 265) and one lifecycle fix (issue-index 268) documented in `script_issues.md`. Issue-index 266 was TEST-HARNESS-INFO (no action).
+
+batch: 54
+
+- No batch-54 entries required bridge-generator deep analysis.
+- Batch-54 had two script layout-constraint fixes and three intentional interactive skips, documented in `script_issues.md`.
+
+batch: 55
+
+- One BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING issue detected in batch-55:
+  - issue-index 278: `animation/tweensequence_test.dart` — Generic constructor factory for `TweenSequenceItem` dereferences nullable value with `!` during construction. Missing null-safety handling in bridge factory argument processing.
+  - Fix requires: Harden generic constructor factory null handling for `TweenSequenceItem` (and similar generic animation items), validating/normalizing nullable fields before forced casts.
+- One BRIDGE-SDK-SYMBOL-RESOLUTION issue detected in batch-55:
+  - issue-index 279: `services/codecs_test.dart` — `ByteData` symbol from `dart:typed_data` not resolved in interpreted runtime path. Missing SDK symbol registration/import exposure in bridge/interpreter context.
+  - Fix requires: Ensure `ByteData` (and typed_data symbols) are exposed/resolved in the runtime bridge symbol table for script execution.
+- One script fix and two intentional skips documented in `script_issues.md`.
+
+batch: 56
+
+- One BRIDGE-CALLBACK-TYPE-COERCION issue detected in batch-56:
+  - issue-index 280: `services/channels_test.dart` — `BasicMessageChannel.setMessageHandler` receives untyped interpreted callback `(dynamic) => Future<dynamic>` but expects `((String?) => Future<String>)?`. Bridge/runtime method adapter does not coerce function signature and generic/nullability adaptation during method-call bridging.
+  - Fix requires: Add callback-signature coercion in `BasicMessageChannel` bridge path so interpreted handlers are wrapped/adapted to target typed signature `String? -> Future<String?>` before calling native `setMessageHandler`.
+- Three script layout-constraint fixes and one TEST-HARNESS-INFO documented in `script_issues.md`.

@@ -804,3 +804,40 @@ batch: 52
 - No immediate batch-52 script fixes were needed.
 - All five batch-52 entries were bridge-level issues documented in `generator_issues.md`:
   - Four BRIDGE-GENERIC-TYPE-COERCION and one BRIDGE-WIDGET-COERCION.
+
+batch: 53
+
+- Immediate batch-53 script fixes were applied and validated for:
+  - widgets/windowing_owner_win32_test.dart (issue-index 265, `_tabs` late-init)
+  - widgets/sliverlist_test.dart (issue-index 268, GlobalKey lifecycle / duplicate key)
+- Non-immediate batch-53 entries documented elsewhere:
+  - issue-index 266: `(setUpAll)` — TEST-HARNESS-INFO, no action needed.
+  - issue-index 267: `widgets/slidetransition_test.dart` — BRIDGE-MISSING-METHOD-DISPATCH, documented in `generator_issues.md`.
+  - issue-index 269: `widgets/nestedscrollview_test.dart` — BRIDGE-WIDGET-LIST-COERCION, documented in `generator_issues.md`.
+
+batch: 54
+
+- Immediate batch-54 script fixes were applied and validated for:
+  - material/refreshindicator_test.dart (issue-index 270, layout constraint cascade)
+  - material/timeofday_test.dart (issue-index 271, layout constraint / transform)
+- Non-immediate batch-54 entries:
+  - issue-index 272-274: Three intentional interactive skips (showdialog, showbottomsheet, showmenu) — no fix needed.
+
+batch: 55
+
+- Immediate batch-55 script fixes were applied and validated for:
+  - widgets/actions_test.dart (issue-index 277, `_dispatcher` late-init variant)
+- Non-immediate batch-55 entries:
+  - issue-index 275-276: Two intentional interactive skips (showdatepicker, showtimepicker) — no fix needed.
+  - issue-index 278: `animation/tweensequence_test.dart` — BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING, documented in `generator_issues.md`.
+  - issue-index 279: `services/codecs_test.dart` — BRIDGE-SDK-SYMBOL-RESOLUTION, documented in `generator_issues.md`.
+
+batch: 56
+
+- Immediate batch-56 script fixes were applied and validated for:
+  - cupertino/cupertino_secondary_test.dart (issue-index 282, layout constraint)
+  - cupertino/cupertino_form_scroll_test.dart (issue-index 283, layout constraint)
+  - cupertino/cupertino_controls_advanced_test.dart (issue-index 284, layout constraint)
+- Non-immediate batch-56 entries:
+  - issue-index 280: `services/channels_test.dart` — BRIDGE-CALLBACK-TYPE-COERCION, documented in `generator_issues.md`.
+  - issue-index 281: `(setUpAll)` — TEST-HARNESS-INFO, no action needed.
