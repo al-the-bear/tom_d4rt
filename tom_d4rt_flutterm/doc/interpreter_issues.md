@@ -341,3 +341,8 @@ issue-index: 204
 - Follow-up recommendation:
 	- Validate interpreted handling of typed set literals (`Set<int> s = {}`) and ensure method dispatch resolves to `Set.contains`, not `Map` bridge surfaces.
 	- Add regressions for set-literal initialization and method dispatch (`contains`, `add`, `clear`) in interpreted widget state classes.
+
+batch: 41
+
+- No batch-41 entries required interpreter deep analysis.
+- Batch-41 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.

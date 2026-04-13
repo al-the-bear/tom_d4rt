@@ -627,3 +627,19 @@ batch: 40
   - Immediate batch-40 fixes removed recurring `_tabs` late-initialization template defects by replacing lifecycle-dependent tab-controller scripts with deterministic explicit-data flows.
   - Non-immediate behavior note:
     - issue-index 204 currently reproduces as `Map.contains` bridge/member failure, which diverges from the original batch annotation (`setState` accessor). The rerun-observed failure is documented in interpreter deep analysis for durable remediation planning.
+
+batch: 41
+
+- No non-immediate batch-41 script issues remained after immediate fixes.
+- Immediate batch-41 script fixes were applied and validated for:
+  - widgets/sliver_child_delegate_test.dart
+  - widgets/sliver_multi_box_adaptor_element_test.dart
+  - widgets/sliver_multi_box_adaptor_widget_test.dart
+  - widgets/sliver_reorderable_list_state_test.dart
+  - widgets/slotted_container_render_object_mixin_test.dart
+- Notes:
+  - All batch-41 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 205, 206, 207, 208, 209):
+    - Batch-41 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-40.
+    - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.

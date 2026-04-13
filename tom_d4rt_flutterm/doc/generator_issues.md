@@ -571,3 +571,8 @@ issue-index: 200
 - Follow-up recommendation:
 	- Extend bridge-generator output (or documented fallback path) to support unnamed constructors with parameters for private classes used by interpreted scripts.
 	- Add regression coverage around private constructor invocation in keyboard-shortcut model flows.
+
+batch: 41
+
+- No batch-41 entries required bridge-generator deep analysis.
+- Batch-41 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.
