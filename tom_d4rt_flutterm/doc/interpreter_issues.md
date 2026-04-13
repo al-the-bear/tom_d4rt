@@ -268,3 +268,8 @@ batch: 32
 
 - No batch-32 entries required interpreter deep analysis.
 - Batch-32 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 33
+
+- No batch-33 entries required interpreter deep analysis.
+- Batch-33 deeper follow-up items were bridge constructor-support limitations for private classes and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.

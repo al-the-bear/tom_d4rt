@@ -456,3 +456,20 @@ issue-index: 162, 163
 - Follow-up recommendation:
 	- Extend bridge/widget coercion normalization for route-information and route-pop-disposition wrapper paths so interpreted instances are unwrapped before widget-boundary checks.
 	- Add focused regressions for route-oriented demo wrappers to verify both top-level widget returns and nested route widget parameters are normalized consistently.
+
+batch: 33
+
+issue-index: 165, 167
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/router_config_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_activity_test.dart`
+- Symptom:
+	- `router_config_test.dart`: runtime constructor failure for private class `_FlowStage` (`does not have an unnamed constructor that accepts arguments`).
+	- `scroll_activity_test.dart`: runtime constructor failure for private class `_SubclassInfo` (`does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: both entries are non-immediate and remain failing in targeted reruns; scripts were left unchanged for bridge-level remediation.
+- Deep analysis:
+	- Both failures match the known private-class constructor binding limitation seen earlier (batch-27 `_BootstrapStepInfo`): interpreted execution cannot reliably resolve unnamed parameterized constructors for private underscore-prefixed classes.
+	- The recurrence across unrelated widget domains indicates a systemic constructor-resolution limitation in bridge/runtime semantics, not isolated script errors.
+	- Durable remediation requires bridge/interpreter constructor strategy updates (or script architecture constraints), not tactical per-script patching for these non-immediate entries.
+- Follow-up recommendation:
+	- Add constructor-resolution support (or explicit documented limitation handling) for private class unnamed constructors with parameters in interpreted code paths.
+	- Add regressions for private-class constructor invocation in router and scroll scenarios to prevent repeated failures across new deep-demo scripts.
