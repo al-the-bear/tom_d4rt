@@ -523,3 +523,8 @@ issue-index: 188
 - Follow-up recommendation:
 	- Add bridge-generator support (or explicit fallback strategy) for private class unnamed constructors with arguments in interpreted execution contexts.
 	- Add regressions around private constructor invocation in select-action and similar chained-model scripts to prevent recurrence.
+
+batch: 38
+
+- No batch-38 entries required bridge-generator deep analysis.
+- Batch-38 issues were script-level state-context template defects and are documented in `script_issues.md`.

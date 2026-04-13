@@ -303,3 +303,8 @@ issue-index: 186
 - Follow-up recommendation:
 	- Extend interpreter member resolution to include inherited generic superclass accessors for interpreted subclasses, including private State subclasses.
 	- Add focused regressions for `State<T>.widget` access on private and public State subclasses to ensure inherited getter availability remains stable.
+
+batch: 38
+
+- No batch-38 entries required interpreter deep analysis.
+- Batch-38 deeper follow-up items were script-level state-context template stabilization, documented in `script_issues.md`.

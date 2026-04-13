@@ -580,3 +580,21 @@ batch: 37
     - Batch-37 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-36.
     - The `_tabCtrl` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 38
+
+- No non-immediate batch-38 script issues remained after immediate fixes.
+- Immediate batch-38 script fixes were applied and validated for:
+  - widgets/select_intent_test.dart
+  - widgets/selectable_region_state_test.dart
+  - widgets/selection_container_delegate_test.dart
+  - widgets/selection_details_test.dart
+  - widgets/semantics_gesture_delegate_test.dart
+- Routed non-immediate items:
+  - None.
+- Notes:
+  - Immediate batch-38 fixes removed recurring `_tabCtrl` late-initialization paths via deterministic explicit-data script flows.
+  - Complex script deep-analysis pattern (issue-index: 190, 191, 192, 193, 194 immediate):
+    - Batch-38 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-37.
+    - The `_tabCtrl` variant remains a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
