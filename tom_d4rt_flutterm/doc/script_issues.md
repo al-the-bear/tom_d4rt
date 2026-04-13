@@ -735,3 +735,72 @@ batch: 47
     - Batch-47 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-46.
     - All five used the `_tabs` variant.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 48
+
+- No non-immediate batch-48 script issues remained after immediate fixes.
+- Immediate batch-48 script fixes were applied and validated for:
+  - widgets/viewport_element_mixin_test.dart
+  - widgets/viewport_notification_mixin_test.dart
+  - widgets/void_callback_action_test.dart
+  - widgets/void_callback_intent_test.dart
+  - widgets/weak_map_test.dart
+- Notes:
+  - All five batch-48 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 240, 241, 242, 243, 244):
+    - Batch-48 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-47.
+    - All five used the `_tabs` variant.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 49
+
+- No non-immediate batch-49 script issues remained after immediate fixes.
+- Immediate batch-49 script fixes were applied and validated for:
+  - widgets/web_browser_detection_test.dart
+  - widgets/widget_inspector_service_extensions_test.dart
+  - widgets/widget_inspector_service_test.dart
+  - widgets/widget_order_traversal_policy_test.dart
+  - widgets/widget_state_border_side_test.dart
+- Notes:
+  - All five batch-49 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 245, 246, 247, 248, 249):
+    - Batch-49 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-48.
+    - All five used the `_tabs` variant.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 50
+
+- No non-immediate batch-50 script issues remained after immediate fixes.
+- Immediate batch-50 script fixes were applied and validated for:
+  - widgets/widget_state_color_test.dart
+  - widgets/widget_state_mapper_test.dart
+  - widgets/widget_state_mouse_cursor_test.dart
+  - widgets/widget_state_outlined_border_test.dart
+  - widgets/widget_state_property_all_test.dart
+- Notes:
+  - All five batch-50 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 250, 251, 252, 253, 254):
+    - Batch-50 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-49.
+    - All five used the `_tabs` variant.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 51
+
+- No non-immediate batch-51 script issues remained after immediate fixes.
+- Immediate batch-51 script fixes were applied and validated for:
+  - widgets/widget_state_test.dart
+  - widgets/widget_state_text_style_test.dart
+  - widgets/widget_states_constraint_test.dart
+- Notes:
+  - Three of five batch-51 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Two batch-51 entries (issue-index: 258, 259) were BRIDGE-GENERIC-TYPE-COERCION failures; documented in `generator_issues.md`.
+  - Complex script deep-analysis pattern (issue-index: 255, 256, 257):
+    - Batch-51 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-50.
+    - All three used the `_tabs` variant.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 52
+
+- No immediate batch-52 script fixes were needed.
+- All five batch-52 entries were bridge-level issues documented in `generator_issues.md`:
+  - Four BRIDGE-GENERIC-TYPE-COERCION and one BRIDGE-WIDGET-COERCION.

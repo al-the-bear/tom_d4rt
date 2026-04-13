@@ -702,3 +702,37 @@ batch: 47
 
 - No batch-47 entries required bridge-generator deep analysis.
 - Batch-47 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 48
+
+- No batch-48 entries required bridge-generator deep analysis.
+- Batch-48 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 49
+
+- No batch-49 entries required bridge-generator deep analysis.
+- Batch-49 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 50
+
+- No batch-50 entries required bridge-generator deep analysis.
+- Batch-50 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 51
+
+- Two BRIDGE-GENERIC-TYPE-COERCION issues detected in batch-51:
+  - issue-index 258: `widgets/window_positioner_anchor_test.dart` — `ValueNotifier<double>` generic constructor factory receives `int` from interpreted execution and performs strict cast instead of numeric adaptation. The bridge's generic constructor factory path does not coerce `int` to `double` where the target type parameter is `double`.
+  - issue-index 259: `widgets/window_positioner_constraint_adjustment_test.dart` — Same `ValueNotifier<double>` generic constructor factory type coercion failure as index 258.
+- Fix requires: Bridge-side generic numeric coercion/adaptation for constructor arguments (permit `int` → `double` conversion when target type is `double`) or normalize numeric literals before generic constructor dispatch.
+- Three batch-51 entries were script-level `_tabs` late-init fixes, documented in `script_issues.md`.
+
+batch: 52
+
+- Four BRIDGE-GENERIC-TYPE-COERCION issues detected in batch-52:
+  - issue-index 260: `widgets/window_positioner_test.dart` — Same `ValueNotifier<double>` generic constructor factory int-to-double cast failure.
+  - issue-index 262: `widgets/windowing_owner_linux_test.dart` — Same generic constructor factory coercion failure.
+  - issue-index 263: `widgets/windowing_owner_mac_o_s_test.dart` — Same generic constructor factory coercion failure.
+  - issue-index 264: `widgets/windowing_owner_test.dart` — Same generic constructor factory coercion failure.
+- One BRIDGE-WIDGET-COERCION issue detected in batch-52:
+  - issue-index 261: `widgets/window_scope_test.dart` — `InterpretedInstance` is not coerced to `Widget` type. A script-created widget instance passes through a native path expecting concrete `Widget`, but bridge fails to wrap it.
+- Fix requires: Extend widget coercion/UserBridge logic so interpreted widget instances are converted to native-compatible `Widget` values.

@@ -380,3 +380,28 @@ batch: 47
 
 - No batch-47 entries required interpreter deep analysis.
 - Batch-47 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 48
+
+- No batch-48 entries required interpreter deep analysis.
+- Batch-48 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 49
+
+- No batch-49 entries required interpreter deep analysis.
+- Batch-49 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 50
+
+- No batch-50 entries required interpreter deep analysis.
+- Batch-50 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 51
+
+- No batch-51 entries required interpreter deep analysis.
+- Batch-51 bridge issues (BRIDGE-GENERIC-TYPE-COERCION) documented in `generator_issues.md`; three script-level `_tabs` fixes in `script_issues.md`.
+
+batch: 52
+
+- No batch-52 entries required interpreter deep analysis.
+- Batch-52 bridge issues (four BRIDGE-GENERIC-TYPE-COERCION, one BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
