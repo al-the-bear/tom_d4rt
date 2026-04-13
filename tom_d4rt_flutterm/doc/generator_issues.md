@@ -768,3 +768,50 @@ batch: 56
   - issue-index 280: `services/channels_test.dart` — `BasicMessageChannel.setMessageHandler` receives untyped interpreted callback `(dynamic) => Future<dynamic>` but expects `((String?) => Future<String>)?`. Bridge/runtime method adapter does not coerce function signature and generic/nullability adaptation during method-call bridging.
   - Fix requires: Add callback-signature coercion in `BasicMessageChannel` bridge path so interpreted handlers are wrapped/adapted to target typed signature `String? -> Future<String?>` before calling native `setMessageHandler`.
 - Three script layout-constraint fixes and one TEST-HARNESS-INFO documented in `script_issues.md`.
+
+batch: 57
+
+- No batch-57 entries required bridge-generator deep analysis.
+- Batch-57 had two Cupertino layout-constraint fixes and three deprecated-API script replacements, documented in `script_issues.md`.
+
+batch: 58
+
+- One BRIDGE-CALLBACK-TYPE-COERCION issue detected in batch-58:
+  - issue-index 290: `semantics/semantics_config_test.dart` — Semantics config path expects nullable `VoidCallback?` but receives uncoerced `InterpretedFunction`. Same callback-signature adaptation class as prior issues.
+  - Fix requires: Add bridge callback coercion for nullable `VoidCallback` parameters so interpreted functions are wrapped into native callable adapters.
+- One mixed BRIDGE-MISSING-METHOD-DISPATCH + layout issue in batch-58:
+  - issue-index 292: `widgets/layout_builder_adv_test.dart` — `layoutChild` unresolved on `TestMultiChildLayoutDelegate` (bridge dispatch gap), plus infinite-size layout assertions and NaN rect (script composition). Requires both bridge method dispatch fix and script layout rework.
+- Three script fixes documented in `script_issues.md`.
+
+batch: 59
+
+- No batch-59 entries required bridge-generator deep analysis.
+- Batch-59 had five script-level fixes (layout constraint, assertion precondition, math contract, overflow), documented in `script_issues.md`.
+
+batch: 60
+
+- One BRIDGE-WIDGET-COERCION issue detected in batch-60:
+  - issue-index 303: `material/scaffold_messenger_test.dart` — `InterpretedInstance` returned where native path asserts `Widget`. Same widget-coercion bridge gap pattern.
+  - Fix requires: Extend widget coercion bridge handling for ScaffoldMessenger path.
+- Four script fixes documented in `script_issues.md`.
+
+batch: 61
+
+- One BRIDGE-WIDGET-COERCION issue detected in batch-61:
+  - issue-index 309: `rendering/box_hit_test_result_test.dart` — `InterpretedInstance` returned where native path expects concrete `Widget`. Recurring widget coercion gap.
+  - Fix requires: Extend widget coercion handling for this rendering path.
+- Four script fixes documented in `script_issues.md`.
+
+batch: 62
+
+- One BRIDGE-CALLBACK-TYPE-COERCION + overflow issue detected in batch-62:
+  - issue-index 310: `rendering/custom_painter_semantics_test.dart` — Bridge constructor path expects `((Size) => List<CustomPainterSemantics>)?` but receives unadapted `InterpretedFunction`. Plus minor layout overflow.
+  - Fix requires: Add callback-signature coercion for `semanticsBuilder` function type in bridge constructor adaptation.
+- Two BRIDGE-WIDGET-COERCION issues detected in batch-62:
+  - issue-index 312: `rendering/relayout_when_system_fonts_change_mixin_test.dart` — `Positioned.fill` child not coerced from `InterpretedInstance` to `Widget`.
+  - issue-index 313: `rendering/render_absorb_pointer_test.dart` — Same `Positioned.fill` child coercion gap.
+  - Fix requires: Extend constructor-arg widget coercion for `Positioned.fill` child parameter.
+- One BRIDGE-MISSING-MEMBER issue detected in batch-62:
+  - issue-index 314: `rendering/render_aligning_shifted_box_test.dart` — `String.characters` member not exposed in runtime bridge. Causes downstream `Iterable.toList` failure.
+  - Fix requires: Add member exposure/bridge support for `String.characters` access path.
+- One script overflow fix documented in `script_issues.md`.

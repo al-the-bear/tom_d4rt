@@ -841,3 +841,60 @@ batch: 56
 - Non-immediate batch-56 entries:
   - issue-index 280: `services/channels_test.dart` — BRIDGE-CALLBACK-TYPE-COERCION, documented in `generator_issues.md`.
   - issue-index 281: `(setUpAll)` — TEST-HARNESS-INFO, no action needed.
+
+batch: 57
+
+- Immediate batch-57 script fixes were applied and validated for:
+  - cupertino/cupertino_sections_test.dart (issue-index 285, layout constraint)
+  - cupertino/cupertino_tabbar_scaffold_test.dart (issue-index 286, layout constraint)
+  - material/button_types_test.dart (issue-index 287, deprecated ButtonBar API)
+  - material/toggle_segmented_test.dart (issue-index 288, deprecated ButtonBar API)
+  - material/button_styles_misc_test.dart (issue-index 289, deprecated ButtonBarThemeData API)
+
+batch: 58
+
+- Immediate batch-58 script fixes were applied and validated for:
+  - widgets/gesture_detector_adv_test.dart (issue-index 291, state-context `widget` undefined)
+  - widgets/platform_menu_widgets_test.dart (issue-index 293, deprecated RawKeyboardListener API)
+  - widgets/scroll_position_types_test.dart (issue-index 294, layout constraint unbounded flex)
+- Non-immediate batch-58 entries:
+  - issue-index 290: `semantics/semantics_config_test.dart` — BRIDGE-CALLBACK-TYPE-COERCION, documented in `generator_issues.md`.
+  - issue-index 292: `widgets/layout_builder_adv_test.dart` — mixed BRIDGE-MISSING-METHOD-DISPATCH + layout, documented in `generator_issues.md`.
+
+batch: 59
+
+- Immediate batch-59 script fixes were applied and validated for:
+  - widgets/scroll_controllers_types_test.dart (issue-index 295, layout constraint)
+  - cupertino/cupertino_text_selection_controls_test.dart (issue-index 296, layout constraint)
+  - dart_ui/ztmp_path_metrics_access_test.dart (issue-index 297, assertion precondition)
+  - dart_ui/scene_test.dart (issue-index 298, math contract assertion)
+  - dart_ui/semantics_action_event_test.dart (issue-index 299, overflow)
+
+batch: 60
+
+- Immediate batch-60 script fixes were applied and validated for:
+  - dart_ui/string_attribute_test.dart (issue-index 300, overflow)
+  - dart_ui/target_image_size_test.dart (issue-index 301, overflow)
+  - gestures/vertical_multi_drag_gesture_recognizer_test.dart (issue-index 302, state-context `widget` undefined)
+  - material/text_button_theme_data_test.dart (issue-index 304, null receiver)
+- Non-immediate batch-60 entries:
+  - issue-index 303: `material/scaffold_messenger_test.dart` — BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
+
+batch: 61
+
+- Immediate batch-61 script fixes were applied and validated for:
+  - material/text_selection_toolbar_test.dart (issue-index 305, layout constraint infinite-size)
+  - material/text_selection_toolbar_text_button_test.dart (issue-index 306, layout constraint infinite-size)
+  - painting/decoration_image_painter_test.dart (issue-index 307, constructor arg null→Text)
+  - painting/image_info_test.dart (issue-index 308, overflow)
+- Non-immediate batch-61 entries:
+  - issue-index 309: `rendering/box_hit_test_result_test.dart` — BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
+
+batch: 62
+
+- Immediate batch-62 script fixes were applied and validated for:
+  - rendering/platform_view_layer_test.dart (issue-index 311, overflow)
+- Non-immediate batch-62 entries:
+  - issue-index 310: mixed BRIDGE-CALLBACK-TYPE-COERCION + overflow, documented in `generator_issues.md`.
+  - issue-index 312-313: BRIDGE-WIDGET-COERCION (`Positioned.fill` child), documented in `generator_issues.md`.
+  - issue-index 314: BRIDGE-MISSING-MEMBER (`String.characters`), documented in `generator_issues.md`.
