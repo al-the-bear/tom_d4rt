@@ -2016,7 +2016,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (superGetter != null) {
             currentValue = superGetter.bind(instance).call(this, [], {});
           } else if (bridgedGetter != null) {
-            final bridgedTarget = instance.bridgedSuperObject;
+            // RC-6: Use nativeProxy as fallback for abstract class adapters
+            final bridgedTarget = instance.bridgedSuperObject ?? instance.nativeProxy;
             if (bridgedTarget == null) {
               throw RuntimeD4rtException(
                 "Cannot access bridged property '$propertyName': bridgedSuperObject is null",
@@ -2044,7 +2045,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             superSetter.bind(instance).call(this, [rhsValue], {});
             return rhsValue;
           } else if (bridgedSetter != null) {
-            final bridgedTarget = instance.bridgedSuperObject;
+            // RC-6: Use nativeProxy as fallback for abstract class adapters
+            final bridgedTarget = instance.bridgedSuperObject ?? instance.nativeProxy;
             if (bridgedTarget == null) {
               throw RuntimeD4rtException(
                 "Cannot set bridged property '$propertyName': bridgedSuperObject is null",
@@ -2076,7 +2078,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (superSetter != null) {
             superSetter.bind(instance).call(this, [newValue], {});
           } else if (bridgedSetter != null) {
-            final bridgedTarget = instance.bridgedSuperObject;
+            // RC-6: Use nativeProxy as fallback for abstract class adapters
+            final bridgedTarget = instance.bridgedSuperObject ?? instance.nativeProxy;
             if (bridgedTarget == null) {
               throw RuntimeD4rtException(
                 "Cannot set bridged property '$propertyName': bridgedSuperObject is null",
@@ -2268,7 +2271,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // This handles: super.property = rhsValue; or super.property += rhsValue;
         final instance = targetValue.instance; // Instance 'this'
         final bridgedSuper = targetValue.startLookupClass;
-        final nativeSuperObject = instance.bridgedSuperObject;
+        // RC-6: Use nativeProxy as fallback for abstract class adapters
+        final nativeSuperObject = instance.bridgedSuperObject ?? instance.nativeProxy;
 
         if (nativeSuperObject == null) {
           throw RuntimeD4rtException(
@@ -3580,8 +3584,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       } else if (targetValue is BoundBridgedSuper) {
         final instance = targetValue.instance; // L'instance 'this' interprétée
         final bridgedSuper = targetValue.startLookupClass;
+        // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
+        // This supports abstract class adapters (like _InterpretedState for State).
         final nativeSuperObject =
-            instance.bridgedSuperObject; // Retrieve the native object
+            instance.bridgedSuperObject ?? instance.nativeProxy;
 
         if (nativeSuperObject == null) {
           throw RuntimeD4rtException(
@@ -4472,8 +4478,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else if (target is BoundBridgedSuper) {
       final instance = target.instance; // The interpreted 'this' instance
       final bridgedSuper = target.startLookupClass;
+      // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
+      // This supports abstract class adapters (like _InterpretedState for State).
       final nativeSuperObject =
-          instance.bridgedSuperObject; // Retrieve the native object
+          instance.bridgedSuperObject ?? instance.nativeProxy;
 
       if (nativeSuperObject == null) {
         throw RuntimeD4rtException(

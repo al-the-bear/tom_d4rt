@@ -1267,17 +1267,37 @@ class InterpretedInstance implements RuntimeValue {
         return method.bind(this); // Bind to the *original* instance ('this')
       }
 
-      // Check bridged superclass at this level before moving up
-      if (currentClass.bridgedSuperclass != null &&
-          bridgedSuperObject != null) {
-        final bridgedSuper = currentClass.bridgedSuperclass!;
-        final nativeTarget = bridgedSuperObject!;
+      // Check bridged superclass at this level before moving up.
+      // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
+      // This supports abstract class adapters (like _InterpretedState for State).
+      if (currentClass.bridgedSuperclass != null) {
+        final nativeTarget = bridgedSuperObject ?? nativeProxy;
+        if (nativeTarget != null) {
+          final bridgedSuper = currentClass.bridgedSuperclass!;
 
-        // Try getter first
-        final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
-        if (getterAdapter != null) {
-          Logger.debug(
-              "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.");
+          // RC-6b: For 'widget' access on State subclasses with nativeProxy,
+          // check if the proxy has an 'interpretedWidget' getter that returns
+          // the original InterpretedInstance of the widget class.
+          if (name == 'widget' && bridgedSuperObject == null && nativeProxy != null) {
+            try {
+              final dynamic proxy = nativeProxy;
+              // Duck-type check for InterpretedStateProxy.interpretedWidget
+              final interpretedWidget = proxy.interpretedWidget;
+              if (interpretedWidget is InterpretedInstance) {
+                Logger.debug(
+                    "[Instance.get] Using interpretedWidget from nativeProxy for '$name' access.");
+                return interpretedWidget;
+              }
+            } catch (_) {
+              // nativeProxy doesn't have interpretedWidget, fall through to normal handling
+            }
+          }
+
+          // Try getter first
+          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+          if (getterAdapter != null) {
+            Logger.debug(
+                "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.");
           try {
             final result = getterAdapter(visitor, nativeTarget);
 
@@ -1320,7 +1340,8 @@ class InterpretedInstance implements RuntimeValue {
           return BridgedSuperMethodCallable(
               nativeTarget, supplementaryAdapter, name, bridgedSuper.name);
         }
-      }
+        } // end if (nativeTarget != null)
+      } // end if (bridgedSuperclass != null)
 
       // Move up to the superclass
       currentClass = currentClass.superclass;

@@ -5,6 +5,9 @@ class ObjectCore {
         nativeType: Object,
         name: 'Object',
         typeParameterCount: 0,
+        constructors: {
+          '': (visitor, positionalArgs, namedArgs) => Object(),
+        },
         methods: {
           '==': (visitor, target, positionalArgs, namedArgs, _) {
             return target == positionalArgs[0];
