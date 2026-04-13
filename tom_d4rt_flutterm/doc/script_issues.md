@@ -643,3 +643,19 @@ batch: 41
     - Batch-41 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-40.
     - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 42
+
+- No non-immediate batch-42 script issues remained after immediate fixes.
+- Immediate batch-42 script fixes were applied and validated for:
+  - widgets/slotted_multi_child_render_object_widget_mixin_test.dart
+  - widgets/slotted_multi_child_render_object_widget_test.dart
+  - widgets/slotted_render_object_element_test.dart
+  - widgets/snapshot_mode_test.dart
+  - widgets/standard_component_type_test.dart
+- Notes:
+  - All batch-42 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 210, 211, 212, 213, 214):
+    - Batch-42 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-41.
+    - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
