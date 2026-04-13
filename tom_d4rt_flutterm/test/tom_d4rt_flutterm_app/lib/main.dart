@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tom_d4rt_flutterm/tom_d4rt_flutterm.dart';
 
+import 'interaction_controller.dart';
+
 void main() {
   runApp(const D4rtFlutterApp());
 }
@@ -63,6 +65,7 @@ class _BuildResult {
 class _D4rtTestPageState extends State<D4rtTestPage>
     with TickerProviderStateMixin {
   final FlutterD4rt _d4rt = FlutterD4rt();
+  final InteractionController _interactionController = InteractionController();
   HttpServer? _server;
   final List<String> _logs = [];
   Widget? _d4rtWidget;
@@ -291,6 +294,8 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           await _handleExecute(request);
         case '/build':
           await _handleBuild(request);
+        case '/interact':
+          await _handleInteract(request);
         case '/health':
           _respond(request, 200, {'status': 'ok', 'port': _serverPort});
         case '/logs':
@@ -577,6 +582,71 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     }
 
     return const _WaitingDisplay();
+  }
+
+  /// POST /interact — Execute interaction actions on the currently rendered widget.
+  ///
+  /// Body JSON:
+  /// ```json
+  /// {
+  ///   "actions": [
+  ///     {"type": "waitFrames", "frames": 10},
+  ///     {"type": "tapText", "text": "OK"},
+  ///     {"type": "tapAt", "x": 100, "y": 200},
+  ///     {"type": "dismiss"}
+  ///   ]
+  /// }
+  /// ```
+  ///
+  /// Supported action types:
+  /// - `waitFrames`: Wait for N frames (default: 1)
+  /// - `waitMillis`: Wait for N milliseconds (default: 100)
+  /// - `tapAt`: Tap at screen position (x, y)
+  /// - `tapText`: Find and tap widget containing text
+  /// - `tapType`: Find and tap widget by type name
+  /// - `tapIcon`: Find and tap Icon widget by icon name
+  /// - `dismiss`: Tap in corner to dismiss modal overlay
+  /// - `drag`: Drag from (startX, startY) to (endX, endY) over duration ms
+  /// - `dragVertical`: Drag vertically from center by distance px
+  /// - `back`: Press back button / pop navigation
+  Future<void> _handleInteract(HttpRequest request) async {
+    if (request.method != 'POST') {
+      _respond(request, 405, {'error': 'Method not allowed. Use POST.'});
+      return;
+    }
+
+    final body = await utf8.decoder.bind(request).join();
+    _addLogEntry('Executing interactions (${body.length} bytes)');
+
+    try {
+      final json = jsonDecode(body) as Map<String, dynamic>;
+      final actionsJson = json['actions'] as List<dynamic>? ?? [];
+      
+      final actions = actionsJson
+          .map((a) => InteractionAction.fromJson(a as Map<String, dynamic>))
+          .toList();
+
+      if (actions.isEmpty) {
+        _respond(request, 400, {'error': 'No actions provided'});
+        return;
+      }
+
+      _addLogEntry('Executing ${actions.length} interaction(s)');
+      
+      final result = await _interactionController.execute(actions);
+      
+      _addLogEntry(
+        result.success
+            ? 'Interactions completed successfully'
+            : 'Interactions failed: ${result.errors.join(", ")}',
+      );
+      _scheduleLogRefresh();
+
+      _respond(request, result.success ? 200 : 400, result.toJson());
+    } on FormatException catch (e) {
+      _log('JSON parse error: $e');
+      _respond(request, 400, {'error': 'Invalid JSON: $e'});
+    }
   }
 
   void _respond(

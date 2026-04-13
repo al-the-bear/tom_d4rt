@@ -81,6 +81,36 @@ class SendResult {
   }
 }
 
+/// Result of sending interaction commands to the test app.
+class InteractResult {
+  /// Whether all interactions succeeded.
+  final bool success;
+
+  /// Captured output from interactions.
+  final List<String> output;
+
+  /// Errors from failed interactions.
+  final List<String> errors;
+
+  /// HTTP status code.
+  final int statusCode;
+
+  const InteractResult({
+    required this.success,
+    required this.output,
+    required this.errors,
+    required this.statusCode,
+  });
+
+  @override
+  String toString() {
+    if (success) {
+      return 'InteractResult(success, output: $output)';
+    }
+    return 'InteractResult(failed, errors: $errors, output: $output)';
+  }
+}
+
 /// Test runner for sending D4rt scripts to the test app.
 ///
 /// Provides both static methods for individual script execution and
@@ -800,6 +830,109 @@ class SendTestRunner {
         judgment: judgment,
       );
     }
+  }
+
+  /// Send interaction commands to the test app.
+  ///
+  /// This sends a list of actions to be executed on the currently rendered
+  /// widget. Useful for interacting with dialogs, menus, bottom sheets, etc.
+  ///
+  /// Example:
+  /// ```dart
+  /// await SendTestRunner.send('material/showdialog_test.dart');
+  /// // Wait for dialog to appear
+  /// final result = await SendTestRunner.interact([
+  ///   {'type': 'waitFrames', 'frames': 10},
+  ///   {'type': 'tapText', 'text': 'OK'},
+  /// ]);
+  /// expect(result.success, isTrue);
+  /// ```
+  ///
+  /// Supported action types:
+  /// - `waitFrames`: Wait for N frames (default: 1)
+  /// - `waitMillis`: Wait for N milliseconds (default: 100)
+  /// - `tapAt`: Tap at screen position (x, y)
+  /// - `tapText`: Find and tap widget containing text
+  /// - `tapType`: Find and tap widget by type name
+  /// - `tapIcon`: Find and tap Icon widget by icon name
+  /// - `dismiss`: Tap in corner to dismiss modal overlay
+  /// - `drag`: Drag from (startX, startY) to (endX, endY) over duration ms
+  /// - `dragVertical`: Drag vertically from center by distance px
+  /// - `back`: Press back button / pop navigation
+  static Future<InteractResult> interact(
+    List<Map<String, dynamic>> actions, {
+    String host = defaultHost,
+    int port = defaultPort,
+  }) async {
+    final body = jsonEncode({'actions': actions});
+
+    try {
+      final response = await _httpPost(
+        client,
+        '/interact',
+        body,
+        host: host,
+        port: port,
+      );
+
+      final success = response['success'] as bool? ?? false;
+      final output = (response['output'] as List?)?.cast<String>() ?? [];
+      final errors = (response['errors'] as List?)?.cast<String>() ?? [];
+      final httpStatus = response['_httpStatus'] as int? ?? 200;
+
+      return InteractResult(
+        success: success,
+        output: output,
+        errors: errors,
+        statusCode: httpStatus,
+      );
+    } catch (error, stackTrace) {
+      // ignore: avoid_print
+      print('Interact error: $error\n$stackTrace');
+      return InteractResult(
+        success: false,
+        output: [],
+        errors: ['Transport error: $error'],
+        statusCode: 500,
+      );
+    }
+  }
+
+  /// Send a script and then interact with it.
+  ///
+  /// Convenience method that combines [send] and [interact].
+  /// The [interactDelay] allows the overlay to appear before interaction.
+  static Future<({SendResult build, InteractResult? interact})> sendAndInteract(
+    String scriptPath, {
+    required List<Map<String, dynamic>> actions,
+    Duration interactDelay = const Duration(milliseconds: 300),
+    String host = defaultHost,
+    int port = defaultPort,
+    bool clearFirst = true,
+    bool includeSource = false,
+  }) async {
+    final buildResult = await send(
+      scriptPath,
+      host: host,
+      port: port,
+      clearFirst: clearFirst,
+      includeSource: includeSource,
+    );
+
+    if (!buildResult.success) {
+      return (build: buildResult, interact: null);
+    }
+
+    // Wait for overlay to appear (dialog, menu, bottom sheet use microtask)
+    await Future<void>.delayed(interactDelay);
+
+    final interactResult = await interact(
+      actions,
+      host: host,
+      port: port,
+    );
+
+    return (build: buildResult, interact: interactResult);
   }
 
   /// Check if the test app is running.
