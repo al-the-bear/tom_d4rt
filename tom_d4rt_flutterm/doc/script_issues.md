@@ -719,3 +719,19 @@ batch: 46
     - Batch-46 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-45.
     - Mixed variable names (`_tabController` and `_tabs`) confirm a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 47
+
+- No non-immediate batch-47 script issues remained after immediate fixes.
+- Immediate batch-47 script fixes were applied and validated for:
+  - widgets/undo_history_value_test.dart
+  - widgets/undo_text_intent_test.dart
+  - widgets/unfocus_disposition_test.dart
+  - widgets/update_selection_intent_test.dart
+  - widgets/user_scroll_notification_test.dart
+- Notes:
+  - All five batch-47 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 235, 236, 237, 238, 239):
+    - Batch-47 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-46.
+    - All five used the `_tabs` variant.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.

@@ -697,3 +697,8 @@ batch: 46
 
 - No batch-46 entries required bridge-generator deep analysis.
 - Batch-46 issues were all script-level state-context template defects (five late-init), documented in `script_issues.md`.
+
+batch: 47
+
+- No batch-47 entries required bridge-generator deep analysis.
+- Batch-47 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
