@@ -692,3 +692,8 @@ issue-index: 226
 - Follow-up recommendation:
 	- Same as index 225: extend bridge-generator private constructor support.
 	- Add regression coverage for playbook model instantiation in traversal edge behavior scripts.
+
+batch: 46
+
+- No batch-46 entries required bridge-generator deep analysis.
+- Batch-46 issues were all script-level state-context template defects (five late-init), documented in `script_issues.md`.

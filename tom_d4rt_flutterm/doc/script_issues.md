@@ -703,3 +703,19 @@ batch: 45
     - Mixed variable names (`_tabController` and `_tabs`) confirm a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
   - Two batch-45 entries (issue-index: 225, 226) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.
+
+batch: 46
+
+- No non-immediate batch-46 script issues remained after immediate fixes.
+- Immediate batch-46 script fixes were applied and validated for:
+  - widgets/two_dimensional_child_list_delegate_test.dart
+  - widgets/two_dimensional_child_manager_test.dart
+  - widgets/two_dimensional_scrollable_state_test.dart
+  - widgets/two_dimensional_viewport_parent_data_test.dart
+  - widgets/undo_history_state_test.dart
+- Notes:
+  - All five batch-46 issues were direct script-level state-context stabilizations removing the recurring late-initialization path (four `_tabs`, one `_tabController`).
+  - Complex script deep-analysis pattern (issue-index: 230, 231, 232, 233, 234):
+    - Batch-46 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-45.
+    - Mixed variable names (`_tabController` and `_tabs`) confirm a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
