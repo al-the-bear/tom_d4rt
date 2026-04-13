@@ -688,3 +688,18 @@ batch: 44
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
   - Two batch-44 entries (issue-index: 220, 221) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.
   - One batch-44 entry (issue-index: 223) was a combined BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION issue; documented in `generator_issues.md`.
+
+batch: 45
+
+- No non-immediate batch-45 script issues remained after immediate fixes.
+- Immediate batch-45 script fixes were applied and validated for:
+  - widgets/tree_sliver_state_mixin_test.dart
+  - widgets/two_dimensional_child_builder_delegate_test.dart
+  - widgets/two_dimensional_child_delegate_test.dart
+- Notes:
+  - All three batch-45 immediate-fix issues were direct script-level state-context stabilizations removing the recurring late-initialization path (two `_tabController`, one `_tabs`).
+  - Complex script deep-analysis pattern (issue-index: 227, 228, 229):
+    - Batch-45 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-44.
+    - Mixed variable names (`_tabController` and `_tabs`) confirm a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+  - Two batch-45 entries (issue-index: 225, 226) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.

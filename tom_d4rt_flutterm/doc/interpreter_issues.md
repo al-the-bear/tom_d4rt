@@ -364,3 +364,9 @@ batch: 44
 - Batch-44 script-level issues (indices 222, 224) were `_tabController` late-init template defects, documented in `script_issues.md`.
 - Batch-44 bridge-generator issues (indices 220, 221) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.
 - Batch-44 combined issue (index 223) was BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
+
+batch: 45
+
+- No batch-45 entries required interpreter-only deep analysis.
+- Batch-45 script-level issues (indices 227, 228, 229) were late-init template defects (two `_tabController`, one `_tabs`), documented in `script_issues.md`.
+- Batch-45 bridge-generator issues (indices 225, 226) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.

@@ -664,3 +664,31 @@ issue-index: 223
 	- (1) Extend interpreter member resolution to include inherited methods from generic superclasses (`State<T>.setState`) for interpreted subclasses.
 	- (2) Add UserBridge or type coercion handler for `TransitionDelegate` so interpreted subclass instances are properly wrapped for native consumption.
 	- Add regression coverage for combined State-accessor + widget-coercion scenarios in navigation delegate scripts.
+
+batch: 45
+
+issue-index: 225
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_direction_test.dart`
+- Symptom: constructor invocation failure for private class `_PolicyProfile` (`Class '_PolicyProfile' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 225 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Continues the recurring private-class constructor bridge limitation from batches 37, 39, 40, 43, 44.
+	- Runtime reaches class instantiation but cannot resolve a bridged unnamed constructor callable for the underscore-prefixed type.
+	- Durable remediation belongs in bridge-generator/private-constructor handling strategy.
+- Follow-up recommendation:
+	- Extend bridge-generator output to support unnamed constructors with parameters for private classes.
+	- Add regression coverage for policy-profile model instantiation in focus traversal direction scripts.
+
+issue-index: 226
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/traversal_edge_behavior_test.dart`
+- Symptom: constructor invocation failure for private class `_Playbook` (`Class '_Playbook' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 226 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Same defect family as index 225 — private-class constructor bridge limitation.
+	- Runtime cannot resolve unnamed constructor for `_Playbook`.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy.
+- Follow-up recommendation:
+	- Same as index 225: extend bridge-generator private constructor support.
+	- Add regression coverage for playbook model instantiation in traversal edge behavior scripts.
