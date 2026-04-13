@@ -223,3 +223,8 @@ batch: 23
 
 - No batch-23 entries required interpreter deep analysis.
 - Batch-23 deeper follow-up items were bridge-generator typed-list coercion/static method typing issues and script-level layout/state-context stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 25
+
+- No batch-25 entries required interpreter deep analysis.
+- Batch-25 deeper follow-up items were bridge-generator constructor/symbol/coercion defects, documented in `generator_issues.md`.

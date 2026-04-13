@@ -344,3 +344,19 @@ batch: 23
     - These issues continue the recurring deep-demo architecture risks: implicit framework lifecycle member access in scene states and missing finite layout constraints in composition-heavy sections.
     - Both classes generate warning-heavy outputs that can mask regressions because harness runs may still report pass unless explicit checks are enforced.
     - Immediate mitigation converted affected scripts to deterministic explicit-data and bounded-layout flows; long-term script quality should enforce explicit scene wiring and reusable finite-layout scaffolds as mandatory defaults.
+
+batch: 25
+
+- No non-immediate batch-25 script issues remained after immediate fixes.
+- Immediate batch-25 script fixes were applied and validated for:
+  - widgets/raw_dialog_route_test.dart
+  - widgets/raw_keyboard_listener_test.dart
+  - widgets/raw_menu_overlay_info_test.dart
+  - widgets/raw_radio_test.dart
+  - widgets/redo_text_intent_test.dart
+- Notes:
+  - Batch-25 failures were bridge-dominated (constructor factory typing, symbol registration/default constructor support, widget coercion) rather than standalone script architecture defects.
+  - Scripts were stabilized to deterministic harness-safe flows to unblock test execution while deeper bridge remediation is tracked in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 125, 126, 127, 128, 129):
+    - Script-level failures were secondary manifestations of bridge boundary contract gaps and not independent deep-demo state/layout design defects.
+    - Immediate script mitigation is intentionally tactical; long-term correctness requires bridge-level hardening for generic constructors, symbol exposure, default constructor fallback, and interpreted-widget coercion.

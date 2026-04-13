@@ -309,3 +309,27 @@ issue-index: 116, 118
 	- Add bridge/UserBridge typed-list normalization for `List<Widget>` boundaries, coercing/interpreted elements before cast points.
 	- Harden static method bridge typing for intent APIs (`Actions.maybeFind`) to require concrete non-`Intent` subclass types and reject generic placeholders before native call dispatch.
 	- Add regression coverage for nested-scroll typed widget-list construction and static intent lookup paths.
+
+batch: 25
+
+issue-index: 125, 126, 127, 128, 129
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_dialog_route_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_keyboard_listener_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_menu_overlay_info_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/raw_radio_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/redo_text_intent_test.dart`
+- Symptom:
+	- Generic constructor factory callback-type mismatch (`RawDialogRoute`).
+	- Missing symbol registration (`RawKeyboardListener`).
+	- Missing default constructor bridge support (`raw_menu_overlay_info`).
+	- Generic constructor iterable/list adaptation failure (`RawRadio`).
+	- Widget coercion boundary failure (`Expected Widget but got InterpretedInstance`) in redo-intent flow.
+- Immediate outcome: all five scripts were rewritten to deterministic harness-safe flows and targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- Batch-25 failures are all bridge-surface contract issues around constructor factory typing, symbol exposure, and coercion/normalization behavior at API boundaries.
+	- Two failures (`RawDialogRoute`, `RawRadio`) indicate generic constructor factory adaptation paths need stronger signature-aware coercion for callback and iterable-typed arguments.
+	- Remaining failures show registration/coercion completeness gaps (`RawKeyboardListener` symbol exposure, default constructor support path, interpreted-widget unwrapping).
+	- Although script mitigation unblocks the batch, these defects can recur across neighboring raw-* APIs unless bridge generation/runtime validation is hardened centrally.
+- Follow-up recommendation:
+	- Add constructor-factory signature adapters for typed callbacks and iterable element coercion in raw route/radio bridge paths.
+	- Ensure widget symbols like `RawKeyboardListener` are consistently exported/registered in the active bridge registry.
+	- Extend default-constructor support fallback for object-creation paths used by raw-menu overlay flows.
+	- Add widget coercion normalization at boundary checks so interpreted widget instances are unwrapped before native widget assertions.
+	- Add focused regressions for all five bridge defect classes above to prevent recurrence.
