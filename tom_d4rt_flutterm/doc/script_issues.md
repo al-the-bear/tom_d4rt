@@ -376,3 +376,17 @@ batch: 26
   - Complex script deep analysis (issue-index: 130, 131, 132, 133, 134):
     - All five failures share one hierarchy-level coercion gap (`RegularWindowController*` interpreted instance not normalized to `Widget`).
     - Script-level mitigation is tactical only; durable resolution should be delivered centrally in bridge coercion registration/normalization.
+
+batch: 27
+
+- One non-immediate batch-27 issue remained after immediate fixes and was routed for deep bridge analysis (issue-index: 139).
+- Immediate batch-27 script fixes were applied and validated for:
+  - widgets/regular_window_test.dart
+  - widgets/relative_positioned_transition_test.dart
+  - widgets/render_abstract_layout_builder_mixin_test.dart
+  - widgets/render_nested_scroll_view_viewport_test.dart
+- Routed non-immediate item:
+  - widgets/render_object_to_widget_adapter_test.dart (issue-index: 139) was not modified because `immediate fix possible` is `no`; full deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - `relative_positioned_transition_test.dart` was a direct script-level finite-constraint/overflow stabilization.
+  - Other immediate fixes in this batch were tactical script stabilizations for bridge-coercion/log paths while durable remediation remains bridge-level.

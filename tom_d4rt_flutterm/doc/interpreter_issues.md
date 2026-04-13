@@ -233,3 +233,8 @@ batch: 26
 
 - No batch-26 entries required interpreter deep analysis.
 - Batch-26 deeper follow-up items were bridge-widget-coercion defects for the `RegularWindowController*` family, documented in `generator_issues.md`.
+
+batch: 27
+
+- No batch-27 entries required interpreter deep analysis.
+- Batch-27 deeper follow-up items were bridge-widget/list coercion and constructor-support defects, documented in `generator_issues.md`.

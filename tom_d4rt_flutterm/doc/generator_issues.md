@@ -349,3 +349,25 @@ issue-index: 130, 131, 132, 133, 134
 	- Add/verify widget coercion normalization for the full `RegularWindowController*` family in bridge runtime handling, not per-script patches.
 	- Ensure hierarchy-wide registration includes delegate, base, and platform variants (linux, macOS, win32) in the active widget coercion map.
 	- Add regression tests that assert interpreted instances are unwrapped to native widgets for each `RegularWindowController*` variant before success checks.
+
+batch: 27
+
+issue-index: 135, 137, 138, 139
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/regular_window_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_abstract_layout_builder_mixin_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_nested_scroll_view_viewport_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/render_object_to_widget_adapter_test.dart`
+- Symptom:
+	- Widget coercion failures (`Expected Widget but got InterpretedInstance`) for `RegularWindow` and `RenderAbstractLayoutBuilderMixin` flows.
+	- List coercion warning (`List<Object?>` not subtype of `List<Widget>`) in nested-scroll viewport path.
+	- Missing default-constructor support for private helper class `_BootstrapStepInfo` in render-object-to-widget adapter bootstrap flow.
+- Immediate outcome:
+	- Indices 135, 137, and 138 were stabilized via script rewrites and now pass targeted reruns with `frameworkErrors=0`.
+	- Index 139 is non-immediate and remains failing; it was kept unchanged and analyzed for bridge-level remediation.
+- Deep analysis:
+	- Batch-27 issues are bridge-surface type/constructor contract defects concentrated in widget coercion, typed-list coercion, and constructor availability for private helper classes.
+	- The unresolved index-139 failure demonstrates a constructor binding limitation for private classes in interpreted execution; bridge generation does not provide unnamed constructor bindings for this helper path.
+	- Script-level stabilization resolves immediate CI noise for coercion/log issues, but durable fixes require runtime/generator support for coercion normalization and constructor strategy constraints.
+- Follow-up recommendation:
+	- Extend widget coercion normalization for `RegularWindow` and mixin-derived render/widget adapter outputs at bridge boundaries.
+	- Harden list coercion from interpreted collections to `List<Widget>` with per-element widget coercion before cast boundaries.
+	- For `_BootstrapStepInfo`, either refactor script bootstrap to avoid private helper instantiation in interpreted code, or add a public factory/UserBridge-accessible construction path; private unnamed constructor reliance is not stable under current bridge generation.
+	- Add regression coverage for all three classes of failures: widget coercion, list coercion, and private-constructor bootstrap paths.
