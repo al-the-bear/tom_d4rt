@@ -326,3 +326,21 @@ batch: 22
     - Batch-22 combines two known deep-demo architecture defects: missing finite layout constraints in composition-heavy scenes and reliance on implicit framework lifecycle members (`State.widget`) on interpreted paths.
     - The layout defect (index 110) propagates across render and semantics layers, producing high-noise warning cascades while tests may still report pass; this makes regression detection fragile without explicit guardrails.
     - Immediate mitigation moved all five scripts to deterministic bounded flows; long-term script quality should enforce reusable finite-layout scaffolds and explicit scene configuration injection as baseline standards for deep-demo scripts.
+
+batch: 23
+
+- No non-immediate batch-23 script issues remained after immediate fixes.
+- Immediate batch-23 script fixes were applied and validated for:
+  - widgets/navigator_pop_handler_test.dart
+  - widgets/nested_scroll_view_state_test.dart
+  - widgets/nested_scroll_view_viewport_test.dart
+  - widgets/next_focus_intent_test.dart
+  - widgets/notifiable_element_mixin_test.dart
+- Notes:
+  - `navigator_pop_handler_test.dart` and `nested_scroll_view_viewport_test.dart` were direct script-level state-context stabilizations by removing implicit `widget` member lookup paths.
+  - `notifiable_element_mixin_test.dart` was a direct script-level finite-constraints stabilization to eliminate repeated infinite-size layout diagnostics.
+  - `nested_scroll_view_state_test.dart` and `next_focus_intent_test.dart` were stabilized script-side, while deeper bridge-generator follow-up (typed-list coercion and static intent typing) is documented in `generator_issues.md`.
+  - Complex script deep analysis (issue-index: 115, 117, 119):
+    - These issues continue the recurring deep-demo architecture risks: implicit framework lifecycle member access in scene states and missing finite layout constraints in composition-heavy sections.
+    - Both classes generate warning-heavy outputs that can mask regressions because harness runs may still report pass unless explicit checks are enforced.
+    - Immediate mitigation converted affected scripts to deterministic explicit-data and bounded-layout flows; long-term script quality should enforce explicit scene wiring and reusable finite-layout scaffolds as mandatory defaults.

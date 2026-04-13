@@ -291,3 +291,21 @@ batch: 22
 
 - No batch-22 entries required bridge-generator deep analysis.
 - Batch-22 deeper follow-up items were script-level finite-constraints/semantics stabilization and recurring state-context architecture issues, documented in `script_issues.md`.
+
+batch: 23
+
+issue-index: 116, 118
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/nested_scroll_view_state_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/next_focus_intent_test.dart`
+- Symptom:
+	- Runtime typed-list coercion failures at widget-boundary casts (`List<Object?>` is not a subtype of `List<Widget>`).
+	- Static bridge assertion failure in `Actions.maybeFind` path (`type != Intent`) due to invalid/generic intent type forwarding.
+- Immediate outcome: both scripts were rewritten to deterministic harness-safe flows and targeted reruns now pass with `frameworkErrors=0`.
+- Deep analysis:
+	- `nested_scroll_view_state_test` failure indicates generator/runtime list coercion gaps where interpreted collections cross strict typed widget list boundaries without element normalization.
+	- `next_focus_intent_test` indicates static bridge argument typing is too permissive, allowing invalid intent type descriptors to reach Flutter assertion guards in static dispatch.
+	- These defects are bridge-surface contract issues and can recur across other typed-collection and static-intent APIs if coercion/type checks are not hardened centrally.
+- Follow-up recommendation:
+	- Add bridge/UserBridge typed-list normalization for `List<Widget>` boundaries, coercing/interpreted elements before cast points.
+	- Harden static method bridge typing for intent APIs (`Actions.maybeFind`) to require concrete non-`Intent` subclass types and reject generic placeholders before native call dispatch.
+	- Add regression coverage for nested-scroll typed widget-list construction and static intent lookup paths.
