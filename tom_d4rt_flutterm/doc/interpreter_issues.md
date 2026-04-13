@@ -351,3 +351,9 @@ batch: 42
 
 - No batch-42 entries required interpreter deep analysis.
 - Batch-42 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 43
+
+- No batch-43 entries required interpreter deep analysis.
+- Batch-43 script-level issues (indices 215-216) were `_tabs` late-init template defects, documented in `script_issues.md`.
+- Batch-43 bridge-generator issues (indices 217-219) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.

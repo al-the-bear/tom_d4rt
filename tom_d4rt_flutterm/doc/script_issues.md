@@ -659,3 +659,17 @@ batch: 42
     - Batch-42 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-41.
     - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 43
+
+- No non-immediate batch-43 script issues remained after immediate fixes.
+- Immediate batch-43 script fixes were applied and validated for:
+  - widgets/static_selection_container_delegate_test.dart
+  - widgets/text_selection_gesture_detector_builder_delegate_test.dart
+- Notes:
+  - Both batch-43 immediate-fix issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep-analysis pattern (issue-index: 215, 216):
+    - Batch-43 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-42.
+    - The `_tabs` variant remains a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+  - Three additional batch-43 entries (issue-index: 217, 218, 219) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures; documented in `generator_issues.md`.

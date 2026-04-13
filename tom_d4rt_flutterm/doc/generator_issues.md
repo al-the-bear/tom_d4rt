@@ -581,3 +581,44 @@ batch: 42
 
 - No batch-42 entries required bridge-generator deep analysis.
 - Batch-42 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.
+
+batch: 43
+
+issue-index: 217
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_items_parent_data_test.dart`
+- Symptom: constructor invocation failure for private class `_TimelineStep` (`Class '_TimelineStep' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 217 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Continues the recurring private-class constructor bridge limitation from batches 37, 39, 40 (`_Phase`, `_TriggerInfo`, `_ChainItem`, `_Key`).
+	- Runtime reaches class instantiation but cannot resolve a bridged unnamed constructor callable for the underscore-prefixed type, indicating missing constructor registration support for private classes with parameters.
+	- Durable remediation belongs in bridge-generator/private-constructor handling strategy, not per-script tactical edits.
+- Follow-up recommendation:
+	- Extend bridge-generator output to support unnamed constructors with parameters for private classes.
+	- Add regression coverage for private constructor invocation in parent-data model flows.
+
+issue-index: 218
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/toolbar_options_test.dart`
+- Symptom: constructor invocation failure for private class `_LegacyToolbarProfile` (`Class '_LegacyToolbarProfile' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 218 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Same defect family as index 217 — private-class constructor bridge limitation.
+	- Runtime cannot resolve unnamed constructor for `_LegacyToolbarProfile`, indicating missing constructor registration for underscore-prefixed classes with parameters.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy.
+- Follow-up recommendation:
+	- Same as index 217: extend bridge-generator private constructor support.
+	- Add regression coverage for toolbar configuration model instantiation.
+
+issue-index: 219
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/tooltip_position_context_test.dart`
+- Symptom: constructor invocation failure for private class `_CaseDefinition` (`Class '_CaseDefinition' does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 219 is non-immediate and remains failing; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- Same defect family as indices 217-218 — private-class constructor bridge limitation.
+	- Runtime cannot resolve unnamed constructor for `_CaseDefinition`, indicating missing constructor registration for underscore-prefixed classes with parameters.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy.
+- Follow-up recommendation:
+	- Same as indices 217-218: extend bridge-generator private constructor support.
+	- Add regression coverage for tooltip positioning case-definition model instantiation.
