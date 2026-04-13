@@ -436,3 +436,8 @@ issue-index: 152
 - Follow-up recommendation:
 	- Register/expose `Enum` in the interpreter core symbol registry (or via a dedicated UserBridge mapping) so type lookup resolves consistently in interpreted scripts.
 	- Add regression coverage for direct and generic references to `Enum` in restorable and non-restorable script paths to ensure symbol lookup and type checks remain stable.
+
+batch: 31
+
+- No batch-31 entries required bridge-generator deep analysis.
+- Batch-31 issues were script-level state-context template defects and are documented in `script_issues.md`.
