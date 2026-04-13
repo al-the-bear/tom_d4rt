@@ -508,3 +508,18 @@ issue-index: 183
 - Follow-up recommendation:
 	- Extend coercion logic to unwrap `InterpretedInstance` values when widget subclasses cross the script-to-harness boundary in scroll-view behavior flows.
 	- Add regressions covering keyboard-dismiss behavior and related scroll-view wrapper contexts to prevent repeat coercion mismatches.
+
+batch: 37
+
+issue-index: 188
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/select_action_test.dart`
+- Symptom: constructor invocation failure for private class `_ChainItem` (`does not have an unnamed constructor that accepts arguments`).
+- Immediate outcome: index 188 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-generator remediation.
+- Deep analysis:
+	- The failure matches the known private-class constructor bridge limitation seen in earlier batches: constructor bridges are unavailable for private underscore-prefixed classes with argumented unnamed constructors.
+	- Runtime reaches class instantiation but constructor registration is missing in bridge surface, producing the same defect family as prior `_FlowStage` and `_SubclassInfo` failures.
+	- Durable remediation belongs in bridge-generator/private-constructor support strategy (or explicit documented limitation), not in per-script tactical edits.
+- Follow-up recommendation:
+	- Add bridge-generator support (or explicit fallback strategy) for private class unnamed constructors with arguments in interpreted execution contexts.
+	- Add regressions around private constructor invocation in select-action and similar chained-model scripts to prevent recurrence.

@@ -288,3 +288,18 @@ batch: 36
 
 - No batch-36 entries required interpreter deep analysis.
 - Batch-36 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 37
+
+issue-index: 186
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_orientation_test.dart`
+- Symptom: runtime access failures on inherited State getter (`Undefined property 'widget' on _OrientedPanelState`) repeated 4 times in targeted reruns (`frameworkErrors=4`).
+- Immediate outcome: index 186 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter-level remediation.
+- Deep analysis:
+	- The interpreted private State subclass cannot resolve inherited `widget` getter access from `State<T>`, indicating a superclass inherited-accessor resolution gap in interpreter member lookup.
+	- This differs from late-init template defects and from widget coercion failures: the script executes but inherited generic superclass accessors are unavailable on interpreted private subclasses.
+	- Durable remediation requires interpreter/property-resolution support for inherited getters on State subclasses (including generic superclasses), not script-level tactical edits.
+- Follow-up recommendation:
+	- Extend interpreter member resolution to include inherited generic superclass accessors for interpreted subclasses, including private State subclasses.
+	- Add focused regressions for `State<T>.widget` access on private and public State subclasses to ensure inherited getter availability remains stable.

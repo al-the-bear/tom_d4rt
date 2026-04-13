@@ -564,3 +564,19 @@ batch: 36
     - Batch-36 continues the lifecycle-dependent late-controller template defect family seen across batches 28-35.
     - The `_tabCtrl` variant remains a naming variation of the same architecture-level template issue.
     - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
+
+batch: 37
+
+- Immediate batch-37 script fixes were applied and validated for:
+  - widgets/scrollable_details_test.dart
+  - widgets/scrollbar_painter_test.dart
+  - widgets/select_all_text_intent_test.dart
+- Routed non-immediate items:
+  - widgets/scrollbar_orientation_test.dart (issue-index: 186) was not modified because `immediate fix possible` is `no`; full interpreter-level deep analysis is documented in `interpreter_issues.md`.
+  - widgets/select_action_test.dart (issue-index: 188) was not modified because `immediate fix possible` is `no`; full bridge-generator deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - Immediate batch-37 fixes removed recurring `_tabCtrl` late-initialization paths via deterministic explicit-data script flows.
+  - Complex script deep-analysis pattern (issue-index: 185, 187, 189 immediate):
+    - Batch-37 continues the same lifecycle-dependent late-controller template defect family seen across batches 28-36.
+    - The `_tabCtrl` variant remains a naming variation of the same architecture-level template issue.
+    - Long-term prevention requires template rules that avoid late lifecycle controller fields in interpreted deep-demo scripts.
