@@ -473,3 +473,8 @@ issue-index: 165, 167
 - Follow-up recommendation:
 	- Add constructor-resolution support (or explicit documented limitation handling) for private class unnamed constructors with parameters in interpreted code paths.
 	- Add regressions for private-class constructor invocation in router and scroll scenarios to prevent repeated failures across new deep-demo scripts.
+
+batch: 34
+
+- No batch-34 entries required bridge-generator deep analysis.
+- Batch-34 issues were script-level state-context template defects and are documented in `script_issues.md`.

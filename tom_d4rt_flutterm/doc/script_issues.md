@@ -510,3 +510,21 @@ batch: 33
     - Batch-33 continues the late-init deep-visual template defect pattern seen in batches 28-32.
     - The repeated `_tabs` variant confirms the defect is template-architecture driven and independent of a single field identifier.
     - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
+
+batch: 34
+
+- No non-immediate batch-34 script issues remained after immediate fixes.
+- Immediate batch-34 script fixes were applied and validated for:
+  - widgets/scroll_drag_controller_test.dart
+  - widgets/scroll_end_notification_test.dart
+  - widgets/scroll_hold_controller_test.dart
+  - widgets/scroll_increment_details_test.dart
+  - widgets/scroll_increment_type_test.dart
+- Routed non-immediate items:
+  - None.
+- Notes:
+  - All batch-34 issues were direct script-level state-context stabilizations removing the recurring `_tabs` late-initialization path.
+  - Complex script deep analysis (issue-index: 170, 171, 172, 173, 174):
+    - Batch-34 continues the late-init deep-visual template defect pattern seen in batches 28-33.
+    - The repeated `_tabs` variant confirms the defect is template-architecture driven and independent of a single field identifier.
+    - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
