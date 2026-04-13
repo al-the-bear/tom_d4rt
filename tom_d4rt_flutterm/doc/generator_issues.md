@@ -493,3 +493,18 @@ issue-index: 178
 - Follow-up recommendation:
 	- Extend widget coercion normalization to unwrap `InterpretedInstance` before widget-boundary checks in alignment-policy and adjacent scroll-observer paths.
 	- Add targeted regressions for scroll alignment/observer bridge paths to ensure interpreted widget subclasses consistently satisfy native `Widget` expectations.
+
+batch: 36
+
+issue-index: 183
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scroll_view_keyboard_dismiss_behavior_test.dart`
+- Symptom: widget-boundary assertion failure (`Expected: true / Actual: <false>`, `Expected Widget but got InterpretedInstance`).
+- Immediate outcome: index 183 is non-immediate and remains failing in targeted reruns; script was left unchanged for bridge-level remediation.
+- Deep analysis:
+	- The failure is the same systemic bridge-widget coercion pattern seen in prior batches: interpreted wrapper instances are not normalized to native `Widget` before harness type assertions.
+	- Recurrence in `ScrollViewKeyboardDismissBehavior` confirms coercion gaps persist in scroll-view behavioral wrapper paths, not only observer/alignment variants.
+	- Durable remediation belongs in bridge/runtime coercion semantics, not in per-script tactical edits for non-immediate entries.
+- Follow-up recommendation:
+	- Extend coercion logic to unwrap `InterpretedInstance` values when widget subclasses cross the script-to-harness boundary in scroll-view behavior flows.
+	- Add regressions covering keyboard-dismiss behavior and related scroll-view wrapper contexts to prevent repeat coercion mismatches.

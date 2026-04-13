@@ -283,3 +283,8 @@ batch: 35
 
 - No batch-35 entries required interpreter deep analysis.
 - Batch-35 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+
+batch: 36
+
+- No batch-36 entries required interpreter deep analysis.
+- Batch-36 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
