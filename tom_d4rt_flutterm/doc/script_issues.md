@@ -962,3 +962,75 @@ batch: 69
 - Non-immediate batch-69 entries:
   - issue-index 346-347: BRIDGE-WIDGET-COERCION (`Directionality.child`), documented in `generator_issues.md`.
   - issue-index 348-349: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
+
+batch: 70
+
+- No immediate batch-70 script fixes were needed.
+- All five batch-70 entries were BRIDGE-STATE-PROPERTY-EXPOSURE issues (indices 350-354), documented in `generator_issues.md`.
+
+batch: 71
+
+- Immediate batch-71 script fixes were applied and validated for:
+  - widgets/performance_overlay_test.dart (issue-index 357, state-init `_controller` + massive overflow)
+- Non-immediate batch-71 entries:
+  - issue-index 355: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
+  - issue-index 356: mixed BRIDGE-MISSING-METHOD-DISPATCH + layout, documented in `generator_issues.md`.
+  - issue-index 358: BRIDGE-MISSING-INSTANCE-METHOD (`whereType`), documented in `generator_issues.md`.
+  - issue-index 359: BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
+
+batch: 72
+
+- Immediate batch-72 script fixes were applied and validated for:
+  - widgets/restorable_bool_test.dart (issue-index 361, `_tabController` late-init)
+  - widgets/restorable_date_time_test.dart (issue-index 362, `_tabController` late-init)
+  - widgets/restorable_double_test.dart (issue-index 363, `_tabController` late-init)
+- Non-immediate batch-72 entries:
+  - issue-index 360: BRIDGE-WIDGET-COERCION (`Center.child`), documented in `generator_issues.md`.
+  - issue-index 364: BRIDGE-WIDGET-COERCION (restorable enum), documented in `generator_issues.md`.
+
+batch: 73
+
+- Immediate batch-73 script fixes were applied and validated for:
+  - widgets/restorable_int_test.dart (issue-index 365, `_tabController` late-init)
+  - widgets/restorable_property_test.dart (issue-index 366, `_tabController` late-init)
+  - widgets/restorable_string_test.dart (issue-index 367, `_tabController` late-init)
+  - widgets/restorable_value_test.dart (issue-index 369, `_tabController` late-init)
+- Non-immediate batch-73 entries:
+  - issue-index 368: BRIDGE-WIDGET-COERCION (restorable text editing), documented in `generator_issues.md`.
+
+batch: 74
+
+- Immediate batch-74 script fixes were applied and validated for:
+  - widgets/restoration_mixin_test.dart (issue-index 370, restoration lifecycle registration order)
+  - widgets/root_element_test.dart (issue-index 371, `_tabController` late-init)
+  - widgets/scroll_action_test.dart (issue-index 373, `_tabs` late-init)
+  - widgets/scroll_intent_test.dart (issue-index 374, `_tabs` late-init)
+- Non-immediate batch-74 entries:
+  - issue-index 372: BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT (`_AttachStep`), documented in `generator_issues.md`.
+
+batch: 75
+
+- Immediate batch-75 script fixes were applied and validated for:
+  - widgets/single_ticker_provider_state_mixin_test.dart (issue-index 378, `_controller` + layout)
+  - widgets/spell_check_configuration_test.dart (issue-index 379, `_tabs` late-init)
+- Non-immediate batch-75 entries:
+  - issue-index 375: BRIDGE-MISSING-INSTANCE-METHOD (`whereType`), documented in `generator_issues.md`.
+  - issue-index 376-377: BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT, documented in `generator_issues.md`.
+
+batch: 76
+
+- Immediate batch-76 script fixes were applied and validated for:
+  - widgets/text_magnifier_configuration_test.dart (issue-index 382, `_tabs` late-init)
+  - widgets/text_selection_controls_test.dart (issue-index 383, `_tabs` late-init)
+  - widgets/undo_history_controller_test.dart (issue-index 384, `_tabs` late-init)
+- Non-immediate batch-76 entries:
+  - issue-index 380-381: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
+
+batch: 77
+
+- Immediate batch-77 script fixes were applied and validated for:
+  - widgets/widget_inspector_test.dart (issue-index 385, `_tabs` late-init)
+  - widgets/widget_test.dart (issue-index 386, `_tabs` late-init)
+  - widgets/widgets_binding_observer_test.dart (issue-index 387, `_tabs` late-init)
+  - widgets/widgets_binding_test.dart (issue-index 388, `_tabs` late-init)
+- Notes: Batch 77 is the FINAL batch. All 389 issues (indices 0-388) have been processed.

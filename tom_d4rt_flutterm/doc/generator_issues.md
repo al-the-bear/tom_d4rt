@@ -892,3 +892,66 @@ batch: 69
   - issue-index 349: `widgets/list_wheel_viewport_test.dart`
   - Same inherited `State.widget` exposure gap. Same shared fix.
 - One script fix documented in `script_issues.md`.
+
+batch: 70
+
+- Five BRIDGE-STATE-PROPERTY-EXPOSURE issues (all unresolved inherited `State.widget`):
+  - issue-index 350: `widgets/magnifier_decoration_test.dart`
+  - issue-index 351: `widgets/navigation_toolbar_test.dart`
+  - issue-index 352: `widgets/overflow_bar_test.dart`
+  - issue-index 353: `widgets/overflow_box_test.dart`
+  - issue-index 354: `widgets/page_storage_bucket_test.dart`
+  - All: Same inherited `State.widget` exposure gap. Same shared fix.
+
+batch: 71
+
+- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
+  - issue-index 355: `widgets/page_storage_test.dart` — Same `State.widget` property gap.
+- One mixed BRIDGE-MISSING-METHOD-DISPATCH + layout issue:
+  - issue-index 356: `widgets/parent_data_widget_test.dart` — `layoutChild` unresolved on `_DemoLayoutDelegate` plus downstream layout assertion. Same delegate dispatch gap as batch-58 index 292.
+- One BRIDGE-MISSING-INSTANCE-METHOD issue:
+  - issue-index 358: `widgets/physical_model_test.dart` — `List.whereType` not bridged. Same collection method gap.
+- One BRIDGE-WIDGET-COERCION issue:
+  - issue-index 359: `widgets/render_object_element_test.dart` — `Container.child` receives interpreted widget instance.
+- One script fix documented in `script_issues.md`.
+
+batch: 72
+
+- Two BRIDGE-WIDGET-COERCION issues:
+  - issue-index 360: `widgets/render_object_widget_test.dart` — `Center.child` receives interpreted widget.
+  - issue-index 364: `widgets/restorable_enum_test.dart` — Plain test failure, expected `Widget` got `InterpretedInstance`.
+- Three script fixes documented in `script_issues.md`.
+
+batch: 73
+
+- One BRIDGE-WIDGET-COERCION issue:
+  - issue-index 368: `widgets/restorable_text_editing_controller_test.dart` — Expected `Widget` got `InterpretedInstance`.
+- Four script fixes documented in `script_issues.md`.
+
+batch: 74
+
+- One BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issue:
+  - issue-index 372: `widgets/root_widget_test.dart` — `_AttachStep` private helper class unnamed constructor unresolved.
+- Four script fixes documented in `script_issues.md`.
+
+batch: 75
+
+- One BRIDGE-MISSING-INSTANCE-METHOD issue:
+  - issue-index 375: `widgets/shader_mask_test.dart` — `List.whereType` not bridged.
+- Two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT issues:
+  - issue-index 376: `widgets/single_child_render_object_element_test.dart` — `_MethodInfo` unnamed constructor unresolved.
+  - issue-index 377: `widgets/single_child_render_object_widget_test.dart` — `_SubclassEntry` unnamed constructor unresolved.
+- Two script fixes documented in `script_issues.md`.
+
+batch: 76
+
+- Two BRIDGE-STATE-PROPERTY-EXPOSURE issues:
+  - issue-index 380: `widgets/stateful_element_test.dart` — `State.widget` unresolved.
+  - issue-index 381: `widgets/stateless_element_test.dart` — Same gap.
+- Three script fixes documented in `script_issues.md`.
+
+batch: 77
+
+- No batch-77 entries required bridge-generator deep analysis.
+- All four batch-77 entries were script-level `_tabs` late-init fixes, documented in `script_issues.md`.
+- **Batch 77 is the FINAL batch. All 389 issues (indices 0-388) have been fully processed.**
