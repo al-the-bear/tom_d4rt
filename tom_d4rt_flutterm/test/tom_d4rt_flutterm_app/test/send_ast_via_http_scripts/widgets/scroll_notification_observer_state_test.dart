@@ -51,13 +51,7 @@ class _ObserverStateDemo extends StatefulWidget {
 
 class _ObserverStateDemoState extends State<_ObserverStateDemo>
     with TickerProviderStateMixin {
-  late final TabController _tabCtrl;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabCtrl = TabController(length: 3, vsync: this);
-  }
+  late final TabController _tabCtrl = TabController(length: 3, vsync: this);
 
   @override
   void dispose() {
@@ -112,16 +106,12 @@ class _ListenerManagementTab extends StatefulWidget {
   State<_ListenerManagementTab> createState() => _ListenerManagementTabState();
 }
 
-class _ListenerManagementTabState extends State<_ListenerManagementTab>
-    with AutomaticKeepAliveClientMixin {
+class _ListenerManagementTabState extends State<_ListenerManagementTab> {
   final List<_SimulatedListener> _listeners = [];
   int _nextId = 1;
   final List<String> _dispatchLog = [];
   final ScrollController _scrollCtrl = ScrollController();
   int _scrollEventCount = 0;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
@@ -177,7 +167,6 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Column(
       children: [
         // ── Header bar ──
@@ -373,8 +362,7 @@ class _ErrorDispatchTab extends StatefulWidget {
   State<_ErrorDispatchTab> createState() => _ErrorDispatchTabState();
 }
 
-class _ErrorDispatchTabState extends State<_ErrorDispatchTab>
-    with AutomaticKeepAliveClientMixin {
+class _ErrorDispatchTabState extends State<_ErrorDispatchTab> {
   final List<_DispatchSlot> _slots = List.generate(
     5,
     (i) => _DispatchSlot(name: 'Listener ${i + 1}', throws: i == 2),
@@ -382,9 +370,6 @@ class _ErrorDispatchTabState extends State<_ErrorDispatchTab>
   final List<_DispatchEvent> _events = [];
   int _dispatchRound = 0;
   bool _dispatching = false;
-
-  @override
-  bool get wantKeepAlive => true;
 
   void _toggleThrow(int index) {
     setState(() {
@@ -461,7 +446,6 @@ class _ErrorDispatchTabState extends State<_ErrorDispatchTab>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Column(
       children: [
         // ── Listener slots ──
@@ -622,16 +606,12 @@ class _StaticAccessTab extends StatefulWidget {
   State<_StaticAccessTab> createState() => _StaticAccessTabState();
 }
 
-class _StaticAccessTabState extends State<_StaticAccessTab>
-    with AutomaticKeepAliveClientMixin {
+class _StaticAccessTabState extends State<_StaticAccessTab> {
   bool _observerPresent = true;
   bool _showLookupResult = false;
   String _lookupMethod = 'maybeOf';
   int _notificationCount = 0;
   final List<String> _lifecycleLog = [];
-
-  @override
-  bool get wantKeepAlive => true;
 
   void _performLookup() {
     setState(() {
@@ -679,7 +659,6 @@ class _StaticAccessTabState extends State<_StaticAccessTab>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(

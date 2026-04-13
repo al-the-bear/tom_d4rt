@@ -9,6 +9,213 @@ bridge-side adapter infrastructure.
 | # | Limitation | Test Failures | Status |
 |---|-----------|---------------|--------|
 | 1 | [Bridged mixins with `on` clauses](#1-bridged-mixins-with-on-clauses-singletickerprovider) | 15+ | Needs adapter |
+| 2 | [Enum exhaustiveness in switch statements](#2-enum-exhaustiveness-in-switch-statements) | Many | Script workaround |
+| 3 | [Sealed class exhaustiveness](#3-sealed-class-exhaustiveness) | TBD | Script workaround |
+| 4 | [Platform capability (SystemColor)](#4-platform-capability-systemcolor) | 1 | Script workaround |
+| 5 | [Abstract class inheritance](#5-abstract-class-inheritance) | State-related | Adapter + interceptor |
+
+---
+
+## 5. Abstract Class Inheritance
+
+### Error Messages
+
+```
+Undefined property 'widget' on _MyState
+Undefined property or method 'accent' on bridged instance of 'StatefulWidget'
+Cannot access property 'X' on target of type null
+```
+
+### Impact
+
+- All interpreted State subclasses accessing `widget`, `context`, `mounted` properties
+- Affects any class extending an abstract bridged class where `bridgedSuperObject` cannot be instantiated
+
+### Why This Can't Be Fixed Purely in the Interpreter
+
+The interpreter maintains `bridgedSuperObject` — a native instance of the bridged superclass that handles inherited property/method access. For abstract classes (like `State`, `StatelessWidget`, `StatefulWidget`), we cannot instantiate them directly:
+
+1. D4rt script declares `class _MyState extends State<MyWidget>`
+2. Interpreter creates `InterpretedClass` with `bridgedSuperclass = StateBridge`
+3. During constructor, implicit `super()` would create native `State` instance
+4. But `State` is abstract — constructor fails, `bridgedSuperObject` remains null
+5. Accessing `widget`, `setState`, `context` fails because they resolve via `bridgedSuperObject`
+
+### Solution: Adapter Proxies + Property Interceptors
+
+The solution has two parts:
+
+**1. Adapter Proxies (`_InterpretedState`, etc.)**
+
+Native adapter classes extend the abstract bridged class and hold a reference to the `InterpretedInstance`. These are created via `D4.registerInterfaceProxy()` and stored in `InterpretedInstance.nativeProxy`.
+
+**2. Property Interceptors (RC-9)**
+
+For properties like `widget` that return native wrappers but need to return `InterpretedInstance` objects, interceptors redirect the property access:
+
+```dart
+// The adapter implements an interface with the interpreted instance getter
+abstract class InterpretedStateProxy {
+  InterpretedInstance get interpretedWidget;
+}
+
+class _InterpretedState extends State<_InterpretedStatefulWidget>
+    implements InterpretedStateProxy {
+  @override
+  InterpretedInstance get interpretedWidget => super.widget._instance;
+  // ... lifecycle method delegation ...
+}
+
+// Register the property interceptor
+D4.registerPropertyInterceptor('State', (instance, propertyName, nativeProxy, bridgedSuperObject, visitor) {
+  if (propertyName == 'widget' && 
+      bridgedSuperObject == null && 
+      nativeProxy is InterpretedStateProxy) {
+    return InterceptedValue(nativeProxy.interpretedWidget);
+  }
+  return null; // Fall through to normal handling
+});
+```
+
+### How Property Access Works After the Fix
+
+1. Script accesses `widget` on interpreted State subclass
+2. `InterpretedInstance.get('widget')` is called
+3. Since `bridgedSuperObject` is null, it uses `nativeProxy` as fallback
+4. Before calling the getter adapter, `D4.interceptPropertyAccess()` is called
+5. The registered interceptor detects `widget` access on `InterpretedStateProxy`
+6. Returns `InterceptedValue(nativeProxy.interpretedWidget)` — the original script widget
+7. Script receives the `InterpretedInstance` of its widget class, not the native wrapper
+
+### Implementation Location
+
+- Adapter classes: [d4rt_runtime_registrations.dart](../lib/src/d4rt_runtime_registrations.dart)
+- Property interceptors: same file, `_registerPropertyInterceptors()`
+- Interceptor mechanism: [D4 class](../../tom_d4rt_ast/lib/src/runtime/generator/d4.dart) (RC-9 section)
+- Documentation: [Advanced Bridging User Guide](../../tom_d4rt/doc/advanced_bridging_user_guide.md#rc-9-property-interceptors)
+
+---
+
+## 2. Enum Exhaustiveness in Switch Statements
+
+### Error Messages
+
+```
+'>' called on null
+Cannot access property 'value' on target of type null
+Non-exhaustive switch statement: case X not handled
+```
+
+### Impact
+
+- Many test scripts using switch statements/expressions on Material enums
+- Affects: `ButtonBarLayoutBehavior`, `ButtonTextTheme`, `DropdownMenuCloseBehavior`, `ColorSpace`, etc.
+
+### Why This Can't Be Fixed in the Interpreter
+
+Dart's exhaustive switch checking is a compile-time feature. The D4rt interpreter:
+
+1. **Cannot perform exhaustive analysis**: Bridged enum values are runtime objects without complete type metadata
+2. **Switch evaluation returns null**: When no case matches a bridged enum value, the switch returns null instead of throwing an exhaustiveness error
+3. **Subsequent operations fail**: Code that expects a non-null result (`.value`, comparison operators) fails with misleading errors
+
+### Script Workaround
+
+**Always add a `default:` case to enum switches in D4rt scripts:**
+
+```dart
+// BEFORE: Fails in D4rt interpreter
+String describe(ButtonTextTheme theme) {
+  switch (theme) {
+    case ButtonTextTheme.normal: return 'Normal';
+    case ButtonTextTheme.accent: return 'Accent';
+    case ButtonTextTheme.primary: return 'Primary';
+  }
+}
+
+// AFTER: Works in D4rt interpreter
+// D4RT-LIMITATION: enum exhaustiveness
+String describe(ButtonTextTheme theme) {
+  switch (theme) {
+    case ButtonTextTheme.normal: return 'Normal';
+    case ButtonTextTheme.accent: return 'Accent';
+    case ButtonTextTheme.primary: return 'Primary';
+    default: return 'Unknown: ${theme.name}';
+  }
+}
+
+// For switch expressions, use wildcard:
+final desc = switch (theme) {
+  ButtonTextTheme.normal => 'Normal',
+  ButtonTextTheme.accent => 'Accent',
+  ButtonTextTheme.primary => 'Primary',
+  _ => 'Unknown',  // D4RT-LIMITATION: enum exhaustiveness
+};
+```
+
+### Fixed Scripts
+
+- `retest/dart_ui/color_space_test.dart` (index 13)
+- `retest/material/button_bar_layout_behavior_test.dart` (index 25)
+- `retest/material/button_text_theme_test.dart` (index 27)
+- `retest/material/dropdown_menu_close_behavior_test.dart` (index 30)
+
+---
+
+## 3. Sealed Class Exhaustiveness
+
+### Impact
+
+Same issue as enum exhaustiveness but for sealed class hierarchies.
+
+### Script Workaround
+
+Add a `default:` case or `_` wildcard to handle unmatched sealed class subtypes.
+
+---
+
+## 4. Platform Capability (SystemColor)
+
+### Error Messages
+
+```
+Unsupported operation: SystemColor not supported on the current platform.
+```
+
+### Impact
+
+- Scripts accessing `ui.SystemColor.light` or `ui.SystemColor.dark`
+- Fails on Linux and some embedded platforms
+
+### Why This Isn't an Interpreter Bug
+
+This is a genuine platform limitation. Some platforms (e.g., Linux) don't expose system color palette data to the Flutter engine. The same exception occurs in native Dart execution.
+
+### Script Workaround
+
+**Wrap SystemColor access in try-catch:**
+
+```dart
+// D4RT-LIMITATION: Platform capability - SystemColor not supported on all platforms
+ui.SystemColorPalette? light;
+String? platformError;
+
+try {
+  light = ui.SystemColor.light;
+} catch (e) {
+  platformError = e.toString();
+  print('WARNING: SystemColor not supported: $platformError');
+}
+
+if (light == null) {
+  // Return fallback UI
+  return FallbackWidget();
+}
+```
+
+### Fixed Scripts
+
+- `retest/dart_ui/system_color_palette_test.dart` (index 16)
 
 ---
 
