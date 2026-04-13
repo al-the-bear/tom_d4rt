@@ -443,3 +443,20 @@ batch: 29
     - Batch-29 continues the same deep-visual template defect seen in batch-28: lifecycle-dependent late `_tabController` usage without guaranteed initialization in interpreted execution.
     - The repeated pattern across three scripts indicates a reusable template architecture issue rather than isolated script logic mistakes.
     - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.
+
+batch: 30
+
+- No non-immediate batch-30 script issues remained after immediate fixes.
+- Immediate batch-30 script fixes were applied and validated for:
+  - widgets/restorable_date_time_n_test.dart
+  - widgets/restorable_double_n_test.dart
+  - widgets/restorable_int_n_test.dart
+  - widgets/restorable_listenable_test.dart
+- Routed non-immediate item:
+  - widgets/restorable_enum_n_test.dart (issue-index: 152) was not modified because `immediate fix possible` is `no`; full deep analysis is documented in `generator_issues.md`.
+- Notes:
+  - All immediate batch-30 script fixes were direct script-level state-context stabilizations removing the recurring `_tabController` late-initialization path.
+  - Complex script deep analysis (issue-index: 150, 151, 153, 154):
+    - Batch-30 continues the same deep-visual template defect seen in batches 28-29: lifecycle-dependent late `_tabController` usage without guaranteed initialization in interpreted execution.
+    - The repeated pattern across four scripts confirms a template-level architecture issue, not isolated per-script defects.
+    - Immediate mitigation replaced affected scripts with deterministic explicit-data flows; long-term script quality should enforce template rules that avoid late lifecycle fields for interpreted deep demos.

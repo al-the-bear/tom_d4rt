@@ -421,3 +421,18 @@ issue-index: 146, 147
 - Follow-up recommendation:
 	- Extend widget coercion registration/normalization for wrappers used by `ReplaceTextIntent` and `RequestFocusAction` demo paths so interpreted values are unwrapped before widget-only boundaries.
 	- Add focused regressions for action/intent-oriented demo wrappers to verify coercion succeeds for both top-level return values and nested child widget parameters.
+
+batch: 30
+
+issue-index: 152
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/restorable_enum_n_test.dart`
+- Symptom: runtime hard failure (`Undefined variable: Enum`).
+- Immediate outcome: index 152 is non-immediate and remains failing in targeted rerun; script was left unchanged for bridge-level remediation.
+- Deep analysis:
+	- The failure indicates missing core-symbol registration/exposure for `Enum` in interpreted execution scope when script paths reference the base enum type directly.
+	- Unlike per-widget coercion issues, this defect is a fundamental symbol-availability gap in the core bridge/type registry surface and can affect any script using `Enum` as a type reference or constraint.
+	- Because `Enum` is a dart:core base abstraction, resolution strategy must be centralized in interpreter/bridge symbol registration rather than patched ad hoc in individual scripts.
+- Follow-up recommendation:
+	- Register/expose `Enum` in the interpreter core symbol registry (or via a dedicated UserBridge mapping) so type lookup resolves consistently in interpreted scripts.
+	- Add regression coverage for direct and generic references to `Enum` in restorable and non-restorable script paths to ensure symbol lookup and type checks remain stable.
