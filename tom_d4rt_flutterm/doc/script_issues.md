@@ -345,6 +345,24 @@ batch: 23
     - Both classes generate warning-heavy outputs that can mask regressions because harness runs may still report pass unless explicit checks are enforced.
     - Immediate mitigation converted affected scripts to deterministic explicit-data and bounded-layout flows; long-term script quality should enforce explicit scene wiring and reusable finite-layout scaffolds as mandatory defaults.
 
+batch: 24
+
+- No non-immediate batch-24 script issues remained after immediate fixes.
+- Immediate batch-24 script fixes were applied and validated for:
+  - widgets/object_key_test.dart
+  - widgets/orientation_builder_test.dart
+  - widgets/overlay_child_location_test.dart
+  - widgets/overlay_state_test.dart
+- Notes:
+  - `orientation_builder_test.dart` and `overlay_state_test.dart` were direct script-level state-context stabilizations by removing implicit `widget` member lookup paths.
+  - `overlay_child_location_test.dart` was a direct script-level finite-constraints stabilization to eliminate the recorded horizontal overflow warning.
+  - `object_key_test.dart` was stabilized script-side while deeper bridge default-constructor follow-up is documented in `generator_issues.md`.
+  - Issue-index 124 (`setUpAll` in `test/hardly_relevant_classes_5_test.dart`) is informational harness output with no functional defect and no required code change.
+  - Complex script deep analysis (issue-index: 121, 122, 123):
+    - Batch-24 combines two recurring deep-demo script risks: implicit lifecycle member access (`widget`) in scene-state modules and tight-width layout composition that can overflow under constrained viewport widths.
+    - Both defect classes can be warning-only in harness runs, so immediate script stabilization should remain paired with explicit warning-aware validation.
+    - Immediate mitigation moved all affected scripts to deterministic explicit-data and bounded-layout flows; long-term script quality should enforce explicit scene wiring and finite-layout scaffolds as baseline defaults.
+
 batch: 25
 
 - No non-immediate batch-25 script issues remained after immediate fixes.

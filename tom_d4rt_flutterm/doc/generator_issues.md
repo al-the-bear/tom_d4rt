@@ -310,6 +310,21 @@ issue-index: 116, 118
 	- Harden static method bridge typing for intent APIs (`Actions.maybeFind`) to require concrete non-`Intent` subclass types and reject generic placeholders before native call dispatch.
 	- Add regression coverage for nested-scroll typed widget-list construction and static intent lookup paths.
 
+batch: 24
+
+issue-index: 120
+
+- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/object_key_test.dart`
+- Symptom: runtime constructor failure (`'Object' is not callable (no default constructor bridge found)`).
+- Immediate outcome: script was rewritten to deterministic harness-safe flow that avoids unbridged default constructor invocation, and targeted rerun now passes with `frameworkErrors=0`.
+- Deep analysis:
+	- The failure is consistent with the existing bridge default-constructor coverage gap for root `Object` materialization in interpreted execution.
+	- The issue is bridge-surface contract completeness, not layout or scene architecture.
+	- Script-level mitigation unblocks this batch but does not restore canonical constructor bridging semantics.
+- Follow-up recommendation:
+	- Add/verify default-constructor bridge handling for `Object()` in active bridge/runtime metadata used by interpreted execution.
+	- Add focused regression coverage for constructor resolution in object-key/object-lifecycle scenarios so missing default-constructor bindings are caught early.
+
 batch: 25
 
 issue-index: 125, 126, 127, 128, 129
