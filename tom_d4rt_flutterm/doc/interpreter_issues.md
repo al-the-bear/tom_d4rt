@@ -457,3 +457,38 @@ batch: 62
 
 - No batch-62 entries required interpreter deep analysis.
 - Batch-62 bridge issues (BRIDGE-CALLBACK-TYPE-COERCION, two BRIDGE-WIDGET-COERCION, BRIDGE-MISSING-MEMBER) documented in `generator_issues.md`.
+
+batch: 63
+
+- No batch-63 entries required interpreter deep analysis.
+- Batch-63 bridge issues (BRIDGE-WIDGET-COERCION, BRIDGE-DELEGATE-TYPE-COERCION, BRIDGE-MIXIN-TARGET-COERCION) documented in `generator_issues.md`.
+
+batch: 64
+
+- No batch-64 entries required interpreter deep analysis.
+- Batch-64 bridge issues (BRIDGE-DELEGATE-TYPE-COERCION, BRIDGE-CLIPPER-TYPE-COERCION) documented in `generator_issues.md`.
+
+batch: 65
+
+- No batch-65 entries required interpreter deep analysis.
+- Batch-65 bridge issues (BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION, BRIDGE-STATIC-MEMBER-EXPOSURE) documented in `generator_issues.md`.
+
+batch: 66
+
+- No batch-66 entries required interpreter deep analysis.
+- Batch-66 bridge issues (three BRIDGE-MISSING-INSTANCE-METHOD, BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
+
+batch: 67
+
+- No batch-67 entries required interpreter deep analysis.
+- Batch-67 bridge issue (BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
+
+batch: 68
+
+- No batch-68 entries required interpreter deep analysis.
+- Batch-68 bridge issues (BRIDGE-TYPE-CAST-FAILURE, mixed BRIDGE-OPERATOR/STATE/WIDGET, three BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
+
+batch: 69
+
+- No batch-69 entries required interpreter deep analysis.
+- Batch-69 bridge issues (two BRIDGE-WIDGET-COERCION, two BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.

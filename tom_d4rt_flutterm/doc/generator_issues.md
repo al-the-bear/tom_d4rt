@@ -815,3 +815,80 @@ batch: 62
   - issue-index 314: `rendering/render_aligning_shifted_box_test.dart` — `String.characters` member not exposed in runtime bridge. Causes downstream `Iterable.toList` failure.
   - Fix requires: Add member exposure/bridge support for `String.characters` access path.
 - One script overflow fix documented in `script_issues.md`.
+
+batch: 63
+
+- One BRIDGE-WIDGET-COERCION issue:
+  - issue-index 317: `rendering/render_box_container_defaults_mixin_test.dart` — Interpreted widget instance not coerced to `Widget` for build parameter path.
+- One BRIDGE-DELEGATE-TYPE-COERCION issue:
+  - issue-index 318: `rendering/render_custom_multi_child_layout_box_test.dart` — `MultiChildLayoutDelegate` typed constructor arg receives interpreted delegate instance without adaptation.
+  - Fix requires: Add bridge adaptation for `MultiChildLayoutDelegate`-typed constructor arguments.
+- One mixed BRIDGE-MIXIN-TARGET-COERCION + assertion issue:
+  - issue-index 319: `rendering/render_custom_paint_test.dart` — `mounted` getter expects `SingleTickerProviderStateMixin` target but receives interpreted instance. Secondary `Bad state: No element` follows.
+  - Fix requires: Add mixin target coercion/dispatch support for `SingleTickerProviderStateMixin`-bound getter path.
+- Two script fixes documented in `script_issues.md`.
+
+batch: 64
+
+- One BRIDGE-DELEGATE-TYPE-COERCION issue:
+  - issue-index 320: `rendering/render_custom_single_child_layout_box_test.dart` — `SingleChildLayoutDelegate` typed arg receives interpreted delegate without adaptation.
+  - Fix requires: Add bridge adaptation for `SingleChildLayoutDelegate` constructor args.
+- One BRIDGE-CLIPPER-TYPE-COERCION issue:
+  - issue-index 323: `rendering/render_physical_shape_test.dart` — `CustomClipper<Path>` not coerced from interpreted `_BevelClipper`.
+  - Fix requires: Extend constructor arg coercion for `CustomClipper<Path>` to adapt interpreted clipper instances.
+- Three script fixes documented in `script_issues.md`.
+
+batch: 65
+
+- One BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION issue:
+  - issue-index 325: `rendering/render_shrink_wrapping_viewport_test.dart` — Bridged `SingleChildRenderObjectWidget` has no default constructor mapping for interpreted `_SizeReporter` subclass.
+  - Fix requires: Add explicit constructor mapping/alias for `SingleChildRenderObjectWidget` default constructor.
+- One BRIDGE-STATIC-MEMBER-EXPOSURE issue:
+  - issue-index 329: `widgets/android_view_test.dart` — `EagerGestureRecognizer.new` constructor tearoff not exposed as static member.
+  - Fix requires: Extend bridge static member exposure for constructor tearoffs.
+- Three script fixes documented in `script_issues.md`.
+
+batch: 66
+
+- Three BRIDGE-MISSING-INSTANCE-METHOD issues:
+  - issue-index 330: `widgets/animated_cross_fade_test.dart` — `List.whereType` not bridged.
+  - issue-index 332: `widgets/animated_switcher_test.dart` — Same `whereType` gap.
+  - issue-index 334: `widgets/backdrop_filter_test.dart` — Same `whereType` gap.
+  - Fix requires: Add bridge support for `whereType` on iterable/list path with correct generic typing.
+- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
+  - issue-index 333: `widgets/autofill_group_test.dart` — Inherited `State.widget` property not resolved for `_AutofillGroupLaneState`.
+  - Fix requires: Extend state-object property exposure to include inherited `State.widget` resolution.
+- One script overflow fix documented in `script_issues.md`.
+
+batch: 67
+
+- One BRIDGE-STATE-PROPERTY-EXPOSURE issue:
+  - issue-index 336: `widgets/composited_transform_follower_test.dart` — Inherited `State.widget` unresolved for `_LinkPrimerState`.
+  - Fix requires: Same generalized `State.widget` exposure fix.
+- Four script fixes documented in `script_issues.md`.
+
+batch: 68
+
+- One BRIDGE-TYPE-CAST-FAILURE issue:
+  - issue-index 340: `widgets/fixed_extent_metrics_test.dart` — Runtime cast failure on `SNamedType` in bridge/interpreter type-cast path.
+  - Fix requires: Investigate and correct cast compatibility for `SNamedType` bridge/interpreter mapping.
+- One mixed BRIDGE-OPERATOR-COERCION + STATE-PROPERTY + WIDGET-COERCION cluster:
+  - issue-index 341: `widgets/glowing_overscroll_indicator_test.dart` — `Color` operator `==` parameter mismatch, inherited `widget` misses, and `InterpretedInstance` to `Widget?` cast failures.
+  - Fix requires: (1) Add `Color` operator coercion, (2) ensure `State.widget` exposure, (3) harden widget coercion for `Widget?` boundaries.
+- Three BRIDGE-STATE-PROPERTY-EXPOSURE issues:
+  - issue-index 342: `widgets/html_element_view_test.dart`
+  - issue-index 343: `widgets/image_filtered_test.dart`
+  - issue-index 344: `widgets/indexed_stack_test.dart`
+  - All: Inherited `State.widget` unresolved. Same shared fix.
+
+batch: 69
+
+- Two BRIDGE-WIDGET-COERCION issues:
+  - issue-index 346: `widgets/inherited_theme_test.dart` — `Directionality.child` receives `InterpretedInstance(PanelTheme)` instead of `Widget`.
+  - issue-index 347: `widgets/inherited_widget_test.dart` — Same `Directionality.child` coercion gap.
+  - Fix requires: Extend constructor-arg widget coercion for `Directionality.child`.
+- Two BRIDGE-STATE-PROPERTY-EXPOSURE issues:
+  - issue-index 348: `widgets/list_wheel_scroll_view_test.dart`
+  - issue-index 349: `widgets/list_wheel_viewport_test.dart`
+  - Same inherited `State.widget` exposure gap. Same shared fix.
+- One script fix documented in `script_issues.md`.

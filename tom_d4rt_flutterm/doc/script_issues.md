@@ -898,3 +898,67 @@ batch: 62
   - issue-index 310: mixed BRIDGE-CALLBACK-TYPE-COERCION + overflow, documented in `generator_issues.md`.
   - issue-index 312-313: BRIDGE-WIDGET-COERCION (`Positioned.fill` child), documented in `generator_issues.md`.
   - issue-index 314: BRIDGE-MISSING-MEMBER (`String.characters`), documented in `generator_issues.md`.
+
+batch: 63
+
+- Immediate batch-63 script fixes were applied and validated for:
+  - rendering/render_animated_opacity_test.dart (issue-index 315, state-context `_controller` late-init)
+  - rendering/render_block_semantics_test.dart (issue-index 316, overflow)
+- Non-immediate batch-63 entries:
+  - issue-index 317: BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
+  - issue-index 318: BRIDGE-DELEGATE-TYPE-COERCION, documented in `generator_issues.md`.
+  - issue-index 319: mixed BRIDGE-MIXIN-TARGET-COERCION + assertion, documented in `generator_issues.md`.
+
+batch: 64
+
+- Immediate batch-64 script fixes were applied and validated for:
+  - rendering/render_editable_test.dart (issue-index 321, layout constraint negative min-height)
+  - rendering/render_ignore_pointer_test.dart (issue-index 322, overflow)
+  - rendering/render_shader_mask_test.dart (issue-index 324, index out of range)
+- Non-immediate batch-64 entries:
+  - issue-index 320: BRIDGE-DELEGATE-TYPE-COERCION, documented in `generator_issues.md`.
+  - issue-index 323: BRIDGE-CLIPPER-TYPE-COERCION, documented in `generator_issues.md`.
+
+batch: 65
+
+- Immediate batch-65 script fixes were applied and validated for:
+  - rendering/render_sliver_pinned_persistent_header_test.dart (issue-index 326, overflow)
+  - rendering/sliver_hit_test_result_test.dart (issue-index 327, overflow multi-axis)
+  - rendering/sliver_layout_dimensions_test.dart (issue-index 328, overflow)
+- Non-immediate batch-65 entries:
+  - issue-index 325: BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION, documented in `generator_issues.md`.
+  - issue-index 329: BRIDGE-STATIC-MEMBER-EXPOSURE, documented in `generator_issues.md`.
+
+batch: 66
+
+- Immediate batch-66 script fixes were applied and validated for:
+  - widgets/animated_fractionally_sized_box_test.dart (issue-index 331, overflow)
+- Non-immediate batch-66 entries:
+  - issue-index 330, 332, 334: BRIDGE-MISSING-INSTANCE-METHOD (`whereType`), documented in `generator_issues.md`.
+  - issue-index 333: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
+
+batch: 67
+
+- Immediate batch-67 script fixes were applied and validated for:
+  - widgets/color_filtered_test.dart (issue-index 335, layout constraints unbounded flex)
+  - widgets/default_asset_bundle_test.dart (issue-index 337, state-context `_oceanBundle` late-init)
+  - widgets/dual_transition_builder_test.dart (issue-index 338, state-context multiple controllers late-init)
+  - widgets/fade_in_image_test.dart (issue-index 339, state-context `_imagesFuture` late-init)
+- Non-immediate batch-67 entries:
+  - issue-index 336: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
+
+batch: 68
+
+- No immediate batch-68 script fixes were needed.
+- All five batch-68 entries were bridge-level issues documented in `generator_issues.md`:
+  - issue-index 340: BRIDGE-TYPE-CAST-FAILURE
+  - issue-index 341: mixed BRIDGE-OPERATOR-COERCION + STATE-PROPERTY + WIDGET-COERCION
+  - issue-index 342-344: BRIDGE-STATE-PROPERTY-EXPOSURE
+
+batch: 69
+
+- Immediate batch-69 script fixes were applied and validated for:
+  - widgets/inherited_notifier_test.dart (issue-index 345, state-context `_hub` late-init)
+- Non-immediate batch-69 entries:
+  - issue-index 346-347: BRIDGE-WIDGET-COERCION (`Directionality.child`), documented in `generator_issues.md`.
+  - issue-index 348-349: BRIDGE-STATE-PROPERTY-EXPOSURE, documented in `generator_issues.md`.
