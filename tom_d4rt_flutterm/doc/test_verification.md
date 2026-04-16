@@ -521,13 +521,13 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 341 | widgets/render_sliver_overlap_injector_test.dart | 35 | 2148 | test | |
 | 342 | widgets/render_tap_region_surface_test.dart | 35 | 1967 | fake | fixed |
 | 343 | widgets/render_tap_region_test.dart | 35 | 2494 | fake | fixed |
-| 344 | widgets/render_two_dimensional_viewport_test.dart | 35 | 1370 | fake | |
-| 345 | widgets/render_web_image_test.dart | 35 | 1089 | fake | |
-| 346 | widgets/repeat_mode_test.dart | 35 | 849 | fake | |
-| 347 | widgets/replace_text_intent_test.dart | 35 | 995 | fake | |
-| 348 | widgets/request_focus_action_test.dart | 35 | 1284 | fake | |
-| 349 | widgets/request_focus_intent_test.dart | 35 | 751 | fake | |
-| 350 | widgets/restorable_bool_n_test.dart | 35 | 1086 | fake | |
+| 344 | widgets/render_two_dimensional_viewport_test.dart | 35 | 2398 | fake | fixed |
+| 345 | widgets/render_web_image_test.dart | 35 | 2884 | fake | fixed |
+| 346 | widgets/repeat_mode_test.dart | 35 | 2732 | fake | fixed |
+| 347 | widgets/replace_text_intent_test.dart | 35 | 2534 | fake | fixed |
+| 348 | widgets/request_focus_action_test.dart | 35 | 2454 | fake | fixed |
+| 349 | widgets/request_focus_intent_test.dart | 35 | 751 | fake | fixed |
+| 350 | widgets/restorable_bool_n_test.dart | 35 | 2444 | fake | fixed |
 
 ## Batch 36
 
