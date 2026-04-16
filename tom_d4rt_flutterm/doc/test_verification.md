@@ -495,18 +495,18 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 325 | widgets/platform_menu_widgets_test.dart | 33 | 3052 | fake | fixed |
 | 326 | widgets/raw_dialog_route_test.dart | 33 | 746 | fake | fixed |
 | 327 | widgets/raw_keyboard_listener_test.dart | 33 | 1916 | fake | fixed |
-| 328 | widgets/raw_menu_overlay_info_test.dart | 33 | 726 | fake | |
-| 329 | widgets/raw_radio_test.dart | 33 | 815 | fake | |
-| 330 | widgets/redo_text_intent_test.dart | 33 | 860 | fake | |
+| 328 | widgets/raw_menu_overlay_info_test.dart | 33 | 726 | fake | fixed |
+| 329 | widgets/raw_radio_test.dart | 33 | 2914 | fake | fixed |
+| 330 | widgets/redo_text_intent_test.dart | 33 | 860 | fake | fixed |
 
 ## Batch 34
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 331 | widgets/regular_window_controller_delegate_test.dart | 34 | 759 | fake | |
-| 332 | widgets/regular_window_controller_linux_test.dart | 34 | 806 | fake | |
-| 333 | widgets/regular_window_controller_mac_o_s_test.dart | 34 | 744 | fake | |
-| 334 | widgets/regular_window_controller_test.dart | 34 | 827 | fake | |
+| 331 | widgets/regular_window_controller_delegate_test.dart | 34 | 759 | fake | fixed |
+| 332 | widgets/regular_window_controller_linux_test.dart | 34 | 806 | fake | fixed |
+| 333 | widgets/regular_window_controller_mac_o_s_test.dart | 34 | 744 | fake | fixed |
+| 334 | widgets/regular_window_controller_test.dart | 34 | 827 | fake | fixed |
 | 335 | widgets/regular_window_controller_win32_test.dart | 34 | 916 | fake | |
 | 336 | widgets/regular_window_test.dart | 34 | 739 | fake | |
 | 337 | widgets/relative_positioned_transition_test.dart | 34 | 1049 | fake | |
