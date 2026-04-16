@@ -507,11 +507,11 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 332 | widgets/regular_window_controller_linux_test.dart | 34 | 806 | fake | fixed |
 | 333 | widgets/regular_window_controller_mac_o_s_test.dart | 34 | 744 | fake | fixed |
 | 334 | widgets/regular_window_controller_test.dart | 34 | 827 | fake | fixed |
-| 335 | widgets/regular_window_controller_win32_test.dart | 34 | 916 | fake | |
-| 336 | widgets/regular_window_test.dart | 34 | 739 | fake | |
-| 337 | widgets/relative_positioned_transition_test.dart | 34 | 1049 | fake | |
-| 338 | widgets/render_abstract_layout_builder_mixin_test.dart | 34 | 824 | fake | |
-| 339 | widgets/render_nested_scroll_view_viewport_test.dart | 34 | 823 | fake | |
+| 335 | widgets/regular_window_controller_win32_test.dart | 34 | 916 | fake | fixed |
+| 336 | widgets/regular_window_test.dart | 34 | 739 | fake | fixed |
+| 337 | widgets/relative_positioned_transition_test.dart | 34 | 2060 | fake | fixed |
+| 338 | widgets/render_abstract_layout_builder_mixin_test.dart | 34 | 824 | fake | fixed |
+| 339 | widgets/render_nested_scroll_view_viewport_test.dart | 34 | 2387 | fake | fixed |
 | 340 | widgets/render_sliver_overlap_absorber_test.dart | 34 | 2024 | test | |
 
 ## Batch 35
@@ -519,8 +519,8 @@ Files that may have been replaced with fake demos. Need verification and restora
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
 | 341 | widgets/render_sliver_overlap_injector_test.dart | 35 | 2148 | test | |
-| 342 | widgets/render_tap_region_surface_test.dart | 35 | 929 | fake | |
-| 343 | widgets/render_tap_region_test.dart | 35 | 1113 | fake | |
+| 342 | widgets/render_tap_region_surface_test.dart | 35 | 1967 | fake | fixed |
+| 343 | widgets/render_tap_region_test.dart | 35 | 2494 | fake | fixed |
 | 344 | widgets/render_two_dimensional_viewport_test.dart | 35 | 1370 | fake | |
 | 345 | widgets/render_web_image_test.dart | 35 | 1089 | fake | |
 | 346 | widgets/repeat_mode_test.dart | 35 | 849 | fake | |
