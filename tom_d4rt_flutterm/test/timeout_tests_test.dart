@@ -12,7 +12,7 @@
 /// down by 30s+ timeouts. Once the underlying interpreter or generator
 /// issues are fixed, these tests can be moved back.
 ///
-/// Total: 62 unique scripts.
+/// Total: 51 unique scripts.
 @TestOn('vm')
 library;
 
@@ -41,29 +41,9 @@ void main() {
   });
 
   // ============================================================
-  // DART_UI PACKAGE TESTS (1 files)
-  // ============================================================
-  group('dart_ui/', () {
-    test('opacity_engine_layer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'dart_ui/opacity_engine_layer_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-  });
-
-  // ============================================================
-  // RENDERING PACKAGE TESTS (22 files)
+  // RENDERING PACKAGE TESTS (21 files)
   // ============================================================
   group('rendering/', () {
-    test('layer_types_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/layer_types_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
     test('retest: rendering/render_animated_size_state_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/rendering/render_animated_size_state_test.dart',
@@ -241,7 +221,7 @@ void main() {
   });
 
   // ============================================================
-  // WIDGETS PACKAGE TESTS (36 files)
+  // WIDGETS PACKAGE TESTS (27 files)
   // ============================================================
   group('widgets/', () {
     test('retest: widgets/android_view_surface_test.dart', () async {
@@ -422,69 +402,6 @@ void main() {
     test('sliver_cross_axis_group_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/sliver_cross_axis_group_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_floating_header_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_floating_header_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_ignore_pointer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_ignore_pointer_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_layout_builder_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_layout_builder_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_main_axis_group_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_main_axis_group_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_offstage_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_offstage_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_prototype_extent_list_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_prototype_extent_list_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_reorderable_list_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_reorderable_list_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_resizing_header_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_resizing_header_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
-
-    test('sliver_safe_area_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sliver_safe_area_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
     });

@@ -604,7 +604,7 @@ void main() {
         'dart_ui/opacity_engine_layer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'moved to timeout_tests_test.dart');
+    });
 
     test('painting_style_test.dart', () async {
       final result = await SendTestRunner.send(
