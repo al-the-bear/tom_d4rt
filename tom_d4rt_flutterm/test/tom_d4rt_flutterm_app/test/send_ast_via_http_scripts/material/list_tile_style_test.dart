@@ -1,3744 +1,2955 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
-// D4rt test script: Comprehensive visual demonstration of ListTileStyle enum
-// ListTileStyle controls the visual density and styling of ListTile widgets
-// Two values: ListTileStyle.list (default, standard list appearance)
-//             ListTileStyle.drawer (optimized for navigation drawers)
+// Deep visual demo: ListTileStyle — the Material enum (list, drawer) that
+// selects the default typography metrics used by ListTile when resolved
+// through ListTileTheme. Authored manually. STATELESS ONLY. Top-level
+// ValueNotifiers + ValueListenableBuilder drive every interactive knob;
+// no StatefulWidget exists in this file.
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-// =============================================================================
-// SECTION: Helper Widgets for Visual Demonstrations
-// =============================================================================
+// ═══════════════════════════════════════════════════════════════════════════
+// Top-level state. Read by stateless widgets via ValueListenableBuilder.
+// ═══════════════════════════════════════════════════════════════════════════
 
-/// Creates a styled section header with a gradient background
-/// Used to separate major demo sections for clarity
-Widget buildSectionHeader(String title, {IconData? icon, Color? color}) {
-  final bgColor = color ?? Colors.indigo;
-  return Container(
-    width: double.infinity,
-    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
-    margin: EdgeInsets.only(bottom: 12, top: 20),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [bgColor, bgColor.withAlpha(200)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
+final ValueNotifier<ListTileStyle> _activeStyle =
+    ValueNotifier<ListTileStyle>(ListTileStyle.list);
+final ValueNotifier<bool> _denseToggle = ValueNotifier<bool>(false);
+final ValueNotifier<double> _horizontalGap = ValueNotifier<double>(16.0);
+final ValueNotifier<double> _minVerticalPadding = ValueNotifier<double>(4.0);
+final ValueNotifier<double> _contentPadEdge = ValueNotifier<double>(16.0);
+final ValueNotifier<bool> _tintTile = ValueNotifier<bool>(false);
+final ValueNotifier<int> _drawerSelection = ValueNotifier<int>(0);
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Entry point — d4rt convention: top-level `build(BuildContext)` returns a
+// Widget. No main(), no runApp(), no imports of flutter_test.
+// ═══════════════════════════════════════════════════════════════════════════
+
+dynamic build(BuildContext context) => const _DemoApp();
+
+class _DemoApp extends StatelessWidget {
+  const _DemoApp();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF5B8DEE),
+      brightness: Brightness.light,
+    );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'ListTileStyle — Deep Visual Demo',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        textTheme: const TextTheme(
+          headlineMedium: TextStyle(fontWeight: FontWeight.w800),
+          titleLarge: TextStyle(fontWeight: FontWeight.w700),
+          titleMedium: TextStyle(fontWeight: FontWeight.w600),
+          bodyMedium: TextStyle(height: 1.35),
+        ),
       ),
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: bgColor.withAlpha(80),
-          blurRadius: 6,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Row(
-      children: [
-        if (icon != null) ...[
-          Icon(icon, color: Colors.white, size: 24),
-          SizedBox(width: 12),
-        ],
-        Expanded(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 0.5,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
+      home: const _Home(),
+    );
+  }
 }
 
-/// Creates a subsection header with lighter styling
-Widget buildSubsectionHeader(String title, {Color? color}) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-    margin: EdgeInsets.only(bottom: 8, top: 12),
-    decoration: BoxDecoration(
-      color: (color ?? Colors.indigo).withAlpha(30),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(
-        color: (color ?? Colors.indigo).withAlpha(60),
-        width: 1,
-      ),
-    ),
-    child: Text(
-      title,
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: color ?? Colors.indigo.shade700,
-      ),
-    ),
-  );
-}
+class _Home extends StatelessWidget {
+  const _Home();
 
-/// Creates an informational card showing key-value pairs
-Widget buildInfoCard(String label, String value, {IconData? icon}) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 4),
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Colors.grey.shade50,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Colors.grey.shade200),
-    ),
-    child: Row(
-      children: [
-        if (icon != null) ...[
-          Icon(icon, size: 18, color: Colors.indigo.shade400),
-          SizedBox(width: 10),
-        ],
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 13,
-            color: Colors.grey.shade700,
-          ),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-            textAlign: TextAlign.end,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// Creates a comparison card showing two ListTiles side by side
-/// Perfect for demonstrating list vs drawer style differences
-Widget buildStyleComparisonCard({
-  required String title,
-  required String description,
-  required Widget listStyleTile,
-  required Widget drawerStyleTile,
-}) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(15),
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Title bar
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade800,
-                ),
-              ),
-              if (description.isNotEmpty) ...[
-                SizedBox(height: 4),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                ),
-              ],
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return DefaultTabController(
+      length: 9,
+      child: Scaffold(
+        backgroundColor: scheme.surface,
+        appBar: AppBar(
+          title: const Text('ListTileStyle — Deep Visual Demo'),
+          backgroundColor: scheme.primaryContainer,
+          foregroundColor: scheme.onPrimaryContainer,
+          elevation: 0,
+          bottom: const TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            tabs: <Tab>[
+              Tab(icon: Icon(Icons.rocket_launch_outlined), text: 'Hero'),
+              Tab(icon: Icon(Icons.compare_arrows_outlined), text: 'Compare'),
+              Tab(icon: Icon(Icons.format_list_bulleted), text: 'Enum'),
+              Tab(icon: Icon(Icons.apps_outlined), text: 'Use cases'),
+              Tab(icon: Icon(Icons.tune_outlined), text: 'Theme'),
+              Tab(icon: Icon(Icons.menu_outlined), text: 'Drawer'),
+              Tab(icon: Icon(Icons.account_tree_outlined), text: 'Architecture'),
+              Tab(icon: Icon(Icons.warning_amber_outlined), text: 'Pitfalls'),
+              Tab(icon: Icon(Icons.menu_book_outlined), text: 'API'),
             ],
           ),
         ),
-        // Side-by-side comparison
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // List style column
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(color: Colors.grey.shade200),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade50,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          'ListTileStyle.list',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue.shade700,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      listStyleTile,
-                    ],
-                  ),
-                ),
-              ),
-              // Drawer style column
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.purple.shade50,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          'ListTileStyle.drawer',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.purple.shade700,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      drawerStyleTile,
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 8),
-      ],
-    ),
-  );
+        body: const TabBarView(children: <Widget>[
+          _HeroTab(),
+          _CompareTab(),
+          _EnumTab(),
+          _UseCasesTab(),
+          _ThemeInteractionsTab(),
+          _DrawerTab(),
+          _ArchitectureTab(),
+          _PitfallsTab(),
+          _ApiTab(),
+        ]),
+      ),
+    );
+  }
 }
 
-/// Creates a mock drawer container for realistic drawer demonstrations
-Widget buildMockDrawer({
-  required String title,
-  required List<Widget> children,
-  Color? headerColor,
-  double width = 280,
-}) {
-  final color = headerColor ?? Colors.indigo;
-  return Container(
-    width: width,
-    margin: EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withAlpha(30),
-          blurRadius: 12,
-          offset: Offset(3, 3),
-        ),
-      ],
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+// ═══════════════════════════════════════════════════════════════════════════
+// Shared layout helpers
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _Section extends StatelessWidget {
+  const _Section({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
+  final String title;
+  final String subtitle;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: scheme.onSurface,
+                ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                  height: 1.45,
+                ),
+          ),
+          const SizedBox(height: 20),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+class _Panel extends StatelessWidget {
+  const _Panel({required this.child, this.padding = const EdgeInsets.all(16)});
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: child,
+    );
+  }
+}
+
+class _Explainer extends StatelessWidget {
+  const _Explainer({
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
+  final IconData icon;
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: scheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Icon(icon, color: scheme.onSecondaryContainer),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: scheme.onSecondaryContainer,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  body,
+                  style: TextStyle(
+                    color: scheme.onSecondaryContainer,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Pill extends StatelessWidget {
+  const _Pill({required this.label, this.color, this.icon});
+  final String label;
+  final Color? color;
+  final IconData? icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    final Color bg = color ?? scheme.primaryContainer;
+    final Color fg = color == null
+        ? scheme.onPrimaryContainer
+        : (ThemeData.estimateBrightnessForColor(color!) == Brightness.dark
+            ? Colors.white
+            : Colors.black);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          // Drawer header
+        children: <Widget>[
+          if (icon != null) ...<Widget>[
+            Icon(icon, size: 14, color: fg),
+            const SizedBox(width: 6),
+          ],
+          Text(
+            label,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StylePill extends StatelessWidget {
+  const _StylePill({required this.style});
+  final ListTileStyle style;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    final bool isList = style == ListTileStyle.list;
+    return _Pill(
+      label: 'ListTileStyle.${style.name}',
+      icon: isList ? Icons.list_alt_outlined : Icons.menu_open_outlined,
+      color: isList ? scheme.primary : scheme.tertiary,
+    );
+  }
+}
+
+class _KeyValueRow extends StatelessWidget {
+  const _KeyValueRow({required this.label, required this.value});
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 160,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: scheme.onSurfaceVariant,
+                fontSize: 13,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TableCell extends StatelessWidget {
+  const _TableCell({required this.text, this.header = false});
+  final String text;
+  final bool header;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+          fontSize: 13,
+        ),
+      ),
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 1: Hero — gradient banner introducing ListTileStyle
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _HeroTab extends StatelessWidget {
+  const _HeroTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'Meet ListTileStyle',
+      subtitle:
+          'A Material enum with two values — list and drawer — that selects '
+          'the default TextStyle used by ListTile.title and .subtitle when no '
+          'explicit textStyle is provided. It is resolved from the ambient '
+          'ListTileTheme, not from the ListTile itself.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
           Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
               gradient: LinearGradient(
-                colors: [color, color.withAlpha(180)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
+                colors: <Color>[scheme.primary, scheme.tertiary],
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 32, color: color),
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: scheme.onPrimary.withValues(alpha: 0.18),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(
+                        Icons.format_list_bulleted,
+                        color: scheme.onPrimary,
+                        size: 32,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'ListTileStyle',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                  color: scheme.onPrimary,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'A tiny enum. A big typographic difference.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  color: scheme.onPrimary
+                                      .withValues(alpha: 0.85),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 18),
                 Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  'ListTileStyle carries exactly two members: list and drawer. '
+                  'When a ListTile is resolved, if no explicit titleTextStyle '
+                  'or subtitleTextStyle is provided, the ambient '
+                  'ListTileTheme.style decides which default metrics apply. '
+                  'The enum looks trivial — two values — but it is what makes '
+                  'a ListTile feel at home in a scrolling content list versus '
+                  'inside a side-Drawer navigation pane.',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: scheme.onPrimary.withValues(alpha: 0.95),
+                        height: 1.5,
+                      ),
                 ),
-                SizedBox(height: 2),
-                Text(
-                  'drawer@example.com',
-                  style: TextStyle(fontSize: 12, color: Colors.white70),
+                const SizedBox(height: 14),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: const <Widget>[
+                    _StylePill(style: ListTileStyle.list),
+                    _StylePill(style: ListTileStyle.drawer),
+                    _Pill(label: 'enum'),
+                    _Pill(label: 'Material'),
+                    _Pill(label: 'ListTileThemeData'),
+                  ],
                 ),
               ],
             ),
           ),
-          // Drawer content
-          ...children,
-          SizedBox(height: 8),
+          const SizedBox(height: 20),
+          Row(
+            children: const <Widget>[
+              Expanded(
+                child: _HeroBullet(
+                  icon: Icons.list_alt_outlined,
+                  title: 'list',
+                  body:
+                      'Typography tuned for dense content lists: 16sp title, '
+                      '14sp subtitle — subtle, readable at scale.',
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: _HeroBullet(
+                  icon: Icons.menu_open_outlined,
+                  title: 'drawer',
+                  body:
+                      'Typography tuned for side-drawer nav: 14sp title, '
+                      '12sp subtitle — compact, menu-grade scanning.',
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: _HeroBullet(
+                  icon: Icons.architecture_outlined,
+                  title: 'Resolved upstream',
+                  body:
+                      'The enum only matters when ListTileTheme sets .style. '
+                      'Locally-set textStyles always win.',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          const _Explainer(
+            icon: Icons.lightbulb_outline,
+            title: 'Mental model',
+            body:
+                'ListTileStyle is a preset switch baked into ListTileTheme. It '
+                'is the single knob that tells Flutter: "I want content-list '
+                'metrics here" or "I want drawer-menu metrics here." All '
+                'other ListTile behavior — colors, padding, icons — stays '
+                'orthogonal. Think of it as choosing a font-size pair: '
+                '(16, 14) for list, (14, 12) for drawer.',
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Why two styles, not one?',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'A Drawer lives on a narrow sidebar. Content density matters '
+                  'more than reading comfort: users scan labels, they do not '
+                  'read paragraphs. A ListView in the main content area is the '
+                  'opposite: it wants readable body-copy typography. Rather '
+                  'than force every app to configure two separate TextStyles, '
+                  'Material exposes ListTileStyle — one field, two presets.',
+                  style: TextStyle(height: 1.5),
+                ),
+                const SizedBox(height: 12),
+                Table(
+                  columnWidths: const <int, TableColumnWidth>{
+                    0: FlexColumnWidth(1.2),
+                    1: FlexColumnWidth(1),
+                    2: FlexColumnWidth(1),
+                  },
+                  border: TableBorder.all(
+                    color: scheme.outlineVariant,
+                    width: 1,
+                  ),
+                  children: <TableRow>[
+                    TableRow(
+                      decoration:
+                          BoxDecoration(color: scheme.surfaceContainerHigh),
+                      children: const <Widget>[
+                        _TableCell(text: 'Metric', header: true),
+                        _TableCell(text: 'list', header: true),
+                        _TableCell(text: 'drawer', header: true),
+                      ],
+                    ),
+                    const TableRow(children: <Widget>[
+                      _TableCell(text: 'title fontSize (sp)'),
+                      _TableCell(text: '16'),
+                      _TableCell(text: '14'),
+                    ]),
+                    const TableRow(children: <Widget>[
+                      _TableCell(text: 'subtitle fontSize (sp)'),
+                      _TableCell(text: '14'),
+                      _TableCell(text: '12'),
+                    ]),
+                    const TableRow(children: <Widget>[
+                      _TableCell(text: 'Typical use'),
+                      _TableCell(text: 'Content lists'),
+                      _TableCell(text: 'Side drawers'),
+                    ]),
+                    const TableRow(children: <Widget>[
+                      _TableCell(text: 'Default'),
+                      _TableCell(text: 'Yes'),
+                      _TableCell(text: 'Only via Drawer theming'),
+                    ]),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
 
-/// Creates a mock settings list for list-style demonstrations
-Widget buildMockSettingsList({required List<Widget> children}) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+class _HeroBullet extends StatelessWidget {
+  const _HeroBullet({
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
+  final IconData icon;
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: children,
+        children: <Widget>[
+          Icon(icon, color: scheme.primary),
+          const SizedBox(height: 10),
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 6),
+          Text(
+            body,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                  height: 1.4,
+                ),
+          ),
+        ],
       ),
-    ),
-  );
+    );
+  }
 }
 
-/// Creates an explanatory note card
-Widget buildExplanationCard(String text, {IconData? icon, Color? color}) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 6),
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: (color ?? Colors.amber).withAlpha(25),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: (color ?? Colors.amber).withAlpha(80)),
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 2: Compare — the centerpiece. Two identical ListViews side-by-side.
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _SampleTile {
+  const _SampleTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+  });
+  final IconData icon;
+  final String title;
+  final String subtitle;
+}
+
+class _CompareTab extends StatelessWidget {
+  const _CompareTab();
+
+  // Identical content rendered under both styles, so the difference
+  // is purely typographic.
+  static const List<_SampleTile> _samples = <_SampleTile>[
+    _SampleTile(
+      icon: Icons.inbox_outlined,
+      title: 'Inbox',
+      subtitle: '12 unread messages',
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          icon ?? Icons.lightbulb_outline,
-          size: 18,
-          color: (color ?? Colors.amber.shade700),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
+    _SampleTile(
+      icon: Icons.star_outline,
+      title: 'Starred',
+      subtitle: '4 pinned items',
+    ),
+    _SampleTile(
+      icon: Icons.send_outlined,
+      title: 'Sent',
+      subtitle: 'Last sync: 08:42',
+    ),
+    _SampleTile(
+      icon: Icons.drafts_outlined,
+      title: 'Drafts',
+      subtitle: '1 unsent draft',
+    ),
+    _SampleTile(
+      icon: Icons.archive_outlined,
+      title: 'Archive',
+      subtitle: '2,048 items',
+    ),
+    _SampleTile(
+      icon: Icons.delete_outline,
+      title: 'Trash',
+      subtitle: 'Empties in 30 days',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Side-by-side comparison',
+      subtitle:
+          'The same six ListTiles, identical data, placed inside two '
+          'ListTileThemes: one with ListTileStyle.list, the other with '
+          'ListTileStyle.drawer. Nothing else differs. The visual gap you '
+          'see is entirely the enum choice.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          LayoutBuilder(
+            builder: (BuildContext ctx, BoxConstraints c) {
+              final bool wide = c.maxWidth >= 720;
+              const Widget left = _StyledColumn(
+                style: ListTileStyle.list,
+                caption: 'ListTileStyle.list',
+                description: 'Body-copy metrics. 16sp / 14sp.',
+                samples: _samples,
+              );
+              const Widget right = _StyledColumn(
+                style: ListTileStyle.drawer,
+                caption: 'ListTileStyle.drawer',
+                description: 'Menu metrics. 14sp / 12sp.',
+                samples: _samples,
+              );
+              if (wide) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    Expanded(child: left),
+                    SizedBox(width: 16),
+                    Expanded(child: right),
+                  ],
+                );
+              }
+              return Column(
+                children: const <Widget>[
+                  left,
+                  SizedBox(height: 16),
+                  right,
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 22),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Read the difference',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Scan both columns at arm\'s length. The "list" column '
+                  'breathes a little more: titles feel like body copy. The '
+                  '"drawer" column reads more like a navigation menu — labels '
+                  'stand off the leading icon more tightly and subtitles slip '
+                  'almost out of sight. Same data. Same padding. Only the '
+                  'default font metrics changed.',
+                  style: TextStyle(height: 1.5),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: const <Widget>[
+                    Expanded(
+                      child: _DeltaMetric(
+                        label: 'Title size',
+                        left: '16sp',
+                        right: '14sp',
+                        delta: '−2sp',
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: _DeltaMetric(
+                        label: 'Subtitle size',
+                        left: '14sp',
+                        right: '12sp',
+                        delta: '−2sp',
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: _DeltaMetric(
+                        label: 'Density',
+                        left: 'Comfy',
+                        right: 'Compact',
+                        delta: '+density',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          const _Explainer(
+            icon: Icons.compare_arrows_outlined,
+            title: 'Why wrap in ListTileTheme rather than set the ListTile?',
+            body:
+                'Because ListTileStyle is a field of ListTileThemeData, not of '
+                'ListTile itself. ListTile has no "style" parameter — it only '
+                'honors the ambient ListTileTheme. Wrap the subtree, do not '
+                'chase each tile.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StyledColumn extends StatelessWidget {
+  const _StyledColumn({
+    required this.style,
+    required this.caption,
+    required this.description,
+    required this.samples,
+  });
+  final ListTileStyle style;
+  final String caption;
+  final String description;
+  final List<_SampleTile> samples;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    final bool isDrawer = style == ListTileStyle.drawer;
+    final Color accent = isDrawer ? scheme.tertiary : scheme.primary;
+    final Color container =
+        isDrawer ? scheme.tertiaryContainer : scheme.primaryContainer;
+    final Color onContainer =
+        isDrawer ? scheme.onTertiaryContainer : scheme.onPrimaryContainer;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(14),
+            color: container,
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  isDrawer
+                      ? Icons.menu_open_outlined
+                      : Icons.list_alt_outlined,
+                  color: onContainer,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        caption,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700,
+                          color: onContainer,
+                        ),
+                      ),
+                      Text(
+                        description,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: onContainer.withValues(alpha: 0.85),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListTileTheme(
+            data: ListTileThemeData(
+              style: style,
+              iconColor: accent,
+            ),
+            child: Column(
+              children: <Widget>[
+                for (int i = 0; i < samples.length; i++) ...<Widget>[
+                  ListTile(
+                    leading: Icon(samples[i].icon),
+                    title: Text(samples[i].title),
+                    subtitle: Text(samples[i].subtitle),
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
+                  if (i < samples.length - 1)
+                    Divider(
+                      height: 1,
+                      color: scheme.outlineVariant,
+                    ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DeltaMetric extends StatelessWidget {
+  const _DeltaMetric({
+    required this.label,
+    required this.left,
+    required this.right,
+    required this.delta,
+  });
+  final String label;
+  final String left;
+  final String right;
+  final String delta;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHigh,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            label,
             style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey.shade700,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: scheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Row(
+            children: <Widget>[
+              Text(
+                left,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 6),
+                child: Icon(Icons.arrow_forward, size: 14),
+              ),
+              Text(
+                right,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            delta,
+            style: TextStyle(
+              fontSize: 11,
+              color: scheme.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 3: Enum — catalog of ListTileStyle.values
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _EnumTab extends StatelessWidget {
+  const _EnumTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'Enum catalog',
+      subtitle:
+          'Iterate ListTileStyle.values. Every member carries an .index and a '
+          '.name. A captioned preview under the real ListTileTheme shows '
+          'exactly what each value does.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.data_array, color: scheme.primary),
+                    const SizedBox(width: 10),
+                    Text(
+                      'ListTileStyle.values.length = ${ListTileStyle.values.length}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Two and only two. This enum is stable and unlikely to grow '
+                  '— it exists to toggle between two default metric sets.',
+                  style: TextStyle(height: 1.4),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          for (int i = 0; i < ListTileStyle.values.length; i++) ...<Widget>[
+            _EnumCard(value: ListTileStyle.values[i], index: i),
+            const SizedBox(height: 14),
+          ],
+          const SizedBox(height: 6),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Full enum reflection',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                for (final ListTileStyle v in ListTileStyle.values)
+                  _KeyValueRow(
+                    label: 'ListTileStyle.${v.name}',
+                    value:
+                        'index: ${v.index},  toString(): ${v.toString()}',
+                  ),
+                const SizedBox(height: 4),
+                const _KeyValueRow(
+                  label: 'runtimeType',
+                  value: 'ListTileStyle (sealed Dart enum)',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _EnumCard extends StatelessWidget {
+  const _EnumCard({required this.value, required this.index});
+  final ListTileStyle value;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    final bool isDrawer = value == ListTileStyle.drawer;
+    final Color accent = isDrawer ? scheme.tertiary : scheme.primary;
+    final Color onAccent = isDrawer ? scheme.onTertiary : scheme.onPrimary;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+            color: accent,
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: onAccent.withValues(alpha: 0.22),
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$index',
+                    style: TextStyle(
+                      color: onAccent,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'ListTileStyle.${value.name}',
+                        style: TextStyle(
+                          color: onAccent,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                      Text(
+                        isDrawer
+                            ? 'Default typography for Drawer nav tiles.'
+                            : 'Default typography for content list tiles.',
+                        style: TextStyle(
+                          color: onAccent.withValues(alpha: 0.85),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _Pill(
+                  label: '.index = $index',
+                  color: onAccent.withValues(alpha: 0.18),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  isDrawer
+                      ? 'Preview — drawer metrics (14sp / 12sp)'
+                      : 'Preview — list metrics (16sp / 14sp)',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ListTileTheme(
+                  data: ListTileThemeData(
+                    style: value,
+                    iconColor: accent,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: scheme.surface,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
+                    child: const Column(
+                      children: <Widget>[
+                        ListTile(
+                          leading: Icon(Icons.folder_outlined),
+                          title: Text('Documents'),
+                          subtitle: Text('142 files'),
+                        ),
+                        Divider(height: 1),
+                        ListTile(
+                          leading: Icon(Icons.photo_library_outlined),
+                          title: Text('Photos'),
+                          subtitle: Text('8,420 images'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    _Pill(label: '.name = "${value.name}"'),
+                    _Pill(
+                      label: isDrawer
+                          ? 'Applied by DrawerThemeData cascade'
+                          : 'Default when no .style set',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 4: Use cases — six mini-cards showing real-world scenarios
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _UseCaseSpec {
+  const _UseCaseSpec({
+    required this.title,
+    required this.style,
+    required this.icon,
+    required this.tagline,
+    required this.tiles,
+  });
+  final String title;
+  final ListTileStyle style;
+  final IconData icon;
+  final String tagline;
+  final List<_SampleTile> tiles;
+}
+
+class _UseCasesTab extends StatelessWidget {
+  const _UseCasesTab();
+
+  static const List<_UseCaseSpec> _cases = <_UseCaseSpec>[
+    _UseCaseSpec(
+      title: 'Settings list',
+      style: ListTileStyle.list,
+      icon: Icons.settings_outlined,
+      tagline: 'Clear reading metrics for toggles and descriptions.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.dark_mode_outlined,
+          title: 'Appearance',
+          subtitle: 'Theme, font scale, colour',
+        ),
+        _SampleTile(
+          icon: Icons.notifications_outlined,
+          title: 'Notifications',
+          subtitle: 'Alerts, badges, sounds',
+        ),
+        _SampleTile(
+          icon: Icons.lock_outline,
+          title: 'Privacy & security',
+          subtitle: 'Permissions, biometrics',
+        ),
+      ],
+    ),
+    _UseCaseSpec(
+      title: 'Email list',
+      style: ListTileStyle.list,
+      icon: Icons.mail_outline,
+      tagline: 'Body-copy titles keep senders scannable.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.account_circle_outlined,
+          title: 'Maya Johansson',
+          subtitle: 'Re: Q3 roadmap draft',
+        ),
+        _SampleTile(
+          icon: Icons.account_circle_outlined,
+          title: 'Team Releases',
+          subtitle: 'Build 2026.04.17 shipped',
+        ),
+        _SampleTile(
+          icon: Icons.account_circle_outlined,
+          title: 'Ravi Mehta',
+          subtitle: 'Lunch Thursday?',
+        ),
+      ],
+    ),
+    _UseCaseSpec(
+      title: 'Drawer menu',
+      style: ListTileStyle.drawer,
+      icon: Icons.menu_open_outlined,
+      tagline: 'Compact labels for a narrow side pane.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.home_outlined,
+          title: 'Home',
+          subtitle: 'Dashboard overview',
+        ),
+        _SampleTile(
+          icon: Icons.folder_outlined,
+          title: 'Projects',
+          subtitle: '14 active',
+        ),
+        _SampleTile(
+          icon: Icons.people_alt_outlined,
+          title: 'People',
+          subtitle: 'Your org',
+        ),
+      ],
+    ),
+    _UseCaseSpec(
+      title: 'Contact list',
+      style: ListTileStyle.list,
+      icon: Icons.contacts_outlined,
+      tagline: 'Readable names with supporting metadata.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.person_outline,
+          title: 'Anya Petrov',
+          subtitle: '+1 415 555 0118',
+        ),
+        _SampleTile(
+          icon: Icons.person_outline,
+          title: 'Kenji Watanabe',
+          subtitle: 'kenji@example.com',
+        ),
+        _SampleTile(
+          icon: Icons.person_outline,
+          title: 'Sofia Ricci',
+          subtitle: '+39 06 555 0188',
+        ),
+      ],
+    ),
+    _UseCaseSpec(
+      title: 'Gallery list',
+      style: ListTileStyle.list,
+      icon: Icons.photo_library_outlined,
+      tagline: 'Title + captioned descriptor invites exploration.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.image_outlined,
+          title: 'Summer 2025',
+          subtitle: '312 photos · 4 videos',
+        ),
+        _SampleTile(
+          icon: Icons.image_outlined,
+          title: 'Rome trip',
+          subtitle: '178 photos · 2 albums',
+        ),
+        _SampleTile(
+          icon: Icons.image_outlined,
+          title: 'Favourites',
+          subtitle: '48 starred',
+        ),
+      ],
+    ),
+    _UseCaseSpec(
+      title: 'File browser',
+      style: ListTileStyle.drawer,
+      icon: Icons.folder_open_outlined,
+      tagline: 'Tight metrics pack more nodes per column.',
+      tiles: <_SampleTile>[
+        _SampleTile(
+          icon: Icons.insert_drive_file_outlined,
+          title: 'pubspec.yaml',
+          subtitle: '2.4 KB',
+        ),
+        _SampleTile(
+          icon: Icons.insert_drive_file_outlined,
+          title: 'main.dart',
+          subtitle: '18 KB',
+        ),
+        _SampleTile(
+          icon: Icons.insert_drive_file_outlined,
+          title: 'README.md',
+          subtitle: '6.1 KB',
+        ),
+      ],
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Six use cases',
+      subtitle:
+          'Where would you reach for each ListTileStyle? Below are six '
+          'canonical scenarios — four fit list metrics, two fit drawer '
+          'metrics. Each card wraps its ListTiles in the matching '
+          'ListTileTheme so the choice is explicit.',
+      child: LayoutBuilder(
+        builder: (BuildContext ctx, BoxConstraints c) {
+          final int cols = c.maxWidth >= 1080
+              ? 3
+              : (c.maxWidth >= 720 ? 2 : 1);
+          return _Grid(
+            columns: cols,
+            spacing: 16,
+            children: <Widget>[
+              for (final _UseCaseSpec spec in _cases)
+                _UseCaseCard(spec: spec),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _UseCaseCard extends StatelessWidget {
+  const _UseCaseCard({required this.spec});
+  final _UseCaseSpec spec;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    final bool isDrawer = spec.style == ListTileStyle.drawer;
+    final Color accent = isDrawer ? scheme.tertiary : scheme.primary;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(14),
+            color: accent.withValues(alpha: 0.14),
+            child: Row(
+              children: <Widget>[
+                Icon(spec.icon, color: accent),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        spec.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        spec.tagline,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: scheme.onSurfaceVariant,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                _StylePill(style: spec.style),
+              ],
+            ),
+          ),
+          ListTileTheme(
+            data: ListTileThemeData(
+              style: spec.style,
+              iconColor: accent,
+            ),
+            child: Column(
+              children: <Widget>[
+                for (int i = 0; i < spec.tiles.length; i++) ...<Widget>[
+                  ListTile(
+                    leading: Icon(spec.tiles[i].icon),
+                    title: Text(spec.tiles[i].title),
+                    subtitle: Text(spec.tiles[i].subtitle),
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
+                  if (i < spec.tiles.length - 1)
+                    Divider(height: 1, color: scheme.outlineVariant),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Grid extends StatelessWidget {
+  const _Grid({
+    required this.columns,
+    required this.children,
+    this.spacing = 12,
+  });
+  final int columns;
+  final double spacing;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> rows = <Widget>[];
+    for (int i = 0; i < children.length; i += columns) {
+      final List<Widget> cells = <Widget>[];
+      for (int j = 0; j < columns; j++) {
+        final int idx = i + j;
+        cells.add(
+          Expanded(
+            child: idx < children.length
+                ? children[idx]
+                : const SizedBox.shrink(),
+          ),
+        );
+        if (j < columns - 1) cells.add(SizedBox(width: spacing));
+      }
+      rows.add(Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: cells,
+      ));
+      if (i + columns < children.length) {
+        rows.add(SizedBox(height: spacing));
+      }
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: rows,
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 5: ListTileThemeData interactions — live preview with real knobs
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _ThemeInteractionsTab extends StatelessWidget {
+  const _ThemeInteractionsTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'ListTileThemeData interactions',
+      subtitle:
+          'ListTileStyle is one field of ListTileThemeData. It composes with '
+          'dense, contentPadding, horizontalTitleGap, minVerticalPadding, and '
+          'tileColor. Move the knobs below; the preview updates live.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _Panel(
+            padding: const EdgeInsets.fromLTRB(14, 14, 14, 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Interactive knobs',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'State is held in top-level ValueNotifiers — the widget '
+                  'tree remains fully stateless.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: scheme.onSurfaceVariant,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                ValueListenableBuilder<ListTileStyle>(
+                  valueListenable: _activeStyle,
+                  builder: (_, ListTileStyle style, _) {
+                    return SegmentedButton<ListTileStyle>(
+                      segments: const <ButtonSegment<ListTileStyle>>[
+                        ButtonSegment<ListTileStyle>(
+                          value: ListTileStyle.list,
+                          label: Text('list'),
+                          icon: Icon(Icons.list_alt_outlined),
+                        ),
+                        ButtonSegment<ListTileStyle>(
+                          value: ListTileStyle.drawer,
+                          label: Text('drawer'),
+                          icon: Icon(Icons.menu_open_outlined),
+                        ),
+                      ],
+                      selected: <ListTileStyle>{style},
+                      onSelectionChanged: (Set<ListTileStyle> s) {
+                        _activeStyle.value = s.first;
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: <Widget>[
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _denseToggle,
+                      builder: (_, bool v, _) => FilterChip(
+                        label: const Text('dense'),
+                        selected: v,
+                        onSelected: (bool nv) => _denseToggle.value = nv,
+                        selectedColor: scheme.primaryContainer,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _tintTile,
+                      builder: (_, bool v, _) => FilterChip(
+                        label: const Text('tileColor'),
+                        selected: v,
+                        onSelected: (bool nv) => _tintTile.value = nv,
+                        selectedColor: scheme.secondaryContainer,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                _Knob(
+                  label: 'horizontalTitleGap',
+                  min: 0,
+                  max: 40,
+                  notifier: _horizontalGap,
+                  formatter: (double v) => '${v.toStringAsFixed(0)} dp',
+                ),
+                _Knob(
+                  label: 'minVerticalPadding',
+                  min: 0,
+                  max: 24,
+                  notifier: _minVerticalPadding,
+                  formatter: (double v) => '${v.toStringAsFixed(0)} dp',
+                ),
+                _Knob(
+                  label: 'contentPadding (horizontal)',
+                  min: 0,
+                  max: 40,
+                  notifier: _contentPadEdge,
+                  formatter: (double v) => '${v.toStringAsFixed(0)} dp',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Live preview',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
+                const _LivePreviewTree(),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'How fields compose',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                const _KeyValueRow(
+                  label: '.style',
+                  value:
+                      'list | drawer — selects default title & subtitle metrics',
+                ),
+                const _KeyValueRow(
+                  label: '.dense',
+                  value:
+                      'Tightens vertical padding & shrinks text one notch',
+                ),
+                const _KeyValueRow(
+                  label: '.contentPadding',
+                  value:
+                      'Outer left/right inset around leading/title/trailing',
+                ),
+                const _KeyValueRow(
+                  label: '.horizontalTitleGap',
+                  value: 'Gap between leading widget and title column',
+                ),
+                const _KeyValueRow(
+                  label: '.minVerticalPadding',
+                  value: 'Minimum top/bottom padding around text',
+                ),
+                const _KeyValueRow(
+                  label: '.tileColor',
+                  value: 'Background fill for the whole tile',
+                ),
+                const SizedBox(height: 10),
+                const _Explainer(
+                  icon: Icons.info_outline,
+                  title: 'Orthogonality',
+                  body:
+                      'Style sets the typography preset. Every other field is '
+                      'independent: you can use drawer metrics with generous '
+                      'padding, or list metrics in dense mode. They never '
+                      'fight each other.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Knob extends StatelessWidget {
+  const _Knob({
+    required this.label,
+    required this.min,
+    required this.max,
+    required this.notifier,
+    required this.formatter,
+  });
+  final String label;
+  final double min;
+  final double max;
+  final ValueNotifier<double> notifier;
+  final String Function(double) formatter;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return ValueListenableBuilder<double>(
+      valueListenable: notifier,
+      builder: (_, double v, _) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+                Text(
+                  formatter(v),
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            Slider(
+              value: v,
+              min: min,
+              max: max,
+              divisions: (max - min).toInt(),
+              onChanged: (double nv) => notifier.value = nv,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LivePreviewTree extends StatelessWidget {
+  const _LivePreviewTree();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return AnimatedBuilder(
+      animation: Listenable.merge(<Listenable>[
+        _activeStyle,
+        _denseToggle,
+        _horizontalGap,
+        _minVerticalPadding,
+        _contentPadEdge,
+        _tintTile,
+      ]),
+      builder: (BuildContext ctx, _) {
+        final ListTileStyle style = _activeStyle.value;
+        final bool isDrawer = style == ListTileStyle.drawer;
+        final Color accent = isDrawer ? scheme.tertiary : scheme.primary;
+        return Container(
+          decoration: BoxDecoration(
+            color: scheme.surface,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: scheme.outlineVariant),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: ListTileTheme(
+            data: ListTileThemeData(
+              style: style,
+              dense: _denseToggle.value,
+              iconColor: accent,
+              horizontalTitleGap: _horizontalGap.value,
+              minVerticalPadding: _minVerticalPadding.value,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: _contentPadEdge.value,
+                vertical: 0,
+              ),
+              tileColor: _tintTile.value
+                  ? accent.withValues(alpha: 0.08)
+                  : null,
+            ),
+            child: Column(
+              children: <Widget>[
+                for (final _SampleTile s in <_SampleTile>[
+                  const _SampleTile(
+                    icon: Icons.wb_sunny_outlined,
+                    title: 'Daily briefing',
+                    subtitle: 'Updated 3 min ago',
+                  ),
+                  const _SampleTile(
+                    icon: Icons.task_alt_outlined,
+                    title: 'Tasks',
+                    subtitle: '4 open, 2 due today',
+                  ),
+                  const _SampleTile(
+                    icon: Icons.bookmark_outline,
+                    title: 'Bookmarks',
+                    subtitle: '12 saved pages',
+                  ),
+                ]) ...<Widget>[
+                  ListTile(
+                    leading: Icon(s.icon),
+                    title: Text(s.title),
+                    subtitle: Text(s.subtitle),
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
+                  Divider(height: 1, color: scheme.outlineVariant),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 6: Drawer — simulated Drawer widget showing the ambient cascade
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _DrawerEntry {
+  const _DrawerEntry({
+    required this.icon,
+    required this.label,
+    required this.hint,
+  });
+  final IconData icon;
+  final String label;
+  final String hint;
+}
+
+class _DrawerTab extends StatelessWidget {
+  const _DrawerTab();
+
+  static const List<_DrawerEntry> _entries = <_DrawerEntry>[
+    _DrawerEntry(
+      icon: Icons.dashboard_outlined,
+      label: 'Dashboard',
+      hint: 'Today\'s overview',
+    ),
+    _DrawerEntry(
+      icon: Icons.inbox_outlined,
+      label: 'Inbox',
+      hint: '8 unread',
+    ),
+    _DrawerEntry(
+      icon: Icons.event_note_outlined,
+      label: 'Calendar',
+      hint: 'Next: 14:00 stand-up',
+    ),
+    _DrawerEntry(
+      icon: Icons.work_outline,
+      label: 'Projects',
+      hint: '3 active',
+    ),
+    _DrawerEntry(
+      icon: Icons.people_outline,
+      label: 'Team',
+      hint: '12 members',
+    ),
+    _DrawerEntry(
+      icon: Icons.settings_outlined,
+      label: 'Settings',
+      hint: 'Preferences',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'Usage inside a Drawer',
+      subtitle:
+          'When a ListTile lives inside a Drawer, the framework applies a '
+          'DrawerThemeData → ListTileTheme cascade so ListTileStyle.drawer '
+          'becomes the natural default. The simulation below makes the whole '
+          'chain visible.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 520,
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: scheme.outlineVariant),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Row(
+              children: <Widget>[
+                // Simulated Drawer on the left.
+                SizedBox(
+                  width: 280,
+                  child: Material(
+                    color: scheme.surfaceContainerHighest,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding:
+                              const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                          child: Row(
+                            children: <Widget>[
+                              CircleAvatar(
+                                backgroundColor: scheme.tertiary,
+                                child: Icon(Icons.person,
+                                    color: scheme.onTertiary),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Alex Hartley',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    Text(
+                                      'alex@studio.app',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: scheme.onSurfaceVariant,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(height: 1, color: scheme.outlineVariant),
+                        Expanded(
+                          child: ListTileTheme(
+                            data: ListTileThemeData(
+                              style: ListTileStyle.drawer,
+                              iconColor: scheme.onSurfaceVariant,
+                              selectedColor: scheme.primary,
+                              selectedTileColor:
+                                  scheme.primary.withValues(alpha: 0.10),
+                            ),
+                            child: ValueListenableBuilder<int>(
+                              valueListenable: _drawerSelection,
+                              builder: (_, int selected, _) => ListView(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8),
+                                children: <Widget>[
+                                  for (int i = 0;
+                                      i < _entries.length;
+                                      i++)
+                                    ListTile(
+                                      selected: selected == i,
+                                      onTap: () =>
+                                          _drawerSelection.value = i,
+                                      leading:
+                                          Icon(_entries[i].icon),
+                                      title: Text(_entries[i].label),
+                                      subtitle: Text(_entries[i].hint),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(height: 1, color: scheme.outlineVariant),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.info_outline,
+                                size: 16,
+                                color: scheme.onSurfaceVariant,
+                              ),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  'Ambient style: drawer',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: scheme.onSurfaceVariant,
+                                    fontFamily: 'monospace',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Simulated content area on the right.
+                Expanded(
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: _drawerSelection,
+                    builder: (_, int selected, _) => Container(
+                      color: scheme.surface,
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            _entries[selected].label,
+                            style:
+                                Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            _entries[selected].hint,
+                            style: TextStyle(
+                              color: scheme.onSurfaceVariant,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: scheme.surfaceContainer,
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                    color: scheme.outlineVariant),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                '(content for ${_entries[selected].label} pane)',
+                                style: TextStyle(
+                                  color: scheme.onSurfaceVariant,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'The ambient chain',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'The Material library ships with a built-in cascade. When '
+                  'you drop a ListTile inside a Drawer, the resolution is '
+                  'roughly:',
+                  style: TextStyle(height: 1.4),
+                ),
+                const SizedBox(height: 10),
+                const _Arrow('Theme.of(context).drawerTheme'),
+                const _Arrow('DrawerThemeData provides a surface + shape'),
+                const _Arrow(
+                    'Drawer wraps children in ListTileTheme(style: drawer)'),
+                const _Arrow(
+                    'ListTile resolves .titleTextStyle from that ambient'),
+                const _Arrow(
+                    'Typography: 14sp title / 12sp subtitle by default'),
+                const SizedBox(height: 10),
+                const _Explainer(
+                  icon: Icons.bolt_outlined,
+                  title: 'You rarely set it by hand',
+                  body:
+                      'If you use a stock Drawer, you do not need to set '
+                      'ListTileStyle.drawer yourself — the cascade already '
+                      'does. You only set it explicitly when you are '
+                      'building a custom side-pane that is not a real Drawer.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Arrow extends StatelessWidget {
+  const _Arrow(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.chevron_right, size: 18, color: scheme.primary),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 7: Architecture — CustomPainter-driven resolution diagram
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _ArchitectureTab extends StatelessWidget {
+  const _ArchitectureTab();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'Architecture diagram',
+      subtitle:
+          'How a ListTile decides which default typography to apply. The enum '
+          'is only a flag — the work happens in ListTileTheme resolution.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 380,
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: scheme.outlineVariant),
+            ),
+            padding: const EdgeInsets.all(14),
+            child: CustomPaint(
+              painter: _ArchitecturePainter(
+                primary: scheme.primary,
+                secondary: scheme.secondary,
+                tertiary: scheme.tertiary,
+                onSurface: scheme.onSurface,
+                outline: scheme.outlineVariant,
+                surface: scheme.surface,
+              ),
+              child: const SizedBox.expand(),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: const <Widget>[
+              Expanded(
+                child: _Step(
+                  index: '1',
+                  title: 'Theme',
+                  body:
+                      'An ambient Theme (or nothing) sits at the top of the '
+                      'widget tree.',
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: _Step(
+                  index: '2',
+                  title: 'ListTileTheme',
+                  body:
+                      'Explicit ListTileTheme sets .style = list or drawer, '
+                      'plus padding and colours.',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: const <Widget>[
+              Expanded(
+                child: _Step(
+                  index: '3',
+                  title: 'ListTile',
+                  body:
+                      'When ListTile builds, it reads ListTileTheme.of '
+                      '(context).',
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: _Step(
+                  index: '4',
+                  title: 'Font metrics',
+                  body:
+                      'If the tile did not override titleTextStyle, the enum '
+                      'decides: list → 16/14, drawer → 14/12.',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          const _Explainer(
+            icon: Icons.architecture_outlined,
+            title: 'Resolution order (short version)',
+            body:
+                'ListTile.titleTextStyle  >  '
+                'ListTileThemeData.titleTextStyle  >  '
+                'ListTileStyle preset via ListTileThemeData.style  >  '
+                'framework default (list preset).',
+          ),
+          const SizedBox(height: 14),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Minimal code that exercises this tree',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: scheme.surface,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: scheme.outlineVariant),
+                  ),
+                  child: const Text(
+                    'Theme(\n'
+                    '  data: ThemeData(useMaterial3: true),\n'
+                    '  child: ListTileTheme(\n'
+                    '    data: ListTileThemeData(\n'
+                    '      style: ListTileStyle.drawer,\n'
+                    '    ),\n'
+                    '    child: ListTile(\n'
+                    '      leading: Icon(Icons.home),\n'
+                    '      title: Text(\'Home\'),         // 14sp\n'
+                    '      subtitle: Text(\'Dashboard\'), // 12sp\n'
+                    '    ),\n'
+                    '  ),\n'
+                    ')',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      height: 1.45,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Step extends StatelessWidget {
+  const _Step({
+    required this.index,
+    required this.title,
+    required this.body,
+  });
+  final String index;
+  final String title;
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 28,
+                height: 28,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: scheme.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  index,
+                  style: TextStyle(
+                    color: scheme.onPrimary,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 12,
+              color: scheme.onSurfaceVariant,
               height: 1.4,
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
-// =============================================================================
-// SECTION: Demo Data and Constants
-// =============================================================================
-
-/// Navigation items commonly found in drawers
-class DrawerNavItem {
-  final String title;
-  final IconData icon;
-  final bool selected;
-
-  const DrawerNavItem({
-    required this.title,
-    required this.icon,
-    this.selected = false,
-  });
-}
-
-/// Sample drawer navigation items
-const List<DrawerNavItem> sampleDrawerItems = [
-  DrawerNavItem(title: 'Home', icon: Icons.home_outlined, selected: true),
-  DrawerNavItem(title: 'Profile', icon: Icons.person_outline),
-  DrawerNavItem(title: 'Messages', icon: Icons.mail_outline),
-  DrawerNavItem(title: 'Calendar', icon: Icons.calendar_today_outlined),
-  DrawerNavItem(title: 'Settings', icon: Icons.settings_outlined),
-];
-
-/// Sample settings items for list-style demos
-class SettingsItem {
-  final String title;
-  final String? subtitle;
-  final IconData icon;
-  final Widget? trailing;
-
-  const SettingsItem({
-    required this.title,
-    this.subtitle,
-    required this.icon,
-    this.trailing,
-  });
-}
-
-/// Settings items representing a typical settings screen
-final List<SettingsItem> sampleSettingsItems = [
-  SettingsItem(
-    title: 'Account',
-    subtitle: 'Privacy, security, change password',
-    icon: Icons.person,
-  ),
-  SettingsItem(
-    title: 'Notifications',
-    subtitle: 'Message, group & call tones',
-    icon: Icons.notifications,
-  ),
-  SettingsItem(
-    title: 'Appearance',
-    subtitle: 'Theme, font size, language',
-    icon: Icons.palette,
-  ),
-  SettingsItem(
-    title: 'Storage',
-    subtitle: 'Network usage, auto-download',
-    icon: Icons.storage,
-  ),
-  SettingsItem(
-    title: 'Help',
-    subtitle: 'FAQ, contact us, privacy policy',
-    icon: Icons.help,
-  ),
-];
-
-// =============================================================================
-// MAIN ENTRY POINT: Visual Demonstration Build Function
-// =============================================================================
-
-dynamic build(BuildContext context) {
-  print('ListTileStyle comprehensive demo test executing');
-  print('========================================');
-  print('ListTileStyle enum values:');
-  print('  - ListTileStyle.list: Default style for general lists');
-  print('  - ListTileStyle.drawer: Optimized style for navigation drawers');
-  print('========================================');
-
-  // Track all created widgets for verification
-  List<Widget> allDemos = [];
-
-  // =========================================================================
-  // SECTION 1: Visual Comparison Side by Side
-  // =========================================================================
-  print('--- Section 1: Visual Comparison Side by Side ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 1: ListTileStyle Visual Comparison',
-      icon: Icons.compare_arrows,
-      color: Colors.indigo,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'ListTileStyle is an enum that controls the visual styling of ListTile widgets. '
-      'The two values produce subtle but important differences in density, padding, '
-      'and overall visual weight. Below we compare them side by side.',
-      icon: Icons.info_outline,
-      color: Colors.blue,
-    ),
-  );
-
-  // Basic comparison - simple text tile
-  final listStyleBasic = ListTile(
-    style: ListTileStyle.list,
-    title: Text('Basic Title'),
-  );
-  final drawerStyleBasic = ListTile(
-    style: ListTileStyle.drawer,
-    title: Text('Basic Title'),
-  );
-  print('Created basic ListTile comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Basic Text Only',
-      description: 'Simplest possible ListTile with just a title',
-      listStyleTile: listStyleBasic,
-      drawerStyleTile: drawerStyleBasic,
-    ),
-  );
-
-  // Comparison with leading icon
-  final listStyleLeading = ListTile(
-    style: ListTileStyle.list,
-    leading: Icon(Icons.folder, color: Colors.blue),
-    title: Text('With Leading Icon'),
-  );
-  final drawerStyleLeading = ListTile(
-    style: ListTileStyle.drawer,
-    leading: Icon(Icons.folder, color: Colors.purple),
-    title: Text('With Leading Icon'),
-  );
-  print('Created leading icon comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'With Leading Icon',
-      description: 'Notice the spacing differences around the icon',
-      listStyleTile: listStyleLeading,
-      drawerStyleTile: drawerStyleLeading,
-    ),
-  );
-
-  // Comparison with title and subtitle
-  final listStyleSubtitle = ListTile(
-    style: ListTileStyle.list,
-    leading: CircleAvatar(
-      backgroundColor: Colors.blue.shade100,
-      child: Icon(Icons.person, color: Colors.blue),
-    ),
-    title: Text('John Doe'),
-    subtitle: Text('john.doe@example.com'),
-  );
-  final drawerStyleSubtitle = ListTile(
-    style: ListTileStyle.drawer,
-    leading: CircleAvatar(
-      backgroundColor: Colors.purple.shade100,
-      child: Icon(Icons.person, color: Colors.purple),
-    ),
-    title: Text('John Doe'),
-    subtitle: Text('john.doe@example.com'),
-  );
-  print('Created title with subtitle comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Title + Subtitle',
-      description: 'Observe vertical spacing and text alignment',
-      listStyleTile: listStyleSubtitle,
-      drawerStyleTile: drawerStyleSubtitle,
-    ),
-  );
-
-  // Comparison with trailing widget
-  final listStyleTrailing = ListTile(
-    style: ListTileStyle.list,
-    leading: Icon(Icons.wifi, color: Colors.blue),
-    title: Text('Wi-Fi'),
-    subtitle: Text('Connected to HomeNetwork'),
-    trailing: Switch(value: true, onChanged: null),
-  );
-  final drawerStyleTrailing = ListTile(
-    style: ListTileStyle.drawer,
-    leading: Icon(Icons.wifi, color: Colors.purple),
-    title: Text('Wi-Fi'),
-    subtitle: Text('Connected to HomeNetwork'),
-    trailing: Switch(value: true, onChanged: null),
-  );
-  print('Created trailing widget comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'With Trailing Widget',
-      description: 'Compare trailing widget alignment and padding',
-      listStyleTile: listStyleTrailing,
-      drawerStyleTile: drawerStyleTrailing,
-    ),
-  );
-
-  // Three-line comparison
-  final listStyleThreeLine = ListTile(
-    style: ListTileStyle.list,
-    isThreeLine: true,
-    leading: Icon(Icons.email, color: Colors.blue),
-    title: Text('Meeting Tomorrow'),
-    subtitle: Text(
-      'Hi team, just a reminder about our meeting scheduled for tomorrow at 10 AM.',
-    ),
-  );
-  final drawerStyleThreeLine = ListTile(
-    style: ListTileStyle.drawer,
-    isThreeLine: true,
-    leading: Icon(Icons.email, color: Colors.purple),
-    title: Text('Meeting Tomorrow'),
-    subtitle: Text(
-      'Hi team, just a reminder about our meeting scheduled for tomorrow at 10 AM.',
-    ),
-  );
-  print('Created three-line comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Three-Line Layout',
-      description: 'Extended content with isThreeLine: true',
-      listStyleTile: listStyleThreeLine,
-      drawerStyleTile: drawerStyleThreeLine,
-    ),
-  );
-
-  // =========================================================================
-  // SECTION 2: ListTileStyle.list in Typical List Contexts
-  // =========================================================================
-  print('--- Section 2: ListTileStyle.list in Typical Contexts ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 2: ListTileStyle.list Use Cases',
-      icon: Icons.list,
-      color: Colors.blue,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'ListTileStyle.list is the default style optimized for scrollable list content. '
-      'It provides comfortable spacing for touch targets while maintaining a clean, '
-      'scannable layout. Ideal for settings screens, contact lists, and message lists.',
-      icon: Icons.touch_app,
-      color: Colors.blue,
-    ),
-  );
-
-  // Settings list demonstration
-  allDemos.add(buildSubsectionHeader('Settings Screen Pattern', color: Colors.blue));
-
-  List<Widget> settingsTiles = [];
-  int settingsIndex = 0;
-  for (settingsIndex = 0;
-      settingsIndex < sampleSettingsItems.length;
-      settingsIndex++) {
-    final item = sampleSettingsItems[settingsIndex];
-    settingsTiles.add(
-      ListTile(
-        style: ListTileStyle.list,
-        leading: Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.blue.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(item.icon, color: Colors.blue.shade700, size: 22),
-        ),
-        title: Text(
-          item.title,
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        subtitle: item.subtitle != null ? Text(item.subtitle!) : null,
-        trailing: Icon(Icons.chevron_right, color: Colors.grey.shade400),
-      ),
-    );
-    if (settingsIndex < sampleSettingsItems.length - 1) {
-      settingsTiles.add(
-        Divider(height: 1, indent: 72, color: Colors.grey.shade200),
-      );
-    }
-  }
-  print('Created ${sampleSettingsItems.length} settings list tiles');
-
-  allDemos.add(buildMockSettingsList(children: settingsTiles));
-
-  // Contact list demonstration
-  allDemos.add(buildSubsectionHeader('Contact List Pattern', color: Colors.blue));
-
-  List<String> contactNames = [
-    'Alice Anderson',
-    'Bob Baker',
-    'Carol Chen',
-    'David Davis',
-    'Eva Edwards',
-  ];
-  List<MaterialColor> avatarColors = [
-    Colors.red,
-    Colors.green,
-    Colors.orange,
-    Colors.blue,
-    Colors.purple,
-  ];
-
-  List<Widget> contactTiles = [];
-  int contactIndex = 0;
-  for (contactIndex = 0; contactIndex < contactNames.length; contactIndex++) {
-    contactTiles.add(
-      ListTile(
-        style: ListTileStyle.list,
-        leading: CircleAvatar(
-          backgroundColor: avatarColors[contactIndex].shade100,
-          child: Text(
-            contactNames[contactIndex].substring(0, 1),
-            style: TextStyle(
-              color: avatarColors[contactIndex].shade700,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        title: Text(contactNames[contactIndex]),
-        subtitle: Text('+1 (555) ${100 + contactIndex}-${1000 + contactIndex}'),
-        trailing: IconButton(
-          icon: Icon(Icons.phone, color: Colors.green),
-          onPressed: () {},
-        ),
-      ),
-    );
-    if (contactIndex < contactNames.length - 1) {
-      contactTiles.add(
-        Divider(height: 1, indent: 72, color: Colors.grey.shade200),
-      );
-    }
-  }
-  print('Created ${contactNames.length} contact list tiles');
-
-  allDemos.add(buildMockSettingsList(children: contactTiles));
-
-  // Message list demonstration
-  allDemos.add(buildSubsectionHeader('Message List Pattern', color: Colors.blue));
-
-  List<Map<String, String>> messages = [
-    {
-      'sender': 'Team Chat',
-      'preview': 'Sarah: Great work on the presentation!',
-      'time': '2:30 PM',
-    },
-    {
-      'sender': 'Project Alpha',
-      'preview': 'Deadline reminder: Submit by Friday',
-      'time': '1:15 PM',
-    },
-    {
-      'sender': 'Support',
-      'preview': 'Your ticket #1234 has been resolved',
-      'time': '11:00 AM',
-    },
-    {
-      'sender': 'Newsletter',
-      'preview': 'Your weekly digest is here!',
-      'time': 'Yesterday',
-    },
-  ];
-
-  List<Widget> messageTiles = [];
-  int msgIndex = 0;
-  for (msgIndex = 0; msgIndex < messages.length; msgIndex++) {
-    final msg = messages[msgIndex];
-    messageTiles.add(
-      ListTile(
-        style: ListTileStyle.list,
-        leading: CircleAvatar(
-          backgroundColor: Colors.grey.shade200,
-          child: Icon(Icons.group, color: Colors.grey.shade600),
-        ),
-        title: Row(
-          children: [
-            Expanded(
-              child: Text(
-                msg['sender']!,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-            ),
-            Text(
-              msg['time']!,
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-            ),
-          ],
-        ),
-        subtitle: Text(
-          msg['preview']!,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ),
-    );
-    if (msgIndex < messages.length - 1) {
-      messageTiles.add(
-        Divider(height: 1, indent: 72, color: Colors.grey.shade200),
-      );
-    }
-  }
-  print('Created ${messages.length} message list tiles');
-
-  allDemos.add(buildMockSettingsList(children: messageTiles));
-
-  // =========================================================================
-  // SECTION 3: ListTileStyle.drawer in Navigation Drawer Contexts
-  // =========================================================================
-  print('--- Section 3: ListTileStyle.drawer in Drawer Contexts ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 3: ListTileStyle.drawer Use Cases',
-      icon: Icons.menu,
-      color: Colors.purple,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'ListTileStyle.drawer is specifically designed for navigation drawers. '
-      'It features slightly altered density and styling to match Material Design '
-      'drawer specifications. Navigation items should feel distinct from list content.',
-      icon: Icons.navigation,
-      color: Colors.purple,
-    ),
-  );
-
-  // Standard navigation drawer
-  allDemos.add(
-    buildSubsectionHeader('Standard Navigation Drawer', color: Colors.purple),
-  );
-
-  List<Widget> drawerNavTiles = [];
-  int navIndex = 0;
-  for (navIndex = 0; navIndex < sampleDrawerItems.length; navIndex++) {
-    final item = sampleDrawerItems[navIndex];
-    drawerNavTiles.add(
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child: ListTile(
-          style: ListTileStyle.drawer,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          selected: item.selected,
-          selectedTileColor: Colors.indigo.shade50,
-          selectedColor: Colors.indigo,
-          leading: Icon(item.icon),
-          title: Text(item.title),
-        ),
-      ),
-    );
-  }
-  drawerNavTiles.add(Divider(indent: 16, endIndent: 16));
-  drawerNavTiles.add(
-    Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      child: ListTile(
-        style: ListTileStyle.drawer,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        leading: Icon(Icons.logout),
-        title: Text('Logout'),
-      ),
-    ),
-  );
-  print('Created ${sampleDrawerItems.length + 1} drawer nav tiles');
-
-  allDemos.add(
-    buildMockDrawer(
-      title: 'Standard Navigation',
-      headerColor: Colors.indigo,
-      children: drawerNavTiles,
-    ),
-  );
-
-  // Drawer with badges
-  allDemos.add(
-    buildSubsectionHeader('Drawer with Notification Badges', color: Colors.purple),
-  );
-
-  List<Widget> badgedDrawerTiles = [];
-  List<String> badgedLabels = ['Inbox', 'Drafts', 'Sent', 'Spam', 'Trash'];
-  List<IconData> badgedIcons = [
-    Icons.inbox,
-    Icons.drafts,
-    Icons.send,
-    Icons.report,
-    Icons.delete,
-  ];
-  List<int?> badgeCounts = [12, 3, null, 5, null];
-
-  int badgeIndex = 0;
-  for (badgeIndex = 0; badgeIndex < badgedLabels.length; badgeIndex++) {
-    Widget? trailingWidget;
-    if (badgeCounts[badgeIndex] != null) {
-      trailingWidget = Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: badgeIndex == 0 ? Colors.red : Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          '${badgeCounts[badgeIndex]}',
-          style: TextStyle(
-            color: badgeIndex == 0 ? Colors.white : Colors.grey.shade700,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      );
-    }
-
-    badgedDrawerTiles.add(
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child: ListTile(
-          style: ListTileStyle.drawer,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          selected: badgeIndex == 0,
-          selectedTileColor: Colors.deepPurple.shade50,
-          selectedColor: Colors.deepPurple,
-          leading: Icon(badgedIcons[badgeIndex]),
-          title: Text(badgedLabels[badgeIndex]),
-          trailing: trailingWidget,
-        ),
-      ),
-    );
-  }
-  print('Created ${badgedLabels.length} badged drawer tiles');
-
-  allDemos.add(
-    buildMockDrawer(
-      title: 'Email Navigation',
-      headerColor: Colors.deepPurple,
-      children: badgedDrawerTiles,
-    ),
-  );
-
-  // Sectioned drawer
-  allDemos.add(
-    buildSubsectionHeader('Sectioned Navigation Drawer', color: Colors.purple),
-  );
-
-  List<Widget> sectionedDrawerTiles = [];
-
-  // Section: Workspace
-  sectionedDrawerTiles.add(
-    Padding(
-      padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-      child: Text(
-        'WORKSPACE',
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey.shade500,
-          letterSpacing: 1.2,
-        ),
-      ),
-    ),
-  );
-
-  List<String> workspaceLabels = ['Dashboard', 'Projects', 'Tasks', 'Team'];
-  List<IconData> workspaceIcons = [
-    Icons.dashboard,
-    Icons.folder,
-    Icons.check_circle,
-    Icons.people,
-  ];
-  int wsIndex = 0;
-  for (wsIndex = 0; wsIndex < workspaceLabels.length; wsIndex++) {
-    sectionedDrawerTiles.add(
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-        child: ListTile(
-          style: ListTileStyle.drawer,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          selected: wsIndex == 0,
-          selectedTileColor: Colors.teal.shade50,
-          selectedColor: Colors.teal.shade700,
-          leading: Icon(workspaceIcons[wsIndex], size: 22),
-          title: Text(workspaceLabels[wsIndex]),
-          dense: true,
-        ),
-      ),
-    );
-  }
-
-  sectionedDrawerTiles.add(Divider(indent: 16, endIndent: 16, height: 16));
-
-  // Section: Personal
-  sectionedDrawerTiles.add(
-    Padding(
-      padding: EdgeInsets.fromLTRB(16, 4, 16, 4),
-      child: Text(
-        'PERSONAL',
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey.shade500,
-          letterSpacing: 1.2,
-        ),
-      ),
-    ),
-  );
-
-  List<String> personalLabels = ['Calendar', 'Notes', 'Reminders'];
-  List<IconData> personalIcons = [
-    Icons.calendar_month,
-    Icons.note,
-    Icons.alarm,
-  ];
-  int pIndex = 0;
-  for (pIndex = 0; pIndex < personalLabels.length; pIndex++) {
-    sectionedDrawerTiles.add(
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-        child: ListTile(
-          style: ListTileStyle.drawer,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          leading: Icon(personalIcons[pIndex], size: 22),
-          title: Text(personalLabels[pIndex]),
-          dense: true,
-        ),
-      ),
-    );
-  }
-  print('Created sectioned drawer with workspace and personal sections');
-
-  allDemos.add(
-    buildMockDrawer(
-      title: 'Productivity App',
-      headerColor: Colors.teal,
-      children: sectionedDrawerTiles,
-    ),
-  );
-
-  // =========================================================================
-  // SECTION 4: Style Differences in Density, Padding, and Visual Weight
-  // =========================================================================
-  print('--- Section 4: Style Differences Analysis ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 4: Density, Padding & Visual Weight',
-      icon: Icons.straighten,
-      color: Colors.green,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'The visual differences between list and drawer styles are subtle but intentional. '
-      'Drawer style tiles typically have optimized spacing for navigation contexts, '
-      'while list style tiles are designed for content browsing and selection.',
-      icon: Icons.visibility,
-      color: Colors.green,
-    ),
-  );
-
-  // Dense mode comparison
-  allDemos.add(buildSubsectionHeader('Dense Mode Interaction', color: Colors.green));
-
-  final listDense = ListTile(
-    style: ListTileStyle.list,
-    dense: true,
-    leading: Icon(Icons.settings, color: Colors.blue),
-    title: Text('Dense List Style'),
-    subtitle: Text('With dense: true'),
-  );
-  final drawerDense = ListTile(
-    style: ListTileStyle.drawer,
-    dense: true,
-    leading: Icon(Icons.settings, color: Colors.purple),
-    title: Text('Dense Drawer Style'),
-    subtitle: Text('With dense: true'),
-  );
-  print('Created dense mode comparison');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Dense Mode (dense: true)',
-      description: 'How each style responds to the dense property',
-      listStyleTile: listDense,
-      drawerStyleTile: drawerDense,
-    ),
-  );
-
-  // VisualDensity comparison
-  allDemos.add(
-    buildSubsectionHeader('Visual Density Variations', color: Colors.green),
-  );
-
-  final listCompact = ListTile(
-    style: ListTileStyle.list,
-    visualDensity: VisualDensity.compact,
-    leading: Icon(Icons.compress, color: Colors.blue),
-    title: Text('Compact Density'),
-  );
-  final drawerCompact = ListTile(
-    style: ListTileStyle.drawer,
-    visualDensity: VisualDensity.compact,
-    leading: Icon(Icons.compress, color: Colors.purple),
-    title: Text('Compact Density'),
-  );
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'VisualDensity.compact',
-      description: 'Minimum vertical spacing',
-      listStyleTile: listCompact,
-      drawerStyleTile: drawerCompact,
-    ),
-  );
-
-  final listComfortable = ListTile(
-    style: ListTileStyle.list,
-    visualDensity: VisualDensity.comfortable,
-    leading: Icon(Icons.unfold_more, color: Colors.blue),
-    title: Text('Comfortable Density'),
-  );
-  final drawerComfortable = ListTile(
-    style: ListTileStyle.drawer,
-    visualDensity: VisualDensity.comfortable,
-    leading: Icon(Icons.unfold_more, color: Colors.purple),
-    title: Text('Comfortable Density'),
-  );
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'VisualDensity.comfortable',
-      description: 'Maximum vertical spacing',
-      listStyleTile: listComfortable,
-      drawerStyleTile: drawerComfortable,
-    ),
-  );
-  print('Created visual density comparisons');
-
-  // Content padding comparison
-  allDemos.add(buildSubsectionHeader('Content Padding Override', color: Colors.green));
-
-  final listPadded = ListTile(
-    style: ListTileStyle.list,
-    contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-    leading: Icon(Icons.padding, color: Colors.blue),
-    title: Text('Custom Padding'),
-    subtitle: Text('24px horizontal, 8px vertical'),
-  );
-  final drawerPadded = ListTile(
-    style: ListTileStyle.drawer,
-    contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-    leading: Icon(Icons.padding, color: Colors.purple),
-    title: Text('Custom Padding'),
-    subtitle: Text('24px horizontal, 8px vertical'),
-  );
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Custom Content Padding',
-      description: 'Explicit padding overrides default style padding',
-      listStyleTile: listPadded,
-      drawerStyleTile: drawerPadded,
-    ),
-  );
-  print('Created content padding comparison');
-
-  // Min leading width comparison
-  allDemos.add(buildSubsectionHeader('Leading Width Control', color: Colors.green));
-
-  final listMinLeading = ListTile(
-    style: ListTileStyle.list,
-    minLeadingWidth: 56,
-    leading: Icon(Icons.star, color: Colors.blue),
-    title: Text('Min Leading Width: 56'),
-  );
-  final drawerMinLeading = ListTile(
-    style: ListTileStyle.drawer,
-    minLeadingWidth: 56,
-    leading: Icon(Icons.star, color: Colors.purple),
-    title: Text('Min Leading Width: 56'),
-  );
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Min Leading Width',
-      description: 'Ensuring consistent icon alignment',
-      listStyleTile: listMinLeading,
-      drawerStyleTile: drawerMinLeading,
-    ),
-  );
-  print('Created min leading width comparison');
-
-  // =========================================================================
-  // SECTION 5: ListTileTheme Integration
-  // =========================================================================
-  print('--- Section 5: ListTileTheme Integration ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 5: ListTileTheme Integration',
-      icon: Icons.palette,
-      color: Colors.orange,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'ListTileTheme allows you to set the default style for all ListTile descendants. '
-      'Setting ListTileThemeData(style: ListTileStyle.drawer) applies drawer styling '
-      'to all children without needing to specify it on each tile individually.',
-      icon: Icons.format_paint,
-      color: Colors.orange,
-    ),
-  );
-
-  // Theme with list style
-  allDemos.add(
-    buildSubsectionHeader('ListTileTheme with ListTileStyle.list', color: Colors.orange),
-  );
-
-  Widget listThemedSection = ListTileTheme(
-    data: ListTileThemeData(
-      style: ListTileStyle.list,
-      tileColor: Colors.blue.shade50,
-      selectedTileColor: Colors.blue.shade100,
-      iconColor: Colors.blue.shade700,
-      textColor: Colors.blue.shade900,
-    ),
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.shade200),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Icon(Icons.inbox),
-              title: Text('Themed Inbox'),
-              trailing: Text('5', style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-            Divider(height: 1),
-            ListTile(
-              leading: Icon(Icons.star),
-              title: Text('Themed Starred'),
-            ),
-            Divider(height: 1),
-            ListTile(
-              leading: Icon(Icons.send),
-              title: Text('Themed Sent'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-  print('Created list-themed section');
-
-  allDemos.add(listThemedSection);
-  allDemos.add(SizedBox(height: 12));
-
-  // Theme with drawer style
-  allDemos.add(
-    buildSubsectionHeader(
-      'ListTileTheme with ListTileStyle.drawer',
-      color: Colors.orange,
-    ),
-  );
-
-  Widget drawerThemedSection = ListTileTheme(
-    data: ListTileThemeData(
-      style: ListTileStyle.drawer,
-      tileColor: Colors.purple.shade50,
-      selectedTileColor: Colors.purple.shade100,
-      iconColor: Colors.purple.shade700,
-      textColor: Colors.purple.shade900,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ),
-    child: Container(
-      width: 280,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.purple.shade200),
-      ),
-      child: Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Themed Home'),
-            selected: true,
-          ),
-          ListTile(
-            leading: Icon(Icons.explore),
-            title: Text('Themed Explore'),
-          ),
-          ListTile(
-            leading: Icon(Icons.subscriptions),
-            title: Text('Themed Subscriptions'),
-          ),
         ],
       ),
-    ),
-  );
-  print('Created drawer-themed section');
+    );
+  }
+}
 
-  allDemos.add(drawerThemedSection);
+class _ArchitecturePainter extends CustomPainter {
+  _ArchitecturePainter({
+    required this.primary,
+    required this.secondary,
+    required this.tertiary,
+    required this.onSurface,
+    required this.outline,
+    required this.surface,
+  });
+  final Color primary;
+  final Color secondary;
+  final Color tertiary;
+  final Color onSurface;
+  final Color outline;
+  final Color surface;
 
-  // Theme with selection state
-  allDemos.add(
-    buildSubsectionHeader('Theme Selection State Styling', color: Colors.orange),
-  );
+  @override
+  void paint(Canvas canvas, Size size) {
+    final double w = size.width;
+    final double h = size.height;
 
-  Widget selectionThemedSection = ListTileTheme(
-    data: ListTileThemeData(
-      style: ListTileStyle.drawer,
-      selectedColor: Colors.green.shade800,
-      selectedTileColor: Colors.green.shade100,
-      iconColor: Colors.grey.shade600,
-      textColor: Colors.grey.shade800,
-    ),
-    child: Container(
-      width: 280,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.green.shade200),
+    final Paint stroke = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = outline;
+    final Paint fill = Paint()
+      ..style = PaintingStyle.fill
+      ..color = surface;
+    final Paint arrow = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = secondary;
+
+    final Rect theme =
+        Rect.fromLTWH(w * 0.08, h * 0.06, w * 0.84, h * 0.18);
+    final Rect tileTheme =
+        Rect.fromLTWH(w * 0.12, h * 0.30, w * 0.76, h * 0.18);
+    final Rect tile =
+        Rect.fromLTWH(w * 0.18, h * 0.54, w * 0.64, h * 0.18);
+    final Rect metrics =
+        Rect.fromLTWH(w * 0.24, h * 0.80, w * 0.52, h * 0.14);
+
+    void drawBox(Rect r, String title, String sub, Color stripe) {
+      final RRect rr =
+          RRect.fromRectAndRadius(r, const Radius.circular(14));
+      canvas.drawRRect(rr, fill);
+      canvas.drawRRect(rr, stroke);
+      canvas.drawRRect(
+        RRect.fromRectAndCorners(
+          Rect.fromLTWH(r.left, r.top, 6, r.height),
+          topLeft: const Radius.circular(14),
+          bottomLeft: const Radius.circular(14),
+        ),
+        Paint()..color = stripe,
+      );
+      _text(canvas, title, Offset(r.left + 14, r.top + 10),
+          color: onSurface, weight: FontWeight.w700, size: 14);
+      _text(canvas, sub, Offset(r.left + 14, r.top + 32),
+          color: onSurface.withValues(alpha: 0.75), size: 12);
+    }
+
+    drawBox(theme, 'Theme (ThemeData.useMaterial3)',
+        'Provides ColorScheme, text theme, drawerTheme.', primary);
+    drawBox(tileTheme, 'ListTileTheme',
+        'Carries ListTileThemeData(style: list | drawer, ...).', tertiary);
+    drawBox(tile, 'ListTile',
+        'Reads ListTileTheme.of(context) at build time.', primary);
+    drawBox(metrics, 'ListTileStyle -> font metrics',
+        'list: 16/14 · drawer: 14/12.', secondary);
+
+    _arrow(canvas, arrow, Offset(w / 2, theme.bottom),
+        Offset(w / 2, tileTheme.top), 'inheritance');
+    _arrow(canvas, arrow, Offset(w / 2, tileTheme.bottom),
+        Offset(w / 2, tile.top), 'ambient');
+    _arrow(canvas, arrow, Offset(w / 2, tile.bottom),
+        Offset(w / 2, metrics.top), 'resolves');
+
+    _text(
+      canvas,
+      'ListTile resolution chain',
+      Offset(18, h - 14),
+      color: onSurface.withValues(alpha: 0.65),
+      size: 11,
+      weight: FontWeight.w600,
+    );
+  }
+
+  void _text(
+    Canvas canvas,
+    String s,
+    Offset at, {
+    required Color color,
+    double size = 12,
+    FontWeight weight = FontWeight.w400,
+  }) {
+    final TextPainter tp = TextPainter(
+      text: TextSpan(
+        text: s,
+        style: TextStyle(
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
       ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(canvas, at);
+  }
+
+  void _arrow(
+    Canvas canvas,
+    Paint paint,
+    Offset start,
+    Offset end,
+    String label,
+  ) {
+    canvas.drawLine(start, end, paint);
+    final double angle =
+        math.atan2(end.dy - start.dy, end.dx - start.dx);
+    const double headLen = 10;
+    final Offset p1 = Offset(
+      end.dx - headLen * math.cos(angle - math.pi / 7),
+      end.dy - headLen * math.sin(angle - math.pi / 7),
+    );
+    final Offset p2 = Offset(
+      end.dx - headLen * math.cos(angle + math.pi / 7),
+      end.dy - headLen * math.sin(angle + math.pi / 7),
+    );
+    final Path path = Path()
+      ..moveTo(end.dx, end.dy)
+      ..lineTo(p1.dx, p1.dy)
+      ..lineTo(p2.dx, p2.dy)
+      ..close();
+    canvas.drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.fill
+        ..color = paint.color,
+    );
+    _text(
+      canvas,
+      label,
+      Offset((start.dx + end.dx) / 2 + 10, (start.dy + end.dy) / 2 - 10),
+      color: paint.color,
+      size: 11,
+      weight: FontWeight.w600,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ArchitecturePainter old) =>
+      old.primary != primary ||
+      old.secondary != secondary ||
+      old.tertiary != tertiary ||
+      old.onSurface != onSurface ||
+      old.outline != outline ||
+      old.surface != surface;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 8: Pitfalls
+// ═══════════════════════════════════════════════════════════════════════════
+
+class _PitfallsTab extends StatelessWidget {
+  const _PitfallsTab();
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Three pitfalls to watch for',
+      subtitle:
+          'ListTileStyle is simple, but it interacts with several other '
+          'overrides. Here are the three traps that catch new Flutter devs '
+          'most often.',
       child: Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.check_box),
-            title: Text('Option One'),
-            selected: true,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          ListTile(
-            leading: Icon(Icons.check_box_outline_blank),
-            title: Text('Option Two'),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          ListTile(
-            leading: Icon(Icons.check_box_outline_blank),
-            title: Text('Option Three'),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-        ],
-      ),
-    ),
-  );
-  print('Created selection-themed section');
-
-  allDemos.add(selectionThemedSection);
-
-  // =========================================================================
-  // SECTION 6: Mixed Usage Scenarios
-  // =========================================================================
-  print('--- Section 6: Mixed Usage Scenarios ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 6: Mixed Usage Scenarios',
-      icon: Icons.merge_type,
-      color: Colors.red,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'In complex applications, you may need both styles in different parts of the UI. '
-      'Here we demonstrate scenarios where style switching is appropriate and how to '
-      'maintain visual consistency when mixing styles.',
-      icon: Icons.swap_horiz,
-      color: Colors.red,
-    ),
-  );
-
-  // Scaffold with drawer and list content
-  allDemos.add(
-    buildSubsectionHeader('App with Drawer and List Content', color: Colors.red),
-  );
-
-  Widget scaffoldDiagram = Container(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300, width: 2),
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Drawer side
+        children: <Widget>[
+          _PitfallCard(
+            index: '1',
+            title: 'Overriding titleTextStyle locally',
+            situation:
+                'You set ListTile.titleTextStyle directly on a tile and '
+                'wonder why ListTileStyle.drawer seems to have no effect.',
+            fix:
+                'Direct ListTile fields always win. If you want the enum '
+                'preset, leave titleTextStyle unset. If you want a custom '
+                'style, do not rely on the enum at all.',
+            icon: Icons.edit_note_outlined,
+            demo: _DemoPitfallLocalOverride(),
+          ),
+          const SizedBox(height: 16),
+          _PitfallCard(
+            index: '2',
+            title: 'Forgetting the ambient ListTileTheme',
+            situation:
+                'You want drawer metrics but there is no ListTileTheme '
+                'ancestor, so your ListTiles render with list metrics.',
+            fix:
+                'Either use a real Drawer (cascade is automatic) or wrap the '
+                'subtree in ListTileTheme(data: ListTileThemeData(style: '
+                'ListTileStyle.drawer), child: ...).',
+            icon: Icons.wb_incandescent_outlined,
+            demo: _DemoPitfallMissingTheme(),
+          ),
+          const SizedBox(height: 16),
+          _PitfallCard(
+            index: '3',
+            title: 'Mixing with custom textColor',
+            situation:
+                'You set ListTile.textColor thinking it will shift the whole '
+                'tile typography. It only changes the color — metrics stay '
+                'whatever ListTileStyle dictates.',
+            fix:
+                'ListTileStyle is about size/metrics. Color is a separate '
+                'field. To fully customize, set titleTextStyle and '
+                'subtitleTextStyle and accept that the enum is now ignored.',
+            icon: Icons.palette_outlined,
+            demo: _DemoPitfallTextColor(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PitfallCard extends StatelessWidget {
+  const _PitfallCard({
+    required this.index,
+    required this.title,
+    required this.situation,
+    required this.fix,
+    required this.icon,
+    required this.demo,
+  });
+  final String index;
+  final String title;
+  final String situation;
+  final String fix;
+  final IconData icon;
+  final Widget demo;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: scheme.errorContainer.withValues(alpha: 0.40),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: scheme.error.withValues(alpha: 0.45)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                width: 30,
+                height: 30,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: scheme.error,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  index,
+                  style: TextStyle(
+                    color: scheme.onError,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Icon(icon, color: scheme.error),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
           Container(
-            width: 200,
-            color: Colors.purple.shade50,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: scheme.surface,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: scheme.outlineVariant),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  color: Colors.purple.shade200,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'DRAWER',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple.shade700,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        'Uses ListTileStyle.drawer',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.purple.shade600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(4),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        style: ListTileStyle.drawer,
-                        dense: true,
-                        selected: true,
-                        selectedTileColor: Colors.purple.shade100,
-                        leading: Icon(Icons.home, size: 20, color: Colors.purple),
-                        title: Text('Home', style: TextStyle(fontSize: 13)),
-                      ),
-                      ListTile(
-                        style: ListTileStyle.drawer,
-                        dense: true,
-                        leading: Icon(Icons.person, size: 20),
-                        title: Text('Profile', style: TextStyle(fontSize: 13)),
-                      ),
-                      ListTile(
-                        style: ListTileStyle.drawer,
-                        dense: true,
-                        leading: Icon(Icons.settings, size: 20),
-                        title: Text('Settings', style: TextStyle(fontSize: 13)),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Divider
-          Container(width: 1, height: 250, color: Colors.grey.shade300),
-          // Main content side
-          Expanded(
-            child: Container(
-              color: Colors.blue.shade50,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(12),
-                    color: Colors.blue.shade200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'MAIN CONTENT',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue.shade700,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Uses ListTileStyle.list',
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: Colors.blue.shade600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    style: ListTileStyle.list,
-                    leading: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.blue.shade100,
-                      child: Text('A', style: TextStyle(fontSize: 12)),
-                    ),
-                    title: Text('Item One', style: TextStyle(fontSize: 13)),
-                    subtitle: Text(
-                      'Description text',
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    trailing: Icon(Icons.chevron_right, size: 20),
-                  ),
-                  Divider(height: 1),
-                  ListTile(
-                    style: ListTileStyle.list,
-                    leading: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.blue.shade100,
-                      child: Text('B', style: TextStyle(fontSize: 12)),
-                    ),
-                    title: Text('Item Two', style: TextStyle(fontSize: 13)),
-                    subtitle: Text(
-                      'More description',
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    trailing: Icon(Icons.chevron_right, size: 20),
-                  ),
-                  Divider(height: 1),
-                  ListTile(
-                    style: ListTileStyle.list,
-                    leading: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.blue.shade100,
-                      child: Text('C', style: TextStyle(fontSize: 12)),
-                    ),
-                    title: Text('Item Three', style: TextStyle(fontSize: 13)),
-                    subtitle: Text(
-                      'Additional info',
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    trailing: Icon(Icons.chevron_right, size: 20),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-  print('Created scaffold diagram with mixed styles');
-
-  allDemos.add(scaffoldDiagram);
-
-  // Style switching based on context
-  allDemos.add(buildSubsectionHeader('Context-Based Style Selection', color: Colors.red));
-
-  // Build a demonstration of programmatic style selection
-  // The following variables demonstrate how you might select style programmatically:
-  // ignore: unused_local_variable
-  final ListTileStyle selectedStyleExample = ListTileStyle.list;
-  // ignore: unused_local_variable
-  final bool isDrawerContextExample = false;
-
-  Widget contextDemo = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Programmatic Style Selection',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            '''// Select style based on context
-ListTileStyle getStyleForContext(bool isDrawer) {
-  return isDrawer 
-    ? ListTileStyle.drawer 
-    : ListTileStyle.list;
-}
-
-// Usage in build method
-ListTile(
-  style: getStyleForContext(isInDrawer),
-  leading: Icon(Icons.home),
-  title: Text('Adaptive Tile'),
-)''',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: Colors.grey.shade800,
-            ),
-          ),
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'isInDrawer: false',
-                    style: TextStyle(fontSize: 11, color: Colors.blue),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue.shade200),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListTile(
-                      style: ListTileStyle.list,
-                      dense: true,
-                      leading: Icon(Icons.home, color: Colors.blue),
-                      title: Text('Adaptive', style: TextStyle(fontSize: 13)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'isInDrawer: true',
-                    style: TextStyle(fontSize: 11, color: Colors.purple),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple.shade200),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListTile(
-                      style: ListTileStyle.drawer,
-                      dense: true,
-                      leading: Icon(Icons.home, color: Colors.purple),
-                      title: Text('Adaptive', style: TextStyle(fontSize: 13)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-  print('Created context-based style selection demo');
-
-  allDemos.add(contextDemo);
-
-  // Transitioning between styles
-  allDemos.add(
-    buildSubsectionHeader('Maintaining Consistency Across Styles', color: Colors.red),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'When using both styles in an app, maintain visual consistency through shared '
-      'theme values. Use ListTileTheme at different tree levels to apply appropriate '
-      'styling without repeating configuration on every tile.',
-      icon: Icons.sync,
-      color: Colors.red,
-    ),
-  );
-
-  Widget consistencyDemo = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Shared Design Tokens',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 12),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Drawer Navigation',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.teal.shade50,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          style: ListTileStyle.drawer,
-                          dense: true,
-                          selected: true,
-                          selectedTileColor: Colors.teal.shade100,
-                          selectedColor: Colors.teal.shade800,
-                          leading: Icon(Icons.dashboard, size: 20),
-                          title: Text('Dashboard', style: TextStyle(fontSize: 13)),
-                        ),
-                        ListTile(
-                          style: ListTileStyle.drawer,
-                          dense: true,
-                          leading: Icon(
-                            Icons.analytics,
-                            size: 20,
-                            color: Colors.teal,
-                          ),
-                          title: Text('Analytics', style: TextStyle(fontSize: 13)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Content List',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.teal.shade200),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          style: ListTileStyle.list,
-                          dense: true,
-                          leading: CircleAvatar(
-                            radius: 14,
-                            backgroundColor: Colors.teal.shade100,
-                            child: Icon(
-                              Icons.insert_chart,
-                              size: 14,
-                              color: Colors.teal,
-                            ),
-                          ),
-                          title: Text('Q1 Report', style: TextStyle(fontSize: 13)),
-                          trailing: Icon(
-                            Icons.chevron_right,
-                            size: 18,
-                            color: Colors.teal,
-                          ),
-                        ),
-                        Divider(height: 1, indent: 56),
-                        ListTile(
-                          style: ListTileStyle.list,
-                          dense: true,
-                          leading: CircleAvatar(
-                            radius: 14,
-                            backgroundColor: Colors.teal.shade100,
-                            child: Icon(
-                              Icons.insert_chart,
-                              size: 14,
-                              color: Colors.teal,
-                            ),
-                          ),
-                          title: Text('Q2 Report', style: TextStyle(fontSize: 13)),
-                          trailing: Icon(
-                            Icons.chevron_right,
-                            size: 18,
-                            color: Colors.teal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            'Both use the same teal color palette for visual cohesion',
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    ),
-  );
-  print('Created consistency maintenance demo');
-
-  allDemos.add(consistencyDemo);
-
-  // =========================================================================
-  // SECTION 7: Platform Considerations and Material Design Guidelines
-  // =========================================================================
-  print('--- Section 7: Platform & Material Design Guidelines ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 7: Platform & Material Design',
-      icon: Icons.design_services,
-      color: Colors.cyan,
-    ),
-  );
-
-  allDemos.add(
-    buildExplanationCard(
-      'Material Design provides specific guidance for list and drawer components. '
-      'ListTileStyle.drawer aligns with Material navigation drawer specifications, '
-      'featuring optimized touch targets and visual hierarchy for navigation contexts.',
-      icon: Icons.menu_book,
-      color: Colors.cyan,
-    ),
-  );
-
-  // Material Design guidelines summary
-  allDemos.add(
-    buildSubsectionHeader('Material Design Recommendations', color: Colors.cyan),
-  );
-
-  Widget guidelinesCard = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.cyan.shade200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.check_circle, color: Colors.green, size: 20),
-            SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'Use ListTileStyle.list for:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8),
-        Padding(
-          padding: EdgeInsets.only(left: 28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('• Scrollable content lists', style: TextStyle(fontSize: 12)),
-              Text('• Settings screens', style: TextStyle(fontSize: 12)),
-              Text('• Contact and message lists', style: TextStyle(fontSize: 12)),
-              Text('• Search results', style: TextStyle(fontSize: 12)),
-              Text('• Data tables and grids', style: TextStyle(fontSize: 12)),
-            ],
-          ),
-        ),
-        SizedBox(height: 16),
-        Row(
-          children: [
-            Icon(Icons.check_circle, color: Colors.purple, size: 20),
-            SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'Use ListTileStyle.drawer for:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8),
-        Padding(
-          padding: EdgeInsets.only(left: 28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '• Navigation drawer destinations',
-                style: TextStyle(fontSize: 12),
-              ),
-              Text('• Bottom sheet navigation', style: TextStyle(fontSize: 12)),
-              Text('• App menu structures', style: TextStyle(fontSize: 12)),
-              Text(
-                '• Modal navigation selections',
-                style: TextStyle(fontSize: 12),
-              ),
-              Text(
-                '• Primary navigation patterns',
-                style: TextStyle(fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-  print('Created guidelines card');
-
-  allDemos.add(guidelinesCard);
-
-  // Touch target considerations
-  allDemos.add(buildSubsectionHeader('Touch Target Considerations', color: Colors.cyan));
-
-  Widget touchTargetDemo = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Minimum Touch Target: 48x48 dp',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 8),
-        Text(
-          'Both ListTileStyle values ensure adequate touch targets per Material '
-          'Design accessibility guidelines. The visual differences are primarily '
-          'in padding and visual weight, not in interactivity.',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-        ),
-        SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  border: Border.all(color: Colors.blue.shade300),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Center(
-                  child: Text(
-                    '48dp min height',
-                    style: TextStyle(fontSize: 11, color: Colors.blue.shade700),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 8),
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: Colors.green.shade50,
-                border: Border.all(color: Colors.green.shade300),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Center(
-                child: Text(
-                  '48',
+              children: <Widget>[
+                Text(
+                  'What happens',
                   style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.green.shade700,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-  print('Created touch target demo');
-
-  allDemos.add(touchTargetDemo);
-
-  // Responsive considerations
-  allDemos.add(buildSubsectionHeader('Responsive Layout Patterns', color: Colors.cyan));
-
-  Widget responsiveDemo = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Responsive Navigation Patterns',
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 12),
-        // Mobile pattern
-        Container(
-          margin: EdgeInsets.only(bottom: 12),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.phone_android, color: Colors.grey.shade600, size: 24),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mobile (< 600dp)',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Modal drawer with ListTileStyle.drawer',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Tablet pattern
-        Container(
-          margin: EdgeInsets.only(bottom: 12),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.tablet_android, color: Colors.grey.shade600, size: 24),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tablet (600-840dp)',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Rail or mini drawer with ListTileStyle.drawer',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        // Desktop pattern
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.desktop_windows,
-                color: Colors.grey.shade600,
-                size: 24,
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Desktop (> 840dp)',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Persistent drawer with ListTileStyle.drawer',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-  print('Created responsive layout demo');
-
-  allDemos.add(responsiveDemo);
-
-  // Accessibility considerations
-  allDemos.add(buildSubsectionHeader('Accessibility Considerations', color: Colors.cyan));
-
-  Widget accessibilityDemo = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.cyan.shade200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.accessibility_new, color: Colors.cyan, size: 24),
-            SizedBox(width: 8),
-            Text(
-              'Accessibility Best Practices',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        SizedBox(height: 12),
-        buildInfoCard(
-          'Semantic Labels',
-          'Use semanticLabel for screen readers',
-          icon: Icons.record_voice_over,
-        ),
-        buildInfoCard(
-          'Focus Traversal',
-          'Ensure logical tab order',
-          icon: Icons.keyboard_tab,
-        ),
-        buildInfoCard(
-          'Color Contrast',
-          'Maintain 4.5:1 ratio for text',
-          icon: Icons.contrast,
-        ),
-        buildInfoCard(
-          'Selected State',
-          'Provide clear visual indication',
-          icon: Icons.check_box,
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.cyan.shade50,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            'Both ListTileStyle values support the same accessibility features. '
-            'The style choice is primarily visual and doesn\'t affect accessibility behavior.',
-            style: TextStyle(fontSize: 11, color: Colors.cyan.shade800),
-          ),
-        ),
-      ],
-    ),
-  );
-  print('Created accessibility demo');
-
-  allDemos.add(accessibilityDemo);
-
-  // =========================================================================
-  // SECTION 8: Edge Cases and Special Scenarios
-  // =========================================================================
-  print('--- Section 8: Edge Cases and Special Scenarios ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 8: Edge Cases & Special Scenarios',
-      icon: Icons.warning_amber,
-      color: Colors.amber,
-    ),
-  );
-
-  // Long text handling
-  allDemos.add(buildSubsectionHeader('Long Text Overflow', color: Colors.amber));
-
-  final listLongText = ListTile(
-    style: ListTileStyle.list,
-    leading: Icon(Icons.description, color: Colors.blue),
-    title: Text(
-      'This is a very long title that might overflow the available space',
-      overflow: TextOverflow.ellipsis,
-    ),
-    subtitle: Text(
-      'And this is an even longer subtitle text that demonstrates text wrapping behavior',
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-    ),
-  );
-  final drawerLongText = ListTile(
-    style: ListTileStyle.drawer,
-    leading: Icon(Icons.description, color: Colors.purple),
-    title: Text(
-      'This is a very long title that might overflow the available space',
-      overflow: TextOverflow.ellipsis,
-    ),
-    subtitle: Text(
-      'And this is an even longer subtitle text that demonstrates text wrapping behavior',
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-    ),
-  );
-  print('Created long text handling demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Long Text Handling',
-      description: 'How text overflow behaves in each style',
-      listStyleTile: listLongText,
-      drawerStyleTile: drawerLongText,
-    ),
-  );
-
-  // Disabled state
-  allDemos.add(buildSubsectionHeader('Disabled State', color: Colors.amber));
-
-  final listDisabled = ListTile(
-    style: ListTileStyle.list,
-    enabled: false,
-    leading: Icon(Icons.block),
-    title: Text('Disabled List Item'),
-    subtitle: Text('Cannot be interacted with'),
-    trailing: Switch(value: false, onChanged: null),
-  );
-  final drawerDisabled = ListTile(
-    style: ListTileStyle.drawer,
-    enabled: false,
-    leading: Icon(Icons.block),
-    title: Text('Disabled Drawer Item'),
-    subtitle: Text('Cannot be interacted with'),
-    trailing: Switch(value: false, onChanged: null),
-  );
-  print('Created disabled state demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Disabled State (enabled: false)',
-      description: 'Visual treatment when tile is disabled',
-      listStyleTile: listDisabled,
-      drawerStyleTile: drawerDisabled,
-    ),
-  );
-
-  // Rich leading widgets
-  allDemos.add(buildSubsectionHeader('Rich Leading Widgets', color: Colors.amber));
-
-  final listRichLeading = ListTile(
-    style: ListTileStyle.list,
-    leading: Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue, Colors.purple],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(Icons.image, color: Colors.white),
-    ),
-    title: Text('Rich Media'),
-    subtitle: Text('With gradient container'),
-  );
-  final drawerRichLeading = ListTile(
-    style: ListTileStyle.drawer,
-    leading: Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.purple, Colors.pink],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(Icons.image, color: Colors.white),
-    ),
-    title: Text('Rich Media'),
-    subtitle: Text('With gradient container'),
-  );
-  print('Created rich leading widget demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Rich Leading Widget',
-      description: 'Complex leading widget alignment',
-      listStyleTile: listRichLeading,
-      drawerStyleTile: drawerRichLeading,
-    ),
-  );
-
-  // Complex trailing widgets
-  allDemos.add(buildSubsectionHeader('Complex Trailing Widgets', color: Colors.amber));
-
-  final listComplexTrailing = ListTile(
-    style: ListTileStyle.list,
-    leading: Icon(Icons.timer, color: Colors.blue),
-    title: Text('Task Progress'),
-    subtitle: Text('75% complete'),
-    trailing: SizedBox(
-      width: 80,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: LinearProgressIndicator(
-              value: 0.75,
-              backgroundColor: Colors.grey.shade200,
-              valueColor: AlwaysStoppedAnimation(Colors.blue),
-            ),
-          ),
-          SizedBox(width: 8),
-          Text('75%', style: TextStyle(fontSize: 11)),
-        ],
-      ),
-    ),
-  );
-  final drawerComplexTrailing = ListTile(
-    style: ListTileStyle.drawer,
-    leading: Icon(Icons.timer, color: Colors.purple),
-    title: Text('Task Progress'),
-    subtitle: Text('75% complete'),
-    trailing: SizedBox(
-      width: 80,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: LinearProgressIndicator(
-              value: 0.75,
-              backgroundColor: Colors.grey.shade200,
-              valueColor: AlwaysStoppedAnimation(Colors.purple),
-            ),
-          ),
-          SizedBox(width: 8),
-          Text('75%', style: TextStyle(fontSize: 11)),
-        ],
-      ),
-    ),
-  );
-  print('Created complex trailing widget demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Complex Trailing Widget',
-      description: 'Progress indicator in trailing position',
-      listStyleTile: listComplexTrailing,
-      drawerStyleTile: drawerComplexTrailing,
-    ),
-  );
-
-  // No leading widget
-  allDemos.add(buildSubsectionHeader('Without Leading Widget', color: Colors.amber));
-
-  final listNoLeading = ListTile(
-    style: ListTileStyle.list,
-    title: Text('No Leading Icon'),
-    subtitle: Text('Sometimes you just need text'),
-    trailing: Icon(Icons.chevron_right),
-  );
-  final drawerNoLeading = ListTile(
-    style: ListTileStyle.drawer,
-    title: Text('No Leading Icon'),
-    subtitle: Text('Sometimes you just need text'),
-    trailing: Icon(Icons.chevron_right),
-  );
-  print('Created no leading widget demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'No Leading Widget',
-      description: 'Content alignment without leading',
-      listStyleTile: listNoLeading,
-      drawerStyleTile: drawerNoLeading,
-    ),
-  );
-
-  // Custom shape
-  allDemos.add(buildSubsectionHeader('Custom Shapes', color: Colors.amber));
-
-  final listCustomShape = ListTile(
-    style: ListTileStyle.list,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-      side: BorderSide(color: Colors.blue.shade200, width: 2),
-    ),
-    tileColor: Colors.blue.shade50,
-    leading: Icon(Icons.rounded_corner, color: Colors.blue),
-    title: Text('Rounded List Tile'),
-  );
-  final drawerCustomShape = ListTile(
-    style: ListTileStyle.drawer,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-      side: BorderSide(color: Colors.purple.shade200, width: 2),
-    ),
-    tileColor: Colors.purple.shade50,
-    leading: Icon(Icons.rounded_corner, color: Colors.purple),
-    title: Text('Rounded Drawer Tile'),
-  );
-  print('Created custom shape demo');
-
-  allDemos.add(
-    buildStyleComparisonCard(
-      title: 'Custom Shape',
-      description: 'RoundedRectangleBorder with border',
-      listStyleTile: listCustomShape,
-      drawerStyleTile: drawerCustomShape,
-    ),
-  );
-
-  // =========================================================================
-  // SECTION 9: Summary and Enum Values Reference
-  // =========================================================================
-  print('--- Section 9: Summary and Reference ---');
-
-  allDemos.add(
-    buildSectionHeader(
-      'Section 9: ListTileStyle Summary',
-      icon: Icons.summarize,
-      color: Colors.deepOrange,
-    ),
-  );
-
-  Widget summaryCard = Container(
-    padding: EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Colors.deepOrange.shade50, Colors.orange.shade50],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: Colors.deepOrange.shade200),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'ListTileStyle Enum Reference',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrange.shade800,
-          ),
-        ),
-        SizedBox(height: 12),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade100,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      'ListTileStyle.list',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade800,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Text('(default)', style: TextStyle(fontSize: 11)),
-                ],
-              ),
-              SizedBox(height: 6),
-              Text(
-                'Standard list item styling for content lists, settings, and general-purpose scrollable content.',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-              ),
-              SizedBox(height: 12),
-              Divider(height: 1),
-              SizedBox(height: 12),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.purple.shade100,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  'ListTileStyle.drawer',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    color: scheme.error,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple.shade800,
                   ),
                 ),
-              ),
-              SizedBox(height: 6),
-              Text(
-                'Optimized styling for navigation drawer destinations, with adjusted density and visual weight for navigation contexts.',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-              ),
-            ],
+                const SizedBox(height: 4),
+                Text(situation, style: const TextStyle(height: 1.4)),
+                const SizedBox(height: 10),
+                Text(
+                  'Fix',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: scheme.primary,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(fix, style: const TextStyle(height: 1.4)),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 12),
-        Text(
-          'Key Takeaways:',
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.deepOrange.shade700,
-          ),
-        ),
-        SizedBox(height: 8),
-        _buildTakeawayItem('✓ Use list style for scrollable content'),
-        _buildTakeawayItem('✓ Use drawer style for navigation'),
-        _buildTakeawayItem('✓ Apply via ListTile.style or ListTileTheme'),
-        _buildTakeawayItem('✓ Both maintain proper touch targets'),
-        _buildTakeawayItem('✓ Style is purely visual, same accessibility'),
-      ],
-    ),
-  );
-  print('Created summary card');
-
-  allDemos.add(summaryCard);
-
-  // Final spacing
-  allDemos.add(SizedBox(height: 32));
-
-  print('========================================');
-  print('ListTileStyle comprehensive demo completed');
-  print('Total sections: 9');
-  print('Total demo widgets: ${allDemos.length}');
-  print('========================================');
-
-  // Return the complete demo UI
-  return SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: allDemos,
-    ),
-  );
+          const SizedBox(height: 12),
+          demo,
+        ],
+      ),
+    );
+  }
 }
 
-/// Helper widget for takeaway list items
-Widget _buildTakeawayItem(String text) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 2),
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 12, color: Colors.grey.shade800),
-    ),
-  );
+class _DemoPitfallLocalOverride extends StatelessWidget {
+  const _DemoPitfallLocalOverride();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: ListTileTheme(
+        data: const ListTileThemeData(style: ListTileStyle.drawer),
+        child: Column(
+          children: <Widget>[
+            const ListTile(
+              leading: Icon(Icons.label_outline),
+              title: Text('Honours drawer style'),
+              subtitle: Text('(14 / 12)'),
+            ),
+            Divider(height: 1, color: scheme.outlineVariant),
+            const ListTile(
+              leading: Icon(Icons.label_outline),
+              title: Text('Ignores drawer style'),
+              subtitle: Text('(20 / 16)'),
+              titleTextStyle: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.w700),
+              subtitleTextStyle: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-// =============================================================================
-// TEST SECTION: Unit Tests Using testWidgets
-// =============================================================================
+class _DemoPitfallMissingTheme extends StatelessWidget {
+  const _DemoPitfallMissingTheme();
 
-void main() {
-  // Group 1: Basic ListTileStyle Enum Verification
-  group('ListTileStyle Enum Values', () {
-    testWidgets('ListTileStyle.list exists and is usable', (
-      WidgetTester tester,
-    ) async {
-      // Arrange: Create a ListTile with list style
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.list,
-              title: Text('List Style Tile'),
-            ),
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: const Column(
+        children: <Widget>[
+          // No ListTileTheme ancestor on purpose — defaults to list metrics.
+          ListTile(
+            leading: Icon(Icons.home_outlined),
+            title: Text('No ambient theme here'),
+            subtitle: Text('Falls back to list metrics (16 / 14).'),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DemoPitfallTextColor extends StatelessWidget {
+  const _DemoPitfallTextColor();
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: ListTileTheme(
+        data: ListTileThemeData(
+          style: ListTileStyle.drawer,
+          iconColor: scheme.primary,
         ),
-      );
-
-      // Assert: Tile is rendered
-      expect(find.text('List Style Tile'), findsOneWidget);
-      print('ListTileStyle.list test passed');
-    });
-
-    testWidgets('ListTileStyle.drawer exists and is usable', (
-      WidgetTester tester,
-    ) async {
-      // Arrange: Create a ListTile with drawer style
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.drawer,
-              title: Text('Drawer Style Tile'),
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.palette_outlined),
+              title: const Text('Coloured but still drawer-sized'),
+              subtitle:
+                  const Text('textColor tints; enum still wins metrics.'),
+              textColor: scheme.primary,
             ),
-          ),
+          ],
         ),
-      );
+      ),
+    );
+  }
+}
 
-      // Assert: Tile is rendered
-      expect(find.text('Drawer Style Tile'), findsOneWidget);
-      print('ListTileStyle.drawer test passed');
-    });
+// ═══════════════════════════════════════════════════════════════════════════
+// Tab 9: API cheat sheet
+// ═══════════════════════════════════════════════════════════════════════════
 
-    testWidgets('Both enum values are distinct', (WidgetTester tester) async {
-      // Verify enum values are not equal
-      expect(ListTileStyle.list != ListTileStyle.drawer, isTrue);
-      expect(ListTileStyle.values.length, equals(2));
-      print('Enum distinctness test passed');
-    });
-  });
+class _ApiTab extends StatelessWidget {
+  const _ApiTab();
 
-  // Group 2: Side-by-Side Visual Comparison Tests
-  group('Visual Comparison: List vs Drawer Style', () {
-    testWidgets('Basic ListTile renders with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('List Style'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('Drawer Style'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('List Style'), findsOneWidget);
-      expect(find.text('Drawer Style'), findsOneWidget);
-      print('Side-by-side basic test passed');
-    });
-
-    testWidgets('ListTile with leading icon in both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  leading: Icon(Icons.home),
-                  title: Text('Home List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  leading: Icon(Icons.home),
-                  title: Text('Home Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byIcon(Icons.home), findsNWidgets(2));
-      expect(find.text('Home List'), findsOneWidget);
-      expect(find.text('Home Drawer'), findsOneWidget);
-      print('Leading icon comparison test passed');
-    });
-
-    testWidgets('ListTile with subtitle in both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('Title List'),
-                  subtitle: Text('Subtitle List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('Title Drawer'),
-                  subtitle: Text('Subtitle Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Subtitle List'), findsOneWidget);
-      expect(find.text('Subtitle Drawer'), findsOneWidget);
-      print('Subtitle comparison test passed');
-    });
-
-    testWidgets('ListTile with trailing widget in both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('Trailing List'),
-                  trailing: Icon(Icons.arrow_forward),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('Trailing Drawer'),
-                  trailing: Icon(Icons.arrow_forward),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.byIcon(Icons.arrow_forward), findsNWidgets(2));
-      print('Trailing widget comparison test passed');
-    });
-  });
-
-  // Group 3: ListTileStyle.list Specific Use Cases
-  group('ListTileStyle.list Use Cases', () {
-    testWidgets('Settings screen pattern with list style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListView(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  leading: Icon(Icons.person),
-                  title: Text('Account'),
-                  subtitle: Text('Privacy, security'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-                ListTile(
-                  style: ListTileStyle.list,
-                  leading: Icon(Icons.notifications),
-                  title: Text('Notifications'),
-                  subtitle: Text('Message tones'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Account'), findsOneWidget);
-      expect(find.text('Notifications'), findsOneWidget);
-      expect(find.byIcon(Icons.chevron_right), findsNWidgets(2));
-      print('Settings screen pattern test passed');
-    });
-
-    testWidgets('Contact list pattern with list style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListView(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  leading: CircleAvatar(child: Text('A')),
-                  title: Text('Alice Anderson'),
-                  subtitle: Text('+1 555-0001'),
-                ),
-                ListTile(
-                  style: ListTileStyle.list,
-                  leading: CircleAvatar(child: Text('B')),
-                  title: Text('Bob Baker'),
-                  subtitle: Text('+1 555-0002'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Alice Anderson'), findsOneWidget);
-      expect(find.text('Bob Baker'), findsOneWidget);
-      expect(find.byType(CircleAvatar), findsNWidgets(2));
-      print('Contact list pattern test passed');
-    });
-
-    testWidgets('Message list with timestamp in list style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.list,
-              leading: CircleAvatar(child: Icon(Icons.group)),
-              title: Row(
-                children: [
-                  Expanded(child: Text('Team Chat')),
-                  Text('2:30 PM', style: TextStyle(fontSize: 12)),
-                ],
-              ),
-              subtitle: Text('Great work on the project!'),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Team Chat'), findsOneWidget);
-      expect(find.text('2:30 PM'), findsOneWidget);
-      expect(find.text('Great work on the project!'), findsOneWidget);
-      print('Message list pattern test passed');
-    });
-  });
-
-  // Group 4: ListTileStyle.drawer Specific Use Cases
-  group('ListTileStyle.drawer Use Cases', () {
-    testWidgets('Navigation drawer pattern with drawer style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            drawer: Drawer(
-              child: ListView(
-                children: [
-                  DrawerHeader(child: Text('App Name')),
-                  ListTile(
-                    style: ListTileStyle.drawer,
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
-                    selected: true,
-                  ),
-                  ListTile(
-                    style: ListTileStyle.drawer,
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                  ),
-                ],
-              ),
-            ),
-            body: Container(),
-          ),
-        ),
-      );
-
-      // Open drawer
-      final scaffoldState = tester.state<ScaffoldState>(find.byType(Scaffold));
-      scaffoldState.openDrawer();
-      await tester.pumpAndSettle();
-
-      expect(find.text('Home'), findsOneWidget);
-      expect(find.text('Settings'), findsOneWidget);
-      print('Navigation drawer pattern test passed');
-    });
-
-    testWidgets('Drawer with badge notifications', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  leading: Icon(Icons.inbox),
-                  title: Text('Inbox'),
-                  trailing: Badge(
-                    label: Text('12'),
-                    child: SizedBox.shrink(),
-                  ),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  leading: Icon(Icons.drafts),
-                  title: Text('Drafts'),
-                  trailing: Badge(
-                    label: Text('3'),
-                    child: SizedBox.shrink(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Inbox'), findsOneWidget);
-      expect(find.text('12'), findsOneWidget);
-      expect(find.text('Drafts'), findsOneWidget);
-      expect(find.text('3'), findsOneWidget);
-      print('Drawer with badges test passed');
-    });
-
-    testWidgets('Sectioned drawer with labels', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return _Section(
+      title: 'API cheat sheet',
+      subtitle:
+          'Everything you need to know fits on one page. ListTileStyle is a '
+          'two-member enum and ListTileThemeData.style is the single field '
+          'that consumes it.',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _Panel(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text('WORKSPACE'),
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.data_object, color: scheme.primary),
+                    const SizedBox(width: 10),
+                    Text(
+                      'enum ListTileStyle',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontFamily: 'monospace'),
+                    ),
+                  ],
                 ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  leading: Icon(Icons.dashboard),
-                  title: Text('Dashboard'),
-                ),
-                Divider(),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text('PERSONAL'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  leading: Icon(Icons.calendar_month),
-                  title: Text('Calendar'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('WORKSPACE'), findsOneWidget);
-      expect(find.text('Dashboard'), findsOneWidget);
-      expect(find.text('PERSONAL'), findsOneWidget);
-      expect(find.text('Calendar'), findsOneWidget);
-      print('Sectioned drawer test passed');
-    });
-  });
-
-  // Group 5: Density and Padding Tests
-  group('Density, Padding, and Visual Weight', () {
-    testWidgets('Dense mode with both styles', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  dense: true,
-                  title: Text('Dense List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  dense: true,
-                  title: Text('Dense Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Dense List'), findsOneWidget);
-      expect(find.text('Dense Drawer'), findsOneWidget);
-      print('Dense mode test passed');
-    });
-
-    testWidgets('VisualDensity.compact with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  visualDensity: VisualDensity.compact,
-                  title: Text('Compact List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  visualDensity: VisualDensity.compact,
-                  title: Text('Compact Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Compact List'), findsOneWidget);
-      expect(find.text('Compact Drawer'), findsOneWidget);
-      print('VisualDensity.compact test passed');
-    });
-
-    testWidgets('VisualDensity.comfortable with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  visualDensity: VisualDensity.comfortable,
-                  title: Text('Comfortable List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  visualDensity: VisualDensity.comfortable,
-                  title: Text('Comfortable Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Comfortable List'), findsOneWidget);
-      expect(find.text('Comfortable Drawer'), findsOneWidget);
-      print('VisualDensity.comfortable test passed');
-    });
-
-    testWidgets('Custom contentPadding with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  contentPadding: EdgeInsets.all(24),
-                  title: Text('Padded List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  contentPadding: EdgeInsets.all(24),
-                  title: Text('Padded Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Padded List'), findsOneWidget);
-      expect(find.text('Padded Drawer'), findsOneWidget);
-      print('Custom contentPadding test passed');
-    });
-
-    testWidgets('minLeadingWidth with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  minLeadingWidth: 56,
-                  leading: Icon(Icons.star),
-                  title: Text('MinLeading List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  minLeadingWidth: 56,
-                  leading: Icon(Icons.star),
-                  title: Text('MinLeading Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('MinLeading List'), findsOneWidget);
-      expect(find.text('MinLeading Drawer'), findsOneWidget);
-      print('minLeadingWidth test passed');
-    });
-  });
-
-  // Group 6: ListTileTheme Integration
-  group('ListTileTheme Integration', () {
-    testWidgets('ListTileTheme applies list style to children', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTileTheme(
-              data: ListTileThemeData(
-                style: ListTileStyle.list,
-                tileColor: Colors.blue.shade50,
-              ),
-              child: Column(
-                children: [
-                  ListTile(title: Text('Themed List 1')),
-                  ListTile(title: Text('Themed List 2')),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Themed List 1'), findsOneWidget);
-      expect(find.text('Themed List 2'), findsOneWidget);
-      print('ListTileTheme list style test passed');
-    });
-
-    testWidgets('ListTileTheme applies drawer style to children', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTileTheme(
-              data: ListTileThemeData(
-                style: ListTileStyle.drawer,
-                tileColor: Colors.purple.shade50,
-              ),
-              child: Column(
-                children: [
-                  ListTile(title: Text('Themed Drawer 1')),
-                  ListTile(title: Text('Themed Drawer 2')),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Themed Drawer 1'), findsOneWidget);
-      expect(find.text('Themed Drawer 2'), findsOneWidget);
-      print('ListTileTheme drawer style test passed');
-    });
-
-    testWidgets('ListTile style overrides theme style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTileTheme(
-              data: ListTileThemeData(style: ListTileStyle.list),
-              child: Column(
-                children: [
-                  ListTile(title: Text('Uses Theme')),
-                  ListTile(
-                    style: ListTileStyle.drawer,
-                    title: Text('Overrides Theme'),
+                const SizedBox(height: 12),
+                for (final ListTileStyle v in ListTileStyle.values)
+                  _ApiRow(
+                    name: 'ListTileStyle.${v.name}',
+                    meaning: v == ListTileStyle.drawer
+                        ? 'Typography preset for side-drawer tiles. '
+                            '14sp title / 12sp subtitle. Applied by the '
+                            'Drawer widget via its ambient theme cascade.'
+                        : 'Typography preset for content-list tiles. '
+                            '16sp title / 14sp subtitle. The framework '
+                            'default when no ListTileTheme.style is set.',
                   ),
-                ],
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.widgets_outlined, color: scheme.tertiary),
+                    const SizedBox(width: 10),
+                    Text(
+                      'ListTileThemeData.style',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontFamily: 'monospace'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                const _ApiRow(
+                  name: 'Type',
+                  meaning: 'ListTileStyle? — nullable.',
+                ),
+                const _ApiRow(
+                  name: 'Default',
+                  meaning: 'null, which resolves to ListTileStyle.list.',
+                ),
+                const _ApiRow(
+                  name: 'Scope',
+                  meaning:
+                      'All ListTiles in the ListTileTheme subtree that do '
+                      'not override titleTextStyle / subtitleTextStyle.',
+                ),
+                const _ApiRow(
+                  name: 'Overridable by',
+                  meaning:
+                      'ListTileThemeData.titleTextStyle, '
+                      'ListTileThemeData.subtitleTextStyle, and explicit '
+                      'ListTile.titleTextStyle / ListTile.subtitleTextStyle '
+                      'on individual tiles.',
+                ),
+                const _ApiRow(
+                  name: 'Interacts with',
+                  meaning:
+                      'DrawerThemeData (drawers inject style = drawer), '
+                      'Theme.of(context).listTileTheme, and the ambient '
+                      'TextTheme.',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          _Panel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Quick recipes',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 10),
+                const _Recipe(
+                  title: 'Global default: list',
+                  code:
+                      'ThemeData(\n'
+                      '  useMaterial3: true,\n'
+                      '  listTileTheme: ListTileThemeData(\n'
+                      '    style: ListTileStyle.list,\n'
+                      '  ),\n'
+                      ')',
+                ),
+                const SizedBox(height: 10),
+                const _Recipe(
+                  title: 'Scoped drawer-style list (no Drawer widget)',
+                  code:
+                      'ListTileTheme(\n'
+                      '  data: const ListTileThemeData(\n'
+                      '    style: ListTileStyle.drawer,\n'
+                      '  ),\n'
+                      '  child: ListView(\n'
+                      '    children: myTiles,\n'
+                      '  ),\n'
+                      ')',
+                ),
+                const SizedBox(height: 10),
+                const _Recipe(
+                  title: 'Override for a single tile (opt out of the enum)',
+                  code:
+                      'ListTile(\n'
+                      '  title: Text(\'Large title\'),\n'
+                      '  titleTextStyle: TextStyle(fontSize: 22),\n'
+                      ')',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          const _Explainer(
+            icon: Icons.flag_outlined,
+            title: 'TL;DR',
+            body:
+                'ListTileStyle chooses a font-metric preset. You set it on '
+                'ListTileThemeData.style, never on ListTile. Two values: '
+                'list for content, drawer for navigation. Everything else — '
+                'colours, paddings, callbacks — is orthogonal.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ApiRow extends StatelessWidget {
+  const _ApiRow({required this.name, required this.meaning});
+  final String name;
+  final String meaning;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            width: 160,
+            child: Text(
+              name,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: scheme.primary,
               ),
             ),
           ),
-        ),
-      );
-
-      expect(find.text('Uses Theme'), findsOneWidget);
-      expect(find.text('Overrides Theme'), findsOneWidget);
-      print('Style override test passed');
-    });
-
-    testWidgets('Nested ListTileTheme with different styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTileTheme(
-              data: ListTileThemeData(style: ListTileStyle.list),
-              child: Column(
-                children: [
-                  ListTile(title: Text('Outer List')),
-                  ListTileTheme(
-                    data: ListTileThemeData(style: ListTileStyle.drawer),
-                    child: ListTile(title: Text('Inner Drawer')),
-                  ),
-                ],
-              ),
+          Expanded(
+            child: Text(
+              meaning,
+              style: const TextStyle(fontSize: 13, height: 1.4),
             ),
           ),
-        ),
-      );
+        ],
+      ),
+    );
+  }
+}
 
-      expect(find.text('Outer List'), findsOneWidget);
-      expect(find.text('Inner Drawer'), findsOneWidget);
-      print('Nested theme test passed');
-    });
-  });
+class _Recipe extends StatelessWidget {
+  const _Recipe({required this.title, required this.code});
+  final String title;
+  final String code;
 
-  // Group 7: Selection State Tests
-  group('Selection State with Styles', () {
-    testWidgets('Selected state with list style', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.list,
-              selected: true,
-              selectedColor: Colors.blue,
-              selectedTileColor: Colors.blue.shade50,
-              leading: Icon(Icons.check),
-              title: Text('Selected List'),
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: scheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: scheme.onSurface,
             ),
           ),
-        ),
-      );
-
-      expect(find.text('Selected List'), findsOneWidget);
-      print('Selected list style test passed');
-    });
-
-    testWidgets('Selected state with drawer style', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.drawer,
-              selected: true,
-              selectedColor: Colors.purple,
-              selectedTileColor: Colors.purple.shade50,
-              leading: Icon(Icons.check),
-              title: Text('Selected Drawer'),
+          const SizedBox(height: 6),
+          Text(
+            code,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              height: 1.5,
             ),
           ),
-        ),
-      );
-
-      expect(find.text('Selected Drawer'), findsOneWidget);
-      print('Selected drawer style test passed');
-    });
-
-    testWidgets('Multiple selection states in list', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  selected: true,
-                  title: Text('Selected'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  selected: false,
-                  title: Text('Not Selected 1'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  selected: false,
-                  title: Text('Not Selected 2'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Selected'), findsOneWidget);
-      expect(find.text('Not Selected 1'), findsOneWidget);
-      expect(find.text('Not Selected 2'), findsOneWidget);
-      print('Multiple selection states test passed');
-    });
-  });
-
-  // Group 8: Edge Cases
-  group('Edge Cases and Special Scenarios', () {
-    testWidgets('Long text with ellipsis in both styles', (
-      WidgetTester tester,
-    ) async {
-      const longText =
-          'This is a very long title that should overflow and be truncated';
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SizedBox(
-              width: 200,
-              child: Column(
-                children: [
-                  ListTile(
-                    style: ListTileStyle.list,
-                    title: Text(longText, overflow: TextOverflow.ellipsis),
-                  ),
-                  ListTile(
-                    style: ListTileStyle.drawer,
-                    title: Text(longText, overflow: TextOverflow.ellipsis),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text(longText), findsNWidgets(2));
-      print('Long text ellipsis test passed');
-    });
-
-    testWidgets('Disabled state with both styles', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  enabled: false,
-                  title: Text('Disabled List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  enabled: false,
-                  title: Text('Disabled Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Disabled List'), findsOneWidget);
-      expect(find.text('Disabled Drawer'), findsOneWidget);
-      print('Disabled state test passed');
-    });
-
-    testWidgets('Three-line layout with both styles', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  isThreeLine: true,
-                  title: Text('Three Line List'),
-                  subtitle: Text('Line 2\nLine 3'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  isThreeLine: true,
-                  title: Text('Three Line Drawer'),
-                  subtitle: Text('Line 2\nLine 3'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Three Line List'), findsOneWidget);
-      expect(find.text('Three Line Drawer'), findsOneWidget);
-      print('Three-line layout test passed');
-    });
-
-    testWidgets('Custom shape with both styles', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  tileColor: Colors.blue.shade50,
-                  title: Text('Shaped List'),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  tileColor: Colors.purple.shade50,
-                  title: Text('Shaped Drawer'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Shaped List'), findsOneWidget);
-      expect(find.text('Shaped Drawer'), findsOneWidget);
-      print('Custom shape test passed');
-    });
-
-    testWidgets('Without leading widget', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('No Leading List'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('No Leading Drawer'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('No Leading List'), findsOneWidget);
-      expect(find.text('No Leading Drawer'), findsOneWidget);
-      print('Without leading widget test passed');
-    });
-
-    testWidgets('Complex trailing widget', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('Progress List'),
-                  trailing: SizedBox(
-                    width: 60,
-                    child: LinearProgressIndicator(value: 0.7),
-                  ),
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('Progress Drawer'),
-                  trailing: SizedBox(
-                    width: 60,
-                    child: LinearProgressIndicator(value: 0.7),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      expect(find.text('Progress List'), findsOneWidget);
-      expect(find.text('Progress Drawer'), findsOneWidget);
-      expect(find.byType(LinearProgressIndicator), findsNWidgets(2));
-      print('Complex trailing widget test passed');
-    });
-  });
-
-  // Group 9: Interaction Tests
-  group('Interaction Behavior', () {
-    testWidgets('onTap callback works with list style', (
-      WidgetTester tester,
-    ) async {
-      bool tapped = false;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.list,
-              title: Text('Tap List'),
-              onTap: () {
-                tapped = true;
-              },
-            ),
-          ),
-        ),
-      );
-
-      await tester.tap(find.text('Tap List'));
-      expect(tapped, isTrue);
-      print('onTap list style test passed');
-    });
-
-    testWidgets('onTap callback works with drawer style', (
-      WidgetTester tester,
-    ) async {
-      bool tapped = false;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: ListTile(
-              style: ListTileStyle.drawer,
-              title: Text('Tap Drawer'),
-              onTap: () {
-                tapped = true;
-              },
-            ),
-          ),
-        ),
-      );
-
-      await tester.tap(find.text('Tap Drawer'));
-      expect(tapped, isTrue);
-      print('onTap drawer style test passed');
-    });
-
-    testWidgets('onLongPress callback works with both styles', (
-      WidgetTester tester,
-    ) async {
-      bool longPressedList = false;
-      bool longPressedDrawer = false;
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  title: Text('LongPress List'),
-                  onLongPress: () {
-                    longPressedList = true;
-                  },
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  title: Text('LongPress Drawer'),
-                  onLongPress: () {
-                    longPressedDrawer = true;
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      await tester.longPress(find.text('LongPress List'));
-      expect(longPressedList, isTrue);
-
-      await tester.longPress(find.text('LongPress Drawer'));
-      expect(longPressedDrawer, isTrue);
-      print('onLongPress test passed');
-    });
-
-    testWidgets('Disabled tiles do not respond to tap', (
-      WidgetTester tester,
-    ) async {
-      bool listTapped = false;
-      bool drawerTapped = false;
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                ListTile(
-                  style: ListTileStyle.list,
-                  enabled: false,
-                  title: Text('Disabled List'),
-                  onTap: () {
-                    listTapped = true;
-                  },
-                ),
-                ListTile(
-                  style: ListTileStyle.drawer,
-                  enabled: false,
-                  title: Text('Disabled Drawer'),
-                  onTap: () {
-                    drawerTapped = true;
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-
-      await tester.tap(find.text('Disabled List'));
-      await tester.tap(find.text('Disabled Drawer'));
-
-      expect(listTapped, isFalse);
-      expect(drawerTapped, isFalse);
-      print('Disabled interaction test passed');
-    });
-  });
-
-  // Group 10: Comprehensive Visual Demo Test
-  group('Comprehensive Visual Demonstration', () {
-    testWidgets('Build function creates complete demo UI', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Builder(
-              builder: (context) {
-                final result = build(context);
-                return result as Widget;
-              },
-            ),
-          ),
-        ),
-      );
-
-      // Verify key sections exist
-      expect(find.text('Section 1: ListTileStyle Visual Comparison'), findsOneWidget);
-      expect(find.text('Section 2: ListTileStyle.list Use Cases'), findsOneWidget);
-      expect(find.text('Section 3: ListTileStyle.drawer Use Cases'), findsOneWidget);
-      expect(find.text('Section 4: Density, Padding & Visual Weight'), findsOneWidget);
-      expect(find.text('Section 5: ListTileTheme Integration'), findsOneWidget);
-      expect(find.text('Section 6: Mixed Usage Scenarios'), findsOneWidget);
-      expect(find.text('Section 7: Platform & Material Design'), findsOneWidget);
-
-      print('Complete demo UI verification passed');
-    });
-
-    testWidgets('All comparison cards render correctly', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
-              child: Builder(
-                builder: (context) {
-                  final result = build(context);
-                  return result as Widget;
-                },
-              ),
-            ),
-          ),
-        ),
-      );
-
-      // Check for style labels in comparison cards
-      expect(find.text('ListTileStyle.list'), findsWidgets);
-      expect(find.text('ListTileStyle.drawer'), findsWidgets);
-
-      print('Comparison cards render test passed');
-    });
-
-    testWidgets('Mock drawers render in demo', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
-              child: Builder(
-                builder: (context) {
-                  final result = build(context);
-                  return result as Widget;
-                },
-              ),
-            ),
-          ),
-        ),
-      );
-
-      // Check for drawer demos
-      expect(find.text('Standard Navigation'), findsOneWidget);
-      expect(find.text('Email Navigation'), findsOneWidget);
-      expect(find.text('Productivity App'), findsOneWidget);
-
-      print('Mock drawers render test passed');
-    });
-
-    testWidgets('Settings and contact list patterns render', (
-      WidgetTester tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SingleChildScrollView(
-              child: Builder(
-                builder: (context) {
-                  final result = build(context);
-                  return result as Widget;
-                },
-              ),
-            ),
-          ),
-        ),
-      );
-
-      // Check for list pattern content
-      expect(find.text('Account'), findsOneWidget);
-      expect(find.text('Notifications'), findsWidgets);
-      expect(find.text('Alice Anderson'), findsOneWidget);
-
-      print('List patterns render test passed');
-    });
-  });
-
-  print('All ListTileStyle tests defined');
+        ],
+      ),
+    );
+  }
 }
