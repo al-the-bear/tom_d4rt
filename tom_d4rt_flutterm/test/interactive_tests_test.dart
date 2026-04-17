@@ -119,5 +119,51 @@ void main() {
 
       print('Dismiss result: $interactResult');
     });
+
+    test('showDatePicker - can tap Cancel to dismiss', () async {
+      // Scheduled via Future.microtask with cancelText: 'Cancel'.
+      final result = await SendTestRunner.sendAndInteract(
+        'material/showdatepicker_test.dart',
+        actions: [
+          // Wait for the date picker to appear
+          {'type': 'waitFrames', 'frames': 30},
+          // Tap the Cancel action to dismiss
+          {'type': 'tapText', 'text': 'Cancel'},
+          // Wait for dismiss
+          {'type': 'waitFrames', 'frames': 10},
+        ],
+        interactDelay: const Duration(milliseconds: 500),
+      );
+
+      expect(result.build.success, isTrue,
+          reason: 'Build should succeed: ${result.build.error}');
+
+      if (result.interact != null) {
+        print('Interaction result: ${result.interact}');
+      }
+    });
+
+    test('showTimePicker - can tap Cancel to dismiss', () async {
+      // Scheduled via Future.microtask with cancelText: 'Cancel'.
+      final result = await SendTestRunner.sendAndInteract(
+        'material/showtimepicker_test.dart',
+        actions: [
+          // Wait for the time picker to appear
+          {'type': 'waitFrames', 'frames': 30},
+          // Tap the Cancel action to dismiss
+          {'type': 'tapText', 'text': 'Cancel'},
+          // Wait for dismiss
+          {'type': 'waitFrames', 'frames': 10},
+        ],
+        interactDelay: const Duration(milliseconds: 500),
+      );
+
+      expect(result.build.success, isTrue,
+          reason: 'Build should succeed: ${result.build.error}');
+
+      if (result.interact != null) {
+        print('Interaction result: ${result.interact}');
+      }
+    });
   });
 }

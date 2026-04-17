@@ -590,7 +590,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Shows popup dialog requiring user interaction',
+      skip: 'moved to interactive_tests_test.dart (tap OK to dismiss)',
     );
 
     test(
@@ -601,13 +601,13 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Shows bottom sheet requiring user interaction',
+      skip: 'moved to interactive_tests_test.dart (tap Share to dismiss)',
     );
 
     test('showmenu_test.dart', () async {
       final result = await SendTestRunner.send('material/showmenu_test.dart');
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Shows popup menu requiring user interaction');
+    }, skip: 'moved to interactive_tests_test.dart (tap Option A to dismiss)');
 
     test(
       'showdatepicker_test.dart',
@@ -617,7 +617,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Shows date picker requiring user interaction',
+      skip: 'moved to interactive_tests_test.dart (tap Cancel to dismiss)',
     );
 
     test(
@@ -628,7 +628,7 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      skip: 'Shows time picker requiring user interaction',
+      skip: 'moved to interactive_tests_test.dart (tap Cancel to dismiss)',
     );
   });
 
