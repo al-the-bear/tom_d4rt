@@ -686,6 +686,81 @@ class SForEachPartsWithIdentifier extends SForEachParts {
   }
 }
 
+/// For-each loop parts with a pattern destructuring on each element.
+///
+/// Produced for Dart 3 record-destructuring (and other pattern) for-in loops
+/// such as:
+///
+/// ```dart
+/// for (final (int i, String label) in items.indexed) { ... }
+/// ```
+class SForEachPartsWithPattern extends SForEachParts {
+  @override
+  final int offset;
+  @override
+  final int length;
+
+  /// The destructuring pattern applied to each iterated value.
+  final SDartPattern? pattern;
+
+  /// The iterable expression (right-hand side of `in`).
+  final SExpression? iterable;
+
+  /// `true` when the enclosing `for` is `await for`.
+  final bool isAwait;
+
+  /// `true` when the pattern is introduced by `final` (vs `var`).
+  final bool isFinal;
+
+  SForEachPartsWithPattern({
+    required this.offset,
+    required this.length,
+    this.pattern,
+    this.iterable,
+    this.isAwait = false,
+    this.isFinal = false,
+  });
+
+  @override
+  String get nodeType => 'ForEachPartsWithPattern';
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'nodeType': nodeType,
+    'offset': offset,
+    'length': length,
+    if (pattern != null) 'pattern': pattern!.toJson(),
+    if (iterable != null) 'iterable': iterable!.toJson(),
+    'isAwait': isAwait,
+    'isFinal': isFinal,
+  };
+
+  factory SForEachPartsWithPattern.fromJson(Map<String, dynamic> json) {
+    return SForEachPartsWithPattern(
+      offset: json['offset'] as int,
+      length: json['length'] as int,
+      pattern:
+          SAstNodeFactory.fromJson(json['pattern'] as Map<String, dynamic>?)
+              as SDartPattern?,
+      iterable:
+          SAstNodeFactory.fromJson(json['iterable'] as Map<String, dynamic>?)
+              as SExpression?,
+      isAwait: json['isAwait'] as bool? ?? false,
+      isFinal: json['isFinal'] as bool? ?? false,
+    );
+  }
+
+  @override
+  T? accept<T>(SAstVisitor<T> visitor) =>
+      visitor.visitForEachPartsWithPattern(this);
+
+  @override
+  void visitChildren(SAstVisitor visitor) {
+    pattern?.accept(visitor);
+    iterable?.accept(visitor);
+  }
+}
+
 /// Declared identifier in a for-each loop
 class SDeclaredIdentifier extends SDeclaration {
   @override

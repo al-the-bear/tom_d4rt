@@ -361,6 +361,10 @@ abstract class SAstVisitor<T> {
   T? visitForEachPartsWithIdentifier(SForEachPartsWithIdentifier node) =>
       visitNode(node);
 
+  /// Visit a [SForEachPartsWithPattern].
+  T? visitForEachPartsWithPattern(SForEachPartsWithPattern node) =>
+      visitNode(node);
+
   // --------------------------------------------------------------------------
   // Combinators
   // --------------------------------------------------------------------------
@@ -1118,6 +1122,10 @@ class GeneralizingSAstVisitor<T> extends SAstVisitor<T> {
 
   @override
   T? visitForEachPartsWithIdentifier(SForEachPartsWithIdentifier node) =>
+      visitForEachParts(node);
+
+  @override
+  T? visitForEachPartsWithPattern(SForEachPartsWithPattern node) =>
       visitForEachParts(node);
 
   // --------------------------------------------------------------------------

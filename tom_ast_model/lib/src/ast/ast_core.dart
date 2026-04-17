@@ -340,6 +340,10 @@ void _registerAllFactories() {
     'ForEachPartsWithIdentifier',
     SForEachPartsWithIdentifier.fromJson,
   );
+  SAstNodeFactory.register(
+    'ForEachPartsWithPattern',
+    SForEachPartsWithPattern.fromJson,
+  );
   SAstNodeFactory.register('DeclaredIdentifier', SDeclaredIdentifier.fromJson);
   SAstNodeFactory.register('WhileStatement', SWhileStatement.fromJson);
   SAstNodeFactory.register('DoStatement', SDoStatement.fromJson);

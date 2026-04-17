@@ -4887,6 +4887,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Regular for-in loop - expect Iterable
         _executeForIn(loopParts.identifier!, loopParts.iterable!, node.body!);
       }
+    } else if (loopParts is SForEachPartsWithPattern) {
+      // Dart 3 record-pattern for-in:
+      //   for (final (int i, String label) in list.indexed) { ... }
+      _executeForInWithPattern(
+        loopParts.pattern!,
+        loopParts.iterable!,
+        node.body!,
+      );
     } else {
       // Should not happen with valid Dart code
       throw StateD4rtException(
@@ -5084,6 +5092,70 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw StateD4rtException(
         'Internal error: Expected Iterable but got ${iterableValue.runtimeType}',
       );
+    }
+  }
+
+  // Helper: execute `for (final/var <pattern> in <iterable>) <body>`
+  // The pattern is destructured via _matchAndBind on each iteration, binding
+  // its named captures into a fresh per-iteration environment so break/continue
+  // behave identically to the other for-in variants.
+  void _executeForInWithPattern(
+    SDartPattern pattern,
+    SAstNode iterableExpression,
+    SAstNode body,
+  ) {
+    final expressionValue = iterableExpression.accept<Object?>(this);
+
+    Iterable<Object?> iterableValue;
+    if (expressionValue is Iterable) {
+      iterableValue = expressionValue;
+    } else if (toBridgedInstance(expressionValue).$2) {
+      final bridgedInstance = toBridgedInstance(expressionValue).$1!;
+      if (bridgedInstance.nativeObject is Iterable) {
+        iterableValue = bridgedInstance.nativeObject as Iterable;
+      } else {
+        throw RuntimeD4rtException(
+          'Value used in for-in loop must be an Iterable, but got BridgedInstance containing ${bridgedInstance.nativeObject.runtimeType}',
+        );
+      }
+    } else {
+      throw RuntimeD4rtException(
+        'Value used in for-in loop must be an Iterable, but got ${expressionValue?.runtimeType}',
+      );
+    }
+
+    final previousEnvironment = environment;
+    try {
+      for (final element in iterableValue) {
+        // Fresh environment per iteration so pattern-declared variables are
+        // scoped to a single trip through the body.
+        final iterationEnv = Environment(enclosing: previousEnvironment);
+        environment = iterationEnv;
+        try {
+          _matchAndBind(pattern, element, iterationEnv);
+          body.accept<Object?>(this);
+        } on BreakException catch (e) {
+          Logger.debug(
+            "[ForInPattern] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          );
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            break;
+          } else {
+            rethrow;
+          }
+        } on ContinueException catch (e) {
+          Logger.debug(
+            "[ForInPattern] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels",
+          );
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            continue;
+          } else {
+            rethrow;
+          }
+        }
+      }
+    } finally {
+      environment = previousEnvironment;
     }
   }
 

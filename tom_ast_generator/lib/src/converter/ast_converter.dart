@@ -232,6 +232,8 @@ class AstConverter {
       return _convertForEachPartsWithDeclaration(node);
     if (node is analyzer.ForEachPartsWithIdentifier)
       return _convertForEachPartsWithIdentifier(node);
+    if (node is analyzer.ForEachPartsWithPattern)
+      return _convertForEachPartsWithPattern(node);
     if (node is analyzer.DeclaredIdentifier)
       return _convertDeclaredIdentifier(node);
 
@@ -635,6 +637,15 @@ class AstConverter {
           iterable: forLoopParts.iterable,
           isAwait: true,
         );
+      } else if (forLoopParts is SForEachPartsWithPattern) {
+        forLoopParts = SForEachPartsWithPattern(
+          offset: forLoopParts.offset,
+          length: forLoopParts.length,
+          pattern: forLoopParts.pattern,
+          iterable: forLoopParts.iterable,
+          isAwait: true,
+          isFinal: forLoopParts.isFinal,
+        );
       }
     }
 
@@ -689,6 +700,19 @@ class AstConverter {
       length: node.length,
       identifier: convert(node.identifier) as SSimpleIdentifier?,
       iterable: _as<SExpression>(node.iterable),
+    );
+  }
+
+  SForEachPartsWithPattern _convertForEachPartsWithPattern(
+    analyzer.ForEachPartsWithPattern node,
+  ) {
+    final isFinal = node.keyword.lexeme == 'final';
+    return SForEachPartsWithPattern(
+      offset: node.offset,
+      length: node.length,
+      pattern: _as<SDartPattern>(node.pattern),
+      iterable: _as<SExpression>(node.iterable),
+      isFinal: isFinal,
     );
   }
 
