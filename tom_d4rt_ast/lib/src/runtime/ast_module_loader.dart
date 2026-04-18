@@ -1,5 +1,6 @@
 import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart';
+import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart' show RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/d4rt_runner.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
@@ -335,16 +336,63 @@ class AstModuleLoader implements ModuleContext {
       );
     }
 
-    // Register bridged extensions
+    // Register bridged extensions.
+    //
+    // Bug-44 FIX: this loop used to be a no-op (the trailing comment claimed
+    // "Extensions register themselves into the environment via their
+    // methods" but they never did). Bridged extensions like
+    // `extension StringCharacters on String { Characters get characters }`
+    // were registered against the runner via registerBridgedExtension, but
+    // never actually wired into the script's lookup environment, so any
+    // call like `someString.characters` failed with
+    //   "Undefined property or method 'characters' on bridged instance of
+    //    'String'."
+    //
+    // We now resolve the on-type, build an InterpretedExtension via
+    // BridgedExtensionDefinition.buildInterpretedExtension, and register it
+    // in the target environment (named extensions also get a value entry
+    // so explicit `MyExt(value).method()` syntax can resolve them).
     for (final entry in runner.bridgedExtensions) {
       final libExt = entry[uriString];
       if (libExt == null) continue;
-      final name = libExt.name;
+      final extDef = libExt.extensionDefinition;
+      final name = extDef.name;
       if (name != null && !_shouldInclude(name, showNames, hideNames)) continue;
 
-      // Extensions register themselves into the environment via their methods
+      // Resolve onTypeName against the target environment. Most extension
+      // on-types are bridged (BridgedClass), but interpreted classes are
+      // also valid.
+      RuntimeType? onType;
+      try {
+        final resolved = targetEnvironment.get(extDef.onTypeName);
+        if (resolved is RuntimeType) {
+          onType = resolved;
+        }
+      } on RuntimeD4rtException {
+        onType = null;
+      }
+      if (onType == null) {
+        Logger.warn(
+          '[AstModuleLoader] Bridged extension on unknown type '
+          "'${extDef.onTypeName}' from $uriString — skipping. "
+          '(Extension getter/method calls on values of this type will fail '
+          'at runtime.)',
+        );
+        continue;
+      }
+
+      final interpretedExt = extDef.buildInterpretedExtension(onType);
+      // Unnamed and named extensions are both reachable through the
+      // implicit-extension-member lookup walk, so always add to the
+      // unnamed-extension list. Named extensions additionally get a
+      // value binding so `Name(value).member` syntax can resolve them.
+      targetEnvironment.addUnnamedExtension(interpretedExt);
+      if (name != null) {
+        targetEnvironment.define(name, interpretedExt);
+      }
       Logger.debug(
-        '[AstModuleLoader] Registered bridged extension: $name from $uriString',
+        '[AstModuleLoader] Registered bridged extension '
+        "'${name ?? '<unnamed>'}' on ${extDef.onTypeName} from $uriString",
       );
     }
 

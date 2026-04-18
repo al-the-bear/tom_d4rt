@@ -1,4 +1,3 @@
-import 'package:characters/characters.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
 
 class StringCore {
@@ -180,10 +179,6 @@ class StringCore {
           'length': (visitor, target) => (target as String).length,
           'codeUnits': (visitor, target) => (target as String).codeUnits,
           'runes': (visitor, target) => (target as String).runes,
-          // Extension getter from `package:characters`. Flutter scripts
-          // routinely use `s.characters.first` etc.; without this, the call
-          // fails with "Undefined property or method 'characters'".
-          'characters': (visitor, target) => (target as String).characters,
           'hashCode': (visitor, target) => (target as String).hashCode,
         },
       );
