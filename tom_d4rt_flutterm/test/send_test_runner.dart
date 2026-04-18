@@ -463,29 +463,52 @@ class SendTestRunner {
   }
 
   /// Kill any existing test app process on the port.
+  ///
+  /// SIGTERM first, then SIGKILL if the port is still bound after a brief
+  /// grace period. The SIGKILL fallback is essential when [ProcessSignal.sigkill]
+  /// has been sent to the `flutter run` wrapper earlier: the app binary is
+  /// re-parented to init and keeps port 4247 bound until it gets a direct
+  /// signal. Without the fallback the next setUpAll's `isAppRunning()` blocks
+  /// connecting to the zombie.
   static Future<void> _killExistingProcess() async {
+    await _killPidsOnPort(defaultPort, ProcessSignal.sigterm);
+    // Poll for up to ~6s for the port to free; if still bound, SIGKILL.
+    for (var i = 0; i < 15; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 400));
+      if (!await _isPortBound(defaultPort)) return;
+    }
+    await _killPidsOnPort(defaultPort, ProcessSignal.sigkill);
+    // Final wait so the next Process.start can bind cleanly.
+    for (var i = 0; i < 10; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 400));
+      if (!await _isPortBound(defaultPort)) return;
+    }
+  }
+
+  static Future<void> _killPidsOnPort(int port, ProcessSignal signal) async {
     try {
-      // Find process using port
-      final result = await Process.run('lsof', ['-t', '-i', ':$defaultPort']);
-      final pids = result.stdout
-          .toString()
+      final result = await Process.run('lsof', ['-t', '-i', ':$port']);
+      final pids = (result.stdout as String)
           .trim()
           .split('\n')
           .where((s) => s.isNotEmpty);
-
       for (final pidStr in pids) {
         final pid = int.tryParse(pidStr);
         if (pid != null) {
-          Process.killPid(pid, ProcessSignal.sigterm);
+          Process.killPid(pid, signal);
         }
       }
-
-      // Wait briefly for processes to die
-      if (pids.isNotEmpty) {
-        await Future<void>.delayed(const Duration(seconds: 2));
-      }
     } catch (_) {
-      // Ignore errors - process may not exist
+      // Ignore - port query failed or nothing bound.
+    }
+  }
+
+  static Future<bool> _isPortBound(int port) async {
+    try {
+      final result = await Process.run('lsof', ['-t', '-i', ':$port']);
+      return (result.stdout as String).trim().isNotEmpty;
+    } catch (_) {
+      return false;
     }
   }
 
@@ -1053,16 +1076,23 @@ class SendTestRunner {
     String host = defaultHost,
     int port = defaultPort,
   }) async {
+    // Use a short-lived client with a tight connection timeout so a zombie
+    // process bound to the port but not responding cannot stall setUpAll
+    // for the entire suite-loading window (12 minutes by default).
+    final probeClient = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 2);
     try {
       final response = await _httpGet(
-        client,
+        probeClient,
         '/health',
         host: host,
         port: port,
-      );
+      ).timeout(const Duration(seconds: 3));
       return response['status'] == 'ok';
     } catch (_) {
       return false;
+    } finally {
+      probeClient.close(force: true);
     }
   }
 
