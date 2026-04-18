@@ -885,6 +885,122 @@ void _generateFactoryCallback(
   }
 }
 
+/// Parsed shape of a function-typed return type, e.g.
+/// `List<CustomPainterSemantics> Function(Size)?` →
+///   (returnType: 'List<CustomPainterSemantics>',
+///    paramTypes: ['Size'],
+///    isNullable: true)
+///
+/// Returns `null` when [type] is not an explicit `R Function(...)` form
+/// (typedefs like `VoidCallback` would resolve to `Function`-ish strings
+/// only if the analyzer expanded them; the bridge generator emits the
+/// expanded form for most Flutter typedefs).
+class _FnType {
+  _FnType(this.returnType, this.paramTypes, this.isNullable);
+  final String returnType;
+  final List<String> paramTypes;
+  final bool isNullable;
+}
+
+_FnType? _parseFunctionType(String type) {
+  // Strip leading whitespace.
+  String t = type.trim();
+  // Detect trailing `?` for the *outer* type (whole function is nullable).
+  bool isNullable = false;
+  if (t.endsWith('?')) {
+    isNullable = true;
+    t = t.substring(0, t.length - 1).trimRight();
+  }
+  // Find the LAST occurrence of ` Function(` so generics in the return
+  // type don't trip us up (e.g. `Map<String, Function()>` is NOT a
+  // function-typed value itself; it has no top-level ` Function(`).
+  // Top-level detection: scan for `Function(` at depth-0 brackets.
+  int depth = 0;
+  int fnIndex = -1;
+  for (int i = 0; i < t.length; i++) {
+    final c = t[i];
+    if (c == '<') depth++;
+    if (c == '>') depth--;
+    if (depth == 0 && t.startsWith('Function(', i)) {
+      fnIndex = i;
+      // Don't break — pick the latest top-level Function( so a return type
+      // like `int Function(int) Function(int)` parses as the outer.
+    }
+  }
+  if (fnIndex < 0) return null;
+  // Return type is everything before ` Function(`, trimmed.
+  String rt = t.substring(0, fnIndex).trimRight();
+  if (rt.isEmpty) {
+    // Closure-form `Function(...)` with no return type — treat as dynamic.
+    rt = 'dynamic';
+  }
+  // Args: substring inside the parentheses following `Function(`.
+  // Find matching close paren.
+  final openParen = fnIndex + 'Function'.length;
+  if (openParen >= t.length || t[openParen] != '(') return null;
+  int paren = 1;
+  int closeParen = -1;
+  for (int i = openParen + 1; i < t.length; i++) {
+    final c = t[i];
+    if (c == '(') paren++;
+    if (c == ')') {
+      paren--;
+      if (paren == 0) {
+        closeParen = i;
+        break;
+      }
+    }
+  }
+  if (closeParen < 0) return null;
+  // After the close paren, only `?` and whitespace allowed (trailing `?`
+  // already stripped). Anything else (e.g. trailing generic args) → bail.
+  final after = t.substring(closeParen + 1).trim();
+  if (after.isNotEmpty) return null;
+  // Split args by top-level commas (ignore commas inside `<>` or nested `()`).
+  final argString = t.substring(openParen + 1, closeParen).trim();
+  final paramTypes = <String>[];
+  if (argString.isNotEmpty) {
+    int aDepth = 0;
+    int aStart = 0;
+    for (int i = 0; i < argString.length; i++) {
+      final c = argString[i];
+      if (c == '<' || c == '(' || c == '{' || c == '[') aDepth++;
+      if (c == '>' || c == ')' || c == '}' || c == ']') aDepth--;
+      if (c == ',' && aDepth == 0) {
+        paramTypes.add(_stripParamName(argString.substring(aStart, i).trim()));
+        aStart = i + 1;
+      }
+    }
+    paramTypes.add(_stripParamName(argString.substring(aStart).trim()));
+  }
+  return _FnType(rt, paramTypes, isNullable);
+}
+
+/// Strip a possible parameter name from a `Type name` chunk so we keep just
+/// the type. (`Size size` → `Size`, `BuildContext context` → `BuildContext`.)
+/// Type strings without a trailing identifier are returned unchanged
+/// (`List<int>` stays `List<int>`).
+String _stripParamName(String chunk) {
+  // Identifier at end (preceded by whitespace) → strip it.
+  final m = RegExp(r'^(.+?)\s+([A-Za-z_][A-Za-z0-9_]*)$').firstMatch(chunk);
+  return m == null ? chunk : m.group(1)!.trim();
+}
+
+/// Builds typed parameter list for a wrapper closure (e.g. `Size p0` →
+/// `(Size p0)`). Returns the parameter declaration and the call-site arg
+/// list as a tuple.
+({String params, List<String> argNames}) _buildTypedWrapperParams(
+    List<String> paramTypes) {
+  final params = <String>[];
+  final argNames = <String>[];
+  for (int i = 0; i < paramTypes.length; i++) {
+    final n = 'p$i';
+    params.add('${paramTypes[i]} $n');
+    argNames.add(n);
+  }
+  return (params: '(${params.join(', ')})', argNames: argNames);
+}
+
 /// Generates code to delegate a getter access to the interpreted instance.
 void _generateGetterDelegation(
   StringBuffer buffer,
@@ -902,9 +1018,7 @@ void _generateGetterDelegation(
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
-    buffer.writeln(
-      "          return D4.extractBridgedArg<$returnType>(result, '$getterName');",
-    );
+    _emitTypedReturn(buffer, returnType, 'result', getterName, indent: '          ');
   }
   buffer.writeln('        }');
   // Try field access as fallback
@@ -913,14 +1027,91 @@ void _generateGetterDelegation(
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
-    buffer.writeln(
-      "          return D4.extractBridgedArg<$returnType>(field, '$getterName');",
-    );
+    _emitTypedReturn(buffer, returnType, 'field', getterName, indent: '          ');
   }
   buffer.writeln('        } catch (_) {}');
   buffer.writeln(
     "        throw StateError("
     "'Interpreted class \${instance.klass.name} does not implement $getterName');",
+  );
+}
+
+/// Emit `return ...;` for an interpreter call result, choosing between a
+/// plain `extractBridgedArg<T>` and — for function-typed `T` — a typed
+/// closure that wraps the returned `Callable` and constructs a Dart
+/// closure with the exact static signature [returnType] requires.
+///
+/// Bug-47 fix: Dart's reified function-type subtyping rejects a
+/// `dynamic Function(dynamic)` wrapper as `R Function(A)?`. Emitting a
+/// typed closure at the proxy call-site sidesteps the round-trip through
+/// `extractBridgedArg`'s untyped wrapper.
+void _emitTypedReturn(
+  StringBuffer buffer,
+  String returnType,
+  String resultVar,
+  String memberName, {
+  required String indent,
+}) {
+  final fn = _parseFunctionType(returnType);
+  if (fn == null) {
+    buffer.writeln(
+      "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName');",
+    );
+    return;
+  }
+  // Function-typed return value. Emit a typed wrapper that constructs a
+  // closure of the exact required shape from the InterpretedFunction.
+  if (fn.isNullable) {
+    buffer.writeln('$indent if ($resultVar == null) return null;');
+  }
+  buffer.writeln('$indent if ($resultVar is Callable) {');
+  buffer.writeln('$indent   final _callable = $resultVar;');
+  final wp = _buildTypedWrapperParams(fn.paramTypes);
+  final argList = wp.argNames.join(', ');
+  if (fn.returnType == 'void') {
+    buffer.writeln('$indent   return ${wp.params} {');
+    buffer.writeln(
+      "$indent     _callable.call(visitor, [$argList], {});",
+    );
+    buffer.writeln('$indent   };');
+  } else {
+    buffer.writeln('$indent   return ${wp.params} {');
+    buffer.writeln(
+      "$indent     final _out = _callable.call(visitor, [$argList], {});",
+    );
+    // Bug-47b: Dart-script list literals return `List<dynamic>` whose
+    // elements may still be `BridgedInstance<Object>` wrappers. When the
+    // wrapper's static return type is `List<E>` (or `List<E>?`), unwrap
+    // each element through `extractBridgedArg<E>` and rebuild a typed
+    // `List<E>`; a plain `.cast<E>()` would fail because the wrappers are
+    // not yet of type E.
+    final isNullableList = fn.returnType.endsWith('?');
+    final listInner = isNullableList
+        ? fn.returnType.substring(0, fn.returnType.length - 1)
+        : fn.returnType;
+    final listMatch = RegExp(r'^List<(.+)>$').firstMatch(listInner);
+    if (listMatch != null) {
+      final elementType = listMatch.group(1)!;
+      if (isNullableList) {
+        buffer.writeln('$indent     if (_out == null) return null;');
+      }
+      buffer.writeln('$indent     if (_out is List) {');
+      buffer.writeln(
+        "$indent       return _out.map((e) => D4.extractBridgedArg<$elementType>(e, '$memberName')).toList();",
+      );
+      buffer.writeln('$indent     }');
+    }
+    buffer.writeln(
+      "$indent     return D4.extractBridgedArg<${fn.returnType}>(_out, '$memberName');",
+    );
+    buffer.writeln('$indent   };');
+  }
+  buffer.writeln('$indent }');
+  // Fallback: maybe the value is already a native function of the right
+  // type (e.g. returned from another bridge call). Let extractBridgedArg
+  // attempt the cast.
+  buffer.writeln(
+    "$indent return D4.extractBridgedArg<$returnType>($resultVar, '$memberName');",
   );
 }
 
@@ -943,9 +1134,10 @@ void _generateMethodDelegation(
   if (isVoid) {
     buffer.writeln('          return;');
   } else {
-    buffer.writeln(
-      "          return D4.extractBridgedArg<$returnType>(result, '$methodName');",
-    );
+    // Bug-47: function-typed return values need typed-wrapper emission;
+    // see _emitTypedReturn.
+    _emitTypedReturn(buffer, returnType, 'result', methodName,
+        indent: '          ');
   }
   buffer.writeln('        }');
   buffer.writeln(
