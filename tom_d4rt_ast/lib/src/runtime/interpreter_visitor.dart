@@ -22,6 +22,38 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// to pause execution and bubble up through the call stack.
   bool isLazySyncGeneratorContext = false;
 
+  /// Deferred initializers for class static fields.
+  ///
+  /// Populated during [visitClassDeclaration] when static-field evaluation
+  /// is deferred so that forward references between classes resolve correctly
+  /// (e.g. a static const list in class A that uses class B's const
+  /// constructor, where B is declared after A in source order).
+  ///
+  /// Drained after all class/mixin declarations have been visited, by
+  /// calling [runDeferredStaticInitializers].
+  final List<void Function()> _pendingStaticInitializers = <void Function()>[];
+
+  /// When true, [visitClassDeclaration] will enqueue its static-field
+  /// initializer evaluation onto [_pendingStaticInitializers] instead of
+  /// running it immediately. The top-level runner flips this on for the
+  /// multi-class declaration pass and then drains the queue.
+  bool deferStaticFieldInits = false;
+
+  /// Execute and clear all pending static-field initializers. Intended to be
+  /// called by the top-level runner after every class declaration has been
+  /// visited, so that forward-referenced class constructors are available.
+  void runDeferredStaticInitializers() {
+    // Take a snapshot: running an initializer could transitively trigger
+    // another deferred block to enqueue (unlikely but possible), so we loop.
+    while (_pendingStaticInitializers.isNotEmpty) {
+      final batch = List<void Function()>.from(_pendingStaticInitializers);
+      _pendingStaticInitializers.clear();
+      for (final init in batch) {
+        init();
+      }
+    }
+  }
+
   InterpreterVisitor({
     required this.globalEnvironment,
     required this.moduleContext, // Accept ModuleContext in the constructor
@@ -7914,56 +7946,80 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     // Pass 2: Evaluate all static field initializers (now all fields are known)
-    // Create a child environment that can shadow with evaluated field values
+    // Create a child environment that can shadow with evaluated field values.
+    //
+    // Bug-43 / forward-class-reference FIX: evaluating `static const`
+    // initializers can require other classes (and their constructors) that
+    // appear later in source order. We support deferring this whole block
+    // to after every class has been visited.
     final staticFieldEvalEnv = Environment(enclosing: staticInitEnv);
-    try {
-      environment = staticFieldEvalEnv;
-      for (final variable in staticFieldDecls) {
-        final fieldName = variable.name!.name;
-        final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
 
-        if (isLate) {
-          // Handle late static field
-          if (initializer != null) {
-            // Late static field with lazy initializer
-            final lateVar = LateVariable(fieldName, () {
-              // Create a closure that will evaluate the initializer when accessed
-              final savedEnv = environment;
-              try {
-                environment = staticFieldEvalEnv;
-                return initializer.accept<Object?>(this);
-              } finally {
-                environment = savedEnv;
-              }
-            }, isFinal: isFinal);
-            klass.staticFields[fieldName] = lateVar;
-            // Also define in eval environment for sibling access
-            staticFieldEvalEnv.define(fieldName, lateVar);
-            Logger.debug(
-              "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.",
-            );
+    void evaluateStaticFields() {
+      final savedEnvOnEntry = environment;
+      try {
+        environment = staticFieldEvalEnv;
+        for (final variable in staticFieldDecls) {
+          final fieldName = variable.name!.name;
+          final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
+
+          if (isLate) {
+            // Handle late static field
+            if (initializer != null) {
+              // Late static field with lazy initializer
+              final lateVar = LateVariable(fieldName, () {
+                // Closure evaluates the initializer on first access.
+                final savedEnv = environment;
+                try {
+                  environment = staticFieldEvalEnv;
+                  return initializer.accept<Object?>(this);
+                } finally {
+                  environment = savedEnv;
+                }
+              }, isFinal: isFinal);
+              klass.staticFields[fieldName] = lateVar;
+              // Also define in eval environment for sibling access
+              staticFieldEvalEnv.define(fieldName, lateVar);
+              Logger.debug(
+                "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.",
+              );
+            } else {
+              // Late static field without initializer
+              final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
+              klass.staticFields[fieldName] = lateVar;
+              staticFieldEvalEnv.define(fieldName, lateVar);
+              Logger.debug(
+                "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.",
+              );
+            }
           } else {
-            // Late static field without initializer
-            final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
-            klass.staticFields[fieldName] = lateVar;
-            staticFieldEvalEnv.define(fieldName, lateVar);
-            Logger.debug(
-              "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.",
-            );
+            // Regular static field handling
+            Object? value;
+            if (initializer != null) {
+              value = initializer.accept<Object?>(this);
+            }
+            klass.staticFields[fieldName] = value;
+            // Define the evaluated value in the environment so subsequent fields can access it
+            staticFieldEvalEnv.define(fieldName, value);
           }
-        } else {
-          // Regular static field handling
-          Object? value;
-          if (initializer != null) {
-            value = initializer.accept<Object?>(this);
-          }
-          klass.staticFields[fieldName] = value;
-          // Define the evaluated value in the environment so subsequent fields can access it
-          staticFieldEvalEnv.define(fieldName, value);
         }
+      } finally {
+        environment = savedEnvOnEntry;
       }
-    } finally {
+    }
+
+    if (deferStaticFieldInits) {
+      Logger.debug(
+        "[ClassDecl] Deferring static-field initialization for class '${klass.name}' until all classes are declared.",
+      );
+      _pendingStaticInitializers.add(evaluateStaticFields);
+      // Leave environment where the caller expects it (originalVisitorEnv).
       environment = originalVisitorEnv;
+    } else {
+      try {
+        evaluateStaticFields();
+      } finally {
+        environment = originalVisitorEnv;
+      }
     }
 
     Logger.debug(

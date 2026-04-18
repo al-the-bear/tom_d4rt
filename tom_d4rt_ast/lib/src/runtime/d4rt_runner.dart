@@ -675,12 +675,35 @@ class D4rtRunner {
           declaration.accept<Object?>(_visitor!);
         }
       }
-      for (final declaration in compilationUnit.declarations) {
-        if (declaration is SClassDeclaration ||
-            declaration is SMixinDeclaration) {
-          declaration.accept<Object?>(_visitor!);
+      // Bug-43 / forward-class-reference FIX: a `static const` initializer
+      // can reference another class defined later in source order (e.g.
+      //   class _ComparisonTable {
+      //     static const _rows = [_CompareRow(...), ...];
+      //   }
+      //   class _CompareRow { const _CompareRow({required this.x}); }
+      // ). Previously the interpreter processed class bodies sequentially,
+      // evaluating static field initializers inline, so by the time
+      // _ComparisonTable's static initializers ran _CompareRow's
+      // constructors had not been registered yet and the call failed
+      // with "does not have an unnamed constructor that accepts arguments".
+      //
+      // We now defer every class's static-field initializer block until
+      // ALL class/mixin declarations have been visited, then drain the
+      // queue. Members (constructors/methods/fields) are still registered
+      // during the main class-pass, so forward-referenced constructors are
+      // available when the deferred initializers finally run.
+      _visitor!.deferStaticFieldInits = true;
+      try {
+        for (final declaration in compilationUnit.declarations) {
+          if (declaration is SClassDeclaration ||
+              declaration is SMixinDeclaration) {
+            declaration.accept<Object?>(_visitor!);
+          }
         }
+      } finally {
+        _visitor!.deferStaticFieldInits = false;
       }
+      _visitor!.runDeferredStaticInitializers();
       for (final declaration in compilationUnit.declarations) {
         if (declaration is SFunctionDeclaration) {
           declaration.accept<Object?>(_visitor!);

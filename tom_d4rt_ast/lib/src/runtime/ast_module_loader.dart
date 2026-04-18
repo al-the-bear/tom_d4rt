@@ -612,11 +612,23 @@ class AstModuleLoader implements ModuleContext {
     for (final decl in ast.declarations) {
       if (decl is SEnumDeclaration) decl.accept<Object?>(interpreter);
     }
-    for (final decl in ast.declarations) {
-      if (decl is SClassDeclaration || decl is SMixinDeclaration) {
-        decl.accept<Object?>(interpreter);
+    // Bug-43 / forward-class-reference FIX (mirrors D4rtRunner): defer
+    // every class's static-field initializer evaluation until ALL class and
+    // mixin members have been registered. Without this, a `static const`
+    // list that uses a class defined later in source order fails with
+    // "does not have an unnamed constructor that accepts arguments" because
+    // the referenced class's constructors have not been populated yet.
+    interpreter.deferStaticFieldInits = true;
+    try {
+      for (final decl in ast.declarations) {
+        if (decl is SClassDeclaration || decl is SMixinDeclaration) {
+          decl.accept<Object?>(interpreter);
+        }
       }
+    } finally {
+      interpreter.deferStaticFieldInits = false;
     }
+    interpreter.runDeferredStaticInitializers();
     for (final decl in ast.declarations) {
       if (decl is SFunctionDeclaration) decl.accept<Object?>(interpreter);
     }
