@@ -453,3 +453,142 @@ No separate `TickerCallbackAdapter` or `TickerAdapter` is needed — the native
 `SingleTickerProviderStateMixin` provides `createTicker()` which returns a native
 `Ticker` directly. The `TickerCallback` (a `void Function(Duration)` typedef)
 is already handled by the existing callback wrapping in the bridge system.
+
+---
+
+## Generic function-typed return values from interpreted overrides (Bug-47 partial)
+
+**Status:** *Partial* — the most common case (single-arg, no-arg, two-arg
+nullable function types) works after the regex fix in
+[`d4.dart`](../../tom_d4rt_ast/lib/src/runtime/generator/d4.dart). Fully
+generic function-type adaptation requires per-call-site typed wrapper
+emission in the bridge generator, which is not implemented yet.
+
+### The problem
+
+A bridged class has an abstract method or getter typed
+`R Function(A)?` (or any other strict function type). A script subclass
+overrides it:
+
+```dart
+class _MyPainter extends CustomPainter {
+  @override
+  SemanticsBuilderCallback? get semanticsBuilder {
+    return (Size size) {
+      return [
+        CustomPainterSemantics(rect: ..., properties: ...),
+        ...
+      ];
+    };
+  }
+}
+```
+
+The auto-generated proxy (e.g. `D4rtCustomPainter` in
+`flutter_proxies.b.dart`) calls the interpreted getter to satisfy its
+own native callback. The getter returns an `InterpretedFunction`. The
+proxy then calls
+`D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(...)`
+to coerce the value to the strict native function type.
+
+`extractBridgedArg` does try to wrap a `Callable` into a Dart closure
+via `_wrapCallableForMap<T>` — but the wrapper is constructed with
+*untyped parameters* (`(arg) { ... }` returns `dynamic Function(dynamic)`).
+Dart's reified function-type subtyping then refuses the assignment:
+
+```dart
+dynamic Function(dynamic) is List<CustomPainterSemantics> Function(Size)? // false
+```
+
+So the wrapper falls back through every path, the original
+`InterpretedFunction` is forwarded across the bridge, and the bridge's
+argument validator rejects it:
+
+```
+Argument Error: Invalid parameter "semanticsBuilder":
+  expected ((Size) => List<CustomPainterSemantics>)?,
+  got InterpretedFunction
+```
+
+### What was fixed
+
+The `_isSingleArgFunction` / `_isNoArgFunction` / `_isTwoArgFunction`
+regexes in `d4.dart` were updated to recognize **nullable** function
+types (`Function(...)?`). Before the fix the regexes anchored to `)$`
+and missed every nullable function type, falling all the way through to
+the variadic dynamic wrapper. Now the type-class detection works
+correctly. This is enough for single/no/two-arg cases that don't need
+strict reified subtype checks (e.g. when assigned to a `Function`
+parameter or used in a `late dynamic` field).
+
+### What still doesn't work
+
+When the bridge generator emits a strict-typed call site like:
+
+```dart
+return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(
+    result, 'semanticsBuilder');
+```
+
+…the runtime cannot construct a closure with the exact static type
+`List<CustomPainterSemantics> Function(Size)` from a `Callable` and
+runtime type info alone (Dart has no `dart:mirrors` to do this
+generically). The wrapped closure remains `dynamic Function(dynamic)`
+and the assignment fails the reified-type check.
+
+### Script-level workaround
+
+There is **no clean script-level workaround** for the override-and-be-used
+case: once a script returns a closure across a strictly-typed bridge
+boundary, the return cannot be reified to the exact required signature.
+The closest workarounds are:
+
+- **Don't override the method/getter** that returns the function type.
+  For `CustomPainter.semanticsBuilder`, simply do not override it
+  (the inherited default returns `null`).
+- **Substitute a non-function-typed override** when possible. E.g. for
+  callbacks that the framework only ever invokes once with arguments
+  the script also has access to elsewhere, capture the result statically
+  and expose it via a different field.
+- **Use a `StatefulWidget` wrapper** that exposes the desired callback
+  via a parameter instead of an inheritance override. The native side
+  then receives the closure as a constructor argument (where simpler
+  callback-bridging machinery applies) instead of an inheritance
+  override (which goes through the strict reified-type check).
+
+For deep-demo scripts that need to demonstrate `semanticsBuilder` itself,
+none of these is satisfactory — see "Proper fix" below.
+
+### Proper fix (bridge generator)
+
+The proxy generator (in `tom_d4rt_generator`) needs to emit typed
+closures at the call site. Because the generator already knows the exact
+static signature from the original Flutter class, it can produce code
+shaped like:
+
+```dart
+onSemanticsBuilder: instance.klass.findInstanceGetter('semanticsBuilder') != null
+    ? () {
+        final getter = instance.klass.findInstanceGetter('semanticsBuilder');
+        if (getter == null) return null;
+        final raw = getter.bind(instance).call(visitor, [], {});
+        if (raw == null) return null;
+        final c = raw as Callable;
+        // The wrapper has the exact static type the proxy needs:
+        return (Size size) {
+          final out = c.call(visitor, [size], {});
+          return D4.extractBridgedArg<List<CustomPainterSemantics>>(
+              out, 'semanticsBuilder');
+        };
+      }
+    : null,
+```
+
+Once the wrapper has the exact static type, no `is T` round-trip is
+needed — the assignment is statically valid. The same change applies to
+every proxy returning a typed function value (CustomClipper, FlowDelegate,
+SliverPersistentHeaderDelegate, etc.) and to every constructor parameter
+typed `T Function(...)`.
+
+This requires re-running the bridge generator and regenerating every
+`.b.dart` file under `tom_d4rt_flutterm/lib/src/bridges/`.

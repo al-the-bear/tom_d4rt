@@ -808,11 +808,32 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           staticMethod,
           memberName,
         );
-      } else {
-        throw RuntimeD4rtException(
-          "Undefined static member '$memberName' on bridged class '${bridgedClass.name}'.",
-        );
       }
+      // Constructor tear-off support for bridged classes:
+      //   `EagerGestureRecognizer.new`            → unnamed-ctor tear-off
+      //   `Foo.fromMap`                           → named-ctor tear-off
+      // Mirrors the InterpretedClass branch above. Without this, scripts
+      // using Dart 2.15+ tear-off syntax against a bridged class fail with
+      // "Undefined static member 'new' on bridged class '...'".
+      if (memberName == 'new') {
+        final ctor = bridgedClass.findConstructorAdapter('');
+        if (ctor != null) {
+          Logger.debug(
+            "[SPrefixedIdentifier] Returning bridged unnamed-constructor tear-off '${bridgedClass.name}.new'.",
+          );
+          return _BridgedConstructorTearOff(bridgedClass, ctor, '');
+        }
+      }
+      final namedCtor = bridgedClass.findConstructorAdapter(memberName);
+      if (namedCtor != null) {
+        Logger.debug(
+          "[SPrefixedIdentifier] Returning bridged named-constructor tear-off '${bridgedClass.name}.$memberName'.",
+        );
+        return _BridgedConstructorTearOff(bridgedClass, namedCtor, memberName);
+      }
+      throw RuntimeD4rtException(
+        "Undefined static member '$memberName' on bridged class '${bridgedClass.name}'.",
+      );
     } else if (prefixValue is InterpretedExtension) {
       // Handle static member access on extensions
       final extension = prefixValue;
@@ -11926,4 +11947,47 @@ class _NamedConstructorTearOff implements Callable {
 
   @override
   String toString() => '${_klass.name}.$_constructorName';
+}
+
+/// Callable wrapper for a bridged-class constructor tear-off.
+///
+/// Produced when a script writes `BridgedClass.new` (Dart 2.15+ unnamed
+/// constructor tear-off) or `BridgedClass.namedCtor`. Invoking the
+/// wrapper calls the underlying [BridgedConstructorCallable] adapter
+/// with the supplied arguments and returns the resulting native object.
+///
+/// Mirrors [_NamedConstructorTearOff] but for bridged classes — both
+/// support the same tear-off semantics on either side of the bridge.
+class _BridgedConstructorTearOff implements Callable {
+  final BridgedClass _bridgedClass;
+  final BridgedConstructorCallable _adapter;
+  final String _constructorName; // '' for unnamed (`.new`)
+
+  _BridgedConstructorTearOff(
+    this._bridgedClass,
+    this._adapter,
+    this._constructorName,
+  );
+
+  @override
+  int get arity => 0; // Adapter accepts variadic positional args.
+
+  @override
+  Object? call(
+    InterpreterVisitor visitor,
+    List<Object?> positionalArguments, [
+    Map<String, Object?>? namedArguments,
+    List<RuntimeType>? explicitTypeArguments,
+  ]) {
+    Logger.debug(
+      "[_BridgedConstructorTearOff] Invoking '${_bridgedClass.name}"
+      "${_constructorName.isEmpty ? '' : '.$_constructorName'}'",
+    );
+    return _adapter(visitor, positionalArguments, namedArguments ?? const {});
+  }
+
+  @override
+  String toString() => _constructorName.isEmpty
+      ? '${_bridgedClass.name}.new'
+      : '${_bridgedClass.name}.$_constructorName';
 }

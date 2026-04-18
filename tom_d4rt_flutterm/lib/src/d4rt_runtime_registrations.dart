@@ -22,14 +22,17 @@ import 'package:flutter/material.dart'
         DropdownMenuItem,
         ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
-import 'package:flutter/rendering.dart' show BoxConstraints;
+import 'package:flutter/rendering.dart' show BoxConstraints, RenderObject;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
         BuildContext,
         GlobalKey,
+        LeafRenderObjectWidget,
+        MultiChildRenderObjectWidget,
         NavigatorState,
         FormState,
+        SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
         State,
         StatefulWidget,
@@ -155,6 +158,76 @@ void _registerInterfaceProxies() {
     }
     return _InterpretedStatefulWidget(visitor, instance, key: key);
   });
+
+  // RenderObjectWidget family — see Bug-46 in callable.dart and
+  // _InterpretedLeaf/SingleChild/MultiChildRenderObjectWidget below.
+  // These let scripts subclass the abstract render-object widget bases:
+  //
+  //   class _MyHost extends LeafRenderObjectWidget { ... }
+  //   class _MySingleChild extends SingleChildRenderObjectWidget { ... }
+  //   class _MyMulti extends MultiChildRenderObjectWidget { ... }
+  //
+  // …and pass instances directly to bridged Flutter constructors that
+  // expect a `Widget` (e.g. `Positioned.fill(child: _MyHost(...))`).
+  D4.registerInterfaceProxy('LeafRenderObjectWidget', (visitor, instance) {
+    return _InterpretedLeafRenderObjectWidget(visitor, instance,
+        key: _readKey(instance, visitor));
+  });
+  D4.registerInterfaceProxy('SingleChildRenderObjectWidget',
+      (visitor, instance) {
+    return _InterpretedSingleChildRenderObjectWidget(visitor, instance,
+        key: _readKey(instance, visitor),
+        child: _readChildWidget(instance, visitor));
+  });
+  D4.registerInterfaceProxy('MultiChildRenderObjectWidget',
+      (visitor, instance) {
+    return _InterpretedMultiChildRenderObjectWidget(visitor, instance,
+        key: _readKey(instance, visitor),
+        children: _readChildrenWidgets(instance, visitor));
+  });
+}
+
+/// Read an optional `key` field off an interpreted widget instance.
+Key? _readKey(InterpretedInstance instance, InterpreterVisitor visitor) {
+  try {
+    final keyValue = instance.get('key', visitor: visitor);
+    if (keyValue is Key) return keyValue;
+  } catch (_) {/* field may not exist */}
+  return null;
+}
+
+/// Read a single `child` field off an interpreted widget instance,
+/// applying interface-proxy adaptation if the value is itself an
+/// InterpretedInstance. Returns a null-safe placeholder if the field
+/// is absent or null on the instance.
+Widget? _readChildWidget(
+    InterpretedInstance instance, InterpreterVisitor visitor) {
+  Object? raw;
+  try {
+    raw = instance.get('child', visitor: visitor);
+  } catch (_) {
+    return null; // No `child` declared on this interpreted subclass.
+  }
+  if (raw == null) return null;
+  return D4.extractBridgedArg<Widget>(raw, 'child', visitor);
+}
+
+/// Read a `children` list field off an interpreted widget instance.
+List<Widget> _readChildrenWidgets(
+    InterpretedInstance instance, InterpreterVisitor visitor) {
+  Object? raw;
+  try {
+    raw = instance.get('children', visitor: visitor);
+  } catch (_) {
+    return const <Widget>[];
+  }
+  if (raw is List) {
+    return raw
+        .where((e) => e != null)
+        .map((e) => D4.extractBridgedArg<Widget>(e, 'children', visitor))
+        .toList(growable: false);
+  }
+  return const <Widget>[];
 }
 
 /// Native TickerProvider that delegates [createTicker] to an interpreted
@@ -428,7 +501,17 @@ class _InterpretedStatefulWidget extends StatefulWidget {
           result.nativeProxy = state;
           return state;
         }
-        return _InterpretedState(_visitor, result, this);
+        // Bug-45 FIX: also wire nativeProxy for the regular `_InterpretedState`
+        // path. The interpreter (runtime_types.dart resolution of `widget`
+        // on InterpretedInstance) consults `nativeProxy.interpretedWidget`
+        // to return the original interpreted widget — see _InterpretedState
+        // below for the matching `interpretedWidget` getter. Without
+        // setting nativeProxy here, `widget.foo` from inside the interpreted
+        // State subclass body fails with
+        //   "Undefined property 'widget' on _MyState."
+        final state = _InterpretedState(_visitor, result, this);
+        result.nativeProxy = state;
+        return state;
       }
     }
     throw StateError(
@@ -459,11 +542,22 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
+  /// Bug-45 FIX: keep a reference to the parent widget proxy so we can
+  /// expose its underlying [InterpretedInstance] via [interpretedWidget].
+  /// runtime_types.dart's `widget` access on an InterpretedInstance reads
+  /// this getter when the State has [nativeProxy] set.
+  final _InterpretedStatefulWidget _parentWidget;
+
   _InterpretedState(
     this._visitor,
     this._stateInstance,
-    _InterpretedStatefulWidget parentWidget,
+    this._parentWidget,
   );
+
+  /// Returns the interpreted-side `StatefulWidget` instance backing the
+  /// native `widget` getter. Consumed by runtime_types.dart at the
+  /// special-case `name == 'widget'` branch on InterpretedInstance.
+  InterpretedInstance get interpretedWidget => _parentWidget._instance;
 
   @override
   void initState() {
@@ -537,12 +631,17 @@ class _InterpretedSingleTickerProviderState
     with SingleTickerProviderStateMixin {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
+  final _InterpretedStatefulWidget _parentWidget;
 
   _InterpretedSingleTickerProviderState(
     this._visitor,
     this._stateInstance,
-    _InterpretedStatefulWidget parentWidget,
+    this._parentWidget,
   );
+
+  /// Bug-45 FIX (mirrors _InterpretedState): expose the interpreted-side
+  /// StatefulWidget so runtime_types.dart's `widget` resolution finds it.
+  InterpretedInstance get interpretedWidget => _parentWidget._instance;
 
   @override
   void initState() {
@@ -606,12 +705,17 @@ class _InterpretedMultiTickerProviderState
     with TickerProviderStateMixin {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
+  final _InterpretedStatefulWidget _parentWidget;
 
   _InterpretedMultiTickerProviderState(
     this._visitor,
     this._stateInstance,
-    _InterpretedStatefulWidget parentWidget,
+    this._parentWidget,
   );
+
+  /// Bug-45 FIX (mirrors _InterpretedState): expose the interpreted-side
+  /// StatefulWidget so runtime_types.dart's `widget` resolution finds it.
+  InterpretedInstance get interpretedWidget => _parentWidget._instance;
 
   @override
   void initState() {
@@ -1096,4 +1200,120 @@ void _registerGenericWidgetReCreators() {
       _ => null,
     };
   });
+}
+
+// =============================================================================
+// Bug-46: RenderObjectWidget family proxies
+// =============================================================================
+//
+// Allow scripts to subclass the abstract render-object widget bases and have
+// their instances accepted by every bridged constructor expecting a `Widget`.
+//
+// Pattern matches `_InterpretedStatelessWidget` / `_InterpretedStatefulWidget`:
+// the proxy holds a back-reference to the interpreted instance and forwards
+// `createElement` / `createRenderObject` / `updateRenderObject` to the
+// matching interpreted methods. The forwarders execute the script-defined
+// method via the interpreter and unwrap the result back into a native
+// `RenderObject`.
+
+/// Helper to invoke an interpreted instance method and unwrap its result
+/// as type [T].
+T _invokeInterpretedAs<T>(
+  InterpreterVisitor visitor,
+  InterpretedInstance instance,
+  String methodName,
+  List<Object?> positionalArgs,
+) {
+  final method = instance.klass.findInstanceMethod(methodName);
+  if (method == null) {
+    throw StateError(
+        'Interpreted class ${instance.klass.name} does not implement $methodName()');
+  }
+  final raw = method.bind(instance).call(visitor, positionalArgs, {});
+  return D4.extractBridgedArg<T>(raw, methodName, visitor);
+}
+
+/// Shared implementation of `createRenderObject` / `updateRenderObject` for
+/// the three render-object widget proxies below.
+RenderObject _createRenderObject(
+  InterpreterVisitor visitor,
+  InterpretedInstance instance,
+  BuildContext context,
+) =>
+    _invokeInterpretedAs<RenderObject>(
+        visitor, instance, 'createRenderObject', [context]);
+
+void _updateRenderObject(
+  InterpreterVisitor visitor,
+  InterpretedInstance instance,
+  BuildContext context,
+  RenderObject renderObject,
+) {
+  final method = instance.klass.findInstanceMethod('updateRenderObject');
+  if (method == null) return; // updateRenderObject is optional in Flutter
+  method.bind(instance).call(visitor, [context, renderObject], {});
+}
+
+/// Native [LeafRenderObjectWidget] backing an interpreted subclass.
+class _InterpretedLeafRenderObjectWidget extends LeafRenderObjectWidget {
+  _InterpretedLeafRenderObjectWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+  });
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _createRenderObject(_visitor, _instance, context);
+
+  @override
+  void updateRenderObject(BuildContext context, RenderObject renderObject) =>
+      _updateRenderObject(_visitor, _instance, context, renderObject);
+}
+
+/// Native [SingleChildRenderObjectWidget] backing an interpreted subclass.
+class _InterpretedSingleChildRenderObjectWidget
+    extends SingleChildRenderObjectWidget {
+  _InterpretedSingleChildRenderObjectWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+    super.child,
+  });
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _createRenderObject(_visitor, _instance, context);
+
+  @override
+  void updateRenderObject(BuildContext context, RenderObject renderObject) =>
+      _updateRenderObject(_visitor, _instance, context, renderObject);
+}
+
+/// Native [MultiChildRenderObjectWidget] backing an interpreted subclass.
+class _InterpretedMultiChildRenderObjectWidget
+    extends MultiChildRenderObjectWidget {
+  _InterpretedMultiChildRenderObjectWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+    super.children = const <Widget>[],
+  });
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _createRenderObject(_visitor, _instance, context);
+
+  @override
+  void updateRenderObject(BuildContext context, RenderObject renderObject) =>
+      _updateRenderObject(_visitor, _instance, context, renderObject);
 }

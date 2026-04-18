@@ -142,6 +142,16 @@ class D4 {
     _interfaceProxies[bridgedTypeName] = factory;
   }
 
+  /// Returns true when an interface-proxy factory has been registered for the
+  /// bridged type [bridgedTypeName] (via [registerInterfaceProxy]).
+  ///
+  /// Used by the interpreter (`super(...)` resolution in callable.dart) to
+  /// skip the missing-bridge-constructor error for abstract widget bases
+  /// like `SingleChildRenderObjectWidget` / `LeafRenderObjectWidget`. See
+  /// the matching tom_d4rt_ast helper for the full rationale.
+  static bool hasInterfaceProxy(String bridgedTypeName) =>
+      _interfaceProxies.containsKey(bridgedTypeName);
+
   // ==========================================================================
   // RC-3: Type Coercion Registration
   // ==========================================================================
@@ -786,10 +796,13 @@ class D4 {
   }
 
   /// Check if type is a single-argument function.
-  /// Examples: "Widget Function(BuildContext)", "(BuildContext) => Widget"
+  /// Examples: "Widget Function(BuildContext)", "(BuildContext) => Widget",
+  /// "Widget Function(BuildContext)?" (nullable function type).
   static bool _isSingleArgFunction(String typeName) {
-    // Match "ReturnType Function(SingleType)" - no comma means single arg
-    final functionMatch = RegExp(r'Function\(([^,)]+)\)$').firstMatch(typeName);
+    // Match "ReturnType Function(SingleType)" - no comma means single arg.
+    // Bug-47 FIX: also match nullable function types ending in `)?`.
+    final functionMatch =
+        RegExp(r'Function\(([^,)]+)\)\??$').firstMatch(typeName);
     if (functionMatch != null) {
       return true;
     }
@@ -802,18 +815,21 @@ class D4 {
   }
 
   /// Check if type is a no-argument function.
-  /// Examples: "void Function()", "() => void"
+  /// Examples: "void Function()", "() => void", "void Function()?".
   static bool _isNoArgFunction(String typeName) {
-    return typeName.contains('Function()') ||
+    // Bug-47 FIX: match `Function()` and `Function()?` (nullable).
+    return RegExp(r'Function\(\)\??').hasMatch(typeName) ||
         RegExp(r'\(\)\s*=>').hasMatch(typeName);
   }
 
   /// Check if type is a two-argument function.
-  /// Examples: "Widget Function(BuildContext, Widget)", "(A, B) => R"
+  /// Examples: "Widget Function(BuildContext, Widget)", "(A, B) => R",
+  /// "Widget Function(BuildContext, Widget)?" (nullable function type).
   static bool _isTwoArgFunction(String typeName) {
-    // Match "Function(Type1, Type2)" - exactly one comma
+    // Match "Function(Type1, Type2)" - exactly one comma.
+    // Bug-47 FIX: also match nullable function types ending in `)?`.
     final functionMatch = RegExp(
-      r'Function\(([^,]+),\s*([^,)]+)\)$',
+      r'Function\(([^,]+),\s*([^,)]+)\)\??$',
     ).firstMatch(typeName);
     if (functionMatch != null) {
       return true;

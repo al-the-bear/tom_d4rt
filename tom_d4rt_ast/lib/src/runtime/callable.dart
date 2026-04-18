@@ -813,6 +813,38 @@ class InterpretedFunction implements Callable {
                 final constructorAdapter = bridgedSuperClass
                     .findConstructorAdapter(superConstructorName);
                 if (constructorAdapter == null) {
+                  // Bug-46 FIX: abstract widget base classes like
+                  //   SingleChildRenderObjectWidget,
+                  //   MultiChildRenderObjectWidget,
+                  //   LeafRenderObjectWidget,
+                  //   RenderObjectWidget,
+                  //   ProxyWidget,
+                  //   InheritedWidget
+                  // are emitted by the bridge generator with empty
+                  // `constructors: {}` because they are normally only
+                  // subclassed, not instantiated directly. When a script
+                  // subclass calls `super(child: child)` we used to throw
+                  // "Bridged superclass 'X' does not have a constructor
+                  //  named ''." — even though the script's super-call is
+                  // semantically a no-op (its purpose is to forward the
+                  // child/key field to the framework, which the proxy
+                  // wrapper takes care of at the bridge boundary).
+                  //
+                  // When an interface proxy is registered for this bridged
+                  // type via D4.registerInterfaceProxy, the proxy will be
+                  // created by tryCreateInterfaceProxyWithVisitor on the
+                  // first bridge boundary that needs a native instance —
+                  // and that proxy reads its child/key/etc. from the
+                  // InterpretedInstance fields. Skipping the super-call
+                  // is therefore correct: all relevant state lives on the
+                  // InterpretedInstance, which proceeds to be initialized
+                  // by its own field initializers.
+                  if (D4.hasInterfaceProxy(bridgedSuperClass.name)) {
+                    Logger.debug(
+                        "[SuperCall] Bridged superclass '${bridgedSuperClass.name}' has no '$superConstructorName' constructor adapter, but an interface proxy is registered — skipping super() call (the proxy will be created at the bridge boundary).");
+                    explicitSuperCalled = true;
+                    continue; // Move on to next initializer in the loop.
+                  }
                   throw RuntimeD4rtException(
                       "Bridged superclass '${bridgedSuperClass.name}' does not have a constructor named '$superConstructorName'. Check bridge definition.");
                 }

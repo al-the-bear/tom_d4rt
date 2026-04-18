@@ -696,6 +696,18 @@ class InterpretedFunction implements Callable {
                 final constructorAdapter = bridgedSuperClass
                     .findConstructorAdapter(superConstructorName);
                 if (constructorAdapter == null) {
+                  // Bug-46 FIX (mirrors tom_d4rt_ast/callable.dart):
+                  // abstract widget base classes are emitted with empty
+                  // `constructors: {}`. When an interface proxy is
+                  // registered for the bridged type, skip the super-call
+                  // — the proxy will materialize at the bridge boundary,
+                  // reading child/key/etc. from the InterpretedInstance.
+                  if (D4.hasInterfaceProxy(bridgedSuperClass.name)) {
+                    Logger.debug(
+                        "[SuperCall] Bridged superclass '${bridgedSuperClass.name}' has no '$superConstructorName' constructor adapter, but an interface proxy is registered — skipping super() call (the proxy will be created at the bridge boundary).");
+                    explicitSuperCalled = true;
+                    continue;
+                  }
                   throw RuntimeD4rtException(
                       "Bridged superclass '${bridgedSuperClass.name}' does not have a constructor named '$superConstructorName'. Check bridge definition.");
                 }
