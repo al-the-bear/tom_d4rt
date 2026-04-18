@@ -10,6 +10,8 @@
 @TestOn('vm')
 library;
 
+import 'dart:io' show Platform;
+
 import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
@@ -415,7 +417,9 @@ void main() {
         'widgets/android_view_test.dart',
       );
       expectSuccess(result);
-    });
+    }, skip: !Platform.isAndroid
+        ? 'AndroidView only renders on Android'
+        : null);
 
     // 49. widgets/animated_cross_fade_test.dart (idx 330)
     test('widgets/animated_cross_fade_test.dart', () async {

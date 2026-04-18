@@ -19,6 +19,8 @@
 @TestOn('vm')
 library;
 
+import 'dart:io' show Platform;
+
 import 'package:flutter_test/flutter_test.dart';
 
 import 'send_test_runner.dart';
@@ -3522,7 +3524,9 @@ void main() {
         'widgets/android_view_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    });
+    }, skip: !Platform.isAndroid
+        ? 'AndroidView only renders on Android'
+        : null);
 
     test('animated_align_test.dart', () async {
       final result = await SendTestRunner.send(

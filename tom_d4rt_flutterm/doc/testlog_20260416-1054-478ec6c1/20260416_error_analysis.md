@@ -20,6 +20,25 @@ Generated from: `doc/testlog_20260416-1054-478ec6c1/`
 - **[ ] added custom code** — custom code added to bridge or runtime
 - **[ ] Timeout** — test timed out (already pre-checked below for timeout entries)
 
+## Update — 2026-04-18
+
+20 entries marked **fixed** below across commits `4f628f07`, `1942390a`,
+`66ad44a8`, `0d5de0ca`, `2b836ca6`, `f6c7db8f`. Includes:
+
+- Record-pattern for-loops (#21, #24, #28–#33) — fixed at AST generator
+- Demo rewrites (#22, #25, #23) — script-side
+- `String.characters` extension lookup (#77) — bridge runtime (extension wiring)
+- `List.whereType` (#80, #81) — stdlib bridge
+- Abstract widget bases (#75, #76, #78) — interpreter + bridge runtime
+- `EagerGestureRecognizer.new` (#79) — interpreter (BridgedClass tear-off)
+- `State<T>.widget` on interpreted subclass (#82) — bridge runtime
+- Function-type adaptation (#74) — partial regex fix; full per-call-site
+  generator fix documented in `interpreter_limits_and_workarounds.md`
+
+Each resolved entry has a `**Resolution:**` line directly below the
+checkboxes. Re-run the test suite to verify; some scripts now expose
+follow-up issues that were previously hidden behind these errors.
+
 ---
 
 ## 1. generator_interpreter_issues_test.dart, secondary_classes_test.dart : rendering/render_box_container_defaults_mixin_test.dart
@@ -728,7 +747,9 @@ dart:isolate  _RawReceivePort._handleMessage
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -768,7 +789,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [X] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Script rewrite: removed flutter_test import (commit 1942390a)
 
 ### Error message
 
@@ -792,7 +815,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [X] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Script created: previously missing demo file (commit 1942390a)
 
 ### Error message
 
@@ -817,7 +842,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -857,7 +884,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [X] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Script rewrite: removed flutter_test import (commit 1942390a)
 
 ### Error message
 
@@ -943,7 +972,9 @@ test/hardly_relevant_classes_3_test.dart 381:7      main.<fn>.<fn>
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -984,7 +1015,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -1025,7 +1058,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -1066,7 +1101,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -1106,7 +1143,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -1147,7 +1186,9 @@ _(no log block found)_
 
 **Test Failure**
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** AST generator: ForEachPartsWithPattern (commit 4f628f07)
 
 ### Error message
 
@@ -2546,7 +2587,9 @@ test/secondary_classes_test.dart 4443:7             main.<fn>.<fn>
 
 **Framework Errors** (2) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** PARTIAL: regex fix for nullable function types (commit f6c7db8f). Per-call-site typed wrapper fix in generator pending — see interpreter_limits_and_workarounds.md
 
 ### Error message
 
@@ -2576,7 +2619,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** PARTIAL: widget side fixed via abstract widget proxies + super-call fallback (commit f6c7db8f). Demo also subclasses RenderBox — needs RenderObject proxy support, separate scope.
 
 ### Error message
 
@@ -2604,7 +2649,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Interpreter + bridge: abstract widget proxies + super-call fallback (commit f6c7db8f)
 
 ### Error message
 
@@ -2632,7 +2679,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Bridge runtime: ast_module_loader.dart actually wires bridged extensions into the script env (commit 0d5de0ca)
 
 ### Error message
 
@@ -2660,7 +2709,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Interpreter + bridge: abstract widget proxies + super-call fallback (commit f6c7db8f)
 
 ### Error message
 
@@ -2691,7 +2742,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Interpreter: BridgedClass.new tear-off support (commit f6c7db8f)
 
 ### Error message
 
@@ -2722,7 +2775,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Bridge stdlib: List.whereType / Set.whereType registered (commit 66ad44a8)
 
 ### Error message
 
@@ -2753,7 +2808,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (1) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Bridge stdlib: List.whereType / Set.whereType registered (commit 66ad44a8)
 
 ### Error message
 
@@ -2783,7 +2840,9 @@ _(framework error - no stack trace captured in test result JSON)_
 
 **Framework Errors** (2) — _(test passed despite framework errors)_
 
-### [ ] Fixed in script  [ ] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+### [ ] Fixed in script  [X] Fix in interpreter/generator  [ ] Workaround  [ ] added custom code  [ ] Timeout
+
+**Resolution:** Bridge runtime: nativeProxy + interpretedWidget on _InterpretedState (commit f6c7db8f)
 
 ### Error message
 
