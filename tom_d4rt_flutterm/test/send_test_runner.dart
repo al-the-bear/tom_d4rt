@@ -650,7 +650,120 @@ class SendTestRunner {
   ///
   /// If [includeSource] is true, the original Dart source code is included
   /// in the bundle alongside the compiled AST. Disabled by default.
+  /// Default per-script timeout. If a script does not return a response
+  /// within this window, the test app is force-killed and restarted before
+  /// either retrying (once) or failing the test with a helpful diagnostic.
+  static const Duration defaultScriptTimeout = Duration(seconds: 30);
+
+  /// Send a script to the test app, enforcing a per-call timeout.
+  ///
+  /// Each call is attempted at most twice: on the first timeout the test
+  /// app is force-killed and restarted, then the send is retried. On a
+  /// second timeout the app is restarted again (to leave a clean slate
+  /// for the next test) and a [TimeoutException] is thrown carrying the
+  /// script path, attempt count, and captured app output so the failing
+  /// test report explains what happened.
   static Future<SendResult> send(
+    String scriptPath, {
+    String host = defaultHost,
+    int port = defaultPort,
+    bool clearFirst = true,
+    bool includeSource = false,
+    Duration timeout = defaultScriptTimeout,
+  }) async {
+    const maxAttempts = 2;
+    for (var attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        return await _sendOnce(
+          scriptPath,
+          host: host,
+          port: port,
+          clearFirst: clearFirst,
+          includeSource: includeSource,
+        ).timeout(timeout);
+      } on TimeoutException {
+        final stdoutTail = _tailSnapshot(_testAppStdoutTail);
+        final stderrTail = _tailSnapshot(_testAppStderrTail);
+        // ignore: avoid_print
+        print(
+          '\n  ⏱️  TIMEOUT on $scriptPath after ${timeout.inSeconds}s '
+          '(attempt $attempt/$maxAttempts) — restarting test app…',
+        );
+        _printSendMetrics(
+          scriptPath: scriptPath,
+          sourceBytes: 0,
+          sourceChars: 0,
+          bundleJsonBytes: 0,
+          clearDuration: Duration.zero,
+          readDuration: Duration.zero,
+          bundleDuration: Duration.zero,
+          httpDuration: timeout,
+          totalDuration: timeout,
+          status: attempt == maxAttempts ? 'timeout_final' : 'timeout_retry',
+          httpStatus: null,
+          outputLines: 0,
+          frameworkErrorCount: 0,
+        );
+        try {
+          await _restartTestApp();
+        } catch (restartError) {
+          // ignore: avoid_print
+          print('  ⚠️  Test app restart failed: $restartError');
+        }
+        if (attempt == maxAttempts) {
+          throw TimeoutException(
+            'Script "$scriptPath" timed out twice at '
+            '${timeout.inSeconds}s. Test app was restarted between '
+            'attempts and again after the final timeout; moving on.\n'
+            '--- tail of test app stdout ---\n'
+            '${stdoutTail.isEmpty ? '(empty)' : stdoutTail}\n'
+            '--- tail of test app stderr ---\n'
+            '${stderrTail.isEmpty ? '(empty)' : stderrTail}',
+            timeout,
+          );
+        }
+      }
+    }
+    // Unreachable: loop either returns or throws.
+    throw StateError('SendTestRunner.send: unreachable');
+  }
+
+  static String _tailSnapshot(List<String> tail) {
+    if (tail.isEmpty) return '';
+    final start = tail.length > 30 ? tail.length - 30 : 0;
+    return tail.sublist(start).join('\n');
+  }
+
+  /// Force-kill the current test app process (SIGKILL) and start a fresh
+  /// one. Used after a script timeout where graceful shutdown via stdin
+  /// 'q' is unreliable because the app is blocked executing the script.
+  static Future<void> _restartTestApp({
+    Duration startTimeout = const Duration(seconds: 60),
+  }) async {
+    await _forceKillTestApp();
+    await _killExistingProcess();
+    await _startTestApp(timeout: startTimeout);
+    _startedByRunner = true;
+  }
+
+  /// Hard-kill the current test app (SIGKILL) without waiting for the
+  /// graceful stdin-'q' handshake. The app is assumed hung.
+  static Future<void> _forceKillTestApp() async {
+    final proc = _testAppProcess;
+    if (proc == null) return;
+    try {
+      proc.kill(ProcessSignal.sigkill);
+      await proc.exitCode.timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => -9,
+      );
+    } catch (_) {
+      // Ignore — the process may already be dead.
+    }
+    _testAppProcess = null;
+  }
+
+  static Future<SendResult> _sendOnce(
     String scriptPath, {
     String host = defaultHost,
     int port = defaultPort,
