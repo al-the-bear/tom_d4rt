@@ -653,7 +653,7 @@ class SendTestRunner {
   /// Default per-script timeout. If a script does not return a response
   /// within this window, the test app is force-killed and restarted before
   /// either retrying (once) or failing the test with a helpful diagnostic.
-  static const Duration defaultScriptTimeout = Duration(seconds: 30);
+  static const Duration defaultScriptTimeout = Duration(seconds: 15);
 
   /// Send a script to the test app, enforcing a per-call timeout.
   ///
