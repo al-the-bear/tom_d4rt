@@ -26,6 +26,36 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// to pause execution and bubble up through the call stack.
   bool isLazySyncGeneratorContext = false;
 
+  /// Deferred initializers for class static fields.
+  ///
+  /// Populated during [visitClassDeclaration] when static-field evaluation
+  /// is deferred so that forward references between classes resolve correctly
+  /// (e.g. a static const list in class A that uses class B's const
+  /// constructor, where B is declared after A in source order).
+  ///
+  /// Drained after all class/mixin declarations have been visited, by
+  /// calling [runDeferredStaticInitializers].
+  final List<void Function()> _pendingStaticInitializers = <void Function()>[];
+
+  /// When true, [visitClassDeclaration] will enqueue its static-field
+  /// initializer evaluation onto [_pendingStaticInitializers] instead of
+  /// running it immediately. The top-level runner flips this on for the
+  /// multi-class declaration pass and then drains the queue.
+  bool deferStaticFieldInits = false;
+
+  /// Execute and clear all pending static-field initializers. Intended to be
+  /// called by the top-level runner after every class declaration has been
+  /// visited, so that forward-referenced class constructors are available.
+  void runDeferredStaticInitializers() {
+    while (_pendingStaticInitializers.isNotEmpty) {
+      final batch = List<void Function()>.from(_pendingStaticInitializers);
+      _pendingStaticInitializers.clear();
+      for (final init in batch) {
+        init();
+      }
+    }
+  }
+
   InterpreterVisitor({
     required this.globalEnvironment,
     required this.moduleLoader, // Accept ModuleLoader in the constructor
@@ -4194,6 +4224,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Regular for-in loop - expect Iterable
         _executeForIn(loopParts.identifier, loopParts.iterable, node.body);
       }
+    } else if (loopParts is ForEachPartsWithPattern) {
+      // Dart 3 record-pattern for-in:
+      //   for (final (int i, String label) in list.indexed) { ... }
+      _executeForInWithPattern(
+          loopParts.pattern, loopParts.iterable, node.body);
     } else {
       // Should not happen with valid Dart code
       throw StateD4rtException(
@@ -4373,6 +4408,64 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Should not happen after the check above
       throw StateD4rtException(
           'Internal error: Expected Iterable but got ${iterableValue.runtimeType}');
+    }
+  }
+
+  // Helper: execute `for (final/var <pattern> in <iterable>) <body>`
+  // The pattern is destructured via _matchAndBind on each iteration, binding
+  // its named captures into a fresh per-iteration environment so break/continue
+  // behave identically to the other for-in variants. Mirrors
+  // tom_d4rt_ast/InterpreterVisitor._executeForInWithPattern.
+  void _executeForInWithPattern(
+      DartPattern pattern, Expression iterableExpression, Statement body) {
+    final expressionValue = iterableExpression.accept<Object?>(this);
+
+    Iterable<Object?> iterableValue;
+    if (expressionValue is Iterable) {
+      iterableValue = expressionValue;
+    } else if (toBridgedInstance(expressionValue).$2) {
+      final bridgedInstance = toBridgedInstance(expressionValue).$1!;
+      if (bridgedInstance.nativeObject is Iterable) {
+        iterableValue = bridgedInstance.nativeObject as Iterable;
+      } else {
+        throw RuntimeD4rtException(
+            'Value used in for-in loop must be an Iterable, but got BridgedInstance containing ${bridgedInstance.nativeObject.runtimeType}');
+      }
+    } else {
+      throw RuntimeD4rtException(
+          'Value used in for-in loop must be an Iterable, but got ${expressionValue?.runtimeType}');
+    }
+
+    final previousEnvironment = environment;
+    try {
+      for (final element in iterableValue) {
+        // Fresh environment per iteration so pattern-declared variables are
+        // scoped to a single trip through the body.
+        final iterationEnv = Environment(enclosing: previousEnvironment);
+        environment = iterationEnv;
+        try {
+          _matchAndBind(pattern, element, iterationEnv);
+          body.accept<Object?>(this);
+        } on BreakException catch (e) {
+          Logger.debug(
+              "[ForInPattern] Caught BreakException (label: ${e.label}) with current labels: $_currentStatementLabels");
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            break;
+          } else {
+            rethrow;
+          }
+        } on ContinueException catch (e) {
+          Logger.debug(
+              "[ForInPattern] Caught ContinueException (label: ${e.label}) with current labels: $_currentStatementLabels");
+          if (e.label == null || _currentStatementLabels.contains(e.label)) {
+            continue;
+          } else {
+            rethrow;
+          }
+        }
+      }
+    } finally {
+      environment = previousEnvironment;
     }
   }
 
@@ -6847,54 +6940,77 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
 
     // Pass 2: Evaluate all static field initializers (now all fields are known)
-    // Create a child environment that can shadow with evaluated field values
+    // Create a child environment that can shadow with evaluated field values.
+    //
+    // Bug-43 / forward-class-reference FIX: evaluating `static const`
+    // initializers can require other classes (and their constructors) that
+    // appear later in source order. We support deferring this whole block
+    // to after every class has been visited.
     final staticFieldEvalEnv = Environment(enclosing: staticInitEnv);
-    try {
-      environment = staticFieldEvalEnv;
-      for (final variable in staticFieldDecls) {
-        final fieldName = variable.name.lexeme;
-        final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
 
-        if (isLate) {
-          // Handle late static field
-          if (initializer != null) {
-            // Late static field with lazy initializer
-            final lateVar = LateVariable(fieldName, () {
-              // Create a closure that will evaluate the initializer when accessed
-              final savedEnv = environment;
-              try {
-                environment = staticFieldEvalEnv;
-                return initializer.accept<Object?>(this);
-              } finally {
-                environment = savedEnv;
-              }
-            }, isFinal: isFinal);
-            klass.staticFields[fieldName] = lateVar;
-            // Also define in eval environment for sibling access
-            staticFieldEvalEnv.define(fieldName, lateVar);
-            Logger.debug(
-                "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.");
+    void evaluateStaticFields() {
+      final savedEnvOnEntry = environment;
+      try {
+        environment = staticFieldEvalEnv;
+        for (final variable in staticFieldDecls) {
+          final fieldName = variable.name.lexeme;
+          final (isLate, isFinal, initializer) = staticFieldMeta[fieldName]!;
+
+          if (isLate) {
+            // Handle late static field
+            if (initializer != null) {
+              // Late static field with lazy initializer
+              final lateVar = LateVariable(fieldName, () {
+                // Closure evaluates the initializer on first access.
+                final savedEnv = environment;
+                try {
+                  environment = staticFieldEvalEnv;
+                  return initializer.accept<Object?>(this);
+                } finally {
+                  environment = savedEnv;
+                }
+              }, isFinal: isFinal);
+              klass.staticFields[fieldName] = lateVar;
+              // Also define in eval environment for sibling access
+              staticFieldEvalEnv.define(fieldName, lateVar);
+              Logger.debug(
+                  "[ClassDecl] Defined late static field '$fieldName' with lazy initializer for class '${klass.name}'.");
+            } else {
+              // Late static field without initializer
+              final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
+              klass.staticFields[fieldName] = lateVar;
+              staticFieldEvalEnv.define(fieldName, lateVar);
+              Logger.debug(
+                  "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.");
+            }
           } else {
-            // Late static field without initializer
-            final lateVar = LateVariable(fieldName, null, isFinal: isFinal);
-            klass.staticFields[fieldName] = lateVar;
-            staticFieldEvalEnv.define(fieldName, lateVar);
-            Logger.debug(
-                "[ClassDecl] Defined late static field '$fieldName' without initializer for class '${klass.name}'.");
+            // Regular static field handling
+            Object? value;
+            if (initializer != null) {
+              value = initializer.accept<Object?>(this);
+            }
+            klass.staticFields[fieldName] = value;
+            // Define the evaluated value in the environment so subsequent fields can access it
+            staticFieldEvalEnv.define(fieldName, value);
           }
-        } else {
-          // Regular static field handling
-          Object? value;
-          if (initializer != null) {
-            value = initializer.accept<Object?>(this);
-          }
-          klass.staticFields[fieldName] = value;
-          // Define the evaluated value in the environment so subsequent fields can access it
-          staticFieldEvalEnv.define(fieldName, value);
         }
+      } finally {
+        environment = savedEnvOnEntry;
       }
-    } finally {
+    }
+
+    if (deferStaticFieldInits) {
+      Logger.debug(
+          "[ClassDecl] Deferring static-field initialization for class '${klass.name}' until all classes are declared.");
+      _pendingStaticInitializers.add(evaluateStaticFields);
+      // Leave environment where the caller expects it (originalVisitorEnv).
       environment = originalVisitorEnv;
+    } else {
+      try {
+        evaluateStaticFields();
+      } finally {
+        environment = originalVisitorEnv;
+      }
     }
 
     Logger.debug(

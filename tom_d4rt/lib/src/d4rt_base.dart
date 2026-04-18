@@ -1001,12 +1001,23 @@ class D4rt {
         }
       }
       // 2. Class and mixin declarations (populates constructors, methods, etc.)
-      for (final declaration in compilationUnit.declarations) {
-        if (declaration is ClassDeclaration ||
-            declaration is MixinDeclaration) {
-          declaration.accept<Object?>(_visitor!);
+      //
+      // Bug-43 / forward-class-reference FIX (mirrors tom_d4rt_ast): a
+      // `static const` initializer can reference another class defined later
+      // in source order. Defer every class's static-field block until ALL
+      // classes have registered their members, then drain.
+      _visitor!.deferStaticFieldInits = true;
+      try {
+        for (final declaration in compilationUnit.declarations) {
+          if (declaration is ClassDeclaration ||
+              declaration is MixinDeclaration) {
+            declaration.accept<Object?>(_visitor!);
+          }
         }
+      } finally {
+        _visitor!.deferStaticFieldInits = false;
       }
+      _visitor!.runDeferredStaticInitializers();
       // 3. Extension declarations
       for (final declaration in compilationUnit.declarations) {
         if (declaration is ExtensionDeclaration) {
@@ -1256,12 +1267,19 @@ class D4rt {
         }
       }
       // 2. Class and mixin declarations (populates constructors, methods, etc.)
-      for (final declaration in compilationUnit.declarations) {
-        if (declaration is ClassDeclaration ||
-            declaration is MixinDeclaration) {
-          declaration.accept<Object?>(_visitor!);
+      // Bug-43 / forward-class-reference FIX (mirrors _executeInEnvironment).
+      _visitor!.deferStaticFieldInits = true;
+      try {
+        for (final declaration in compilationUnit.declarations) {
+          if (declaration is ClassDeclaration ||
+              declaration is MixinDeclaration) {
+            declaration.accept<Object?>(_visitor!);
+          }
         }
+      } finally {
+        _visitor!.deferStaticFieldInits = false;
       }
+      _visitor!.runDeferredStaticInitializers();
       // 3. Extension declarations
       for (final declaration in compilationUnit.declarations) {
         if (declaration is ExtensionDeclaration) {
@@ -1539,12 +1557,19 @@ class D4rt {
           declaration.accept<Object?>(_visitor!);
         }
       }
-      for (final declaration in compilationUnit.declarations) {
-        if (declaration is ClassDeclaration ||
-            declaration is MixinDeclaration) {
-          declaration.accept<Object?>(_visitor!);
+      // Bug-43 / forward-class-reference FIX (mirrors above).
+      _visitor!.deferStaticFieldInits = true;
+      try {
+        for (final declaration in compilationUnit.declarations) {
+          if (declaration is ClassDeclaration ||
+              declaration is MixinDeclaration) {
+            declaration.accept<Object?>(_visitor!);
+          }
         }
+      } finally {
+        _visitor!.deferStaticFieldInits = false;
       }
+      _visitor!.runDeferredStaticInitializers();
       for (final declaration in compilationUnit.declarations) {
         if (declaration is! EnumDeclaration &&
             declaration is! ClassDeclaration &&

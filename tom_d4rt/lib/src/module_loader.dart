@@ -262,11 +262,24 @@ class ModuleLoader {
     // Process class and mixin declarations to populate their members (methods, constructors, etc.)
     // The DeclarationVisitor only creates placeholders with empty constructor maps.
     // Bug-59: Without this, imported classes have no constructors available!
-    for (final declaration in ast.declarations) {
-      if (declaration is ClassDeclaration || declaration is MixinDeclaration) {
-        declaration.accept(moduleInterpreter);
+    //
+    // Bug-43 / forward-class-reference FIX (mirrors d4rt_base.dart and
+    // tom_d4rt_ast/ast_module_loader.dart): defer every class's
+    // static-field initializer block until ALL class/mixin members have
+    // been registered, so a `static const` in class A can reference
+    // class B even when B is declared later in source.
+    moduleInterpreter.deferStaticFieldInits = true;
+    try {
+      for (final declaration in ast.declarations) {
+        if (declaration is ClassDeclaration ||
+            declaration is MixinDeclaration) {
+          declaration.accept(moduleInterpreter);
+        }
       }
+    } finally {
+      moduleInterpreter.deferStaticFieldInits = false;
     }
+    moduleInterpreter.runDeferredStaticInitializers();
 
     // Process function declarations to populate interpreted functions properly
     for (final declaration in ast.declarations) {

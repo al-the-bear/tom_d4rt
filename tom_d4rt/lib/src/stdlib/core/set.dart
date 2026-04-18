@@ -128,6 +128,12 @@ class SetCore {
               return test.call(visitor, [element]) as bool;
             });
           },
+          'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+            // Mirrors the Iterable / List bridges so that
+            // `mySet.whereType<...>()` resolves. Returns Iterable<dynamic>;
+            // per-call type argument is not applied yet.
+            return (target as Set).whereType();
+          },
           'expand': (visitor, target, positionalArgs, namedArgs, _) {
             final f = positionalArgs[0] as Callable;
             return (target as Set).expand((element) {
