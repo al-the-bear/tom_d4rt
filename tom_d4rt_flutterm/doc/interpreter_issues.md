@@ -1,537 +1,340 @@
-# Interpreter Issues
-
-batch: 0
-
-- No batch-0 entries required interpreter deep analysis.
-- All batch-0 issues were marked immediate-fix and were handled directly in script/harness code.
-
-batch: 1
-
-- No batch-1 entries required interpreter deep analysis.
-- Batch-1 issues were either script-level layout fixes (indices 7-9) or bridge/generator-related (`ReverseTween`) handled with a script-level fallback workaround.
-
-batch: 2
-
-issue-index: 13 ✅ FIXED 2026-04-13 — enum exhaustiveness workaround (added default case)
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/color_space_test.dart`
-- Symptom: Runtime failure `Unsupported target for indexing: null` during enum-backed info rendering.
-- Immediate outcome: script updated so `_colorSpaceInfo` always returns a non-null map via explicit fallback handling, removing null-indexing in the harness.
-- Deep analysis:
-	- The failure signature indicates interpreter/runtime path can yield an unmatched enum branch in script logic that assumes exhaustive enum mapping.
-	- In this script, that surfaced as map-indexing on a null resolver result, causing runtime indexing failure.
-	- The script fix is robust, but runtime enum matching/switch-evaluation semantics should still be verified for `dart:ui` enum values.
-- Follow-up recommendation:
-	- Add interpreter regression coverage for `switch` and `==` matching on bridged `dart:ui` enums (`ColorSpace`, `KeyEventType`, `Brightness`) to confirm exhaustive behavior.
-	- If mismatch is confirmed, patch enum-dispatch/equality handling in interpreter runtime so enum switches behave like VM Dart semantics.
-
-batch: 3
-
-issue-index: 16 ✅ FIXED 2026-04-13 — platform capability workaround (added try-catch guard)
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/system_color_palette_test.dart`
-- Symptom: Runtime failure `Unsupported operation: SystemColor not supported on the current platform.`
-- Immediate outcome: script switched to deterministic fallback-render mode for unsupported runtimes so the harness no longer fails.
-- Deep analysis:
-	- This is an interpreter/runtime platform capability gap, not a layout/script invariant issue.
-	- Accessing `SystemColor` APIs can throw on runtimes where the engine/platform backend does not expose system palette data.
-	- The immediate script fallback keeps CI green but does not provide true runtime support for system palette APIs.
-- Follow-up recommendation:
-	- Add a capability probe in runtime/bridge bootstrapping for system-color support and expose it as a stable flag for interpreted scripts.
-	- Where supported, validate full `SystemColor.light/dark` access; where unsupported, ensure a documented, non-throwing fallback contract.
-
-batch: 4
-
-- No batch-4 entries required standalone interpreter deep analysis.
-- Batch-4 non-script follow-up items were bridge/generator related (`Object()` default constructor exposure and widget coercion for bottom navigation demo widgets).
-
-batch: 5
-
-issue-index: 25, 27 ✅ FIXED 2026-04-13 — enum exhaustiveness workaround (added default cases)
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_bar_layout_behavior_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/button_text_theme_test.dart`
-- Symptom: Runtime null-target failures in interpreted evaluation paths (`'>' called on null`, `Cannot access property 'value' on target of type null`).
-- **Root cause:** Enum exhaustiveness limitation - switches return null when no case matches bridged enum values.
-- **Fix:** Added `default:` cases to `bbDescribe()`, `bbMinHeight()`, `btResolveColor()`, `btDescribe()`, `btUseCase()`, `btIcon()` functions.
-	- Both failures indicate interpreter/runtime null-handling gaps during property extraction/comparison in button-theme related value flows.
-	- The common signature suggests null escapes from interpreted value resolution before typed numeric/property operations are applied.
-	- Script-level stabilization removes immediate CI failures but does not correct interpreter semantics for null-safe value evaluation.
-- Follow-up recommendation:
-	- Add interpreter guards/coercion for numeric comparisons and property reads when bridged/interpreted values can be null.
-	- Add regression coverage for button theme/value extraction paths to ensure `>` comparisons and `.value` access fail predictably (typed diagnostics) or resolve with non-null defaults.
-
-batch: 6
-
-issue-index: 30 ✅ FIXED 2026-04-13, 32 (needs investigation), 34 ✅ FIXED 2026-04-13
-
-- **Index 30, 34:** Fixed with enum exhaustiveness workaround (default/wildcard cases).
-- **Index 32:** `gapped_range_slider_track_shape_test.dart` - null-check errors may be framework-level during slider paint, not script-level. Needs deeper investigation.
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/dropdown_menu_close_behavior_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/gapped_range_slider_track_shape_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/hour_format_test.dart`
-- Symptom:
-	- Index 30: non-exhaustive enum switch at runtime (`DropdownMenuCloseBehavior.all`).
-	- Index 32: repeated null-check runtime warnings in slider-track execution (`Null check operator used on a null value`).
-	- Index 34: null method invocation warning (`Cannot invoke method 'withValues' on null`).
-- Immediate outcome: all three scripts were rewritten to harness-safe, deterministic summary flows; targeted reruns now pass with `frameworkErrors=0`.
-- Deep analysis:
-	- Index 30 matches the known interpreter enum exhaustiveness gap for bridged enum values in switch expression evaluation.
-	- Indices 32 and 34 indicate null propagation escaping into runtime operations that assume non-null targets (null-check operators and direct method invocation).
-	- Script-side stabilization removes immediate CI noise but does not resolve interpreter semantics for exhaustive enum dispatch and null-safe invocation.
-- Follow-up recommendation:
-	- Implement exhaustive enum mapping/dispatch for bridged `DropdownMenuCloseBehavior` values in interpreter switch evaluation.
-	- Add null-safe coercion/guard layers for slider theme/value extraction paths and nullable receiver method invocation paths before runtime operations are executed.
-	- Add focused interpreter regressions covering: enum-switch exhaustiveness, repeated slider null-check flows, and nullable-receiver method calls in material time-format scenarios.
-
-batch: 7
-
-issue-index: 36, 38 ✅ FIXED 2026-04-13 — enum exhaustiveness workaround (added wildcard cases)
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/material_banner_closed_reason_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_destination_label_behavior_test.dart`
-- Symptom: non-exhaustive enum switch runtime failures for bridged material enums (`MaterialBannerClosedReason.dismiss`, `NavigationDestinationLabelBehavior.alwaysShow`).
-- Immediate outcome: both scripts were rewritten to harness-safe deterministic enum summary flows and now pass with `frameworkErrors=0`.
-- Deep analysis:
-	- Both failures are the same interpreter enum-dispatch limitation already seen in earlier batches.
-	- Bridged enum values reach switch evaluation without complete exhaustiveness mapping, causing runtime failure instead of matching valid enum branches.
-	- Script-side stabilization unblocks CI but leaves interpreter enum switch semantics incomplete for these material enums.
-- Follow-up recommendation:
-	- Extend interpreter enum dispatch/mapping to guarantee exhaustive handling for `MaterialBannerClosedReason` and `NavigationDestinationLabelBehavior` values.
-	- Add interpreter regression tests for these enums, including the failing members (`dismiss`, `alwaysShow`) to prevent recurrence.
-
-batch: 8
+# Interpreter / Bridge Issues
 
-issue-index: 40 ✅ FIXED 2026-04-13 — enum exhaustiveness workaround (added wildcard cases)
+Active issue list, organised by cluster. Each cluster is a recurring
+failure pattern hit by demo scripts in `tom_d4rt_flutterm_app`. The
+representative scripts under each cluster are useful as starting points
+for a targeted fix and as regression tests once the cluster is closed.
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/navigation_rail_label_type_test.dart`
-- Symptom: non-exhaustive enum switch runtime failure for bridged `NavigationRailLabelType.none`.
-- Immediate outcome: script rewritten to a harness-safe deterministic enum summary flow; targeted rerun now passes with `frameworkErrors=0`.
-- Deep analysis:
-	- This is the same interpreter enum-switch exhaustiveness limitation seen in earlier material enum cases.
-	- Bridged enum values reach switch evaluation without complete runtime branch coverage for all enum members.
-	- Script-level mitigation stabilizes test execution but does not resolve interpreter enum-switch semantics.
-- Follow-up recommendation:
-	- Extend interpreter enum mapping/dispatch to cover all `NavigationRailLabelType` members during switch evaluation.
-	- Add targeted interpreter regressions for `NavigationRailLabelType` with explicit coverage of `none` and other members to prevent recurrence.
+Last refreshed: 2026-04-19, against
+`doc/testlog_20260418-1500-e22671e8/generator_interpreter_issues_test.result.json`
+(rev `13a0c2f8`+`037c11b1`). At this point the file ran **27 / 0 / 56**
+(was 0 / 9 / 74 on 2026-04-16). The 56 remaining failures distribute
+across the clusters below.
 
-batch: 9
+When a cluster lands a fix, mark the checkbox, add a `**Resolved:**`
+line with the commit ref, and re-run the suite to confirm. Drop the
+cluster from the list once everything in it passes.
 
-- No batch-9 entries required interpreter deep analysis.
-- Batch-9 deeper follow-up items were bridge-generator typed-list coercion and complex script layout stability, documented in `generator_issues.md` and `script_issues.md`.
+---
 
-batch: 10
+## Active clusters
 
-issue-index: 53
+### [ ] Fixed — `ValueNotifier<double>` accepts `int` literals
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/painting/axis_direction_test.dart`
-- Symptom: runtime null method invocation failure (`Cannot invoke method 'withValues' on null`).
-- Immediate outcome: script rewritten to deterministic, null-safe axis-direction summary flow; targeted rerun now passes with `frameworkErrors=0`.
-- Deep analysis:
-	- The failure matches previously observed interpreter null-receiver invocation behavior in value-transformation paths.
-	- Runtime dispatch is attempting method invocation without guaranteeing non-null receiver state in this path.
-	- Script-level stabilization removes immediate failure but does not resolve interpreter null-invocation semantics.
-- Follow-up recommendation:
-	- Add interpreter guard/coercion for nullable receiver method invocation in the affected transformation path.
-	- Add regression coverage for painting axis/value transformation scenarios where nullable receivers may reach method dispatch.
+**Symptom**
 
-batch: 11
+```
+Runtime Error: Error in generic constructor factory for 'ValueNotifier':
+type 'int' is not a subtype of type 'double' in type cast
+```
 
-issue-index: 57
+**Root cause**
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/hit_test_behavior_test.dart`
-- Symptom: runtime null method invocation (`Cannot invoke method 'withAlpha' on null`).
-- Immediate outcome: script rewritten to deterministic, null-safe hit-test behavior summary flow; targeted rerun now passes with `frameworkErrors=0`.
-- Deep analysis:
-	- This matches the recurring interpreter nullable-receiver invocation defect family seen in earlier batches (`withValues`/similar transformations on null targets).
-	- Runtime dispatch proceeds without enforcing non-null receiver preconditions for color/value transformation paths.
-	- Script-level stabilization removes immediate failure but does not resolve interpreter method-dispatch null-safety semantics.
-- Follow-up recommendation:
-	- Add null-aware receiver guards/coercion in interpreter dispatch for transformation methods reachable from rendering hit-test scenarios.
-	- Add focused regressions for nullable color/value transformation invocations in rendering scripts.
+Generic constructor factory in the relaxer (or the bridge generator)
+does a strict `as T` cast. `ValueNotifier<double>(0)` arrives at the
+factory with `value=0` (int) — Dart-the-language would silently widen,
+the bridge does not.
 
-batch: 12
+**Representative scripts** (6 entries)
 
-issue-index: 63
+- `widgets/window_positioner_anchor_test.dart`
+- `widgets/window_positioner_constraint_adjustment_test.dart`
+- `widgets/window_positioner_test.dart`
+- `widgets/windowing_owner_linux_test.dart`
+- `widgets/windowing_owner_mac_o_s_test.dart`
+- `widgets/windowing_owner_test.dart`
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_android_view_test.dart`
-- Symptom: non-exhaustive enum switch warning for bridged `PlatformViewHitTestBehavior.opaque` surfaced during bridged `Iterable.toList` path.
-- Immediate outcome: script rewritten to deterministic enum-summary flow; targeted rerun now passes with `frameworkErrors=0`.
-- Deep analysis:
-	- This is consistent with the recurring interpreter enum-switch exhaustiveness limitation for bridged enum values.
-	- In this case the defect appears in a bridged collection-conversion path, showing enum dispatch gaps can surface indirectly during native/bridged list materialization.
-	- Script mitigation stabilizes execution but does not resolve interpreter enum handling completeness for platform view hit-test behavior.
-- Follow-up recommendation:
-	- Extend interpreter enum dispatch/mapping to fully cover `PlatformViewHitTestBehavior` members, including `opaque`, across direct and collection-conversion paths.
-	- Add targeted interpreter regressions for bridged `Iterable.toList` flows that include platform-view enum values.
+**Where to look**
 
-batch: 13
+`tom_d4rt_flutterm/lib/src/bridges/flutter_relaxers.b.dart` (factory
+for `ValueNotifier`) and `tom_d4rt_generator/lib/src/relaxer_generator.dart`.
+Coerce `int → double` inside the factory before the type cast when
+the type parameter is `double` / `num`.
 
-- No batch-13 entries required interpreter deep analysis.
-- Batch-13 deeper follow-up items were bridge-generator widget coercion and script-level layout/state stabilization, documented in `generator_issues.md` and `script_issues.md`.
+---
 
-batch: 14
+### [ ] Fixed — `Column.children` rejects nullable list elements
 
-- No batch-14 entries required interpreter deep analysis.
-- Batch-14 deeper follow-up items were bridge-generator missing-member exposure and script-level state-context/layout stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Symptom**
 
-batch: 15
+```
+Runtime Error: Native error during default bridged constructor for 'Column':
+Argument Error: Invalid parameter "children": cannot convert List to
+List<Widget> - type 'Null' is not a subtype of type 'Widget' in type cast
+```
 
-- No batch-15 entries required interpreter deep analysis.
-- Batch-15 deeper follow-up items were bridge-generator missing constructor/member exposure and script-level state-context stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Root cause**
 
-batch: 16
+Scripts assemble `children: [..., if (cond) widget, ...]` where the
+collection-`if` evaluates to `null` (or evaluates an entry to `null`)
+inside the script. The bridge's `extractBridgedArg<List<Widget>>`
+casts the whole list with `.cast<Widget>().toList()` and the null
+element trips the cast.
 
-- No batch-16 entries required interpreter deep analysis.
-- Batch-16 deeper follow-up items were bridge-generator generic-constructor handling and script-level state-context/layout stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Representative scripts** (5 entries)
 
-batch: 17
+- `widgets/animated_cross_fade_test.dart`
+- `widgets/animated_switcher_test.dart`
+- `widgets/backdrop_filter_test.dart`
+- `widgets/physical_model_test.dart`
+- `widgets/shader_mask_test.dart`
 
-- No batch-17 entries required interpreter deep analysis.
-- Batch-17 deeper follow-up items were bridge-generator widget coercion and script-level border/state/overflow stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Where to look**
 
-batch: 18
+`extractBridgedArg<List<E>>` in `D4` runtime. Filter out nulls before
+the cast OR (preferred) walk each element with `extractBridgedArg<E>`
+the same way the #74 fix does for function-typed list returns.
 
-- No batch-18 entries required interpreter deep analysis.
-- Batch-18 deeper follow-up items were bridge-generator typed-map/widget coercion and script-level state-context/state-initialization stabilization, documented in `generator_issues.md` and `script_issues.md`.
+---
 
-batch: 19
+### [ ] Fixed — `super.build()` call on bridged State subclass
 
-- No batch-19 entries required interpreter deep analysis.
-- Batch-19 deeper follow-up items were script-level state-context stabilization, documented in `script_issues.md`.
+**Symptom**
 
-batch: 20
+```
+Runtime Error: Internal error: Cannot call super method 'build' on bridged
+superclass 'State' because the native super object is missing.
+```
 
-- No batch-20 entries required interpreter deep analysis.
-- Batch-20 deeper follow-up items were script-level state-context and state-initialization stabilization, documented in `script_issues.md`.
+**Root cause**
 
-batch: 21
+Scripts that mix in `State` and call `super.build(context)` (or
+`super.didChangeDependencies()`, etc.) hit the bridged-super dispatch
+path expecting a real native State instance — but only the proxy
+exists. Related to the lifecycle re-entrancy guard fix in
+[13a0c2f8](https://github.com/al-the-bear/tom_d4rt/commit/13a0c2f8)
+but the underlying super-method dispatch still rejects the proxy as
+"missing".
 
-issue-index: 108, 109
+**Representative scripts** (5 entries)
 
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/live_text_input_status_test.dart`, `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/lock_state_test.dart`
-- Symptom: runtime hard failures with nullable receiver method invocation (`Cannot invoke method 'withValues' on null`).
-- Immediate outcome: both scripts were rewritten to deterministic harness-safe flows and now pass targeted reruns with `frameworkErrors=0`.
-- Deep analysis:
-	- The shared failure signature indicates an interpreter/runtime dispatch null-receiver guard gap in color/value transformation paths where `withValues` can be invoked before receiver normalization.
-	- Both failures surfaced in separate widget domains (live-text status and lock-state) but collapse to the same runtime behavior, indicating a cross-cutting invocation semantics issue rather than isolated script logic.
-	- Script-side mitigation removes batch noise, but interpreter null-aware invocation semantics remain incomplete for this method family.
-- Follow-up recommendation:
-	- Add interpreter-level nullable receiver handling for transformation method dispatch so null receivers are short-circuited or default-normalized before invocation.
-	- Add focused regressions covering nullable `withValues` receiver cases in both text-input status and lock-state style/value pipelines.
+- `widgets/shortcut_registry_entry_test.dart`
+- `widgets/shortcut_serialization_test.dart`
+- `widgets/single_activator_test.dart`
+- `widgets/single_child_render_object_element_test.dart`
+- `widgets/single_child_render_object_widget_test.dart`
 
-batch: 22
+**Where to look**
 
-- No batch-22 entries required interpreter deep analysis.
-- Batch-22 deeper follow-up items were script-level finite-constraints/semantics stabilization and recurring state-context architecture issues, documented in `script_issues.md`.
+Bridged-super method dispatch in
+`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` (~ line 1273) and
+mirror in `tom_d4rt/lib/src/runtime_types.dart`. For State subclasses
+where `nativeProxy` is set, route `super.<lifecycle>` to the proxy's
+`super.<lifecycle>` rather than refusing because `bridgedSuperObject`
+is null.
 
-batch: 23
+---
 
-- No batch-23 entries required interpreter deep analysis.
-- Batch-23 deeper follow-up items were bridge-generator typed-list coercion/static method typing issues and script-level layout/state-context stabilization, documented in `generator_issues.md` and `script_issues.md`.
+### [ ] Fixed — `late` field accessed before initializer (false-positive)
 
-batch: 24
+**Symptom**
 
-- No batch-24 entries required interpreter deep analysis.
-- Batch-24 deeper follow-up items were bridge-generator default-constructor support and script-level state-context/layout-overflow stabilization, documented in `generator_issues.md` and `script_issues.md`.
+```
+Runtime Error: Undefined variable: _controller (Original error:
+LateInitializationError: Late variable '_controller' without initializer
+is accessed before being assigned.)
+```
 
-batch: 25
+**Root cause hypothesis**
 
-- No batch-25 entries required interpreter deep analysis.
-- Batch-25 deeper follow-up items were bridge-generator constructor/symbol/coercion defects, documented in `generator_issues.md`.
+The interpreter reports `late` fields as unassigned even when the
+script's `initState()` (or constructor body) does assign them. Likely
+order-of-evaluation: `build()` runs before the late assignment is
+visible on the InterpretedInstance, or the field map is keyed by a
+mangled name that the lookup doesn't match.
 
-batch: 26
+**Representative scripts** (~10 entries)
 
-- No batch-26 entries required interpreter deep analysis.
-- Batch-26 deeper follow-up items were bridge-widget-coercion defects for the `RegularWindowController*` family, documented in `generator_issues.md`.
+- `widgets/render_tree_root_element_test.dart`
+- `widgets/autofill_group_test.dart`
+- `widgets/indexed_stack_test.dart`
+- `widgets/list_wheel_scroll_view_test.dart`
+- `widgets/list_wheel_viewport_test.dart`
+- `widgets/magnifier_decoration_test.dart`
+- `widgets/navigation_toolbar_test.dart`
+- `widgets/page_storage_bucket_test.dart`
+- `widgets/page_storage_test.dart`
+- (… more under same pattern)
 
-batch: 27
+**Where to look**
 
-- No batch-27 entries required interpreter deep analysis.
-- Batch-27 deeper follow-up items were bridge-widget/list coercion and constructor-support defects, documented in `generator_issues.md`.
+Late-field handling in `InterpretedInstance` and `visitFieldDeclaration`
+/ `visitAssignmentExpression` in the visitor. Check whether the
+`initState`-assigned value is being committed to the right field-storage
+slot before `build()` reads it.
 
-batch: 28
+---
 
-- No batch-28 entries required interpreter deep analysis.
-- Batch-28 deeper follow-up items were bridge-widget coercion and bridged lifecycle timing defects, documented in `generator_issues.md`.
+### [ ] Fixed — function-typed argument leaks `NativeFunction` past validation
 
-batch: 29
+**Symptom**
 
-- No batch-29 entries required interpreter deep analysis.
-- Batch-29 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+```
+Runtime Error: Native error during default bridged constructor for 'Slider':
+Argument Error: Invalid parameter "min": expected double, got NativeFunction
+```
 
-batch: 30
+**Root cause**
+
+A script-defined function (probably a getter or shorthand returning a
+double) is passed where the constructor expects a literal `double`.
+The bridge's `extractBridgedArg<double>` doesn't invoke the callable to
+unwrap the value, so the `NativeFunction` itself is forwarded as the
+argument — and `Slider(min: NativeFunction(...))` rightly fails.
 
-- No batch-30 entries required interpreter deep analysis.
-- Batch-30 deeper follow-up items were bridge symbol-registration coverage and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+Connected to the broader function-type-adaptation work tracked in #74
+([33d121c2](https://github.com/al-the-bear/tom_d4rt/commit/33d121c2)) —
+that fix landed for *return values*, this is the *argument-side* mirror.
+
+**Representative scripts** (~8 entries)
+
+- `widgets/image_filtered_test.dart`
+- `widgets/indexed_stack_test.dart`
+- (… also surfaces inside scripts hit by other clusters)
 
-batch: 31
+**Where to look**
 
-- No batch-31 entries required interpreter deep analysis.
-- Batch-31 deeper follow-up items were script-level state-context template stabilization, documented in `script_issues.md`.
+`D4.extractBridgedArg<T>` in `tom_d4rt_*/lib/src/generator/d4.dart`. When
+T is a primitive (`double`, `int`, `String`, `bool`) and the value is a
+zero-arg `Callable`, invoke it and re-extract.
+
+---
+
+### [ ] Fixed — `Directionality.child` rejects InterpretedInstance Widget subclass
 
-batch: 32
+**Symptom**
+
+```
+Runtime Error: Native error during default bridged constructor for 'Directionality':
+Argument Error: Invalid parameter "child": expected Widget, got
+InterpretedInstance(PanelTheme)
+Argument Error: Invalid parameter "child": expected Widget, got
+InterpretedInstance(AppStateScope)
+```
+
+**Root cause**
+
+User-defined `class PanelTheme extends InheritedWidget` (or similar
+abstract Widget base) is not auto-wrapped into a native proxy when
+passed across a bridge boundary. Same shape as the fix landed for
+`LeafRenderObjectWidget` / `SingleChildRenderObjectWidget` /
+`MultiChildRenderObjectWidget` in
+[f6c7db8f](https://github.com/al-the-bear/tom_d4rt/commit/f6c7db8f) —
+needs equivalent `_InterpretedInheritedWidget` proxy + interface-proxy
+registration.
 
-- No batch-32 entries required interpreter deep analysis.
-- Batch-32 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Representative scripts** (3 entries)
 
-batch: 33
+- `widgets/inherited_theme_test.dart`
+- `widgets/inherited_widget_test.dart`
+- (one more from the cluster of `_PaneList` failures)
 
-- No batch-33 entries required interpreter deep analysis.
-- Batch-33 deeper follow-up items were bridge constructor-support limitations for private classes and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
+**Where to look**
 
-batch: 34
-
-- No batch-34 entries required interpreter deep analysis.
-- Batch-34 deeper follow-up items were script-level state-context template stabilization, documented in `script_issues.md`.
-
-batch: 35
-
-- No batch-35 entries required interpreter deep analysis.
-- Batch-35 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
-
-batch: 36
-
-- No batch-36 entries required interpreter deep analysis.
-- Batch-36 deeper follow-up items were bridge-widget coercion and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
-
-batch: 37
-
-issue-index: 186
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/scrollbar_orientation_test.dart`
-- Symptom: runtime access failures on inherited State getter (`Undefined property 'widget' on _OrientedPanelState`) repeated 4 times in targeted reruns (`frameworkErrors=4`).
-- Immediate outcome: index 186 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter-level remediation.
-- Deep analysis:
-	- The interpreted private State subclass cannot resolve inherited `widget` getter access from `State<T>`, indicating a superclass inherited-accessor resolution gap in interpreter member lookup.
-	- This differs from late-init template defects and from widget coercion failures: the script executes but inherited generic superclass accessors are unavailable on interpreted private subclasses.
-	- Durable remediation requires interpreter/property-resolution support for inherited getters on State subclasses (including generic superclasses), not script-level tactical edits.
-- Follow-up recommendation:
-	- Extend interpreter member resolution to include inherited generic superclass accessors for interpreted subclasses, including private State subclasses.
-	- Add focused regressions for `State<T>.widget` access on private and public State subclasses to ensure inherited getter availability remains stable.
-
-batch: 38
-
-- No batch-38 entries required interpreter deep analysis.
-- Batch-38 deeper follow-up items were script-level state-context template stabilization, documented in `script_issues.md`.
-
-batch: 39
-
-- No batch-39 entries required interpreter deep analysis.
-- Batch-39 deeper follow-up items were bridge private-constructor support limitations and script-level state-context template stabilization, documented in `generator_issues.md` and `script_issues.md`.
-
-batch: 40
-
-issue-index: 203
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_animated_list_state_test.dart`
-- Symptom: runtime member-access failure on private State subclass (`Undefined variable: setState`, original error: `Undefined property 'setState' on _InteractivePageState`).
-- Immediate outcome: index 203 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter-level remediation.
-- Deep analysis:
-	- This is the same inherited-State-accessor defect family as batch-37 index 186 (`widget` getter), now reproduced for inherited method lookup (`setState`) on a private `State` subclass.
-	- Runtime resolves the interpreted class instance but fails superclass-member lookup against `State<T>`, indicating inherited member dispatch gaps rather than script lifecycle/template issues.
-	- Durable remediation belongs in interpreter inherited member resolution for private/public `State` subclasses, not in per-script tactical edits.
-- Follow-up recommendation:
-	- Extend interpreter member resolution to include inherited methods from generic superclasses (`State<T>.setState`) for interpreted subclasses.
-	- Add focused regressions for inherited `State` API access (`widget`, `setState`, `mounted`) on private and public subclasses.
-
-issue-index: 204
-
-- Source: `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/sliver_child_builder_delegate_test.dart`
-- Symptom: runtime bridge/member failure in builder state tracking (`Bridged class 'Map' has no instance method named 'contains'`).
-- Immediate outcome: index 204 is non-immediate and remains failing in targeted reruns; script was left unchanged for interpreter/bridge-level remediation.
-- Deep analysis:
-	- Current runtime behavior diverges from the original batch note (`setState` accessor): targeted reruns consistently fail earlier on `.contains` during set-membership checks in `_builtIndices.contains(index)`.
-	- The script declares `_builtIndices` as `Set<int>`, but interpreted execution appears to surface Map-like behavior for the backing value, suggesting collection-literal/type-resolution mismatch in interpreted state initialization.
-	- This is not an immediate script-template late-init defect; it indicates interpreter/bridge collection semantics or type inference gaps for `{}`-initialized typed sets.
-- Follow-up recommendation:
-	- Validate interpreted handling of typed set literals (`Set<int> s = {}`) and ensure method dispatch resolves to `Set.contains`, not `Map` bridge surfaces.
-	- Add regressions for set-literal initialization and method dispatch (`contains`, `add`, `clear`) in interpreted widget state classes.
-
-batch: 41
-
-- No batch-41 entries required interpreter deep analysis.
-- Batch-41 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 42
-
-- No batch-42 entries required interpreter deep analysis.
-- Batch-42 issues were script-level state-context template defects (all five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 43
-
-- No batch-43 entries required interpreter deep analysis.
-- Batch-43 script-level issues (indices 215-216) were `_tabs` late-init template defects, documented in `script_issues.md`.
-- Batch-43 bridge-generator issues (indices 217-219) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.
-
-batch: 44
-
-- No batch-44 entries required interpreter-only deep analysis.
-- Batch-44 script-level issues (indices 222, 224) were `_tabController` late-init template defects, documented in `script_issues.md`.
-- Batch-44 bridge-generator issues (indices 220, 221) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.
-- Batch-44 combined issue (index 223) was BRIDGE-MISSING-STATE-WIDGET-ACCESSOR + BRIDGE-WIDGET-COERCION, documented in `generator_issues.md`.
-
-batch: 45
-
-- No batch-45 entries required interpreter-only deep analysis.
-- Batch-45 script-level issues (indices 227, 228, 229) were late-init template defects (two `_tabController`, one `_tabs`), documented in `script_issues.md`.
-- Batch-45 bridge-generator issues (indices 225, 226) were BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT failures, documented in `generator_issues.md`.
-
-batch: 46
-
-- No batch-46 entries required interpreter deep analysis.
-- Batch-46 issues were all script-level state-context template defects (five late-init), documented in `script_issues.md`.
-
-batch: 47
-
-- No batch-47 entries required interpreter deep analysis.
-- Batch-47 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 48
-
-- No batch-48 entries required interpreter deep analysis.
-- Batch-48 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 49
-
-- No batch-49 entries required interpreter deep analysis.
-- Batch-49 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 50
-
-- No batch-50 entries required interpreter deep analysis.
-- Batch-50 issues were all script-level state-context template defects (five `_tabs` late-init), documented in `script_issues.md`.
-
-batch: 51
-
-- No batch-51 entries required interpreter deep analysis.
-- Batch-51 bridge issues (BRIDGE-GENERIC-TYPE-COERCION) documented in `generator_issues.md`; three script-level `_tabs` fixes in `script_issues.md`.
-
-batch: 52
-
-- No batch-52 entries required interpreter deep analysis.
-- Batch-52 bridge issues (four BRIDGE-GENERIC-TYPE-COERCION, one BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 53
-
-- No batch-53 entries required interpreter deep analysis.
-- Batch-53 bridge issues (BRIDGE-MISSING-METHOD-DISPATCH, BRIDGE-WIDGET-LIST-COERCION) documented in `generator_issues.md`.
-- Two script fixes documented in `script_issues.md`.
-
-batch: 54
-
-- No batch-54 entries required interpreter deep analysis.
-- Batch-54 had two script layout-constraint fixes and three intentional interactive skips, documented in `script_issues.md`.
-
-batch: 55
-
-- No batch-55 entries required interpreter deep analysis.
-- Batch-55 bridge issues (BRIDGE-GENERIC-CONSTRUCTOR-NULL-HANDLING, BRIDGE-SDK-SYMBOL-RESOLUTION) documented in `generator_issues.md`.
-
-batch: 56
-
-- No batch-56 entries required interpreter deep analysis.
-- Batch-56 bridge issue (BRIDGE-CALLBACK-TYPE-COERCION) documented in `generator_issues.md`.
-- Three script layout-constraint fixes documented in `script_issues.md`.
-
-batch: 57
-
-- No batch-57 entries required interpreter deep analysis.
-- Batch-57 had script-level fixes only, documented in `script_issues.md`.
-
-batch: 58
-
-- No batch-58 entries required interpreter deep analysis.
-- Batch-58 bridge issues (BRIDGE-CALLBACK-TYPE-COERCION, BRIDGE-MISSING-METHOD-DISPATCH) documented in `generator_issues.md`.
-
-batch: 59
-
-- No batch-59 entries required interpreter deep analysis.
-- Batch-59 had five script-level fixes, documented in `script_issues.md`.
-
-batch: 60
-
-- No batch-60 entries required interpreter deep analysis.
-- Batch-60 bridge issue (BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 61
-
-- No batch-61 entries required interpreter deep analysis.
-- Batch-61 bridge issue (BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 62
-
-- No batch-62 entries required interpreter deep analysis.
-- Batch-62 bridge issues (BRIDGE-CALLBACK-TYPE-COERCION, two BRIDGE-WIDGET-COERCION, BRIDGE-MISSING-MEMBER) documented in `generator_issues.md`.
-
-batch: 63
-
-- No batch-63 entries required interpreter deep analysis.
-- Batch-63 bridge issues (BRIDGE-WIDGET-COERCION, BRIDGE-DELEGATE-TYPE-COERCION, BRIDGE-MIXIN-TARGET-COERCION) documented in `generator_issues.md`.
-
-batch: 64
-
-- No batch-64 entries required interpreter deep analysis.
-- Batch-64 bridge issues (BRIDGE-DELEGATE-TYPE-COERCION, BRIDGE-CLIPPER-TYPE-COERCION) documented in `generator_issues.md`.
-
-batch: 65
-
-- No batch-65 entries required interpreter deep analysis.
-- Batch-65 bridge issues (BRIDGE-SUPER-CONSTRUCTOR-RESOLUTION, BRIDGE-STATIC-MEMBER-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 66
-
-- No batch-66 entries required interpreter deep analysis.
-- Batch-66 bridge issues (three BRIDGE-MISSING-INSTANCE-METHOD, BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 67
-
-- No batch-67 entries required interpreter deep analysis.
-- Batch-67 bridge issue (BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 68
-
-- No batch-68 entries required interpreter deep analysis.
-- Batch-68 bridge issues (BRIDGE-TYPE-CAST-FAILURE, mixed BRIDGE-OPERATOR/STATE/WIDGET, three BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 69
-
-- No batch-69 entries required interpreter deep analysis.
-- Batch-69 bridge issues (two BRIDGE-WIDGET-COERCION, two BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 70
-
-- No batch-70 entries required interpreter deep analysis.
-- Batch-70: five BRIDGE-STATE-PROPERTY-EXPOSURE issues documented in `generator_issues.md`.
-
-batch: 71
-
-- No batch-71 entries required interpreter deep analysis.
-- Batch-71 bridge issues (BRIDGE-STATE-PROPERTY, BRIDGE-METHOD-DISPATCH, BRIDGE-MISSING-INSTANCE-METHOD, BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 72
-
-- No batch-72 entries required interpreter deep analysis.
-- Batch-72 bridge issues (two BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 73
-
-- No batch-73 entries required interpreter deep analysis.
-- Batch-73 bridge issue (BRIDGE-WIDGET-COERCION) documented in `generator_issues.md`.
-
-batch: 74
-
-- No batch-74 entries required interpreter deep analysis.
-- Batch-74 bridge issue (BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT) documented in `generator_issues.md`.
-
-batch: 75
-
-- No batch-75 entries required interpreter deep analysis.
-- Batch-75 bridge issues (BRIDGE-MISSING-INSTANCE-METHOD, two BRIDGE-MISSING-DEFAULT-CONSTRUCTOR-SUPPORT) documented in `generator_issues.md`.
-
-batch: 76
-
-- No batch-76 entries required interpreter deep analysis.
-- Batch-76 bridge issues (two BRIDGE-STATE-PROPERTY-EXPOSURE) documented in `generator_issues.md`.
-
-batch: 77
-
-- No batch-77 entries required interpreter deep analysis.
-- All four batch-77 entries were script-level fixes.
-- **Batch 77 is the FINAL batch. All 389 issues (indices 0-388) have been fully processed.**
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` — add an
+`_InterpretedInheritedWidget` proxy class + `D4.registerInterfaceProxy(
+'InheritedWidget', ...)` registration, mirroring the existing
+RenderObjectWidget family.
+
+---
+
+### [ ] Fixed — missing bridge entries: `setState` / `Enum` / `ByteData` / `key` / `layoutChild`
+
+**Symptom**
+
+```
+Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _DefaultDemoPageState.)
+Runtime Error: Undefined variable: Enum
+Runtime Error: Undefined variable: ByteData
+Runtime Error: Undefined variable: key (Original error: Undefined property 'key' on _PaneList.)
+Runtime Error: Undefined variable: layoutChild (Original error: Undefined property 'layoutChild' on TestMultiChildLayoutDelegate.)
+```
+
+**Root cause**
+
+Each is a different missing piece, lumped here for triage:
+
+- `setState` on a plain `_InterpretedState` instance — narrowed-#82
+  fix ([524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13))
+  intentionally skips `nativeProxy` for plain States; that means
+  `setState` is no longer routed through Flutter at all. Need a direct
+  setState handler in the interpreter (mark dirty, schedule rebuild
+  via the framework).
+- `Enum` — bridged base class missing from stdlib registrations.
+- `ByteData` — `dart:typed_data` bridge incomplete.
+- `key` on user widget subclass — interpreter doesn't surface the `key`
+  field declared in the bridged `Widget` super.
+- `layoutChild` on `MultiChildLayoutDelegate` — proxy class missing
+  for that abstract delegate.
+
+**Representative scripts** (~5 entries)
+
+- `widgets/restorable_enum_n_test.dart` (Enum)
+- `widgets/transition_delegate_test.dart`
+- `services/codecs_test.dart` (ByteData)
+- `widgets/layout_builder_adv_test.dart` (layoutChild)
+- `widgets/page_storage_test.dart` (key)
+- `widgets/parent_data_widget_test.dart`
+
+**Where to look**
+
+Each sub-issue has its own location:
+- `setState`: `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+  (add interpreter-side bridge for State.setState that calls
+  `proxy.markNeedsBuild()` directly).
+- `Enum`, `ByteData`: bridge module configs +
+  `tom_d4rt_flutterm/lib/src/bridges/*_bridges.b.dart` regen.
+- `key`: bridged Widget getter wiring.
+- `layoutChild`: needs proxy class + interface registration.
+
+---
+
+## How clusters were derived
+
+`generator_interpreter_issues_test.dart` was run end-to-end. Its
+`.result.json` was parsed for `type=="error"` events, the runtime
+error messages bucketed by leading exception family, and the
+representative test names per bucket recorded above. A test that
+emitted multiple distinct errors was attributed to the dominant
+(first) one. Cluster counts are approximate — re-bucketing after a
+cluster fix may shift small counts between adjacent buckets.
+
+To regenerate the clusters after a fix:
+
+```bash
+cd tom_d4rt_flutterm
+flutter test test/generator_interpreter_issues_test.dart \
+    --file-reporter "json:doc/testlog_<id>/generator_interpreter_issues_test.result.json"
+
+jq -rs '
+  (reduce .[] as $e ({};
+    if $e.type == "testStart" then .[$e.test.id|tostring] = $e.test.name else . end
+  )) as $names |
+  .[] | select(.type=="error") | "\($names[(.testID|tostring)] // "?")|||\(.error|gsub("\n";" "))"
+' doc/testlog_<id>/generator_interpreter_issues_test.result.json
+```
+
+Then `awk -F'\\|\\|\\|'` on the patterns above to slice out scripts per
+cluster.
+
+---
+
+## History
+
+For the per-batch (batch 0–10) resolved-issue narratives that previously
+lived in this file, see git history:
+
+```
+git log -p tom_d4rt_flutterm/doc/interpreter_issues.md
+```
+
+Resolved highlights from earlier batches included enum exhaustiveness
+workarounds (issue 13), platform-capability guards (issue 16), the
+record-pattern for-loop AST support (#21–25, #28–33), the bridged
+`String.characters` extension (#77), `Iterable.whereType` (#80, #81),
+the abstract widget bases (#75/#76/#78), the `.new` constructor
+tear-off (#79), the `State<T>.widget` access (#82, narrowed in
+[524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13)),
+the function-typed bridge return wrapper (#74), and the State proxy
+lifecycle re-entrancy guard
+([13a0c2f8](https://github.com/al-the-bear/tom_d4rt/commit/13a0c2f8)).
