@@ -546,14 +546,26 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
 
   @override
   void initState() {
-    super.initState();
-    _callVoidMethod('initState');
+    if (_lifecycleInProgress.contains('initState')) return;
+    _lifecycleInProgress.add('initState');
+    try {
+      super.initState();
+      _callVoidMethod('initState');
+    } finally {
+      _lifecycleInProgress.remove('initState');
+    }
   }
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    _callVoidMethod('didChangeDependencies');
+    if (_lifecycleInProgress.contains('didChangeDependencies')) return;
+    _lifecycleInProgress.add('didChangeDependencies');
+    try {
+      super.didChangeDependencies();
+      _callVoidMethod('didChangeDependencies');
+    } finally {
+      _lifecycleInProgress.remove('didChangeDependencies');
+    }
   }
 
   @override
@@ -571,20 +583,38 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
 
   @override
   void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _callVoidMethod('didUpdateWidget');
+    if (_lifecycleInProgress.contains('didUpdateWidget')) return;
+    _lifecycleInProgress.add('didUpdateWidget');
+    try {
+      super.didUpdateWidget(oldWidget);
+      _callVoidMethod('didUpdateWidget');
+    } finally {
+      _lifecycleInProgress.remove('didUpdateWidget');
+    }
   }
 
   @override
   void deactivate() {
-    _callVoidMethod('deactivate');
-    super.deactivate();
+    if (_lifecycleInProgress.contains('deactivate')) return;
+    _lifecycleInProgress.add('deactivate');
+    try {
+      _callVoidMethod('deactivate');
+      super.deactivate();
+    } finally {
+      _lifecycleInProgress.remove('deactivate');
+    }
   }
 
   @override
   void dispose() {
-    _callVoidMethod('dispose');
-    super.dispose();
+    if (_lifecycleInProgress.contains('dispose')) return;
+    _lifecycleInProgress.add('dispose');
+    try {
+      _callVoidMethod('dispose');
+      super.dispose();
+    } finally {
+      _lifecycleInProgress.remove('dispose');
+    }
   }
 
   void _callVoidMethod(String name) {
@@ -597,6 +627,16 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
       }
     }
   }
+
+  // Bug-46: re-entrancy guard for lifecycle overrides. When the script's
+  // body calls e.g. `super.initState()`, the bridged-super dispatch resolves
+  // to `state.initState` and re-enters this proxy's @override — without the
+  // guard, that triggers infinite recursion (proxy.initState → script.
+  // initState → super.initState → proxy.initState → ...). Each lifecycle
+  // override checks this set; the second entry returns immediately so
+  // Flutter's framework super-chain only runs once and the script's body
+  // only runs once.
+  final Set<String> _lifecycleInProgress = <String>{};
 }
 
 // =============================================================================
@@ -621,14 +661,26 @@ class _InterpretedSingleTickerProviderState
 
   @override
   void initState() {
-    super.initState();
-    _callVoidMethod('initState');
+    if (_lifecycleInProgress.contains('initState')) return;
+    _lifecycleInProgress.add('initState');
+    try {
+      super.initState();
+      _callVoidMethod('initState');
+    } finally {
+      _lifecycleInProgress.remove('initState');
+    }
   }
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    _callVoidMethod('didChangeDependencies');
+    if (_lifecycleInProgress.contains('didChangeDependencies')) return;
+    _lifecycleInProgress.add('didChangeDependencies');
+    try {
+      super.didChangeDependencies();
+      _callVoidMethod('didChangeDependencies');
+    } finally {
+      _lifecycleInProgress.remove('didChangeDependencies');
+    }
   }
 
   @override
@@ -646,20 +698,38 @@ class _InterpretedSingleTickerProviderState
 
   @override
   void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _callVoidMethod('didUpdateWidget');
+    if (_lifecycleInProgress.contains('didUpdateWidget')) return;
+    _lifecycleInProgress.add('didUpdateWidget');
+    try {
+      super.didUpdateWidget(oldWidget);
+      _callVoidMethod('didUpdateWidget');
+    } finally {
+      _lifecycleInProgress.remove('didUpdateWidget');
+    }
   }
 
   @override
   void deactivate() {
-    _callVoidMethod('deactivate');
-    super.deactivate();
+    if (_lifecycleInProgress.contains('deactivate')) return;
+    _lifecycleInProgress.add('deactivate');
+    try {
+      _callVoidMethod('deactivate');
+      super.deactivate();
+    } finally {
+      _lifecycleInProgress.remove('deactivate');
+    }
   }
 
   @override
   void dispose() {
-    _callVoidMethod('dispose');
-    super.dispose();
+    if (_lifecycleInProgress.contains('dispose')) return;
+    _lifecycleInProgress.add('dispose');
+    try {
+      _callVoidMethod('dispose');
+      super.dispose();
+    } finally {
+      _lifecycleInProgress.remove('dispose');
+    }
   }
 
   void _callVoidMethod(String name) {
@@ -672,6 +742,16 @@ class _InterpretedSingleTickerProviderState
       }
     }
   }
+
+  // Bug-46: re-entrancy guard for lifecycle overrides. When the script's
+  // body calls e.g. `super.initState()`, the bridged-super dispatch resolves
+  // to `state.initState` and re-enters this proxy's @override — without the
+  // guard, that triggers infinite recursion (proxy.initState → script.
+  // initState → super.initState → proxy.initState → ...). Each lifecycle
+  // override checks this set; the second entry returns immediately so
+  // Flutter's framework super-chain only runs once and the script's body
+  // only runs once.
+  final Set<String> _lifecycleInProgress = <String>{};
 }
 
 /// A native [State] with [TickerProviderStateMixin] (multi-ticker) that
@@ -686,14 +766,26 @@ class _InterpretedMultiTickerProviderState
 
   @override
   void initState() {
-    super.initState();
-    _callVoidMethod('initState');
+    if (_lifecycleInProgress.contains('initState')) return;
+    _lifecycleInProgress.add('initState');
+    try {
+      super.initState();
+      _callVoidMethod('initState');
+    } finally {
+      _lifecycleInProgress.remove('initState');
+    }
   }
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    _callVoidMethod('didChangeDependencies');
+    if (_lifecycleInProgress.contains('didChangeDependencies')) return;
+    _lifecycleInProgress.add('didChangeDependencies');
+    try {
+      super.didChangeDependencies();
+      _callVoidMethod('didChangeDependencies');
+    } finally {
+      _lifecycleInProgress.remove('didChangeDependencies');
+    }
   }
 
   @override
@@ -711,20 +803,38 @@ class _InterpretedMultiTickerProviderState
 
   @override
   void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _callVoidMethod('didUpdateWidget');
+    if (_lifecycleInProgress.contains('didUpdateWidget')) return;
+    _lifecycleInProgress.add('didUpdateWidget');
+    try {
+      super.didUpdateWidget(oldWidget);
+      _callVoidMethod('didUpdateWidget');
+    } finally {
+      _lifecycleInProgress.remove('didUpdateWidget');
+    }
   }
 
   @override
   void deactivate() {
-    _callVoidMethod('deactivate');
-    super.deactivate();
+    if (_lifecycleInProgress.contains('deactivate')) return;
+    _lifecycleInProgress.add('deactivate');
+    try {
+      _callVoidMethod('deactivate');
+      super.deactivate();
+    } finally {
+      _lifecycleInProgress.remove('deactivate');
+    }
   }
 
   @override
   void dispose() {
-    _callVoidMethod('dispose');
-    super.dispose();
+    if (_lifecycleInProgress.contains('dispose')) return;
+    _lifecycleInProgress.add('dispose');
+    try {
+      _callVoidMethod('dispose');
+      super.dispose();
+    } finally {
+      _lifecycleInProgress.remove('dispose');
+    }
   }
 
   void _callVoidMethod(String name) {
@@ -737,6 +847,16 @@ class _InterpretedMultiTickerProviderState
       }
     }
   }
+
+  // Bug-46: re-entrancy guard for lifecycle overrides. When the script's
+  // body calls e.g. `super.initState()`, the bridged-super dispatch resolves
+  // to `state.initState` and re-enters this proxy's @override — without the
+  // guard, that triggers infinite recursion (proxy.initState → script.
+  // initState → super.initState → proxy.initState → ...). Each lifecycle
+  // override checks this set; the second entry returns immediately so
+  // Flutter's framework super-chain only runs once and the script's body
+  // only runs once.
+  final Set<String> _lifecycleInProgress = <String>{};
 }
 
 // =============================================================================
