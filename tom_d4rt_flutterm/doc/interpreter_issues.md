@@ -19,37 +19,31 @@ cluster from the list once everything in it passes.
 
 ## Active clusters
 
-### [ ] Fixed — `ValueNotifier<double>` accepts `int` literals
+### [X] Fixed — `ValueNotifier<double>` accepts `int` literals
 
-**Symptom**
+**Resolution:** Generator GEN-075c emits `(value as num).toDouble()`
+instead of `value as double` for primitive type-param dispatch when the
+typeArg is `double`. Applied to both positional and named branches in
+`_writeRC2Case` of `tom_d4rt_generator/lib/src/relaxer_generator.dart`.
+Fixed in commit landing this entry.
+
+After fix: 6/6 cluster scripts pass; +51 unrelated passes in
+`secondary_classes_test` from the same regen; essential and important
+unchanged at 108/0/0 and 166/0/3.
+
+**Symptom (was)**
 
 ```
 Runtime Error: Error in generic constructor factory for 'ValueNotifier':
 type 'int' is not a subtype of type 'double' in type cast
 ```
 
-**Root cause**
+**Root cause (was)**
 
 Generic constructor factory in the relaxer (or the bridge generator)
-does a strict `as T` cast. `ValueNotifier<double>(0)` arrives at the
+did a strict `as T` cast. `ValueNotifier<double>(0)` arrived at the
 factory with `value=0` (int) — Dart-the-language would silently widen,
-the bridge does not.
-
-**Representative scripts** (6 entries)
-
-- `widgets/window_positioner_anchor_test.dart`
-- `widgets/window_positioner_constraint_adjustment_test.dart`
-- `widgets/window_positioner_test.dart`
-- `widgets/windowing_owner_linux_test.dart`
-- `widgets/windowing_owner_mac_o_s_test.dart`
-- `widgets/windowing_owner_test.dart`
-
-**Where to look**
-
-`tom_d4rt_flutterm/lib/src/bridges/flutter_relaxers.b.dart` (factory
-for `ValueNotifier`) and `tom_d4rt_generator/lib/src/relaxer_generator.dart`.
-Coerce `int → double` inside the factory before the type cast when
-the type parameter is `double` / `num`.
+the bridge did not.
 
 ---
 

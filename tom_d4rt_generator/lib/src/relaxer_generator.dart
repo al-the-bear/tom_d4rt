@@ -1838,6 +1838,13 @@ void _writeRC2Case(
         // Exact type param match (T or T?)
         if (typeArg == 'dynamic') {
           args.add(isNullable ? safeName : '$safeName!');
+        } else if (typeArg == 'double') {
+          // GEN-075c: int → double widening for primitive type-param dispatch.
+          // Scripts pass `ValueNotifier<double>(0)` literally; the value is
+          // an int and a strict `as double` cast would fail. Coerce via num.
+          args.add(isNullable
+              ? '($safeName as num?)?.toDouble()'
+              : '($safeName as num).toDouble()');
         } else {
           args.add('$safeName as $typeArg${isNullable ? '?' : ''}');
         }
@@ -1972,6 +1979,11 @@ void _writeRC2Case(
           namedArgParts.add(
             '${p.name}: ${isNullable ? safeName : '$safeName!'}',
           );
+        } else if (typeArg == 'double') {
+          // GEN-075c: int → double widening (see positional branch).
+          namedArgParts.add(isNullable
+              ? '${p.name}: ($safeName as num?)?.toDouble()'
+              : '${p.name}: ($safeName as num).toDouble()');
         } else {
           namedArgParts.add(
             '${p.name}: $safeName as $typeArg${isNullable ? '?' : ''}',
