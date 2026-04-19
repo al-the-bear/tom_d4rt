@@ -117,7 +117,6 @@ dynamic build(BuildContext context) {
         code,
         style: const TextStyle(
           fontSize: 13,
-          fontFamily: 'monospace',
           color: lbLavender,
           height: 1.6,
         ),
@@ -342,7 +341,6 @@ dynamic build(BuildContext context) {
             content,
             style: const TextStyle(
               fontSize: 13,
-              fontFamily: 'monospace',
               color: lbBlack,
               height: 1.6,
             ),

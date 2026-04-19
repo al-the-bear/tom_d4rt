@@ -393,7 +393,7 @@ class _AmbientInspectorScene extends StatelessWidget {
             'TextDirection? dirB = Directionality.maybeOf(context);\n\n'
             'Use of(context) when Directionality is guaranteed (MaterialApp/WidgetsApp subtree).\n'
             'Use maybeOf(context) in reusable utilities that may run outside a directionality scope.',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.2, height: 1.4),
+            style: TextStyle(fontSize: 11.2, height: 1.4),
           ),
         ),
       ],
@@ -424,7 +424,7 @@ class _AmbientProbeCard extends StatelessWidget {
           children: [
             Text(
               'of(context): $strict\nmaybeOf(context): $soft',
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4, height: 1.35),
+              style: const TextStyle(fontSize: 10.4, height: 1.35),
             ),
             const SizedBox(height: 8),
             _DirectionLane(
@@ -729,7 +729,7 @@ class _NestedScopeCard extends StatelessWidget {
               child: Text(
                 'Directionality.of inside island: ${localDirection.name}\n'
                 'Directionality.of outside island: ${parentDirection.name}',
-                style: TextStyle(fontFamily: 'monospace', fontSize: 10.2, color: accent.withValues(alpha: 0.85)),
+                style: TextStyle(fontSize: 10.2, color: accent.withValues(alpha: 0.85)),
               ),
             ),
           ],

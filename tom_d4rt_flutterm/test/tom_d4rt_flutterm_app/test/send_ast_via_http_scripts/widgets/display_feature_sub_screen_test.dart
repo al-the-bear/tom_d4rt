@@ -635,7 +635,7 @@ class _ConceptScene extends StatelessWidget {
             'If anchorPoint is null:\n'
             '- LTR => Offset.zero\n'
             '- RTL => Offset(double.maxFinite, 0)',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.1, height: 1.4),
+            style: TextStyle(fontSize: 11.1, height: 1.4),
           ),
         ),
       ],
@@ -927,11 +927,11 @@ class _PaneDemoOverlay extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 'Child MediaQuery.size: ${local.size.width.toStringAsFixed(0)} x ${local.size.height.toStringAsFixed(0)}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4),
+                style: const TextStyle(fontSize: 10.4),
               ),
               Text(
                 'Child displayFeatures count: ${local.displayFeatures.length}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 10.4),
+                style: const TextStyle(fontSize: 10.4),
               ),
               const SizedBox(height: 6),
               _MiniLane(color: const Color(0xFF2A7A71), label: 'Pane-safe chart lane', height: height),
@@ -1003,7 +1003,7 @@ class _TelemetryCard extends StatelessWidget {
                 children: [
                   Text(label, style: TextStyle(color: accent, fontWeight: FontWeight.w700, fontSize: 11.2)),
                   const SizedBox(height: 3),
-                  Text(value, style: TextStyle(color: accent.withValues(alpha: 0.9), fontFamily: 'monospace', fontSize: 10.6)),
+                  Text(value, style: TextStyle(color: accent.withValues(alpha: 0.9), fontSize: 10.6)),
                 ],
               ),
             ),
@@ -1083,7 +1083,7 @@ class _FallbackCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 const Text(
                   'anchorPoint: null\nDisplayFeatureSubScreen chooses fallback from Directionality.',
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.4),
+                  style: TextStyle(fontSize: 10.4),
                 ),
                 const SizedBox(height: 8),
                 ClipRRect(
@@ -1245,7 +1245,7 @@ class _ComparisonCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'avoidBounds=${avoid.length} | subScreens=${subScreens.length}',
-              style: TextStyle(fontFamily: 'monospace', color: spec.color.withValues(alpha: 0.86), fontSize: 10.2),
+              style: TextStyle(color: spec.color.withValues(alpha: 0.86), fontSize: 10.2),
             ),
             const SizedBox(height: 8),
             ClipRRect(
@@ -1381,11 +1381,11 @@ class _MiniPaneCard extends StatelessWidget {
               const SizedBox(height: 6),
               Text(
                 'size ${local.size.width.toStringAsFixed(0)}x${local.size.height.toStringAsFixed(0)}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.8),
+                style: const TextStyle(fontSize: 9.8),
               ),
               Text(
                 'features in child ${local.displayFeatures.length}',
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.8),
+                style: const TextStyle(fontSize: 9.8),
               ),
             ],
           ),
@@ -1459,7 +1459,7 @@ class _ApiInspectionScene extends StatelessWidget {
             'Selected pane: ${_AnchorPlaygroundScene._fmtRect(selected)}\n\n'
             'Distance rule:\n'
             'DisplayFeatureSubScreen chooses the pane with minimum point-to-rect distance from anchor.',
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 10.9, height: 1.4),
+            style: const TextStyle(fontSize: 10.9, height: 1.4),
           ),
         ),
       ],
@@ -1515,7 +1515,6 @@ class _RectTableCard extends StatelessWidget {
                   child: Text(
                     '#$i  ${_AnchorPlaygroundScene._fmtRect(rects[i])}',
                     style: TextStyle(
-                      fontFamily: 'monospace',
                       fontSize: 10.5,
                       color: accent.withValues(alpha: 0.9),
                     ),
