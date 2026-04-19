@@ -494,24 +494,24 @@ class _InterpretedStatefulWidget extends StatefulWidget {
       if (result is InterpretedInstance) {
         // RC-5: Check if the State subclass uses a TickerProvider mixin.
         // If so, use a specialized proxy that natively provides createTicker().
+        // Bug-45 (narrowed): wire `widget` access on the script's State
+        // subclass without setting nativeProxy on plain States. Setting
+        // nativeProxy on a plain _InterpretedState (as the original
+        // f6c7db8f fix did) routes every bridged State member access
+        // through Flutter adapters — including `setState` — which then
+        // schedules real Flutter rebuilds and triggers cascading loops.
+        // Storing the parent InterpretedInstance directly lets
+        // runtime_types.dart short-circuit `widget` lookup without
+        // engaging adapter dispatch.
+        result.interpretedStatefulWidget = _instance;
         if (_usesTickerProviderMixin(result.klass)) {
           final state = _usesSingleTickerProviderMixin(result.klass)
-              ? _InterpretedSingleTickerProviderState(_visitor, result, this)
-              : _InterpretedMultiTickerProviderState(_visitor, result, this);
+              ? _InterpretedSingleTickerProviderState(_visitor, result)
+              : _InterpretedMultiTickerProviderState(_visitor, result);
           result.nativeProxy = state;
           return state;
         }
-        // Bug-45 FIX: also wire nativeProxy for the regular `_InterpretedState`
-        // path. The interpreter (runtime_types.dart resolution of `widget`
-        // on InterpretedInstance) consults `nativeProxy.interpretedWidget`
-        // to return the original interpreted widget — see _InterpretedState
-        // below for the matching `interpretedWidget` getter. Without
-        // setting nativeProxy here, `widget.foo` from inside the interpreted
-        // State subclass body fails with
-        //   "Undefined property 'widget' on _MyState."
-        final state = _InterpretedState(_visitor, result, this);
-        result.nativeProxy = state;
-        return state;
+        return _InterpretedState(_visitor, result);
       }
     }
     throw StateError(
@@ -542,22 +542,7 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
-  /// Bug-45 FIX: keep a reference to the parent widget proxy so we can
-  /// expose its underlying [InterpretedInstance] via [interpretedWidget].
-  /// runtime_types.dart's `widget` access on an InterpretedInstance reads
-  /// this getter when the State has [nativeProxy] set.
-  final _InterpretedStatefulWidget _parentWidget;
-
-  _InterpretedState(
-    this._visitor,
-    this._stateInstance,
-    this._parentWidget,
-  );
-
-  /// Returns the interpreted-side `StatefulWidget` instance backing the
-  /// native `widget` getter. Consumed by runtime_types.dart at the
-  /// special-case `name == 'widget'` branch on InterpretedInstance.
-  InterpretedInstance get interpretedWidget => _parentWidget._instance;
+  _InterpretedState(this._visitor, this._stateInstance);
 
   @override
   void initState() {
@@ -631,17 +616,8 @@ class _InterpretedSingleTickerProviderState
     with SingleTickerProviderStateMixin {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
-  final _InterpretedStatefulWidget _parentWidget;
 
-  _InterpretedSingleTickerProviderState(
-    this._visitor,
-    this._stateInstance,
-    this._parentWidget,
-  );
-
-  /// Bug-45 FIX (mirrors _InterpretedState): expose the interpreted-side
-  /// StatefulWidget so runtime_types.dart's `widget` resolution finds it.
-  InterpretedInstance get interpretedWidget => _parentWidget._instance;
+  _InterpretedSingleTickerProviderState(this._visitor, this._stateInstance);
 
   @override
   void initState() {
@@ -705,17 +681,8 @@ class _InterpretedMultiTickerProviderState
     with TickerProviderStateMixin {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
-  final _InterpretedStatefulWidget _parentWidget;
 
-  _InterpretedMultiTickerProviderState(
-    this._visitor,
-    this._stateInstance,
-    this._parentWidget,
-  );
-
-  /// Bug-45 FIX (mirrors _InterpretedState): expose the interpreted-side
-  /// StatefulWidget so runtime_types.dart's `widget` resolution finds it.
-  InterpretedInstance get interpretedWidget => _parentWidget._instance;
+  _InterpretedMultiTickerProviderState(this._visitor, this._stateInstance);
 
   @override
   void initState() {

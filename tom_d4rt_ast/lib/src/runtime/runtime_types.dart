@@ -998,6 +998,13 @@ class InterpretedInstance implements RuntimeValue {
   // instead of creating a new delegation wrapper.
   Object? nativeProxy;
 
+  // Bug-45 (narrowed): for State<T> subclass instances, the parent
+  // StatefulWidget InterpretedInstance, set by _InterpretedStatefulWidget.
+  // createState. Resolved by `widget` lookup below WITHOUT going through
+  // bridged State adapters (which would route setState etc. through Flutter
+  // and trigger cascading rebuild loops).
+  InterpretedInstance? interpretedStatefulWidget;
+
   // Store generic type arguments for this instance (e.g., for List<String>, this would be [StringType])
   final List<RuntimeType>? typeArguments;
 
@@ -1265,6 +1272,17 @@ class InterpretedInstance implements RuntimeValue {
       final method = currentClass.findInstanceMethod(name);
       if (method != null) {
         return method.bind(this); // Bind to the *original* instance ('this')
+      }
+
+      // Bug-45 (narrowed): widget access on State<T> subclass instances
+      // returns the parent StatefulWidget InterpretedInstance directly,
+      // bypassing bridged-State adapter dispatch. Only fires on the
+      // outermost iteration (when currentClass == klass) so an explicit
+      // `super.widget` walk doesn't pick this up unintentionally.
+      if (name == 'widget' &&
+          currentClass == klass &&
+          interpretedStatefulWidget != null) {
+        return interpretedStatefulWidget;
       }
 
       // Check bridged superclass at this level before moving up.
