@@ -614,36 +614,57 @@ class SendTestRunner {
     );
   }
 
-  /// Kill the test app process.
+  /// Kill the test app process and free port [defaultPort].
+  ///
+  /// Killing the `flutter run` wrapper is not enough on Linux: its child
+  /// app binary is re-parented to init and keeps the port bound. After
+  /// signalling the wrapper we always run [_killExistingProcess] so the
+  /// next `setUpAll` finds the port free instead of hanging on
+  /// `isAppRunning()` against a zombie.
   static Future<void> _killTestApp() async {
-    if (_testAppProcess != null) {
-      // Try graceful shutdown first by sending 'q' to stdin
+    final proc = _testAppProcess;
+    if (proc != null) {
+      // Try graceful shutdown first by sending 'q' to stdin (the
+      // `flutter run` REPL quit command — gives a clean shutdown when
+      // the app is responsive).
       try {
-        _testAppProcess!.stdin.writeln('q');
-        await _testAppProcess!.stdin.flush();
+        proc.stdin.writeln('q');
+        await proc.stdin.flush();
       } catch (_) {
-        // Ignore if stdin is closed
+        // Ignore if stdin is closed.
       }
 
-      // Wait for graceful exit
-      final exitCode = await _testAppProcess!.exitCode.timeout(
-        const Duration(seconds: 10),
+      // Wait briefly for graceful exit.
+      var exitCode = await proc.exitCode.timeout(
+        const Duration(seconds: 3),
         onTimeout: () {
-          // Forceful kill if graceful exit times out
-          _testAppProcess!.kill(ProcessSignal.sigterm);
+          proc.kill(ProcessSignal.sigterm);
           return -1;
         },
       );
 
-      // If still not dead, force kill
       if (exitCode == -1) {
-        await Future<void>.delayed(const Duration(seconds: 2));
-        _testAppProcess!.kill(ProcessSignal.sigkill);
+        // SIGTERM didn't take, escalate.
+        await Future<void>.delayed(const Duration(seconds: 1));
+        proc.kill(ProcessSignal.sigkill);
+        try {
+          exitCode = await proc.exitCode.timeout(
+            const Duration(seconds: 3),
+            onTimeout: () => -9,
+          );
+        } catch (_) {
+          exitCode = -9;
+        }
       }
 
       _testAppProcess = null;
       _lastTestAppExitCode = exitCode;
     }
+
+    // Always clean up orphan children of `flutter run` that may still be
+    // bound to the port — without this the next setUpAll's port check
+    // hangs on a zombie.
+    await _killExistingProcess();
   }
 
   /// Get the FlutterD4rt instance.
