@@ -463,52 +463,29 @@ class SendTestRunner {
   }
 
   /// Kill any existing test app process on the port.
-  ///
-  /// SIGTERM first, then SIGKILL if the port is still bound after a brief
-  /// grace period. The SIGKILL fallback is essential when [ProcessSignal.sigkill]
-  /// has been sent to the `flutter run` wrapper earlier: the app binary is
-  /// re-parented to init and keeps port 4247 bound until it gets a direct
-  /// signal. Without the fallback the next setUpAll's `isAppRunning()` blocks
-  /// connecting to the zombie.
   static Future<void> _killExistingProcess() async {
-    await _killPidsOnPort(defaultPort, ProcessSignal.sigterm);
-    // Poll for up to ~6s for the port to free; if still bound, SIGKILL.
-    for (var i = 0; i < 15; i++) {
-      await Future<void>.delayed(const Duration(milliseconds: 400));
-      if (!await _isPortBound(defaultPort)) return;
-    }
-    await _killPidsOnPort(defaultPort, ProcessSignal.sigkill);
-    // Final wait so the next Process.start can bind cleanly.
-    for (var i = 0; i < 10; i++) {
-      await Future<void>.delayed(const Duration(milliseconds: 400));
-      if (!await _isPortBound(defaultPort)) return;
-    }
-  }
-
-  static Future<void> _killPidsOnPort(int port, ProcessSignal signal) async {
     try {
-      final result = await Process.run('lsof', ['-t', '-i', ':$port']);
-      final pids = (result.stdout as String)
+      // Find process using port
+      final result = await Process.run('lsof', ['-t', '-i', ':$defaultPort']);
+      final pids = result.stdout
+          .toString()
           .trim()
           .split('\n')
           .where((s) => s.isNotEmpty);
+
       for (final pidStr in pids) {
         final pid = int.tryParse(pidStr);
         if (pid != null) {
-          Process.killPid(pid, signal);
+          Process.killPid(pid, ProcessSignal.sigterm);
         }
       }
-    } catch (_) {
-      // Ignore - port query failed or nothing bound.
-    }
-  }
 
-  static Future<bool> _isPortBound(int port) async {
-    try {
-      final result = await Process.run('lsof', ['-t', '-i', ':$port']);
-      return (result.stdout as String).trim().isNotEmpty;
+      // Wait briefly for processes to die
+      if (pids.isNotEmpty) {
+        await Future<void>.delayed(const Duration(seconds: 2));
+      }
     } catch (_) {
-      return false;
+      // Ignore errors - process may not exist
     }
   }
 
@@ -614,57 +591,36 @@ class SendTestRunner {
     );
   }
 
-  /// Kill the test app process and free port [defaultPort].
-  ///
-  /// Killing the `flutter run` wrapper is not enough on Linux: its child
-  /// app binary is re-parented to init and keeps the port bound. After
-  /// signalling the wrapper we always run [_killExistingProcess] so the
-  /// next `setUpAll` finds the port free instead of hanging on
-  /// `isAppRunning()` against a zombie.
+  /// Kill the test app process.
   static Future<void> _killTestApp() async {
-    final proc = _testAppProcess;
-    if (proc != null) {
-      // Try graceful shutdown first by sending 'q' to stdin (the
-      // `flutter run` REPL quit command — gives a clean shutdown when
-      // the app is responsive).
+    if (_testAppProcess != null) {
+      // Try graceful shutdown first by sending 'q' to stdin
       try {
-        proc.stdin.writeln('q');
-        await proc.stdin.flush();
+        _testAppProcess!.stdin.writeln('q');
+        await _testAppProcess!.stdin.flush();
       } catch (_) {
-        // Ignore if stdin is closed.
+        // Ignore if stdin is closed
       }
 
-      // Wait briefly for graceful exit.
-      var exitCode = await proc.exitCode.timeout(
-        const Duration(seconds: 3),
+      // Wait for graceful exit
+      final exitCode = await _testAppProcess!.exitCode.timeout(
+        const Duration(seconds: 10),
         onTimeout: () {
-          proc.kill(ProcessSignal.sigterm);
+          // Forceful kill if graceful exit times out
+          _testAppProcess!.kill(ProcessSignal.sigterm);
           return -1;
         },
       );
 
+      // If still not dead, force kill
       if (exitCode == -1) {
-        // SIGTERM didn't take, escalate.
-        await Future<void>.delayed(const Duration(seconds: 1));
-        proc.kill(ProcessSignal.sigkill);
-        try {
-          exitCode = await proc.exitCode.timeout(
-            const Duration(seconds: 3),
-            onTimeout: () => -9,
-          );
-        } catch (_) {
-          exitCode = -9;
-        }
+        await Future<void>.delayed(const Duration(seconds: 2));
+        _testAppProcess!.kill(ProcessSignal.sigkill);
       }
 
       _testAppProcess = null;
       _lastTestAppExitCode = exitCode;
     }
-
-    // Always clean up orphan children of `flutter run` that may still be
-    // bound to the port — without this the next setUpAll's port check
-    // hangs on a zombie.
-    await _killExistingProcess();
   }
 
   /// Get the FlutterD4rt instance.
@@ -694,120 +650,7 @@ class SendTestRunner {
   ///
   /// If [includeSource] is true, the original Dart source code is included
   /// in the bundle alongside the compiled AST. Disabled by default.
-  /// Default per-script timeout. If a script does not return a response
-  /// within this window, the test app is force-killed and restarted before
-  /// either retrying (once) or failing the test with a helpful diagnostic.
-  static const Duration defaultScriptTimeout = Duration(seconds: 15);
-
-  /// Send a script to the test app, enforcing a per-call timeout.
-  ///
-  /// Each call is attempted at most twice: on the first timeout the test
-  /// app is force-killed and restarted, then the send is retried. On a
-  /// second timeout the app is restarted again (to leave a clean slate
-  /// for the next test) and a [TimeoutException] is thrown carrying the
-  /// script path, attempt count, and captured app output so the failing
-  /// test report explains what happened.
   static Future<SendResult> send(
-    String scriptPath, {
-    String host = defaultHost,
-    int port = defaultPort,
-    bool clearFirst = true,
-    bool includeSource = false,
-    Duration timeout = defaultScriptTimeout,
-  }) async {
-    const maxAttempts = 2;
-    for (var attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        return await _sendOnce(
-          scriptPath,
-          host: host,
-          port: port,
-          clearFirst: clearFirst,
-          includeSource: includeSource,
-        ).timeout(timeout);
-      } on TimeoutException {
-        final stdoutTail = _tailSnapshot(_testAppStdoutTail);
-        final stderrTail = _tailSnapshot(_testAppStderrTail);
-        // ignore: avoid_print
-        print(
-          '\n  ⏱️  TIMEOUT on $scriptPath after ${timeout.inSeconds}s '
-          '(attempt $attempt/$maxAttempts) — restarting test app…',
-        );
-        _printSendMetrics(
-          scriptPath: scriptPath,
-          sourceBytes: 0,
-          sourceChars: 0,
-          bundleJsonBytes: 0,
-          clearDuration: Duration.zero,
-          readDuration: Duration.zero,
-          bundleDuration: Duration.zero,
-          httpDuration: timeout,
-          totalDuration: timeout,
-          status: attempt == maxAttempts ? 'timeout_final' : 'timeout_retry',
-          httpStatus: null,
-          outputLines: 0,
-          frameworkErrorCount: 0,
-        );
-        try {
-          await _restartTestApp();
-        } catch (restartError) {
-          // ignore: avoid_print
-          print('  ⚠️  Test app restart failed: $restartError');
-        }
-        if (attempt == maxAttempts) {
-          throw TimeoutException(
-            'Script "$scriptPath" timed out twice at '
-            '${timeout.inSeconds}s. Test app was restarted between '
-            'attempts and again after the final timeout; moving on.\n'
-            '--- tail of test app stdout ---\n'
-            '${stdoutTail.isEmpty ? '(empty)' : stdoutTail}\n'
-            '--- tail of test app stderr ---\n'
-            '${stderrTail.isEmpty ? '(empty)' : stderrTail}',
-            timeout,
-          );
-        }
-      }
-    }
-    // Unreachable: loop either returns or throws.
-    throw StateError('SendTestRunner.send: unreachable');
-  }
-
-  static String _tailSnapshot(List<String> tail) {
-    if (tail.isEmpty) return '';
-    final start = tail.length > 30 ? tail.length - 30 : 0;
-    return tail.sublist(start).join('\n');
-  }
-
-  /// Force-kill the current test app process (SIGKILL) and start a fresh
-  /// one. Used after a script timeout where graceful shutdown via stdin
-  /// 'q' is unreliable because the app is blocked executing the script.
-  static Future<void> _restartTestApp({
-    Duration startTimeout = const Duration(seconds: 60),
-  }) async {
-    await _forceKillTestApp();
-    await _killExistingProcess();
-    await _startTestApp(timeout: startTimeout);
-    _startedByRunner = true;
-  }
-
-  /// Hard-kill the current test app (SIGKILL) without waiting for the
-  /// graceful stdin-'q' handshake. The app is assumed hung.
-  static Future<void> _forceKillTestApp() async {
-    final proc = _testAppProcess;
-    if (proc == null) return;
-    try {
-      proc.kill(ProcessSignal.sigkill);
-      await proc.exitCode.timeout(
-        const Duration(seconds: 5),
-        onTimeout: () => -9,
-      );
-    } catch (_) {
-      // Ignore — the process may already be dead.
-    }
-    _testAppProcess = null;
-  }
-
-  static Future<SendResult> _sendOnce(
     String scriptPath, {
     String host = defaultHost,
     int port = defaultPort,
@@ -1097,23 +940,16 @@ class SendTestRunner {
     String host = defaultHost,
     int port = defaultPort,
   }) async {
-    // Use a short-lived client with a tight connection timeout so a zombie
-    // process bound to the port but not responding cannot stall setUpAll
-    // for the entire suite-loading window (12 minutes by default).
-    final probeClient = HttpClient()
-      ..connectionTimeout = const Duration(seconds: 2);
     try {
       final response = await _httpGet(
-        probeClient,
+        client,
         '/health',
         host: host,
         port: port,
-      ).timeout(const Duration(seconds: 3));
+      );
       return response['status'] == 'ok';
     } catch (_) {
       return false;
-    } finally {
-      probeClient.close(force: true);
     }
   }
 
