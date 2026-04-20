@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 179 files
-// Generated: 2026-04-20T14:40:17.279510
+// Generated: 2026-04-20T18:13:55.455415
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2843,13 +2843,13 @@ class FlutterWidgetsBridge {
         if (pageBuilderRaw == null) {
           throw ArgumentError('showGeneralDialog: Missing required named argument "pageBuilder"');
         }
-        final pageBuilder = ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; };
+        final pageBuilder = ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', false);
         final barrierLabel = D4.getOptionalNamedArg<String?>(named, 'barrierLabel');
         final barrierColor = D4.getNamedArgWithDefault<Color>(named, 'barrierColor', const $dart_ui.Color(0x80000000));
         final transitionDuration = D4.getNamedArgWithDefault<Duration>(named, 'transitionDuration', const Duration(milliseconds: 200));
         final transitionBuilderRaw = named['transitionBuilder'];
-        final transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; };
+        final transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
         final useRootNavigator = D4.getNamedArgWithDefault<bool>(named, 'useRootNavigator', true);
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
         final routeSettings = D4.getOptionalNamedArg<$flutter_189.RouteSettings?>(named, 'routeSettings');
@@ -3355,7 +3355,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.where((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3401,7 +3401,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.skipWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'takeWhile': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3410,7 +3410,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.takeWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'skipLastWhile': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3419,7 +3419,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('skipLastWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipLastWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.skipLastWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'takeLastWhile': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3428,7 +3428,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('takeLastWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeLastWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.takeLastWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'replaceAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3496,7 +3496,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand((String p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
+        return t.expand((String p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3515,7 +3515,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce((String p0, String p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as String; });
+        return t.reduce((String p0, String p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3534,7 +3534,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.every((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3548,7 +3548,7 @@ BridgedClass _createCharactersBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.any((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'toList': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3567,7 +3567,7 @@ BridgedClass _createCharactersBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String; });
+        return t.firstWhere((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3577,7 +3577,7 @@ BridgedClass _createCharactersBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String; });
+        return t.lastWhere((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3587,7 +3587,7 @@ BridgedClass _createCharactersBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as String; });
+        return t.singleWhere((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$characters_1.Characters>(target, 'Characters');
@@ -3783,7 +3783,7 @@ BridgedClass _createCharacterRangeBridge() {
           throw ArgumentError('expandWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.expandWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.expandWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'expandAll': (visitor, target, positional, named, typeArgs) {
@@ -3815,7 +3815,7 @@ BridgedClass _createCharacterRangeBridge() {
           throw ArgumentError('expandBackWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.expandBackWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.expandBackWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'expandBackAll': (visitor, target, positional, named, typeArgs) {
@@ -3869,7 +3869,7 @@ BridgedClass _createCharacterRangeBridge() {
           throw ArgumentError('dropWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.dropWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.dropWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'dropLast': (visitor, target, positional, named, typeArgs) {
@@ -3896,7 +3896,7 @@ BridgedClass _createCharacterRangeBridge() {
           throw ArgumentError('dropBackWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        t.dropBackWhile((String p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        t.dropBackWhile((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'replaceRange': (visitor, target, positional, named, typeArgs) {
@@ -6372,7 +6372,7 @@ BridgedClass _createRenderObjectToWidgetElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -6593,7 +6593,7 @@ BridgedClass _createAnimatedCrossFadeBridge() {
         }
         if (named.containsKey('layoutBuilder')) {
           final layoutBuilderRaw = named['layoutBuilder'];
-          final layoutBuilder = ($flutter_164.Widget p0, $flutter_12.Key p1, $flutter_164.Widget p2, $flutter_12.Key p3) { return D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; };
+          final layoutBuilder = ($flutter_164.Widget p0, $flutter_12.Key p1, $flutter_164.Widget p2, $flutter_12.Key p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
           return $flutter_124.AnimatedCrossFade(key: key, firstChild: firstChild, secondChild: secondChild, firstCurve: firstCurve, secondCurve: secondCurve, sizeCurve: sizeCurve, alignment: alignment, crossFadeState: crossFadeState, duration: duration, reverseDuration: reverseDuration, excludeBottomFocus: excludeBottomFocus, layoutBuilder: layoutBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -6739,7 +6739,7 @@ BridgedClass _createAnimatedListBridge() {
         final shrinkWrap = D4.getNamedArgWithDefault<bool>(named, 'shrinkWrap', false);
         final padding = D4.getOptionalNamedArg<$flutter_41.EdgeInsetsGeometry?>(named, 'padding');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
-        return $flutter_125.AnimatedList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, clipBehavior: clipBehavior);
+        return $flutter_125.AnimatedList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, clipBehavior: clipBehavior);
       },
       'separated': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -6764,7 +6764,7 @@ BridgedClass _createAnimatedListBridge() {
         final shrinkWrap = D4.getNamedArgWithDefault<bool>(named, 'shrinkWrap', false);
         final padding = D4.getOptionalNamedArg<$flutter_41.EdgeInsetsGeometry?>(named, 'padding');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
-        return $flutter_125.AnimatedList.separated(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, separatorBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, removedSeparatorBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, removedSeparatorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, clipBehavior: clipBehavior);
+        return $flutter_125.AnimatedList.separated(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, separatorBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, removedSeparatorBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, removedSeparatorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, clipBehavior: clipBehavior);
       },
     },
     getters: {
@@ -6953,12 +6953,12 @@ BridgedClass _createAnimatedListStateBridge() {
         }
         final builderRaw = positional[1];
         if (!named.containsKey('duration')) {
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeItem');
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -6971,12 +6971,12 @@ BridgedClass _createAnimatedListStateBridge() {
         }
         final builderRaw = positional[0];
         if (!named.containsKey('duration')) {
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeAllItems');
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7116,7 +7116,7 @@ BridgedClass _createAnimatedGridBridge() {
         final physics = D4.getOptionalNamedArg<$flutter_229.ScrollPhysics?>(named, 'physics');
         final padding = D4.getOptionalNamedArg<$flutter_41.EdgeInsetsGeometry?>(named, 'padding');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
-        return $flutter_125.AnimatedGrid(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, gridDelegate: gridDelegate, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, padding: padding, clipBehavior: clipBehavior);
+        return $flutter_125.AnimatedGrid(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, gridDelegate: gridDelegate, initialItemCount: initialItemCount, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, padding: padding, clipBehavior: clipBehavior);
       },
     },
     getters: {
@@ -7306,12 +7306,12 @@ BridgedClass _createAnimatedGridStateBridge() {
         }
         final builderRaw = positional[1];
         if (!named.containsKey('duration')) {
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeItem');
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7324,12 +7324,12 @@ BridgedClass _createAnimatedGridStateBridge() {
         }
         final builderRaw = positional[0];
         if (!named.containsKey('duration')) {
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeAllItems');
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7462,7 +7462,7 @@ BridgedClass _createSliverAnimatedListBridge() {
         final itemBuilderRaw = named['itemBuilder'];
         final findChildIndexCallbackRaw = named['findChildIndexCallback'];
         final initialItemCount = D4.getNamedArgWithDefault<int>(named, 'initialItemCount', 0);
-        return $flutter_125.SliverAnimatedList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, initialItemCount: initialItemCount);
+        return $flutter_125.SliverAnimatedList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, initialItemCount: initialItemCount);
       },
     },
     getters: {
@@ -7643,12 +7643,12 @@ BridgedClass _createSliverAnimatedListStateBridge() {
         }
         final builderRaw = positional[1];
         if (!named.containsKey('duration')) {
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeItem');
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7661,12 +7661,12 @@ BridgedClass _createSliverAnimatedListStateBridge() {
         }
         final builderRaw = positional[0];
         if (!named.containsKey('duration')) {
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeAllItems');
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7790,7 +7790,7 @@ BridgedClass _createSliverAnimatedGridBridge() {
         final gridDelegate = D4.getRequiredNamedArg<$flutter_79.SliverGridDelegate>(named, 'gridDelegate', 'SliverAnimatedGrid');
         final findChildIndexCallbackRaw = named['findChildIndexCallback'];
         final initialItemCount = D4.getNamedArgWithDefault<int>(named, 'initialItemCount', 0);
-        return $flutter_125.SliverAnimatedGrid(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, gridDelegate: gridDelegate, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, initialItemCount: initialItemCount);
+        return $flutter_125.SliverAnimatedGrid(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, gridDelegate: gridDelegate, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, initialItemCount: initialItemCount);
       },
     },
     getters: {
@@ -7973,12 +7973,12 @@ BridgedClass _createSliverAnimatedGridStateBridge() {
         }
         final builderRaw = positional[1];
         if (!named.containsKey('duration')) {
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeItem');
-          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeItem(index, ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -7991,12 +7991,12 @@ BridgedClass _createSliverAnimatedGridStateBridge() {
         }
         final builderRaw = positional[0];
         if (!named.containsKey('duration')) {
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
           return null;
         }
         if (named.containsKey('duration')) {
           final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'removeAllItems');
-          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, duration: duration);
+          t.removeAllItems(($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, duration: duration);
           return null;
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -8239,19 +8239,19 @@ BridgedClass _createAnimatedSwitcherBridge() {
         }
         if (named.containsKey('transitionBuilder') && !named.containsKey('layoutBuilder')) {
           final transitionBuilderRaw = named['transitionBuilder'];
-          final transitionBuilder = ($flutter_164.Widget p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1]) as $flutter_164.Widget; };
+          final transitionBuilder = ($flutter_164.Widget p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_127.AnimatedSwitcher(key: key, child: child, duration: duration, reverseDuration: reverseDuration, switchInCurve: switchInCurve, switchOutCurve: switchOutCurve, transitionBuilder: transitionBuilder);
         }
         if (!named.containsKey('transitionBuilder') && named.containsKey('layoutBuilder')) {
           final layoutBuilderRaw = named['layoutBuilder'];
-          final layoutBuilder = ($flutter_164.Widget? p0, List<$flutter_164.Widget> p1) { return D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1]) as $flutter_164.Widget; };
+          final layoutBuilder = ($flutter_164.Widget? p0, List<$flutter_164.Widget> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_127.AnimatedSwitcher(key: key, child: child, duration: duration, reverseDuration: reverseDuration, switchInCurve: switchInCurve, switchOutCurve: switchOutCurve, layoutBuilder: layoutBuilder);
         }
         if (named.containsKey('transitionBuilder') && named.containsKey('layoutBuilder')) {
           final transitionBuilderRaw = named['transitionBuilder'];
-          final transitionBuilder = ($flutter_164.Widget p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1]) as $flutter_164.Widget; };
+          final transitionBuilder = ($flutter_164.Widget p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1]), 'callback', visitor); };
           final layoutBuilderRaw = named['layoutBuilder'];
-          final layoutBuilder = ($flutter_164.Widget? p0, List<$flutter_164.Widget> p1) { return D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1]) as $flutter_164.Widget; };
+          final layoutBuilder = ($flutter_164.Widget? p0, List<$flutter_164.Widget> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, layoutBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_127.AnimatedSwitcher(key: key, child: child, duration: duration, reverseDuration: reverseDuration, switchInCurve: switchInCurve, switchOutCurve: switchOutCurve, transitionBuilder: transitionBuilder, layoutBuilder: layoutBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -8530,7 +8530,7 @@ BridgedClass _createWidgetsAppBridge() {
               if (v == null) {
                 // Skip null values for non-nullable function type
               } else if (v is Callable) {
-                routes[k] = ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor, v, [p0]) as $flutter_164.Widget; };
+                routes[k] = ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor, v, [p0]), 'callback', visitor); };
               } else {
                 routes[k] = v as $flutter_164.Widget Function($flutter_164.BuildContext);
               }
@@ -8560,11 +8560,11 @@ BridgedClass _createWidgetsAppBridge() {
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         if (!named.containsKey('supportedLocales')) {
-          return $flutter_129.WidgetsApp(key: key, navigatorKey: navigatorKey, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]) as List<$flutter_189.Route<dynamic>>; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]) as bool; }, navigatorObservers: navigatorObservers, initialRoute: initialRoute, pageRouteBuilder: pageRouteBuilderRaw == null ? null : <T>($flutter_189.RouteSettings p0, $flutter_164.Widget Function($flutter_164.BuildContext) p1) { return D4.callInterpreterCallback(visitor!, pageRouteBuilderRaw, [p0, p1]) as $flutter_200.PageRoute<T>; }, home: home, routes: routes, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]) as String; }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}) as $flutter_164.Widget; }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery);
+          return $flutter_129.WidgetsApp(key: key, navigatorKey: navigatorKey, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, initialRoute: initialRoute, pageRouteBuilder: pageRouteBuilderRaw == null ? null : <T>($flutter_189.RouteSettings p0, $flutter_164.Widget Function($flutter_164.BuildContext) p1) { return D4.extractBridgedArg<$flutter_200.PageRoute<T>>(D4.callInterpreterCallback(visitor!, pageRouteBuilderRaw, [p0, p1]), 'callback', visitor); }, home: home, routes: routes, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}), 'callback', visitor); }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery);
         }
         if (named.containsKey('supportedLocales')) {
           final supportedLocales = D4.coerceList<Locale>(named['supportedLocales'], 'supportedLocales');
-          return $flutter_129.WidgetsApp(key: key, navigatorKey: navigatorKey, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]) as List<$flutter_189.Route<dynamic>>; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]) as bool; }, navigatorObservers: navigatorObservers, initialRoute: initialRoute, pageRouteBuilder: pageRouteBuilderRaw == null ? null : <T>($flutter_189.RouteSettings p0, $flutter_164.Widget Function($flutter_164.BuildContext) p1) { return D4.callInterpreterCallback(visitor!, pageRouteBuilderRaw, [p0, p1]) as $flutter_200.PageRoute<T>; }, home: home, routes: routes, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]) as String; }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}) as $flutter_164.Widget; }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
+          return $flutter_129.WidgetsApp(key: key, navigatorKey: navigatorKey, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, initialRoute: initialRoute, pageRouteBuilder: pageRouteBuilderRaw == null ? null : <T>($flutter_189.RouteSettings p0, $flutter_164.Widget Function($flutter_164.BuildContext) p1) { return D4.extractBridgedArg<$flutter_200.PageRoute<T>>(D4.callInterpreterCallback(visitor!, pageRouteBuilderRaw, [p0, p1]), 'callback', visitor); }, home: home, routes: routes, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}), 'callback', visitor); }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -8597,11 +8597,11 @@ BridgedClass _createWidgetsAppBridge() {
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         if (!named.containsKey('supportedLocales')) {
-          return $flutter_129.WidgetsApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, routerConfig: routerConfig, backButtonDispatcher: backButtonDispatcher, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]) as String; }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]) as bool; }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}) as $flutter_164.Widget; }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery);
+          return $flutter_129.WidgetsApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, routerConfig: routerConfig, backButtonDispatcher: backButtonDispatcher, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}), 'callback', visitor); }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery);
         }
         if (named.containsKey('supportedLocales')) {
           final supportedLocales = D4.coerceList<Locale>(named['supportedLocales'], 'supportedLocales');
-          return $flutter_129.WidgetsApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, routerConfig: routerConfig, backButtonDispatcher: backButtonDispatcher, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]) as String; }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]) as bool; }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}) as $flutter_164.Widget; }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
+          return $flutter_129.WidgetsApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, routerConfig: routerConfig, backButtonDispatcher: backButtonDispatcher, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_189.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, textStyle: textStyle, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, showSemanticsDebugger: showSemanticsDebugger, debugShowWidgetInspector: debugShowWidgetInspector, debugShowCheckedModeBanner: debugShowCheckedModeBanner, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}), 'callback', visitor); }, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -8810,7 +8810,7 @@ BridgedClass _createAppLifecycleListenerBridge() {
         final onDetachRaw = named['onDetach'];
         final onExitRequestedRaw = named['onExitRequested'];
         final onStateChangeRaw = named['onStateChange'];
-        return $flutter_130.AppLifecycleListener(binding: binding, onResume: onResumeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResumeRaw, []); }, onInactive: onInactiveRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onInactiveRaw, []); }, onHide: onHideRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onHideRaw, []); }, onShow: onShowRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShowRaw, []); }, onPause: onPauseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPauseRaw, []); }, onRestart: onRestartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onRestartRaw, []); }, onDetach: onDetachRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDetachRaw, []); }, onExitRequested: onExitRequestedRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onExitRequestedRaw, []) as Future<AppExitResponse>; }, onStateChange: onStateChangeRaw == null ? null : (AppLifecycleState p0) { D4.callInterpreterCallback(visitor!, onStateChangeRaw, [p0]); });
+        return $flutter_130.AppLifecycleListener(binding: binding, onResume: onResumeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResumeRaw, []); }, onInactive: onInactiveRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onInactiveRaw, []); }, onHide: onHideRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onHideRaw, []); }, onShow: onShowRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShowRaw, []); }, onPause: onPauseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPauseRaw, []); }, onRestart: onRestartRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onRestartRaw, []); }, onDetach: onDetachRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDetachRaw, []); }, onExitRequested: onExitRequestedRaw == null ? null : () { return D4.extractBridgedArg<Future<AppExitResponse>>(D4.callInterpreterCallback(visitor!, onExitRequestedRaw, []), 'callback', visitor); }, onStateChange: onStateChangeRaw == null ? null : (AppLifecycleState p0) { D4.callInterpreterCallback(visitor!, onStateChangeRaw, [p0]); });
       },
     },
     getters: {
@@ -9966,7 +9966,7 @@ BridgedClass _createStreamBuilderBridge() {
           throw ArgumentError('StreamBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_131.StreamBuilder(key: key, initialData: initialData, stream: stream, builder: ($flutter_164.BuildContext p0, $flutter_131.AsyncSnapshot<dynamic> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_131.StreamBuilder(key: key, initialData: initialData, stream: stream, builder: ($flutter_164.BuildContext p0, $flutter_131.AsyncSnapshot<dynamic> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -10124,7 +10124,7 @@ BridgedClass _createFutureBuilderBridge() {
           throw ArgumentError('FutureBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_131.FutureBuilder(key: key, future: future, initialData: initialData, builder: ($flutter_164.BuildContext p0, $flutter_131.AsyncSnapshot<dynamic> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_131.FutureBuilder(key: key, future: future, initialData: initialData, builder: ($flutter_164.BuildContext p0, $flutter_131.AsyncSnapshot<dynamic> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -10253,12 +10253,12 @@ BridgedClass _createRawAutocompleteBridge() {
         final textEditingController = D4.getOptionalNamedArg<$flutter_155.TextEditingController?>(named, 'textEditingController');
         final initialValue = D4.getOptionalNamedArg<$flutter_119.TextEditingValue?>(named, 'initialValue');
         if (!named.containsKey('displayStringForOption')) {
-          return $flutter_132.RawAutocomplete(key: key, optionsViewBuilder: ($flutter_164.BuildContext p0, void Function(Object) p1, Iterable<Object> p2) { return D4.callInterpreterCallback(visitor!, optionsViewBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, optionsBuilder: ($flutter_119.TextEditingValue p0) { return D4.callInterpreterCallback(visitor!, optionsBuilderRaw, [p0]) as FutureOr<Iterable<Object>>; }, optionsViewOpenDirection: optionsViewOpenDirection, fieldViewBuilder: fieldViewBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.TextEditingController p1, $flutter_160.FocusNode p2, void Function() p3) { return D4.callInterpreterCallback(visitor!, fieldViewBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, focusNode: focusNode, onSelected: onSelectedRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, textEditingController: textEditingController, initialValue: initialValue);
+          return $flutter_132.RawAutocomplete(key: key, optionsViewBuilder: ($flutter_164.BuildContext p0, void Function(Object) p1, Iterable<Object> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, optionsViewBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, optionsBuilder: ($flutter_119.TextEditingValue p0) { return D4.extractBridgedArg<FutureOr<Iterable<Object>>>(D4.callInterpreterCallback(visitor!, optionsBuilderRaw, [p0]), 'callback', visitor); }, optionsViewOpenDirection: optionsViewOpenDirection, fieldViewBuilder: fieldViewBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.TextEditingController p1, $flutter_160.FocusNode p2, void Function() p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, fieldViewBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, focusNode: focusNode, onSelected: onSelectedRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, textEditingController: textEditingController, initialValue: initialValue);
         }
         if (named.containsKey('displayStringForOption')) {
           final displayStringForOptionRaw = named['displayStringForOption'];
-          final displayStringForOption = (Object p0) { return D4.callInterpreterCallback(visitor!, displayStringForOptionRaw, [p0]) as String; };
-          return $flutter_132.RawAutocomplete(key: key, optionsViewBuilder: ($flutter_164.BuildContext p0, void Function(Object) p1, Iterable<Object> p2) { return D4.callInterpreterCallback(visitor!, optionsViewBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, optionsBuilder: ($flutter_119.TextEditingValue p0) { return D4.callInterpreterCallback(visitor!, optionsBuilderRaw, [p0]) as FutureOr<Iterable<Object>>; }, optionsViewOpenDirection: optionsViewOpenDirection, fieldViewBuilder: fieldViewBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.TextEditingController p1, $flutter_160.FocusNode p2, void Function() p3) { return D4.callInterpreterCallback(visitor!, fieldViewBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, focusNode: focusNode, onSelected: onSelectedRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, textEditingController: textEditingController, initialValue: initialValue, displayStringForOption: displayStringForOption);
+          final displayStringForOption = (Object p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, displayStringForOptionRaw, [p0]), 'callback', visitor); };
+          return $flutter_132.RawAutocomplete(key: key, optionsViewBuilder: ($flutter_164.BuildContext p0, void Function(Object) p1, Iterable<Object> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, optionsViewBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, optionsBuilder: ($flutter_119.TextEditingValue p0) { return D4.extractBridgedArg<FutureOr<Iterable<Object>>>(D4.callInterpreterCallback(visitor!, optionsBuilderRaw, [p0]), 'callback', visitor); }, optionsViewOpenDirection: optionsViewOpenDirection, fieldViewBuilder: fieldViewBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.TextEditingController p1, $flutter_160.FocusNode p2, void Function() p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, fieldViewBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, focusNode: focusNode, onSelected: onSelectedRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, textEditingController: textEditingController, initialValue: initialValue, displayStringForOption: displayStringForOption);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -12064,7 +12064,7 @@ BridgedClass _createShaderMaskBridge() {
         final shaderCallbackRaw = named['shaderCallback'];
         final blendMode = D4.getNamedArgWithDefault<BlendMode>(named, 'blendMode', $dart_ui.BlendMode.modulate);
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_136.ShaderMask(key: key, shaderCallback: (Rect p0) { return D4.callInterpreterCallback(visitor!, shaderCallbackRaw, [p0]) as Shader; }, blendMode: blendMode, child: child);
+        return $flutter_136.ShaderMask(key: key, shaderCallback: (Rect p0) { return D4.extractBridgedArg<Shader>(D4.callInterpreterCallback(visitor!, shaderCallbackRaw, [p0]), 'callback', visitor); }, blendMode: blendMode, child: child);
       },
     },
     getters: {
@@ -15279,7 +15279,7 @@ BridgedClass _createConstraintsTransformBoxBridge() {
         final constraintsTransformRaw = named['constraintsTransform'];
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final debugTransformType = D4.getNamedArgWithDefault<String>(named, 'debugTransformType', '');
-        return $flutter_136.ConstraintsTransformBox(key: key, child: child, textDirection: textDirection, alignment: alignment, constraintsTransform: ($flutter_55.BoxConstraints p0) { return D4.callInterpreterCallback(visitor!, constraintsTransformRaw, [p0]) as $flutter_55.BoxConstraints; }, clipBehavior: clipBehavior, debugTransformType: debugTransformType);
+        return $flutter_136.ConstraintsTransformBox(key: key, child: child, textDirection: textDirection, alignment: alignment, constraintsTransform: ($flutter_55.BoxConstraints p0) { return D4.extractBridgedArg<$flutter_55.BoxConstraints>(D4.callInterpreterCallback(visitor!, constraintsTransformRaw, [p0]), 'callback', visitor); }, clipBehavior: clipBehavior, debugTransformType: debugTransformType);
       },
     },
     getters: {
@@ -21122,7 +21122,7 @@ BridgedClass _createBuilderBridge() {
           throw ArgumentError('Builder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_136.Builder(key: key, builder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; });
+        return $flutter_136.Builder(key: key, builder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); });
       },
     },
     getters: {
@@ -21225,7 +21225,7 @@ BridgedClass _createStatefulBuilderBridge() {
           throw ArgumentError('StatefulBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_136.StatefulBuilder(key: key, builder: ($flutter_164.BuildContext p0, void Function(void Function()) p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_136.StatefulBuilder(key: key, builder: ($flutter_164.BuildContext p0, void Function(void Function()) p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -21639,7 +21639,7 @@ BridgedClass _createWidgetsBindingBridge() {
         (D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding') as dynamic).debugBuildingDirtyElements = value,
       'schedulingStrategy': (visitor, target, value) {
         final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
-        D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding').schedulingStrategy = ({required int priority, required $flutter_94.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+        D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding').schedulingStrategy = ({required int priority, required $flutter_94.SchedulerBinding scheduler}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}), 'callback', visitor); };
       },
       'resamplingEnabled': (visitor, target, value) => 
         D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding').resamplingEnabled = D4.extractBridgedArg<bool>(value, 'resamplingEnabled'),
@@ -21806,7 +21806,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding');
@@ -21824,7 +21824,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -21838,7 +21838,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -21852,7 +21852,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -21877,7 +21877,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -21887,7 +21887,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -21939,7 +21939,7 @@ BridgedClass _createWidgetsBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<void>; });
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -21976,7 +21976,7 @@ BridgedClass _createWidgetsBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_95.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<$dart_developer.Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor); }, priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsBinding>(target, 'WidgetsBinding');
@@ -22776,7 +22776,7 @@ BridgedClass _createRootElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -23016,7 +23016,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
         D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding').samplingOffset = D4.extractBridgedArg<Duration>(value, 'samplingOffset'),
       'schedulingStrategy': (visitor, target, value) {
         final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
-        D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding').schedulingStrategy = ({required int priority, required $flutter_94.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+        D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding').schedulingStrategy = ({required int priority, required $flutter_94.SchedulerBinding scheduler}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}), 'callback', visitor); };
       },
       'debugShowWidgetInspectorOverride': (visitor, target, value) => 
         D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding').debugShowWidgetInspectorOverride = D4.extractBridgedArg<bool>(value, 'debugShowWidgetInspectorOverride'),
@@ -23051,7 +23051,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding');
@@ -23073,7 +23073,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23087,7 +23087,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23101,7 +23101,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -23126,7 +23126,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -23136,7 +23136,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -23237,7 +23237,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_95.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<$dart_developer.Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor); }, priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding');
@@ -23413,7 +23413,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<void>; });
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -23438,7 +23438,7 @@ BridgedClass _createWidgetsFlutterBindingBridge() {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
         final buffer = D4.getRequiredArg<ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]) as TargetImageSize; });
+        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); });
       },
       'addSemanticsEnabledListener': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.WidgetsFlutterBinding>(target, 'WidgetsFlutterBinding');
@@ -24339,7 +24339,7 @@ BridgedClass _createContextMenuControllerBridge() {
         }
         final contextMenuBuilderRaw = named['contextMenuBuilder'];
         final debugRequiredFor = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'debugRequiredFor');
-        t.show(context: context, contextMenuBuilder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]) as $flutter_164.Widget; }, debugRequiredFor: debugRequiredFor);
+        t.show(context: context, contextMenuBuilder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]), 'callback', visitor); }, debugRequiredFor: debugRequiredFor);
         return null;
       },
       'markNeedsBuild': (visitor, target, positional, named, typeArgs) {
@@ -24834,7 +24834,7 @@ BridgedClass _createDismissibleBridge() {
         final crossAxisEndOffset = D4.getNamedArgWithDefault<double>(named, 'crossAxisEndOffset', 0.0);
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_27.DragStartBehavior>(named, 'dragStartBehavior', $flutter_27.DragStartBehavior.start);
         final behavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'behavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_148.Dismissible(key: key, child: child, background: background, secondaryBackground: secondaryBackground, confirmDismiss: confirmDismissRaw == null ? null : ($flutter_148.DismissDirection p0) { return D4.callInterpreterCallback(visitor!, confirmDismissRaw, [p0]) as Future<bool?>; }, onResize: onResizeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResizeRaw, []); }, onUpdate: onUpdateRaw == null ? null : ($flutter_148.DismissUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); }, onDismissed: onDismissedRaw == null ? null : ($flutter_148.DismissDirection p0) { D4.callInterpreterCallback(visitor!, onDismissedRaw, [p0]); }, direction: direction, resizeDuration: resizeDuration, dismissThresholds: dismissThresholds, movementDuration: movementDuration, crossAxisEndOffset: crossAxisEndOffset, dragStartBehavior: dragStartBehavior, behavior: behavior);
+        return $flutter_148.Dismissible(key: key, child: child, background: background, secondaryBackground: secondaryBackground, confirmDismiss: confirmDismissRaw == null ? null : ($flutter_148.DismissDirection p0) { return D4.extractBridgedArg<Future<bool?>>(D4.callInterpreterCallback(visitor!, confirmDismissRaw, [p0]), 'callback', visitor); }, onResize: onResizeRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResizeRaw, []); }, onUpdate: onUpdateRaw == null ? null : ($flutter_148.DismissUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onUpdateRaw, [p0]); }, onDismissed: onDismissedRaw == null ? null : ($flutter_148.DismissDirection p0) { D4.callInterpreterCallback(visitor!, onDismissedRaw, [p0]); }, direction: direction, resizeDuration: resizeDuration, dismissThresholds: dismissThresholds, movementDuration: movementDuration, crossAxisEndOffset: crossAxisEndOffset, dragStartBehavior: dragStartBehavior, behavior: behavior);
       },
     },
     getters: {
@@ -25323,12 +25323,12 @@ BridgedClass _createDraggableBridge() {
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.deferToChild);
         final allowedButtonsFilterRaw = named['allowedButtonsFilter'];
         if (!named.containsKey('dragAnchorStrategy')) {
-          return $flutter_152.Draggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, affinity: affinity, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, rootOverlay: rootOverlay, hitTestBehavior: hitTestBehavior, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; });
+          return $flutter_152.Draggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, affinity: affinity, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, rootOverlay: rootOverlay, hitTestBehavior: hitTestBehavior, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); });
         }
         if (named.containsKey('dragAnchorStrategy')) {
           final dragAnchorStrategyRaw = named['dragAnchorStrategy'];
-          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]) as Offset; };
-          return $flutter_152.Draggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, affinity: affinity, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, rootOverlay: rootOverlay, hitTestBehavior: hitTestBehavior, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }, dragAnchorStrategy: dragAnchorStrategy);
+          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]), 'callback', visitor); };
+          return $flutter_152.Draggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, affinity: affinity, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, rootOverlay: rootOverlay, hitTestBehavior: hitTestBehavior, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, dragAnchorStrategy: dragAnchorStrategy);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -25412,7 +25412,7 @@ BridgedClass _createDraggableBridge() {
           throw ArgumentError('createRecognizer: Missing required argument "onStart" at position 0');
         }
         final onStartRaw = positional[0];
-        return t.createRecognizer((Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_16.Drag?; });
+        return t.createRecognizer((Offset p0) { return D4.extractBridgedArg<$flutter_16.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); });
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_152.Draggable>(target, 'Draggable');
@@ -25492,22 +25492,22 @@ BridgedClass _createLongPressDraggableBridge() {
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.deferToChild);
         final rootOverlay = D4.getNamedArgWithDefault<bool>(named, 'rootOverlay', false);
         if (!named.containsKey('dragAnchorStrategy') && !named.containsKey('delay')) {
-          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay);
+          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay);
         }
         if (named.containsKey('dragAnchorStrategy') && !named.containsKey('delay')) {
           final dragAnchorStrategyRaw = named['dragAnchorStrategy'];
-          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]) as Offset; };
-          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, dragAnchorStrategy: dragAnchorStrategy);
+          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]), 'callback', visitor); };
+          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, dragAnchorStrategy: dragAnchorStrategy);
         }
         if (!named.containsKey('dragAnchorStrategy') && named.containsKey('delay')) {
           final delay = D4.getRequiredNamedArg<Duration>(named, 'delay', 'LongPressDraggable');
-          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, delay: delay);
+          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, delay: delay);
         }
         if (named.containsKey('dragAnchorStrategy') && named.containsKey('delay')) {
           final dragAnchorStrategyRaw = named['dragAnchorStrategy'];
-          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]) as Offset; };
+          final dragAnchorStrategy = ($flutter_152.Draggable<Object> p0, $flutter_164.BuildContext p1, Offset p2) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, dragAnchorStrategyRaw, [p0, p1, p2]), 'callback', visitor); };
           final delay = D4.getRequiredNamedArg<Duration>(named, 'delay', 'LongPressDraggable');
-          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]) as bool; }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, dragAnchorStrategy: dragAnchorStrategy, delay: delay);
+          return $flutter_152.LongPressDraggable(key: key, child: child, feedback: feedback, data: data, axis: axis, childWhenDragging: childWhenDragging, feedbackOffset: feedbackOffset, maxSimultaneousDrags: maxSimultaneousDrags, onDragStarted: onDragStartedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragStartedRaw, []); }, onDragUpdate: onDragUpdateRaw == null ? null : ($flutter_17.DragUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onDragUpdateRaw, [p0]); }, onDraggableCanceled: onDraggableCanceledRaw == null ? null : ($flutter_31.Velocity p0, Offset p1) { D4.callInterpreterCallback(visitor!, onDraggableCanceledRaw, [p0, p1]); }, onDragEnd: onDragEndRaw == null ? null : ($flutter_152.DraggableDetails p0) { D4.callInterpreterCallback(visitor!, onDragEndRaw, [p0]); }, onDragCompleted: onDragCompletedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDragCompletedRaw, []); }, hapticFeedbackOnStart: hapticFeedbackOnStart, ignoringFeedbackSemantics: ignoringFeedbackSemantics, ignoringFeedbackPointer: ignoringFeedbackPointer, allowedButtonsFilter: allowedButtonsFilterRaw == null ? null : (int p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, allowedButtonsFilterRaw, [p0]), 'callback', visitor); }, hitTestBehavior: hitTestBehavior, rootOverlay: rootOverlay, dragAnchorStrategy: dragAnchorStrategy, delay: delay);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -25593,7 +25593,7 @@ BridgedClass _createLongPressDraggableBridge() {
           throw ArgumentError('createRecognizer: Missing required argument "onStart" at position 0');
         }
         final onStartRaw = positional[0];
-        return t.createRecognizer((Offset p0) { return D4.callInterpreterCallback(visitor!, onStartRaw, [p0]) as $flutter_16.Drag?; });
+        return t.createRecognizer((Offset p0) { return D4.extractBridgedArg<$flutter_16.Drag?>(D4.callInterpreterCallback(visitor!, onStartRaw, [p0]), 'callback', visitor); });
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_152.LongPressDraggable>(target, 'LongPressDraggable');
@@ -25730,7 +25730,7 @@ BridgedClass _createDragTargetBridge() {
         final onLeaveRaw = named['onLeave'];
         final onMoveRaw = named['onMove'];
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.translucent);
-        return $flutter_152.DragTarget(key: key, builder: ($flutter_164.BuildContext p0, List<Object?> p1, List<dynamic> p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, onWillAccept: onWillAcceptRaw == null ? null : (Object? p0) { return D4.callInterpreterCallback(visitor!, onWillAcceptRaw, [p0]) as bool; }, onWillAcceptWithDetails: onWillAcceptWithDetailsRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { return D4.callInterpreterCallback(visitor!, onWillAcceptWithDetailsRaw, [p0]) as bool; }, onAccept: onAcceptRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onAcceptRaw, [p0]); }, onAcceptWithDetails: onAcceptWithDetailsRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { D4.callInterpreterCallback(visitor!, onAcceptWithDetailsRaw, [p0]); }, onLeave: onLeaveRaw == null ? null : (Object? p0) { D4.callInterpreterCallback(visitor!, onLeaveRaw, [p0]); }, onMove: onMoveRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { D4.callInterpreterCallback(visitor!, onMoveRaw, [p0]); }, hitTestBehavior: hitTestBehavior);
+        return $flutter_152.DragTarget(key: key, builder: ($flutter_164.BuildContext p0, List<Object?> p1, List<dynamic> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, onWillAccept: onWillAcceptRaw == null ? null : (Object? p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onWillAcceptRaw, [p0]), 'callback', visitor); }, onWillAcceptWithDetails: onWillAcceptWithDetailsRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onWillAcceptWithDetailsRaw, [p0]), 'callback', visitor); }, onAccept: onAcceptRaw == null ? null : (Object p0) { D4.callInterpreterCallback(visitor!, onAcceptRaw, [p0]); }, onAcceptWithDetails: onAcceptWithDetailsRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { D4.callInterpreterCallback(visitor!, onAcceptWithDetailsRaw, [p0]); }, onLeave: onLeaveRaw == null ? null : (Object? p0) { D4.callInterpreterCallback(visitor!, onLeaveRaw, [p0]); }, onMove: onMoveRaw == null ? null : ($flutter_152.DragTargetDetails<Object> p0) { D4.callInterpreterCallback(visitor!, onMoveRaw, [p0]); }, hitTestBehavior: hitTestBehavior);
       },
     },
     getters: {
@@ -25961,7 +25961,7 @@ BridgedClass _createDraggableScrollableSheetBridge() {
           throw ArgumentError('DraggableScrollableSheet: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_153.DraggableScrollableSheet(key: key, initialChildSize: initialChildSize, minChildSize: minChildSize, maxChildSize: maxChildSize, expand: expand, snap: snap, snapSizes: snapSizes, snapAnimationDuration: snapAnimationDuration, controller: controller, shouldCloseOnMinExtent: shouldCloseOnMinExtent, builder: ($flutter_164.BuildContext p0, $flutter_224.ScrollController p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_153.DraggableScrollableSheet(key: key, initialChildSize: initialChildSize, minChildSize: minChildSize, maxChildSize: maxChildSize, expand: expand, snap: snap, snapSizes: snapSizes, snapAnimationDuration: snapAnimationDuration, controller: controller, shouldCloseOnMinExtent: shouldCloseOnMinExtent, builder: ($flutter_164.BuildContext p0, $flutter_224.ScrollController p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -26266,7 +26266,7 @@ BridgedClass _createDualTransitionBuilderBridge() {
         }
         final reverseBuilderRaw = named['reverseBuilder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_154.DualTransitionBuilder(key: key, animation: animation, forwardBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, forwardBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, reverseBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, reverseBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, child: child);
+        return $flutter_154.DualTransitionBuilder(key: key, animation: animation, forwardBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, forwardBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, reverseBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, reverseBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -26599,20 +26599,20 @@ BridgedClass _createEditableTextBridge() {
         final undoController = D4.getOptionalNamedArg<$flutter_277.UndoHistoryController?>(named, 'undoController');
         final hintLocales = D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales');
         if (!named.containsKey('groupId') && !named.containsKey('stylusHandwritingEnabled')) {
-          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales);
+          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales);
         }
         if (named.containsKey('groupId') && !named.containsKey('stylusHandwritingEnabled')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'EditableText');
-          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, groupId: groupId);
+          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, groupId: groupId);
         }
         if (!named.containsKey('groupId') && named.containsKey('stylusHandwritingEnabled')) {
           final stylusHandwritingEnabled = D4.getRequiredNamedArg<bool>(named, 'stylusHandwritingEnabled', 'EditableText');
-          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, stylusHandwritingEnabled: stylusHandwritingEnabled);
+          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, stylusHandwritingEnabled: stylusHandwritingEnabled);
         }
         if (named.containsKey('groupId') && named.containsKey('stylusHandwritingEnabled')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'EditableText');
           final stylusHandwritingEnabled = D4.getRequiredNamedArg<bool>(named, 'stylusHandwritingEnabled', 'EditableText');
-          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, groupId: groupId, stylusHandwritingEnabled: stylusHandwritingEnabled);
+          return $flutter_155.EditableText(key: key, controller: controller, focusNode: focusNode, readOnly: readOnly, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, style: style, strutStyle: strutStyle, cursorColor: cursorColor, backgroundCursorColor: backgroundCursorColor, textAlign: textAlign, textDirection: textDirection, locale: locale, textScaleFactor: textScaleFactor, textScaler: textScaler, maxLines: maxLines, minLines: minLines, expands: expands, forceLine: forceLine, textHeightBehavior: textHeightBehavior, textWidthBasis: textWidthBasis, autofocus: autofocus, showCursor: showCursor, showSelectionHandles: showSelectionHandles, selectionColor: selectionColor, selectionControls: selectionControls, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onAppPrivateCommand: onAppPrivateCommandRaw == null ? null : (String p0, Map<String, dynamic> p1) { D4.callInterpreterCallback(visitor!, onAppPrivateCommandRaw, [p0, p1]); }, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_117.TextSelection p0, $flutter_119.SelectionChangedCause? p1) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0, p1]); }, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_18.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_18.PointerUpEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, mouseCursor: mouseCursor, rendererIgnoresPointer: rendererIgnoresPointer, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorOffset: cursorOffset, paintCursorAboveText: paintCursorAboveText, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, scrollPadding: scrollPadding, keyboardAppearance: keyboardAppearance, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, scrollController: scrollController, scrollPhysics: scrollPhysics, autocorrectionTextRectColor: autocorrectionTextRectColor, toolbarOptions: toolbarOptions, autofillHints: autofillHints, autofillClient: autofillClient, clipBehavior: clipBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, scribbleEnabled: scribbleEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, contentInsertionConfiguration: contentInsertionConfiguration, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); }, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, undoController: undoController, hintLocales: hintLocales, groupId: groupId, stylusHandwritingEnabled: stylusHandwritingEnabled);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -27591,12 +27591,12 @@ BridgedClass _createExpansibleBridge() {
         final reverseCurve = D4.getOptionalNamedArg<$flutter_5.Curve?>(named, 'reverseCurve');
         final maintainState = D4.getNamedArgWithDefault<bool>(named, 'maintainState', true);
         if (!named.containsKey('expansibleBuilder')) {
-          return $flutter_156.Expansible(key: key, headerBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, headerBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, bodyBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, bodyBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, controller: controller, animationStyle: animationStyle, duration: duration, curve: curve, reverseCurve: reverseCurve, maintainState: maintainState);
+          return $flutter_156.Expansible(key: key, headerBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, headerBuilderRaw, [p0, p1]), 'callback', visitor); }, bodyBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, bodyBuilderRaw, [p0, p1]), 'callback', visitor); }, controller: controller, animationStyle: animationStyle, duration: duration, curve: curve, reverseCurve: reverseCurve, maintainState: maintainState);
         }
         if (named.containsKey('expansibleBuilder')) {
           final expansibleBuilderRaw = named['expansibleBuilder'];
-          final expansibleBuilder = ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_164.Widget p2, $flutter_1.Animation<double> p3) { return D4.callInterpreterCallback(visitor!, expansibleBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; };
-          return $flutter_156.Expansible(key: key, headerBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, headerBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, bodyBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, bodyBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, controller: controller, animationStyle: animationStyle, duration: duration, curve: curve, reverseCurve: reverseCurve, maintainState: maintainState, expansibleBuilder: expansibleBuilder);
+          final expansibleBuilder = ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_164.Widget p2, $flutter_1.Animation<double> p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, expansibleBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
+          return $flutter_156.Expansible(key: key, headerBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, headerBuilderRaw, [p0, p1]), 'callback', visitor); }, bodyBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, bodyBuilderRaw, [p0, p1]), 'callback', visitor); }, controller: controller, animationStyle: animationStyle, duration: duration, curve: curve, reverseCurve: reverseCurve, maintainState: maintainState, expansibleBuilder: expansibleBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -27734,7 +27734,7 @@ BridgedClass _createFadeInImageBridge() {
         final alignment = D4.getNamedArgWithDefault<$flutter_32.AlignmentGeometry>(named, 'alignment', $flutter_136.Alignment.center);
         final repeat = D4.getNamedArgWithDefault<$flutter_40.ImageRepeat>(named, 'repeat', $flutter_40.ImageRepeat.noRepeat);
         final matchTextDirection = D4.getNamedArgWithDefault<bool>(named, 'matchTextDirection', false);
-        return $flutter_157.FadeInImage(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, width: width, height: height, fit: fit, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection);
+        return $flutter_157.FadeInImage(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, width: width, height: height, fit: fit, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection);
       },
       'memoryNetwork': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -27767,7 +27767,7 @@ BridgedClass _createFadeInImageBridge() {
         final placeholderCacheHeight = D4.getOptionalNamedArg<int?>(named, 'placeholderCacheHeight');
         final imageCacheWidth = D4.getOptionalNamedArg<int?>(named, 'imageCacheWidth');
         final imageCacheHeight = D4.getOptionalNamedArg<int?>(named, 'imageCacheHeight');
-        return $flutter_157.FadeInImage.memoryNetwork(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, placeholderScale: placeholderScale, imageScale: imageScale, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, width: width, height: height, fit: fit, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection, placeholderCacheWidth: placeholderCacheWidth, placeholderCacheHeight: placeholderCacheHeight, imageCacheWidth: imageCacheWidth, imageCacheHeight: imageCacheHeight);
+        return $flutter_157.FadeInImage.memoryNetwork(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, placeholderScale: placeholderScale, imageScale: imageScale, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, width: width, height: height, fit: fit, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection, placeholderCacheWidth: placeholderCacheWidth, placeholderCacheHeight: placeholderCacheHeight, imageCacheWidth: imageCacheWidth, imageCacheHeight: imageCacheHeight);
       },
       'assetNetwork': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -27801,7 +27801,7 @@ BridgedClass _createFadeInImageBridge() {
         final placeholderCacheHeight = D4.getOptionalNamedArg<int?>(named, 'placeholderCacheHeight');
         final imageCacheWidth = D4.getOptionalNamedArg<int?>(named, 'imageCacheWidth');
         final imageCacheHeight = D4.getOptionalNamedArg<int?>(named, 'imageCacheHeight');
-        return $flutter_157.FadeInImage.assetNetwork(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, bundle: bundle, placeholderScale: placeholderScale, imageScale: imageScale, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, width: width, height: height, fit: fit, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection, placeholderCacheWidth: placeholderCacheWidth, placeholderCacheHeight: placeholderCacheHeight, imageCacheWidth: imageCacheWidth, imageCacheHeight: imageCacheHeight);
+        return $flutter_157.FadeInImage.assetNetwork(key: key, placeholder: placeholder, placeholderErrorBuilder: placeholderErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, placeholderErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, image: image, imageErrorBuilder: imageErrorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, imageErrorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, bundle: bundle, placeholderScale: placeholderScale, imageScale: imageScale, excludeFromSemantics: excludeFromSemantics, imageSemanticLabel: imageSemanticLabel, fadeOutDuration: fadeOutDuration, fadeOutCurve: fadeOutCurve, fadeInDuration: fadeInDuration, fadeInCurve: fadeInCurve, width: width, height: height, fit: fit, color: color, colorBlendMode: colorBlendMode, placeholderColor: placeholderColor, placeholderColorBlendMode: placeholderColorBlendMode, placeholderFit: placeholderFit, filterQuality: filterQuality, placeholderFilterQuality: placeholderFilterQuality, alignment: alignment, repeat: repeat, matchTextDirection: matchTextDirection, placeholderCacheWidth: placeholderCacheWidth, placeholderCacheHeight: placeholderCacheHeight, imageCacheWidth: imageCacheWidth, imageCacheHeight: imageCacheHeight);
       },
     },
     getters: {
@@ -28151,7 +28151,7 @@ BridgedClass _createFocusNodeBridge() {
         final canRequestFocus = D4.getNamedArgWithDefault<bool>(named, 'canRequestFocus', true);
         final descendantsAreFocusable = D4.getNamedArgWithDefault<bool>(named, 'descendantsAreFocusable', true);
         final descendantsAreTraversable = D4.getNamedArgWithDefault<bool>(named, 'descendantsAreTraversable', true);
-        return $flutter_160.FocusNode(debugLabel: debugLabel, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, skipTraversal: skipTraversal, canRequestFocus: canRequestFocus, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable);
+        return $flutter_160.FocusNode(debugLabel: debugLabel, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); }, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, skipTraversal: skipTraversal, canRequestFocus: canRequestFocus, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable);
       },
     },
     getters: {
@@ -28190,11 +28190,11 @@ BridgedClass _createFocusNodeBridge() {
         D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').descendantsAreTraversable = D4.extractBridgedArg<bool>(value, 'descendantsAreTraversable'),
       'onKey': (visitor, target, value) {
         final onKeyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKey');
-        D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').onKey = onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; };
+        D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').onKey = onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); };
       },
       'onKeyEvent': (visitor, target, value) {
         final onKeyEventRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKeyEvent');
-        D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').onKeyEvent = onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; };
+        D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').onKeyEvent = onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); };
       },
       'debugLabel': (visitor, target, value) => 
         D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode').debugLabel = D4.extractBridgedArgOrNull<String>(value, 'debugLabel'),
@@ -28216,7 +28216,7 @@ BridgedClass _createFocusNodeBridge() {
         final context = D4.getRequiredArg<$flutter_164.BuildContext?>(positional, 0, 'context', 'attach');
         final onKeyEventRaw = named['onKeyEvent'];
         final onKeyRaw = named['onKey'];
-        return t.attach(context, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; });
+        return t.attach(context, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); });
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_160.FocusNode>(target, 'FocusNode');
@@ -28387,7 +28387,7 @@ BridgedClass _createFocusScopeNodeBridge() {
         final canRequestFocus = D4.getNamedArgWithDefault<bool>(named, 'canRequestFocus', true);
         final traversalEdgeBehavior = D4.getNamedArgWithDefault<$flutter_162.TraversalEdgeBehavior>(named, 'traversalEdgeBehavior', $flutter_162.TraversalEdgeBehavior.closedLoop);
         final directionalTraversalEdgeBehavior = D4.getNamedArgWithDefault<$flutter_162.TraversalEdgeBehavior>(named, 'directionalTraversalEdgeBehavior', $flutter_162.TraversalEdgeBehavior.stop);
-        return $flutter_160.FocusScopeNode(debugLabel: debugLabel, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, skipTraversal: skipTraversal, canRequestFocus: canRequestFocus, traversalEdgeBehavior: traversalEdgeBehavior, directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior);
+        return $flutter_160.FocusScopeNode(debugLabel: debugLabel, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); }, skipTraversal: skipTraversal, canRequestFocus: canRequestFocus, traversalEdgeBehavior: traversalEdgeBehavior, directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior);
       },
     },
     getters: {
@@ -28430,11 +28430,11 @@ BridgedClass _createFocusScopeNodeBridge() {
         D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').descendantsAreTraversable = D4.extractBridgedArg<bool>(value, 'descendantsAreTraversable'),
       'onKey': (visitor, target, value) {
         final onKeyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKey');
-        D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').onKey = onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; };
+        D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').onKey = onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); };
       },
       'onKeyEvent': (visitor, target, value) {
         final onKeyEventRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKeyEvent');
-        D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').onKeyEvent = onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; };
+        D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').onKeyEvent = onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); };
       },
       'debugLabel': (visitor, target, value) => 
         D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode').debugLabel = D4.extractBridgedArgOrNull<String>(value, 'debugLabel'),
@@ -28460,7 +28460,7 @@ BridgedClass _createFocusScopeNodeBridge() {
         final context = D4.getRequiredArg<$flutter_164.BuildContext?>(positional, 0, 'context', 'attach');
         final onKeyEventRaw = named['onKeyEvent'];
         final onKeyRaw = named['onKey'];
-        return t.attach(context, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; });
+        return t.attach(context, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); });
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_160.FocusScopeNode>(target, 'FocusScopeNode');
@@ -28704,7 +28704,7 @@ BridgedClass _createFocusManagerBridge() {
           throw ArgumentError('addEarlyKeyEventHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.addEarlyKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as $flutter_160.KeyEventResult; });
+        t.addEarlyKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'removeEarlyKeyEventHandler': (visitor, target, positional, named, typeArgs) {
@@ -28714,7 +28714,7 @@ BridgedClass _createFocusManagerBridge() {
           throw ArgumentError('removeEarlyKeyEventHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.removeEarlyKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as $flutter_160.KeyEventResult; });
+        t.removeEarlyKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'addLateKeyEventHandler': (visitor, target, positional, named, typeArgs) {
@@ -28724,7 +28724,7 @@ BridgedClass _createFocusManagerBridge() {
           throw ArgumentError('addLateKeyEventHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.addLateKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as $flutter_160.KeyEventResult; });
+        t.addLateKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'removeLateKeyEventHandler': (visitor, target, positional, named, typeArgs) {
@@ -28734,7 +28734,7 @@ BridgedClass _createFocusManagerBridge() {
           throw ArgumentError('removeLateKeyEventHandler: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        t.removeLateKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0]) as $flutter_160.KeyEventResult; });
+        t.removeLateKeyEventHandler(($flutter_104.KeyEvent p0) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'applyFocusChangesIfNeeded': (visitor, target, positional, named, typeArgs) {
@@ -28882,7 +28882,7 @@ BridgedClass _createFocusBridge() {
         final descendantsAreTraversable = D4.getOptionalNamedArg<bool?>(named, 'descendantsAreTraversable');
         final includeSemantics = D4.getNamedArgWithDefault<bool>(named, 'includeSemantics', true);
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
-        return $flutter_161.Focus(key: key, child: child, focusNode: focusNode, parentNode: parentNode, autofocus: autofocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, canRequestFocus: canRequestFocus, skipTraversal: skipTraversal, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable, includeSemantics: includeSemantics, debugLabel: debugLabel);
+        return $flutter_161.Focus(key: key, child: child, focusNode: focusNode, parentNode: parentNode, autofocus: autofocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); }, canRequestFocus: canRequestFocus, skipTraversal: skipTraversal, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable, includeSemantics: includeSemantics, debugLabel: debugLabel);
       },
       'withExternalFocusNode': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -29067,7 +29067,7 @@ BridgedClass _createFocusScopeBridge() {
         final includeSemantics = D4.getNamedArgWithDefault<bool>(named, 'includeSemantics', true);
         final descendantsAreFocusable = D4.getOptionalNamedArg<bool?>(named, 'descendantsAreFocusable');
         final descendantsAreTraversable = D4.getOptionalNamedArg<bool?>(named, 'descendantsAreTraversable');
-        return $flutter_161.FocusScope(key: key, node: node, parentNode: parentNode, child: child, autofocus: autofocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, canRequestFocus: canRequestFocus, skipTraversal: skipTraversal, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]) as $flutter_160.KeyEventResult; }, debugLabel: debugLabel, includeSemantics: includeSemantics, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable);
+        return $flutter_161.FocusScope(key: key, node: node, parentNode: parentNode, child: child, autofocus: autofocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, canRequestFocus: canRequestFocus, skipTraversal: skipTraversal, onKeyEvent: onKeyEventRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_104.KeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyEventRaw, [p0, p1]), 'callback', visitor); }, onKey: onKeyRaw == null ? null : ($flutter_160.FocusNode p0, $flutter_113.RawKeyEvent p1) { return D4.extractBridgedArg<$flutter_160.KeyEventResult>(D4.callInterpreterCallback(visitor!, onKeyRaw, [p0, p1]), 'callback', visitor); }, debugLabel: debugLabel, includeSemantics: includeSemantics, descendantsAreFocusable: descendantsAreFocusable, descendantsAreTraversable: descendantsAreTraversable);
       },
       'withExternalFocusNode': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -31253,7 +31253,7 @@ BridgedClass _createFormBridge() {
         final onWillPopRaw = named['onWillPop'];
         final onChangedRaw = named['onChanged'];
         final autovalidateMode = D4.getOptionalNamedArg<$flutter_163.AutovalidateMode?>(named, 'autovalidateMode');
-        return $flutter_163.Form(key: key, child: child, canPop: canPop, onPopInvoked: onPopInvokedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onPopInvokedRaw, [p0]); }, onPopInvokedWithResult: onPopInvokedWithResultRaw == null ? null : (bool p0, Object? p1) { D4.callInterpreterCallback(visitor!, onPopInvokedWithResultRaw, [p0, p1]); }, onWillPop: onWillPopRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onWillPopRaw, []) as Future<bool>; }, onChanged: onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onChangedRaw, []); }, autovalidateMode: autovalidateMode);
+        return $flutter_163.Form(key: key, child: child, canPop: canPop, onPopInvoked: onPopInvokedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onPopInvokedRaw, [p0]); }, onPopInvokedWithResult: onPopInvokedWithResultRaw == null ? null : (bool p0, Object? p1) { D4.callInterpreterCallback(visitor!, onPopInvokedWithResultRaw, [p0, p1]); }, onWillPop: onWillPopRaw == null ? null : () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, onWillPopRaw, []), 'callback', visitor); }, onChanged: onChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onChangedRaw, []); }, autovalidateMode: autovalidateMode);
       },
     },
     getters: {
@@ -31535,7 +31535,7 @@ BridgedClass _createFormFieldBridge() {
         final enabled = D4.getNamedArgWithDefault<bool>(named, 'enabled', true);
         final autovalidateMode = D4.getOptionalNamedArg<$flutter_163.AutovalidateMode?>(named, 'autovalidateMode');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
-        return $flutter_163.FormField(key: key, builder: ($flutter_163.FormFieldState<dynamic> p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; }, onSaved: onSavedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSavedRaw, [p0]); }, onReset: onResetRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResetRaw, []); }, forceErrorText: forceErrorText, validator: validatorRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, validatorRaw, [p0]) as String?; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, String p1) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, initialValue: initialValue, enabled: enabled, autovalidateMode: autovalidateMode, restorationId: restorationId);
+        return $flutter_163.FormField(key: key, builder: ($flutter_163.FormFieldState<dynamic> p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, onSaved: onSavedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSavedRaw, [p0]); }, onReset: onResetRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onResetRaw, []); }, forceErrorText: forceErrorText, validator: validatorRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<String?>(D4.callInterpreterCallback(visitor!, validatorRaw, [p0]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, String p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1]), 'callback', visitor); }, initialValue: initialValue, enabled: enabled, autovalidateMode: autovalidateMode, restorationId: restorationId);
       },
     },
     getters: {
@@ -33187,7 +33187,7 @@ BridgedClass _createBuildContextBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'visitChildElements': (visitor, target, positional, named, typeArgs) {
@@ -33628,7 +33628,7 @@ BridgedClass _createNotifiableElementMixinBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -34037,7 +34037,7 @@ BridgedClass _createElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -34310,7 +34310,7 @@ BridgedClass _createErrorWidgetBridge() {
     staticSetters: {
       'builder': (visitor, value) {
         final builderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'builder');
-        $flutter_164.ErrorWidget.builder = ($flutter_7.FlutterErrorDetails p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; };
+        $flutter_164.ErrorWidget.builder = ($flutter_7.FlutterErrorDetails p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
       },
     },
     constructorSignatures: {
@@ -34591,7 +34591,7 @@ BridgedClass _createComponentElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -35003,7 +35003,7 @@ BridgedClass _createStatelessElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -35419,7 +35419,7 @@ BridgedClass _createStatefulElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -35830,7 +35830,7 @@ BridgedClass _createProxyElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -36259,7 +36259,7 @@ BridgedClass _createParentDataElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -36699,7 +36699,7 @@ BridgedClass _createInheritedElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -37167,7 +37167,7 @@ BridgedClass _createRenderObjectElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -37598,7 +37598,7 @@ BridgedClass _createRootElementMixinBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -38013,7 +38013,7 @@ BridgedClass _createLeafRenderObjectElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -38451,7 +38451,7 @@ BridgedClass _createSingleChildRenderObjectElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -38890,7 +38890,7 @@ BridgedClass _createMultiChildRenderObjectElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -39324,7 +39324,7 @@ BridgedClass _createRenderTreeRootElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -39635,7 +39635,7 @@ BridgedClass _createGestureRecognizerFactoryWithHandlersBridge() {
           throw ArgumentError('GestureRecognizerFactoryWithHandlers: Missing required argument "_initializer" at position 1');
         }
         final initializerRaw = positional[1];
-        return $flutter_165.GestureRecognizerFactoryWithHandlers(() { return D4.callInterpreterCallback(visitor!, constructorRaw, []) as $flutter_27.GestureRecognizer; }, ($flutter_27.GestureRecognizer p0) { D4.callInterpreterCallback(visitor!, initializerRaw, [p0]); });
+        return $flutter_165.GestureRecognizerFactoryWithHandlers(() { return D4.extractBridgedArg<$flutter_27.GestureRecognizer>(D4.callInterpreterCallback(visitor!, constructorRaw, []), 'callback', visitor); }, ($flutter_27.GestureRecognizer p0) { D4.callInterpreterCallback(visitor!, initializerRaw, [p0]); });
       },
     },
     methods: {
@@ -40376,7 +40376,7 @@ BridgedClass _createHeroBridge() {
         final placeholderBuilderRaw = named['placeholderBuilder'];
         final transitionOnUserGestures = D4.getNamedArgWithDefault<bool>(named, 'transitionOnUserGestures', false);
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'Hero');
-        return $flutter_167.Hero(key: key, tag: tag, createRectTween: createRectTweenRaw == null ? null : (Rect? p0, Rect? p1) { return D4.callInterpreterCallback(visitor!, createRectTweenRaw, [p0, p1]) as $flutter_6.Tween<Rect?>; }, flightShuttleBuilder: flightShuttleBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_167.HeroFlightDirection p2, $flutter_164.BuildContext p3, $flutter_164.BuildContext p4) { return D4.callInterpreterCallback(visitor!, flightShuttleBuilderRaw, [p0, p1, p2, p3, p4]) as $flutter_164.Widget; }, placeholderBuilder: placeholderBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Size p1, $flutter_164.Widget p2) { return D4.callInterpreterCallback(visitor!, placeholderBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, transitionOnUserGestures: transitionOnUserGestures, child: child);
+        return $flutter_167.Hero(key: key, tag: tag, createRectTween: createRectTweenRaw == null ? null : (Rect? p0, Rect? p1) { return D4.extractBridgedArg<$flutter_6.Tween<Rect?>>(D4.callInterpreterCallback(visitor!, createRectTweenRaw, [p0, p1]), 'callback', visitor); }, flightShuttleBuilder: flightShuttleBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_167.HeroFlightDirection p2, $flutter_164.BuildContext p3, $flutter_164.BuildContext p4) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, flightShuttleBuilderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); }, placeholderBuilder: placeholderBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Size p1, $flutter_164.Widget p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, placeholderBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, transitionOnUserGestures: transitionOnUserGestures, child: child);
       },
     },
     getters: {
@@ -40483,7 +40483,7 @@ BridgedClass _createHeroControllerBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final createRectTweenRaw = named['createRectTween'];
-        return $flutter_167.HeroController(createRectTween: createRectTweenRaw == null ? null : (Rect? p0, Rect? p1) { return D4.callInterpreterCallback(visitor!, createRectTweenRaw, [p0, p1]) as $flutter_6.Tween<Rect?>; });
+        return $flutter_167.HeroController(createRectTween: createRectTweenRaw == null ? null : (Rect? p0, Rect? p1) { return D4.extractBridgedArg<$flutter_6.Tween<Rect?>>(D4.callInterpreterCallback(visitor!, createRectTweenRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -41300,7 +41300,7 @@ BridgedClass _createImageBridge() {
         final gaplessPlayback = D4.getNamedArgWithDefault<bool>(named, 'gaplessPlayback', false);
         final isAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'isAntiAlias', false);
         final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
-        return $flutter_172.Image(key: key, image: image, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, loadingBuilder: loadingBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_45.ImageChunkEvent? p2) { return D4.callInterpreterCallback(visitor!, loadingBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality);
+        return $flutter_172.Image(key: key, image: image, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, loadingBuilder: loadingBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_45.ImageChunkEvent? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, loadingBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality);
       },
       'network': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Image');
@@ -41329,7 +41329,7 @@ BridgedClass _createImageBridge() {
         final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
         final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
         final webHtmlElementStrategy = D4.getNamedArgWithDefault<$flutter_44.WebHtmlElementStrategy>(named, 'webHtmlElementStrategy', $flutter_44.WebHtmlElementStrategy.never);
-        return $flutter_172.Image.network(src, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, loadingBuilder: loadingBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_45.ImageChunkEvent? p2) { return D4.callInterpreterCallback(visitor!, loadingBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, filterQuality: filterQuality, isAntiAlias: isAntiAlias, headers: headers, cacheWidth: cacheWidth, cacheHeight: cacheHeight, webHtmlElementStrategy: webHtmlElementStrategy);
+        return $flutter_172.Image.network(src, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, loadingBuilder: loadingBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, $flutter_45.ImageChunkEvent? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, loadingBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, filterQuality: filterQuality, isAntiAlias: isAntiAlias, headers: headers, cacheWidth: cacheWidth, cacheHeight: cacheHeight, webHtmlElementStrategy: webHtmlElementStrategy);
       },
       'file': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Image');
@@ -41355,7 +41355,7 @@ BridgedClass _createImageBridge() {
         final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
         final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
         final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
-        return $flutter_172.Image.file(file, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
+        return $flutter_172.Image.file(file, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
       },
       'asset': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Image');
@@ -41383,7 +41383,7 @@ BridgedClass _createImageBridge() {
         final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
         final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
         final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
-        return $flutter_172.Image.asset(name, key: key, bundle: bundle, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, scale: scale, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, package: package, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
+        return $flutter_172.Image.asset(name, key: key, bundle: bundle, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, scale: scale, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, package: package, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
       },
       'memory': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Image');
@@ -41409,7 +41409,7 @@ BridgedClass _createImageBridge() {
         final filterQuality = D4.getNamedArgWithDefault<FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
         final cacheWidth = D4.getOptionalNamedArg<int?>(named, 'cacheWidth');
         final cacheHeight = D4.getOptionalNamedArg<int?>(named, 'cacheHeight');
-        return $flutter_172.Image.memory(bytes, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
+        return $flutter_172.Image.memory(bytes, key: key, scale: scale, frameBuilder: frameBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_164.Widget p1, int? p2, bool p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, frameBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, errorBuilder: errorBuilderRaw == null ? null : ($flutter_164.BuildContext p0, Object p1, StackTrace? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, semanticLabel: semanticLabel, excludeFromSemantics: excludeFromSemantics, width: width, height: height, color: color, opacity: opacity, colorBlendMode: colorBlendMode, fit: fit, alignment: alignment, repeat: repeat, centerSlice: centerSlice, matchTextDirection: matchTextDirection, gaplessPlayback: gaplessPlayback, isAntiAlias: isAntiAlias, filterQuality: filterQuality, cacheWidth: cacheWidth, cacheHeight: cacheHeight);
       },
     },
     getters: {
@@ -42634,7 +42634,7 @@ BridgedClass _createImplicitlyAnimatedWidgetStateBridge() {
           throw ArgumentError('forEachTween: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        (t as dynamic).forEachTween(($flutter_6.Tween<dynamic>? p0, dynamic p1, Function p2) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0, p1, p2]) as $flutter_6.Tween<dynamic>?; });
+        (t as dynamic).forEachTween(($flutter_6.Tween<dynamic>? p0, dynamic p1, Function p2) { return D4.extractBridgedArg<$flutter_6.Tween<dynamic>?>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0, p1, p2]), 'callback', visitor); });
         return null;
       },
       'didUpdateTweens': (visitor, target, positional, named, typeArgs) {
@@ -42781,7 +42781,7 @@ BridgedClass _createAnimatedWidgetBaseStateBridge() {
           throw ArgumentError('forEachTween: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        (t as dynamic).forEachTween(($flutter_6.Tween<dynamic>? p0, dynamic p1, Function p2) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0, p1, p2]) as $flutter_6.Tween<dynamic>?; });
+        (t as dynamic).forEachTween(($flutter_6.Tween<dynamic>? p0, dynamic p1, Function p2) { return D4.extractBridgedArg<$flutter_6.Tween<dynamic>?>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0, p1, p2]), 'callback', visitor); });
         return null;
       },
       'didUpdateTweens': (visitor, target, positional, named, typeArgs) {
@@ -44766,7 +44766,7 @@ BridgedClass _createInheritedModelElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -45290,11 +45290,11 @@ BridgedClass _createInteractiveViewerBridge() {
         }
         final builderRaw = named['builder'];
         if (!named.containsKey('interactionEndFrictionCoefficient')) {
-          return $flutter_179.InteractiveViewer.builder(key: key, clipBehavior: clipBehavior, panAxis: panAxis, boundaryMargin: boundaryMargin, maxScale: maxScale, minScale: minScale, onInteractionEnd: onInteractionEndRaw == null ? null : ($flutter_28.ScaleEndDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionEndRaw, [p0]); }, onInteractionStart: onInteractionStartRaw == null ? null : ($flutter_28.ScaleStartDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionStartRaw, [p0]); }, onInteractionUpdate: onInteractionUpdateRaw == null ? null : ($flutter_28.ScaleUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionUpdateRaw, [p0]); }, panEnabled: panEnabled, scaleEnabled: scaleEnabled, scaleFactor: scaleFactor, transformationController: transformationController, alignment: alignment, trackpadScrollCausesScale: trackpadScrollCausesScale, builder: ($flutter_164.BuildContext p0, $vector_math_1.Quad p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+          return $flutter_179.InteractiveViewer.builder(key: key, clipBehavior: clipBehavior, panAxis: panAxis, boundaryMargin: boundaryMargin, maxScale: maxScale, minScale: minScale, onInteractionEnd: onInteractionEndRaw == null ? null : ($flutter_28.ScaleEndDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionEndRaw, [p0]); }, onInteractionStart: onInteractionStartRaw == null ? null : ($flutter_28.ScaleStartDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionStartRaw, [p0]); }, onInteractionUpdate: onInteractionUpdateRaw == null ? null : ($flutter_28.ScaleUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionUpdateRaw, [p0]); }, panEnabled: panEnabled, scaleEnabled: scaleEnabled, scaleFactor: scaleFactor, transformationController: transformationController, alignment: alignment, trackpadScrollCausesScale: trackpadScrollCausesScale, builder: ($flutter_164.BuildContext p0, $vector_math_1.Quad p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
         }
         if (named.containsKey('interactionEndFrictionCoefficient')) {
           final interactionEndFrictionCoefficient = D4.getRequiredNamedArg<double>(named, 'interactionEndFrictionCoefficient', 'InteractiveViewer');
-          return $flutter_179.InteractiveViewer.builder(key: key, clipBehavior: clipBehavior, panAxis: panAxis, boundaryMargin: boundaryMargin, maxScale: maxScale, minScale: minScale, onInteractionEnd: onInteractionEndRaw == null ? null : ($flutter_28.ScaleEndDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionEndRaw, [p0]); }, onInteractionStart: onInteractionStartRaw == null ? null : ($flutter_28.ScaleStartDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionStartRaw, [p0]); }, onInteractionUpdate: onInteractionUpdateRaw == null ? null : ($flutter_28.ScaleUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionUpdateRaw, [p0]); }, panEnabled: panEnabled, scaleEnabled: scaleEnabled, scaleFactor: scaleFactor, transformationController: transformationController, alignment: alignment, trackpadScrollCausesScale: trackpadScrollCausesScale, builder: ($flutter_164.BuildContext p0, $vector_math_1.Quad p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, interactionEndFrictionCoefficient: interactionEndFrictionCoefficient);
+          return $flutter_179.InteractiveViewer.builder(key: key, clipBehavior: clipBehavior, panAxis: panAxis, boundaryMargin: boundaryMargin, maxScale: maxScale, minScale: minScale, onInteractionEnd: onInteractionEndRaw == null ? null : ($flutter_28.ScaleEndDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionEndRaw, [p0]); }, onInteractionStart: onInteractionStartRaw == null ? null : ($flutter_28.ScaleStartDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionStartRaw, [p0]); }, onInteractionUpdate: onInteractionUpdateRaw == null ? null : ($flutter_28.ScaleUpdateDetails p0) { D4.callInterpreterCallback(visitor!, onInteractionUpdateRaw, [p0]); }, panEnabled: panEnabled, scaleEnabled: scaleEnabled, scaleFactor: scaleFactor, transformationController: transformationController, alignment: alignment, trackpadScrollCausesScale: trackpadScrollCausesScale, builder: ($flutter_164.BuildContext p0, $vector_math_1.Quad p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, interactionEndFrictionCoefficient: interactionEndFrictionCoefficient);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -46395,7 +46395,7 @@ BridgedClass _createLayoutBuilderBridge() {
           throw ArgumentError('LayoutBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_181.LayoutBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_55.BoxConstraints p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_181.LayoutBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_55.BoxConstraints p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -46684,7 +46684,7 @@ BridgedClass _createListWheelChildBuilderDelegateBridge() {
         }
         final builderRaw = named['builder'];
         final childCount = D4.getOptionalNamedArg<int?>(named, 'childCount');
-        return $flutter_182.ListWheelChildBuilderDelegate(builder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget?; }, childCount: childCount);
+        return $flutter_182.ListWheelChildBuilderDelegate(builder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount);
       },
     },
     getters: {
@@ -47542,7 +47542,7 @@ BridgedClass _createListWheelElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -48257,7 +48257,7 @@ BridgedClass _createLocalizationsResolverBridge() {
         final localeListResolutionCallbackRaw = named['localeListResolutionCallback'];
         final localeResolutionCallbackRaw = named['localeResolutionCallback'];
         final localizationsDelegates = D4.coerceListOrNull<$flutter_183.LocalizationsDelegate<Object?>>(named['localizationsDelegates'], 'localizationsDelegates');
-        return $flutter_183.LocalizationsResolver(supportedLocales: supportedLocales, locale: locale, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, localizationsDelegates: localizationsDelegates);
+        return $flutter_183.LocalizationsResolver(supportedLocales: supportedLocales, locale: locale, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localizationsDelegates: localizationsDelegates);
       },
     },
     getters: {
@@ -48293,7 +48293,7 @@ BridgedClass _createLocalizationsResolverBridge() {
           throw ArgumentError('update: Missing required named argument "supportedLocales"');
         }
         final supportedLocales = D4.coerceList<Locale>(named['supportedLocales'], 'supportedLocales');
-        t.update(locale: locale, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]) as Locale?; }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]) as Locale?; }, localizationsDelegates: localizationsDelegates, supportedLocales: supportedLocales);
+        t.update(locale: locale, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localizationsDelegates: localizationsDelegates, supportedLocales: supportedLocales);
         return null;
       },
       'didChangeLocales': (visitor, target, positional, named, typeArgs) {
@@ -48585,7 +48585,7 @@ BridgedClass _createLookupBoundaryBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 1');
         }
         final visitor_Raw = positional[1];
-        final visitor_ = ($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; };
+        final visitor_ = ($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); };
         return $flutter_184.LookupBoundary.visitAncestorElements(context, visitor_);
       },
       'visitChildElements': (visitor, positional, named, typeArgs) {
@@ -48721,7 +48721,7 @@ BridgedClass _createTextMagnifierConfigurationBridge() {
       '': (visitor, positional, named) {
         final magnifierBuilderRaw = named['magnifierBuilder'];
         final shouldDisplayHandlesInMagnifier = D4.getNamedArgWithDefault<bool>(named, 'shouldDisplayHandlesInMagnifier', true);
-        return $flutter_185.TextMagnifierConfiguration(magnifierBuilder: magnifierBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_185.MagnifierController p1, $flutter_10.ValueNotifier<$flutter_185.MagnifierInfo> p2) { return D4.callInterpreterCallback(visitor!, magnifierBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget?; }, shouldDisplayHandlesInMagnifier: shouldDisplayHandlesInMagnifier);
+        return $flutter_185.TextMagnifierConfiguration(magnifierBuilder: magnifierBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_185.MagnifierController p1, $flutter_10.ValueNotifier<$flutter_185.MagnifierInfo> p2) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, magnifierBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, shouldDisplayHandlesInMagnifier: shouldDisplayHandlesInMagnifier);
       },
     },
     getters: {
@@ -48778,7 +48778,7 @@ BridgedClass _createMagnifierControllerBridge() {
         final builderRaw = named['builder'];
         final debugRequiredFor = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'debugRequiredFor');
         final below = D4.getOptionalNamedArg<$flutter_195.OverlayEntry?>(named, 'below');
-        return t.show(context: context, builder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; }, debugRequiredFor: debugRequiredFor, below: below);
+        return t.show(context: context, builder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, debugRequiredFor: debugRequiredFor, below: below);
       },
       'hide': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_185.MagnifierController>(target, 'MagnifierController');
@@ -50759,196 +50759,196 @@ BridgedClass _createNavigatorBridge() {
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
         final onDidRemovePageRaw = named['onDidRemovePage'];
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); });
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); });
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes);
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes);
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && !named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && !named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && !named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && !named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (!named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         if (named.containsKey('pages') && named.containsKey('onGenerateInitialRoutes') && named.containsKey('transitionDelegate') && named.containsKey('routeTraversalEdgeBehavior') && named.containsKey('routeDirectionalTraversalEdgeBehavior')) {
           final pages = D4.coerceList<$flutter_189.Page<dynamic>>(named['pages'], 'pages');
           final onGenerateInitialRoutesRaw = named['onGenerateInitialRoutes'];
-          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]) as List<$flutter_189.Route<dynamic>>; };
+          final onGenerateInitialRoutes = ($flutter_189.NavigatorState p0, String p1) { return D4.extractBridgedArg<List<$flutter_189.Route<dynamic>>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0, p1]), 'callback', visitor); };
           final transitionDelegate = D4.getRequiredNamedArg<$flutter_189.TransitionDelegate<dynamic>>(named, 'transitionDelegate', 'Navigator');
           final routeTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeTraversalEdgeBehavior', 'Navigator');
           final routeDirectionalTraversalEdgeBehavior = D4.getRequiredNamedArg<$flutter_162.TraversalEdgeBehavior>(named, 'routeDirectionalTraversalEdgeBehavior', 'Navigator');
-          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]) as bool; }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]) as $flutter_189.Route<dynamic>?; }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
+          return $flutter_189.Navigator(key: key, onPopPage: onPopPageRaw == null ? null : ($flutter_189.Route<dynamic> p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onPopPageRaw, [p0, p1]), 'callback', visitor); }, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_189.RouteSettings p0) { return D4.extractBridgedArg<$flutter_189.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, reportsRouteUpdateToEngine: reportsRouteUpdateToEngine, clipBehavior: clipBehavior, observers: observers, requestFocus: requestFocus, restorationScopeId: restorationScopeId, onDidRemovePage: onDidRemovePageRaw == null ? null : ($flutter_189.Page<Object?> p0) { D4.callInterpreterCallback(visitor!, onDidRemovePageRaw, [p0]); }, pages: pages, onGenerateInitialRoutes: onGenerateInitialRoutes, transitionDelegate: transitionDelegate, routeTraversalEdgeBehavior: routeTraversalEdgeBehavior, routeDirectionalTraversalEdgeBehavior: routeDirectionalTraversalEdgeBehavior);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -51085,7 +51085,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('pushNamedAndRemoveUntil: Missing required argument "predicate" at position 2');
         }
         final predicateRaw = positional[2];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.pushNamedAndRemoveUntil(context, newRouteName, predicate, arguments: arguments);
       },
@@ -51097,7 +51097,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorablePushNamedAndRemoveUntil: Missing required argument "predicate" at position 2');
         }
         final predicateRaw = positional[2];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorablePushNamedAndRemoveUntil(context, newRouteName, predicate, arguments: arguments);
       },
@@ -51114,7 +51114,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorablePush: Missing required argument "routeBuilder" at position 1');
         }
         final routeBuilderRaw = positional[1];
-        final routeBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; };
+        final routeBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorablePush(context, routeBuilder, arguments: arguments);
       },
@@ -51132,7 +51132,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorablePushReplacement: Missing required argument "routeBuilder" at position 1');
         }
         final routeBuilderRaw = positional[1];
-        final routeBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; };
+        final routeBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]), 'callback', visitor); };
         final result = D4.getOptionalNamedArg<Object?>(named, 'result');
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorablePushReplacement(context, routeBuilder, result: result, arguments: arguments);
@@ -51145,7 +51145,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('pushAndRemoveUntil: Missing required argument "predicate" at position 2');
         }
         final predicateRaw = positional[2];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         return $flutter_189.Navigator.pushAndRemoveUntil(context, newRoute, predicate);
       },
       'restorablePushAndRemoveUntil': (visitor, positional, named, typeArgs) {
@@ -51155,12 +51155,12 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorablePushAndRemoveUntil: Missing required argument "newRouteBuilder" at position 1');
         }
         final newRouteBuilderRaw = positional[1];
-        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; };
+        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); };
         if (positional.length <= 2) {
           throw ArgumentError('restorablePushAndRemoveUntil: Missing required argument "predicate" at position 2');
         }
         final predicateRaw = positional[2];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorablePushAndRemoveUntil(context, newRouteBuilder, predicate, arguments: arguments);
       },
@@ -51179,7 +51179,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorableReplace: Missing required named argument "newRouteBuilder"');
         }
         final newRouteBuilderRaw = named['newRouteBuilder'];
-        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; };
+        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorableReplace(context, oldRoute: oldRoute, newRouteBuilder: newRouteBuilder, arguments: arguments);
       },
@@ -51198,7 +51198,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('restorableReplaceRouteBelow: Missing required named argument "newRouteBuilder"');
         }
         final newRouteBuilderRaw = named['newRouteBuilder'];
-        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; };
+        final newRouteBuilder = ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); };
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
         return $flutter_189.Navigator.restorableReplaceRouteBelow(context, anchorRoute: anchorRoute, newRouteBuilder: newRouteBuilder, arguments: arguments);
       },
@@ -51226,7 +51226,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('popUntil: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         return $flutter_189.Navigator.popUntil(context, predicate);
       },
       'popUntilWithResult': (visitor, positional, named, typeArgs) {
@@ -51236,7 +51236,7 @@ BridgedClass _createNavigatorBridge() {
           throw ArgumentError('popUntilWithResult: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         final result = D4.getRequiredArg<Object?>(positional, 2, 'result', 'popUntilWithResult');
         return $flutter_189.Navigator.popUntilWithResult(context, predicate, result);
       },
@@ -51514,7 +51514,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final predicateRaw = positional[1];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.pushNamedAndRemoveUntil(newRouteName, ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }, arguments: arguments);
+        return t.pushNamedAndRemoveUntil(newRouteName, ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); }, arguments: arguments);
       },
       'restorablePushNamedAndRemoveUntil': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51525,7 +51525,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final predicateRaw = positional[1];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorablePushNamedAndRemoveUntil(newRouteName, ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }, arguments: arguments);
+        return t.restorablePushNamedAndRemoveUntil(newRouteName, ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); }, arguments: arguments);
       },
       'push': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51541,7 +51541,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final routeBuilderRaw = positional[0];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorablePush(($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; }, arguments: arguments);
+        return t.restorablePush(($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]), 'callback', visitor); }, arguments: arguments);
       },
       'pushReplacement': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51559,7 +51559,7 @@ BridgedClass _createNavigatorStateBridge() {
         final routeBuilderRaw = positional[0];
         final result = D4.getOptionalNamedArg<Object?>(named, 'result');
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorablePushReplacement(($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; }, result: result, arguments: arguments);
+        return t.restorablePushReplacement(($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, routeBuilderRaw, [p0, p1]), 'callback', visitor); }, result: result, arguments: arguments);
       },
       'pushAndRemoveUntil': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51569,7 +51569,7 @@ BridgedClass _createNavigatorStateBridge() {
           throw ArgumentError('pushAndRemoveUntil: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        return t.pushAndRemoveUntil(newRoute, ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return t.pushAndRemoveUntil(newRoute, ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
       },
       'restorablePushAndRemoveUntil': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51583,7 +51583,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final predicateRaw = positional[1];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorablePushAndRemoveUntil(($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; }, ($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }, arguments: arguments);
+        return t.restorablePushAndRemoveUntil(($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); }, ($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); }, arguments: arguments);
       },
       'replace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51600,7 +51600,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final newRouteBuilderRaw = named['newRouteBuilder'];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorableReplace(oldRoute: oldRoute, newRouteBuilder: ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; }, arguments: arguments);
+        return t.restorableReplace(oldRoute: oldRoute, newRouteBuilder: ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); }, arguments: arguments);
       },
       'replaceRouteBelow': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51617,7 +51617,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final newRouteBuilderRaw = named['newRouteBuilder'];
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
-        return t.restorableReplaceRouteBelow(anchorRoute: anchorRoute, newRouteBuilder: ($flutter_164.BuildContext p0, Object? p1) { return D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]) as $flutter_189.Route<Object?>; }, arguments: arguments);
+        return t.restorableReplaceRouteBelow(anchorRoute: anchorRoute, newRouteBuilder: ($flutter_164.BuildContext p0, Object? p1) { return D4.extractBridgedArg<$flutter_189.Route<Object?>>(D4.callInterpreterCallback(visitor!, newRouteBuilderRaw, [p0, p1]), 'callback', visitor); }, arguments: arguments);
       },
       'canPop': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_189.NavigatorState>(target, 'NavigatorState');
@@ -51641,7 +51641,7 @@ BridgedClass _createNavigatorStateBridge() {
           throw ArgumentError('popUntil: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        t.popUntil(($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        t.popUntil(($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'popUntilWithResult': (visitor, target, positional, named, typeArgs) {
@@ -51652,7 +51652,7 @@ BridgedClass _createNavigatorStateBridge() {
         }
         final predicateRaw = positional[0];
         final result = D4.getRequiredArg<Object?>(positional, 1, 'result', 'popUntilWithResult');
-        t.popUntilWithResult(($flutter_189.Route<dynamic> p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; }, result);
+        t.popUntilWithResult(($flutter_189.Route<dynamic> p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); }, result);
         return null;
       },
       'removeRoute': (visitor, target, positional, named, typeArgs) {
@@ -51802,12 +51802,12 @@ BridgedClass _createRestorableRouteFutureBridge() {
         final onPresentRaw = named['onPresent'];
         final onCompleteRaw = named['onComplete'];
         if (!named.containsKey('navigatorFinder')) {
-          return $flutter_189.RestorableRouteFuture(onPresent: ($flutter_189.NavigatorState p0, Object? p1) { return D4.callInterpreterCallback(visitor!, onPresentRaw, [p0, p1]) as String; }, onComplete: onCompleteRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onCompleteRaw, [p0]); });
+          return $flutter_189.RestorableRouteFuture(onPresent: ($flutter_189.NavigatorState p0, Object? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onPresentRaw, [p0, p1]), 'callback', visitor); }, onComplete: onCompleteRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onCompleteRaw, [p0]); });
         }
         if (named.containsKey('navigatorFinder')) {
           final navigatorFinderRaw = named['navigatorFinder'];
-          final navigatorFinder = ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, navigatorFinderRaw, [p0]) as $flutter_189.NavigatorState; };
-          return $flutter_189.RestorableRouteFuture(onPresent: ($flutter_189.NavigatorState p0, Object? p1) { return D4.callInterpreterCallback(visitor!, onPresentRaw, [p0, p1]) as String; }, onComplete: onCompleteRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onCompleteRaw, [p0]); }, navigatorFinder: navigatorFinder);
+          final navigatorFinder = ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_189.NavigatorState>(D4.callInterpreterCallback(visitor!, navigatorFinderRaw, [p0]), 'callback', visitor); };
+          return $flutter_189.RestorableRouteFuture(onPresent: ($flutter_189.NavigatorState p0, Object? p1) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onPresentRaw, [p0, p1]), 'callback', visitor); }, onComplete: onCompleteRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onCompleteRaw, [p0]); }, navigatorFinder: navigatorFinder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -52099,7 +52099,7 @@ BridgedClass _createNestedScrollViewBridge() {
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final scrollBehavior = D4.getOptionalNamedArg<$flutter_222.ScrollBehavior?>(named, 'scrollBehavior');
-        return $flutter_191.NestedScrollView(key: key, controller: controller, scrollDirection: scrollDirection, reverse: reverse, physics: physics, headerSliverBuilder: ($flutter_164.BuildContext p0, bool p1) { return D4.callInterpreterCallback(visitor!, headerSliverBuilderRaw, [p0, p1]) as List<$flutter_164.Widget>; }, body: body, dragStartBehavior: dragStartBehavior, floatHeaderSlivers: floatHeaderSlivers, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior);
+        return $flutter_191.NestedScrollView(key: key, controller: controller, scrollDirection: scrollDirection, reverse: reverse, physics: physics, headerSliverBuilder: ($flutter_164.BuildContext p0, bool p1) { return D4.extractBridgedArg<List<$flutter_164.Widget>>(D4.callInterpreterCallback(visitor!, headerSliverBuilderRaw, [p0, p1]), 'callback', visitor); }, body: body, dragStartBehavior: dragStartBehavior, floatHeaderSlivers: floatHeaderSlivers, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior);
       },
     },
     getters: {
@@ -54200,7 +54200,7 @@ BridgedClass _createRenderNestedScrollViewViewportBridge() {
         final advanceRaw = named['advance'];
         final remainingCacheExtent = D4.getRequiredNamedArg<double>(named, 'remainingCacheExtent', 'layoutChildSequence');
         final cacheOrigin = D4.getRequiredNamedArg<double>(named, 'cacheOrigin', 'layoutChildSequence');
-        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_77.RenderSliver p0) { return D4.callInterpreterCallback(visitor!, advanceRaw, [p0]) as $flutter_77.RenderSliver?; }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
+        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_77.RenderSliver p0) { return D4.extractBridgedArg<$flutter_77.RenderSliver?>(D4.callInterpreterCallback(visitor!, advanceRaw, [p0]), 'callback', visitor); }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
       },
       'describeApproximatePaintClip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_191.RenderNestedScrollViewViewport>(target, 'RenderNestedScrollViewViewport');
@@ -54900,7 +54900,7 @@ BridgedClass _createNotificationListenerBridge() {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'NotificationListener');
         final onNotificationRaw = named['onNotification'];
-        return $flutter_192.NotificationListener(key: key, child: child, onNotification: onNotificationRaw == null ? null : ($flutter_192.Notification p0) { return D4.callInterpreterCallback(visitor!, onNotificationRaw, [p0]) as bool; });
+        return $flutter_192.NotificationListener(key: key, child: child, onNotification: onNotificationRaw == null ? null : ($flutter_192.Notification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNotificationRaw, [p0]), 'callback', visitor); });
       },
     },
     getters: {
@@ -55046,7 +55046,7 @@ BridgedClass _createOrientationBuilderBridge() {
           throw ArgumentError('OrientationBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_193.OrientationBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_186.Orientation p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_193.OrientationBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_186.Orientation p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -55149,7 +55149,7 @@ BridgedClass _createDeviceOrientationBuilderBridge() {
           throw ArgumentError('DeviceOrientationBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_193.DeviceOrientationBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_186.Orientation p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_193.DeviceOrientationBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_186.Orientation p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -55391,7 +55391,7 @@ BridgedClass _createOverlayEntryBridge() {
         final opaque = D4.getNamedArgWithDefault<bool>(named, 'opaque', false);
         final maintainState = D4.getNamedArgWithDefault<bool>(named, 'maintainState', false);
         final canSizeOverlay = D4.getNamedArgWithDefault<bool>(named, 'canSizeOverlay', false);
-        return $flutter_195.OverlayEntry(builder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; }, opaque: opaque, maintainState: maintainState, canSizeOverlay: canSizeOverlay);
+        return $flutter_195.OverlayEntry(builder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, opaque: opaque, maintainState: maintainState, canSizeOverlay: canSizeOverlay);
       },
     },
     getters: {
@@ -55850,7 +55850,7 @@ BridgedClass _createOverlayPortalBridge() {
         final overlayChildBuilderRaw = named['overlayChildBuilder'];
         final overlayLocation = D4.getNamedArgWithDefault<$flutter_195.OverlayChildLocation>(named, 'overlayLocation', $flutter_195.OverlayChildLocation.nearestOverlay);
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_195.OverlayPortal(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0]) as $flutter_164.Widget; }, overlayLocation: overlayLocation, child: child);
+        return $flutter_195.OverlayPortal(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0]), 'callback', visitor); }, overlayLocation: overlayLocation, child: child);
       },
       'targetsRootOverlay': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55860,7 +55860,7 @@ BridgedClass _createOverlayPortalBridge() {
         }
         final overlayChildBuilderRaw = named['overlayChildBuilder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_195.OverlayPortal.targetsRootOverlay(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0]) as $flutter_164.Widget; }, child: child);
+        return $flutter_195.OverlayPortal.targetsRootOverlay(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0]), 'callback', visitor); }, child: child);
       },
       'overlayChildLayoutBuilder': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -55871,7 +55871,7 @@ BridgedClass _createOverlayPortalBridge() {
         final overlayChildBuilderRaw = named['overlayChildBuilder'];
         final overlayLocation = D4.getNamedArgWithDefault<$flutter_195.OverlayChildLocation>(named, 'overlayLocation', $flutter_195.OverlayChildLocation.nearestOverlay);
         final child = D4.getRequiredNamedArg<$flutter_164.Widget?>(named, 'child', 'OverlayPortal');
-        return $flutter_195.OverlayPortal.overlayChildLayoutBuilder(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0, $flutter_195.OverlayChildLayoutInfo p1) { return D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, overlayLocation: overlayLocation, child: child);
+        return $flutter_195.OverlayPortal.overlayChildLayoutBuilder(key: key, controller: controller, overlayChildBuilder: ($flutter_164.BuildContext p0, $flutter_195.OverlayChildLayoutInfo p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayChildBuilderRaw, [p0, p1]), 'callback', visitor); }, overlayLocation: overlayLocation, child: child);
       },
     },
     getters: {
@@ -55986,7 +55986,7 @@ BridgedClass _createGlowingOverscrollIndicatorBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_196.GlowingOverscrollIndicator(key: key, showLeading: showLeading, showTrailing: showTrailing, axisDirection: axisDirection, color: color, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -56106,7 +56106,7 @@ BridgedClass _createStretchingOverscrollIndicatorBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_196.StretchingOverscrollIndicator(key: key, axisDirection: axisDirection, clipBehavior: clipBehavior, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -57799,7 +57799,7 @@ BridgedClass _createPageViewBridge() {
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
         final scrollBehavior = D4.getOptionalNamedArg<$flutter_222.ScrollBehavior?>(named, 'scrollBehavior');
         final padEnds = D4.getNamedArgWithDefault<bool>(named, 'padEnds', true);
-        return $flutter_199.PageView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, physics: physics, pageSnapping: pageSnapping, onPageChanged: onPageChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onPageChangedRaw, [p0]); }, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, dragStartBehavior: dragStartBehavior, allowImplicitScrolling: allowImplicitScrolling, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior, scrollBehavior: scrollBehavior, padEnds: padEnds);
+        return $flutter_199.PageView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, physics: physics, pageSnapping: pageSnapping, onPageChanged: onPageChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onPageChangedRaw, [p0]); }, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, dragStartBehavior: dragStartBehavior, allowImplicitScrolling: allowImplicitScrolling, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior, scrollBehavior: scrollBehavior, padEnds: padEnds);
       },
       'custom': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -58177,7 +58177,7 @@ BridgedClass _createPageRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -58187,7 +58187,7 @@ BridgedClass _createPageRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -58342,12 +58342,12 @@ BridgedClass _createPageRouteBuilderBridge() {
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
         final allowSnapshotting = D4.getNamedArgWithDefault<bool>(named, 'allowSnapshotting', true);
         if (!named.containsKey('transitionsBuilder')) {
-          return $flutter_200.PageRouteBuilder(settings: settings, requestFocus: requestFocus, pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, transitionDuration: transitionDuration, reverseTransitionDuration: reverseTransitionDuration, opaque: opaque, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting);
+          return $flutter_200.PageRouteBuilder(settings: settings, requestFocus: requestFocus, pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, transitionDuration: transitionDuration, reverseTransitionDuration: reverseTransitionDuration, opaque: opaque, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting);
         }
         if (named.containsKey('transitionsBuilder')) {
           final transitionsBuilderRaw = named['transitionsBuilder'];
-          final transitionsBuilder = ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.callInterpreterCallback(visitor!, transitionsBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; };
-          return $flutter_200.PageRouteBuilder(settings: settings, requestFocus: requestFocus, pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, transitionDuration: transitionDuration, reverseTransitionDuration: reverseTransitionDuration, opaque: opaque, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting, transitionsBuilder: transitionsBuilder);
+          final transitionsBuilder = ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, transitionsBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
+          return $flutter_200.PageRouteBuilder(settings: settings, requestFocus: requestFocus, pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, transitionDuration: transitionDuration, reverseTransitionDuration: reverseTransitionDuration, opaque: opaque, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting, transitionsBuilder: transitionsBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -58590,7 +58590,7 @@ BridgedClass _createPageRouteBuilderBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -58600,7 +58600,7 @@ BridgedClass _createPageRouteBuilderBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -59445,7 +59445,7 @@ BridgedClass _createPlatformMenuBridge() {
           throw ArgumentError('toChannelRepresentation: Missing required named argument "getId"');
         }
         final getIdRaw = named['getId'];
-        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; });
+        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); });
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_204.PlatformMenu>(target, 'PlatformMenu');
@@ -59502,7 +59502,7 @@ BridgedClass _createPlatformMenuBridge() {
           throw ArgumentError('serialize: Missing required argument "getId" at position 2');
         }
         final getIdRaw = positional[2];
-        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; };
+        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); };
         return $flutter_204.PlatformMenu.serialize(item, delegate, getId);
       },
     },
@@ -59576,7 +59576,7 @@ BridgedClass _createPlatformMenuItemGroupBridge() {
           throw ArgumentError('toChannelRepresentation: Missing required named argument "getId"');
         }
         final getIdRaw = named['getId'];
-        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; });
+        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); });
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_204.PlatformMenuItemGroup>(target, 'PlatformMenuItemGroup');
@@ -59610,7 +59610,7 @@ BridgedClass _createPlatformMenuItemGroupBridge() {
           throw ArgumentError('serialize: Missing required named argument "getId"');
         }
         final getIdRaw = named['getId'];
-        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; };
+        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); };
         return $flutter_204.PlatformMenuItemGroup.serialize(group, delegate, getId: getId);
       },
     },
@@ -59680,7 +59680,7 @@ BridgedClass _createPlatformMenuItemBridge() {
           throw ArgumentError('toChannelRepresentation: Missing required named argument "getId"');
         }
         final getIdRaw = named['getId'];
-        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; });
+        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); });
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_204.PlatformMenuItem>(target, 'PlatformMenuItem');
@@ -59714,7 +59714,7 @@ BridgedClass _createPlatformMenuItemBridge() {
           throw ArgumentError('serialize: Missing required argument "getId" at position 2');
         }
         final getIdRaw = positional[2];
-        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; };
+        final getId = ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); };
         return $flutter_204.PlatformMenuItem.serialize(item, delegate, getId);
       },
     },
@@ -59783,7 +59783,7 @@ BridgedClass _createPlatformProvidedMenuItemBridge() {
           throw ArgumentError('toChannelRepresentation: Missing required named argument "getId"');
         }
         final getIdRaw = named['getId'];
-        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.callInterpreterCallback(visitor!, getIdRaw, [p0]) as int; });
+        return t.toChannelRepresentation(delegate, getId: ($flutter_204.PlatformMenuItem p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, getIdRaw, [p0]), 'callback', visitor); });
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_204.PlatformProvidedMenuItem>(target, 'PlatformProvidedMenuItem');
@@ -60378,7 +60378,7 @@ BridgedClass _createPlatformViewLinkBridge() {
         }
         final onCreatePlatformViewRaw = named['onCreatePlatformView'];
         final viewType = D4.getRequiredNamedArg<String>(named, 'viewType', 'PlatformViewLink');
-        return $flutter_205.PlatformViewLink(key: key, surfaceFactory: ($flutter_164.BuildContext p0, $flutter_111.PlatformViewController p1) { return D4.callInterpreterCallback(visitor!, surfaceFactoryRaw, [p0, p1]) as $flutter_164.Widget; }, onCreatePlatformView: ($flutter_205.PlatformViewCreationParams p0) { return D4.callInterpreterCallback(visitor!, onCreatePlatformViewRaw, [p0]) as $flutter_111.PlatformViewController; }, viewType: viewType);
+        return $flutter_205.PlatformViewLink(key: key, surfaceFactory: ($flutter_164.BuildContext p0, $flutter_111.PlatformViewController p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, surfaceFactoryRaw, [p0, p1]), 'callback', visitor); }, onCreatePlatformView: ($flutter_205.PlatformViewCreationParams p0) { return D4.extractBridgedArg<$flutter_111.PlatformViewController>(D4.callInterpreterCallback(visitor!, onCreatePlatformViewRaw, [p0]), 'callback', visitor); }, viewType: viewType);
       },
     },
     getters: {
@@ -61400,24 +61400,24 @@ BridgedClass _createRawMenuAnchorBridge() {
         final overlayBuilderRaw = named['overlayBuilder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
         if (!named.containsKey('onOpenRequested') && !named.containsKey('onCloseRequested')) {
-          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child);
+          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]), 'callback', visitor); }, child: child);
         }
         if (named.containsKey('onOpenRequested') && !named.containsKey('onCloseRequested')) {
           final onOpenRequestedRaw = named['onOpenRequested'];
           final onOpenRequested = (Offset? p0, void Function() p1) { D4.callInterpreterCallback(visitor!, onOpenRequestedRaw, [p0, p1]); };
-          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child, onOpenRequested: onOpenRequested);
+          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]), 'callback', visitor); }, child: child, onOpenRequested: onOpenRequested);
         }
         if (!named.containsKey('onOpenRequested') && named.containsKey('onCloseRequested')) {
           final onCloseRequestedRaw = named['onCloseRequested'];
           final onCloseRequested = (void Function() p0) { D4.callInterpreterCallback(visitor!, onCloseRequestedRaw, [p0]); };
-          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child, onCloseRequested: onCloseRequested);
+          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]), 'callback', visitor); }, child: child, onCloseRequested: onCloseRequested);
         }
         if (named.containsKey('onOpenRequested') && named.containsKey('onCloseRequested')) {
           final onOpenRequestedRaw = named['onOpenRequested'];
           final onOpenRequested = (Offset? p0, void Function() p1) { D4.callInterpreterCallback(visitor!, onOpenRequestedRaw, [p0, p1]); };
           final onCloseRequestedRaw = named['onCloseRequested'];
           final onCloseRequested = (void Function() p0) { D4.callInterpreterCallback(visitor!, onCloseRequestedRaw, [p0]); };
-          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child, onOpenRequested: onOpenRequested, onCloseRequested: onCloseRequested);
+          return $flutter_210.RawMenuAnchor(key: key, childFocusNode: childFocusNode, consumeOutsideTaps: consumeOutsideTaps, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, useRootOverlay: useRootOverlay, builder: builderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_210.MenuController p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, controller: controller, overlayBuilder: ($flutter_164.BuildContext p0, $flutter_210.RawMenuOverlayInfo p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, overlayBuilderRaw, [p0, p1]), 'callback', visitor); }, child: child, onOpenRequested: onOpenRequested, onCloseRequested: onCloseRequested);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -61839,7 +61839,7 @@ BridgedClass _createRawRadioBridge() {
           throw ArgumentError('RawRadio: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_211.RawRadio(key: key, value: value, mouseCursor: mouseCursor, toggleable: toggleable, focusNode: focusNode, autofocus: autofocus, groupRegistry: groupRegistry, enabled: enabled, builder: ($flutter_164.BuildContext p0, $flutter_272.ToggleableStateMixin<$flutter_164.StatefulWidget> p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_211.RawRadio(key: key, value: value, mouseCursor: mouseCursor, toggleable: toggleable, focusNode: focusNode, autofocus: autofocus, groupRegistry: groupRegistry, enabled: enabled, builder: ($flutter_164.BuildContext p0, $flutter_272.ToggleableStateMixin<$flutter_164.StatefulWidget> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -62016,11 +62016,11 @@ BridgedClass _createRawTooltipBridge() {
         final positionDelegateRaw = named['positionDelegate'];
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'RawTooltip');
         if (!named.containsKey('animationStyle')) {
-          return $flutter_212.RawTooltip(key: key, semanticsTooltip: semanticsTooltip, tooltipBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, tooltipBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, hoverDelay: hoverDelay, touchDelay: touchDelay, dismissDelay: dismissDelay, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, positionDelegate: positionDelegateRaw == null ? null : ($flutter_212.TooltipPositionContext p0) { return D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]) as Offset; }, child: child);
+          return $flutter_212.RawTooltip(key: key, semanticsTooltip: semanticsTooltip, tooltipBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tooltipBuilderRaw, [p0, p1]), 'callback', visitor); }, hoverDelay: hoverDelay, touchDelay: touchDelay, dismissDelay: dismissDelay, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, positionDelegate: positionDelegateRaw == null ? null : ($flutter_212.TooltipPositionContext p0) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]), 'callback', visitor); }, child: child);
         }
         if (named.containsKey('animationStyle')) {
           final animationStyle = D4.getRequiredNamedArg<$flutter_3.AnimationStyle>(named, 'animationStyle', 'RawTooltip');
-          return $flutter_212.RawTooltip(key: key, semanticsTooltip: semanticsTooltip, tooltipBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.callInterpreterCallback(visitor!, tooltipBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, hoverDelay: hoverDelay, touchDelay: touchDelay, dismissDelay: dismissDelay, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, positionDelegate: positionDelegateRaw == null ? null : ($flutter_212.TooltipPositionContext p0) { return D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]) as Offset; }, child: child, animationStyle: animationStyle);
+          return $flutter_212.RawTooltip(key: key, semanticsTooltip: semanticsTooltip, tooltipBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tooltipBuilderRaw, [p0, p1]), 'callback', visitor); }, hoverDelay: hoverDelay, touchDelay: touchDelay, dismissDelay: dismissDelay, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, positionDelegate: positionDelegateRaw == null ? null : ($flutter_212.TooltipPositionContext p0) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]), 'callback', visitor); }, child: child, animationStyle: animationStyle);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -62316,7 +62316,7 @@ BridgedClass _createReorderableListBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final autoScrollerVelocityScalar = D4.getOptionalNamedArg<double?>(named, 'autoScrollerVelocityScalar');
         final dragBoundaryProviderRaw = named['dragBoundaryProvider'];
-        return $flutter_213.ReorderableList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, itemCount: itemCount, onReorder: (int p0, int p1) { D4.callInterpreterCallback(visitor!, onReorderRaw, [p0, p1]); }, onReorderStart: onReorderStartRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderStartRaw, [p0]); }, onReorderEnd: onReorderEndRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderEndRaw, [p0]); }, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, prototypeItem: prototypeItem, proxyDecorator: proxyDecoratorRaw == null ? null : ($flutter_164.Widget p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, proxyDecoratorRaw, [p0, p1, p2]) as $flutter_164.Widget; }, padding: padding, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, anchor: anchor, cacheExtent: cacheExtent, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, autoScrollerVelocityScalar: autoScrollerVelocityScalar, dragBoundaryProvider: dragBoundaryProviderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, dragBoundaryProviderRaw, [p0]) as $flutter_151.DragBoundaryDelegate<Rect>?; });
+        return $flutter_213.ReorderableList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, itemCount: itemCount, onReorder: (int p0, int p1) { D4.callInterpreterCallback(visitor!, onReorderRaw, [p0, p1]); }, onReorderStart: onReorderStartRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderStartRaw, [p0]); }, onReorderEnd: onReorderEndRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderEndRaw, [p0]); }, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, prototypeItem: prototypeItem, proxyDecorator: proxyDecoratorRaw == null ? null : ($flutter_164.Widget p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, proxyDecoratorRaw, [p0, p1, p2]), 'callback', visitor); }, padding: padding, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, anchor: anchor, cacheExtent: cacheExtent, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, autoScrollerVelocityScalar: autoScrollerVelocityScalar, dragBoundaryProvider: dragBoundaryProviderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_151.DragBoundaryDelegate<Rect>?>(D4.callInterpreterCallback(visitor!, dragBoundaryProviderRaw, [p0]), 'callback', visitor); });
       },
     },
     getters: {
@@ -62630,7 +62630,7 @@ BridgedClass _createSliverReorderableListBridge() {
         final proxyDecoratorRaw = named['proxyDecorator'];
         final dragBoundaryProviderRaw = named['dragBoundaryProvider'];
         final autoScrollerVelocityScalar = D4.getOptionalNamedArg<double?>(named, 'autoScrollerVelocityScalar');
-        return $flutter_213.SliverReorderableList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, onReorder: (int p0, int p1) { D4.callInterpreterCallback(visitor!, onReorderRaw, [p0, p1]); }, onReorderStart: onReorderStartRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderStartRaw, [p0]); }, onReorderEnd: onReorderEndRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderEndRaw, [p0]); }, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, prototypeItem: prototypeItem, proxyDecorator: proxyDecoratorRaw == null ? null : ($flutter_164.Widget p0, int p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, proxyDecoratorRaw, [p0, p1, p2]) as $flutter_164.Widget; }, dragBoundaryProvider: dragBoundaryProviderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, dragBoundaryProviderRaw, [p0]) as $flutter_151.DragBoundaryDelegate<Rect>?; }, autoScrollerVelocityScalar: autoScrollerVelocityScalar);
+        return $flutter_213.SliverReorderableList(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, onReorder: (int p0, int p1) { D4.callInterpreterCallback(visitor!, onReorderRaw, [p0, p1]); }, onReorderStart: onReorderStartRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderStartRaw, [p0]); }, onReorderEnd: onReorderEndRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onReorderEndRaw, [p0]); }, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, prototypeItem: prototypeItem, proxyDecorator: proxyDecoratorRaw == null ? null : ($flutter_164.Widget p0, int p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, proxyDecoratorRaw, [p0, p1, p2]), 'callback', visitor); }, dragBoundaryProvider: dragBoundaryProviderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_151.DragBoundaryDelegate<Rect>?>(D4.callInterpreterCallback(visitor!, dragBoundaryProviderRaw, [p0]), 'callback', visitor); }, autoScrollerVelocityScalar: autoScrollerVelocityScalar);
       },
     },
     getters: {
@@ -63144,7 +63144,7 @@ BridgedClass _createRepeatingAnimationBuilderBridge() {
         }
         final builderRaw = named['builder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_214.RepeatingAnimationBuilder(key: key, animatable: animatable, duration: duration, curve: curve, repeatMode: repeatMode, paused: paused, builder: ($flutter_164.BuildContext p0, Object p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, child: child);
+        return $flutter_214.RepeatingAnimationBuilder(key: key, animatable: animatable, duration: duration, curve: curve, repeatMode: repeatMode, paused: paused, builder: ($flutter_164.BuildContext p0, Object p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -66095,7 +66095,7 @@ BridgedClass _createBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -66105,7 +66105,7 @@ BridgedClass _createBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
     },
@@ -66178,7 +66178,7 @@ BridgedClass _createRootBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -66188,7 +66188,7 @@ BridgedClass _createRootBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'didPopRoute': (visitor, target, positional, named, typeArgs) {
@@ -66381,7 +66381,7 @@ BridgedClass _createChildBackButtonDispatcherBridge() {
           throw ArgumentError('addCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeCallback': (visitor, target, positional, named, typeArgs) {
@@ -66391,7 +66391,7 @@ BridgedClass _createChildBackButtonDispatcherBridge() {
           throw ArgumentError('removeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'notifiedByParent': (visitor, target, positional, named, typeArgs) {
@@ -66438,7 +66438,7 @@ BridgedClass _createBackButtonListenerBridge() {
           throw ArgumentError('BackButtonListener: Missing required named argument "onBackButtonPressed"');
         }
         final onBackButtonPressedRaw = named['onBackButtonPressed'];
-        return $flutter_217.BackButtonListener(key: key, child: child, onBackButtonPressed: () { return D4.callInterpreterCallback(visitor!, onBackButtonPressedRaw, []) as Future<bool>; });
+        return $flutter_217.BackButtonListener(key: key, child: child, onBackButtonPressed: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, onBackButtonPressedRaw, []), 'callback', visitor); });
       },
     },
     getters: {
@@ -67892,7 +67892,7 @@ BridgedClass _createModalRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -67902,7 +67902,7 @@ BridgedClass _createModalRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -68335,7 +68335,7 @@ BridgedClass _createPopupRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -68345,7 +68345,7 @@ BridgedClass _createPopupRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -68654,7 +68654,7 @@ BridgedClass _createRawDialogRouteBridge() {
         final traversalEdgeBehavior = D4.getOptionalNamedArg<$flutter_162.TraversalEdgeBehavior?>(named, 'traversalEdgeBehavior');
         final directionalTraversalEdgeBehavior = D4.getOptionalNamedArg<$flutter_162.TraversalEdgeBehavior?>(named, 'directionalTraversalEdgeBehavior');
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
-        return $flutter_218.RawDialogRoute(pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, transitionDuration: transitionDuration, transitionBuilder: transitionBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]) as $flutter_164.Widget; }, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint, traversalEdgeBehavior: traversalEdgeBehavior, directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior, fullscreenDialog: fullscreenDialog);
+        return $flutter_218.RawDialogRoute(pageBuilder: ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, transitionDuration: transitionDuration, transitionBuilder: transitionBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_164.Widget p3) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint, traversalEdgeBehavior: traversalEdgeBehavior, directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior, fullscreenDialog: fullscreenDialog);
       },
     },
     getters: {
@@ -68894,7 +68894,7 @@ BridgedClass _createRawDialogRouteBridge() {
           throw ArgumentError('addScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.addScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.addScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'removeScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -68904,7 +68904,7 @@ BridgedClass _createRawDialogRouteBridge() {
           throw ArgumentError('removeScopedWillPopCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.removeScopedWillPopCallback(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<bool>; });
+        t.removeScopedWillPopCallback(() { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
@@ -70234,7 +70234,7 @@ BridgedClass _createScrollAwareImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_221.ScrollAwareImageProvider>(target, 'ScrollAwareImageProvider');
@@ -70244,7 +70244,7 @@ BridgedClass _createScrollAwareImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_221.ScrollAwareImageProvider>(target, 'ScrollAwareImageProvider');
@@ -70964,12 +70964,12 @@ BridgedClass _createSliverChildBuilderDelegateBridge() {
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
         final semanticIndexOffset = D4.getNamedArgWithDefault<int>(named, 'semanticIndexOffset', 0);
         if (!named.containsKey('semanticIndexCallback')) {
-          return $flutter_225.SliverChildBuilderDelegate(($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, childCount: childCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
+          return $flutter_225.SliverChildBuilderDelegate(($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, childCount: childCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
         }
         if (named.containsKey('semanticIndexCallback')) {
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
-          return $flutter_225.SliverChildBuilderDelegate(($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, childCount: childCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, semanticIndexCallback: semanticIndexCallback);
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_225.SliverChildBuilderDelegate(($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, childCount: childCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, semanticIndexCallback: semanticIndexCallback);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -71088,7 +71088,7 @@ BridgedClass _createSliverChildListDelegateBridge() {
         }
         if (named.containsKey('semanticIndexCallback')) {
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_225.SliverChildListDelegate(children, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, semanticIndexCallback: semanticIndexCallback);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -71108,7 +71108,7 @@ BridgedClass _createSliverChildListDelegateBridge() {
         }
         if (named.containsKey('semanticIndexCallback')) {
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_225.SliverChildListDelegate.fixed(children, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, semanticIndexCallback: semanticIndexCallback);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -71292,7 +71292,7 @@ BridgedClass _createTwoDimensionalChildBuilderDelegateBridge() {
         final maxYIndex = D4.getOptionalNamedArg<int?>(named, 'maxYIndex');
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addAutomaticKeepAlives = D4.getNamedArgWithDefault<bool>(named, 'addAutomaticKeepAlives', true);
-        return $flutter_225.TwoDimensionalChildBuilderDelegate(builder: ($flutter_164.BuildContext p0, $flutter_276.ChildVicinity p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget?; }, maxXIndex: maxXIndex, maxYIndex: maxYIndex, addRepaintBoundaries: addRepaintBoundaries, addAutomaticKeepAlives: addAutomaticKeepAlives);
+        return $flutter_225.TwoDimensionalChildBuilderDelegate(builder: ($flutter_164.BuildContext p0, $flutter_276.ChildVicinity p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, maxXIndex: maxXIndex, maxYIndex: maxYIndex, addRepaintBoundaries: addRepaintBoundaries, addAutomaticKeepAlives: addAutomaticKeepAlives);
       },
     },
     getters: {
@@ -71916,7 +71916,7 @@ BridgedClass _createViewportElementMixinBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -75029,7 +75029,7 @@ BridgedClass _createListViewBridge() {
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_233.ListView(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, prototypeItem: prototypeItem, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, children: children, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_233.ListView(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, prototypeItem: prototypeItem, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, children: children, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
       'builder': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -75059,7 +75059,7 @@ BridgedClass _createListViewBridge() {
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_233.ListView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, prototypeItem: prototypeItem, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_233.ListView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, prototypeItem: prototypeItem, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
       'separated': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -75090,7 +75090,7 @@ BridgedClass _createListViewBridge() {
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_233.ListView.separated(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, findItemIndexCallback: findItemIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findItemIndexCallbackRaw, [p0]) as int?; }, separatorBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_233.ListView.separated(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, findItemIndexCallback: findItemIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findItemIndexCallbackRaw, [p0]), 'callback', visitor); }, separatorBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
       'custom': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -75112,7 +75112,7 @@ BridgedClass _createListViewBridge() {
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_233.ListView.custom(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, prototypeItem: prototypeItem, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, childrenDelegate: childrenDelegate, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_233.ListView.custom(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, itemExtent: itemExtent, prototypeItem: prototypeItem, itemExtentBuilder: itemExtentBuilderRaw == null ? null : (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, childrenDelegate: childrenDelegate, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
     },
     getters: {
@@ -75339,7 +75339,7 @@ BridgedClass _createGridViewBridge() {
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_233.GridView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, gridDelegate: gridDelegate, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_233.GridView.builder(key: key, scrollDirection: scrollDirection, reverse: reverse, controller: controller, primary: primary, physics: physics, shrinkWrap: shrinkWrap, padding: padding, gridDelegate: gridDelegate, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, cacheExtent: cacheExtent, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, keyboardDismissBehavior: keyboardDismissBehavior, restorationId: restorationId, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
       'custom': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -75607,7 +75607,7 @@ BridgedClass _createScrollableBridge() {
         final scrollBehavior = D4.getOptionalNamedArg<$flutter_222.ScrollBehavior?>(named, 'scrollBehavior');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_234.Scrollable(key: key, axisDirection: axisDirection, controller: controller, physics: physics, viewportBuilder: ($flutter_164.BuildContext p0, $flutter_92.ViewportOffset p1) { return D4.callInterpreterCallback(visitor!, viewportBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, incrementCalculator: incrementCalculatorRaw == null ? null : ($flutter_235.ScrollIncrementDetails p0) { return D4.callInterpreterCallback(visitor!, incrementCalculatorRaw, [p0]) as double; }, excludeFromSemantics: excludeFromSemantics, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_234.Scrollable(key: key, axisDirection: axisDirection, controller: controller, physics: physics, viewportBuilder: ($flutter_164.BuildContext p0, $flutter_92.ViewportOffset p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, viewportBuilderRaw, [p0, p1]), 'callback', visitor); }, incrementCalculator: incrementCalculatorRaw == null ? null : ($flutter_235.ScrollIncrementDetails p0) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, incrementCalculatorRaw, [p0]), 'callback', visitor); }, excludeFromSemantics: excludeFromSemantics, semanticChildCount: semanticChildCount, dragStartBehavior: dragStartBehavior, restorationId: restorationId, scrollBehavior: scrollBehavior, clipBehavior: clipBehavior, hitTestBehavior: hitTestBehavior);
       },
     },
     getters: {
@@ -76004,7 +76004,7 @@ BridgedClass _createTwoDimensionalScrollableBridge() {
         final diagonalDragBehavior = D4.getNamedArgWithDefault<$flutter_234.DiagonalDragBehavior>(named, 'diagonalDragBehavior', $flutter_234.DiagonalDragBehavior.none);
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_27.DragStartBehavior>(named, 'dragStartBehavior', $flutter_27.DragStartBehavior.start);
         final hitTestBehavior = D4.getNamedArgWithDefault<$flutter_72.HitTestBehavior>(named, 'hitTestBehavior', $flutter_72.HitTestBehavior.opaque);
-        return $flutter_234.TwoDimensionalScrollable(key: key, horizontalDetails: horizontalDetails, verticalDetails: verticalDetails, viewportBuilder: ($flutter_164.BuildContext p0, $flutter_92.ViewportOffset p1, $flutter_92.ViewportOffset p2) { return D4.callInterpreterCallback(visitor!, viewportBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, incrementCalculator: incrementCalculatorRaw == null ? null : ($flutter_235.ScrollIncrementDetails p0) { return D4.callInterpreterCallback(visitor!, incrementCalculatorRaw, [p0]) as double; }, restorationId: restorationId, excludeFromSemantics: excludeFromSemantics, diagonalDragBehavior: diagonalDragBehavior, dragStartBehavior: dragStartBehavior, hitTestBehavior: hitTestBehavior);
+        return $flutter_234.TwoDimensionalScrollable(key: key, horizontalDetails: horizontalDetails, verticalDetails: verticalDetails, viewportBuilder: ($flutter_164.BuildContext p0, $flutter_92.ViewportOffset p1, $flutter_92.ViewportOffset p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, viewportBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, incrementCalculator: incrementCalculatorRaw == null ? null : ($flutter_235.ScrollIncrementDetails p0) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, incrementCalculatorRaw, [p0]), 'callback', visitor); }, restorationId: restorationId, excludeFromSemantics: excludeFromSemantics, diagonalDragBehavior: diagonalDragBehavior, dragStartBehavior: dragStartBehavior, hitTestBehavior: hitTestBehavior);
       },
     },
     getters: {
@@ -76929,46 +76929,46 @@ BridgedClass _createRawScrollbarBridge() {
         }
         if (!named.containsKey('minThumbLength') && !named.containsKey('fadeDuration') && !named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, notificationPredicate: notificationPredicate);
         }
         if (named.containsKey('minThumbLength') && !named.containsKey('fadeDuration') && !named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final minThumbLength = D4.getRequiredNamedArg<double>(named, 'minThumbLength', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, minThumbLength: minThumbLength, notificationPredicate: notificationPredicate);
         }
         if (!named.containsKey('minThumbLength') && named.containsKey('fadeDuration') && !named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final fadeDuration = D4.getRequiredNamedArg<Duration>(named, 'fadeDuration', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, fadeDuration: fadeDuration, notificationPredicate: notificationPredicate);
         }
         if (named.containsKey('minThumbLength') && named.containsKey('fadeDuration') && !named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final minThumbLength = D4.getRequiredNamedArg<double>(named, 'minThumbLength', 'RawScrollbar');
           final fadeDuration = D4.getRequiredNamedArg<Duration>(named, 'fadeDuration', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, minThumbLength: minThumbLength, fadeDuration: fadeDuration, notificationPredicate: notificationPredicate);
         }
         if (!named.containsKey('minThumbLength') && !named.containsKey('fadeDuration') && named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final timeToFade = D4.getRequiredNamedArg<Duration>(named, 'timeToFade', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, timeToFade: timeToFade, notificationPredicate: notificationPredicate);
         }
         if (named.containsKey('minThumbLength') && !named.containsKey('fadeDuration') && named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final minThumbLength = D4.getRequiredNamedArg<double>(named, 'minThumbLength', 'RawScrollbar');
           final timeToFade = D4.getRequiredNamedArg<Duration>(named, 'timeToFade', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, minThumbLength: minThumbLength, timeToFade: timeToFade, notificationPredicate: notificationPredicate);
         }
         if (!named.containsKey('minThumbLength') && named.containsKey('fadeDuration') && named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
           final fadeDuration = D4.getRequiredNamedArg<Duration>(named, 'fadeDuration', 'RawScrollbar');
           final timeToFade = D4.getRequiredNamedArg<Duration>(named, 'timeToFade', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, fadeDuration: fadeDuration, timeToFade: timeToFade, notificationPredicate: notificationPredicate);
         }
         if (named.containsKey('minThumbLength') && named.containsKey('fadeDuration') && named.containsKey('timeToFade') && named.containsKey('notificationPredicate')) {
@@ -76976,7 +76976,7 @@ BridgedClass _createRawScrollbarBridge() {
           final fadeDuration = D4.getRequiredNamedArg<Duration>(named, 'fadeDuration', 'RawScrollbar');
           final timeToFade = D4.getRequiredNamedArg<Duration>(named, 'timeToFade', 'RawScrollbar');
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]) as bool; };
+          final notificationPredicate = ($flutter_227.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_236.RawScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, shape: shape, radius: radius, thickness: thickness, thumbColor: thumbColor, minOverscrollLength: minOverscrollLength, trackVisibility: trackVisibility, trackRadius: trackRadius, trackColor: trackColor, trackBorderColor: trackBorderColor, pressDuration: pressDuration, interactive: interactive, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin, crossAxisMargin: crossAxisMargin, padding: padding, minThumbLength: minThumbLength, fadeDuration: fadeDuration, timeToFade: timeToFade, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -77360,7 +77360,7 @@ BridgedClass _createSelectableRegionBridge() {
         final onSelectionChangedRaw = named['onSelectionChanged'];
         final selectionControls = D4.getRequiredNamedArg<$flutter_266.TextSelectionControls>(named, 'selectionControls', 'SelectableRegion');
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'SelectableRegion');
-        return $flutter_237.SelectableRegion(key: key, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_237.SelectableRegionState p1) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]) as $flutter_164.Widget; }, focusNode: focusNode, magnifierConfiguration: magnifierConfiguration, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_75.SelectedContent? p0) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0]); }, selectionControls: selectionControls, child: child);
+        return $flutter_237.SelectableRegion(key: key, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_237.SelectableRegionState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); }, focusNode: focusNode, magnifierConfiguration: magnifierConfiguration, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_75.SelectedContent? p0) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0]); }, selectionControls: selectionControls, child: child);
       },
     },
     getters: {
@@ -80860,7 +80860,7 @@ BridgedClass _createSliverListBridge() {
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
         final semanticIndexOffset = D4.getNamedArgWithDefault<int>(named, 'semanticIndexOffset', 0);
-        return $flutter_246.SliverList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
+        return $flutter_246.SliverList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
       },
       'separated': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -80878,7 +80878,7 @@ BridgedClass _createSliverListBridge() {
         final addAutomaticKeepAlives = D4.getNamedArgWithDefault<bool>(named, 'addAutomaticKeepAlives', true);
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
-        return $flutter_246.SliverList.separated(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, findItemIndexCallback: findItemIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findItemIndexCallbackRaw, [p0]) as int?; }, separatorBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
+        return $flutter_246.SliverList.separated(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, findItemIndexCallback: findItemIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findItemIndexCallbackRaw, [p0]), 'callback', visitor); }, separatorBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, separatorBuilderRaw, [p0, p1]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
       },
       'list': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -81036,7 +81036,7 @@ BridgedClass _createSliverFixedExtentListBridge() {
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
         final semanticIndexOffset = D4.getNamedArgWithDefault<int>(named, 'semanticIndexOffset', 0);
-        return $flutter_246.SliverFixedExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, itemExtent: itemExtent, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
+        return $flutter_246.SliverFixedExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, itemExtent: itemExtent, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
       },
       'list': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -81184,7 +81184,7 @@ BridgedClass _createSliverVariedExtentListBridge() {
           throw ArgumentError('SliverVariedExtentList: Missing required named argument "itemExtentBuilder"');
         }
         final itemExtentBuilderRaw = named['itemExtentBuilder'];
-        return $flutter_246.SliverVariedExtentList(key: key, delegate: delegate, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; });
+        return $flutter_246.SliverVariedExtentList(key: key, delegate: delegate, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); });
       },
       'builder': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -81201,7 +81201,7 @@ BridgedClass _createSliverVariedExtentListBridge() {
         final addAutomaticKeepAlives = D4.getNamedArgWithDefault<bool>(named, 'addAutomaticKeepAlives', true);
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
-        return $flutter_246.SliverVariedExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
+        return $flutter_246.SliverVariedExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
       },
       'list': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -81216,7 +81216,7 @@ BridgedClass _createSliverVariedExtentListBridge() {
         final addAutomaticKeepAlives = D4.getNamedArgWithDefault<bool>(named, 'addAutomaticKeepAlives', true);
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
-        return $flutter_246.SliverVariedExtentList.list(key: key, children: children, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
+        return $flutter_246.SliverVariedExtentList.list(key: key, children: children, itemExtentBuilder: (int p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
       },
     },
     getters: {
@@ -81364,7 +81364,7 @@ BridgedClass _createSliverGridBridge() {
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
         final semanticIndexOffset = D4.getNamedArgWithDefault<int>(named, 'semanticIndexOffset', 0);
-        return $flutter_246.SliverGrid.builder(key: key, gridDelegate: gridDelegate, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
+        return $flutter_246.SliverGrid.builder(key: key, gridDelegate: gridDelegate, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset);
       },
       'count': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -81775,7 +81775,7 @@ BridgedClass _createSliverMultiBoxAdaptorElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -83422,7 +83422,7 @@ BridgedClass _createSliverLayoutBuilderBridge() {
           throw ArgumentError('SliverLayoutBuilder: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        return $flutter_249.SliverLayoutBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_77.SliverConstraints p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_249.SliverLayoutBuilder(key: key, builder: ($flutter_164.BuildContext p0, $flutter_77.SliverConstraints p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -83717,7 +83717,7 @@ BridgedClass _createSliverPrototypeExtentListBridge() {
         final addAutomaticKeepAlives = D4.getNamedArgWithDefault<bool>(named, 'addAutomaticKeepAlives', true);
         final addRepaintBoundaries = D4.getNamedArgWithDefault<bool>(named, 'addRepaintBoundaries', true);
         final addSemanticIndexes = D4.getNamedArgWithDefault<bool>(named, 'addSemanticIndexes', true);
-        return $flutter_251.SliverPrototypeExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]) as $flutter_164.Widget?; }, prototypeItem: prototypeItem, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
+        return $flutter_251.SliverPrototypeExtentList.builder(key: key, itemBuilder: ($flutter_164.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_164.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, prototypeItem: prototypeItem, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, itemCount: itemCount, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes);
       },
       'list': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
@@ -84198,52 +84198,52 @@ BridgedClass _createTreeSliverBridge() {
         final semanticIndexOffset = D4.getNamedArgWithDefault<int>(named, 'semanticIndexOffset', 0);
         final findChildIndexCallbackRaw = named['findChildIndexCallback'];
         if (!named.containsKey('treeNodeBuilder') && !named.containsKey('treeRowExtentBuilder') && !named.containsKey('semanticIndexCallback')) {
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; });
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); });
         }
         if (named.containsKey('treeNodeBuilder') && !named.containsKey('treeRowExtentBuilder') && !named.containsKey('semanticIndexCallback')) {
           final treeNodeBuilderRaw = named['treeNodeBuilder'];
-          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeNodeBuilder: treeNodeBuilder);
+          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeNodeBuilder: treeNodeBuilder);
         }
         if (!named.containsKey('treeNodeBuilder') && named.containsKey('treeRowExtentBuilder') && !named.containsKey('semanticIndexCallback')) {
           final treeRowExtentBuilderRaw = named['treeRowExtentBuilder'];
-          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]) as double; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeRowExtentBuilder: treeRowExtentBuilder);
+          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeRowExtentBuilder: treeRowExtentBuilder);
         }
         if (named.containsKey('treeNodeBuilder') && named.containsKey('treeRowExtentBuilder') && !named.containsKey('semanticIndexCallback')) {
           final treeNodeBuilderRaw = named['treeNodeBuilder'];
-          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; };
+          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
           final treeRowExtentBuilderRaw = named['treeRowExtentBuilder'];
-          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]) as double; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeNodeBuilder: treeNodeBuilder, treeRowExtentBuilder: treeRowExtentBuilder);
+          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeNodeBuilder: treeNodeBuilder, treeRowExtentBuilder: treeRowExtentBuilder);
         }
         if (!named.containsKey('treeNodeBuilder') && !named.containsKey('treeRowExtentBuilder') && named.containsKey('semanticIndexCallback')) {
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, semanticIndexCallback: semanticIndexCallback);
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, semanticIndexCallback: semanticIndexCallback);
         }
         if (named.containsKey('treeNodeBuilder') && !named.containsKey('treeRowExtentBuilder') && named.containsKey('semanticIndexCallback')) {
           final treeNodeBuilderRaw = named['treeNodeBuilder'];
-          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; };
+          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeNodeBuilder: treeNodeBuilder, semanticIndexCallback: semanticIndexCallback);
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeNodeBuilder: treeNodeBuilder, semanticIndexCallback: semanticIndexCallback);
         }
         if (!named.containsKey('treeNodeBuilder') && named.containsKey('treeRowExtentBuilder') && named.containsKey('semanticIndexCallback')) {
           final treeRowExtentBuilderRaw = named['treeRowExtentBuilder'];
-          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]) as double; };
+          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]), 'callback', visitor); };
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeRowExtentBuilder: treeRowExtentBuilder, semanticIndexCallback: semanticIndexCallback);
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeRowExtentBuilder: treeRowExtentBuilder, semanticIndexCallback: semanticIndexCallback);
         }
         if (named.containsKey('treeNodeBuilder') && named.containsKey('treeRowExtentBuilder') && named.containsKey('semanticIndexCallback')) {
           final treeNodeBuilderRaw = named['treeNodeBuilder'];
-          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]) as $flutter_164.Widget; };
+          final treeNodeBuilder = ($flutter_164.BuildContext p0, $flutter_253.TreeSliverNode<Object?> p1, $flutter_3.AnimationStyle p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, treeNodeBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
           final treeRowExtentBuilderRaw = named['treeRowExtentBuilder'];
-          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]) as double; };
+          final treeRowExtentBuilder = ($flutter_253.TreeSliverNode<Object?> p0, $flutter_77.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, treeRowExtentBuilderRaw, [p0, p1]), 'callback', visitor); };
           final semanticIndexCallbackRaw = named['semanticIndexCallback'];
-          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]) as int?; };
-          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]) as int?; }, treeNodeBuilder: treeNodeBuilder, treeRowExtentBuilder: treeRowExtentBuilder, semanticIndexCallback: semanticIndexCallback);
+          final semanticIndexCallback = ($flutter_164.Widget p0, int p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, semanticIndexCallbackRaw, [p0, p1]), 'callback', visitor); };
+          return $flutter_253.TreeSliver(key: key, tree: tree, controller: controller, onNodeToggle: onNodeToggleRaw == null ? null : ($flutter_253.TreeSliverNode<Object?> p0) { D4.callInterpreterCallback(visitor!, onNodeToggleRaw, [p0]); }, toggleAnimationStyle: toggleAnimationStyle, indentation: indentation, addAutomaticKeepAlives: addAutomaticKeepAlives, addRepaintBoundaries: addRepaintBoundaries, addSemanticIndexes: addSemanticIndexes, semanticIndexOffset: semanticIndexOffset, findChildIndexCallback: findChildIndexCallbackRaw == null ? null : ($flutter_12.Key p0) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, findChildIndexCallbackRaw, [p0]), 'callback', visitor); }, treeNodeBuilder: treeNodeBuilder, treeRowExtentBuilder: treeRowExtentBuilder, semanticIndexCallback: semanticIndexCallback);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -85255,7 +85255,7 @@ BridgedClass _createSlottedRenderObjectElementBridge() {
           throw ArgumentError('visitAncestorElements: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        t.visitAncestorElements(($flutter_164.Element p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        t.visitAncestorElements(($flutter_164.Element p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
         return null;
       },
       'didChangeDependencies': (visitor, target, positional, named, typeArgs) {
@@ -85863,7 +85863,7 @@ BridgedClass _createSpellCheckConfigurationBridge() {
         final misspelledSelectionColor = D4.getOptionalNamedArg<Color?>(named, 'misspelledSelectionColor');
         final misspelledTextStyle = D4.getOptionalNamedArg<$flutter_51.TextStyle?>(named, 'misspelledTextStyle');
         final spellCheckSuggestionsToolbarBuilderRaw = named['spellCheckSuggestionsToolbarBuilder'];
-        return $flutter_257.SpellCheckConfiguration(spellCheckService: spellCheckService, misspelledSelectionColor: misspelledSelectionColor, misspelledTextStyle: misspelledTextStyle, spellCheckSuggestionsToolbarBuilder: spellCheckSuggestionsToolbarBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return $flutter_257.SpellCheckConfiguration(spellCheckService: spellCheckService, misspelledSelectionColor: misspelledSelectionColor, misspelledTextStyle: misspelledTextStyle, spellCheckSuggestionsToolbarBuilder: spellCheckSuggestionsToolbarBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0, p1]), 'callback', visitor); });
       },
       'disabled': (visitor, positional, named) {
         return $flutter_257.SpellCheckConfiguration.disabled();
@@ -85884,7 +85884,7 @@ BridgedClass _createSpellCheckConfigurationBridge() {
         final misspelledSelectionColor = D4.getOptionalNamedArg<Color?>(named, 'misspelledSelectionColor');
         final misspelledTextStyle = D4.getOptionalNamedArg<$flutter_51.TextStyle?>(named, 'misspelledTextStyle');
         final spellCheckSuggestionsToolbarBuilderRaw = named['spellCheckSuggestionsToolbarBuilder'];
-        return t.copyWith(spellCheckService: spellCheckService, misspelledSelectionColor: misspelledSelectionColor, misspelledTextStyle: misspelledTextStyle, spellCheckSuggestionsToolbarBuilder: spellCheckSuggestionsToolbarBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0, p1]) as $flutter_164.Widget; });
+        return t.copyWith(spellCheckService: spellCheckService, misspelledSelectionColor: misspelledSelectionColor, misspelledTextStyle: misspelledTextStyle, spellCheckSuggestionsToolbarBuilder: spellCheckSuggestionsToolbarBuilderRaw == null ? null : ($flutter_164.BuildContext p0, $flutter_155.EditableTextState p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0, p1]), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_257.SpellCheckConfiguration>(target, 'SpellCheckConfiguration');
@@ -91560,7 +91560,7 @@ BridgedClass _createTextSelectionOverlayBridge() {
         final clipboardStatus = D4.getOptionalNamedArg<$flutter_266.ClipboardStatusNotifier?>(named, 'clipboardStatus');
         final contextMenuBuilderRaw = named['contextMenuBuilder'];
         final magnifierConfiguration = D4.getRequiredNamedArg<$flutter_185.TextMagnifierConfiguration>(named, 'magnifierConfiguration', 'TextSelectionOverlay');
-        return $flutter_266.TextSelectionOverlay(value: value, context: context, debugRequiredFor: debugRequiredFor, toolbarLayerLink: toolbarLayerLink, startHandleLayerLink: startHandleLayerLink, endHandleLayerLink: endHandleLayerLink, renderObject: renderObject, selectionControls: selectionControls, handlesVisible: handlesVisible, selectionDelegate: selectionDelegate, dragStartBehavior: dragStartBehavior, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, clipboardStatus: clipboardStatus, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]) as $flutter_164.Widget; }, magnifierConfiguration: magnifierConfiguration);
+        return $flutter_266.TextSelectionOverlay(value: value, context: context, debugRequiredFor: debugRequiredFor, toolbarLayerLink: toolbarLayerLink, startHandleLayerLink: startHandleLayerLink, endHandleLayerLink: endHandleLayerLink, renderObject: renderObject, selectionControls: selectionControls, handlesVisible: handlesVisible, selectionDelegate: selectionDelegate, dragStartBehavior: dragStartBehavior, onSelectionHandleTapped: onSelectionHandleTappedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectionHandleTappedRaw, []); }, clipboardStatus: clipboardStatus, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]), 'callback', visitor); }, magnifierConfiguration: magnifierConfiguration);
       },
     },
     getters: {
@@ -91604,7 +91604,7 @@ BridgedClass _createTextSelectionOverlayBridge() {
           throw ArgumentError('showSpellCheckSuggestionsToolbar: Missing required argument "spellCheckSuggestionsToolbarBuilder" at position 0');
         }
         final spellCheckSuggestionsToolbarBuilderRaw = positional[0];
-        t.showSpellCheckSuggestionsToolbar(($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0]) as $flutter_164.Widget; });
+        t.showSpellCheckSuggestionsToolbar(($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, spellCheckSuggestionsToolbarBuilderRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'showMagnifier': (visitor, target, positional, named, typeArgs) {
@@ -91808,7 +91808,7 @@ BridgedClass _createSelectionOverlayBridge() {
         final t = D4.validateTarget<$flutter_266.SelectionOverlay>(target, 'SelectionOverlay');
         final context = D4.getOptionalNamedArg<$flutter_164.BuildContext?>(named, 'context');
         final contextMenuBuilderRaw = named['contextMenuBuilder'];
-        t.showToolbar(context: context, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]) as $flutter_164.Widget; });
+        t.showToolbar(context: context, contextMenuBuilder: contextMenuBuilderRaw == null ? null : ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'showSpellCheckSuggestionsToolbar': (visitor, target, positional, named, typeArgs) {
@@ -91818,7 +91818,7 @@ BridgedClass _createSelectionOverlayBridge() {
           throw ArgumentError('showSpellCheckSuggestionsToolbar: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        t.showSpellCheckSuggestionsToolbar(context: context, builder: ($flutter_164.BuildContext p0) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0]) as $flutter_164.Widget; });
+        t.showSpellCheckSuggestionsToolbar(context: context, builder: ($flutter_164.BuildContext p0) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'markNeedsBuild': (visitor, target, positional, named, typeArgs) {
@@ -94204,7 +94204,7 @@ BridgedClass _createMatrixTransitionBridge() {
         final alignment = D4.getNamedArgWithDefault<$flutter_32.Alignment>(named, 'alignment', $flutter_32.Alignment.center);
         final filterQuality = D4.getOptionalNamedArg<FilterQuality?>(named, 'filterQuality');
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_273.MatrixTransition(key: key, animation: animation, onTransform: (double p0) { return D4.callInterpreterCallback(visitor!, onTransformRaw, [p0]) as $vector_math_1.Matrix4; }, alignment: alignment, filterQuality: filterQuality, child: child);
+        return $flutter_273.MatrixTransition(key: key, animation: animation, onTransform: (double p0) { return D4.extractBridgedArg<$vector_math_1.Matrix4>(D4.callInterpreterCallback(visitor!, onTransformRaw, [p0]), 'callback', visitor); }, alignment: alignment, filterQuality: filterQuality, child: child);
       },
     },
     getters: {
@@ -95587,7 +95587,7 @@ BridgedClass _createListenableBuilderBridge() {
         }
         final builderRaw = named['builder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_273.ListenableBuilder(key: key, listenable: listenable, builder: ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child);
+        return $flutter_273.ListenableBuilder(key: key, listenable: listenable, builder: ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -95701,7 +95701,7 @@ BridgedClass _createAnimatedBuilderBridge() {
         }
         final builderRaw = named['builder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_273.AnimatedBuilder(key: key, animation: animation, builder: ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]) as $flutter_164.Widget; }, child: child);
+        return $flutter_273.AnimatedBuilder(key: key, animation: animation, builder: ($flutter_164.BuildContext p0, $flutter_164.Widget? p1) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -95820,7 +95820,7 @@ BridgedClass _createTweenAnimationBuilderBridge() {
         final builderRaw = named['builder'];
         final onEndRaw = named['onEnd'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_274.TweenAnimationBuilder(key: key, tween: tween, duration: duration, curve: curve, builder: ($flutter_164.BuildContext p0, Object? p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, onEnd: onEndRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEndRaw, []); }, child: child);
+        return $flutter_274.TweenAnimationBuilder(key: key, tween: tween, duration: duration, curve: curve, builder: ($flutter_164.BuildContext p0, Object? p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, onEnd: onEndRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEndRaw, []); }, child: child);
       },
     },
     getters: {
@@ -97102,7 +97102,7 @@ BridgedClass _createUndoHistoryBridge() {
         final undoStackModifierRaw = named['undoStackModifier'];
         final controller = D4.getOptionalNamedArg<$flutter_277.UndoHistoryController?>(named, 'controller');
         final child = D4.getRequiredNamedArg<$flutter_164.Widget>(named, 'child', 'UndoHistory');
-        return $flutter_277.UndoHistory(key: key, shouldChangeUndoStack: shouldChangeUndoStackRaw == null ? null : (dynamic p0, dynamic p1) { return D4.callInterpreterCallback(visitor!, shouldChangeUndoStackRaw, [p0, p1]) as bool; }, value: value, onTriggered: (dynamic p0) { D4.callInterpreterCallback(visitor!, onTriggeredRaw, [p0]); }, focusNode: focusNode, undoStackModifier: undoStackModifierRaw == null ? null : (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, undoStackModifierRaw, [p0])); }, controller: controller, child: child);
+        return $flutter_277.UndoHistory(key: key, shouldChangeUndoStack: shouldChangeUndoStackRaw == null ? null : (dynamic p0, dynamic p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, shouldChangeUndoStackRaw, [p0, p1]), 'callback', visitor); }, value: value, onTriggered: (dynamic p0) { D4.callInterpreterCallback(visitor!, onTriggeredRaw, [p0]); }, focusNode: focusNode, undoStackModifier: undoStackModifierRaw == null ? null : (dynamic p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, undoStackModifierRaw, [p0])); }, controller: controller, child: child);
       },
     },
     getters: {
@@ -97600,7 +97600,7 @@ BridgedClass _createValueListenableBuilderBridge() {
         }
         final builderRaw = named['builder'];
         final child = D4.getOptionalNamedArg<$flutter_164.Widget?>(named, 'child');
-        return $flutter_279.ValueListenableBuilder(key: key, valueListenable: valueListenable, builder: ($flutter_164.BuildContext p0, dynamic p1, $flutter_164.Widget? p2) { return D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]) as $flutter_164.Widget; }, child: child);
+        return $flutter_279.ValueListenableBuilder(key: key, valueListenable: valueListenable, builder: ($flutter_164.BuildContext p0, dynamic p1, $flutter_164.Widget? p2) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -98755,7 +98755,7 @@ BridgedClass _createWidgetInspectorServiceBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "registerExtension"');
         }
         final registerExtensionRaw = named['registerExtension'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; }, registerExtension: ({required Future<Map<String, dynamic>> Function(Map<String, String>) callback, required String name}) { D4.callInterpreterCallback(visitor!, registerExtensionRaw, [], {'callback': callback, 'name': name}); });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); }, registerExtension: ({required Future<Map<String, dynamic>> Function(Map<String, String>) callback, required String name}) { D4.callInterpreterCallback(visitor!, registerExtensionRaw, [], {'callback': callback, 'name': name}); });
         return null;
       },
       'forceRebuild': (visitor, target, positional, named, typeArgs) {
@@ -99096,7 +99096,7 @@ BridgedClass _createWidgetInspectorBridge() {
           throw ArgumentError('WidgetInspector: Missing required named argument "moveExitWidgetSelectionButtonBuilder"');
         }
         final moveExitWidgetSelectionButtonBuilderRaw = named['moveExitWidgetSelectionButtonBuilder'];
-        return $flutter_283.WidgetInspector(key: key, child: child, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}) as $flutter_164.Widget; }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}) as $flutter_164.Widget; });
+        return $flutter_283.WidgetInspector(key: key, child: child, tapBehaviorButtonBuilder: tapBehaviorButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required bool selectionOnTapEnabled, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, tapBehaviorButtonBuilderRaw, [p0], {'onPressed': onPressed, 'selectionOnTapEnabled': selectionOnTapEnabled, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, exitWidgetSelectionButtonBuilder: exitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required $flutter_164.GlobalKey<$flutter_164.State<$flutter_164.StatefulWidget>> key, required void Function() onPressed, required String semanticsLabel}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, exitWidgetSelectionButtonBuilderRaw, [p0], {'key': key, 'onPressed': onPressed, 'semanticsLabel': semanticsLabel}), 'callback', visitor); }, moveExitWidgetSelectionButtonBuilder: moveExitWidgetSelectionButtonBuilderRaw == null ? null : ($flutter_164.BuildContext p0, {required void Function() onPressed, required String semanticsLabel, bool usesDefaultAlignment = false}) { return D4.extractBridgedArg<$flutter_164.Widget>(D4.callInterpreterCallback(visitor!, moveExitWidgetSelectionButtonBuilderRaw, [p0], {'onPressed': onPressed, 'semanticsLabel': semanticsLabel, 'usesDefaultAlignment': usesDefaultAlignment}), 'callback', visitor); });
       },
     },
     getters: {
@@ -99753,7 +99753,7 @@ BridgedClass _createInspectorSerializationDelegateBridge() {
         final service = D4.getRequiredNamedArg<$flutter_283.WidgetInspectorService>(named, 'service', 'InspectorSerializationDelegate');
         final addAdditionalPropertiesCallbackRaw = named['addAdditionalPropertiesCallback'];
         final inDisableWidgetInspectorScope = D4.getNamedArgWithDefault<bool>(named, 'inDisableWidgetInspectorScope', false);
-        return $flutter_283.InspectorSerializationDelegate(groupName: groupName, summaryTree: summaryTree, maxDescendantsTruncatableNode: maxDescendantsTruncatableNode, expandPropertyValues: expandPropertyValues, subtreeDepth: subtreeDepth, includeProperties: includeProperties, service: service, addAdditionalPropertiesCallback: addAdditionalPropertiesCallbackRaw == null ? null : ($flutter_11.DiagnosticsNode p0, $flutter_283.InspectorSerializationDelegate p1) { return D4.callInterpreterCallback(visitor!, addAdditionalPropertiesCallbackRaw, [p0, p1]) as Map<String, Object>?; }, inDisableWidgetInspectorScope: inDisableWidgetInspectorScope);
+        return $flutter_283.InspectorSerializationDelegate(groupName: groupName, summaryTree: summaryTree, maxDescendantsTruncatableNode: maxDescendantsTruncatableNode, expandPropertyValues: expandPropertyValues, subtreeDepth: subtreeDepth, includeProperties: includeProperties, service: service, addAdditionalPropertiesCallback: addAdditionalPropertiesCallbackRaw == null ? null : ($flutter_11.DiagnosticsNode p0, $flutter_283.InspectorSerializationDelegate p1) { return D4.extractBridgedArg<Map<String, Object>?>(D4.callInterpreterCallback(visitor!, addAdditionalPropertiesCallbackRaw, [p0, p1]), 'callback', visitor); }, inDisableWidgetInspectorScope: inDisableWidgetInspectorScope);
       },
     },
     getters: {
@@ -99942,7 +99942,7 @@ BridgedClass _createWidgetSpanBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_46.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_46.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_284.WidgetSpan>(target, 'WidgetSpan');
@@ -99951,7 +99951,7 @@ BridgedClass _createWidgetSpanBridge() {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_46.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_46.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'getSpanForPositionVisitor': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_284.WidgetSpan>(target, 'WidgetSpan');
@@ -100154,7 +100154,7 @@ BridgedClass _createWidgetStateColorBridge() {
           throw ArgumentError('WidgetStateColor: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_285.WidgetStateColor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Color; });
+        return $flutter_285.WidgetStateColor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<Color>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateColor');
@@ -100299,11 +100299,11 @@ BridgedClass _createWidgetStateMouseCursorBridge() {
         }
         final callbackRaw = positional[0];
         if (!named.containsKey('debugDescription')) {
-          return $flutter_285.WidgetStateMouseCursor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as $flutter_108.MouseCursor; });
+          return $flutter_285.WidgetStateMouseCursor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<$flutter_108.MouseCursor>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         }
         if (named.containsKey('debugDescription')) {
           final debugDescription = D4.getRequiredNamedArg<String>(named, 'debugDescription', 'WidgetStateMouseCursor');
-          return $flutter_285.WidgetStateMouseCursor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as $flutter_108.MouseCursor; }, debugDescription: debugDescription);
+          return $flutter_285.WidgetStateMouseCursor.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<$flutter_108.MouseCursor>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); }, debugDescription: debugDescription);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -100399,7 +100399,7 @@ BridgedClass _createWidgetStateBorderSideBridge() {
           throw ArgumentError('WidgetStateBorderSide: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_285.WidgetStateBorderSide.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as $flutter_35.BorderSide?; });
+        return $flutter_285.WidgetStateBorderSide.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<$flutter_35.BorderSide?>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateBorderSide');
@@ -100528,7 +100528,7 @@ BridgedClass _createWidgetStateOutlinedBorderBridge() {
           throw ArgumentError('WidgetStateOutlinedBorder: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_285.WidgetStateOutlinedBorder.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as $flutter_35.OutlinedBorder?; });
+        return $flutter_285.WidgetStateOutlinedBorder.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<$flutter_35.OutlinedBorder?>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateOutlinedBorder');
@@ -100667,7 +100667,7 @@ BridgedClass _createWidgetStateTextStyleBridge() {
           throw ArgumentError('WidgetStateTextStyle: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_285.WidgetStateTextStyle.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as $flutter_51.TextStyle; });
+        return $flutter_285.WidgetStateTextStyle.resolveWith((Set<$flutter_285.WidgetState> p0) { return D4.extractBridgedArg<$flutter_51.TextStyle>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateTextStyle');
@@ -104091,7 +104091,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_44.ImageProvider>(target, 'ImageProvider');
@@ -104101,7 +104101,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_44.ImageProvider>(target, 'ImageProvider');
@@ -104188,7 +104188,7 @@ BridgedClass _createTextSpanBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_46.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_46.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');
@@ -104197,7 +104197,7 @@ BridgedClass _createTextSpanBridge() {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_46.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_46.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'getSpanForPositionVisitor': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextSpan>(target, 'TextSpan');

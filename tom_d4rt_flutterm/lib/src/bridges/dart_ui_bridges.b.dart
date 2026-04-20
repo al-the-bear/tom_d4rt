@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-20T14:38:28.292820
+// Generated: 2026-04-20T18:12:05.970839
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -689,7 +689,7 @@ class DartUiBridge {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
         final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        final getTargetSize = getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]) as $dart_ui.TargetImageSize; };
+        final getTargetSize = getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<$dart_ui.TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); };
         return $dart_ui.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSize);
       },
       'decodeImageFromList': (visitor, positional, named, typeArgs) {
@@ -734,7 +734,7 @@ class DartUiBridge {
           throw ArgumentError('runOnPlatformThread: Missing required argument "computation" at position 0');
         }
         final computationRaw = positional[0];
-        final computation = () { return D4.callInterpreterCallback(visitor!, computationRaw, []) as FutureOr<Object>; };
+        final computation = () { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, computationRaw, []), 'callback', visitor); };
         return $dart_ui.runOnPlatformThread<dynamic>(computation);
       },
       'loadFontFromList': (visitor, positional, named, typeArgs) {
@@ -925,7 +925,7 @@ BridgedClass _createChannelBuffersBridge() {
           throw ArgumentError('drain: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        return t.drain(name, (ByteData? p0, void Function(ByteData?) p1) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1]) as Future<void>; });
+        return t.drain(name, (ByteData? p0, void Function(ByteData?) p1) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0, p1]), 'callback', visitor); });
       },
       'handleMessage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ChannelBuffers>(target, 'ChannelBuffers');
@@ -3721,7 +3721,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.where(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3734,7 +3734,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]) as Iterable<dynamic>; });
+        return t.expand(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3759,7 +3759,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce(($dart_ui.PathMetric p0, $dart_ui.PathMetric p1) { return D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]) as $dart_ui.PathMetric; });
+        return t.reduce(($dart_ui.PathMetric p0, $dart_ui.PathMetric p1) { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3778,7 +3778,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.every(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3792,7 +3792,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.any(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'toList': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3816,7 +3816,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.takeWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3831,7 +3831,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.skipWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3841,7 +3841,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as $dart_ui.PathMetric; });
+        return t.firstWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3851,7 +3851,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as $dart_ui.PathMetric; });
+        return t.lastWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3861,7 +3861,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere(($dart_ui.PathMetric p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; }, orElse: orElseRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, orElseRaw, []) as $dart_ui.PathMetric; });
+        return t.singleWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');

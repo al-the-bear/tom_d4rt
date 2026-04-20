@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 51 files
-// Generated: 2026-04-20T14:38:45.030580
+// Generated: 2026-04-20T18:12:21.989654
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1805,7 +1805,7 @@ BridgedClass _createPaintingBindingBridge() {
     setters: {
       'schedulingStrategy': (visitor, target, value) {
         final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
-        D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy = ({required int priority, required $flutter_54.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+        D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding').schedulingStrategy = ({required int priority, required $flutter_54.SchedulerBinding scheduler}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}), 'callback', visitor); };
       },
     },
     methods: {
@@ -1832,7 +1832,7 @@ BridgedClass _createPaintingBindingBridge() {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
         final buffer = D4.getRequiredArg<ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]) as TargetImageSize; });
+        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); });
       },
       'evict': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding');
@@ -1870,7 +1870,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding');
@@ -1892,7 +1892,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1906,7 +1906,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1920,7 +1920,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -1945,7 +1945,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -1955,7 +1955,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2005,7 +2005,7 @@ BridgedClass _createPaintingBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<void>; });
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -2054,7 +2054,7 @@ BridgedClass _createPaintingBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_55.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor); }, priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.PaintingBinding>(target, 'PaintingBinding');
@@ -7026,7 +7026,7 @@ BridgedClass _createImageCacheBridge() {
         }
         final loaderRaw = positional[1];
         final onErrorRaw = named['onError'];
-        return t.putIfAbsent(key, () { return D4.callInterpreterCallback(visitor!, loaderRaw, []) as $flutter_36.ImageStreamCompleter; }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]); });
+        return t.putIfAbsent(key, () { return D4.extractBridgedArg<$flutter_36.ImageStreamCompleter>(D4.callInterpreterCallback(visitor!, loaderRaw, []), 'callback', visitor); }, onError: onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]); });
       },
       'statusForKey': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_32.ImageCache>(target, 'ImageCache');
@@ -7254,7 +7254,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
@@ -7264,7 +7264,7 @@ BridgedClass _createImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return (t as dynamic).loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ImageProvider>(target, 'ImageProvider');
@@ -7397,7 +7397,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
@@ -7407,7 +7407,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.AssetBundleImageProvider>(target, 'AssetBundleImageProvider');
@@ -7535,7 +7535,7 @@ BridgedClass _createResizeImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ResizeImage>(target, 'ResizeImage');
@@ -7545,7 +7545,7 @@ BridgedClass _createResizeImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ResizeImage>(target, 'ResizeImage');
@@ -7685,7 +7685,7 @@ BridgedClass _createNetworkImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.NetworkImage>(target, 'NetworkImage');
@@ -7695,7 +7695,7 @@ BridgedClass _createNetworkImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.NetworkImage>(target, 'NetworkImage');
@@ -7799,7 +7799,7 @@ BridgedClass _createFileImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
@@ -7809,7 +7809,7 @@ BridgedClass _createFileImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.FileImage>(target, 'FileImage');
@@ -7917,7 +7917,7 @@ BridgedClass _createMemoryImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.MemoryImage>(target, 'MemoryImage');
@@ -7927,7 +7927,7 @@ BridgedClass _createMemoryImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.MemoryImage>(target, 'MemoryImage');
@@ -8040,7 +8040,7 @@ BridgedClass _createExactAssetImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage');
@@ -8050,7 +8050,7 @@ BridgedClass _createExactAssetImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage');
@@ -8203,7 +8203,7 @@ BridgedClass _createAssetImageBridge() {
           throw ArgumentError('loadBuffer: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}) as Future<Codec>; });
+        return t.loadBuffer(key, (ImmutableBuffer p0, {bool allowUpscaling = false, int? cacheHeight, int? cacheWidth}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'allowUpscaling': allowUpscaling, 'cacheHeight': cacheHeight, 'cacheWidth': cacheWidth}), 'callback', visitor); });
       },
       'loadImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage');
@@ -8213,7 +8213,7 @@ BridgedClass _createAssetImageBridge() {
           throw ArgumentError('loadImage: Missing required argument "decode" at position 1');
         }
         final decodeRaw = positional[1];
-        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}) as Future<Codec>; });
+        return t.loadImage(key, (ImmutableBuffer p0, {TargetImageSize Function(int, int)? getTargetSize}) { return D4.extractBridgedArg<Future<Codec>>(D4.callInterpreterCallback(visitor!, decodeRaw, [p0], {'getTargetSize': getTargetSize}), 'callback', visitor); });
       },
       'toString': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage');
@@ -8622,7 +8622,7 @@ BridgedClass _createImageStreamCompleterBridge() {
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_5.DiagnosticsNode>; }, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_5.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); }, silent: silent);
         return null;
       },
       'reportImageChunkEvent': (visitor, target, positional, named, typeArgs) {
@@ -8696,7 +8696,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
         D4.requireMinArgs(positional, 1, 'OneFrameImageStreamCompleter');
         final image = D4.getRequiredArg<Future<$flutter_36.ImageInfo>>(positional, 0, 'image', 'OneFrameImageStreamCompleter');
         final informationCollectorRaw = named['informationCollector'];
-        return $flutter_36.OneFrameImageStreamCompleter(image, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_5.DiagnosticsNode>; });
+        return $flutter_36.OneFrameImageStreamCompleter(image, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_5.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
     },
     getters: {
@@ -8780,7 +8780,7 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_5.DiagnosticsNode>; }, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_5.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); }, silent: silent);
         return null;
       },
       'reportImageChunkEvent': (visitor, target, positional, named, typeArgs) {
@@ -8859,7 +8859,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final chunkEvents = D4.getOptionalNamedArg<Stream<$flutter_36.ImageChunkEvent>?>(named, 'chunkEvents');
         final informationCollectorRaw = named['informationCollector'];
-        return $flutter_36.MultiFrameImageStreamCompleter(codec: codec, scale: scale, debugLabel: debugLabel, chunkEvents: chunkEvents, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_5.DiagnosticsNode>; });
+        return $flutter_36.MultiFrameImageStreamCompleter(codec: codec, scale: scale, debugLabel: debugLabel, chunkEvents: chunkEvents, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_5.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
     },
     getters: {
@@ -8943,7 +8943,7 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
         final stack = D4.getOptionalNamedArg<StackTrace?>(named, 'stack');
         final informationCollectorRaw = named['informationCollector'];
         final silent = D4.getNamedArgWithDefault<bool>(named, 'silent', false);
-        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_5.DiagnosticsNode>; }, silent: silent);
+        t.reportError(context: context, exception: exception, stack: stack, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_5.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); }, silent: silent);
         return null;
       },
       'reportImageChunkEvent': (visitor, target, positional, named, typeArgs) {
@@ -9146,7 +9146,7 @@ BridgedClass _createInlineSpanBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_37.InlineSpan>(target, 'InlineSpan');
@@ -9155,7 +9155,7 @@ BridgedClass _createInlineSpanBridge() {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_37.InlineSpan>(target, 'InlineSpan');
@@ -10035,7 +10035,7 @@ BridgedClass _createPlaceholderSpanBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_43.PlaceholderSpan>(target, 'PlaceholderSpan');
@@ -10044,7 +10044,7 @@ BridgedClass _createPlaceholderSpanBridge() {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_43.PlaceholderSpan>(target, 'PlaceholderSpan');
@@ -11729,7 +11729,7 @@ BridgedClass _createTextSpanBridge() {
           throw ArgumentError('visitChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'visitDirectChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan');
@@ -11738,7 +11738,7 @@ BridgedClass _createTextSpanBridge() {
           throw ArgumentError('visitDirectChildren: Missing required argument "visitor" at position 0');
         }
         final visitor_Raw = positional[0];
-        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]) as bool; });
+        return t.visitDirectChildren(($flutter_37.InlineSpan p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, visitor_Raw, [p0]), 'callback', visitor); });
       },
       'getSpanForPosition': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan');

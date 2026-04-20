@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-04-20T14:39:02.867733
+// Generated: 2026-04-20T18:12:40.217847
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -403,7 +403,7 @@ BridgedClass _createTickerFutureBridge() {
         D4.requireMinArgs(positional, 1, 'catchError');
         final onError = D4.getRequiredArg<Function>(positional, 0, 'onError', 'catchError');
         final testRaw = named['test'];
-        return t.catchError(onError, test: testRaw == null ? null : (Object p0) { return D4.callInterpreterCallback(visitor!, testRaw, [p0]) as bool; });
+        return t.catchError(onError, test: testRaw == null ? null : (Object p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'then': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
@@ -413,14 +413,14 @@ BridgedClass _createTickerFutureBridge() {
         }
         final onValueRaw = positional[0];
         final onError = D4.getOptionalNamedArg<Function?>(named, 'onError');
-        return t.then((void p0) { return D4.callInterpreterCallback(visitor!, onValueRaw, [null]) as FutureOr<Object>; }, onError: onError);
+        return t.then((void p0) { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, onValueRaw, [null]), 'callback', visitor); }, onError: onError);
       },
       'timeout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');
         D4.requireMinArgs(positional, 1, 'timeout');
         final timeLimit = D4.getRequiredArg<Duration>(positional, 0, 'timeLimit', 'timeout');
         final onTimeoutRaw = named['onTimeout'];
-        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onTimeoutRaw, []) as FutureOr<void>; });
+        return t.timeout(timeLimit, onTimeout: onTimeoutRaw == null ? null : () { return D4.extractBridgedArg<FutureOr<void>>(D4.callInterpreterCallback(visitor!, onTimeoutRaw, []), 'callback', visitor); });
       },
       'whenComplete': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.TickerFuture>(target, 'TickerFuture');

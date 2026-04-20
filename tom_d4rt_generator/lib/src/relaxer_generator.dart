@@ -1432,6 +1432,20 @@ String _buildMethodCallArgs(MemberInfo method) {
 /// parameters.
 const _rc2PrimitiveTypes = ['String', 'int', 'double', 'bool', 'num'];
 
+/// GEN-081: A "primitive-castable" type is one that we can emit as a direct
+/// `value as T` cast in the generated factory without risking
+/// "InterpretedInstance is not a subtype of T". Primitives + explicit
+/// dynamic/Object/Type-argument escapes qualify; anything else is a bridged
+/// reference type and must route through `extractBridgedArg<T>` so
+/// interface-proxy / wrapper resolution kicks in.
+bool _rc2IsPrimitiveCastable(String baseType) {
+  return _rc2PrimitiveTypes.contains(baseType) ||
+      baseType == 'dynamic' ||
+      baseType == 'Object' ||
+      baseType == 'Never' ||
+      baseType == 'Null';
+}
+
 /// Types to skip in dispatches (core Dart types, not useful as type args).
 const _rc2SkipTypes = {
   // Core Dart types
@@ -1681,10 +1695,21 @@ void _writeGenericConstructorFactory(
         );
       } else {
         final castType = _rc2NullableCast(p.type);
-        buffer.writeln(
-          '  final $safeName = positional.length > $i '
-          '? positional[$i] as $castType : null;',
-        );
+        if (_rc2IsPrimitiveCastable(baseType)) {
+          buffer.writeln(
+            '  final $safeName = positional.length > $i '
+            '? positional[$i] as $castType : null;',
+          );
+        } else {
+          // GEN-081: mirror of the named-branch fix — route non-primitive
+          // reference types through extractBridgedArg so InterpretedInstance
+          // script subclasses get wrapped by the registered interface-proxy
+          // factory instead of failing the direct cast.
+          buffer.writeln(
+            '  final $safeName = positional.length > $i '
+            '? D4.extractBridgedArg<$castType>(positional[$i], \x27${p.name}\x27) : null;',
+          );
+        }
       }
     } else {
       // Type-param-typed positional: extract as dynamic
@@ -1721,10 +1746,26 @@ void _writeGenericConstructorFactory(
         );
       } else {
         final castType = _rc2NullableCast(p.type);
-        buffer.writeln(
-          "  final $safeName = named.containsKey('${p.name}') "
-          "? named['${p.name}'] as $castType : null;",
-        );
+        if (_rc2IsPrimitiveCastable(baseType)) {
+          // Primitives (int, bool, String, num, Object, dynamic) cast
+          // directly from the AST value produced by the interpreter.
+          buffer.writeln(
+            "  final $safeName = named.containsKey('${p.name}') "
+            "? named['${p.name}'] as $castType : null;",
+          );
+        } else {
+          // GEN-081: non-primitive reference types (Widget, Color, Decoration,
+          // CustomClipper<Path>, etc.) may arrive as an InterpretedInstance
+          // of a script subclass. Route through extractBridgedArg so the
+          // registered interface-proxy factory wraps the value into a
+          // native instance of the expected type. Plain direct casts
+          // used to fail with "InterpretedInstance is not a subtype of
+          // Widget?".
+          buffer.writeln(
+            "  final $safeName = named.containsKey('${p.name}') "
+            "? D4.extractBridgedArg<$castType>(named['${p.name}'], '${p.name}') : null;",
+          );
+        }
       }
     } else {
       buffer.writeln(
@@ -2334,7 +2375,14 @@ String _rc2GenerateFunctionWrapper(
   if (funcInfo.isVoid) {
     wrapperBody = '{ $callExpr; }';
   } else {
-    wrapperBody = '{ return $callExpr as $returnType; }';
+    // GEN-081b: route the callback result through extractBridgedArg so an
+    // InterpretedInstance of a script subclass (e.g. script's
+    // StatelessWidget) gets wrapped by the registered interface-proxy
+    // factory before the direct cast would fail. Pass `visitor` so the
+    // proxy resolver has a viable context — `_activeVisitor` is typically
+    // null when Flutter fires the callback from its widget machinery.
+    wrapperBody =
+        "{ return D4.extractBridgedArg<$returnType>($callExpr, 'callback', visitor); }";
   }
 
   final wrapper = '($paramsStr) $wrapperBody';

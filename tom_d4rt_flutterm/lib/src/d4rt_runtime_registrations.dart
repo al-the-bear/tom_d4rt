@@ -109,11 +109,26 @@ void _registerBridgedSupertypes() {
       'DiagnosticableTree',
       'Diagnosticable',
     ],
-    // Bug-102d: InheritedTheme is a common InheritedWidget subclass that
-    // scripts subclass (PanelTheme in inherited_theme_test). Without this
-    // entry, the transitive supertype walk in tryCreateInterfaceProxy
-    // wouldn't find the InheritedWidget proxy up the chain.
+    // Bug-102d: InheritedTheme, InheritedModel, InheritedNotifier are
+    // common InheritedWidget subclasses that scripts subclass. Without
+    // these entries, the transitive supertype walk in
+    // tryCreateInterfaceProxy wouldn't find the InheritedWidget proxy
+    // up the chain.
     'InheritedTheme': [
+      'InheritedWidget',
+      'ProxyWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'InheritedModel': [
+      'InheritedWidget',
+      'ProxyWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    'InheritedNotifier': [
       'InheritedWidget',
       'ProxyWidget',
       'Widget',

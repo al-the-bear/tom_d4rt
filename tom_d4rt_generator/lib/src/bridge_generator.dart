@@ -13112,8 +13112,17 @@ class BridgeGenerator {
             (normalizedReturnType == 'dynamic' ||
                 normalizedReturnType == 'Object' ||
                 normalizedReturnType == 'Object?');
-        final returnCast = skipCast ? '' : ' as $castType';
-        wrapperBody = '{ return $callExpr$returnCast; }';
+        if (skipCast) {
+          wrapperBody = '{ return $callExpr; }';
+        } else {
+          // GEN-081b: route the callback result through extractBridgedArg
+          // so a script-returned InterpretedInstance gets wrapped by the
+          // registered interface-proxy factory. Pass `visitor` so the
+          // resolver has a context even when `_activeVisitor` is null
+          // (typical during Flutter's own callback dispatch).
+          wrapperBody =
+              "{ return D4.extractBridgedArg<$castType>($callExpr, 'callback', visitor); }";
+        }
       }
     }
 

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 55 files
-// Generated: 2026-04-20T14:39:57.363765
+// Generated: 2026-04-20T18:13:35.650874
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2321,7 +2321,7 @@ BridgedClass _createRendererBindingBridge() {
     setters: {
       'schedulingStrategy': (visitor, target, value) {
         final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
-        D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding').schedulingStrategy = ({required int priority, required $flutter_88.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+        D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding').schedulingStrategy = ({required int priority, required $flutter_88.SchedulerBinding scheduler}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}), 'callback', visitor); };
       },
       'resamplingEnabled': (visitor, target, value) => 
         D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding').resamplingEnabled = D4.extractBridgedArg<bool>(value, 'resamplingEnabled'),
@@ -2459,7 +2459,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding');
@@ -2477,7 +2477,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2491,7 +2491,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2505,7 +2505,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -2530,7 +2530,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -2540,7 +2540,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2608,7 +2608,7 @@ BridgedClass _createRendererBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<void>; });
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -2657,7 +2657,7 @@ BridgedClass _createRendererBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_89.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor); }, priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RendererBinding>(target, 'RendererBinding');
@@ -3053,7 +3053,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
         D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding').samplingOffset = D4.extractBridgedArg<Duration>(value, 'samplingOffset'),
       'schedulingStrategy': (visitor, target, value) {
         final schedulingStrategyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'schedulingStrategy');
-        D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding').schedulingStrategy = ({required int priority, required $flutter_88.SchedulerBinding scheduler}) { return D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}) as bool; };
+        D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding').schedulingStrategy = ({required int priority, required $flutter_88.SchedulerBinding scheduler}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, schedulingStrategyRaw, [], {'priority': priority, 'scheduler': scheduler}), 'callback', visitor); };
       },
     },
     methods: {
@@ -3080,7 +3080,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('lockEvents: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return t.lockEvents(() { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        return t.lockEvents(() { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
       },
       'unlocked': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding');
@@ -3102,7 +3102,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerSignalServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerSignalServiceExtension(name: name, callback: () { return D4.callInterpreterCallback(visitor!, callbackRaw, []) as Future<void>; });
+        t.registerSignalServiceExtension(name: name, callback: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, []), 'callback', visitor); });
         return null;
       },
       'registerBoolServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3116,7 +3116,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerBoolServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerBoolServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<bool>; }, setter: (bool p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerBoolServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<bool>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerNumericServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3130,7 +3130,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerNumericServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerNumericServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<double>; }, setter: (double p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerNumericServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<double>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (double p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'postEvent': (visitor, target, positional, named, typeArgs) {
@@ -3155,7 +3155,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerStringServiceExtension: Missing required named argument "setter"');
         }
         final setterRaw = named['setter'];
-        t.registerStringServiceExtension(name: name, getter: () { return D4.callInterpreterCallback(visitor!, getterRaw, []) as Future<String>; }, setter: (String p0) { return D4.callInterpreterCallback(visitor!, setterRaw, [p0]) as Future<void>; });
+        t.registerStringServiceExtension(name: name, getter: () { return D4.extractBridgedArg<Future<String>>(D4.callInterpreterCallback(visitor!, getterRaw, []), 'callback', visitor); }, setter: (String p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, setterRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'registerServiceExtension': (visitor, target, positional, named, typeArgs) {
@@ -3165,7 +3165,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('registerServiceExtension: Missing required named argument "callback"');
         }
         final callbackRaw = named['callback'];
-        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<Map<String, dynamic>>; });
+        t.registerServiceExtension(name: name, callback: (Map<String, String> p0) { return D4.extractBridgedArg<Future<Map<String, dynamic>>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3266,7 +3266,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
         final priority = D4.getRequiredArg<$flutter_89.Priority>(positional, 1, 'priority', 'scheduleTask');
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
         final flow = D4.getOptionalNamedArg<Flow?>(named, 'flow');
-        return t.scheduleTask(() { return D4.callInterpreterCallback(visitor!, taskRaw, []) as FutureOr<Object>; }, priority, debugLabel: debugLabel, flow: flow);
+        return t.scheduleTask(() { return D4.extractBridgedArg<FutureOr<Object>>(D4.callInterpreterCallback(visitor!, taskRaw, []), 'callback', visitor); }, priority, debugLabel: debugLabel, flow: flow);
       },
       'handleEventLoopCallback': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding');
@@ -3442,7 +3442,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
           throw ArgumentError('setSystemUiChangeCallback: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.callInterpreterCallback(visitor!, callbackRaw, [p0]) as Future<void>; });
+        t.setSystemUiChangeCallback(callbackRaw == null ? null : (bool p0) { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
         return null;
       },
       'initializationComplete': (visitor, target, positional, named, typeArgs) {
@@ -3527,7 +3527,7 @@ BridgedClass _createRenderingFlutterBindingBridge() {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
         final buffer = D4.getRequiredArg<ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]) as TargetImageSize; });
+        return t.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); });
       },
       'createRootPipelineOwner': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.RenderingFlutterBinding>(target, 'RenderingFlutterBinding');
@@ -3850,7 +3850,7 @@ BridgedClass _createBoxConstraintsBridge() {
         final t = D4.validateTarget<$flutter_42.BoxConstraints>(target, 'BoxConstraints');
         final isAppliedConstraint = D4.getNamedArgWithDefault<bool>(named, 'isAppliedConstraint', false);
         final informationCollectorRaw = named['informationCollector'];
-        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_10.DiagnosticsNode>; });
+        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_10.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxConstraints>(target, 'BoxConstraints');
@@ -4052,7 +4052,7 @@ BridgedClass _createBoxHitTestResultBridge() {
           throw ArgumentError('addWithPaintTransform: Missing required named argument "hitTest"');
         }
         final hitTestRaw = named['hitTest'];
-        return t.addWithPaintTransform(transform: transform, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]) as bool; });
+        return t.addWithPaintTransform(transform: transform, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]), 'callback', visitor); });
       },
       'addWithPaintOffset': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxHitTestResult>(target, 'BoxHitTestResult');
@@ -4062,7 +4062,7 @@ BridgedClass _createBoxHitTestResultBridge() {
           throw ArgumentError('addWithPaintOffset: Missing required named argument "hitTest"');
         }
         final hitTestRaw = named['hitTest'];
-        return t.addWithPaintOffset(offset: offset, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]) as bool; });
+        return t.addWithPaintOffset(offset: offset, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]), 'callback', visitor); });
       },
       'addWithRawTransform': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxHitTestResult>(target, 'BoxHitTestResult');
@@ -4072,7 +4072,7 @@ BridgedClass _createBoxHitTestResultBridge() {
           throw ArgumentError('addWithRawTransform: Missing required named argument "hitTest"');
         }
         final hitTestRaw = named['hitTest'];
-        return t.addWithRawTransform(transform: transform, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]) as bool; });
+        return t.addWithRawTransform(transform: transform, position: position, hitTest: ($flutter_42.BoxHitTestResult p0, Offset p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, hitTestRaw, [p0, p1]), 'callback', visitor); });
       },
       'addWithOutOfBandPosition': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxHitTestResult>(target, 'BoxHitTestResult');
@@ -4083,7 +4083,7 @@ BridgedClass _createBoxHitTestResultBridge() {
           throw ArgumentError('addWithOutOfBandPosition: Missing required named argument "hitTest"');
         }
         final hitTestRaw = named['hitTest'];
-        return t.addWithOutOfBandPosition(paintOffset: paintOffset, paintTransform: paintTransform, rawTransform: rawTransform, hitTest: ($flutter_42.BoxHitTestResult p0) { return D4.callInterpreterCallback(visitor!, hitTestRaw, [p0]) as bool; });
+        return t.addWithOutOfBandPosition(paintOffset: paintOffset, paintTransform: paintTransform, rawTransform: rawTransform, hitTest: ($flutter_42.BoxHitTestResult p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, hitTestRaw, [p0]), 'callback', visitor); });
       },
       'add': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.BoxHitTestResult>(target, 'BoxHitTestResult');
@@ -9366,7 +9366,7 @@ BridgedClass _createRenderEditableBridge() {
           throw ArgumentError('layoutInlineChildren: Missing required argument "getChildBaseline" at position 2');
         }
         final getChildBaselineRaw = positional[2];
-        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]) as Size; }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]) as double?; });
+        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.extractBridgedArg<Size>(D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]), 'callback', visitor); }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]), 'callback', visitor); });
       },
       'positionInlineChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_48.RenderEditable>(target, 'RenderEditable');
@@ -20559,7 +20559,7 @@ BridgedClass _createMouseTrackerBridge() {
           throw ArgumentError('MouseTracker: Missing required argument "hitTestInView" at position 0');
         }
         final hitTestInViewRaw = positional[0];
-        return $flutter_58.MouseTracker((Offset p0, int p1) { return D4.callInterpreterCallback(visitor!, hitTestInViewRaw, [p0, p1]) as $flutter_16.HitTestResult; });
+        return $flutter_58.MouseTracker((Offset p0, int p1) { return D4.extractBridgedArg<$flutter_16.HitTestResult>(D4.callInterpreterCallback(visitor!, hitTestInViewRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -20992,7 +20992,7 @@ BridgedClass _createConstraintsBridge() {
         final t = D4.validateTarget<$flutter_59.Constraints>(target, 'Constraints');
         final isAppliedConstraint = D4.getNamedArgWithDefault<bool>(named, 'isAppliedConstraint', false);
         final informationCollectorRaw = named['informationCollector'];
-        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_10.DiagnosticsNode>; });
+        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_10.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
     },
     methodSignatures: {
@@ -25055,7 +25055,7 @@ BridgedClass _createRenderInlineChildrenContainerDefaultsBridge() {
           throw ArgumentError('layoutInlineChildren: Missing required argument "getChildBaseline" at position 2');
         }
         final getChildBaselineRaw = positional[2];
-        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]) as Size; }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]) as double?; });
+        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.extractBridgedArg<Size>(D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]), 'callback', visitor); }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]), 'callback', visitor); });
       },
       'positionInlineChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_60.RenderInlineChildrenContainerDefaults>(target, 'RenderInlineChildrenContainerDefaults');
@@ -26012,7 +26012,7 @@ BridgedClass _createRenderParagraphBridge() {
           throw ArgumentError('layoutInlineChildren: Missing required argument "getChildBaseline" at position 2');
         }
         final getChildBaselineRaw = positional[2];
-        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]) as Size; }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]) as double?; });
+        return t.layoutInlineChildren(maxWidth, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1) { return D4.extractBridgedArg<Size>(D4.callInterpreterCallback(visitor!, layoutChildRaw, [p0, p1]), 'callback', visitor); }, ($flutter_42.RenderBox p0, $flutter_42.BoxConstraints p1, TextBaseline p2) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, getChildBaselineRaw, [p0, p1, p2]), 'callback', visitor); });
       },
       'positionInlineChildren': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_60.RenderParagraph>(target, 'RenderParagraph');
@@ -38415,7 +38415,7 @@ BridgedClass _createRenderShaderMaskBridge() {
         }
         final shaderCallbackRaw = named['shaderCallback'];
         final blendMode = D4.getNamedArgWithDefault<BlendMode>(named, 'blendMode', $dart_ui.BlendMode.modulate);
-        return $flutter_63.RenderShaderMask(child: child, shaderCallback: (Rect p0) { return D4.callInterpreterCallback(visitor!, shaderCallbackRaw, [p0]) as Shader; }, blendMode: blendMode);
+        return $flutter_63.RenderShaderMask(child: child, shaderCallback: (Rect p0) { return D4.extractBridgedArg<Shader>(D4.callInterpreterCallback(visitor!, shaderCallbackRaw, [p0]), 'callback', visitor); }, blendMode: blendMode);
       },
     },
     getters: {
@@ -68567,7 +68567,7 @@ BridgedClass _createRenderConstraintsTransformBoxBridge() {
         final constraintsTransformRaw = named['constraintsTransform'];
         final child = D4.getOptionalNamedArg<$flutter_42.RenderBox?>(named, 'child');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
-        return $flutter_68.RenderConstraintsTransformBox(alignment: alignment, textDirection: textDirection, constraintsTransform: ($flutter_42.BoxConstraints p0) { return D4.callInterpreterCallback(visitor!, constraintsTransformRaw, [p0]) as $flutter_42.BoxConstraints; }, child: child, clipBehavior: clipBehavior);
+        return $flutter_68.RenderConstraintsTransformBox(alignment: alignment, textDirection: textDirection, constraintsTransform: ($flutter_42.BoxConstraints p0) { return D4.extractBridgedArg<$flutter_42.BoxConstraints>(D4.callInterpreterCallback(visitor!, constraintsTransformRaw, [p0]), 'callback', visitor); }, child: child, clipBehavior: clipBehavior);
       },
     },
     getters: {
@@ -72265,7 +72265,7 @@ BridgedClass _createSliverConstraintsBridge() {
         final t = D4.validateTarget<$flutter_69.SliverConstraints>(target, 'SliverConstraints');
         final isAppliedConstraint = D4.getNamedArgWithDefault<bool>(named, 'isAppliedConstraint', false);
         final informationCollectorRaw = named['informationCollector'];
-        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_10.DiagnosticsNode>; });
+        return t.debugAssertIsValid(isAppliedConstraint: isAppliedConstraint, informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_10.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverConstraints>(target, 'SliverConstraints');
@@ -72396,7 +72396,7 @@ BridgedClass _createSliverGeometryBridge() {
       'debugAssertIsValid': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverGeometry>(target, 'SliverGeometry');
         final informationCollectorRaw = named['informationCollector'];
-        return t.debugAssertIsValid(informationCollector: informationCollectorRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, informationCollectorRaw, []) as Iterable<$flutter_10.DiagnosticsNode>; });
+        return t.debugAssertIsValid(informationCollector: informationCollectorRaw == null ? null : () { return D4.extractBridgedArg<Iterable<$flutter_10.DiagnosticsNode>>(D4.callInterpreterCallback(visitor!, informationCollectorRaw, []), 'callback', visitor); });
       },
       'toStringShort': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverGeometry>(target, 'SliverGeometry');
@@ -72489,7 +72489,7 @@ BridgedClass _createSliverHitTestResultBridge() {
           throw ArgumentError('addWithAxisOffset: Missing required named argument "hitTest"');
         }
         final hitTestRaw = named['hitTest'];
-        return t.addWithAxisOffset(paintOffset: paintOffset, mainAxisOffset: mainAxisOffset, crossAxisOffset: crossAxisOffset, mainAxisPosition: mainAxisPosition, crossAxisPosition: crossAxisPosition, hitTest: ($flutter_69.SliverHitTestResult p0, {required double crossAxisPosition, required double mainAxisPosition}) { return D4.callInterpreterCallback(visitor!, hitTestRaw, [p0], {'crossAxisPosition': crossAxisPosition, 'mainAxisPosition': mainAxisPosition}) as bool; });
+        return t.addWithAxisOffset(paintOffset: paintOffset, mainAxisOffset: mainAxisOffset, crossAxisOffset: crossAxisOffset, mainAxisPosition: mainAxisPosition, crossAxisPosition: crossAxisPosition, hitTest: ($flutter_69.SliverHitTestResult p0, {required double crossAxisPosition, required double mainAxisPosition}) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, hitTestRaw, [p0], {'crossAxisPosition': crossAxisPosition, 'mainAxisPosition': mainAxisPosition}), 'callback', visitor); });
       },
       'add': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_69.SliverHitTestResult>(target, 'SliverHitTestResult');
@@ -79331,7 +79331,7 @@ BridgedClass _createRenderSliverVariedExtentListBridge() {
           throw ArgumentError('RenderSliverVariedExtentList: Missing required named argument "itemExtentBuilder"');
         }
         final itemExtentBuilderRaw = named['itemExtentBuilder'];
-        return $flutter_71.RenderSliverVariedExtentList(childManager: childManager, itemExtentBuilder: (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; });
+        return $flutter_71.RenderSliverVariedExtentList(childManager: childManager, itemExtentBuilder: (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -85923,7 +85923,7 @@ BridgedClass _createOverScrollHeaderStretchConfigurationBridge() {
       '': (visitor, positional, named) {
         final stretchTriggerOffset = D4.getNamedArgWithDefault<double>(named, 'stretchTriggerOffset', 100.0);
         final onStretchTriggerRaw = named['onStretchTrigger'];
-        return $flutter_77.OverScrollHeaderStretchConfiguration(stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : () { return D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []) as Future<void>; });
+        return $flutter_77.OverScrollHeaderStretchConfiguration(stretchTriggerOffset: stretchTriggerOffset, onStretchTrigger: onStretchTriggerRaw == null ? null : () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onStretchTriggerRaw, []), 'callback', visitor); });
       },
     },
     getters: {
@@ -89321,7 +89321,7 @@ BridgedClass _createRenderTreeSliverBridge() {
         }
         final activeAnimations = D4.coerceMap<$flutter_11.UniqueKey, $flutter_78.TreeSliverNodesAnimation>(named['activeAnimations'], 'activeAnimations');
         final indentation = D4.getRequiredNamedArg<double>(named, 'indentation', 'RenderTreeSliver');
-        return $flutter_78.RenderTreeSliver(childManager: childManager, itemExtentBuilder: (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; }, activeAnimations: activeAnimations, indentation: indentation);
+        return $flutter_78.RenderTreeSliver(childManager: childManager, itemExtentBuilder: (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); }, activeAnimations: activeAnimations, indentation: indentation);
       },
     },
     getters: {
@@ -89378,7 +89378,7 @@ BridgedClass _createRenderTreeSliverBridge() {
         D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').debugChildIntegrityEnabled = D4.extractBridgedArg<bool>(value, 'debugChildIntegrityEnabled'),
       'itemExtentBuilder': (visitor, target, value) {
         final itemExtentBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'itemExtentBuilder');
-        D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').itemExtentBuilder = (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]) as double?; };
+        D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').itemExtentBuilder = (int p0, $flutter_69.SliverLayoutDimensions p1) { return D4.extractBridgedArg<double?>(D4.callInterpreterCallback(visitor!, itemExtentBuilderRaw, [p0, p1]), 'callback', visitor); };
       },
       'indentation': (visitor, target, value) => 
         D4.validateTarget<$flutter_78.RenderTreeSliver>(target, 'RenderTreeSliver').indentation = D4.extractBridgedArg<double>(value, 'indentation'),
@@ -90995,7 +90995,7 @@ BridgedClass _createRenderStackBridge() {
           throw ArgumentError('getIntrinsicDimension: Missing required argument "mainChildSizeGetter" at position 1');
         }
         final mainChildSizeGetterRaw = positional[1];
-        final mainChildSizeGetter = ($flutter_42.RenderBox p0) { return D4.callInterpreterCallback(visitor!, mainChildSizeGetterRaw, [p0]) as double; };
+        final mainChildSizeGetter = ($flutter_42.RenderBox p0) { return D4.extractBridgedArg<double>(D4.callInterpreterCallback(visitor!, mainChildSizeGetterRaw, [p0]), 'callback', visitor); };
         return $flutter_79.RenderStack.getIntrinsicDimension(firstChild, mainChildSizeGetter);
       },
       'layoutPositionedChild': (visitor, positional, named, typeArgs) {
@@ -96073,7 +96073,7 @@ BridgedClass _createRenderViewportBaseBridge() {
         final advanceRaw = named['advance'];
         final remainingCacheExtent = D4.getRequiredNamedArg<double>(named, 'remainingCacheExtent', 'layoutChildSequence');
         final cacheOrigin = D4.getRequiredNamedArg<double>(named, 'cacheOrigin', 'layoutChildSequence');
-        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.callInterpreterCallback(visitor!, advanceRaw, [p0]) as $flutter_69.RenderSliver?; }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
+        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.extractBridgedArg<$flutter_69.RenderSliver?>(D4.callInterpreterCallback(visitor!, advanceRaw, [p0]), 'callback', visitor); }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
       },
       'getOffsetToReveal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_85.RenderViewportBase>(target, 'RenderViewportBase');
@@ -96955,7 +96955,7 @@ BridgedClass _createRenderViewportBridge() {
         final advanceRaw = named['advance'];
         final remainingCacheExtent = D4.getRequiredNamedArg<double>(named, 'remainingCacheExtent', 'layoutChildSequence');
         final cacheOrigin = D4.getRequiredNamedArg<double>(named, 'cacheOrigin', 'layoutChildSequence');
-        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.callInterpreterCallback(visitor!, advanceRaw, [p0]) as $flutter_69.RenderSliver?; }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
+        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.extractBridgedArg<$flutter_69.RenderSliver?>(D4.callInterpreterCallback(visitor!, advanceRaw, [p0]), 'callback', visitor); }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
       },
       'getOffsetToReveal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_85.RenderViewport>(target, 'RenderViewport');
@@ -97849,7 +97849,7 @@ BridgedClass _createRenderShrinkWrappingViewportBridge() {
         final advanceRaw = named['advance'];
         final remainingCacheExtent = D4.getRequiredNamedArg<double>(named, 'remainingCacheExtent', 'layoutChildSequence');
         final cacheOrigin = D4.getRequiredNamedArg<double>(named, 'cacheOrigin', 'layoutChildSequence');
-        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.callInterpreterCallback(visitor!, advanceRaw, [p0]) as $flutter_69.RenderSliver?; }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
+        return t.layoutChildSequence(child: child, scrollOffset: scrollOffset, overlap: overlap, layoutOffset: layoutOffset, remainingPaintExtent: remainingPaintExtent, mainAxisExtent: mainAxisExtent, crossAxisExtent: crossAxisExtent, growthDirection: growthDirection, advance: ($flutter_69.RenderSliver p0) { return D4.extractBridgedArg<$flutter_69.RenderSliver?>(D4.callInterpreterCallback(visitor!, advanceRaw, [p0]), 'callback', visitor); }, remainingCacheExtent: remainingCacheExtent, cacheOrigin: cacheOrigin);
       },
       'getOffsetToReveal': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_85.RenderShrinkWrappingViewport>(target, 'RenderShrinkWrappingViewport');

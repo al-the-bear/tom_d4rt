@@ -499,9 +499,66 @@ the interpreted instance via `_invokeInterpretedAs<T>`. Register via
 
 ---
 
-### [ ] Fixed — function-typed argument residuals at intermediate boundaries
+### [~] Partially fixed — function-typed argument residuals at intermediate boundaries
 
-**Symptom**
+**Resolution:** GEN-081/081b covers the **return-side** half of this
+cluster (callback result routed through `extractBridgedArg<T>` rather
+than a direct `as T` cast, plus rc2-factory reference-type args use
+extractBridgedArg when the base type is non-primitive). Both emission
+sites live in `tom_d4rt_generator/lib/src/`:
+
+- `relaxer_generator.dart` — the `_rc2IsPrimitiveCastable` gate on
+  named / positional rc2 factory args (non-primitives go through
+  extractBridgedArg so an InterpretedInstance gets wrapped by the
+  registered interface-proxy factory).
+- `bridge_generator.dart` and `relaxer_generator.dart` — callback
+  wrapper bodies now emit
+  `D4.extractBridgedArg<ReturnT>(callExpr, 'callback', visitor)`
+  instead of `callExpr as ReturnT`. Passing `visitor` explicitly
+  matters because `D4.activeVisitor` is typically null when Flutter
+  fires the callback from its widget machinery — without it the
+  proxy-resolver can't walk the hierarchy.
+
+Extra supertype registry entries (`InheritedModel`,
+`InheritedNotifier`) added so scripts subclassing those also match
+the InheritedWidget proxy.
+
+After fix:
+- `image_filtered_test` — PASS (was
+  "type 'InterpretedInstance' is not a subtype of type 'Widget?' in
+  type cast" on the ListView itemBuilder).
+- `window_scope_test` — past the original "InterpretedInstance not
+  Widget" error; now fails with "No _DemoWindowScope found in
+  context" (same Flutter-side type-identity mismatch as cluster 9
+  InheritedWidget scripts — tracked separately).
+- `semantics_config_test`, `channels_test` — still fail with the
+  **argument-side** function-type mismatch
+  (`InterpretedFunction not a subtype of (() => void)?`,
+  `(dynamic) => Future<dynamic>` not a subtype of
+  `((String?) => Future<String>)?`). That is the mirror of GEN-081b
+  for the *arg* side of bridged method invocations and needs a
+  separate pass in the generator's argument emission. Sub-issue
+  tracked within this cluster for a follow-up commit.
+- generator_interpreter_issues_test: 49/0/34 → **50/0/33** (+1 pass).
+- essential / important / secondary: 108/0/0, 166/0/3, 651/0/3
+  unchanged.
+
+**Still open (argument-side function-type wrapping):**
+
+When a script passes an `InterpretedFunction` to a bridged method
+whose parameter is a typed function (e.g.
+`SemanticsConfiguration.onTap = () { ... }` or
+`BasicMessageChannel.setMessageHandler((msg) async { ... })`), the
+bridge's method adapter forwards the `InterpretedFunction` directly
+and Flutter's `as (() => void)` / `as (String?) => Future<String>`
+cast fails. Need per-call-site typed closure emission at the arg
+side of bridge generation, similar to the `_emitTypedReturn` work in
+`proxy_generator.dart` for the #74 return-side fix. Affects:
+
+- `semantics/semantics_config_test.dart`
+- `services/channels_test.dart`
+
+**Symptom (was)**
 
 ```
 type 'InterpretedFunction' is not a subtype of type '(() => void)?'
