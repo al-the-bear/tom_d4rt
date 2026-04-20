@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-04-20T18:13:03.667434
+// Generated: 2026-04-20T19:33:30.522094
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2817,34 +2817,60 @@ BridgedClass _createSemanticsConfigurationBridge() {
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').explicitChildNodes = D4.extractBridgedArg<bool>(value, 'explicitChildNodes'),
       'isBlockingSemanticsOfPreviouslyPaintedNodes': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').isBlockingSemanticsOfPreviouslyPaintedNodes = D4.extractBridgedArg<bool>(value, 'isBlockingSemanticsOfPreviouslyPaintedNodes'),
-      'onTap': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap'),
-      'onLongPress': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPress'),
-      'onScrollLeft': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollLeft'),
-      'onDismiss': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = D4.extractBridgedArgOrNull<dynamic>(value, 'onDismiss'),
-      'onScrollRight': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollRight'),
-      'onScrollUp': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollUp'),
-      'onScrollDown': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollDown'),
+      'onTap': (visitor, target, value) {
+        final onTapRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTap');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onTap = onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); };
+      },
+      'onLongPress': (visitor, target, value) {
+        final onLongPressRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLongPress');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onLongPress = onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); };
+      },
+      'onScrollLeft': (visitor, target, value) {
+        final onScrollLeftRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollLeft');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollLeft = onScrollLeftRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollLeftRaw, []); };
+      },
+      'onDismiss': (visitor, target, value) {
+        final onDismissRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDismiss');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDismiss = onDismissRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDismissRaw, []); };
+      },
+      'onScrollRight': (visitor, target, value) {
+        final onScrollRightRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollRight');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollRight = onScrollRightRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollRightRaw, []); };
+      },
+      'onScrollUp': (visitor, target, value) {
+        final onScrollUpRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollUp');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollUp = onScrollUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollUpRaw, []); };
+      },
+      'onScrollDown': (visitor, target, value) {
+        final onScrollDownRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onScrollDown');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollDown = onScrollDownRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onScrollDownRaw, []); };
+      },
       'onScrollToOffset': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onScrollToOffset = D4.extractBridgedArgOrNull<$flutter_7.ScrollToOffsetHandler>(value, 'onScrollToOffset'),
-      'onIncrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = D4.extractBridgedArgOrNull<dynamic>(value, 'onIncrease'),
-      'onDecrease': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = D4.extractBridgedArgOrNull<dynamic>(value, 'onDecrease'),
-      'onCopy': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = D4.extractBridgedArgOrNull<dynamic>(value, 'onCopy'),
-      'onCut': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = D4.extractBridgedArgOrNull<dynamic>(value, 'onCut'),
-      'onPaste': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = D4.extractBridgedArgOrNull<dynamic>(value, 'onPaste'),
-      'onShowOnScreen': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = D4.extractBridgedArgOrNull<dynamic>(value, 'onShowOnScreen'),
+      'onIncrease': (visitor, target, value) {
+        final onIncreaseRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onIncrease');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onIncrease = onIncreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onIncreaseRaw, []); };
+      },
+      'onDecrease': (visitor, target, value) {
+        final onDecreaseRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDecrease');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDecrease = onDecreaseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDecreaseRaw, []); };
+      },
+      'onCopy': (visitor, target, value) {
+        final onCopyRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCopy');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCopy = onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); };
+      },
+      'onCut': (visitor, target, value) {
+        final onCutRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCut');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCut = onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCutRaw, []); };
+      },
+      'onPaste': (visitor, target, value) {
+        final onPasteRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPaste');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onPaste = onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPasteRaw, []); };
+      },
+      'onShowOnScreen': (visitor, target, value) {
+        final onShowOnScreenRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onShowOnScreen');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onShowOnScreen = onShowOnScreenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShowOnScreenRaw, []); };
+      },
       'onMoveCursorForwardByCharacter': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onMoveCursorForwardByCharacter = D4.extractBridgedArgOrNull<$flutter_7.MoveCursorHandler>(value, 'onMoveCursorForwardByCharacter'),
       'onMoveCursorBackwardByCharacter': (visitor, target, value) => 
@@ -2857,16 +2883,26 @@ BridgedClass _createSemanticsConfigurationBridge() {
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetSelection = D4.extractBridgedArgOrNull<$flutter_7.SetSelectionHandler>(value, 'onSetSelection'),
       'onSetText': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onSetText = D4.extractBridgedArgOrNull<$flutter_7.SetTextHandler>(value, 'onSetText'),
-      'onDidGainAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidGainAccessibilityFocus'),
-      'onDidLoseAccessibilityFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidLoseAccessibilityFocus'),
-      'onFocus': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = D4.extractBridgedArgOrNull<dynamic>(value, 'onFocus'),
-      'onExpand': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = D4.extractBridgedArgOrNull<dynamic>(value, 'onExpand'),
-      'onCollapse': (visitor, target, value) => 
-        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = D4.extractBridgedArgOrNull<dynamic>(value, 'onCollapse'),
+      'onDidGainAccessibilityFocus': (visitor, target, value) {
+        final onDidGainAccessibilityFocusRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidGainAccessibilityFocus');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidGainAccessibilityFocus = onDidGainAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDidGainAccessibilityFocusRaw, []); };
+      },
+      'onDidLoseAccessibilityFocus': (visitor, target, value) {
+        final onDidLoseAccessibilityFocusRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDidLoseAccessibilityFocus');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onDidLoseAccessibilityFocus = onDidLoseAccessibilityFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDidLoseAccessibilityFocusRaw, []); };
+      },
+      'onFocus': (visitor, target, value) {
+        final onFocusRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onFocus');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onFocus = onFocusRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onFocusRaw, []); };
+      },
+      'onExpand': (visitor, target, value) {
+        final onExpandRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onExpand');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onExpand = onExpandRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onExpandRaw, []); };
+      },
+      'onCollapse': (visitor, target, value) {
+        final onCollapseRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCollapse');
+        D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').onCollapse = onCollapseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCollapseRaw, []); };
+      },
       'childConfigurationsDelegate': (visitor, target, value) => 
         D4.validateTarget<$flutter_7.SemanticsConfiguration>(target, 'SemanticsConfiguration').childConfigurationsDelegate = D4.extractBridgedArgOrNull<$flutter_7.ChildSemanticsConfigurationsDelegate>(value, 'childConfigurationsDelegate'),
       'sortKey': (visitor, target, value) => 

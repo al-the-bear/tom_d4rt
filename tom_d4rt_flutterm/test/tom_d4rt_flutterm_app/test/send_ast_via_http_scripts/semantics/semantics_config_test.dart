@@ -994,6 +994,7 @@ dynamic build(BuildContext context) {
   print('explicitChildNodes: ${configExplicit.explicitChildNodes}');
 
   final configMerging = SemanticsConfiguration();
+  configMerging.isSemanticBoundary = true;
   configMerging.isMergingSemanticsOfDescendants = true;
   print('isMergingSemanticsOfDescendants: ${configMerging.isMergingSemanticsOfDescendants}');
 

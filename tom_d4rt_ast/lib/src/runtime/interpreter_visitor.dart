@@ -10256,6 +10256,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Fall through to the final standard error below.
       }
 
+      // GEN-083: Allow invoking native Dart Function values (e.g. callbacks
+      // that were stored on a bridged target via a typed-wrapper setter and
+      // then read back through the getter).
+      if (calleeValue is Function) {
+        final symbolNamed = namedArgs.isEmpty
+            ? const <Symbol, Object?>{}
+            : namedArgs
+                .map<Symbol, Object?>((k, v) => MapEntry(Symbol(k), v));
+        try {
+          return Function.apply(calleeValue, positionalArgs, symbolNamed);
+        } on ReturnException catch (e) {
+          return e.value;
+        }
+      }
+
       // Original Error: The expression evaluated did not yield a callable function or an object with a callable 'call' extension.
       throw RuntimeD4rtException(
         "Attempted to call something that is not a function and has no 'call' extension method. Got type: ${calleeValue?.runtimeType}",

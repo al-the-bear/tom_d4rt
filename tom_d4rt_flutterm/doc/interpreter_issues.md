@@ -599,10 +599,12 @@ the existing arg emission) would be the parallel fix.
 
 ---
 
-### [ ] Fixed (10a) — argument-side function-type wrapping
+### [~] Partially fixed (10a) — argument-side function-type wrapping
 
 Follow-up split out from cluster 10 after GEN-081b closed the
-return-side half.
+return-side half. **Setter-side wrapping landed in GEN-083**; the
+method-arg wrapping for generic classes (BasicMessageChannel-style)
+remains open — see sub-issue at the end.
 
 **Symptom**
 
@@ -629,49 +631,47 @@ GEN-075 already does the equivalent for Map-valued parameters via
 variant (`void Function()`, `(String?) => Future<String>`, …) at
 method-invocation argument positions.
 
-**Representative scripts** (2 entries observed so far)
+**Fix (GEN-083, setter half)**
 
-- `semantics/semantics_config_test.dart`
-  (`InterpretedFunction → (() => void)?` on e.g.
-  `SemanticsConfiguration.onTap = …`).
-- `services/channels_test.dart`
-  (`BasicMessageChannel.setMessageHandler((msg) async { … })`
-  wants `((String?) => Future<String>)?`).
+- `tom_d4rt_generator/lib/src/bridge_generator.dart` — instance and
+  static setter emission now consult `_knownFunctionTypeAliasInfo`
+  (`VoidCallback`, `ValueChanged`, `ValueGetter`, `ValueSetter`, …)
+  when the analyzer's `functionTypeInfo` is null, so typed wrappers
+  are emitted for setters whose type is a typedef alias.
+- `tom_d4rt{,_ast}/lib/src/…/interpreter_visitor.dart` —
+  `visitFunctionExpressionInvocation` now falls back to
+  `Function.apply` when the callee is a native Dart `Function` value.
+  Scripts can read back a callback they assigned through a
+  typed-wrapper setter (e.g. `configActions.onTap!()`) and invoke it.
 
-Likely affects additional scripts that set typed callback properties
-or pass script closures to bridged method parameters without going
-through a `VoidCallback` typedef.
+After this fix `semantics/semantics_config_test.dart` passes. The
+`sliver_child_builder_delegate_test.dart` script also flipped to
+green as a side-effect of the same setter wrapping.
 
-**Where to look**
+**Still open — generic-class method-arg sub-issue**
 
-- `tom_d4rt_generator/lib/src/bridge_generator.dart` — argument
-  emission for method calls / setter invocations. Detect when the
-  parameter type is a function type (same heuristic as
-  `_isInlineFunctionType` used for the return side) and emit a
-  per-call-site closure that:
-  1. accepts the bridged signature's positional and named params,
-  2. routes them through
-     `D4.callInterpreterCallback(visitor, callable, args, named)`,
-  3. passes the result back as the bridge's declared return type
-     (await if the return type is `Future<R>`, etc.).
-- `tom_d4rt_generator/lib/src/proxy_generator.dart`'s
-  `_emitTypedReturn` (landed in #74) is a usable template; this
-  cluster needs the parallel `_emitTypedArg` at every call-site
-  argument position.
-- `D4._wrapCallableForMap<T>` in `generator/d4.dart` shows the
-  runtime-side signature for the wrapping — reuse or extract a
-  shared helper.
+- `services/channels_test.dart` still fails because
+  `BasicMessageChannel<T>.setMessageHandler` has a method-argument
+  type `(T? message) => Future<T>`. The generator emits dynamic
+  dispatch (`(t as dynamic).setMessageHandler(... (dynamic p0) { ...
+  Future<dynamic> ... })`) since the class-level `T` is lost at
+  bridge-generation time. Dart's runtime function-type check rejects
+  `(dynamic) => Future<dynamic>` against `(String?) => Future<String>`
+  on a `BasicMessageChannel<String>` instance.
+- The generator has no way to produce a T-specialised closure without
+  runtime reflection over the target's generic type arguments. This
+  belongs in a future cluster (generic-class method-arg wrapping),
+  not cluster 10a.
 
-**Why this wasn't closed with cluster 10**
+**Where to look for the remaining sub-issue**
 
-The GEN-081b work targeted the callback's *return* value (wrapping
-the interpreter's result before it's handed back to Flutter). The
-*argument* side — wrapping the callable before it's handed to
-Flutter — happens at every bridged-method argument position and
-threads through the generator's parameter-type analysis (which
-currently treats function types as opaque `dynamic` and relies on
-the native Dart compiler to accept the cast). It's a bigger change
-and deserves its own commit + regression sweep.
+- `tom_d4rt_generator/lib/src/bridge_generator.dart` —
+  `_methodHasFunctionParamsReferencingClassTypeParams` / the
+  `(t as dynamic)` call path for methods that reference class type
+  params; a T-aware adapter would need to capture the target's
+  type arguments.
+- `D4._wrapCallableForMap<T>` in `generator/d4.dart` for a
+  runtime-side helper pattern that preserves T.
 
 ---
 

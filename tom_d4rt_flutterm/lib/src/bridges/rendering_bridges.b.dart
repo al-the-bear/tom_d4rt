@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 55 files
-// Generated: 2026-04-20T18:13:35.650874
+// Generated: 2026-04-20T19:34:00.605973
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1616,8 +1616,10 @@ BridgedClass _createRenderAnimatedSizeBridge() {
         D4.validateTarget<$flutter_40.RenderAnimatedSize>(target, 'RenderAnimatedSize').clipBehavior = D4.extractBridgedArg<Clip>(value, 'clipBehavior'),
       'vsync': (visitor, target, value) => 
         D4.validateTarget<$flutter_40.RenderAnimatedSize>(target, 'RenderAnimatedSize').vsync = D4.extractBridgedArg<$flutter_90.TickerProvider>(value, 'vsync'),
-      'onEnd': (visitor, target, value) => 
-        D4.validateTarget<$flutter_40.RenderAnimatedSize>(target, 'RenderAnimatedSize').onEnd = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd'),
+      'onEnd': (visitor, target, value) {
+        final onEndRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onEnd');
+        D4.validateTarget<$flutter_40.RenderAnimatedSize>(target, 'RenderAnimatedSize').onEnd = onEndRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEndRaw, []); };
+      },
     },
     methods: {
       'reassemble': (visitor, target, positional, named, typeArgs) {

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-20T18:12:05.970839
+// Generated: 2026-04-20T19:32:34.291426
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -5471,16 +5471,22 @@ BridgedClass _createPlatformDispatcherBridge() {
       'defaultRouteName': (visitor, target) => D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').defaultRouteName,
     },
     setters: {
-      'onPlatformConfigurationChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformConfigurationChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onPlatformConfigurationChanged'),
-      'onMetricsChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onMetricsChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onMetricsChanged'),
+      'onPlatformConfigurationChanged': (visitor, target, value) {
+        final onPlatformConfigurationChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPlatformConfigurationChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformConfigurationChanged = onPlatformConfigurationChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPlatformConfigurationChangedRaw, []); };
+      },
+      'onMetricsChanged': (visitor, target, value) {
+        final onMetricsChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onMetricsChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onMetricsChanged = onMetricsChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onMetricsChangedRaw, []); };
+      },
       'onViewFocusChange': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onViewFocusChange = D4.extractBridgedArgOrNull<ViewFocusChangeCallback>(value, 'onViewFocusChange'),
       'onBeginFrame': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onBeginFrame = D4.extractBridgedArgOrNull<FrameCallback>(value, 'onBeginFrame'),
-      'onDrawFrame': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onDrawFrame = D4.extractBridgedArgOrNull<dynamic>(value, 'onDrawFrame'),
+      'onDrawFrame': (visitor, target, value) {
+        final onDrawFrameRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDrawFrame');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onDrawFrame = onDrawFrameRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDrawFrameRaw, []); };
+      },
       'onPointerDataPacket': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPointerDataPacket = D4.extractBridgedArgOrNull<PointerDataPacketCallback>(value, 'onPointerDataPacket'),
       'onKeyData': (visitor, target, value) => 
@@ -5489,22 +5495,36 @@ BridgedClass _createPlatformDispatcherBridge() {
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onReportTimings = D4.extractBridgedArgOrNull<TimingsCallback>(value, 'onReportTimings'),
       'onPlatformMessage': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformMessage = D4.extractBridgedArgOrNull<PlatformMessageCallback>(value, 'onPlatformMessage'),
-      'onAccessibilityFeaturesChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onAccessibilityFeaturesChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onAccessibilityFeaturesChanged'),
-      'onLocaleChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onLocaleChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onLocaleChanged'),
-      'onTextScaleFactorChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onTextScaleFactorChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onTextScaleFactorChanged'),
-      'onPlatformBrightnessChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformBrightnessChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onPlatformBrightnessChanged'),
-      'onSystemFontFamilyChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSystemFontFamilyChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onSystemFontFamilyChanged'),
-      'onSemanticsEnabledChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsEnabledChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onSemanticsEnabledChanged'),
+      'onAccessibilityFeaturesChanged': (visitor, target, value) {
+        final onAccessibilityFeaturesChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onAccessibilityFeaturesChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onAccessibilityFeaturesChanged = onAccessibilityFeaturesChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onAccessibilityFeaturesChangedRaw, []); };
+      },
+      'onLocaleChanged': (visitor, target, value) {
+        final onLocaleChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onLocaleChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onLocaleChanged = onLocaleChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLocaleChangedRaw, []); };
+      },
+      'onTextScaleFactorChanged': (visitor, target, value) {
+        final onTextScaleFactorChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onTextScaleFactorChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onTextScaleFactorChanged = onTextScaleFactorChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTextScaleFactorChangedRaw, []); };
+      },
+      'onPlatformBrightnessChanged': (visitor, target, value) {
+        final onPlatformBrightnessChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPlatformBrightnessChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformBrightnessChanged = onPlatformBrightnessChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPlatformBrightnessChangedRaw, []); };
+      },
+      'onSystemFontFamilyChanged': (visitor, target, value) {
+        final onSystemFontFamilyChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSystemFontFamilyChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSystemFontFamilyChanged = onSystemFontFamilyChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSystemFontFamilyChangedRaw, []); };
+      },
+      'onSemanticsEnabledChanged': (visitor, target, value) {
+        final onSemanticsEnabledChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSemanticsEnabledChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsEnabledChanged = onSemanticsEnabledChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSemanticsEnabledChangedRaw, []); };
+      },
       'onSemanticsActionEvent': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsActionEvent = D4.extractBridgedArgOrNull<SemanticsActionEventCallback>(value, 'onSemanticsActionEvent'),
-      'onFrameDataChanged': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onFrameDataChanged = D4.extractBridgedArgOrNull<dynamic>(value, 'onFrameDataChanged'),
+      'onFrameDataChanged': (visitor, target, value) {
+        final onFrameDataChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onFrameDataChanged');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onFrameDataChanged = onFrameDataChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onFrameDataChangedRaw, []); };
+      },
       'onError': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onError = D4.extractBridgedArgOrNull<ErrorCallback>(value, 'onError'),
     },

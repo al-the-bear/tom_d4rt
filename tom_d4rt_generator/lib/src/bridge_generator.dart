@@ -7461,6 +7461,24 @@ class BridgeGenerator {
             "      '${setter.name}': $prefixedUserBridge.$setterOverride,",
           );
         } else {
+          // GEN-083: when the analyzer-derived functionTypeInfo is null
+          // (typically because the setter's declared type is a typedef
+          // alias that `extractFunctionTypeInfoFromDartType` didn't
+          // unwrap), fall back to the `_knownFunctionTypeAliasInfo`
+          // table. `VoidCallback`, `ValueChanged<T>`, etc. all get a
+          // proper typed wrapper this way so assigning an
+          // InterpretedFunction to e.g. `SemanticsConfiguration.onTap`
+          // no longer hits "InterpretedFunction is not a subtype of
+          // (() => void)?".
+          FunctionTypeInfo? effectiveFuncInfo = setter.functionTypeInfo;
+          if (effectiveFuncInfo == null) {
+            final baseSetterType = setter.returnType.endsWith('?')
+                ? setter.returnType
+                    .substring(0, setter.returnType.length - 1)
+                : setter.returnType;
+            final lookupName = _getUnprefixedTypeName(baseSetterType);
+            effectiveFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+          }
           if (_requiresDynamicMemberDispatch(setter.name)) {
             buffer.writeln(
               "      '${setter.name}': (visitor, target, value) => ",
@@ -7468,11 +7486,11 @@ class BridgeGenerator {
             buffer.writeln(
               "        (D4.validateTarget<$prefixedName>(target, '${cls.name}') as dynamic).${setter.name} = value,",
             );
-          } else if (setter.functionTypeInfo != null) {
+          } else if (effectiveFuncInfo != null) {
             // ENG-003: Function-typed setters need callback wrapping.
             // InterpretedFunction must be wrapped to a native closure matching
             // the setter's expected function signature.
-            final funcInfo = setter.functionTypeInfo!;
+            final funcInfo = effectiveFuncInfo;
             final isNullable = setter.returnType.endsWith('?');
             final rawVarName = '${setter.name}Raw';
             final wrapperExpr = _generateFunctionWrapper(
@@ -7698,8 +7716,18 @@ class BridgeGenerator {
     if (staticSetters.isNotEmpty) {
       buffer.writeln('    staticSetters: {');
       for (final setter in staticSetters) {
-        if (setter.functionTypeInfo != null) {
-          final funcInfo = setter.functionTypeInfo!;
+        // GEN-083 (mirror): typedef-alias fallback for static setters.
+        FunctionTypeInfo? effectiveFuncInfo = setter.functionTypeInfo;
+        if (effectiveFuncInfo == null) {
+          final baseSetterType = setter.returnType.endsWith('?')
+              ? setter.returnType
+                  .substring(0, setter.returnType.length - 1)
+              : setter.returnType;
+          final lookupName = _getUnprefixedTypeName(baseSetterType);
+          effectiveFuncInfo = _knownFunctionTypeAliasInfo[lookupName];
+        }
+        if (effectiveFuncInfo != null) {
+          final funcInfo = effectiveFuncInfo;
           final isNullable = setter.returnType.endsWith('?');
           final rawVarName = '${setter.name}Raw';
           final wrapperExpr = _generateFunctionWrapper(
