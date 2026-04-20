@@ -47,9 +47,26 @@ the bridge did not.
 
 ---
 
-### [ ] Fixed — `Column.children` rejects nullable list elements
+### [X] Fixed — `Column.children` rejects nullable list elements
 
-**Symptom**
+**Resolution:** GEN-080 — `D4.coerceList<T>` now drops null elements
+when `T` is non-nullable (gated on `null is T`), mirroring Dart's
+collection-`if` semantics. Applied identically in
+`tom_d4rt/lib/src/generator/d4.dart` and
+`tom_d4rt_ast/lib/src/runtime/generator/d4.dart`. Fixed in commit
+landing this entry.
+
+After fix:
+- `animated_cross_fade_test` and `physical_model_test` now PASS in full.
+- `animated_switcher_test`, `backdrop_filter_test`, `shader_mask_test`
+  cleared the null cast; their remaining failures are downstream
+  unrelated bugs (RenderFlex overflow, Matrix4-needs-16-entries,
+  late-init — the latter falls under cluster 4).
+- Zero `cannot convert List to List<Widget>` errors remaining in
+  `generator_interpreter_issues_test`.
+- essential / important / secondary: 108/0/0, 166/0/3, 647/0/7 (unchanged).
+
+**Symptom (was)**
 
 ```
 Runtime Error: Native error during default bridged constructor for 'Column':
@@ -57,27 +74,14 @@ Argument Error: Invalid parameter "children": cannot convert List to
 List<Widget> - type 'Null' is not a subtype of type 'Widget' in type cast
 ```
 
-**Root cause**
+**Root cause (was)**
 
-Scripts assemble `children: [..., if (cond) widget, ...]` where the
-collection-`if` evaluates to `null` (or evaluates an entry to `null`)
-inside the script. The bridge's `extractBridgedArg<List<Widget>>`
-casts the whole list with `.cast<Widget>().toList()` and the null
-element trips the cast.
-
-**Representative scripts** (5 entries)
-
-- `widgets/animated_cross_fade_test.dart`
-- `widgets/animated_switcher_test.dart`
-- `widgets/backdrop_filter_test.dart`
-- `widgets/physical_model_test.dart`
-- `widgets/shader_mask_test.dart`
-
-**Where to look**
-
-`extractBridgedArg<List<E>>` in `D4` runtime. Filter out nulls before
-the cast OR (preferred) walk each element with `extractBridgedArg<E>`
-the same way the #74 fix does for function-typed list returns.
+Scripts assemble `children: [..., if (cond) widget, ...]` and similar
+patterns where an entry evaluates to `null` (the interpreter is more
+lenient than the analyzer about null in typed lists). The bridge's
+`coerceList<Widget>` then mapped each element with `e as Widget`, and
+the null element tripped the cast — Flutter's actual constructor would
+have rejected it too, but with a less-clear error.
 
 ---
 

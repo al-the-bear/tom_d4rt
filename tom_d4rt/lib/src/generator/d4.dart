@@ -345,9 +345,17 @@ class D4 {
       return value;
     }
 
+    // GEN-080: when T is non-nullable, drop null elements before coercion.
+    // This matches Dart's collection-if semantics (`if (false) widget` adds
+    // nothing to the resulting list) and prevents the interpreter — which
+    // is more lenient than the analyzer about null leaking into typed
+    // lists — from blowing up with `type 'Null' is not a subtype of type X`
+    // on bridge constructors that take `List<T>` for non-nullable T.
+    final iterable = (null is T) ? value : value.where((e) => e != null);
+
     // Coerce each element to the expected type
     try {
-      return value.map<T>((e) {
+      return iterable.map<T>((e) {
         if (e is BridgedInstance) {
           final native = e.nativeObject;
           if (native is T) return native as T;
