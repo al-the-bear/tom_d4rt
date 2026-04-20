@@ -224,41 +224,52 @@ shadowed by `dart:math.min` at `visitSimpleIdentifier`.
 
 ---
 
-### [ ] Fixed — `Directionality.child` rejects InterpretedInstance Widget subclass
+### [X] Fixed — top-level script return leaked InterpretedInstance to FlutterD4rt._unwrap
 
-**Symptom**
+**Resolution:** INTER-009 — `FlutterD4rt._unwrap<T>` now resolves an
+`InterpretedInstance` result via the registered interface-proxy
+factories (the same path `D4.extractBridgedArg<T>` uses at every
+bridge boundary during script execution). Previously, the script's
+top-level `build()` could return an `InterpretedInstance` of a
+`StatelessWidget` / `StatefulWidget` subclass (or similar) and
+`_unwrap` rejected it with "Expected Widget but got InterpretedInstance"
+because it only handled `BridgedInstance` / direct casts.
+
+To make the visitor available after `executeBundle` returns:
+- Added a public `D4.activeVisitor` getter (mirrored in tom_d4rt and
+  tom_d4rt_ast) so embedders can read the most recently active
+  visitor.
+- Updated `D4rt.visitor` (tom_d4rt_exec) to fall back to
+  `_runner.visitor` when the classic `_visitor` field is null
+  (executeBundle path keeps the visitor on the inner runner).
+- `_unwrap` first tries `D4.activeVisitor`, then falls back to
+  `_interpreter.visitor`.
+
+After fix:
+- Eliminates ALL "Expected Widget but got InterpretedInstance" errors
+  in `generator_interpreter_issues_test` (was 10).
+- generator_interpreter_issues_test: 37/0/46 → **45/0/38** (+8 pass).
+- secondary_classes_test: 647/0/7 → **651/0/3** (+4 pass, -4 fail).
+- essential / important: 108/0/0, 166/0/3 (unchanged).
+
+**Symptom (was)**
 
 ```
-Runtime Error: Native error during default bridged constructor for 'Directionality':
-Argument Error: Invalid parameter "child": expected Widget, got
-InterpretedInstance(PanelTheme)
-Argument Error: Invalid parameter "child": expected Widget, got
-InterpretedInstance(AppStateScope)
+Expected Widget but got InterpretedInstance
 ```
 
-**Root cause**
+(Sometimes also surfaced as the more-specific
+`Argument Error: Invalid parameter "child": expected Widget, got
+InterpretedInstance(...)` when the unwrapped value was passed back
+into a bridged constructor.)
 
-User-defined `class PanelTheme extends InheritedWidget` (or similar
-abstract Widget base) is not auto-wrapped into a native proxy when
-passed across a bridge boundary. Same shape as the fix landed for
-`LeafRenderObjectWidget` / `SingleChildRenderObjectWidget` /
-`MultiChildRenderObjectWidget` in
-[f6c7db8f](https://github.com/al-the-bear/tom_d4rt/commit/f6c7db8f) —
-needs equivalent `_InterpretedInheritedWidget` proxy + interface-proxy
-registration.
+**Root cause (was — INCORRECT hypothesis)**
 
-**Representative scripts** (3 entries)
-
-- `widgets/inherited_theme_test.dart`
-- `widgets/inherited_widget_test.dart`
-- (one more from the cluster of `_PaneList` failures)
-
-**Where to look**
-
-`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` — add an
-`_InterpretedInheritedWidget` proxy class + `D4.registerInterfaceProxy(
-'InheritedWidget', ...)` registration, mirroring the existing
-RenderObjectWidget family.
+Initial diagnosis assumed an InheritedWidget proxy was missing.
+Actual cause was different: the registered interface-proxy factories
+for `StatelessWidget` / `StatefulWidget` exist and worked at every
+bridge boundary during execution, but the embedder's final `_unwrap`
+of the script's top-level return value didn't go through them.
 
 ---
 

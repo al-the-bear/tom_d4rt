@@ -57,8 +57,14 @@ class D4rt {
 
   /// Gets the current interpreter visitor instance.
   ///
-  /// Returns null if no execution is currently in progress.
-  InterpreterVisitor? get visitor => _visitor;
+  /// Returns null if no execution has ever been run. The classic
+  /// `execute()` path stores its visitor in `_visitor`; the
+  /// `executeBundle()` path delegates to the inner [D4rtRunner] which
+  /// keeps the visitor on itself. Fall back to the runner's visitor so
+  /// embedders that need to finish unwrapping an InterpretedInstance
+  /// after `executeBundle` returns (see `FlutterD4rt._unwrap<Widget>`)
+  /// can still resolve an interface-proxy factory.
+  InterpreterVisitor? get visitor => _visitor ?? _runner.visitor;
 
   /// The set of library URIs that have been registered as bridged.
   ///

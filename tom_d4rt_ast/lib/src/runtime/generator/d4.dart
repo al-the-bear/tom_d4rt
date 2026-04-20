@@ -96,6 +96,13 @@ class D4 {
   /// etc.) that don't pass the visitor parameter.
   static InterpreterVisitor? _activeVisitor;
 
+  /// Exposes the currently-active visitor to embedders that need to finish
+  /// unwrapping an InterpretedInstance after `executeBundle` has returned
+  /// (e.g. `FlutterD4rt._unwrap<Widget>` turning a script-returned StatelessWidget
+  /// InterpretedInstance into a native proxy via the registered interface
+  /// factories).
+  static InterpreterVisitor? get activeVisitor => _activeVisitor;
+
   /// Execute [fn] with the given [visitor] as the active visitor.
   /// Restores the previous visitor when done (supports nesting).
   static T withActiveVisitor<T>(InterpreterVisitor visitor, T Function() fn) {

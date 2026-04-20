@@ -176,6 +176,32 @@ class FlutterD4rt {
     }
     if (result is T) return result;
     if (result == null && null is T) return result as T;
+
+    // INTER-009: when the script returns an InterpretedInstance of a
+    // subclass of a bridged abstract type (e.g. a `class _MyWidget extends
+    // StatelessWidget` that the script's `build` function returns at the
+    // top level), wrap it into the registered interface proxy. This
+    // mirrors what `D4.extractBridgedArg<T>` does at every bridge boundary
+    // during script execution; before this, the top-level return value
+    // escaped unwrapped and crashed the test app's `build<Widget>` call
+    // with "Expected Widget but got InterpretedInstance".
+    if (result is InterpretedInstance) {
+      final bridgedSuper = result.bridgedSuperObject;
+      if (bridgedSuper is T) return bridgedSuper as T;
+      // Prefer `D4.activeVisitor` (set during adapter dispatch); after
+      // executeBundle returns that is typically null, so fall back to
+      // the interpreter's long-lived visitor on the runner.
+      final visitor = D4.activeVisitor ?? _interpreter.visitor;
+      if (visitor != null) {
+        final proxy = D4.tryCreateInterfaceProxyWithVisitor<T>(result, visitor);
+        if (proxy != null) return proxy;
+      }
+      throw FlutterD4rtException(
+        'Expected $T but got InterpretedInstance(${result.klass.name}) — '
+        'no registered interface proxy for its bridged superclass/interfaces.',
+      );
+    }
+
     throw FlutterD4rtException('Expected $T but got ${result.runtimeType}');
   }
 }
