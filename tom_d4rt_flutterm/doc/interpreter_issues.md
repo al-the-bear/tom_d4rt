@@ -599,6 +599,82 @@ the existing arg emission) would be the parallel fix.
 
 ---
 
+### [ ] Fixed (10a) — argument-side function-type wrapping
+
+Follow-up split out from cluster 10 after GEN-081b closed the
+return-side half.
+
+**Symptom**
+
+```
+type 'InterpretedFunction' is not a subtype of type '(() => void)?'
+Runtime Error: Native error during bridged method call 'setMessageHandler' on BasicMessageChannel: type '(dynamic) => Future<dynamic>' is not a subtype of type '((String?) => Future<String>)?' of 'handler'
+```
+
+**Root cause**
+
+A script passes its own function (an `InterpretedFunction` or similar
+`Callable`) to a bridged method or setter whose parameter is a
+strictly typed function. The bridge's method adapter forwards the
+callable directly into the native call, and Dart's reified function-
+type subtyping rejects `(dynamic) => dynamic` where a typed signature
+like `(() => void)?` or `((String?) => Future<String>)?` is
+required. This is the mirror of the #74 / GEN-081b *return-side*
+typed-wrapper work — the generator needs to wrap the incoming
+callable into a concrete typed closure that forwards through
+`D4.callInterpreterCallback` instead of just casting.
+
+GEN-075 already does the equivalent for Map-valued parameters via
+`_wrapCallableForMap<T>`; what's missing is the scalar-parameter
+variant (`void Function()`, `(String?) => Future<String>`, …) at
+method-invocation argument positions.
+
+**Representative scripts** (2 entries observed so far)
+
+- `semantics/semantics_config_test.dart`
+  (`InterpretedFunction → (() => void)?` on e.g.
+  `SemanticsConfiguration.onTap = …`).
+- `services/channels_test.dart`
+  (`BasicMessageChannel.setMessageHandler((msg) async { … })`
+  wants `((String?) => Future<String>)?`).
+
+Likely affects additional scripts that set typed callback properties
+or pass script closures to bridged method parameters without going
+through a `VoidCallback` typedef.
+
+**Where to look**
+
+- `tom_d4rt_generator/lib/src/bridge_generator.dart` — argument
+  emission for method calls / setter invocations. Detect when the
+  parameter type is a function type (same heuristic as
+  `_isInlineFunctionType` used for the return side) and emit a
+  per-call-site closure that:
+  1. accepts the bridged signature's positional and named params,
+  2. routes them through
+     `D4.callInterpreterCallback(visitor, callable, args, named)`,
+  3. passes the result back as the bridge's declared return type
+     (await if the return type is `Future<R>`, etc.).
+- `tom_d4rt_generator/lib/src/proxy_generator.dart`'s
+  `_emitTypedReturn` (landed in #74) is a usable template; this
+  cluster needs the parallel `_emitTypedArg` at every call-site
+  argument position.
+- `D4._wrapCallableForMap<T>` in `generator/d4.dart` shows the
+  runtime-side signature for the wrapping — reuse or extract a
+  shared helper.
+
+**Why this wasn't closed with cluster 10**
+
+The GEN-081b work targeted the callback's *return* value (wrapping
+the interpreter's result before it's handed back to Flutter). The
+*argument* side — wrapping the callable before it's handed to
+Flutter — happens at every bridged-method argument position and
+threads through the generator's parameter-type analysis (which
+currently treats function types as opaque `dynamic` and relies on
+the native Dart compiler to accept the cast). It's a bigger change
+and deserves its own commit + regression sweep.
+
+---
+
 ### [ ] Fixed — generic constructor / relaxer edge cases
 
 **Symptom**
