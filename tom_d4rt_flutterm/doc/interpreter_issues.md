@@ -124,9 +124,32 @@ threw rather than degrading gracefully.
 
 ---
 
-### [ ] Fixed — `late` field accessed before initializer (false-positive)
+### [X] Fixed — `late` field accessed before initializer (false-positive)
 
-**Symptom**
+**Resolution:** Resolved as a downstream effect of cluster 3's
+super-method no-op fix ([5c0c5939](https://github.com/al-the-bear/tom_d4rt/commit/5c0c5939)).
+The "late field not assigned" errors were not actually about late
+fields — they came from `initState()` aborting partway through when
+its `super.initState()` (or the script's first `super.build()`) threw
+"native super object is missing". Once that throw was demoted to a
+silent no-op, the script's `_field = …` assignments now run normally
+and `build()` reads the assigned value as expected.
+
+After (cluster-3) fix, re-checked individually:
+- `autofill_group_test.dart` — PASS
+- `page_storage_test.dart` — past the late-init error (now hits a
+  different cluster-7 `key` lookup)
+- `list_wheel_scroll_view_test.dart`, `list_wheel_viewport_test.dart`,
+  `magnifier_decoration_test.dart`, `navigation_toolbar_test.dart` —
+  past the late-init error (now hit script-level Flutter constraint
+  errors / layout overflows, unrelated to the cluster).
+- `render_tree_root_element_test.dart` — still hits a
+  `LateInitializationError`, but on Flutter's internal `_children@…`
+  field via `visitAncestorElements`, which is a different beast (a
+  bridged-method call on a native StatelessElement, not a script-side
+  late field). Tracked separately if it reproduces.
+
+**Symptom (was)**
 
 ```
 Runtime Error: Undefined variable: _controller (Original error:
@@ -134,33 +157,15 @@ LateInitializationError: Late variable '_controller' without initializer
 is accessed before being assigned.)
 ```
 
-**Root cause hypothesis**
+**Root cause (was)**
 
-The interpreter reports `late` fields as unassigned even when the
-script's `initState()` (or constructor body) does assign them. Likely
-order-of-evaluation: `build()` runs before the late assignment is
-visible on the InterpretedInstance, or the field map is keyed by a
-mangled name that the lookup doesn't match.
-
-**Representative scripts** (~10 entries)
-
-- `widgets/render_tree_root_element_test.dart`
-- `widgets/autofill_group_test.dart`
-- `widgets/indexed_stack_test.dart`
-- `widgets/list_wheel_scroll_view_test.dart`
-- `widgets/list_wheel_viewport_test.dart`
-- `widgets/magnifier_decoration_test.dart`
-- `widgets/navigation_toolbar_test.dart`
-- `widgets/page_storage_bucket_test.dart`
-- `widgets/page_storage_test.dart`
-- (… more under same pattern)
-
-**Where to look**
-
-Late-field handling in `InterpretedInstance` and `visitFieldDeclaration`
-/ `visitAssignmentExpression` in the visitor. Check whether the
-`initState`-assigned value is being committed to the right field-storage
-slot before `build()` reads it.
+A misleading symptom: the script's `initState()` (or constructor body)
+DID assign the late field, but the `super.initState()` invocation that
+preceded it was throwing under cluster 3, so initState aborted before
+the late assignment ran. By the time `build()` looked up the field, it
+was still in its un-assigned `LateVariable` state — and the framework
+reported `LateInitializationError` instead of the original super-call
+failure.
 
 ---
 
