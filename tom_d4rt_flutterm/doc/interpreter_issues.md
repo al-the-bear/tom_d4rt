@@ -5,11 +5,13 @@ failure pattern hit by demo scripts in `tom_d4rt_flutterm_app`. The
 representative scripts under each cluster are useful as starting points
 for a targeted fix and as regression tests once the cluster is closed.
 
-Last refreshed: 2026-04-19, against
+Last refreshed: 2026-04-20, against
 `doc/testlog_20260418-1500-e22671e8/generator_interpreter_issues_test.result.json`
-(rev `13a0c2f8`+`037c11b1`). At this point the file ran **27 / 0 / 56**
-(was 0 / 9 / 74 on 2026-04-16). The 56 remaining failures distribute
-across the clusters below.
+(rev `bfe0b852`). The file currently runs **45 / 0 / 38**
+(2026-04-19 baseline before cluster work was 27 / 0 / 56; the
+2026-04-16 pre-bisect baseline was 0 / 9 / 74). Six clusters fully
+closed (1–6) plus one partially closed (7); the remaining 38
+failures are organised into clusters 8–12 below.
 
 When a cluster lands a fix, mark the checkbox, add a `**Resolved:**`
 line with the commit ref, and re-run the suite to confirm. Drop the
@@ -273,62 +275,307 @@ of the script's top-level return value didn't go through them.
 
 ---
 
-### [~] Partially fixed — missing bridge entries: `Enum` ✓ / `ByteData` / `setState` / `key` / `layoutChild`
+### [X] Fixed — bridge `Enum` base class + narrow GEN-101 isolation to dart:math only
 
-**Resolution (Enum):** A minimal `EnumCore` bridged class
-(`nativeType: Enum`, getters for `index` / `name` / `hashCode` /
-`runtimeType`, `toString`) is now registered by `CoreStdlib.register`
-in both `tom_d4rt` and `tom_d4rt_ast`. Generic bounds like
-`class _SettingCard<T extends Enum>` resolve at class-declaration
-time without "Undefined variable: Enum". Verified via
-`widgets/restorable_enum_n_test.dart` (now passes).
+**Resolution:** Two related fixes landed in
+[bfe0b852](https://github.com/al-the-bear/tom_d4rt/commit/bfe0b852):
 
-**GEN-101 follow-up (narrowing):** The cluster-5 stdlib isolation was
-narrowed to dart:math only. `convert`, `io`, `collection`,
-`typed_data`, `isolate` register back into `globalEnvironment` so
-scripts that reach their symbols transitively through bridged
-libraries (e.g. `flutter/services.dart` exposing `Uint8List` /
-`ByteData`) keep working. This was a pre-existing semantic; the
-isolation was over-scoped in the original cluster-5 fix.
+1. A minimal `EnumCore` bridged class (`nativeType: Enum`, getters for
+   `index` / `name` / `hashCode` / `runtimeType`, `toString`) is now
+   registered by `CoreStdlib.register` in both `tom_d4rt` and
+   `tom_d4rt_ast`. Generic bounds like `class _SettingCard<T extends Enum>`
+   resolve at class-declaration time without
+   "Undefined variable: Enum". Verified via `widgets/restorable_enum_n_test.dart`.
+2. The cluster-5 stdlib isolation (GEN-101) was narrowed to dart:math
+   only. `convert`, `io`, `collection`, `typed_data`, `isolate`
+   register back into `globalEnvironment` so scripts that reach those
+   symbols transitively through bridged libraries (e.g.
+   `flutter/services.dart` exposing `Uint8List`) keep working.
 
-**Still open (separate sub-issues — each its own work item):**
-
-- `setState` on plain interpreted State subclasses — narrowed-#82
-  intentionally skips `nativeProxy` for plain States, so `setState`
-  is no longer dispatched. Need an interpreter-side handler that
-  schedules rebuild via the proxy without going through bridged
-  adapters. Affects `widgets/transition_delegate_test`,
-  `widgets/sliver_animated_list_state_test`.
-- `key` on widget subclass — Dart 2.17+ `super.key` parameter
-  shorthand forwards `key` to the bridged Widget super-constructor,
-  but no `bridgedSuperObject` exists for plain widgets so the value
-  is dropped and later access throws "Undefined property 'key' on …".
-  Fix likely needs the interpreter to detect `super.X` parameter
-  syntax and store the value in `_fields` directly when the bridged
-  super isn't realised. Affects `widgets/page_storage_test`.
-- `layoutChild` on `MultiChildLayoutDelegate` — needs an abstract
-  delegate proxy class similar to the RenderObjectWidget family
-  (registered via `D4.registerInterfaceProxy` in
-  `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`).
-  Affects `widgets/layout_builder_adv_test`,
-  `widgets/parent_data_widget_test`.
-- `ByteData` — script-side bug. The failing script
-  `services/codecs_test.dart` references `ByteData` without
-  `import 'dart:typed_data';`. Real Dart makes it transitively
-  visible through some flutter imports; the bridge does not chain
-  re-exports. Either the script needs an explicit import or the
-  bridge for `flutter/services.dart` needs to re-export `dart:typed_data`
-  symbols.
+The other "missing bridge entry" sub-issues that were originally
+lumped here (`setState`, `key`, `layoutChild`, `ByteData`) are split
+out into cluster 8 below — each is its own targeted fix.
 
 **Symptom (was)**
 
 ```
-Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _DefaultDemoPageState.)
 Runtime Error: Undefined variable: Enum
-Runtime Error: Undefined variable: ByteData
+```
+
+---
+
+### [ ] Fixed — `setState` / `key` access on plain interpreted Widget/State
+
+**Symptom**
+
+```
+Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _InteractivePageState.)
 Runtime Error: Undefined variable: key (Original error: Undefined property 'key' on _PaneList.)
+```
+
+**Root cause**
+
+Two related script-side accesses that fall through the bridged-super
+lookup with no native target:
+
+- `setState(...)` in a plain `_InterpretedState` subclass body —
+  narrowed-#82 ([524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13))
+  intentionally leaves `nativeProxy` null on plain States, so
+  `InterpretedInstance.get('setState')` reaches the bridged-State
+  branch but skips it (`nativeTarget == null`) and finally throws
+  "Undefined variable: setState". The script discards the rebuild
+  intent silently — the test app's render-once flow doesn't strictly
+  need real Flutter rebuild scheduling, but the *throw* aborts the
+  build before downstream content is reached.
+- `key` access on a script Widget subclass that uses
+  `super.key` parameter shorthand (`const _PaneList({super.key, …})`).
+  The shorthand forwards `key` to the bridged Widget super-ctor, but
+  no `bridgedSuperObject` is realised for plain widgets, so the
+  passed value is dropped and later `this.key` access throws
+  "Undefined property 'key' on _PaneList".
+
+Both want the same kind of fix: when a bridged-super getter/method
+adapter is found but no native target is available, either treat as
+a no-op (for `setState`) or look up the value in `_fields` directly
+(for `key`, which was forwarded via constructor).
+
+**Representative scripts** (4 entries)
+
+- `widgets/transition_delegate_test.dart` (setState)
+- `widgets/sliver_animated_list_state_test.dart` (setState)
+- `widgets/sliver_child_builder_delegate_test.dart` (setState)
+- `widgets/page_storage_test.dart` (key)
+
+**Where to look**
+
+`InterpretedInstance.get` in `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`
+(~line 1291) and the visitor's `visitMethodInvocation` for the
+unprefixed-call case. The pattern that closed cluster 3 (return null
+silently when no native target exists) is a starting point; for `key`
+specifically, the Dart 2.17 `super.X` parameter syntax handling in
+the constructor visitor would also need to store the value on the
+script-side instance.
+
+---
+
+### [ ] Fixed — abstract delegate proxies missing at bridge boundaries
+
+**Symptom**
+
+```
+Argument Error: Invalid parameter "delegate": expected MultiChildLayoutDelegate, got InterpretedInstance(_DashboardLayout)
+Argument Error: Invalid parameter "delegate": expected SingleChildLayoutDelegate, got InterpretedInstance(_AnchorPositioner)
+Argument Error: Invalid parameter "clipper": expected CustomClipper<Path>, got InterpretedInstance(_BevelClipper)
+Argument Error: Invalid parameter "createRenderObject": expected RenderObject, got InterpretedInstance(_FontRelayoutRenderBox)
+Argument Error: Invalid parameter "target": expected RenderBox, got InterpretedInstance(_MockRenderBox)
+Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(_DefaultsContainer)
+Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(PanelTheme)
+Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(AppStateScope)
 Runtime Error: Undefined variable: layoutChild (Original error: Undefined property 'layoutChild' on TestMultiChildLayoutDelegate.)
 ```
+
+**Root cause**
+
+Script subclasses of abstract delegate / base classes are not auto-
+wrapped into a native proxy when passed across an *intermediate*
+bridge boundary (i.e., not the top-level `_unwrap`, which cluster 6
+already handles). The interface-proxy registry in
+`d4rt_runtime_registrations.dart` covers `StatelessWidget`,
+`StatefulWidget`, `LeafRenderObjectWidget`,
+`SingleChildRenderObjectWidget`, `MultiChildRenderObjectWidget`, and
+the State family — but not other abstract bases that scripts
+commonly subclass.
+
+**Missing proxy registrations** (each script's class extends one of):
+
+- `MultiChildLayoutDelegate` (`layoutChild` access also part of this)
+- `SingleChildLayoutDelegate`
+- `CustomClipper<T>`
+- `RenderBox`, `RenderObject` (script-defined `_FontRelayoutRenderBox`,
+  `_MockRenderBox` — needs render-object proxy beyond
+  `LeafRenderObjectWidget`)
+- `InheritedWidget` (script-defined `PanelTheme`, `AppStateScope`)
+- The `_DefaultsContainer` case is a Container subclass — should already
+  be covered by the StatelessWidget proxy; needs investigation.
+
+**Representative scripts** (8 entries)
+
+- `widgets/layout_builder_adv_test.dart` (MultiChildLayoutDelegate)
+- `widgets/parent_data_widget_test.dart` (MultiChildLayoutDelegate)
+- `rendering/render_custom_multi_child_layout_box_test.dart`
+- `rendering/render_custom_single_child_layout_box_test.dart`
+- `rendering/render_physical_shape_test.dart` (CustomClipper)
+- `rendering/relayout_when_system_fonts_change_mixin_test.dart` (RenderObject)
+- `rendering/box_hit_test_result_test.dart` (RenderBox)
+- `widgets/inherited_theme_test.dart` (InheritedWidget)
+- `widgets/inherited_widget_test.dart` (InheritedWidget)
+- `rendering/render_box_container_defaults_mixin_test.dart`
+
+**Where to look**
+
+Pattern is the same as the cluster `f6c7db8f` fix that added
+`_InterpretedLeafRenderObjectWidget` etc. — define a small proxy
+class in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+that holds an `InterpretedInstance` and forwards the abstract
+methods (`paint`, `shouldRepaint`, `getClip`, `layoutChild`, …) into
+the interpreted instance via `_invokeInterpretedAs<T>`. Register via
+`D4.registerInterfaceProxy('<TypeName>', factory)`.
+
+---
+
+### [ ] Fixed — function-typed argument residuals at intermediate boundaries
+
+**Symptom**
+
+```
+type 'InterpretedFunction' is not a subtype of type '(() => void)?'
+type 'InterpretedInstance' is not a subtype of type 'Widget?' in type cast
+type 'InterpretedInstance' is not a subtype of type 'Widget' in type cast
+Runtime Error: Native error during bridged method call 'setMessageHandler' on BasicMessageChannel: type '(dynamic) => Future<dynamic>' is not assignable to '(ByteData?) => Future<ByteData?>'
+```
+
+**Root cause**
+
+The #74 typed-wrapper fix
+([33d121c2](https://github.com/al-the-bear/tom_d4rt/commit/33d121c2))
+covered function-typed *return values* in proxy classes. These
+remaining hits are the *argument-side* mirror — passing an
+`InterpretedFunction` where the bridge expects a typed function,
+and passing an `InterpretedInstance` widget at a mid-flow position
+(not the top-level `_unwrap` that cluster 6 fixed).
+
+The `BasicMessageChannel.setMessageHandler` case is specifically
+about a typed callback — the bridge passes `(dynamic) => Future<dynamic>`
+where the native API wants `(ByteData?) => Future<ByteData?>`.
+
+**Representative scripts** (3 entries)
+
+- `widgets/window_scope_test.dart` (`InterpretedFunction → (() => void)?`)
+- `semantics/semantics_config_test.dart` (InterpretedInstance to Widget?)
+- `widgets/image_filtered_test.dart` (InterpretedInstance to Widget?)
+- `services/channels_test.dart` (BasicMessageChannel typed callback)
+
+**Where to look**
+
+`D4.extractBridgedArg<T>` in `generator/d4.dart` for the function-
+type branch (look at `_wrapCallableForMap<T>` / `_isFunctionType` —
+the same logic needs to apply at non-Map argument positions).
+`tom_d4rt_generator/lib/src/proxy_generator.dart` `_emitTypedReturn`
+already does this for *returns*; an `_emitTypedArg` (or extension to
+the existing arg emission) would be the parallel fix.
+
+---
+
+### [ ] Fixed — generic constructor / relaxer edge cases
+
+**Symptom**
+
+```
+Runtime Error: Error in generic constructor factory for 'TweenSequenceItem': Null check operator used on a null value
+NoSuchMethodError: Class '$RelaxedAnimation<Offset>' has no instance method 'addListener' with matching arguments.
+Runtime Error: Cast failed with 'as' : the value does not match the target type (Instance of 'SNamedType')
+type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast
+```
+
+**Root cause**
+
+Different bridge-generator / relaxer edges:
+
+- `TweenSequenceItem` factory dereferences a value that ends up null
+  for some script call shape (animated/tween edge case).
+- `$RelaxedAnimation<Offset>.addListener` — the relaxer wrapper does
+  not forward `addListener` correctly when the type arg is non-trivial.
+- `SNamedType` cast — interpreter's runtime-type machinery: somewhere
+  a value that should be a `SNamedType` AST node ends up something
+  else.
+- `List<Object?>` not `List<Widget>` — coerceList<Widget> sees a
+  raw List<Object?> from the relaxer pipeline and fails the cast
+  even after cluster 2's null-filter (the elements aren't null, just
+  typed as Object?).
+
+**Representative scripts** (4 entries)
+
+- `animation/tweensequence_test.dart` (TweenSequenceItem)
+- `widgets/slidetransition_test.dart` ($RelaxedAnimation.addListener)
+- `widgets/nestedscrollview_test.dart` (SNamedType cast)
+- `widgets/fixed_extent_metrics_test.dart` (List<Object?>→List<Widget>)
+
+**Where to look**
+
+Each is its own bug in `tom_d4rt_generator/lib/src/relaxer_generator.dart`
+or the relaxer wrapper templates. Worth opening on the test app's
+red-error screen first to read the full stack.
+
+---
+
+### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
+
+**Symptom**
+
+A grab-bag of failures rooted in the demo *script's own*
+constraint violations or in Flutter framework expectations the
+interpreter cannot easily replicate:
+
+- `RenderFlex overflowed by N pixels` (5 scripts) — pure layout
+  overflow caused by demo content not fitting available space;
+  fixable in the script with `Expanded` / `Flexible` / scroll
+  wrappers.
+- `Invalid argument(s): "matrix4" must have 16 entries` — script
+  builds an `ImageFilter.matrix(...)` from a list with the wrong
+  length.
+- `FixedExtentScrollPhysics can only be used with Scrollables that
+  use the FixedExtentScrollController` — script mismatch.
+- `FixedExtentScrollController.selectedItem cannot be accessed
+  before a scroll view is built with it` — script accesses too
+  early.
+- `RenderCustomMultiChildLayoutBox object was given an infinite
+  size` — layout requires bounded constraints in the test viewport.
+- `Build scheduled during frame` (`State.setState` adapter) — script
+  calls setState from inside `build()`, which Flutter forbids.
+- `Cannot invoke method 'withValues' on null` — script has a missing
+  `Color` initialization (probably a `late` field assigned later).
+- `Undefined property or method 'first' on bridged instance of 'String'`
+  — script calls `.first` on a String (would also fail in plain Dart).
+- `LateInitializationError: Field '_children@28042623'` — Flutter
+  framework's internal `_children` accessed via `visitAncestorElements`
+  on a `StatelessElement` that hasn't been mounted yet.
+- `Undefined variable: ByteData` (codecs_test) — script forgets
+  `import 'dart:typed_data';` and the bridge for
+  `flutter/services.dart` does not re-export typed_data symbols.
+
+**Representative scripts** (≈18 entries)
+
+- `widgets/animated_switcher_test.dart`,
+  `widgets/backdrop_filter_test.dart`,
+  `widgets/magnifier_decoration_test.dart`,
+  `widgets/navigation_toolbar_test.dart`,
+  `rendering/custom_painter_semantics_test.dart` (RenderFlex / layout)
+- `widgets/list_wheel_scroll_view_test.dart`,
+  `widgets/list_wheel_viewport_test.dart` (FixedExtent constraints)
+- `widgets/html_element_view_test.dart` (platform view constraints)
+- `widgets/shader_mask_test.dart` (LateInit on script's late
+  `_animController` — likely a script-construction order bug)
+- `services/codecs_test.dart` (ByteData missing import)
+- `services/channels_test.dart` (typed callback — also overlaps
+  cluster 10)
+- `rendering/render_aligning_shifted_box_test.dart` (`.first` on String)
+- `rendering/render_absorb_pointer_test.dart`,
+  `rendering/render_custom_paint_test.dart` (Build scheduled / setState
+  during frame — overlap with cluster 8)
+- `rendering/relayout_when_system_fonts_change_mixin_test.dart`
+  (overlaps cluster 9 for the createRenderObject case)
+- `widgets/render_tree_root_element_test.dart` (Flutter `_children`
+  framework late-init)
+- `widgets/shortcut_registry_entry_test.dart` (`'withValues' on null`)
+
+**Where to look**
+
+These are largely *script-side* fixes (rewrite the demo to use
+bounded layout, add missing imports, avoid `setState` in build, etc.)
+or out-of-scope Flutter behaviors. A separate sweep that audits the
+demo scripts and either rewrites them or moves the structurally-
+broken ones into a "known-bad demos" file would close most of this
+cluster faster than interpreter changes.
 
 ---
 
