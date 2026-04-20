@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-20T19:32:34.291426
+// Generated: 2026-04-20T22:03:50.953710
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -12,6 +12,8 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutterm_1;
+import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_2;
 
 /// Bridge class for dart_ui module.
 class DartUiBridge {
@@ -7753,18 +7755,7 @@ BridgedClass _createStrutStyleBridge() {
     name: 'StrutStyle',
     isAssignable: (v) => v is $dart_ui.StrutStyle,
     constructors: {
-      '': (visitor, positional, named) {
-        final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
-        final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
-        final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
-        final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getOptionalNamedArg<$dart_ui.TextLeadingDistribution?>(named, 'leadingDistribution');
-        final leading = D4.getOptionalNamedArg<double?>(named, 'leading');
-        final fontWeight = D4.getOptionalNamedArg<$dart_ui.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$dart_ui.FontStyle?>(named, 'fontStyle');
-        final forceStrutHeight = D4.getOptionalNamedArg<bool?>(named, 'forceStrutHeight');
-        return $dart_ui.StrutStyle(fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, height: height, leadingDistribution: leadingDistribution, leading: leading, fontWeight: fontWeight, fontStyle: fontStyle, forceStrutHeight: forceStrutHeight);
-      },
+      '': $tom_d4rt_flutterm_2.StrutStyleUserBridge.overrideConstructor,
     },
     getters: {
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.StrutStyle>(target, 'StrutStyle').hashCode,

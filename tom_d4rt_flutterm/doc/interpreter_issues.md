@@ -599,12 +599,13 @@ the existing arg emission) would be the parallel fix.
 
 ---
 
-### [~] Partially fixed (10a) — argument-side function-type wrapping
+### [X] Fixed (10a) — argument-side function-type wrapping
 
 Follow-up split out from cluster 10 after GEN-081b closed the
-return-side half. **Setter-side wrapping landed in GEN-083**; the
-method-arg wrapping for generic classes (BasicMessageChannel-style)
-remains open — see sub-issue at the end.
+return-side half. **Setter-side wrapping landed in GEN-083**, and
+the generic-class method-arg path (BasicMessageChannel.setMessageHandler)
+was closed in GEN-083b via a `D4UserBridge` that bypasses the
+typed `setMessageHandler` with a binary-messenger-level adapter.
 
 **Symptom**
 
@@ -648,30 +649,35 @@ After this fix `semantics/semantics_config_test.dart` passes. The
 `sliver_child_builder_delegate_test.dart` script also flipped to
 green as a side-effect of the same setter wrapping.
 
-**Still open — generic-class method-arg sub-issue**
+**Fix (GEN-083b, generic-class method-arg half)**
 
-- `services/channels_test.dart` still fails because
-  `BasicMessageChannel<T>.setMessageHandler` has a method-argument
-  type `(T? message) => Future<T>`. The generator emits dynamic
-  dispatch (`(t as dynamic).setMessageHandler(... (dynamic p0) { ...
-  Future<dynamic> ... })`) since the class-level `T` is lost at
-  bridge-generation time. Dart's runtime function-type check rejects
-  `(dynamic) => Future<dynamic>` against `(String?) => Future<String>`
-  on a `BasicMessageChannel<String>` instance.
-- The generator has no way to produce a T-specialised closure without
-  runtime reflection over the target's generic type arguments. This
-  belongs in a future cluster (generic-class method-arg wrapping),
-  not cluster 10a.
+- `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart` —
+  new `BasicMessageChannelUserBridge` extending `D4UserBridge`.
+  Overrides `setMessageHandler` by bypassing the typed
+  `BasicMessageChannel<T>.setMessageHandler` entirely and installing
+  the handler at the `BinaryMessenger` layer, using the channel's
+  own `MessageCodec` to encode/decode `T`. This is the same pattern
+  Flutter's native `setMessageHandler` uses internally, but the
+  `MessageHandler` it hands to `binaryMessenger` is non-generic
+  (`(ByteData?) => Future<ByteData?>`) so Dart's runtime function-
+  type check never sees a `T`-parameterised closure.
+- `tom_d4rt_generator/lib/src/bridge_api.dart` — `generateBridges`
+  now pre-scans the build project's `d4rt_user_bridges/` directory
+  before processing modules (`_preScanUserBridges`), mirroring the
+  behaviour of `v2/d4rtgen_executor._scanUserBridges`. Previously
+  only `v2` populated the scanner from the build project, so any
+  `D4UserBridge` living outside Flutter source files was invisible
+  to the `BridgeGenerator` instances created per module (including
+  the long-standing `StrutStyleUserBridge`, which was silently
+  inert).
 
-**Where to look for the remaining sub-issue**
-
-- `tom_d4rt_generator/lib/src/bridge_generator.dart` —
-  `_methodHasFunctionParamsReferencingClassTypeParams` / the
-  `(t as dynamic)` call path for methods that reference class type
-  params; a T-aware adapter would need to capture the target's
-  type arguments.
-- `D4._wrapCallableForMap<T>` in `generator/d4.dart` for a
-  runtime-side helper pattern that preserves T.
+The wrapper/adapter pattern here is the right shape for every
+class where a bridged method's parameter references the class-
+level type parameter: instead of asking the generator to produce
+a `T`-specialised closure (impossible without reflection on
+runtime type arguments), install a hand-written `D4UserBridge`
+that performs the type-specific dispatch via codecs, runtime
+checks, or an explicit adapter class.
 
 ---
 

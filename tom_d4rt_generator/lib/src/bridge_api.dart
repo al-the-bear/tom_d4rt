@@ -5,6 +5,8 @@ library;
 
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/features.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
@@ -14,6 +16,7 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
+import 'user_bridge_scanner.dart';
 
 /// Result of a bridge generation operation.
 class GenerationResult {
@@ -127,6 +130,15 @@ Future<GenerationResult> generateBridges({
       BuildConfigLoader.getPackageName(projectDir) ?? bridgeConfig.name;
 
   try {
+    // GEN-083b: Pre-scan user bridges from the build project's
+    // d4rt_user_bridges directory so method/getter/setter/operator
+    // overrides are registered before any module's BridgeGenerator
+    // starts emitting code. Mirrors what v2/d4rtgen_executor does —
+    // this path (generateBridges) previously only populated the
+    // scanner from Flutter source files, which meant user bridges
+    // living in the build project were invisible.
+    final sharedUserBridgeScanner = _preScanUserBridges(projectDir);
+
     // GEN-076: Track class names and source files across modules to prevent
     // duplicate registrations. Only deduplicates when BOTH name AND source match,
     // so different classes with the same name (e.g., dart:ui vs Flutter) are kept.
@@ -165,6 +177,7 @@ Future<GenerationResult> generateBridges({
                   .map(RecursiveBoundType.fromString)
                   .toList()
             : null, // Use defaults if not configured
+        userBridgeScanner: sharedUserBridgeScanner,
       );
 
       // Resolve barrel files - if they're package: or dart: URIs, pass as-is; otherwise join with projectDir
@@ -358,4 +371,59 @@ Future<void> _generateTestRunnerFile(
       packageName: packageName,
     ),
   );
+}
+
+/// GEN-083b: Pre-scan user bridge files from the build project's
+/// `d4rt_user_bridges/` directory so class overrides (methods, setters,
+/// getters, operators, constructors) are registered before modules
+/// are processed.
+///
+/// User bridge files must live in:
+/// - `lib/src/d4rt_user_bridges/` (package projects), or
+/// - `lib/d4rt_user_bridges/` (console projects).
+///
+/// Without this pre-scan the scanner only sees units from Flutter source
+/// files, so user bridges living in the build package are invisible —
+/// see the `v2/d4rtgen_executor.dart` path for the equivalent logic.
+UserBridgeScanner _preScanUserBridges(String projectDir) {
+  final scanner = UserBridgeScanner();
+
+  final userBridgeDirs = [
+    p.join(projectDir, 'lib', 'src', 'd4rt_user_bridges'),
+    p.join(projectDir, 'lib', 'd4rt_user_bridges'),
+  ];
+
+  for (final dirPath in userBridgeDirs) {
+    final dir = Directory(dirPath);
+    if (!dir.existsSync()) continue;
+
+    for (final entity in dir.listSync(recursive: true)) {
+      if (entity is! File) continue;
+      if (!entity.path.endsWith('.dart')) continue;
+
+      try {
+        final content = entity.readAsStringSync();
+        final parseResult = parseString(
+          content: content,
+          featureSet: FeatureSet.latestLanguageVersion(),
+        );
+        scanner.scanUnit(parseResult.unit, entity.path);
+      } catch (e) {
+        stderr.writeln(
+          'Warning: Failed to parse user bridge ${entity.path}: $e',
+        );
+      }
+    }
+  }
+
+  final classCount = scanner.userBridges.length;
+  final globalsCount = scanner.globalsUserBridges.length;
+  if (classCount > 0 || globalsCount > 0) {
+    print(
+      '  USER-BRIDGE: pre-scanned $classCount class user bridges and '
+      '$globalsCount globals user bridges from $projectDir',
+    );
+  }
+
+  return scanner;
 }
