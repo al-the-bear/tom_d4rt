@@ -581,6 +581,18 @@ class InterpretedFunction implements Callable {
           }
           // Also define it in the local scope so it can be referenced in the body
           executionEnvironment.define(paramName, valueToDefine);
+          // Bug-96b: also store on `this` so plain `this.<paramName>` access
+          // works in the script body when no bridgedSuperObject is realised
+          // (typical for `super.key` on Widget subclasses). Mirrors
+          // tom_d4rt_ast/lib/src/runtime/callable.dart.
+          try {
+            final thisValue = _closure.get('this');
+            if (thisValue is RuntimeValue) {
+              thisValue.set(paramName, valueToDefine);
+            }
+          } catch (_) {
+            // No 'this' in scope; forwarding alone is enough.
+          }
         } else if (isFieldInitializing) {
           // It's a `this.fieldName` parameter. Initialize the field directly.
           final thisValue = _closure.get('this')

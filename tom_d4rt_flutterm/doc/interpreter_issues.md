@@ -304,57 +304,61 @@ Runtime Error: Undefined variable: Enum
 
 ---
 
-### [ ] Fixed — `setState` / `key` access on plain interpreted Widget/State
+### [X] Fixed — `setState` / `key` access on plain interpreted Widget/State
 
-**Symptom**
+**Resolution:** Two fixes landed together (both mirrored in tom_d4rt
+and tom_d4rt_ast):
+
+- **Bug-96b — store `super.X` parameter values on `this`.** The
+  `SSuperFormalParameter` branch in `Callable._prepareEnv` continues
+  to forward the value to the super constructor call, but also calls
+  `thisValue.set(paramName, valueToDefine)` so `this.key`,
+  `this.child`, etc. resolve from the script body even when no
+  bridgedSuperObject is realised (typical for `super.key` on Widget
+  subclasses).
+- **RC-9 — last-chance fallback in `InterpretedInstance.get` for
+  bridged-super members without native target.** Before throwing
+  "Undefined property 'X' on Y", we now walk the bridged-superclass
+  chain once more: if any ancestor bridged class exposes a method
+  adapter for `name`, return a `NativeFunction` that invokes any
+  `Callable` argument (so `setState(() { _x = 1; })` still runs the
+  script's callback and updates script state) and otherwise returns
+  null; if it exposes a getter adapter, return null directly. This
+  mirrors the cluster-3 `super.<method>()` no-op treatment
+  ([5c0c5939](https://github.com/al-the-bear/tom_d4rt/commit/5c0c5939))
+  but for unprefixed access.
+
+After fix:
+- All 4 cluster scripts past the original error:
+  `transition_delegate_test`, `sliver_animated_list_state_test`,
+  `sliver_child_builder_delegate_test` (setState); `page_storage_test`
+  (key). Some still fail later under clusters 9/10 (downstream
+  "InterpretedInstance not Widget" casts) — those are tracked there.
+- generator_interpreter_issues_test: 45/0/38 → **46/0/37** (+1 pass);
+  zero `Undefined variable: setState` / `Undefined variable: key`
+  errors remaining.
+- essential / important / secondary: 108/0/0, 166/0/3, 651/0/3 (unchanged).
+
+**Symptom (was)**
 
 ```
 Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _InteractivePageState.)
 Runtime Error: Undefined variable: key (Original error: Undefined property 'key' on _PaneList.)
 ```
 
-**Root cause**
+**Root cause (was)**
 
 Two related script-side accesses that fall through the bridged-super
 lookup with no native target:
 
 - `setState(...)` in a plain `_InterpretedState` subclass body —
   narrowed-#82 ([524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13))
-  intentionally leaves `nativeProxy` null on plain States, so
-  `InterpretedInstance.get('setState')` reaches the bridged-State
-  branch but skips it (`nativeTarget == null`) and finally throws
-  "Undefined variable: setState". The script discards the rebuild
-  intent silently — the test app's render-once flow doesn't strictly
-  need real Flutter rebuild scheduling, but the *throw* aborts the
-  build before downstream content is reached.
-- `key` access on a script Widget subclass that uses
-  `super.key` parameter shorthand (`const _PaneList({super.key, …})`).
-  The shorthand forwards `key` to the bridged Widget super-ctor, but
-  no `bridgedSuperObject` is realised for plain widgets, so the
-  passed value is dropped and later `this.key` access throws
-  "Undefined property 'key' on _PaneList".
-
-Both want the same kind of fix: when a bridged-super getter/method
-adapter is found but no native target is available, either treat as
-a no-op (for `setState`) or look up the value in `_fields` directly
-(for `key`, which was forwarded via constructor).
-
-**Representative scripts** (4 entries)
-
-- `widgets/transition_delegate_test.dart` (setState)
-- `widgets/sliver_animated_list_state_test.dart` (setState)
-- `widgets/sliver_child_builder_delegate_test.dart` (setState)
-- `widgets/page_storage_test.dart` (key)
-
-**Where to look**
-
-`InterpretedInstance.get` in `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`
-(~line 1291) and the visitor's `visitMethodInvocation` for the
-unprefixed-call case. The pattern that closed cluster 3 (return null
-silently when no native target exists) is a starting point; for `key`
-specifically, the Dart 2.17 `super.X` parameter syntax handling in
-the constructor visitor would also need to store the value on the
-script-side instance.
+  leaves `nativeProxy` null on plain States; the bridged-State branch
+  skipped when `nativeTarget == null` and the fallback threw.
+- `key` on a script Widget subclass that uses the `super.key`
+  parameter shorthand — the shorthand forwarded `key` to the bridged
+  Widget super-ctor, but no `bridgedSuperObject` is realised for
+  plain widgets so the passed value was dropped.
 
 ---
 

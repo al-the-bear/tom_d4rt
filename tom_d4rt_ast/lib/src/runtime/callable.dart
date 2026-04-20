@@ -698,6 +698,24 @@ class InterpretedFunction implements Callable {
           }
           // Also define it in the local scope so it can be referenced in the body
           executionEnvironment.define(paramName, valueToDefine);
+          // Bug-96b: also store on `this` so plain `this.<paramName>` access
+          // works in the script body. Real Dart's super-formal-parameter
+          // shorthand is sugar for forwarding to the bridged super
+          // constructor that holds the value as a field; for an interpreted
+          // subclass of a bridged class with no realised bridgedSuperObject
+          // (typical for `super.key` on Widget subclasses), no native
+          // store-site exists, so the value would otherwise be unreachable
+          // from the body. Mirroring `this.<paramName>` field-initializing
+          // semantics keeps `this.key`, `this.child`, etc. resolvable.
+          try {
+            final thisValue = _closure.get('this');
+            if (thisValue is RuntimeValue) {
+              thisValue.set(paramName, valueToDefine);
+            }
+          } catch (_) {
+            // No 'this' in scope (top-level constructor of unrelated owner);
+            // forwarding alone is enough.
+          }
         } else if (isFieldInitializing) {
           // It's a `this.fieldName` parameter. Initialize the field directly.
           final thisValue = _closure.get('this')

@@ -1429,6 +1429,51 @@ class InterpretedInstance implements RuntimeValue {
       return boundNoSuchMethod.call(visitor, [invocation], {});
     }
 
+    // RC-9: last-chance fallback for bridged-super members when there is
+    // no native target (typical for plain widgets / plain `_InterpretedState`).
+    // If a bridged superclass in the chain exposes a method/getter adapter
+    // for this name, return a no-target stand-in instead of throwing:
+    //   - method  → a NativeFunction that invokes any Callable argument (so
+    //               `setState(() { _x = 1; })` still runs the script's
+    //               callback and updates script state, even though the
+    //               Flutter rebuild won't actually be scheduled) and then
+    //               returns null.
+    //   - getter  → null (the script may guard on null anyway; this matches
+    //               the "no native value available" semantics).
+    // This mirrors the cluster-3 `super.<method>()` no-op treatment landed
+    // in [5c0c5939] but for direct (unprefixed) access.
+    {
+      InterpretedClass? walkClass = klass;
+      while (walkClass != null) {
+        final bridgedSuper = walkClass.bridgedSuperclass;
+        if (bridgedSuper != null) {
+          final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
+          if (methodAdapter != null) {
+            Logger.debug(
+                "[Instance.get] No native target for '${bridgedSuper.name}.$name' — returning callback-invoking no-op fallback.");
+            return NativeFunction(
+                (v, positionalArgs, namedArgs, typeArgs) {
+                  for (final arg in positionalArgs) {
+                    if (arg is Callable) {
+                      arg.call(v, const [], const {});
+                    }
+                  }
+                  return null;
+                },
+                arity: 0,
+                name: name);
+          }
+          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+          if (getterAdapter != null) {
+            Logger.debug(
+                "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
+            return null;
+          }
+        }
+        walkClass = walkClass.superclass;
+      }
+    }
+
     // If not found anywhere in the hierarchy or bridge
     throw RuntimeD4rtException("Undefined property '$name' on ${klass.name}.");
   }

@@ -1415,6 +1415,42 @@ class InterpretedInstance implements RuntimeValue {
       return boundNoSuchMethod.call(visitor, [invocation], {});
     }
 
+    // RC-9: last-chance fallback for bridged-super members when there is
+    // no native target (mirrors tom_d4rt_ast). Method → NativeFunction
+    // that invokes any Callable argument and returns null (so
+    // `setState(() { … })` still runs the callback); getter → null.
+    {
+      InterpretedClass? walkClass = klass;
+      while (walkClass != null) {
+        final bridgedSuper = walkClass.bridgedSuperclass;
+        if (bridgedSuper != null) {
+          final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
+          if (methodAdapter != null) {
+            Logger.debug(
+                "[Instance.get] No native target for '${bridgedSuper.name}.$name' — returning callback-invoking no-op fallback.");
+            return NativeFunction(
+                (v, positionalArgs, namedArgs, typeArgs) {
+                  for (final arg in positionalArgs) {
+                    if (arg is Callable) {
+                      arg.call(v, const [], const {});
+                    }
+                  }
+                  return null;
+                },
+                arity: 0,
+                name: name);
+          }
+          final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+          if (getterAdapter != null) {
+            Logger.debug(
+                "[Instance.get] No native target for '${bridgedSuper.name}.$name' getter — returning null.");
+            return null;
+          }
+        }
+        walkClass = walkClass.superclass;
+      }
+    }
+
     // If not found anywhere in the hierarchy or bridge
     throw RuntimeD4rtException("Undefined property '$name' on ${klass.name}.");
   }
