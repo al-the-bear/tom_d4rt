@@ -273,9 +273,54 @@ of the script's top-level return value didn't go through them.
 
 ---
 
-### [ ] Fixed — missing bridge entries: `setState` / `Enum` / `ByteData` / `key` / `layoutChild`
+### [~] Partially fixed — missing bridge entries: `Enum` ✓ / `ByteData` / `setState` / `key` / `layoutChild`
 
-**Symptom**
+**Resolution (Enum):** A minimal `EnumCore` bridged class
+(`nativeType: Enum`, getters for `index` / `name` / `hashCode` /
+`runtimeType`, `toString`) is now registered by `CoreStdlib.register`
+in both `tom_d4rt` and `tom_d4rt_ast`. Generic bounds like
+`class _SettingCard<T extends Enum>` resolve at class-declaration
+time without "Undefined variable: Enum". Verified via
+`widgets/restorable_enum_n_test.dart` (now passes).
+
+**GEN-101 follow-up (narrowing):** The cluster-5 stdlib isolation was
+narrowed to dart:math only. `convert`, `io`, `collection`,
+`typed_data`, `isolate` register back into `globalEnvironment` so
+scripts that reach their symbols transitively through bridged
+libraries (e.g. `flutter/services.dart` exposing `Uint8List` /
+`ByteData`) keep working. This was a pre-existing semantic; the
+isolation was over-scoped in the original cluster-5 fix.
+
+**Still open (separate sub-issues — each its own work item):**
+
+- `setState` on plain interpreted State subclasses — narrowed-#82
+  intentionally skips `nativeProxy` for plain States, so `setState`
+  is no longer dispatched. Need an interpreter-side handler that
+  schedules rebuild via the proxy without going through bridged
+  adapters. Affects `widgets/transition_delegate_test`,
+  `widgets/sliver_animated_list_state_test`.
+- `key` on widget subclass — Dart 2.17+ `super.key` parameter
+  shorthand forwards `key` to the bridged Widget super-constructor,
+  but no `bridgedSuperObject` exists for plain widgets so the value
+  is dropped and later access throws "Undefined property 'key' on …".
+  Fix likely needs the interpreter to detect `super.X` parameter
+  syntax and store the value in `_fields` directly when the bridged
+  super isn't realised. Affects `widgets/page_storage_test`.
+- `layoutChild` on `MultiChildLayoutDelegate` — needs an abstract
+  delegate proxy class similar to the RenderObjectWidget family
+  (registered via `D4.registerInterfaceProxy` in
+  `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`).
+  Affects `widgets/layout_builder_adv_test`,
+  `widgets/parent_data_widget_test`.
+- `ByteData` — script-side bug. The failing script
+  `services/codecs_test.dart` references `ByteData` without
+  `import 'dart:typed_data';`. Real Dart makes it transitively
+  visible through some flutter imports; the bridge does not chain
+  re-exports. Either the script needs an explicit import or the
+  bridge for `flutter/services.dart` needs to re-export `dart:typed_data`
+  symbols.
+
+**Symptom (was)**
 
 ```
 Runtime Error: Undefined variable: setState (Original error: Undefined property 'setState' on _DefaultDemoPageState.)
@@ -284,43 +329,6 @@ Runtime Error: Undefined variable: ByteData
 Runtime Error: Undefined variable: key (Original error: Undefined property 'key' on _PaneList.)
 Runtime Error: Undefined variable: layoutChild (Original error: Undefined property 'layoutChild' on TestMultiChildLayoutDelegate.)
 ```
-
-**Root cause**
-
-Each is a different missing piece, lumped here for triage:
-
-- `setState` on a plain `_InterpretedState` instance — narrowed-#82
-  fix ([524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13))
-  intentionally skips `nativeProxy` for plain States; that means
-  `setState` is no longer routed through Flutter at all. Need a direct
-  setState handler in the interpreter (mark dirty, schedule rebuild
-  via the framework).
-- `Enum` — bridged base class missing from stdlib registrations.
-- `ByteData` — `dart:typed_data` bridge incomplete.
-- `key` on user widget subclass — interpreter doesn't surface the `key`
-  field declared in the bridged `Widget` super.
-- `layoutChild` on `MultiChildLayoutDelegate` — proxy class missing
-  for that abstract delegate.
-
-**Representative scripts** (~5 entries)
-
-- `widgets/restorable_enum_n_test.dart` (Enum)
-- `widgets/transition_delegate_test.dart`
-- `services/codecs_test.dart` (ByteData)
-- `widgets/layout_builder_adv_test.dart` (layoutChild)
-- `widgets/page_storage_test.dart` (key)
-- `widgets/parent_data_widget_test.dart`
-
-**Where to look**
-
-Each sub-issue has its own location:
-- `setState`: `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
-  (add interpreter-side bridge for State.setState that calls
-  `proxy.markNeedsBuild()` directly).
-- `Enum`, `ByteData`: bridge module configs +
-  `tom_d4rt_flutterm/lib/src/bridges/*_bridges.b.dart` regen.
-- `key`: bridged Widget getter wiring.
-- `layoutChild`: needs proxy class + interface registration.
 
 ---
 

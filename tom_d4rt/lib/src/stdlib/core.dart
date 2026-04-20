@@ -25,6 +25,7 @@ import 'package:tom_d4rt/src/stdlib/core/bool.dart';
 import 'package:tom_d4rt/src/stdlib/core/iterator.dart';
 import 'package:tom_d4rt/src/stdlib/core/date_time.dart';
 import 'package:tom_d4rt/src/stdlib/core/duration.dart';
+import 'package:tom_d4rt/src/stdlib/core/enum.dart';
 import 'package:tom_d4rt/src/stdlib/core/type.dart';
 import 'package:tom_d4rt/src/stdlib/core/uri.dart';
 import 'package:tom_d4rt/src/stdlib/core/stack_trace.dart';
@@ -89,6 +90,7 @@ class CoreStdlib {
     environment.defineBridge(TypeCore.definition);
     environment.defineBridge(NullCore.definition);
     environment.defineBridge(ComparableCore.definition);
+    environment.defineBridge(EnumCore.definition);
     environment.defineBridge(NeverCore.definition);
     environment.defineBridge(SymbolCore.definition);
     environment.defineBridge(ErrorCore.definition);

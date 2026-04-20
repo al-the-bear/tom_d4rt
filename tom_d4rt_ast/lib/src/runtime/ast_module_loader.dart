@@ -148,13 +148,15 @@ class AstModuleLoader implements ModuleContext {
     'isolate': (env) => IsolateStdlib.register(env),
   };
 
-  /// Per-stdlib isolated environments (GEN-101 fix — mirrors the
-  /// GEN-100 per-bridged-module isolation). `dart:core` and `dart:async`
-  /// remain in globalEnvironment because their symbols (`print`,
-  /// `Future`, built-in types) must be visible even without an import.
-  /// Other stdlibs get their own environment enclosing globalEnvironment,
-  /// so `import 'dart:math' as math` only exposes `min`/`max`/`pi` under
-  /// the prefix and does not leak them into the unprefixed scope.
+  /// Per-stdlib isolated environments (GEN-101 fix, narrowed in GEN-101b).
+  /// Only `dart:math` is isolated — `min`, `max`, `pi`, … were the
+  /// observed name-collision source (scripts with fields named `min` or
+  /// `max` shadowed by globally-registered functions). Other stdlibs
+  /// (`convert`, `io`, `collection`, `typed_data`, `isolate`) keep their
+  /// symbols in globalEnvironment so scripts continue to reach them
+  /// transitively through bridged libraries like `flutter/services.dart`
+  /// that re-export typed_data / convert content.
+  static const Set<String> _isolatedStdlibs = {'math'};
   final Map<String, Environment> _stdlibEnvironments = {};
 
   /// Loads a `dart:*` stdlib module by registering its definitions.
@@ -169,40 +171,48 @@ class AstModuleLoader implements ModuleContext {
     if (_stdlibRegistrars.containsKey(libName)) {
       final registrar = _stdlibRegistrars[libName];
 
-      // dart:core and dart:async keep their symbols in globalEnvironment.
-      // They are registered at environment init (registrar == null here),
-      // and their `LoadedModule` should expose the global env so any
-      // explicit `import 'dart:core'` doesn't silently hide them.
-      if (registrar == null) {
+      // Isolated stdlibs get their own env. Currently only dart:math —
+      // keeps `min`/`max`/`pi` out of the unprefixed global scope.
+      if (registrar != null && _isolatedStdlibs.contains(libName)) {
+        Environment stdlibEnv;
+        if (_stdlibEnvironments.containsKey(libName)) {
+          stdlibEnv = _stdlibEnvironments[libName]!;
+        } else {
+          stdlibEnv = Environment(enclosing: globalEnvironment);
+          registrar(stdlibEnv);
+          _stdlibEnvironments[libName] = stdlibEnv;
+          _registeredStdlibs.add(libName);
+          Logger.debug(
+            '[AstModuleLoader] Registered isolated stdlib dart:$libName',
+          );
+        }
+
         final emptyAst = SCompilationUnit(offset: 0, length: 0);
         final module = LoadedModule(
           ast: emptyAst,
-          exportedEnvironment: globalEnvironment,
+          exportedEnvironment: stdlibEnv,
           uri: uri,
         );
         _moduleCache[uri] = module;
         return module;
       }
 
-      // Other stdlibs go into an isolated env. Register once, cache the env.
-      Environment stdlibEnv;
-      if (_stdlibEnvironments.containsKey(libName)) {
-        stdlibEnv = _stdlibEnvironments[libName]!;
-      } else {
-        stdlibEnv = Environment(enclosing: globalEnvironment);
-        registrar(stdlibEnv);
-        _stdlibEnvironments[libName] = stdlibEnv;
+      // All other stdlibs (including dart:core, dart:async, and anything
+      // not in _isolatedStdlibs) register into globalEnvironment. This
+      // matches pre-GEN-101 behavior so scripts reaching stdlib symbols
+      // transitively (e.g. ByteData through flutter/services.dart) keep
+      // working.
+      if (registrar != null && !_registeredStdlibs.contains(libName)) {
+        registrar(globalEnvironment);
         _registeredStdlibs.add(libName);
         Logger.debug(
-          '[AstModuleLoader] Registered stdlib dart:$libName into '
-          'isolated env (enclosing globalEnvironment).',
+          '[AstModuleLoader] Registered stdlib dart:$libName into globalEnvironment',
         );
       }
-
       final emptyAst = SCompilationUnit(offset: 0, length: 0);
       final module = LoadedModule(
         ast: emptyAst,
-        exportedEnvironment: stdlibEnv,
+        exportedEnvironment: globalEnvironment,
         uri: uri,
       );
       _moduleCache[uri] = module;
