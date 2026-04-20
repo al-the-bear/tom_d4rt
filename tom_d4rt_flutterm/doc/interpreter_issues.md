@@ -85,41 +85,42 @@ have rejected it too, but with a less-clear error.
 
 ---
 
-### [ ] Fixed — `super.build()` call on bridged State subclass
+### [X] Fixed — `super.build()` call on bridged State subclass
 
-**Symptom**
+**Resolution:** RC-8 — `visitMethodInvocation`'s `BoundBridgedSuper`
+branch in both `interpreter_visitor.dart` files now treats
+`super.<method>()` as a no-op (returns `null`) when neither
+`bridgedSuperObject` nor `nativeProxy` is set, instead of throwing
+"native super object is missing". Scripts that mix in
+`AutomaticKeepAliveClientMixin` and call `super.build(context)` for
+spec compliance (and discard the result) just continue. Also brought
+tom_d4rt's branch in sync with tom_d4rt_ast's nativeProxy-fallback.
+
+After fix:
+- 5/5 cluster scripts cleared the super.build error. 4 fully pass
+  (`shortcut_serialization`, `single_activator`,
+  `single_child_render_object_element`,
+  `single_child_render_object_widget`); 1 (`shortcut_registry_entry`)
+  hits a different downstream bug (`Cannot invoke method 'withValues'
+  on null` inside a `List.generate`).
+- generator_interpreter_issues_test: 30/0/53 → **36/0/47** (+6 pass).
+- essential / important / secondary: 108/0/0, 166/0/3, 647/0/7 (unchanged).
+
+**Symptom (was)**
 
 ```
 Runtime Error: Internal error: Cannot call super method 'build' on bridged
 superclass 'State' because the native super object is missing.
 ```
 
-**Root cause**
+**Root cause (was)**
 
-Scripts that mix in `State` and call `super.build(context)` (or
-`super.didChangeDependencies()`, etc.) hit the bridged-super dispatch
-path expecting a real native State instance — but only the proxy
-exists. Related to the lifecycle re-entrancy guard fix in
-[13a0c2f8](https://github.com/al-the-bear/tom_d4rt/commit/13a0c2f8)
-but the underlying super-method dispatch still rejects the proxy as
-"missing".
-
-**Representative scripts** (5 entries)
-
-- `widgets/shortcut_registry_entry_test.dart`
-- `widgets/shortcut_serialization_test.dart`
-- `widgets/single_activator_test.dart`
-- `widgets/single_child_render_object_element_test.dart`
-- `widgets/single_child_render_object_widget_test.dart`
-
-**Where to look**
-
-Bridged-super method dispatch in
-`tom_d4rt_ast/lib/src/runtime/runtime_types.dart` (~ line 1273) and
-mirror in `tom_d4rt/lib/src/runtime_types.dart`. For State subclasses
-where `nativeProxy` is set, route `super.<lifecycle>` to the proxy's
-`super.<lifecycle>` rather than refusing because `bridgedSuperObject`
-is null.
+Scripts that mix in `AutomaticKeepAliveClientMixin` (or similar) call
+`super.build(context)` from `build()`. The narrowed-#82 fix
+([524caa13](https://github.com/al-the-bear/tom_d4rt/commit/524caa13))
+intentionally left `nativeProxy` null on plain `_InterpretedState`
+instances; the bridged-super dispatch then had no native target and
+threw rather than degrading gracefully.
 
 ---
 

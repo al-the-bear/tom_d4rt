@@ -3123,12 +3123,20 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       } else if (targetValue is BoundBridgedSuper) {
         final instance = targetValue.instance; // L'instance 'this' interprétée
         final bridgedSuper = targetValue.startLookupClass;
+        // RC-6 / RC-8: Use nativeProxy as fallback when bridgedSuperObject
+        // is null (mirrors tom_d4rt_ast). And when neither is set, treat
+        // the super.<method>() call as a no-op rather than throwing —
+        // typically scripts mixing in `AutomaticKeepAliveClientMixin` etc.
+        // call `super.build(context)` for side-effects the bridge cannot
+        // observe; the script discards the result.
         final nativeSuperObject =
-            instance.bridgedSuperObject; // Retrieve the native object
+            instance.bridgedSuperObject ?? instance.nativeProxy;
 
         if (nativeSuperObject == null) {
-          throw RuntimeD4rtException(
-              "Internal error: Cannot call super method '$methodName' on bridged superclass '${bridgedSuper.name}' because the native super object is missing.");
+          Logger.debug(
+              "[visitMethodInvocation] super.$methodName() on bridged super "
+              "'${bridgedSuper.name}' has no native target — treating as no-op.");
+          return null;
         }
 
         // Find the method adapter in the bridged class

@@ -3643,9 +3643,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             instance.bridgedSuperObject ?? instance.nativeProxy;
 
         if (nativeSuperObject == null) {
-          throw RuntimeD4rtException(
-            "Internal error: Cannot call super method '$methodName' on bridged superclass '${bridgedSuper.name}' because the native super object is missing.",
-          );
+          // RC-8: super.<method>() on a bridged superclass that has no
+          // realised native target (e.g. State without nativeProxy on a
+          // plain `_InterpretedState` after the narrowed-#82 fix; scripts
+          // that mix in `AutomaticKeepAliveClientMixin` need to call
+          // `super.build(context)` for spec compliance even though the
+          // mixin's native side isn't reachable from the bridge). Return
+          // null silently — these calls are typically made for side-effects
+          // the bridge can't observe and the script discards the result.
+          Logger.debug(
+              "[visitMethodInvocation] super.$methodName() on bridged super "
+              "'${bridgedSuper.name}' has no native target — treating as no-op.");
+          return null;
         }
 
         // Find the method adapter in the bridged class
