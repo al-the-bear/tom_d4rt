@@ -148,8 +148,16 @@ class AstModuleLoader implements ModuleContext {
     'isolate': (env) => IsolateStdlib.register(env),
   };
 
-  /// Loads a `dart:*` stdlib module by registering its definitions
-  /// into the global environment.
+  /// Per-stdlib isolated environments (GEN-101 fix — mirrors the
+  /// GEN-100 per-bridged-module isolation). `dart:core` and `dart:async`
+  /// remain in globalEnvironment because their symbols (`print`,
+  /// `Future`, built-in types) must be visible even without an import.
+  /// Other stdlibs get their own environment enclosing globalEnvironment,
+  /// so `import 'dart:math' as math` only exposes `min`/`max`/`pi` under
+  /// the prefix and does not leak them into the unprefixed scope.
+  final Map<String, Environment> _stdlibEnvironments = {};
+
+  /// Loads a `dart:*` stdlib module by registering its definitions.
   ///
   /// Returns `null` if the library is not a known stdlib and has no bridged
   /// content, allowing the caller to check bundle modules or throw an error.
@@ -159,21 +167,42 @@ class AstModuleLoader implements ModuleContext {
 
     // Check if it's a known stdlib
     if (_stdlibRegistrars.containsKey(libName)) {
-      // Register if not already done
-      if (!_registeredStdlibs.contains(libName)) {
-        final registrar = _stdlibRegistrars[libName];
-        if (registrar != null) {
-          registrar(globalEnvironment);
-          Logger.debug('[AstModuleLoader] Registered stdlib: dart:$libName');
-        }
-        _registeredStdlibs.add(libName);
+      final registrar = _stdlibRegistrars[libName];
+
+      // dart:core and dart:async keep their symbols in globalEnvironment.
+      // They are registered at environment init (registrar == null here),
+      // and their `LoadedModule` should expose the global env so any
+      // explicit `import 'dart:core'` doesn't silently hide them.
+      if (registrar == null) {
+        final emptyAst = SCompilationUnit(offset: 0, length: 0);
+        final module = LoadedModule(
+          ast: emptyAst,
+          exportedEnvironment: globalEnvironment,
+          uri: uri,
+        );
+        _moduleCache[uri] = module;
+        return module;
       }
 
-      // Return an empty module — stdlib symbols are in globalEnvironment
+      // Other stdlibs go into an isolated env. Register once, cache the env.
+      Environment stdlibEnv;
+      if (_stdlibEnvironments.containsKey(libName)) {
+        stdlibEnv = _stdlibEnvironments[libName]!;
+      } else {
+        stdlibEnv = Environment(enclosing: globalEnvironment);
+        registrar(stdlibEnv);
+        _stdlibEnvironments[libName] = stdlibEnv;
+        _registeredStdlibs.add(libName);
+        Logger.debug(
+          '[AstModuleLoader] Registered stdlib dart:$libName into '
+          'isolated env (enclosing globalEnvironment).',
+        );
+      }
+
       final emptyAst = SCompilationUnit(offset: 0, length: 0);
       final module = LoadedModule(
         ast: emptyAst,
-        exportedEnvironment: globalEnvironment,
+        exportedEnvironment: stdlibEnv,
         uri: uri,
       );
       _moduleCache[uri] = module;

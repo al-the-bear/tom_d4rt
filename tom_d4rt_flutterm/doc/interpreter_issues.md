@@ -169,38 +169,58 @@ failure.
 
 ---
 
-### [ ] Fixed — function-typed argument leaks `NativeFunction` past validation
+### [X] Fixed — `dart:math`'s `min`/`max` leaked into unprefixed scope
 
-**Symptom**
+**Resolution:** GEN-101 — the stdlib registrar for `dart:math` (and
+the other non-core stdlibs) previously wrote `min`, `max`, `pi`, … into
+`globalEnvironment`. That made them visible to every script as
+unprefixed identifiers, even when a script did `import 'dart:math' as
+math;` expecting only `math.min` to resolve. Scripts with a field
+named `min` (common: `_LabeledSlider` wrappers around Flutter's
+`Slider`) found `dart:math.min` first when writing `Slider(min: min, …)`,
+so `min` evaluated to the NativeFunction and the Slider constructor
+rejected the argument with "expected double, got NativeFunction".
+
+Fix in `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart` —
+`_loadStdlibModule` now keeps a per-stdlib `Map<String, Environment>`
+(mirrors the GEN-100 bridged-module isolation). `dart:core` and
+`dart:async` stay in `globalEnvironment` (their symbols are expected
+to be globally visible), but every other `dart:*` stdlib registers
+into its own env enclosing `globalEnvironment`. The
+`LoadedModule.exportedEnvironment` then exposes those symbols through
+the normal prefixed/unprefixed import paths, so `import … as math;`
+correctly hides `min` from the unprefixed scope.
+
+After fix:
+- All `expected double, got NativeFunction` errors on Slider.min/max
+  eliminated in `generator_interpreter_issues_test`.
+- `image_filtered_test` and `indexed_stack_test` past the cluster-5
+  error (now hit different cluster-6 "InterpretedInstance not Widget"
+  downstream bugs).
+- generator_interpreter_issues_test: 36/0/47 → **37/0/46** (+1 pass).
+- essential / important / secondary: 108/0/0, 166/0/3, 647/0/7
+  (unchanged).
+
+Not mirrored in `tom_d4rt/lib/src/module_loader.dart` yet — that path
+uses a source-string-based loading flow where the same pragmatic fix
+doesn't drop in cleanly, and the test app routes through
+tom_d4rt_ast. Follow-up item for when the analyzer-based path is
+exercised directly.
+
+**Symptom (was)**
 
 ```
 Runtime Error: Native error during default bridged constructor for 'Slider':
 Argument Error: Invalid parameter "min": expected double, got NativeFunction
 ```
 
-**Root cause**
+**Root cause (was — INCORRECT hypothesis)**
 
-A script-defined function (probably a getter or shorthand returning a
-double) is passed where the constructor expects a literal `double`.
-The bridge's `extractBridgedArg<double>` doesn't invoke the callable to
-unwrap the value, so the `NativeFunction` itself is forwarded as the
-argument — and `Slider(min: NativeFunction(...))` rightly fails.
-
-Connected to the broader function-type-adaptation work tracked in #74
-([33d121c2](https://github.com/al-the-bear/tom_d4rt/commit/33d121c2)) —
-that fix landed for *return values*, this is the *argument-side* mirror.
-
-**Representative scripts** (~8 entries)
-
-- `widgets/image_filtered_test.dart`
-- `widgets/indexed_stack_test.dart`
-- (… also surfaces inside scripts hit by other clusters)
-
-**Where to look**
-
-`D4.extractBridgedArg<T>` in `tom_d4rt_*/lib/src/generator/d4.dart`. When
-T is a primitive (`double`, `int`, `String`, `bool`) and the value is a
-zero-arg `Callable`, invoke it and re-extract.
+Initially suspected the script passed a zero-arg function where a
+double was expected and `extractBridgedArg<double>` failed to unwrap
+it. Actual cause was name-resolution leak: `dart:math` stdlib symbols
+were in `globalEnvironment`, so the script's field-level `min` was
+shadowed by `dart:math.min` at `visitSimpleIdentifier`.
 
 ---
 
