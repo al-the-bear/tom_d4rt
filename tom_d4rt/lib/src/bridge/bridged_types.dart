@@ -36,6 +36,26 @@ class BridgedClass implements RuntimeType {
     }
   }
 
+  /// Walk the registered supertype chain transitively. Mirror of the
+  /// tom_d4rt_ast helper; used by interface-proxy resolution so
+  /// e.g. `PanelTheme extends InheritedTheme` finds a proxy factory
+  /// registered for `InheritedWidget`.
+  static List<String> transitiveSupertypeNames(String className) {
+    final seen = <String>{};
+    final order = <String>[];
+    final queue = <String>[];
+    final direct = _supertypeRegistry[className];
+    if (direct != null) queue.addAll(direct);
+    while (queue.isNotEmpty) {
+      final next = queue.removeAt(0);
+      if (!seen.add(next)) continue;
+      order.add(next);
+      final step = _supertypeRegistry[next];
+      if (step != null) queue.addAll(step);
+    }
+    return order;
+  }
+
   /// The native Dart type this bridge represents.
   final Type nativeType; // Keep nativeType for bridge logic
 

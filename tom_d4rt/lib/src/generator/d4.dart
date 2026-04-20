@@ -1454,18 +1454,37 @@ class D4 {
     InterpretedInstance instance,
     InterpreterVisitor visitor,
   ) {
-    final klass = instance.klass;
-
-    // Walk hierarchy: bridgedSuperclass, bridgedInterfaces, bridgedMixins
+    // Walk the interpreted superclass chain collecting bridgedSuperclass /
+    // bridgedInterfaces / bridgedMixins plus transitively-registered
+    // supertypes at every level. Mirrors tom_d4rt_ast (Bug-102b/c).
+    final seen = <String>{};
     final candidates = <String>[];
-    if (klass.bridgedSuperclass != null) {
-      candidates.add(klass.bridgedSuperclass!.name);
+    void add(String n) {
+      if (seen.add(n)) candidates.add(n);
     }
-    for (final iface in klass.bridgedInterfaces) {
-      candidates.add(iface.name);
-    }
-    for (final mixin in klass.bridgedMixins) {
-      candidates.add(mixin.name);
+
+    InterpretedClass? walk = instance.klass;
+    while (walk != null) {
+      final directSuper = walk.bridgedSuperclass;
+      if (directSuper != null) {
+        add(directSuper.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(directSuper.name)) {
+          add(s);
+        }
+      }
+      for (final iface in walk.bridgedInterfaces) {
+        add(iface.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(iface.name)) {
+          add(s);
+        }
+      }
+      for (final mixin in walk.bridgedMixins) {
+        add(mixin.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(mixin.name)) {
+          add(s);
+        }
+      }
+      walk = walk.superclass;
     }
 
     for (final name in candidates) {

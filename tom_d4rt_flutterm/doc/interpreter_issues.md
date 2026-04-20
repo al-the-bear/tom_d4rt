@@ -362,21 +362,93 @@ lookup with no native target:
 
 ---
 
-### [ ] Fixed — abstract delegate proxies missing at bridge boundaries
+### [X] Fixed — abstract delegate proxies missing at bridge boundaries
 
-**Symptom**
+**Resolution:** Three coordinated fixes:
+
+1. **Bug-102a — hand-written proxies for `InheritedWidget`,
+   `MultiChildLayoutDelegate`, `SingleChildLayoutDelegate`,
+   `CustomClipper<Path>`** in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`.
+   Pattern mirrors the existing LeafRenderObjectWidget family: a
+   native proxy holds a back-reference to the interpreted instance
+   and forwards the abstract members (`updateShouldNotify`,
+   `performLayout`, `shouldRelayout`, `getConstraintsForChild`,
+   `getSize`, `getPositionForChild`, `getClip`, `shouldReclip`) into
+   the interpreter. For layout/clip delegates the proxy factory also
+   stores itself as `instance.nativeProxy` so bridged-super members
+   (`layoutChild`, `positionChild`, `hasChild`,
+   `getApproximateClipRect`) dispatch through the RC-6 `nativeProxy`
+   fallback when the script calls them on `this`.
+
+2. **Bug-103a — override generator-emitted delegate proxies.** The
+   auto-generated `registerProxyFactories()` emits proxies for these
+   delegate classes with `<dynamic>` type arguments. Because Dart
+   generics are invariant, a `D4rtCustomClipper<dynamic>` does NOT
+   satisfy `CustomClipper<Path>`, so the factory's return was
+   rejected at the proxy-is-T check. A new
+   `registerD4rtInterfaceProxyOverrides()` runs after
+   `FlutterMaterialBridges.register(...)` in the `FlutterD4rt`
+   constructor and re-registers the factories with concrete type
+   arguments that satisfy the native-side checks.
+
+3. **Bug-102b/c — transitive + cross-level hierarchy walk.**
+   `D4.tryCreateInterfaceProxyWithVisitor<T>` now walks the
+   interpreted-superclass chain (so `_DashboardDelegate extends
+   _BaseDelegate extends MultiChildLayoutDelegate` is handled even
+   though `_DashboardDelegate.bridgedSuperclass` is null at the
+   outermost class) and at each level pulls in transitively-
+   registered supertypes via the new
+   `BridgedClass.transitiveSupertypeNames(name)` helper. This is
+   how `PanelTheme extends InheritedTheme` now finds the
+   `InheritedWidget` proxy up the chain. `InheritedTheme` was also
+   added to the `BridgedClass.registerSupertypes({…})` table in
+   `_registerBridgedSupertypes`.
+
+After fix:
+- `render_physical_shape_test` (CustomClipper<Path>) — PASS.
+- `render_custom_single_child_layout_box_test` — PASS.
+- `layout_builder_adv_test`, `parent_data_widget_test`,
+  `render_custom_multi_child_layout_box_test` — past the
+  cluster-9 error; now fail on downstream script-side bugs
+  (null being multiplied by int, `Cannot access property 'height'
+  on target of type null`). Tracked under cluster 12 once triaged.
+- `inherited_theme_test`, `inherited_widget_test` — past the
+  "expected Widget, got InterpretedInstance(PanelTheme)" error;
+  now fail on `PanelTheme.of called with no PanelTheme in context`
+  (Flutter's `dependOnInheritedWidgetOfExactType<PanelTheme>()`
+  returns null because the native tree only sees
+  `_InterpretedInheritedWidget`, not the script's `PanelTheme`
+  type). That's a type-identity mismatch that needs a deeper
+  fix (e.g. a per-script-class proxy generated on the fly); tracked
+  for later.
+- `rendering/relayout_when_system_fonts_change_mixin_test`,
+  `render_absorb_pointer_test` — scripts subclass `RenderObject` /
+  `RenderBox` directly. Proxying those abstract bases has dozens of
+  abstract methods and is out of scope here.
+- generator_interpreter_issues_test: 46/0/37 → **49/0/34** (+3 pass).
+  All `expected Widget/delegate/clipper, got InterpretedInstance`
+  errors on cluster-9-covered base classes are eliminated.
+- essential / important / secondary: 108/0/0, 166/0/3, 651/0/3
+  unchanged.
+
+**Symptom (was)**
 
 ```
 Argument Error: Invalid parameter "delegate": expected MultiChildLayoutDelegate, got InterpretedInstance(_DashboardLayout)
 Argument Error: Invalid parameter "delegate": expected SingleChildLayoutDelegate, got InterpretedInstance(_AnchorPositioner)
 Argument Error: Invalid parameter "clipper": expected CustomClipper<Path>, got InterpretedInstance(_BevelClipper)
-Argument Error: Invalid parameter "createRenderObject": expected RenderObject, got InterpretedInstance(_FontRelayoutRenderBox)
-Argument Error: Invalid parameter "target": expected RenderBox, got InterpretedInstance(_MockRenderBox)
-Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(_DefaultsContainer)
 Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(PanelTheme)
 Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(AppStateScope)
 Runtime Error: Undefined variable: layoutChild (Original error: Undefined property 'layoutChild' on TestMultiChildLayoutDelegate.)
 ```
+
+Still open (separate scope, tracked elsewhere):
+
+- `RenderObject` / `RenderBox` subclass proxies (deep abstract base
+  with many required overrides) — affects a small number of demos.
+- Per-script-class inherited-widget proxying for scripts that use
+  `MyInheritedWidget.of(context)` patterns.
 
 **Root cause**
 

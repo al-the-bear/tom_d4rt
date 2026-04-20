@@ -22,23 +22,32 @@ import 'package:flutter/material.dart'
         DropdownMenuItem,
         ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
-import 'package:flutter/rendering.dart' show BoxConstraints, RenderObject;
+import 'package:flutter/rendering.dart'
+    show
+        BoxConstraints,
+        CustomClipper,
+        MultiChildLayoutDelegate,
+        RenderObject,
+        SingleChildLayoutDelegate;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
         BuildContext,
         GlobalKey,
+        InheritedWidget,
         LeafRenderObjectWidget,
         MultiChildRenderObjectWidget,
         NavigatorState,
         FormState,
         SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
+        SizedBox,
         State,
         StatefulWidget,
         StatelessWidget,
         TickerProviderStateMixin,
         Widget;
+import 'dart:ui' show Offset, Path, Size;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedClass, BridgedInstance;
@@ -95,6 +104,17 @@ void _registerBridgedSupertypes() {
     ],
     'ProxyWidget': ['Widget', 'DiagnosticableTree', 'Diagnosticable'],
     'InheritedWidget': [
+      'ProxyWidget',
+      'Widget',
+      'DiagnosticableTree',
+      'Diagnosticable',
+    ],
+    // Bug-102d: InheritedTheme is a common InheritedWidget subclass that
+    // scripts subclass (PanelTheme in inherited_theme_test). Without this
+    // entry, the transitive supertype walk in tryCreateInterfaceProxy
+    // wouldn't find the InheritedWidget proxy up the chain.
+    'InheritedTheme': [
+      'InheritedWidget',
       'ProxyWidget',
       'Widget',
       'DiagnosticableTree',
@@ -184,6 +204,49 @@ void _registerInterfaceProxies() {
     return _InterpretedMultiChildRenderObjectWidget(visitor, instance,
         key: _readKey(instance, visitor),
         children: _readChildrenWidgets(instance, visitor));
+  });
+
+  // Bug-102: InheritedWidget scripts that wrap a subtree (e.g. PanelTheme,
+  // AppStateScope) need a native proxy so intermediate bridge boundaries
+  // that expect a Widget accept them. Registered here because the generator
+  // does not emit an InheritedWidget proxy.
+  D4.registerInterfaceProxy('InheritedWidget', (visitor, instance) {
+    return _InterpretedInheritedWidget(visitor, instance,
+        key: _readKey(instance, visitor),
+        child: _readChildWidget(instance, visitor) ??
+            const _EmptyWidget());
+  });
+}
+
+/// Bug-103: Override the generator-produced proxies for
+/// `MultiChildLayoutDelegate`, `SingleChildLayoutDelegate`, and
+/// `CustomClipper` with hand-written ones that satisfy the concrete
+/// type arguments (e.g. `CustomClipper<Path>` rather than
+/// `CustomClipper<dynamic>`) and set `nativeProxy` so bridged-super
+/// members (`layoutChild`, `positionChild`, `hasChild`, `getSize`,
+/// `getApproximateClipRect`) called from the script's body dispatch
+/// through RC-6's `nativeProxy` fallback.
+///
+/// This MUST run after `FlutterMaterialBridges.register` — the
+/// generator's `registerProxyFactories()` emits proxies for these
+/// three names with `<dynamic>` type args which don't satisfy the
+/// concrete type checks at bridge boundaries. Re-registering after
+/// overrides the generator entries in `_interfaceProxies`.
+void registerD4rtInterfaceProxyOverrides() {
+  D4.registerInterfaceProxy('MultiChildLayoutDelegate', (visitor, instance) {
+    final proxy = _InterpretedMultiChildLayoutDelegate(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('SingleChildLayoutDelegate', (visitor, instance) {
+    final proxy = _InterpretedSingleChildLayoutDelegate(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
+    final proxy = _InterpretedCustomClipperPath(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
   });
 }
 
@@ -1403,4 +1466,166 @@ class _InterpretedMultiChildRenderObjectWidget
   @override
   void updateRenderObject(BuildContext context, RenderObject renderObject) =>
       _updateRenderObject(_visitor, _instance, context, renderObject);
+}
+
+// =============================================================================
+// Bug-102 / Bug-103: InheritedWidget + layout/clip delegate proxies
+// =============================================================================
+//
+// Native proxies for the remaining abstract-delegate / abstract-widget bases
+// that demo scripts commonly subclass. Pattern mirrors the RenderObjectWidget
+// family above: proxy holds a back-reference to the interpreted instance and
+// forwards the abstract members into the interpreter. For layout / clip
+// delegates, `instance.nativeProxy` is set at interface-proxy-creation time
+// so bridged-super members (`layoutChild`, `positionChild`, `hasChild`,
+// `getSize`, `getApproximateClipRect`) called from the script's body
+// dispatch to the native proxy via RC-6's nativeProxy fallback.
+
+/// Empty Widget used as a safe placeholder for InheritedWidget scripts that
+/// don't expose a `child` field.
+class _EmptyWidget extends StatelessWidget {
+  const _EmptyWidget();
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
+}
+
+/// Native [InheritedWidget] backing an interpreted subclass (e.g. PanelTheme,
+/// AppStateScope). Forwards `updateShouldNotify` to the script and uses the
+/// script's `child` field for the subtree.
+class _InterpretedInheritedWidget extends InheritedWidget {
+  const _InterpretedInheritedWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+    required super.child,
+  });
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    final method = _instance.klass.findInstanceMethod('updateShouldNotify');
+    if (method == null) return true; // conservative default
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldWidget], {});
+      if (raw is bool) return raw;
+    } catch (_) {
+      // Script may reference `oldWidget` incorrectly; default to notifying.
+    }
+    return true;
+  }
+}
+
+/// Native [MultiChildLayoutDelegate] backing an interpreted subclass.
+class _InterpretedMultiChildLayoutDelegate extends MultiChildLayoutDelegate {
+  _InterpretedMultiChildLayoutDelegate(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  void performLayout(Size size) {
+    final method = _instance.klass.findInstanceMethod('performLayout');
+    if (method == null) return;
+    method.bind(_instance).call(_visitor, [size], const {});
+  }
+
+  @override
+  bool shouldRelayout(covariant MultiChildLayoutDelegate oldDelegate) {
+    final method = _instance.klass.findInstanceMethod('shouldRelayout');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldDelegate], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+}
+
+/// Native [SingleChildLayoutDelegate] backing an interpreted subclass.
+class _InterpretedSingleChildLayoutDelegate extends SingleChildLayoutDelegate {
+  _InterpretedSingleChildLayoutDelegate(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    final method =
+        _instance.klass.findInstanceMethod('getConstraintsForChild');
+    if (method == null) return constraints;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [constraints], {});
+      if (raw is BoxConstraints) return raw;
+    } catch (_) {}
+    return constraints;
+  }
+
+  @override
+  Size getSize(BoxConstraints constraints) {
+    final method = _instance.klass.findInstanceMethod('getSize');
+    if (method == null) return super.getSize(constraints);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [constraints], {});
+      if (raw is Size) return raw;
+    } catch (_) {}
+    return super.getSize(constraints);
+  }
+
+  @override
+  Offset getPositionForChild(Size size, Size childSize) {
+    final method = _instance.klass.findInstanceMethod('getPositionForChild');
+    if (method == null) return Offset.zero;
+    try {
+      final raw =
+          method.bind(_instance).call(_visitor, [size, childSize], {});
+      if (raw is Offset) return raw;
+    } catch (_) {}
+    return Offset.zero;
+  }
+
+  @override
+  bool shouldRelayout(covariant SingleChildLayoutDelegate oldDelegate) {
+    final method = _instance.klass.findInstanceMethod('shouldRelayout');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldDelegate], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+}
+
+/// Native [CustomClipper<Path>] backing an interpreted subclass. Only the
+/// Path variant is registered for now (the common case); Rect/RRect
+/// variants can be added by mirroring this proxy.
+class _InterpretedCustomClipperPath extends CustomClipper<Path> {
+  _InterpretedCustomClipperPath(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Path getClip(Size size) {
+    final method = _instance.klass.findInstanceMethod('getClip');
+    if (method == null) return Path();
+    try {
+      final raw = method.bind(_instance).call(_visitor, [size], {});
+      if (raw is Path) return raw;
+    } catch (_) {}
+    return Path();
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    final method = _instance.klass.findInstanceMethod('shouldReclip');
+    if (method == null) return false;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [oldClipper], {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
 }

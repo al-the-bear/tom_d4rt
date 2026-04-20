@@ -35,6 +35,12 @@ class FlutterD4rt {
   FlutterD4rt() : _interpreter = D4rt() {
     _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
+    // Bug-103: Run AFTER material bridges — the generator's
+    // registerProxyFactories() emits <dynamic>-parameterised proxies for
+    // a handful of delegate classes; we re-register with concrete type
+    // arguments so bridge boundaries typed on `CustomClipper<Path>` etc.
+    // resolve correctly.
+    registerD4rtInterfaceProxyOverrides();
   }
 
   /// Creates a [FlutterD4rt] wrapping an existing [D4rt] interpreter.
@@ -46,6 +52,12 @@ class FlutterD4rt {
   FlutterD4rt.withInterpreter(this._interpreter) {
     _ensureRelaxersRegistered();
     FlutterMaterialBridges.register(_interpreter);
+    // Bug-103: Run AFTER material bridges — the generator's
+    // registerProxyFactories() emits <dynamic>-parameterised proxies for
+    // a handful of delegate classes; we re-register with concrete type
+    // arguments so bridge boundaries typed on `CustomClipper<Path>` etc.
+    // resolve correctly.
+    registerD4rtInterfaceProxyOverrides();
   }
 
   /// GEN-079: Register auto-generated generic type relaxers once globally.

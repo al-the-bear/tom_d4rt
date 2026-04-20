@@ -1521,18 +1521,47 @@ class D4 {
     InterpretedInstance instance,
     InterpreterVisitor visitor,
   ) {
-    final klass = instance.klass;
-
-    // Walk hierarchy: bridgedSuperclass, bridgedInterfaces, bridgedMixins
+    // Walk hierarchy starting from `instance.klass` and climbing the
+    // interpreted superclass chain. At every level collect:
+    //   - the bridgedSuperclass name (direct)
+    //   - bridgedInterfaces / bridgedMixins names
+    //   - transitively registered supertypes of each (Bug-102b)
+    // Then try each candidate against the interface-proxy registry.
+    //
+    // Prior to Bug-102c, only the outermost klass's bridgedSuperclass
+    // was considered — so a script like
+    //   abstract class _BaseDelegate extends MultiChildLayoutDelegate { ... }
+    //   class _DashboardDelegate extends _BaseDelegate { ... }
+    // failed to resolve because _DashboardDelegate.bridgedSuperclass is
+    // null (its bridged super is one interpreted hop away).
+    final seen = <String>{};
     final candidates = <String>[];
-    if (klass.bridgedSuperclass != null) {
-      candidates.add(klass.bridgedSuperclass!.name);
+    void add(String n) {
+      if (seen.add(n)) candidates.add(n);
     }
-    for (final iface in klass.bridgedInterfaces) {
-      candidates.add(iface.name);
-    }
-    for (final mixin in klass.bridgedMixins) {
-      candidates.add(mixin.name);
+
+    InterpretedClass? walk = instance.klass;
+    while (walk != null) {
+      final directSuper = walk.bridgedSuperclass;
+      if (directSuper != null) {
+        add(directSuper.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(directSuper.name)) {
+          add(s);
+        }
+      }
+      for (final iface in walk.bridgedInterfaces) {
+        add(iface.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(iface.name)) {
+          add(s);
+        }
+      }
+      for (final mixin in walk.bridgedMixins) {
+        add(mixin.name);
+        for (final s in BridgedClass.transitiveSupertypeNames(mixin.name)) {
+          add(s);
+        }
+      }
+      walk = walk.superclass;
     }
 
     for (final name in candidates) {
