@@ -438,7 +438,28 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   // -------------------------------------------------------------------------
   final targetByName = {for (final t in targets) t.baseTypeName: t};
 
-  for (final className in gen075Classes) {
+  // GEN-094: Iterate every class that will get an RC-2 generic constructor
+  // factory, not just gen075Classes. The RC-2 factory for class X is emitted
+  // by `_writeGenericConstructorSection` for every non-abstract, non-sealed
+  // single-type-param class in globalClassLookup — so the set of classes
+  // whose factories pass nested `Animatable<T>`-style args is strictly
+  // larger than gen075Classes. Without this expansion, a script like
+  // `TweenSequenceItem<Color?>(tween: ColorTween(...))` hits the 'Color'
+  // case in the TweenSequenceItem factory (nullability is erased to base
+  // typeName), tries to extract `Animatable<Color>` from an `Animatable<Color?>`
+  // value, and fails — because the Animatable relaxer factory has no 'Color'
+  // case to bridge the generic invariance.
+  final rc2EligibleClasses = <String>{
+    ...gen075Classes,
+    for (final entry in globalClassLookup.entries)
+      if (entry.value.typeParameters.length == 1 &&
+          !entry.value.isAbstract &&
+          !entry.value.isSealed &&
+          entry.value.constructors.any((c) => !c.isFactory))
+        entry.key,
+  };
+
+  for (final className in rc2EligibleClasses) {
     final classInfo = globalClassLookup[className];
     if (classInfo == null) continue;
     if (classInfo.typeParameters.length != 1) continue;
@@ -467,13 +488,32 @@ List<_RelaxerTarget> _buildRelaxerTargets(
 
         // Add all concrete bridged types to this target's rc2 module,
         // ensuring the factory covers all types the gen075 class handles.
+        // GEN-094: Respect the existingTarget's type parameter bound —
+        // `$RelaxedRenderObjectWithChildMixin<num>` is invalid because V
+        // extends RenderObject. Only add type args that satisfy the bound.
         var rc2Set = existingTarget.moduleTypeArgs['rc2'];
         if (rc2Set == null) {
           rc2Set = <String>{};
           existingTarget.moduleTypeArgs['rc2'] = rc2Set;
         }
-        rc2Set.addAll(_rc2PrimitiveTypes);
+        final targetBound =
+            existingTarget.classInfo?.typeParameters.values.firstOrNull;
+        final targetIsUnbounded =
+            targetBound == null || targetBound == 'Object?';
+        if (targetIsUnbounded) {
+          rc2Set.addAll(_rc2PrimitiveTypes);
+        } else {
+          for (final prim in _rc2PrimitiveTypes) {
+            if (_rc2SatisfiesBound(prim, targetBound, globalClassLookup)) {
+              rc2Set.add(prim);
+            }
+          }
+        }
         for (final typeName in allConcreteBridgedTypes) {
+          if (!targetIsUnbounded &&
+              !_rc2SatisfiesBound(typeName, targetBound, globalClassLookup)) {
+            continue;
+          }
           rc2Set.add(typeName);
         }
         break; // One param is enough to trigger expansion for this class
@@ -700,6 +740,8 @@ String? _generateWrapperClass(
       tGetters,
       tSetters,
       tMethods,
+      allGetters,
+      allMethods,
     );
   } else {
     // For extends: only override T-involving members
@@ -1030,6 +1072,8 @@ void _writeImplementsDelegation(
   List<MemberInfo> tGetters,
   List<MemberInfo> tSetters,
   List<MemberInfo> tMethods,
+  List<MemberInfo> allGetters,
+  List<MemberInfo> allMethods,
 ) {
   // noSuchMethod override — suppresses all unimplemented member errors.
   // At runtime, unimplemented members throw NoSuchMethodError which is
@@ -1098,6 +1142,64 @@ void _writeImplementsDelegation(
         '  ${method.returnType} ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
       );
     }
+    buf.writeln();
+  }
+
+  // GEN-094: Forward every abstract non-T-involving method on the interface
+  // to `_inner`. Without these, a script calling e.g.
+  // `$RelaxedAnimation<Offset>.addListener(cb)` lands in the default
+  // noSuchMethod and throws — because addListener doesn't reference T, it's
+  // absent from tMethods, and `implements Animation<V>` does not inherit a
+  // concrete implementation. This emits one-line delegating overrides for
+  // every such method, turning the wrapper into a transparent proxy.
+  final tMethodNames = tMethods.map((m) => m.name).toSet();
+  // Object's default methods are concrete — don't override them.
+  const objectMethods = {
+    'toString',
+    'hashCode',
+    'noSuchMethod',
+    'runtimeType',
+  };
+  for (final method in allMethods) {
+    if (tMethodNames.contains(method.name)) continue;
+    if (method.hasTypeParameters) continue;
+    if (objectMethods.contains(method.name)) continue;
+    // Skip methods that reference T in any way — already handled above.
+    if (tPattern.hasMatch(method.returnType)) continue;
+    if (method.parameters.any((p) => tPattern.hasMatch(p.type))) continue;
+    // Skip operators — they use special syntax and are handled by operator
+    // bridging separately.
+    if (method.isOperator) continue;
+
+    final paramSig = _buildMethodParamSignature(method, typeParamName);
+    final callArgs = _buildMethodCallArgs(method);
+    buf.writeln('  @override');
+    if (method.returnType == 'void') {
+      buf.writeln(
+        '  void ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
+      );
+    } else {
+      buf.writeln(
+        '  ${method.returnType} ${method.name}($paramSig) => _inner.${method.name}($callArgs);',
+      );
+    }
+    buf.writeln();
+  }
+
+  // GEN-094: Forward abstract non-T-involving getters too (e.g.
+  // Animation.status, Animation.isCompleted). Same reasoning as methods —
+  // the script reading a getter through the relaxer wrapper should reach
+  // `_inner`, not noSuchMethod.
+  final tGetterNames = tGetters.map((m) => m.name).toSet();
+  const objectGetters = {'hashCode', 'runtimeType'};
+  for (final getter in allGetters) {
+    if (tGetterNames.contains(getter.name)) continue;
+    if (objectGetters.contains(getter.name)) continue;
+    if (tPattern.hasMatch(getter.returnType)) continue;
+    buf.writeln('  @override');
+    buf.writeln(
+      '  ${getter.returnType} get ${getter.name} => _inner.${getter.name};',
+    );
     buf.writeln();
   }
 }
@@ -1400,7 +1502,23 @@ String _buildMethodParamSignature(MemberInfo method, String typeParamName) {
     for (final param in named) {
       final type = _replaceTypeParam(param.type, typeParamName, 'V');
       final prefix = param.isRequired ? 'required ' : '';
-      namedParts.add('$prefix$type ${param.name}');
+      // GEN-094: Emit a default value when one is available and the param
+      // type is non-nullable. Without this, forwarders for methods with
+      // named optional non-nullable params (e.g.
+      // `toStringShallow({String joiner = ', '})`) fail to compile since
+      // the implicit `null` default violates the declared type. If no
+      // default was captured, fall back to making the type nullable so
+      // the signature is still a valid implementer of the interface.
+      String suffix = '';
+      var effectiveType = type;
+      if (!param.isRequired) {
+        if (param.defaultValue != null && param.defaultValue!.isNotEmpty) {
+          suffix = ' = ${param.defaultValue}';
+        } else if (!type.endsWith('?')) {
+          effectiveType = '$type?';
+        }
+      }
+      namedParts.add('$prefix$effectiveType ${param.name}$suffix');
     }
     parts.add('{${namedParts.join(', ')}}');
   }
@@ -1960,10 +2078,21 @@ void _writeRC2Case(
             'D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
           );
         } else {
-          // For non-nullable required params, extract as nullable then assert
-          final nullableType = _rc2NullableCast(substitutedType);
+          // GEN-094: Extract with the non-nullable target type directly.
+          // Emitting `extractBridgedArg<Animatable<Color>?>(..)!` — the old
+          // "nullable then assert" pattern — is broken when the relaxer
+          // resolution fires: `null is T?` is true, the `as T?` path at
+          // the top of extractBridgedArg succeeds on a raw type-erased cast
+          // for certain shapes (ColorTween → Animatable<Color?> → erased
+          // to Animatable<dynamic>), and the function returns before it
+          // ever consults the registered generic wrapper factories. The
+          // non-nullable variant forces the wrapper resolution path
+          // (GEN-079) to run and correctly wraps a ColorTween as
+          // `$RelaxedAnimatable<Color>`. `extractBridgedArg<T>` already
+          // throws for null / wrong-type values, so no explicit `!` is
+          // required.
           args.add(
-            'D4.extractBridgedArg<$nullableType>($safeName, \'${p.name}\')!',
+            'D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
           );
         }
       }
@@ -2086,17 +2215,15 @@ void _writeRC2Case(
       } else {
         // Contains type param (e.g., Animatable<T>) — substitute and use
         // extractBridgedArg for GEN-079 wrapper resolution (see Fix D).
+        // GEN-094: Emit the non-nullable target type directly. The old
+        // "<T?>(..)!" pattern silently bypasses the generic wrapper
+        // resolution (see sibling positional path for the full story) so
+        // a TweenSequenceItem<Color?>(tween: ColorTween(...)) call null-
+        // asserts on a failed Animatable<Color>? extract.
         final substitutedType = substituteTypeParam(p.type);
-        if (isNullable) {
-          namedArgParts.add(
-            '${p.name}: D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
-          );
-        } else {
-          final nullableType = _rc2NullableCast(substitutedType);
-          namedArgParts.add(
-            '${p.name}: D4.extractBridgedArg<$nullableType>($safeName, \'${p.name}\')!',
-          );
-        }
+        namedArgParts.add(
+          '${p.name}: D4.extractBridgedArg<$substitutedType>($safeName, \'${p.name}\')',
+        );
       }
     } else if (p.type == 'double' || p.type == 'double?') {
       // GEN-075: int→double coercion (D4rt int literals don't auto-promote)
@@ -2180,6 +2307,32 @@ bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) {
   if (src.startsWith('dart:')) return true; // dart:core, dart:ui, etc.
   for (final prefix in inScopePackagePrefixes) {
     if (src.startsWith(prefix)) return true;
+  }
+  // GEN-094: `sourceFile` may be an absolute filesystem path (e.g.
+  // /srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart) rather
+  // than a package:/ URI. Map known Flutter/engine path fragments to the
+  // corresponding package: URIs and retry.
+  //
+  // Without this, every Flutter class shows up as "not in scope" and the
+  // RC-2 factory expansion in Step 2c gets an empty `allConcreteBridgedTypes`
+  // — so e.g. `$RelaxedAnimatable<Color>` never lands in the relaxer,
+  // and scripts like `TweenSequenceItem<Color?>(tween: ColorTween(...))`
+  // hit the 'Color' case and null-assert on a failed extractBridgedArg.
+  String? mapped;
+  if (src.contains('/sky_engine/lib/ui/')) {
+    mapped = 'dart:ui';
+  } else if (src.contains('/flutter/packages/flutter/lib/')) {
+    mapped = 'package:flutter/';
+  } else if (src.contains('/flutter/packages/flutter_web_plugins/lib/')) {
+    mapped = 'package:flutter_web_plugins/';
+  } else if (src.contains('/flutter/packages/flutter_test/lib/')) {
+    mapped = 'package:flutter_test/';
+  }
+  if (mapped != null) {
+    if (mapped == 'dart:ui') return true;
+    for (final prefix in inScopePackagePrefixes) {
+      if (mapped.startsWith(prefix)) return true;
+    }
   }
   return false;
 }

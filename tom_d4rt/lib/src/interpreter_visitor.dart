@@ -200,6 +200,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           break;
         case 'double':
           if (value is double) return value;
+          // GEN-094: int→double promotion — see tom_d4rt_ast mirror for
+          // the full reasoning; in short, D4rt collection literals
+          // store int elements even under `<double>[...]`, so an
+          // explicit `as double` must handle the same case
+          // extractBridgedArg already does via INTER-003.
+          if (value is int) return value.toDouble();
           break;
         case 'num':
           if (value is num) return value;
@@ -229,8 +235,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return value;
       }
     }
+    // GEN-094: Include actual value type for actionable diagnostics.
+    final valueDesc = value?.runtimeType.toString() ?? 'Null';
     throw RuntimeD4rtException(
-        "Cast failed with 'as' : the value does not match the target type (${typeNode.toSource()})");
+        "Cast failed with 'as' : value of type $valueDesc cannot be cast to ${typeNode.toSource()}");
   }
 
   @override

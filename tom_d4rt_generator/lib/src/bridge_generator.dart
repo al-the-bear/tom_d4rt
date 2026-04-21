@@ -13143,13 +13143,29 @@ class BridgeGenerator {
         if (skipCast) {
           wrapperBody = '{ return $callExpr; }';
         } else {
-          // GEN-081b: route the callback result through extractBridgedArg
-          // so a script-returned InterpretedInstance gets wrapped by the
-          // registered interface-proxy factory. Pass `visitor` so the
-          // resolver has a context even when `_activeVisitor` is null
-          // (typical during Flutter's own callback dispatch).
-          wrapperBody =
-              "{ return D4.extractBridgedArg<$castType>($callExpr, 'callback', visitor); }";
+          // GEN-094: For `List<X>` return types, route through
+          // `D4.coerceList<X>` rather than `extractBridgedArg<List<X>>`.
+          // The interpreter produces `List<Object?>` for script-side
+          // collection-literal returns (`<Widget>[...]` loses its
+          // type argument in the bundle format), and coerceList is the
+          // path that unwraps each element and preserves type via per-
+          // element cast. Without this, callbacks with typed-List returns
+          // (e.g., `headerSliverBuilder: (...) => <Widget>[...]` on
+          // NestedScrollView) fail with `List<Object?> is not List<Widget>`.
+          if (castType.startsWith('List<') && castType.endsWith('>')) {
+            final inner =
+                castType.substring('List<'.length, castType.length - 1);
+            wrapperBody =
+                "{ return D4.coerceList<$inner>($callExpr, 'callback'); }";
+          } else {
+            // GEN-081b: route the callback result through extractBridgedArg
+            // so a script-returned InterpretedInstance gets wrapped by the
+            // registered interface-proxy factory. Pass `visitor` so the
+            // resolver has a context even when `_activeVisitor` is null
+            // (typical during Flutter's own callback dispatch).
+            wrapperBody =
+                "{ return D4.extractBridgedArg<$castType>($callExpr, 'callback', visitor); }";
+          }
         }
       }
     }

@@ -681,9 +681,9 @@ checks, or an explicit adapter class.
 
 ---
 
-### [ ] Fixed — generic constructor / relaxer edge cases
+### [X] Fixed (11, GEN-094) — generic constructor / relaxer edge cases
 
-**Symptom**
+**Symptom** (now resolved; original diagnostic messages)
 
 ```
 Runtime Error: Error in generic constructor factory for 'TweenSequenceItem': Null check operator used on a null value
@@ -692,34 +692,103 @@ Runtime Error: Cast failed with 'as' : the value does not match the target type 
 type 'List<Object?>' is not a subtype of type 'List<Widget>' in type cast
 ```
 
-**Root cause**
+**Root cause** (four independent generator/runtime edges, diagnosed in sequence)
 
-Different bridge-generator / relaxer edges:
+1. **Relaxer `rc2` scope was empty.** The Step 2c expansion in
+   `relaxer_generator.dart` iterated only `gen075Classes`, but
+   `TweenSequenceItem` is RC-2-eligible (not gen075). Worse,
+   `_isTypeInScope` compared absolute filesystem paths (e.g.
+   `/srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart`)
+   against `package:` URI prefixes, so *every* Flutter class was
+   "out of scope" — `allConcreteBridgedTypes` came out empty and the
+   generated `_relaxAnimatable$rc2` factory only had primitive cases
+   (String, int, double, bool, num). Result: `TweenSequenceItem<Color?>
+   (tween: ColorTween(...))` had no way to bridge `Animatable<Color?>`
+   → `Animatable<Color>` through the relaxer.
+2. **`extractBridgedArg<T?>` silently returned null for relaxable
+   generics.** The emitted `_rc2TweenSequenceItem` factory used
+   `extractBridgedArg<Animatable<Color>?>(..)!` — the "extract as
+   nullable then bang" pattern. For a nullable `T?`, the ENG-007
+   path `return unwrapped as T` caught the `TypeError` from the
+   invariant mismatch and fell through, but on some shapes the
+   function then returned null via an earlier nullable-friendly
+   branch *without ever hitting the GEN-079 wrapper resolution*.
+   `!` on that null fired "Null check operator used on a null value"
+   inside the factory.
+3. **`$Relaxed<V>` wrappers exposed only T-involving members.** The
+   `_writeImplementsDelegation` helper emitted `noSuchMethod` that
+   just re-throws, and only overrode methods/getters that referenced
+   T. Every non-T-typed method on the underlying interface
+   (`addListener`, `removeListener`, `status`, …) fell into
+   `noSuchMethod` and threw `NoSuchMethodError` on the relaxer proxy.
+4. **Typed-List callback returns weren't coerced.** `bridge_generator.dart`
+   emitted `D4.extractBridgedArg<List<Widget>>(...)` for function-
+   wrapper return types like `headerSliverBuilder: (ctx, scrolled)
+   => <Widget>[…]`. The interpreter hands back a `List<Object?>`
+   (collection literals don't retain their type arg through the
+   bundle), and extractBridgedArg's list path has no case that casts
+   `List<Object?>` to `List<Widget>`.
 
-- `TweenSequenceItem` factory dereferences a value that ends up null
-  for some script call shape (animated/tween edge case).
-- `$RelaxedAnimation<Offset>.addListener` — the relaxer wrapper does
-  not forward `addListener` correctly when the type arg is non-trivial.
-- `SNamedType` cast — interpreter's runtime-type machinery: somewhere
-  a value that should be a `SNamedType` AST node ends up something
-  else.
-- `List<Object?>` not `List<Widget>` — coerceList<Widget> sees a
-  raw List<Object?> from the relaxer pipeline and fails the cast
-  even after cluster 2's null-filter (the elements aren't null, just
-  typed as Object?).
+A fifth, smaller edge fell out of the same diagnostic session:
+`as double` on an `int` value (from script-side `<double>[0, 25, 50,
+...]` literals that stay int in D4rt) threw instead of promoting.
 
-**Representative scripts** (4 entries)
+**Fix (GEN-094)**
 
-- `animation/tweensequence_test.dart` (TweenSequenceItem)
-- `widgets/slidetransition_test.dart` ($RelaxedAnimation.addListener)
-- `widgets/nestedscrollview_test.dart` (SNamedType cast)
-- `widgets/fixed_extent_metrics_test.dart` (List<Object?>→List<Widget>)
+- `tom_d4rt_generator/lib/src/relaxer_generator.dart`
+  - Step 2c now iterates every RC-2-eligible class (single-param,
+    non-abstract, non-sealed, has non-factory ctor) in addition to
+    gen075Classes. Respects the nested target's type parameter
+    bound when expanding the `rc2` type-arg set — primitives and
+    concrete types are only added when they satisfy the bound (avoids
+    e.g. `$RelaxedRenderObjectWithChildMixin<num>`).
+  - `_isTypeInScope` maps absolute file paths that land under
+    `/sky_engine/lib/ui/`, `/flutter/packages/flutter/lib/`,
+    `/flutter/packages/flutter_web_plugins/lib/`, and
+    `/flutter/packages/flutter_test/lib/` to their corresponding
+    package URIs and rechecks against `inScopePackagePrefixes`.
+  - RC-2 factory emission for non-nullable required params now uses
+    `extractBridgedArg<T>` (non-nullable T) directly instead of the
+    `<T?>(..)!` pattern. Non-nullable T forces the GEN-079 wrapper
+    resolution path to run; `extractBridgedArg<T>` already throws
+    on null / wrong-type values, so no `!` is needed.
+  - `_writeImplementsDelegation` emits transparent forwarders
+    (`void foo(args) => _inner.foo(args);`) for every non-T method
+    and non-T getter on the interface (skipping Object defaults and
+    operators). The relaxer wrapper now acts as a true proxy.
+  - `_buildMethodParamSignature` emits default values for named
+    optional params that carry them, and falls back to a nullable
+    type when a default is unavailable — otherwise the forwarder for
+    e.g. `toStringShallow({String joiner = ', '})` fails to compile.
 
-**Where to look**
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  - Function-wrapper emission routes `List<X>` return types through
+    `D4.coerceList<X>(…, 'callback')` instead of
+    `extractBridgedArg<List<X>>`. `coerceList` already handles the
+    per-element unwrap + typed cast that the list-path in
+    extractBridgedArg can't do generically.
 
-Each is its own bug in `tom_d4rt_generator/lib/src/relaxer_generator.dart`
-or the relaxer wrapper templates. Worth opening on the test app's
-red-error screen first to read the full stack.
+- Interpreter (tom_d4rt + tom_d4rt_ast, kept in sync)
+  - `visitAsExpression` `case 'double'` now promotes `int` values to
+    `double` (INTER-003 parity).
+  - Cast-failure diagnostic now includes the actual value type rather
+    than `Instance of 'SNamedType'` — `typeNode.toString()` was
+    useless because SNamedType doesn't override `toString`.
+
+**Representative scripts** (all 4 now green)
+
+- `animation/tweensequence_test.dart`
+- `widgets/slidetransition_test.dart`
+- `widgets/nestedscrollview_test.dart`
+- `widgets/fixed_extent_metrics_test.dart`
+
+**Regression check** (post-fix)
+
+- gii:       56-57/26-27 (was 52-53/30-31 — +4, pre-existing
+  shader_mask + sliver_child_builder flakes)
+- essential: 108/0/0 (no regression)
+- important: 168/1/0 (was 167/2 — +1, tweensequence now passes)
+- secondary: 653/1/0 (was 652/2 — +1, fixed_extent_metrics now passes)
 
 ---
 

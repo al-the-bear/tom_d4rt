@@ -209,6 +209,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           break;
         case 'double':
           if (value is double) return value;
+          // GEN-094: int→double promotion for `x as double` mirrors the
+          // INTER-003 promotion already done by extractBridgedArg and
+          // matches the semantics the analyzer applies to `<double>[0,
+          // 25, 50]` literals — the D4rt interpreter stores those
+          // elements as int, so `list[0] as double` would otherwise
+          // fail even though the same cast succeeds in native Dart.
+          if (value is int) return value.toDouble();
           break;
         case 'num':
           if (value is num) return value;
@@ -238,8 +245,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return value;
       }
     }
+    // GEN-094: Improve error message: toString()-based error was always
+    // "Instance of 'SNamedType'" because SNamedType doesn't override
+    // toString. Include the actual type name and value type so the
+    // failure is actionable.
+    final typeDesc = typeNode is SNamedType
+        ? (typeNode.importPrefix != null
+              ? '${typeNode.importPrefix!.name}.${typeNode.name?.name ?? '?'}'
+              : typeNode.name?.name ?? '?')
+        : typeNode.runtimeType.toString();
+    final valueDesc = value?.runtimeType.toString() ?? 'Null';
     throw RuntimeD4rtException(
-      "Cast failed with 'as' : the value does not match the target type (${typeNode.toString()})",
+      "Cast failed with 'as' : value of type $valueDesc cannot be cast to $typeDesc",
     );
   }
 
