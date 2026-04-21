@@ -12,6 +12,8 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
     show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
+import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
+    show runSummaryCacheStage;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
 import 'package:tom_d4rt_generator/src/user_bridge_scanner.dart';
@@ -171,6 +173,19 @@ Future<void> _generateBridges(
   // Scan for user bridges before processing modules
   final userBridgeScanner = await _scanUserBridges(projectDir, verbose: verbose);
 
+  // Run summary-cache stage (non-fatal): produce library summaries + SDK
+  // summary so the analyzer can resolve external dependencies from cached
+  // `.sum` bundles instead of re-parsing their sources on every run.
+  List<String>? summaryPaths;
+  String? sdkSummaryPath;
+  try {
+    final cacheResult = await runSummaryCacheStage(projectDir);
+    summaryPaths = cacheResult?.summaryPaths;
+    sdkSummaryPath = cacheResult?.sdkSummaryPath;
+  } catch (e) {
+    print('  Warning: summary-cache stage failed: $e');
+  }
+
   // GEN-079: Collect class lookup across modules for relaxer generation.
   final globalClassLookup = <String, ClassInfo>{};
 
@@ -208,6 +223,8 @@ Future<void> _generateBridges(
       d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
       verbose: verbose,
       userBridgeScanner: userBridgeScanner,
+      librarySummaryPaths: summaryPaths,
+      sdkSummaryPath: sdkSummaryPath,
     );
 
     // Resolve barrel files
@@ -288,6 +305,8 @@ Future<void> _generateBridges(
     final proxyResult = await generateProxies(
       config: config,
       projectPath: projectDir,
+      librarySummaryPaths: summaryPaths,
+      sdkSummaryPath: sdkSummaryPath,
     );
 
     if (proxyResult.errors.isNotEmpty) {

@@ -8,6 +8,8 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
+    show runSummaryCacheStage;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
@@ -123,6 +125,23 @@ Future<GenerationResult> generateBridges({
     includeStackTrace: true,
   );
 
+  // Summary-cache stage (shared with tom_reflection_generator via
+  // <workspace>/.tom/analyzer-cache/). Generates or loads `.sum`
+  // bundles for hosted/SDK dependencies so BridgeGenerator and the
+  // proxy generator can skip re-scanning those packages from sources.
+  // Failures here are non-fatal — we simply fall back to the classic
+  // source-based analyzer context.
+  List<String>? summaryPaths;
+  String? sdkSummaryPath;
+  try {
+    final cacheResult = await runSummaryCacheStage(projectDir);
+    summaryPaths = cacheResult?.summaryPaths;
+    sdkSummaryPath = cacheResult?.sdkSummaryPath;
+  } catch (e) {
+    // Never fail bridge generation because of the cache. Report and move on.
+    print('  Warning: summary-cache stage failed: $e');
+  }
+
   var totalClasses = 0;
   final outputFiles = <String>[];
   final errors = <String>[];
@@ -178,6 +197,8 @@ Future<GenerationResult> generateBridges({
                   .toList()
             : null, // Use defaults if not configured
         userBridgeScanner: sharedUserBridgeScanner,
+        librarySummaryPaths: summaryPaths,
+        sdkSummaryPath: sdkSummaryPath,
       );
 
       // Resolve barrel files - if they're package: or dart: URIs, pass as-is; otherwise join with projectDir
@@ -277,6 +298,8 @@ Future<GenerationResult> generateBridges({
       final proxyResult = await generateProxies(
         config: bridgeConfig,
         projectPath: projectDir,
+        librarySummaryPaths: summaryPaths,
+        sdkSummaryPath: sdkSummaryPath,
       );
       if (proxyResult.outputFile != null) {
         outputFiles.add(proxyResult.outputFile!);

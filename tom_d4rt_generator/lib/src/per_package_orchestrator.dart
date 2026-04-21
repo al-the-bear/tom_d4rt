@@ -110,12 +110,26 @@ class PerPackageBridgeOrchestrator {
   /// Counter for deprecated elements skipped during generation.
   int skippedDeprecatedCount = 0;
 
+  /// Optional analyzer-summary (`.sum`) paths shared across all
+  /// [BridgeGenerator] instances created by this orchestrator.
+  ///
+  /// Populated by callers from `package:tom_analyzer_shared`'s
+  /// `runSummaryCacheStage` so every per-package generation run
+  /// reuses the same cached dependency summaries.
+  final List<String>? librarySummaryPaths;
+
+  /// Optional pre-built SDK summary `.sum` path (paired with
+  /// [librarySummaryPaths]).
+  final String? sdkSummaryPath;
+
   PerPackageBridgeOrchestrator({
     required this.config,
     required this.projectRoot,
     required this.fileWriter,
     required this.buildPackageName,
     this.onWarning,
+    this.librarySummaryPaths,
+    this.sdkSummaryPath,
   }) {
     // Set up warning callback for user bridge scanner
     _userBridgeScanner.onWarning = (msg) {
@@ -196,6 +210,8 @@ class PerPackageBridgeOrchestrator {
         sourceImport: sourceImport,
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
+        librarySummaryPaths: librarySummaryPaths,
+        sdkSummaryPath: sdkSummaryPath,
       );
 
       // Resolve barrel files and track which one is which
@@ -362,6 +378,8 @@ class PerPackageBridgeOrchestrator {
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
+        librarySummaryPaths: librarySummaryPaths,
+        sdkSummaryPath: sdkSummaryPath,
       );
 
       // Parse all classes from this package's source files
@@ -424,6 +442,8 @@ class PerPackageBridgeOrchestrator {
         helpersImport: config.helpersImport ?? 'package:tom_d4rt/tom_d4rt.dart',
         d4rtImport: config.d4rtImport ?? 'package:tom_d4rt/d4rt.dart',
         userBridgeScanner: _userBridgeScanner,
+        librarySummaryPaths: librarySummaryPaths,
+        sdkSummaryPath: sdkSummaryPath,
       );
 
       // Set per-package option for deprecated element generation

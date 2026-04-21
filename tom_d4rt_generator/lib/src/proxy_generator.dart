@@ -18,6 +18,9 @@ library;
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
+    show AnalysisContextCollectionImpl;
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:path/path.dart' as p;
@@ -158,9 +161,17 @@ class ProxyGenerationResult {
 ///
 /// Uses the Dart analyzer to resolve abstract class methods and generates
 /// proxy subclasses that delegate to callback functions.
+///
+/// When [librarySummaryPaths] and/or [sdkSummaryPath] are provided
+/// (typically by `package:tom_analyzer_shared`'s
+/// `runSummaryCacheStage`), the internal [AnalysisContextCollectionImpl]
+/// loads those bundles instead of re-scanning dependency sources from
+/// disk.
 Future<ProxyGenerationResult> generateProxies({
   required BridgeConfig config,
   required String projectPath,
+  List<String>? librarySummaryPaths,
+  String? sdkSummaryPath,
 }) async {
   if (!config.generateProxies || config.proxyClasses.isEmpty) {
     return const ProxyGenerationResult();
@@ -180,12 +191,20 @@ Future<ProxyGenerationResult> generateProxies({
       ? projectPath
       : p.normalize(p.join(Directory.current.path, projectPath));
 
-  final sdkPath = getSdkPath();
-
-  final collection = AnalysisContextCollection(
-    includedPaths: [absoluteProjectPath],
-    sdkPath: sdkPath,
-  );
+  final hasSummaries =
+      (librarySummaryPaths != null && librarySummaryPaths.isNotEmpty) ||
+          sdkSummaryPath != null;
+  final AnalysisContextCollection collection = hasSummaries
+      ? AnalysisContextCollectionImpl(
+          includedPaths: [absoluteProjectPath],
+          sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+          sdkSummaryPath: sdkSummaryPath,
+          librarySummaryPaths: librarySummaryPaths ?? const [],
+        )
+      : AnalysisContextCollection(
+          includedPaths: [absoluteProjectPath],
+          sdkPath: getSdkPath(),
+        );
 
   // Resolve barrel imports to find target classes.
   // We need to search across all module barrel files for the target classes.

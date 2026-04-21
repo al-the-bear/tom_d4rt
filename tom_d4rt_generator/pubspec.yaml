@@ -35,6 +35,11 @@ dependencies:
   # D4rt runtime (used by testing library)
   tom_d4rt: any
 
+  # Shared analyzer summary caching — same cache directory as
+  # tom_reflection_generator so sibling generators can reuse each
+  # other's cached summaries. See _copilot_guidelines/d4rt/.
+  tom_analyzer_shared: ^0.1.0
+
 executables:
   d4rtgen: d4rtgen
 

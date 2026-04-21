@@ -1153,6 +1153,24 @@ class BridgeGenerator {
   /// Format: package names without 'package:' prefix (e.g., ['tom_core_kernel', 'tom_core_server'])
   List<String> followPackages = [];
 
+  /// Optional analyzer-summary (`.sum`) paths for stable dependencies.
+  ///
+  /// Populated by the summary-cache stage
+  /// (`package:tom_analyzer_shared`). When non-empty, the internal
+  /// [AnalysisContextCollectionImpl] is built with `librarySummaryPaths:
+  /// librarySummaryPaths` so hosted/SDK packages load from those
+  /// bundles instead of being re-scanned from disk on every bridge
+  /// generation run.
+  final List<String>? librarySummaryPaths;
+
+  /// Optional pre-built SDK summary `.sum` path.
+  ///
+  /// Pairs with [librarySummaryPaths]. When non-null, the context
+  /// receives `sdkSummaryPath: sdkSummaryPath` and `sdkPath` is left
+  /// unset so the analyzer reads `dart:core` (and, with the Flutter
+  /// embedder, `dart:ui`) from the summary bundle.
+  final String? sdkSummaryPath;
+
   /// External class lookup for cross-package inheritance resolution.
   /// Set this before generating bridges to include classes from other packages
   /// in the inheritance lookup (e.g., TomBaseException for TomException).
@@ -1212,15 +1230,36 @@ class BridgeGenerator {
   /// For cross-package bridge generation, the context needs to include
   /// paths for external packages. Use [_getAnalysisContextFor] to get
   /// a context that includes a specific file path.
+  ///
+  /// When [librarySummaryPaths] and/or [sdkSummaryPath] are provided
+  /// (typically by the summary-cache stage from
+  /// `package:tom_analyzer_shared`), the context is constructed via
+  /// [AnalysisContextCollectionImpl] so it can load those `.sum`
+  /// bundles instead of re-scanning dependency sources from disk.
   AnalysisContextCollection _getAnalysisContext() {
     // Ensure workspacePath is absolute for the analyzer
     final absoluteWorkspacePath = p.isAbsolute(workspacePath)
         ? workspacePath
         : p.normalize(p.join(Directory.current.path, workspacePath));
-    return _analysisContext ??= AnalysisContextCollection(
-      includedPaths: [absoluteWorkspacePath],
-      sdkPath: getSdkPath(),
-    );
+    if (_analysisContext != null) return _analysisContext!;
+
+    final hasSummaries = (librarySummaryPaths != null &&
+            librarySummaryPaths!.isNotEmpty) ||
+        sdkSummaryPath != null;
+    if (hasSummaries) {
+      _analysisContext = AnalysisContextCollectionImpl(
+        includedPaths: [absoluteWorkspacePath],
+        sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+        sdkSummaryPath: sdkSummaryPath,
+        librarySummaryPaths: librarySummaryPaths ?? const [],
+      );
+    } else {
+      _analysisContext = AnalysisContextCollection(
+        includedPaths: [absoluteWorkspacePath],
+        sdkPath: getSdkPath(),
+      );
+    }
+    return _analysisContext!;
   }
 
   /// Cache for analysis contexts per package path.
@@ -1286,9 +1325,18 @@ class BridgeGenerator {
       final packageConfigFile = wsPackageConfig.existsSync()
           ? wsPackageConfig.path
           : null;
+      // Forward any shared summaries to the per-package context so
+      // dart:core / dart:ui (via sdkSummaryPath) and hosted-package
+      // types resolve from .sum bundles instead of being re-scanned.
+      final hasSummaries = (librarySummaryPaths != null &&
+              librarySummaryPaths!.isNotEmpty) ||
+          sdkSummaryPath != null;
       _packageAnalysisContexts[packageRoot] = AnalysisContextCollectionImpl(
         includedPaths: [packageRoot],
-        sdkPath: getSdkPath(),
+        sdkPath: hasSummaries && sdkSummaryPath != null ? null : getSdkPath(),
+        sdkSummaryPath: sdkSummaryPath,
+        librarySummaryPaths:
+            hasSummaries ? (librarySummaryPaths ?? const []) : const [],
         packagesFile: packageConfigFile,
       );
     }
@@ -1589,6 +1637,8 @@ class BridgeGenerator {
     this.skipPrivate = true,
     this.verbose = false,
     this.followPackages = const [],
+    this.librarySummaryPaths,
+    this.sdkSummaryPath,
     List<RecursiveBoundType>? recursiveBoundTypes,
     UserBridgeScanner? userBridgeScanner,
   }) : recursiveBoundTypes = _mergeRecursiveBoundTypes(recursiveBoundTypes) {
