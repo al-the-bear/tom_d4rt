@@ -18,6 +18,7 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
+import 'summary_exclusion.dart' show filterSummariesForBridgedPackages;
 import 'user_bridge_scanner.dart';
 
 /// Result of a bridge generation operation.
@@ -131,12 +132,28 @@ Future<GenerationResult> generateBridges({
   // proxy generator can skip re-scanning those packages from sources.
   // Failures here are non-fatal — we simply fall back to the classic
   // source-based analyzer context.
+  //
+  // Bridge generation needs full AST (default-parameter expressions,
+  // annotation arguments, doc comments, token-level positions). `.sum`
+  // bundles only contain the element model — no AST — so we filter
+  // out summaries whose package is itself being bridged AND whose
+  // packages get followed via `export` directives from the barrels
+  // (e.g. flutter/foundation re-exports package:meta/meta.dart). Every
+  // other dependency (dart:core/ui via SDK summary, vector_math only
+  // as a type dependency, etc.) still resolves from summaries, which
+  // is where the real parse-time savings live.
   List<String>? summaryPaths;
   String? sdkSummaryPath;
   try {
     final cacheResult = await runSummaryCacheStage(projectDir);
-    summaryPaths = cacheResult?.summaryPaths;
-    sdkSummaryPath = cacheResult?.sdkSummaryPath;
+    final filtered = await filterSummariesForBridgedPackages(
+      projectDir: projectDir,
+      summaryPaths: cacheResult?.summaryPaths,
+      sdkSummaryPath: cacheResult?.sdkSummaryPath,
+      bridgeConfig: bridgeConfig,
+    );
+    summaryPaths = filtered.summaryPaths;
+    sdkSummaryPath = filtered.sdkSummaryPath;
   } catch (e) {
     // Never fail bridge generation because of the cache. Report and move on.
     print('  Warning: summary-cache stage failed: $e');
@@ -450,3 +467,7 @@ UserBridgeScanner _preScanUserBridges(String projectDir) {
 
   return scanner;
 }
+
+// Summary-exclusion helpers live in `summary_exclusion.dart` so both
+// `bridge_api.dart` and `v2/d4rtgen_executor.dart` share the same
+// filtering rules.

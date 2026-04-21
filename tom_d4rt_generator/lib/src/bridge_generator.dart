@@ -1449,7 +1449,57 @@ class BridgeGenerator {
     // Parse the dart: URI and resolve it
     final uri = Uri.parse(dartUri);
     final path = session.uriConverter.uriToPath(uri);
+    if (path != null && File(path).existsSync()) return path;
+
+    // Fallback for summary-only contexts: when `sdkPath` is null (because
+    // we're relying on `sdkSummaryPath`), the URI converter either returns
+    // null or an opaque path that doesn't exist on disk, even though the
+    // library is physically available through the Flutter embedder.
+    // For `dart:ui` we resolve through the `sky_engine` package entry in
+    // `.dart_tool/package_config.json`.
+    if (dartUri == 'dart:ui') {
+      final fallback = _resolveDartUiViaSkyEngine();
+      if (fallback != null && File(fallback).existsSync()) return fallback;
+    }
     return path;
+  }
+
+  /// Reads `.dart_tool/package_config.json` synchronously and returns the
+  /// on-disk location of `sky_engine/lib/ui/ui.dart`, which Flutter uses
+  /// as the implementation of `dart:ui`. Returns null if the package is
+  /// not present or the file can't be read.
+  String? _resolveDartUiViaSkyEngine() {
+    final absoluteWorkspacePath = p.isAbsolute(workspacePath)
+        ? workspacePath
+        : p.normalize(p.join(Directory.current.path, workspacePath));
+    final configFile = File(
+      p.join(absoluteWorkspacePath, '.dart_tool', 'package_config.json'),
+    );
+    if (!configFile.existsSync()) return null;
+    try {
+      final doc = jsonDecode(configFile.readAsStringSync())
+          as Map<String, dynamic>;
+      final packages = doc['packages'] as List<dynamic>? ?? const [];
+      for (final entry in packages) {
+        final map = entry as Map<String, dynamic>;
+        if (map['name'] != 'sky_engine') continue;
+        final rootUri = map['rootUri'] as String? ?? '';
+        final packageUri = (map['packageUri'] as String?) ?? 'lib/';
+        String rootPath;
+        if (rootUri.startsWith('file://')) {
+          rootPath = Uri.parse(rootUri).toFilePath();
+        } else {
+          rootPath = p.normalize(
+            p.join(absoluteWorkspacePath, '.dart_tool', rootUri),
+          );
+        }
+        final libDir = p.normalize(p.join(rootPath, packageUri));
+        return p.normalize(p.join(libDir, 'ui', 'ui.dart'));
+      }
+    } catch (_) {
+      // Fall through to null on malformed config.
+    }
+    return null;
   }
 
   /// Resolves a package URI to an absolute file path.
