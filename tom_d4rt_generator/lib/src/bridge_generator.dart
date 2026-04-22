@@ -28,6 +28,7 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:path/path.dart' as p;
 
+import 'element_mode_extractor.dart';
 import 'file_writer.dart';
 import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
@@ -3870,6 +3871,17 @@ class BridgeGenerator {
             )
             .toList();
       }
+
+      // Element-mode fallback: when the analyzer refuses a path (typically
+      // because a `.sum` summary bundle has shadowed the source), resolve the
+      // library by its package URI and walk the element tree instead.
+      final elementClasses = await _tryElementModeClasses(
+        context,
+        normalizedPath,
+      );
+      if (elementClasses != null) {
+        return elementClasses;
+      }
     } catch (e) {
       if (filePath.contains('sliver') || filePath.contains('Sliver')) {
         stderr.writeln('[DEBUG-PATH] RESOLVED FAILED for $filePath: $e');
@@ -3985,6 +3997,23 @@ class BridgeGenerator {
           _typeAliases.addAll(visitor.typeAliases);
           // GEN-017: Copy global type-to-URI mappings from resolved AST
           _globalTypeToUri.addAll(visitor.globalTypeToUri);
+        } else {
+          // Element-mode fallback. See [_tryElementModeClasses].
+          final extracted = await _tryElementModeGlobals(
+            context,
+            normalizedPath,
+          );
+          if (extracted != null) {
+            functions.addAll(extracted.functions);
+            variables.addAll(extracted.variables);
+            enums.addAll(extracted.enums);
+            extensions.addAll(extracted.extensions);
+            setterNames.addAll(extracted.setterNames);
+          } else if (verbose) {
+            print(
+              'Warning: Could not parse globals from $filePath (no resolved or element-mode library)',
+            );
+          }
         }
       } catch (e) {
         if (verbose) {
@@ -3999,6 +4028,133 @@ class BridgeGenerator {
       enums: enums,
       extensions: extensions,
       setterNames: setterNames,
+    );
+  }
+
+  /// Converts an absolute source-file path under `/lib/` to a `package:` URI
+  /// by reading the neighbouring `pubspec.yaml`. Returns `null` if the path
+  /// cannot be mapped (e.g., it's not under a package's `lib/` directory).
+  String? _packageUriForFilePath(String sourceFile) {
+    final libIndex = sourceFile.indexOf('/lib/');
+    if (libIndex == -1) return null;
+    final packageDir = sourceFile.substring(0, libIndex);
+    final pubspecPath = '$packageDir/pubspec.yaml';
+    try {
+      final pubspecFile = File(pubspecPath);
+      if (!pubspecFile.existsSync()) return null;
+      final content = pubspecFile.readAsStringSync();
+      final nameMatch =
+          RegExp(r'^name:\s*(\S+)', multiLine: true).firstMatch(content);
+      final pkgName = nameMatch?.group(1);
+      if (pkgName == null) return null;
+      final relativePath = sourceFile.substring(libIndex + 5);
+      return 'package:$pkgName/$relativePath';
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Element-mode fallback for [parseFile] when [getResolvedLibrary] returned
+  /// a non-[ResolvedLibraryResult] (typically [NotPathOfUriResult], which is
+  /// raised when a summary bundle has shadowed the file). Resolves the library
+  /// by its package URI and walks the element tree with [ElementModeExtractor].
+  ///
+  /// Returns `null` if the fallback could not be applied (no package URI, or
+  /// [getLibraryByUri] did not return a [LibraryElementResult]).
+  Future<List<ClassInfo>?> _tryElementModeClasses(
+    dynamic context,
+    String normalizedPath,
+  ) async {
+    final uriString = _packageUriForFilePath(normalizedPath);
+    if (uriString == null) return null;
+    final libResult = await context.currentSession.getLibraryByUri(uriString);
+    if (libResult is! LibraryElementResult) return null;
+
+    final extractor = ElementModeExtractor(
+      skipPrivate: skipPrivate,
+      generateDeprecatedElements: generateDeprecatedElements,
+    );
+    extractor.extract(libResult.element, normalizedPath);
+
+    skippedDeprecatedCount += extractor.skippedDeprecatedCount;
+    _typedefExpansions.addAll(extractor.typedefExpansions);
+    _typeAliases.addAll(extractor.typeAliases);
+    _globalTypeToUri.addAll(extractor.globalTypeToUri);
+
+    if (verbose) {
+      print(
+        '[element-mode] extracted ${extractor.classes.length} classes, '
+        '${extractor.globalFunctions.length} functions, '
+        '${extractor.enums.length} enums, '
+        '${extractor.extensions.length} extensions '
+        'from $normalizedPath',
+      );
+    }
+
+    return extractor.classes
+        .map(
+          (c) => ClassInfo(
+            name: c.name,
+            sourceFile: normalizedPath,
+            superclass: c.superclass,
+            superclassUri: c.superclassUri,
+            isAbstract: c.isAbstract,
+            isSealed: c.isSealed,
+            isMixin: c.isMixin,
+            constructors: c.constructors,
+            members: c.members,
+            typeParameters: c.typeParameters,
+            allSupertypeNames: c.allSupertypeNames,
+          ),
+        )
+        .toList();
+  }
+
+  /// Element-mode fallback for [_parseGlobals]. See [_tryElementModeClasses]
+  /// for the rationale. Returns `null` if the fallback was not applicable.
+  Future<
+    ({
+      List<GlobalFunctionInfo> functions,
+      List<GlobalVariableInfo> variables,
+      List<EnumInfo> enums,
+      List<ExtensionInfo> extensions,
+      Set<String> setterNames,
+    })?
+  > _tryElementModeGlobals(
+    dynamic context,
+    String normalizedPath,
+  ) async {
+    final uriString = _packageUriForFilePath(normalizedPath);
+    if (uriString == null) return null;
+    final libResult = await context.currentSession.getLibraryByUri(uriString);
+    if (libResult is! LibraryElementResult) return null;
+
+    final extractor = ElementModeExtractor(
+      skipPrivate: skipPrivate,
+      generateDeprecatedElements: generateDeprecatedElements,
+    );
+    extractor.extract(libResult.element, normalizedPath);
+
+    skippedDeprecatedCount += extractor.skippedDeprecatedCount;
+    _typedefExpansions.addAll(extractor.typedefExpansions);
+    _typeAliases.addAll(extractor.typeAliases);
+    _globalTypeToUri.addAll(extractor.globalTypeToUri);
+
+    if (verbose) {
+      print(
+        '[element-mode] globals: extracted ${extractor.globalFunctions.length} '
+        'functions, ${extractor.globalVariables.length} variables, '
+        '${extractor.enums.length} enums, ${extractor.extensions.length} '
+        'extensions from $normalizedPath',
+      );
+    }
+
+    return (
+      functions: extractor.globalFunctions,
+      variables: extractor.globalVariables,
+      enums: extractor.enums,
+      extensions: extractor.extensions,
+      setterNames: extractor.globalSetterNames,
     );
   }
 
