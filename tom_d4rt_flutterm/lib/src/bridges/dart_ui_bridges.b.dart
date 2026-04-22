@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 13 files
-// Generated: 2026-04-21T14:24:24.744567
+// Source: /srv/flutter/flutter/bin/cache/pkg/sky_engine/lib/ui/ui.dart
+// Generated: 2026-04-22T21:03:51.481645
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -12,6 +12,7 @@ import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
 
+import 'package:sky_engine/ui/ui.dart' as $sky_engine_1;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_2;
 
@@ -254,8 +255,6 @@ class DartUiBridge {
   static List<String> functionTypedefs() {
     return [
       'ChannelCallback',
-      'PlatformMessageResponseCallback',
-      'DrainChannelCallback',
       'ImageEventCallback',
       'ImageDecoderCallback',
       'TargetImageSizeCallback',
@@ -266,11 +265,12 @@ class DartUiBridge {
       'PointerDataPacketCallback',
       'KeyDataCallback',
       'SemanticsActionEventCallback',
+      'PlatformMessageResponseCallback',
       'ErrorCallback',
       'ViewFocusChangeCallback',
-      '_SetNeedsReportTimingsFunc',
-      'PlatformMessageCallback',
       'PointerDataRespondCallback',
+      'DrainChannelCallback',
+      'PlatformMessageCallback',
     ];
   }
 
@@ -681,7 +681,7 @@ class DartUiBridge {
       },
       'instantiateImageCodecFromBuffer': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecFromBuffer');
-        final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecFromBuffer');
+        final buffer = D4.getRequiredArg<$sky_engine_1.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecFromBuffer');
         final targetWidth = D4.getOptionalNamedArg<int?>(named, 'targetWidth');
         final targetHeight = D4.getOptionalNamedArg<int?>(named, 'targetHeight');
         final allowUpscaling = D4.getNamedArgWithDefault<bool>(named, 'allowUpscaling', true);
@@ -689,9 +689,9 @@ class DartUiBridge {
       },
       'instantiateImageCodecWithSize': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'instantiateImageCodecWithSize');
-        final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
+        final buffer = D4.getRequiredArg<$sky_engine_1.ImmutableBuffer>(positional, 0, 'buffer', 'instantiateImageCodecWithSize');
         final getTargetSizeRaw = named['getTargetSize'];
-        final getTargetSize = getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<$dart_ui.TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); };
+        final getTargetSize = getTargetSizeRaw == null ? null : (int p0, int p1) { return D4.extractBridgedArg<$sky_engine_1.TargetImageSize>(D4.callInterpreterCallback(visitor!, getTargetSizeRaw, [p0, p1]), 'callback', visitor); };
         return $dart_ui.instantiateImageCodecWithSize(buffer, getTargetSize: getTargetSize);
       },
       'decodeImageFromList': (visitor, positional, named, typeArgs) {
@@ -701,7 +701,7 @@ class DartUiBridge {
           throw ArgumentError('decodeImageFromList: Missing required argument "callback" at position 1');
         }
         final callbackRaw = positional[1];
-        final callback = ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); };
+        final callback = ($sky_engine_1.Image p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); };
         return $dart_ui.decodeImageFromList(list, callback);
       },
       'decodeImageFromPixels': (visitor, positional, named, typeArgs) {
@@ -709,17 +709,17 @@ class DartUiBridge {
         final pixels = D4.getRequiredArg<Uint8List>(positional, 0, 'pixels', 'decodeImageFromPixels');
         final width = D4.getRequiredArg<int>(positional, 1, 'width', 'decodeImageFromPixels');
         final height = D4.getRequiredArg<int>(positional, 2, 'height', 'decodeImageFromPixels');
-        final format = D4.getRequiredArg<$dart_ui.PixelFormat>(positional, 3, 'format', 'decodeImageFromPixels');
+        final format = D4.getRequiredArg<$sky_engine_1.PixelFormat>(positional, 3, 'format', 'decodeImageFromPixels');
         if (positional.length <= 4) {
           throw ArgumentError('decodeImageFromPixels: Missing required argument "callback" at position 4');
         }
         final callbackRaw = positional[4];
-        final callback = ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); };
+        final callback = ($sky_engine_1.Image p0) { D4.callInterpreterCallback(visitor!, callbackRaw, [p0]); };
         final rowBytes = D4.getOptionalNamedArg<int?>(named, 'rowBytes');
         final targetWidth = D4.getOptionalNamedArg<int?>(named, 'targetWidth');
         final targetHeight = D4.getOptionalNamedArg<int?>(named, 'targetHeight');
         final allowUpscaling = D4.getNamedArgWithDefault<bool>(named, 'allowUpscaling', true);
-        final targetFormat = D4.getNamedArgWithDefault<$dart_ui.TargetPixelFormat>(named, 'targetFormat', $dart_ui.TargetPixelFormat.dontCare);
+        final targetFormat = D4.getNamedArgWithDefault<$sky_engine_1.TargetPixelFormat>(named, 'targetFormat', $sky_engine_1.TargetPixelFormat.dontCare);
         return $dart_ui.decodeImageFromPixels(pixels, width, height, format, callback, rowBytes: rowBytes, targetWidth: targetWidth, targetHeight: targetHeight, allowUpscaling: allowUpscaling, targetFormat: targetFormat);
       },
       'decodeImageFromPixelsSync': (visitor, positional, named, typeArgs) {
@@ -727,7 +727,7 @@ class DartUiBridge {
         final pixels = D4.getRequiredArg<Uint8List>(positional, 0, 'pixels', 'decodeImageFromPixelsSync');
         final width = D4.getRequiredArg<int>(positional, 1, 'width', 'decodeImageFromPixelsSync');
         final height = D4.getRequiredArg<int>(positional, 2, 'height', 'decodeImageFromPixelsSync');
-        final format = D4.getRequiredArg<$dart_ui.PixelFormat>(positional, 3, 'format', 'decodeImageFromPixelsSync');
+        final format = D4.getRequiredArg<$sky_engine_1.PixelFormat>(positional, 3, 'format', 'decodeImageFromPixelsSync');
         return $dart_ui.decodeImageFromPixelsSync(pixels, width, height, format);
       },
       'runOnPlatformThread': (visitor, positional, named, typeArgs) {
@@ -1300,7 +1300,7 @@ BridgedClass _createSceneBuilderBridge() {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushTransform');
         final matrix4 = D4.getRequiredArg<Float64List>(positional, 0, 'matrix4', 'pushTransform');
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.TransformEngineLayer?>(named, 'oldLayer');
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.TransformEngineLayer?>(named, 'oldLayer');
         return t.pushTransform(matrix4, oldLayer: oldLayer);
       },
       'pushOffset': (visitor, target, positional, named, typeArgs) {
@@ -1308,81 +1308,81 @@ BridgedClass _createSceneBuilderBridge() {
         D4.requireMinArgs(positional, 2, 'pushOffset');
         final dx = D4.getRequiredArg<double>(positional, 0, 'dx', 'pushOffset');
         final dy = D4.getRequiredArg<double>(positional, 1, 'dy', 'pushOffset');
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.OffsetEngineLayer?>(named, 'oldLayer');
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.OffsetEngineLayer?>(named, 'oldLayer');
         return t.pushOffset(dx, dy, oldLayer: oldLayer);
       },
       'pushClipRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushClipRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'pushClipRect');
-        final clipBehavior = D4.getNamedArgWithDefault<$dart_ui.Clip>(named, 'clipBehavior', $dart_ui.Clip.antiAlias);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ClipRectEngineLayer?>(named, 'oldLayer');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'pushClipRect');
+        final clipBehavior = D4.getNamedArgWithDefault<$sky_engine_1.Clip>(named, 'clipBehavior', $sky_engine_1.Clip.antiAlias);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ClipRectEngineLayer?>(named, 'oldLayer');
         return t.pushClipRect(rect, clipBehavior: clipBehavior, oldLayer: oldLayer);
       },
       'pushClipRRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushClipRRect');
-        final rrect = D4.getRequiredArg<$dart_ui.RRect>(positional, 0, 'rrect', 'pushClipRRect');
-        final clipBehavior = D4.getNamedArgWithDefault<$dart_ui.Clip>(named, 'clipBehavior', $dart_ui.Clip.antiAlias);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ClipRRectEngineLayer?>(named, 'oldLayer');
+        final rrect = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 0, 'rrect', 'pushClipRRect');
+        final clipBehavior = D4.getNamedArgWithDefault<$sky_engine_1.Clip>(named, 'clipBehavior', $sky_engine_1.Clip.antiAlias);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ClipRRectEngineLayer?>(named, 'oldLayer');
         return t.pushClipRRect(rrect, clipBehavior: clipBehavior, oldLayer: oldLayer);
       },
       'pushClipRSuperellipse': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushClipRSuperellipse');
-        final rsuperellipse = D4.getRequiredArg<$dart_ui.RSuperellipse>(positional, 0, 'rsuperellipse', 'pushClipRSuperellipse');
-        final clipBehavior = D4.getNamedArgWithDefault<$dart_ui.Clip>(named, 'clipBehavior', $dart_ui.Clip.antiAlias);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ClipRSuperellipseEngineLayer?>(named, 'oldLayer');
+        final rsuperellipse = D4.getRequiredArg<$sky_engine_1.RSuperellipse>(positional, 0, 'rsuperellipse', 'pushClipRSuperellipse');
+        final clipBehavior = D4.getNamedArgWithDefault<$sky_engine_1.Clip>(named, 'clipBehavior', $sky_engine_1.Clip.antiAlias);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ClipRSuperellipseEngineLayer?>(named, 'oldLayer');
         return t.pushClipRSuperellipse(rsuperellipse, clipBehavior: clipBehavior, oldLayer: oldLayer);
       },
       'pushClipPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushClipPath');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'pushClipPath');
-        final clipBehavior = D4.getNamedArgWithDefault<$dart_ui.Clip>(named, 'clipBehavior', $dart_ui.Clip.antiAlias);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ClipPathEngineLayer?>(named, 'oldLayer');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'pushClipPath');
+        final clipBehavior = D4.getNamedArgWithDefault<$sky_engine_1.Clip>(named, 'clipBehavior', $sky_engine_1.Clip.antiAlias);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ClipPathEngineLayer?>(named, 'oldLayer');
         return t.pushClipPath(path, clipBehavior: clipBehavior, oldLayer: oldLayer);
       },
       'pushOpacity': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushOpacity');
         final alpha = D4.getRequiredArg<int>(positional, 0, 'alpha', 'pushOpacity');
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset?>(named, 'offset', $dart_ui.Offset.zero);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.OpacityEngineLayer?>(named, 'oldLayer');
+        final offset = D4.getNamedArgWithDefault<$sky_engine_1.Offset?>(named, 'offset', $sky_engine_1.Offset.zero);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.OpacityEngineLayer?>(named, 'oldLayer');
         return t.pushOpacity(alpha, offset: offset, oldLayer: oldLayer);
       },
       'pushColorFilter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushColorFilter');
-        final filter = D4.getRequiredArg<$dart_ui.ColorFilter>(positional, 0, 'filter', 'pushColorFilter');
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ColorFilterEngineLayer?>(named, 'oldLayer');
+        final filter = D4.getRequiredArg<$sky_engine_1.ColorFilter>(positional, 0, 'filter', 'pushColorFilter');
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ColorFilterEngineLayer?>(named, 'oldLayer');
         return t.pushColorFilter(filter, oldLayer: oldLayer);
       },
       'pushImageFilter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushImageFilter');
-        final filter = D4.getRequiredArg<$dart_ui.ImageFilter>(positional, 0, 'filter', 'pushImageFilter');
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset>(named, 'offset', $dart_ui.Offset.zero);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ImageFilterEngineLayer?>(named, 'oldLayer');
+        final filter = D4.getRequiredArg<$sky_engine_1.ImageFilter>(positional, 0, 'filter', 'pushImageFilter');
+        final offset = D4.getNamedArgWithDefault<$sky_engine_1.Offset>(named, 'offset', $sky_engine_1.Offset.zero);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ImageFilterEngineLayer?>(named, 'oldLayer');
         return t.pushImageFilter(filter, offset: offset, oldLayer: oldLayer);
       },
       'pushBackdropFilter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'pushBackdropFilter');
-        final filter = D4.getRequiredArg<$dart_ui.ImageFilter>(positional, 0, 'filter', 'pushBackdropFilter');
-        final blendMode = D4.getNamedArgWithDefault<$dart_ui.BlendMode>(named, 'blendMode', $dart_ui.BlendMode.srcOver);
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.BackdropFilterEngineLayer?>(named, 'oldLayer');
+        final filter = D4.getRequiredArg<$sky_engine_1.ImageFilter>(positional, 0, 'filter', 'pushBackdropFilter');
+        final blendMode = D4.getNamedArgWithDefault<$sky_engine_1.BlendMode>(named, 'blendMode', $sky_engine_1.BlendMode.srcOver);
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.BackdropFilterEngineLayer?>(named, 'oldLayer');
         final backdropId = D4.getOptionalNamedArg<int?>(named, 'backdropId');
         return t.pushBackdropFilter(filter, blendMode: blendMode, oldLayer: oldLayer, backdropId: backdropId);
       },
       'pushShaderMask': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 3, 'pushShaderMask');
-        final shader = D4.getRequiredArg<$dart_ui.Shader>(positional, 0, 'shader', 'pushShaderMask');
-        final maskRect = D4.getRequiredArg<$dart_ui.Rect>(positional, 1, 'maskRect', 'pushShaderMask');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode>(positional, 2, 'blendMode', 'pushShaderMask');
-        final oldLayer = D4.getOptionalNamedArg<$dart_ui.ShaderMaskEngineLayer?>(named, 'oldLayer');
-        final filterQuality = D4.getNamedArgWithDefault<$dart_ui.FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.low);
+        final shader = D4.getRequiredArg<$sky_engine_1.Shader>(positional, 0, 'shader', 'pushShaderMask');
+        final maskRect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 1, 'maskRect', 'pushShaderMask');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode>(positional, 2, 'blendMode', 'pushShaderMask');
+        final oldLayer = D4.getOptionalNamedArg<$sky_engine_1.ShaderMaskEngineLayer?>(named, 'oldLayer');
+        final filterQuality = D4.getNamedArgWithDefault<$sky_engine_1.FilterQuality>(named, 'filterQuality', $sky_engine_1.FilterQuality.low);
         return t.pushShaderMask(shader, maskRect, blendMode, oldLayer: oldLayer, filterQuality: filterQuality);
       },
       'pop': (visitor, target, positional, named, typeArgs) {
@@ -1393,7 +1393,7 @@ BridgedClass _createSceneBuilderBridge() {
       'addRetained': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'addRetained');
-        final retainedLayer = D4.getRequiredArg<$dart_ui.EngineLayer>(positional, 0, 'retainedLayer', 'addRetained');
+        final retainedLayer = D4.getRequiredArg<$sky_engine_1.EngineLayer>(positional, 0, 'retainedLayer', 'addRetained');
         t.addRetained(retainedLayer);
         return null;
       },
@@ -1401,15 +1401,15 @@ BridgedClass _createSceneBuilderBridge() {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 2, 'addPerformanceOverlay');
         final enabledOptions = D4.getRequiredArg<int>(positional, 0, 'enabledOptions', 'addPerformanceOverlay');
-        final bounds = D4.getRequiredArg<$dart_ui.Rect>(positional, 1, 'bounds', 'addPerformanceOverlay');
+        final bounds = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 1, 'bounds', 'addPerformanceOverlay');
         t.addPerformanceOverlay(enabledOptions, bounds);
         return null;
       },
       'addPicture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 2, 'addPicture');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'addPicture');
-        final picture = D4.getRequiredArg<$dart_ui.Picture>(positional, 1, 'picture', 'addPicture');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'addPicture');
+        final picture = D4.getRequiredArg<$sky_engine_1.Picture>(positional, 1, 'picture', 'addPicture');
         final isComplexHint = D4.getNamedArgWithDefault<bool>(named, 'isComplexHint', false);
         final willChangeHint = D4.getNamedArgWithDefault<bool>(named, 'willChangeHint', false);
         t.addPicture(offset, picture, isComplexHint: isComplexHint, willChangeHint: willChangeHint);
@@ -1419,11 +1419,11 @@ BridgedClass _createSceneBuilderBridge() {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'addTexture');
         final textureId = D4.getRequiredArg<int>(positional, 0, 'textureId', 'addTexture');
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset>(named, 'offset', $dart_ui.Offset.zero);
+        final offset = D4.getNamedArgWithDefault<$sky_engine_1.Offset>(named, 'offset', $sky_engine_1.Offset.zero);
         final width = D4.getNamedArgWithDefault<double>(named, 'width', 0.0);
         final height = D4.getNamedArgWithDefault<double>(named, 'height', 0.0);
         final freeze = D4.getNamedArgWithDefault<bool>(named, 'freeze', false);
-        final filterQuality = D4.getNamedArgWithDefault<$dart_ui.FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.low);
+        final filterQuality = D4.getNamedArgWithDefault<$sky_engine_1.FilterQuality>(named, 'filterQuality', $sky_engine_1.FilterQuality.low);
         t.addTexture(textureId, offset: offset, width: width, height: height, freeze: freeze, filterQuality: filterQuality);
         return null;
       },
@@ -1431,7 +1431,7 @@ BridgedClass _createSceneBuilderBridge() {
         final t = D4.validateTarget<$dart_ui.SceneBuilder>(target, 'SceneBuilder');
         D4.requireMinArgs(positional, 1, 'addPlatformView');
         final viewId = D4.getRequiredArg<int>(positional, 0, 'viewId', 'addPlatformView');
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset>(named, 'offset', $dart_ui.Offset.zero);
+        final offset = D4.getNamedArgWithDefault<$sky_engine_1.Offset>(named, 'offset', $sky_engine_1.Offset.zero);
         final width = D4.getNamedArgWithDefault<double>(named, 'width', 0.0);
         final height = D4.getNamedArgWithDefault<double>(named, 'height', 0.0);
         t.addPlatformView(viewId, offset: offset, width: width, height: height);
@@ -1491,22 +1491,22 @@ BridgedClass _createOffsetBaseBridge() {
       },
       '<': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.OffsetBase>(target, 'OffsetBase');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<');
         return t < other;
       },
       '<=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.OffsetBase>(target, 'OffsetBase');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<=');
         return t <= other;
       },
       '>': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.OffsetBase>(target, 'OffsetBase');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>');
         return t > other;
       },
       '>=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.OffsetBase>(target, 'OffsetBase');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>=');
         return t >= other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -1580,22 +1580,22 @@ BridgedClass _createOffsetBridge() {
       },
       '<': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<');
         return t < other;
       },
       '<=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<=');
         return t <= other;
       },
       '>': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>');
         return t > other;
       },
       '>=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>=');
         return t >= other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -1610,13 +1610,13 @@ BridgedClass _createOffsetBridge() {
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '+': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'other', 'operator+');
+        final other = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '*': (visitor, target, positional, named, typeArgs) {
@@ -1641,7 +1641,7 @@ BridgedClass _createOffsetBridge() {
       },
       '&': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Offset>(target, 'Offset');
-        final other = D4.getRequiredArg<$dart_ui.Size>(positional, 0, 'other', 'operator&');
+        final other = D4.getRequiredArg<$sky_engine_1.Size>(positional, 0, 'other', 'operator&');
         return t & other;
       },
     },
@@ -1652,8 +1652,8 @@ BridgedClass _createOffsetBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.Offset?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.Offset?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.Offset?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.Offset?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Offset.lerp(a, b, t_);
       },
@@ -1705,7 +1705,7 @@ BridgedClass _createSizeBridge() {
       },
       'copy': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Size');
-        final source = D4.getRequiredArg<$dart_ui.Size>(positional, 0, 'source', 'Size');
+        final source = D4.getRequiredArg<$sky_engine_1.Size>(positional, 0, 'source', 'Size');
         return $dart_ui.Size.copy(source);
       },
       'square': (visitor, positional, named) {
@@ -1749,81 +1749,81 @@ BridgedClass _createSizeBridge() {
       'topLeft': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'topLeft');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'topLeft');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'topLeft');
         return t.topLeft(origin);
       },
       'topCenter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'topCenter');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'topCenter');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'topCenter');
         return t.topCenter(origin);
       },
       'topRight': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'topRight');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'topRight');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'topRight');
         return t.topRight(origin);
       },
       'centerLeft': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'centerLeft');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'centerLeft');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'centerLeft');
         return t.centerLeft(origin);
       },
       'center': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'center');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'center');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'center');
         return t.center(origin);
       },
       'centerRight': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'centerRight');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'centerRight');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'centerRight');
         return t.centerRight(origin);
       },
       'bottomLeft': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'bottomLeft');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'bottomLeft');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'bottomLeft');
         return t.bottomLeft(origin);
       },
       'bottomCenter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'bottomCenter');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'bottomCenter');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'bottomCenter');
         return t.bottomCenter(origin);
       },
       'bottomRight': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'bottomRight');
-        final origin = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'origin', 'bottomRight');
+        final origin = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'origin', 'bottomRight');
         return t.bottomRight(origin);
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
         D4.requireMinArgs(positional, 1, 'contains');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'contains');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'contains');
         return t.contains(offset);
       },
       '<': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<');
         return t < other;
       },
       '<=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator<=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator<=');
         return t <= other;
       },
       '>': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>');
         return t > other;
       },
       '>=': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator>=');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator>=');
         return t >= other;
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -1833,12 +1833,12 @@ BridgedClass _createSizeBridge() {
       },
       '-': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.OffsetBase>(positional, 0, 'other', 'operator-');
+        final other = D4.getRequiredArg<$sky_engine_1.OffsetBase>(positional, 0, 'other', 'operator-');
         return t - other;
       },
       '+': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Size>(target, 'Size');
-        final other = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'other', 'operator+');
+        final other = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '*': (visitor, target, positional, named, typeArgs) {
@@ -1869,8 +1869,8 @@ BridgedClass _createSizeBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.Size?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.Size?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.Size?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.Size?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Size.lerp(a, b, t_);
       },
@@ -1945,20 +1945,20 @@ BridgedClass _createRectBridge() {
         return $dart_ui.Rect.fromLTWH(left, top, width, height);
       },
       'fromCircle': (visitor, positional, named) {
-        final center = D4.getRequiredNamedArg<$dart_ui.Offset>(named, 'center', 'Rect');
+        final center = D4.getRequiredNamedArg<$sky_engine_1.Offset>(named, 'center', 'Rect');
         final radius = D4.getRequiredNamedArg<double>(named, 'radius', 'Rect');
         return $dart_ui.Rect.fromCircle(center: center, radius: radius);
       },
       'fromCenter': (visitor, positional, named) {
-        final center = D4.getRequiredNamedArg<$dart_ui.Offset>(named, 'center', 'Rect');
+        final center = D4.getRequiredNamedArg<$sky_engine_1.Offset>(named, 'center', 'Rect');
         final width = D4.getRequiredNamedArg<double>(named, 'width', 'Rect');
         final height = D4.getRequiredNamedArg<double>(named, 'height', 'Rect');
         return $dart_ui.Rect.fromCenter(center: center, width: width, height: height);
       },
       'fromPoints': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Rect');
-        final a = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'a', 'Rect');
-        final b = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'b', 'Rect');
+        final a = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'a', 'Rect');
+        final b = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'b', 'Rect');
         return $dart_ui.Rect.fromPoints(a, b);
       },
     },
@@ -1991,7 +1991,7 @@ BridgedClass _createRectBridge() {
       'shift': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'shift');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'shift');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'shift');
         return t.shift(offset);
       },
       'translate': (visitor, target, positional, named, typeArgs) {
@@ -2016,25 +2016,25 @@ BridgedClass _createRectBridge() {
       'intersect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'intersect');
-        final other = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'other', 'intersect');
+        final other = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'other', 'intersect');
         return t.intersect(other);
       },
       'expandToInclude': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'expandToInclude');
-        final other = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'other', 'expandToInclude');
+        final other = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'other', 'expandToInclude');
         return t.expandToInclude(other);
       },
       'overlaps': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'overlaps');
-        final other = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'other', 'overlaps');
+        final other = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'other', 'overlaps');
         return t.overlaps(other);
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Rect>(target, 'Rect');
         D4.requireMinArgs(positional, 1, 'contains');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'contains');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'contains');
         return t.contains(offset);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2054,8 +2054,8 @@ BridgedClass _createRectBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.Rect?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.Rect?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.Rect?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.Rect?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Rect.lerp(a, b, t_);
       },
@@ -2143,8 +2143,8 @@ BridgedClass _createRadiusBridge() {
     methods: {
       'clamp': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Radius>(target, 'Radius');
-        final minimum = D4.getOptionalNamedArg<$dart_ui.Radius?>(named, 'minimum');
-        final maximum = D4.getOptionalNamedArg<$dart_ui.Radius?>(named, 'maximum');
+        final minimum = D4.getOptionalNamedArg<$sky_engine_1.Radius?>(named, 'minimum');
+        final maximum = D4.getOptionalNamedArg<$sky_engine_1.Radius?>(named, 'maximum');
         return t.clamp(minimum: minimum, maximum: maximum);
       },
       'clampValues': (visitor, target, positional, named, typeArgs) {
@@ -2166,13 +2166,13 @@ BridgedClass _createRadiusBridge() {
           return -t;
         } else {
           // Binary operator
-          final other = D4.getRequiredArg<$dart_ui.Radius>(positional, 0, 'other', 'operator-');
+          final other = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 0, 'other', 'operator-');
           return t - other;
         }
       },
       '+': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Radius>(target, 'Radius');
-        final other = D4.getRequiredArg<$dart_ui.Radius>(positional, 0, 'other', 'operator+');
+        final other = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 0, 'other', 'operator+');
         return t + other;
       },
       '*': (visitor, target, positional, named, typeArgs) {
@@ -2207,8 +2207,8 @@ BridgedClass _createRadiusBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.Radius?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.Radius?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.Radius?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.Radius?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Radius.lerp(a, b, t_);
       },
@@ -2262,20 +2262,20 @@ BridgedClass _createRRectBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'RRect');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'RRect');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'RRect');
-        final radius = D4.getRequiredArg<$dart_ui.Radius>(positional, 4, 'radius', 'RRect');
+        final radius = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 4, 'radius', 'RRect');
         return $dart_ui.RRect.fromLTRBR(left, top, right, bottom, radius);
       },
       'fromRectXY': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'RRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RRect');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RRect');
         final radiusX = D4.getRequiredArg<double>(positional, 1, 'radiusX', 'RRect');
         final radiusY = D4.getRequiredArg<double>(positional, 2, 'radiusY', 'RRect');
         return $dart_ui.RRect.fromRectXY(rect, radiusX, radiusY);
       },
       'fromRectAndRadius': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'RRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RRect');
-        final radius = D4.getRequiredArg<$dart_ui.Radius>(positional, 1, 'radius', 'RRect');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RRect');
+        final radius = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 1, 'radius', 'RRect');
         return $dart_ui.RRect.fromRectAndRadius(rect, radius);
       },
       'fromLTRBAndCorners': (visitor, positional, named) {
@@ -2284,19 +2284,19 @@ BridgedClass _createRRectBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'RRect');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'RRect');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'RRect');
-        final topLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topLeft', $dart_ui.Radius.zero);
-        final topRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topRight', $dart_ui.Radius.zero);
-        final bottomRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomRight', $dart_ui.Radius.zero);
-        final bottomLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomLeft', $dart_ui.Radius.zero);
+        final topLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topLeft', $sky_engine_1.Radius.zero);
+        final topRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topRight', $sky_engine_1.Radius.zero);
+        final bottomRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomRight', $sky_engine_1.Radius.zero);
+        final bottomLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomLeft', $sky_engine_1.Radius.zero);
         return $dart_ui.RRect.fromLTRBAndCorners(left, top, right, bottom, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
       },
       'fromRectAndCorners': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RRect');
-        final topLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topLeft', $dart_ui.Radius.zero);
-        final topRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topRight', $dart_ui.Radius.zero);
-        final bottomRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomRight', $dart_ui.Radius.zero);
-        final bottomLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomLeft', $dart_ui.Radius.zero);
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RRect');
+        final topLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topLeft', $sky_engine_1.Radius.zero);
+        final topRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topRight', $sky_engine_1.Radius.zero);
+        final bottomRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomRight', $sky_engine_1.Radius.zero);
+        final bottomLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomLeft', $sky_engine_1.Radius.zero);
         return $dart_ui.RRect.fromRectAndCorners(rect, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
       },
     },
@@ -2340,7 +2340,7 @@ BridgedClass _createRRectBridge() {
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.RRect>(target, 'RRect');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2350,7 +2350,7 @@ BridgedClass _createRRectBridge() {
       'shift': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.RRect>(target, 'RRect');
         D4.requireMinArgs(positional, 1, 'shift');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'shift');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'shift');
         return t.shift(offset);
       },
       'inflate': (visitor, target, positional, named, typeArgs) {
@@ -2381,8 +2381,8 @@ BridgedClass _createRRectBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.RRect?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.RRect?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.RRect?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.RRect?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.RRect.lerp(a, b, t_);
       },
@@ -2474,20 +2474,20 @@ BridgedClass _createRSuperellipseBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'RSuperellipse');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'RSuperellipse');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'RSuperellipse');
-        final radius = D4.getRequiredArg<$dart_ui.Radius>(positional, 4, 'radius', 'RSuperellipse');
+        final radius = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 4, 'radius', 'RSuperellipse');
         return $dart_ui.RSuperellipse.fromLTRBR(left, top, right, bottom, radius);
       },
       'fromRectXY': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'RSuperellipse');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RSuperellipse');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RSuperellipse');
         final radiusX = D4.getRequiredArg<double>(positional, 1, 'radiusX', 'RSuperellipse');
         final radiusY = D4.getRequiredArg<double>(positional, 2, 'radiusY', 'RSuperellipse');
         return $dart_ui.RSuperellipse.fromRectXY(rect, radiusX, radiusY);
       },
       'fromRectAndRadius': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'RSuperellipse');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RSuperellipse');
-        final radius = D4.getRequiredArg<$dart_ui.Radius>(positional, 1, 'radius', 'RSuperellipse');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RSuperellipse');
+        final radius = D4.getRequiredArg<$sky_engine_1.Radius>(positional, 1, 'radius', 'RSuperellipse');
         return $dart_ui.RSuperellipse.fromRectAndRadius(rect, radius);
       },
       'fromLTRBAndCorners': (visitor, positional, named) {
@@ -2496,19 +2496,19 @@ BridgedClass _createRSuperellipseBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'RSuperellipse');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'RSuperellipse');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'RSuperellipse');
-        final topLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topLeft', $dart_ui.Radius.zero);
-        final topRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topRight', $dart_ui.Radius.zero);
-        final bottomRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomRight', $dart_ui.Radius.zero);
-        final bottomLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomLeft', $dart_ui.Radius.zero);
+        final topLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topLeft', $sky_engine_1.Radius.zero);
+        final topRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topRight', $sky_engine_1.Radius.zero);
+        final bottomRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomRight', $sky_engine_1.Radius.zero);
+        final bottomLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomLeft', $sky_engine_1.Radius.zero);
         return $dart_ui.RSuperellipse.fromLTRBAndCorners(left, top, right, bottom, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
       },
       'fromRectAndCorners': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'RSuperellipse');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'RSuperellipse');
-        final topLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topLeft', $dart_ui.Radius.zero);
-        final topRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'topRight', $dart_ui.Radius.zero);
-        final bottomRight = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomRight', $dart_ui.Radius.zero);
-        final bottomLeft = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'bottomLeft', $dart_ui.Radius.zero);
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'RSuperellipse');
+        final topLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topLeft', $sky_engine_1.Radius.zero);
+        final topRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'topRight', $sky_engine_1.Radius.zero);
+        final bottomRight = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomRight', $sky_engine_1.Radius.zero);
+        final bottomLeft = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'bottomLeft', $sky_engine_1.Radius.zero);
         return $dart_ui.RSuperellipse.fromRectAndCorners(rect, topLeft: topLeft, topRight: topRight, bottomRight: bottomRight, bottomLeft: bottomLeft);
       },
     },
@@ -2552,7 +2552,7 @@ BridgedClass _createRSuperellipseBridge() {
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.RSuperellipse>(target, 'RSuperellipse');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2562,7 +2562,7 @@ BridgedClass _createRSuperellipseBridge() {
       'shift': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.RSuperellipse>(target, 'RSuperellipse');
         D4.requireMinArgs(positional, 1, 'shift');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'shift');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'shift');
         return t.shift(offset);
       },
       'inflate': (visitor, target, positional, named, typeArgs) {
@@ -2593,8 +2593,8 @@ BridgedClass _createRSuperellipseBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.RSuperellipse?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.RSuperellipse?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.RSuperellipse?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.RSuperellipse?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.RSuperellipse.lerp(a, b, t_);
       },
@@ -2756,12 +2756,12 @@ BridgedClass _createKeyDataBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final timeStamp = D4.getRequiredNamedArg<Duration>(named, 'timeStamp', 'KeyData');
-        final type = D4.getRequiredNamedArg<$dart_ui.KeyEventType>(named, 'type', 'KeyData');
+        final type = D4.getRequiredNamedArg<$sky_engine_1.KeyEventType>(named, 'type', 'KeyData');
         final physical = D4.getRequiredNamedArg<int>(named, 'physical', 'KeyData');
         final logical = D4.getRequiredNamedArg<int>(named, 'logical', 'KeyData');
         final character = D4.getRequiredNamedArg<String?>(named, 'character', 'KeyData');
         final synthesized = D4.getRequiredNamedArg<bool>(named, 'synthesized', 'KeyData');
-        final deviceType = D4.getNamedArgWithDefault<$dart_ui.KeyEventDeviceType>(named, 'deviceType', $dart_ui.KeyEventDeviceType.keyboard);
+        final deviceType = D4.getNamedArgWithDefault<$sky_engine_1.KeyEventDeviceType>(named, 'deviceType', $sky_engine_1.KeyEventDeviceType.keyboard);
         return $dart_ui.KeyData(timeStamp: timeStamp, type: type, physical: physical, logical: logical, character: character, synthesized: synthesized, deviceType: deviceType);
       },
     },
@@ -2845,7 +2845,7 @@ BridgedClass _createColorBridge() {
         final red = D4.getRequiredNamedArg<double>(named, 'red', 'Color');
         final green = D4.getRequiredNamedArg<double>(named, 'green', 'Color');
         final blue = D4.getRequiredNamedArg<double>(named, 'blue', 'Color');
-        final colorSpace = D4.getNamedArgWithDefault<$dart_ui.ColorSpace>(named, 'colorSpace', $dart_ui.ColorSpace.sRGB);
+        final colorSpace = D4.getNamedArgWithDefault<$sky_engine_1.ColorSpace>(named, 'colorSpace', $sky_engine_1.ColorSpace.sRGB);
         return $dart_ui.Color.from(alpha: alpha, red: red, green: green, blue: blue, colorSpace: colorSpace);
       },
       'fromARGB': (visitor, positional, named) {
@@ -2890,7 +2890,7 @@ BridgedClass _createColorBridge() {
         final red = D4.getOptionalNamedArg<double?>(named, 'red');
         final green = D4.getOptionalNamedArg<double?>(named, 'green');
         final blue = D4.getOptionalNamedArg<double?>(named, 'blue');
-        final colorSpace = D4.getOptionalNamedArg<$dart_ui.ColorSpace?>(named, 'colorSpace');
+        final colorSpace = D4.getOptionalNamedArg<$sky_engine_1.ColorSpace?>(named, 'colorSpace');
         return t.withValues(alpha: alpha, red: red, green: green, blue: blue, colorSpace: colorSpace);
       },
       'withAlpha': (visitor, target, positional, named, typeArgs) {
@@ -2940,15 +2940,15 @@ BridgedClass _createColorBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final x = D4.getRequiredArg<$dart_ui.Color?>(positional, 0, 'x', 'lerp');
-        final y = D4.getRequiredArg<$dart_ui.Color?>(positional, 1, 'y', 'lerp');
+        final x = D4.getRequiredArg<$sky_engine_1.Color?>(positional, 0, 'x', 'lerp');
+        final y = D4.getRequiredArg<$sky_engine_1.Color?>(positional, 1, 'y', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Color.lerp(x, y, t_);
       },
       'alphaBlend': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'alphaBlend');
-        final foreground = D4.getRequiredArg<$dart_ui.Color>(positional, 0, 'foreground', 'alphaBlend');
-        final background = D4.getRequiredArg<$dart_ui.Color>(positional, 1, 'background', 'alphaBlend');
+        final foreground = D4.getRequiredArg<$sky_engine_1.Color>(positional, 0, 'foreground', 'alphaBlend');
+        final background = D4.getRequiredArg<$sky_engine_1.Color>(positional, 1, 'background', 'alphaBlend');
         return $dart_ui.Color.alphaBlend(foreground, background);
       },
       'getAlphaFromOpacity': (visitor, positional, named, typeArgs) {
@@ -3011,7 +3011,7 @@ BridgedClass _createPaintBridge() {
       },
       'from': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Paint');
-        final other = D4.getRequiredArg<$dart_ui.Paint>(positional, 0, 'other', 'Paint');
+        final other = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 0, 'other', 'Paint');
         return $dart_ui.Paint.from(other);
       },
     },
@@ -3035,29 +3035,29 @@ BridgedClass _createPaintBridge() {
       'isAntiAlias': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.Paint>(target, 'Paint').isAntiAlias = D4.extractBridgedArg<bool>(value, 'isAntiAlias'),
       'color': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').color = D4.extractBridgedArg<$dart_ui.Color>(value, 'color'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').color = D4.extractBridgedArg<$sky_engine_1.Color>(value, 'color'),
       'blendMode': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').blendMode = D4.extractBridgedArg<$dart_ui.BlendMode>(value, 'blendMode'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').blendMode = D4.extractBridgedArg<$sky_engine_1.BlendMode>(value, 'blendMode'),
       'style': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').style = D4.extractBridgedArg<$dart_ui.PaintingStyle>(value, 'style'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').style = D4.extractBridgedArg<$sky_engine_1.PaintingStyle>(value, 'style'),
       'strokeWidth': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeWidth = D4.extractBridgedArg<double>(value, 'strokeWidth'),
       'strokeCap': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeCap = D4.extractBridgedArg<$dart_ui.StrokeCap>(value, 'strokeCap'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeCap = D4.extractBridgedArg<$sky_engine_1.StrokeCap>(value, 'strokeCap'),
       'strokeJoin': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeJoin = D4.extractBridgedArg<$dart_ui.StrokeJoin>(value, 'strokeJoin'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeJoin = D4.extractBridgedArg<$sky_engine_1.StrokeJoin>(value, 'strokeJoin'),
       'strokeMiterLimit': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.Paint>(target, 'Paint').strokeMiterLimit = D4.extractBridgedArg<double>(value, 'strokeMiterLimit'),
       'maskFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').maskFilter = D4.extractBridgedArgOrNull<$dart_ui.MaskFilter>(value, 'maskFilter'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').maskFilter = D4.extractBridgedArgOrNull<$sky_engine_1.MaskFilter>(value, 'maskFilter'),
       'filterQuality': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').filterQuality = D4.extractBridgedArg<$dart_ui.FilterQuality>(value, 'filterQuality'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').filterQuality = D4.extractBridgedArg<$sky_engine_1.FilterQuality>(value, 'filterQuality'),
       'shader': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').shader = D4.extractBridgedArgOrNull<$dart_ui.Shader>(value, 'shader'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').shader = D4.extractBridgedArgOrNull<$sky_engine_1.Shader>(value, 'shader'),
       'colorFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').colorFilter = D4.extractBridgedArgOrNull<$dart_ui.ColorFilter>(value, 'colorFilter'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').colorFilter = D4.extractBridgedArgOrNull<$sky_engine_1.ColorFilter>(value, 'colorFilter'),
       'imageFilter': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').imageFilter = D4.extractBridgedArgOrNull<$dart_ui.ImageFilter>(value, 'imageFilter'),
+        D4.validateTarget<$dart_ui.Paint>(target, 'Paint').imageFilter = D4.extractBridgedArgOrNull<$sky_engine_1.ImageFilter>(value, 'imageFilter'),
       'invertColors': (visitor, target, value) => 
         D4.validateTarget<$dart_ui.Paint>(target, 'Paint').invertColors = D4.extractBridgedArg<bool>(value, 'invertColors'),
     },
@@ -3134,7 +3134,7 @@ BridgedClass _createImageBridge() {
       },
       'toByteData': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Image>(target, 'Image');
-        final format = D4.getNamedArgWithDefault<$dart_ui.ImageByteFormat>(named, 'format', $dart_ui.ImageByteFormat.rawRgba);
+        final format = D4.getNamedArgWithDefault<$sky_engine_1.ImageByteFormat>(named, 'format', $sky_engine_1.ImageByteFormat.rawRgba);
         return t.toByteData(format: format);
       },
       'debugGetOpenHandleStackTraces': (visitor, target, positional, named, typeArgs) {
@@ -3148,7 +3148,7 @@ BridgedClass _createImageBridge() {
       'isCloneOf': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Image>(target, 'Image');
         D4.requireMinArgs(positional, 1, 'isCloneOf');
-        final other = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'other', 'isCloneOf');
+        final other = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'other', 'isCloneOf');
         return t.isCloneOf(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3163,11 +3163,11 @@ BridgedClass _createImageBridge() {
     staticSetters: {
       'onCreate': (visitor, value) {
         final onCreateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCreate');
-        $dart_ui.Image.onCreate = onCreateRaw == null ? null : ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
+        $dart_ui.Image.onCreate = onCreateRaw == null ? null : ($sky_engine_1.Image p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
       },
       'onDispose': (visitor, value) {
         final onDisposeRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDispose');
-        $dart_ui.Image.onDispose = onDisposeRaw == null ? null : ($dart_ui.Image p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
+        $dart_ui.Image.onDispose = onDisposeRaw == null ? null : ($sky_engine_1.Image p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
       },
     },
     methodSignatures: {
@@ -3332,7 +3332,7 @@ BridgedClass _createPathBridge() {
       },
       'from': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Path');
-        final source = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'source', 'Path');
+        final source = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'source', 'Path');
         return $dart_ui.Path.from(source);
       },
     },
@@ -3341,7 +3341,7 @@ BridgedClass _createPathBridge() {
     },
     setters: {
       'fillType': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.Path>(target, 'Path').fillType = D4.extractBridgedArg<$dart_ui.PathFillType>(value, 'fillType'),
+        D4.validateTarget<$dart_ui.Path>(target, 'Path').fillType = D4.extractBridgedArg<$sky_engine_1.PathFillType>(value, 'fillType'),
     },
     methods: {
       'moveTo': (visitor, target, positional, named, typeArgs) {
@@ -3445,7 +3445,7 @@ BridgedClass _createPathBridge() {
       'arcTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 4, 'arcTo');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'arcTo');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'arcTo');
         final startAngle = D4.getRequiredArg<double>(positional, 1, 'startAngle', 'arcTo');
         final sweepAngle = D4.getRequiredArg<double>(positional, 2, 'sweepAngle', 'arcTo');
         final forceMoveTo = D4.getRequiredArg<bool>(positional, 3, 'forceMoveTo', 'arcTo');
@@ -3455,8 +3455,8 @@ BridgedClass _createPathBridge() {
       'arcToPoint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'arcToPoint');
-        final arcEnd = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'arcEnd', 'arcToPoint');
-        final radius = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'radius', $dart_ui.Radius.zero);
+        final arcEnd = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'arcEnd', 'arcToPoint');
+        final radius = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'radius', $sky_engine_1.Radius.zero);
         final rotation = D4.getNamedArgWithDefault<double>(named, 'rotation', 0.0);
         final largeArc = D4.getNamedArgWithDefault<bool>(named, 'largeArc', false);
         final clockwise = D4.getNamedArgWithDefault<bool>(named, 'clockwise', true);
@@ -3466,8 +3466,8 @@ BridgedClass _createPathBridge() {
       'relativeArcToPoint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'relativeArcToPoint');
-        final arcEndDelta = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'arcEndDelta', 'relativeArcToPoint');
-        final radius = D4.getNamedArgWithDefault<$dart_ui.Radius>(named, 'radius', $dart_ui.Radius.zero);
+        final arcEndDelta = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'arcEndDelta', 'relativeArcToPoint');
+        final radius = D4.getNamedArgWithDefault<$sky_engine_1.Radius>(named, 'radius', $sky_engine_1.Radius.zero);
         final rotation = D4.getNamedArgWithDefault<double>(named, 'rotation', 0.0);
         final largeArc = D4.getNamedArgWithDefault<bool>(named, 'largeArc', false);
         final clockwise = D4.getNamedArgWithDefault<bool>(named, 'clockwise', true);
@@ -3477,21 +3477,21 @@ BridgedClass _createPathBridge() {
       'addRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'addRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'addRect');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'addRect');
         t.addRect(rect);
         return null;
       },
       'addOval': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'addOval');
-        final oval = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'oval', 'addOval');
+        final oval = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'oval', 'addOval');
         t.addOval(oval);
         return null;
       },
       'addArc': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 3, 'addArc');
-        final oval = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'oval', 'addArc');
+        final oval = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'oval', 'addArc');
         final startAngle = D4.getRequiredArg<double>(positional, 1, 'startAngle', 'addArc');
         final sweepAngle = D4.getRequiredArg<double>(positional, 2, 'sweepAngle', 'addArc');
         t.addArc(oval, startAngle, sweepAngle);
@@ -3503,7 +3503,7 @@ BridgedClass _createPathBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('addPolygon: Missing required argument "points" at position 0');
         }
-        final points = D4.coerceList<$dart_ui.Offset>(positional[0], 'points');
+        final points = D4.coerceList<$sky_engine_1.Offset>(positional[0], 'points');
         final close = D4.getRequiredArg<bool>(positional, 1, 'close', 'addPolygon');
         t.addPolygon(points, close);
         return null;
@@ -3511,22 +3511,22 @@ BridgedClass _createPathBridge() {
       'addRRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'addRRect');
-        final rrect = D4.getRequiredArg<$dart_ui.RRect>(positional, 0, 'rrect', 'addRRect');
+        final rrect = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 0, 'rrect', 'addRRect');
         t.addRRect(rrect);
         return null;
       },
       'addRSuperellipse': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'addRSuperellipse');
-        final rsuperellipse = D4.getRequiredArg<$dart_ui.RSuperellipse>(positional, 0, 'rsuperellipse', 'addRSuperellipse');
+        final rsuperellipse = D4.getRequiredArg<$sky_engine_1.RSuperellipse>(positional, 0, 'rsuperellipse', 'addRSuperellipse');
         t.addRSuperellipse(rsuperellipse);
         return null;
       },
       'addPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 2, 'addPath');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'addPath');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'offset', 'addPath');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'addPath');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'offset', 'addPath');
         final matrix4 = D4.getOptionalNamedArg<Float64List?>(named, 'matrix4');
         t.addPath(path, offset, matrix4: matrix4);
         return null;
@@ -3534,8 +3534,8 @@ BridgedClass _createPathBridge() {
       'extendWithPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 2, 'extendWithPath');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'extendWithPath');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'offset', 'extendWithPath');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'extendWithPath');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'offset', 'extendWithPath');
         final matrix4 = D4.getOptionalNamedArg<Float64List?>(named, 'matrix4');
         t.extendWithPath(path, offset, matrix4: matrix4);
         return null;
@@ -3553,13 +3553,13 @@ BridgedClass _createPathBridge() {
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'contains');
-        final point = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'point', 'contains');
+        final point = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'point', 'contains');
         return t.contains(point);
       },
       'shift': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Path>(target, 'Path');
         D4.requireMinArgs(positional, 1, 'shift');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'shift');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'shift');
         return t.shift(offset);
       },
       'transform': (visitor, target, positional, named, typeArgs) {
@@ -3581,9 +3581,9 @@ BridgedClass _createPathBridge() {
     staticMethods: {
       'combine': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'combine');
-        final operation = D4.getRequiredArg<$dart_ui.PathOperation>(positional, 0, 'operation', 'combine');
-        final path1 = D4.getRequiredArg<$dart_ui.Path>(positional, 1, 'path1', 'combine');
-        final path2 = D4.getRequiredArg<$dart_ui.Path>(positional, 2, 'path2', 'combine');
+        final operation = D4.getRequiredArg<$sky_engine_1.PathOperation>(positional, 0, 'operation', 'combine');
+        final path1 = D4.getRequiredArg<$sky_engine_1.Path>(positional, 1, 'path1', 'combine');
+        final path2 = D4.getRequiredArg<$sky_engine_1.Path>(positional, 2, 'path2', 'combine');
         return $dart_ui.Path.combine(operation, path1, path2);
       },
     },
@@ -3645,13 +3645,13 @@ BridgedClass _createTangentBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Tangent');
-        final position = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'position', 'Tangent');
-        final vector = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'vector', 'Tangent');
+        final position = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'position', 'Tangent');
+        final vector = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'vector', 'Tangent');
         return $dart_ui.Tangent(position, vector);
       },
       'fromAngle': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Tangent');
-        final position = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'position', 'Tangent');
+        final position = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'position', 'Tangent');
         final angle = D4.getRequiredArg<double>(positional, 1, 'angle', 'Tangent');
         return $dart_ui.Tangent.fromAngle(position, angle);
       },
@@ -3704,7 +3704,7 @@ BridgedClass _createPathMetricsBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('followedBy: Missing required argument "other" at position 0');
         }
-        final other = D4.coerceList<$dart_ui.PathMetric>(positional[0], 'other');
+        final other = D4.coerceList<$sky_engine_1.PathMetric>(positional[0], 'other');
         return t.followedBy(other);
       },
       'map': (visitor, target, positional, named, typeArgs) {
@@ -3714,7 +3714,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('map: Missing required argument "toElement" at position 0');
         }
         final toElementRaw = positional[0];
-        return t.map(($dart_ui.PathMetric p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
+        return t.map(($sky_engine_1.PathMetric p0) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, toElementRaw, [p0])); });
       },
       'where': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3723,7 +3723,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('where: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.where(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.where(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'whereType': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3736,7 +3736,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('expand: Missing required argument "toElements" at position 0');
         }
         final toElementsRaw = positional[0];
-        return t.expand(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
+        return t.expand(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<Iterable<dynamic>>(D4.callInterpreterCallback(visitor!, toElementsRaw, [p0]), 'callback', visitor); });
       },
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3751,7 +3751,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('forEach: Missing required argument "action" at position 0');
         }
         final actionRaw = positional[0];
-        t.forEach(($dart_ui.PathMetric p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
+        t.forEach(($sky_engine_1.PathMetric p0) { D4.callInterpreterCallback(visitor!, actionRaw, [p0]); });
         return null;
       },
       'reduce': (visitor, target, positional, named, typeArgs) {
@@ -3761,7 +3761,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('reduce: Missing required argument "combine" at position 0');
         }
         final combineRaw = positional[0];
-        return t.reduce(($dart_ui.PathMetric p0, $dart_ui.PathMetric p1) { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor); });
+        return t.reduce(($sky_engine_1.PathMetric p0, $sky_engine_1.PathMetric p1) { return D4.extractBridgedArg<$sky_engine_1.PathMetric>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1]), 'callback', visitor); });
       },
       'fold': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3771,7 +3771,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('fold: Missing required argument "combine" at position 1');
         }
         final combineRaw = positional[1];
-        return t.fold(initialValue, (dynamic p0, $dart_ui.PathMetric p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
+        return t.fold(initialValue, (dynamic p0, $sky_engine_1.PathMetric p1) { return D4.castCallbackResult<dynamic>(D4.callInterpreterCallback(visitor!, combineRaw, [p0, p1])); });
       },
       'every': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3780,7 +3780,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('every: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.every(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.every(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'join': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3794,7 +3794,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('any: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.any(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.any(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'toList': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3818,7 +3818,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('takeWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.takeWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.takeWhile(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'skip': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3833,7 +3833,7 @@ BridgedClass _createPathMetricsBridge() {
           throw ArgumentError('skipWhile: Missing required argument "test" at position 0');
         }
         final testRaw = positional[0];
-        return t.skipWhile(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
+        return t.skipWhile(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); });
       },
       'firstWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3843,7 +3843,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.firstWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.firstWhere(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$sky_engine_1.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'lastWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3853,7 +3853,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.lastWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.lastWhere(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$sky_engine_1.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'singleWhere': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3863,7 +3863,7 @@ BridgedClass _createPathMetricsBridge() {
         }
         final testRaw = positional[0];
         final orElseRaw = named['orElse'];
-        return t.singleWhere(($dart_ui.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$dart_ui.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
+        return t.singleWhere(($sky_engine_1.PathMetric p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, testRaw, [p0]), 'callback', visitor); }, orElse: orElseRaw == null ? null : () { return D4.extractBridgedArg<$sky_engine_1.PathMetric>(D4.callInterpreterCallback(visitor!, orElseRaw, []), 'callback', visitor); });
       },
       'elementAt': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PathMetrics>(target, 'PathMetrics');
@@ -3879,26 +3879,26 @@ BridgedClass _createPathMetricsBridge() {
     methodSignatures: {
       'cast': 'Iterable<R> cast()',
       'followedBy': 'Iterable<PathMetric> followedBy(Iterable<PathMetric> other)',
-      'map': 'Iterable<T> map(T Function(PathMetric) toElement)',
-      'where': 'Iterable<PathMetric> where(bool Function(PathMetric) test)',
+      'map': 'Iterable<T> map(T Function(PathMetric e) toElement)',
+      'where': 'Iterable<PathMetric> where(bool Function(PathMetric element) test)',
       'whereType': 'Iterable<T> whereType()',
-      'expand': 'Iterable<T> expand(Iterable<T> Function(PathMetric) toElements)',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(PathMetric element) toElements)',
       'contains': 'bool contains(Object? element)',
-      'forEach': 'void forEach(void Function(PathMetric) action)',
-      'reduce': 'PathMetric reduce(PathMetric Function(PathMetric, PathMetric) combine)',
-      'fold': 'T fold(T initialValue, T Function(T, PathMetric) combine)',
-      'every': 'bool every(bool Function(PathMetric) test)',
+      'forEach': 'void forEach(void Function(PathMetric element) action)',
+      'reduce': 'PathMetric reduce(PathMetric Function(PathMetric value, PathMetric element) combine)',
+      'fold': 'T fold(T initialValue, T Function(T previousValue, PathMetric element) combine)',
+      'every': 'bool every(bool Function(PathMetric element) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(PathMetric) test)',
+      'any': 'bool any(bool Function(PathMetric element) test)',
       'toList': 'List<PathMetric> toList({bool growable = true})',
       'toSet': 'Set<PathMetric> toSet()',
       'take': 'Iterable<PathMetric> take(int count)',
-      'takeWhile': 'Iterable<PathMetric> takeWhile(bool Function(PathMetric) test)',
+      'takeWhile': 'Iterable<PathMetric> takeWhile(bool Function(PathMetric value) test)',
       'skip': 'Iterable<PathMetric> skip(int count)',
-      'skipWhile': 'Iterable<PathMetric> skipWhile(bool Function(PathMetric) test)',
-      'firstWhere': 'PathMetric firstWhere(bool Function(PathMetric) test, {PathMetric Function()? orElse})',
-      'lastWhere': 'PathMetric lastWhere(bool Function(PathMetric) test, {PathMetric Function()? orElse})',
-      'singleWhere': 'PathMetric singleWhere(bool Function(PathMetric) test, {PathMetric Function()? orElse})',
+      'skipWhile': 'Iterable<PathMetric> skipWhile(bool Function(PathMetric value) test)',
+      'firstWhere': 'PathMetric firstWhere(bool Function(PathMetric element) test, {PathMetric Function()? orElse})',
+      'lastWhere': 'PathMetric lastWhere(bool Function(PathMetric element) test, {PathMetric Function()? orElse})',
+      'singleWhere': 'PathMetric singleWhere(bool Function(PathMetric element) test, {PathMetric Function()? orElse})',
       'elementAt': 'PathMetric elementAt(int index)',
       'toString': 'String toString()',
     },
@@ -4004,7 +4004,7 @@ BridgedClass _createMaskFilterBridge() {
     constructors: {
       'blur': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'MaskFilter');
-        final style = D4.getRequiredArg<$dart_ui.BlurStyle>(positional, 0, '_style', 'MaskFilter');
+        final style = D4.getRequiredArg<$sky_engine_1.BlurStyle>(positional, 0, '_style', 'MaskFilter');
         final sigma = D4.getRequiredArg<double>(positional, 1, '_sigma', 'MaskFilter');
         return $dart_ui.MaskFilter.blur(style, sigma);
       },
@@ -4047,8 +4047,8 @@ BridgedClass _createColorFilterBridge() {
     constructors: {
       'mode': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'ColorFilter');
-        final color = D4.getRequiredArg<$dart_ui.Color>(positional, 0, 'color', 'ColorFilter');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode>(positional, 1, 'blendMode', 'ColorFilter');
+        final color = D4.getRequiredArg<$sky_engine_1.Color>(positional, 0, 'color', 'ColorFilter');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode>(positional, 1, 'blendMode', 'ColorFilter');
         return $dart_ui.ColorFilter.mode(color, blendMode);
       },
       'matrix': (visitor, positional, named) {
@@ -4116,8 +4116,8 @@ BridgedClass _createImageFilterBridge() {
       'blur': (visitor, positional, named) {
         final sigmaX = D4.getNamedArgWithDefault<double>(named, 'sigmaX', 0.0);
         final sigmaY = D4.getNamedArgWithDefault<double>(named, 'sigmaY', 0.0);
-        final tileMode = D4.getOptionalNamedArg<$dart_ui.TileMode?>(named, 'tileMode');
-        final bounds = D4.getOptionalNamedArg<$dart_ui.Rect?>(named, 'bounds');
+        final tileMode = D4.getOptionalNamedArg<$sky_engine_1.TileMode?>(named, 'tileMode');
+        final bounds = D4.getOptionalNamedArg<$sky_engine_1.Rect?>(named, 'bounds');
         return $dart_ui.ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY, tileMode: tileMode, bounds: bounds);
       },
       'dilate': (visitor, positional, named) {
@@ -4133,17 +4133,17 @@ BridgedClass _createImageFilterBridge() {
       'matrix': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageFilter');
         final matrix4 = D4.getRequiredArg<Float64List>(positional, 0, 'matrix4', 'ImageFilter');
-        final filterQuality = D4.getNamedArgWithDefault<$dart_ui.FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.medium);
+        final filterQuality = D4.getNamedArgWithDefault<$sky_engine_1.FilterQuality>(named, 'filterQuality', $sky_engine_1.FilterQuality.medium);
         return $dart_ui.ImageFilter.matrix(matrix4, filterQuality: filterQuality);
       },
       'compose': (visitor, positional, named) {
-        final outer = D4.getRequiredNamedArg<$dart_ui.ImageFilter>(named, 'outer', 'ImageFilter');
-        final inner = D4.getRequiredNamedArg<$dart_ui.ImageFilter>(named, 'inner', 'ImageFilter');
+        final outer = D4.getRequiredNamedArg<$sky_engine_1.ImageFilter>(named, 'outer', 'ImageFilter');
+        final inner = D4.getRequiredNamedArg<$sky_engine_1.ImageFilter>(named, 'inner', 'ImageFilter');
         return $dart_ui.ImageFilter.compose(outer: outer, inner: inner);
       },
       'shader': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageFilter');
-        final shader = D4.getRequiredArg<$dart_ui.FragmentShader>(positional, 0, 'shader', 'ImageFilter');
+        final shader = D4.getRequiredArg<$sky_engine_1.FragmentShader>(positional, 0, 'shader', 'ImageFilter');
         return $dart_ui.ImageFilter.shader(shader);
       },
     },
@@ -4212,47 +4212,47 @@ BridgedClass _createGradientBridge() {
     constructors: {
       'linear': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Gradient');
-        final from = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'from', 'Gradient');
-        final to = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'to', 'Gradient');
+        final from = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'from', 'Gradient');
+        final to = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'to', 'Gradient');
         if (positional.length <= 2) {
           throw ArgumentError('Gradient: Missing required argument "colors" at position 2');
         }
-        final colors = D4.coerceList<$dart_ui.Color>(positional[2], 'colors');
+        final colors = D4.coerceList<$sky_engine_1.Color>(positional[2], 'colors');
         final colorStops = positional.length > 3
             ? D4.coerceListOrNull<double>(positional[3], 'colorStops')
             : null;
-        final tileMode = D4.getOptionalArgWithDefault<$dart_ui.TileMode>(positional, 4, 'tileMode', $dart_ui.TileMode.clamp);
+        final tileMode = D4.getOptionalArgWithDefault<$sky_engine_1.TileMode>(positional, 4, 'tileMode', $sky_engine_1.TileMode.clamp);
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 5, 'matrix4');
         return $dart_ui.Gradient.linear(from, to, colors, colorStops, tileMode, matrix4);
       },
       'radial': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Gradient');
-        final center = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'center', 'Gradient');
+        final center = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'center', 'Gradient');
         final radius = D4.getRequiredArg<double>(positional, 1, 'radius', 'Gradient');
         if (positional.length <= 2) {
           throw ArgumentError('Gradient: Missing required argument "colors" at position 2');
         }
-        final colors = D4.coerceList<$dart_ui.Color>(positional[2], 'colors');
+        final colors = D4.coerceList<$sky_engine_1.Color>(positional[2], 'colors');
         final colorStops = positional.length > 3
             ? D4.coerceListOrNull<double>(positional[3], 'colorStops')
             : null;
-        final tileMode = D4.getOptionalArgWithDefault<$dart_ui.TileMode>(positional, 4, 'tileMode', $dart_ui.TileMode.clamp);
+        final tileMode = D4.getOptionalArgWithDefault<$sky_engine_1.TileMode>(positional, 4, 'tileMode', $sky_engine_1.TileMode.clamp);
         final matrix4 = D4.getOptionalArg<Float64List?>(positional, 5, 'matrix4');
-        final focal = D4.getOptionalArg<$dart_ui.Offset?>(positional, 6, 'focal');
+        final focal = D4.getOptionalArg<$sky_engine_1.Offset?>(positional, 6, 'focal');
         final focalRadius = D4.getOptionalArgWithDefault<double>(positional, 7, 'focalRadius', 0.0);
         return $dart_ui.Gradient.radial(center, radius, colors, colorStops, tileMode, matrix4, focal, focalRadius);
       },
       'sweep': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Gradient');
-        final center = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'center', 'Gradient');
+        final center = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'center', 'Gradient');
         if (positional.length <= 1) {
           throw ArgumentError('Gradient: Missing required argument "colors" at position 1');
         }
-        final colors = D4.coerceList<$dart_ui.Color>(positional[1], 'colors');
+        final colors = D4.coerceList<$sky_engine_1.Color>(positional[1], 'colors');
         final colorStops = positional.length > 2
             ? D4.coerceListOrNull<double>(positional[2], 'colorStops')
             : null;
-        final tileMode = D4.getOptionalArgWithDefault<$dart_ui.TileMode>(positional, 3, 'tileMode', $dart_ui.TileMode.clamp);
+        final tileMode = D4.getOptionalArgWithDefault<$sky_engine_1.TileMode>(positional, 3, 'tileMode', $sky_engine_1.TileMode.clamp);
         final startAngle = D4.getOptionalArgWithDefault<double>(positional, 4, 'startAngle', 0.0);
         // TODO: Non-wrappable default: math.pi * 2
         final endAngle = D4.getRequiredArgTodoDefault<double>(positional, 5, 'endAngle', 'Gradient', 'math.pi * 2');
@@ -4296,11 +4296,11 @@ BridgedClass _createImageShaderBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 4, 'ImageShader');
-        final image = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'image', 'ImageShader');
-        final tmx = D4.getRequiredArg<$dart_ui.TileMode>(positional, 1, 'tmx', 'ImageShader');
-        final tmy = D4.getRequiredArg<$dart_ui.TileMode>(positional, 2, 'tmy', 'ImageShader');
+        final image = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'image', 'ImageShader');
+        final tmx = D4.getRequiredArg<$sky_engine_1.TileMode>(positional, 1, 'tmx', 'ImageShader');
+        final tmy = D4.getRequiredArg<$sky_engine_1.TileMode>(positional, 2, 'tmy', 'ImageShader');
         final matrix4 = D4.getRequiredArg<Float64List>(positional, 3, 'matrix4', 'ImageShader');
-        final filterQuality = D4.getOptionalNamedArg<$dart_ui.FilterQuality?>(named, 'filterQuality');
+        final filterQuality = D4.getOptionalNamedArg<$sky_engine_1.FilterQuality?>(named, 'filterQuality');
         return $dart_ui.ImageShader(image, tmx, tmy, matrix4, filterQuality: filterQuality);
       },
     },
@@ -4371,9 +4371,9 @@ BridgedClass _createUniformFloatSlotBridge() {
     constructors: {
     },
     getters: {
-      'shaderIndex': (visitor, target) => D4.validateTarget<$dart_ui.UniformFloatSlot>(target, 'UniformFloatSlot').shaderIndex,
       'name': (visitor, target) => D4.validateTarget<$dart_ui.UniformFloatSlot>(target, 'UniformFloatSlot').name,
       'index': (visitor, target) => D4.validateTarget<$dart_ui.UniformFloatSlot>(target, 'UniformFloatSlot').index,
+      'shaderIndex': (visitor, target) => D4.validateTarget<$dart_ui.UniformFloatSlot>(target, 'UniformFloatSlot').shaderIndex,
     },
     methods: {
       'set': (visitor, target, positional, named, typeArgs) {
@@ -4388,9 +4388,9 @@ BridgedClass _createUniformFloatSlotBridge() {
       'set': 'void set(double val)',
     },
     getterSignatures: {
-      'shaderIndex': 'int get shaderIndex',
       'name': 'String get name',
       'index': 'int get index',
+      'shaderIndex': 'int get shaderIndex',
     },
   );
 }
@@ -4491,14 +4491,14 @@ BridgedClass _createImageSamplerSlotBridge() {
     constructors: {
     },
     getters: {
-      'shaderIndex': (visitor, target) => D4.validateTarget<$dart_ui.ImageSamplerSlot>(target, 'ImageSamplerSlot').shaderIndex,
       'name': (visitor, target) => D4.validateTarget<$dart_ui.ImageSamplerSlot>(target, 'ImageSamplerSlot').name,
+      'shaderIndex': (visitor, target) => D4.validateTarget<$dart_ui.ImageSamplerSlot>(target, 'ImageSamplerSlot').shaderIndex,
     },
     methods: {
       'set': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ImageSamplerSlot>(target, 'ImageSamplerSlot');
         D4.requireMinArgs(positional, 1, 'set');
-        final val = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'val', 'set');
+        final val = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'val', 'set');
         t.set(val);
         return null;
       },
@@ -4507,8 +4507,8 @@ BridgedClass _createImageSamplerSlotBridge() {
       'set': 'void set(Image val)',
     },
     getterSignatures: {
-      'shaderIndex': 'int get shaderIndex',
       'name': 'String get name',
+      'shaderIndex': 'int get shaderIndex',
     },
   );
 }
@@ -4576,8 +4576,8 @@ BridgedClass _createFragmentShaderBridge() {
         final t = D4.validateTarget<$dart_ui.FragmentShader>(target, 'FragmentShader');
         D4.requireMinArgs(positional, 2, 'setImageSampler');
         final index = D4.getRequiredArg<int>(positional, 0, 'index', 'setImageSampler');
-        final image = D4.getRequiredArg<$dart_ui.Image>(positional, 1, 'image', 'setImageSampler');
-        final filterQuality = D4.getNamedArgWithDefault<$dart_ui.FilterQuality>(named, 'filterQuality', $dart_ui.FilterQuality.none);
+        final image = D4.getRequiredArg<$sky_engine_1.Image>(positional, 1, 'image', 'setImageSampler');
+        final filterQuality = D4.getNamedArgWithDefault<$sky_engine_1.FilterQuality>(named, 'filterQuality', $sky_engine_1.FilterQuality.none);
         t.setImageSampler(index, image, filterQuality: filterQuality);
         return null;
       },
@@ -4610,19 +4610,19 @@ BridgedClass _createVerticesBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vertices');
-        final mode = D4.getRequiredArg<$dart_ui.VertexMode>(positional, 0, 'mode', 'Vertices');
+        final mode = D4.getRequiredArg<$sky_engine_1.VertexMode>(positional, 0, 'mode', 'Vertices');
         if (positional.length <= 1) {
           throw ArgumentError('Vertices: Missing required argument "positions" at position 1');
         }
-        final positions = D4.coerceList<$dart_ui.Offset>(positional[1], 'positions');
-        final colors = D4.coerceListOrNull<$dart_ui.Color>(named['colors'], 'colors');
-        final textureCoordinates = D4.coerceListOrNull<$dart_ui.Offset>(named['textureCoordinates'], 'textureCoordinates');
+        final positions = D4.coerceList<$sky_engine_1.Offset>(positional[1], 'positions');
+        final colors = D4.coerceListOrNull<$sky_engine_1.Color>(named['colors'], 'colors');
+        final textureCoordinates = D4.coerceListOrNull<$sky_engine_1.Offset>(named['textureCoordinates'], 'textureCoordinates');
         final indices = D4.coerceListOrNull<int>(named['indices'], 'indices');
         return $dart_ui.Vertices(mode, positions, colors: colors, textureCoordinates: textureCoordinates, indices: indices);
       },
       'raw': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'Vertices');
-        final mode = D4.getRequiredArg<$dart_ui.VertexMode>(positional, 0, 'mode', 'Vertices');
+        final mode = D4.getRequiredArg<$sky_engine_1.VertexMode>(positional, 0, 'mode', 'Vertices');
         final positions = D4.getRequiredArg<Float32List>(positional, 1, 'positions', 'Vertices');
         final colors = D4.getOptionalNamedArg<Int32List?>(named, 'colors');
         final textureCoordinates = D4.getOptionalNamedArg<Float32List?>(named, 'textureCoordinates');
@@ -4665,8 +4665,8 @@ BridgedClass _createCanvasBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Canvas');
-        final recorder = D4.getRequiredArg<$dart_ui.PictureRecorder>(positional, 0, 'recorder', 'Canvas');
-        final cullRect = D4.getOptionalArg<$dart_ui.Rect?>(positional, 1, 'cullRect');
+        final recorder = D4.getRequiredArg<$sky_engine_1.PictureRecorder>(positional, 0, 'recorder', 'Canvas');
+        final cullRect = D4.getOptionalArg<$sky_engine_1.Rect?>(positional, 1, 'cullRect');
         return $dart_ui.Canvas(recorder, cullRect);
       },
     },
@@ -4679,8 +4679,8 @@ BridgedClass _createCanvasBridge() {
       'saveLayer': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'saveLayer');
-        final bounds = D4.getRequiredArg<$dart_ui.Rect?>(positional, 0, 'bounds', 'saveLayer');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'saveLayer');
+        final bounds = D4.getRequiredArg<$sky_engine_1.Rect?>(positional, 0, 'bounds', 'saveLayer');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'saveLayer');
         t.saveLayer(bounds, paint);
         return null;
       },
@@ -4745,8 +4745,8 @@ BridgedClass _createCanvasBridge() {
       'clipRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'clipRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'clipRect');
-        final clipOp = D4.getNamedArgWithDefault<$dart_ui.ClipOp>(named, 'clipOp', $dart_ui.ClipOp.intersect);
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'clipRect');
+        final clipOp = D4.getNamedArgWithDefault<$sky_engine_1.ClipOp>(named, 'clipOp', $sky_engine_1.ClipOp.intersect);
         final doAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'doAntiAlias', true);
         t.clipRect(rect, clipOp: clipOp, doAntiAlias: doAntiAlias);
         return null;
@@ -4754,7 +4754,7 @@ BridgedClass _createCanvasBridge() {
       'clipRRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'clipRRect');
-        final rrect = D4.getRequiredArg<$dart_ui.RRect>(positional, 0, 'rrect', 'clipRRect');
+        final rrect = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 0, 'rrect', 'clipRRect');
         final doAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'doAntiAlias', true);
         t.clipRRect(rrect, doAntiAlias: doAntiAlias);
         return null;
@@ -4762,7 +4762,7 @@ BridgedClass _createCanvasBridge() {
       'clipRSuperellipse': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'clipRSuperellipse');
-        final rsuperellipse = D4.getRequiredArg<$dart_ui.RSuperellipse>(positional, 0, 'rsuperellipse', 'clipRSuperellipse');
+        final rsuperellipse = D4.getRequiredArg<$sky_engine_1.RSuperellipse>(positional, 0, 'rsuperellipse', 'clipRSuperellipse');
         final doAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'doAntiAlias', true);
         t.clipRSuperellipse(rsuperellipse, doAntiAlias: doAntiAlias);
         return null;
@@ -4770,7 +4770,7 @@ BridgedClass _createCanvasBridge() {
       'clipPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'clipPath');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'clipPath');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'clipPath');
         final doAntiAlias = D4.getNamedArgWithDefault<bool>(named, 'doAntiAlias', true);
         t.clipPath(path, doAntiAlias: doAntiAlias);
         return null;
@@ -4786,210 +4786,210 @@ BridgedClass _createCanvasBridge() {
       'drawColor': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawColor');
-        final color = D4.getRequiredArg<$dart_ui.Color>(positional, 0, 'color', 'drawColor');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode>(positional, 1, 'blendMode', 'drawColor');
+        final color = D4.getRequiredArg<$sky_engine_1.Color>(positional, 0, 'color', 'drawColor');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode>(positional, 1, 'blendMode', 'drawColor');
         t.drawColor(color, blendMode);
         return null;
       },
       'drawLine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawLine');
-        final p1 = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'p1', 'drawLine');
-        final p2 = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'p2', 'drawLine');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawLine');
+        final p1 = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'p1', 'drawLine');
+        final p2 = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'p2', 'drawLine');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawLine');
         t.drawLine(p1, p2, paint);
         return null;
       },
       'drawPaint': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'drawPaint');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 0, 'paint', 'drawPaint');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 0, 'paint', 'drawPaint');
         t.drawPaint(paint);
         return null;
       },
       'drawRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawRect');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'drawRect');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'drawRect');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'drawRect');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'drawRect');
         t.drawRect(rect, paint);
         return null;
       },
       'drawRRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawRRect');
-        final rrect = D4.getRequiredArg<$dart_ui.RRect>(positional, 0, 'rrect', 'drawRRect');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'drawRRect');
+        final rrect = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 0, 'rrect', 'drawRRect');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'drawRRect');
         t.drawRRect(rrect, paint);
         return null;
       },
       'drawDRRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawDRRect');
-        final outer = D4.getRequiredArg<$dart_ui.RRect>(positional, 0, 'outer', 'drawDRRect');
-        final inner = D4.getRequiredArg<$dart_ui.RRect>(positional, 1, 'inner', 'drawDRRect');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawDRRect');
+        final outer = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 0, 'outer', 'drawDRRect');
+        final inner = D4.getRequiredArg<$sky_engine_1.RRect>(positional, 1, 'inner', 'drawDRRect');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawDRRect');
         t.drawDRRect(outer, inner, paint);
         return null;
       },
       'drawRSuperellipse': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawRSuperellipse');
-        final rsuperellipse = D4.getRequiredArg<$dart_ui.RSuperellipse>(positional, 0, 'rsuperellipse', 'drawRSuperellipse');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'drawRSuperellipse');
+        final rsuperellipse = D4.getRequiredArg<$sky_engine_1.RSuperellipse>(positional, 0, 'rsuperellipse', 'drawRSuperellipse');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'drawRSuperellipse');
         t.drawRSuperellipse(rsuperellipse, paint);
         return null;
       },
       'drawOval': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawOval');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'drawOval');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'drawOval');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'drawOval');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'drawOval');
         t.drawOval(rect, paint);
         return null;
       },
       'drawCircle': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawCircle');
-        final c = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'c', 'drawCircle');
+        final c = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'c', 'drawCircle');
         final radius = D4.getRequiredArg<double>(positional, 1, 'radius', 'drawCircle');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawCircle');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawCircle');
         t.drawCircle(c, radius, paint);
         return null;
       },
       'drawArc': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 5, 'drawArc');
-        final rect = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'rect', 'drawArc');
+        final rect = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'rect', 'drawArc');
         final startAngle = D4.getRequiredArg<double>(positional, 1, 'startAngle', 'drawArc');
         final sweepAngle = D4.getRequiredArg<double>(positional, 2, 'sweepAngle', 'drawArc');
         final useCenter = D4.getRequiredArg<bool>(positional, 3, 'useCenter', 'drawArc');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 4, 'paint', 'drawArc');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 4, 'paint', 'drawArc');
         t.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
         return null;
       },
       'drawPath': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawPath');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'drawPath');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 1, 'paint', 'drawPath');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'drawPath');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 1, 'paint', 'drawPath');
         t.drawPath(path, paint);
         return null;
       },
       'drawImage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawImage');
-        final image = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'image', 'drawImage');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'offset', 'drawImage');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawImage');
+        final image = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'image', 'drawImage');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'offset', 'drawImage');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawImage');
         t.drawImage(image, offset, paint);
         return null;
       },
       'drawImageRect': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 4, 'drawImageRect');
-        final image = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'image', 'drawImageRect');
-        final src = D4.getRequiredArg<$dart_ui.Rect>(positional, 1, 'src', 'drawImageRect');
-        final dst = D4.getRequiredArg<$dart_ui.Rect>(positional, 2, 'dst', 'drawImageRect');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 3, 'paint', 'drawImageRect');
+        final image = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'image', 'drawImageRect');
+        final src = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 1, 'src', 'drawImageRect');
+        final dst = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 2, 'dst', 'drawImageRect');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 3, 'paint', 'drawImageRect');
         t.drawImageRect(image, src, dst, paint);
         return null;
       },
       'drawImageNine': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 4, 'drawImageNine');
-        final image = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'image', 'drawImageNine');
-        final center = D4.getRequiredArg<$dart_ui.Rect>(positional, 1, 'center', 'drawImageNine');
-        final dst = D4.getRequiredArg<$dart_ui.Rect>(positional, 2, 'dst', 'drawImageNine');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 3, 'paint', 'drawImageNine');
+        final image = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'image', 'drawImageNine');
+        final center = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 1, 'center', 'drawImageNine');
+        final dst = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 2, 'dst', 'drawImageNine');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 3, 'paint', 'drawImageNine');
         t.drawImageNine(image, center, dst, paint);
         return null;
       },
       'drawPicture': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 1, 'drawPicture');
-        final picture = D4.getRequiredArg<$dart_ui.Picture>(positional, 0, 'picture', 'drawPicture');
+        final picture = D4.getRequiredArg<$sky_engine_1.Picture>(positional, 0, 'picture', 'drawPicture');
         t.drawPicture(picture);
         return null;
       },
       'drawParagraph': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 2, 'drawParagraph');
-        final paragraph = D4.getRequiredArg<$dart_ui.Paragraph>(positional, 0, 'paragraph', 'drawParagraph');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 1, 'offset', 'drawParagraph');
+        final paragraph = D4.getRequiredArg<$sky_engine_1.Paragraph>(positional, 0, 'paragraph', 'drawParagraph');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 1, 'offset', 'drawParagraph');
         t.drawParagraph(paragraph, offset);
         return null;
       },
       'drawPoints': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawPoints');
-        final pointMode = D4.getRequiredArg<$dart_ui.PointMode>(positional, 0, 'pointMode', 'drawPoints');
+        final pointMode = D4.getRequiredArg<$sky_engine_1.PointMode>(positional, 0, 'pointMode', 'drawPoints');
         if (positional.length <= 1) {
           throw ArgumentError('drawPoints: Missing required argument "points" at position 1');
         }
-        final points = D4.coerceList<$dart_ui.Offset>(positional[1], 'points');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawPoints');
+        final points = D4.coerceList<$sky_engine_1.Offset>(positional[1], 'points');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawPoints');
         t.drawPoints(pointMode, points, paint);
         return null;
       },
       'drawRawPoints': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawRawPoints');
-        final pointMode = D4.getRequiredArg<$dart_ui.PointMode>(positional, 0, 'pointMode', 'drawRawPoints');
+        final pointMode = D4.getRequiredArg<$sky_engine_1.PointMode>(positional, 0, 'pointMode', 'drawRawPoints');
         final points = D4.getRequiredArg<Float32List>(positional, 1, 'points', 'drawRawPoints');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawRawPoints');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawRawPoints');
         t.drawRawPoints(pointMode, points, paint);
         return null;
       },
       'drawVertices': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 3, 'drawVertices');
-        final vertices = D4.getRequiredArg<$dart_ui.Vertices>(positional, 0, 'vertices', 'drawVertices');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode>(positional, 1, 'blendMode', 'drawVertices');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 2, 'paint', 'drawVertices');
+        final vertices = D4.getRequiredArg<$sky_engine_1.Vertices>(positional, 0, 'vertices', 'drawVertices');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode>(positional, 1, 'blendMode', 'drawVertices');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 2, 'paint', 'drawVertices');
         t.drawVertices(vertices, blendMode, paint);
         return null;
       },
       'drawAtlas': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 7, 'drawAtlas');
-        final atlas = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'atlas', 'drawAtlas');
+        final atlas = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'atlas', 'drawAtlas');
         if (positional.length <= 1) {
           throw ArgumentError('drawAtlas: Missing required argument "transforms" at position 1');
         }
-        final transforms = D4.coerceList<$dart_ui.RSTransform>(positional[1], 'transforms');
+        final transforms = D4.coerceList<$sky_engine_1.RSTransform>(positional[1], 'transforms');
         if (positional.length <= 2) {
           throw ArgumentError('drawAtlas: Missing required argument "rects" at position 2');
         }
-        final rects = D4.coerceList<$dart_ui.Rect>(positional[2], 'rects');
+        final rects = D4.coerceList<$sky_engine_1.Rect>(positional[2], 'rects');
         if (positional.length <= 3) {
           throw ArgumentError('drawAtlas: Missing required argument "colors" at position 3');
         }
-        final colors = D4.coerceListOrNull<$dart_ui.Color>(positional[3], 'colors');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode?>(positional, 4, 'blendMode', 'drawAtlas');
-        final cullRect = D4.getRequiredArg<$dart_ui.Rect?>(positional, 5, 'cullRect', 'drawAtlas');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 6, 'paint', 'drawAtlas');
+        final colors = D4.coerceListOrNull<$sky_engine_1.Color>(positional[3], 'colors');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode?>(positional, 4, 'blendMode', 'drawAtlas');
+        final cullRect = D4.getRequiredArg<$sky_engine_1.Rect?>(positional, 5, 'cullRect', 'drawAtlas');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 6, 'paint', 'drawAtlas');
         t.drawAtlas(atlas, transforms, rects, colors, blendMode, cullRect, paint);
         return null;
       },
       'drawRawAtlas': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 7, 'drawRawAtlas');
-        final atlas = D4.getRequiredArg<$dart_ui.Image>(positional, 0, 'atlas', 'drawRawAtlas');
+        final atlas = D4.getRequiredArg<$sky_engine_1.Image>(positional, 0, 'atlas', 'drawRawAtlas');
         final rstTransforms = D4.getRequiredArg<Float32List>(positional, 1, 'rstTransforms', 'drawRawAtlas');
         final rects = D4.getRequiredArg<Float32List>(positional, 2, 'rects', 'drawRawAtlas');
         final colors = D4.getRequiredArg<Int32List?>(positional, 3, 'colors', 'drawRawAtlas');
-        final blendMode = D4.getRequiredArg<$dart_ui.BlendMode?>(positional, 4, 'blendMode', 'drawRawAtlas');
-        final cullRect = D4.getRequiredArg<$dart_ui.Rect?>(positional, 5, 'cullRect', 'drawRawAtlas');
-        final paint = D4.getRequiredArg<$dart_ui.Paint>(positional, 6, 'paint', 'drawRawAtlas');
+        final blendMode = D4.getRequiredArg<$sky_engine_1.BlendMode?>(positional, 4, 'blendMode', 'drawRawAtlas');
+        final cullRect = D4.getRequiredArg<$sky_engine_1.Rect?>(positional, 5, 'cullRect', 'drawRawAtlas');
+        final paint = D4.getRequiredArg<$sky_engine_1.Paint>(positional, 6, 'paint', 'drawRawAtlas');
         t.drawRawAtlas(atlas, rstTransforms, rects, colors, blendMode, cullRect, paint);
         return null;
       },
       'drawShadow': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Canvas>(target, 'Canvas');
         D4.requireMinArgs(positional, 4, 'drawShadow');
-        final path = D4.getRequiredArg<$dart_ui.Path>(positional, 0, 'path', 'drawShadow');
-        final color = D4.getRequiredArg<$dart_ui.Color>(positional, 1, 'color', 'drawShadow');
+        final path = D4.getRequiredArg<$sky_engine_1.Path>(positional, 0, 'path', 'drawShadow');
+        final color = D4.getRequiredArg<$sky_engine_1.Color>(positional, 1, 'color', 'drawShadow');
         final elevation = D4.getRequiredArg<double>(positional, 2, 'elevation', 'drawShadow');
         final transparentOccluder = D4.getRequiredArg<bool>(positional, 3, 'transparentOccluder', 'drawShadow');
         t.drawShadow(path, color, elevation, transparentOccluder);
@@ -5071,7 +5071,7 @@ BridgedClass _createPictureBridge() {
         D4.requireMinArgs(positional, 2, 'toImageSync');
         final width = D4.getRequiredArg<int>(positional, 0, 'width', 'toImageSync');
         final height = D4.getRequiredArg<int>(positional, 1, 'height', 'toImageSync');
-        final targetFormat = D4.getNamedArgWithDefault<$dart_ui.TargetPixelFormat>(named, 'targetFormat', $dart_ui.TargetPixelFormat.dontCare);
+        final targetFormat = D4.getNamedArgWithDefault<$sky_engine_1.TargetPixelFormat>(named, 'targetFormat', $sky_engine_1.TargetPixelFormat.dontCare);
         return t.toImageSync(width, height, targetFormat: targetFormat);
       },
       'dispose': (visitor, target, positional, named, typeArgs) {
@@ -5087,11 +5087,11 @@ BridgedClass _createPictureBridge() {
     staticSetters: {
       'onCreate': (visitor, value) {
         final onCreateRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onCreate');
-        $dart_ui.Picture.onCreate = onCreateRaw == null ? null : ($dart_ui.Picture p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
+        $dart_ui.Picture.onCreate = onCreateRaw == null ? null : ($sky_engine_1.Picture p0) { D4.callInterpreterCallback(visitor!, onCreateRaw, [p0]); };
       },
       'onDispose': (visitor, value) {
         final onDisposeRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDispose');
-        $dart_ui.Picture.onDispose = onDisposeRaw == null ? null : ($dart_ui.Picture p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
+        $dart_ui.Picture.onDispose = onDisposeRaw == null ? null : ($sky_engine_1.Picture p0) { D4.callInterpreterCallback(visitor!, onDisposeRaw, [p0]); };
       },
     },
     methodSignatures: {
@@ -5160,13 +5160,13 @@ BridgedClass _createShadowBridge() {
     isAssignable: (v) => v is $dart_ui.Shadow,
     constructors: {
       '': (visitor, positional, named) {
-        final offset = D4.getNamedArgWithDefault<$dart_ui.Offset>(named, 'offset', $dart_ui.Offset.zero);
+        final offset = D4.getNamedArgWithDefault<$sky_engine_1.Offset>(named, 'offset', $sky_engine_1.Offset.zero);
         final blurRadius = D4.getNamedArgWithDefault<double>(named, 'blurRadius', 0.0);
         if (!named.containsKey('color')) {
           return $dart_ui.Shadow(offset: offset, blurRadius: blurRadius);
         }
         if (named.containsKey('color')) {
-          final color = D4.getRequiredNamedArg<$dart_ui.Color>(named, 'color', 'Shadow');
+          final color = D4.getRequiredNamedArg<$sky_engine_1.Color>(named, 'color', 'Shadow');
           return $dart_ui.Shadow(offset: offset, blurRadius: blurRadius, color: color);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -5208,8 +5208,8 @@ BridgedClass _createShadowBridge() {
       },
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.Shadow?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.Shadow?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.Shadow?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.Shadow?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.Shadow.lerp(a, b, t_);
       },
@@ -5218,11 +5218,11 @@ BridgedClass _createShadowBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('lerpList: Missing required argument "a" at position 0');
         }
-        final a = D4.coerceListOrNull<$dart_ui.Shadow>(positional[0], 'a');
+        final a = D4.coerceListOrNull<$sky_engine_1.Shadow>(positional[0], 'a');
         if (positional.length <= 1) {
           throw ArgumentError('lerpList: Missing required argument "b" at position 1');
         }
-        final b = D4.coerceListOrNull<$dart_ui.Shadow>(positional[1], 'b');
+        final b = D4.coerceListOrNull<$sky_engine_1.Shadow>(positional[1], 'b');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerpList');
         return $dart_ui.Shadow.lerpList(a, b, t_);
       },
@@ -5316,11 +5316,11 @@ BridgedClass _createImageDescriptorBridge() {
     constructors: {
       'raw': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageDescriptor');
-        final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'ImageDescriptor');
+        final buffer = D4.getRequiredArg<$sky_engine_1.ImmutableBuffer>(positional, 0, 'buffer', 'ImageDescriptor');
         final width = D4.getRequiredNamedArg<int>(named, 'width', 'ImageDescriptor');
         final height = D4.getRequiredNamedArg<int>(named, 'height', 'ImageDescriptor');
         final rowBytes = D4.getOptionalNamedArg<int?>(named, 'rowBytes');
-        final pixelFormat = D4.getRequiredNamedArg<$dart_ui.PixelFormat>(named, 'pixelFormat', 'ImageDescriptor');
+        final pixelFormat = D4.getRequiredNamedArg<$sky_engine_1.PixelFormat>(named, 'pixelFormat', 'ImageDescriptor');
         return $dart_ui.ImageDescriptor.raw(buffer, width: width, height: height, rowBytes: rowBytes, pixelFormat: pixelFormat);
       },
     },
@@ -5339,14 +5339,14 @@ BridgedClass _createImageDescriptorBridge() {
         final t = D4.validateTarget<$dart_ui.ImageDescriptor>(target, 'ImageDescriptor');
         final targetWidth = D4.getOptionalNamedArg<int?>(named, 'targetWidth');
         final targetHeight = D4.getOptionalNamedArg<int?>(named, 'targetHeight');
-        final targetFormat = D4.getNamedArgWithDefault<$dart_ui.TargetPixelFormat>(named, 'targetFormat', $dart_ui.TargetPixelFormat.dontCare);
+        final targetFormat = D4.getNamedArgWithDefault<$sky_engine_1.TargetPixelFormat>(named, 'targetFormat', $sky_engine_1.TargetPixelFormat.dontCare);
         return t.instantiateCodec(targetWidth: targetWidth, targetHeight: targetHeight, targetFormat: targetFormat);
       },
     },
     staticMethods: {
       'encoded': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'encoded');
-        final buffer = D4.getRequiredArg<$dart_ui.ImmutableBuffer>(positional, 0, 'buffer', 'encoded');
+        final buffer = D4.getRequiredArg<$sky_engine_1.ImmutableBuffer>(positional, 0, 'buffer', 'encoded');
         return $dart_ui.ImageDescriptor.encoded(buffer);
       },
     },
@@ -5481,22 +5481,34 @@ BridgedClass _createPlatformDispatcherBridge() {
         final onMetricsChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onMetricsChanged');
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onMetricsChanged = onMetricsChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onMetricsChangedRaw, []); };
       },
-      'onViewFocusChange': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onViewFocusChange = D4.extractBridgedArgOrNull<ViewFocusChangeCallback>(value, 'onViewFocusChange'),
-      'onBeginFrame': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onBeginFrame = D4.extractBridgedArgOrNull<FrameCallback>(value, 'onBeginFrame'),
+      'onViewFocusChange': (visitor, target, value) {
+        final onViewFocusChangeRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onViewFocusChange');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onViewFocusChange = onViewFocusChangeRaw == null ? null : ($sky_engine_1.ViewFocusEvent p0) { D4.callInterpreterCallback(visitor!, onViewFocusChangeRaw, [p0]); };
+      },
+      'onBeginFrame': (visitor, target, value) {
+        final onBeginFrameRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onBeginFrame');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onBeginFrame = onBeginFrameRaw == null ? null : (Duration p0) { D4.callInterpreterCallback(visitor!, onBeginFrameRaw, [p0]); };
+      },
       'onDrawFrame': (visitor, target, value) {
         final onDrawFrameRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onDrawFrame');
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onDrawFrame = onDrawFrameRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDrawFrameRaw, []); };
       },
-      'onPointerDataPacket': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPointerDataPacket = D4.extractBridgedArgOrNull<PointerDataPacketCallback>(value, 'onPointerDataPacket'),
-      'onKeyData': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onKeyData = D4.extractBridgedArgOrNull<KeyDataCallback>(value, 'onKeyData'),
-      'onReportTimings': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onReportTimings = D4.extractBridgedArgOrNull<TimingsCallback>(value, 'onReportTimings'),
-      'onPlatformMessage': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformMessage = D4.extractBridgedArgOrNull<PlatformMessageCallback>(value, 'onPlatformMessage'),
+      'onPointerDataPacket': (visitor, target, value) {
+        final onPointerDataPacketRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPointerDataPacket');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPointerDataPacket = onPointerDataPacketRaw == null ? null : ($sky_engine_1.PointerDataPacket p0) { D4.callInterpreterCallback(visitor!, onPointerDataPacketRaw, [p0]); };
+      },
+      'onKeyData': (visitor, target, value) {
+        final onKeyDataRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onKeyData');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onKeyData = onKeyDataRaw == null ? null : ($sky_engine_1.KeyData p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onKeyDataRaw, [p0]), 'callback', visitor); };
+      },
+      'onReportTimings': (visitor, target, value) {
+        final onReportTimingsRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onReportTimings');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onReportTimings = onReportTimingsRaw == null ? null : (List<$sky_engine_1.FrameTiming> p0) { D4.callInterpreterCallback(visitor!, onReportTimingsRaw, [p0]); };
+      },
+      'onPlatformMessage': (visitor, target, value) {
+        final onPlatformMessageRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onPlatformMessage');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onPlatformMessage = onPlatformMessageRaw == null ? null : (String p0, ByteData? p1, void Function(ByteData?)? p2) { D4.callInterpreterCallback(visitor!, onPlatformMessageRaw, [p0, p1, p2]); };
+      },
       'onAccessibilityFeaturesChanged': (visitor, target, value) {
         final onAccessibilityFeaturesChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onAccessibilityFeaturesChanged');
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onAccessibilityFeaturesChanged = onAccessibilityFeaturesChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onAccessibilityFeaturesChangedRaw, []); };
@@ -5521,14 +5533,18 @@ BridgedClass _createPlatformDispatcherBridge() {
         final onSemanticsEnabledChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSemanticsEnabledChanged');
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsEnabledChanged = onSemanticsEnabledChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSemanticsEnabledChangedRaw, []); };
       },
-      'onSemanticsActionEvent': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsActionEvent = D4.extractBridgedArgOrNull<SemanticsActionEventCallback>(value, 'onSemanticsActionEvent'),
+      'onSemanticsActionEvent': (visitor, target, value) {
+        final onSemanticsActionEventRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onSemanticsActionEvent');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onSemanticsActionEvent = onSemanticsActionEventRaw == null ? null : ($sky_engine_1.SemanticsActionEvent p0) { D4.callInterpreterCallback(visitor!, onSemanticsActionEventRaw, [p0]); };
+      },
       'onFrameDataChanged': (visitor, target, value) {
         final onFrameDataChangedRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onFrameDataChanged');
         D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onFrameDataChanged = onFrameDataChangedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onFrameDataChangedRaw, []); };
       },
-      'onError': (visitor, target, value) => 
-        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onError = D4.extractBridgedArgOrNull<ErrorCallback>(value, 'onError'),
+      'onError': (visitor, target, value) {
+        final onErrorRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'onError');
+        D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher').onError = onErrorRaw == null ? null : (Object p0, StackTrace p1) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]), 'callback', visitor); };
+      },
     },
     methods: {
       'view': (visitor, target, positional, named, typeArgs) {
@@ -5539,8 +5555,8 @@ BridgedClass _createPlatformDispatcherBridge() {
       'requestViewFocusChange': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher');
         final viewId = D4.getRequiredNamedArg<int>(named, 'viewId', 'requestViewFocusChange');
-        final state = D4.getRequiredNamedArg<$dart_ui.ViewFocusState>(named, 'state', 'requestViewFocusChange');
-        final direction = D4.getRequiredNamedArg<$dart_ui.ViewFocusDirection>(named, 'direction', 'requestViewFocusChange');
+        final state = D4.getRequiredNamedArg<$sky_engine_1.ViewFocusState>(named, 'state', 'requestViewFocusChange');
+        final direction = D4.getRequiredNamedArg<$sky_engine_1.ViewFocusDirection>(named, 'direction', 'requestViewFocusChange');
         t.requestViewFocusChange(viewId: viewId, state: state, direction: direction);
         return null;
       },
@@ -5569,7 +5585,7 @@ BridgedClass _createPlatformDispatcherBridge() {
       'registerBackgroundIsolate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher');
         D4.requireMinArgs(positional, 1, 'registerBackgroundIsolate');
-        final token = D4.getRequiredArg<$dart_ui.RootIsolateToken>(positional, 0, 'token', 'registerBackgroundIsolate');
+        final token = D4.getRequiredArg<$sky_engine_1.RootIsolateToken>(positional, 0, 'token', 'registerBackgroundIsolate');
         t.registerBackgroundIsolate(token);
         return null;
       },
@@ -5590,7 +5606,7 @@ BridgedClass _createPlatformDispatcherBridge() {
       'requestDartPerformanceMode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher');
         D4.requireMinArgs(positional, 1, 'requestDartPerformanceMode');
-        final mode = D4.getRequiredArg<$dart_ui.DartPerformanceMode>(positional, 0, 'mode', 'requestDartPerformanceMode');
+        final mode = D4.getRequiredArg<$sky_engine_1.DartPerformanceMode>(positional, 0, 'mode', 'requestDartPerformanceMode');
         t.requestDartPerformanceMode(mode);
         return null;
       },
@@ -5619,14 +5635,14 @@ BridgedClass _createPlatformDispatcherBridge() {
       'updateSemantics': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher');
         D4.requireMinArgs(positional, 1, 'updateSemantics');
-        final update = D4.getRequiredArg<$dart_ui.SemanticsUpdate>(positional, 0, 'update', 'updateSemantics');
+        final update = D4.getRequiredArg<$sky_engine_1.SemanticsUpdate>(positional, 0, 'update', 'updateSemantics');
         t.updateSemantics(update);
         return null;
       },
       'setApplicationLocale': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.PlatformDispatcher>(target, 'PlatformDispatcher');
         D4.requireMinArgs(positional, 1, 'setApplicationLocale');
-        final locale = D4.getRequiredArg<$dart_ui.Locale>(positional, 0, 'locale', 'setApplicationLocale');
+        final locale = D4.getRequiredArg<$sky_engine_1.Locale>(positional, 0, 'locale', 'setApplicationLocale');
         t.setApplicationLocale(locale);
         return null;
       },
@@ -5636,7 +5652,7 @@ BridgedClass _createPlatformDispatcherBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('computePlatformResolvedLocale: Missing required argument "supportedLocales" at position 0');
         }
-        final supportedLocales = D4.coerceList<$dart_ui.Locale>(positional[0], 'supportedLocales');
+        final supportedLocales = D4.coerceList<$sky_engine_1.Locale>(positional[0], 'supportedLocales');
         return t.computePlatformResolvedLocale(supportedLocales);
       },
       'scaleFontSize': (visitor, target, positional, named, typeArgs) {
@@ -5746,7 +5762,7 @@ BridgedClass _createSystemColorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'SystemColor');
-        final value = D4.getOptionalNamedArg<$dart_ui.Color?>(named, 'value');
+        final value = D4.getOptionalNamedArg<$sky_engine_1.Color?>(named, 'value');
         return $dart_ui.SystemColor(name: name, value: value);
       },
     },
@@ -5756,9 +5772,9 @@ BridgedClass _createSystemColorBridge() {
       'isSupported': (visitor, target) => D4.validateTarget<$dart_ui.SystemColor>(target, 'SystemColor').isSupported,
     },
     staticGetters: {
-      'platformProvidesSystemColors': (visitor) => $dart_ui.SystemColor.platformProvidesSystemColors,
       'light': (visitor) => $dart_ui.SystemColor.light,
       'dark': (visitor) => $dart_ui.SystemColor.dark,
+      'platformProvidesSystemColors': (visitor) => $dart_ui.SystemColor.platformProvidesSystemColors,
     },
     constructorSignatures: {
       '': 'const SystemColor({required String name, Color? value})',
@@ -5769,9 +5785,9 @@ BridgedClass _createSystemColorBridge() {
       'isSupported': 'bool get isSupported',
     },
     staticGetterSignatures: {
-      'platformProvidesSystemColors': 'bool get platformProvidesSystemColors',
       'light': 'SystemColorPalette get light',
       'dark': 'SystemColorPalette get dark',
+      'platformProvidesSystemColors': 'bool get platformProvidesSystemColors',
     },
   );
 }
@@ -5876,7 +5892,7 @@ BridgedClass _createFrameTimingBridge() {
       'timestampInMicroseconds': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.FrameTiming>(target, 'FrameTiming');
         D4.requireMinArgs(positional, 1, 'timestampInMicroseconds');
-        final phase = D4.getRequiredArg<$dart_ui.FramePhase>(positional, 0, 'phase', 'timestampInMicroseconds');
+        final phase = D4.getRequiredArg<$sky_engine_1.FramePhase>(positional, 0, 'phase', 'timestampInMicroseconds');
         return t.timestampInMicroseconds(phase);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -5981,7 +5997,7 @@ BridgedClass _createViewConstraintsBridge() {
       },
       'tight': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ViewConstraints');
-        final size = D4.getRequiredArg<$dart_ui.Size>(positional, 0, 'size', 'ViewConstraints');
+        final size = D4.getRequiredArg<$sky_engine_1.Size>(positional, 0, 'size', 'ViewConstraints');
         return $dart_ui.ViewConstraints.tight(size);
       },
     },
@@ -5997,7 +6013,7 @@ BridgedClass _createViewConstraintsBridge() {
       'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ViewConstraints>(target, 'ViewConstraints');
         D4.requireMinArgs(positional, 1, 'isSatisfiedBy');
-        final size = D4.getRequiredArg<$dart_ui.Size>(positional, 0, 'size', 'isSatisfiedBy');
+        final size = D4.getRequiredArg<$sky_engine_1.Size>(positional, 0, 'size', 'isSatisfiedBy');
         return t.isSatisfiedBy(size);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6045,9 +6061,9 @@ BridgedClass _createDisplayFeatureBridge() {
     isAssignable: (v) => v is $dart_ui.DisplayFeature,
     constructors: {
       '': (visitor, positional, named) {
-        final bounds = D4.getRequiredNamedArg<$dart_ui.Rect>(named, 'bounds', 'DisplayFeature');
-        final type = D4.getRequiredNamedArg<$dart_ui.DisplayFeatureType>(named, 'type', 'DisplayFeature');
-        final state = D4.getRequiredNamedArg<$dart_ui.DisplayFeatureState>(named, 'state', 'DisplayFeature');
+        final bounds = D4.getRequiredNamedArg<$sky_engine_1.Rect>(named, 'bounds', 'DisplayFeature');
+        final type = D4.getRequiredNamedArg<$sky_engine_1.DisplayFeatureType>(named, 'type', 'DisplayFeature');
+        final state = D4.getRequiredNamedArg<$sky_engine_1.DisplayFeatureState>(named, 'state', 'DisplayFeature');
         return $dart_ui.DisplayFeature(bounds: bounds, type: type, state: state);
       },
     },
@@ -6107,8 +6123,8 @@ BridgedClass _createLocaleBridge() {
       },
     },
     getters: {
-      'languageCode': (visitor, target) => D4.validateTarget<$dart_ui.Locale>(target, 'Locale').languageCode,
       'scriptCode': (visitor, target) => D4.validateTarget<$dart_ui.Locale>(target, 'Locale').scriptCode,
+      'languageCode': (visitor, target) => D4.validateTarget<$dart_ui.Locale>(target, 'Locale').languageCode,
       'countryCode': (visitor, target) => D4.validateTarget<$dart_ui.Locale>(target, 'Locale').countryCode,
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.Locale>(target, 'Locale').hashCode,
     },
@@ -6136,8 +6152,8 @@ BridgedClass _createLocaleBridge() {
       'toLanguageTag': 'String toLanguageTag()',
     },
     getterSignatures: {
-      'languageCode': 'String get languageCode',
       'scriptCode': 'String? get scriptCode',
+      'languageCode': 'String get languageCode',
       'countryCode': 'String? get countryCode',
       'hashCode': 'int get hashCode',
     },
@@ -6155,7 +6171,7 @@ BridgedClass _createSemanticsActionEventBridge() {
     isAssignable: (v) => v is $dart_ui.SemanticsActionEvent,
     constructors: {
       '': (visitor, positional, named) {
-        final type = D4.getRequiredNamedArg<$dart_ui.SemanticsAction>(named, 'type', 'SemanticsActionEvent');
+        final type = D4.getRequiredNamedArg<$sky_engine_1.SemanticsAction>(named, 'type', 'SemanticsActionEvent');
         final viewId = D4.getRequiredNamedArg<int>(named, 'viewId', 'SemanticsActionEvent');
         final nodeId = D4.getRequiredNamedArg<int>(named, 'nodeId', 'SemanticsActionEvent');
         final arguments = D4.getOptionalNamedArg<Object?>(named, 'arguments');
@@ -6171,7 +6187,7 @@ BridgedClass _createSemanticsActionEventBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsActionEvent>(target, 'SemanticsActionEvent');
-        final type = D4.getOptionalNamedArg<$dart_ui.SemanticsAction?>(named, 'type');
+        final type = D4.getOptionalNamedArg<$sky_engine_1.SemanticsAction?>(named, 'type');
         final viewId = D4.getOptionalNamedArg<int?>(named, 'viewId');
         final nodeId = D4.getOptionalNamedArg<int?>(named, 'nodeId');
         if (!named.containsKey('arguments')) {
@@ -6211,8 +6227,8 @@ BridgedClass _createViewFocusEventBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final viewId = D4.getRequiredNamedArg<int>(named, 'viewId', 'ViewFocusEvent');
-        final state = D4.getRequiredNamedArg<$dart_ui.ViewFocusState>(named, 'state', 'ViewFocusEvent');
-        final direction = D4.getRequiredNamedArg<$dart_ui.ViewFocusDirection>(named, 'direction', 'ViewFocusEvent');
+        final state = D4.getRequiredNamedArg<$sky_engine_1.ViewFocusState>(named, 'state', 'ViewFocusEvent');
+        final direction = D4.getRequiredNamedArg<$sky_engine_1.ViewFocusDirection>(named, 'direction', 'ViewFocusEvent');
         return $dart_ui.ViewFocusEvent(viewId: viewId, state: state, direction: direction);
       },
     },
@@ -6302,7 +6318,7 @@ BridgedClass _createPluginUtilitiesBridge() {
       },
       'getCallbackFromHandle': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getCallbackFromHandle');
-        final handle = D4.getRequiredArg<$dart_ui.CallbackHandle>(positional, 0, 'handle', 'getCallbackFromHandle');
+        final handle = D4.getRequiredArg<$sky_engine_1.CallbackHandle>(positional, 0, 'handle', 'getCallbackFromHandle');
         return $dart_ui.PluginUtilities.getCallbackFromHandle(handle);
       },
     },
@@ -6327,9 +6343,9 @@ BridgedClass _createPointerDataBridge() {
         final viewId = D4.getNamedArgWithDefault<int>(named, 'viewId', 0);
         final embedderId = D4.getNamedArgWithDefault<int>(named, 'embedderId', 0);
         final timeStamp = D4.getNamedArgWithDefault<Duration>(named, 'timeStamp', Duration.zero);
-        final change = D4.getNamedArgWithDefault<$dart_ui.PointerChange>(named, 'change', $dart_ui.PointerChange.cancel);
-        final kind = D4.getNamedArgWithDefault<$dart_ui.PointerDeviceKind>(named, 'kind', $dart_ui.PointerDeviceKind.touch);
-        final signalKind = D4.getOptionalNamedArg<$dart_ui.PointerSignalKind?>(named, 'signalKind');
+        final change = D4.getNamedArgWithDefault<$sky_engine_1.PointerChange>(named, 'change', $sky_engine_1.PointerChange.cancel);
+        final kind = D4.getNamedArgWithDefault<$sky_engine_1.PointerDeviceKind>(named, 'kind', $sky_engine_1.PointerDeviceKind.touch);
+        final signalKind = D4.getOptionalNamedArg<$sky_engine_1.PointerSignalKind?>(named, 'signalKind');
         final device = D4.getNamedArgWithDefault<int>(named, 'device', 0);
         final pointerIdentifier = D4.getNamedArgWithDefault<int>(named, 'pointerIdentifier', 0);
         final physicalX = D4.getNamedArgWithDefault<double>(named, 'physicalX', 0.0);
@@ -6479,8 +6495,8 @@ BridgedClass _createPointerDataPacketBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final data = named.containsKey('data') && named['data'] != null
-            ? D4.coerceList<$dart_ui.PointerData>(named['data'], 'data')
-            : const <$dart_ui.PointerData>[];
+            ? D4.coerceList<$sky_engine_1.PointerData>(named['data'], 'data')
+            : const <$sky_engine_1.PointerData>[];
         return $dart_ui.PointerDataPacket(data: data);
       },
     },
@@ -6715,13 +6731,13 @@ BridgedClass _createSemanticsFlagsBridge() {
     isAssignable: (v) => v is $dart_ui.SemanticsFlags,
     constructors: {
       '': (visitor, positional, named) {
-        final isChecked = D4.getNamedArgWithDefault<$dart_ui.CheckedState>(named, 'isChecked', $dart_ui.CheckedState.none);
-        final isSelected = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isSelected', $dart_ui.Tristate.none);
-        final isEnabled = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isEnabled', $dart_ui.Tristate.none);
-        final isToggled = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isToggled', $dart_ui.Tristate.none);
-        final isExpanded = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isExpanded', $dart_ui.Tristate.none);
-        final isRequired = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isRequired', $dart_ui.Tristate.none);
-        final isFocused = D4.getNamedArgWithDefault<$dart_ui.Tristate>(named, 'isFocused', $dart_ui.Tristate.none);
+        final isChecked = D4.getNamedArgWithDefault<$sky_engine_1.CheckedState>(named, 'isChecked', $sky_engine_1.CheckedState.none);
+        final isSelected = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isSelected', $sky_engine_1.Tristate.none);
+        final isEnabled = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isEnabled', $sky_engine_1.Tristate.none);
+        final isToggled = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isToggled', $sky_engine_1.Tristate.none);
+        final isExpanded = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isExpanded', $sky_engine_1.Tristate.none);
+        final isRequired = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isRequired', $sky_engine_1.Tristate.none);
+        final isFocused = D4.getNamedArgWithDefault<$sky_engine_1.Tristate>(named, 'isFocused', $sky_engine_1.Tristate.none);
         final isButton = D4.getNamedArgWithDefault<bool>(named, 'isButton', false);
         final isTextField = D4.getNamedArgWithDefault<bool>(named, 'isTextField', false);
         final isInMutuallyExclusiveGroup = D4.getNamedArgWithDefault<bool>(named, 'isInMutuallyExclusiveGroup', false);
@@ -6773,18 +6789,18 @@ BridgedClass _createSemanticsFlagsBridge() {
       'merge': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
         D4.requireMinArgs(positional, 1, 'merge');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'merge');
+        final other = D4.getRequiredArg<$sky_engine_1.SemanticsFlags>(positional, 0, 'other', 'merge');
         return t.merge(other);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
-        final isChecked = D4.getOptionalNamedArg<$dart_ui.CheckedState?>(named, 'isChecked');
-        final isSelected = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isSelected');
-        final isEnabled = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isEnabled');
-        final isToggled = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isToggled');
-        final isExpanded = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isExpanded');
-        final isRequired = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isRequired');
-        final isFocused = D4.getOptionalNamedArg<$dart_ui.Tristate?>(named, 'isFocused');
+        final isChecked = D4.getOptionalNamedArg<$sky_engine_1.CheckedState?>(named, 'isChecked');
+        final isSelected = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isSelected');
+        final isEnabled = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isEnabled');
+        final isToggled = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isToggled');
+        final isExpanded = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isExpanded');
+        final isRequired = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isRequired');
+        final isFocused = D4.getOptionalNamedArg<$sky_engine_1.Tristate?>(named, 'isFocused');
         final isButton = D4.getOptionalNamedArg<bool?>(named, 'isButton');
         final isTextField = D4.getOptionalNamedArg<bool?>(named, 'isTextField');
         final isInMutuallyExclusiveGroup = D4.getOptionalNamedArg<bool?>(named, 'isInMutuallyExclusiveGroup');
@@ -6811,13 +6827,13 @@ BridgedClass _createSemanticsFlagsBridge() {
       'hasRepeatedFlags': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
         D4.requireMinArgs(positional, 1, 'hasRepeatedFlags');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'hasRepeatedFlags');
+        final other = D4.getRequiredArg<$sky_engine_1.SemanticsFlags>(positional, 0, 'other', 'hasRepeatedFlags');
         return t.hasRepeatedFlags(other);
       },
       'hasConflictingFlags': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsFlags>(target, 'SemanticsFlags');
         D4.requireMinArgs(positional, 1, 'hasConflictingFlags');
-        final other = D4.getRequiredArg<$dart_ui.SemanticsFlags>(positional, 0, 'other', 'hasConflictingFlags');
+        final other = D4.getRequiredArg<$sky_engine_1.SemanticsFlags>(positional, 0, 'other', 'hasConflictingFlags');
         return t.hasConflictingFlags(other);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -6831,7 +6847,7 @@ BridgedClass _createSemanticsFlagsBridge() {
     },
     staticSetters: {
       'none': (visitor, value) => 
-        $dart_ui.SemanticsFlags.none = D4.extractBridgedArg<$dart_ui.SemanticsFlags>(value, 'none'),
+        $dart_ui.SemanticsFlags.none = D4.extractBridgedArg<$sky_engine_1.SemanticsFlags>(value, 'none'),
     },
     constructorSignatures: {
       '': 'SemanticsFlags({CheckedState isChecked = CheckedState.none, Tristate isSelected = Tristate.none, Tristate isEnabled = Tristate.none, Tristate isToggled = Tristate.none, Tristate isExpanded = Tristate.none, Tristate isRequired = Tristate.none, Tristate isFocused = Tristate.none, bool isButton = false, bool isTextField = false, bool isInMutuallyExclusiveGroup = false, bool isHeader = false, bool isObscured = false, bool scopesRoute = false, bool namesRoute = false, bool isHidden = false, bool isImage = false, bool isLiveRegion = false, bool hasImplicitScrolling = false, bool isMultiline = false, bool isReadOnly = false, bool isLink = false, bool isSlider = false, bool isKeyboardKey = false, bool isAccessibilityFocusBlocked = false})',
@@ -6896,7 +6912,7 @@ BridgedClass _createStringAttributeBridge() {
     methods: {
       'copy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.StringAttribute>(target, 'StringAttribute');
-        final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'copy');
+        final range = D4.getRequiredNamedArg<$sky_engine_1.TextRange>(named, 'range', 'copy');
         return t.copy(range: range);
       },
     },
@@ -6920,7 +6936,7 @@ BridgedClass _createSpellOutStringAttributeBridge() {
     isAssignable: (v) => v is $dart_ui.SpellOutStringAttribute,
     constructors: {
       '': (visitor, positional, named) {
-        final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'SpellOutStringAttribute');
+        final range = D4.getRequiredNamedArg<$sky_engine_1.TextRange>(named, 'range', 'SpellOutStringAttribute');
         return $dart_ui.SpellOutStringAttribute(range: range);
       },
     },
@@ -6930,7 +6946,7 @@ BridgedClass _createSpellOutStringAttributeBridge() {
     methods: {
       'copy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SpellOutStringAttribute>(target, 'SpellOutStringAttribute');
-        final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'copy');
+        final range = D4.getRequiredNamedArg<$sky_engine_1.TextRange>(named, 'range', 'copy');
         return t.copy(range: range);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -6962,8 +6978,8 @@ BridgedClass _createLocaleStringAttributeBridge() {
     isAssignable: (v) => v is $dart_ui.LocaleStringAttribute,
     constructors: {
       '': (visitor, positional, named) {
-        final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'LocaleStringAttribute');
-        final locale = D4.getRequiredNamedArg<$dart_ui.Locale>(named, 'locale', 'LocaleStringAttribute');
+        final range = D4.getRequiredNamedArg<$sky_engine_1.TextRange>(named, 'range', 'LocaleStringAttribute');
+        final locale = D4.getRequiredNamedArg<$sky_engine_1.Locale>(named, 'locale', 'LocaleStringAttribute');
         return $dart_ui.LocaleStringAttribute(range: range, locale: locale);
       },
     },
@@ -6974,7 +6990,7 @@ BridgedClass _createLocaleStringAttributeBridge() {
     methods: {
       'copy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.LocaleStringAttribute>(target, 'LocaleStringAttribute');
-        final range = D4.getRequiredNamedArg<$dart_ui.TextRange>(named, 'range', 'copy');
+        final range = D4.getRequiredNamedArg<$sky_engine_1.TextRange>(named, 'range', 'copy');
         return t.copy(range: range);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -7014,7 +7030,7 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
       'updateNode': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.SemanticsUpdateBuilder>(target, 'SemanticsUpdateBuilder');
         final id = D4.getRequiredNamedArg<int>(named, 'id', 'updateNode');
-        final flags = D4.getRequiredNamedArg<$dart_ui.SemanticsFlags>(named, 'flags', 'updateNode');
+        final flags = D4.getRequiredNamedArg<$sky_engine_1.SemanticsFlags>(named, 'flags', 'updateNode');
         final actions = D4.getRequiredNamedArg<int>(named, 'actions', 'updateNode');
         final maxValueLength = D4.getRequiredNamedArg<int>(named, 'maxValueLength', 'updateNode');
         final currentValueLength = D4.getRequiredNamedArg<int>(named, 'currentValueLength', 'updateNode');
@@ -7027,35 +7043,35 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
         final scrollPosition = D4.getRequiredNamedArg<double>(named, 'scrollPosition', 'updateNode');
         final scrollExtentMax = D4.getRequiredNamedArg<double>(named, 'scrollExtentMax', 'updateNode');
         final scrollExtentMin = D4.getRequiredNamedArg<double>(named, 'scrollExtentMin', 'updateNode');
-        final rect = D4.getRequiredNamedArg<$dart_ui.Rect>(named, 'rect', 'updateNode');
+        final rect = D4.getRequiredNamedArg<$sky_engine_1.Rect>(named, 'rect', 'updateNode');
         final identifier = D4.getRequiredNamedArg<String>(named, 'identifier', 'updateNode');
         final label = D4.getRequiredNamedArg<String>(named, 'label', 'updateNode');
         if (!named.containsKey('labelAttributes') || named['labelAttributes'] == null) {
           throw ArgumentError('updateNode: Missing required named argument "labelAttributes"');
         }
-        final labelAttributes = D4.coerceList<$dart_ui.StringAttribute>(named['labelAttributes'], 'labelAttributes');
+        final labelAttributes = D4.coerceList<$sky_engine_1.StringAttribute>(named['labelAttributes'], 'labelAttributes');
         final value = D4.getRequiredNamedArg<String>(named, 'value', 'updateNode');
         if (!named.containsKey('valueAttributes') || named['valueAttributes'] == null) {
           throw ArgumentError('updateNode: Missing required named argument "valueAttributes"');
         }
-        final valueAttributes = D4.coerceList<$dart_ui.StringAttribute>(named['valueAttributes'], 'valueAttributes');
+        final valueAttributes = D4.coerceList<$sky_engine_1.StringAttribute>(named['valueAttributes'], 'valueAttributes');
         final increasedValue = D4.getRequiredNamedArg<String>(named, 'increasedValue', 'updateNode');
         if (!named.containsKey('increasedValueAttributes') || named['increasedValueAttributes'] == null) {
           throw ArgumentError('updateNode: Missing required named argument "increasedValueAttributes"');
         }
-        final increasedValueAttributes = D4.coerceList<$dart_ui.StringAttribute>(named['increasedValueAttributes'], 'increasedValueAttributes');
+        final increasedValueAttributes = D4.coerceList<$sky_engine_1.StringAttribute>(named['increasedValueAttributes'], 'increasedValueAttributes');
         final decreasedValue = D4.getRequiredNamedArg<String>(named, 'decreasedValue', 'updateNode');
         if (!named.containsKey('decreasedValueAttributes') || named['decreasedValueAttributes'] == null) {
           throw ArgumentError('updateNode: Missing required named argument "decreasedValueAttributes"');
         }
-        final decreasedValueAttributes = D4.coerceList<$dart_ui.StringAttribute>(named['decreasedValueAttributes'], 'decreasedValueAttributes');
+        final decreasedValueAttributes = D4.coerceList<$sky_engine_1.StringAttribute>(named['decreasedValueAttributes'], 'decreasedValueAttributes');
         final hint = D4.getRequiredNamedArg<String>(named, 'hint', 'updateNode');
         if (!named.containsKey('hintAttributes') || named['hintAttributes'] == null) {
           throw ArgumentError('updateNode: Missing required named argument "hintAttributes"');
         }
-        final hintAttributes = D4.coerceList<$dart_ui.StringAttribute>(named['hintAttributes'], 'hintAttributes');
+        final hintAttributes = D4.coerceList<$sky_engine_1.StringAttribute>(named['hintAttributes'], 'hintAttributes');
         final tooltip = D4.getRequiredNamedArg<String>(named, 'tooltip', 'updateNode');
-        final textDirection = D4.getRequiredNamedArg<$dart_ui.TextDirection?>(named, 'textDirection', 'updateNode');
+        final textDirection = D4.getRequiredNamedArg<$sky_engine_1.TextDirection?>(named, 'textDirection', 'updateNode');
         final transform = D4.getRequiredNamedArg<Float64List>(named, 'transform', 'updateNode');
         final hitTestTransform = D4.getRequiredNamedArg<Float64List>(named, 'hitTestTransform', 'updateNode');
         final childrenInTraversalOrder = D4.getRequiredNamedArg<Int32List>(named, 'childrenInTraversalOrder', 'updateNode');
@@ -7063,15 +7079,15 @@ BridgedClass _createSemanticsUpdateBuilderBridge() {
         final additionalActions = D4.getRequiredNamedArg<Int32List>(named, 'additionalActions', 'updateNode');
         final headingLevel = D4.getNamedArgWithDefault<int>(named, 'headingLevel', 0);
         final linkUrl = D4.getNamedArgWithDefault<String>(named, 'linkUrl', '');
-        final role = D4.getNamedArgWithDefault<$dart_ui.SemanticsRole>(named, 'role', $dart_ui.SemanticsRole.none);
+        final role = D4.getNamedArgWithDefault<$sky_engine_1.SemanticsRole>(named, 'role', $sky_engine_1.SemanticsRole.none);
         if (!named.containsKey('controlsNodes')) {
           throw ArgumentError('updateNode: Missing required named argument "controlsNodes"');
         }
         final controlsNodes = D4.coerceListOrNull<String>(named['controlsNodes'], 'controlsNodes');
-        final validationResult = D4.getNamedArgWithDefault<$dart_ui.SemanticsValidationResult>(named, 'validationResult', $dart_ui.SemanticsValidationResult.none);
-        final hitTestBehavior = D4.getNamedArgWithDefault<$dart_ui.SemanticsHitTestBehavior>(named, 'hitTestBehavior', $dart_ui.SemanticsHitTestBehavior.defer);
-        final inputType = D4.getRequiredNamedArg<$dart_ui.SemanticsInputType>(named, 'inputType', 'updateNode');
-        final locale = D4.getRequiredNamedArg<$dart_ui.Locale?>(named, 'locale', 'updateNode');
+        final validationResult = D4.getNamedArgWithDefault<$sky_engine_1.SemanticsValidationResult>(named, 'validationResult', $sky_engine_1.SemanticsValidationResult.none);
+        final hitTestBehavior = D4.getNamedArgWithDefault<$sky_engine_1.SemanticsHitTestBehavior>(named, 'hitTestBehavior', $sky_engine_1.SemanticsHitTestBehavior.defer);
+        final inputType = D4.getRequiredNamedArg<$sky_engine_1.SemanticsInputType>(named, 'inputType', 'updateNode');
+        final locale = D4.getRequiredNamedArg<$sky_engine_1.Locale?>(named, 'locale', 'updateNode');
         final minValue = D4.getRequiredNamedArg<String>(named, 'minValue', 'updateNode');
         final maxValue = D4.getRequiredNamedArg<String>(named, 'maxValue', 'updateNode');
         t.updateNode(id: id, flags: flags, actions: actions, maxValueLength: maxValueLength, currentValueLength: currentValueLength, textSelectionBase: textSelectionBase, textSelectionExtent: textSelectionExtent, platformViewId: platformViewId, scrollChildren: scrollChildren, scrollIndex: scrollIndex, traversalParent: traversalParent, scrollPosition: scrollPosition, scrollExtentMax: scrollExtentMax, scrollExtentMin: scrollExtentMin, rect: rect, identifier: identifier, label: label, labelAttributes: labelAttributes, value: value, valueAttributes: valueAttributes, increasedValue: increasedValue, increasedValueAttributes: increasedValueAttributes, decreasedValue: decreasedValue, decreasedValueAttributes: decreasedValueAttributes, hint: hint, hintAttributes: hintAttributes, tooltip: tooltip, textDirection: textDirection, transform: transform, hitTestTransform: hitTestTransform, childrenInTraversalOrder: childrenInTraversalOrder, childrenInHitTestOrder: childrenInHitTestOrder, additionalActions: additionalActions, headingLevel: headingLevel, linkUrl: linkUrl, role: role, controlsNodes: controlsNodes, validationResult: validationResult, hitTestBehavior: hitTestBehavior, inputType: inputType, locale: locale, minValue: minValue, maxValue: maxValue);
@@ -7143,8 +7159,8 @@ BridgedClass _createFontWeightBridge() {
       },
     },
     getters: {
-      'index': (visitor, target) => D4.validateTarget<$dart_ui.FontWeight>(target, 'FontWeight').index,
       'value': (visitor, target) => D4.validateTarget<$dart_ui.FontWeight>(target, 'FontWeight').value,
+      'index': (visitor, target) => D4.validateTarget<$dart_ui.FontWeight>(target, 'FontWeight').index,
       'hashCode': (visitor, target) => D4.validateTarget<$dart_ui.FontWeight>(target, 'FontWeight').hashCode,
     },
     methods: {
@@ -7175,8 +7191,8 @@ BridgedClass _createFontWeightBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.FontWeight?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.FontWeight?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.FontWeight?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.FontWeight?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.FontWeight.lerp(a, b, t_);
       },
@@ -7188,8 +7204,8 @@ BridgedClass _createFontWeightBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'index': 'int get index',
       'value': 'int get value',
+      'index': 'int get index',
       'hashCode': 'int get hashCode',
     },
     staticMethodSignatures: {
@@ -7441,8 +7457,8 @@ BridgedClass _createFontVariationBridge() {
     staticMethods: {
       'lerp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerp');
-        final a = D4.getRequiredArg<$dart_ui.FontVariation?>(positional, 0, 'a', 'lerp');
-        final b = D4.getRequiredArg<$dart_ui.FontVariation?>(positional, 1, 'b', 'lerp');
+        final a = D4.getRequiredArg<$sky_engine_1.FontVariation?>(positional, 0, 'a', 'lerp');
+        final b = D4.getRequiredArg<$sky_engine_1.FontVariation?>(positional, 1, 'b', 'lerp');
         final t_ = D4.getRequiredArg<double>(positional, 2, 't', 'lerp');
         return $dart_ui.FontVariation.lerp(a, b, t_);
       },
@@ -7481,9 +7497,9 @@ BridgedClass _createGlyphInfoBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'GlyphInfo');
-        final graphemeClusterLayoutBounds = D4.getRequiredArg<$dart_ui.Rect>(positional, 0, 'graphemeClusterLayoutBounds', 'GlyphInfo');
-        final graphemeClusterCodeUnitRange = D4.getRequiredArg<$dart_ui.TextRange>(positional, 1, 'graphemeClusterCodeUnitRange', 'GlyphInfo');
-        final writingDirection = D4.getRequiredArg<$dart_ui.TextDirection>(positional, 2, 'writingDirection', 'GlyphInfo');
+        final graphemeClusterLayoutBounds = D4.getRequiredArg<$sky_engine_1.Rect>(positional, 0, 'graphemeClusterLayoutBounds', 'GlyphInfo');
+        final graphemeClusterCodeUnitRange = D4.getRequiredArg<$sky_engine_1.TextRange>(positional, 1, 'graphemeClusterCodeUnitRange', 'GlyphInfo');
+        final writingDirection = D4.getRequiredArg<$sky_engine_1.TextDirection>(positional, 2, 'writingDirection', 'GlyphInfo');
         return $dart_ui.GlyphInfo(graphemeClusterLayoutBounds, graphemeClusterCodeUnitRange, writingDirection);
       },
     },
@@ -7534,7 +7550,7 @@ BridgedClass _createTextDecorationBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('TextDecoration: Missing required argument "decorations" at position 0');
         }
-        final decorations = D4.coerceList<$dart_ui.TextDecoration>(positional[0], 'decorations');
+        final decorations = D4.coerceList<$sky_engine_1.TextDecoration>(positional[0], 'decorations');
         return $dart_ui.TextDecoration.combine(decorations);
       },
     },
@@ -7545,7 +7561,7 @@ BridgedClass _createTextDecorationBridge() {
       'contains': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.TextDecoration>(target, 'TextDecoration');
         D4.requireMinArgs(positional, 1, 'contains');
-        final other = D4.getRequiredArg<$dart_ui.TextDecoration>(positional, 0, 'other', 'contains');
+        final other = D4.getRequiredArg<$sky_engine_1.TextDecoration>(positional, 0, 'other', 'contains');
         return t.contains(other);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -7596,7 +7612,7 @@ BridgedClass _createTextHeightBehaviorBridge() {
       '': (visitor, positional, named) {
         final applyHeightToFirstAscent = D4.getNamedArgWithDefault<bool>(named, 'applyHeightToFirstAscent', true);
         final applyHeightToLastDescent = D4.getNamedArgWithDefault<bool>(named, 'applyHeightToLastDescent', true);
-        final leadingDistribution = D4.getNamedArgWithDefault<$dart_ui.TextLeadingDistribution>(named, 'leadingDistribution', $dart_ui.TextLeadingDistribution.proportional);
+        final leadingDistribution = D4.getNamedArgWithDefault<$sky_engine_1.TextLeadingDistribution>(named, 'leadingDistribution', $sky_engine_1.TextLeadingDistribution.proportional);
         return $dart_ui.TextHeightBehavior(applyHeightToFirstAscent: applyHeightToFirstAscent, applyHeightToLastDescent: applyHeightToLastDescent, leadingDistribution: leadingDistribution);
       },
     },
@@ -7643,27 +7659,27 @@ BridgedClass _createTextStyleBridge() {
     isAssignable: (v) => v is $dart_ui.TextStyle,
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getOptionalNamedArg<$dart_ui.Color?>(named, 'color');
-        final decoration = D4.getOptionalNamedArg<$dart_ui.TextDecoration?>(named, 'decoration');
-        final decorationColor = D4.getOptionalNamedArg<$dart_ui.Color?>(named, 'decorationColor');
-        final decorationStyle = D4.getOptionalNamedArg<$dart_ui.TextDecorationStyle?>(named, 'decorationStyle');
+        final color = D4.getOptionalNamedArg<$sky_engine_1.Color?>(named, 'color');
+        final decoration = D4.getOptionalNamedArg<$sky_engine_1.TextDecoration?>(named, 'decoration');
+        final decorationColor = D4.getOptionalNamedArg<$sky_engine_1.Color?>(named, 'decorationColor');
+        final decorationStyle = D4.getOptionalNamedArg<$sky_engine_1.TextDecorationStyle?>(named, 'decorationStyle');
         final decorationThickness = D4.getOptionalNamedArg<double?>(named, 'decorationThickness');
-        final fontWeight = D4.getOptionalNamedArg<$dart_ui.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$dart_ui.FontStyle?>(named, 'fontStyle');
-        final textBaseline = D4.getOptionalNamedArg<$dart_ui.TextBaseline?>(named, 'textBaseline');
+        final fontWeight = D4.getOptionalNamedArg<$sky_engine_1.FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<$sky_engine_1.FontStyle?>(named, 'fontStyle');
+        final textBaseline = D4.getOptionalNamedArg<$sky_engine_1.TextBaseline?>(named, 'textBaseline');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontFamilyFallback = D4.coerceListOrNull<String>(named['fontFamilyFallback'], 'fontFamilyFallback');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
         final letterSpacing = D4.getOptionalNamedArg<double?>(named, 'letterSpacing');
         final wordSpacing = D4.getOptionalNamedArg<double?>(named, 'wordSpacing');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final leadingDistribution = D4.getOptionalNamedArg<$dart_ui.TextLeadingDistribution?>(named, 'leadingDistribution');
-        final locale = D4.getOptionalNamedArg<$dart_ui.Locale?>(named, 'locale');
-        final background = D4.getOptionalNamedArg<$dart_ui.Paint?>(named, 'background');
-        final foreground = D4.getOptionalNamedArg<$dart_ui.Paint?>(named, 'foreground');
-        final shadows = D4.coerceListOrNull<$dart_ui.Shadow>(named['shadows'], 'shadows');
-        final fontFeatures = D4.coerceListOrNull<$dart_ui.FontFeature>(named['fontFeatures'], 'fontFeatures');
-        final fontVariations = D4.coerceListOrNull<$dart_ui.FontVariation>(named['fontVariations'], 'fontVariations');
+        final leadingDistribution = D4.getOptionalNamedArg<$sky_engine_1.TextLeadingDistribution?>(named, 'leadingDistribution');
+        final locale = D4.getOptionalNamedArg<$sky_engine_1.Locale?>(named, 'locale');
+        final background = D4.getOptionalNamedArg<$sky_engine_1.Paint?>(named, 'background');
+        final foreground = D4.getOptionalNamedArg<$sky_engine_1.Paint?>(named, 'foreground');
+        final shadows = D4.coerceListOrNull<$sky_engine_1.Shadow>(named['shadows'], 'shadows');
+        final fontFeatures = D4.coerceListOrNull<$sky_engine_1.FontFeature>(named['fontFeatures'], 'fontFeatures');
+        final fontVariations = D4.coerceListOrNull<$sky_engine_1.FontVariation>(named['fontVariations'], 'fontVariations');
         return $dart_ui.TextStyle(color: color, decoration: decoration, decorationColor: decorationColor, decorationStyle: decorationStyle, decorationThickness: decorationThickness, fontWeight: fontWeight, fontStyle: fontStyle, textBaseline: textBaseline, fontFamily: fontFamily, fontFamilyFallback: fontFamilyFallback, fontSize: fontSize, letterSpacing: letterSpacing, wordSpacing: wordSpacing, height: height, leadingDistribution: leadingDistribution, locale: locale, background: background, foreground: foreground, shadows: shadows, fontFeatures: fontFeatures, fontVariations: fontVariations);
       },
     },
@@ -7704,18 +7720,18 @@ BridgedClass _createParagraphStyleBridge() {
     isAssignable: (v) => v is $dart_ui.ParagraphStyle,
     constructors: {
       '': (visitor, positional, named) {
-        final textAlign = D4.getOptionalNamedArg<$dart_ui.TextAlign?>(named, 'textAlign');
-        final textDirection = D4.getOptionalNamedArg<$dart_ui.TextDirection?>(named, 'textDirection');
+        final textAlign = D4.getOptionalNamedArg<$sky_engine_1.TextAlign?>(named, 'textAlign');
+        final textDirection = D4.getOptionalNamedArg<$sky_engine_1.TextDirection?>(named, 'textDirection');
         final maxLines = D4.getOptionalNamedArg<int?>(named, 'maxLines');
         final fontFamily = D4.getOptionalNamedArg<String?>(named, 'fontFamily');
         final fontSize = D4.getOptionalNamedArg<double?>(named, 'fontSize');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
-        final textHeightBehavior = D4.getOptionalNamedArg<$dart_ui.TextHeightBehavior?>(named, 'textHeightBehavior');
-        final fontWeight = D4.getOptionalNamedArg<$dart_ui.FontWeight?>(named, 'fontWeight');
-        final fontStyle = D4.getOptionalNamedArg<$dart_ui.FontStyle?>(named, 'fontStyle');
-        final strutStyle = D4.getOptionalNamedArg<$dart_ui.StrutStyle?>(named, 'strutStyle');
+        final textHeightBehavior = D4.getOptionalNamedArg<$sky_engine_1.TextHeightBehavior?>(named, 'textHeightBehavior');
+        final fontWeight = D4.getOptionalNamedArg<$sky_engine_1.FontWeight?>(named, 'fontWeight');
+        final fontStyle = D4.getOptionalNamedArg<$sky_engine_1.FontStyle?>(named, 'fontStyle');
+        final strutStyle = D4.getOptionalNamedArg<$sky_engine_1.StrutStyle?>(named, 'strutStyle');
         final ellipsis = D4.getOptionalNamedArg<String?>(named, 'ellipsis');
-        final locale = D4.getOptionalNamedArg<$dart_ui.Locale?>(named, 'locale');
+        final locale = D4.getOptionalNamedArg<$sky_engine_1.Locale?>(named, 'locale');
         return $dart_ui.ParagraphStyle(textAlign: textAlign, textDirection: textDirection, maxLines: maxLines, fontFamily: fontFamily, fontSize: fontSize, height: height, textHeightBehavior: textHeightBehavior, fontWeight: fontWeight, fontStyle: fontStyle, strutStyle: strutStyle, ellipsis: ellipsis, locale: locale);
       },
     },
@@ -7792,7 +7808,7 @@ BridgedClass _createTextBoxBridge() {
         final top = D4.getRequiredArg<double>(positional, 1, 'top', 'TextBox');
         final right = D4.getRequiredArg<double>(positional, 2, 'right', 'TextBox');
         final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'TextBox');
-        final direction = D4.getRequiredArg<$dart_ui.TextDirection>(positional, 4, 'direction', 'TextBox');
+        final direction = D4.getRequiredArg<$sky_engine_1.TextDirection>(positional, 4, 'direction', 'TextBox');
         return $dart_ui.TextBox.fromLTRBD(left, top, right, bottom, direction);
       },
     },
@@ -7853,7 +7869,7 @@ BridgedClass _createTextPositionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final offset = D4.getRequiredNamedArg<int>(named, 'offset', 'TextPosition');
-        final affinity = D4.getNamedArgWithDefault<$dart_ui.TextAffinity>(named, 'affinity', $dart_ui.TextAffinity.downstream);
+        final affinity = D4.getNamedArgWithDefault<$sky_engine_1.TextAffinity>(named, 'affinity', $sky_engine_1.TextAffinity.downstream);
         return $dart_ui.TextPosition(offset: offset, affinity: affinity);
       },
     },
@@ -8109,7 +8125,7 @@ BridgedClass _createParagraphBridge() {
       'layout': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Paragraph>(target, 'Paragraph');
         D4.requireMinArgs(positional, 1, 'layout');
-        final constraints = D4.getRequiredArg<$dart_ui.ParagraphConstraints>(positional, 0, 'constraints', 'layout');
+        final constraints = D4.getRequiredArg<$sky_engine_1.ParagraphConstraints>(positional, 0, 'constraints', 'layout');
         t.layout(constraints);
         return null;
       },
@@ -8118,8 +8134,8 @@ BridgedClass _createParagraphBridge() {
         D4.requireMinArgs(positional, 2, 'getBoxesForRange');
         final start = D4.getRequiredArg<int>(positional, 0, 'start', 'getBoxesForRange');
         final end = D4.getRequiredArg<int>(positional, 1, 'end', 'getBoxesForRange');
-        final boxHeightStyle = D4.getNamedArgWithDefault<$dart_ui.BoxHeightStyle>(named, 'boxHeightStyle', $dart_ui.BoxHeightStyle.tight);
-        final boxWidthStyle = D4.getNamedArgWithDefault<$dart_ui.BoxWidthStyle>(named, 'boxWidthStyle', $dart_ui.BoxWidthStyle.tight);
+        final boxHeightStyle = D4.getNamedArgWithDefault<$sky_engine_1.BoxHeightStyle>(named, 'boxHeightStyle', $sky_engine_1.BoxHeightStyle.tight);
+        final boxWidthStyle = D4.getNamedArgWithDefault<$sky_engine_1.BoxWidthStyle>(named, 'boxWidthStyle', $sky_engine_1.BoxWidthStyle.tight);
         return t.getBoxesForRange(start, end, boxHeightStyle: boxHeightStyle, boxWidthStyle: boxWidthStyle);
       },
       'getBoxesForPlaceholders': (visitor, target, positional, named, typeArgs) {
@@ -8129,13 +8145,13 @@ BridgedClass _createParagraphBridge() {
       'getPositionForOffset': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Paragraph>(target, 'Paragraph');
         D4.requireMinArgs(positional, 1, 'getPositionForOffset');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'getPositionForOffset');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'getPositionForOffset');
         return t.getPositionForOffset(offset);
       },
       'getClosestGlyphInfoForOffset': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Paragraph>(target, 'Paragraph');
         D4.requireMinArgs(positional, 1, 'getClosestGlyphInfoForOffset');
-        final offset = D4.getRequiredArg<$dart_ui.Offset>(positional, 0, 'offset', 'getClosestGlyphInfoForOffset');
+        final offset = D4.getRequiredArg<$sky_engine_1.Offset>(positional, 0, 'offset', 'getClosestGlyphInfoForOffset');
         return t.getClosestGlyphInfoForOffset(offset);
       },
       'getGlyphInfoAt': (visitor, target, positional, named, typeArgs) {
@@ -8147,13 +8163,13 @@ BridgedClass _createParagraphBridge() {
       'getWordBoundary': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Paragraph>(target, 'Paragraph');
         D4.requireMinArgs(positional, 1, 'getWordBoundary');
-        final position = D4.getRequiredArg<$dart_ui.TextPosition>(positional, 0, 'position', 'getWordBoundary');
+        final position = D4.getRequiredArg<$sky_engine_1.TextPosition>(positional, 0, 'position', 'getWordBoundary');
         return t.getWordBoundary(position);
       },
       'getLineBoundary': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.Paragraph>(target, 'Paragraph');
         D4.requireMinArgs(positional, 1, 'getLineBoundary');
-        final position = D4.getRequiredArg<$dart_ui.TextPosition>(positional, 0, 'position', 'getLineBoundary');
+        final position = D4.getRequiredArg<$sky_engine_1.TextPosition>(positional, 0, 'position', 'getLineBoundary');
         return t.getLineBoundary(position);
       },
       'computeLineMetrics': (visitor, target, positional, named, typeArgs) {
@@ -8219,7 +8235,7 @@ BridgedClass _createParagraphBuilderBridge() {
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ParagraphBuilder');
-        final style = D4.getRequiredArg<$dart_ui.ParagraphStyle>(positional, 0, 'style', 'ParagraphBuilder');
+        final style = D4.getRequiredArg<$sky_engine_1.ParagraphStyle>(positional, 0, 'style', 'ParagraphBuilder');
         return $dart_ui.ParagraphBuilder(style);
       },
     },
@@ -8231,7 +8247,7 @@ BridgedClass _createParagraphBuilderBridge() {
       'pushStyle': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.ParagraphBuilder>(target, 'ParagraphBuilder');
         D4.requireMinArgs(positional, 1, 'pushStyle');
-        final style = D4.getRequiredArg<$dart_ui.TextStyle>(positional, 0, 'style', 'pushStyle');
+        final style = D4.getRequiredArg<$sky_engine_1.TextStyle>(positional, 0, 'style', 'pushStyle');
         t.pushStyle(style);
         return null;
       },
@@ -8252,10 +8268,10 @@ BridgedClass _createParagraphBuilderBridge() {
         D4.requireMinArgs(positional, 3, 'addPlaceholder');
         final width = D4.getRequiredArg<double>(positional, 0, 'width', 'addPlaceholder');
         final height = D4.getRequiredArg<double>(positional, 1, 'height', 'addPlaceholder');
-        final alignment = D4.getRequiredArg<$dart_ui.PlaceholderAlignment>(positional, 2, 'alignment', 'addPlaceholder');
+        final alignment = D4.getRequiredArg<$sky_engine_1.PlaceholderAlignment>(positional, 2, 'alignment', 'addPlaceholder');
         final scale = D4.getNamedArgWithDefault<double>(named, 'scale', 1.0);
         final baselineOffset = D4.getOptionalNamedArg<double?>(named, 'baselineOffset');
-        final baseline = D4.getOptionalNamedArg<$dart_ui.TextBaseline?>(named, 'baseline');
+        final baseline = D4.getOptionalNamedArg<$sky_engine_1.TextBaseline?>(named, 'baseline');
         t.addPlaceholder(width, height, alignment, scale: scale, baselineOffset: baselineOffset, baseline: baseline);
         return null;
       },
@@ -8345,15 +8361,15 @@ BridgedClass _createFlutterViewBridge() {
       'render': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView');
         D4.requireMinArgs(positional, 1, 'render');
-        final scene = D4.getRequiredArg<$dart_ui.Scene>(positional, 0, 'scene', 'render');
-        final size = D4.getOptionalNamedArg<$dart_ui.Size?>(named, 'size');
+        final scene = D4.getRequiredArg<$sky_engine_1.Scene>(positional, 0, 'scene', 'render');
+        final size = D4.getOptionalNamedArg<$sky_engine_1.Size?>(named, 'size');
         t.render(scene, size: size);
         return null;
       },
       'updateSemantics': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$dart_ui.FlutterView>(target, 'FlutterView');
         D4.requireMinArgs(positional, 1, 'updateSemantics');
-        final update = D4.getRequiredArg<$dart_ui.SemanticsUpdate>(positional, 0, 'update', 'updateSemantics');
+        final update = D4.getRequiredArg<$sky_engine_1.SemanticsUpdate>(positional, 0, 'update', 'updateSemantics');
         t.updateSemantics(update);
         return null;
       },

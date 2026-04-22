@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-04-21T14:25:10.970414
+// Generated: 2026-04-22T21:03:55.966434
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -66,7 +66,6 @@ class FlutterSchedulerBridge {
       'FrameCallback',
       'TaskCallback',
       'SchedulingStrategy',
-      '_PerformanceModeCleanupCallback',
       'TimingsCallback',
       'AsyncCallback',
       'AsyncValueGetter',
@@ -344,8 +343,8 @@ BridgedClass _createSchedulerBindingBridge() {
     constructors: {
     },
     getters: {
-      'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').lifecycleState,
       'schedulingStrategy': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').schedulingStrategy,
+      'lifecycleState': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').lifecycleState,
       'transientCallbackCount': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').transientCallbackCount,
       'endOfFrame': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').endOfFrame,
       'hasScheduledFrame': (visitor, target) => D4.validateTarget<$flutter_4.SchedulerBinding>(target, 'SchedulerBinding').hasScheduledFrame,
@@ -676,17 +675,17 @@ BridgedClass _createSchedulerBindingBridge() {
       'lockEvents': 'Future<void> lockEvents(Future<void> Function() callback)',
       'reassembleApplication': 'Future<void> reassembleApplication()',
       'performReassemble': 'Future<void> performReassemble()',
-      'registerSignalServiceExtension': 'void registerSignalServiceExtension({required String name, required Future<void> Function() callback})',
-      'registerBoolServiceExtension': 'void registerBoolServiceExtension({required String name, required Future<bool> Function() getter, required Future<void> Function(bool) setter})',
-      'registerNumericServiceExtension': 'void registerNumericServiceExtension({required String name, required Future<double> Function() getter, required Future<void> Function(double) setter})',
+      'registerSignalServiceExtension': 'void registerSignalServiceExtension({required String name, required AsyncCallback callback})',
+      'registerBoolServiceExtension': 'void registerBoolServiceExtension({required String name, required AsyncValueGetter<bool> getter, required AsyncValueSetter<bool> setter})',
+      'registerNumericServiceExtension': 'void registerNumericServiceExtension({required String name, required AsyncValueGetter<double> getter, required AsyncValueSetter<double> setter})',
       'postEvent': 'void postEvent(String eventKind, Map<String, dynamic> eventData)',
-      'registerStringServiceExtension': 'void registerStringServiceExtension({required String name, required Future<String> Function() getter, required Future<void> Function(String) setter})',
-      'registerServiceExtension': 'void registerServiceExtension({required String name, required Future<Map<String, dynamic>> Function(Map<String, String>) callback})',
+      'registerStringServiceExtension': 'void registerStringServiceExtension({required String name, required AsyncValueGetter<String> getter, required AsyncValueSetter<String> setter})',
+      'registerServiceExtension': 'void registerServiceExtension({required String name, required ServiceExtensionCallback callback})',
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'lifecycleState': 'AppLifecycleState? get lifecycleState',
       'schedulingStrategy': 'SchedulingStrategy get schedulingStrategy',
+      'lifecycleState': 'AppLifecycleState? get lifecycleState',
       'transientCallbackCount': 'int get transientCallbackCount',
       'endOfFrame': 'Future<void> get endOfFrame',
       'hasScheduledFrame': 'bool get hasScheduledFrame',
@@ -732,12 +731,12 @@ BridgedClass _createTickerBridge() {
     },
     getters: {
       'forceFrames': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').forceFrames,
+      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').debugLabel,
       'muted': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').muted,
       'isTicking': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').isTicking,
       'isActive': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').isActive,
       'scheduled': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').scheduled,
       'shouldScheduleTick': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').shouldScheduleTick,
-      'debugLabel': (visitor, target) => D4.validateTarget<$flutter_8.Ticker>(target, 'Ticker').debugLabel,
     },
     setters: {
       'forceFrames': (visitor, target, value) => 
@@ -792,7 +791,7 @@ BridgedClass _createTickerBridge() {
       },
     },
     constructorSignatures: {
-      '': 'Ticker(void Function(Duration) _onTick, {String? debugLabel})',
+      '': 'Ticker(TickerCallback _onTick, {String? debugLabel})',
     },
     methodSignatures: {
       'start': 'TickerFuture start()',
@@ -806,12 +805,12 @@ BridgedClass _createTickerBridge() {
     },
     getterSignatures: {
       'forceFrames': 'bool get forceFrames',
+      'debugLabel': 'String? get debugLabel',
       'muted': 'bool get muted',
       'isTicking': 'bool get isTicking',
       'isActive': 'bool get isActive',
       'scheduled': 'bool get scheduled',
       'shouldScheduleTick': 'bool get shouldScheduleTick',
-      'debugLabel': 'String? get debugLabel',
     },
     setterSignatures: {
       'forceFrames': 'set forceFrames(dynamic value)',

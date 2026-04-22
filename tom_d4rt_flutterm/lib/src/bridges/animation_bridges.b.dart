@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-04-21T14:24:58.430812
+// Generated: 2026-04-22T21:03:55.341383
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -69,7 +69,6 @@ class FlutterAnimationBridge {
       _createAnimationControllerBridge(),
       _createAnimationStyleBridge(),
       _createAlwaysStoppedAnimationBridge(),
-      _createAnimationWithParentMixinBridge(),
       _createProxyAnimationBridge(),
       _createReverseAnimationBridge(),
       _createCurvedAnimationBridge(),
@@ -78,6 +77,7 @@ class FlutterAnimationBridge {
       _createAnimationMeanBridge(),
       _createAnimationMaxBridge(),
       _createAnimationMinBridge(),
+      _createAnimationWithParentMixinBridge(),
       _createAnimationLazyListenerMixinBridge(),
       _createAnimationEagerListenerMixinBridge(),
       _createAnimationLocalListenersMixinBridge(),
@@ -130,7 +130,6 @@ class FlutterAnimationBridge {
       'AnimationController': 'package:flutter/src/animation/animation_controller.dart',
       'AnimationStyle': 'package:flutter/src/animation/animation_style.dart',
       'AlwaysStoppedAnimation': 'package:flutter/src/animation/animations.dart',
-      'AnimationWithParentMixin': 'package:flutter/src/animation/animations.dart',
       'ProxyAnimation': 'package:flutter/src/animation/animations.dart',
       'ReverseAnimation': 'package:flutter/src/animation/animations.dart',
       'CurvedAnimation': 'package:flutter/src/animation/animations.dart',
@@ -139,6 +138,7 @@ class FlutterAnimationBridge {
       'AnimationMean': 'package:flutter/src/animation/animations.dart',
       'AnimationMax': 'package:flutter/src/animation/animations.dart',
       'AnimationMin': 'package:flutter/src/animation/animations.dart',
+      'AnimationWithParentMixin': 'package:flutter/src/animation/animations.dart',
       'AnimationLazyListenerMixin': 'package:flutter/src/animation/listener_helpers.dart',
       'AnimationEagerListenerMixin': 'package:flutter/src/animation/listener_helpers.dart',
       'AnimationLocalListenersMixin': 'package:flutter/src/animation/listener_helpers.dart',
@@ -168,7 +168,6 @@ class FlutterAnimationBridge {
       'FrameCallback',
       'TaskCallback',
       'SchedulingStrategy',
-      '_PerformanceModeCleanupCallback',
       'TimingsCallback',
       'AsyncCallback',
       'AsyncValueGetter',
@@ -2624,9 +2623,9 @@ BridgedClass _createAnimationControllerBridge() {
       'upperBound': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').upperBound,
       'debugLabel': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').debugLabel,
       'animationBehavior': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').animationBehavior,
-      'view': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').view,
       'duration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').duration,
       'reverseDuration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').reverseDuration,
+      'view': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').view,
       'velocity': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').velocity,
       'lastElapsedDuration': (visitor, target) => D4.validateTarget<$flutter_2.AnimationController>(target, 'AnimationController').lastElapsedDuration,
     },
@@ -2813,10 +2812,10 @@ BridgedClass _createAnimationControllerBridge() {
       'unbounded': 'AnimationController.unbounded({double value = 0.0, Duration? duration, Duration? reverseDuration, String? debugLabel, required TickerProvider vsync, AnimationBehavior animationBehavior = AnimationBehavior.preserve})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -2851,9 +2850,9 @@ BridgedClass _createAnimationControllerBridge() {
       'upperBound': 'double get upperBound',
       'debugLabel': 'String? get debugLabel',
       'animationBehavior': 'AnimationBehavior get animationBehavior',
-      'view': 'Animation<double> get view',
       'duration': 'Duration? get duration',
       'reverseDuration': 'Duration? get reverseDuration',
+      'view': 'Animation<double> get view',
       'velocity': 'double get velocity',
       'lastElapsedDuration': 'Duration? get lastElapsedDuration',
     },
@@ -3127,77 +3126,6 @@ BridgedClass _createAlwaysStoppedAnimationBridge() {
 }
 
 // =============================================================================
-// AnimationWithParentMixin Bridge
-// =============================================================================
-
-BridgedClass _createAnimationWithParentMixinBridge() {
-  return BridgedClass(
-    nativeType: $flutter_4.AnimationWithParentMixin,
-    name: 'AnimationWithParentMixin',
-    isAssignable: (v) => v is $flutter_4.AnimationWithParentMixin,
-    canBeUsedAsMixin: true,
-    constructors: {
-    },
-    getters: {
-      'parent': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').parent,
-      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').status,
-    },
-    methods: {
-      'addListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
-        D4.requireMinArgs(positional, 1, 'addListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
-        return null;
-      },
-      'removeListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
-        D4.requireMinArgs(positional, 1, 'removeListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
-        return null;
-      },
-      'addStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
-        D4.requireMinArgs(positional, 1, 'addStatusListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
-        return null;
-      },
-      'removeStatusListener': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
-        D4.requireMinArgs(positional, 1, 'removeStatusListener');
-        if (positional.isEmpty) {
-          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
-        }
-        final listenerRaw = positional[0];
-        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
-        return null;
-      },
-    },
-    methodSignatures: {
-      'addListener': 'void addListener(VoidCallback listener)',
-      'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
-      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
-    },
-    getterSignatures: {
-      'parent': 'Animation<T> get parent',
-      'status': 'AnimationStatus get status',
-    },
-  );
-}
-
-// =============================================================================
 // ProxyAnimation Bridge
 // =============================================================================
 
@@ -3328,10 +3256,10 @@ BridgedClass _createProxyAnimationBridge() {
       '': 'ProxyAnimation([Animation<double>? animation])',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3480,8 +3408,8 @@ BridgedClass _createReverseAnimationBridge() {
     methodSignatures: {
       'addListener': 'void addListener(VoidCallback listener)',
       'removeListener': 'void removeListener(VoidCallback listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3607,10 +3535,10 @@ BridgedClass _createCurvedAnimationBridge() {
       '': 'CurvedAnimation({required Animation<double> parent, required Curve curve, Curve? reverseCurve})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3661,8 +3589,8 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'isCompleted': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isCompleted,
       'isAnimating': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isAnimating,
       'isForwardOrCompleted': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').isForwardOrCompleted,
-      'currentTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').currentTrain,
       'onSwitchedTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').onSwitchedTrain,
+      'currentTrain': (visitor, target) => D4.validateTarget<$flutter_4.TrainHoppingAnimation>(target, 'TrainHoppingAnimation').currentTrain,
     },
     setters: {
       'onSwitchedTrain': (visitor, target, value) {
@@ -3764,13 +3692,13 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TrainHoppingAnimation(Animation<double> _currentTrain, Animation<double>? _nextTrain, {void Function()? onSwitchedTrain})',
+      '': 'TrainHoppingAnimation(Animation<double> _currentTrain, Animation<double>? _nextTrain, {VoidCallback? onSwitchedTrain})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -3789,8 +3717,8 @@ BridgedClass _createTrainHoppingAnimationBridge() {
       'isCompleted': 'bool get isCompleted',
       'isAnimating': 'bool get isAnimating',
       'isForwardOrCompleted': 'bool get isForwardOrCompleted',
-      'currentTrain': 'Animation<double>? get currentTrain',
       'onSwitchedTrain': 'VoidCallback? get onSwitchedTrain',
+      'currentTrain': 'Animation<double>? get currentTrain',
     },
     setterSignatures: {
       'onSwitchedTrain': 'set onSwitchedTrain(dynamic value)',
@@ -3919,10 +3847,10 @@ BridgedClass _createCompoundAnimationBridge() {
       },
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4078,10 +4006,10 @@ BridgedClass _createAnimationMeanBridge() {
       '': 'AnimationMean({required Animation<double> left, required Animation<double> right})',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4238,10 +4166,10 @@ BridgedClass _createAnimationMaxBridge() {
       '': 'AnimationMax(Animation<T> first, Animation<T> next)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4398,10 +4326,10 @@ BridgedClass _createAnimationMinBridge() {
       '': 'AnimationMin(Animation<T> first, Animation<T> next)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
-      'addStatusListener': 'void addStatusListener(void Function(AnimationStatus) listener)',
-      'removeStatusListener': 'void removeStatusListener(void Function(AnimationStatus) listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
       'drive': 'Animation<U> drive(Animatable<U> child)',
       'toString': 'String toString()',
       'toStringDetails': 'String toStringDetails()',
@@ -4424,6 +4352,77 @@ BridgedClass _createAnimationMinBridge() {
       'first': 'Animation<T> get first',
       'next': 'Animation<T> get next',
       'isListening': 'bool get isListening',
+    },
+  );
+}
+
+// =============================================================================
+// AnimationWithParentMixin Bridge
+// =============================================================================
+
+BridgedClass _createAnimationWithParentMixinBridge() {
+  return BridgedClass(
+    nativeType: $flutter_4.AnimationWithParentMixin,
+    name: 'AnimationWithParentMixin',
+    isAssignable: (v) => v is $flutter_4.AnimationWithParentMixin,
+    canBeUsedAsMixin: true,
+    constructors: {
+    },
+    getters: {
+      'parent': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').parent,
+      'status': (visitor, target) => D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin').status,
+    },
+    methods: {
+      'addListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        D4.requireMinArgs(positional, 1, 'addListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('addListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.addListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        return null;
+      },
+      'removeListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        D4.requireMinArgs(positional, 1, 'removeListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('removeListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.removeListener(() { D4.callInterpreterCallback(visitor!, listenerRaw, []); });
+        return null;
+      },
+      'addStatusListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        D4.requireMinArgs(positional, 1, 'addStatusListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('addStatusListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.addStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        return null;
+      },
+      'removeStatusListener': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_4.AnimationWithParentMixin>(target, 'AnimationWithParentMixin');
+        D4.requireMinArgs(positional, 1, 'removeStatusListener');
+        if (positional.isEmpty) {
+          throw ArgumentError('removeStatusListener: Missing required argument "listener" at position 0');
+        }
+        final listenerRaw = positional[0];
+        t.removeStatusListener(($flutter_1.AnimationStatus p0) { D4.callInterpreterCallback(visitor!, listenerRaw, [p0]); });
+        return null;
+      },
+    },
+    methodSignatures: {
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
+      'addStatusListener': 'void addStatusListener(AnimationStatusListener listener)',
+      'removeStatusListener': 'void removeStatusListener(AnimationStatusListener listener)',
+    },
+    getterSignatures: {
+      'parent': 'Animation<T> get parent',
+      'status': 'AnimationStatus get status',
     },
   );
 }

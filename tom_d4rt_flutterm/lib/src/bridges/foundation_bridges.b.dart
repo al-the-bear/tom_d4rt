@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-04-21T14:24:50.588889
+// Generated: 2026-04-22T21:03:54.857586
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -71,11 +71,11 @@ class FlutterFoundationBridge {
       _createDiagnosticableNodeBridge(),
       _createDiagnosticableTreeNodeBridge(),
       _createDiagnosticPropertiesBuilderBridge(),
-      _createDiagnosticableBridge(),
       _createDiagnosticableTreeBridge(),
-      _createDiagnosticableTreeMixinBridge(),
       _createDiagnosticsBlockBridge(),
       _createDiagnosticsSerializationDelegateBridge(),
+      _createDiagnosticableBridge(),
+      _createDiagnosticableTreeMixinBridge(),
       _createStackFrameBridge(),
       _createPartialStackFrameBridge(),
       _createStackFilterBridge(),
@@ -148,11 +148,11 @@ class FlutterFoundationBridge {
       'DiagnosticableNode': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticableTreeNode': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticPropertiesBuilder': 'package:flutter/src/foundation/diagnostics.dart',
-      'Diagnosticable': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticableTree': 'package:flutter/src/foundation/diagnostics.dart',
-      'DiagnosticableTreeMixin': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticsBlock': 'package:flutter/src/foundation/diagnostics.dart',
       'DiagnosticsSerializationDelegate': 'package:flutter/src/foundation/diagnostics.dart',
+      'Diagnosticable': 'package:flutter/src/foundation/diagnostics.dart',
+      'DiagnosticableTreeMixin': 'package:flutter/src/foundation/diagnostics.dart',
       'StackFrame': 'package:flutter/src/foundation/stack_frame.dart',
       'PartialStackFrame': 'package:flutter/src/foundation/assertions.dart',
       'StackFilter': 'package:flutter/src/foundation/assertions.dart',
@@ -1103,16 +1103,16 @@ BridgedClass _createCachingIterableBridge() {
       'followedBy': 'Iterable<E> followedBy(Iterable<E> other)',
       'whereType': 'Iterable<T> whereType()',
       'contains': 'bool contains(Object? element)',
-      'forEach': 'void forEach(void Function(E) action)',
-      'reduce': 'E reduce(E Function(E, E) combine)',
-      'fold': 'T fold(T initialValue, T Function(T, E) combine)',
-      'every': 'bool every(bool Function(E) test)',
+      'forEach': 'void forEach(void Function(E element) action)',
+      'reduce': 'E reduce(E Function(E value, E element) combine)',
+      'fold': 'T fold(T initialValue, T Function(T previousValue, E element) combine)',
+      'every': 'bool every(bool Function(E element) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(E) test)',
+      'any': 'bool any(bool Function(E element) test)',
       'toSet': 'Set<E> toSet()',
-      'firstWhere': 'E firstWhere(bool Function(E) test, {E Function()? orElse})',
-      'lastWhere': 'E lastWhere(bool Function(E) test, {E Function()? orElse})',
-      'singleWhere': 'E singleWhere(bool Function(E) test, {E Function()? orElse})',
+      'firstWhere': 'E firstWhere(bool Function(E element) test, {E Function()? orElse})',
+      'lastWhere': 'E lastWhere(bool Function(E element) test, {E Function()? orElse})',
+      'singleWhere': 'E singleWhere(bool Function(E element) test, {E Function()? orElse})',
       'toString': 'String toString()',
     },
     getterSignatures: {
@@ -1157,7 +1157,7 @@ BridgedClass _createFactoryBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const Factory(T Function() constructor)',
+      '': 'const Factory(ValueGetter<T> constructor)',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1330,12 +1330,12 @@ BridgedClass _createDiagnosticsNodeBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsNode>(target, 'DiagnosticsNode').allowTruncate,
@@ -1422,12 +1422,12 @@ BridgedClass _createDiagnosticsNodeBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'Object? get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -1461,12 +1461,12 @@ BridgedClass _createMessagePropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').allowTruncate,
@@ -1476,9 +1476,9 @@ BridgedClass _createMessagePropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.MessageProperty>(target, 'MessageProperty').isInteresting,
     },
     methods: {
@@ -1556,12 +1556,12 @@ BridgedClass _createMessagePropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'void get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -1571,9 +1571,9 @@ BridgedClass _createMessagePropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -1613,12 +1613,12 @@ BridgedClass _createStringPropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').allowTruncate,
@@ -1628,9 +1628,9 @@ BridgedClass _createStringPropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').isInteresting,
       'quoted': (visitor, target) => D4.validateTarget<$flutter_12.StringProperty>(target, 'StringProperty').quoted,
     },
@@ -1709,12 +1709,12 @@ BridgedClass _createStringPropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'String get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -1724,9 +1724,9 @@ BridgedClass _createStringPropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
       'quoted': 'bool get quoted',
     },
@@ -1871,7 +1871,7 @@ BridgedClass _createDoublePropertyBridge() {
     },
     constructorSignatures: {
       '': 'DoubleProperty(String name, double? value, {String? ifNull, String? unit, String? tooltip, Object? defaultValue = kNoDefaultValue, bool showName = true, DiagnosticsTreeStyle style = DiagnosticsTreeStyle.singleLine, DiagnosticLevel level = DiagnosticLevel.info})',
-      'lazy': 'DoubleProperty.lazy(String name, double? Function() computeValue, {String? ifNull, bool showName = true, String? unit, String? tooltip, Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
+      'lazy': 'DoubleProperty.lazy(String name, ComputePropertyValueCallback<double> computeValue, {String? ifNull, bool showName = true, String? unit, String? tooltip, Object? defaultValue = kNoDefaultValue, DiagnosticLevel level = DiagnosticLevel.info})',
     },
     methodSignatures: {
       'numberToString': 'String numberToString()',
@@ -2245,12 +2245,12 @@ BridgedClass _createFlagPropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').allowTruncate,
@@ -2260,9 +2260,9 @@ BridgedClass _createFlagPropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').isInteresting,
       'ifTrue': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifTrue,
       'ifFalse': (visitor, target) => D4.validateTarget<$flutter_12.FlagProperty>(target, 'FlagProperty').ifFalse,
@@ -2342,12 +2342,12 @@ BridgedClass _createFlagPropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'bool get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -2357,9 +2357,9 @@ BridgedClass _createFlagPropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
       'ifTrue': 'String? get ifTrue',
       'ifFalse': 'String? get ifFalse',
@@ -2403,12 +2403,12 @@ BridgedClass _createIterablePropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').allowTruncate,
@@ -2418,9 +2418,9 @@ BridgedClass _createIterablePropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.IterableProperty>(target, 'IterableProperty').isInteresting,
     },
     methods: {
@@ -2498,12 +2498,12 @@ BridgedClass _createIterablePropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'Iterable<T> get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -2513,9 +2513,9 @@ BridgedClass _createIterablePropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -2549,12 +2549,12 @@ BridgedClass _createEnumPropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').allowTruncate,
@@ -2564,9 +2564,9 @@ BridgedClass _createEnumPropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.EnumProperty>(target, 'EnumProperty').isInteresting,
     },
     methods: {
@@ -2644,12 +2644,12 @@ BridgedClass _createEnumPropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'T get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -2659,9 +2659,9 @@ BridgedClass _createEnumPropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -2846,12 +2846,12 @@ BridgedClass _createObjectFlagPropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').allowTruncate,
@@ -2861,9 +2861,9 @@ BridgedClass _createObjectFlagPropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').isInteresting,
       'ifPresent': (visitor, target) => D4.validateTarget<$flutter_12.ObjectFlagProperty>(target, 'ObjectFlagProperty').ifPresent,
     },
@@ -2943,12 +2943,12 @@ BridgedClass _createObjectFlagPropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'T get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -2958,9 +2958,9 @@ BridgedClass _createObjectFlagPropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
       'ifPresent': 'String? get ifPresent',
     },
@@ -2994,12 +2994,12 @@ BridgedClass _createFlagsSummaryBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').allowTruncate,
@@ -3009,9 +3009,9 @@ BridgedClass _createFlagsSummaryBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary').isInteresting,
     },
     methods: {
@@ -3089,12 +3089,12 @@ BridgedClass _createFlagsSummaryBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'Map<String, T?> get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -3104,9 +3104,9 @@ BridgedClass _createFlagsSummaryBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -3180,12 +3180,12 @@ BridgedClass _createDiagnosticsPropertyBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').allowTruncate,
@@ -3195,9 +3195,9 @@ BridgedClass _createDiagnosticsPropertyBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsProperty>(target, 'DiagnosticsProperty').isInteresting,
     },
     methods: {
@@ -3276,12 +3276,12 @@ BridgedClass _createDiagnosticsPropertyBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'T? get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -3291,9 +3291,9 @@ BridgedClass _createDiagnosticsPropertyBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -3319,12 +3319,12 @@ BridgedClass _createDiagnosticableNodeBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableNode>(target, 'DiagnosticableNode').allowTruncate,
@@ -3400,12 +3400,12 @@ BridgedClass _createDiagnosticableNodeBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'T get value',
-      'style': 'DiagnosticsTreeStyle get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -3435,12 +3435,12 @@ BridgedClass _createDiagnosticableTreeNodeBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticableTreeNode>(target, 'DiagnosticableTreeNode').allowTruncate,
@@ -3516,12 +3516,12 @@ BridgedClass _createDiagnosticableTreeNodeBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'DiagnosticableTree get value',
-      'style': 'DiagnosticsTreeStyle get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -3593,51 +3593,6 @@ BridgedClass _createDiagnosticPropertiesBuilderBridge() {
 }
 
 // =============================================================================
-// Diagnosticable Bridge
-// =============================================================================
-
-BridgedClass _createDiagnosticableBridge() {
-  return BridgedClass(
-    nativeType: $flutter_12.Diagnosticable,
-    name: 'Diagnosticable',
-    isAssignable: (v) => v is $flutter_12.Diagnosticable,
-    canBeUsedAsMixin: true,
-    constructors: {
-    },
-    methods: {
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
-        return t.toStringShort();
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
-      },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
-      },
-    },
-    methodSignatures: {
-      'toStringShort': 'String toStringShort()',
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
-    },
-  );
-}
-
-// =============================================================================
 // DiagnosticableTree Bridge
 // =============================================================================
 
@@ -3703,72 +3658,6 @@ BridgedClass _createDiagnosticableTreeBridge() {
 }
 
 // =============================================================================
-// DiagnosticableTreeMixin Bridge
-// =============================================================================
-
-BridgedClass _createDiagnosticableTreeMixinBridge() {
-  return BridgedClass(
-    nativeType: $flutter_12.DiagnosticableTreeMixin,
-    name: 'DiagnosticableTreeMixin',
-    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
-    canBeUsedAsMixin: true,
-    constructors: {
-    },
-    methods: {
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
-        return t.toString(minLevel: minLevel);
-      },
-      'toStringShallow': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
-        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
-      },
-      'toStringDeep': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
-        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
-        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
-        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
-        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
-      },
-      'toStringShort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        return t.toStringShort();
-      },
-      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        final name = D4.getOptionalNamedArg<String?>(named, 'name');
-        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
-        return t.toDiagnosticsNode(name: name, style: style);
-      },
-      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        return t.debugDescribeChildren();
-      },
-      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
-        D4.requireMinArgs(positional, 1, 'debugFillProperties');
-        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
-        (t as dynamic).debugFillProperties(properties);
-        return null;
-      },
-    },
-    methodSignatures: {
-      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
-      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
-      'toStringShort': 'String toStringShort()',
-      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
-      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
-      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
-    },
-  );
-}
-
-// =============================================================================
 // DiagnosticsBlock Bridge
 // =============================================================================
 
@@ -3800,12 +3689,12 @@ BridgedClass _createDiagnosticsBlockBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_12.DiagnosticsBlock>(target, 'DiagnosticsBlock').allowTruncate,
@@ -3880,12 +3769,12 @@ BridgedClass _createDiagnosticsBlockBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'Object? get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -4009,6 +3898,117 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
       'subtreeDepth': 'int get subtreeDepth',
       'includeProperties': 'bool get includeProperties',
       'expandPropertyValues': 'bool get expandPropertyValues',
+    },
+  );
+}
+
+// =============================================================================
+// Diagnosticable Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.Diagnosticable,
+    name: 'Diagnosticable',
+    isAssignable: (v) => v is $flutter_12.Diagnosticable,
+    canBeUsedAsMixin: true,
+    constructors: {
+    },
+    methods: {
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        return t.toStringShort();
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.Diagnosticable>(target, 'Diagnosticable');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'toStringShort': 'String toStringShort()',
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
+    },
+  );
+}
+
+// =============================================================================
+// DiagnosticableTreeMixin Bridge
+// =============================================================================
+
+BridgedClass _createDiagnosticableTreeMixinBridge() {
+  return BridgedClass(
+    nativeType: $flutter_12.DiagnosticableTreeMixin,
+    name: 'DiagnosticableTreeMixin',
+    isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
+    canBeUsedAsMixin: true,
+    constructors: {
+    },
+    methods: {
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.info);
+        return t.toString(minLevel: minLevel);
+      },
+      'toStringShallow': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final joiner = D4.getNamedArgWithDefault<String>(named, 'joiner', ', ');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        return t.toStringShallow(joiner: joiner, minLevel: minLevel);
+      },
+      'toStringDeep': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final prefixLineOne = D4.getNamedArgWithDefault<String>(named, 'prefixLineOne', '');
+        final prefixOtherLines = D4.getOptionalNamedArg<String?>(named, 'prefixOtherLines');
+        final minLevel = D4.getNamedArgWithDefault<$flutter_12.DiagnosticLevel>(named, 'minLevel', $flutter_12.DiagnosticLevel.debug);
+        final wrapWidth = D4.getNamedArgWithDefault<int>(named, 'wrapWidth', 65);
+        return t.toStringDeep(prefixLineOne: prefixLineOne, prefixOtherLines: prefixOtherLines, minLevel: minLevel, wrapWidth: wrapWidth);
+      },
+      'toStringShort': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        return t.toStringShort();
+      },
+      'toDiagnosticsNode': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        final name = D4.getOptionalNamedArg<String?>(named, 'name');
+        final style = D4.getOptionalNamedArg<$flutter_12.DiagnosticsTreeStyle?>(named, 'style');
+        return t.toDiagnosticsNode(name: name, style: style);
+      },
+      'debugDescribeChildren': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        return t.debugDescribeChildren();
+      },
+      'debugFillProperties': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$flutter_12.DiagnosticableTreeMixin>(target, 'DiagnosticableTreeMixin');
+        D4.requireMinArgs(positional, 1, 'debugFillProperties');
+        final properties = D4.getRequiredArg<$flutter_12.DiagnosticPropertiesBuilder>(positional, 0, 'properties', 'debugFillProperties');
+        (t as dynamic).debugFillProperties(properties);
+        return null;
+      },
+    },
+    methodSignatures: {
+      'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
+      'toStringShallow': 'String toStringShallow({String joiner = \', \', DiagnosticLevel minLevel = DiagnosticLevel.debug})',
+      'toStringDeep': 'String toStringDeep({String prefixLineOne = \'\', String? prefixOtherLines, DiagnosticLevel minLevel = DiagnosticLevel.debug, int wrapWidth = 65})',
+      'toStringShort': 'String toStringShort()',
+      'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
+      'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
+      'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties)',
     },
   );
 }
@@ -4217,8 +4217,8 @@ BridgedClass _createRepetitiveStackFrameFilterBridge() {
     },
     getters: {
       'frames': (visitor, target) => D4.validateTarget<$flutter_2.RepetitiveStackFrameFilter>(target, 'RepetitiveStackFrameFilter').frames,
-      'numFrames': (visitor, target) => D4.validateTarget<$flutter_2.RepetitiveStackFrameFilter>(target, 'RepetitiveStackFrameFilter').numFrames,
       'replacement': (visitor, target) => D4.validateTarget<$flutter_2.RepetitiveStackFrameFilter>(target, 'RepetitiveStackFrameFilter').replacement,
+      'numFrames': (visitor, target) => D4.validateTarget<$flutter_2.RepetitiveStackFrameFilter>(target, 'RepetitiveStackFrameFilter').numFrames,
     },
     methods: {
       'filter': (visitor, target, positional, named, typeArgs) {
@@ -4244,8 +4244,8 @@ BridgedClass _createRepetitiveStackFrameFilterBridge() {
     },
     getterSignatures: {
       'frames': 'List<PartialStackFrame> get frames',
-      'numFrames': 'int get numFrames',
       'replacement': 'String get replacement',
+      'numFrames': 'int get numFrames',
     },
   );
 }
@@ -4678,12 +4678,12 @@ BridgedClass _createErrorSpacerBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').allowTruncate,
@@ -4693,9 +4693,9 @@ BridgedClass _createErrorSpacerBridge() {
       'ifEmpty': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').ifEmpty,
       'tooltip': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').tooltip,
       'missingIfNull': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').missingIfNull,
+      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').defaultValue,
       'propertyType': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').propertyType,
       'exception': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').exception,
-      'defaultValue': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').defaultValue,
       'isInteresting': (visitor, target) => D4.validateTarget<$flutter_2.ErrorSpacer>(target, 'ErrorSpacer').isInteresting,
     },
     methods: {
@@ -4773,12 +4773,12 @@ BridgedClass _createErrorSpacerBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'void get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -4788,9 +4788,9 @@ BridgedClass _createErrorSpacerBridge() {
       'ifEmpty': 'String? get ifEmpty',
       'tooltip': 'String? get tooltip',
       'missingIfNull': 'bool get missingIfNull',
+      'defaultValue': 'Object? get defaultValue',
       'propertyType': 'Type get propertyType',
       'exception': 'Object? get exception',
-      'defaultValue': 'Object? get defaultValue',
       'isInteresting': 'bool get isInteresting',
     },
   );
@@ -4870,7 +4870,7 @@ BridgedClass _createFlutterErrorDetailsBridge() {
       'propertiesTransformers': (visitor) => $flutter_2.FlutterErrorDetails.propertiesTransformers,
     },
     constructorSignatures: {
-      '': 'const FlutterErrorDetails({required Object exception, StackTrace? stack, String? library = \'Flutter framework\', DiagnosticsNode? context, Iterable<String> Function(Iterable<String>)? stackFilter, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
+      '': 'const FlutterErrorDetails({required Object exception, StackTrace? stack, String? library = \'Flutter framework\', DiagnosticsNode? context, IterableFilter<String>? stackFilter, InformationCollector? informationCollector, bool silent = false})',
     },
     methodSignatures: {
       'copyWith': 'FlutterErrorDetails copyWith({DiagnosticsNode? context, Object? exception, InformationCollector? informationCollector, String? library, bool? silent, StackTrace? stack, IterableFilter<String>? stackFilter})',
@@ -5084,12 +5084,12 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
     getters: {
       'name': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').name,
       'showSeparator': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').showSeparator,
-      'level': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').level,
       'showName': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').showName,
       'linePrefix': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').linePrefix,
+      'style': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').style,
+      'level': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').level,
       'emptyBodyDescription': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').emptyBodyDescription,
       'value': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').value,
-      'style': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').style,
       'allowWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowWrap,
       'allowNameWrap': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowNameWrap,
       'allowTruncate': (visitor, target) => D4.validateTarget<$flutter_2.DiagnosticsStackTrace>(target, 'DiagnosticsStackTrace').allowTruncate,
@@ -5165,12 +5165,12 @@ BridgedClass _createDiagnosticsStackTraceBridge() {
     getterSignatures: {
       'name': 'String? get name',
       'showSeparator': 'bool get showSeparator',
-      'level': 'DiagnosticLevel get level',
       'showName': 'bool get showName',
       'linePrefix': 'String? get linePrefix',
+      'style': 'DiagnosticsTreeStyle? get style',
+      'level': 'DiagnosticLevel get level',
       'emptyBodyDescription': 'String? get emptyBodyDescription',
       'value': 'Object? get value',
-      'style': 'DiagnosticsTreeStyle? get style',
       'allowWrap': 'bool get allowWrap',
       'allowNameWrap': 'bool get allowNameWrap',
       'allowTruncate': 'bool get allowTruncate',
@@ -5346,8 +5346,8 @@ BridgedClass _createBindingBaseBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'window': 'ui.SingletonFlutterWindow get window',
-      'platformDispatcher': 'ui.PlatformDispatcher get platformDispatcher',
+      'window': 'SingletonFlutterWindow get window',
+      'platformDispatcher': 'PlatformDispatcher get platformDispatcher',
       'locked': 'bool get locked',
     },
     staticMethodSignatures: {
@@ -5503,8 +5503,8 @@ BridgedClass _createValueListenableBridge() {
       },
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
     },
     getterSignatures: {
       'value': 'T get value',
@@ -5730,8 +5730,8 @@ BridgedClass _createValueNotifierBridge() {
       '': 'ValueNotifier(T _value)',
     },
     methodSignatures: {
-      'addListener': 'void addListener(void Function() listener)',
-      'removeListener': 'void removeListener(void Function() listener)',
+      'addListener': 'void addListener(VoidCallback listener)',
+      'removeListener': 'void removeListener(VoidCallback listener)',
       'dispose': 'void dispose()',
       'notifyListeners': 'void notifyListeners()',
       'toString': 'String toString()',
@@ -6480,24 +6480,24 @@ BridgedClass _createObserverListBridge() {
       'toList': 'List<T> toList({bool growable = true})',
       'cast': 'Iterable<R> cast()',
       'followedBy': 'Iterable<T> followedBy(Iterable<T> other)',
-      'map': 'Iterable<T> map(T Function(T) toElement)',
-      'where': 'Iterable<T> where(bool Function(T) test)',
+      'map': 'Iterable<T> map(T Function(T e) toElement)',
+      'where': 'Iterable<T> where(bool Function(T element) test)',
       'whereType': 'Iterable<T> whereType()',
-      'expand': 'Iterable<T> expand(Iterable<T> Function(T) toElements)',
-      'forEach': 'void forEach(void Function(T) action)',
-      'reduce': 'T reduce(T Function(T, T) combine)',
-      'fold': 'T fold(T initialValue, T Function(T, T) combine)',
-      'every': 'bool every(bool Function(T) test)',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(T element) toElements)',
+      'forEach': 'void forEach(void Function(T element) action)',
+      'reduce': 'T reduce(T Function(T value, T element) combine)',
+      'fold': 'T fold(T initialValue, T Function(T previousValue, T element) combine)',
+      'every': 'bool every(bool Function(T element) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(T) test)',
+      'any': 'bool any(bool Function(T element) test)',
       'toSet': 'Set<T> toSet()',
       'take': 'Iterable<T> take(int count)',
-      'takeWhile': 'Iterable<T> takeWhile(bool Function(T) test)',
+      'takeWhile': 'Iterable<T> takeWhile(bool Function(T value) test)',
       'skip': 'Iterable<T> skip(int count)',
-      'skipWhile': 'Iterable<T> skipWhile(bool Function(T) test)',
-      'firstWhere': 'T firstWhere(bool Function(T) test, {T Function()? orElse})',
-      'lastWhere': 'T lastWhere(bool Function(T) test, {T Function()? orElse})',
-      'singleWhere': 'T singleWhere(bool Function(T) test, {T Function()? orElse})',
+      'skipWhile': 'Iterable<T> skipWhile(bool Function(T value) test)',
+      'firstWhere': 'T firstWhere(bool Function(T element) test, {T Function()? orElse})',
+      'lastWhere': 'T lastWhere(bool Function(T element) test, {T Function()? orElse})',
+      'singleWhere': 'T singleWhere(bool Function(T element) test, {T Function()? orElse})',
       'elementAt': 'T elementAt(int index)',
       'toString': 'String toString()',
     },
@@ -6748,24 +6748,24 @@ BridgedClass _createHashedObserverListBridge() {
       'toList': 'List<T> toList({bool growable = true})',
       'cast': 'Iterable<R> cast()',
       'followedBy': 'Iterable<T> followedBy(Iterable<T> other)',
-      'map': 'Iterable<T> map(T Function(T) toElement)',
-      'where': 'Iterable<T> where(bool Function(T) test)',
+      'map': 'Iterable<T> map(T Function(T e) toElement)',
+      'where': 'Iterable<T> where(bool Function(T element) test)',
       'whereType': 'Iterable<T> whereType()',
-      'expand': 'Iterable<T> expand(Iterable<T> Function(T) toElements)',
-      'forEach': 'void forEach(void Function(T) action)',
-      'reduce': 'T reduce(T Function(T, T) combine)',
-      'fold': 'T fold(T initialValue, T Function(T, T) combine)',
-      'every': 'bool every(bool Function(T) test)',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(T element) toElements)',
+      'forEach': 'void forEach(void Function(T element) action)',
+      'reduce': 'T reduce(T Function(T value, T element) combine)',
+      'fold': 'T fold(T initialValue, T Function(T previousValue, T element) combine)',
+      'every': 'bool every(bool Function(T element) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(T) test)',
+      'any': 'bool any(bool Function(T element) test)',
       'toSet': 'Set<T> toSet()',
       'take': 'Iterable<T> take(int count)',
-      'takeWhile': 'Iterable<T> takeWhile(bool Function(T) test)',
+      'takeWhile': 'Iterable<T> takeWhile(bool Function(T value) test)',
       'skip': 'Iterable<T> skip(int count)',
-      'skipWhile': 'Iterable<T> skipWhile(bool Function(T) test)',
-      'firstWhere': 'T firstWhere(bool Function(T) test, {T Function()? orElse})',
-      'lastWhere': 'T lastWhere(bool Function(T) test, {T Function()? orElse})',
-      'singleWhere': 'T singleWhere(bool Function(T) test, {T Function()? orElse})',
+      'skipWhile': 'Iterable<T> skipWhile(bool Function(T value) test)',
+      'firstWhere': 'T firstWhere(bool Function(T element) test, {T Function()? orElse})',
+      'lastWhere': 'T lastWhere(bool Function(T element) test, {T Function()? orElse})',
+      'singleWhere': 'T singleWhere(bool Function(T element) test, {T Function()? orElse})',
       'elementAt': 'T elementAt(int index)',
       'toString': 'String toString()',
     },

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 51 files
-// Generated: 2026-04-21T14:24:41.160090
+// Sources: 46 files
+// Generated: 2026-04-22T21:03:54.139814
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -9,8 +9,6 @@ import 'package:tom_d4rt_ast/tom_d4rt_ast.dart';
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:math' as $dart_math;
-import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as $dart_ui;
 import 'dart:ui';
@@ -178,8 +176,6 @@ class FlutterPaintingBridge {
       _createTextSpanBridge(),
       _createTextStyleBridge(),
       _createMatrix4Bridge(),
-      _createVector3Bridge(),
-      _createVector2Bridge(),
     ];
   }
 
@@ -279,8 +275,6 @@ class FlutterPaintingBridge {
       'TextSpan': 'package:flutter/src/painting/text_span.dart',
       'TextStyle': 'package:flutter/src/painting/text_style.dart',
       'Matrix4': 'package:vector_math/vector_math_64.dart',
-      'Vector3': 'package:vector_math/vector_math_64.dart',
-      'Vector2': 'package:vector_math/vector_math_64.dart',
     };
   }
 
@@ -578,16 +572,6 @@ class FlutterPaintingBridge {
       errors.add('Failed to register variable "debugCaptureShaderWarmUpImage": $e');
     }
     try {
-      interpreter.registerGlobalVariable('degrees2Radians', $vector_math_1.degrees2Radians, importPath, sourceUri: 'package:vector_math/src/vector_math_64/constants.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "degrees2Radians": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable('radians2Degrees', $vector_math_1.radians2Degrees, importPath, sourceUri: 'package:vector_math/src/vector_math_64/constants.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "radians2Degrees": $e');
-    }
-    try {
       interpreter.registerGlobalVariable('kDefaultFontSize', $flutter_50.kDefaultFontSize, importPath, sourceUri: 'package:flutter/src/painting/text_painter.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDefaultFontSize": $e');
@@ -712,241 +696,6 @@ class FlutterPaintingBridge {
         final width = D4.getRequiredArg<double>(positional, 5, 'width', 'paintZigZag');
         return $flutter_42.paintZigZag(canvas, paint, start, end, zigs, width);
       },
-      'relativeError': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'relativeError');
-        final calculated = D4.getRequiredArg<dynamic>(positional, 0, 'calculated', 'relativeError');
-        final correct = D4.getRequiredArg<dynamic>(positional, 1, 'correct', 'relativeError');
-        return $vector_math_1.relativeError(calculated, correct);
-      },
-      'absoluteError': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'absoluteError');
-        final calculated = D4.getRequiredArg<dynamic>(positional, 0, 'calculated', 'absoluteError');
-        final correct = D4.getRequiredArg<dynamic>(positional, 1, 'correct', 'absoluteError');
-        return $vector_math_1.absoluteError(calculated, correct);
-      },
-      'setRotationMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'setRotationMatrix');
-        final rotationMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'rotationMatrix', 'setRotationMatrix');
-        final forwardDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'forwardDirection', 'setRotationMatrix');
-        final upDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'upDirection', 'setRotationMatrix');
-        return $vector_math_1.setRotationMatrix(rotationMatrix, forwardDirection, upDirection);
-      },
-      'setModelMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 6, 'setModelMatrix');
-        final modelMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'modelMatrix', 'setModelMatrix');
-        final forwardDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'forwardDirection', 'setModelMatrix');
-        final upDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'upDirection', 'setModelMatrix');
-        final tx = D4.getRequiredArg<double>(positional, 3, 'tx', 'setModelMatrix');
-        final ty = D4.getRequiredArg<double>(positional, 4, 'ty', 'setModelMatrix');
-        final tz = D4.getRequiredArg<double>(positional, 5, 'tz', 'setModelMatrix');
-        return $vector_math_1.setModelMatrix(modelMatrix, forwardDirection, upDirection, tx, ty, tz);
-      },
-      'setViewMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 4, 'setViewMatrix');
-        final viewMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'viewMatrix', 'setViewMatrix');
-        final cameraPosition = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'cameraPosition', 'setViewMatrix');
-        final cameraFocusPosition = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'cameraFocusPosition', 'setViewMatrix');
-        final upDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 3, 'upDirection', 'setViewMatrix');
-        return $vector_math_1.setViewMatrix(viewMatrix, cameraPosition, cameraFocusPosition, upDirection);
-      },
-      'makeViewMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'makeViewMatrix');
-        final cameraPosition = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'cameraPosition', 'makeViewMatrix');
-        final cameraFocusPosition = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'cameraFocusPosition', 'makeViewMatrix');
-        final upDirection = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'upDirection', 'makeViewMatrix');
-        return $vector_math_1.makeViewMatrix(cameraPosition, cameraFocusPosition, upDirection);
-      },
-      'setPerspectiveMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 5, 'setPerspectiveMatrix');
-        final perspectiveMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'perspectiveMatrix', 'setPerspectiveMatrix');
-        final fovYRadians = D4.getRequiredArg<double>(positional, 1, 'fovYRadians', 'setPerspectiveMatrix');
-        final aspectRatio = D4.getRequiredArg<double>(positional, 2, 'aspectRatio', 'setPerspectiveMatrix');
-        final zNear = D4.getRequiredArg<double>(positional, 3, 'zNear', 'setPerspectiveMatrix');
-        final zFar = D4.getRequiredArg<double>(positional, 4, 'zFar', 'setPerspectiveMatrix');
-        return $vector_math_1.setPerspectiveMatrix(perspectiveMatrix, fovYRadians, aspectRatio, zNear, zFar);
-      },
-      'makePerspectiveMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 4, 'makePerspectiveMatrix');
-        final fovYRadians = D4.getRequiredArg<double>(positional, 0, 'fovYRadians', 'makePerspectiveMatrix');
-        final aspectRatio = D4.getRequiredArg<double>(positional, 1, 'aspectRatio', 'makePerspectiveMatrix');
-        final zNear = D4.getRequiredArg<double>(positional, 2, 'zNear', 'makePerspectiveMatrix');
-        final zFar = D4.getRequiredArg<double>(positional, 3, 'zFar', 'makePerspectiveMatrix');
-        return $vector_math_1.makePerspectiveMatrix(fovYRadians, aspectRatio, zNear, zFar);
-      },
-      'setInfiniteMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 4, 'setInfiniteMatrix');
-        final infiniteMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'infiniteMatrix', 'setInfiniteMatrix');
-        final fovYRadians = D4.getRequiredArg<double>(positional, 1, 'fovYRadians', 'setInfiniteMatrix');
-        final aspectRatio = D4.getRequiredArg<double>(positional, 2, 'aspectRatio', 'setInfiniteMatrix');
-        final zNear = D4.getRequiredArg<double>(positional, 3, 'zNear', 'setInfiniteMatrix');
-        return $vector_math_1.setInfiniteMatrix(infiniteMatrix, fovYRadians, aspectRatio, zNear);
-      },
-      'makeInfiniteMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'makeInfiniteMatrix');
-        final fovYRadians = D4.getRequiredArg<double>(positional, 0, 'fovYRadians', 'makeInfiniteMatrix');
-        final aspectRatio = D4.getRequiredArg<double>(positional, 1, 'aspectRatio', 'makeInfiniteMatrix');
-        final zNear = D4.getRequiredArg<double>(positional, 2, 'zNear', 'makeInfiniteMatrix');
-        return $vector_math_1.makeInfiniteMatrix(fovYRadians, aspectRatio, zNear);
-      },
-      'setFrustumMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 7, 'setFrustumMatrix');
-        final perspectiveMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'perspectiveMatrix', 'setFrustumMatrix');
-        final left = D4.getRequiredArg<double>(positional, 1, 'left', 'setFrustumMatrix');
-        final right = D4.getRequiredArg<double>(positional, 2, 'right', 'setFrustumMatrix');
-        final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'setFrustumMatrix');
-        final top = D4.getRequiredArg<double>(positional, 4, 'top', 'setFrustumMatrix');
-        final near = D4.getRequiredArg<double>(positional, 5, 'near', 'setFrustumMatrix');
-        final far = D4.getRequiredArg<double>(positional, 6, 'far', 'setFrustumMatrix');
-        return $vector_math_1.setFrustumMatrix(perspectiveMatrix, left, right, bottom, top, near, far);
-      },
-      'makeFrustumMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 6, 'makeFrustumMatrix');
-        final left = D4.getRequiredArg<double>(positional, 0, 'left', 'makeFrustumMatrix');
-        final right = D4.getRequiredArg<double>(positional, 1, 'right', 'makeFrustumMatrix');
-        final bottom = D4.getRequiredArg<double>(positional, 2, 'bottom', 'makeFrustumMatrix');
-        final top = D4.getRequiredArg<double>(positional, 3, 'top', 'makeFrustumMatrix');
-        final near = D4.getRequiredArg<double>(positional, 4, 'near', 'makeFrustumMatrix');
-        final far = D4.getRequiredArg<double>(positional, 5, 'far', 'makeFrustumMatrix');
-        return $vector_math_1.makeFrustumMatrix(left, right, bottom, top, near, far);
-      },
-      'setOrthographicMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 7, 'setOrthographicMatrix');
-        final orthographicMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'orthographicMatrix', 'setOrthographicMatrix');
-        final left = D4.getRequiredArg<double>(positional, 1, 'left', 'setOrthographicMatrix');
-        final right = D4.getRequiredArg<double>(positional, 2, 'right', 'setOrthographicMatrix');
-        final bottom = D4.getRequiredArg<double>(positional, 3, 'bottom', 'setOrthographicMatrix');
-        final top = D4.getRequiredArg<double>(positional, 4, 'top', 'setOrthographicMatrix');
-        final near = D4.getRequiredArg<double>(positional, 5, 'near', 'setOrthographicMatrix');
-        final far = D4.getRequiredArg<double>(positional, 6, 'far', 'setOrthographicMatrix');
-        return $vector_math_1.setOrthographicMatrix(orthographicMatrix, left, right, bottom, top, near, far);
-      },
-      'makeOrthographicMatrix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 6, 'makeOrthographicMatrix');
-        final left = D4.getRequiredArg<double>(positional, 0, 'left', 'makeOrthographicMatrix');
-        final right = D4.getRequiredArg<double>(positional, 1, 'right', 'makeOrthographicMatrix');
-        final bottom = D4.getRequiredArg<double>(positional, 2, 'bottom', 'makeOrthographicMatrix');
-        final top = D4.getRequiredArg<double>(positional, 3, 'top', 'makeOrthographicMatrix');
-        final near = D4.getRequiredArg<double>(positional, 4, 'near', 'makeOrthographicMatrix');
-        final far = D4.getRequiredArg<double>(positional, 5, 'far', 'makeOrthographicMatrix');
-        return $vector_math_1.makeOrthographicMatrix(left, right, bottom, top, near, far);
-      },
-      'makePlaneProjection': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'makePlaneProjection');
-        final planeNormal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'planeNormal', 'makePlaneProjection');
-        final planePoint = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'planePoint', 'makePlaneProjection');
-        return $vector_math_1.makePlaneProjection(planeNormal, planePoint);
-      },
-      'makePlaneReflection': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'makePlaneReflection');
-        final planeNormal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'planeNormal', 'makePlaneReflection');
-        final planePoint = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'planePoint', 'makePlaneReflection');
-        return $vector_math_1.makePlaneReflection(planeNormal, planePoint);
-      },
-      'unproject': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 9, 'unproject');
-        final cameraMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'cameraMatrix', 'unproject');
-        final viewportX = D4.getRequiredArg<num>(positional, 1, 'viewportX', 'unproject');
-        final viewportWidth = D4.getRequiredArg<num>(positional, 2, 'viewportWidth', 'unproject');
-        final viewportY = D4.getRequiredArg<num>(positional, 3, 'viewportY', 'unproject');
-        final viewportHeight = D4.getRequiredArg<num>(positional, 4, 'viewportHeight', 'unproject');
-        final pickX = D4.getRequiredArg<num>(positional, 5, 'pickX', 'unproject');
-        final pickY = D4.getRequiredArg<num>(positional, 6, 'pickY', 'unproject');
-        final pickZ = D4.getRequiredArg<num>(positional, 7, 'pickZ', 'unproject');
-        final pickWorld = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 8, 'pickWorld', 'unproject');
-        return $vector_math_1.unproject(cameraMatrix, viewportX, viewportWidth, viewportY, viewportHeight, pickX, pickY, pickZ, pickWorld);
-      },
-      'pickRay': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 9, 'pickRay');
-        final cameraMatrix = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'cameraMatrix', 'pickRay');
-        final viewportX = D4.getRequiredArg<num>(positional, 1, 'viewportX', 'pickRay');
-        final viewportWidth = D4.getRequiredArg<num>(positional, 2, 'viewportWidth', 'pickRay');
-        final viewportY = D4.getRequiredArg<num>(positional, 3, 'viewportY', 'pickRay');
-        final viewportHeight = D4.getRequiredArg<num>(positional, 4, 'viewportHeight', 'pickRay');
-        final pickX = D4.getRequiredArg<num>(positional, 5, 'pickX', 'pickRay');
-        final pickY = D4.getRequiredArg<num>(positional, 6, 'pickY', 'pickRay');
-        final rayNear = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 7, 'rayNear', 'pickRay');
-        final rayFar = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 8, 'rayFar', 'pickRay');
-        return $vector_math_1.pickRay(cameraMatrix, viewportX, viewportWidth, viewportY, viewportHeight, pickX, pickY, rayNear, rayFar);
-      },
-      'degrees': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'degrees');
-        final radians = D4.getRequiredArg<double>(positional, 0, 'radians', 'degrees');
-        return $vector_math_1.degrees(radians);
-      },
-      'radians': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'radians');
-        final degrees = D4.getRequiredArg<double>(positional, 0, 'degrees', 'radians');
-        return $vector_math_1.radians(degrees);
-      },
-      'mix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'mix');
-        final min = D4.getRequiredArg<double>(positional, 0, 'min', 'mix');
-        final max = D4.getRequiredArg<double>(positional, 1, 'max', 'mix');
-        final a = D4.getRequiredArg<double>(positional, 2, 'a', 'mix');
-        return $vector_math_1.mix(min, max, a);
-      },
-      'smoothStep': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'smoothStep');
-        final edge0 = D4.getRequiredArg<double>(positional, 0, 'edge0', 'smoothStep');
-        final edge1 = D4.getRequiredArg<double>(positional, 1, 'edge1', 'smoothStep');
-        final amount = D4.getRequiredArg<double>(positional, 2, 'amount', 'smoothStep');
-        return $vector_math_1.smoothStep(edge0, edge1, amount);
-      },
-      'catmullRom': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 5, 'catmullRom');
-        final edge0 = D4.getRequiredArg<double>(positional, 0, 'edge0', 'catmullRom');
-        final edge1 = D4.getRequiredArg<double>(positional, 1, 'edge1', 'catmullRom');
-        final edge2 = D4.getRequiredArg<double>(positional, 2, 'edge2', 'catmullRom');
-        final edge3 = D4.getRequiredArg<double>(positional, 3, 'edge3', 'catmullRom');
-        final amount = D4.getRequiredArg<double>(positional, 4, 'amount', 'catmullRom');
-        return $vector_math_1.catmullRom(edge0, edge1, edge2, edge3, amount);
-      },
-      'dot2': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'dot2');
-        final x = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'x', 'dot2');
-        final y = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'y', 'dot2');
-        return $vector_math_1.dot2(x, y);
-      },
-      'dot3': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'dot3');
-        final x = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'x', 'dot3');
-        final y = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'y', 'dot3');
-        return $vector_math_1.dot3(x, y);
-      },
-      'cross3': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'cross3');
-        final x = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'x', 'cross3');
-        final y = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'y', 'cross3');
-        final out = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'out', 'cross3');
-        return $vector_math_1.cross3(x, y, out);
-      },
-      'cross2': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'cross2');
-        final x = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'x', 'cross2');
-        final y = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'y', 'cross2');
-        return $vector_math_1.cross2(x, y);
-      },
-      'cross2A': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'cross2A');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'cross2A');
-        final y = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'y', 'cross2A');
-        final out = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'out', 'cross2A');
-        return $vector_math_1.cross2A(x, y, out);
-      },
-      'cross2B': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'cross2B');
-        final x = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'x', 'cross2B');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'cross2B');
-        final out = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'out', 'cross2B');
-        return $vector_math_1.cross2B(x, y, out);
-      },
-      'buildPlaneVectors': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'buildPlaneVectors');
-        final planeNormal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'planeNormal', 'buildPlaneVectors');
-        final u = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'u', 'buildPlaneVectors');
-        final v = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'v', 'buildPlaneVectors');
-        return $vector_math_1.buildPlaneVectors(planeNormal, u, v);
-      },
       'lerpFontVariations': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'lerpFontVariations');
         final a = D4.getRequiredArg<List<FontVariation>?>(positional, 0, 'a', 'lerpFontVariations');
@@ -979,36 +728,6 @@ class FlutterPaintingBridge {
       'combineSemanticsInfo': 'package:flutter/src/painting/inline_span.dart',
       'debugDescribeTransform': 'package:flutter/src/painting/matrix_utils.dart',
       'paintZigZag': 'package:flutter/src/painting/paint_utilities.dart',
-      'relativeError': 'package:vector_math/src/vector_math_64/error_helpers.dart',
-      'absoluteError': 'package:vector_math/src/vector_math_64/error_helpers.dart',
-      'setRotationMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setModelMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setViewMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makeViewMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setPerspectiveMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makePerspectiveMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setInfiniteMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makeInfiniteMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setFrustumMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makeFrustumMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'setOrthographicMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makeOrthographicMatrix': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makePlaneProjection': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'makePlaneReflection': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'unproject': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'pickRay': 'package:vector_math/src/vector_math_64/opengl.dart',
-      'degrees': 'package:vector_math/src/vector_math_64/utilities.dart',
-      'radians': 'package:vector_math/src/vector_math_64/utilities.dart',
-      'mix': 'package:vector_math/src/vector_math_64/utilities.dart',
-      'smoothStep': 'package:vector_math/src/vector_math_64/utilities.dart',
-      'catmullRom': 'package:vector_math/src/vector_math_64/utilities.dart',
-      'dot2': 'package:vector_math/src/vector_math_64/vector.dart',
-      'dot3': 'package:vector_math/src/vector_math_64/vector.dart',
-      'cross3': 'package:vector_math/src/vector_math_64/vector.dart',
-      'cross2': 'package:vector_math/src/vector_math_64/vector.dart',
-      'cross2A': 'package:vector_math/src/vector_math_64/vector.dart',
-      'cross2B': 'package:vector_math/src/vector_math_64/vector.dart',
-      'buildPlaneVectors': 'package:vector_math/src/vector_math_64/vector.dart',
       'lerpFontVariations': 'package:flutter/src/painting/text_style.dart',
     };
   }
@@ -1026,42 +745,12 @@ class FlutterPaintingBridge {
       'debugAssertAllPaintingVarsUnset': 'bool debugAssertAllPaintingVarsUnset(String reason, {bool debugDisableShadowsOverride = false})',
       'debugCheckCanResolveTextDirection': 'bool debugCheckCanResolveTextDirection(TextDirection? direction, String target)',
       'debugFlushLastFrameImageSizeInfo': 'void debugFlushLastFrameImageSizeInfo()',
-      'paintImage': 'void paintImage({required Canvas canvas, required Rect rect, required ui.Image image, String? debugImageLabel, double scale = 1.0, double opacity = 1.0, ColorFilter? colorFilter, BoxFit? fit, Alignment alignment = Alignment.center, Rect? centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool flipHorizontally = false, bool invertColors = false, FilterQuality filterQuality = FilterQuality.medium, bool isAntiAlias = false, BlendMode blendMode = BlendMode.srcOver})',
+      'paintImage': 'void paintImage({required Canvas canvas, required Rect rect, required Image image, String? debugImageLabel, double scale = 1.0, double opacity = 1.0, ColorFilter? colorFilter, BoxFit? fit, Alignment alignment = Alignment.center, Rect? centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool flipHorizontally = false, bool invertColors = false, FilterQuality filterQuality = FilterQuality.medium, bool isAntiAlias = false, BlendMode blendMode = BlendMode.srcOver})',
       'positionDependentBox': 'Offset positionDependentBox({required Size size, required Size childSize, required Offset target, required bool preferBelow, double verticalOffset = 0.0, double margin = 10.0})',
-      'decodeImageFromList': 'Future<ui.Image> decodeImageFromList(Uint8List bytes)',
+      'decodeImageFromList': 'Future<Image> decodeImageFromList(Uint8List bytes)',
       'combineSemanticsInfo': 'List<InlineSpanSemanticsInformation> combineSemanticsInfo(List<InlineSpanSemanticsInformation> infoList)',
       'debugDescribeTransform': 'List<String> debugDescribeTransform(Matrix4? transform)',
       'paintZigZag': 'void paintZigZag(Canvas canvas, Paint paint, Offset start, Offset end, int zigs, double width)',
-      'relativeError': 'double relativeError(dynamic calculated, dynamic correct)',
-      'absoluteError': 'double absoluteError(dynamic calculated, dynamic correct)',
-      'setRotationMatrix': 'void setRotationMatrix(Matrix4 rotationMatrix, Vector3 forwardDirection, Vector3 upDirection)',
-      'setModelMatrix': 'void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection, Vector3 upDirection, double tx, double ty, double tz)',
-      'setViewMatrix': 'void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition, Vector3 cameraFocusPosition, Vector3 upDirection)',
-      'makeViewMatrix': 'Matrix4 makeViewMatrix(Vector3 cameraPosition, Vector3 cameraFocusPosition, Vector3 upDirection)',
-      'setPerspectiveMatrix': 'void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians, double aspectRatio, double zNear, double zFar)',
-      'makePerspectiveMatrix': 'Matrix4 makePerspectiveMatrix(double fovYRadians, double aspectRatio, double zNear, double zFar)',
-      'setInfiniteMatrix': 'void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians, double aspectRatio, double zNear)',
-      'makeInfiniteMatrix': 'Matrix4 makeInfiniteMatrix(double fovYRadians, double aspectRatio, double zNear)',
-      'setFrustumMatrix': 'void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right, double bottom, double top, double near, double far)',
-      'makeFrustumMatrix': 'Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top, double near, double far)',
-      'setOrthographicMatrix': 'void setOrthographicMatrix(Matrix4 orthographicMatrix, double left, double right, double bottom, double top, double near, double far)',
-      'makeOrthographicMatrix': 'Matrix4 makeOrthographicMatrix(double left, double right, double bottom, double top, double near, double far)',
-      'makePlaneProjection': 'Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint)',
-      'makePlaneReflection': 'Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint)',
-      'unproject': 'bool unproject(Matrix4 cameraMatrix, num viewportX, num viewportWidth, num viewportY, num viewportHeight, num pickX, num pickY, num pickZ, Vector3 pickWorld)',
-      'pickRay': 'bool pickRay(Matrix4 cameraMatrix, num viewportX, num viewportWidth, num viewportY, num viewportHeight, num pickX, num pickY, Vector3 rayNear, Vector3 rayFar)',
-      'degrees': 'double degrees(double radians)',
-      'radians': 'double radians(double degrees)',
-      'mix': 'double mix(double min, double max, double a)',
-      'smoothStep': 'double smoothStep(double edge0, double edge1, double amount)',
-      'catmullRom': 'double catmullRom(double edge0, double edge1, double edge2, double edge3, double amount)',
-      'dot2': 'double dot2(Vector2 x, Vector2 y)',
-      'dot3': 'double dot3(Vector3 x, Vector3 y)',
-      'cross3': 'void cross3(Vector3 x, Vector3 y, Vector3 out)',
-      'cross2': 'double cross2(Vector2 x, Vector2 y)',
-      'cross2A': 'void cross2A(double x, Vector2 y, Vector2 out)',
-      'cross2B': 'void cross2B(Vector2 x, double y, Vector2 out)',
-      'buildPlaneVectors': 'void buildPlaneVectors(Vector3 planeNormal, Vector3 u, Vector3 v)',
       'lerpFontVariations': 'List<FontVariation>? lerpFontVariations(List<FontVariation>? a, List<FontVariation>? b, double t)',
     };
   }
@@ -1118,11 +807,6 @@ class FlutterPaintingBridge {
       'package:flutter/src/painting/text_span.dart',
       'package:flutter/src/painting/text_style.dart',
       'package:flutter/src/services/text_editing.dart',
-      'package:vector_math/src/vector_math_64/constants.dart',
-      'package:vector_math/src/vector_math_64/error_helpers.dart',
-      'package:vector_math/src/vector_math_64/opengl.dart',
-      'package:vector_math/src/vector_math_64/utilities.dart',
-      'package:vector_math/src/vector_math_64/vector.dart',
       'package:vector_math/vector_math_64.dart',
     ];
   }
@@ -2173,8 +1857,8 @@ BridgedClass _createPaintingBindingBridge() {
       },
     },
     staticGetters: {
-      'instance': (visitor) => $flutter_13.PaintingBinding.instance,
       'shaderWarmUp': (visitor) => $flutter_13.PaintingBinding.shaderWarmUp,
+      'instance': (visitor) => $flutter_13.PaintingBinding.instance,
     },
     staticSetters: {
       'shaderWarmUp': (visitor, value) => 
@@ -2183,8 +1867,8 @@ BridgedClass _createPaintingBindingBridge() {
     methodSignatures: {
       'initInstances': 'void initInstances()',
       'createImageCache': 'ImageCache createImageCache()',
-      'instantiateImageCodecFromBuffer': 'Future<ui.Codec> instantiateImageCodecFromBuffer(ui.ImmutableBuffer buffer, {int? cacheWidth, int? cacheHeight, bool allowUpscaling = false})',
-      'instantiateImageCodecWithSize': 'Future<ui.Codec> instantiateImageCodecWithSize(ui.ImmutableBuffer buffer, {ui.TargetImageSizeCallback? getTargetSize})',
+      'instantiateImageCodecFromBuffer': 'Future<Codec> instantiateImageCodecFromBuffer(ImmutableBuffer buffer, {int? cacheWidth, int? cacheHeight, bool allowUpscaling = false})',
+      'instantiateImageCodecWithSize': 'Future<Codec> instantiateImageCodecWithSize(ImmutableBuffer buffer, {TargetImageSizeCallback? getTargetSize})',
       'evict': 'void evict(String asset)',
       'handleMemoryPressure': 'void handleMemoryPressure()',
       'handleSystemMessage': 'Future<void> handleSystemMessage(Object systemMessage)',
@@ -2194,12 +1878,12 @@ BridgedClass _createPaintingBindingBridge() {
       'unlocked': 'void unlocked()',
       'reassembleApplication': 'Future<void> reassembleApplication()',
       'performReassemble': 'Future<void> performReassemble()',
-      'registerSignalServiceExtension': 'void registerSignalServiceExtension({required String name, required Future<void> Function() callback})',
-      'registerBoolServiceExtension': 'void registerBoolServiceExtension({required String name, required Future<bool> Function() getter, required Future<void> Function(bool) setter})',
-      'registerNumericServiceExtension': 'void registerNumericServiceExtension({required String name, required Future<double> Function() getter, required Future<void> Function(double) setter})',
+      'registerSignalServiceExtension': 'void registerSignalServiceExtension({required String name, required AsyncCallback callback})',
+      'registerBoolServiceExtension': 'void registerBoolServiceExtension({required String name, required AsyncValueGetter<bool> getter, required AsyncValueSetter<bool> setter})',
+      'registerNumericServiceExtension': 'void registerNumericServiceExtension({required String name, required AsyncValueGetter<double> getter, required AsyncValueSetter<double> setter})',
       'postEvent': 'void postEvent(String eventKind, Map<String, dynamic> eventData)',
-      'registerStringServiceExtension': 'void registerStringServiceExtension({required String name, required Future<String> Function() getter, required Future<void> Function(String) setter})',
-      'registerServiceExtension': 'void registerServiceExtension({required String name, required Future<Map<String, dynamic>> Function(Map<String, String>) callback})',
+      'registerStringServiceExtension': 'void registerStringServiceExtension({required String name, required AsyncValueGetter<String> getter, required AsyncValueSetter<String> setter})',
+      'registerServiceExtension': 'void registerServiceExtension({required String name, required ServiceExtensionCallback callback})',
       'toString': 'String toString()',
       'createBinaryMessenger': 'BinaryMessenger createBinaryMessenger()',
       'initLicenses': 'void initLicenses()',
@@ -2208,21 +1892,21 @@ BridgedClass _createPaintingBindingBridge() {
       'handleRequestAppExit': 'Future<AppExitResponse> handleRequestAppExit()',
       'exitApplication': 'Future<AppExitResponse> exitApplication(AppExitType exitType, [int exitCode = 0])',
       'createRestorationManager': 'RestorationManager createRestorationManager()',
-      'setSystemUiChangeCallback': 'void setSystemUiChangeCallback(Future<void> Function(bool)? callback)',
+      'setSystemUiChangeCallback': 'void setSystemUiChangeCallback(SystemUiChangeCallback? callback)',
       'initializationComplete': 'Future<void> initializationComplete()',
-      'addTimingsCallback': 'void addTimingsCallback(void Function(List<FrameTiming>) callback)',
-      'removeTimingsCallback': 'void removeTimingsCallback(void Function(List<FrameTiming>) callback)',
+      'addTimingsCallback': 'void addTimingsCallback(TimingsCallback callback)',
+      'removeTimingsCallback': 'void removeTimingsCallback(TimingsCallback callback)',
       'resetInternalState': 'void resetInternalState()',
       'handleAppLifecycleStateChanged': 'void handleAppLifecycleStateChanged(AppLifecycleState state)',
-      'scheduleTask': 'Future<T> scheduleTask(FutureOr<T> Function() task, Priority priority, {String? debugLabel, Flow? flow})',
+      'scheduleTask': 'Future<T> scheduleTask(TaskCallback<T> task, Priority priority, {String? debugLabel, Flow? flow})',
       'handleEventLoopCallback': 'bool handleEventLoopCallback()',
-      'scheduleFrameCallback': 'int scheduleFrameCallback(void Function(Duration) callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
+      'scheduleFrameCallback': 'int scheduleFrameCallback(FrameCallback callback, {bool rescheduling = false, bool scheduleNewFrame = true})',
       'cancelFrameCallbackWithId': 'void cancelFrameCallbackWithId(int id)',
       'debugAssertNoTransientCallbacks': 'bool debugAssertNoTransientCallbacks(String reason)',
       'debugAssertNoPendingPerformanceModeRequests': 'bool debugAssertNoPendingPerformanceModeRequests(String reason)',
       'debugAssertNoTimeDilation': 'bool debugAssertNoTimeDilation(String reason)',
-      'addPersistentFrameCallback': 'void addPersistentFrameCallback(void Function(Duration) callback)',
-      'addPostFrameCallback': 'void addPostFrameCallback(void Function(Duration) callback, {String debugLabel = \'callback\'})',
+      'addPersistentFrameCallback': 'void addPersistentFrameCallback(FrameCallback callback)',
+      'addPostFrameCallback': 'void addPostFrameCallback(FrameCallback callback, {String debugLabel = \'callback\'})',
       'ensureFrameCallbacksRegistered': 'void ensureFrameCallbacksRegistered()',
       'ensureVisualUpdate': 'void ensureVisualUpdate()',
       'scheduleFrame': 'void scheduleFrame()',
@@ -2247,7 +1931,7 @@ BridgedClass _createPaintingBindingBridge() {
       'accessibilityFocus': 'ValueNotifier<int?> get accessibilityFocus',
       'restorationManager': 'RestorationManager get restorationManager',
       'lifecycleState': 'AppLifecycleState? get lifecycleState',
-      'schedulingStrategy': 'bool Function({required int priority, required SchedulerBinding scheduler}) get schedulingStrategy',
+      'schedulingStrategy': 'SchedulingStrategy get schedulingStrategy',
       'transientCallbackCount': 'int get transientCallbackCount',
       'endOfFrame': 'Future<void> get endOfFrame',
       'hasScheduledFrame': 'bool get hasScheduledFrame',
@@ -2257,11 +1941,11 @@ BridgedClass _createPaintingBindingBridge() {
       'currentSystemFrameTimeStamp': 'Duration get currentSystemFrameTimeStamp',
     },
     setterSignatures: {
-      'schedulingStrategy': 'set schedulingStrategy(bool Function({required int priority, required SchedulerBinding scheduler}) value)',
+      'schedulingStrategy': 'set schedulingStrategy(SchedulingStrategy value)',
     },
     staticGetterSignatures: {
-      'instance': 'PaintingBinding get instance',
       'shaderWarmUp': 'ShaderWarmUp? get shaderWarmUp',
+      'instance': 'PaintingBinding get instance',
     },
     staticSetterSignatures: {
       'shaderWarmUp': 'set shaderWarmUp(dynamic value)',
@@ -5300,14 +4984,14 @@ BridgedClass _createDecorationImageBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const DecorationImage({required ImageProvider<Object> image, void Function(Object, StackTrace?)? onError, ColorFilter? colorFilter, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, Rect? centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool matchTextDirection = false, double scale = 1.0, double opacity = 1.0, FilterQuality filterQuality = FilterQuality.medium, bool invertColors = false, bool isAntiAlias = false})',
+      '': 'const DecorationImage({required ImageProvider<Object> image, ImageErrorListener? onError, ColorFilter? colorFilter, BoxFit? fit, AlignmentGeometry alignment = Alignment.center, Rect? centerSlice, ImageRepeat repeat = ImageRepeat.noRepeat, bool matchTextDirection = false, double scale = 1.0, double opacity = 1.0, FilterQuality filterQuality = FilterQuality.medium, bool invertColors = false, bool isAntiAlias = false})',
     },
     methodSignatures: {
       'createPainter': 'DecorationImagePainter createPainter(VoidCallback onChanged)',
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'image': 'ImageProvider get image',
+      'image': 'ImageProvider<Object> get image',
       'onError': 'ImageErrorListener? get onError',
       'colorFilter': 'ColorFilter? get colorFilter',
       'fit': 'BoxFit? get fit',
@@ -5693,7 +5377,7 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
       'directional': 'const factory EdgeInsetsGeometry.directional({double start, double end, double top, double bottom})',
       'symmetric': 'const factory EdgeInsetsGeometry.symmetric({double vertical, double horizontal})',
       'fromLTRB': 'const factory EdgeInsetsGeometry.fromLTRB(double left, double top, double right, double bottom)',
-      'fromViewPadding': 'factory EdgeInsetsGeometry.fromViewPadding(ui.ViewPadding padding, double devicePixelRatio)',
+      'fromViewPadding': 'factory EdgeInsetsGeometry.fromViewPadding(ViewPadding padding, double devicePixelRatio)',
       'fromSTEB': 'const factory EdgeInsetsGeometry.fromSTEB(double start, double top, double end, double bottom)',
     },
     methodSignatures: {
@@ -5927,8 +5611,8 @@ BridgedClass _createEdgeInsetsBridge() {
       'all': 'const EdgeInsets.all(double value)',
       'only': 'const EdgeInsets.only({double left = 0.0, double top = 0.0, double right = 0.0, double bottom = 0.0})',
       'symmetric': 'const EdgeInsets.symmetric({double vertical = 0.0, double horizontal = 0.0})',
-      'fromViewPadding': 'EdgeInsets.fromViewPadding(ui.ViewPadding padding, double devicePixelRatio)',
-      'fromWindowPadding': 'factory EdgeInsets.fromWindowPadding(ui.ViewPadding padding, double devicePixelRatio)',
+      'fromViewPadding': 'EdgeInsets.fromViewPadding(ViewPadding padding, double devicePixelRatio)',
+      'fromWindowPadding': 'factory EdgeInsets.fromWindowPadding(ViewPadding padding, double devicePixelRatio)',
     },
     methodSignatures: {
       'along': 'double along(Axis axis)',
@@ -7175,13 +6859,13 @@ BridgedClass _createImageConfigurationBridge() {
       '': 'const ImageConfiguration({AssetBundle? bundle, double? devicePixelRatio, Locale? locale, TextDirection? textDirection, Size? size, TargetPlatform? platform})',
     },
     methodSignatures: {
-      'copyWith': 'ImageConfiguration copyWith({AssetBundle? bundle, double? devicePixelRatio, ui.Locale? locale, TextDirection? textDirection, Size? size, TargetPlatform? platform})',
+      'copyWith': 'ImageConfiguration copyWith({AssetBundle? bundle, double? devicePixelRatio, Locale? locale, TextDirection? textDirection, Size? size, TargetPlatform? platform})',
       'toString': 'String toString()',
     },
     getterSignatures: {
       'bundle': 'AssetBundle? get bundle',
       'devicePixelRatio': 'double? get devicePixelRatio',
-      'locale': 'ui.Locale? get locale',
+      'locale': 'Locale? get locale',
       'textDirection': 'TextDirection? get textDirection',
       'size': 'Size? get size',
       'platform': 'TargetPlatform? get platform',
@@ -7419,8 +7103,8 @@ BridgedClass _createAssetBundleImageProviderBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
       'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, DecoderBufferCallback decode)',
@@ -7574,8 +7258,8 @@ BridgedClass _createResizeImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, ResizeImageKey key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, ResizeImageKey key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<ResizeImageKey> obtainKey(ImageConfiguration configuration)',
       'loadBuffer': 'ImageStreamCompleter loadBuffer(ResizeImageKey key, DecoderBufferCallback decode)',
@@ -7583,7 +7267,7 @@ BridgedClass _createResizeImageBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'imageProvider': 'ImageProvider get imageProvider',
+      'imageProvider': 'ImageProvider<Object> get imageProvider',
       'width': 'int? get width',
       'height': 'int? get height',
       'policy': 'ResizeImagePolicy get policy',
@@ -7710,8 +7394,8 @@ BridgedClass _createNetworkImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, NetworkImage key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, NetworkImage key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<NetworkImage> obtainKey(ImageConfiguration configuration)',
       'loadBuffer': 'ImageStreamCompleter loadBuffer(NetworkImage key, DecoderBufferCallback decode)',
@@ -7829,8 +7513,8 @@ BridgedClass _createFileImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, FileImage key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, FileImage key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<FileImage> obtainKey(ImageConfiguration configuration)',
       'loadBuffer': 'ImageStreamCompleter loadBuffer(FileImage key, DecoderBufferCallback decode)',
@@ -7947,8 +7631,8 @@ BridgedClass _createMemoryImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, MemoryImage key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, MemoryImage key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<MemoryImage> obtainKey(ImageConfiguration configuration)',
       'loadBuffer': 'ImageStreamCompleter loadBuffer(MemoryImage key, DecoderBufferCallback decode)',
@@ -7984,10 +7668,10 @@ BridgedClass _createExactAssetImageBridge() {
     },
     getters: {
       'assetName': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').assetName,
-      'keyName': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').keyName,
       'scale': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').scale,
       'bundle': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').bundle,
       'package': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').package,
+      'keyName': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').keyName,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_34.ExactAssetImage>(target, 'ExactAssetImage').hashCode,
     },
     methods: {
@@ -8070,20 +7754,20 @@ BridgedClass _createExactAssetImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
-      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
-      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {TargetImageSize Function(int, int)? getTargetSize}) decode)',
+      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, DecoderBufferCallback decode)',
+      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, ImageDecoderCallback decode)',
       'toString': 'String toString()',
     },
     getterSignatures: {
       'assetName': 'String get assetName',
-      'keyName': 'String get keyName',
       'scale': 'double get scale',
       'bundle': 'AssetBundle? get bundle',
       'package': 'String? get package',
+      'keyName': 'String get keyName',
       'hashCode': 'int get hashCode',
     },
   );
@@ -8148,9 +7832,9 @@ BridgedClass _createAssetImageBridge() {
     },
     getters: {
       'assetName': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').assetName,
-      'keyName': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').keyName,
       'bundle': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').bundle,
       'package': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').package,
+      'keyName': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').keyName,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_35.AssetImage>(target, 'AssetImage').hashCode,
     },
     methods: {
@@ -8233,19 +7917,19 @@ BridgedClass _createAssetImageBridge() {
     methodSignatures: {
       'resolve': 'ImageStream resolve(ImageConfiguration configuration)',
       'createStream': 'ImageStream createStream(ImageConfiguration configuration)',
-      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, void Function(Object, StackTrace?)? handleError})',
-      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, void Function(Object, StackTrace?) handleError)',
+      'obtainCacheStatus': 'Future<ImageCacheStatus?> obtainCacheStatus({required ImageConfiguration configuration, ImageErrorListener? handleError})',
+      'resolveStreamForKey': 'void resolveStreamForKey(ImageConfiguration configuration, ImageStream stream, AssetBundleImageKey key, ImageErrorListener handleError)',
       'evict': 'Future<bool> evict({ImageCache? cache, ImageConfiguration configuration = ImageConfiguration.empty})',
       'obtainKey': 'Future<AssetBundleImageKey> obtainKey(ImageConfiguration configuration)',
-      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {bool allowUpscaling, int? cacheHeight, int? cacheWidth}) decode)',
-      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, Future<Codec> Function(ImmutableBuffer, {TargetImageSize Function(int, int)? getTargetSize}) decode)',
+      'loadBuffer': 'ImageStreamCompleter loadBuffer(AssetBundleImageKey key, DecoderBufferCallback decode)',
+      'loadImage': 'ImageStreamCompleter loadImage(AssetBundleImageKey key, ImageDecoderCallback decode)',
       'toString': 'String toString()',
     },
     getterSignatures: {
       'assetName': 'String get assetName',
-      'keyName': 'String get keyName',
       'bundle': 'AssetBundle? get bundle',
       'package': 'String? get package',
+      'keyName': 'String get keyName',
       'hashCode': 'int get hashCode',
     },
   );
@@ -8270,9 +7954,9 @@ BridgedClass _createImageInfoBridge() {
     },
     getters: {
       'image': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').image,
-      'sizeBytes': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').sizeBytes,
       'scale': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').scale,
       'debugLabel': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').debugLabel,
+      'sizeBytes': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').sizeBytes,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_36.ImageInfo>(target, 'ImageInfo').hashCode,
     },
     methods: {
@@ -8311,10 +7995,10 @@ BridgedClass _createImageInfoBridge() {
       'toString': 'String toString()',
     },
     getterSignatures: {
-      'image': 'ui.Image get image',
-      'sizeBytes': 'int get sizeBytes',
+      'image': 'Image get image',
       'scale': 'double get scale',
       'debugLabel': 'String? get debugLabel',
+      'sizeBytes': 'int get sizeBytes',
       'hashCode': 'int get hashCode',
     },
   );
@@ -8355,7 +8039,7 @@ BridgedClass _createImageStreamListenerBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const ImageStreamListener(void Function(ImageInfo, bool) onImage, {void Function(ImageChunkEvent)? onChunk, void Function(Object, StackTrace?)? onError})',
+      '': 'const ImageStreamListener(ImageListener onImage, {ImageChunkListener? onChunk, ImageErrorListener? onError})',
     },
     getterSignatures: {
       'onImage': 'ImageListener get onImage',
@@ -8820,15 +8504,15 @@ BridgedClass _createOneFrameImageStreamCompleterBridge() {
     },
     methodSignatures: {
       'addListener': 'void addListener(ImageStreamListener listener)',
-      'addEphemeralErrorListener': 'void addEphemeralErrorListener(void Function(Object, StackTrace?) listener)',
+      'addEphemeralErrorListener': 'void addEphemeralErrorListener(ImageErrorListener listener)',
       'keepAlive': 'ImageStreamCompleterHandle keepAlive()',
       'removeListener': 'void removeListener(ImageStreamListener listener)',
       'onDisposed': 'void onDisposed()',
       'maybeDispose': 'void maybeDispose()',
-      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
-      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
+      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(VoidCallback callback)',
+      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(VoidCallback callback)',
       'setImage': 'void setImage(ImageInfo image)',
-      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
+      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, InformationCollector? informationCollector, bool silent = false})',
       'reportImageChunkEvent': 'void reportImageChunkEvent(ImageChunkEvent event)',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
       'toStringShort': 'String toStringShort()',
@@ -8979,19 +8663,19 @@ BridgedClass _createMultiFrameImageStreamCompleterBridge() {
       },
     },
     constructorSignatures: {
-      '': 'MultiFrameImageStreamCompleter({required Future<ui.Codec> codec, required double scale, String? debugLabel, Stream<ImageChunkEvent>? chunkEvents, InformationCollector? informationCollector})',
+      '': 'MultiFrameImageStreamCompleter({required Future<Codec> codec, required double scale, String? debugLabel, Stream<ImageChunkEvent>? chunkEvents, InformationCollector? informationCollector})',
     },
     methodSignatures: {
       'addListener': 'void addListener(ImageStreamListener listener)',
-      'addEphemeralErrorListener': 'void addEphemeralErrorListener(void Function(Object, StackTrace?) listener)',
+      'addEphemeralErrorListener': 'void addEphemeralErrorListener(ImageErrorListener listener)',
       'keepAlive': 'ImageStreamCompleterHandle keepAlive()',
       'removeListener': 'void removeListener(ImageStreamListener listener)',
       'onDisposed': 'void onDisposed()',
       'maybeDispose': 'void maybeDispose()',
-      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(void Function() callback)',
-      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(void Function() callback)',
+      'addOnLastListenerRemovedCallback': 'void addOnLastListenerRemovedCallback(VoidCallback callback)',
+      'removeOnLastListenerRemovedCallback': 'void removeOnLastListenerRemovedCallback(VoidCallback callback)',
       'setImage': 'void setImage(ImageInfo image)',
-      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, Iterable<DiagnosticsNode> Function()? informationCollector, bool silent = false})',
+      'reportError': 'void reportError({DiagnosticsNode? context, required Object exception, StackTrace? stack, InformationCollector? informationCollector, bool silent = false})',
       'reportImageChunkEvent': 'void reportImageChunkEvent(ImageChunkEvent event)',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder description)',
       'toStringShort': 'String toStringShort()',
@@ -9107,7 +8791,7 @@ BridgedClass _createInlineSpanSemanticsInformationBridge() {
       'recognizer': 'GestureRecognizer? get recognizer',
       'isPlaceholder': 'bool get isPlaceholder',
       'requiresOwnNode': 'bool get requiresOwnNode',
-      'stringAttributes': 'List<ui.StringAttribute> get stringAttributes',
+      'stringAttributes': 'List<StringAttribute> get stringAttributes',
       'hashCode': 'int get hashCode',
     },
     staticGetterSignatures: {
@@ -9271,7 +8955,7 @@ BridgedClass _createInlineSpanBridge() {
       },
     },
     methodSignatures: {
-      'build': 'void build(ui.ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
+      'build': 'void build(ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
       'visitChildren': 'bool visitChildren(InlineSpanVisitor visitor)',
       'visitDirectChildren': 'bool visitDirectChildren(InlineSpanVisitor visitor)',
       'getSpanForPosition': 'InlineSpan? getSpanForPosition(TextPosition position)',
@@ -10164,8 +9848,8 @@ BridgedClass _createPlaceholderSpanBridge() {
     },
     methodSignatures: {
       'build': 'void build(ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
-      'visitChildren': 'bool visitChildren(bool Function(InlineSpan) visitor)',
-      'visitDirectChildren': 'bool visitDirectChildren(bool Function(InlineSpan) visitor)',
+      'visitChildren': 'bool visitChildren(InlineSpanVisitor visitor)',
+      'visitDirectChildren': 'bool visitDirectChildren(InlineSpanVisitor visitor)',
       'getSpanForPosition': 'InlineSpan? getSpanForPosition(TextPosition position)',
       'getSpanForPositionVisitor': 'InlineSpan? getSpanForPositionVisitor(TextPosition position, Accumulator offset)',
       'toPlainText': 'String toPlainText({bool includeSemanticsLabels = true, bool includePlaceholders = true})',
@@ -10187,7 +9871,7 @@ BridgedClass _createPlaceholderSpanBridge() {
     getterSignatures: {
       'style': 'TextStyle? get style',
       'hashCode': 'int get hashCode',
-      'alignment': 'ui.PlaceholderAlignment get alignment',
+      'alignment': 'PlaceholderAlignment get alignment',
       'baseline': 'TextBaseline? get baseline',
     },
     staticGetterSignatures: {
@@ -10483,11 +10167,11 @@ BridgedClass _createShaderWarmUpBridge() {
       },
     },
     methodSignatures: {
-      'warmUpOnCanvas': 'Future<void> warmUpOnCanvas(ui.Canvas canvas)',
+      'warmUpOnCanvas': 'Future<void> warmUpOnCanvas(Canvas canvas)',
       'execute': 'Future<void> execute()',
     },
     getterSignatures: {
-      'size': 'ui.Size get size',
+      'size': 'Size get size',
     },
   );
 }
@@ -10794,11 +10478,11 @@ BridgedClass _createStarBorderBridge() {
       'preferPaintInterior': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').preferPaintInterior,
       'side': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').side,
       'points': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').points,
-      'innerRadiusRatio': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').innerRadiusRatio,
       'pointRounding': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').pointRounding,
       'valleyRounding': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').valleyRounding,
-      'rotation': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').rotation,
       'squash': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').squash,
+      'innerRadiusRatio': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').innerRadiusRatio,
+      'rotation': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').rotation,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_48.StarBorder>(target, 'StarBorder').hashCode,
     },
     methods: {
@@ -10909,11 +10593,11 @@ BridgedClass _createStarBorderBridge() {
       'preferPaintInterior': 'bool get preferPaintInterior',
       'side': 'BorderSide get side',
       'points': 'double get points',
-      'innerRadiusRatio': 'double get innerRadiusRatio',
       'pointRounding': 'double get pointRounding',
       'valleyRounding': 'double get valleyRounding',
-      'rotation': 'double get rotation',
       'squash': 'double get squash',
+      'innerRadiusRatio': 'double get innerRadiusRatio',
+      'rotation': 'double get rotation',
       'hashCode': 'int get hashCode',
     },
   );
@@ -10962,7 +10646,6 @@ BridgedClass _createStrutStyleBridge() {
     },
     getters: {
       'fontFamily': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').fontFamily,
-      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').fontFamilyFallback,
       'fontSize': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').fontSize,
       'height': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').height,
       'leadingDistribution': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').leadingDistribution,
@@ -10971,6 +10654,7 @@ BridgedClass _createStrutStyleBridge() {
       'leading': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').leading,
       'forceStrutHeight': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').forceStrutHeight,
       'debugLabel': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').debugLabel,
+      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').fontFamilyFallback,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_49.StrutStyle>(target, 'StrutStyle').hashCode,
     },
     methods: {
@@ -11039,7 +10723,6 @@ BridgedClass _createStrutStyleBridge() {
     },
     getterSignatures: {
       'fontFamily': 'String? get fontFamily',
-      'fontFamilyFallback': 'List<String>? get fontFamilyFallback',
       'fontSize': 'double? get fontSize',
       'height': 'double? get height',
       'leadingDistribution': 'TextLeadingDistribution? get leadingDistribution',
@@ -11048,6 +10731,7 @@ BridgedClass _createStrutStyleBridge() {
       'leading': 'double? get leading',
       'forceStrutHeight': 'bool? get forceStrutHeight',
       'debugLabel': 'String? get debugLabel',
+      'fontFamilyFallback': 'List<String>? get fontFamilyFallback',
       'hashCode': 'int get hashCode',
     },
     staticGetterSignatures: {
@@ -11226,7 +10910,7 @@ BridgedClass _createPlaceholderDimensionsBridge() {
     },
     getterSignatures: {
       'size': 'Size get size',
-      'alignment': 'ui.PlaceholderAlignment get alignment',
+      'alignment': 'PlaceholderAlignment get alignment',
       'baselineOffset': 'double? get baselineOffset',
       'baseline': 'TextBaseline? get baseline',
       'hashCode': 'int get hashCode',
@@ -11314,6 +10998,7 @@ BridgedClass _createTextPainterBridge() {
       },
     },
     getters: {
+      'debugPaintTextLayoutBoxes': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes,
       'text': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').text,
       'plainText': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').plainText,
       'textAlign': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').textAlign,
@@ -11334,11 +11019,12 @@ BridgedClass _createTextPainterBridge() {
       'height': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').height,
       'size': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').size,
       'didExceedMaxLines': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').didExceedMaxLines,
-      'debugPaintTextLayoutBoxes': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes,
       'wordBoundaries': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').wordBoundaries,
       'debugDisposed': (visitor, target) => D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').debugDisposed,
     },
     setters: {
+      'debugPaintTextLayoutBoxes': (visitor, target, value) => 
+        D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes = D4.extractBridgedArg<bool>(value, 'debugPaintTextLayoutBoxes'),
       'text': (visitor, target, value) => 
         D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').text = D4.extractBridgedArgOrNull<$flutter_37.InlineSpan>(value, 'text'),
       'textAlign': (visitor, target, value) => 
@@ -11361,8 +11047,6 @@ BridgedClass _createTextPainterBridge() {
         D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').textWidthBasis = D4.extractBridgedArg<$flutter_50.TextWidthBasis>(value, 'textWidthBasis'),
       'textHeightBehavior': (visitor, target, value) => 
         D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').textHeightBehavior = D4.extractBridgedArgOrNull<TextHeightBehavior>(value, 'textHeightBehavior'),
-      'debugPaintTextLayoutBoxes': (visitor, target, value) => 
-        D4.validateTarget<$flutter_50.TextPainter>(target, 'TextPainter').debugPaintTextLayoutBoxes = D4.extractBridgedArg<bool>(value, 'debugPaintTextLayoutBoxes'),
     },
     methods: {
       'markNeedsLayout': (visitor, target, positional, named, typeArgs) {
@@ -11559,15 +11243,16 @@ BridgedClass _createTextPainterBridge() {
       'getOffsetBefore': 'int? getOffsetBefore(int offset)',
       'getOffsetForCaret': 'Offset getOffsetForCaret(TextPosition position, Rect caretPrototype)',
       'getFullHeightForCaret': 'double getFullHeightForCaret(TextPosition position, Rect caretPrototype)',
-      'getBoxesForSelection': 'List<TextBox> getBoxesForSelection(TextSelection selection, {ui.BoxHeightStyle boxHeightStyle = ui.BoxHeightStyle.tight, ui.BoxWidthStyle boxWidthStyle = ui.BoxWidthStyle.tight})',
-      'getClosestGlyphForOffset': 'ui.GlyphInfo? getClosestGlyphForOffset(Offset offset)',
+      'getBoxesForSelection': 'List<TextBox> getBoxesForSelection(TextSelection selection, {BoxHeightStyle boxHeightStyle = ui.BoxHeightStyle.tight, BoxWidthStyle boxWidthStyle = ui.BoxWidthStyle.tight})',
+      'getClosestGlyphForOffset': 'GlyphInfo? getClosestGlyphForOffset(Offset offset)',
       'getPositionForOffset': 'TextPosition getPositionForOffset(Offset offset)',
       'getWordBoundary': 'TextRange getWordBoundary(TextPosition position)',
       'getLineBoundary': 'TextRange getLineBoundary(TextPosition position)',
-      'computeLineMetrics': 'List<ui.LineMetrics> computeLineMetrics()',
+      'computeLineMetrics': 'List<LineMetrics> computeLineMetrics()',
       'dispose': 'void dispose()',
     },
     getterSignatures: {
+      'debugPaintTextLayoutBoxes': 'bool get debugPaintTextLayoutBoxes',
       'text': 'InlineSpan? get text',
       'plainText': 'String get plainText',
       'textAlign': 'TextAlign get textAlign',
@@ -11588,11 +11273,11 @@ BridgedClass _createTextPainterBridge() {
       'height': 'double get height',
       'size': 'Size get size',
       'didExceedMaxLines': 'bool get didExceedMaxLines',
-      'debugPaintTextLayoutBoxes': 'bool get debugPaintTextLayoutBoxes',
       'wordBoundaries': 'WordBoundary get wordBoundaries',
       'debugDisposed': 'bool get debugDisposed',
     },
     setterSignatures: {
+      'debugPaintTextLayoutBoxes': 'set debugPaintTextLayoutBoxes(dynamic value)',
       'text': 'set text(InlineSpan? value)',
       'textAlign': 'set textAlign(TextAlign value)',
       'textDirection': 'set textDirection(TextDirection? value)',
@@ -11604,7 +11289,6 @@ BridgedClass _createTextPainterBridge() {
       'strutStyle': 'set strutStyle(StrutStyle? value)',
       'textWidthBasis': 'set textWidthBasis(TextWidthBasis value)',
       'textHeightBehavior': 'set textHeightBehavior(TextHeightBehavior? value)',
-      'debugPaintTextLayoutBoxes': 'set debugPaintTextLayoutBoxes(dynamic value)',
     },
     staticMethodSignatures: {
       'computeWidth': 'double computeWidth({required InlineSpan text, required TextDirection textDirection, TextAlign textAlign = TextAlign.start, double textScaleFactor = 1.0, TextScaler textScaler = TextScaler.noScaling, int? maxLines, String? ellipsis, Locale? locale, StrutStyle? strutStyle, TextWidthBasis textWidthBasis = TextWidthBasis.parent, TextHeightBehavior? textHeightBehavior, double minWidth = 0.0, double maxWidth = double.infinity})',
@@ -11707,11 +11391,11 @@ BridgedClass _createTextSpanBridge() {
       'mouseCursor': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').mouseCursor,
       'onEnter': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').onEnter,
       'onExit': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').onExit,
-      'cursor': (visitor, target) => (D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan') as dynamic).cursor,
       'semanticsLabel': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').semanticsLabel,
       'semanticsIdentifier': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').semanticsIdentifier,
       'locale': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').locale,
       'spellOut': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').spellOut,
+      'cursor': (visitor, target) => (D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan') as dynamic).cursor,
       'validForMouseTracker': (visitor, target) => D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan').validForMouseTracker,
     },
     methods: {
@@ -11853,7 +11537,7 @@ BridgedClass _createTextSpanBridge() {
         final t = D4.validateTarget<$flutter_52.TextSpan>(target, 'TextSpan');
         D4.requireMinArgs(positional, 2, 'handleEvent');
         final event = D4.getRequiredArg<$flutter_7.PointerEvent>(positional, 0, 'event', 'handleEvent');
-        final entry = D4.getRequiredArg<$flutter_8.HitTestEntry>(positional, 1, 'entry', 'handleEvent');
+        final entry = D4.getRequiredArg<$flutter_8.HitTestEntry<$flutter_8.HitTestTarget>>(positional, 1, 'entry', 'handleEvent');
         t.handleEvent(event, entry);
         return null;
       },
@@ -11864,17 +11548,17 @@ BridgedClass _createTextSpanBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const TextSpan({String? text, List<InlineSpan>? children, TextStyle? style, GestureRecognizer? recognizer, MouseCursor? mouseCursor, void Function(PointerEnterEvent)? onEnter, void Function(PointerExitEvent)? onExit, String? semanticsLabel, String? semanticsIdentifier, Locale? locale, bool? spellOut})',
+      '': 'const TextSpan({String? text, List<InlineSpan>? children, TextStyle? style, GestureRecognizer? recognizer, MouseCursor? mouseCursor, PointerEnterEventListener? onEnter, PointerExitEventListener? onExit, String? semanticsLabel, String? semanticsIdentifier, Locale? locale, bool? spellOut})',
     },
     methodSignatures: {
-      'build': 'void build(ui.ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
+      'build': 'void build(ParagraphBuilder builder, {TextScaler textScaler = TextScaler.noScaling, List<PlaceholderDimensions>? dimensions})',
       'visitChildren': 'bool visitChildren(InlineSpanVisitor visitor)',
       'visitDirectChildren': 'bool visitDirectChildren(InlineSpanVisitor visitor)',
       'getSpanForPosition': 'InlineSpan? getSpanForPosition(TextPosition position)',
       'getSpanForPositionVisitor': 'InlineSpan? getSpanForPositionVisitor(TextPosition position, Accumulator offset)',
       'toPlainText': 'String toPlainText({bool includeSemanticsLabels = true, bool includePlaceholders = true})',
       'getSemanticsInformation': 'List<InlineSpanSemanticsInformation> getSemanticsInformation()',
-      'computeSemanticsInformation': 'void computeSemanticsInformation(List<InlineSpanSemanticsInformation> collector, {ui.Locale? inheritedLocale, bool inheritedSpellOut = false})',
+      'computeSemanticsInformation': 'void computeSemanticsInformation(List<InlineSpanSemanticsInformation> collector, {Locale? inheritedLocale, bool inheritedSpellOut = false})',
       'computeToPlainText': 'void computeToPlainText(StringBuffer buffer, {bool includeSemanticsLabels = true, bool includePlaceholders = true})',
       'codeUnitAt': 'int? codeUnitAt(int index)',
       'codeUnitAtVisitor': 'int? codeUnitAtVisitor(int index, Accumulator offset)',
@@ -11887,7 +11571,7 @@ BridgedClass _createTextSpanBridge() {
       'toDiagnosticsNode': 'DiagnosticsNode toDiagnosticsNode({String? name, DiagnosticsTreeStyle? style})',
       'debugDescribeChildren': 'List<DiagnosticsNode> debugDescribeChildren()',
       'toString': 'String toString({DiagnosticLevel minLevel = DiagnosticLevel.info})',
-      'handleEvent': 'void handleEvent(PointerEvent event, HitTestEntry entry)',
+      'handleEvent': 'void handleEvent(PointerEvent event, HitTestEntry<HitTestTarget> entry)',
     },
     getterSignatures: {
       'style': 'TextStyle? get style',
@@ -11898,11 +11582,11 @@ BridgedClass _createTextSpanBridge() {
       'mouseCursor': 'MouseCursor get mouseCursor',
       'onEnter': 'PointerEnterEventListener? get onEnter',
       'onExit': 'PointerExitEventListener? get onExit',
-      'cursor': 'MouseCursor get cursor',
       'semanticsLabel': 'String? get semanticsLabel',
       'semanticsIdentifier': 'String? get semanticsIdentifier',
-      'locale': 'ui.Locale? get locale',
+      'locale': 'Locale? get locale',
       'spellOut': 'bool? get spellOut',
+      'cursor': 'MouseCursor get cursor',
       'validForMouseTracker': 'bool get validForMouseTracker',
     },
   );
@@ -11953,7 +11637,6 @@ BridgedClass _createTextStyleBridge() {
       'color': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').color,
       'backgroundColor': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').backgroundColor,
       'fontFamily': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontFamily,
-      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontFamilyFallback,
       'fontSize': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontSize,
       'fontWeight': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontWeight,
       'fontStyle': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontStyle,
@@ -11974,6 +11657,7 @@ BridgedClass _createTextStyleBridge() {
       'fontFeatures': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontFeatures,
       'fontVariations': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontVariations,
       'overflow': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').overflow,
+      'fontFamilyFallback': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').fontFamilyFallback,
       'hashCode': (visitor, target) => D4.validateTarget<$flutter_53.TextStyle>(target, 'TextStyle').hashCode,
     },
     methods: {
@@ -12118,8 +11802,8 @@ BridgedClass _createTextStyleBridge() {
       'copyWith': 'TextStyle copyWith({bool? inherit, Color? color, Color? backgroundColor, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? letterSpacing, double? wordSpacing, TextBaseline? textBaseline, double? height, TextLeadingDistribution? leadingDistribution, Locale? locale, Paint? foreground, Paint? background, List<Shadow>? shadows, List<FontFeature>? fontFeatures, List<FontVariation>? fontVariations, TextDecoration? decoration, Color? decorationColor, TextDecorationStyle? decorationStyle, double? decorationThickness, String? debugLabel, String? fontFamily, List<String>? fontFamilyFallback, String? package, TextOverflow? overflow})',
       'apply': 'TextStyle apply({Color? color, Color? backgroundColor, TextDecoration? decoration, Color? decorationColor, TextDecorationStyle? decorationStyle, double decorationThicknessFactor = 1.0, double decorationThicknessDelta = 0.0, String? fontFamily, List<String>? fontFamilyFallback, double fontSizeFactor = 1.0, double fontSizeDelta = 0.0, int fontWeightDelta = 0, FontStyle? fontStyle, double letterSpacingFactor = 1.0, double letterSpacingDelta = 0.0, double wordSpacingFactor = 1.0, double wordSpacingDelta = 0.0, double heightFactor = 1.0, double heightDelta = 0.0, TextBaseline? textBaseline, TextLeadingDistribution? leadingDistribution, Locale? locale, List<Shadow>? shadows, List<FontFeature>? fontFeatures, List<FontVariation>? fontVariations, String? package, TextOverflow? overflow})',
       'merge': 'TextStyle merge(TextStyle? other)',
-      'getTextStyle': 'ui.TextStyle getTextStyle({double textScaleFactor = 1.0, TextScaler textScaler = TextScaler.noScaling})',
-      'getParagraphStyle': 'ui.ParagraphStyle getParagraphStyle({TextAlign? textAlign, TextDirection? textDirection, TextScaler textScaler = TextScaler.noScaling, String? ellipsis, int? maxLines, TextHeightBehavior? textHeightBehavior, Locale? locale, String? fontFamily, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? height, StrutStyle? strutStyle})',
+      'getTextStyle': 'TextStyle getTextStyle({double textScaleFactor = 1.0, TextScaler textScaler = TextScaler.noScaling})',
+      'getParagraphStyle': 'ParagraphStyle getParagraphStyle({TextAlign? textAlign, TextDirection? textDirection, TextScaler textScaler = TextScaler.noScaling, String? ellipsis, int? maxLines, TextHeightBehavior? textHeightBehavior, Locale? locale, String? fontFamily, double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle, double? height, StrutStyle? strutStyle})',
       'compareTo': 'RenderComparison compareTo(TextStyle other)',
       'toStringShort': 'String toStringShort()',
       'debugFillProperties': 'void debugFillProperties(DiagnosticPropertiesBuilder properties, {String prefix = \'\'})',
@@ -12131,7 +11815,6 @@ BridgedClass _createTextStyleBridge() {
       'color': 'Color? get color',
       'backgroundColor': 'Color? get backgroundColor',
       'fontFamily': 'String? get fontFamily',
-      'fontFamilyFallback': 'List<String>? get fontFamilyFallback',
       'fontSize': 'double? get fontSize',
       'fontWeight': 'FontWeight? get fontWeight',
       'fontStyle': 'FontStyle? get fontStyle',
@@ -12152,6 +11835,7 @@ BridgedClass _createTextStyleBridge() {
       'fontFeatures': 'List<FontFeature>? get fontFeatures',
       'fontVariations': 'List<FontVariation>? get fontVariations',
       'overflow': 'TextOverflow? get overflow',
+      'fontFamilyFallback': 'List<String>? get fontFamilyFallback',
       'hashCode': 'int get hashCode',
     },
     staticMethodSignatures: {
@@ -13135,2035 +12819,6 @@ BridgedClass _createMatrix4Bridge() {
       'solve3': 'void solve3(Matrix4 A, Vector3 x, Vector3 b)',
       'solve': 'void solve(Matrix4 A, Vector4 x, Vector4 b)',
       'tryInvert': 'Matrix4? tryInvert(Matrix4 other)',
-    },
-  );
-}
-
-// =============================================================================
-// Vector3 Bridge
-// =============================================================================
-
-BridgedClass _createVector3Bridge() {
-  return BridgedClass(
-    nativeType: $vector_math_1.Vector3,
-    name: 'Vector3',
-    isAssignable: (v) => v is $vector_math_1.Vector3,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 3, 'Vector3');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector3');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector3');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'Vector3');
-        return $vector_math_1.Vector3(x, y, z);
-      },
-      'array': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector3');
-        if (positional.isEmpty) {
-          throw ArgumentError('Vector3: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        return $vector_math_1.Vector3.array(array, offset);
-      },
-      'zero': (visitor, positional, named) {
-        return $vector_math_1.Vector3.zero();
-      },
-      'all': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector3');
-        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'Vector3');
-        return $vector_math_1.Vector3.all(value);
-      },
-      'copy': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector3');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'Vector3');
-        return $vector_math_1.Vector3.copy(other);
-      },
-      'fromFloat64List': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector3');
-        final v3storage = D4.getRequiredArg<Float64List>(positional, 0, '_v3storage', 'Vector3');
-        return $vector_math_1.Vector3.fromFloat64List(v3storage);
-      },
-      'fromBuffer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Vector3');
-        final buffer = D4.getRequiredArg<ByteBuffer>(positional, 0, 'buffer', 'Vector3');
-        final offset = D4.getRequiredArg<int>(positional, 1, 'offset', 'Vector3');
-        return $vector_math_1.Vector3.fromBuffer(buffer, offset);
-      },
-      'random': (visitor, positional, named) {
-        final rng = D4.getOptionalArg<$dart_math.Random?>(positional, 0, 'rng');
-        return $vector_math_1.Vector3.random(rng);
-      },
-    },
-    getters: {
-      'storage': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').storage,
-      'hashCode': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').hashCode,
-      'length': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').length,
-      'length2': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').length2,
-      'isInfinite': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').isInfinite,
-      'isNaN': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').isNaN,
-      'xx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xx,
-      'xy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xy,
-      'xz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xz,
-      'yx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yx,
-      'yy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yy,
-      'yz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yz,
-      'zx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zx,
-      'zy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zy,
-      'zz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zz,
-      'xxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxx,
-      'xxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxy,
-      'xxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxz,
-      'xyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyx,
-      'xyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyy,
-      'xyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyz,
-      'xzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzx,
-      'xzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzy,
-      'xzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzz,
-      'yxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxx,
-      'yxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxy,
-      'yxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxz,
-      'yyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyx,
-      'yyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyy,
-      'yyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyz,
-      'yzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzx,
-      'yzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzy,
-      'yzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzz,
-      'zxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxx,
-      'zxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxy,
-      'zxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxz,
-      'zyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyx,
-      'zyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyy,
-      'zyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyz,
-      'zzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzx,
-      'zzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzy,
-      'zzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzz,
-      'xxxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxxx,
-      'xxxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxxy,
-      'xxxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxxz,
-      'xxyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxyx,
-      'xxyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxyy,
-      'xxyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxyz,
-      'xxzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxzx,
-      'xxzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxzy,
-      'xxzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xxzz,
-      'xyxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyxx,
-      'xyxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyxy,
-      'xyxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyxz,
-      'xyyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyyx,
-      'xyyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyyy,
-      'xyyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyyz,
-      'xyzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyzx,
-      'xyzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyzy,
-      'xyzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyzz,
-      'xzxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzxx,
-      'xzxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzxy,
-      'xzxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzxz,
-      'xzyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzyx,
-      'xzyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzyy,
-      'xzyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzyz,
-      'xzzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzzx,
-      'xzzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzzy,
-      'xzzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzzz,
-      'yxxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxxx,
-      'yxxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxxy,
-      'yxxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxxz,
-      'yxyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxyx,
-      'yxyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxyy,
-      'yxyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxyz,
-      'yxzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxzx,
-      'yxzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxzy,
-      'yxzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxzz,
-      'yyxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyxx,
-      'yyxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyxy,
-      'yyxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyxz,
-      'yyyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyyx,
-      'yyyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyyy,
-      'yyyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyyz,
-      'yyzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyzx,
-      'yyzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyzy,
-      'yyzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yyzz,
-      'yzxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzxx,
-      'yzxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzxy,
-      'yzxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzxz,
-      'yzyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzyx,
-      'yzyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzyy,
-      'yzyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzyz,
-      'yzzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzzx,
-      'yzzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzzy,
-      'yzzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzzz,
-      'zxxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxxx,
-      'zxxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxxy,
-      'zxxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxxz,
-      'zxyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxyx,
-      'zxyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxyy,
-      'zxyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxyz,
-      'zxzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxzx,
-      'zxzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxzy,
-      'zxzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxzz,
-      'zyxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyxx,
-      'zyxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyxy,
-      'zyxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyxz,
-      'zyyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyyx,
-      'zyyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyyy,
-      'zyyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyyz,
-      'zyzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyzx,
-      'zyzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyzy,
-      'zyzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyzz,
-      'zzxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzxx,
-      'zzxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzxy,
-      'zzxz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzxz,
-      'zzyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzyx,
-      'zzyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzyy,
-      'zzyz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzyz,
-      'zzzx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzzx,
-      'zzzy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzzy,
-      'zzzz': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zzzz,
-      'r': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').r,
-      'g': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').g,
-      'b': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').b,
-      's': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').s,
-      't': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').t,
-      'p': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').p,
-      'x': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').x,
-      'y': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').y,
-      'z': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').z,
-      'rr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rr,
-      'rg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rg,
-      'rb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rb,
-      'gr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gr,
-      'gg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gg,
-      'gb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gb,
-      'br': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').br,
-      'bg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bg,
-      'bb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bb,
-      'rrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrr,
-      'rrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrg,
-      'rrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrb,
-      'rgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgr,
-      'rgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgg,
-      'rgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgb,
-      'rbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbr,
-      'rbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbg,
-      'rbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbb,
-      'grr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grr,
-      'grg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grg,
-      'grb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grb,
-      'ggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggr,
-      'ggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggg,
-      'ggb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggb,
-      'gbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbr,
-      'gbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbg,
-      'gbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbb,
-      'brr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brr,
-      'brg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brg,
-      'brb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brb,
-      'bgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgr,
-      'bgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgg,
-      'bgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgb,
-      'bbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbr,
-      'bbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbg,
-      'bbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbb,
-      'rrrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrrr,
-      'rrrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrrg,
-      'rrrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrrb,
-      'rrgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrgr,
-      'rrgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrgg,
-      'rrgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrgb,
-      'rrbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrbr,
-      'rrbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrbg,
-      'rrbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rrbb,
-      'rgrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgrr,
-      'rgrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgrg,
-      'rgrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgrb,
-      'rggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rggr,
-      'rggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rggg,
-      'rggb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rggb,
-      'rgbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgbr,
-      'rgbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgbg,
-      'rgbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgbb,
-      'rbrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbrr,
-      'rbrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbrg,
-      'rbrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbrb,
-      'rbgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbgr,
-      'rbgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbgg,
-      'rbgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbgb,
-      'rbbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbbr,
-      'rbbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbbg,
-      'rbbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbbb,
-      'grrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grrr,
-      'grrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grrg,
-      'grrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grrb,
-      'grgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grgr,
-      'grgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grgg,
-      'grgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grgb,
-      'grbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grbr,
-      'grbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grbg,
-      'grbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grbb,
-      'ggrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggrr,
-      'ggrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggrg,
-      'ggrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggrb,
-      'gggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gggr,
-      'gggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gggg,
-      'gggb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gggb,
-      'ggbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggbr,
-      'ggbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggbg,
-      'ggbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ggbb,
-      'gbrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbrr,
-      'gbrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbrg,
-      'gbrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbrb,
-      'gbgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbgr,
-      'gbgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbgg,
-      'gbgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbgb,
-      'gbbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbbr,
-      'gbbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbbg,
-      'gbbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbbb,
-      'brrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brrr,
-      'brrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brrg,
-      'brrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brrb,
-      'brgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brgr,
-      'brgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brgg,
-      'brgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brgb,
-      'brbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brbr,
-      'brbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brbg,
-      'brbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brbb,
-      'bgrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgrr,
-      'bgrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgrg,
-      'bgrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgrb,
-      'bggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bggr,
-      'bggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bggg,
-      'bggb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bggb,
-      'bgbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgbr,
-      'bgbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgbg,
-      'bgbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgbb,
-      'bbrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbrr,
-      'bbrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbrg,
-      'bbrb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbrb,
-      'bbgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbgr,
-      'bbgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbgg,
-      'bbgb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbgb,
-      'bbbr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbbr,
-      'bbbg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbbg,
-      'bbbb': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bbbb,
-      'ss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ss,
-      'st': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').st,
-      'sp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sp,
-      'ts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ts,
-      'tt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tt,
-      'tp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tp,
-      'ps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ps,
-      'pt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pt,
-      'pp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pp,
-      'sss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sss,
-      'sst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sst,
-      'ssp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ssp,
-      'sts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sts,
-      'stt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stt,
-      'stp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stp,
-      'sps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sps,
-      'spt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spt,
-      'spp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spp,
-      'tss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tss,
-      'tst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tst,
-      'tsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsp,
-      'tts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tts,
-      'ttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttt,
-      'ttp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttp,
-      'tps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tps,
-      'tpt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpt,
-      'tpp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpp,
-      'pss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pss,
-      'pst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pst,
-      'psp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').psp,
-      'pts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pts,
-      'ptt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptt,
-      'ptp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptp,
-      'pps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pps,
-      'ppt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppt,
-      'ppp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppp,
-      'ssss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ssss,
-      'ssst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ssst,
-      'sssp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sssp,
-      'ssts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ssts,
-      'sstt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sstt,
-      'sstp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sstp,
-      'ssps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ssps,
-      'sspt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sspt,
-      'sspp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sspp,
-      'stss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stss,
-      'stst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stst,
-      'stsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stsp,
-      'stts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stts,
-      'sttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sttt,
-      'sttp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sttp,
-      'stps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stps,
-      'stpt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stpt,
-      'stpp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stpp,
-      'spss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spss,
-      'spst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spst,
-      'spsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spsp,
-      'spts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spts,
-      'sptt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sptt,
-      'sptp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sptp,
-      'spps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spps,
-      'sppt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sppt,
-      'sppp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sppp,
-      'tsss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsss,
-      'tsst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsst,
-      'tssp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tssp,
-      'tsts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsts,
-      'tstt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tstt,
-      'tstp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tstp,
-      'tsps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsps,
-      'tspt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tspt,
-      'tspp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tspp,
-      'ttss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttss,
-      'ttst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttst,
-      'ttsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttsp,
-      'ttts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttts,
-      'tttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tttt,
-      'tttp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tttp,
-      'ttps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttps,
-      'ttpt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttpt,
-      'ttpp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ttpp,
-      'tpss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpss,
-      'tpst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpst,
-      'tpsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpsp,
-      'tpts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpts,
-      'tptt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tptt,
-      'tptp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tptp,
-      'tpps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tpps,
-      'tppt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tppt,
-      'tppp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tppp,
-      'psss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').psss,
-      'psst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').psst,
-      'pssp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pssp,
-      'psts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').psts,
-      'pstt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pstt,
-      'pstp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pstp,
-      'psps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').psps,
-      'pspt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pspt,
-      'pspp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pspp,
-      'ptss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptss,
-      'ptst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptst,
-      'ptsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptsp,
-      'ptts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptts,
-      'pttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pttt,
-      'pttp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pttp,
-      'ptps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptps,
-      'ptpt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptpt,
-      'ptpp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ptpp,
-      'ppss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppss,
-      'ppst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppst,
-      'ppsp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppsp,
-      'ppts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppts,
-      'pptt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pptt,
-      'pptp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pptp,
-      'ppps': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ppps,
-      'pppt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pppt,
-      'pppp': (visitor, target) => D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pppp,
-    },
-    setters: {
-      'length': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').length = D4.extractBridgedArg<double>(value, 'length'),
-      'xy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xy'),
-      'xz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xz = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xz'),
-      'yx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yx'),
-      'yz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yz = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yz'),
-      'zx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'zx'),
-      'zy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'zy'),
-      'xyz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xyz = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'xyz'),
-      'xzy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').xzy = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'xzy'),
-      'yxz': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yxz = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'yxz'),
-      'yzx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').yzx = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'yzx'),
-      'zxy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zxy = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'zxy'),
-      'zyx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').zyx = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'zyx'),
-      'r': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').r = D4.extractBridgedArg<double>(value, 'r'),
-      'g': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').g = D4.extractBridgedArg<double>(value, 'g'),
-      'b': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').b = D4.extractBridgedArg<double>(value, 'b'),
-      's': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').s = D4.extractBridgedArg<double>(value, 's'),
-      't': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').t = D4.extractBridgedArg<double>(value, 't'),
-      'p': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').p = D4.extractBridgedArg<double>(value, 'p'),
-      'x': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').x = D4.extractBridgedArg<double>(value, 'x'),
-      'y': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').y = D4.extractBridgedArg<double>(value, 'y'),
-      'z': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').z = D4.extractBridgedArg<double>(value, 'z'),
-      'rg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rg'),
-      'rb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rb = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rb'),
-      'gr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gr = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gr'),
-      'gb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gb = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gb'),
-      'br': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').br = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'br'),
-      'bg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'bg'),
-      'rgb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rgb = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'rgb'),
-      'rbg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').rbg = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'rbg'),
-      'grb': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').grb = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'grb'),
-      'gbr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').gbr = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'gbr'),
-      'brg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').brg = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'brg'),
-      'bgr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').bgr = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'bgr'),
-      'st': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').st = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'st'),
-      'sp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').sp = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'sp'),
-      'ts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ts = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ts'),
-      'tp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tp = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'tp'),
-      'ps': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').ps = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ps'),
-      'pt': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pt = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'pt'),
-      'stp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').stp = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'stp'),
-      'spt': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').spt = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'spt'),
-      'tsp': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tsp = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'tsp'),
-      'tps': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').tps = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'tps'),
-      'pst': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pst = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'pst'),
-      'pts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3').pts = D4.extractBridgedArg<$vector_math_1.Vector3>(value, 'pts'),
-    },
-    methods: {
-      'setValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 3, 'setValues');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'setValues');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'setValues');
-        final z = D4.getRequiredArg<double>(positional, 2, 'z', 'setValues');
-        t.setValues(x, y, z);
-        return null;
-      },
-      'setZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.setZero();
-        return null;
-      },
-      'setFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'setFrom');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'setFrom');
-        t.setFrom(other);
-        return null;
-      },
-      'splat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'splat');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'splat');
-        t.splat(arg);
-        return null;
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        return t.toString();
-      },
-      'normalize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        return t.normalize();
-      },
-      'normalizeLength': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        return t.normalizeLength();
-      },
-      'normalized': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        return t.normalized();
-      },
-      'normalizeInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'normalizeInto');
-        final out = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'out', 'normalizeInto');
-        return t.normalizeInto(out);
-      },
-      'distanceTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'distanceTo');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'distanceTo');
-        return t.distanceTo(arg);
-      },
-      'distanceToSquared': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'distanceToSquared');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'distanceToSquared');
-        return t.distanceToSquared(arg);
-      },
-      'angleTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'angleTo');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'angleTo');
-        return t.angleTo(other);
-      },
-      'angleToSigned': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'angleToSigned');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'angleToSigned');
-        final normal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'normal', 'angleToSigned');
-        return t.angleToSigned(other, normal);
-      },
-      'dot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'dot');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'dot');
-        return t.dot(other);
-      },
-      'postmultiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'postmultiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'arg', 'postmultiply');
-        t.postmultiply(arg);
-        return null;
-      },
-      'cross': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'cross');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'cross');
-        return t.cross(other);
-      },
-      'crossInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'crossInto');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'crossInto');
-        final out = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'out', 'crossInto');
-        return t.crossInto(other, out);
-      },
-      'reflect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'reflect');
-        final normal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'normal', 'reflect');
-        t.reflect(normal);
-        return null;
-      },
-      'reflected': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'reflected');
-        final normal = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'normal', 'reflected');
-        return t.reflected(normal);
-      },
-      'applyProjection': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'applyProjection');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'applyProjection');
-        t.applyProjection(arg);
-        return null;
-      },
-      'applyAxisAngle': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'applyAxisAngle');
-        final axis = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'axis', 'applyAxisAngle');
-        final angle = D4.getRequiredArg<double>(positional, 1, 'angle', 'applyAxisAngle');
-        t.applyAxisAngle(axis, angle);
-        return null;
-      },
-      'applyQuaternion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'applyQuaternion');
-        final arg = D4.getRequiredArg<$vector_math_1.Quaternion>(positional, 0, 'arg', 'applyQuaternion');
-        t.applyQuaternion(arg);
-        return null;
-      },
-      'applyMatrix3': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'applyMatrix3');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix3>(positional, 0, 'arg', 'applyMatrix3');
-        t.applyMatrix3(arg);
-        return null;
-      },
-      'applyMatrix4': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'applyMatrix4');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix4>(positional, 0, 'arg', 'applyMatrix4');
-        t.applyMatrix4(arg);
-        return null;
-      },
-      'relativeError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'relativeError');
-        final correct = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'correct', 'relativeError');
-        return t.relativeError(correct);
-      },
-      'absoluteError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'absoluteError');
-        final correct = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'correct', 'absoluteError');
-        return t.absoluteError(correct);
-      },
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'add');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'add');
-        t.add(arg);
-        return null;
-      },
-      'addScaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'addScaled');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'addScaled');
-        final factor = D4.getRequiredArg<double>(positional, 1, 'factor', 'addScaled');
-        t.addScaled(arg, factor);
-        return null;
-      },
-      'sub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'sub');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'sub');
-        t.sub(arg);
-        return null;
-      },
-      'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'multiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'multiply');
-        t.multiply(arg);
-        return null;
-      },
-      'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'divide');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'divide');
-        t.divide(arg);
-        return null;
-      },
-      'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'scale');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'scale');
-        t.scale(arg);
-        return null;
-      },
-      'scaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'scaled');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'scaled');
-        return t.scaled(arg);
-      },
-      'negate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.negate();
-        return null;
-      },
-      'absolute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.absolute();
-        return null;
-      },
-      'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'clamp');
-        final min = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'min', 'clamp');
-        final max = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'max', 'clamp');
-        t.clamp(min, max);
-        return null;
-      },
-      'clampScalar': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 2, 'clampScalar');
-        final min = D4.getRequiredArg<double>(positional, 0, 'min', 'clampScalar');
-        final max = D4.getRequiredArg<double>(positional, 1, 'max', 'clampScalar');
-        t.clampScalar(min, max);
-        return null;
-      },
-      'floor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.floor();
-        return null;
-      },
-      'ceil': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.ceil();
-        return null;
-      },
-      'round': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.round();
-        return null;
-      },
-      'roundToZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        t.roundToZero();
-        return null;
-      },
-      'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        return t.clone();
-      },
-      'copyInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'copyInto');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'arg', 'copyInto');
-        return t.copyInto(arg);
-      },
-      'copyIntoArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'copyIntoArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyIntoArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyIntoArray(array, offset);
-        return null;
-      },
-      'copyFromArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        D4.requireMinArgs(positional, 1, 'copyFromArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyFromArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyFromArray(array, offset);
-        return null;
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-      '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        if (positional.isEmpty) {
-          // Unary operator
-          return -t;
-        } else {
-          // Binary operator
-          final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'operator-');
-          return t - other;
-        }
-      },
-      '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final other = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'other', 'operator+');
-        return t + other;
-      },
-      '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
-        return t / other;
-      },
-      '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
-        return t * other;
-      },
-      '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
-        return t[index];
-      },
-      '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector3>(target, 'Vector3');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<double>(positional, 1, 'value', 'operator[]=');
-        t[index] = value;
-        return null;
-      },
-    },
-    staticMethods: {
-      'min': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'min');
-        final a = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'a', 'min');
-        final b = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'b', 'min');
-        final result = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'result', 'min');
-        return $vector_math_1.Vector3.min(a, b, result);
-      },
-      'max': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'max');
-        final a = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'a', 'max');
-        final b = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'b', 'max');
-        final result = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 2, 'result', 'max');
-        return $vector_math_1.Vector3.max(a, b, result);
-      },
-      'mix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 4, 'mix');
-        final min = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 0, 'min', 'mix');
-        final max = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 1, 'max', 'mix');
-        final a = D4.getRequiredArg<double>(positional, 2, 'a', 'mix');
-        final result = D4.getRequiredArg<$vector_math_1.Vector3>(positional, 3, 'result', 'mix');
-        return $vector_math_1.Vector3.mix(min, max, a, result);
-      },
-    },
-    constructorSignatures: {
-      '': 'factory Vector3(double x, double y, double z)',
-      'array': 'factory Vector3.array(List<double> array, [int offset = 0])',
-      'zero': 'Vector3.zero()',
-      'all': 'factory Vector3.all(double value)',
-      'copy': 'factory Vector3.copy(Vector3 other)',
-      'fromFloat64List': 'Vector3.fromFloat64List(Float64List _v3storage)',
-      'fromBuffer': 'Vector3.fromBuffer(ByteBuffer buffer, int offset)',
-      'random': 'factory Vector3.random([math.Random? rng])',
-    },
-    methodSignatures: {
-      'setValues': 'void setValues(double x, double y, double z)',
-      'setZero': 'void setZero()',
-      'setFrom': 'void setFrom(Vector3 other)',
-      'splat': 'void splat(double arg)',
-      'toString': 'String toString()',
-      'normalize': 'double normalize()',
-      'normalizeLength': 'double normalizeLength()',
-      'normalized': 'Vector3 normalized()',
-      'normalizeInto': 'Vector3 normalizeInto(Vector3 out)',
-      'distanceTo': 'double distanceTo(Vector3 arg)',
-      'distanceToSquared': 'double distanceToSquared(Vector3 arg)',
-      'angleTo': 'double angleTo(Vector3 other)',
-      'angleToSigned': 'double angleToSigned(Vector3 other, Vector3 normal)',
-      'dot': 'double dot(Vector3 other)',
-      'postmultiply': 'void postmultiply(Matrix3 arg)',
-      'cross': 'Vector3 cross(Vector3 other)',
-      'crossInto': 'Vector3 crossInto(Vector3 other, Vector3 out)',
-      'reflect': 'void reflect(Vector3 normal)',
-      'reflected': 'Vector3 reflected(Vector3 normal)',
-      'applyProjection': 'void applyProjection(Matrix4 arg)',
-      'applyAxisAngle': 'void applyAxisAngle(Vector3 axis, double angle)',
-      'applyQuaternion': 'void applyQuaternion(Quaternion arg)',
-      'applyMatrix3': 'void applyMatrix3(Matrix3 arg)',
-      'applyMatrix4': 'void applyMatrix4(Matrix4 arg)',
-      'relativeError': 'double relativeError(Vector3 correct)',
-      'absoluteError': 'double absoluteError(Vector3 correct)',
-      'add': 'void add(Vector3 arg)',
-      'addScaled': 'void addScaled(Vector3 arg, double factor)',
-      'sub': 'void sub(Vector3 arg)',
-      'multiply': 'void multiply(Vector3 arg)',
-      'divide': 'void divide(Vector3 arg)',
-      'scale': 'void scale(double arg)',
-      'scaled': 'Vector3 scaled(double arg)',
-      'negate': 'void negate()',
-      'absolute': 'void absolute()',
-      'clamp': 'void clamp(Vector3 min, Vector3 max)',
-      'clampScalar': 'void clampScalar(double min, double max)',
-      'floor': 'void floor()',
-      'ceil': 'void ceil()',
-      'round': 'void round()',
-      'roundToZero': 'void roundToZero()',
-      'clone': 'Vector3 clone()',
-      'copyInto': 'Vector3 copyInto(Vector3 arg)',
-      'copyIntoArray': 'void copyIntoArray(List<double> array, [int offset = 0])',
-      'copyFromArray': 'void copyFromArray(List<double> array, [int offset = 0])',
-    },
-    getterSignatures: {
-      'storage': 'Float64List get storage',
-      'hashCode': 'int get hashCode',
-      'length': 'double get length',
-      'length2': 'double get length2',
-      'isInfinite': 'bool get isInfinite',
-      'isNaN': 'bool get isNaN',
-      'xx': 'Vector2 get xx',
-      'xy': 'Vector2 get xy',
-      'xz': 'Vector2 get xz',
-      'yx': 'Vector2 get yx',
-      'yy': 'Vector2 get yy',
-      'yz': 'Vector2 get yz',
-      'zx': 'Vector2 get zx',
-      'zy': 'Vector2 get zy',
-      'zz': 'Vector2 get zz',
-      'xxx': 'Vector3 get xxx',
-      'xxy': 'Vector3 get xxy',
-      'xxz': 'Vector3 get xxz',
-      'xyx': 'Vector3 get xyx',
-      'xyy': 'Vector3 get xyy',
-      'xyz': 'Vector3 get xyz',
-      'xzx': 'Vector3 get xzx',
-      'xzy': 'Vector3 get xzy',
-      'xzz': 'Vector3 get xzz',
-      'yxx': 'Vector3 get yxx',
-      'yxy': 'Vector3 get yxy',
-      'yxz': 'Vector3 get yxz',
-      'yyx': 'Vector3 get yyx',
-      'yyy': 'Vector3 get yyy',
-      'yyz': 'Vector3 get yyz',
-      'yzx': 'Vector3 get yzx',
-      'yzy': 'Vector3 get yzy',
-      'yzz': 'Vector3 get yzz',
-      'zxx': 'Vector3 get zxx',
-      'zxy': 'Vector3 get zxy',
-      'zxz': 'Vector3 get zxz',
-      'zyx': 'Vector3 get zyx',
-      'zyy': 'Vector3 get zyy',
-      'zyz': 'Vector3 get zyz',
-      'zzx': 'Vector3 get zzx',
-      'zzy': 'Vector3 get zzy',
-      'zzz': 'Vector3 get zzz',
-      'xxxx': 'Vector4 get xxxx',
-      'xxxy': 'Vector4 get xxxy',
-      'xxxz': 'Vector4 get xxxz',
-      'xxyx': 'Vector4 get xxyx',
-      'xxyy': 'Vector4 get xxyy',
-      'xxyz': 'Vector4 get xxyz',
-      'xxzx': 'Vector4 get xxzx',
-      'xxzy': 'Vector4 get xxzy',
-      'xxzz': 'Vector4 get xxzz',
-      'xyxx': 'Vector4 get xyxx',
-      'xyxy': 'Vector4 get xyxy',
-      'xyxz': 'Vector4 get xyxz',
-      'xyyx': 'Vector4 get xyyx',
-      'xyyy': 'Vector4 get xyyy',
-      'xyyz': 'Vector4 get xyyz',
-      'xyzx': 'Vector4 get xyzx',
-      'xyzy': 'Vector4 get xyzy',
-      'xyzz': 'Vector4 get xyzz',
-      'xzxx': 'Vector4 get xzxx',
-      'xzxy': 'Vector4 get xzxy',
-      'xzxz': 'Vector4 get xzxz',
-      'xzyx': 'Vector4 get xzyx',
-      'xzyy': 'Vector4 get xzyy',
-      'xzyz': 'Vector4 get xzyz',
-      'xzzx': 'Vector4 get xzzx',
-      'xzzy': 'Vector4 get xzzy',
-      'xzzz': 'Vector4 get xzzz',
-      'yxxx': 'Vector4 get yxxx',
-      'yxxy': 'Vector4 get yxxy',
-      'yxxz': 'Vector4 get yxxz',
-      'yxyx': 'Vector4 get yxyx',
-      'yxyy': 'Vector4 get yxyy',
-      'yxyz': 'Vector4 get yxyz',
-      'yxzx': 'Vector4 get yxzx',
-      'yxzy': 'Vector4 get yxzy',
-      'yxzz': 'Vector4 get yxzz',
-      'yyxx': 'Vector4 get yyxx',
-      'yyxy': 'Vector4 get yyxy',
-      'yyxz': 'Vector4 get yyxz',
-      'yyyx': 'Vector4 get yyyx',
-      'yyyy': 'Vector4 get yyyy',
-      'yyyz': 'Vector4 get yyyz',
-      'yyzx': 'Vector4 get yyzx',
-      'yyzy': 'Vector4 get yyzy',
-      'yyzz': 'Vector4 get yyzz',
-      'yzxx': 'Vector4 get yzxx',
-      'yzxy': 'Vector4 get yzxy',
-      'yzxz': 'Vector4 get yzxz',
-      'yzyx': 'Vector4 get yzyx',
-      'yzyy': 'Vector4 get yzyy',
-      'yzyz': 'Vector4 get yzyz',
-      'yzzx': 'Vector4 get yzzx',
-      'yzzy': 'Vector4 get yzzy',
-      'yzzz': 'Vector4 get yzzz',
-      'zxxx': 'Vector4 get zxxx',
-      'zxxy': 'Vector4 get zxxy',
-      'zxxz': 'Vector4 get zxxz',
-      'zxyx': 'Vector4 get zxyx',
-      'zxyy': 'Vector4 get zxyy',
-      'zxyz': 'Vector4 get zxyz',
-      'zxzx': 'Vector4 get zxzx',
-      'zxzy': 'Vector4 get zxzy',
-      'zxzz': 'Vector4 get zxzz',
-      'zyxx': 'Vector4 get zyxx',
-      'zyxy': 'Vector4 get zyxy',
-      'zyxz': 'Vector4 get zyxz',
-      'zyyx': 'Vector4 get zyyx',
-      'zyyy': 'Vector4 get zyyy',
-      'zyyz': 'Vector4 get zyyz',
-      'zyzx': 'Vector4 get zyzx',
-      'zyzy': 'Vector4 get zyzy',
-      'zyzz': 'Vector4 get zyzz',
-      'zzxx': 'Vector4 get zzxx',
-      'zzxy': 'Vector4 get zzxy',
-      'zzxz': 'Vector4 get zzxz',
-      'zzyx': 'Vector4 get zzyx',
-      'zzyy': 'Vector4 get zzyy',
-      'zzyz': 'Vector4 get zzyz',
-      'zzzx': 'Vector4 get zzzx',
-      'zzzy': 'Vector4 get zzzy',
-      'zzzz': 'Vector4 get zzzz',
-      'r': 'double get r',
-      'g': 'double get g',
-      'b': 'double get b',
-      's': 'double get s',
-      't': 'double get t',
-      'p': 'double get p',
-      'x': 'double get x',
-      'y': 'double get y',
-      'z': 'double get z',
-      'rr': 'Vector2 get rr',
-      'rg': 'Vector2 get rg',
-      'rb': 'Vector2 get rb',
-      'gr': 'Vector2 get gr',
-      'gg': 'Vector2 get gg',
-      'gb': 'Vector2 get gb',
-      'br': 'Vector2 get br',
-      'bg': 'Vector2 get bg',
-      'bb': 'Vector2 get bb',
-      'rrr': 'Vector3 get rrr',
-      'rrg': 'Vector3 get rrg',
-      'rrb': 'Vector3 get rrb',
-      'rgr': 'Vector3 get rgr',
-      'rgg': 'Vector3 get rgg',
-      'rgb': 'Vector3 get rgb',
-      'rbr': 'Vector3 get rbr',
-      'rbg': 'Vector3 get rbg',
-      'rbb': 'Vector3 get rbb',
-      'grr': 'Vector3 get grr',
-      'grg': 'Vector3 get grg',
-      'grb': 'Vector3 get grb',
-      'ggr': 'Vector3 get ggr',
-      'ggg': 'Vector3 get ggg',
-      'ggb': 'Vector3 get ggb',
-      'gbr': 'Vector3 get gbr',
-      'gbg': 'Vector3 get gbg',
-      'gbb': 'Vector3 get gbb',
-      'brr': 'Vector3 get brr',
-      'brg': 'Vector3 get brg',
-      'brb': 'Vector3 get brb',
-      'bgr': 'Vector3 get bgr',
-      'bgg': 'Vector3 get bgg',
-      'bgb': 'Vector3 get bgb',
-      'bbr': 'Vector3 get bbr',
-      'bbg': 'Vector3 get bbg',
-      'bbb': 'Vector3 get bbb',
-      'rrrr': 'Vector4 get rrrr',
-      'rrrg': 'Vector4 get rrrg',
-      'rrrb': 'Vector4 get rrrb',
-      'rrgr': 'Vector4 get rrgr',
-      'rrgg': 'Vector4 get rrgg',
-      'rrgb': 'Vector4 get rrgb',
-      'rrbr': 'Vector4 get rrbr',
-      'rrbg': 'Vector4 get rrbg',
-      'rrbb': 'Vector4 get rrbb',
-      'rgrr': 'Vector4 get rgrr',
-      'rgrg': 'Vector4 get rgrg',
-      'rgrb': 'Vector4 get rgrb',
-      'rggr': 'Vector4 get rggr',
-      'rggg': 'Vector4 get rggg',
-      'rggb': 'Vector4 get rggb',
-      'rgbr': 'Vector4 get rgbr',
-      'rgbg': 'Vector4 get rgbg',
-      'rgbb': 'Vector4 get rgbb',
-      'rbrr': 'Vector4 get rbrr',
-      'rbrg': 'Vector4 get rbrg',
-      'rbrb': 'Vector4 get rbrb',
-      'rbgr': 'Vector4 get rbgr',
-      'rbgg': 'Vector4 get rbgg',
-      'rbgb': 'Vector4 get rbgb',
-      'rbbr': 'Vector4 get rbbr',
-      'rbbg': 'Vector4 get rbbg',
-      'rbbb': 'Vector4 get rbbb',
-      'grrr': 'Vector4 get grrr',
-      'grrg': 'Vector4 get grrg',
-      'grrb': 'Vector4 get grrb',
-      'grgr': 'Vector4 get grgr',
-      'grgg': 'Vector4 get grgg',
-      'grgb': 'Vector4 get grgb',
-      'grbr': 'Vector4 get grbr',
-      'grbg': 'Vector4 get grbg',
-      'grbb': 'Vector4 get grbb',
-      'ggrr': 'Vector4 get ggrr',
-      'ggrg': 'Vector4 get ggrg',
-      'ggrb': 'Vector4 get ggrb',
-      'gggr': 'Vector4 get gggr',
-      'gggg': 'Vector4 get gggg',
-      'gggb': 'Vector4 get gggb',
-      'ggbr': 'Vector4 get ggbr',
-      'ggbg': 'Vector4 get ggbg',
-      'ggbb': 'Vector4 get ggbb',
-      'gbrr': 'Vector4 get gbrr',
-      'gbrg': 'Vector4 get gbrg',
-      'gbrb': 'Vector4 get gbrb',
-      'gbgr': 'Vector4 get gbgr',
-      'gbgg': 'Vector4 get gbgg',
-      'gbgb': 'Vector4 get gbgb',
-      'gbbr': 'Vector4 get gbbr',
-      'gbbg': 'Vector4 get gbbg',
-      'gbbb': 'Vector4 get gbbb',
-      'brrr': 'Vector4 get brrr',
-      'brrg': 'Vector4 get brrg',
-      'brrb': 'Vector4 get brrb',
-      'brgr': 'Vector4 get brgr',
-      'brgg': 'Vector4 get brgg',
-      'brgb': 'Vector4 get brgb',
-      'brbr': 'Vector4 get brbr',
-      'brbg': 'Vector4 get brbg',
-      'brbb': 'Vector4 get brbb',
-      'bgrr': 'Vector4 get bgrr',
-      'bgrg': 'Vector4 get bgrg',
-      'bgrb': 'Vector4 get bgrb',
-      'bggr': 'Vector4 get bggr',
-      'bggg': 'Vector4 get bggg',
-      'bggb': 'Vector4 get bggb',
-      'bgbr': 'Vector4 get bgbr',
-      'bgbg': 'Vector4 get bgbg',
-      'bgbb': 'Vector4 get bgbb',
-      'bbrr': 'Vector4 get bbrr',
-      'bbrg': 'Vector4 get bbrg',
-      'bbrb': 'Vector4 get bbrb',
-      'bbgr': 'Vector4 get bbgr',
-      'bbgg': 'Vector4 get bbgg',
-      'bbgb': 'Vector4 get bbgb',
-      'bbbr': 'Vector4 get bbbr',
-      'bbbg': 'Vector4 get bbbg',
-      'bbbb': 'Vector4 get bbbb',
-      'ss': 'Vector2 get ss',
-      'st': 'Vector2 get st',
-      'sp': 'Vector2 get sp',
-      'ts': 'Vector2 get ts',
-      'tt': 'Vector2 get tt',
-      'tp': 'Vector2 get tp',
-      'ps': 'Vector2 get ps',
-      'pt': 'Vector2 get pt',
-      'pp': 'Vector2 get pp',
-      'sss': 'Vector3 get sss',
-      'sst': 'Vector3 get sst',
-      'ssp': 'Vector3 get ssp',
-      'sts': 'Vector3 get sts',
-      'stt': 'Vector3 get stt',
-      'stp': 'Vector3 get stp',
-      'sps': 'Vector3 get sps',
-      'spt': 'Vector3 get spt',
-      'spp': 'Vector3 get spp',
-      'tss': 'Vector3 get tss',
-      'tst': 'Vector3 get tst',
-      'tsp': 'Vector3 get tsp',
-      'tts': 'Vector3 get tts',
-      'ttt': 'Vector3 get ttt',
-      'ttp': 'Vector3 get ttp',
-      'tps': 'Vector3 get tps',
-      'tpt': 'Vector3 get tpt',
-      'tpp': 'Vector3 get tpp',
-      'pss': 'Vector3 get pss',
-      'pst': 'Vector3 get pst',
-      'psp': 'Vector3 get psp',
-      'pts': 'Vector3 get pts',
-      'ptt': 'Vector3 get ptt',
-      'ptp': 'Vector3 get ptp',
-      'pps': 'Vector3 get pps',
-      'ppt': 'Vector3 get ppt',
-      'ppp': 'Vector3 get ppp',
-      'ssss': 'Vector4 get ssss',
-      'ssst': 'Vector4 get ssst',
-      'sssp': 'Vector4 get sssp',
-      'ssts': 'Vector4 get ssts',
-      'sstt': 'Vector4 get sstt',
-      'sstp': 'Vector4 get sstp',
-      'ssps': 'Vector4 get ssps',
-      'sspt': 'Vector4 get sspt',
-      'sspp': 'Vector4 get sspp',
-      'stss': 'Vector4 get stss',
-      'stst': 'Vector4 get stst',
-      'stsp': 'Vector4 get stsp',
-      'stts': 'Vector4 get stts',
-      'sttt': 'Vector4 get sttt',
-      'sttp': 'Vector4 get sttp',
-      'stps': 'Vector4 get stps',
-      'stpt': 'Vector4 get stpt',
-      'stpp': 'Vector4 get stpp',
-      'spss': 'Vector4 get spss',
-      'spst': 'Vector4 get spst',
-      'spsp': 'Vector4 get spsp',
-      'spts': 'Vector4 get spts',
-      'sptt': 'Vector4 get sptt',
-      'sptp': 'Vector4 get sptp',
-      'spps': 'Vector4 get spps',
-      'sppt': 'Vector4 get sppt',
-      'sppp': 'Vector4 get sppp',
-      'tsss': 'Vector4 get tsss',
-      'tsst': 'Vector4 get tsst',
-      'tssp': 'Vector4 get tssp',
-      'tsts': 'Vector4 get tsts',
-      'tstt': 'Vector4 get tstt',
-      'tstp': 'Vector4 get tstp',
-      'tsps': 'Vector4 get tsps',
-      'tspt': 'Vector4 get tspt',
-      'tspp': 'Vector4 get tspp',
-      'ttss': 'Vector4 get ttss',
-      'ttst': 'Vector4 get ttst',
-      'ttsp': 'Vector4 get ttsp',
-      'ttts': 'Vector4 get ttts',
-      'tttt': 'Vector4 get tttt',
-      'tttp': 'Vector4 get tttp',
-      'ttps': 'Vector4 get ttps',
-      'ttpt': 'Vector4 get ttpt',
-      'ttpp': 'Vector4 get ttpp',
-      'tpss': 'Vector4 get tpss',
-      'tpst': 'Vector4 get tpst',
-      'tpsp': 'Vector4 get tpsp',
-      'tpts': 'Vector4 get tpts',
-      'tptt': 'Vector4 get tptt',
-      'tptp': 'Vector4 get tptp',
-      'tpps': 'Vector4 get tpps',
-      'tppt': 'Vector4 get tppt',
-      'tppp': 'Vector4 get tppp',
-      'psss': 'Vector4 get psss',
-      'psst': 'Vector4 get psst',
-      'pssp': 'Vector4 get pssp',
-      'psts': 'Vector4 get psts',
-      'pstt': 'Vector4 get pstt',
-      'pstp': 'Vector4 get pstp',
-      'psps': 'Vector4 get psps',
-      'pspt': 'Vector4 get pspt',
-      'pspp': 'Vector4 get pspp',
-      'ptss': 'Vector4 get ptss',
-      'ptst': 'Vector4 get ptst',
-      'ptsp': 'Vector4 get ptsp',
-      'ptts': 'Vector4 get ptts',
-      'pttt': 'Vector4 get pttt',
-      'pttp': 'Vector4 get pttp',
-      'ptps': 'Vector4 get ptps',
-      'ptpt': 'Vector4 get ptpt',
-      'ptpp': 'Vector4 get ptpp',
-      'ppss': 'Vector4 get ppss',
-      'ppst': 'Vector4 get ppst',
-      'ppsp': 'Vector4 get ppsp',
-      'ppts': 'Vector4 get ppts',
-      'pptt': 'Vector4 get pptt',
-      'pptp': 'Vector4 get pptp',
-      'ppps': 'Vector4 get ppps',
-      'pppt': 'Vector4 get pppt',
-      'pppp': 'Vector4 get pppp',
-    },
-    setterSignatures: {
-      'length': 'set length(double value)',
-      'xy': 'set xy(Vector2 value)',
-      'xz': 'set xz(Vector2 value)',
-      'yx': 'set yx(Vector2 value)',
-      'yz': 'set yz(Vector2 value)',
-      'zx': 'set zx(Vector2 value)',
-      'zy': 'set zy(Vector2 value)',
-      'xyz': 'set xyz(Vector3 value)',
-      'xzy': 'set xzy(Vector3 value)',
-      'yxz': 'set yxz(Vector3 value)',
-      'yzx': 'set yzx(Vector3 value)',
-      'zxy': 'set zxy(Vector3 value)',
-      'zyx': 'set zyx(Vector3 value)',
-      'r': 'set r(double value)',
-      'g': 'set g(double value)',
-      'b': 'set b(double value)',
-      's': 'set s(double value)',
-      't': 'set t(double value)',
-      'p': 'set p(double value)',
-      'x': 'set x(double value)',
-      'y': 'set y(double value)',
-      'z': 'set z(double value)',
-      'rg': 'set rg(Vector2 value)',
-      'rb': 'set rb(Vector2 value)',
-      'gr': 'set gr(Vector2 value)',
-      'gb': 'set gb(Vector2 value)',
-      'br': 'set br(Vector2 value)',
-      'bg': 'set bg(Vector2 value)',
-      'rgb': 'set rgb(Vector3 value)',
-      'rbg': 'set rbg(Vector3 value)',
-      'grb': 'set grb(Vector3 value)',
-      'gbr': 'set gbr(Vector3 value)',
-      'brg': 'set brg(Vector3 value)',
-      'bgr': 'set bgr(Vector3 value)',
-      'st': 'set st(Vector2 value)',
-      'sp': 'set sp(Vector2 value)',
-      'ts': 'set ts(Vector2 value)',
-      'tp': 'set tp(Vector2 value)',
-      'ps': 'set ps(Vector2 value)',
-      'pt': 'set pt(Vector2 value)',
-      'stp': 'set stp(Vector3 value)',
-      'spt': 'set spt(Vector3 value)',
-      'tsp': 'set tsp(Vector3 value)',
-      'tps': 'set tps(Vector3 value)',
-      'pst': 'set pst(Vector3 value)',
-      'pts': 'set pts(Vector3 value)',
-    },
-    staticMethodSignatures: {
-      'min': 'void min(Vector3 a, Vector3 b, Vector3 result)',
-      'max': 'void max(Vector3 a, Vector3 b, Vector3 result)',
-      'mix': 'void mix(Vector3 min, Vector3 max, double a, Vector3 result)',
-    },
-  );
-}
-
-// =============================================================================
-// Vector2 Bridge
-// =============================================================================
-
-BridgedClass _createVector2Bridge() {
-  return BridgedClass(
-    nativeType: $vector_math_1.Vector2,
-    name: 'Vector2',
-    isAssignable: (v) => v is $vector_math_1.Vector2,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Vector2');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x', 'Vector2');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y', 'Vector2');
-        return $vector_math_1.Vector2(x, y);
-      },
-      'array': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector2');
-        if (positional.isEmpty) {
-          throw ArgumentError('Vector2: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        return $vector_math_1.Vector2.array(array, offset);
-      },
-      'zero': (visitor, positional, named) {
-        return $vector_math_1.Vector2.zero();
-      },
-      'all': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector2');
-        final value = D4.getRequiredArg<double>(positional, 0, 'value', 'Vector2');
-        return $vector_math_1.Vector2.all(value);
-      },
-      'copy': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector2');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'Vector2');
-        return $vector_math_1.Vector2.copy(other);
-      },
-      'fromFloat64List': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 1, 'Vector2');
-        final v2storage = D4.getRequiredArg<Float64List>(positional, 0, '_v2storage', 'Vector2');
-        return $vector_math_1.Vector2.fromFloat64List(v2storage);
-      },
-      'fromBuffer': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'Vector2');
-        final buffer = D4.getRequiredArg<ByteBuffer>(positional, 0, 'buffer', 'Vector2');
-        final offset = D4.getRequiredArg<int>(positional, 1, 'offset', 'Vector2');
-        return $vector_math_1.Vector2.fromBuffer(buffer, offset);
-      },
-      'random': (visitor, positional, named) {
-        final rng = D4.getOptionalArg<$dart_math.Random?>(positional, 0, 'rng');
-        return $vector_math_1.Vector2.random(rng);
-      },
-    },
-    getters: {
-      'storage': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').storage,
-      'hashCode': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').hashCode,
-      'length': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').length,
-      'length2': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').length2,
-      'isInfinite': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').isInfinite,
-      'isNaN': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').isNaN,
-      'xx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xx,
-      'xy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xy,
-      'yx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yx,
-      'yy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yy,
-      'xxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxx,
-      'xxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxy,
-      'xyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyx,
-      'xyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyy,
-      'yxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxx,
-      'yxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxy,
-      'yyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyx,
-      'yyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyy,
-      'xxxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxxx,
-      'xxxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxxy,
-      'xxyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxyx,
-      'xxyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xxyy,
-      'xyxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyxx,
-      'xyxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyxy,
-      'xyyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyyx,
-      'xyyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xyyy,
-      'yxxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxxx,
-      'yxxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxxy,
-      'yxyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxyx,
-      'yxyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yxyy,
-      'yyxx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyxx,
-      'yyxy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyxy,
-      'yyyx': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyyx,
-      'yyyy': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yyyy,
-      'r': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').r,
-      'g': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').g,
-      's': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').s,
-      't': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').t,
-      'x': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').x,
-      'y': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').y,
-      'rr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rr,
-      'rg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rg,
-      'gr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gr,
-      'gg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gg,
-      'rrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrr,
-      'rrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrg,
-      'rgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rgr,
-      'rgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rgg,
-      'grr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grr,
-      'grg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grg,
-      'ggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ggr,
-      'ggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ggg,
-      'rrrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrrr,
-      'rrrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrrg,
-      'rrgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrgr,
-      'rrgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rrgg,
-      'rgrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rgrr,
-      'rgrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rgrg,
-      'rggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rggr,
-      'rggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rggg,
-      'grrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grrr,
-      'grrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grrg,
-      'grgr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grgr,
-      'grgg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').grgg,
-      'ggrr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ggrr,
-      'ggrg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ggrg,
-      'gggr': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gggr,
-      'gggg': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gggg,
-      'ss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ss,
-      'st': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').st,
-      'ts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ts,
-      'tt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tt,
-      'sss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').sss,
-      'sst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').sst,
-      'sts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').sts,
-      'stt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').stt,
-      'tss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tss,
-      'tst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tst,
-      'tts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tts,
-      'ttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ttt,
-      'ssss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ssss,
-      'ssst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ssst,
-      'ssts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ssts,
-      'sstt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').sstt,
-      'stss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').stss,
-      'stst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').stst,
-      'stts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').stts,
-      'sttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').sttt,
-      'tsss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tsss,
-      'tsst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tsst,
-      'tsts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tsts,
-      'tstt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tstt,
-      'ttss': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ttss,
-      'ttst': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ttst,
-      'ttts': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ttts,
-      'tttt': (visitor, target) => D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').tttt,
-    },
-    setters: {
-      'length': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').length = D4.extractBridgedArg<double>(value, 'length'),
-      'xy': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').xy = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'xy'),
-      'yx': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').yx = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'yx'),
-      'r': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').r = D4.extractBridgedArg<double>(value, 'r'),
-      'g': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').g = D4.extractBridgedArg<double>(value, 'g'),
-      's': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').s = D4.extractBridgedArg<double>(value, 's'),
-      't': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').t = D4.extractBridgedArg<double>(value, 't'),
-      'x': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').x = D4.extractBridgedArg<double>(value, 'x'),
-      'y': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').y = D4.extractBridgedArg<double>(value, 'y'),
-      'rg': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').rg = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'rg'),
-      'gr': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').gr = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'gr'),
-      'st': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').st = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'st'),
-      'ts': (visitor, target, value) => 
-        D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2').ts = D4.extractBridgedArg<$vector_math_1.Vector2>(value, 'ts'),
-    },
-    methods: {
-      'setValues': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 2, 'setValues');
-        final x = D4.getRequiredArg<double>(positional, 0, 'x_', 'setValues');
-        final y = D4.getRequiredArg<double>(positional, 1, 'y_', 'setValues');
-        t.setValues(x, y);
-        return null;
-      },
-      'setZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.setZero();
-        return null;
-      },
-      'setFrom': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'setFrom');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'setFrom');
-        t.setFrom(other);
-        return null;
-      },
-      'splat': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'splat');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'splat');
-        t.splat(arg);
-        return null;
-      },
-      'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        return t.toString();
-      },
-      'normalize': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        return t.normalize();
-      },
-      'normalizeLength': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        return t.normalizeLength();
-      },
-      'normalized': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        return t.normalized();
-      },
-      'normalizeInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'normalizeInto');
-        final out = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'out', 'normalizeInto');
-        return t.normalizeInto(out);
-      },
-      'distanceTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'distanceTo');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'distanceTo');
-        return t.distanceTo(arg);
-      },
-      'distanceToSquared': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'distanceToSquared');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'distanceToSquared');
-        return t.distanceToSquared(arg);
-      },
-      'angleTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'angleTo');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'angleTo');
-        return t.angleTo(other);
-      },
-      'angleToSigned': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'angleToSigned');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'angleToSigned');
-        return t.angleToSigned(other);
-      },
-      'dot': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'dot');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'dot');
-        return t.dot(other);
-      },
-      'postmultiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'postmultiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Matrix2>(positional, 0, 'arg', 'postmultiply');
-        t.postmultiply(arg);
-        return null;
-      },
-      'cross': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'cross');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'cross');
-        return t.cross(other);
-      },
-      'scaleOrthogonalInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 2, 'scaleOrthogonalInto');
-        final scale = D4.getRequiredArg<double>(positional, 0, 'scale', 'scaleOrthogonalInto');
-        final out = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'out', 'scaleOrthogonalInto');
-        return t.scaleOrthogonalInto(scale, out);
-      },
-      'reflect': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'reflect');
-        final normal = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'normal', 'reflect');
-        t.reflect(normal);
-        return null;
-      },
-      'reflected': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'reflected');
-        final normal = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'normal', 'reflected');
-        return t.reflected(normal);
-      },
-      'relativeError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'relativeError');
-        final correct = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'correct', 'relativeError');
-        return t.relativeError(correct);
-      },
-      'absoluteError': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'absoluteError');
-        final correct = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'correct', 'absoluteError');
-        return t.absoluteError(correct);
-      },
-      'add': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'add');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'add');
-        t.add(arg);
-        return null;
-      },
-      'addScaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 2, 'addScaled');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'addScaled');
-        final factor = D4.getRequiredArg<double>(positional, 1, 'factor', 'addScaled');
-        t.addScaled(arg, factor);
-        return null;
-      },
-      'sub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'sub');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'sub');
-        t.sub(arg);
-        return null;
-      },
-      'multiply': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'multiply');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'multiply');
-        t.multiply(arg);
-        return null;
-      },
-      'divide': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'divide');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'divide');
-        t.divide(arg);
-        return null;
-      },
-      'scale': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'scale');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'scale');
-        t.scale(arg);
-        return null;
-      },
-      'scaled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'scaled');
-        final arg = D4.getRequiredArg<double>(positional, 0, 'arg', 'scaled');
-        return t.scaled(arg);
-      },
-      'negate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.negate();
-        return null;
-      },
-      'absolute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.absolute();
-        return null;
-      },
-      'clamp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 2, 'clamp');
-        final min = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'min', 'clamp');
-        final max = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'max', 'clamp');
-        t.clamp(min, max);
-        return null;
-      },
-      'clampScalar': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 2, 'clampScalar');
-        final min = D4.getRequiredArg<double>(positional, 0, 'min', 'clampScalar');
-        final max = D4.getRequiredArg<double>(positional, 1, 'max', 'clampScalar');
-        t.clampScalar(min, max);
-        return null;
-      },
-      'floor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.floor();
-        return null;
-      },
-      'ceil': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.ceil();
-        return null;
-      },
-      'round': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.round();
-        return null;
-      },
-      'roundToZero': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        t.roundToZero();
-        return null;
-      },
-      'clone': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        return t.clone();
-      },
-      'copyInto': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'copyInto');
-        final arg = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'arg', 'copyInto');
-        return t.copyInto(arg);
-      },
-      'copyIntoArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'copyIntoArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyIntoArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyIntoArray(array, offset);
-        return null;
-      },
-      'copyFromArray': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        D4.requireMinArgs(positional, 1, 'copyFromArray');
-        if (positional.isEmpty) {
-          throw ArgumentError('copyFromArray: Missing required argument "array" at position 0');
-        }
-        final array = D4.coerceList<double>(positional[0], 'array');
-        final offset = D4.getOptionalArgWithDefault<int>(positional, 1, 'offset', 0);
-        t.copyFromArray(array, offset);
-        return null;
-      },
-      '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
-        return t == other;
-      },
-      '-': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        if (positional.isEmpty) {
-          // Unary operator
-          return -t;
-        } else {
-          // Binary operator
-          final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'operator-');
-          return t - other;
-        }
-      },
-      '+': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'other', 'operator+');
-        return t + other;
-      },
-      '/': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator/');
-        return t / other;
-      },
-      '*': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final other = D4.getRequiredArg<double>(positional, 0, 'other', 'operator*');
-        return t * other;
-      },
-      '[]': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]');
-        return t[index];
-      },
-      '[]=': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$vector_math_1.Vector2>(target, 'Vector2');
-        final index = D4.getRequiredArg<int>(positional, 0, 'index', 'operator[]=');
-        final value = D4.getRequiredArg<double>(positional, 1, 'value', 'operator[]=');
-        t[index] = value;
-        return null;
-      },
-    },
-    staticMethods: {
-      'min': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'min');
-        final a = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'a', 'min');
-        final b = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'b', 'min');
-        final result = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'result', 'min');
-        return $vector_math_1.Vector2.min(a, b, result);
-      },
-      'max': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 3, 'max');
-        final a = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'a', 'max');
-        final b = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'b', 'max');
-        final result = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 2, 'result', 'max');
-        return $vector_math_1.Vector2.max(a, b, result);
-      },
-      'mix': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 4, 'mix');
-        final min = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 0, 'min', 'mix');
-        final max = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 1, 'max', 'mix');
-        final a = D4.getRequiredArg<double>(positional, 2, 'a', 'mix');
-        final result = D4.getRequiredArg<$vector_math_1.Vector2>(positional, 3, 'result', 'mix');
-        return $vector_math_1.Vector2.mix(min, max, a, result);
-      },
-    },
-    constructorSignatures: {
-      '': 'factory Vector2(double x, double y)',
-      'array': 'factory Vector2.array(List<double> array, [int offset = 0])',
-      'zero': 'Vector2.zero()',
-      'all': 'factory Vector2.all(double value)',
-      'copy': 'factory Vector2.copy(Vector2 other)',
-      'fromFloat64List': 'Vector2.fromFloat64List(Float64List _v2storage)',
-      'fromBuffer': 'Vector2.fromBuffer(ByteBuffer buffer, int offset)',
-      'random': 'factory Vector2.random([math.Random? rng])',
-    },
-    methodSignatures: {
-      'setValues': 'void setValues(double x_, double y_)',
-      'setZero': 'void setZero()',
-      'setFrom': 'void setFrom(Vector2 other)',
-      'splat': 'void splat(double arg)',
-      'toString': 'String toString()',
-      'normalize': 'double normalize()',
-      'normalizeLength': 'double normalizeLength()',
-      'normalized': 'Vector2 normalized()',
-      'normalizeInto': 'Vector2 normalizeInto(Vector2 out)',
-      'distanceTo': 'double distanceTo(Vector2 arg)',
-      'distanceToSquared': 'double distanceToSquared(Vector2 arg)',
-      'angleTo': 'double angleTo(Vector2 other)',
-      'angleToSigned': 'double angleToSigned(Vector2 other)',
-      'dot': 'double dot(Vector2 other)',
-      'postmultiply': 'void postmultiply(Matrix2 arg)',
-      'cross': 'double cross(Vector2 other)',
-      'scaleOrthogonalInto': 'Vector2 scaleOrthogonalInto(double scale, Vector2 out)',
-      'reflect': 'void reflect(Vector2 normal)',
-      'reflected': 'Vector2 reflected(Vector2 normal)',
-      'relativeError': 'double relativeError(Vector2 correct)',
-      'absoluteError': 'double absoluteError(Vector2 correct)',
-      'add': 'void add(Vector2 arg)',
-      'addScaled': 'void addScaled(Vector2 arg, double factor)',
-      'sub': 'void sub(Vector2 arg)',
-      'multiply': 'void multiply(Vector2 arg)',
-      'divide': 'void divide(Vector2 arg)',
-      'scale': 'void scale(double arg)',
-      'scaled': 'Vector2 scaled(double arg)',
-      'negate': 'void negate()',
-      'absolute': 'void absolute()',
-      'clamp': 'void clamp(Vector2 min, Vector2 max)',
-      'clampScalar': 'void clampScalar(double min, double max)',
-      'floor': 'void floor()',
-      'ceil': 'void ceil()',
-      'round': 'void round()',
-      'roundToZero': 'void roundToZero()',
-      'clone': 'Vector2 clone()',
-      'copyInto': 'Vector2 copyInto(Vector2 arg)',
-      'copyIntoArray': 'void copyIntoArray(List<double> array, [int offset = 0])',
-      'copyFromArray': 'void copyFromArray(List<double> array, [int offset = 0])',
-    },
-    getterSignatures: {
-      'storage': 'Float64List get storage',
-      'hashCode': 'int get hashCode',
-      'length': 'double get length',
-      'length2': 'double get length2',
-      'isInfinite': 'bool get isInfinite',
-      'isNaN': 'bool get isNaN',
-      'xx': 'Vector2 get xx',
-      'xy': 'Vector2 get xy',
-      'yx': 'Vector2 get yx',
-      'yy': 'Vector2 get yy',
-      'xxx': 'Vector3 get xxx',
-      'xxy': 'Vector3 get xxy',
-      'xyx': 'Vector3 get xyx',
-      'xyy': 'Vector3 get xyy',
-      'yxx': 'Vector3 get yxx',
-      'yxy': 'Vector3 get yxy',
-      'yyx': 'Vector3 get yyx',
-      'yyy': 'Vector3 get yyy',
-      'xxxx': 'Vector4 get xxxx',
-      'xxxy': 'Vector4 get xxxy',
-      'xxyx': 'Vector4 get xxyx',
-      'xxyy': 'Vector4 get xxyy',
-      'xyxx': 'Vector4 get xyxx',
-      'xyxy': 'Vector4 get xyxy',
-      'xyyx': 'Vector4 get xyyx',
-      'xyyy': 'Vector4 get xyyy',
-      'yxxx': 'Vector4 get yxxx',
-      'yxxy': 'Vector4 get yxxy',
-      'yxyx': 'Vector4 get yxyx',
-      'yxyy': 'Vector4 get yxyy',
-      'yyxx': 'Vector4 get yyxx',
-      'yyxy': 'Vector4 get yyxy',
-      'yyyx': 'Vector4 get yyyx',
-      'yyyy': 'Vector4 get yyyy',
-      'r': 'double get r',
-      'g': 'double get g',
-      's': 'double get s',
-      't': 'double get t',
-      'x': 'double get x',
-      'y': 'double get y',
-      'rr': 'Vector2 get rr',
-      'rg': 'Vector2 get rg',
-      'gr': 'Vector2 get gr',
-      'gg': 'Vector2 get gg',
-      'rrr': 'Vector3 get rrr',
-      'rrg': 'Vector3 get rrg',
-      'rgr': 'Vector3 get rgr',
-      'rgg': 'Vector3 get rgg',
-      'grr': 'Vector3 get grr',
-      'grg': 'Vector3 get grg',
-      'ggr': 'Vector3 get ggr',
-      'ggg': 'Vector3 get ggg',
-      'rrrr': 'Vector4 get rrrr',
-      'rrrg': 'Vector4 get rrrg',
-      'rrgr': 'Vector4 get rrgr',
-      'rrgg': 'Vector4 get rrgg',
-      'rgrr': 'Vector4 get rgrr',
-      'rgrg': 'Vector4 get rgrg',
-      'rggr': 'Vector4 get rggr',
-      'rggg': 'Vector4 get rggg',
-      'grrr': 'Vector4 get grrr',
-      'grrg': 'Vector4 get grrg',
-      'grgr': 'Vector4 get grgr',
-      'grgg': 'Vector4 get grgg',
-      'ggrr': 'Vector4 get ggrr',
-      'ggrg': 'Vector4 get ggrg',
-      'gggr': 'Vector4 get gggr',
-      'gggg': 'Vector4 get gggg',
-      'ss': 'Vector2 get ss',
-      'st': 'Vector2 get st',
-      'ts': 'Vector2 get ts',
-      'tt': 'Vector2 get tt',
-      'sss': 'Vector3 get sss',
-      'sst': 'Vector3 get sst',
-      'sts': 'Vector3 get sts',
-      'stt': 'Vector3 get stt',
-      'tss': 'Vector3 get tss',
-      'tst': 'Vector3 get tst',
-      'tts': 'Vector3 get tts',
-      'ttt': 'Vector3 get ttt',
-      'ssss': 'Vector4 get ssss',
-      'ssst': 'Vector4 get ssst',
-      'ssts': 'Vector4 get ssts',
-      'sstt': 'Vector4 get sstt',
-      'stss': 'Vector4 get stss',
-      'stst': 'Vector4 get stst',
-      'stts': 'Vector4 get stts',
-      'sttt': 'Vector4 get sttt',
-      'tsss': 'Vector4 get tsss',
-      'tsst': 'Vector4 get tsst',
-      'tsts': 'Vector4 get tsts',
-      'tstt': 'Vector4 get tstt',
-      'ttss': 'Vector4 get ttss',
-      'ttst': 'Vector4 get ttst',
-      'ttts': 'Vector4 get ttts',
-      'tttt': 'Vector4 get tttt',
-    },
-    setterSignatures: {
-      'length': 'set length(double value)',
-      'xy': 'set xy(Vector2 value)',
-      'yx': 'set yx(Vector2 value)',
-      'r': 'set r(double value)',
-      'g': 'set g(double value)',
-      's': 'set s(double value)',
-      't': 'set t(double value)',
-      'x': 'set x(double value)',
-      'y': 'set y(double value)',
-      'rg': 'set rg(Vector2 value)',
-      'gr': 'set gr(Vector2 value)',
-      'st': 'set st(Vector2 value)',
-      'ts': 'set ts(Vector2 value)',
-    },
-    staticMethodSignatures: {
-      'min': 'void min(Vector2 a, Vector2 b, Vector2 result)',
-      'max': 'void max(Vector2 a, Vector2 b, Vector2 result)',
-      'mix': 'void mix(Vector2 min, Vector2 max, double a, Vector2 result)',
     },
   );
 }
