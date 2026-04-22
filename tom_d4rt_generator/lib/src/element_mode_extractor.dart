@@ -20,7 +20,11 @@ import 'dart:io';
 
 // ignore: implementation_imports
 import 'package:analyzer/src/dart/element/element.dart' show ElementAnnotationImpl;
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/element/inheritance_manager3.dart'
+    show InheritanceManager3, Name;
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 
 import 'bridge_generator.dart'
@@ -43,6 +47,13 @@ import 'bridge_generator.dart'
 class ElementModeExtractor {
   final bool skipPrivate;
   final bool generateDeprecatedElements;
+
+  /// Plan Phase 1 / B4: when true, declared class members are emitted in
+  /// source order (sorted by `firstFragment.nameOffset`) before inherited
+  /// members are appended. OFF by default — the emitter and signature-maps
+  /// don't depend on source order in Phase 2. Flip on in Phase 3 if bridge
+  /// diffs show unstable map iteration order.
+  final bool sortDeclaredMembersBySourceOrder;
 
   final List<ClassInfo> classes = [];
   final List<GlobalFunctionInfo> globalFunctions = [];
@@ -70,6 +81,7 @@ class ElementModeExtractor {
   ElementModeExtractor({
     this.skipPrivate = true,
     this.generateDeprecatedElements = false,
+    this.sortDeclaredMembersBySourceOrder = false,
   });
 
   /// Entry point: extracts all top-level members from [library]. The
@@ -133,17 +145,15 @@ class ElementModeExtractor {
       // fall through
     }
 
+    // Plan Phase 1 / W1+W2+B3: the analyzer's element flags
+    // (`annotation.isInternal` / `.isMustBeOverridden` /
+    // `.isVisibleForOverriding`) are the canonical source. The AST twin's
+    // `toSource()` string-compare fallback is redundant here — element
+    // metadata is already populated from either source or `.sum` bundles.
     for (final annotation in element.metadata.annotations) {
       if (annotation.isInternal ||
           annotation.isMustBeOverridden ||
           annotation.isVisibleForOverriding) {
-        return true;
-      }
-      final annotationType =
-          annotation.computeConstantValue()?.type?.getDisplayString();
-      if (annotationType == 'Internal' ||
-          annotationType == 'MustBeOverridden' ||
-          annotationType == 'VisibleForOverriding') {
         return true;
       }
     }
@@ -321,6 +331,77 @@ class ElementModeExtractor {
     );
   }
 
+  /// Plan Phase 1 / W6: renders a [DartType] to Dart source-like text while
+  /// preserving *function-typedef* aliases (e.g. `VoidCallback`, `ValueChanged<T>`).
+  /// The AST path's `_collectInfoFromDartType` only preserves aliases for
+  /// `FunctionType` — `InterfaceType` aliases (class-rename typedefs such as
+  /// `typedef MaterialStatesController = WidgetStatesController`) are unaliased
+  /// so the emitter can resolve them through the concrete class's library URI.
+  /// This helper mirrors that behavior so element-mode output compiles even
+  /// when a deprecated class-rename typedef is not re-exported from the
+  /// library that owns the prefix at the use-site.
+  ///
+  /// - `FunctionType` with alias → `AliasName<arg1, arg2>?`
+  /// - `InterfaceType` → `BaseName<arg1, arg2>?` (alias dropped intentionally)
+  /// - `FunctionType` (no alias) → `ReturnType Function(params)?`
+  /// - Anything else → `type.getDisplayString()`
+  String _renderDartType(DartType type) {
+    if (type is InterfaceType) {
+      final baseName = type.element.name;
+      if (baseName == null) return type.getDisplayString();
+      final args = type.typeArguments;
+      final argsText = args.isEmpty
+          ? ''
+          : '<${args.map(_renderDartType).join(', ')}>';
+      final nullable =
+          type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+      return '$baseName$argsText$nullable';
+    }
+    if (type is FunctionType) {
+      final alias = type.alias;
+      if (alias != null) {
+        final aliasName = alias.element.name;
+        if (aliasName != null) {
+          final args = alias.typeArguments;
+          final argsText = args.isEmpty
+              ? ''
+              : '<${args.map(_renderDartType).join(', ')}>';
+          final nullable =
+              type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+          return '$aliasName$argsText$nullable';
+        }
+      }
+      final returnType = _renderDartType(type.returnType);
+      final positional = <String>[];
+      final optional = <String>[];
+      final named = <String>[];
+      for (final p in type.formalParameters) {
+        final pt = _renderDartType(p.type);
+        final pn = p.name ?? '';
+        final label = pn.isNotEmpty ? '$pt $pn' : pt;
+        if (p.isRequiredPositional) {
+          positional.add(label);
+        } else if (p.isOptionalPositional) {
+          optional.add(label);
+        } else if (p.isRequiredNamed) {
+          named.add('required $label');
+        } else {
+          named.add(label);
+        }
+      }
+      final parts = [...positional];
+      if (optional.isNotEmpty) parts.add('[${optional.join(', ')}]');
+      if (named.isNotEmpty) parts.add('{${named.join(', ')}}');
+      // `?` on a function type binds to the whole function type; no outer
+      // parens are needed and adding them would make `(X)?` parse as a
+      // single-positional record in named-parameter positions in Dart 3.
+      final nullable =
+          type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+      return '$returnType Function(${parts.join(', ')})$nullable';
+    }
+    return type.getDisplayString();
+  }
+
   String _expandFunctionType(FunctionType funcType) {
     final returnType = funcType.returnType.getDisplayString();
     final positionalParams = funcType.formalParameters
@@ -406,7 +487,7 @@ class ElementModeExtractor {
       result.add(
         ParameterInfo(
           name: p.name ?? '',
-          type: p.type.getDisplayString(),
+          type: _renderDartType(p.type),
           typeImportUris: typeInfo.uris,
           typeToUri: typeInfo.typeToUri,
           isRequired: p.isRequired,
@@ -427,6 +508,14 @@ class ElementModeExtractor {
   void _processTypeAlias(TypeAliasElement alias) {
     final name = alias.name;
     if (name == null) return;
+    // Plan Phase 1 / Private-typedef parity: the AST twin historically leaked
+    // private typedefs (e.g. `_PerformanceModeCleanupCallback`) into generated
+    // bridges because `_hasPrivateIdentifierName` was only applied to classes.
+    // The element path treats a leading underscore as private — if
+    // `skipPrivate` is on, the typedef is filtered out. This is the intended
+    // semantics: private typedefs are implementation detail and must not be
+    // referenced from generated bridge code. Plan §4.1 records this as the
+    // chosen policy for Phase 1.
     if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(alias)) return;
 
@@ -590,7 +679,7 @@ class ElementModeExtractor {
       _collectInfoFromDartType(p.type, paramTypeImportUris, paramTypeToUri);
       return ParameterInfo(
         name: p.name ?? '',
-        type: p.type.getDisplayString(),
+        type: _renderDartType(p.type),
         isRequired: p.isRequired,
         isNamed: p.isNamed,
         defaultValue: _defaultValueSource(p),
@@ -615,11 +704,16 @@ class ElementModeExtractor {
     }
 
     final extendedType = ext.extendedType;
-    final onTypeDisplay = extendedType.getDisplayString();
-    if (onTypeDisplay.contains('<')) return;
+    // Plan Phase 1 / W5: extensions with generic on-types are skipped today.
+    // AST path used `onTypeName.contains('<')`; the element API lets us check
+    // directly via `InterfaceType.typeArguments.isNotEmpty`.
+    if (extendedType is InterfaceType &&
+        extendedType.typeArguments.isNotEmpty) {
+      return;
+    }
 
     String? onTypeUri;
-    String onTypeName = onTypeDisplay;
+    String onTypeName = _renderDartType(extendedType);
     if (extendedType is InterfaceType) {
       final element = extendedType.element;
       final library = element.library;
@@ -706,14 +800,15 @@ class ElementModeExtractor {
       for (final tp in func.typeParameters) {
         final tpName = tp.name;
         if (tpName == null) continue;
-        typeParamsMap[tpName] = tp.bound?.getDisplayString();
+        final bound = tp.bound;
+        typeParamsMap[tpName] = bound != null ? _renderDartType(bound) : null;
       }
     }
 
     globalFunctions.add(
       GlobalFunctionInfo(
         name: name,
-        returnType: returnType.getDisplayString(),
+        returnType: _renderDartType(returnType),
         returnTypeImportUris: returnTypeInfo.uris,
         returnTypeToUri: returnTypeInfo.typeToUri,
         parameters: parameters,
@@ -740,7 +835,7 @@ class ElementModeExtractor {
     globalVariables.add(
       GlobalVariableInfo(
         name: name,
-        type: returnType.getDisplayString(),
+        type: _renderDartType(returnType),
         typeImportUris: typeInfo.uris,
         typeToUri: typeInfo.typeToUri,
         isFinal: false,
@@ -780,7 +875,7 @@ class ElementModeExtractor {
     globalVariables.add(
       GlobalVariableInfo(
         name: name,
-        type: type.getDisplayString(),
+        type: _renderDartType(type),
         typeImportUris: typeInfo.uris,
         typeToUri: typeInfo.typeToUri,
         isFinal: variable.isFinal,
@@ -835,8 +930,10 @@ class ElementModeExtractor {
       }
     }
 
-    // Members.
-    final members = <MemberInfo>[];
+    // Declared members. Collected as (member, element) pairs so we can
+    // optionally apply Plan Phase 1 / B4 source-order sorting by
+    // `firstFragment.nameOffset` before handing off to the emitter.
+    final declaredPairs = <({MemberInfo member, Element element})>[];
 
     for (final field in classElement.fields) {
       if (field.isSynthetic) continue;
@@ -846,32 +943,35 @@ class ElementModeExtractor {
       if (_isInternalOrSkippable(field)) continue;
 
       final typeInfo = _collectTypeInfo(field.type);
+      final fieldTypeText = _renderDartType(field.type);
 
-      members.add(
-        MemberInfo(
+      declaredPairs.add((
+        member: MemberInfo(
           name: fname,
-          returnType: field.type.getDisplayString(),
+          returnType: fieldTypeText,
           returnTypeImportUris: typeInfo.uris,
           returnTypeToUri: typeInfo.typeToUri,
           isGetter: true,
           isStatic: field.isStatic,
         ),
-      );
+        element: field,
+      ));
 
       final isLate = field.isLate;
       final hasInit = field.hasInitializer;
       if (!field.isConst && (!field.isFinal || (isLate && !hasInit))) {
-        members.add(
-          MemberInfo(
+        declaredPairs.add((
+          member: MemberInfo(
             name: fname,
-            returnType: field.type.getDisplayString(),
+            returnType: fieldTypeText,
             returnTypeImportUris: typeInfo.uris,
             returnTypeToUri: typeInfo.typeToUri,
             isSetter: true,
             isStatic: field.isStatic,
             functionTypeInfo: typeInfo.functionTypeInfo,
           ),
-        );
+          element: field,
+        ));
       }
     }
 
@@ -882,16 +982,17 @@ class ElementModeExtractor {
       if (skipPrivate && gname.startsWith('_')) continue;
       if (_isInternalOrSkippable(getter)) continue;
       final typeInfo = _collectTypeInfo(getter.returnType);
-      members.add(
-        MemberInfo(
+      declaredPairs.add((
+        member: MemberInfo(
           name: gname,
-          returnType: getter.returnType.getDisplayString(),
+          returnType: _renderDartType(getter.returnType),
           returnTypeImportUris: typeInfo.uris,
           returnTypeToUri: typeInfo.typeToUri,
           isGetter: true,
           isStatic: getter.isStatic,
         ),
-      );
+        element: getter,
+      ));
     }
 
     for (final setter in classElement.setters) {
@@ -903,10 +1004,11 @@ class ElementModeExtractor {
       final params = setter.formalParameters;
       final paramType = params.isNotEmpty ? params.first.type : null;
       final typeInfo = _collectTypeInfo(paramType);
-      members.add(
-        MemberInfo(
+      declaredPairs.add((
+        member: MemberInfo(
           name: sname,
-          returnType: paramType?.getDisplayString() ?? 'dynamic',
+          returnType:
+              paramType != null ? _renderDartType(paramType) : 'dynamic',
           returnTypeImportUris: typeInfo.uris,
           returnTypeToUri: typeInfo.typeToUri,
           isSetter: true,
@@ -915,13 +1017,14 @@ class ElementModeExtractor {
           parameters: params
               .map((p) => ParameterInfo(
                     name: p.name ?? 'value',
-                    type: p.type.getDisplayString(),
+                    type: _renderDartType(p.type),
                     isRequired: p.isRequired,
                     isNamed: p.isNamed,
                   ))
               .toList(),
         ),
-      );
+        element: setter,
+      ));
     }
 
     for (final method in classElement.methods) {
@@ -929,8 +1032,15 @@ class ElementModeExtractor {
       if (mname == null) continue;
       if (skipPrivate && mname.startsWith('_')) continue;
       if (_isInternalOrSkippable(method)) continue;
-      members.add(_memberFromMethodElement(method));
+      declaredPairs.add((
+        member: _memberFromMethodElement(method),
+        element: method,
+      ));
     }
+
+    final members = sortDeclaredMembersBySourceOrder
+        ? _sortMembersBySourceOrder(declaredPairs)
+        : declaredPairs.map((p) => p.member).toList();
 
     // Constructors.
     final constructors = <ConstructorInfo>[];
@@ -974,7 +1084,7 @@ class ElementModeExtractor {
       if (tpName == null) continue;
       final bound = tp.bound;
       if (bound != null) {
-        typeParams[tpName] = bound.getDisplayString();
+        typeParams[tpName] = _renderDartType(bound);
         if (bound is InterfaceType) {
           final bName = bound.element.name;
           if (bName != null) {
@@ -1003,6 +1113,16 @@ class ElementModeExtractor {
     final isSealedResolved =
         classElement is ClassElement && classElement.isSealed;
 
+    // GEN-093: Append inherited members (from all supertypes) so the renderer
+    // sees a complete member list — in particular, inherited setters carry
+    // `parameters` so the setter signature renders with the typed parameter
+    // instead of `dynamic`. Mirrors `_collectInheritedMembersFromElement` in
+    // bridge_generator.dart.
+    final declaredQualifiedNames = _buildQualifiedMemberNames(members);
+    final inherited =
+        _collectInheritedMembers(classElement, declaredQualifiedNames);
+    members.addAll(inherited);
+
     classes.add(
       ClassInfo(
         name: name,
@@ -1020,6 +1140,434 @@ class ElementModeExtractor {
     );
   }
 
+  /// Plan Phase 1 / B4: sorts declared class members by source-order offset
+  /// (ascending). The offset is read from each element's
+  /// `firstFragment.nameOffset`; elements without a resolvable offset sort
+  /// last. Stable sort — pairs with identical offsets keep insertion order
+  /// (matters for fields that generate both a getter and a setter pair).
+  static List<MemberInfo> _sortMembersBySourceOrder(
+    List<({MemberInfo member, Element element})> pairs,
+  ) {
+    int offsetOf(Element e) {
+      try {
+        // ignore: avoid_dynamic_calls
+        final raw = (e as dynamic).firstFragment?.nameOffset as int?;
+        return raw ?? 1 << 30;
+      } catch (_) {
+        return 1 << 30;
+      }
+    }
+
+    final indexed = <({int index, int offset, MemberInfo member})>[];
+    for (var i = 0; i < pairs.length; i++) {
+      indexed.add((
+        index: i,
+        offset: offsetOf(pairs[i].element),
+        member: pairs[i].member,
+      ));
+    }
+    indexed.sort((a, b) {
+      final cmp = a.offset.compareTo(b.offset);
+      return cmp != 0 ? cmp : a.index.compareTo(b.index);
+    });
+    return indexed.map((p) => p.member).toList();
+  }
+
+  /// GEN-093: Builds a set of member-type-qualified names from a list of
+  /// [MemberInfo] objects. Getters are prefixed with `get:`, setters with
+  /// `set:`, and methods/operators use their bare name.
+  ///
+  /// Mirrors `BridgeGenerator._buildQualifiedMemberNames`.
+  static Set<String> _buildQualifiedMemberNames(List<MemberInfo> members) {
+    final result = <String>{};
+    for (final m in members) {
+      if (m.isGetter) {
+        result.add('get:${m.name}');
+      } else if (m.isSetter) {
+        result.add('set:${m.name}');
+      } else {
+        result.add(m.name);
+      }
+    }
+    return result;
+  }
+
+  /// Collects inherited members from all supertypes of a class element.
+  ///
+  /// Twin of `_ResolvedClassVisitor._collectInheritedMembersFromElement` —
+  /// static members are skipped (not inherited in Dart), private members are
+  /// skipped, and `@internal` / `@visibleForOverriding` / `@mustBeOverridden`
+  /// members are skipped.
+  List<MemberInfo> _collectInheritedMembers(
+    InterfaceElement classElement,
+    Set<String> declaredMemberNames,
+  ) {
+    final result = <MemberInfo>[];
+    final processedNames = Set<String>.from(declaredMemberNames);
+    final memberIndexByName = <String, int>{};
+
+    final inheritanceManager = InheritanceManager3();
+
+    for (final supertype in classElement.allSupertypes) {
+      final supertypeElement = supertype.element;
+      final isMixinSupertype = supertypeElement is MixinElement;
+
+      if (supertypeElement.name == 'Object') continue;
+
+      // Build type substitution map from supertype's type parameters to the
+      // type arguments on this particular supertype reference.
+      final typeSubstitution = <String, DartType>{};
+      final typeParams = supertypeElement.typeParameters;
+      final typeArgs = supertype.typeArguments;
+      for (var i = 0; i < typeParams.length && i < typeArgs.length; i++) {
+        final paramName = typeParams[i].name;
+        if (paramName != null) {
+          typeSubstitution[paramName] = typeArgs[i];
+        }
+      }
+
+      // Getters.
+      for (final getter in supertypeElement.getters) {
+        if (getter.isStatic) continue;
+        final gname = getter.name;
+        if (gname == null) continue;
+        if (gname.startsWith('_')) continue;
+        if (_hasInternalElementAnnotation(getter)) continue;
+
+        final qualified = 'get:$gname';
+        if (processedNames.contains(qualified)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[qualified];
+          if (existingIndex == null) continue;
+          final memberInfo =
+              _parseMemberFromGetterElement(getter, typeSubstitution);
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
+
+        if (getter.isSynthetic && supertypeElement is EnumElement) continue;
+
+        final memberInfo =
+            _parseMemberFromGetterElement(getter, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          memberIndexByName[qualified] = result.length - 1;
+          processedNames.add(qualified);
+        }
+      }
+
+      // Setters.
+      for (final setter in supertypeElement.setters) {
+        if (setter.isStatic) continue;
+        final sname = setter.name;
+        if (sname == null) continue;
+        if (sname.startsWith('_')) continue;
+        if (_hasInternalElementAnnotation(setter)) continue;
+
+        final qualified = 'set:$sname';
+        if (processedNames.contains(qualified)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[qualified];
+          if (existingIndex == null) continue;
+          final memberInfo =
+              _parseMemberFromSetterElement(setter, typeSubstitution);
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
+
+        final memberInfo =
+            _parseMemberFromSetterElement(setter, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          memberIndexByName[qualified] = result.length - 1;
+          processedNames.add(qualified);
+        }
+      }
+
+      // Methods (non-operator). Use InheritanceManager3.getMember to resolve
+      // covariant parameter narrowing and generic substitution.
+      for (final method in supertypeElement.methods) {
+        if (method.isStatic) continue;
+        final mname = method.name;
+        if (mname == null || mname.startsWith('_')) continue;
+        if (_hasInternalElementAnnotation(method)) continue;
+
+        MethodElement effectiveMethod = method;
+        Map<String, DartType>? effectiveSubstitution = typeSubstitution;
+        final resolved = inheritanceManager.getMember(
+          classElement,
+          Name(null, mname),
+        );
+        if (resolved is MethodElement) {
+          effectiveMethod = resolved as MethodElement;
+          effectiveSubstitution = null;
+        }
+
+        if (processedNames.contains(mname)) {
+          if (!isMixinSupertype) continue;
+          final existingIndex = memberIndexByName[mname];
+          if (existingIndex == null) continue;
+          final memberInfo = _parseMemberFromMethodElement(
+            effectiveMethod,
+            effectiveSubstitution,
+          );
+          if (memberInfo != null) {
+            result[existingIndex] = memberInfo;
+          }
+          continue;
+        }
+
+        if (method.isOperator) continue;
+
+        final memberInfo = _parseMemberFromMethodElement(
+          effectiveMethod,
+          effectiveSubstitution,
+        );
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          memberIndexByName[mname] = result.length - 1;
+          processedNames.add(mname);
+        }
+      }
+
+      // Operators.
+      for (final method in supertypeElement.methods) {
+        if (!method.isOperator) continue;
+        final mname = method.name;
+        if (mname == null || mname.startsWith('_')) continue;
+        if (_hasInternalElementAnnotation(method)) continue;
+
+        if (processedNames.contains(mname)) continue;
+
+        final operatorKey = '$mname#${method.formalParameters.length}';
+        if (processedNames.contains(operatorKey)) continue;
+
+        final memberInfo =
+            _parseMemberFromMethodElement(method, typeSubstitution);
+        if (memberInfo != null) {
+          result.add(memberInfo);
+          processedNames.add(mname);
+          processedNames.add(operatorKey);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /// Mirrors `_ResolvedClassVisitor._substituteTypeParameters`.
+  String _substituteTypeParameters(
+    DartType type,
+    Map<String, DartType> substitution,
+  ) {
+    if (type is TypeParameterType) {
+      final tpName = type.element.name;
+      if (tpName != null && substitution.containsKey(tpName)) {
+        return substitution[tpName]!.getDisplayString();
+      }
+      return 'dynamic';
+    }
+
+    if (type is InterfaceType) {
+      final typeArgs = type.typeArguments;
+      if (typeArgs.isEmpty) {
+        return type.getDisplayString();
+      }
+      final substitutedArgs = typeArgs
+          .map((arg) => _substituteTypeParameters(arg, substitution))
+          .join(', ');
+      final baseName = type.element.name;
+      return '$baseName<$substitutedArgs>';
+    }
+
+    if (type is FunctionType) {
+      final returnType = _substituteTypeParameters(
+        type.returnType,
+        substitution,
+      );
+      final formalParams = type.formalParameters;
+      final params = <String>[];
+      final optionalParts = <String>[];
+      final namedParts = <String>[];
+      for (final param in formalParams) {
+        final paramType = _substituteTypeParameters(param.type, substitution);
+        final paramName = param.name;
+        if (param.isRequiredPositional) {
+          if (paramName != null && paramName.isNotEmpty) {
+            params.add('$paramType $paramName');
+          } else {
+            params.add(paramType);
+          }
+        } else if (param.isOptionalPositional) {
+          if (paramName != null && paramName.isNotEmpty) {
+            optionalParts.add('$paramType $paramName');
+          } else {
+            optionalParts.add(paramType);
+          }
+        } else if (param.isNamed) {
+          final name = paramName ?? '';
+          if (param.isRequiredNamed) {
+            namedParts.add('required $paramType $name');
+          } else {
+            namedParts.add('$paramType $name');
+          }
+        }
+      }
+      if (optionalParts.isNotEmpty) {
+        params.add('[${optionalParts.join(', ')}]');
+      }
+      if (namedParts.isNotEmpty) {
+        params.add('{${namedParts.join(', ')}}');
+      }
+      return '$returnType Function(${params.join(', ')})';
+    }
+
+    return type.getDisplayString();
+  }
+
+  /// Mirrors `_ResolvedClassVisitor._parseMemberFromGetterElement`.
+  MemberInfo? _parseMemberFromGetterElement(
+    GetterElement getter, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = getter.displayName;
+    final rawReturnType = getter.returnType;
+    final returnType = typeSubstitution != null && typeSubstitution.isNotEmpty
+        ? _substituteTypeParameters(rawReturnType, typeSubstitution)
+        : _renderDartType(rawReturnType);
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    _collectInfoFromDartType(rawReturnType, typeImportUris, typeToUri);
+    return MemberInfo(
+      name: name,
+      returnType: returnType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isGetter: true,
+      isStatic: getter.isStatic,
+    );
+  }
+
+  /// Mirrors `_ResolvedClassVisitor._parseMemberFromSetterElement`. Critical:
+  /// populates `parameters` so the renderer emits the typed parameter.
+  MemberInfo? _parseMemberFromSetterElement(
+    SetterElement setter, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = setter.displayName;
+    final params = setter.formalParameters;
+    final rawParamType = params.isNotEmpty ? params.first.type : null;
+    final paramType = rawParamType != null
+        ? (typeSubstitution != null && typeSubstitution.isNotEmpty
+            ? _substituteTypeParameters(rawParamType, typeSubstitution)
+            : _renderDartType(rawParamType))
+        : 'dynamic';
+
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    if (rawParamType != null) {
+      _collectInfoFromDartType(rawParamType, typeImportUris, typeToUri);
+    }
+
+    final functionTypeInfo = rawParamType != null
+        ? BridgeGenerator.extractFunctionTypeInfoFromDartType(rawParamType)
+        : null;
+
+    return MemberInfo(
+      name: name,
+      returnType: paramType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isSetter: true,
+      isStatic: setter.isStatic,
+      functionTypeInfo: functionTypeInfo,
+      parameters: params.map((p) {
+        final pType = typeSubstitution != null && typeSubstitution.isNotEmpty
+            ? _substituteTypeParameters(p.type, typeSubstitution)
+            : _renderDartType(p.type);
+        return ParameterInfo(
+          name: p.name ?? 'value',
+          type: pType,
+          isRequired: p.isRequired,
+          isNamed: p.isNamed,
+        );
+      }).toList(),
+    );
+  }
+
+  /// Mirrors `_ResolvedClassVisitor._parseMemberFromMethodElement` with
+  /// optional type substitution.
+  MemberInfo? _parseMemberFromMethodElement(
+    MethodElement method, [
+    Map<String, DartType>? typeSubstitution,
+  ]) {
+    final name = method.displayName;
+    final rawReturnType = method.returnType;
+    final returnType = typeSubstitution != null && typeSubstitution.isNotEmpty
+        ? _substituteTypeParameters(rawReturnType, typeSubstitution)
+        : _renderDartType(rawReturnType);
+
+    final typeImportUris = <String>{};
+    final typeToUri = <String, String>{};
+    _collectInfoFromDartType(rawReturnType, typeImportUris, typeToUri);
+
+    final parameters = method.formalParameters.map((p) {
+      final paramTypeImportUris = <String>{};
+      final paramTypeToUri = <String, String>{};
+      _collectInfoFromDartType(p.type, paramTypeImportUris, paramTypeToUri);
+
+      final paramType = typeSubstitution != null && typeSubstitution.isNotEmpty
+          ? _substituteTypeParameters(p.type, typeSubstitution)
+          : _renderDartType(p.type);
+
+      final funcTypeInfo =
+          BridgeGenerator.extractFunctionTypeInfoFromDartType(p.type);
+
+      return ParameterInfo(
+        name: p.name ?? '',
+        type: paramType,
+        isRequired: p.isRequired,
+        isNamed: p.isNamed,
+        // Plan Phase 1 / B2: prefer `constantInitializer.toSource()` (works
+        // for summary-backed params) over `defaultValueCode` (AST-only).
+        defaultValue: _defaultValueSource(p),
+        typeImportUris: paramTypeImportUris,
+        typeToUri: paramTypeToUri,
+        functionTypeInfo: funcTypeInfo,
+      );
+    }).toList();
+
+    final hasTypeParameters = method.typeParameters.isNotEmpty;
+    final methodTypeParams = <String, String?>{};
+    if (hasTypeParameters) {
+      for (final typeParam in method.typeParameters) {
+        final bound = typeParam.bound;
+        final paramName = typeParam.name;
+        if (paramName != null) {
+          methodTypeParams[paramName] =
+              bound != null ? _renderDartType(bound) : null;
+        }
+      }
+    }
+
+    return MemberInfo(
+      name: name,
+      returnType: returnType,
+      returnTypeImportUris: typeImportUris,
+      returnTypeToUri: typeToUri,
+      isMethod: !method.isOperator,
+      isOperator: method.isOperator,
+      isStatic: method.isStatic,
+      parameters: parameters,
+      hasTypeParameters: hasTypeParameters,
+      methodTypeParameters: methodTypeParams,
+    );
+  }
+
   MemberInfo _memberFromMethodElement(MethodElement method) {
     final rawReturnType = method.returnType;
     final typeInfo = _collectTypeInfo(rawReturnType);
@@ -1032,7 +1580,7 @@ class ElementModeExtractor {
           BridgeGenerator.extractFunctionTypeInfoFromDartType(p.type);
       return ParameterInfo(
         name: p.name ?? '',
-        type: p.type.getDisplayString(),
+        type: _renderDartType(p.type),
         isRequired: p.isRequired,
         isNamed: p.isNamed,
         defaultValue: _defaultValueSource(p),
@@ -1047,12 +1595,13 @@ class ElementModeExtractor {
     for (final tp in method.typeParameters) {
       final tpName = tp.name;
       if (tpName == null) continue;
-      methodTypeParams[tpName] = tp.bound?.getDisplayString();
+      final bound = tp.bound;
+      methodTypeParams[tpName] = bound != null ? _renderDartType(bound) : null;
     }
 
     return MemberInfo(
       name: method.name ?? '',
-      returnType: rawReturnType.getDisplayString(),
+      returnType: _renderDartType(rawReturnType),
       returnTypeImportUris: typeInfo.uris,
       returnTypeToUri: typeInfo.typeToUri,
       isMethod: !method.isOperator,

@@ -4076,6 +4076,11 @@ class BridgeGenerator {
     );
     extractor.extract(libResult.element, normalizedPath);
 
+    // Mirror AST-path behavior: populate _sourceFileImports so that
+    // _resolveDefaultTypePrefix can resolve identifiers like `Colors`
+    // referenced from default-value expressions.
+    _collectSourceFileImportsFromElement(libResult.element, normalizedPath);
+
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
     _typeAliases.addAll(extractor.typeAliases);
@@ -4134,6 +4139,11 @@ class BridgeGenerator {
       generateDeprecatedElements: generateDeprecatedElements,
     );
     extractor.extract(libResult.element, normalizedPath);
+
+    // Mirror AST-path behavior: populate _sourceFileImports so that
+    // _resolveDefaultTypePrefix can resolve identifiers referenced from
+    // default-value expressions in global functions / variables.
+    _collectSourceFileImportsFromElement(libResult.element, normalizedPath);
 
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
@@ -5138,11 +5148,19 @@ class BridgeGenerator {
   void _collectSourceFileImports(
     ResolvedLibraryResult result,
     String filePath,
+  ) => _collectSourceFileImportsFromElement(result.element, filePath);
+
+  /// Element-mode variant of [_collectSourceFileImports] — takes a
+  /// [LibraryElement] directly (no [ResolvedLibraryResult] required) and
+  /// populates [_sourceFileImports] with the same type-name → import-URI
+  /// mapping. Used by the element-mode fallback so default-value resolution
+  /// (e.g. `Colors.white` → `package:flutter/src/material/colors.dart`) works
+  /// identically to the AST path.
+  void _collectSourceFileImportsFromElement(
+    LibraryElement libraryElement,
+    String filePath,
   ) {
     final typeToUri = <String, String>{};
-
-    // Get the library element to access its fragments
-    final libraryElement = result.element;
 
     // Iterate through all fragments (includes the main file and parts)
     for (final fragment in libraryElement.fragments) {
