@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-03-30T17:48:49.560082
+// Generated: 2026-04-22T19:58:16.849082
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -328,7 +328,7 @@ class ExampleProjectBridge {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         return $d4_example_5.findWhere<dynamic>(items, predicate);
       },
       'mapList': (visitor, positional, named, typeArgs) {
@@ -348,7 +348,7 @@ class ExampleProjectBridge {
           throw ArgumentError('filterList: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        final predicate = (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = (dynamic p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         return $d4_example_5.filterList<dynamic>(items, predicate);
       },
       'reduceList': (visitor, positional, named, typeArgs) {
@@ -441,7 +441,7 @@ class ExampleProjectBridge {
           throw ArgumentError('processAsync: Missing required argument "processor" at position 1');
         }
         final processorRaw = positional[1];
-        final processor = (dynamic p0) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0]) as Future<dynamic>; };
+        final processor = (dynamic p0) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, processorRaw, [p0]), 'callback', visitor); };
         return $d4_example_5.processAsync<dynamic, dynamic>(items, processor);
       },
       'incrementCounter': (visitor, positional, named, typeArgs) {
@@ -921,7 +921,7 @@ BridgedClass _createTaskSchedulerBridge() {
           throw ArgumentError('filterValues: Missing required argument "predicate" at position 1');
         }
         final predicateRaw = positional[1];
-        return t.filterValues(values, (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return t.filterValues(values, (dynamic p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
       },
       'reduceValues': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.TaskScheduler>(target, 'TaskScheduler');
@@ -1316,7 +1316,7 @@ BridgedClass _createRepositoryBridge() {
           throw ArgumentError('findWhere: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return (t as dynamic).findWhere(($d4_example_4.Identifiable p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return (t as dynamic).findWhere(($d4_example_4.Identifiable p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
       },
       'mapAll': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_4.Repository>(target, 'Repository');

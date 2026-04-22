@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_extensions.dart
-// Generated: 2026-03-30T17:48:46.398936
+// Generated: 2026-04-22T19:58:16.508714
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -155,14 +155,14 @@ class CoreExtensionsBridge {
         D4.requireMinArgs(positional, 1, 'filterItems');
         final items = D4.getRequiredArg<List<dynamic>>(positional, 0, 'items', 'filterItems');
         final predicateRaw = named['predicate'];
-        final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; };
+        final predicate = predicateRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); };
         return $d4_example_1.filterItems<dynamic>(items, predicate: predicate);
       },
       'promptUser': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'promptUser');
         final message = D4.getRequiredArg<String>(positional, 0, 'message', 'promptUser');
         final customPromptRaw = named['customPrompt'];
-        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]) as String; };
+        final customPrompt = customPromptRaw == null ? null : (String p0, String? p1, bool p2) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, customPromptRaw, [p0, p1, p2]), 'callback', visitor); };
         final defaultValue = D4.getOptionalNamedArg<String?>(named, 'defaultValue');
         final required = D4.getNamedArgWithDefault<bool>(named, 'required', true);
         return $d4_example_1.promptUser(message, customPrompt: customPrompt, defaultValue: defaultValue, required: required);

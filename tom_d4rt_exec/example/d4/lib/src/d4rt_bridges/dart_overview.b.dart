@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-03-30T17:49:09.119438
+// Generated: 2026-04-22T19:58:19.843252
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -24,6 +24,10 @@ import 'package:d4_example/src/dart_overview/globals/basics/run_basics.dart' as 
 import 'package:d4_example/src/dart_overview/mixins/basics/run_basics.dart' as $d4_example_14;
 import 'package:d4_example/src/dart_overview/records/basics/run_basics.dart' as $d4_example_15;
 import 'package:d4_example/src/dart_overview/run_dart_overview.dart' as $d4_example_16;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_17;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_18;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_19;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_20;
 
 /// Bridge class for dart_overview module.
 class DartOverviewBridge {
@@ -574,7 +578,7 @@ class DartOverviewBridge {
           throw ArgumentError('transform: Missing required argument "transformer" at position 1');
         }
         final transformerRaw = positional[1];
-        final transformer = (int p0) { return D4.callInterpreterCallback(visitor!, transformerRaw, [p0]) as int; };
+        final transformer = (int p0) { return D4.extractBridgedArg<int>(D4.callInterpreterCallback(visitor!, transformerRaw, [p0]), 'callback', visitor); };
         return $d4_example_10.transform(numbers, transformer);
       },
       'fetchData': (visitor, positional, named, typeArgs) {
@@ -1799,6 +1803,7 @@ BridgedClass _createLoggableMixinBridge() {
     nativeType: $d4_example_7.LoggableMixin,
     name: 'LoggableMixin',
     isAssignable: (v) => v is $d4_example_7.LoggableMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -3844,6 +3849,7 @@ BridgedClass _createSerializableBridge() {
     nativeType: $d4_example_6.Serializable,
     name: 'Serializable',
     isAssignable: (v) => v is $d4_example_6.Serializable,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -3902,6 +3908,7 @@ BridgedClass _createTrackableBridge() {
     nativeType: $d4_example_6.Trackable,
     name: 'Trackable',
     isAssignable: (v) => v is $d4_example_6.Trackable,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -4087,6 +4094,7 @@ BridgedClass _createMusicalBridge() {
     nativeType: $d4_example_14.Musical,
     name: 'Musical',
     isAssignable: (v) => v is $d4_example_14.Musical,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4111,6 +4119,7 @@ BridgedClass _createDancingBridge() {
     nativeType: $d4_example_14.Dancing,
     name: 'Dancing',
     isAssignable: (v) => v is $d4_example_14.Dancing,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4309,6 +4318,7 @@ BridgedClass _createLoggingBridge() {
     nativeType: $d4_example_14.Logging,
     name: 'Logging',
     isAssignable: (v) => v is $d4_example_14.Logging,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4417,6 +4427,7 @@ BridgedClass _createGreeter1Bridge() {
     nativeType: $d4_example_14.Greeter1,
     name: 'Greeter1',
     isAssignable: (v) => v is $d4_example_14.Greeter1,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4441,6 +4452,7 @@ BridgedClass _createGreeter2Bridge() {
     nativeType: $d4_example_14.Greeter2,
     name: 'Greeter2',
     isAssignable: (v) => v is $d4_example_14.Greeter2,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4561,6 +4573,7 @@ BridgedClass _createEventEmitterBridge() {
     nativeType: $d4_example_14.EventEmitter,
     name: 'EventEmitter',
     isAssignable: (v) => v is $d4_example_14.EventEmitter,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {
@@ -4677,6 +4690,7 @@ BridgedClass _createComparableMixinBridge() {
     nativeType: $d4_example_14.ComparableMixin,
     name: 'ComparableMixin',
     isAssignable: (v) => v is $d4_example_14.ComparableMixin,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     getters: {
@@ -4747,6 +4761,7 @@ BridgedClass _createJsonSerializableBridge() {
     nativeType: $d4_example_14.JsonSerializable,
     name: 'JsonSerializable',
     isAssignable: (v) => v is $d4_example_14.JsonSerializable,
+    canBeUsedAsMixin: true,
     constructors: {
     },
     methods: {

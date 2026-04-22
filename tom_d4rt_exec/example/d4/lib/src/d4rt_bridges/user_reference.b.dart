@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 2 files
-// Generated: 2026-03-30T17:48:51.825160
+// Generated: 2026-04-22T19:58:17.241154
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -382,7 +382,7 @@ BridgedClass _createUserServiceBridge() {
           throw ArgumentError('findUsers: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.findUsers(($d4_example_1.User p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
+        return t.findUsers(($d4_example_1.User p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
       },
       'fetchUser': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$d4_example_2.UserService>(target, 'UserService');

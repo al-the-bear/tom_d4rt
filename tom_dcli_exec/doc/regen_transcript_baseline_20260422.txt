@@ -1,0 +1,92 @@
+>>> tom_ai/d4rt/tom_dcli_exec
+Processing project: .
+  Using configuration from buildkit.yaml
+  Project: tom_dcli_exec
+  Modules: 5
+  Generating module: cli_api
+GEN-057: Parsed class "D4rt" from external file: package:tom_d4rt_exec/src/d4rt_base.dart
+GEN-055: Added "D4rt" as API surface dependency
+    Generated 21 classes
+  Generating module: tom_vscode_scripting_api
+    Generated 42 classes
+  Generating module: dcli
+Skipping re-export from crypto (not configured to follow)
+SKIPPED: class Cat - not exported from barrel file
+SKIPPED: class CopyTreeException - not exported from barrel file
+SKIPPED: class EnvironmentException - not exported from barrel file
+SKIPPED: class PatternMatcher - not exported from barrel file
+SKIPPED: class FindException - not exported from barrel file
+SKIPPED: class FindConfig - not exported from barrel file
+SKIPPED: class FindAsync - not exported from barrel file
+SKIPPED: class HeadException - not exported from barrel file
+SKIPPED: class TailException - not exported from barrel file
+SKIPPED: class TouchException - not exported from barrel file
+SKIPPED: class Which - not exported from barrel file
+SKIPPED: class WhichSearch - not exported from barrel file
+SKIPPED: class Settings - not exported from barrel file
+SKIPPED: class DCliPlatform - not exported from barrel file
+SKIPPED: class FileNotFoundException - not exported from barrel file
+SKIPPED: class NotAFileException - not exported from barrel file
+SKIPPED: class LimitedStreamController - not exported from barrel file
+SKIPPED: class LineFile - not exported from barrel file
+SKIPPED: class FindProgress - not exported from barrel file
+SKIPPED: class HeadProgress - not exported from barrel file
+SKIPPED: class Menu - not exported from barrel file
+SKIPPED: class TailProgress - not exported from barrel file
+SKIPPED: class TailException - not exported from barrel file
+SKIPPED: class PithyGreetings - not exported from barrel file
+SKIPPED: class PubspecNotFoundException - not exported from barrel file
+SKIPPED: class InternalSettings - not exported from barrel file
+SKIPPED: class CaseInsensitiveSort - not exported from barrel file
+SKIPPED: class CaseSensitiveSort - not exported from barrel file
+SKIPPED: class NumericSort - not exported from barrel file
+SKIPPED: class MonthSort - not exported from barrel file
+SKIPPED: class ColumnComparator - not exported from barrel file
+SKIPPED: class ScpException - not exported from barrel file
+SKIPPED: class RemoteException - not exported from barrel file
+SKIPPED: class RunnableProcess - not exported from barrel file
+  GEN-049: Discovered extension PlatformEx on Platform from import package:dcli_core/src/util/platform.dart
+SKIPPED: enum DCliPlatformOS - not exported from barrel file
+SKIPPED: function backupFile - not exported from barrel file
+SKIPPED: function restoreFile - not exported from barrel file
+SKIPPED: function withFileProtectionAsync - not exported from barrel file
+SKIPPED: function delete - not exported from barrel file
+SKIPPED: function withEnvironment - not exported from barrel file
+SKIPPED: function find - not exported from barrel file
+SKIPPED: function findAsync - not exported from barrel file
+SKIPPED: function head - not exported from barrel file
+SKIPPED: function lastModified - not exported from barrel file
+SKIPPED: function setLastModifed - not exported from barrel file
+SKIPPED: function tail - not exported from barrel file
+SKIPPED: function which - not exported from barrel file
+SKIPPED: function withOpenFile - not exported from barrel file
+SKIPPED: function symlink - not exported from barrel file
+SKIPPED: function deleteSymlink - not exported from barrel file
+SKIPPED: function resolveSymLink - not exported from barrel file
+SKIPPED: function stat - not exported from barrel file
+SKIPPED: function fileLength - not exported from barrel file
+SKIPPED: function withTempFileAsync - not exported from barrel file
+SKIPPED: function calculateHash - not exported from barrel file
+SKIPPED: function withOpenLineFile - not exported from barrel file
+SKIPPED: function isTerminalDumb - not exported from barrel file
+SKIPPED: function searchForCommandExtension - not exported from barrel file
+SKIPPED: function findExtension - not exported from barrel file
+SKIPPED: function processLogger - not exported from barrel file
+SKIPPED: variable dartSdkNotFound - not exported from barrel file
+SKIPPED: variable capturePrinterrKey - not exported from barrel file
+SKIPPED: extension PlatformEx - duplicate (already seen from another import)
+GEN-055: Added "FindProgress" as API surface dependency
+GEN-055: Added "HeadProgress" as API surface dependency
+GEN-055: Added "TailProgress" as API surface dependency
+GEN-055: Added "Which" as API surface dependency
+    Generated 66 classes
+  Generating module: path
+SKIPPED: function createInternal - not exported from barrel file
+    Generated 5 classes
+  Generating module: tom_chattools
+    Generated 11 classes
+  Generating barrel: ./lib/d4rt_bridges.b.dart
+  Generating dartscript: ./lib/dartscript.b.dart
+  Generating test runner: ./bin/d4rtrun.b.dart
+  Complete
+

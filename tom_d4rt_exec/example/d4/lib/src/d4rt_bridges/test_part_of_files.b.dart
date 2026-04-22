@@ -1,13 +1,17 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_part_of_files.dart
-// Generated: 2026-03-30T17:49:23.744950
+// Generated: 2026-04-22T19:58:23.042485
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 import 'package:tom_d4rt_exec/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt.dart';
 
-import 'package:d4_example/test_part_of_files.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/globals_user_bridge.dart' as $d4_example_1;
+import 'package:d4_example/src/userbridge_override/my_list_user_bridge.dart' as $d4_example_2;
+import 'package:d4_example/src/userbridge_user_guide/matrix2x2_user_bridge.dart' as $d4_example_3;
+import 'package:d4_example/src/userbridge_user_guide/vector2d_user_bridge.dart' as $d4_example_4;
+import 'package:d4_example/test_part_of_files.dart' as $d4_example_5;
 
 /// Bridge class for test_part_of_files module.
 class TestPartOfFilesBridge {
@@ -143,23 +147,23 @@ class TestPartOfFilesBridge {
 
 BridgedClass _createPartOfTestServiceBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.PartOfTestService,
+    nativeType: $d4_example_5.PartOfTestService,
     name: 'PartOfTestService',
-    isAssignable: (v) => v is $d4_example_1.PartOfTestService,
+    isAssignable: (v) => v is $d4_example_5.PartOfTestService,
     constructors: {
       '': (visitor, positional, named) {
-        final callback = D4.getOptionalNamedArg<$d4_example_1.PartCallback?>(named, 'callback');
-        final data = D4.getRequiredNamedArg<$d4_example_1.PartData>(named, 'data', 'PartOfTestService');
-        return $d4_example_1.PartOfTestService(callback: callback, data: data);
+        final callback = D4.getOptionalNamedArg<$d4_example_5.PartCallback?>(named, 'callback');
+        final data = D4.getRequiredNamedArg<$d4_example_5.PartData>(named, 'data', 'PartOfTestService');
+        return $d4_example_5.PartOfTestService(callback: callback, data: data);
       },
     },
     getters: {
-      'callback': (visitor, target) => D4.validateTarget<$d4_example_1.PartOfTestService>(target, 'PartOfTestService').callback,
-      'data': (visitor, target) => D4.validateTarget<$d4_example_1.PartOfTestService>(target, 'PartOfTestService').data,
+      'callback': (visitor, target) => D4.validateTarget<$d4_example_5.PartOfTestService>(target, 'PartOfTestService').callback,
+      'data': (visitor, target) => D4.validateTarget<$d4_example_5.PartOfTestService>(target, 'PartOfTestService').data,
     },
     methods: {
       'execute': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.PartOfTestService>(target, 'PartOfTestService');
+        final t = D4.validateTarget<$d4_example_5.PartOfTestService>(target, 'PartOfTestService');
         t.execute();
         return null;
       },
@@ -183,14 +187,14 @@ BridgedClass _createPartOfTestServiceBridge() {
 
 BridgedClass _createPartCallbackBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.PartCallback,
+    nativeType: $d4_example_5.PartCallback,
     name: 'PartCallback',
-    isAssignable: (v) => v is $d4_example_1.PartCallback,
+    isAssignable: (v) => v is $d4_example_5.PartCallback,
     constructors: {
       '': (visitor, positional, named) {
         final onDataRaw = named['onData'];
         final onErrorRaw = named['onError'];
-        return $d4_example_1.PartCallback(onData: onDataRaw == null ? null : ($d4_example_1.PartData p0) { D4.callInterpreterCallback(visitor!, onDataRaw, [p0]); }, onError: onErrorRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
+        return $d4_example_5.PartCallback(onData: onDataRaw == null ? null : ($d4_example_5.PartData p0) { D4.callInterpreterCallback(visitor!, onDataRaw, [p0]); }, onError: onErrorRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0]); });
       },
       'dataOnly': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'PartCallback');
@@ -198,12 +202,12 @@ BridgedClass _createPartCallbackBridge() {
           throw ArgumentError('PartCallback: Missing required argument "handler" at position 0');
         }
         final handlerRaw = positional[0];
-        return $d4_example_1.PartCallback.dataOnly(($d4_example_1.PartData p0) { D4.callInterpreterCallback(visitor!, handlerRaw, [p0]); });
+        return $d4_example_5.PartCallback.dataOnly(($d4_example_5.PartData p0) { D4.callInterpreterCallback(visitor!, handlerRaw, [p0]); });
       },
     },
     getters: {
-      'onData': (visitor, target) => D4.validateTarget<$d4_example_1.PartCallback>(target, 'PartCallback').onData,
-      'onError': (visitor, target) => D4.validateTarget<$d4_example_1.PartCallback>(target, 'PartCallback').onError,
+      'onData': (visitor, target) => D4.validateTarget<$d4_example_5.PartCallback>(target, 'PartCallback').onData,
+      'onError': (visitor, target) => D4.validateTarget<$d4_example_5.PartCallback>(target, 'PartCallback').onError,
     },
     constructorSignatures: {
       '': 'const PartCallback({void Function(PartData)? onData, void Function(String)? onError})',
@@ -222,24 +226,24 @@ BridgedClass _createPartCallbackBridge() {
 
 BridgedClass _createPartDataBridge() {
   return BridgedClass(
-    nativeType: $d4_example_1.PartData,
+    nativeType: $d4_example_5.PartData,
     name: 'PartData',
-    isAssignable: (v) => v is $d4_example_1.PartData,
+    isAssignable: (v) => v is $d4_example_5.PartData,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'PartData');
         final name = D4.getRequiredArg<String>(positional, 0, 'name', 'PartData');
         final value = D4.getRequiredArg<int>(positional, 1, 'value', 'PartData');
-        return $d4_example_1.PartData(name, value);
+        return $d4_example_5.PartData(name, value);
       },
     },
     getters: {
-      'name': (visitor, target) => D4.validateTarget<$d4_example_1.PartData>(target, 'PartData').name,
-      'value': (visitor, target) => D4.validateTarget<$d4_example_1.PartData>(target, 'PartData').value,
+      'name': (visitor, target) => D4.validateTarget<$d4_example_5.PartData>(target, 'PartData').name,
+      'value': (visitor, target) => D4.validateTarget<$d4_example_5.PartData>(target, 'PartData').value,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$d4_example_1.PartData>(target, 'PartData');
+        final t = D4.validateTarget<$d4_example_5.PartData>(target, 'PartData');
         return t.toString();
       },
     },
