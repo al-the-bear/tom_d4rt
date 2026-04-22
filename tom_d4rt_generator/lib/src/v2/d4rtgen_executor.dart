@@ -187,14 +187,25 @@ Future<void> _generateBridges(
   String? sdkSummaryPath;
   try {
     final cacheResult = await runSummaryCacheStage(projectDir);
-    final filtered = await filterSummariesForBridgedPackages(
-      projectDir: projectDir,
-      summaryPaths: cacheResult?.summaryPaths,
-      sdkSummaryPath: cacheResult?.sdkSummaryPath,
-      bridgeConfig: config,
-    );
-    summaryPaths = filtered.summaryPaths;
-    sdkSummaryPath = filtered.sdkSummaryPath;
+    final useSummariesForBridged =
+        Platform.environment['TOM_D4RT_BRIDGE_USE_SUMMARIES'] == '1';
+    if (useSummariesForBridged) {
+      summaryPaths = cacheResult?.summaryPaths;
+      sdkSummaryPath = cacheResult?.sdkSummaryPath;
+      print(
+        '  SUMMARY-FILTER: BYPASSED (TOM_D4RT_BRIDGE_USE_SUMMARIES=1) \u2014 '
+        'all packages read from summaries where available',
+      );
+    } else {
+      final filtered = await filterSummariesForBridgedPackages(
+        projectDir: projectDir,
+        summaryPaths: cacheResult?.summaryPaths,
+        sdkSummaryPath: cacheResult?.sdkSummaryPath,
+        bridgeConfig: config,
+      );
+      summaryPaths = filtered.summaryPaths;
+      sdkSummaryPath = filtered.sdkSummaryPath;
+    }
   } catch (e) {
     print('  Warning: summary-cache stage failed: $e');
   }
