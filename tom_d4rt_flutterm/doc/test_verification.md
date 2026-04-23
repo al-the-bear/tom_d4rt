@@ -595,13 +595,13 @@ Files that may have been replaced with fake demos. Need verification and restora
 |---|----------|-------|------|----------|-------|
 | 391 | widgets/scroll_update_notification_test.dart | 40 | 1249 | fake | fixed |
 | 392 | widgets/scroll_view_test.dart | 40 | 1665 | fake | fixed |
-| 393 | widgets/selectable_region_state_test.dart | 40 | 1253 | fake | |
-| 394 | widgets/select_all_text_intent_test.dart | 40 | 1664 | fake | |
-| 395 | widgets/select_intent_test.dart | 40 | 1163 | fake | |
-| 396 | widgets/selection_container_delegate_test.dart | 40 | 1744 | fake | |
-| 397 | widgets/selection_details_test.dart | 40 | 1250 | fake | |
-| 398 | widgets/semantics_gesture_delegate_test.dart | 40 | 1349 | fake | |
-| 399 | widgets/shortcut_activator_test.dart | 40 | 1176 | fake | |
+| 393 | widgets/selectable_region_state_test.dart | 40 | 1253 | fake | fixed |
+| 394 | widgets/select_all_text_intent_test.dart | 40 | 1664 | fake | fixed |
+| 395 | widgets/select_intent_test.dart | 40 | 1163 | fake | fixed |
+| 396 | widgets/selection_container_delegate_test.dart | 40 | 1744 | fake | fixed |
+| 397 | widgets/selection_details_test.dart | 40 | 1250 | fake | fixed |
+| 398 | widgets/semantics_gesture_delegate_test.dart | 40 | 1349 | fake | fixed |
+| 399 | widgets/shortcut_activator_test.dart | 40 | 1176 | fake | fixed |
 | 400 | widgets/shortcut_manager_test.dart | 40 | 1265 | fake | |
 
 ## Batch 41
