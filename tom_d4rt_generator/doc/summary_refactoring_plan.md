@@ -408,7 +408,7 @@ Exit criteria:
 - ✅ `user_bridge_test.dart` parity preserved — 15 pass, same 7
   pre-existing Globals-code-generation failures as pre-Phase-5.
 
-### Phase 6 — Delete the AST path (1 session)
+### Phase 6 — Delete the AST path (1 session) — **COMPLETE** (2026-04-23)
 
 - Remove `_ResolvedClassVisitor` (13810–16015), `_ClassVisitor`
   (16063–…), `_parseParameters`, `_parseField`, `_parseMethod`,
@@ -434,6 +434,42 @@ Exit criteria:
   regenerating + running its `testkit :test` and confirming the
   result column matches Phase 0. The full downstream sweep is
   deferred to Phase 7.
+
+**Phase 6 exit — measured results:**
+
+- `bridge_generator.dart`: 16,678 → 13,602 lines (−3,076 — well above
+  the ≥1,800-line target). `summary_exclusion.dart` (225 lines)
+  removed. AST imports (`features.dart`, `utilities.dart`,
+  `ast/ast.dart`, `ast/visitor.dart`,
+  `inheritance_manager3.dart`) removed from `bridge_generator.dart`.
+- Deleted: `_ResolvedClassVisitor` (~2,200 lines), `_ParsedClass`,
+  `_ClassVisitor` (~440 lines), `_collectSourceFileImports` wrapper,
+  `_collectExtensionsFromImports` (legacy AST path),
+  `useLegacyAstWalker` field, and legacy branches in `parseFile` /
+  `_parseGlobals`. `TOM_D4RT_BRIDGE_USE_SUMMARIES` scaffolding was
+  already removed in an earlier phase.
+- `dart analyze lib`: 6 pre-existing issues (unchanged from Phase 5
+  baseline) — 3 `unnecessary_brace_in_string_interps` infos in
+  generated-code writers, 1 `unnecessary_non_null_assertion` in
+  `relaxer_generator.dart`, 1 `unintended_html_in_doc_comment` in
+  `proxy_generator.dart`, 1 `curly_braces_in_flow_control_structures`
+  info in `relaxer_generator.dart`. No new issues introduced.
+- Regenerated `tom_d4rt_flutterm` bridges: byte-identical to the
+  Phase 5 output except for the top-of-file `Generated:` timestamp
+  across all 14 bridge files + barrel + proxies + relaxers.
+- Gating suites (`doc/baseline_runs_phase6/`): essential 111/0/0,
+  important 166/1/5 (same pre-existing failure as Phase 0:
+  `services/ codecs_test.dart`), secondary 616/1/40 (same
+  pre-existing failure as Phase 0:
+  `widgets/ gesture_detector_adv_test.dart`). All three match the
+  Phase 0 baseline exactly.
+- `tom_d4rt_exec` spot-check: 2,244 tests, 2,227 passed, 17 failed.
+  The 17 failures are identical to the pre-Phase-6 state
+  (confirmed by running the same subset on the stashed Phase 5
+  codebase — same tests fail in both, zero new regressions from
+  Phase 6). These failures carry over from earlier summary-refactor
+  phases (1–4) and are the responsibility of Phase 7's full
+  downstream sweep.
 
 ### Phase 7 — Publish and verify downstream (1 session)
 

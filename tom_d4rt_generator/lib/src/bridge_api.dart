@@ -515,7 +515,3 @@ Future<UserBridgeScanner> _preScanUserBridges(
 
   return scanner;
 }
-
-// Summary-exclusion helpers live in `summary_exclusion.dart` so both
-// `bridge_api.dart` and `v2/d4rtgen_executor.dart` share the same
-// filtering rules.
