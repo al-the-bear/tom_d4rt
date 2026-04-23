@@ -1795,9 +1795,13 @@ void _writeGenericConstructorFactory(
           '  final $safeName = positional.length > $i '
           '? (positional[$i] as num?)?.toDouble() : null;',
         );
-      } else if (_rc2IsInlineFunctionType(p.type)) {
-        // GEN-075: Function types can't be cast from InterpretedFunction —
-        // extract as dynamic, wrapper applied in constructor call below
+      } else if (_rc2IsInlineFunctionType(p.type) || p.isFunctionType) {
+        // GEN-075 / Phase 2: Function types can't be cast from
+        // InterpretedFunction — extract as dynamic, wrapper applied in the
+        // constructor call below. Typedef aliases (e.g. `ValueChanged<T>?`)
+        // don't match the `Function(` regex, so also honor `p.isFunctionType`
+        // (backed by `functionTypeInfo`) — element-mode preserves alias names
+        // in `p.type`.
         buffer.writeln(
           '  final $safeName = positional.length > $i '
           '? positional[$i] : null;',
@@ -1847,9 +1851,10 @@ void _writeGenericConstructorFactory(
           "  final $safeName = named.containsKey('${p.name}') "
           "? (named['${p.name}'] as num?)?.toDouble() : null;",
         );
-      } else if (_rc2IsInlineFunctionType(p.type)) {
-        // GEN-075: Function types can't be cast from InterpretedFunction —
-        // extract as dynamic, wrapper applied in constructor call below
+      } else if (_rc2IsInlineFunctionType(p.type) || p.isFunctionType) {
+        // GEN-075 / Phase 2: Function types can't be cast from
+        // InterpretedFunction — extract as dynamic, wrapper applied in the
+        // constructor call below. See sibling positional branch.
         buffer.writeln(
           "  final $safeName = named.containsKey('${p.name}') "
           "? named['${p.name}'] : null;",
@@ -2052,8 +2057,13 @@ void _writeRC2Case(
               ? '($safeName as Stream?)?.map<$innerType>((v) => v as $innerType)'
               : '($safeName as Stream).map<$innerType>((v) => v as $innerType)',
         );
-      } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
-        // GEN-075: Function type with known signature → generate wrapper
+      } else if (p.isFunctionType) {
+        // GEN-075 / Phase 2: Function type with known signature → generate
+        // wrapper. Covers both inline `void Function(T?)?` shapes AND typedef
+        // aliases like `ValueChanged<T?>?` — element-mode preserves the alias
+        // in `p.type`, so we can no longer rely on the `Function(` regex.
+        // `p.isFunctionType` ⇔ `functionTypeInfo != null` is the canonical
+        // signal that the analyzer resolved this parameter to a function type.
         args.add(
           _rc2GenerateFunctionWrapper(
             safeName,
@@ -2107,8 +2117,10 @@ void _writeRC2Case(
       } else {
         args.add('($safeName as num).toDouble()');
       }
-    } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
-      // GEN-075: Non-type-param function type → generate wrapper
+    } else if (p.isFunctionType) {
+      // GEN-075 / Phase 2: Non-type-param function type → generate wrapper.
+      // Accepts inline `Function(...)` shapes and typedef aliases
+      // (`VoidCallback`, `ValueChanged<T>`, …) alike.
       args.add(
         _rc2GenerateFunctionWrapper(
           safeName,
@@ -2204,8 +2216,11 @@ void _writeRC2Case(
               ? '${p.name}: ($safeName as Stream?)?.map<$innerType>((v) => v as $innerType)'
               : '${p.name}: ($safeName as Stream).map<$innerType>((v) => v as $innerType)',
         );
-      } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
-        // GEN-075: Function type with known signature → generate wrapper
+      } else if (p.isFunctionType) {
+        // GEN-075 / Phase 2: Function type with known signature → generate
+        // wrapper. See sibling positional branch for the full rationale — the
+        // element-mode type-renderer keeps typedef aliases intact so the
+        // `Function(` regex no longer fires on `ValueChanged<T?>?` etc.
         namedArgParts.add(
           '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, typeParamName, typeArg)}',
         );
@@ -2238,8 +2253,9 @@ void _writeRC2Case(
       } else {
         namedArgParts.add('${p.name}: ($safeName as num).toDouble()');
       }
-    } else if (isInlineFunctionType(p.type) && p.isFunctionType) {
-      // GEN-075: Non-type-param function type → generate wrapper
+    } else if (p.isFunctionType) {
+      // GEN-075 / Phase 2: Non-type-param function type → generate wrapper.
+      // Accepts inline `Function(...)` shapes and typedef aliases alike.
       namedArgParts.add(
         '${p.name}: ${_rc2GenerateFunctionWrapper(safeName, p.functionTypeInfo!, isTypeNullable, '__none__', '__none__')}',
       );

@@ -16,8 +16,6 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show runSummaryCacheStage;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
-import 'package:tom_d4rt_generator/src/summary_exclusion.dart'
-    show filterSummariesForBridgedPackages;
 import 'package:tom_d4rt_generator/src/user_bridge_scanner.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
@@ -179,33 +177,18 @@ Future<void> _generateBridges(
   // summary so the analyzer can resolve external dependencies from cached
   // `.sum` bundles instead of re-parsing their sources on every run.
   //
-  // Summaries for the packages we are bridging are filtered out because
-  // `.sum` bundles only carry the element model — bridge generation needs
-  // the full AST (default-parameter expressions, top-level functions,
-  // enum entries). Other dependencies still benefit from the cache.
+  // Phase 2 (summary-refactoring-plan): bridge generation now routes
+  // every package through its `.sum` summary bundle via the element
+  // walker (ElementModeExtractor). No filter-exclusion pass — every
+  // dependency (including bridged packages) resolves from summaries.
+  // The AST walker is only reachable behind BridgeGenerator.useLegacyAstWalker
+  // (internal debug flag, not user-exposed).
   List<String>? summaryPaths;
   String? sdkSummaryPath;
   try {
     final cacheResult = await runSummaryCacheStage(projectDir);
-    final useSummariesForBridged =
-        Platform.environment['TOM_D4RT_BRIDGE_USE_SUMMARIES'] == '1';
-    if (useSummariesForBridged) {
-      summaryPaths = cacheResult?.summaryPaths;
-      sdkSummaryPath = cacheResult?.sdkSummaryPath;
-      print(
-        '  SUMMARY-FILTER: BYPASSED (TOM_D4RT_BRIDGE_USE_SUMMARIES=1) \u2014 '
-        'all packages read from summaries where available',
-      );
-    } else {
-      final filtered = await filterSummariesForBridgedPackages(
-        projectDir: projectDir,
-        summaryPaths: cacheResult?.summaryPaths,
-        sdkSummaryPath: cacheResult?.sdkSummaryPath,
-        bridgeConfig: config,
-      );
-      summaryPaths = filtered.summaryPaths;
-      sdkSummaryPath = filtered.sdkSummaryPath;
-    }
+    summaryPaths = cacheResult?.summaryPaths;
+    sdkSummaryPath = cacheResult?.sdkSummaryPath;
   } catch (e) {
     print('  Warning: summary-cache stage failed: $e');
   }

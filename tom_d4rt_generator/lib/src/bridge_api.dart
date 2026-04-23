@@ -18,7 +18,6 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
-import 'summary_exclusion.dart' show filterSummariesForBridgedPackages;
 import 'user_bridge_scanner.dart';
 
 /// Result of a bridge generation operation.
@@ -133,40 +132,18 @@ Future<GenerationResult> generateBridges({
   // Failures here are non-fatal — we simply fall back to the classic
   // source-based analyzer context.
   //
-  // Bridge generation needs full AST (default-parameter expressions,
-  // annotation arguments, doc comments, token-level positions). `.sum`
-  // bundles only contain the element model — no AST — so we filter
-  // out summaries whose package is itself being bridged AND whose
-  // packages get followed via `export` directives from the barrels
-  // (e.g. flutter/foundation re-exports package:meta/meta.dart). Every
-  // other dependency (dart:core/ui via SDK summary, vector_math only
-  // as a type dependency, etc.) still resolves from summaries, which
-  // is where the real parse-time savings live.
+  // Phase 2 (summary-refactoring-plan): bridge generation now routes
+  // every package through its `.sum` summary bundle via the element
+  // walker (ElementModeExtractor). No filter-exclusion pass — every
+  // dependency (including bridged packages) resolves from summaries.
+  // The AST walker is only reachable behind BridgeGenerator.useLegacyAstWalker
+  // (internal debug flag, not user-exposed).
   List<String>? summaryPaths;
   String? sdkSummaryPath;
   try {
     final cacheResult = await runSummaryCacheStage(projectDir);
-    // EXPERIMENTAL: bypass filter so bridged packages route through
-    // summaries (element-mode extraction). Toggle via env var.
-    final useSummariesForBridged =
-        Platform.environment['TOM_D4RT_BRIDGE_USE_SUMMARIES'] == '1';
-    if (useSummariesForBridged) {
-      summaryPaths = cacheResult?.summaryPaths;
-      sdkSummaryPath = cacheResult?.sdkSummaryPath;
-      print(
-        '  SUMMARY-FILTER: BYPASSED (TOM_D4RT_BRIDGE_USE_SUMMARIES=1) \u2014 '
-        'all packages read from summaries where available',
-      );
-    } else {
-      final filtered = await filterSummariesForBridgedPackages(
-        projectDir: projectDir,
-        summaryPaths: cacheResult?.summaryPaths,
-        sdkSummaryPath: cacheResult?.sdkSummaryPath,
-        bridgeConfig: bridgeConfig,
-      );
-      summaryPaths = filtered.summaryPaths;
-      sdkSummaryPath = filtered.sdkSummaryPath;
-    }
+    summaryPaths = cacheResult?.summaryPaths;
+    sdkSummaryPath = cacheResult?.sdkSummaryPath;
   } catch (e) {
     // Never fail bridge generation because of the cache. Report and move on.
     print('  Warning: summary-cache stage failed: $e');

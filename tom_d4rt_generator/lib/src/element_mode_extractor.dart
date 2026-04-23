@@ -40,7 +40,8 @@ import 'bridge_generator.dart'
         GlobalVariableInfo,
         MemberInfo,
         ParameterInfo,
-        mapPrivateSdkLibrary;
+        mapPrivateSdkLibrary,
+        normalizeLibraryIdentifier;
 
 /// Walks a resolved `LibraryElement` and fills collections equivalent to the
 /// AST `_ResolvedClassVisitor` outputs.
@@ -202,7 +203,7 @@ class ElementModeExtractor {
         if (aliasName != null) {
           functionTypeAliases?.add(aliasName);
           final aliasLibrary = alias.element.library;
-          var uri = aliasLibrary.identifier;
+          var uri = normalizeLibraryIdentifier(aliasLibrary.identifier);
           if (uri.startsWith('dart:_')) {
             final mapped = mapPrivateSdkLibrary(uri);
             if (mapped == null) return;
@@ -242,7 +243,7 @@ class ElementModeExtractor {
     if (dartType is InterfaceType) {
       final element = dartType.element;
       final library = element.library;
-      var uri = library.identifier;
+      var uri = normalizeLibraryIdentifier(library.identifier);
 
       if (uri.startsWith('dart:_')) {
         final mapped = mapPrivateSdkLibrary(uri);
@@ -717,7 +718,7 @@ class ElementModeExtractor {
     if (extendedType is InterfaceType) {
       final element = extendedType.element;
       final library = element.library;
-      onTypeUri = library.identifier;
+      onTypeUri = normalizeLibraryIdentifier(library.identifier);
       final elementName = element.name;
       if (elementName != null) {
         onTypeName = elementName;
@@ -908,7 +909,11 @@ class ElementModeExtractor {
           classElement.superclassConstraints.isNotEmpty) {
         final first = classElement.superclassConstraints.first;
         superclass = first.element.name;
-        final uri = first.element.library.identifier;
+        final uri = normalizeLibraryIdentifier(
+          first.element.library.identifier,
+        );
+        // Match AST path: only store package: URIs, not dart: (mirrors
+        // `_ResolvedClassVisitor.visitClassDeclaration`).
         if (uri.startsWith('package:')) {
           superclassUri = uri;
           if (superclass != null) {
@@ -922,7 +927,10 @@ class ElementModeExtractor {
         final superName = supertype.element.name;
         if (superName != null && superName != 'Object') {
           superclass = superName;
-          final uri = supertype.element.library.identifier;
+          final uri = normalizeLibraryIdentifier(
+            supertype.element.library.identifier,
+          );
+          // Match AST path: only store package: URIs.
           if (uri.startsWith('package:')) {
             superclassUri = uri;
           }
@@ -1088,7 +1096,9 @@ class ElementModeExtractor {
         if (bound is InterfaceType) {
           final bName = bound.element.name;
           if (bName != null) {
-            final uri = bound.element.library.identifier;
+            final uri = normalizeLibraryIdentifier(
+              bound.element.library.identifier,
+            );
             if (!uri.startsWith('dart:')) {
               globalTypeToUri[bName] = uri;
             }

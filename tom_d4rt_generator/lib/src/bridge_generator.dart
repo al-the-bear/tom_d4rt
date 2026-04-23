@@ -966,6 +966,34 @@ String? mapPrivateSdkLibrary(
   return null;
 }
 
+/// Normalizes a library identifier to its canonical `dart:` URI where the SDK
+/// library is actually sourced from an embedder package.
+///
+/// Flutter ships `dart:ui` via `package:sky_engine/ui/ui.dart`. When the
+/// analyzer resolves types from a summary bundle or from the embedder source
+/// tree directly, `LibraryElement.identifier` reports the embedder URI
+/// (`package:sky_engine/ui/ui.dart`) rather than the canonical `dart:ui`.
+/// If the bridge emitter lets that URI flow through to generated imports,
+/// the resulting file ends up with *both* `dart:ui` and
+/// `package:sky_engine/ui/ui.dart`, and the CFE treats those as distinct
+/// libraries — so identical types (`Scene`, `TextStyle`, `Offset`, …) become
+/// incompatible across call sites and every cross-call fails to type-check.
+///
+/// This helper maps the known embedder URIs back to their canonical form so
+/// that both the AST walker and the element walker emit a single import.
+/// Only well-known mappings are applied — any unrecognised URI is returned
+/// unchanged.
+String normalizeLibraryIdentifier(String uri) {
+  // `package:sky_engine/ui/ui.dart` is the on-disk implementation of
+  // `dart:ui`. Other `package:sky_engine/*` URIs (internal Dart SDK sources
+  // like `package:sky_engine/core/…`) are not in general 1:1 with `dart:`
+  // libraries, so we only normalize the ui barrel here. The private
+  // `dart:_` → `dart:` mapping in `mapPrivateSdkLibrary` takes care of
+  // the rest of the SDK.
+  if (uri == 'package:sky_engine/ui/ui.dart') return 'dart:ui';
+  return uri;
+}
+
 /// A generic extraction site discovered during bridge code generation.
 ///
 /// Recorded whenever the generator emits a `D4.extractBridgedArg<Base<Arg>>`
@@ -1037,6 +1065,19 @@ class BridgeGenerator {
 
   /// Whether to output verbose information.
   final bool verbose;
+
+  /// INTERNAL DEBUG FLAG: when true, [parseFile] and [_parseGlobals] use the
+  /// legacy AST walker (`_ResolvedClassVisitor` via `getResolvedLibrary`)
+  /// instead of the default element-mode walker ([ElementModeExtractor] via
+  /// `getLibraryByUri`).
+  ///
+  /// This flag exists ONLY for local bisection when debugging regressions
+  /// between the two walkers during the Phase 2/3 migration
+  /// (`summary_refactoring_plan.md`). It must NOT be exposed on any
+  /// user-facing CLI or config surface — the AST walker relies on source
+  /// files being parseable, which is no longer guaranteed now that bridged
+  /// packages are read from `.sum` summary bundles.
+  bool useLegacyAstWalker = false;
 
   /// External types that require wrapper classes (detected during generation).
   final List<ExternalTypeWarning> externalTypeWarnings = [];
@@ -3809,6 +3850,12 @@ class BridgeGenerator {
   ///
   /// This method is public to allow the orchestrator to build a global class
   /// lookup for cross-package inheritance resolution.
+  ///
+  /// Phase 2 (summary-refactoring-plan): the default path walks the element
+  /// tree via [ElementModeExtractor] after resolving the library by its
+  /// package URI. The legacy AST walker ([_ResolvedClassVisitor] +
+  /// `getResolvedLibrary`) is only used when [useLegacyAstWalker] is set,
+  /// which is an internal debug flag.
   Future<List<ClassInfo>> parseFile(String filePath) async {
     // Normalize the file path
     final absolutePath = p.isAbsolute(filePath)
@@ -3817,70 +3864,90 @@ class BridgeGenerator {
     final normalizedPath = p.normalize(absolutePath);
 
     try {
-      // Use resolved analysis to get type information
       // Use _getAnalysisContextFor to support cross-package file analysis
       final contextCollection = _getAnalysisContextFor(normalizedPath);
       final context = contextCollection.contextFor(normalizedPath);
-      final result = await context.currentSession.getResolvedLibrary(
-        normalizedPath,
-      );
 
-      if (result is ResolvedLibraryResult) {
-        // Collect imports from this file for auxiliary type resolution
-        _collectSourceFileImports(result, normalizedPath);
-
-        // Scan for user bridges in each unit
-        for (final unit in result.units) {
-          _userBridgeScanner.scanUnit(unit.unit, unit.path);
-        }
-
-        // Use the resolved visitor to extract classes with type URIs
-        final visitor = _ResolvedClassVisitor(
-          skipPrivate: skipPrivate,
-          generateDeprecatedElements: generateDeprecatedElements,
+      if (!useLegacyAstWalker) {
+        // Primary path: element walker over the resolved library element.
+        // Every bridged package now reads from its `.sum` summary bundle
+        // (no filter-exclusion pass — see bridge_api.dart / d4rtgen_executor.dart),
+        // so this is the only path that works consistently across source-backed
+        // and summary-backed libraries.
+        final elementClasses = await _tryElementModeClasses(
+          context,
+          normalizedPath,
         );
-        for (final unit in result.units) {
-          visitor.setSourceFile(unit.path);
-          unit.unit.visitChildren(visitor);
+        if (elementClasses != null) {
+          // Scan the source file (when present on disk) syntactically for
+          // user-bridge annotations. Mirrors what the AST path did inline.
+          _syntacticallyScanForUserBridges(normalizedPath);
+          return elementClasses;
+        }
+        // Element-mode failed (no package URI, or getLibraryByUri returned
+        // a non-LibraryElementResult). Fall through to syntactic fallback.
+      } else {
+        // LEGACY BISECT PATH: getResolvedLibrary + _ResolvedClassVisitor.
+        // Not reachable in production — only for local debugging.
+        final result = await context.currentSession.getResolvedLibrary(
+          normalizedPath,
+        );
+
+        if (result is ResolvedLibraryResult) {
+          // Collect imports from this file for auxiliary type resolution
+          _collectSourceFileImports(result, normalizedPath);
+
+          // Scan for user bridges in each unit
+          for (final unit in result.units) {
+            _userBridgeScanner.scanUnit(unit.unit, unit.path);
+          }
+
+          // Use the resolved visitor to extract classes with type URIs
+          final visitor = _ResolvedClassVisitor(
+            skipPrivate: skipPrivate,
+            generateDeprecatedElements: generateDeprecatedElements,
+          );
+          for (final unit in result.units) {
+            visitor.setSourceFile(unit.path);
+            unit.unit.visitChildren(visitor);
+          }
+
+          // Accumulate skipped deprecated count
+          skippedDeprecatedCount += visitor.skippedDeprecatedCount;
+          // Copy collected typedef expansions to the generator
+          _typedefExpansions.addAll(visitor.typedefExpansions);
+          // GEN-074: Copy collected type aliases from the visitor
+          _typeAliases.addAll(visitor.typeAliases);
+          // GEN-017: Copy global type-to-URI mappings from resolved AST
+          _globalTypeToUri.addAll(visitor.globalTypeToUri);
+
+          return visitor.classes
+              .map(
+                (c) => ClassInfo(
+                  name: c.name,
+                  sourceFile: normalizedPath,
+                  superclass: c.superclass,
+                  superclassUri: c.superclassUri,
+                  isAbstract: c.isAbstract,
+                  isSealed: c.isSealed,
+                  isMixin: c.isMixin,
+                  constructors: c.constructors,
+                  members: c.members,
+                  typeParameters: c.typeParameters,
+                  allSupertypeNames: c.allSupertypeNames,
+                ),
+              )
+              .toList();
         }
 
-        // Accumulate skipped deprecated count
-        skippedDeprecatedCount += visitor.skippedDeprecatedCount;
-        // Copy collected typedef expansions to the generator
-        _typedefExpansions.addAll(visitor.typedefExpansions);
-        // GEN-074: Copy collected type aliases from the visitor
-        _typeAliases.addAll(visitor.typeAliases);
-        // GEN-017: Copy global type-to-URI mappings from resolved AST
-        _globalTypeToUri.addAll(visitor.globalTypeToUri);
-
-        return visitor.classes
-            .map(
-              (c) => ClassInfo(
-                name: c.name,
-                sourceFile: normalizedPath,
-                superclass: c.superclass,
-                superclassUri: c.superclassUri,
-                isAbstract: c.isAbstract,
-                isSealed: c.isSealed,
-                isMixin: c.isMixin,
-                constructors: c.constructors,
-                members: c.members,
-                typeParameters: c.typeParameters,
-                allSupertypeNames: c.allSupertypeNames,
-              ),
-            )
-            .toList();
-      }
-
-      // Element-mode fallback: when the analyzer refuses a path (typically
-      // because a `.sum` summary bundle has shadowed the source), resolve the
-      // library by its package URI and walk the element tree instead.
-      final elementClasses = await _tryElementModeClasses(
-        context,
-        normalizedPath,
-      );
-      if (elementClasses != null) {
-        return elementClasses;
+        // Legacy-path element fallback: mirrors the pre-Phase-2 behavior.
+        final elementClasses = await _tryElementModeClasses(
+          context,
+          normalizedPath,
+        );
+        if (elementClasses != null) {
+          return elementClasses;
+        }
       }
     } catch (e) {
       if (filePath.contains('sliver') || filePath.contains('Sliver')) {
@@ -3958,6 +4025,29 @@ class BridgeGenerator {
         // Use _getAnalysisContextFor to support cross-package file analysis
         final contextCollection = _getAnalysisContextFor(normalizedPath);
         final context = contextCollection.contextFor(normalizedPath);
+
+        if (!useLegacyAstWalker) {
+          // Phase 2 primary path: element walker via getLibraryByUri.
+          final extracted = await _tryElementModeGlobals(
+            context,
+            normalizedPath,
+          );
+          if (extracted != null) {
+            functions.addAll(extracted.functions);
+            variables.addAll(extracted.variables);
+            enums.addAll(extracted.enums);
+            extensions.addAll(extracted.extensions);
+            setterNames.addAll(extracted.setterNames);
+          } else if (verbose) {
+            print(
+              'Warning: Could not parse globals from $filePath '
+              '(element-mode walker returned null)',
+            );
+          }
+          continue;
+        }
+
+        // LEGACY BISECT PATH.
         final result = await context.currentSession.getResolvedLibrary(
           normalizedPath,
         );
@@ -3998,7 +4088,7 @@ class BridgeGenerator {
           // GEN-017: Copy global type-to-URI mappings from resolved AST
           _globalTypeToUri.addAll(visitor.globalTypeToUri);
         } else {
-          // Element-mode fallback. See [_tryElementModeClasses].
+          // Legacy-path element fallback.
           final extracted = await _tryElementModeGlobals(
             context,
             normalizedPath,
@@ -4029,6 +4119,33 @@ class BridgeGenerator {
       extensions: extensions,
       setterNames: setterNames,
     );
+  }
+
+  /// Syntactically scans a single file for user-bridge annotations. Used by
+  /// the element-mode primary path in [parseFile] (Phase 2), which no longer
+  /// visits the AST of bridged sources. User bridges may still live in the
+  /// bridged package's source tree alongside regular classes — preserving the
+  /// scan keeps parity with the legacy AST walker's inline
+  /// `_userBridgeScanner.scanUnit` call.
+  ///
+  /// Failures are silently ignored: the file may not exist on disk (summary-
+  /// only path) or may fail to parse. In both cases user bridges will simply
+  /// not be picked up from this file, which matches the behavior when
+  /// sources are genuinely unavailable.
+  void _syntacticallyScanForUserBridges(String filePath) {
+    try {
+      final file = File(filePath);
+      if (!file.existsSync()) return;
+      final content = file.readAsStringSync();
+      final parseResult = parseString(
+        content: content,
+        featureSet: FeatureSet.latestLanguageVersion(),
+      );
+      _userBridgeScanner.scanUnit(parseResult.unit, filePath);
+    } catch (_) {
+      // Non-fatal: user bridges are also discovered via the
+      // bridge_api.dart:_preScanUserBridges pre-scan pass.
+    }
   }
 
   /// Converts an absolute source-file path under `/lib/` to a `package:` URI
@@ -14330,7 +14447,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (extendedDartType is InterfaceType) {
       final element = extendedDartType.element;
       final library = element.library;
-      onTypeUri = library.identifier;
+      onTypeUri = normalizeLibraryIdentifier(library.identifier);
       // Also register in the global type registry so processTypeName can find it
       globalTypeToUri[onTypeName] = onTypeUri;
     }
@@ -14610,7 +14727,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       if (superclassType is InterfaceType) {
         final superclassElement = superclassType.element;
         final library = superclassElement.library;
-        final uri = library.identifier;
+        final uri = normalizeLibraryIdentifier(library.identifier);
         // Only store package: URIs, not file: or dart: URIs
         if (uri.startsWith('package:')) {
           superclassUri = uri;
@@ -14671,7 +14788,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final boundElementName = boundType.element.name;
           if (boundElementName != null) {
             final library = boundType.element.library;
-            final uri = library.identifier;
+            final uri = normalizeLibraryIdentifier(library.identifier);
             if (!uri.startsWith('dart:')) {
               globalTypeToUri[boundElementName] = uri;
             }
@@ -14747,7 +14864,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
       if (constraintType is InterfaceType) {
         final constraintElement = constraintType.element;
         final library = constraintElement.library;
-        final uri = library.identifier;
+        final uri = normalizeLibraryIdentifier(library.identifier);
         // Only store package: URIs, not file: or dart: URIs
         if (uri.startsWith('package:')) {
           superclassUri = uri;
@@ -14815,7 +14932,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final boundElementName = boundType.element.name;
           if (boundElementName != null) {
             final library = boundType.element.library;
-            final uri = library.identifier;
+            final uri = normalizeLibraryIdentifier(library.identifier);
             if (!uri.startsWith('dart:')) {
               globalTypeToUri[boundElementName] = uri;
             }
@@ -14885,7 +15002,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (superclassType is InterfaceType) {
       final superclassElement = superclassType.element;
       final library = superclassElement.library;
-      final uri = library.identifier;
+      final uri = normalizeLibraryIdentifier(library.identifier);
       // Only store package: URIs, not file: or dart: URIs
       if (uri.startsWith('package:')) {
         superclassUri = uri;
@@ -14934,7 +15051,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
           final boundElementName = boundType.element.name;
           if (boundElementName != null) {
             final library = boundType.element.library;
-            final uri = library.identifier;
+            final uri = normalizeLibraryIdentifier(library.identifier);
             if (!uri.startsWith('dart:')) {
               globalTypeToUri[boundElementName] = uri;
             }
@@ -15041,7 +15158,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
         if (aliasName != null) {
           functionTypeAliases?.add(aliasName);
           final library = alias.element.library;
-          var uri = library.identifier;
+          var uri = normalizeLibraryIdentifier(library.identifier);
           // Map private SDK libraries to public equivalents
           if (uri.startsWith('dart:_')) {
             final mapped = mapPrivateSdkLibrary(uri);
@@ -15090,7 +15207,7 @@ class _ResolvedClassVisitor extends RecursiveAstVisitor<void> {
     if (dartType is InterfaceType) {
       final element = dartType.element;
       final library = element.library;
-      var uri = library.identifier;
+      var uri = normalizeLibraryIdentifier(library.identifier);
 
       // Map private SDK libraries to public equivalents
       if (uri.startsWith('dart:_')) {
