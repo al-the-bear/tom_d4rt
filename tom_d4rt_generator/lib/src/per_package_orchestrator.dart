@@ -7,14 +7,18 @@ library;
 
 import 'dart:io' as io;
 
-import 'package:analyzer/dart/analysis/features.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
+    show AnalysisContextCollectionImpl;
 import 'package:path/path.dart' as p;
 
 import 'bridge_config.dart';
 import 'bridge_generator.dart';
 import 'file_generators.dart' show ensureBDartExtension;
 import 'file_writer.dart';
+import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
 
 /// Information about a source package and its elements.
@@ -155,6 +159,9 @@ class PerPackageBridgeOrchestrator {
       p.join(projectRoot, 'lib', 'd4rt_user_bridges'),
     ];
 
+    // Collect all user-bridge .dart files on disk first; only spin up an
+    // analyzer context if there's something to resolve.
+    final dartFiles = <String>[];
     for (final dirPath in userBridgeDirs) {
       final dir = io.Directory(dirPath);
       if (!dir.existsSync()) continue;
@@ -164,17 +171,49 @@ class PerPackageBridgeOrchestrator {
       await for (final entity in dir.list(recursive: true)) {
         if (entity is! io.File) continue;
         if (!entity.path.endsWith('.dart')) continue;
+        dartFiles.add(entity.path);
+      }
+    }
 
+    if (dartFiles.isNotEmpty) {
+      // Phase 5 (summary-refactoring-plan): the scanner is an element
+      // walker, so resolve each user-bridge file into a [LibraryElement].
+      // Forward the shared summary bundles so that `D4UserBridge` (from
+      // tom_d4rt) and `@D4rtUserBridge` resolve against the same `.sum`
+      // cache used by the BridgeGenerator instances this orchestrator
+      // spawns.
+      final hasSummaries =
+          (librarySummaryPaths != null && librarySummaryPaths!.isNotEmpty) ||
+              sdkSummaryPath != null;
+      final AnalysisContextCollection collection = hasSummaries
+          ? AnalysisContextCollectionImpl(
+              includedPaths: [projectRoot],
+              sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+              sdkSummaryPath: sdkSummaryPath,
+              librarySummaryPaths: librarySummaryPaths ?? const [],
+            )
+          : AnalysisContextCollection(
+              includedPaths: [projectRoot],
+              sdkPath: getSdkPath(),
+            );
+
+      for (final filePath in dartFiles) {
         try {
-          final content = await entity.readAsString();
-          final parseResult = parseString(
-            content: content,
-            featureSet: FeatureSet.latestLanguageVersion(),
+          final context = collection.contextFor(filePath);
+          final result = await context.currentSession.getResolvedLibrary(
+            filePath,
           );
-          _userBridgeScanner.scanUnit(parseResult.unit, entity.path);
+          if (result is ResolvedLibraryResult) {
+            _userBridgeScanner.scanLibrary(result.element, filePath);
+          } else {
+            onWarning?.call(
+              'Warning: Failed to resolve user bridge $filePath '
+              '(analyzer result: ${result.runtimeType})',
+            );
+          }
         } catch (e) {
           onWarning?.call(
-            'Warning: Failed to parse user bridge ${entity.path}: $e',
+            'Warning: Failed to resolve user bridge $filePath: $e',
           );
         }
       }

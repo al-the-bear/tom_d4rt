@@ -3890,13 +3890,29 @@ class BridgeGenerator {
           normalizedPath,
         );
         if (elementClasses != null) {
-          // Scan the source file (when present on disk) syntactically for
-          // user-bridge annotations. Mirrors what the AST path did inline.
-          _syntacticallyScanForUserBridges(normalizedPath);
+          // Phase 5: user-bridge scanning is performed inside
+          // [_tryElementModeClasses] directly against the resolved
+          // [LibraryElement], so the AST-based `_syntacticallyScanForUserBridges`
+          // helper is no longer needed here.
           return elementClasses;
         }
         // Element-mode failed (no package URI, or getLibraryByUri returned
-        // a non-LibraryElementResult). Fall through to syntactic fallback.
+        // a non-LibraryElementResult). Before falling through to the purely
+        // syntactic parser, still try to resolve the library by *path* so we
+        // can feed a `LibraryElement` to the user-bridge scanner. This covers
+        // files that sit outside a package's `lib/` tree — notably the
+        // `test/fixtures/` sources used by user_bridge_test.dart — where
+        // `_packageUriForFilePath` returns `null`.
+        try {
+          final resolved = await context.currentSession.getResolvedLibrary(
+            normalizedPath,
+          );
+          if (resolved is ResolvedLibraryResult) {
+            _userBridgeScanner.scanLibrary(resolved.element, normalizedPath);
+          }
+        } catch (_) {
+          // Best-effort; falling through to syntactic parsing below.
+        }
       } else {
         // LEGACY BISECT PATH: getResolvedLibrary + _ResolvedClassVisitor.
         // Not reachable in production — only for local debugging.
@@ -3908,10 +3924,10 @@ class BridgeGenerator {
           // Collect imports from this file for auxiliary type resolution
           _collectSourceFileImports(result, normalizedPath);
 
-          // Scan for user bridges in each unit
-          for (final unit in result.units) {
-            _userBridgeScanner.scanUnit(unit.unit, unit.path);
-          }
+          // Scan for user bridges on the resolved library element (the
+          // legacy AST scanner was removed in Phase 5 of the
+          // summary-refactoring plan — see user_bridge_scanner.dart).
+          _userBridgeScanner.scanLibrary(result.element, normalizedPath);
 
           // Use the resolved visitor to extract classes with type URIs
           final visitor = _ResolvedClassVisitor(
@@ -3977,8 +3993,15 @@ class BridgeGenerator {
       featureSet: FeatureSet.latestLanguageVersion(),
     );
 
-    // Scan for user bridges in syntactic parsing fallback
-    _userBridgeScanner.scanUnit(parseResult.unit, filePath);
+    // NOTE: user-bridge scanning is intentionally NOT performed on the
+    // syntactic fallback path. Phase 5 (summary-refactoring-plan) moved
+    // the scanner to a `LibraryElement` walker, and at this point the
+    // file could not be resolved into a library element. User bridges
+    // are still discovered via the `_preScanUserBridges` /
+    // `per_package_orchestrator.scanUserBridges` /
+    // `v2/d4rtgen_executor._scanUserBridges` pre-scan passes, which
+    // resolve files from `lib/{src/,}d4rt_user_bridges/` — the canonical
+    // location documented in `d4rt_user_bridge_annotation.dart`.
 
     final visitor = _ClassVisitor(
       skipPrivate: skipPrivate,
@@ -4132,33 +4155,6 @@ class BridgeGenerator {
     );
   }
 
-  /// Syntactically scans a single file for user-bridge annotations. Used by
-  /// the element-mode primary path in [parseFile] (Phase 2), which no longer
-  /// visits the AST of bridged sources. User bridges may still live in the
-  /// bridged package's source tree alongside regular classes — preserving the
-  /// scan keeps parity with the legacy AST walker's inline
-  /// `_userBridgeScanner.scanUnit` call.
-  ///
-  /// Failures are silently ignored: the file may not exist on disk (summary-
-  /// only path) or may fail to parse. In both cases user bridges will simply
-  /// not be picked up from this file, which matches the behavior when
-  /// sources are genuinely unavailable.
-  void _syntacticallyScanForUserBridges(String filePath) {
-    try {
-      final file = File(filePath);
-      if (!file.existsSync()) return;
-      final content = file.readAsStringSync();
-      final parseResult = parseString(
-        content: content,
-        featureSet: FeatureSet.latestLanguageVersion(),
-      );
-      _userBridgeScanner.scanUnit(parseResult.unit, filePath);
-    } catch (_) {
-      // Non-fatal: user bridges are also discovered via the
-      // bridge_api.dart:_preScanUserBridges pre-scan pass.
-    }
-  }
-
   /// Converts an absolute source-file path under `/lib/` to a `package:` URI
   /// by reading the neighbouring `pubspec.yaml`. Returns `null` if the path
   /// cannot be mapped (e.g., it's not under a package's `lib/` directory).
@@ -4203,6 +4199,14 @@ class BridgeGenerator {
       generateDeprecatedElements: generateDeprecatedElements,
     );
     extractor.extract(libResult.element, normalizedPath);
+
+    // Phase 5 (summary-refactoring-plan): scan the same resolved library
+    // element for user bridges. Mirrors what the AST path did inline via
+    // `_userBridgeScanner.scanUnit`. User bridges living in regular
+    // bridged source files are vanishingly rare — the canonical location
+    // is `lib/{src/,}d4rt_user_bridges/`, covered by the pre-scan passes
+    // — but we keep this hook so behaviour is identical.
+    _userBridgeScanner.scanLibrary(libResult.element, normalizedPath);
 
     // Mirror AST-path behavior: populate _sourceFileImports so that
     // _resolveDefaultTypePrefix can resolve identifiers like `Colors`

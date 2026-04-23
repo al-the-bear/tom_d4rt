@@ -5,8 +5,11 @@ library;
 
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/features.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
+    show AnalysisContextCollectionImpl;
 import 'package:path/path.dart' as p;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show runSummaryCacheStage;
@@ -18,6 +21,7 @@ import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
+import 'sdk_utils.dart' show getSdkPath;
 import 'user_bridge_scanner.dart';
 
 /// Result of a bridge generation operation.
@@ -163,7 +167,11 @@ Future<GenerationResult> generateBridges({
     // this path (generateBridges) previously only populated the
     // scanner from Flutter source files, which meant user bridges
     // living in the build project were invisible.
-    final sharedUserBridgeScanner = _preScanUserBridges(projectDir);
+    final sharedUserBridgeScanner = await _preScanUserBridges(
+      projectDir,
+      summaryPaths: summaryPaths,
+      sdkSummaryPath: sdkSummaryPath,
+    );
 
     // GEN-076: Track class names and source files across modules to prevent
     // duplicate registrations. Only deduplicates when BOTH name AND source match,
@@ -428,7 +436,11 @@ Future<void> _generateTestRunnerFile(
 /// Without this pre-scan the scanner only sees units from Flutter source
 /// files, so user bridges living in the build package are invisible —
 /// see the `v2/d4rtgen_executor.dart` path for the equivalent logic.
-UserBridgeScanner _preScanUserBridges(String projectDir) {
+Future<UserBridgeScanner> _preScanUserBridges(
+  String projectDir, {
+  List<String>? summaryPaths,
+  String? sdkSummaryPath,
+}) async {
   final scanner = UserBridgeScanner();
 
   final userBridgeDirs = [
@@ -436,24 +448,57 @@ UserBridgeScanner _preScanUserBridges(String projectDir) {
     p.join(projectDir, 'lib', 'd4rt_user_bridges'),
   ];
 
+  // Collect all user-bridge .dart files on disk first; we only spin up an
+  // analyzer context if there's something to resolve.
+  final dartFiles = <String>[];
   for (final dirPath in userBridgeDirs) {
     final dir = Directory(dirPath);
     if (!dir.existsSync()) continue;
-
     for (final entity in dir.listSync(recursive: true)) {
       if (entity is! File) continue;
       if (!entity.path.endsWith('.dart')) continue;
+      dartFiles.add(entity.path);
+    }
+  }
 
+  if (dartFiles.isNotEmpty) {
+    // Phase 5 (summary-refactoring-plan): the user-bridge scanner is an
+    // element walker, so we must resolve each user-bridge file to a
+    // [LibraryElement]. Forward the shared summary bundles so that
+    // `D4UserBridge` (from tom_d4rt) and `@D4rtUserBridge` resolve against
+    // the same `.sum` cache used by downstream bridge generation.
+    final hasSummaries =
+        (summaryPaths != null && summaryPaths.isNotEmpty) ||
+            sdkSummaryPath != null;
+    final AnalysisContextCollection collection = hasSummaries
+        ? AnalysisContextCollectionImpl(
+            includedPaths: [projectDir],
+            sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+            sdkSummaryPath: sdkSummaryPath,
+            librarySummaryPaths: summaryPaths ?? const [],
+          )
+        : AnalysisContextCollection(
+            includedPaths: [projectDir],
+            sdkPath: getSdkPath(),
+          );
+
+    for (final filePath in dartFiles) {
       try {
-        final content = entity.readAsStringSync();
-        final parseResult = parseString(
-          content: content,
-          featureSet: FeatureSet.latestLanguageVersion(),
+        final context = collection.contextFor(filePath);
+        final result = await context.currentSession.getResolvedLibrary(
+          filePath,
         );
-        scanner.scanUnit(parseResult.unit, entity.path);
+        if (result is ResolvedLibraryResult) {
+          scanner.scanLibrary(result.element, filePath);
+        } else {
+          stderr.writeln(
+            'Warning: Failed to resolve user bridge $filePath '
+            '(analyzer result: ${result.runtimeType})',
+          );
+        }
       } catch (e) {
         stderr.writeln(
-          'Warning: Failed to parse user bridge ${entity.path}: $e',
+          'Warning: Failed to resolve user bridge $filePath: $e',
         );
       }
     }

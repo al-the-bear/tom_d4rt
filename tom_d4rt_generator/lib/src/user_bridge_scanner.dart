@@ -1,14 +1,30 @@
 /// User Bridge Scanner
 ///
-/// Scans source files for user bridge classes (extending D4UserBridge)
-/// and extracts override information for the bridge generator.
+/// Scans resolved Dart libraries for user bridge classes (extending
+/// `D4UserBridge`) and extracts override information for the bridge
+/// generator.
 ///
 /// User bridges must be annotated with `@D4rtUserBridge(libraryPath)` or
 /// `@D4rtGlobalsUserBridge(libraryPath)` to be recognized.
+///
+/// Phase 5 (summary-refactoring-plan): this scanner is an element walker
+/// over [LibraryElement]. The legacy `RecursiveAstVisitor<void>` path has
+/// been removed — all AST-only features required have been replaced with
+/// element API equivalents:
+///
+/// - `class Foo extends D4UserBridge` → `classElement.supertype?.element.name == 'D4UserBridge'`.
+/// - `@D4rtUserBridge('pkg', 'Cls')` → iterate `classElement.metadata.annotations`,
+///   look at `annotation.computeConstantValue()?.type.element.name`, pull
+///   positional args via `value.getField('libraryPath').toStringValue()` and
+///   `value.getField('className').toStringValue()` (the record-field names
+///   match the annotation class's constructor parameters).
+/// - `static overrideX` method detection → `classElement.methods.where((m) =>
+///   m.isStatic && m.name!.startsWith('override'))`.
+/// - Static `nativeNames` getter / field → `classElement.getters`, `classElement.fields`.
 library;
 
-import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 
 /// Information about a user bridge class and its overrides.
 class UserBridgeInfo {
@@ -179,12 +195,16 @@ class GlobalsUserBridgeInfo {
 /// Callback for emitting warnings during scanning.
 typedef WarningCallback = void Function(String message);
 
-/// Scans source files for user bridge classes.
+/// Scans resolved libraries for user bridge classes.
 ///
 /// User bridges must be annotated with `@D4rtUserBridge(libraryPath)` or
 /// `@D4rtGlobalsUserBridge(libraryPath)` to be recognized. Classes extending
 /// D4UserBridge without the annotation will emit a warning and be ignored.
-class UserBridgeScanner extends RecursiveAstVisitor<void> {
+///
+/// The scanner is an element-walker: callers resolve each user-bridge file
+/// through an [AnalysisContextCollection] and hand the resulting
+/// [LibraryElement] to [scanLibrary].
+class UserBridgeScanner {
   /// Map of (libraryPath, className) -> user bridge info.
   ///
   /// The key is a tuple of library path and optional class name.
@@ -233,10 +253,16 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
   GlobalsUserBridgeInfo? get globalsUserBridge =>
       _globalsUserBridges.isNotEmpty ? _globalsUserBridges.values.first : null;
 
-  /// Scan a compilation unit for user bridge classes.
-  void scanUnit(CompilationUnit unit, String sourceFile) {
+  /// Scan a resolved [library] for user bridge classes.
+  ///
+  /// [sourceFile] is recorded on each discovered [UserBridgeInfo] /
+  /// [GlobalsUserBridgeInfo] so downstream code (and error messages) can
+  /// point back to the declaring file on disk.
+  void scanLibrary(LibraryElement library, String sourceFile) {
     _currentSourceFile = sourceFile;
-    unit.visitChildren(this);
+    for (final classElement in library.classes) {
+      _processClass(classElement);
+    }
   }
 
   /// Get user bridge info for a specific library and class.
@@ -277,77 +303,62 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     return _d4UserBridgeClasses.contains(className);
   }
 
-  @override
-  void visitClassDeclaration(ClassDeclaration node) {
-    final className = node.name.lexeme;
+  // ---------------------------------------------------------------------------
+  // Element walker
+  // ---------------------------------------------------------------------------
 
-    // Check if this class extends D4UserBridge
-    if (_extendsD4UserBridge(node)) {
-      _d4UserBridgeClasses.add(className);
+  void _processClass(ClassElement classElement) {
+    if (!_extendsD4UserBridge(classElement)) return;
+    final className = classElement.name;
+    if (className == null) return;
+    _d4UserBridgeClasses.add(className);
 
-      // Try to extract annotation
-      final annotation = _extractD4rtUserBridgeAnnotation(node);
-      final globalsAnnotation = _extractD4rtGlobalsUserBridgeAnnotation(node);
+    final annotation = _extractD4rtUserBridgeAnnotation(classElement);
+    final globalsAnnotation =
+        _extractD4rtGlobalsUserBridgeAnnotation(classElement);
 
-      if (annotation != null) {
-        // Has @D4rtUserBridge annotation - process it
-        final (libraryPath, targetClass) = annotation;
-        final info = _extractUserBridgeInfo(
-          node,
-          libraryPath,
-          targetClass,
-          className,
-        );
-        _userBridges[(libraryPath, targetClass)] = info;
-      } else if (globalsAnnotation != null) {
-        // Has @D4rtGlobalsUserBridge annotation - process it
-        final libraryPath = globalsAnnotation;
-        _globalsUserBridges[libraryPath] = _extractGlobalsUserBridgeInfo(
-          node,
-          libraryPath,
-          className,
-        );
-      } else {
-        // No annotation - emit warning
-        final warning =
-            'UserBridge $className has no @D4rtUserBridge or @D4rtGlobalsUserBridge annotation, ignoring';
-        onWarning?.call(warning);
-      }
+    if (annotation != null) {
+      final (libraryPath, targetClass) = annotation;
+      _userBridges[(libraryPath, targetClass)] = _extractUserBridgeInfo(
+        classElement,
+        libraryPath,
+        targetClass,
+        className,
+      );
+    } else if (globalsAnnotation != null) {
+      _globalsUserBridges[globalsAnnotation] = _extractGlobalsUserBridgeInfo(
+        classElement,
+        globalsAnnotation,
+        className,
+      );
+    } else {
+      onWarning?.call(
+        'UserBridge $className has no @D4rtUserBridge or @D4rtGlobalsUserBridge annotation, ignoring',
+      );
     }
+  }
 
-    super.visitClassDeclaration(node);
+  /// Returns true if [classElement]'s direct supertype is `D4UserBridge`.
+  bool _extendsD4UserBridge(ClassElement classElement) {
+    final supertype = classElement.supertype;
+    if (supertype == null) return false;
+    return supertype.element.name == 'D4UserBridge';
   }
 
   /// Extract @D4rtUserBridge annotation from a class.
   ///
   /// Returns (libraryPath, className?) or null if not found.
-  (String, String?)? _extractD4rtUserBridgeAnnotation(ClassDeclaration node) {
-    for (final annotation in node.metadata) {
-      final name = annotation.name.name;
-      if (name == 'D4rtUserBridge') {
-        final arguments = annotation.arguments?.arguments;
-        if (arguments != null && arguments.isNotEmpty) {
-          // First argument: libraryPath (required)
-          final libraryArg = arguments.first;
-          String? libraryPath;
-          if (libraryArg is StringLiteral) {
-            libraryPath = libraryArg.stringValue;
-          }
-
-          if (libraryPath == null) continue;
-
-          // Second argument: className (optional)
-          String? targetClassName;
-          if (arguments.length > 1) {
-            final classArg = arguments[1];
-            if (classArg is StringLiteral) {
-              targetClassName = classArg.stringValue;
-            }
-          }
-
-          return (libraryPath, targetClassName);
-        }
-      }
+  (String, String?)? _extractD4rtUserBridgeAnnotation(
+    ClassElement classElement,
+  ) {
+    for (final annotation in classElement.metadata.annotations) {
+      if (_annotationClassName(annotation) != 'D4rtUserBridge') continue;
+      final value = annotation.computeConstantValue();
+      if (value == null) continue;
+      final libraryPath = value.getField('libraryPath')?.toStringValue();
+      if (libraryPath == null) continue;
+      final targetClassName = value.getField('className')?.toStringValue();
+      return (libraryPath, targetClassName);
     }
     return null;
   }
@@ -355,34 +366,41 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
   /// Extract @D4rtGlobalsUserBridge annotation from a class.
   ///
   /// Returns libraryPath or null if not found.
-  String? _extractD4rtGlobalsUserBridgeAnnotation(ClassDeclaration node) {
-    for (final annotation in node.metadata) {
-      final name = annotation.name.name;
-      if (name == 'D4rtGlobalsUserBridge') {
-        final arguments = annotation.arguments?.arguments;
-        if (arguments != null && arguments.isNotEmpty) {
-          final libraryArg = arguments.first;
-          if (libraryArg is StringLiteral) {
-            return libraryArg.stringValue;
-          }
-        }
-      }
+  String? _extractD4rtGlobalsUserBridgeAnnotation(ClassElement classElement) {
+    for (final annotation in classElement.metadata.annotations) {
+      if (_annotationClassName(annotation) != 'D4rtGlobalsUserBridge') continue;
+      final value = annotation.computeConstantValue();
+      if (value == null) continue;
+      final libraryPath = value.getField('libraryPath')?.toStringValue();
+      if (libraryPath != null) return libraryPath;
     }
     return null;
   }
 
-  /// Check if a class extends D4UserBridge.
-  bool _extendsD4UserBridge(ClassDeclaration node) {
-    final extendsClause = node.extendsClause;
-    if (extendsClause == null) return false;
-
-    final superclassName = extendsClause.superclass.name.lexeme;
-    return superclassName == 'D4UserBridge';
+  /// Returns the simple class name of the annotation, or null if unknown.
+  ///
+  /// Uses the constant value's type (`InterfaceType.element.name`) rather
+  /// than the annotation's referenced element, which in the summary-backed
+  /// path can be a constructor element whose enclosing class is still what
+  /// we want — either way, the resolved constant's type gives us the class.
+  String? _annotationClassName(ElementAnnotation annotation) {
+    final value = annotation.computeConstantValue();
+    final type = value?.type;
+    if (type is InterfaceType) {
+      return type.element.name;
+    }
+    // Fallback: inspect the referenced element for unresolved/invalid
+    // constants (e.g., if `computeConstantValue()` returned null).
+    final element = annotation.element;
+    if (element is ConstructorElement) {
+      return element.enclosingElement.name;
+    }
+    return null;
   }
 
   /// Extract override information from a user bridge class.
   UserBridgeInfo _extractUserBridgeInfo(
-    ClassDeclaration node,
+    ClassElement classElement,
     String libraryPath,
     String? targetClassName,
     String userBridgeClassName,
@@ -397,39 +415,38 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     final operatorOverrides = <String, String>{};
     var hasNativeNames = false;
 
-    for (final member in node.members) {
-      if (member is MethodDeclaration) {
-        final methodName = member.name.lexeme;
-
-        // Check for static nativeNames getter
-        if (methodName == 'nativeNames' && member.isGetter && member.isStatic) {
-          hasNativeNames = true;
-          continue;
-        }
-
-        // Parse static override methods only
-        if (member.isStatic && methodName.startsWith('override')) {
-          _parseOverrideMethod(
-            methodName,
-            constructorOverrides,
-            getterOverrides,
-            setterOverrides,
-            methodOverrides,
-            staticGetterOverrides,
-            staticSetterOverrides,
-            staticMethodOverrides,
-            operatorOverrides,
-          );
-        }
+    for (final method in classElement.methods) {
+      if (!method.isStatic) continue;
+      final methodName = method.name;
+      if (methodName == null) continue;
+      if (methodName.startsWith('override')) {
+        _parseOverrideMethod(
+          methodName,
+          constructorOverrides,
+          getterOverrides,
+          setterOverrides,
+          methodOverrides,
+          staticGetterOverrides,
+          staticSetterOverrides,
+          staticMethodOverrides,
+          operatorOverrides,
+        );
       }
+    }
 
-      // Check for static nativeNames field
-      if (member is FieldDeclaration && member.isStatic) {
-        for (final variable in member.fields.variables) {
-          if (variable.name.lexeme == 'nativeNames') {
-            hasNativeNames = true;
-          }
-        }
+    // Static `nativeNames` getter or field (synthetic getters are emitted
+    // for plain `static List<String> nativeNames = [...];` fields, so we
+    // scan both shapes to match the pre-Phase-5 AST behavior).
+    for (final getter in classElement.getters) {
+      if (!getter.isStatic) continue;
+      if (getter.name == 'nativeNames') {
+        hasNativeNames = true;
+      }
+    }
+    for (final field in classElement.fields) {
+      if (!field.isStatic) continue;
+      if (field.name == 'nativeNames') {
+        hasNativeNames = true;
       }
     }
 
@@ -452,7 +469,7 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
 
   /// Extract override information from a globals user bridge class.
   GlobalsUserBridgeInfo _extractGlobalsUserBridgeInfo(
-    ClassDeclaration node,
+    ClassElement classElement,
     String libraryPath,
     String userBridgeClassName,
   ) {
@@ -460,19 +477,17 @@ class UserBridgeScanner extends RecursiveAstVisitor<void> {
     final globalGetterOverrides = <String, String>{};
     final globalFunctionOverrides = <String, String>{};
 
-    for (final member in node.members) {
-      if (member is MethodDeclaration) {
-        final methodName = member.name.lexeme;
-
-        // Parse static override methods only
-        if (member.isStatic && methodName.startsWith('override')) {
-          _parseGlobalOverrideMethod(
-            methodName,
-            globalVariableOverrides,
-            globalGetterOverrides,
-            globalFunctionOverrides,
-          );
-        }
+    for (final method in classElement.methods) {
+      if (!method.isStatic) continue;
+      final methodName = method.name;
+      if (methodName == null) continue;
+      if (methodName.startsWith('override')) {
+        _parseGlobalOverrideMethod(
+          methodName,
+          globalVariableOverrides,
+          globalGetterOverrides,
+          globalFunctionOverrides,
+        );
       }
     }
 

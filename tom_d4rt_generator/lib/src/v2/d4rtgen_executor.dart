@@ -7,8 +7,11 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/features.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+// ignore: implementation_imports
+import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart'
+    show AnalysisContextCollectionImpl;
 import 'package:path/path.dart' as p;
 import 'package:tom_build_base/tom_build_base.dart'
     show TomBuildConfig, hasTomBuildConfig, findWorkspaceRoot;
@@ -16,6 +19,7 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show runSummaryCacheStage;
 import 'package:tom_build_base/tom_build_base_v2.dart';
 import 'package:tom_d4rt_generator/src/build_config_loader.dart';
+import 'package:tom_d4rt_generator/src/sdk_utils.dart' show getSdkPath;
 import 'package:tom_d4rt_generator/src/user_bridge_scanner.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 import 'package:yaml/yaml.dart';
@@ -106,9 +110,18 @@ Future<void> _processProjectDirect(
 /// User bridge files should be placed in:
 /// - `lib/src/d4rt_user_bridges/` for package projects
 /// - `lib/d4rt_user_bridges/` for console projects
+///
+/// Phase 5 (summary-refactoring-plan): the scanner is an element walker,
+/// so each user-bridge file is resolved to a [LibraryElement] via an
+/// [AnalysisContextCollection]. The shared summary bundles (if any) are
+/// forwarded so that `D4UserBridge` (from tom_d4rt) and overridden
+/// target types resolve against the same `.sum` cache used by the
+/// downstream [BridgeGenerator].
 Future<UserBridgeScanner> _scanUserBridges(
   String projectDir, {
   required bool verbose,
+  List<String>? summaryPaths,
+  String? sdkSummaryPath,
 }) async {
   final scanner = UserBridgeScanner();
 
@@ -117,28 +130,56 @@ Future<UserBridgeScanner> _scanUserBridges(
     p.join(projectDir, 'lib', 'd4rt_user_bridges'),
   ];
 
+  // Collect all user-bridge .dart files on disk first.
+  final dartFiles = <String>[];
   for (final dirPath in userBridgeDirs) {
     final dir = Directory(dirPath);
     if (!dir.existsSync()) continue;
-
     if (verbose) {
       print('  Scanning user bridges in $dirPath');
     }
-
     await for (final entity in dir.list(recursive: true)) {
       if (entity is! File) continue;
       if (!entity.path.endsWith('.dart')) continue;
+      dartFiles.add(entity.path);
+    }
+  }
 
+  if (dartFiles.isNotEmpty) {
+    final hasSummaries =
+        (summaryPaths != null && summaryPaths.isNotEmpty) ||
+            sdkSummaryPath != null;
+    final AnalysisContextCollection collection = hasSummaries
+        ? AnalysisContextCollectionImpl(
+            includedPaths: [projectDir],
+            sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+            sdkSummaryPath: sdkSummaryPath,
+            librarySummaryPaths: summaryPaths ?? const [],
+          )
+        : AnalysisContextCollection(
+            includedPaths: [projectDir],
+            sdkPath: getSdkPath(),
+          );
+
+    for (final filePath in dartFiles) {
       try {
-        final content = await entity.readAsString();
-        final parseResult = parseString(
-          content: content,
-          featureSet: FeatureSet.latestLanguageVersion(),
+        final context = collection.contextFor(filePath);
+        final result = await context.currentSession.getResolvedLibrary(
+          filePath,
         );
-        scanner.scanUnit(parseResult.unit, entity.path);
+        if (result is ResolvedLibraryResult) {
+          scanner.scanLibrary(result.element, filePath);
+        } else if (verbose) {
+          stderr.writeln(
+            'Warning: Failed to resolve user bridge $filePath '
+            '(analyzer result: ${result.runtimeType})',
+          );
+        }
       } catch (e) {
         if (verbose) {
-          stderr.writeln('Warning: Failed to parse user bridge ${entity.path}: $e');
+          stderr.writeln(
+            'Warning: Failed to resolve user bridge $filePath: $e',
+          );
         }
       }
     }
@@ -170,9 +211,6 @@ Future<void> _generateBridges(
     print('  Modules: ${config.modules.length}');
   }
 
-  // Scan for user bridges before processing modules
-  final userBridgeScanner = await _scanUserBridges(projectDir, verbose: verbose);
-
   // Run summary-cache stage (non-fatal): produce library summaries + SDK
   // summary so the analyzer can resolve external dependencies from cached
   // `.sum` bundles instead of re-parsing their sources on every run.
@@ -183,6 +221,11 @@ Future<void> _generateBridges(
   // dependency (including bridged packages) resolves from summaries.
   // The AST walker is only reachable behind BridgeGenerator.useLegacyAstWalker
   // (internal debug flag, not user-exposed).
+  //
+  // Phase 5: summary-cache now runs BEFORE user-bridge scanning so the
+  // element-walker scanner can resolve user-bridge files against the
+  // same `.sum` cache (notably: classes from bridged packages that the
+  // user bridge targets).
   List<String>? summaryPaths;
   String? sdkSummaryPath;
   try {
@@ -192,6 +235,14 @@ Future<void> _generateBridges(
   } catch (e) {
     print('  Warning: summary-cache stage failed: $e');
   }
+
+  // Scan for user bridges before processing modules.
+  final userBridgeScanner = await _scanUserBridges(
+    projectDir,
+    verbose: verbose,
+    summaryPaths: summaryPaths,
+    sdkSummaryPath: sdkSummaryPath,
+  );
 
   // GEN-079: Collect class lookup across modules for relaxer generation.
   final globalClassLookup = <String, ClassInfo>{};

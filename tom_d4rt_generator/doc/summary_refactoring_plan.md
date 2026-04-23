@@ -364,20 +364,49 @@ Exit criteria:
   proxy-generated code (primarily `tom_d4rt_flutterm`) is re-run
   and compared.
 
-### Phase 5 — Migrate user_bridge_scanner (0.5–1 session)
+### Phase 5 — Migrate user_bridge_scanner (0.5–1 session) — **COMPLETE** (2026-04-23)
 
 `user_bridge_scanner.dart` — 643-line `RecursiveAstVisitor<void>`.
-Replace with `LibraryElement` walker. It reads
-`@D4rtUserBridge` annotations and extracts method/member names.
-No AST-only features required.
+Replaced with a `LibraryElement` walker that reads
+`@D4rtUserBridge` / `@D4rtGlobalsUserBridge` annotations via the
+element-API (`ElementAnnotation.computeConstantValue().getField(...)`)
+and extracts method/member names from `classElement.methods`,
+`.getters`, and `.fields`. The public `UserBridgeInfo` /
+`GlobalsUserBridgeInfo` data classes and all of `shouldExcludeClass`,
+`getUserBridgeFor`, `getGlobalsUserBridgeFor`, override lookup methods
+are unchanged.
+
+Call-site migration:
+
+- `bridge_api._preScanUserBridges`, `per_package_orchestrator.scanUserBridges`,
+  and `v2/d4rtgen_executor._scanUserBridges` now collect source `.dart`
+  files, build a summary-backed `AnalysisContextCollection`, resolve
+  each library via `getResolvedLibrary`, and call `scanner.scanLibrary`.
+- `v2/d4rtgen_executor._generateBridges` was reordered so the
+  summary-cache stage runs before the user-bridge pre-scan, so the
+  scanner's `AnalysisContextCollection` reads `.sum` bundles for
+  bridged-target type resolution.
+- `bridge_generator.parseFile` now calls `scanner.scanLibrary` at the
+  single element-mode entry (`_tryElementModeClasses`) and, when the
+  file is outside any package `lib/` tree (notably the
+  `test/fixtures/` sources used by `user_bridge_test.dart`), still
+  attempts `getResolvedLibrary` by path before falling through to the
+  purely syntactic parser. The `_syntacticallyScanForUserBridges` AST
+  helper and all `scanner.scanUnit` calls were removed.
 
 Exit criteria:
 
-- User-bridge overrides continue to round-trip through generation.
-- Consumer packages that define user-bridge overrides (primarily
-  `tom_d4rt_flutterm` and any others flagged during Phase 0
-  regen-transcript capture) re-run `testkit :test` with results
-  matching the Phase 0 baseline.
+- ✅ User-bridge overrides continue to round-trip through generation.
+  `tom_d4rt_flutterm` regen log shows
+  `USER-BRIDGE: pre-scanned 2 class user bridges and 0 globals user bridges`
+  and all generated bridge files are byte-identical to Phase 4 output
+  except for the `Generated:` timestamp.
+- ✅ `tom_d4rt_flutterm` gating suites match the Phase 0 baseline —
+  see `tom_d4rt_flutterm/doc/baseline_runs_phase5/README.md`:
+  essential 111/0/0, important 166/1/5, secondary 616/1/40 (same
+  two pre-existing failures, zero new regressions).
+- ✅ `user_bridge_test.dart` parity preserved — 15 pass, same 7
+  pre-existing Globals-code-generation failures as pre-Phase-5.
 
 ### Phase 6 — Delete the AST path (1 session)
 
