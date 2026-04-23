@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-04-23T15:59:36.746832
+// Generated: 2026-04-23T19:16:03.107887
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -7182,7 +7182,7 @@ BridgedClass _createSynchronousFutureBridge() {
       'catchError': 'Future<T> catchError(Function onError, {bool Function(Object error)? test})',
       'then': 'Future<R> then(FutureOr<R> Function(T value) onValue, {Function? onError})',
       'timeout': 'Future<T> timeout(Duration timeLimit, {FutureOr<T> Function()? onTimeout})',
-      'whenComplete': 'Future<T> whenComplete(FutureOr<dynamic> Function() action)',
+      'whenComplete': 'Future<T> whenComplete(FutureOr Function() action)',
     },
   );
 }
