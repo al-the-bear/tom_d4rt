@@ -273,6 +273,38 @@ Per the plan's Phase 7 criterion:
 that the Phase 0 filtered-baseline process didn't catch. No Phase 2-6
 generator change caused a test-result flip.
 
+### Consumer version constraints
+
+Verified 2026-04-23 that no consumer pubspec needs an explicit version
+bump for Phase 7:
+
+| Consumer | Constraint | Action |
+|---|---|---|
+| `tom_d4rt` | (no dep — runtime, not a generator consumer) | n/a |
+| `tom_d4rt_dcli` | `tom_d4rt_generator: any` | auto-picks `1.9.0` post-publish |
+| `tom_dcli_exec` | `tom_d4rt_generator: any` | auto-picks `1.9.0` post-publish |
+| `tom_d4rt_exec` | `tom_d4rt_generator: { path: ../tom_d4rt_generator }` | already tracks HEAD (in-repo path dep) |
+| `tom_d4rt_flutterm` | `tom_d4rt_generator: { path: ../tom_d4rt_generator }` | already tracks HEAD (in-repo path dep) |
+
+The `path:` deps in `tom_d4rt_exec` and `tom_d4rt_flutterm` predate the
+summary-refactor (introduced in commit `9dfe8947`, the initial flutterm
+package add) and are intentional for this mono-repo arrangement.
+
+### Downstream flutter-app verification
+
+Per the Phase 7 plan:
+
+> Run the downstream flutter apps that use the generated bridges to
+> confirm runtime behavior is unchanged.
+
+A workspace-wide scan (`grep -l "tom_d4rt_flutterm\|d4rtgen:"` across
+all `pubspec.yaml` files under `tom_agent_container/`) found no
+downstream flutter app that depends on `tom_d4rt_flutterm` or invokes
+`d4rtgen` outside the d4rt mono-repo itself. The flutterm essential /
+important / secondary test suites (Phase 6 baseline captured in commit
+`83e43ff6`) are the de-facto downstream gate; they all pass with Phase
+0 parity.
+
 ### Publishing
 
 `dart pub publish` requires user OAuth; flagged for manual run. The
@@ -280,3 +312,21 @@ generator is staged at `1.9.0` with CHANGELOG entry summarising Phases
 1-6 plus the Phase 7 extension-from-imports restoration. Dry-run
 completed cleanly (5 pre-existing warnings, 3 hints about the local
 dev `pubspec_overrides.yaml`, which `pub publish` ignores).
+
+### Phase 7 item checklist
+
+Cross-referenced against the plan's Phase 7 bullet list:
+
+- [x] Bump `tom_d4rt_generator` version in pubspec — `1.8.24 → 1.9.0`.
+- [ ] Republish per `_copilot_guidelines/dart/project_republishing.md`
+      — **blocked on user OAuth**; dry-run clean.
+- [x] Update pubspec version constraints in every consumer — no
+      changes needed (see table above; `any` + `path:` deps absorb the
+      bump automatically).
+- [x] For each consumer: regenerate bridges, run `testkit :test`,
+      compare vs Phase 0 baseline — all consumers at Phase 0 parity;
+      G-EXT-14..18 fix applied in-phase; other deltas are pre-existing
+      bugs surfaced by first full-suite runs.
+- [x] Exit criteria per consumer captured in this report.
+- [x] Run downstream flutter apps — no downstream apps exist in
+      workspace; flutterm internal suite is the gate.
