@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 109 files
-// Generated: 2026-04-23T11:01:43.261215
+// Sources: 110 files
+// Generated: 2026-04-23T15:59:54.550686
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -106,74 +106,75 @@ import 'package:flutter/src/services/spell_check.dart' as $flutter_92;
 import 'package:flutter/src/services/text_editing.dart' as $flutter_93;
 import 'package:flutter/src/services/text_formatter.dart' as $flutter_94;
 import 'package:flutter/src/services/text_input.dart' as $flutter_95;
-import 'package:flutter/src/widgets/actions.dart' as $flutter_96;
-import 'package:flutter/src/widgets/animated_cross_fade.dart' as $flutter_97;
-import 'package:flutter/src/widgets/app.dart' as $flutter_98;
-import 'package:flutter/src/widgets/async.dart' as $flutter_99;
-import 'package:flutter/src/widgets/autocomplete.dart' as $flutter_100;
-import 'package:flutter/src/widgets/autofill.dart' as $flutter_101;
-import 'package:flutter/src/widgets/banner.dart' as $flutter_102;
-import 'package:flutter/src/widgets/basic.dart' as $flutter_103;
-import 'package:flutter/src/widgets/binding.dart' as $flutter_104;
-import 'package:flutter/src/widgets/bottom_navigation_bar_item.dart' as $flutter_105;
-import 'package:flutter/src/widgets/context_menu_button_item.dart' as $flutter_106;
-import 'package:flutter/src/widgets/date.dart' as $flutter_107;
-import 'package:flutter/src/widgets/debug.dart' as $flutter_108;
-import 'package:flutter/src/widgets/default_text_editing_shortcuts.dart' as $flutter_109;
-import 'package:flutter/src/widgets/dismissible.dart' as $flutter_110;
-import 'package:flutter/src/widgets/drag_target.dart' as $flutter_111;
-import 'package:flutter/src/widgets/editable_text.dart' as $flutter_112;
-import 'package:flutter/src/widgets/expansible.dart' as $flutter_113;
-import 'package:flutter/src/widgets/focus_manager.dart' as $flutter_114;
-import 'package:flutter/src/widgets/focus_traversal.dart' as $flutter_115;
-import 'package:flutter/src/widgets/form.dart' as $flutter_116;
-import 'package:flutter/src/widgets/framework.dart' as $flutter_117;
-import 'package:flutter/src/widgets/heroes.dart' as $flutter_118;
-import 'package:flutter/src/widgets/icon.dart' as $flutter_119;
-import 'package:flutter/src/widgets/icon_data.dart' as $flutter_120;
-import 'package:flutter/src/widgets/icon_theme_data.dart' as $flutter_121;
-import 'package:flutter/src/widgets/image.dart' as $flutter_122;
-import 'package:flutter/src/widgets/interactive_viewer.dart' as $flutter_123;
-import 'package:flutter/src/widgets/list_wheel_scroll_view.dart' as $flutter_124;
-import 'package:flutter/src/widgets/localizations.dart' as $flutter_125;
-import 'package:flutter/src/widgets/magnifier.dart' as $flutter_126;
-import 'package:flutter/src/widgets/media_query.dart' as $flutter_127;
-import 'package:flutter/src/widgets/navigator.dart' as $flutter_128;
-import 'package:flutter/src/widgets/notification_listener.dart' as $flutter_129;
-import 'package:flutter/src/widgets/overflow_bar.dart' as $flutter_130;
-import 'package:flutter/src/widgets/overlay.dart' as $flutter_131;
-import 'package:flutter/src/widgets/pages.dart' as $flutter_132;
-import 'package:flutter/src/widgets/platform_menu_bar.dart' as $flutter_133;
-import 'package:flutter/src/widgets/platform_view.dart' as $flutter_134;
-import 'package:flutter/src/widgets/preferred_size.dart' as $flutter_135;
-import 'package:flutter/src/widgets/radio_group.dart' as $flutter_136;
-import 'package:flutter/src/widgets/raw_tooltip.dart' as $flutter_137;
-import 'package:flutter/src/widgets/repeating_animation_builder.dart' as $flutter_138;
-import 'package:flutter/src/widgets/router.dart' as $flutter_139;
-import 'package:flutter/src/widgets/routes.dart' as $flutter_140;
-import 'package:flutter/src/widgets/scroll_configuration.dart' as $flutter_141;
-import 'package:flutter/src/widgets/scroll_controller.dart' as $flutter_142;
-import 'package:flutter/src/widgets/scroll_notification.dart' as $flutter_143;
-import 'package:flutter/src/widgets/scroll_physics.dart' as $flutter_144;
-import 'package:flutter/src/widgets/scroll_position.dart' as $flutter_145;
-import 'package:flutter/src/widgets/scroll_view.dart' as $flutter_146;
-import 'package:flutter/src/widgets/scrollable.dart' as $flutter_147;
-import 'package:flutter/src/widgets/scrollable_helpers.dart' as $flutter_148;
-import 'package:flutter/src/widgets/scrollbar.dart' as $flutter_149;
-import 'package:flutter/src/widgets/selectable_region.dart' as $flutter_150;
-import 'package:flutter/src/widgets/service_extensions.dart' as $flutter_151;
-import 'package:flutter/src/widgets/shortcuts.dart' as $flutter_152;
-import 'package:flutter/src/widgets/sliver_floating_header.dart' as $flutter_153;
-import 'package:flutter/src/widgets/snapshot_widget.dart' as $flutter_154;
-import 'package:flutter/src/widgets/spell_check.dart' as $flutter_155;
-import 'package:flutter/src/widgets/standard_component_type.dart' as $flutter_156;
-import 'package:flutter/src/widgets/tap_region.dart' as $flutter_157;
-import 'package:flutter/src/widgets/text_selection.dart' as $flutter_158;
-import 'package:flutter/src/widgets/text_selection_toolbar_anchors.dart' as $flutter_159;
-import 'package:flutter/src/widgets/transitions.dart' as $flutter_160;
-import 'package:flutter/src/widgets/undo_history.dart' as $flutter_161;
-import 'package:flutter/src/widgets/widget_inspector.dart' as $flutter_162;
-import 'package:flutter/src/widgets/widget_state.dart' as $flutter_163;
+import 'package:flutter/src/widgets/_html_element_view_io.dart' as $flutter_96;
+import 'package:flutter/src/widgets/actions.dart' as $flutter_97;
+import 'package:flutter/src/widgets/animated_cross_fade.dart' as $flutter_98;
+import 'package:flutter/src/widgets/app.dart' as $flutter_99;
+import 'package:flutter/src/widgets/async.dart' as $flutter_100;
+import 'package:flutter/src/widgets/autocomplete.dart' as $flutter_101;
+import 'package:flutter/src/widgets/autofill.dart' as $flutter_102;
+import 'package:flutter/src/widgets/banner.dart' as $flutter_103;
+import 'package:flutter/src/widgets/basic.dart' as $flutter_104;
+import 'package:flutter/src/widgets/binding.dart' as $flutter_105;
+import 'package:flutter/src/widgets/bottom_navigation_bar_item.dart' as $flutter_106;
+import 'package:flutter/src/widgets/context_menu_button_item.dart' as $flutter_107;
+import 'package:flutter/src/widgets/date.dart' as $flutter_108;
+import 'package:flutter/src/widgets/debug.dart' as $flutter_109;
+import 'package:flutter/src/widgets/default_text_editing_shortcuts.dart' as $flutter_110;
+import 'package:flutter/src/widgets/dismissible.dart' as $flutter_111;
+import 'package:flutter/src/widgets/drag_target.dart' as $flutter_112;
+import 'package:flutter/src/widgets/editable_text.dart' as $flutter_113;
+import 'package:flutter/src/widgets/expansible.dart' as $flutter_114;
+import 'package:flutter/src/widgets/focus_manager.dart' as $flutter_115;
+import 'package:flutter/src/widgets/focus_traversal.dart' as $flutter_116;
+import 'package:flutter/src/widgets/form.dart' as $flutter_117;
+import 'package:flutter/src/widgets/framework.dart' as $flutter_118;
+import 'package:flutter/src/widgets/heroes.dart' as $flutter_119;
+import 'package:flutter/src/widgets/icon.dart' as $flutter_120;
+import 'package:flutter/src/widgets/icon_data.dart' as $flutter_121;
+import 'package:flutter/src/widgets/icon_theme_data.dart' as $flutter_122;
+import 'package:flutter/src/widgets/image.dart' as $flutter_123;
+import 'package:flutter/src/widgets/interactive_viewer.dart' as $flutter_124;
+import 'package:flutter/src/widgets/list_wheel_scroll_view.dart' as $flutter_125;
+import 'package:flutter/src/widgets/localizations.dart' as $flutter_126;
+import 'package:flutter/src/widgets/magnifier.dart' as $flutter_127;
+import 'package:flutter/src/widgets/media_query.dart' as $flutter_128;
+import 'package:flutter/src/widgets/navigator.dart' as $flutter_129;
+import 'package:flutter/src/widgets/notification_listener.dart' as $flutter_130;
+import 'package:flutter/src/widgets/overflow_bar.dart' as $flutter_131;
+import 'package:flutter/src/widgets/overlay.dart' as $flutter_132;
+import 'package:flutter/src/widgets/pages.dart' as $flutter_133;
+import 'package:flutter/src/widgets/platform_menu_bar.dart' as $flutter_134;
+import 'package:flutter/src/widgets/platform_view.dart' as $flutter_135;
+import 'package:flutter/src/widgets/preferred_size.dart' as $flutter_136;
+import 'package:flutter/src/widgets/radio_group.dart' as $flutter_137;
+import 'package:flutter/src/widgets/raw_tooltip.dart' as $flutter_138;
+import 'package:flutter/src/widgets/repeating_animation_builder.dart' as $flutter_139;
+import 'package:flutter/src/widgets/router.dart' as $flutter_140;
+import 'package:flutter/src/widgets/routes.dart' as $flutter_141;
+import 'package:flutter/src/widgets/scroll_configuration.dart' as $flutter_142;
+import 'package:flutter/src/widgets/scroll_controller.dart' as $flutter_143;
+import 'package:flutter/src/widgets/scroll_notification.dart' as $flutter_144;
+import 'package:flutter/src/widgets/scroll_physics.dart' as $flutter_145;
+import 'package:flutter/src/widgets/scroll_position.dart' as $flutter_146;
+import 'package:flutter/src/widgets/scroll_view.dart' as $flutter_147;
+import 'package:flutter/src/widgets/scrollable.dart' as $flutter_148;
+import 'package:flutter/src/widgets/scrollable_helpers.dart' as $flutter_149;
+import 'package:flutter/src/widgets/scrollbar.dart' as $flutter_150;
+import 'package:flutter/src/widgets/selectable_region.dart' as $flutter_151;
+import 'package:flutter/src/widgets/service_extensions.dart' as $flutter_152;
+import 'package:flutter/src/widgets/shortcuts.dart' as $flutter_153;
+import 'package:flutter/src/widgets/sliver_floating_header.dart' as $flutter_154;
+import 'package:flutter/src/widgets/snapshot_widget.dart' as $flutter_155;
+import 'package:flutter/src/widgets/spell_check.dart' as $flutter_156;
+import 'package:flutter/src/widgets/standard_component_type.dart' as $flutter_157;
+import 'package:flutter/src/widgets/tap_region.dart' as $flutter_158;
+import 'package:flutter/src/widgets/text_selection.dart' as $flutter_159;
+import 'package:flutter/src/widgets/text_selection_toolbar_anchors.dart' as $flutter_160;
+import 'package:flutter/src/widgets/transitions.dart' as $flutter_161;
+import 'package:flutter/src/widgets/undo_history.dart' as $flutter_162;
+import 'package:flutter/src/widgets/widget_inspector.dart' as $flutter_163;
+import 'package:flutter/src/widgets/widget_state.dart' as $flutter_164;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_2;
 import 'package:flutter/src/services/platform_views.dart' as $aux_flutter_10;
@@ -678,193 +679,193 @@ class FlutterCupertinoBridge {
         name: 'TextSelectionHandleType',
         values: $flutter_86.TextSelectionHandleType.values,
       ),
-      BridgedEnumDefinition<$flutter_97.CrossFadeState>(
+      BridgedEnumDefinition<$flutter_98.CrossFadeState>(
         name: 'CrossFadeState',
-        values: $flutter_97.CrossFadeState.values,
+        values: $flutter_98.CrossFadeState.values,
       ),
-      BridgedEnumDefinition<$flutter_99.ConnectionState>(
+      BridgedEnumDefinition<$flutter_100.ConnectionState>(
         name: 'ConnectionState',
-        values: $flutter_99.ConnectionState.values,
+        values: $flutter_100.ConnectionState.values,
       ),
-      BridgedEnumDefinition<$flutter_100.OptionsViewOpenDirection>(
+      BridgedEnumDefinition<$flutter_101.OptionsViewOpenDirection>(
         name: 'OptionsViewOpenDirection',
-        values: $flutter_100.OptionsViewOpenDirection.values,
+        values: $flutter_101.OptionsViewOpenDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_101.AutofillContextAction>(
+      BridgedEnumDefinition<$flutter_102.AutofillContextAction>(
         name: 'AutofillContextAction',
-        values: $flutter_101.AutofillContextAction.values,
+        values: $flutter_102.AutofillContextAction.values,
       ),
-      BridgedEnumDefinition<$flutter_102.BannerLocation>(
+      BridgedEnumDefinition<$flutter_103.BannerLocation>(
         name: 'BannerLocation',
-        values: $flutter_102.BannerLocation.values,
+        values: $flutter_103.BannerLocation.values,
       ),
-      BridgedEnumDefinition<$flutter_106.ContextMenuButtonType>(
+      BridgedEnumDefinition<$flutter_107.ContextMenuButtonType>(
         name: 'ContextMenuButtonType',
-        values: $flutter_106.ContextMenuButtonType.values,
+        values: $flutter_107.ContextMenuButtonType.values,
       ),
-      BridgedEnumDefinition<$flutter_110.DismissDirection>(
+      BridgedEnumDefinition<$flutter_111.DismissDirection>(
         name: 'DismissDirection',
-        values: $flutter_110.DismissDirection.values,
+        values: $flutter_111.DismissDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_114.KeyEventResult>(
+      BridgedEnumDefinition<$flutter_115.KeyEventResult>(
         name: 'KeyEventResult',
-        values: $flutter_114.KeyEventResult.values,
+        values: $flutter_115.KeyEventResult.values,
       ),
-      BridgedEnumDefinition<$flutter_114.UnfocusDisposition>(
+      BridgedEnumDefinition<$flutter_115.UnfocusDisposition>(
         name: 'UnfocusDisposition',
-        values: $flutter_114.UnfocusDisposition.values,
+        values: $flutter_115.UnfocusDisposition.values,
       ),
-      BridgedEnumDefinition<$flutter_114.FocusHighlightMode>(
+      BridgedEnumDefinition<$flutter_115.FocusHighlightMode>(
         name: 'FocusHighlightMode',
-        values: $flutter_114.FocusHighlightMode.values,
+        values: $flutter_115.FocusHighlightMode.values,
       ),
-      BridgedEnumDefinition<$flutter_114.FocusHighlightStrategy>(
+      BridgedEnumDefinition<$flutter_115.FocusHighlightStrategy>(
         name: 'FocusHighlightStrategy',
-        values: $flutter_114.FocusHighlightStrategy.values,
+        values: $flutter_115.FocusHighlightStrategy.values,
       ),
-      BridgedEnumDefinition<$flutter_115.TraversalDirection>(
+      BridgedEnumDefinition<$flutter_116.TraversalDirection>(
         name: 'TraversalDirection',
-        values: $flutter_115.TraversalDirection.values,
+        values: $flutter_116.TraversalDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_115.TraversalEdgeBehavior>(
+      BridgedEnumDefinition<$flutter_116.TraversalEdgeBehavior>(
         name: 'TraversalEdgeBehavior',
-        values: $flutter_115.TraversalEdgeBehavior.values,
+        values: $flutter_116.TraversalEdgeBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_116.AutovalidateMode>(
+      BridgedEnumDefinition<$flutter_117.AutovalidateMode>(
         name: 'AutovalidateMode',
-        values: $flutter_116.AutovalidateMode.values,
+        values: $flutter_117.AutovalidateMode.values,
       ),
-      BridgedEnumDefinition<$flutter_118.HeroFlightDirection>(
+      BridgedEnumDefinition<$flutter_119.HeroFlightDirection>(
         name: 'HeroFlightDirection',
-        values: $flutter_118.HeroFlightDirection.values,
+        values: $flutter_119.HeroFlightDirection.values,
       ),
-      BridgedEnumDefinition<$flutter_123.PanAxis>(
+      BridgedEnumDefinition<$flutter_124.PanAxis>(
         name: 'PanAxis',
-        values: $flutter_123.PanAxis.values,
+        values: $flutter_124.PanAxis.values,
       ),
-      BridgedEnumDefinition<$flutter_124.ChangeReportingBehavior>(
+      BridgedEnumDefinition<$flutter_125.ChangeReportingBehavior>(
         name: 'ChangeReportingBehavior',
-        values: $flutter_124.ChangeReportingBehavior.values,
+        values: $flutter_125.ChangeReportingBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_127.Orientation>(
+      BridgedEnumDefinition<$flutter_128.Orientation>(
         name: 'Orientation',
-        values: $flutter_127.Orientation.values,
+        values: $flutter_128.Orientation.values,
       ),
-      BridgedEnumDefinition<$flutter_127.NavigationMode>(
+      BridgedEnumDefinition<$flutter_128.NavigationMode>(
         name: 'NavigationMode',
-        values: $flutter_127.NavigationMode.values,
+        values: $flutter_128.NavigationMode.values,
       ),
-      BridgedEnumDefinition<$flutter_128.RoutePopDisposition>(
+      BridgedEnumDefinition<$flutter_129.RoutePopDisposition>(
         name: 'RoutePopDisposition',
-        values: $flutter_128.RoutePopDisposition.values,
+        values: $flutter_129.RoutePopDisposition.values,
       ),
-      BridgedEnumDefinition<$flutter_130.OverflowBarAlignment>(
+      BridgedEnumDefinition<$flutter_131.OverflowBarAlignment>(
         name: 'OverflowBarAlignment',
-        values: $flutter_130.OverflowBarAlignment.values,
+        values: $flutter_131.OverflowBarAlignment.values,
       ),
-      BridgedEnumDefinition<$flutter_131.OverlayChildLocation>(
+      BridgedEnumDefinition<$flutter_132.OverlayChildLocation>(
         name: 'OverlayChildLocation',
-        values: $flutter_131.OverlayChildLocation.values,
+        values: $flutter_132.OverlayChildLocation.values,
       ),
-      BridgedEnumDefinition<$flutter_133.PlatformProvidedMenuItemType>(
+      BridgedEnumDefinition<$flutter_134.PlatformProvidedMenuItemType>(
         name: 'PlatformProvidedMenuItemType',
-        values: $flutter_133.PlatformProvidedMenuItemType.values,
+        values: $flutter_134.PlatformProvidedMenuItemType.values,
       ),
-      BridgedEnumDefinition<$flutter_137.TooltipTriggerMode>(
+      BridgedEnumDefinition<$flutter_138.TooltipTriggerMode>(
         name: 'TooltipTriggerMode',
-        values: $flutter_137.TooltipTriggerMode.values,
+        values: $flutter_138.TooltipTriggerMode.values,
       ),
-      BridgedEnumDefinition<$flutter_138.RepeatMode>(
+      BridgedEnumDefinition<$flutter_139.RepeatMode>(
         name: 'RepeatMode',
-        values: $flutter_138.RepeatMode.values,
+        values: $flutter_139.RepeatMode.values,
       ),
-      BridgedEnumDefinition<$flutter_139.RouteInformationReportingType>(
+      BridgedEnumDefinition<$flutter_140.RouteInformationReportingType>(
         name: 'RouteInformationReportingType',
-        values: $flutter_139.RouteInformationReportingType.values,
+        values: $flutter_140.RouteInformationReportingType.values,
       ),
-      BridgedEnumDefinition<$flutter_141.AndroidOverscrollIndicator>(
+      BridgedEnumDefinition<$flutter_142.AndroidOverscrollIndicator>(
         name: 'AndroidOverscrollIndicator',
-        values: $flutter_141.AndroidOverscrollIndicator.values,
+        values: $flutter_142.AndroidOverscrollIndicator.values,
       ),
-      BridgedEnumDefinition<$flutter_144.ScrollDecelerationRate>(
+      BridgedEnumDefinition<$flutter_145.ScrollDecelerationRate>(
         name: 'ScrollDecelerationRate',
-        values: $flutter_144.ScrollDecelerationRate.values,
+        values: $flutter_145.ScrollDecelerationRate.values,
       ),
-      BridgedEnumDefinition<$flutter_145.ScrollPositionAlignmentPolicy>(
+      BridgedEnumDefinition<$flutter_146.ScrollPositionAlignmentPolicy>(
         name: 'ScrollPositionAlignmentPolicy',
-        values: $flutter_145.ScrollPositionAlignmentPolicy.values,
+        values: $flutter_146.ScrollPositionAlignmentPolicy.values,
       ),
-      BridgedEnumDefinition<$flutter_146.ScrollViewKeyboardDismissBehavior>(
+      BridgedEnumDefinition<$flutter_147.ScrollViewKeyboardDismissBehavior>(
         name: 'ScrollViewKeyboardDismissBehavior',
-        values: $flutter_146.ScrollViewKeyboardDismissBehavior.values,
+        values: $flutter_147.ScrollViewKeyboardDismissBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_147.DiagonalDragBehavior>(
+      BridgedEnumDefinition<$flutter_148.DiagonalDragBehavior>(
         name: 'DiagonalDragBehavior',
-        values: $flutter_147.DiagonalDragBehavior.values,
+        values: $flutter_148.DiagonalDragBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_148.ScrollIncrementType>(
+      BridgedEnumDefinition<$flutter_149.ScrollIncrementType>(
         name: 'ScrollIncrementType',
-        values: $flutter_148.ScrollIncrementType.values,
+        values: $flutter_149.ScrollIncrementType.values,
       ),
-      BridgedEnumDefinition<$flutter_149.ScrollbarOrientation>(
+      BridgedEnumDefinition<$flutter_150.ScrollbarOrientation>(
         name: 'ScrollbarOrientation',
-        values: $flutter_149.ScrollbarOrientation.values,
+        values: $flutter_150.ScrollbarOrientation.values,
       ),
-      BridgedEnumDefinition<$flutter_150.SelectableRegionSelectionStatus>(
+      BridgedEnumDefinition<$flutter_151.SelectableRegionSelectionStatus>(
         name: 'SelectableRegionSelectionStatus',
-        values: $flutter_150.SelectableRegionSelectionStatus.values,
+        values: $flutter_151.SelectableRegionSelectionStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_151.WidgetsServiceExtensions>(
+      BridgedEnumDefinition<$flutter_152.WidgetsServiceExtensions>(
         name: 'WidgetsServiceExtensions',
-        values: $flutter_151.WidgetsServiceExtensions.values,
+        values: $flutter_152.WidgetsServiceExtensions.values,
       ),
-      BridgedEnumDefinition<$flutter_151.WidgetInspectorServiceExtensions>(
+      BridgedEnumDefinition<$flutter_152.WidgetInspectorServiceExtensions>(
         name: 'WidgetInspectorServiceExtensions',
-        values: $flutter_151.WidgetInspectorServiceExtensions.values,
+        values: $flutter_152.WidgetInspectorServiceExtensions.values,
       ),
-      BridgedEnumDefinition<$flutter_152.LockState>(
+      BridgedEnumDefinition<$flutter_153.LockState>(
         name: 'LockState',
-        values: $flutter_152.LockState.values,
+        values: $flutter_153.LockState.values,
       ),
-      BridgedEnumDefinition<$flutter_153.FloatingHeaderSnapMode>(
+      BridgedEnumDefinition<$flutter_154.FloatingHeaderSnapMode>(
         name: 'FloatingHeaderSnapMode',
-        values: $flutter_153.FloatingHeaderSnapMode.values,
+        values: $flutter_154.FloatingHeaderSnapMode.values,
       ),
-      BridgedEnumDefinition<$flutter_154.SnapshotMode>(
+      BridgedEnumDefinition<$flutter_155.SnapshotMode>(
         name: 'SnapshotMode',
-        values: $flutter_154.SnapshotMode.values,
+        values: $flutter_155.SnapshotMode.values,
       ),
-      BridgedEnumDefinition<$flutter_156.StandardComponentType>(
+      BridgedEnumDefinition<$flutter_157.StandardComponentType>(
         name: 'StandardComponentType',
-        values: $flutter_156.StandardComponentType.values,
+        values: $flutter_157.StandardComponentType.values,
         getters: {
-          'key': (visitor, target) => (target as $flutter_156.StandardComponentType).key,
+          'key': (visitor, target) => (target as $flutter_157.StandardComponentType).key,
         },
       ),
-      BridgedEnumDefinition<$flutter_158.ClipboardStatus>(
+      BridgedEnumDefinition<$flutter_159.ClipboardStatus>(
         name: 'ClipboardStatus',
-        values: $flutter_158.ClipboardStatus.values,
+        values: $flutter_159.ClipboardStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_158.LiveTextInputStatus>(
+      BridgedEnumDefinition<$flutter_159.LiveTextInputStatus>(
         name: 'LiveTextInputStatus',
-        values: $flutter_158.LiveTextInputStatus.values,
+        values: $flutter_159.LiveTextInputStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_162.InspectorButtonVariant>(
+      BridgedEnumDefinition<$flutter_163.InspectorButtonVariant>(
         name: 'InspectorButtonVariant',
-        values: $flutter_162.InspectorButtonVariant.values,
+        values: $flutter_163.InspectorButtonVariant.values,
       ),
-      BridgedEnumDefinition<$flutter_163.WidgetState>(
+      BridgedEnumDefinition<$flutter_164.WidgetState>(
         name: 'WidgetState',
-        values: $flutter_163.WidgetState.values,
+        values: $flutter_164.WidgetState.values,
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
-            final t = target as $flutter_163.WidgetState;
-            final states = D4.coerceSet<$flutter_163.WidgetState>(positional[0], 'states');
+            final t = target as $flutter_164.WidgetState;
+            final states = D4.coerceSet<$flutter_164.WidgetState>(positional[0], 'states');
             return t.isSatisfiedBy(states);
           },
         },
         staticGetters: {
-          'any': () => $flutter_163.WidgetState.any,
+          'any': () => $flutter_164.WidgetState.any,
         },
       ),
     ];
@@ -1095,86 +1096,86 @@ class FlutterCupertinoBridge {
       errors.add('Failed to register variable "cupertinoTextSelectionControls": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintRebuildDirtyWidgets', $flutter_108.debugPrintRebuildDirtyWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintRebuildDirtyWidgets', $flutter_109.debugPrintRebuildDirtyWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintRebuildDirtyWidgets": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugOnRebuildDirtyWidget', $flutter_108.debugOnRebuildDirtyWidget, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugOnRebuildDirtyWidget', $flutter_109.debugOnRebuildDirtyWidget, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugOnRebuildDirtyWidget": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintBuildScope', $flutter_108.debugPrintBuildScope, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintBuildScope', $flutter_109.debugPrintBuildScope, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintBuildScope": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintScheduleBuildForStacks', $flutter_108.debugPrintScheduleBuildForStacks, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintScheduleBuildForStacks', $flutter_109.debugPrintScheduleBuildForStacks, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintScheduleBuildForStacks": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugPrintGlobalKeyedWidgetLifecycle', $flutter_108.debugPrintGlobalKeyedWidgetLifecycle, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugPrintGlobalKeyedWidgetLifecycle', $flutter_109.debugPrintGlobalKeyedWidgetLifecycle, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugPrintGlobalKeyedWidgetLifecycle": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugProfileBuildsEnabled', $flutter_108.debugProfileBuildsEnabled, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugProfileBuildsEnabled', $flutter_109.debugProfileBuildsEnabled, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugProfileBuildsEnabled": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugProfileBuildsEnabledUserWidgets', $flutter_108.debugProfileBuildsEnabledUserWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugProfileBuildsEnabledUserWidgets', $flutter_109.debugProfileBuildsEnabledUserWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugProfileBuildsEnabledUserWidgets": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugEnhanceBuildTimelineArguments', $flutter_108.debugEnhanceBuildTimelineArguments, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugEnhanceBuildTimelineArguments', $flutter_109.debugEnhanceBuildTimelineArguments, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugEnhanceBuildTimelineArguments": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugHighlightDeprecatedWidgets', $flutter_108.debugHighlightDeprecatedWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
+      interpreter.registerGlobalVariable('debugHighlightDeprecatedWidgets', $flutter_109.debugHighlightDeprecatedWidgets, importPath, sourceUri: 'package:flutter/src/widgets/debug.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugHighlightDeprecatedWidgets": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kDefaultContentInsertionMimeTypes', $flutter_112.kDefaultContentInsertionMimeTypes, importPath, sourceUri: 'package:flutter/src/widgets/editable_text.dart');
+      interpreter.registerGlobalVariable('kDefaultContentInsertionMimeTypes', $flutter_113.kDefaultContentInsertionMimeTypes, importPath, sourceUri: 'package:flutter/src/widgets/editable_text.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDefaultContentInsertionMimeTypes": $e');
     }
     try {
-      interpreter.registerGlobalVariable('debugFocusChanges', $flutter_114.debugFocusChanges, importPath, sourceUri: 'package:flutter/src/widgets/focus_manager.dart');
+      interpreter.registerGlobalVariable('debugFocusChanges', $flutter_115.debugFocusChanges, importPath, sourceUri: 'package:flutter/src/widgets/focus_manager.dart');
     } catch (e) {
       errors.add('Failed to register variable "debugFocusChanges": $e');
     }
     try {
-      interpreter.registerGlobalVariable('staticIconProvider', $flutter_120.staticIconProvider, importPath, sourceUri: 'package:flutter/src/widgets/icon_data.dart');
+      interpreter.registerGlobalVariable('staticIconProvider', $flutter_121.staticIconProvider, importPath, sourceUri: 'package:flutter/src/widgets/icon_data.dart');
     } catch (e) {
       errors.add('Failed to register variable "staticIconProvider": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kDefaultRouteTraversalEdgeBehavior', $flutter_128.kDefaultRouteTraversalEdgeBehavior, importPath, sourceUri: 'package:flutter/src/widgets/navigator.dart');
+      interpreter.registerGlobalVariable('kDefaultRouteTraversalEdgeBehavior', $flutter_129.kDefaultRouteTraversalEdgeBehavior, importPath, sourceUri: 'package:flutter/src/widgets/navigator.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDefaultRouteTraversalEdgeBehavior": $e');
     }
     try {
-      interpreter.registerGlobalVariable('kDefaultRouteDirectionalTraversalEdgeBehavior', $flutter_128.kDefaultRouteDirectionalTraversalEdgeBehavior, importPath, sourceUri: 'package:flutter/src/widgets/navigator.dart');
+      interpreter.registerGlobalVariable('kDefaultRouteDirectionalTraversalEdgeBehavior', $flutter_129.kDefaultRouteDirectionalTraversalEdgeBehavior, importPath, sourceUri: 'package:flutter/src/widgets/navigator.dart');
     } catch (e) {
       errors.add('Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e');
     }
     try {
-      interpreter.registerGlobalVariable('emptyTextSelectionControls', $flutter_158.emptyTextSelectionControls, importPath, sourceUri: 'package:flutter/src/widgets/text_selection.dart');
+      interpreter.registerGlobalVariable('emptyTextSelectionControls', $flutter_159.emptyTextSelectionControls, importPath, sourceUri: 'package:flutter/src/widgets/text_selection.dart');
     } catch (e) {
       errors.add('Failed to register variable "emptyTextSelectionControls": $e');
     }
     try {
-      interpreter.registerGlobalVariable('widgetFactory', $flutter_162.widgetFactory, importPath, sourceUri: 'package:flutter/src/widgets/widget_inspector.dart');
+      interpreter.registerGlobalVariable('widgetFactory', $flutter_163.widgetFactory, importPath, sourceUri: 'package:flutter/src/widgets/widget_inspector.dart');
     } catch (e) {
       errors.add('Failed to register variable "widgetFactory": $e');
     }
-    interpreter.registerGlobalGetter('primaryFocus', () => $flutter_114.primaryFocus, importPath, sourceUri: 'package:flutter/src/widgets/focus_manager.dart');
+    interpreter.registerGlobalGetter('primaryFocus', () => $flutter_115.primaryFocus, importPath, sourceUri: 'package:flutter/src/widgets/focus_manager.dart');
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (flutter_cupertino):\n${errors.join("\n")}');
@@ -1202,21 +1203,21 @@ class FlutterCupertinoBridge {
       },
       'debugCheckHasCupertinoLocalizations': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasCupertinoLocalizations');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasCupertinoLocalizations');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasCupertinoLocalizations');
         return $flutter_16.debugCheckHasCupertinoLocalizations(context);
       },
       'showCupertinoModalPopup': (visitor, positional, named, typeArgs) {
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'showCupertinoModalPopup');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'showCupertinoModalPopup');
         final builderRaw = named['builder'];
         if (builderRaw == null) {
           throw ArgumentError('showCupertinoModalPopup: Missing required named argument "builder"');
         }
-        final builder = ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
+        final builder = ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
         final filter = D4.getOptionalNamedArg<ImageFilter?>(named, 'filter');
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', true);
         final useRootNavigator = D4.getNamedArgWithDefault<bool>(named, 'useRootNavigator', true);
         final semanticsDismissible = D4.getNamedArgWithDefault<bool>(named, 'semanticsDismissible', false);
-        final routeSettings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'routeSettings');
+        final routeSettings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'routeSettings');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
         if (!named.containsKey('barrierColor')) {
@@ -1229,27 +1230,27 @@ class FlutterCupertinoBridge {
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'showCupertinoDialog': (visitor, positional, named, typeArgs) {
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'showCupertinoDialog');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'showCupertinoDialog');
         final builderRaw = named['builder'];
         if (builderRaw == null) {
           throw ArgumentError('showCupertinoDialog: Missing required named argument "builder"');
         }
-        final builder = ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
+        final builder = ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
         final barrierLabel = D4.getOptionalNamedArg<String?>(named, 'barrierLabel');
         final barrierColor = D4.getOptionalNamedArg<Color?>(named, 'barrierColor');
         final useRootNavigator = D4.getNamedArgWithDefault<bool>(named, 'useRootNavigator', true);
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', false);
-        final routeSettings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'routeSettings');
+        final routeSettings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'routeSettings');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
         return $flutter_36.showCupertinoDialog<dynamic>(context: context, builder: builder, barrierLabel: barrierLabel, barrierColor: barrierColor, useRootNavigator: useRootNavigator, barrierDismissible: barrierDismissible, routeSettings: routeSettings, anchorPoint: anchorPoint, requestFocus: requestFocus);
       },
       'showCupertinoSheet': (visitor, positional, named, typeArgs) {
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'showCupertinoSheet');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'showCupertinoSheet');
         final pageBuilderRaw = named['pageBuilder'];
-        final pageBuilder = pageBuilderRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0]), 'callback', visitor); };
+        final pageBuilder = pageBuilderRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0]), 'callback', visitor); };
         final builderRaw = named['builder'];
-        final builder = builderRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
+        final builder = builderRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); };
         final useNestedNavigation = D4.getNamedArgWithDefault<bool>(named, 'useNestedNavigation', false);
         final enableDrag = D4.getNamedArgWithDefault<bool>(named, 'enableDrag', true);
         final topGap = D4.getOptionalNamedArg<double?>(named, 'topGap');
@@ -1260,148 +1261,148 @@ class FlutterCupertinoBridge {
         D4.requireMinArgs(positional, 2, 'basicLocaleListResolution');
         final preferredLocales = D4.getRequiredArg<List<Locale>?>(positional, 0, 'preferredLocales', 'basicLocaleListResolution');
         final supportedLocales = D4.getRequiredArg<Iterable<Locale>>(positional, 1, 'supportedLocales', 'basicLocaleListResolution');
-        return $flutter_98.basicLocaleListResolution(preferredLocales, supportedLocales);
+        return $flutter_99.basicLocaleListResolution(preferredLocales, supportedLocales);
       },
       'getAxisDirectionFromAxisReverseAndDirectionality': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'getAxisDirectionFromAxisReverseAndDirectionality');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getAxisDirectionFromAxisReverseAndDirectionality');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getAxisDirectionFromAxisReverseAndDirectionality');
         final axis = D4.getRequiredArg<$flutter_67.Axis>(positional, 1, 'axis', 'getAxisDirectionFromAxisReverseAndDirectionality');
         final reverse = D4.getRequiredArg<bool>(positional, 2, 'reverse', 'getAxisDirectionFromAxisReverseAndDirectionality');
-        return $flutter_103.getAxisDirectionFromAxisReverseAndDirectionality(context, axis, reverse);
+        return $flutter_104.getAxisDirectionFromAxisReverseAndDirectionality(context, axis, reverse);
       },
       'runApp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'runApp');
-        final app = D4.getRequiredArg<$flutter_117.Widget>(positional, 0, 'app', 'runApp');
-        return $flutter_104.runApp(app);
+        final app = D4.getRequiredArg<$flutter_118.Widget>(positional, 0, 'app', 'runApp');
+        return $flutter_105.runApp(app);
       },
       'runWidget': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'runWidget');
-        final app = D4.getRequiredArg<$flutter_117.Widget>(positional, 0, 'app', 'runWidget');
-        return $flutter_104.runWidget(app);
+        final app = D4.getRequiredArg<$flutter_118.Widget>(positional, 0, 'app', 'runWidget');
+        return $flutter_105.runWidget(app);
       },
       'debugDumpApp': (visitor, positional, named, typeArgs) {
-        return $flutter_104.debugDumpApp();
+        return $flutter_105.debugDumpApp();
       },
       'debugChildrenHaveDuplicateKeys': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'debugChildrenHaveDuplicateKeys');
-        final parent = D4.getRequiredArg<$flutter_117.Widget>(positional, 0, 'parent', 'debugChildrenHaveDuplicateKeys');
-        final children = D4.getRequiredArg<Iterable<$flutter_117.Widget>>(positional, 1, 'children', 'debugChildrenHaveDuplicateKeys');
+        final parent = D4.getRequiredArg<$flutter_118.Widget>(positional, 0, 'parent', 'debugChildrenHaveDuplicateKeys');
+        final children = D4.getRequiredArg<Iterable<$flutter_118.Widget>>(positional, 1, 'children', 'debugChildrenHaveDuplicateKeys');
         final message = D4.getOptionalNamedArg<String?>(named, 'message');
-        return $flutter_108.debugChildrenHaveDuplicateKeys(parent, children, message: message);
+        return $flutter_109.debugChildrenHaveDuplicateKeys(parent, children, message: message);
       },
       'debugItemsHaveDuplicateKeys': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugItemsHaveDuplicateKeys');
-        final items = D4.getRequiredArg<Iterable<$flutter_117.Widget>>(positional, 0, 'items', 'debugItemsHaveDuplicateKeys');
-        return $flutter_108.debugItemsHaveDuplicateKeys(items);
+        final items = D4.getRequiredArg<Iterable<$flutter_118.Widget>>(positional, 0, 'items', 'debugItemsHaveDuplicateKeys');
+        return $flutter_109.debugItemsHaveDuplicateKeys(items);
       },
       'debugCheckHasTable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasTable');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasTable');
-        return $flutter_108.debugCheckHasTable(context);
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasTable');
+        return $flutter_109.debugCheckHasTable(context);
       },
       'debugCheckHasMediaQuery': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasMediaQuery');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasMediaQuery');
-        return $flutter_108.debugCheckHasMediaQuery(context);
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasMediaQuery');
+        return $flutter_109.debugCheckHasMediaQuery(context);
       },
       'debugCheckHasDirectionality': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasDirectionality');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasDirectionality');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasDirectionality');
         final why = D4.getOptionalNamedArg<String?>(named, 'why');
         final hint = D4.getOptionalNamedArg<String?>(named, 'hint');
         final alternative = D4.getOptionalNamedArg<String?>(named, 'alternative');
-        return $flutter_108.debugCheckHasDirectionality(context, why: why, hint: hint, alternative: alternative);
+        return $flutter_109.debugCheckHasDirectionality(context, why: why, hint: hint, alternative: alternative);
       },
       'debugWidgetBuilderValue': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'debugWidgetBuilderValue');
-        final widget = D4.getRequiredArg<$flutter_117.Widget>(positional, 0, 'widget', 'debugWidgetBuilderValue');
-        final built = D4.getRequiredArg<$flutter_117.Widget?>(positional, 1, 'built', 'debugWidgetBuilderValue');
-        return $flutter_108.debugWidgetBuilderValue(widget, built);
+        final widget = D4.getRequiredArg<$flutter_118.Widget>(positional, 0, 'widget', 'debugWidgetBuilderValue');
+        final built = D4.getRequiredArg<$flutter_118.Widget?>(positional, 1, 'built', 'debugWidgetBuilderValue');
+        return $flutter_109.debugWidgetBuilderValue(widget, built);
       },
       'debugCheckHasWidgetsLocalizations': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasWidgetsLocalizations');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasWidgetsLocalizations');
-        return $flutter_108.debugCheckHasWidgetsLocalizations(context);
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasWidgetsLocalizations');
+        return $flutter_109.debugCheckHasWidgetsLocalizations(context);
       },
       'debugCheckHasOverlay': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugCheckHasOverlay');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'debugCheckHasOverlay');
-        return $flutter_108.debugCheckHasOverlay(context);
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'debugCheckHasOverlay');
+        return $flutter_109.debugCheckHasOverlay(context);
       },
       'debugAssertAllWidgetVarsUnset': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugAssertAllWidgetVarsUnset');
         final reason = D4.getRequiredArg<String>(positional, 0, 'reason', 'debugAssertAllWidgetVarsUnset');
-        return $flutter_108.debugAssertAllWidgetVarsUnset(reason);
+        return $flutter_109.debugAssertAllWidgetVarsUnset(reason);
       },
       'intentForMacOSSelector': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'intentForMacOSSelector');
         final selectorName = D4.getRequiredArg<String>(positional, 0, 'selectorName', 'intentForMacOSSelector');
-        return $flutter_109.intentForMacOSSelector(selectorName);
+        return $flutter_110.intentForMacOSSelector(selectorName);
       },
       'childDragAnchorStrategy': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'childDragAnchorStrategy');
-        final draggable = D4.getRequiredArg<$flutter_111.Draggable<Object>>(positional, 0, 'draggable', 'childDragAnchorStrategy');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'childDragAnchorStrategy');
+        final draggable = D4.getRequiredArg<$flutter_112.Draggable<Object>>(positional, 0, 'draggable', 'childDragAnchorStrategy');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'childDragAnchorStrategy');
         final position = D4.getRequiredArg<Offset>(positional, 2, 'position', 'childDragAnchorStrategy');
-        return $flutter_111.childDragAnchorStrategy(draggable, context, position);
+        return $flutter_112.childDragAnchorStrategy(draggable, context, position);
       },
       'pointerDragAnchorStrategy': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'pointerDragAnchorStrategy');
-        final draggable = D4.getRequiredArg<$flutter_111.Draggable<Object>>(positional, 0, 'draggable', 'pointerDragAnchorStrategy');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'pointerDragAnchorStrategy');
+        final draggable = D4.getRequiredArg<$flutter_112.Draggable<Object>>(positional, 0, 'draggable', 'pointerDragAnchorStrategy');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'pointerDragAnchorStrategy');
         final position = D4.getRequiredArg<Offset>(positional, 2, 'position', 'pointerDragAnchorStrategy');
-        return $flutter_111.pointerDragAnchorStrategy(draggable, context, position);
+        return $flutter_112.pointerDragAnchorStrategy(draggable, context, position);
       },
       'combineKeyEventResults': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'combineKeyEventResults');
-        final results = D4.getRequiredArg<Iterable<$flutter_114.KeyEventResult>>(positional, 0, 'results', 'combineKeyEventResults');
-        return $flutter_114.combineKeyEventResults(results);
+        final results = D4.getRequiredArg<Iterable<$flutter_115.KeyEventResult>>(positional, 0, 'results', 'combineKeyEventResults');
+        return $flutter_115.combineKeyEventResults(results);
       },
       'debugDescribeFocusTree': (visitor, positional, named, typeArgs) {
-        return $flutter_114.debugDescribeFocusTree();
+        return $flutter_115.debugDescribeFocusTree();
       },
       'debugDumpFocusTree': (visitor, positional, named, typeArgs) {
-        return $flutter_114.debugDumpFocusTree();
+        return $flutter_115.debugDumpFocusTree();
       },
       'createLocalImageConfiguration': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createLocalImageConfiguration');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'createLocalImageConfiguration');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'createLocalImageConfiguration');
         final size = D4.getOptionalNamedArg<Size?>(named, 'size');
-        return $flutter_122.createLocalImageConfiguration(context, size: size);
+        return $flutter_123.createLocalImageConfiguration(context, size: size);
       },
       'precacheImage': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'precacheImage');
         final provider = D4.getRequiredArg<$flutter_75.ImageProvider<Object>>(positional, 0, 'provider', 'precacheImage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'precacheImage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'precacheImage');
         final size = D4.getOptionalNamedArg<Size?>(named, 'size');
         final onErrorRaw = named['onError'];
         final onError = onErrorRaw == null ? null : (Object p0, StackTrace? p1) { D4.callInterpreterCallback(visitor!, onErrorRaw, [p0, p1]); };
-        return $flutter_122.precacheImage(provider, context, size: size, onError: onError);
+        return $flutter_123.precacheImage(provider, context, size: size, onError: onError);
       },
       'showGeneralDialog': (visitor, positional, named, typeArgs) {
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'showGeneralDialog');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'showGeneralDialog');
         final pageBuilderRaw = named['pageBuilder'];
         if (pageBuilderRaw == null) {
           throw ArgumentError('showGeneralDialog: Missing required named argument "pageBuilder"');
         }
-        final pageBuilder = ($flutter_117.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final pageBuilder = ($flutter_118.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, pageBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', false);
         final barrierLabel = D4.getOptionalNamedArg<String?>(named, 'barrierLabel');
         final barrierColor = D4.getNamedArgWithDefault<Color>(named, 'barrierColor', const $dart_ui.Color(0x80000000));
         final transitionDuration = D4.getNamedArgWithDefault<Duration>(named, 'transitionDuration', const Duration(milliseconds: 200));
         final transitionBuilderRaw = named['transitionBuilder'];
-        final transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_117.Widget p3) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
+        final transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_118.Widget p3) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
         final useRootNavigator = D4.getNamedArgWithDefault<bool>(named, 'useRootNavigator', true);
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
-        final routeSettings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'routeSettings');
+        final routeSettings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'routeSettings');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
-        return $flutter_140.showGeneralDialog(context: context, pageBuilder: pageBuilder, barrierDismissible: barrierDismissible, barrierLabel: barrierLabel, barrierColor: barrierColor, transitionDuration: transitionDuration, transitionBuilder: transitionBuilder, useRootNavigator: useRootNavigator, fullscreenDialog: fullscreenDialog, routeSettings: routeSettings, anchorPoint: anchorPoint, requestFocus: requestFocus);
+        return $flutter_141.showGeneralDialog(context: context, pageBuilder: pageBuilder, barrierDismissible: barrierDismissible, barrierLabel: barrierLabel, barrierColor: barrierColor, transitionDuration: transitionDuration, transitionBuilder: transitionBuilder, useRootNavigator: useRootNavigator, fullscreenDialog: fullscreenDialog, routeSettings: routeSettings, anchorPoint: anchorPoint, requestFocus: requestFocus);
       },
       'defaultScrollNotificationPredicate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'defaultScrollNotificationPredicate');
-        final notification = D4.getRequiredArg<$flutter_143.ScrollNotification>(positional, 0, 'notification', 'defaultScrollNotificationPredicate');
-        return $flutter_143.defaultScrollNotificationPredicate(notification);
+        final notification = D4.getRequiredArg<$flutter_144.ScrollNotification>(positional, 0, 'notification', 'defaultScrollNotificationPredicate');
+        return $flutter_144.defaultScrollNotificationPredicate(notification);
       },
       'buildTextSpanWithSpellCheckSuggestions': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'buildTextSpanWithSpellCheckSuggestions');
@@ -1410,22 +1411,22 @@ class FlutterCupertinoBridge {
         final style = D4.getRequiredArg<$flutter_82.TextStyle?>(positional, 2, 'style', 'buildTextSpanWithSpellCheckSuggestions');
         final misspelledTextStyle = D4.getRequiredArg<$flutter_82.TextStyle>(positional, 3, 'misspelledTextStyle', 'buildTextSpanWithSpellCheckSuggestions');
         final spellCheckResults = D4.getRequiredArg<$flutter_92.SpellCheckResults>(positional, 4, 'spellCheckResults', 'buildTextSpanWithSpellCheckSuggestions');
-        return $flutter_155.buildTextSpanWithSpellCheckSuggestions(value, composingWithinCurrentTextRange, style, misspelledTextStyle, spellCheckResults);
+        return $flutter_156.buildTextSpanWithSpellCheckSuggestions(value, composingWithinCurrentTextRange, style, misspelledTextStyle, spellCheckResults);
       },
       'debugTransformDebugCreator': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugTransformDebugCreator');
         final properties = D4.getRequiredArg<Iterable<$flutter_57.DiagnosticsNode>>(positional, 0, 'properties', 'debugTransformDebugCreator');
-        return $flutter_162.debugTransformDebugCreator(properties);
+        return $flutter_163.debugTransformDebugCreator(properties);
       },
       'debugIsLocalCreationLocation': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugIsLocalCreationLocation');
         final object = D4.getRequiredArg<Object>(positional, 0, 'object', 'debugIsLocalCreationLocation');
-        return $flutter_162.debugIsLocalCreationLocation(object);
+        return $flutter_163.debugIsLocalCreationLocation(object);
       },
       'debugIsWidgetLocalCreation': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugIsWidgetLocalCreation');
-        final widget = D4.getRequiredArg<$flutter_117.Widget>(positional, 0, 'widget', 'debugIsWidgetLocalCreation');
-        return $flutter_162.debugIsWidgetLocalCreation(widget);
+        final widget = D4.getRequiredArg<$flutter_118.Widget>(positional, 0, 'widget', 'debugIsWidgetLocalCreation');
+        return $flutter_163.debugIsWidgetLocalCreation(widget);
       },
     };
   }
@@ -1912,7 +1913,7 @@ BridgedClass _createCupertinoLinearActivityIndicatorBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CupertinoLinearActivityIndicator>(target, 'CupertinoLinearActivityIndicator');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -1960,8 +1961,8 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
         if (!named.containsKey('children')) {
           throw ArgumentError('CupertinoAdaptiveTextSelectionToolbar: Missing required named argument "children"');
         }
-        final children = D4.coerceListOrNull<$flutter_117.Widget>(named['children'], 'children');
-        final anchors = D4.getRequiredNamedArg<$flutter_159.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
+        final children = D4.coerceListOrNull<$flutter_118.Widget>(named['children'], 'children');
+        final anchors = D4.getRequiredNamedArg<$flutter_160.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar(key: key, children: children, anchors: anchors);
       },
       'buttonItems': (visitor, positional, named) {
@@ -1969,13 +1970,13 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
         if (!named.containsKey('buttonItems')) {
           throw ArgumentError('CupertinoAdaptiveTextSelectionToolbar: Missing required named argument "buttonItems"');
         }
-        final buttonItems = D4.coerceListOrNull<$flutter_106.ContextMenuButtonItem>(named['buttonItems'], 'buttonItems');
-        final anchors = D4.getRequiredNamedArg<$flutter_159.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
+        final buttonItems = D4.coerceListOrNull<$flutter_107.ContextMenuButtonItem>(named['buttonItems'], 'buttonItems');
+        final anchors = D4.getRequiredNamedArg<$flutter_160.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar.buttonItems(key: key, buttonItems: buttonItems, anchors: anchors);
       },
       'editable': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final clipboardStatus = D4.getRequiredNamedArg<$flutter_158.ClipboardStatus>(named, 'clipboardStatus', 'CupertinoAdaptiveTextSelectionToolbar');
+        final clipboardStatus = D4.getRequiredNamedArg<$flutter_159.ClipboardStatus>(named, 'clipboardStatus', 'CupertinoAdaptiveTextSelectionToolbar');
         if (!named.containsKey('onCopy')) {
           throw ArgumentError('CupertinoAdaptiveTextSelectionToolbar: Missing required named argument "onCopy"');
         }
@@ -2008,12 +2009,12 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
           throw ArgumentError('CupertinoAdaptiveTextSelectionToolbar: Missing required named argument "onLiveTextInput"');
         }
         final onLiveTextInputRaw = named['onLiveTextInput'];
-        final anchors = D4.getRequiredNamedArg<$flutter_159.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_160.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar.editable(key: key, clipboardStatus: clipboardStatus, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPasteRaw, []); }, onSelectAll: onSelectAllRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectAllRaw, []); }, onLookUp: onLookUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLookUpRaw, []); }, onSearchWeb: onSearchWebRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSearchWebRaw, []); }, onShare: onShareRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShareRaw, []); }, onLiveTextInput: onLiveTextInputRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLiveTextInputRaw, []); }, anchors: anchors);
       },
       'editableText': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final editableTextState = D4.getRequiredNamedArg<$flutter_112.EditableTextState>(named, 'editableTextState', 'CupertinoAdaptiveTextSelectionToolbar');
+        final editableTextState = D4.getRequiredNamedArg<$flutter_113.EditableTextState>(named, 'editableTextState', 'CupertinoAdaptiveTextSelectionToolbar');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar.editableText(key: key, editableTextState: editableTextState);
       },
       'selectable': (visitor, positional, named) {
@@ -2027,7 +2028,7 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
         }
         final onSelectAllRaw = named['onSelectAll'];
         final selectionGeometry = D4.getRequiredNamedArg<$flutter_86.SelectionGeometry>(named, 'selectionGeometry', 'CupertinoAdaptiveTextSelectionToolbar');
-        final anchors = D4.getRequiredNamedArg<$flutter_159.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_160.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoAdaptiveTextSelectionToolbar');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar.selectable(key: key, onCopy: () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); }, onSelectAll: () { D4.callInterpreterCallback(visitor!, onSelectAllRaw, []); }, selectionGeometry: selectionGeometry, anchors: anchors);
       },
     },
@@ -2086,7 +2087,7 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.CupertinoAdaptiveTextSelectionToolbar>(target, 'CupertinoAdaptiveTextSelectionToolbar');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -2098,11 +2099,11 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
     staticMethods: {
       'getAdaptiveButtons': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'getAdaptiveButtons');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getAdaptiveButtons');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getAdaptiveButtons');
         if (positional.length <= 1) {
           throw ArgumentError('getAdaptiveButtons: Missing required argument "buttonItems" at position 1');
         }
-        final buttonItems = D4.coerceList<$flutter_106.ContextMenuButtonItem>(positional[1], 'buttonItems');
+        final buttonItems = D4.coerceList<$flutter_107.ContextMenuButtonItem>(positional[1], 'buttonItems');
         return $flutter_5.CupertinoAdaptiveTextSelectionToolbar.getAdaptiveButtons(context, buttonItems);
       },
     },
@@ -2149,14 +2150,14 @@ BridgedClass _createCupertinoAppBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final navigatorKey = D4.getOptionalNamedArg<$flutter_117.GlobalKey<$flutter_128.NavigatorState>?>(named, 'navigatorKey');
-        final home = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'home');
+        final navigatorKey = D4.getOptionalNamedArg<$flutter_118.GlobalKey<$flutter_129.NavigatorState>?>(named, 'navigatorKey');
+        final home = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'home');
         final theme = D4.getOptionalNamedArg<$flutter_53.CupertinoThemeData?>(named, 'theme');
-        var routes = <String, $flutter_117.Widget Function($flutter_117.BuildContext)>{};
+        var routes = <String, $flutter_118.Widget Function($flutter_118.BuildContext)>{};
         if (named.containsKey('routes') && named['routes'] != null) {
           // Convert map with function values inline
           final routesRaw = named['routes'] as Map?;
-          routes = <String, $flutter_117.Widget Function($flutter_117.BuildContext)>{};
+          routes = <String, $flutter_118.Widget Function($flutter_118.BuildContext)>{};
           if (routesRaw != null) {
             for (final entry in routesRaw.entries) {
               final k = D4.extractBridgedArg<String>(entry.key, 'routes[key]');
@@ -2164,14 +2165,14 @@ BridgedClass _createCupertinoAppBridge() {
               if (v == null) {
                 // Skip null values for non-nullable function type
               } else if (v is Callable) {
-                routes[k] = ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor, v, [p0]), 'callback', visitor); };
+                routes[k] = ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor, v, [p0]), 'callback', visitor); };
               } else {
-                routes[k] = v as $flutter_117.Widget Function($flutter_117.BuildContext);
+                routes[k] = v as $flutter_118.Widget Function($flutter_118.BuildContext);
               }
             }
           }
         } else {
-          routes = const <String, $flutter_117.Widget Function($flutter_117.BuildContext)>{};
+          routes = const <String, $flutter_118.Widget Function($flutter_118.BuildContext)>{};
         }
         final initialRoute = D4.getOptionalNamedArg<String?>(named, 'initialRoute');
         final onGenerateRouteRaw = named['onGenerateRoute'];
@@ -2179,14 +2180,14 @@ BridgedClass _createCupertinoAppBridge() {
         final onUnknownRouteRaw = named['onUnknownRoute'];
         final onNavigationNotificationRaw = named['onNavigationNotification'];
         final navigatorObservers = named.containsKey('navigatorObservers') && named['navigatorObservers'] != null
-            ? D4.coerceList<$flutter_128.NavigatorObserver>(named['navigatorObservers'], 'navigatorObservers')
-            : const <$flutter_128.NavigatorObserver>[];
+            ? D4.coerceList<$flutter_129.NavigatorObserver>(named['navigatorObservers'], 'navigatorObservers')
+            : const <$flutter_129.NavigatorObserver>[];
         final builderRaw = named['builder'];
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
         final onGenerateTitleRaw = named['onGenerateTitle'];
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
         final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
-        final localizationsDelegates = D4.coerceListOrNull<$flutter_125.LocalizationsDelegate<dynamic>>(named['localizationsDelegates'], 'localizationsDelegates');
+        final localizationsDelegates = D4.coerceListOrNull<$flutter_126.LocalizationsDelegate<dynamic>>(named['localizationsDelegates'], 'localizationsDelegates');
         final localeListResolutionCallbackRaw = named['localeListResolutionCallback'];
         final localeResolutionCallbackRaw = named['localeResolutionCallback'];
         final showPerformanceOverlay = D4.getNamedArgWithDefault<bool>(named, 'showPerformanceOverlay', false);
@@ -2194,27 +2195,27 @@ BridgedClass _createCupertinoAppBridge() {
         final checkerboardOffscreenLayers = D4.getNamedArgWithDefault<bool>(named, 'checkerboardOffscreenLayers', false);
         final showSemanticsDebugger = D4.getNamedArgWithDefault<bool>(named, 'showSemanticsDebugger', false);
         final debugShowCheckedModeBanner = D4.getNamedArgWithDefault<bool>(named, 'debugShowCheckedModeBanner', true);
-        final shortcuts = D4.coerceMapOrNull<$flutter_152.ShortcutActivator, $flutter_96.Intent>(named['shortcuts'], 'shortcuts');
-        final actions = D4.coerceMapOrNull<Type, $flutter_96.Action<$flutter_96.Intent>>(named['actions'], 'actions');
+        final shortcuts = D4.coerceMapOrNull<$flutter_153.ShortcutActivator, $flutter_97.Intent>(named['shortcuts'], 'shortcuts');
+        final actions = D4.coerceMapOrNull<Type, $flutter_97.Action<$flutter_97.Intent>>(named['actions'], 'actions');
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_141.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_142.ScrollBehavior?>(named, 'scrollBehavior');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         if (!named.containsKey('supportedLocales')) {
-          return $flutter_6.CupertinoApp(key: key, navigatorKey: navigatorKey, home: home, theme: theme, routes: routes, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.coerceList<$flutter_128.Route<dynamic>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback'); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_128.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, builder: builderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_117.Widget? p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery);
+          return $flutter_6.CupertinoApp(key: key, navigatorKey: navigatorKey, home: home, theme: theme, routes: routes, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.coerceList<$flutter_129.Route<dynamic>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback'); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_129.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, builder: builderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_118.Widget? p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery);
         }
         if (named.containsKey('supportedLocales')) {
           final supportedLocales = D4.coerceList<Locale>(named['supportedLocales'], 'supportedLocales');
-          return $flutter_6.CupertinoApp(key: key, navigatorKey: navigatorKey, home: home, theme: theme, routes: routes, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.coerceList<$flutter_128.Route<dynamic>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback'); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_128.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, builder: builderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_117.Widget? p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
+          return $flutter_6.CupertinoApp(key: key, navigatorKey: navigatorKey, home: home, theme: theme, routes: routes, initialRoute: initialRoute, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onGenerateInitialRoutes: onGenerateInitialRoutesRaw == null ? null : (String p0) { return D4.coerceList<$flutter_129.Route<dynamic>>(D4.callInterpreterCallback(visitor!, onGenerateInitialRoutesRaw, [p0]), 'callback'); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_129.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, builder: builderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_118.Widget? p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'router': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final routeInformationProvider = D4.getOptionalNamedArg<$flutter_139.RouteInformationProvider?>(named, 'routeInformationProvider');
-        final routeInformationParser = D4.getOptionalNamedArg<$flutter_139.RouteInformationParser<Object>?>(named, 'routeInformationParser');
-        final routerDelegate = D4.getOptionalNamedArg<$flutter_139.RouterDelegate<Object>?>(named, 'routerDelegate');
-        final backButtonDispatcher = D4.getOptionalNamedArg<$flutter_139.BackButtonDispatcher?>(named, 'backButtonDispatcher');
-        final routerConfig = D4.getOptionalNamedArg<$flutter_139.RouterConfig<Object>?>(named, 'routerConfig');
+        final routeInformationProvider = D4.getOptionalNamedArg<$flutter_140.RouteInformationProvider?>(named, 'routeInformationProvider');
+        final routeInformationParser = D4.getOptionalNamedArg<$flutter_140.RouteInformationParser<Object>?>(named, 'routeInformationParser');
+        final routerDelegate = D4.getOptionalNamedArg<$flutter_140.RouterDelegate<Object>?>(named, 'routerDelegate');
+        final backButtonDispatcher = D4.getOptionalNamedArg<$flutter_140.BackButtonDispatcher?>(named, 'backButtonDispatcher');
+        final routerConfig = D4.getOptionalNamedArg<$flutter_140.RouterConfig<Object>?>(named, 'routerConfig');
         final theme = D4.getOptionalNamedArg<$flutter_53.CupertinoThemeData?>(named, 'theme');
         final builderRaw = named['builder'];
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
@@ -2222,7 +2223,7 @@ BridgedClass _createCupertinoAppBridge() {
         final onNavigationNotificationRaw = named['onNavigationNotification'];
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
         final locale = D4.getOptionalNamedArg<Locale?>(named, 'locale');
-        final localizationsDelegates = D4.coerceListOrNull<$flutter_125.LocalizationsDelegate<dynamic>>(named['localizationsDelegates'], 'localizationsDelegates');
+        final localizationsDelegates = D4.coerceListOrNull<$flutter_126.LocalizationsDelegate<dynamic>>(named['localizationsDelegates'], 'localizationsDelegates');
         final localeListResolutionCallbackRaw = named['localeListResolutionCallback'];
         final localeResolutionCallbackRaw = named['localeResolutionCallback'];
         final showPerformanceOverlay = D4.getNamedArgWithDefault<bool>(named, 'showPerformanceOverlay', false);
@@ -2230,17 +2231,17 @@ BridgedClass _createCupertinoAppBridge() {
         final checkerboardOffscreenLayers = D4.getNamedArgWithDefault<bool>(named, 'checkerboardOffscreenLayers', false);
         final showSemanticsDebugger = D4.getNamedArgWithDefault<bool>(named, 'showSemanticsDebugger', false);
         final debugShowCheckedModeBanner = D4.getNamedArgWithDefault<bool>(named, 'debugShowCheckedModeBanner', true);
-        final shortcuts = D4.coerceMapOrNull<$flutter_152.ShortcutActivator, $flutter_96.Intent>(named['shortcuts'], 'shortcuts');
-        final actions = D4.coerceMapOrNull<Type, $flutter_96.Action<$flutter_96.Intent>>(named['actions'], 'actions');
+        final shortcuts = D4.coerceMapOrNull<$flutter_153.ShortcutActivator, $flutter_97.Intent>(named['shortcuts'], 'shortcuts');
+        final actions = D4.coerceMapOrNull<Type, $flutter_97.Action<$flutter_97.Intent>>(named['actions'], 'actions');
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_141.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_142.ScrollBehavior?>(named, 'scrollBehavior');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         if (!named.containsKey('supportedLocales')) {
-          return $flutter_6.CupertinoApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, backButtonDispatcher: backButtonDispatcher, routerConfig: routerConfig, theme: theme, builder: builderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_117.Widget? p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_128.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery);
+          return $flutter_6.CupertinoApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, backButtonDispatcher: backButtonDispatcher, routerConfig: routerConfig, theme: theme, builder: builderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_118.Widget? p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_129.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery);
         }
         if (named.containsKey('supportedLocales')) {
           final supportedLocales = D4.coerceList<Locale>(named['supportedLocales'], 'supportedLocales');
-          return $flutter_6.CupertinoApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, backButtonDispatcher: backButtonDispatcher, routerConfig: routerConfig, theme: theme, builder: builderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_117.Widget? p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_128.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
+          return $flutter_6.CupertinoApp.router(key: key, routeInformationProvider: routeInformationProvider, routeInformationParser: routeInformationParser, routerDelegate: routerDelegate, backButtonDispatcher: backButtonDispatcher, routerConfig: routerConfig, theme: theme, builder: builderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_118.Widget? p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, title: title, onGenerateTitle: onGenerateTitleRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<String>(D4.callInterpreterCallback(visitor!, onGenerateTitleRaw, [p0]), 'callback', visitor); }, onNavigationNotification: onNavigationNotificationRaw == null ? null : ($flutter_129.NavigationNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, onNavigationNotificationRaw, [p0]), 'callback', visitor); }, color: color, locale: locale, localizationsDelegates: localizationsDelegates, localeListResolutionCallback: localeListResolutionCallbackRaw == null ? null : (List<Locale>? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeListResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, localeResolutionCallback: localeResolutionCallbackRaw == null ? null : (Locale? p0, Iterable<Locale> p1) { return D4.extractBridgedArg<Locale?>(D4.callInterpreterCallback(visitor!, localeResolutionCallbackRaw, [p0, p1]), 'callback', visitor); }, showPerformanceOverlay: showPerformanceOverlay, checkerboardRasterCacheImages: checkerboardRasterCacheImages, checkerboardOffscreenLayers: checkerboardOffscreenLayers, showSemanticsDebugger: showSemanticsDebugger, debugShowCheckedModeBanner: debugShowCheckedModeBanner, shortcuts: shortcuts, actions: actions, restorationScopeId: restorationScopeId, scrollBehavior: scrollBehavior, useInheritedMediaQuery: useInheritedMediaQuery, supportedLocales: supportedLocales);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -2428,61 +2429,61 @@ BridgedClass _createCupertinoScrollBehaviorBridge() {
         final dragDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['dragDevices'], 'dragDevices');
         final multitouchDragStrategy = D4.getOptionalNamedArg<$flutter_63.MultitouchDragStrategy?>(named, 'multitouchDragStrategy');
         final pointerAxisModifiers = D4.coerceSetOrNull<$flutter_89.LogicalKeyboardKey>(named['pointerAxisModifiers'], 'pointerAxisModifiers');
-        final physics = D4.getOptionalNamedArg<$flutter_144.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_145.ScrollPhysics?>(named, 'physics');
         final platform = D4.getOptionalNamedArg<$flutter_59.TargetPlatform?>(named, 'platform');
-        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_146.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
+        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_147.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
         return t.copyWith(scrollbars: scrollbars, overscroll: overscroll, dragDevices: dragDevices, multitouchDragStrategy: multitouchDragStrategy, pointerAxisModifiers: pointerAxisModifiers, physics: physics, platform: platform, keyboardDismissBehavior: keyboardDismissBehavior);
       },
       'getPlatform': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'getPlatform');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getPlatform');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getPlatform');
         return t.getPlatform(context);
       },
       'getMultitouchDragStrategy': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'getMultitouchDragStrategy');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getMultitouchDragStrategy');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getMultitouchDragStrategy');
         return t.getMultitouchDragStrategy(context);
       },
       'buildScrollbar': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 3, 'buildScrollbar');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildScrollbar');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 1, 'child', 'buildScrollbar');
-        final details = D4.getRequiredArg<$flutter_148.ScrollableDetails>(positional, 2, 'details', 'buildScrollbar');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildScrollbar');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 1, 'child', 'buildScrollbar');
+        final details = D4.getRequiredArg<$flutter_149.ScrollableDetails>(positional, 2, 'details', 'buildScrollbar');
         return t.buildScrollbar(context, child, details);
       },
       'buildOverscrollIndicator': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 3, 'buildOverscrollIndicator');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildOverscrollIndicator');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 1, 'child', 'buildOverscrollIndicator');
-        final details = D4.getRequiredArg<$flutter_148.ScrollableDetails>(positional, 2, 'details', 'buildOverscrollIndicator');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildOverscrollIndicator');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 1, 'child', 'buildOverscrollIndicator');
+        final details = D4.getRequiredArg<$flutter_149.ScrollableDetails>(positional, 2, 'details', 'buildOverscrollIndicator');
         return t.buildOverscrollIndicator(context, child, details);
       },
       'velocityTrackerBuilder': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'velocityTrackerBuilder');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'velocityTrackerBuilder');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'velocityTrackerBuilder');
         return t.velocityTrackerBuilder(context);
       },
       'getScrollPhysics': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'getScrollPhysics');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getScrollPhysics');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getScrollPhysics');
         return t.getScrollPhysics(context);
       },
       'shouldNotify': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'shouldNotify');
-        final oldDelegate = D4.getRequiredArg<$flutter_141.ScrollBehavior>(positional, 0, 'oldDelegate', 'shouldNotify');
+        final oldDelegate = D4.getRequiredArg<$flutter_142.ScrollBehavior>(positional, 0, 'oldDelegate', 'shouldNotify');
         return t.shouldNotify(oldDelegate);
       },
       'getKeyboardDismissBehavior': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoScrollBehavior>(target, 'CupertinoScrollBehavior');
         D4.requireMinArgs(positional, 1, 'getKeyboardDismissBehavior');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getKeyboardDismissBehavior');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getKeyboardDismissBehavior');
         return t.getKeyboardDismissBehavior(context);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -2527,7 +2528,7 @@ BridgedClass _createCupertinoTabBarBridge() {
         if (!named.containsKey('items') || named['items'] == null) {
           throw ArgumentError('CupertinoTabBar: Missing required named argument "items"');
         }
-        final items = D4.coerceList<$flutter_105.BottomNavigationBarItem>(named['items'], 'items');
+        final items = D4.coerceList<$flutter_106.BottomNavigationBarItem>(named['items'], 'items');
         final onTapRaw = named['onTap'];
         final currentIndex = D4.getNamedArgWithDefault<int>(named, 'currentIndex', 0);
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
@@ -2634,19 +2635,19 @@ BridgedClass _createCupertinoTabBarBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.CupertinoTabBar>(target, 'CupertinoTabBar');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       'opaque': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.CupertinoTabBar>(target, 'CupertinoTabBar');
         D4.requireMinArgs(positional, 1, 'opaque');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'opaque');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'opaque');
         return t.opaque(context);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.CupertinoTabBar>(target, 'CupertinoTabBar');
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final items = D4.coerceListOrNull<$flutter_105.BottomNavigationBarItem>(named['items'], 'items');
+        final items = D4.coerceListOrNull<$flutter_106.BottomNavigationBarItem>(named['items'], 'items');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
@@ -2708,7 +2709,7 @@ BridgedClass _createCupertinoButtonBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoButton');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoButton');
         final sizeStyle = D4.getNamedArgWithDefault<$flutter_8.CupertinoButtonSize>(named, 'sizeStyle', $flutter_8.CupertinoButtonSize.large);
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'padding');
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -2720,7 +2721,7 @@ BridgedClass _createCupertinoButtonBridge() {
         final borderRadius = D4.getOptionalNamedArg<$flutter_68.BorderRadius?>(named, 'borderRadius');
         final alignment = D4.getNamedArgWithDefault<$flutter_66.AlignmentGeometry>(named, 'alignment', $aux_flutter.Alignment.center);
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
@@ -2733,7 +2734,7 @@ BridgedClass _createCupertinoButtonBridge() {
       },
       'tinted': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoButton');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoButton');
         final sizeStyle = D4.getNamedArgWithDefault<$flutter_8.CupertinoButtonSize>(named, 'sizeStyle', $flutter_8.CupertinoButtonSize.large);
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'padding');
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -2745,7 +2746,7 @@ BridgedClass _createCupertinoButtonBridge() {
         final borderRadius = D4.getOptionalNamedArg<$flutter_68.BorderRadius?>(named, 'borderRadius');
         final alignment = D4.getNamedArgWithDefault<$flutter_66.AlignmentGeometry>(named, 'alignment', $aux_flutter.Alignment.center);
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
@@ -2758,7 +2759,7 @@ BridgedClass _createCupertinoButtonBridge() {
       },
       'filled': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoButton');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoButton');
         final sizeStyle = D4.getNamedArgWithDefault<$flutter_8.CupertinoButtonSize>(named, 'sizeStyle', $flutter_8.CupertinoButtonSize.large);
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'padding');
         final color = D4.getOptionalNamedArg<Color?>(named, 'color');
@@ -2770,7 +2771,7 @@ BridgedClass _createCupertinoButtonBridge() {
         final borderRadius = D4.getOptionalNamedArg<$flutter_68.BorderRadius?>(named, 'borderRadius');
         final alignment = D4.getNamedArgWithDefault<$flutter_66.AlignmentGeometry>(named, 'alignment', $aux_flutter.Alignment.center);
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
@@ -2931,10 +2932,10 @@ BridgedClass _createCupertinoCheckboxBridge() {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_163.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_164.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final checkColor = D4.getOptionalNamedArg<Color?>(named, 'checkColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final side = D4.getOptionalNamedArg<$flutter_69.BorderSide?>(named, 'side');
         final shape = D4.getOptionalNamedArg<$flutter_69.OutlinedBorder?>(named, 'shape');
@@ -3234,7 +3235,7 @@ BridgedClass _createCupertinoDynamicColorBridge() {
       'resolveFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.CupertinoDynamicColor>(target, 'CupertinoDynamicColor');
         D4.requireMinArgs(positional, 1, 'resolveFrom');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'resolveFrom');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'resolveFrom');
         return t.resolveFrom(context);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -3316,13 +3317,13 @@ BridgedClass _createCupertinoDynamicColorBridge() {
       'resolve': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'resolve');
         final resolvable = D4.getRequiredArg<Color>(positional, 0, 'resolvable', 'resolve');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'resolve');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'resolve');
         return $flutter_10.CupertinoDynamicColor.resolve(resolvable, context);
       },
       'maybeResolve': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'maybeResolve');
         final resolvable = D4.getRequiredArg<Color?>(positional, 0, 'resolvable', 'maybeResolve');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'maybeResolve');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'maybeResolve');
         return $flutter_10.CupertinoDynamicColor.maybeResolve(resolvable, context);
       },
     },
@@ -3390,8 +3391,8 @@ BridgedClass _createCupertinoContextMenuBridge() {
         if (!named.containsKey('actions') || named['actions'] == null) {
           throw ArgumentError('CupertinoContextMenu: Missing required named argument "actions"');
         }
-        final actions = D4.coerceList<$flutter_117.Widget>(named['actions'], 'actions');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoContextMenu');
+        final actions = D4.coerceList<$flutter_118.Widget>(named['actions'], 'actions');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoContextMenu');
         final enableHapticFeedback = D4.getNamedArgWithDefault<bool>(named, 'enableHapticFeedback', false);
         return $flutter_12.CupertinoContextMenu(key: key, actions: actions, child: child, enableHapticFeedback: enableHapticFeedback);
       },
@@ -3400,13 +3401,13 @@ BridgedClass _createCupertinoContextMenuBridge() {
         if (!named.containsKey('actions') || named['actions'] == null) {
           throw ArgumentError('CupertinoContextMenu: Missing required named argument "actions"');
         }
-        final actions = D4.coerceList<$flutter_117.Widget>(named['actions'], 'actions');
+        final actions = D4.coerceList<$flutter_118.Widget>(named['actions'], 'actions');
         if (!named.containsKey('builder') || named['builder'] == null) {
           throw ArgumentError('CupertinoContextMenu: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
         final enableHapticFeedback = D4.getNamedArgWithDefault<bool>(named, 'enableHapticFeedback', false);
-        return $flutter_12.CupertinoContextMenu.builder(key: key, actions: actions, builder: ($flutter_117.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, enableHapticFeedback: enableHapticFeedback);
+        return $flutter_12.CupertinoContextMenu.builder(key: key, actions: actions, builder: ($flutter_118.BuildContext p0, $flutter_1.Animation<double> p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1]), 'callback', visitor); }, enableHapticFeedback: enableHapticFeedback);
       },
     },
     getters: {
@@ -3522,11 +3523,11 @@ BridgedClass _createCupertinoContextMenuActionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoContextMenuAction');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoContextMenuAction');
         final isDefaultAction = D4.getNamedArgWithDefault<bool>(named, 'isDefaultAction', false);
         final isDestructiveAction = D4.getNamedArgWithDefault<bool>(named, 'isDestructiveAction', false);
         final onPressedRaw = named['onPressed'];
-        final trailingIcon = D4.getOptionalNamedArg<$flutter_120.IconData?>(named, 'trailingIcon');
+        final trailingIcon = D4.getOptionalNamedArg<$flutter_121.IconData?>(named, 'trailingIcon');
         return $flutter_13.CupertinoContextMenuAction(key: key, child: child, isDefaultAction: isDefaultAction, isDestructiveAction: isDestructiveAction, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, trailingIcon: trailingIcon);
       },
     },
@@ -3631,12 +3632,12 @@ BridgedClass _createCupertinoFocusHaloBridge() {
     isAssignable: (v) => v is $flutter_14.CupertinoFocusHalo,
     constructors: {
       'withRect': (visitor, positional, named) {
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoFocusHalo');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoFocusHalo');
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         return $flutter_14.CupertinoFocusHalo.withRect(child: child, key: key);
       },
       'withRRect': (visitor, positional, named) {
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoFocusHalo');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoFocusHalo');
         final borderRadius = D4.getRequiredNamedArg<$flutter_68.BorderRadiusGeometry>(named, 'borderRadius', 'CupertinoFocusHalo');
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         return $flutter_14.CupertinoFocusHalo.withRRect(child: child, borderRadius: borderRadius, key: key);
@@ -3755,13 +3756,13 @@ BridgedClass _createCupertinoDatePickerBridge() {
         final showTimeSeparator = D4.getNamedArgWithDefault<bool>(named, 'showTimeSeparator', false);
         final selectionOverlayBuilderRaw = named['selectionOverlayBuilder'];
         final selectableDayPredicateRaw = named['selectableDayPredicate'];
-        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_124.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_124.ChangeReportingBehavior.onScrollUpdate);
+        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_125.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_125.ChangeReportingBehavior.onScrollUpdate);
         if (!named.containsKey('itemExtent')) {
-          return $flutter_15.CupertinoDatePicker(key: key, mode: mode, onDateTimeChanged: (DateTime p0) { D4.callInterpreterCallback(visitor!, onDateTimeChangedRaw, [p0]); }, initialDateTime: initialDateTime, minimumDate: minimumDate, maximumDate: maximumDate, minimumYear: minimumYear, maximumYear: maximumYear, minuteInterval: minuteInterval, use24hFormat: use24hFormat, dateOrder: dateOrder, backgroundColor: backgroundColor, showDayOfWeek: showDayOfWeek, showTimeSeparator: showTimeSeparator, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_117.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, selectableDayPredicate: selectableDayPredicateRaw == null ? null : (DateTime p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, selectableDayPredicateRaw, [p0]), 'callback', visitor); }, changeReportingBehavior: changeReportingBehavior);
+          return $flutter_15.CupertinoDatePicker(key: key, mode: mode, onDateTimeChanged: (DateTime p0) { D4.callInterpreterCallback(visitor!, onDateTimeChangedRaw, [p0]); }, initialDateTime: initialDateTime, minimumDate: minimumDate, maximumDate: maximumDate, minimumYear: minimumYear, maximumYear: maximumYear, minuteInterval: minuteInterval, use24hFormat: use24hFormat, dateOrder: dateOrder, backgroundColor: backgroundColor, showDayOfWeek: showDayOfWeek, showTimeSeparator: showTimeSeparator, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_118.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, selectableDayPredicate: selectableDayPredicateRaw == null ? null : (DateTime p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, selectableDayPredicateRaw, [p0]), 'callback', visitor); }, changeReportingBehavior: changeReportingBehavior);
         }
         if (named.containsKey('itemExtent')) {
           final itemExtent = D4.getRequiredNamedArg<double>(named, 'itemExtent', 'CupertinoDatePicker');
-          return $flutter_15.CupertinoDatePicker(key: key, mode: mode, onDateTimeChanged: (DateTime p0) { D4.callInterpreterCallback(visitor!, onDateTimeChangedRaw, [p0]); }, initialDateTime: initialDateTime, minimumDate: minimumDate, maximumDate: maximumDate, minimumYear: minimumYear, maximumYear: maximumYear, minuteInterval: minuteInterval, use24hFormat: use24hFormat, dateOrder: dateOrder, backgroundColor: backgroundColor, showDayOfWeek: showDayOfWeek, showTimeSeparator: showTimeSeparator, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_117.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, selectableDayPredicate: selectableDayPredicateRaw == null ? null : (DateTime p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, selectableDayPredicateRaw, [p0]), 'callback', visitor); }, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent);
+          return $flutter_15.CupertinoDatePicker(key: key, mode: mode, onDateTimeChanged: (DateTime p0) { D4.callInterpreterCallback(visitor!, onDateTimeChangedRaw, [p0]); }, initialDateTime: initialDateTime, minimumDate: minimumDate, maximumDate: maximumDate, minimumYear: minimumYear, maximumYear: maximumYear, minuteInterval: minuteInterval, use24hFormat: use24hFormat, dateOrder: dateOrder, backgroundColor: backgroundColor, showDayOfWeek: showDayOfWeek, showTimeSeparator: showTimeSeparator, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_118.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, selectableDayPredicate: selectableDayPredicateRaw == null ? null : (DateTime p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, selectableDayPredicateRaw, [p0]), 'callback', visitor); }, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -3848,7 +3849,7 @@ BridgedClass _createCupertinoDatePickerBridge() {
           throw ArgumentError('getColumnWidth: Missing required named argument "texts"');
         }
         final texts = D4.coerceList<String>(named['texts'], 'texts');
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'getColumnWidth');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'getColumnWidth');
         final textStyle = D4.getOptionalNamedArg<$flutter_82.TextStyle?>(named, 'textStyle');
         return $flutter_15.CupertinoDatePicker.getColumnWidth(texts: texts, context: context, textStyle: textStyle);
       },
@@ -3916,14 +3917,14 @@ BridgedClass _createCupertinoTimerPickerBridge() {
           throw ArgumentError('CupertinoTimerPicker: Missing required named argument "onTimerDurationChanged"');
         }
         final onTimerDurationChangedRaw = named['onTimerDurationChanged'];
-        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_124.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_124.ChangeReportingBehavior.onScrollUpdate);
+        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_125.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_125.ChangeReportingBehavior.onScrollUpdate);
         final selectionOverlayBuilderRaw = named['selectionOverlayBuilder'];
         if (!named.containsKey('itemExtent')) {
-          return $flutter_15.CupertinoTimerPicker(key: key, mode: mode, initialTimerDuration: initialTimerDuration, minuteInterval: minuteInterval, secondInterval: secondInterval, alignment: alignment, backgroundColor: backgroundColor, onTimerDurationChanged: (Duration p0) { D4.callInterpreterCallback(visitor!, onTimerDurationChangedRaw, [p0]); }, changeReportingBehavior: changeReportingBehavior, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_117.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); });
+          return $flutter_15.CupertinoTimerPicker(key: key, mode: mode, initialTimerDuration: initialTimerDuration, minuteInterval: minuteInterval, secondInterval: secondInterval, alignment: alignment, backgroundColor: backgroundColor, onTimerDurationChanged: (Duration p0) { D4.callInterpreterCallback(visitor!, onTimerDurationChangedRaw, [p0]); }, changeReportingBehavior: changeReportingBehavior, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_118.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); });
         }
         if (named.containsKey('itemExtent')) {
           final itemExtent = D4.getRequiredNamedArg<double>(named, 'itemExtent', 'CupertinoTimerPicker');
-          return $flutter_15.CupertinoTimerPicker(key: key, mode: mode, initialTimerDuration: initialTimerDuration, minuteInterval: minuteInterval, secondInterval: secondInterval, alignment: alignment, backgroundColor: backgroundColor, onTimerDurationChanged: (Duration p0) { D4.callInterpreterCallback(visitor!, onTimerDurationChangedRaw, [p0]); }, changeReportingBehavior: changeReportingBehavior, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_117.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, itemExtent: itemExtent);
+          return $flutter_15.CupertinoTimerPicker(key: key, mode: mode, initialTimerDuration: initialTimerDuration, minuteInterval: minuteInterval, secondInterval: secondInterval, alignment: alignment, backgroundColor: backgroundColor, onTimerDurationChanged: (Duration p0) { D4.callInterpreterCallback(visitor!, onTimerDurationChangedRaw, [p0]); }, changeReportingBehavior: changeReportingBehavior, selectionOverlayBuilder: selectionOverlayBuilderRaw == null ? null : ($flutter_118.BuildContext p0, {required int columnCount, required int selectedIndex}) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, selectionOverlayBuilderRaw, [p0], {'columnCount': columnCount, 'selectedIndex': selectedIndex}), 'callback', visitor); }, itemExtent: itemExtent);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -4046,7 +4047,7 @@ BridgedClass _createCupertinoDesktopTextSelectionControlsBridge() {
       'buildHandle': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_17.CupertinoDesktopTextSelectionControls>(target, 'CupertinoDesktopTextSelectionControls');
         D4.requireMinArgs(positional, 3, 'buildHandle');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildHandle');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildHandle');
         final type = D4.getRequiredArg<$flutter_86.TextSelectionHandleType>(positional, 1, 'type', 'buildHandle');
         final textLineHeight = D4.getRequiredArg<double>(positional, 2, 'textLineHeight', 'buildHandle');
         final onTapRaw = positional.length > 3 ? positional[3] : null;
@@ -4062,7 +4063,7 @@ BridgedClass _createCupertinoDesktopTextSelectionControlsBridge() {
       'buildToolbar': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_17.CupertinoDesktopTextSelectionControls>(target, 'CupertinoDesktopTextSelectionControls');
         D4.requireMinArgs(positional, 8, 'buildToolbar');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildToolbar');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildToolbar');
         final globalEditableRegion = D4.getRequiredArg<Rect>(positional, 1, 'globalEditableRegion', 'buildToolbar');
         final textLineHeight = D4.getRequiredArg<double>(positional, 2, 'textLineHeight', 'buildToolbar');
         final selectionMidpoint = D4.getRequiredArg<Offset>(positional, 3, 'selectionMidpoint', 'buildToolbar');
@@ -4071,7 +4072,7 @@ BridgedClass _createCupertinoDesktopTextSelectionControlsBridge() {
         }
         final endpoints = D4.coerceList<$flutter_84.TextSelectionPoint>(positional[4], 'endpoints');
         final delegate = D4.getRequiredArg<$flutter_95.TextSelectionDelegate>(positional, 5, 'delegate', 'buildToolbar');
-        final clipboardStatus = D4.getRequiredArg<$flutter_56.ValueListenable<$flutter_158.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
+        final clipboardStatus = D4.getRequiredArg<$flutter_56.ValueListenable<$flutter_159.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
         final lastSecondaryTapDownPosition = D4.getRequiredArg<Offset?>(positional, 7, 'lastSecondaryTapDownPosition', 'buildToolbar');
         return t.buildToolbar(context, globalEditableRegion, textLineHeight, selectionMidpoint, endpoints, delegate, clipboardStatus, lastSecondaryTapDownPosition);
       },
@@ -4169,7 +4170,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoDesktopTextSelectionToolbar: Missing required named argument "children"');
         }
-        final children = D4.coerceList<$flutter_117.Widget>(named['children'], 'children');
+        final children = D4.coerceList<$flutter_118.Widget>(named['children'], 'children');
         return $flutter_18.CupertinoDesktopTextSelectionToolbar(key: key, anchor: anchor, children: children);
       },
     },
@@ -4227,7 +4228,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.CupertinoDesktopTextSelectionToolbar>(target, 'CupertinoDesktopTextSelectionToolbar');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -4275,7 +4276,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarButtonBridge() {
           throw ArgumentError('CupertinoDesktopTextSelectionToolbarButton: Missing required named argument "onPressed"');
         }
         final onPressedRaw = named['onPressed'];
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoDesktopTextSelectionToolbarButton');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoDesktopTextSelectionToolbarButton');
         return $flutter_19.CupertinoDesktopTextSelectionToolbarButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, child: child);
       },
       'text': (visitor, positional, named) {
@@ -4289,7 +4290,7 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarButtonBridge() {
       },
       'buttonItem': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final buttonItem = D4.getRequiredNamedArg<$flutter_106.ContextMenuButtonItem>(named, 'buttonItem', 'CupertinoDesktopTextSelectionToolbarButton');
+        final buttonItem = D4.getRequiredNamedArg<$flutter_107.ContextMenuButtonItem>(named, 'buttonItem', 'CupertinoDesktopTextSelectionToolbarButton');
         return $flutter_19.CupertinoDesktopTextSelectionToolbarButton.buttonItem(key: key, buttonItem: buttonItem);
       },
     },
@@ -4395,13 +4396,13 @@ BridgedClass _createCupertinoAlertDialogBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final title = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'title');
-        final content = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'content');
+        final title = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'title');
+        final content = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'content');
         final actions = named.containsKey('actions') && named['actions'] != null
-            ? D4.coerceList<$flutter_117.Widget>(named['actions'], 'actions')
-            : const <$flutter_117.Widget>[];
-        final scrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'scrollController');
-        final actionScrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'actionScrollController');
+            ? D4.coerceList<$flutter_118.Widget>(named['actions'], 'actions')
+            : const <$flutter_118.Widget>[];
+        final scrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'scrollController');
+        final actionScrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'actionScrollController');
         final insetAnimationDuration = D4.getNamedArgWithDefault<Duration>(named, 'insetAnimationDuration', const Duration(milliseconds: 100));
         final insetAnimationCurve = D4.getNamedArgWithDefault<$flutter_3.Curve>(named, 'insetAnimationCurve', $aux_flutter.Curves.decelerate);
         return $flutter_20.CupertinoAlertDialog(key: key, title: title, content: content, actions: actions, scrollController: scrollController, actionScrollController: actionScrollController, insetAnimationDuration: insetAnimationDuration, insetAnimationCurve: insetAnimationCurve);
@@ -4514,7 +4515,7 @@ BridgedClass _createCupertinoPopupSurfaceBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final isSurfacePainted = D4.getNamedArgWithDefault<bool>(named, 'isSurfacePainted', true);
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoPopupSurface');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPopupSurface');
         if (!named.containsKey('blurSigma')) {
           return $flutter_20.CupertinoPopupSurface(key: key, isSurfacePainted: isSurfacePainted, child: child);
         }
@@ -4580,7 +4581,7 @@ BridgedClass _createCupertinoPopupSurfaceBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoPopupSurface>(target, 'CupertinoPopupSurface');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -4640,12 +4641,12 @@ BridgedClass _createCupertinoActionSheetBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final title = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'title');
-        final message = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'message');
-        final actions = D4.coerceListOrNull<$flutter_117.Widget>(named['actions'], 'actions');
-        final messageScrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'messageScrollController');
-        final actionScrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'actionScrollController');
-        final cancelButton = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'cancelButton');
+        final title = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'title');
+        final message = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'message');
+        final actions = D4.coerceListOrNull<$flutter_118.Widget>(named['actions'], 'actions');
+        final messageScrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'messageScrollController');
+        final actionScrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'actionScrollController');
+        final cancelButton = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'cancelButton');
         return $flutter_20.CupertinoActionSheet(key: key, title: title, message: message, actions: actions, messageScrollController: messageScrollController, actionScrollController: actionScrollController, cancelButton: cancelButton);
       },
     },
@@ -4760,9 +4761,9 @@ BridgedClass _createCupertinoActionSheetActionBridge() {
         final isDefaultAction = D4.getNamedArgWithDefault<bool>(named, 'isDefaultAction', false);
         final isDestructiveAction = D4.getNamedArgWithDefault<bool>(named, 'isDestructiveAction', false);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoActionSheetAction');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoActionSheetAction');
         return $flutter_20.CupertinoActionSheetAction(key: key, onPressed: () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, isDefaultAction: isDefaultAction, isDestructiveAction: isDestructiveAction, mouseCursor: mouseCursor, focusNode: focusNode, focusColor: focusColor, child: child);
       },
     },
@@ -4877,7 +4878,7 @@ BridgedClass _createCupertinoDialogActionBridge() {
         final isDestructiveAction = D4.getNamedArgWithDefault<bool>(named, 'isDestructiveAction', false);
         final textStyle = D4.getOptionalNamedArg<$flutter_82.TextStyle?>(named, 'textStyle');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_90.MouseCursor?>(named, 'mouseCursor');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoDialogAction');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoDialogAction');
         return $flutter_20.CupertinoDialogAction(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, isDefaultAction: isDefaultAction, isDestructiveAction: isDestructiveAction, textStyle: textStyle, mouseCursor: mouseCursor, child: child);
       },
     },
@@ -4985,9 +4986,9 @@ BridgedClass _createCupertinoExpansionTileBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final title = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'title', 'CupertinoExpansionTile');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoExpansionTile');
-        final controller = D4.getOptionalNamedArg<$flutter_113.ExpansibleController?>(named, 'controller');
+        final title = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'title', 'CupertinoExpansionTile');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoExpansionTile');
+        final controller = D4.getOptionalNamedArg<$flutter_114.ExpansibleController?>(named, 'controller');
         final transitionMode = D4.getNamedArgWithDefault<$flutter_21.ExpansionTileTransitionMode>(named, 'transitionMode', $flutter_21.ExpansionTileTransitionMode.fade);
         return $flutter_21.CupertinoExpansionTile(key: key, title: title, child: child, controller: controller, transitionMode: transitionMode);
       },
@@ -5092,11 +5093,11 @@ BridgedClass _createCupertinoFormRowBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoFormRow');
-        final prefix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'prefix');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoFormRow');
+        final prefix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'prefix');
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'padding');
-        final helper = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'helper');
-        final error = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'error');
+        final helper = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'helper');
+        final error = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'error');
         return $flutter_22.CupertinoFormRow(key: key, child: child, prefix: prefix, padding: padding, helper: helper, error: error);
       },
     },
@@ -5157,7 +5158,7 @@ BridgedClass _createCupertinoFormRowBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.CupertinoFormRow>(target, 'CupertinoFormRow');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -5207,9 +5208,9 @@ BridgedClass _createCupertinoFormSectionBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoFormSection: Missing required named argument "children"');
         }
-        final children = D4.coerceList<$flutter_117.Widget>(named['children'], 'children');
-        final header = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'header');
-        final footer = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'footer');
+        final children = D4.coerceList<$flutter_118.Widget>(named['children'], 'children');
+        final header = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'header');
+        final footer = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'footer');
         final margin = D4.getNamedArgWithDefault<$flutter_73.EdgeInsetsGeometry>(named, 'margin', $aux_flutter.EdgeInsets.zero);
         final backgroundColor = D4.getNamedArgWithDefault<Color>(named, 'backgroundColor', $flutter_10.CupertinoColors.systemGroupedBackground);
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
@@ -5221,9 +5222,9 @@ BridgedClass _createCupertinoFormSectionBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoFormSection: Missing required named argument "children"');
         }
-        final children = D4.coerceList<$flutter_117.Widget>(named['children'], 'children');
-        final header = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'header');
-        final footer = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'footer');
+        final children = D4.coerceList<$flutter_118.Widget>(named['children'], 'children');
+        final header = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'header');
+        final footer = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'footer');
         final backgroundColor = D4.getNamedArgWithDefault<Color>(named, 'backgroundColor', $flutter_10.CupertinoColors.systemGroupedBackground);
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
@@ -5296,7 +5297,7 @@ BridgedClass _createCupertinoFormSectionBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_23.CupertinoFormSection>(target, 'CupertinoFormSection');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -5387,13 +5388,13 @@ BridgedClass _createCupertinoIconThemeDataBridge() {
       'merge': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_24.CupertinoIconThemeData>(target, 'CupertinoIconThemeData');
         D4.requireMinArgs(positional, 1, 'merge');
-        final other = D4.getRequiredArg<$flutter_121.IconThemeData?>(positional, 0, 'other', 'merge');
+        final other = D4.getRequiredArg<$flutter_122.IconThemeData?>(positional, 0, 'other', 'merge');
         return t.merge(other);
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_24.CupertinoIconThemeData>(target, 'CupertinoIconThemeData');
         D4.requireMinArgs(positional, 1, 'resolve');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'resolve');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'resolve');
         return t.resolve(context);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -8131,7 +8132,7 @@ BridgedClass _createCupertinoUserInterfaceLevelBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final data = D4.getRequiredNamedArg<$flutter_26.CupertinoUserInterfaceLevelData>(named, 'data', 'CupertinoUserInterfaceLevel');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoUserInterfaceLevel');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoUserInterfaceLevel');
         return $flutter_26.CupertinoUserInterfaceLevel(key: key, data: data, child: child);
       },
     },
@@ -8200,12 +8201,12 @@ BridgedClass _createCupertinoUserInterfaceLevelBridge() {
     staticMethods: {
       'of': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'of');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'of');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'of');
         return $flutter_26.CupertinoUserInterfaceLevel.of(context);
       },
       'maybeOf': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'maybeOf');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'maybeOf');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'maybeOf');
         return $flutter_26.CupertinoUserInterfaceLevel.maybeOf(context);
       },
     },
@@ -8247,9 +8248,9 @@ BridgedClass _createCupertinoListSectionBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final children = D4.coerceListOrNull<$flutter_117.Widget>(named['children'], 'children');
-        final header = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'header');
-        final footer = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'footer');
+        final children = D4.coerceListOrNull<$flutter_118.Widget>(named['children'], 'children');
+        final header = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'header');
+        final footer = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'footer');
         final backgroundColor = D4.getNamedArgWithDefault<Color>(named, 'backgroundColor', $flutter_10.CupertinoColors.systemGroupedBackground);
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
@@ -8296,9 +8297,9 @@ BridgedClass _createCupertinoListSectionBridge() {
       },
       'insetGrouped': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final children = D4.coerceListOrNull<$flutter_117.Widget>(named['children'], 'children');
-        final header = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'header');
-        final footer = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'footer');
+        final children = D4.coerceListOrNull<$flutter_118.Widget>(named['children'], 'children');
+        final header = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'header');
+        final footer = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'footer');
         final margin = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'margin');
         final backgroundColor = D4.getNamedArgWithDefault<Color>(named, 'backgroundColor', $flutter_10.CupertinoColors.systemGroupedBackground);
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
@@ -8381,7 +8382,7 @@ BridgedClass _createCupertinoListSectionBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_27.CupertinoListSection>(target, 'CupertinoListSection');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -8436,11 +8437,11 @@ BridgedClass _createCupertinoListTileBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final title = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'title', 'CupertinoListTile');
-        final subtitle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'subtitle');
-        final additionalInfo = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'additionalInfo');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final title = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'title', 'CupertinoListTile');
+        final subtitle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'subtitle');
+        final additionalInfo = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'additionalInfo');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final onTapRaw = named['onTap'];
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final backgroundColorActivated = D4.getOptionalNamedArg<Color?>(named, 'backgroundColorActivated');
@@ -8465,11 +8466,11 @@ BridgedClass _createCupertinoListTileBridge() {
       },
       'notched': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final title = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'title', 'CupertinoListTile');
-        final subtitle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'subtitle');
-        final additionalInfo = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'additionalInfo');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final title = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'title', 'CupertinoListTile');
+        final subtitle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'subtitle');
+        final additionalInfo = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'additionalInfo');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final onTapRaw = named['onTap'];
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final backgroundColorActivated = D4.getOptionalNamedArg<Color?>(named, 'backgroundColorActivated');
@@ -8663,7 +8664,7 @@ BridgedClass _createCupertinoListTileChevronBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.CupertinoListTileChevron>(target, 'CupertinoListTileChevron');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -8837,7 +8838,7 @@ BridgedClass _createCupertinoLocalizationsBridge() {
     staticMethods: {
       'of': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'of');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'of');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'of');
         return $flutter_29.CupertinoLocalizations.of(context);
       },
     },
@@ -9124,11 +9125,11 @@ BridgedClass _createCupertinoTextMagnifierBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final animationCurve = D4.getNamedArgWithDefault<$flutter_3.Curve>(named, 'animationCurve', $aux_flutter.Curves.easeOut);
-        final controller = D4.getRequiredNamedArg<$flutter_126.MagnifierController>(named, 'controller', 'CupertinoTextMagnifier');
+        final controller = D4.getRequiredNamedArg<$flutter_127.MagnifierController>(named, 'controller', 'CupertinoTextMagnifier');
         final dragResistance = D4.getNamedArgWithDefault<double>(named, 'dragResistance', 10.0);
         final hideBelowThreshold = D4.getNamedArgWithDefault<double>(named, 'hideBelowThreshold', 48.0);
         final horizontalScreenEdgePadding = D4.getNamedArgWithDefault<double>(named, 'horizontalScreenEdgePadding', 10.0);
-        final magnifierInfo = D4.getRequiredNamedArg<$flutter_56.ValueNotifier<$flutter_126.MagnifierInfo>>(named, 'magnifierInfo', 'CupertinoTextMagnifier');
+        final magnifierInfo = D4.getRequiredNamedArg<$flutter_56.ValueNotifier<$flutter_127.MagnifierInfo>>(named, 'magnifierInfo', 'CupertinoTextMagnifier');
         return $flutter_30.CupertinoTextMagnifier(key: key, animationCurve: animationCurve, controller: controller, dragResistance: dragResistance, hideBelowThreshold: hideBelowThreshold, horizontalScreenEdgePadding: horizontalScreenEdgePadding, magnifierInfo: magnifierInfo);
       },
     },
@@ -9321,7 +9322,7 @@ BridgedClass _createCupertinoMagnifierBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_30.CupertinoMagnifier>(target, 'CupertinoMagnifier');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -9379,19 +9380,19 @@ BridgedClass _createCupertinoNavigationBarBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
         final automaticallyImplyLeading = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyLeading', true);
         final automaticallyImplyMiddle = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyMiddle', true);
         final previousPageTitle = D4.getOptionalNamedArg<String?>(named, 'previousPageTitle');
-        final middle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'middle');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final middle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'middle');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final automaticBackgroundVisibility = D4.getNamedArgWithDefault<bool>(named, 'automaticBackgroundVisibility', true);
         final enableBackgroundFilterBlur = D4.getNamedArgWithDefault<bool>(named, 'enableBackgroundFilterBlur', true);
         final brightness = D4.getOptionalNamedArg<Brightness?>(named, 'brightness');
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsDirectional?>(named, 'padding');
         final transitionBetweenRoutes = D4.getNamedArgWithDefault<bool>(named, 'transitionBetweenRoutes', true);
-        final bottom = D4.getOptionalNamedArg<$flutter_135.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_136.PreferredSizeWidget?>(named, 'bottom');
         if (!named.containsKey('border') && !named.containsKey('heroTag')) {
           return $flutter_31.CupertinoNavigationBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, automaticallyImplyMiddle: automaticallyImplyMiddle, previousPageTitle: previousPageTitle, middle: middle, trailing: trailing, backgroundColor: backgroundColor, automaticBackgroundVisibility: automaticBackgroundVisibility, enableBackgroundFilterBlur: enableBackgroundFilterBlur, brightness: brightness, padding: padding, transitionBetweenRoutes: transitionBetweenRoutes, bottom: bottom);
         }
@@ -9412,19 +9413,19 @@ BridgedClass _createCupertinoNavigationBarBridge() {
       },
       'large': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final largeTitle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'largeTitle');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
+        final largeTitle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'largeTitle');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
         final automaticallyImplyLeading = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyLeading', true);
         final automaticallyImplyTitle = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyTitle', true);
         final previousPageTitle = D4.getOptionalNamedArg<String?>(named, 'previousPageTitle');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final automaticBackgroundVisibility = D4.getNamedArgWithDefault<bool>(named, 'automaticBackgroundVisibility', true);
         final enableBackgroundFilterBlur = D4.getNamedArgWithDefault<bool>(named, 'enableBackgroundFilterBlur', true);
         final brightness = D4.getOptionalNamedArg<Brightness?>(named, 'brightness');
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsDirectional?>(named, 'padding');
         final transitionBetweenRoutes = D4.getNamedArgWithDefault<bool>(named, 'transitionBetweenRoutes', true);
-        final bottom = D4.getOptionalNamedArg<$flutter_135.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_136.PreferredSizeWidget?>(named, 'bottom');
         if (!named.containsKey('border') && !named.containsKey('heroTag')) {
           return $flutter_31.CupertinoNavigationBar.large(key: key, largeTitle: largeTitle, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, automaticallyImplyTitle: automaticallyImplyTitle, previousPageTitle: previousPageTitle, trailing: trailing, backgroundColor: backgroundColor, automaticBackgroundVisibility: automaticBackgroundVisibility, enableBackgroundFilterBlur: enableBackgroundFilterBlur, brightness: brightness, padding: padding, transitionBetweenRoutes: transitionBetweenRoutes, bottom: bottom);
         }
@@ -9517,7 +9518,7 @@ BridgedClass _createCupertinoNavigationBarBridge() {
       'shouldFullyObstruct': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.CupertinoNavigationBar>(target, 'CupertinoNavigationBar');
         D4.requireMinArgs(positional, 1, 'shouldFullyObstruct');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'shouldFullyObstruct');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'shouldFullyObstruct');
         return t.shouldFullyObstruct(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -9578,14 +9579,14 @@ BridgedClass _createCupertinoSliverNavigationBarBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final largeTitle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'largeTitle');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
+        final largeTitle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'largeTitle');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
         final automaticallyImplyLeading = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyLeading', true);
         final automaticallyImplyTitle = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyTitle', true);
         final alwaysShowMiddle = D4.getNamedArgWithDefault<bool>(named, 'alwaysShowMiddle', true);
         final previousPageTitle = D4.getOptionalNamedArg<String?>(named, 'previousPageTitle');
-        final middle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'middle');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final middle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'middle');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final automaticBackgroundVisibility = D4.getNamedArgWithDefault<bool>(named, 'automaticBackgroundVisibility', true);
         final enableBackgroundFilterBlur = D4.getNamedArgWithDefault<bool>(named, 'enableBackgroundFilterBlur', true);
@@ -9593,7 +9594,7 @@ BridgedClass _createCupertinoSliverNavigationBarBridge() {
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsDirectional?>(named, 'padding');
         final transitionBetweenRoutes = D4.getNamedArgWithDefault<bool>(named, 'transitionBetweenRoutes', true);
         final stretch = D4.getNamedArgWithDefault<bool>(named, 'stretch', false);
-        final bottom = D4.getOptionalNamedArg<$flutter_135.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_136.PreferredSizeWidget?>(named, 'bottom');
         final bottomMode = D4.getOptionalNamedArg<$flutter_31.NavigationBarBottomMode?>(named, 'bottomMode');
         if (!named.containsKey('border') && !named.containsKey('heroTag')) {
           return $flutter_31.CupertinoSliverNavigationBar(key: key, largeTitle: largeTitle, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, automaticallyImplyTitle: automaticallyImplyTitle, alwaysShowMiddle: alwaysShowMiddle, previousPageTitle: previousPageTitle, middle: middle, trailing: trailing, backgroundColor: backgroundColor, automaticBackgroundVisibility: automaticBackgroundVisibility, enableBackgroundFilterBlur: enableBackgroundFilterBlur, brightness: brightness, padding: padding, transitionBetweenRoutes: transitionBetweenRoutes, stretch: stretch, bottom: bottom, bottomMode: bottomMode);
@@ -9615,15 +9616,15 @@ BridgedClass _createCupertinoSliverNavigationBarBridge() {
       },
       'search': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final searchField = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'searchField', 'CupertinoSliverNavigationBar');
-        final largeTitle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'largeTitle');
-        final leading = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'leading');
+        final searchField = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'searchField', 'CupertinoSliverNavigationBar');
+        final largeTitle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'largeTitle');
+        final leading = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'leading');
         final automaticallyImplyLeading = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyLeading', true);
         final automaticallyImplyTitle = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyTitle', true);
         final alwaysShowMiddle = D4.getNamedArgWithDefault<bool>(named, 'alwaysShowMiddle', true);
         final previousPageTitle = D4.getOptionalNamedArg<String?>(named, 'previousPageTitle');
-        final middle = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'middle');
-        final trailing = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'trailing');
+        final middle = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'middle');
+        final trailing = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'trailing');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final automaticBackgroundVisibility = D4.getNamedArgWithDefault<bool>(named, 'automaticBackgroundVisibility', true);
         final enableBackgroundFilterBlur = D4.getNamedArgWithDefault<bool>(named, 'enableBackgroundFilterBlur', true);
@@ -9850,7 +9851,7 @@ BridgedClass _createCupertinoNavigationBarBackButtonBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.CupertinoNavigationBarBackButton>(target, 'CupertinoNavigationBarBackButton');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -9898,7 +9899,7 @@ BridgedClass _createCupertinoPageScaffoldBridge() {
         final navigationBar = D4.getOptionalNamedArg<$flutter_32.ObstructingPreferredSizeWidget?>(named, 'navigationBar');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final resizeToAvoidBottomInset = D4.getNamedArgWithDefault<bool>(named, 'resizeToAvoidBottomInset', true);
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoPageScaffold');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPageScaffold');
         return $flutter_32.CupertinoPageScaffold(key: key, navigationBar: navigationBar, backgroundColor: backgroundColor, resizeToAvoidBottomInset: resizeToAvoidBottomInset, child: child);
       },
     },
@@ -10001,7 +10002,7 @@ BridgedClass _createCupertinoPageScaffoldBackgroundColorBridge() {
     isAssignable: (v) => v is $flutter_32.CupertinoPageScaffoldBackgroundColor,
     constructors: {
       '': (visitor, positional, named) {
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoPageScaffoldBackgroundColor');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPageScaffoldBackgroundColor');
         final color = D4.getRequiredNamedArg<Color>(named, 'color', 'CupertinoPageScaffoldBackgroundColor');
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         return $flutter_32.CupertinoPageScaffoldBackgroundColor(child: child, color: color, key: key);
@@ -10073,7 +10074,7 @@ BridgedClass _createCupertinoPageScaffoldBackgroundColorBridge() {
     staticMethods: {
       'maybeOf': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'maybeOf');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'maybeOf');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'maybeOf');
         return $flutter_32.CupertinoPageScaffoldBackgroundColor.maybeOf(context);
       },
     },
@@ -10123,7 +10124,7 @@ BridgedClass _createObstructingPreferredSizeWidgetBridge() {
       'shouldFullyObstruct': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_32.ObstructingPreferredSizeWidget>(target, 'ObstructingPreferredSizeWidget');
         D4.requireMinArgs(positional, 1, 'shouldFullyObstruct');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'shouldFullyObstruct');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'shouldFullyObstruct');
         return t.shouldFullyObstruct(context);
       },
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -10211,8 +10212,8 @@ BridgedClass _createCupertinoPickerBridge() {
         final offAxisFraction = D4.getNamedArgWithDefault<double>(named, 'offAxisFraction', 0.0);
         final useMagnifier = D4.getNamedArgWithDefault<bool>(named, 'useMagnifier', false);
         final magnification = D4.getNamedArgWithDefault<double>(named, 'magnification', 1.0);
-        final scrollController = D4.getOptionalNamedArg<$flutter_124.FixedExtentScrollController?>(named, 'scrollController');
-        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_124.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_124.ChangeReportingBehavior.onScrollUpdate);
+        final scrollController = D4.getOptionalNamedArg<$flutter_125.FixedExtentScrollController?>(named, 'scrollController');
+        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_125.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_125.ChangeReportingBehavior.onScrollUpdate);
         final itemExtent = D4.getRequiredNamedArg<double>(named, 'itemExtent', 'CupertinoPicker');
         if (!named.containsKey('onSelectedItemChanged')) {
           throw ArgumentError('CupertinoPicker: Missing required named argument "onSelectedItemChanged"');
@@ -10221,7 +10222,7 @@ BridgedClass _createCupertinoPickerBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoPicker: Missing required named argument "children"');
         }
-        final children = D4.coerceList<$flutter_117.Widget>(named['children'], 'children');
+        final children = D4.coerceList<$flutter_118.Widget>(named['children'], 'children');
         final looping = D4.getNamedArgWithDefault<bool>(named, 'looping', false);
         if (!named.containsKey('diameterRatio') && !named.containsKey('squeeze') && !named.containsKey('selectionOverlay')) {
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping);
@@ -10240,23 +10241,23 @@ BridgedClass _createCupertinoPickerBridge() {
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping, diameterRatio: diameterRatio, squeeze: squeeze);
         }
         if (!named.containsKey('diameterRatio') && !named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping, selectionOverlay: selectionOverlay);
         }
         if (named.containsKey('diameterRatio') && !named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping, diameterRatio: diameterRatio, selectionOverlay: selectionOverlay);
         }
         if (!named.containsKey('diameterRatio') && named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping, squeeze: squeeze, selectionOverlay: selectionOverlay);
         }
         if (named.containsKey('diameterRatio') && named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
           return $flutter_33.CupertinoPicker(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, children: children, looping: looping, diameterRatio: diameterRatio, squeeze: squeeze, selectionOverlay: selectionOverlay);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -10267,8 +10268,8 @@ BridgedClass _createCupertinoPickerBridge() {
         final offAxisFraction = D4.getNamedArgWithDefault<double>(named, 'offAxisFraction', 0.0);
         final useMagnifier = D4.getNamedArgWithDefault<bool>(named, 'useMagnifier', false);
         final magnification = D4.getNamedArgWithDefault<double>(named, 'magnification', 1.0);
-        final scrollController = D4.getOptionalNamedArg<$flutter_124.FixedExtentScrollController?>(named, 'scrollController');
-        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_124.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_124.ChangeReportingBehavior.onScrollUpdate);
+        final scrollController = D4.getOptionalNamedArg<$flutter_125.FixedExtentScrollController?>(named, 'scrollController');
+        final changeReportingBehavior = D4.getNamedArgWithDefault<$flutter_125.ChangeReportingBehavior>(named, 'changeReportingBehavior', $flutter_125.ChangeReportingBehavior.onScrollUpdate);
         final itemExtent = D4.getRequiredNamedArg<double>(named, 'itemExtent', 'CupertinoPicker');
         if (!named.containsKey('onSelectedItemChanged')) {
           throw ArgumentError('CupertinoPicker: Missing required named argument "onSelectedItemChanged"');
@@ -10280,40 +10281,40 @@ BridgedClass _createCupertinoPickerBridge() {
         final itemBuilderRaw = named['itemBuilder'];
         final childCount = D4.getOptionalNamedArg<int?>(named, 'childCount');
         if (!named.containsKey('diameterRatio') && !named.containsKey('squeeze') && !named.containsKey('selectionOverlay')) {
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount);
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount);
         }
         if (named.containsKey('diameterRatio') && !named.containsKey('squeeze') && !named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio);
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio);
         }
         if (!named.containsKey('diameterRatio') && named.containsKey('squeeze') && !named.containsKey('selectionOverlay')) {
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, squeeze: squeeze);
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, squeeze: squeeze);
         }
         if (named.containsKey('diameterRatio') && named.containsKey('squeeze') && !named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, squeeze: squeeze);
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, squeeze: squeeze);
         }
         if (!named.containsKey('diameterRatio') && !named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, selectionOverlay: selectionOverlay);
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, selectionOverlay: selectionOverlay);
         }
         if (named.containsKey('diameterRatio') && !named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, selectionOverlay: selectionOverlay);
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, selectionOverlay: selectionOverlay);
         }
         if (!named.containsKey('diameterRatio') && named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, squeeze: squeeze, selectionOverlay: selectionOverlay);
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, squeeze: squeeze, selectionOverlay: selectionOverlay);
         }
         if (named.containsKey('diameterRatio') && named.containsKey('squeeze') && named.containsKey('selectionOverlay')) {
           final diameterRatio = D4.getRequiredNamedArg<double>(named, 'diameterRatio', 'CupertinoPicker');
           final squeeze = D4.getRequiredNamedArg<double>(named, 'squeeze', 'CupertinoPicker');
-          final selectionOverlay = D4.getRequiredNamedArg<$flutter_117.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
-          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, squeeze: squeeze, selectionOverlay: selectionOverlay);
+          final selectionOverlay = D4.getRequiredNamedArg<$flutter_118.Widget?>(named, 'selectionOverlay', 'CupertinoPicker');
+          return $flutter_33.CupertinoPicker.builder(key: key, backgroundColor: backgroundColor, offAxisFraction: offAxisFraction, useMagnifier: useMagnifier, magnification: magnification, scrollController: scrollController, changeReportingBehavior: changeReportingBehavior, itemExtent: itemExtent, onSelectedItemChanged: onSelectedItemChangedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onSelectedItemChangedRaw, [p0]); }, itemBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget?>(D4.callInterpreterCallback(visitor!, itemBuilderRaw, [p0, p1]), 'callback', visitor); }, childCount: childCount, diameterRatio: diameterRatio, squeeze: squeeze, selectionOverlay: selectionOverlay);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -10496,7 +10497,7 @@ BridgedClass _createCupertinoPickerDefaultSelectionOverlayBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_33.CupertinoPickerDefaultSelectionOverlay>(target, 'CupertinoPickerDefaultSelectionOverlay');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -10550,11 +10551,11 @@ BridgedClass _createCupertinoRadioBridge() {
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
         final fillColor = D4.getOptionalNamedArg<Color?>(named, 'fillColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final useCheckmarkStyle = D4.getNamedArgWithDefault<bool>(named, 'useCheckmarkStyle', false);
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
-        final groupRegistry = D4.getOptionalNamedArg<$flutter_136.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
+        final groupRegistry = D4.getOptionalNamedArg<$flutter_137.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
         return $flutter_34.CupertinoRadio(key: key, value: value, groupValue: groupValue, onChanged: onChangedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, mouseCursor: mouseCursor, toggleable: toggleable, activeColor: activeColor, inactiveColor: inactiveColor, fillColor: fillColor, focusColor: focusColor, focusNode: focusNode, autofocus: autofocus, useCheckmarkStyle: useCheckmarkStyle, enabled: enabled, groupRegistry: groupRegistry);
       },
     },
@@ -10697,26 +10698,26 @@ BridgedClass _createCupertinoSliverRefreshControlBridge() {
         }
         if (!named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final builderRaw = named['builder'];
-          final builder = ($flutter_117.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
+          final builder = ($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
           return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && !named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
-          final builder = ($flutter_117.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
+          final builder = ($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
           return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, refreshTriggerPullDistance: refreshTriggerPullDistance, builder: builder);
         }
         if (!named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
-          final builder = ($flutter_117.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
+          final builder = ($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
           return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         if (named.containsKey('refreshTriggerPullDistance') && named.containsKey('refreshIndicatorExtent') && named.containsKey('builder')) {
           final refreshTriggerPullDistance = D4.getRequiredNamedArg<double>(named, 'refreshTriggerPullDistance', 'CupertinoSliverRefreshControl');
           final refreshIndicatorExtent = D4.getRequiredNamedArg<double>(named, 'refreshIndicatorExtent', 'CupertinoSliverRefreshControl');
           final builderRaw = named['builder'];
-          final builder = ($flutter_117.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
+          final builder = ($flutter_118.BuildContext p0, $flutter_35.RefreshIndicatorMode p1, double p2, double p3, double p4) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2, p3, p4]), 'callback', visitor); };
           return $flutter_35.CupertinoSliverRefreshControl(key: key, onRefresh: onRefreshRaw == null ? null : () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, refreshTriggerPullDistance: refreshTriggerPullDistance, refreshIndicatorExtent: refreshIndicatorExtent, builder: builder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -10788,12 +10789,12 @@ BridgedClass _createCupertinoSliverRefreshControlBridge() {
     staticMethods: {
       'state': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'state');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'state');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'state');
         return $flutter_35.CupertinoSliverRefreshControl.state(context);
       },
       'buildRefreshIndicator': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'buildRefreshIndicator');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildRefreshIndicator');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildRefreshIndicator');
         final refreshState = D4.getRequiredArg<$flutter_35.RefreshIndicatorMode>(positional, 1, 'refreshState', 'buildRefreshIndicator');
         final pulledExtent = D4.getRequiredArg<double>(positional, 2, 'pulledExtent', 'buildRefreshIndicator');
         final refreshTriggerPullDistance = D4.getRequiredArg<double>(positional, 3, 'refreshTriggerPullDistance', 'buildRefreshIndicator');
@@ -10846,13 +10847,13 @@ BridgedClass _createCupertinoPageRouteBridge() {
         }
         final builderRaw = named['builder'];
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
-        final settings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'settings');
+        final settings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'settings');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
         final maintainState = D4.getNamedArgWithDefault<bool>(named, 'maintainState', true);
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
         final allowSnapshotting = D4.getNamedArgWithDefault<bool>(named, 'allowSnapshotting', true);
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', false);
-        return $flutter_36.CupertinoPageRoute(builder: ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, title: title, settings: settings, requestFocus: requestFocus, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting, barrierDismissible: barrierDismissible);
+        return $flutter_36.CupertinoPageRoute(builder: ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, title: title, settings: settings, requestFocus: requestFocus, maintainState: maintainState, fullscreenDialog: fullscreenDialog, allowSnapshotting: allowSnapshotting, barrierDismissible: barrierDismissible);
       },
     },
     getters: {
@@ -10929,7 +10930,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'didReplace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'didReplace');
-        final oldRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
+        final oldRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
         t.didReplace(oldRoute);
         return null;
       },
@@ -10968,21 +10969,21 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'didPopNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'didPopNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
         t.didPopNext(nextRoute);
         return null;
       },
       'didChangeNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'didChangeNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
         t.didChangeNext(nextRoute);
         return null;
       },
       'didChangePrevious': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'didChangePrevious');
-        final previousRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
+        final previousRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
         t.didChangePrevious(previousRoute);
         return null;
       },
@@ -11025,13 +11026,13 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -11073,7 +11074,7 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'buildPage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 3, 'buildPage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildPage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildPage');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildPage');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildPage');
         return t.buildPage(context, animation, secondaryAnimation);
@@ -11081,10 +11082,10 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'buildTransitions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 4, 'buildTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 3, 'child', 'buildTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 3, 'child', 'buildTransitions');
         return t.buildTransitions(context, animation, secondaryAnimation, child);
       },
       'addScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -11110,14 +11111,14 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -11128,21 +11129,21 @@ BridgedClass _createCupertinoPageRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
       'buildContent': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageRoute>(target, 'CupertinoPageRoute');
         D4.requireMinArgs(positional, 1, 'buildContent');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildContent');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildContent');
         return t.buildContent(context);
       },
     },
@@ -11256,7 +11257,7 @@ BridgedClass _createCupertinoPageBridge() {
     isAssignable: (v) => v is $flutter_36.CupertinoPage,
     constructors: {
       '': (visitor, positional, named) {
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoPage');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPage');
         final maintainState = D4.getNamedArgWithDefault<bool>(named, 'maintainState', true);
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
         final fullscreenDialog = D4.getNamedArgWithDefault<bool>(named, 'fullscreenDialog', false);
@@ -11298,13 +11299,13 @@ BridgedClass _createCupertinoPageBridge() {
       'canUpdate': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPage>(target, 'CupertinoPage');
         D4.requireMinArgs(positional, 1, 'canUpdate');
-        final other = D4.getRequiredArg<$flutter_128.Page<dynamic>>(positional, 0, 'other', 'canUpdate');
+        final other = D4.getRequiredArg<$flutter_129.Page<dynamic>>(positional, 0, 'other', 'canUpdate');
         return t.canUpdate(other);
       },
       'createRoute': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPage>(target, 'CupertinoPage');
         D4.requireMinArgs(positional, 1, 'createRoute');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'createRoute');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'createRoute');
         return t.createRoute(context);
       },
     },
@@ -11346,7 +11347,7 @@ BridgedClass _createCupertinoPageTransitionBridge() {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final primaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'primaryRouteAnimation', 'CupertinoPageTransition');
         final secondaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'secondaryRouteAnimation', 'CupertinoPageTransition');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoPageTransition');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoPageTransition');
         final linearTransition = D4.getRequiredNamedArg<bool>(named, 'linearTransition', 'CupertinoPageTransition');
         return $flutter_36.CupertinoPageTransition(key: key, primaryRouteAnimation: primaryRouteAnimation, secondaryRouteAnimation: secondaryRouteAnimation, child: child, linearTransition: linearTransition);
       },
@@ -11417,11 +11418,11 @@ BridgedClass _createCupertinoPageTransitionBridge() {
     staticMethods: {
       'delegatedTransition': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'delegatedTransition');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'delegatedTransition');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'delegatedTransition');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'delegatedTransition');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'delegatedTransition');
         final allowSnapshotting = D4.getRequiredArg<bool>(positional, 3, 'allowSnapshotting', 'delegatedTransition');
-        final child = D4.getRequiredArg<$flutter_117.Widget?>(positional, 4, 'child', 'delegatedTransition');
+        final child = D4.getRequiredArg<$flutter_118.Widget?>(positional, 4, 'child', 'delegatedTransition');
         return $flutter_36.CupertinoPageTransition.delegatedTransition(context, animation, secondaryAnimation, allowSnapshotting, child);
       },
     },
@@ -11467,7 +11468,7 @@ BridgedClass _createCupertinoFullscreenDialogTransitionBridge() {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final primaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'primaryRouteAnimation', 'CupertinoFullscreenDialogTransition');
         final secondaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'secondaryRouteAnimation', 'CupertinoFullscreenDialogTransition');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoFullscreenDialogTransition');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoFullscreenDialogTransition');
         final linearTransition = D4.getRequiredNamedArg<bool>(named, 'linearTransition', 'CupertinoFullscreenDialogTransition');
         return $flutter_36.CupertinoFullscreenDialogTransition(key: key, primaryRouteAnimation: primaryRouteAnimation, secondaryRouteAnimation: secondaryRouteAnimation, child: child, linearTransition: linearTransition);
       },
@@ -11579,15 +11580,15 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', true);
         final semanticsDismissible = D4.getNamedArgWithDefault<bool>(named, 'semanticsDismissible', false);
         final filter = D4.getOptionalNamedArg<ImageFilter?>(named, 'filter');
-        final settings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'settings');
+        final settings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'settings');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
         if (!named.containsKey('barrierColor')) {
-          return $flutter_36.CupertinoModalPopupRoute(builder: ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, barrierLabel: barrierLabel, barrierDismissible: barrierDismissible, semanticsDismissible: semanticsDismissible, filter: filter, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint);
+          return $flutter_36.CupertinoModalPopupRoute(builder: ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, barrierLabel: barrierLabel, barrierDismissible: barrierDismissible, semanticsDismissible: semanticsDismissible, filter: filter, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint);
         }
         if (named.containsKey('barrierColor')) {
           final barrierColor = D4.getRequiredNamedArg<Color?>(named, 'barrierColor', 'CupertinoModalPopupRoute');
-          return $flutter_36.CupertinoModalPopupRoute(builder: ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, barrierLabel: barrierLabel, barrierDismissible: barrierDismissible, semanticsDismissible: semanticsDismissible, filter: filter, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint, barrierColor: barrierColor);
+          return $flutter_36.CupertinoModalPopupRoute(builder: ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, barrierLabel: barrierLabel, barrierDismissible: barrierDismissible, semanticsDismissible: semanticsDismissible, filter: filter, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint, barrierColor: barrierColor);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -11665,7 +11666,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'didReplace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'didReplace');
-        final oldRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
+        final oldRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
         t.didReplace(oldRoute);
         return null;
       },
@@ -11704,21 +11705,21 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'didPopNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'didPopNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
         t.didPopNext(nextRoute);
         return null;
       },
       'didChangeNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'didChangeNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
         t.didChangeNext(nextRoute);
         return null;
       },
       'didChangePrevious': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'didChangePrevious');
-        final previousRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
+        final previousRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
         t.didChangePrevious(previousRoute);
         return null;
       },
@@ -11761,13 +11762,13 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -11809,7 +11810,7 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'buildPage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 3, 'buildPage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildPage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildPage');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildPage');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildPage');
         return t.buildPage(context, animation, secondaryAnimation);
@@ -11817,10 +11818,10 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'buildTransitions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 4, 'buildTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 3, 'child', 'buildTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 3, 'child', 'buildTransitions');
         return t.buildTransitions(context, animation, secondaryAnimation, child);
       },
       'addScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -11846,14 +11847,14 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -11864,14 +11865,14 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoModalPopupRoute>(target, 'CupertinoModalPopupRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -11988,16 +11989,16 @@ BridgedClass _createCupertinoDialogRouteBridge() {
           throw ArgumentError('CupertinoDialogRoute: Missing required named argument "builder"');
         }
         final builderRaw = named['builder'];
-        final context = D4.getRequiredNamedArg<$flutter_117.BuildContext>(named, 'context', 'CupertinoDialogRoute');
+        final context = D4.getRequiredNamedArg<$flutter_118.BuildContext>(named, 'context', 'CupertinoDialogRoute');
         final barrierDismissible = D4.getNamedArgWithDefault<bool>(named, 'barrierDismissible', true);
         final barrierColor = D4.getOptionalNamedArg<Color?>(named, 'barrierColor');
         final barrierLabel = D4.getOptionalNamedArg<String?>(named, 'barrierLabel');
         final transitionDuration = D4.getNamedArgWithDefault<Duration>(named, 'transitionDuration', const Duration(milliseconds: 250));
         final transitionBuilderRaw = named['transitionBuilder'];
-        final settings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'settings');
+        final settings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'settings');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
-        return $flutter_36.CupertinoDialogRoute(builder: ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, context: context, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, transitionDuration: transitionDuration, transitionBuilder: transitionBuilderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_117.Widget p3) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint);
+        return $flutter_36.CupertinoDialogRoute(builder: ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, context: context, barrierDismissible: barrierDismissible, barrierColor: barrierColor, barrierLabel: barrierLabel, transitionDuration: transitionDuration, transitionBuilder: transitionBuilderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_118.Widget p3) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); }, settings: settings, requestFocus: requestFocus, anchorPoint: anchorPoint);
       },
     },
     getters: {
@@ -12056,7 +12057,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
         D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute').offstage = D4.extractBridgedArg<bool>(value, 'offstage'),
       'transitionBuilder': (visitor, target, value) {
         final transitionBuilderRaw = D4.extractBridgedArgOrNull<dynamic>(value, 'transitionBuilder');
-        D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute').transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_117.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_117.Widget p3) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
+        D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute').transitionBuilder = transitionBuilderRaw == null ? null : ($flutter_118.BuildContext p0, $flutter_1.Animation<double> p1, $flutter_1.Animation<double> p2, $flutter_118.Widget p3) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, transitionBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
       },
     },
     methods: {
@@ -12077,7 +12078,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'didReplace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'didReplace');
-        final oldRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
+        final oldRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
         t.didReplace(oldRoute);
         return null;
       },
@@ -12116,21 +12117,21 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'didPopNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'didPopNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
         t.didPopNext(nextRoute);
         return null;
       },
       'didChangeNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'didChangeNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
         t.didChangeNext(nextRoute);
         return null;
       },
       'didChangePrevious': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'didChangePrevious');
-        final previousRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
+        final previousRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
         t.didChangePrevious(previousRoute);
         return null;
       },
@@ -12173,13 +12174,13 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -12221,7 +12222,7 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'buildPage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 3, 'buildPage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildPage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildPage');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildPage');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildPage');
         return t.buildPage(context, animation, secondaryAnimation);
@@ -12229,10 +12230,10 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'buildTransitions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 4, 'buildTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 3, 'child', 'buildTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 3, 'child', 'buildTransitions');
         return t.buildTransitions(context, animation, secondaryAnimation, child);
       },
       'addScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12258,14 +12259,14 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -12276,14 +12277,14 @@ BridgedClass _createCupertinoDialogRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoDialogRoute>(target, 'CupertinoDialogRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -12471,7 +12472,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'didReplace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'didReplace');
-        final oldRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
+        final oldRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
         t.didReplace(oldRoute);
         return null;
       },
@@ -12510,21 +12511,21 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'didPopNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'didPopNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
         t.didPopNext(nextRoute);
         return null;
       },
       'didChangeNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'didChangeNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
         t.didChangeNext(nextRoute);
         return null;
       },
       'didChangePrevious': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'didChangePrevious');
-        final previousRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
+        final previousRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
         t.didChangePrevious(previousRoute);
         return null;
       },
@@ -12567,13 +12568,13 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -12615,7 +12616,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'buildPage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 3, 'buildPage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildPage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildPage');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildPage');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildPage');
         return t.buildPage(context, animation, secondaryAnimation);
@@ -12623,10 +12624,10 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'buildTransitions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 4, 'buildTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 3, 'child', 'buildTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 3, 'child', 'buildTransitions');
         return t.buildTransitions(context, animation, secondaryAnimation, child);
       },
       'addScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -12652,14 +12653,14 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -12670,21 +12671,21 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
       'buildContent': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoRouteTransitionMixin>(target, 'CupertinoRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'buildContent');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildContent');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildContent');
         return t.buildContent(context);
       },
     },
@@ -12694,11 +12695,11 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
     staticMethods: {
       'buildPageTransitions': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'buildPageTransitions');
-        final route = D4.getRequiredArg<$flutter_132.PageRoute<dynamic>>(positional, 0, 'route', 'buildPageTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 1, 'context', 'buildPageTransitions');
+        final route = D4.getRequiredArg<$flutter_133.PageRoute<dynamic>>(positional, 0, 'route', 'buildPageTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 1, 'context', 'buildPageTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'animation', 'buildPageTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 3, 'secondaryAnimation', 'buildPageTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 4, 'child', 'buildPageTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 4, 'child', 'buildPageTransitions');
         return $flutter_36.CupertinoRouteTransitionMixin.buildPageTransitions(route, context, animation, secondaryAnimation, child);
       },
     },
@@ -12815,178 +12816,178 @@ BridgedClass _createCupertinoScrollbarBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoScrollbar');
-        final controller = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'controller');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoScrollbar');
+        final controller = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'controller');
         final thumbVisibility = D4.getOptionalNamedArg<bool?>(named, 'thumbVisibility');
         final notificationPredicateRaw = named['notificationPredicate'];
-        final scrollbarOrientation = D4.getOptionalNamedArg<$flutter_149.ScrollbarOrientation?>(named, 'scrollbarOrientation');
+        final scrollbarOrientation = D4.getOptionalNamedArg<$flutter_150.ScrollbarOrientation?>(named, 'scrollbarOrientation');
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radiusWhileDragging: radiusWhileDragging);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radiusWhileDragging: radiusWhileDragging);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, radiusWhileDragging: radiusWhileDragging);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, radiusWhileDragging: radiusWhileDragging);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && !named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && !named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && !named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && !named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (!named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thicknessWhileDragging = D4.getRequiredNamedArg<double>(named, 'thicknessWhileDragging', 'CupertinoScrollbar');
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         if (named.containsKey('thickness') && named.containsKey('thicknessWhileDragging') && named.containsKey('radius') && named.containsKey('radiusWhileDragging') && named.containsKey('mainAxisMargin')) {
           final thickness = D4.getRequiredNamedArg<double>(named, 'thickness', 'CupertinoScrollbar');
@@ -12994,7 +12995,7 @@ BridgedClass _createCupertinoScrollbarBridge() {
           final radius = D4.getRequiredNamedArg<Radius>(named, 'radius', 'CupertinoScrollbar');
           final radiusWhileDragging = D4.getRequiredNamedArg<Radius>(named, 'radiusWhileDragging', 'CupertinoScrollbar');
           final mainAxisMargin = D4.getRequiredNamedArg<double>(named, 'mainAxisMargin', 'CupertinoScrollbar');
-          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_143.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
+          return $flutter_37.CupertinoScrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_144.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, scrollbarOrientation: scrollbarOrientation, thickness: thickness, thicknessWhileDragging: thicknessWhileDragging, radius: radius, radiusWhileDragging: radiusWhileDragging, mainAxisMargin: mainAxisMargin);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
@@ -13151,7 +13152,7 @@ BridgedClass _createCupertinoSearchTextFieldBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final controller = D4.getOptionalNamedArg<$flutter_112.TextEditingController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_113.TextEditingController?>(named, 'controller');
         final onChangedRaw = named['onChanged'];
         final onSubmittedRaw = named['onSubmitted'];
         final style = D4.getOptionalNamedArg<$flutter_82.TextStyle?>(named, 'style');
@@ -13165,13 +13166,13 @@ BridgedClass _createCupertinoSearchTextFieldBridge() {
         final itemColor = D4.getNamedArgWithDefault<Color>(named, 'itemColor', $flutter_10.CupertinoColors.secondaryLabel);
         final itemSize = D4.getNamedArgWithDefault<double>(named, 'itemSize', 20.0);
         final prefixInsets = D4.getNamedArgWithDefault<$flutter_73.EdgeInsetsGeometry>(named, 'prefixInsets', const $aux_flutter.EdgeInsetsDirectional.fromSTEB(6, 8, 0, 8));
-        final prefixIcon = D4.getNamedArgWithDefault<$flutter_117.Widget>(named, 'prefixIcon', const $aux_flutter.Icon($flutter_25.CupertinoIcons.search));
+        final prefixIcon = D4.getNamedArgWithDefault<$flutter_118.Widget>(named, 'prefixIcon', const $aux_flutter.Icon($flutter_25.CupertinoIcons.search));
         final suffixInsets = D4.getNamedArgWithDefault<$flutter_73.EdgeInsetsGeometry>(named, 'suffixInsets', const $aux_flutter.EdgeInsetsDirectional.fromSTEB(0, 8, 5, 8));
-        final suffixIcon = D4.getNamedArgWithDefault<$flutter_119.Icon>(named, 'suffixIcon', const $flutter_119.Icon($flutter_25.CupertinoIcons.xmark_circle_fill));
+        final suffixIcon = D4.getNamedArgWithDefault<$flutter_120.Icon>(named, 'suffixIcon', const $flutter_120.Icon($flutter_25.CupertinoIcons.xmark_circle_fill));
         final suffixMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'suffixMode', $flutter_47.OverlayVisibilityMode.editing);
         final onSuffixTapRaw = named['onSuffixTap'];
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final smartQuotesType = D4.getOptionalNamedArg<$flutter_95.SmartQuotesType?>(named, 'smartQuotesType');
         final smartDashesType = D4.getOptionalNamedArg<$flutter_95.SmartDashesType?>(named, 'smartDashesType');
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
@@ -13348,7 +13349,7 @@ BridgedClass _createCupertinoSegmentedControlBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoSegmentedControl: Missing required named argument "children"');
         }
-        final children = D4.coerceMap<Object, $flutter_117.Widget>(named['children'], 'children');
+        final children = D4.coerceMap<Object, $flutter_118.Widget>(named['children'], 'children');
         if (!named.containsKey('onValueChanged') || named['onValueChanged'] == null) {
           throw ArgumentError('CupertinoSegmentedControl: Missing required named argument "onValueChanged"');
         }
@@ -13483,7 +13484,7 @@ BridgedClass _createCupertinoSheetTransitionBridge() {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final primaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'primaryRouteAnimation', 'CupertinoSheetTransition');
         final secondaryRouteAnimation = D4.getRequiredNamedArg<$flutter_1.Animation<double>>(named, 'secondaryRouteAnimation', 'CupertinoSheetTransition');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoSheetTransition');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoSheetTransition');
         final linearTransition = D4.getRequiredNamedArg<bool>(named, 'linearTransition', 'CupertinoSheetTransition');
         if (!named.containsKey('topGap')) {
           return $flutter_40.CupertinoSheetTransition(key: key, primaryRouteAnimation: primaryRouteAnimation, secondaryRouteAnimation: secondaryRouteAnimation, child: child, linearTransition: linearTransition);
@@ -13562,11 +13563,11 @@ BridgedClass _createCupertinoSheetTransitionBridge() {
     staticMethods: {
       'delegateTransition': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'delegateTransition');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'delegateTransition');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'delegateTransition');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'delegateTransition');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'delegateTransition');
         final allowSnapshotting = D4.getRequiredArg<bool>(positional, 3, 'allowSnapshotting', 'delegateTransition');
-        final child = D4.getRequiredArg<$flutter_117.Widget?>(positional, 4, 'child', 'delegateTransition');
+        final child = D4.getRequiredArg<$flutter_118.Widget?>(positional, 4, 'child', 'delegateTransition');
         return $flutter_40.CupertinoSheetTransition.delegateTransition(context, animation, secondaryAnimation, allowSnapshotting, child);
       },
     },
@@ -13610,7 +13611,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
     isAssignable: (v) => v is $flutter_40.CupertinoSheetRoute,
     constructors: {
       '': (visitor, positional, named) {
-        final settings = D4.getOptionalNamedArg<$flutter_128.RouteSettings?>(named, 'settings');
+        final settings = D4.getOptionalNamedArg<$flutter_129.RouteSettings?>(named, 'settings');
         if (!named.containsKey('builder') || named['builder'] == null) {
           throw ArgumentError('CupertinoSheetRoute: Missing required named argument "builder"');
         }
@@ -13618,7 +13619,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
         final enableDrag = D4.getNamedArgWithDefault<bool>(named, 'enableDrag', true);
         final topGap = D4.getOptionalNamedArg<double?>(named, 'topGap');
         final showDragHandle = D4.getNamedArgWithDefault<bool>(named, 'showDragHandle', false);
-        return $flutter_40.CupertinoSheetRoute(settings: settings, builder: ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, enableDrag: enableDrag, topGap: topGap, showDragHandle: showDragHandle);
+        return $flutter_40.CupertinoSheetRoute(settings: settings, builder: ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, enableDrag: enableDrag, topGap: topGap, showDragHandle: showDragHandle);
       },
     },
     getters: {
@@ -13696,7 +13697,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'didReplace': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'didReplace');
-        final oldRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
+        final oldRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'oldRoute', 'didReplace');
         t.didReplace(oldRoute);
         return null;
       },
@@ -13735,21 +13736,21 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'didPopNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'didPopNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>>(positional, 0, 'nextRoute', 'didPopNext');
         t.didPopNext(nextRoute);
         return null;
       },
       'didChangeNext': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'didChangeNext');
-        final nextRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
+        final nextRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'nextRoute', 'didChangeNext');
         t.didChangeNext(nextRoute);
         return null;
       },
       'didChangePrevious': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'didChangePrevious');
-        final previousRoute = D4.getRequiredArg<$flutter_128.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
+        final previousRoute = D4.getRequiredArg<$flutter_129.Route<dynamic>?>(positional, 0, 'previousRoute', 'didChangePrevious');
         t.didChangePrevious(previousRoute);
         return null;
       },
@@ -13792,13 +13793,13 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_140.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_141.TransitionRoute<dynamic>>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -13840,7 +13841,7 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'buildPage': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 3, 'buildPage');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildPage');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildPage');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildPage');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildPage');
         return t.buildPage(context, animation, secondaryAnimation);
@@ -13848,10 +13849,10 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'buildTransitions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 4, 'buildTransitions');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildTransitions');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildTransitions');
         final animation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 1, 'animation', 'buildTransitions');
         final secondaryAnimation = D4.getRequiredArg<$flutter_1.Animation<double>>(positional, 2, 'secondaryAnimation', 'buildTransitions');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 3, 'child', 'buildTransitions');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 3, 'child', 'buildTransitions');
         return t.buildTransitions(context, animation, secondaryAnimation, child);
       },
       'addScopedWillPopCallback': (visitor, target, positional, named, typeArgs) {
@@ -13877,14 +13878,14 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_140.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_141.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -13895,33 +13896,33 @@ BridgedClass _createCupertinoSheetRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_140.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_141.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
       'buildContent': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetRoute>(target, 'CupertinoSheetRoute');
         D4.requireMinArgs(positional, 1, 'buildContent');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildContent');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildContent');
         return t.buildContent(context);
       },
     },
     staticMethods: {
       'hasParentSheet': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'hasParentSheet');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'hasParentSheet');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'hasParentSheet');
         return $flutter_40.CupertinoSheetRoute.hasParentSheet(context);
       },
       'popSheet': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'popSheet');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'popSheet');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'popSheet');
         return $flutter_40.CupertinoSheetRoute.popSheet(context);
       },
     },
@@ -14169,7 +14170,7 @@ BridgedClass _createCupertinoSlidingSegmentedControlBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoSlidingSegmentedControl: Missing required named argument "children"');
         }
-        final children = D4.coerceMap<Object, $flutter_117.Widget>(named['children'], 'children');
+        final children = D4.coerceMap<Object, $flutter_118.Widget>(named['children'], 'children');
         if (!named.containsKey('onValueChanged') || named['onValueChanged'] == null) {
           throw ArgumentError('CupertinoSlidingSegmentedControl: Missing required named argument "onValueChanged"');
         }
@@ -14310,16 +14311,16 @@ BridgedClass _createCupertinoSpellCheckSuggestionsToolbarBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final anchors = D4.getRequiredNamedArg<$flutter_159.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoSpellCheckSuggestionsToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_160.TextSelectionToolbarAnchors>(named, 'anchors', 'CupertinoSpellCheckSuggestionsToolbar');
         if (!named.containsKey('buttonItems') || named['buttonItems'] == null) {
           throw ArgumentError('CupertinoSpellCheckSuggestionsToolbar: Missing required named argument "buttonItems"');
         }
-        final buttonItems = D4.coerceList<$flutter_106.ContextMenuButtonItem>(named['buttonItems'], 'buttonItems');
+        final buttonItems = D4.coerceList<$flutter_107.ContextMenuButtonItem>(named['buttonItems'], 'buttonItems');
         return $flutter_43.CupertinoSpellCheckSuggestionsToolbar(key: key, anchors: anchors, buttonItems: buttonItems);
       },
       'editableText': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final editableTextState = D4.getRequiredNamedArg<$flutter_112.EditableTextState>(named, 'editableTextState', 'CupertinoSpellCheckSuggestionsToolbar');
+        final editableTextState = D4.getRequiredNamedArg<$flutter_113.EditableTextState>(named, 'editableTextState', 'CupertinoSpellCheckSuggestionsToolbar');
         return $flutter_43.CupertinoSpellCheckSuggestionsToolbar.editableText(key: key, editableTextState: editableTextState);
       },
     },
@@ -14377,7 +14378,7 @@ BridgedClass _createCupertinoSpellCheckSuggestionsToolbarBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_43.CupertinoSpellCheckSuggestionsToolbar>(target, 'CupertinoSpellCheckSuggestionsToolbar');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -14389,7 +14390,7 @@ BridgedClass _createCupertinoSpellCheckSuggestionsToolbarBridge() {
     staticMethods: {
       'buildButtonItems': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'buildButtonItems');
-        final editableTextState = D4.getRequiredArg<$flutter_112.EditableTextState>(positional, 0, 'editableTextState', 'buildButtonItems');
+        final editableTextState = D4.getRequiredArg<$flutter_113.EditableTextState>(positional, 0, 'editableTextState', 'buildButtonItems');
         return $flutter_43.CupertinoSpellCheckSuggestionsToolbar.buildButtonItems(editableTextState);
       },
     },
@@ -14451,11 +14452,11 @@ BridgedClass _createCupertinoSwitchBridge() {
         final onActiveThumbImageErrorRaw = named['onActiveThumbImageError'];
         final inactiveThumbImage = D4.getOptionalNamedArg<$flutter_75.ImageProvider<Object>?>(named, 'inactiveThumbImage');
         final onInactiveThumbImageErrorRaw = named['onInactiveThumbImageError'];
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_163.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_163.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_163.WidgetStateProperty<$flutter_119.Icon>?>(named, 'thumbIcon');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_163.WidgetStateProperty<$flutter_90.MouseCursor>?>(named, 'mouseCursor');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_164.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_164.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_164.WidgetStateProperty<$flutter_120.Icon>?>(named, 'thumbIcon');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_164.WidgetStateProperty<$flutter_90.MouseCursor>?>(named, 'mouseCursor');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_63.DragStartBehavior>(named, 'dragStartBehavior', $flutter_63.DragStartBehavior.start);
@@ -14685,7 +14686,7 @@ BridgedClass _createCupertinoTabScaffoldBridge() {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final resizeToAvoidBottomInset = D4.getNamedArgWithDefault<bool>(named, 'resizeToAvoidBottomInset', true);
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
-        return $flutter_45.CupertinoTabScaffold(key: key, tabBar: tabBar, tabBuilder: ($flutter_117.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, tabBuilderRaw, [p0, p1]), 'callback', visitor); }, controller: controller, backgroundColor: backgroundColor, resizeToAvoidBottomInset: resizeToAvoidBottomInset, restorationId: restorationId);
+        return $flutter_45.CupertinoTabScaffold(key: key, tabBar: tabBar, tabBuilder: ($flutter_118.BuildContext p0, int p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, tabBuilderRaw, [p0, p1]), 'callback', visitor); }, controller: controller, backgroundColor: backgroundColor, resizeToAvoidBottomInset: resizeToAvoidBottomInset, restorationId: restorationId);
       },
     },
     getters: {
@@ -14891,9 +14892,9 @@ BridgedClass _createCupertinoTabViewBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final builderRaw = named['builder'];
-        final navigatorKey = D4.getOptionalNamedArg<$flutter_117.GlobalKey<$flutter_128.NavigatorState>?>(named, 'navigatorKey');
+        final navigatorKey = D4.getOptionalNamedArg<$flutter_118.GlobalKey<$flutter_129.NavigatorState>?>(named, 'navigatorKey');
         final defaultTitle = D4.getOptionalNamedArg<String?>(named, 'defaultTitle');
-        Map<String, $flutter_117.Widget Function($flutter_117.BuildContext)>? routes;
+        Map<String, $flutter_118.Widget Function($flutter_118.BuildContext)>? routes;
         if (named.containsKey('routes') && named['routes'] != null) {
           // Convert map with function values inline
           final routesRaw = named['routes'] as Map?;
@@ -14904,11 +14905,11 @@ BridgedClass _createCupertinoTabViewBridge() {
               if (v == null) {
                 // Skip null values for non-nullable function type
               } else if (v is Callable) {
-                routes ??= <String, $flutter_117.Widget Function($flutter_117.BuildContext)>{};
-                routes![k] = ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor, v, [p0]), 'callback', visitor); };
+                routes ??= <String, $flutter_118.Widget Function($flutter_118.BuildContext)>{};
+                routes![k] = ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor, v, [p0]), 'callback', visitor); };
               } else {
-                routes ??= <String, $flutter_117.Widget Function($flutter_117.BuildContext)>{};
-                routes![k] = v as $flutter_117.Widget Function($flutter_117.BuildContext);
+                routes ??= <String, $flutter_118.Widget Function($flutter_118.BuildContext)>{};
+                routes![k] = v as $flutter_118.Widget Function($flutter_118.BuildContext);
               }
             }
           }
@@ -14918,10 +14919,10 @@ BridgedClass _createCupertinoTabViewBridge() {
         final onGenerateRouteRaw = named['onGenerateRoute'];
         final onUnknownRouteRaw = named['onUnknownRoute'];
         final navigatorObservers = named.containsKey('navigatorObservers') && named['navigatorObservers'] != null
-            ? D4.coerceList<$flutter_128.NavigatorObserver>(named['navigatorObservers'], 'navigatorObservers')
-            : const <$flutter_128.NavigatorObserver>[];
+            ? D4.coerceList<$flutter_129.NavigatorObserver>(named['navigatorObservers'], 'navigatorObservers')
+            : const <$flutter_129.NavigatorObserver>[];
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
-        return $flutter_46.CupertinoTabView(key: key, builder: builderRaw == null ? null : ($flutter_117.BuildContext p0) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, navigatorKey: navigatorKey, defaultTitle: defaultTitle, routes: routes, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_128.RouteSettings p0) { return D4.extractBridgedArg<$flutter_128.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, restorationScopeId: restorationScopeId);
+        return $flutter_46.CupertinoTabView(key: key, builder: builderRaw == null ? null : ($flutter_118.BuildContext p0) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0]), 'callback', visitor); }, navigatorKey: navigatorKey, defaultTitle: defaultTitle, routes: routes, onGenerateRoute: onGenerateRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onGenerateRouteRaw, [p0]), 'callback', visitor); }, onUnknownRoute: onUnknownRouteRaw == null ? null : ($flutter_129.RouteSettings p0) { return D4.extractBridgedArg<$flutter_129.Route<dynamic>?>(D4.callInterpreterCallback(visitor!, onUnknownRouteRaw, [p0]), 'callback', visitor); }, navigatorObservers: navigatorObservers, restorationScopeId: restorationScopeId);
       },
     },
     getters: {
@@ -15032,15 +15033,15 @@ BridgedClass _createCupertinoTextFieldBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final controller = D4.getOptionalNamedArg<$flutter_112.TextEditingController?>(named, 'controller');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
-        final undoController = D4.getOptionalNamedArg<$flutter_161.UndoHistoryController?>(named, 'undoController');
+        final controller = D4.getOptionalNamedArg<$flutter_113.TextEditingController?>(named, 'controller');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
+        final undoController = D4.getOptionalNamedArg<$flutter_162.UndoHistoryController?>(named, 'undoController');
         final padding = D4.getNamedArgWithDefault<$flutter_73.EdgeInsetsGeometry>(named, 'padding', const $aux_flutter.EdgeInsets.all(7.0));
         final placeholder = D4.getOptionalNamedArg<String?>(named, 'placeholder');
         final placeholderStyle = D4.getNamedArgWithDefault<$flutter_82.TextStyle?>(named, 'placeholderStyle', const $flutter_82.TextStyle(fontWeight: $aux_flutter.FontWeight.w400, color: $flutter_10.CupertinoColors.placeholderText));
-        final prefix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'prefix');
+        final prefix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'prefix');
         final prefixMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'prefixMode', $flutter_47.OverlayVisibilityMode.always);
-        final suffix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'suffix');
+        final suffix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'suffix');
         final suffixMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'suffixMode', $flutter_47.OverlayVisibilityMode.always);
         final crossAxisAlignment = D4.getNamedArgWithDefault<$flutter_85.CrossAxisAlignment>(named, 'crossAxisAlignment', $flutter_85.CrossAxisAlignment.center);
         final clearButtonMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'clearButtonMode', $flutter_47.OverlayVisibilityMode.never);
@@ -15054,7 +15055,7 @@ BridgedClass _createCupertinoTextFieldBridge() {
         final textAlignVertical = D4.getOptionalNamedArg<$flutter_66.TextAlignVertical?>(named, 'textAlignVertical');
         final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         final readOnly = D4.getNamedArgWithDefault<bool>(named, 'readOnly', false);
-        final toolbarOptions = D4.getOptionalNamedArg<$flutter_112.ToolbarOptions?>(named, 'toolbarOptions');
+        final toolbarOptions = D4.getOptionalNamedArg<$flutter_113.ToolbarOptions?>(named, 'toolbarOptions');
         final showCursor = D4.getOptionalNamedArg<bool?>(named, 'showCursor');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final obscuringCharacter = D4.getNamedArgWithDefault<String>(named, 'obscuringCharacter', '•');
@@ -15087,21 +15088,21 @@ BridgedClass _createCupertinoTextFieldBridge() {
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_63.DragStartBehavior>(named, 'dragStartBehavior', $flutter_63.DragStartBehavior.start);
         final enableInteractiveSelection = D4.getOptionalNamedArg<bool?>(named, 'enableInteractiveSelection');
         final selectAllOnFocus = D4.getOptionalNamedArg<bool?>(named, 'selectAllOnFocus');
-        final selectionControls = D4.getOptionalNamedArg<$flutter_158.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_159.TextSelectionControls?>(named, 'selectionControls');
         final onTapRaw = named['onTap'];
-        final scrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'scrollController');
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_144.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'scrollController');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_145.ScrollPhysics?>(named, 'scrollPhysics');
         final autofillHints = named.containsKey('autofillHints') && named['autofillHints'] != null
             ? D4.coerceListOrNull<String>(named['autofillHints'], 'autofillHints')
             : const <String>[];
-        final contentInsertionConfiguration = D4.getOptionalNamedArg<$flutter_112.ContentInsertionConfiguration?>(named, 'contentInsertionConfiguration');
+        final contentInsertionConfiguration = D4.getOptionalNamedArg<$flutter_113.ContentInsertionConfiguration?>(named, 'contentInsertionConfiguration');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final scribbleEnabled = D4.getNamedArgWithDefault<bool>(named, 'scribbleEnabled', true);
         final stylusHandwritingEnabled = D4.getNamedArgWithDefault<bool>(named, 'stylusHandwritingEnabled', $aux_flutter.EditableText.defaultStylusHandwritingEnabled);
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
-        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_155.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
-        final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_126.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
+        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_156.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
+        final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_127.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
         if (!named.containsKey('groupId') && !named.containsKey('decoration') && !named.containsKey('contextMenuBuilder')) {
           return $flutter_47.CupertinoTextField(key: key, controller: controller, focusNode: focusNode, undoController: undoController, padding: padding, placeholder: placeholder, placeholderStyle: placeholderStyle, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration);
         }
@@ -15120,41 +15121,41 @@ BridgedClass _createCupertinoTextFieldBridge() {
         }
         if (!named.containsKey('groupId') && !named.containsKey('decoration') && named.containsKey('contextMenuBuilder')) {
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField(key: key, controller: controller, focusNode: focusNode, undoController: undoController, padding: padding, placeholder: placeholder, placeholderStyle: placeholderStyle, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, contextMenuBuilder: contextMenuBuilder);
         }
         if (named.containsKey('groupId') && !named.containsKey('decoration') && named.containsKey('contextMenuBuilder')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField(key: key, controller: controller, focusNode: focusNode, undoController: undoController, padding: padding, placeholder: placeholder, placeholderStyle: placeholderStyle, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, groupId: groupId, contextMenuBuilder: contextMenuBuilder);
         }
         if (!named.containsKey('groupId') && named.containsKey('decoration') && named.containsKey('contextMenuBuilder')) {
           final decoration = D4.getRequiredNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField(key: key, controller: controller, focusNode: focusNode, undoController: undoController, padding: padding, placeholder: placeholder, placeholderStyle: placeholderStyle, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, decoration: decoration, contextMenuBuilder: contextMenuBuilder);
         }
         if (named.containsKey('groupId') && named.containsKey('decoration') && named.containsKey('contextMenuBuilder')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'CupertinoTextField');
           final decoration = D4.getRequiredNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField(key: key, controller: controller, focusNode: focusNode, undoController: undoController, padding: padding, placeholder: placeholder, placeholderStyle: placeholderStyle, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, groupId: groupId, decoration: decoration, contextMenuBuilder: contextMenuBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
       },
       'borderless': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final controller = D4.getOptionalNamedArg<$flutter_112.TextEditingController?>(named, 'controller');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
-        final undoController = D4.getOptionalNamedArg<$flutter_161.UndoHistoryController?>(named, 'undoController');
+        final controller = D4.getOptionalNamedArg<$flutter_113.TextEditingController?>(named, 'controller');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
+        final undoController = D4.getOptionalNamedArg<$flutter_162.UndoHistoryController?>(named, 'undoController');
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
         final padding = D4.getNamedArgWithDefault<$flutter_73.EdgeInsetsGeometry>(named, 'padding', const $aux_flutter.EdgeInsets.all(7.0));
         final placeholder = D4.getOptionalNamedArg<String?>(named, 'placeholder');
-        final prefix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'prefix');
+        final prefix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'prefix');
         final prefixMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'prefixMode', $flutter_47.OverlayVisibilityMode.always);
-        final suffix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'suffix');
+        final suffix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'suffix');
         final suffixMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'suffixMode', $flutter_47.OverlayVisibilityMode.always);
         final crossAxisAlignment = D4.getNamedArgWithDefault<$flutter_85.CrossAxisAlignment>(named, 'crossAxisAlignment', $flutter_85.CrossAxisAlignment.center);
         final clearButtonMode = D4.getNamedArgWithDefault<$flutter_47.OverlayVisibilityMode>(named, 'clearButtonMode', $flutter_47.OverlayVisibilityMode.never);
@@ -15168,7 +15169,7 @@ BridgedClass _createCupertinoTextFieldBridge() {
         final textAlignVertical = D4.getOptionalNamedArg<$flutter_66.TextAlignVertical?>(named, 'textAlignVertical');
         final textDirection = D4.getOptionalNamedArg<TextDirection?>(named, 'textDirection');
         final readOnly = D4.getNamedArgWithDefault<bool>(named, 'readOnly', false);
-        final toolbarOptions = D4.getOptionalNamedArg<$flutter_112.ToolbarOptions?>(named, 'toolbarOptions');
+        final toolbarOptions = D4.getOptionalNamedArg<$flutter_113.ToolbarOptions?>(named, 'toolbarOptions');
         final showCursor = D4.getOptionalNamedArg<bool?>(named, 'showCursor');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final obscuringCharacter = D4.getNamedArgWithDefault<String>(named, 'obscuringCharacter', '•');
@@ -15201,21 +15202,21 @@ BridgedClass _createCupertinoTextFieldBridge() {
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_63.DragStartBehavior>(named, 'dragStartBehavior', $flutter_63.DragStartBehavior.start);
         final enableInteractiveSelection = D4.getOptionalNamedArg<bool?>(named, 'enableInteractiveSelection');
         final selectAllOnFocus = D4.getOptionalNamedArg<bool?>(named, 'selectAllOnFocus');
-        final selectionControls = D4.getOptionalNamedArg<$flutter_158.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_159.TextSelectionControls?>(named, 'selectionControls');
         final onTapRaw = named['onTap'];
-        final scrollController = D4.getOptionalNamedArg<$flutter_142.ScrollController?>(named, 'scrollController');
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_144.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollController = D4.getOptionalNamedArg<$flutter_143.ScrollController?>(named, 'scrollController');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_145.ScrollPhysics?>(named, 'scrollPhysics');
         final autofillHints = named.containsKey('autofillHints') && named['autofillHints'] != null
             ? D4.coerceListOrNull<String>(named['autofillHints'], 'autofillHints')
             : const <String>[];
-        final contentInsertionConfiguration = D4.getOptionalNamedArg<$flutter_112.ContentInsertionConfiguration?>(named, 'contentInsertionConfiguration');
+        final contentInsertionConfiguration = D4.getOptionalNamedArg<$flutter_113.ContentInsertionConfiguration?>(named, 'contentInsertionConfiguration');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final scribbleEnabled = D4.getNamedArgWithDefault<bool>(named, 'scribbleEnabled', true);
         final stylusHandwritingEnabled = D4.getNamedArgWithDefault<bool>(named, 'stylusHandwritingEnabled', true);
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
-        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_155.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
-        final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_126.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
+        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_156.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
+        final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_127.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
         if (!named.containsKey('groupId') && !named.containsKey('placeholderStyle') && !named.containsKey('contextMenuBuilder')) {
           return $flutter_47.CupertinoTextField.borderless(key: key, controller: controller, focusNode: focusNode, undoController: undoController, decoration: decoration, padding: padding, placeholder: placeholder, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration);
         }
@@ -15234,26 +15235,26 @@ BridgedClass _createCupertinoTextFieldBridge() {
         }
         if (!named.containsKey('groupId') && !named.containsKey('placeholderStyle') && named.containsKey('contextMenuBuilder')) {
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField.borderless(key: key, controller: controller, focusNode: focusNode, undoController: undoController, decoration: decoration, padding: padding, placeholder: placeholder, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, contextMenuBuilder: contextMenuBuilder);
         }
         if (named.containsKey('groupId') && !named.containsKey('placeholderStyle') && named.containsKey('contextMenuBuilder')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField.borderless(key: key, controller: controller, focusNode: focusNode, undoController: undoController, decoration: decoration, padding: padding, placeholder: placeholder, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, groupId: groupId, contextMenuBuilder: contextMenuBuilder);
         }
         if (!named.containsKey('groupId') && named.containsKey('placeholderStyle') && named.containsKey('contextMenuBuilder')) {
           final placeholderStyle = D4.getRequiredNamedArg<$flutter_82.TextStyle?>(named, 'placeholderStyle', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField.borderless(key: key, controller: controller, focusNode: focusNode, undoController: undoController, decoration: decoration, padding: padding, placeholder: placeholder, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, placeholderStyle: placeholderStyle, contextMenuBuilder: contextMenuBuilder);
         }
         if (named.containsKey('groupId') && named.containsKey('placeholderStyle') && named.containsKey('contextMenuBuilder')) {
           final groupId = D4.getRequiredNamedArg<Object>(named, 'groupId', 'CupertinoTextField');
           final placeholderStyle = D4.getRequiredNamedArg<$flutter_82.TextStyle?>(named, 'placeholderStyle', 'CupertinoTextField');
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_47.CupertinoTextField.borderless(key: key, controller: controller, focusNode: focusNode, undoController: undoController, decoration: decoration, padding: padding, placeholder: placeholder, prefix: prefix, prefixMode: prefixMode, suffix: suffix, suffixMode: suffixMode, crossAxisAlignment: crossAxisAlignment, clearButtonMode: clearButtonMode, clearButtonSemanticLabel: clearButtonSemanticLabel, keyboardType: keyboardType, textInputAction: textInputAction, textCapitalization: textCapitalization, style: style, strutStyle: strutStyle, textAlign: textAlign, textAlignVertical: textAlignVertical, textDirection: textDirection, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, autofocus: autofocus, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, maxLengthEnforcement: maxLengthEnforcement, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onSubmitted: onSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onSubmittedRaw, [p0]); }, onTapOutside: onTapOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapOutsideRaw, [p0]); }, onTapUpOutside: onTapUpOutsideRaw == null ? null : ($flutter_60.PointerDownEvent p0) { D4.callInterpreterCallback(visitor!, onTapUpOutsideRaw, [p0]); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorRadius: cursorRadius, cursorOpacityAnimates: cursorOpacityAnimates, cursorColor: cursorColor, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, dragStartBehavior: dragStartBehavior, enableInteractiveSelection: enableInteractiveSelection, selectAllOnFocus: selectAllOnFocus, selectionControls: selectionControls, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, scrollController: scrollController, scrollPhysics: scrollPhysics, autofillHints: autofillHints, contentInsertionConfiguration: contentInsertionConfiguration, clipBehavior: clipBehavior, restorationId: restorationId, scribbleEnabled: scribbleEnabled, stylusHandwritingEnabled: stylusHandwritingEnabled, enableIMEPersonalizedLearning: enableIMEPersonalizedLearning, spellCheckConfiguration: spellCheckConfiguration, magnifierConfiguration: magnifierConfiguration, groupId: groupId, placeholderStyle: placeholderStyle, contextMenuBuilder: contextMenuBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -15397,13 +15398,13 @@ BridgedClass _createCupertinoTextFieldBridge() {
     staticMethods: {
       'defaultSpellCheckSuggestionsToolbarBuilder': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'defaultSpellCheckSuggestionsToolbarBuilder');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'defaultSpellCheckSuggestionsToolbarBuilder');
-        final editableTextState = D4.getRequiredArg<$flutter_112.EditableTextState>(positional, 1, 'editableTextState', 'defaultSpellCheckSuggestionsToolbarBuilder');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'defaultSpellCheckSuggestionsToolbarBuilder');
+        final editableTextState = D4.getRequiredArg<$flutter_113.EditableTextState>(positional, 1, 'editableTextState', 'defaultSpellCheckSuggestionsToolbarBuilder');
         return $flutter_47.CupertinoTextField.defaultSpellCheckSuggestionsToolbarBuilder(context, editableTextState);
       },
       'inferIOSSpellCheckConfiguration': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'inferIOSSpellCheckConfiguration');
-        final configuration = D4.getRequiredArg<$flutter_155.SpellCheckConfiguration?>(positional, 0, 'configuration', 'inferIOSSpellCheckConfiguration');
+        final configuration = D4.getRequiredArg<$flutter_156.SpellCheckConfiguration?>(positional, 0, 'configuration', 'inferIOSSpellCheckConfiguration');
         return $flutter_47.CupertinoTextField.inferIOSSpellCheckConfiguration(configuration);
       },
     },
@@ -15521,11 +15522,11 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final prefix = D4.getOptionalNamedArg<$flutter_117.Widget?>(named, 'prefix');
+        final prefix = D4.getOptionalNamedArg<$flutter_118.Widget?>(named, 'prefix');
         final padding = D4.getOptionalNamedArg<$flutter_73.EdgeInsetsGeometry?>(named, 'padding');
-        final controller = D4.getOptionalNamedArg<$flutter_112.TextEditingController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_113.TextEditingController?>(named, 'controller');
         final initialValue = D4.getOptionalNamedArg<String?>(named, 'initialValue');
-        final focusNode = D4.getOptionalNamedArg<$flutter_114.FocusNode?>(named, 'focusNode');
+        final focusNode = D4.getOptionalNamedArg<$flutter_115.FocusNode?>(named, 'focusNode');
         final decoration = D4.getOptionalNamedArg<$flutter_71.BoxDecoration?>(named, 'decoration');
         final keyboardType = D4.getOptionalNamedArg<$flutter_95.TextInputType?>(named, 'keyboardType');
         final textCapitalization = D4.getNamedArgWithDefault<$flutter_95.TextCapitalization>(named, 'textCapitalization', $flutter_95.TextCapitalization.none);
@@ -15537,7 +15538,7 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
         final textAlignVertical = D4.getOptionalNamedArg<$flutter_66.TextAlignVertical?>(named, 'textAlignVertical');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final readOnly = D4.getNamedArgWithDefault<bool>(named, 'readOnly', false);
-        final toolbarOptions = D4.getOptionalNamedArg<$flutter_112.ToolbarOptions?>(named, 'toolbarOptions');
+        final toolbarOptions = D4.getOptionalNamedArg<$flutter_113.ToolbarOptions?>(named, 'toolbarOptions');
         final showCursor = D4.getOptionalNamedArg<bool?>(named, 'showCursor');
         final obscuringCharacter = D4.getNamedArgWithDefault<String>(named, 'obscuringCharacter', '•');
         final obscureText = D4.getNamedArgWithDefault<bool>(named, 'obscureText', false);
@@ -15563,13 +15564,13 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
         final keyboardAppearance = D4.getOptionalNamedArg<Brightness?>(named, 'keyboardAppearance');
         final scrollPadding = D4.getNamedArgWithDefault<$flutter_73.EdgeInsets>(named, 'scrollPadding', const $flutter_73.EdgeInsets.all(20.0));
         final enableInteractiveSelection = D4.getNamedArgWithDefault<bool>(named, 'enableInteractiveSelection', true);
-        final selectionControls = D4.getOptionalNamedArg<$flutter_158.TextSelectionControls?>(named, 'selectionControls');
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_144.ScrollPhysics?>(named, 'scrollPhysics');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_159.TextSelectionControls?>(named, 'selectionControls');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_145.ScrollPhysics?>(named, 'scrollPhysics');
         final autofillHints = D4.coerceListOrNull<String>(named['autofillHints'], 'autofillHints');
-        final autovalidateMode = D4.getNamedArgWithDefault<$flutter_116.AutovalidateMode>(named, 'autovalidateMode', $flutter_116.AutovalidateMode.disabled);
+        final autovalidateMode = D4.getNamedArgWithDefault<$flutter_117.AutovalidateMode>(named, 'autovalidateMode', $flutter_117.AutovalidateMode.disabled);
         final placeholder = D4.getOptionalNamedArg<String?>(named, 'placeholder');
         final placeholderStyle = D4.getNamedArgWithDefault<$flutter_82.TextStyle?>(named, 'placeholderStyle', const $flutter_82.TextStyle(fontWeight: $aux_flutter.FontWeight.w400, color: $flutter_10.CupertinoColors.placeholderText));
-        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_155.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
+        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_156.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
         final selectionHeightStyle = D4.getOptionalNamedArg<BoxHeightStyle?>(named, 'selectionHeightStyle');
         final selectionWidthStyle = D4.getOptionalNamedArg<BoxWidthStyle?>(named, 'selectionWidthStyle');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
@@ -15578,7 +15579,7 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
         }
         if (named.containsKey('contextMenuBuilder')) {
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_117.BuildContext p0, $flutter_112.EditableTextState p1) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_118.BuildContext p0, $flutter_113.EditableTextState p1) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_48.CupertinoTextFormFieldRow(key: key, prefix: prefix, padding: padding, controller: controller, initialValue: initialValue, focusNode: focusNode, decoration: decoration, keyboardType: keyboardType, textCapitalization: textCapitalization, textInputAction: textInputAction, style: style, strutStyle: strutStyle, textDirection: textDirection, textAlign: textAlign, textAlignVertical: textAlignVertical, autofocus: autofocus, readOnly: readOnly, toolbarOptions: toolbarOptions, showCursor: showCursor, obscuringCharacter: obscuringCharacter, obscureText: obscureText, autocorrect: autocorrect, smartDashesType: smartDashesType, smartQuotesType: smartQuotesType, enableSuggestions: enableSuggestions, maxLines: maxLines, minLines: minLines, expands: expands, maxLength: maxLength, onChanged: onChangedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onEditingComplete: onEditingCompleteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onEditingCompleteRaw, []); }, onFieldSubmitted: onFieldSubmittedRaw == null ? null : (String p0) { D4.callInterpreterCallback(visitor!, onFieldSubmittedRaw, [p0]); }, onSaved: onSavedRaw == null ? null : (String? p0) { D4.callInterpreterCallback(visitor!, onSavedRaw, [p0]); }, validator: validatorRaw == null ? null : (String? p0) { return D4.extractBridgedArg<String?>(D4.callInterpreterCallback(visitor!, validatorRaw, [p0]), 'callback', visitor); }, inputFormatters: inputFormatters, enabled: enabled, cursorWidth: cursorWidth, cursorHeight: cursorHeight, cursorColor: cursorColor, keyboardAppearance: keyboardAppearance, scrollPadding: scrollPadding, enableInteractiveSelection: enableInteractiveSelection, selectionControls: selectionControls, scrollPhysics: scrollPhysics, autofillHints: autofillHints, autovalidateMode: autovalidateMode, placeholder: placeholder, placeholderStyle: placeholderStyle, spellCheckConfiguration: spellCheckConfiguration, selectionHeightStyle: selectionHeightStyle, selectionWidthStyle: selectionWidthStyle, restorationId: restorationId, contextMenuBuilder: contextMenuBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -15710,7 +15711,7 @@ BridgedClass _createCupertinoTextSelectionControlsBridge() {
       'buildHandle': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_49.CupertinoTextSelectionControls>(target, 'CupertinoTextSelectionControls');
         D4.requireMinArgs(positional, 3, 'buildHandle');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildHandle');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildHandle');
         final type = D4.getRequiredArg<$flutter_86.TextSelectionHandleType>(positional, 1, 'type', 'buildHandle');
         final textLineHeight = D4.getRequiredArg<double>(positional, 2, 'textLineHeight', 'buildHandle');
         final onTapRaw = positional.length > 3 ? positional[3] : null;
@@ -15726,7 +15727,7 @@ BridgedClass _createCupertinoTextSelectionControlsBridge() {
       'buildToolbar': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_49.CupertinoTextSelectionControls>(target, 'CupertinoTextSelectionControls');
         D4.requireMinArgs(positional, 8, 'buildToolbar');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'buildToolbar');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'buildToolbar');
         final globalEditableRegion = D4.getRequiredArg<Rect>(positional, 1, 'globalEditableRegion', 'buildToolbar');
         final textLineHeight = D4.getRequiredArg<double>(positional, 2, 'textLineHeight', 'buildToolbar');
         final selectionMidpoint = D4.getRequiredArg<Offset>(positional, 3, 'selectionMidpoint', 'buildToolbar');
@@ -15735,7 +15736,7 @@ BridgedClass _createCupertinoTextSelectionControlsBridge() {
         }
         final endpoints = D4.coerceList<$flutter_84.TextSelectionPoint>(positional[4], 'endpoints');
         final delegate = D4.getRequiredArg<$flutter_95.TextSelectionDelegate>(positional, 5, 'delegate', 'buildToolbar');
-        final clipboardStatus = D4.getRequiredArg<$flutter_56.ValueListenable<$flutter_158.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
+        final clipboardStatus = D4.getRequiredArg<$flutter_56.ValueListenable<$flutter_159.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
         final lastSecondaryTapDownPosition = D4.getRequiredArg<Offset?>(positional, 7, 'lastSecondaryTapDownPosition', 'buildToolbar');
         return t.buildToolbar(context, globalEditableRegion, textLineHeight, selectionMidpoint, endpoints, delegate, clipboardStatus, lastSecondaryTapDownPosition);
       },
@@ -15834,13 +15835,13 @@ BridgedClass _createCupertinoTextSelectionToolbarBridge() {
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('CupertinoTextSelectionToolbar: Missing required named argument "children"');
         }
-        final children = D4.coerceList<$flutter_117.Widget>(named['children'], 'children');
+        final children = D4.coerceList<$flutter_118.Widget>(named['children'], 'children');
         if (!named.containsKey('toolbarBuilder')) {
           return $flutter_50.CupertinoTextSelectionToolbar(key: key, anchorAbove: anchorAbove, anchorBelow: anchorBelow, children: children);
         }
         if (named.containsKey('toolbarBuilder')) {
           final toolbarBuilderRaw = named['toolbarBuilder'];
-          final toolbarBuilder = ($flutter_117.BuildContext p0, Offset p1, Offset p2, $flutter_117.Widget p3) { return D4.extractBridgedArg<$flutter_117.Widget>(D4.callInterpreterCallback(visitor!, toolbarBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
+          final toolbarBuilder = ($flutter_118.BuildContext p0, Offset p1, Offset p2, $flutter_118.Widget p3) { return D4.extractBridgedArg<$flutter_118.Widget>(D4.callInterpreterCallback(visitor!, toolbarBuilderRaw, [p0, p1, p2, p3]), 'callback', visitor); };
           return $flutter_50.CupertinoTextSelectionToolbar(key: key, anchorAbove: anchorAbove, anchorBelow: anchorBelow, children: children, toolbarBuilder: toolbarBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -15902,7 +15903,7 @@ BridgedClass _createCupertinoTextSelectionToolbarBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.CupertinoTextSelectionToolbar>(target, 'CupertinoTextSelectionToolbar');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -15955,7 +15956,7 @@ BridgedClass _createCupertinoTextSelectionToolbarButtonBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final onPressedRaw = named['onPressed'];
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoTextSelectionToolbarButton');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoTextSelectionToolbarButton');
         return $flutter_51.CupertinoTextSelectionToolbarButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, child: child);
       },
       'text': (visitor, positional, named) {
@@ -15966,7 +15967,7 @@ BridgedClass _createCupertinoTextSelectionToolbarButtonBridge() {
       },
       'buttonItem': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
-        final buttonItem = D4.getRequiredNamedArg<$flutter_106.ContextMenuButtonItem>(named, 'buttonItem', 'CupertinoTextSelectionToolbarButton');
+        final buttonItem = D4.getRequiredNamedArg<$flutter_107.ContextMenuButtonItem>(named, 'buttonItem', 'CupertinoTextSelectionToolbarButton');
         return $flutter_51.CupertinoTextSelectionToolbarButton.buttonItem(key: key, buttonItem: buttonItem);
       },
     },
@@ -16036,8 +16037,8 @@ BridgedClass _createCupertinoTextSelectionToolbarButtonBridge() {
     staticMethods: {
       'getButtonLabel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'getButtonLabel');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'getButtonLabel');
-        final buttonItem = D4.getRequiredArg<$flutter_106.ContextMenuButtonItem>(positional, 1, 'buttonItem', 'getButtonLabel');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'getButtonLabel');
+        final buttonItem = D4.getRequiredArg<$flutter_107.ContextMenuButtonItem>(positional, 1, 'buttonItem', 'getButtonLabel');
         return $flutter_51.CupertinoTextSelectionToolbarButton.getButtonLabel(context, buttonItem);
       },
     },
@@ -16111,7 +16112,7 @@ BridgedClass _createCupertinoTextThemeDataBridge() {
       'resolveFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_52.CupertinoTextThemeData>(target, 'CupertinoTextThemeData');
         D4.requireMinArgs(positional, 1, 'resolveFrom');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'resolveFrom');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'resolveFrom');
         return t.resolveFrom(context);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
@@ -16195,7 +16196,7 @@ BridgedClass _createCupertinoThemeBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final data = D4.getRequiredNamedArg<$flutter_53.CupertinoThemeData>(named, 'data', 'CupertinoTheme');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'CupertinoTheme');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'CupertinoTheme');
         return $flutter_53.CupertinoTheme(key: key, data: data, child: child);
       },
     },
@@ -16253,7 +16254,7 @@ BridgedClass _createCupertinoThemeBridge() {
       'build': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.CupertinoTheme>(target, 'CupertinoTheme');
         D4.requireMinArgs(positional, 1, 'build');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'build');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'build');
         return (t as dynamic).build(context);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -16265,17 +16266,17 @@ BridgedClass _createCupertinoThemeBridge() {
     staticMethods: {
       'of': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'of');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'of');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'of');
         return $flutter_53.CupertinoTheme.of(context);
       },
       'brightnessOf': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'brightnessOf');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'brightnessOf');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'brightnessOf');
         return $flutter_53.CupertinoTheme.brightnessOf(context);
       },
       'maybeBrightnessOf': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'maybeBrightnessOf');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'maybeBrightnessOf');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'maybeBrightnessOf');
         return $flutter_53.CupertinoTheme.maybeBrightnessOf(context);
       },
     },
@@ -16320,7 +16321,7 @@ BridgedClass _createInheritedCupertinoThemeBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_58.Key?>(named, 'key');
         final theme = D4.getRequiredNamedArg<$flutter_53.CupertinoTheme>(named, 'theme', 'InheritedCupertinoTheme');
-        final child = D4.getRequiredNamedArg<$flutter_117.Widget>(named, 'child', 'InheritedCupertinoTheme');
+        final child = D4.getRequiredNamedArg<$flutter_118.Widget>(named, 'child', 'InheritedCupertinoTheme');
         return $flutter_53.InheritedCupertinoTheme(key: key, theme: theme, child: child);
       },
     },
@@ -16384,8 +16385,8 @@ BridgedClass _createInheritedCupertinoThemeBridge() {
       'wrap': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.InheritedCupertinoTheme>(target, 'InheritedCupertinoTheme');
         D4.requireMinArgs(positional, 2, 'wrap');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'wrap');
-        final child = D4.getRequiredArg<$flutter_117.Widget>(positional, 1, 'child', 'wrap');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'wrap');
+        final child = D4.getRequiredArg<$flutter_118.Widget>(positional, 1, 'child', 'wrap');
         return t.wrap(context, child);
       },
       '==': (visitor, target, positional, named, typeArgs) {
@@ -16471,7 +16472,7 @@ BridgedClass _createCupertinoThemeDataBridge() {
       'resolveFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.CupertinoThemeData>(target, 'CupertinoThemeData');
         D4.requireMinArgs(positional, 1, 'resolveFrom');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'resolveFrom');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'resolveFrom');
         return t.resolveFrom(context);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
@@ -16582,7 +16583,7 @@ BridgedClass _createNoDefaultCupertinoThemeDataBridge() {
       'resolveFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.NoDefaultCupertinoThemeData>(target, 'NoDefaultCupertinoThemeData');
         D4.requireMinArgs(positional, 1, 'resolveFrom');
-        final context = D4.getRequiredArg<$flutter_117.BuildContext>(positional, 0, 'context', 'resolveFrom');
+        final context = D4.getRequiredArg<$flutter_118.BuildContext>(positional, 0, 'context', 'resolveFrom');
         return t.resolveFrom(context);
       },
       'copyWith': (visitor, target, positional, named, typeArgs) {
