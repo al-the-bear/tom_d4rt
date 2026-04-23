@@ -540,18 +540,18 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 355 | widgets/restorable_double_test.dart | 36 | 931 | fake | fixed |
 | 356 | widgets/restorable_int_n_test.dart | 36 | 808 | fake | fixed |
 | 357 | widgets/restorable_int_test.dart | 36 | 926 | fake | fixed |
-| 358 | widgets/restorable_listenable_test.dart | 36 | 1056 | fake | |
-| 359 | widgets/restorable_num_n_test.dart | 36 | 865 | fake | |
-| 360 | widgets/restorable_num_test.dart | 36 | 1003 | fake | |
+| 358 | widgets/restorable_listenable_test.dart | 36 | 1056 | fake | fixed |
+| 359 | widgets/restorable_num_n_test.dart | 36 | 865 | fake | fixed |
+| 360 | widgets/restorable_num_test.dart | 36 | 1003 | fake | fixed |
 
 ## Batch 37
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 361 | widgets/restorable_property_test.dart | 37 | 936 | fake | |
-| 362 | widgets/restorable_route_future_test.dart | 37 | 830 | fake | |
-| 363 | widgets/restorable_string_n_test.dart | 37 | 1052 | fake | |
-| 364 | widgets/restorable_string_test.dart | 37 | 931 | fake | |
+| 361 | widgets/restorable_property_test.dart | 37 | 936 | fake | fixed |
+| 362 | widgets/restorable_route_future_test.dart | 37 | 830 | fake | fixed |
+| 363 | widgets/restorable_string_n_test.dart | 37 | 1052 | fake | fixed |
+| 364 | widgets/restorable_string_test.dart | 37 | 931 | fake | fixed |
 | 365 | widgets/restorable_value_test.dart | 37 | 930 | fake | |
 | 366 | widgets/restoration_mixin_test.dart | 37 | 928 | fake | |
 | 367 | widgets/root_element_mixin_test.dart | 37 | 1050 | fake | |
