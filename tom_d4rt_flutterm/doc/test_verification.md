@@ -564,13 +564,13 @@ Files that may have been replaced with fake demos. Need verification and restora
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
 | 371 | widgets/route_transition_record_test.dart | 38 | 1053 | fake | fixed |
-| 372 | widgets/scrollable_details_test.dart | 38 | 1414 | fake | |
-| 373 | widgets/scroll_action_test.dart | 38 | 919 | fake | |
-| 374 | widgets/scroll_activity_delegate_test.dart | 38 | 822 | fake | |
-| 375 | widgets/scrollbar_painter_test.dart | 38 | 1277 | fake | |
-| 376 | widgets/scroll_context_test.dart | 38 | 1016 | fake | |
-| 377 | widgets/scroll_controllers_types_test.dart | 38 | 939 | fake | |
-| 378 | widgets/scroll_deceleration_rate_test.dart | 38 | 1039 | fake | |
+| 372 | widgets/scrollable_details_test.dart | 38 | 1414 | fake | fixed |
+| 373 | widgets/scroll_action_test.dart | 38 | 919 | fake | fixed |
+| 374 | widgets/scroll_activity_delegate_test.dart | 38 | 822 | fake | fixed |
+| 375 | widgets/scrollbar_painter_test.dart | 38 | 1277 | fake | fixed |
+| 376 | widgets/scroll_context_test.dart | 38 | 1016 | fake | fixed |
+| 377 | widgets/scroll_controllers_types_test.dart | 38 | 939 | fake | fixed |
+| 378 | widgets/scroll_deceleration_rate_test.dart | 38 | 1039 | fake | fixed |
 | 379 | widgets/scroll_drag_controller_test.dart | 38 | 899 | fake | |
 | 380 | widgets/scroll_end_notification_test.dart | 38 | 1246 | fake | |
 
