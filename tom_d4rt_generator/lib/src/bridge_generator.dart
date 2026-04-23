@@ -1101,6 +1101,17 @@ class BridgeGenerator {
   /// Cached analysis context collection for resolved analysis.
   AnalysisContextCollection? _analysisContext;
 
+  /// Phase 4 / summary-refactoring-plan: expose the primary analysis
+  /// context so downstream stages (notably `generateProxies` in
+  /// `proxy_generator.dart`) can reuse it instead of building a second
+  /// summary-loaded [AnalysisContextCollectionImpl] per project.
+  ///
+  /// Lazily initializes the context on first access, matching
+  /// [_getAnalysisContext]'s behavior. Returns the same instance on every
+  /// call so summary bundles are loaded exactly once.
+  AnalysisContextCollection getOrCreateAnalysisContext() =>
+      _getAnalysisContext();
+
   /// Class lookup map for resolving superclass inheritance.
   /// Built during bridge file generation.
   Map<String, ClassInfo> _classLookup = {};

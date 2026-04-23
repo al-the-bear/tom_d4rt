@@ -178,6 +178,12 @@ Future<GenerationResult> generateBridges({
     final allExtractionSites = <GenericExtractionSite>[];
     final allGen075Classes = <String>{};
 
+    // Phase 4 / summary-refactoring-plan: hold a reference to the last
+    // generator created so the proxy stage can reuse its already-loaded
+    // analysis context (summary bundles) instead of constructing a second
+    // [AnalysisContextCollectionImpl] over the same workspace.
+    BridgeGenerator? lastGenerator;
+
     // Generate bridges for each module
     for (final module in bridgeConfig.modules) {
       // Determine sourceImport: use barrelImport if provided, otherwise first barrel file
@@ -207,6 +213,7 @@ Future<GenerationResult> generateBridges({
         librarySummaryPaths: summaryPaths,
         sdkSummaryPath: sdkSummaryPath,
       );
+      lastGenerator = generator;
 
       // Resolve barrel files - if they're package: or dart: URIs, pass as-is; otherwise join with projectDir
       final barrelFiles = module.barrelFiles.map((f) {
@@ -302,11 +309,17 @@ Future<GenerationResult> generateBridges({
 
     // Generate proxy classes if requested (GEN-083)
     if (bridgeConfig.generateProxies && bridgeConfig.proxyClasses.isNotEmpty) {
+      // Phase 4 / summary-refactoring-plan: reuse the analysis context
+      // already built by the bridge-generation loop. When no modules were
+      // processed (e.g., a proxy-only run), `lastGenerator` is null and
+      // `generateProxies` will build its own summary-backed context from
+      // [summaryPaths] / [sdkSummaryPath] as before.
       final proxyResult = await generateProxies(
         config: bridgeConfig,
         projectPath: projectDir,
         librarySummaryPaths: summaryPaths,
         sdkSummaryPath: sdkSummaryPath,
+        analysisContext: lastGenerator?.getOrCreateAnalysisContext(),
       );
       if (proxyResult.outputFile != null) {
         outputFiles.add(proxyResult.outputFile!);

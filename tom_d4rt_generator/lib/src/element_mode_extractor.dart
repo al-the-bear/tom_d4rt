@@ -24,7 +24,6 @@ import 'package:analyzer/src/dart/element/element.dart' show ElementAnnotationIm
 import 'package:analyzer/src/dart/element/inheritance_manager3.dart'
     show InheritanceManager3, Name;
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 
 import 'bridge_generator.dart'
@@ -42,6 +41,7 @@ import 'bridge_generator.dart'
         ParameterInfo,
         mapPrivateSdkLibrary,
         normalizeLibraryIdentifier;
+import 'type_rendering.dart' as shared_type_rendering;
 
 /// Walks a resolved `LibraryElement` and fills collections equivalent to the
 /// AST `_ResolvedClassVisitor` outputs.
@@ -334,74 +334,19 @@ class ElementModeExtractor {
 
   /// Plan Phase 1 / W6: renders a [DartType] to Dart source-like text while
   /// preserving *function-typedef* aliases (e.g. `VoidCallback`, `ValueChanged<T>`).
-  /// The AST path's `_collectInfoFromDartType` only preserves aliases for
-  /// `FunctionType` — `InterfaceType` aliases (class-rename typedefs such as
-  /// `typedef MaterialStatesController = WidgetStatesController`) are unaliased
-  /// so the emitter can resolve them through the concrete class's library URI.
-  /// This helper mirrors that behavior so element-mode output compiles even
-  /// when a deprecated class-rename typedef is not re-exported from the
-  /// library that owns the prefix at the use-site.
+  ///
+  /// Phase 4 extracted the rendering rules into the shared
+  /// [shared_type_rendering.renderDartType] helper so `ProxyGenerator` uses
+  /// identical rules. This instance method is kept as a thin forwarder so
+  /// all in-file call sites continue to compile unchanged and so future
+  /// extractor-specific rendering tweaks have an obvious seam.
   ///
   /// - `FunctionType` with alias → `AliasName<arg1, arg2>?`
   /// - `InterfaceType` → `BaseName<arg1, arg2>?` (alias dropped intentionally)
   /// - `FunctionType` (no alias) → `ReturnType Function(params)?`
   /// - Anything else → `type.getDisplayString()`
-  String _renderDartType(DartType type) {
-    if (type is InterfaceType) {
-      final baseName = type.element.name;
-      if (baseName == null) return type.getDisplayString();
-      final args = type.typeArguments;
-      final argsText = args.isEmpty
-          ? ''
-          : '<${args.map(_renderDartType).join(', ')}>';
-      final nullable =
-          type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
-      return '$baseName$argsText$nullable';
-    }
-    if (type is FunctionType) {
-      final alias = type.alias;
-      if (alias != null) {
-        final aliasName = alias.element.name;
-        if (aliasName != null) {
-          final args = alias.typeArguments;
-          final argsText = args.isEmpty
-              ? ''
-              : '<${args.map(_renderDartType).join(', ')}>';
-          final nullable =
-              type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
-          return '$aliasName$argsText$nullable';
-        }
-      }
-      final returnType = _renderDartType(type.returnType);
-      final positional = <String>[];
-      final optional = <String>[];
-      final named = <String>[];
-      for (final p in type.formalParameters) {
-        final pt = _renderDartType(p.type);
-        final pn = p.name ?? '';
-        final label = pn.isNotEmpty ? '$pt $pn' : pt;
-        if (p.isRequiredPositional) {
-          positional.add(label);
-        } else if (p.isOptionalPositional) {
-          optional.add(label);
-        } else if (p.isRequiredNamed) {
-          named.add('required $label');
-        } else {
-          named.add(label);
-        }
-      }
-      final parts = [...positional];
-      if (optional.isNotEmpty) parts.add('[${optional.join(', ')}]');
-      if (named.isNotEmpty) parts.add('{${named.join(', ')}}');
-      // `?` on a function type binds to the whole function type; no outer
-      // parens are needed and adding them would make `(X)?` parse as a
-      // single-positional record in named-parameter positions in Dart 3.
-      final nullable =
-          type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
-      return '$returnType Function(${parts.join(', ')})$nullable';
-    }
-    return type.getDisplayString();
-  }
+  String _renderDartType(DartType type) =>
+      shared_type_rendering.renderDartType(type);
 
   String _expandFunctionType(FunctionType funcType) {
     final returnType = funcType.returnType.getDisplayString();

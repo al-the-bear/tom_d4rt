@@ -28,6 +28,7 @@ import 'package:path/path.dart' as p;
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
 import 'sdk_utils.dart' show getSdkPath;
+import 'type_rendering.dart' show renderDartType;
 
 /// Information about a method that needs proxying.
 class _AbstractMethodInfo {
@@ -162,16 +163,26 @@ class ProxyGenerationResult {
 /// Uses the Dart analyzer to resolve abstract class methods and generates
 /// proxy subclasses that delegate to callback functions.
 ///
-/// When [librarySummaryPaths] and/or [sdkSummaryPath] are provided
-/// (typically by `package:tom_analyzer_shared`'s
-/// `runSummaryCacheStage`), the internal [AnalysisContextCollectionImpl]
-/// loads those bundles instead of re-scanning dependency sources from
-/// disk.
+/// Phase 4 / summary-refactoring-plan: the caller can now pass an
+/// already-built [analysisContext]. When supplied, the proxy generator
+/// reuses it instead of constructing its own
+/// [AnalysisContextCollectionImpl] — this lets `BridgeGenerator`
+/// (via `bridge_api.dart`) share a single summary-loaded context with the
+/// proxy stage and avoids paying the summary-scan cost twice per project.
+///
+/// When [analysisContext] is null and [librarySummaryPaths] and/or
+/// [sdkSummaryPath] are provided (typically by
+/// `package:tom_analyzer_shared`'s `runSummaryCacheStage`), the internal
+/// [AnalysisContextCollectionImpl] loads those bundles instead of
+/// re-scanning dependency sources from disk. If neither is supplied, a
+/// source-backed [AnalysisContextCollection] is built as a final fallback
+/// so the generator is still usable in isolation (e.g., from tests).
 Future<ProxyGenerationResult> generateProxies({
   required BridgeConfig config,
   required String projectPath,
   List<String>? librarySummaryPaths,
   String? sdkSummaryPath,
+  AnalysisContextCollection? analysisContext,
 }) async {
   if (!config.generateProxies || config.proxyClasses.isEmpty) {
     return const ProxyGenerationResult();
@@ -194,17 +205,18 @@ Future<ProxyGenerationResult> generateProxies({
   final hasSummaries =
       (librarySummaryPaths != null && librarySummaryPaths.isNotEmpty) ||
           sdkSummaryPath != null;
-  final AnalysisContextCollection collection = hasSummaries
-      ? AnalysisContextCollectionImpl(
-          includedPaths: [absoluteProjectPath],
-          sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
-          sdkSummaryPath: sdkSummaryPath,
-          librarySummaryPaths: librarySummaryPaths ?? const [],
-        )
-      : AnalysisContextCollection(
-          includedPaths: [absoluteProjectPath],
-          sdkPath: getSdkPath(),
-        );
+  final AnalysisContextCollection collection = analysisContext ??
+      (hasSummaries
+          ? AnalysisContextCollectionImpl(
+              includedPaths: [absoluteProjectPath],
+              sdkPath: sdkSummaryPath == null ? getSdkPath() : null,
+              sdkSummaryPath: sdkSummaryPath,
+              librarySummaryPaths: librarySummaryPaths ?? const [],
+            )
+          : AnalysisContextCollection(
+              includedPaths: [absoluteProjectPath],
+              sdkPath: getSdkPath(),
+            ));
 
   // Resolve barrel imports to find target classes.
   // We need to search across all module barrel files for the target classes.
@@ -339,7 +351,11 @@ Future<ProxyGenerationResult> generateProxies({
     final typeParamDecl = typeParams.isNotEmpty
         ? '<${typeParams.map((tp) {
             final bound = tp.bound;
-            return bound != null ? '${tp.name} extends ${bound.getDisplayString()}' : tp.name;
+            // Phase 4 / W6-reuse: render bound via the shared typedef-
+            // preserving helper so a bound like `VoidCallback` stays an
+            // alias in the proxy declaration instead of expanding to a
+            // raw `void Function()`.
+            return bound != null ? '${tp.name} extends ${renderDartType(bound)}' : tp.name;
           }).join(', ')}>'
         : '';
     final typeParamUse = typeParams.isNotEmpty
@@ -624,7 +640,10 @@ _AbstractMethodInfo _methodElementToInfo(
 }) {
   return _AbstractMethodInfo(
     name: method.displayName,
-    returnType: method.returnType.getDisplayString(),
+    // Phase 4 / W6-reuse: shared helper preserves function-typedef
+    // aliases (`VoidCallback`, `ValueChanged<T>`, …) in the proxy
+    // signature, matching what the bridge generator emits.
+    returnType: renderDartType(method.returnType),
     params: method.formalParameters.map(_paramElementToInfo).toList(),
     isAbstract: isAbstract,
   );
@@ -636,7 +655,7 @@ _AbstractMethodInfo _accessorElementToInfo(
 }) {
   return _AbstractMethodInfo(
     name: accessor.displayName,
-    returnType: accessor.returnType.getDisplayString(),
+    returnType: renderDartType(accessor.returnType),
     params: [],
     isGetter: true,
     isAbstract: isAbstract,
@@ -646,7 +665,7 @@ _AbstractMethodInfo _accessorElementToInfo(
 _MethodParam _paramElementToInfo(FormalParameterElement param) {
   return _MethodParam(
     name: param.name ?? '',
-    type: param.type.getDisplayString(),
+    type: renderDartType(param.type),
     isNamed: param.isNamed,
     isRequired: param.isRequired,
     isOptionalPositional: param.isOptionalPositional,
