@@ -552,18 +552,18 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 362 | widgets/restorable_route_future_test.dart | 37 | 830 | fake | fixed |
 | 363 | widgets/restorable_string_n_test.dart | 37 | 1052 | fake | fixed |
 | 364 | widgets/restorable_string_test.dart | 37 | 931 | fake | fixed |
-| 365 | widgets/restorable_value_test.dart | 37 | 930 | fake | |
-| 366 | widgets/restoration_mixin_test.dart | 37 | 928 | fake | |
-| 367 | widgets/root_element_mixin_test.dart | 37 | 1050 | fake | |
-| 368 | widgets/root_element_test.dart | 37 | 917 | fake | |
-| 369 | widgets/root_render_object_element_test.dart | 37 | 835 | fake | |
-| 370 | widgets/route_information_reporting_type_test.dart | 37 | 1039 | fake | |
+| 365 | widgets/restorable_value_test.dart | 37 | 930 | fake | fixed |
+| 366 | widgets/restoration_mixin_test.dart | 37 | 928 | fake | fixed |
+| 367 | widgets/root_element_mixin_test.dart | 37 | 1050 | fake | fixed |
+| 368 | widgets/root_element_test.dart | 37 | 917 | fake | fixed |
+| 369 | widgets/root_render_object_element_test.dart | 37 | 835 | fake | fixed |
+| 370 | widgets/route_information_reporting_type_test.dart | 37 | 1039 | fake | fixed |
 
 ## Batch 38
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 371 | widgets/route_transition_record_test.dart | 38 | 1053 | fake | |
+| 371 | widgets/route_transition_record_test.dart | 38 | 1053 | fake | fixed |
 | 372 | widgets/scrollable_details_test.dart | 38 | 1414 | fake | |
 | 373 | widgets/scroll_action_test.dart | 38 | 919 | fake | |
 | 374 | widgets/scroll_activity_delegate_test.dart | 38 | 822 | fake | |
