@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-04-23T15:57:56.137924
+// Generated: 2026-04-23T19:14:04.504081
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -265,13 +265,13 @@ class CliApiBridge {
       },
       'verifyNotEmpty': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyNotEmpty');
-        final list = D4.getRequiredArg<List<dynamic>>(positional, 0, 'list', 'verifyNotEmpty');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyNotEmpty');
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_dcli_exec_8.verifyNotEmpty(list, message);
       },
       'verifyLength': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyLength');
-        final list = D4.getRequiredArg<List<dynamic>>(positional, 0, 'list', 'verifyLength');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyLength');
         final length = D4.getRequiredArg<int>(positional, 1, 'length', 'verifyLength');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_dcli_exec_8.verifyLength(list, length, message);
@@ -326,8 +326,8 @@ class CliApiBridge {
       'verifyNull': 'bool verifyNull(Object? value, [String? message])',
       'verifyContains': 'bool verifyContains(String actual, String substring, [String? message])',
       'verifyMatches': 'bool verifyMatches(String actual, String pattern, [String? message])',
-      'verifyNotEmpty': 'bool verifyNotEmpty(List<dynamic> list, [String? message])',
-      'verifyLength': 'bool verifyLength(List<dynamic> list, int length, [String? message])',
+      'verifyNotEmpty': 'bool verifyNotEmpty(List list, [String? message])',
+      'verifyLength': 'bool verifyLength(List list, int length, [String? message])',
       'verifyThrows': 'bool verifyThrows(void Function() fn, [String? message])',
       'testSummary': 'bool testSummary()',
     };
@@ -676,8 +676,8 @@ BridgedClass _createD4rtCliApiBridge() {
       },
     },
     methodSignatures: {
-      'processPrompt': 'Future<dynamic> processPrompt(String line)',
-      'processPrompts': 'Future<List<dynamic>> processPrompts(List<String> lines, {bool continueOnError = false})',
+      'processPrompt': 'Future processPrompt(String line)',
+      'processPrompts': 'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
       'help': 'String help()',
       'info': 'SymbolInfo? info([String? name])',
       'classes': 'List<ClassInfo> classes()',
@@ -710,7 +710,7 @@ BridgedClass _createD4rtCliApiBridge() {
       'startScript': 'void startScript()',
       'startFile': 'void startFile()',
       'startExecute': 'void startExecute()',
-      'end': 'Future<dynamic> end()',
+      'end': 'Future end()',
       'clearMultilineBuffer': 'void clearMultilineBuffer()',
       'execute': 'Future<ExecuteResult> execute(String source, {String? basePath})',
       'executeFile': 'Future<ExecuteResult> executeFile(String path)',
@@ -725,7 +725,7 @@ BridgedClass _createD4rtCliApiBridge() {
       'loadScript': 'String loadScript(String path)',
       'loadReplay': 'String loadReplay(String path)',
       'loadSession': 'String loadSession(String sessionId)',
-      'eval': 'Future<dynamic> eval(String expression)',
+      'eval': 'Future eval(String expression)',
       'closeSession': 'void closeSession()',
     },
     getterSignatures: {
@@ -1044,8 +1044,8 @@ BridgedClass _createD4rtCliControllerBridge() {
       '': 'D4rtCliController({required D4rt d4rt, required CliState state, required String toolName, CliRuntime? runtime})',
     },
     methodSignatures: {
-      'processPrompt': 'Future<dynamic> processPrompt(String line)',
-      'processPrompts': 'Future<List<dynamic>> processPrompts(List<String> lines, {bool continueOnError = false})',
+      'processPrompt': 'Future processPrompt(String line)',
+      'processPrompts': 'Future<List> processPrompts(List<String> lines, {bool continueOnError = false})',
       'help': 'String help()',
       'info': 'SymbolInfo? info([String? name])',
       'classes': 'List<ClassInfo> classes()',
@@ -1078,7 +1078,7 @@ BridgedClass _createD4rtCliControllerBridge() {
       'startScript': 'void startScript()',
       'startFile': 'void startFile()',
       'startExecute': 'void startExecute()',
-      'end': 'Future<dynamic> end()',
+      'end': 'Future end()',
       'clearMultilineBuffer': 'void clearMultilineBuffer()',
       'execute': 'Future<ExecuteResult> execute(String source, {String? basePath})',
       'executeFile': 'Future<ExecuteResult> executeFile(String path)',
@@ -1094,7 +1094,7 @@ BridgedClass _createD4rtCliControllerBridge() {
       'loadScript': 'String loadScript(String path)',
       'loadReplay': 'String loadReplay(String path)',
       'loadSession': 'String loadSession(String sessionId)',
-      'eval': 'Future<dynamic> eval(String expression)',
+      'eval': 'Future eval(String expression)',
     },
     getterSignatures: {
       'd4rt': 'D4rt get d4rt',

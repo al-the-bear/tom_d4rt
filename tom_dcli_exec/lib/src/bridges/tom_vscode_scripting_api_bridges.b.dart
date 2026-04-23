@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-23T15:57:56.410873
+// Generated: 2026-04-23T19:14:04.803216
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -781,7 +781,7 @@ BridgedClass _createVSCodeCommandsBridge() {
         final t = D4.validateTarget<$tom_vscode_scripting_api_7.VSCodeCommands>(target, 'VSCodeCommands');
         D4.requireMinArgs(positional, 1, 'executeCommand');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'executeCommand');
-        final args = D4.coerceListOrNull<dynamic>(named['args'], 'args');
+        final args = D4.getOptionalNamedArg<List?>(named, 'args');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
         return t.executeCommand(command, args: args, timeoutSeconds: timeoutSeconds);
       },
@@ -804,7 +804,7 @@ BridgedClass _createVSCodeCommandsBridge() {
       '': 'VSCodeCommands(VSCodeAdapter _adapter)',
     },
     methodSignatures: {
-      'executeCommand': 'Future<dynamic> executeCommand(String command, {List<dynamic>? args, int timeoutSeconds = 120})',
+      'executeCommand': 'Future executeCommand(String command, {List? args, int timeoutSeconds = 120})',
       'getCommands': 'Future<List<String>> getCommands({bool filterInternal = false, int timeoutSeconds = 60})',
       'registerCommand': 'Future<bool> registerCommand(String command, String handlerScript, {int timeoutSeconds = 120})',
     },
@@ -1037,7 +1037,7 @@ BridgedClass _createVSCodeExtensionsBridge() {
       'getAll': 'Future<List<Extension>> getAll({int timeoutSeconds = 60})',
       'getExtension': 'Future<Extension?> getExtension(String extensionId, {int timeoutSeconds = 60})',
       'isInstalled': 'Future<bool> isInstalled(String extensionId, {int timeoutSeconds = 60})',
-      'getExtensionExports': 'Future<dynamic> getExtensionExports(String extensionId, {int timeoutSeconds = 120})',
+      'getExtensionExports': 'Future getExtensionExports(String extensionId, {int timeoutSeconds = 120})',
       'activateExtension': 'Future<bool> activateExtension(String extensionId, {int timeoutSeconds = 180})',
       'getExtensionVersion': 'Future<String?> getExtensionVersion(String extensionId, {int timeoutSeconds = 60})',
       'getExtensionDisplayName': 'Future<String?> getExtensionDisplayName(String extensionId, {int timeoutSeconds = 60})',
@@ -1321,10 +1321,7 @@ BridgedClass _createLanguageModelToolResultBridge() {
     isAssignable: (v) => v is $tom_vscode_scripting_api_10.LanguageModelToolResult,
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('content') || named['content'] == null) {
-          throw ArgumentError('LanguageModelToolResult: Missing required named argument "content"');
-        }
-        final content = D4.coerceList<dynamic>(named['content'], 'content');
+        final content = D4.getRequiredNamedArg<List>(named, 'content', 'LanguageModelToolResult');
         return $tom_vscode_scripting_api_10.LanguageModelToolResult(content: content);
       },
       'fromJson': (visitor, positional, named) {
@@ -1346,14 +1343,14 @@ BridgedClass _createLanguageModelToolResultBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LanguageModelToolResult({required List<dynamic> content})',
+      '': 'LanguageModelToolResult({required List content})',
       'fromJson': 'factory LanguageModelToolResult.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
     },
     getterSignatures: {
-      'content': 'List<dynamic> get content',
+      'content': 'List get content',
     },
   );
 }
@@ -1711,7 +1708,7 @@ BridgedClass _createVSCodeWorkspaceBridge() {
       'saveTextDocument': 'Future<bool> saveTextDocument(String path, {int timeoutSeconds = 60})',
       'findFiles': 'Future<List<VSCodeUri>> findFiles(String include, {String? exclude, int? maxResults, int timeoutSeconds = 60})',
       'findFilePaths': 'Future<List<String>> findFilePaths({required String include, String? exclude, int? maxResults, int timeoutSeconds = 60})',
-      'getConfiguration': 'Future<dynamic> getConfiguration(String section, {String? scope, int timeoutSeconds = 60})',
+      'getConfiguration': 'Future getConfiguration(String section, {String? scope, int timeoutSeconds = 60})',
       'updateConfiguration': 'Future<bool> updateConfiguration(String section, String key, dynamic value, {bool global = false, int timeoutSeconds = 60})',
       'getRootPath': 'Future<String?> getRootPath()',
       'getWorkspaceName': 'Future<String?> getWorkspaceName()',
@@ -1943,10 +1940,7 @@ BridgedClass _createChatContextBridge() {
     isAssignable: (v) => v is $tom_vscode_scripting_api_6.ChatContext,
     constructors: {
       '': (visitor, positional, named) {
-        if (!named.containsKey('history') || named['history'] == null) {
-          throw ArgumentError('ChatContext: Missing required named argument "history"');
-        }
-        final history = D4.coerceList<dynamic>(named['history'], 'history');
+        final history = D4.getRequiredNamedArg<List>(named, 'history', 'ChatContext');
         return $tom_vscode_scripting_api_6.ChatContext(history: history);
       },
       'fromJson': (visitor, positional, named) {
@@ -1968,14 +1962,14 @@ BridgedClass _createChatContextBridge() {
       },
     },
     constructorSignatures: {
-      '': 'ChatContext({required List<dynamic> history})',
+      '': 'ChatContext({required List history})',
       'fromJson': 'factory ChatContext.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {
       'toJson': 'Map<String, dynamic> toJson()',
     },
     getterSignatures: {
-      'history': 'List<dynamic> get history',
+      'history': 'List get history',
     },
   );
 }
@@ -2094,7 +2088,7 @@ BridgedClass _createChatResponseStreamBridge() {
         D4.requireMinArgs(positional, 1, 'button');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'button');
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
-        final arguments = D4.coerceListOrNull<dynamic>(named['arguments'], 'arguments');
+        final arguments = D4.getOptionalNamedArg<List?>(named, 'arguments');
         return t.button(command, title: title, arguments: arguments);
       },
       'filetree': (visitor, target, positional, named, typeArgs) {
@@ -2133,7 +2127,7 @@ BridgedClass _createChatResponseStreamBridge() {
     methodSignatures: {
       'markdown': 'Future<void> markdown(String text)',
       'anchor': 'Future<void> anchor(String uri, {String? title})',
-      'button': 'Future<void> button(String command, {String? title, List<dynamic>? arguments})',
+      'button': 'Future<void> button(String command, {String? title, List? arguments})',
       'filetree': 'Future<void> filetree(List<String> files, {String? baseUri})',
       'progress': 'Future<void> progress(String value)',
       'reference': 'Future<void> reference(String uri, {String? title})',
@@ -2305,7 +2299,7 @@ BridgedClass _createVsCodeHelperBridge() {
       'executeCommand': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'executeCommand');
         final command = D4.getRequiredArg<String>(positional, 0, 'command', 'executeCommand');
-        final args = D4.coerceListOrNull<dynamic>(named['args'], 'args');
+        final args = D4.getOptionalNamedArg<List?>(named, 'args');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 120);
         return $tom_vscode_scripting_api_9.VsCodeHelper.executeCommand(command, args: args, timeoutSeconds: timeoutSeconds);
       },
@@ -2617,22 +2611,22 @@ BridgedClass _createVsCodeHelperBridge() {
       'quickPick': 'Future<String?> quickPick(List<String> items, {String? placeholder, bool canPickMany = false, int timeoutSeconds = 1800, String? fallbackValueOnTimeout, bool failOnTimeout = false})',
       'inputBox': 'Future<String?> inputBox({String? prompt, String? placeholder, String? defaultValue, bool password = false, int timeoutSeconds = 1800, String? fallbackValueOnTimeout, bool failOnTimeout = false})',
       'getWorkspaceRoot': 'Future<String?> getWorkspaceRoot({int timeoutSeconds = 30})',
-      'getWorkspaceFolders': 'Future<List<dynamic>?> getWorkspaceFolders({int timeoutSeconds = 30})',
-      'getActiveTextEditor': 'Future<dynamic> getActiveTextEditor({int timeoutSeconds = 30})',
+      'getWorkspaceFolders': 'Future<List?> getWorkspaceFolders({int timeoutSeconds = 30})',
+      'getActiveTextEditor': 'Future getActiveTextEditor({int timeoutSeconds = 30})',
       'findFiles': 'Future<List<String>> findFiles({required String include, String? exclude, int? maxResults, int timeoutSeconds = 60})',
       'readFile': 'Future<String> readFile(String path, {int timeoutSeconds = 60})',
       'writeFile': 'Future<bool> writeFile(String path, String content, {int timeoutSeconds = 60})',
       'createFile': 'Future<bool> createFile(String path, {String content = \'\', int timeoutSeconds = 60})',
       'deleteFile': 'Future<bool> deleteFile(String path, {int timeoutSeconds = 60})',
       'fileExists': 'Future<bool> fileExists(String path, {int timeoutSeconds = 30})',
-      'executeCommand': 'Future<dynamic> executeCommand(String command, {List<dynamic>? args, int timeoutSeconds = 120})',
+      'executeCommand': 'Future executeCommand(String command, {List? args, int timeoutSeconds = 120})',
       'setStatus': 'Future<void> setStatus(String message, {int? timeout, int timeoutSeconds = 120})',
       'createOutput': 'Future<String> createOutput(String name, {String? initialContent, int timeoutSeconds = 60})',
       'appendOutput': 'Future<void> appendOutput(String channel, String text, {int timeoutSeconds = 60})',
       'copyToClipboard': 'Future<void> copyToClipboard(String text, {int timeoutSeconds = 10})',
       'readClipboard': 'Future<String> readClipboard({int timeoutSeconds = 10})',
       'openFile': 'Future<void> openFile(String path, {int timeoutSeconds = 600})',
-      'getConfig': 'Future<dynamic> getConfig(String section, {String? key, int timeoutSeconds = 60})',
+      'getConfig': 'Future getConfig(String section, {String? key, int timeoutSeconds = 60})',
       'setConfig': 'Future<bool> setConfig(String section, String key, dynamic value, {bool global = true, int timeoutSeconds = 60})',
       'runPubGet': 'Future<bool> runPubGet({String? workingDirectory, int timeoutSeconds = 300})',
       'runPubUpgrade': 'Future<bool> runPubUpgrade({String? workingDirectory, int timeoutSeconds = 300})',
