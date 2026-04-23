@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 7 files
-// Generated: 2026-04-22T20:01:06.818326
+// Generated: 2026-04-23T11:35:40.216820
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -63,6 +63,15 @@ class TomChattoolsBridge {
   static Map<String, String> classAliases() {
     return {
     };
+  }
+
+  /// Returns the list of function typedef names declared in this library.
+  ///
+  /// Function typedefs like `typedef VoidCallback = void Function()` are
+  /// registered so that they can be used as type arguments in D4rt scripts.
+  static List<String> functionTypedefs() {
+    return [
+    ];
   }
 
   /// Returns all bridged enum definitions.
