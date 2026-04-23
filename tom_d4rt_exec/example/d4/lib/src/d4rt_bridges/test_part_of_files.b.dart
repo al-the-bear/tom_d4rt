@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_exec/example/d4/lib/test_part_of_files.dart
-// Generated: 2026-04-22T19:58:23.042485
+// Generated: 2026-04-23T11:10:55.049098
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -210,7 +210,7 @@ BridgedClass _createPartCallbackBridge() {
       'onError': (visitor, target) => D4.validateTarget<$d4_example_5.PartCallback>(target, 'PartCallback').onError,
     },
     constructorSignatures: {
-      '': 'const PartCallback({void Function(PartData)? onData, void Function(String)? onError})',
+      '': 'const PartCallback({void Function(PartData data)? onData, void Function(String error)? onError})',
       'dataOnly': 'factory PartCallback.dataOnly(void Function(PartData data) handler)',
     },
     getterSignatures: {

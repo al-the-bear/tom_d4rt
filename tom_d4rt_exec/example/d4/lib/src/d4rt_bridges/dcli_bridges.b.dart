@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 73 files
-// Generated: 2026-04-22T19:58:22.777742
+// Sources: 72 files
+// Generated: 2026-04-23T11:10:54.764611
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -91,6 +91,7 @@ import 'package:dcli_terminal/src/terminal.dart' as $dcli_terminal_4;
 import 'package:logging/src/logger.dart' as $logging_1;
 import 'package:pub_semver/src/version.dart' as $pub_semver_1;
 import 'package:pubspec_manager/src/pubspec/internal_parts.dart' as $pubspec_manager_1;
+import 'package:scope/src/scope.dart' as $scope_1;
 import 'package:settings_yaml/src/settings_yaml.dart' as $settings_yaml_1;
 import 'package:stack_trace/src/trace.dart' as $stack_trace_1;
 import 'package:dcli/dcli.dart' as $aux_dcli;
@@ -169,6 +170,7 @@ class DcliBridge {
       _createHeadProgressBridge(),
       _createTailProgressBridge(),
       _createWhichBridge(),
+      _createScopeKeyBridge(),
     ];
   }
 
@@ -245,6 +247,7 @@ class DcliBridge {
       'HeadProgress': 'package:dcli/src/functions/head.dart',
       'TailProgress': 'package:dcli/src/functions/tail.dart',
       'Which': 'package:dcli_core/src/functions/which.dart',
+      'ScopeKey': 'package:scope/src/scope.dart',
     };
   }
 
@@ -468,7 +471,7 @@ class DcliBridge {
       errors.add('Failed to register variable "installFromSourceKey": $e');
     }
     try {
-      interpreter.registerGlobalVariable('overrideDCliPathKey', $dcli_22.overrideDCliPathKey, importPath, sourceUri: 'package:dcli/src/script/dart_project_creator.dart');
+      interpreter.registerGlobalVariable('overrideDCliPathKey', $dcli_22.overrideDCliPathKey, importPath, sourceUri: 'package:dcli/src/script/dart_project.dart');
     } catch (e) {
       errors.add('Failed to register variable "overrideDCliPathKey": $e');
     }
@@ -1147,7 +1150,7 @@ class DcliBridge {
       'sleepAsync': 'package:dcli/src/functions/sleep.dart',
       'tail': 'package:dcli/src/functions/tail.dart',
       'which': 'package:dcli/src/functions/which.dart',
-      'addUnitTestOverrides': 'package:dcli/src/script/dart_project_creator.dart',
+      'addUnitTestOverrides': 'package:dcli/src/script/dart_project.dart',
       'capture': 'package:dcli/src/util/capture.dart',
       'showEditor': 'package:dcli/src/util/editor.dart',
       'withOpenFile': 'package:dcli/src/util/file_sync.dart',
@@ -1223,7 +1226,7 @@ class DcliBridge {
       'sleep': 'void sleep(int duration, {Interval interval = Interval.seconds})',
       'sleepAsync': 'Future<void> sleepAsync(int duration, {Interval interval = Interval.seconds})',
       'tail': 'TailProgress tail(String path, int lines)',
-      'which': 'core.Which which(String appname, {bool first = true, bool verbose = false, bool extensionSearch = true, Sink<String>? progress})',
+      'which': 'Which which(String appname, {bool first = true, bool verbose = false, bool extensionSearch = true, Sink<String>? progress})',
       'addUnitTestOverrides': 'void addUnitTestOverrides(String pathToProject)',
       'capture': 'Future<Progress> capture(Future<R> Function() action, {Progress? progress})',
       'showEditor': 'void showEditor(String path)',
@@ -1267,7 +1270,6 @@ class DcliBridge {
       'package:dcli/src/resources/packed_resource.dart',
       'package:dcli/src/resources/resources.dart',
       'package:dcli/src/script/dart_project.dart',
-      'package:dcli/src/script/dart_project_creator.dart',
       'package:dcli/src/script/dart_script.dart',
       'package:dcli/src/script/dart_sdk.dart',
       'package:dcli/src/settings.dart',
@@ -1315,6 +1317,7 @@ class DcliBridge {
       'package:dcli_terminal/src/ansi_color.dart',
       'package:dcli_terminal/src/format.dart',
       'package:dcli_terminal/src/terminal.dart',
+      'package:scope/src/scope.dart',
     ];
   }
 
@@ -1327,6 +1330,7 @@ class DcliBridge {
     imports.writeln("import 'package:dcli/dcli.dart';");
     imports.writeln("import 'package:dcli_core/dcli_core.dart';");
     imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
+    imports.writeln("import 'package:scope/scope.dart';");
     return imports.toString();
   }
 
@@ -1340,6 +1344,7 @@ class DcliBridge {
     return [
       'package:dcli_core/dcli_core.dart',
       'package:dcli_terminal/dcli_terminal.dart',
+      'package:scope/scope.dart',
     ];
   }
 
@@ -1997,7 +2002,7 @@ BridgedClass _createEnvBridge() {
     },
     staticSetters: {
       'scopeKey': (visitor, value) => 
-        $dcli_core_9.Env.scopeKey = value as dynamic,
+        $dcli_core_9.Env.scopeKey = D4.extractBridgedArg<$scope_1.ScopeKey<$dcli_core_9.Env>>(value, 'scopeKey'),
     },
     constructorSignatures: {
       '': 'factory Env()',
@@ -2021,7 +2026,7 @@ BridgedClass _createEnvBridge() {
       'delimiterForPATH': 'String get delimiterForPATH',
     },
     staticGetterSignatures: {
-      'scopeKey': 'dynamic get scopeKey',
+      'scopeKey': 'ScopeKey<Env> get scopeKey',
     },
     staticSetterSignatures: {
       'scopeKey': 'set scopeKey(dynamic value)',
@@ -2589,9 +2594,9 @@ BridgedClass _createAnsiBridge() {
       },
     },
     staticGetters: {
+      'esc': (visitor) => $dcli_terminal_1.Ansi.esc,
       'isSupported': (visitor) => $dcli_terminal_1.Ansi.isSupported,
       'resetEmitAnsi': (visitor) => $dcli_terminal_1.Ansi.resetEmitAnsi,
-      'esc': (visitor) => $dcli_terminal_1.Ansi.esc,
     },
     staticMethods: {
       'strip': (visitor, positional, named, typeArgs) {
@@ -2611,9 +2616,9 @@ BridgedClass _createAnsiBridge() {
       'strip': 'String strip(String line)',
     },
     staticGetterSignatures: {
+      'esc': 'String get esc',
       'isSupported': 'bool get isSupported',
       'resetEmitAnsi': 'void get resetEmitAnsi',
-      'esc': 'dynamic get esc',
     },
     staticSetterSignatures: {
       'isSupported': 'set isSupported(bool value)',
@@ -2706,26 +2711,26 @@ BridgedClass _createAnsiColorBridge() {
       'bgReset': 'String bgReset()',
     },
     staticGetterSignatures: {
-      'codeBlack': 'dynamic get codeBlack',
-      'codeRed': 'dynamic get codeRed',
-      'codeGreen': 'dynamic get codeGreen',
-      'codeYellow': 'dynamic get codeYellow',
-      'codeBlue': 'dynamic get codeBlue',
-      'codeMagenta': 'dynamic get codeMagenta',
-      'codeCyan': 'dynamic get codeCyan',
-      'codeWhite': 'dynamic get codeWhite',
-      'codeOrange': 'dynamic get codeOrange',
-      'codeGrey': 'dynamic get codeGrey',
-      'black': 'dynamic get black',
-      'red': 'dynamic get red',
-      'green': 'dynamic get green',
-      'yellow': 'dynamic get yellow',
-      'blue': 'dynamic get blue',
-      'magenta': 'dynamic get magenta',
-      'cyan': 'dynamic get cyan',
-      'white': 'dynamic get white',
-      'orange': 'dynamic get orange',
-      'none': 'dynamic get none',
+      'codeBlack': 'int get codeBlack',
+      'codeRed': 'int get codeRed',
+      'codeGreen': 'int get codeGreen',
+      'codeYellow': 'int get codeYellow',
+      'codeBlue': 'int get codeBlue',
+      'codeMagenta': 'int get codeMagenta',
+      'codeCyan': 'int get codeCyan',
+      'codeWhite': 'int get codeWhite',
+      'codeOrange': 'int get codeOrange',
+      'codeGrey': 'int get codeGrey',
+      'black': 'AnsiColor get black',
+      'red': 'AnsiColor get red',
+      'green': 'AnsiColor get green',
+      'yellow': 'AnsiColor get yellow',
+      'blue': 'AnsiColor get blue',
+      'magenta': 'AnsiColor get magenta',
+      'cyan': 'AnsiColor get cyan',
+      'white': 'AnsiColor get white',
+      'orange': 'AnsiColor get orange',
+      'none': 'AnsiColor get none',
     },
   );
 }
@@ -3198,9 +3203,9 @@ BridgedClass _createAskValidatorIPAddressBridge() {
       'version': 'int get version',
     },
     staticGetterSignatures: {
-      'either': 'dynamic get either',
-      'ipv4': 'dynamic get ipv4',
-      'ipv6': 'dynamic get ipv6',
+      'either': 'int get either',
+      'ipv4': 'int get ipv4',
+      'ipv6': 'int get ipv6',
     },
   );
 }
@@ -3329,7 +3334,7 @@ BridgedClass _createFetchUrlBridge() {
         D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').data = D4.extractBridgedArgOrNull<$dcli_6.FetchData>(value, 'data'),
     },
     constructorSignatures: {
-      '': 'FetchUrl({required String url, required String saveToPath, Map<String, String>? headers, FetchMethod method = FetchMethod.get, void Function(FetchProgress) progress = _devNull, FetchData? data})',
+      '': 'FetchUrl({required String url, required String saveToPath, Map<String, String>? headers, FetchMethod method = FetchMethod.get, OnFetchProgress progress = _devNull, FetchData? data})',
     },
     getterSignatures: {
       'url': 'String get url',
@@ -3903,7 +3908,7 @@ BridgedClass _createResourcesBridge() {
     },
     staticGetterSignatures: {
       'pathToPackYaml': 'String get pathToPackYaml',
-      'scopeKeyProjectRoot': 'dynamic get scopeKeyProjectRoot',
+      'scopeKeyProjectRoot': 'ScopeKey<String> get scopeKeyProjectRoot',
       'projectRoot': 'String get projectRoot',
     },
   );
@@ -4658,7 +4663,7 @@ BridgedClass _createSettingsBridge() {
       'version': (visitor, target, value) => 
         D4.validateTarget<$dcli_25.Settings>(target, 'Settings').version = D4.extractBridgedArgOrNull<String>(value, 'version'),
       'dcliDir': (visitor, target, value) => 
-        D4.validateTarget<$dcli_25.Settings>(target, 'Settings').dcliDir = value as dynamic,
+        D4.validateTarget<$dcli_25.Settings>(target, 'Settings').dcliDir = D4.extractBridgedArg<String>(value, 'dcliDir'),
     },
     methods: {
       'setVerbose': (visitor, target, positional, named, typeArgs) {
@@ -4682,7 +4687,7 @@ BridgedClass _createSettingsBridge() {
     },
     staticSetters: {
       'scopeKey': (visitor, value) => 
-        $dcli_25.Settings.scopeKey = value as dynamic,
+        $dcli_25.Settings.scopeKey = D4.extractBridgedArg<$scope_1.ScopeKey<$dcli_25.Settings>>(value, 'scopeKey'),
       'mock': (visitor, value) => 
         $dcli_25.Settings.mock = D4.extractBridgedArg<$dcli_25.Settings>(value, 'mock'),
     },
@@ -4696,7 +4701,7 @@ BridgedClass _createSettingsBridge() {
     },
     getterSignatures: {
       'version': 'String? get version',
-      'dcliDir': 'dynamic get dcliDir',
+      'dcliDir': 'String get dcliDir',
       'isMacOS': 'bool get isMacOS',
       'isLinux': 'bool get isLinux',
       'isWindows': 'bool get isWindows',
@@ -4719,9 +4724,9 @@ BridgedClass _createSettingsBridge() {
       'dcliDir': 'set dcliDir(dynamic value)',
     },
     staticGetterSignatures: {
-      'scopeKey': 'dynamic get scopeKey',
-      'templateDir': 'dynamic get templateDir',
-      'dcliAppName': 'dynamic get dcliAppName',
+      'scopeKey': 'ScopeKey<Settings> get scopeKey',
+      'templateDir': 'String get templateDir',
+      'dcliAppName': 'String get dcliAppName',
     },
     staticSetterSignatures: {
       'scopeKey': 'set scopeKey(dynamic value)',
@@ -5148,7 +5153,7 @@ BridgedClass _createUnknownShellBridge() {
       'installInstructions': 'String get installInstructions',
     },
     staticGetterSignatures: {
-      'shellName': 'dynamic get shellName',
+      'shellName': 'String get shellName',
     },
   );
 }
@@ -5875,7 +5880,7 @@ BridgedClass _createNamedLockBridge() {
       'withLockAsync': 'Future<void> withLockAsync(Future<void> Function() fn, {String? waiting})',
     },
     getterSignatures: {
-      'port': 'dynamic get port',
+      'port': 'int get port',
       'name': 'String get name',
       'incLockCount': 'int get incLockCount',
       'decLockCount': 'int get decLockCount',
@@ -6186,7 +6191,7 @@ BridgedClass _createPubCacheBridge() {
     },
     staticSetters: {
       'scopeKey': (visitor, value) => 
-        $dcli_39.PubCache.scopeKey = value as dynamic,
+        $dcli_39.PubCache.scopeKey = D4.extractBridgedArg<$scope_1.ScopeKey<$dcli_39.PubCache>>(value, 'scopeKey'),
     },
     constructorSignatures: {
       '': 'factory PubCache()',
@@ -6215,8 +6220,8 @@ BridgedClass _createPubCacheBridge() {
       'pathTo': 'set pathTo(String value)',
     },
     staticGetterSignatures: {
-      'scopeKey': 'dynamic get scopeKey',
-      'envVarPubCache': 'dynamic get envVarPubCache',
+      'scopeKey': 'ScopeKey<PubCache> get scopeKey',
+      'envVarPubCache': 'String get envVarPubCache',
     },
     staticSetterSignatures: {
       'scopeKey': 'set scopeKey(dynamic value)',
@@ -6529,6 +6534,137 @@ BridgedClass _createWhichBridge() {
     },
     setterSignatures: {
       'progress': 'set progress(dynamic value)',
+    },
+  );
+}
+
+// =============================================================================
+// ScopeKey Bridge
+// =============================================================================
+
+BridgedClass _createScopeKeyBridge() {
+  return BridgedClass(
+    nativeType: $scope_1.ScopeKey,
+    name: 'ScopeKey',
+    isAssignable: (v) => v is $scope_1.ScopeKey,
+    constructors: {
+      '': (visitor, positional, named) {
+        final debugName = D4.getOptionalArg<String?>(positional, 0, 'debugName');
+        return $scope_1.ScopeKey(debugName);
+      },
+      'withDefault': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'ScopeKey');
+        final defaultValue = D4.getRequiredArg<dynamic>(positional, 0, 'defaultValue', 'ScopeKey');
+        final debugName = D4.getOptionalArg<String?>(positional, 1, 'debugName');
+        // GEN-075: Preserve generic type parameter from runtime value
+        switch (defaultValue) {
+          case double _: return $scope_1.ScopeKey<double>.withDefault(defaultValue, debugName);
+          case int _: return $scope_1.ScopeKey<int>.withDefault(defaultValue, debugName);
+          case String _: return $scope_1.ScopeKey<String>.withDefault(defaultValue, debugName);
+          case bool _: return $scope_1.ScopeKey<bool>.withDefault(defaultValue, debugName);
+          case $dcli_core_2.CatException _: return $scope_1.ScopeKey<$dcli_core_2.CatException>.withDefault(defaultValue, debugName);
+          case $dcli_core_3.CopyException _: return $scope_1.ScopeKey<$dcli_core_3.CopyException>.withDefault(defaultValue, debugName);
+          case $dcli_core_5.CreateDirException _: return $scope_1.ScopeKey<$dcli_core_5.CreateDirException>.withDefault(defaultValue, debugName);
+          case $dcli_core_8.DeleteDirException _: return $scope_1.ScopeKey<$dcli_core_8.DeleteDirException>.withDefault(defaultValue, debugName);
+          case $dcli_core_7.DeleteException _: return $scope_1.ScopeKey<$dcli_core_7.DeleteException>.withDefault(defaultValue, debugName);
+          case $dcli_core_13.MoveDirException _: return $scope_1.ScopeKey<$dcli_core_13.MoveDirException>.withDefault(defaultValue, debugName);
+          case $dcli_core_12.MoveException _: return $scope_1.ScopeKey<$dcli_core_12.MoveException>.withDefault(defaultValue, debugName);
+          case $dcli_core_14.MoveTreeException _: return $scope_1.ScopeKey<$dcli_core_14.MoveTreeException>.withDefault(defaultValue, debugName);
+          case $dcli_12.ReadException _: return $scope_1.ScopeKey<$dcli_12.ReadException>.withDefault(defaultValue, debugName);
+          case $dcli_1.AskValidatorException _: return $scope_1.ScopeKey<$dcli_1.AskValidatorException>.withDefault(defaultValue, debugName);
+          case $dcli_core_1.BackupFileException _: return $scope_1.ScopeKey<$dcli_core_1.BackupFileException>.withDefault(defaultValue, debugName);
+          case $dcli_core_6.DCliFunctionException _: return $scope_1.ScopeKey<$dcli_core_6.DCliFunctionException>.withDefault(defaultValue, debugName);
+          case $dcli_22.DartProjectException _: return $scope_1.ScopeKey<$dcli_22.DartProjectException>.withDefault(defaultValue, debugName);
+          case $dcli_6.FetchException _: return $scope_1.ScopeKey<$dcli_6.FetchException>.withDefault(defaultValue, debugName);
+          case $dcli_36.FileNotFoundException _: return $scope_1.ScopeKey<$dcli_36.FileNotFoundException>.withDefault(defaultValue, debugName);
+          case $dcli_33.InstallException _: return $scope_1.ScopeKey<$dcli_33.InstallException>.withDefault(defaultValue, debugName);
+          case $dcli_33.InvalidArgumentException _: return $scope_1.ScopeKey<$dcli_33.InvalidArgumentException>.withDefault(defaultValue, debugName);
+          case $dcli_22.InvalidProjectTemplateException _: return $scope_1.ScopeKey<$dcli_22.InvalidProjectTemplateException>.withDefault(defaultValue, debugName);
+          case $dcli_33.InvalidTemplateException _: return $scope_1.ScopeKey<$dcli_33.InvalidTemplateException>.withDefault(defaultValue, debugName);
+          case $dcli_37.LockException _: return $scope_1.ScopeKey<$dcli_37.LockException>.withDefault(defaultValue, debugName);
+          case $dcli_36.NotAFileException _: return $scope_1.ScopeKey<$dcli_36.NotAFileException>.withDefault(defaultValue, debugName);
+          case $dcli_33.ProcessSyncException _: return $scope_1.ScopeKey<$dcli_33.ProcessSyncException>.withDefault(defaultValue, debugName);
+          case $dcli_21.ResourceException _: return $scope_1.ScopeKey<$dcli_21.ResourceException>.withDefault(defaultValue, debugName);
+          case $dcli_core_1.RestoreFileException _: return $scope_1.ScopeKey<$dcli_core_1.RestoreFileException>.withDefault(defaultValue, debugName);
+          case $dcli_core_24.RunException _: return $scope_1.ScopeKey<$dcli_core_24.RunException>.withDefault(defaultValue, debugName);
+          case $dcli_26.ShellException _: return $scope_1.ScopeKey<$dcli_26.ShellException>.withDefault(defaultValue, debugName);
+          case $dcli_22.TemplateNotFoundException _: return $scope_1.ScopeKey<$dcli_22.TemplateNotFoundException>.withDefault(defaultValue, debugName);
+          case $dcli_28.UnknownShell _: return $scope_1.ScopeKey<$dcli_28.UnknownShell>.withDefault(defaultValue, debugName);
+          case $dcli_1.Ask _: return $scope_1.ScopeKey<$dcli_1.Ask>.withDefault(defaultValue, debugName);
+          case $dcli_1.AskValidatorIPAddress _: return $scope_1.ScopeKey<$dcli_1.AskValidatorIPAddress>.withDefault(defaultValue, debugName);
+          case $dcli_core_19.DCliException _: return $scope_1.ScopeKey<$dcli_core_19.DCliException>.withDefault(defaultValue, debugName);
+          case $dcli_core_9.Env _: return $scope_1.ScopeKey<$dcli_core_9.Env>.withDefault(defaultValue, debugName);
+          case $dcli_core_10.Find _: return $scope_1.ScopeKey<$dcli_core_10.Find>.withDefault(defaultValue, debugName);
+          case $dcli_8.FindProgress _: return $scope_1.ScopeKey<$dcli_8.FindProgress>.withDefault(defaultValue, debugName);
+          case $dcli_9.HeadProgress _: return $scope_1.ScopeKey<$dcli_9.HeadProgress>.withDefault(defaultValue, debugName);
+          case $dcli_16.TailProgress _: return $scope_1.ScopeKey<$dcli_16.TailProgress>.withDefault(defaultValue, debugName);
+          case $dcli_terminal_1.Ansi _: return $scope_1.ScopeKey<$dcli_terminal_1.Ansi>.withDefault(defaultValue, debugName);
+          case $dcli_terminal_2.AnsiColor _: return $scope_1.ScopeKey<$dcli_terminal_2.AnsiColor>.withDefault(defaultValue, debugName);
+          case $dcli_1.AskValidator _: return $scope_1.ScopeKey<$dcli_1.AskValidator>.withDefault(defaultValue, debugName);
+          case $dcli_34.Column _: return $scope_1.ScopeKey<$dcli_34.Column>.withDefault(defaultValue, debugName);
+          case $dcli_3.Confirm _: return $scope_1.ScopeKey<$dcli_3.Confirm>.withDefault(defaultValue, debugName);
+          case $dcli_core_6.DCliFunction _: return $scope_1.ScopeKey<$dcli_core_6.DCliFunction>.withDefault(defaultValue, debugName);
+          case $dcli_30.DCliPaths _: return $scope_1.ScopeKey<$dcli_30.DCliPaths>.withDefault(defaultValue, debugName);
+          case $dcli_22.DartProject _: return $scope_1.ScopeKey<$dcli_22.DartProject>.withDefault(defaultValue, debugName);
+          case $dcli_23.DartScript _: return $scope_1.ScopeKey<$dcli_23.DartScript>.withDefault(defaultValue, debugName);
+          case $dcli_24.DartSdk _: return $scope_1.ScopeKey<$dcli_24.DartSdk>.withDefault(defaultValue, debugName);
+          case $dcli_6.FetchData _: return $scope_1.ScopeKey<$dcli_6.FetchData>.withDefault(defaultValue, debugName);
+          case $dcli_6.FetchProgress _: return $scope_1.ScopeKey<$dcli_6.FetchProgress>.withDefault(defaultValue, debugName);
+          case $dcli_6.FetchUrl _: return $scope_1.ScopeKey<$dcli_6.FetchUrl>.withDefault(defaultValue, debugName);
+          case $dcli_34.FileSort _: return $scope_1.ScopeKey<$dcli_34.FileSort>.withDefault(defaultValue, debugName);
+          case $dcli_35.FileSync _: return $scope_1.ScopeKey<$dcli_35.FileSync>.withDefault(defaultValue, debugName);
+          case $dcli_core_10.FindItem _: return $scope_1.ScopeKey<$dcli_core_10.FindItem>.withDefault(defaultValue, debugName);
+          case $dcli_terminal_3.Format _: return $scope_1.ScopeKey<$dcli_terminal_3.Format>.withDefault(defaultValue, debugName);
+          case $dcli_37.NamedLock _: return $scope_1.ScopeKey<$dcli_37.NamedLock>.withDefault(defaultValue, debugName);
+          case $dcli_20.PackedResource _: return $scope_1.ScopeKey<$dcli_20.PackedResource>.withDefault(defaultValue, debugName);
+          case $dcli_38.ProcessDetails _: return $scope_1.ScopeKey<$dcli_38.ProcessDetails>.withDefault(defaultValue, debugName);
+          case $dcli_38.ProcessHelper _: return $scope_1.ScopeKey<$dcli_38.ProcessHelper>.withDefault(defaultValue, debugName);
+          case $dcli_19.Progress _: return $scope_1.ScopeKey<$dcli_19.Progress>.withDefault(defaultValue, debugName);
+          case $dcli_39.PubCache _: return $scope_1.ScopeKey<$dcli_39.PubCache>.withDefault(defaultValue, debugName);
+          case $dcli_40.Remote _: return $scope_1.ScopeKey<$dcli_40.Remote>.withDefault(defaultValue, debugName);
+          case $dcli_21.Resources _: return $scope_1.ScopeKey<$dcli_21.Resources>.withDefault(defaultValue, debugName);
+          case $dcli_25.Settings _: return $scope_1.ScopeKey<$dcli_25.Settings>.withDefault(defaultValue, debugName);
+          case $dcli_26.Shell _: return $scope_1.ScopeKey<$dcli_26.Shell>.withDefault(defaultValue, debugName);
+          case $dcli_27.ShellDetection _: return $scope_1.ScopeKey<$dcli_27.ShellDetection>.withDefault(defaultValue, debugName);
+          case $dcli_core_25.StackList _: return $scope_1.ScopeKey<$dcli_core_25.StackList>.withDefault(defaultValue, debugName);
+          case $dcli_terminal_4.Terminal _: return $scope_1.ScopeKey<$dcli_terminal_4.Terminal>.withDefault(defaultValue, debugName);
+          case $dcli_core_17.Which _: return $scope_1.ScopeKey<$dcli_core_17.Which>.withDefault(defaultValue, debugName);
+          default: return $scope_1.ScopeKey.withDefault(defaultValue, debugName);
+        }
+      },
+    },
+    getters: {
+      'hasDefault': (visitor, target) => D4.validateTarget<$scope_1.ScopeKey>(target, 'ScopeKey').hasDefault,
+    },
+    methods: {
+      'testCast': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$scope_1.ScopeKey>(target, 'ScopeKey');
+        D4.requireMinArgs(positional, 1, 'testCast');
+        final v = D4.getRequiredArg<dynamic>(positional, 0, 'v', 'testCast');
+        return t.testCast(v);
+      },
+      'testFunctionCast': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$scope_1.ScopeKey>(target, 'ScopeKey');
+        D4.requireMinArgs(positional, 1, 'testFunctionCast');
+        final v = D4.getRequiredArg<dynamic>(positional, 0, 'v', 'testFunctionCast');
+        return t.testFunctionCast(v);
+      },
+      'toString': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$scope_1.ScopeKey>(target, 'ScopeKey');
+        return t.toString();
+      },
+    },
+    constructorSignatures: {
+      '': 'const ScopeKey([String? debugName])',
+      'withDefault': 'ScopeKey.withDefault(T defaultValue, [String? debugName])',
+    },
+    methodSignatures: {
+      'testCast': 'T testCast(dynamic v)',
+      'testFunctionCast': 'T Function() testFunctionCast(dynamic v)',
+      'toString': 'String toString()',
+    },
+    getterSignatures: {
+      'hasDefault': 'bool get hasDefault',
     },
   );
 }

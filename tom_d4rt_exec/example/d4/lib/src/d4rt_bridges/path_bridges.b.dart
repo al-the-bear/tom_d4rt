@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-04-22T19:58:20.225183
+// Generated: 2026-04-23T11:10:53.949096
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -841,8 +841,8 @@ BridgedClass _createPathMapBridge() {
       },
     },
     constructorSignatures: {
-      '': 'PathMap({p.Context? context})',
-      'of': 'PathMap.of(Map<String, V> other, {p.Context? context})',
+      '': 'PathMap({Context? context})',
+      'of': 'PathMap.of(Map<String, V> other, {Context? context})',
     },
     methodSignatures: {
       'cast': 'Map<RK, RV> cast()',
@@ -851,14 +851,14 @@ BridgedClass _createPathMapBridge() {
       'putIfAbsent': 'V putIfAbsent(String? key, V Function() ifAbsent)',
       'containsKey': 'bool containsKey(Object? key)',
       'containsValue': 'bool containsValue(Object? value)',
-      'forEach': 'void forEach(void Function(String?, V) action)',
+      'forEach': 'void forEach(void Function(String? key, V value) action)',
       'remove': 'V? remove(Object? key)',
       'toString': 'String toString()',
       'addEntries': 'void addEntries(Iterable<MapEntry<String?, V>> entries)',
-      'map': 'Map<K2, V2> map(MapEntry<K2, V2> Function(String?, V) transform)',
-      'update': 'V update(String? key, V Function(V) update, {V Function()? ifAbsent})',
-      'updateAll': 'void updateAll(V Function(String?, V) update)',
-      'removeWhere': 'void removeWhere(bool Function(String?, V) test)',
+      'map': 'Map<K2, V2> map(MapEntry<K2, V2> Function(String? key, V value) transform)',
+      'update': 'V update(String? key, V Function(V value) update, {V Function()? ifAbsent})',
+      'updateAll': 'void updateAll(V Function(String? key, V value) update)',
+      'removeWhere': 'void removeWhere(bool Function(String? key, V value) test)',
     },
     getterSignatures: {
       'isEmpty': 'bool get isEmpty',
@@ -1197,8 +1197,8 @@ BridgedClass _createPathSetBridge() {
       },
     },
     constructorSignatures: {
-      '': 'PathSet({p.Context? context})',
-      'of': 'PathSet.of(Iterable<String> other, {p.Context? context})',
+      '': 'PathSet({Context? context})',
+      'of': 'PathSet.of(Iterable<String> other, {Context? context})',
     },
     methodSignatures: {
       'add': 'bool add(String? value)',
@@ -1218,24 +1218,24 @@ BridgedClass _createPathSetBridge() {
       'union': 'Set<String?> union(Set<String?> other)',
       'toSet': 'Set<String?> toSet()',
       'followedBy': 'Iterable<String?> followedBy(Iterable<String?> other)',
-      'map': 'Iterable<T> map(T Function(String?) toElement)',
-      'where': 'Iterable<String?> where(bool Function(String?) test)',
+      'map': 'Iterable<T> map(T Function(String? e) toElement)',
+      'where': 'Iterable<String?> where(bool Function(String? element) test)',
       'whereType': 'Iterable<T> whereType()',
-      'expand': 'Iterable<T> expand(Iterable<T> Function(String?) toElements)',
-      'forEach': 'void forEach(void Function(String?) action)',
-      'reduce': 'String? reduce(String? Function(String?, String?) combine)',
-      'fold': 'T fold(T initialValue, T Function(T, String?) combine)',
-      'every': 'bool every(bool Function(String?) test)',
+      'expand': 'Iterable<T> expand(Iterable<T> Function(String? element) toElements)',
+      'forEach': 'void forEach(void Function(String? element) action)',
+      'reduce': 'String? reduce(String? Function(String? value, String? element) combine)',
+      'fold': 'T fold(T initialValue, T Function(T previousValue, String? element) combine)',
+      'every': 'bool every(bool Function(String? element) test)',
       'join': 'String join([String separator = ""])',
-      'any': 'bool any(bool Function(String?) test)',
+      'any': 'bool any(bool Function(String? element) test)',
       'toList': 'List<String?> toList({bool growable = true})',
       'take': 'Iterable<String?> take(int count)',
-      'takeWhile': 'Iterable<String?> takeWhile(bool Function(String?) test)',
+      'takeWhile': 'Iterable<String?> takeWhile(bool Function(String? value) test)',
       'skip': 'Iterable<String?> skip(int count)',
-      'skipWhile': 'Iterable<String?> skipWhile(bool Function(String?) test)',
-      'firstWhere': 'String? firstWhere(bool Function(String?) test, {String? Function()? orElse})',
-      'lastWhere': 'String? lastWhere(bool Function(String?) test, {String? Function()? orElse})',
-      'singleWhere': 'String? singleWhere(bool Function(String?) test, {String? Function()? orElse})',
+      'skipWhile': 'Iterable<String?> skipWhile(bool Function(String? value) test)',
+      'firstWhere': 'String? firstWhere(bool Function(String? element) test, {String? Function()? orElse})',
+      'lastWhere': 'String? lastWhere(bool Function(String? element) test, {String? Function()? orElse})',
+      'singleWhere': 'String? singleWhere(bool Function(String? element) test, {String? Function()? orElse})',
       'elementAt': 'String? elementAt(int index)',
       'toString': 'String toString()',
     },
