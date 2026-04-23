@@ -198,6 +198,18 @@ Future<RelaxerGenerationResult> generateRelaxers({
       );
       continue;
     }
+    // GEN-095: Skip wrappers for base types that live under a package's
+    // private `lib/src/` tree — the relaxer file imports the barrel URI
+    // (e.g. `package:dcli/dcli.dart`), so a private `ScopeKey` in
+    // `package:dcli/src/...` cannot be referenced as a bare identifier
+    // and the wrapper's `extends ScopeKey` won't resolve.
+    if (!_isReachableViaBarrels(target.classInfo!, inScopePackagePrefixes)) {
+      warn(
+        '${target.baseTypeName} is not re-exported by any barrel import — '
+        'skipping wrapper',
+      );
+      continue;
+    }
     final wrapperCode = _generateWrapperClass(
       target.baseTypeName,
       target.classInfo!,
@@ -216,6 +228,13 @@ Future<RelaxerGenerationResult> generateRelaxers({
   for (final target in targets) {
     if (target.classInfo == null) continue;
     if (target.classInfo!.typeParameters.length != 1) continue;
+    // GEN-095: Skip factory functions for base types whose wrapper was
+    // skipped (unreachable via barrel imports). Emitting a factory that
+    // references a nonexistent `$RelaxedX` class would leak a compile
+    // error into the generated relaxer file.
+    if (!_isReachableViaBarrels(target.classInfo!, inScopePackagePrefixes)) {
+      continue;
+    }
 
     for (final entry in target.moduleTypeArgs.entries) {
       final moduleName = entry.key;
@@ -274,17 +293,55 @@ Future<RelaxerGenerationResult> generateRelaxers({
   final genericCtorCount = _writeGenericConstructorSection(
     buffer,
     globalClassLookup,
+    inScopePackagePrefixes,
     warn,
   );
 
   // -------------------------------------------------------------------------
-  // Step 4: Write the output file (only if there are actual wrappers)
+  // Step 4: Write the output file
   // -------------------------------------------------------------------------
+  // GEN-095: The dartscript.b.dart orchestrator unconditionally imports the
+  // relaxer file and calls both `registerGenericConstructors()` and
+  // `registerRelaxers()` whenever `config.modules.isNotEmpty`. Historically
+  // this code path returned early and left a stale file on disk (or no file
+  // at all), which broke packages where the barrel-reachability filter left
+  // nothing to emit. Emit a minimal stub instead so the import always
+  // resolves.
   if (wrappersGenerated == 0 &&
       factoriesGenerated == 0 &&
       userRelaxers.isEmpty &&
       genericCtorCount == 0) {
-    // Nothing to generate — don't create an empty file.
+    final stub = StringBuffer();
+    _writeFileHeader(stub, config);
+    stub.writeln();
+    stub.writeln(
+      '// GEN-095: No relaxers or RC-2 generic constructors are reachable',
+    );
+    stub.writeln(
+      '// via this package\'s barrel imports. Emitting empty stubs so the',
+    );
+    stub.writeln(
+      '// orchestrator\'s `registerRelaxers()` / `registerGenericConstructors()`',
+    );
+    stub.writeln('// calls still resolve.');
+    stub.writeln();
+    stub.writeln('/// No-op: no GEN-079 relaxer wrappers for this package.');
+    stub.writeln('void registerRelaxers() {}');
+    stub.writeln();
+    stub.writeln(
+      '/// No-op: no RC-2 generic constructor factories for this package.',
+    );
+    stub.writeln('void registerGenericConstructors() {}');
+    final outputFilePath = p.join(projectPath, ensureBDartExtension(outputPath));
+    final outputDir = Directory(p.dirname(outputFilePath));
+    if (!outputDir.existsSync()) {
+      outputDir.createSync(recursive: true);
+    }
+    await File(outputFilePath).writeAsString(stub.toString());
+    print(
+      '  RELAXER: Generated empty stub (no reachable relaxers) → '
+      '$outputFilePath',
+    );
     return RelaxerGenerationResult(warnings: warnings);
   }
 
@@ -375,10 +432,12 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   // to re-type them. Without this, Fix A cannot handle these classes.
   // -------------------------------------------------------------------------
   final existingTargetNames = targets.map((t) => t.baseTypeName).toSet();
+  // GEN-095: Restrict type args to classes reachable via the barrel
+  // imports (excludes `package:<pkg>/src/` private types).
   final allConcreteBridgedTypes =
       globalClassLookup.entries
           .where((e) => !e.value.isAbstract && !e.value.isSealed)
-          .where((e) => _isTypeInScope(e.value, inScopePackagePrefixes))
+          .where((e) => _isReachableViaBarrels(e.value, inScopePackagePrefixes))
           .map((e) => e.key)
           .toList()
         ..sort();
@@ -1635,10 +1694,16 @@ const _rc2SkipTypes = {
 int _writeGenericConstructorSection(
   StringBuffer buffer,
   Map<String, ClassInfo> globalClassLookup,
+  Set<String> inScopePackagePrefixes,
   void Function(String) warn,
 ) {
   // Find all eligible generic classes: single type param, non-abstract,
   // non-sealed, has at least one non-factory constructor.
+  // GEN-095: Also require the class to be importable via the relaxer's
+  // barrel-import set — generic classes defined in a package's private
+  // `lib/src/` are not reachable from the generated relaxer file and
+  // attempting to emit a factory for them produces `non_type_as_type_argument`
+  // errors (e.g. `PathMap<D4rt>` where `D4rt` lives in `dcli/lib/src/`).
   final eligible = <String, ClassInfo>{};
   for (final entry in globalClassLookup.entries) {
     final cls = entry.value;
@@ -1646,19 +1711,25 @@ int _writeGenericConstructorSection(
     if (cls.typeParameters.length != 1) continue; // Single type param only
     if (cls.isAbstract || cls.isSealed) continue;
     if (!cls.constructors.any((c) => !c.isFactory)) continue;
+    if (!_isReachableViaBarrels(cls, inScopePackagePrefixes)) {
+      continue;
+    }
     eligible[entry.key] = cls;
   }
 
   if (eligible.isEmpty) return 0;
 
-  // Collect all concrete bridged class names for type dispatches
+  // Collect all concrete bridged class names for type dispatches.
+  // GEN-095: Exclude types from a package's private `lib/src/` (not reachable
+  // via the barrel import) and types from packages not imported at all.
   final allBridgedTypes =
       globalClassLookup.entries
           .where(
             (e) =>
                 !e.value.isAbstract &&
                 !e.value.isSealed &&
-                !_rc2SkipTypes.contains(e.key),
+                !_rc2SkipTypes.contains(e.key) &&
+                _isReachableViaBarrels(e.value, inScopePackagePrefixes),
           )
           .map((e) => e.key)
           .toList()
@@ -2351,6 +2422,42 @@ bool _isTypeInScope(ClassInfo classInfo, Set<String> inScopePackagePrefixes) {
     }
   }
   return false;
+}
+
+/// GEN-095: Checks whether a type is reachable via the relaxer's barrel
+/// imports.
+///
+/// The generated relaxer file imports each module's barrel URI (e.g.
+/// `package:dcli/dcli.dart`) — it does **not** reach into a package's
+/// private `lib/src/` tree. Types whose `sourceFile` is under
+/// `package:<pkg>/src/…` are therefore **not** usable as type arguments
+/// or bare identifiers in the relaxer output.
+///
+/// This check layers on top of [_isTypeInScope]: first the type must be
+/// in a package that's imported at all, and second its source file must
+/// not live under that package's `src/` directory.
+///
+/// Returns `true` for types whose source file is either a `dart:` URI,
+/// a top-level file in an in-scope package (i.e. not under `/src/`), or a
+/// mapped engine/Flutter path whose target URI is in scope.
+bool _isReachableViaBarrels(
+  ClassInfo classInfo,
+  Set<String> inScopePackagePrefixes,
+) {
+  if (!_isTypeInScope(classInfo, inScopePackagePrefixes)) return false;
+  final src = classInfo.sourceFile;
+  if (src.startsWith('dart:')) return true;
+  // Private under package: package:<pkg>/src/... is not re-exported via
+  // the barrel and cannot be referenced by bare identifier.
+  // A package: URI looks like 'package:<pkg>/<path>'. Check whether the
+  // first path segment after the slash is 'src'.
+  if (src.startsWith('package:')) {
+    final afterPkg = src.indexOf('/');
+    if (afterPkg > 0 && src.substring(afterPkg + 1).startsWith('src/')) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /// Makes a type nullable for safe null-coalescing casts.
