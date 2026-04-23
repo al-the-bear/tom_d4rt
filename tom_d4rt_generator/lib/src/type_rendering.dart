@@ -35,8 +35,18 @@ String renderDartType(DartType type) {
     final baseName = type.element.name;
     if (baseName == null) return type.getDisplayString();
     final args = type.typeArguments;
-    final argsText =
-        args.isEmpty ? '' : '<${args.map(renderDartType).join(', ')}>';
+    // Elide `<dynamic, dynamic, ...>` tails — Dart's inferred-all-dynamic
+    // type arguments are semantically equivalent to the bare generic and
+    // preserving the `<dynamic>` suffix breaks downstream contains-checks
+    // in the bridge generator (e.g. type-erasure bound for
+    // `K extends Comparable` must render as `Comparable`, not
+    // `Comparable<dynamic>`; see G-TE-13).
+    final renderedArgs = args.map(renderDartType).toList();
+    final allDynamic =
+        renderedArgs.isNotEmpty && renderedArgs.every((a) => a == 'dynamic');
+    final argsText = (renderedArgs.isEmpty || allDynamic)
+        ? ''
+        : '<${renderedArgs.join(', ')}>';
     final nullable =
         type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
     return '$baseName$argsText$nullable';
