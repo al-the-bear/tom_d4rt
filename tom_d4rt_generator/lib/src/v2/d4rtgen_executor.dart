@@ -219,8 +219,9 @@ Future<void> _generateBridges(
   // every package through its `.sum` summary bundle via the element
   // walker (ElementModeExtractor). No filter-exclusion pass — every
   // dependency (including bridged packages) resolves from summaries.
-  // The AST walker is only reachable behind BridgeGenerator.useLegacyAstWalker
-  // (internal debug flag, not user-exposed).
+  // Phase 6: the legacy AST walker (`_ResolvedClassVisitor`) and the
+  // `useLegacyAstWalker` debug flag have been removed; element-mode
+  // extraction is now the only code path.
   //
   // Phase 5: summary-cache now runs BEFORE user-bridge scanning so the
   // element-walker scanner can resolve user-bridge files against the
