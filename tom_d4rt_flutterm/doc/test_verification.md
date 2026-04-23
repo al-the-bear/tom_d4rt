@@ -533,13 +533,13 @@ Files that may have been replaced with fake demos. Need verification and restora
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 351 | widgets/restorable_bool_test.dart | 36 | 928 | fake | |
-| 352 | widgets/restorable_date_time_n_test.dart | 36 | 890 | fake | |
-| 353 | widgets/restorable_date_time_test.dart | 36 | 937 | fake | |
-| 354 | widgets/restorable_double_n_test.dart | 36 | 1021 | fake | |
-| 355 | widgets/restorable_double_test.dart | 36 | 931 | fake | |
-| 356 | widgets/restorable_int_n_test.dart | 36 | 808 | fake | |
-| 357 | widgets/restorable_int_test.dart | 36 | 926 | fake | |
+| 351 | widgets/restorable_bool_test.dart | 36 | 928 | fake | fixed |
+| 352 | widgets/restorable_date_time_n_test.dart | 36 | 890 | fake | fixed |
+| 353 | widgets/restorable_date_time_test.dart | 36 | 937 | fake | fixed |
+| 354 | widgets/restorable_double_n_test.dart | 36 | 1021 | fake | fixed |
+| 355 | widgets/restorable_double_test.dart | 36 | 931 | fake | fixed |
+| 356 | widgets/restorable_int_n_test.dart | 36 | 808 | fake | fixed |
+| 357 | widgets/restorable_int_test.dart | 36 | 926 | fake | fixed |
 | 358 | widgets/restorable_listenable_test.dart | 36 | 1056 | fake | |
 | 359 | widgets/restorable_num_n_test.dart | 36 | 865 | fake | |
 | 360 | widgets/restorable_num_test.dart | 36 | 1003 | fake | |
