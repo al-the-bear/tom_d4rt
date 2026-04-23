@@ -583,18 +583,18 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 383 | widgets/scroll_increment_type_test.dart | 39 | 981 | fake | fixed |
 | 384 | widgets/scroll_intent_test.dart | 39 | 917 | fake | fixed |
 | 385 | widgets/scroll_metrics_notification_test.dart | 39 | 1261 | fake | fixed |
-| 386 | widgets/scroll_notification_observer_test.dart | 39 | 921 | fake | |
-| 387 | widgets/scroll_position_types_test.dart | 39 | 937 | fake | |
-| 388 | widgets/scroll_position_with_single_context_test.dart | 39 | 1281 | fake | |
-| 389 | widgets/scroll_start_notification_test.dart | 39 | 932 | fake | |
-| 390 | widgets/scroll_to_document_boundary_intent_test.dart | 39 | 1078 | fake | |
+| 386 | widgets/scroll_notification_observer_test.dart | 39 | 921 | fake | fixed |
+| 387 | widgets/scroll_position_types_test.dart | 39 | 937 | fake | fixed |
+| 388 | widgets/scroll_position_with_single_context_test.dart | 39 | 1281 | fake | fixed |
+| 389 | widgets/scroll_start_notification_test.dart | 39 | 932 | fake | fixed |
+| 390 | widgets/scroll_to_document_boundary_intent_test.dart | 39 | 1078 | fake | fixed |
 
 ## Batch 40
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 391 | widgets/scroll_update_notification_test.dart | 40 | 1249 | fake | |
-| 392 | widgets/scroll_view_test.dart | 40 | 1665 | fake | |
+| 391 | widgets/scroll_update_notification_test.dart | 40 | 1249 | fake | fixed |
+| 392 | widgets/scroll_view_test.dart | 40 | 1665 | fake | fixed |
 | 393 | widgets/selectable_region_state_test.dart | 40 | 1253 | fake | |
 | 394 | widgets/select_all_text_intent_test.dart | 40 | 1664 | fake | |
 | 395 | widgets/select_intent_test.dart | 40 | 1163 | fake | |
