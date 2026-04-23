@@ -27,10 +27,10 @@ class D4rtCustomPainter extends CustomPainter {
   final bool Function(CustomPainter) onShouldRepaint;
 
   /// Callback for [CustomPainter.addListener].
-  final void Function(void Function())? onAddListener;
+  final void Function(VoidCallback)? onAddListener;
 
   /// Callback for [CustomPainter.removeListener].
-  final void Function(void Function())? onRemoveListener;
+  final void Function(VoidCallback)? onRemoveListener;
 
   /// Callback for [CustomPainter.shouldRebuildSemantics].
   final bool Function(CustomPainter)? onShouldRebuildSemantics;
@@ -39,7 +39,7 @@ class D4rtCustomPainter extends CustomPainter {
   final bool? Function(Offset)? onHitTest;
 
   /// Callback for [CustomPainter.semanticsBuilder].
-  final List<CustomPainterSemantics> Function(Size)? Function()? onSemanticsBuilder;
+  final SemanticsBuilderCallback? Function()? onSemanticsBuilder;
 
   /// Creates a [D4rtCustomPainter] with callback implementations.
   D4rtCustomPainter({
@@ -61,11 +61,11 @@ class D4rtCustomPainter extends CustomPainter {
       onShouldRepaint(oldDelegate);
 
   @override
-  void addListener(void Function() listener) =>
+  void addListener(VoidCallback listener) =>
       onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
+  void removeListener(VoidCallback listener) =>
       onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
 
   @override
@@ -77,7 +77,7 @@ class D4rtCustomPainter extends CustomPainter {
       onHitTest != null ? onHitTest!(position) : super.hitTest(position);
 
   @override
-  List<CustomPainterSemantics> Function(Size)? get semanticsBuilder => onSemanticsBuilder != null ? onSemanticsBuilder!() : super.semanticsBuilder;
+  SemanticsBuilderCallback? get semanticsBuilder => onSemanticsBuilder != null ? onSemanticsBuilder!() : super.semanticsBuilder;
 
 }
 
@@ -94,10 +94,10 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
   final bool Function(CustomClipper<T>) onShouldReclip;
 
   /// Callback for [CustomClipper.addListener].
-  final void Function(void Function())? onAddListener;
+  final void Function(VoidCallback)? onAddListener;
 
   /// Callback for [CustomClipper.removeListener].
-  final void Function(void Function())? onRemoveListener;
+  final void Function(VoidCallback)? onRemoveListener;
 
   /// Callback for [CustomClipper.getApproximateClipRect].
   final Rect Function(Size)? onGetApproximateClipRect;
@@ -120,11 +120,11 @@ class D4rtCustomClipper<T> extends CustomClipper<T> {
       onShouldReclip(oldClipper);
 
   @override
-  void addListener(void Function() listener) =>
+  void addListener(VoidCallback listener) =>
       onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
+  void removeListener(VoidCallback listener) =>
       onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
 
   @override
@@ -378,10 +378,10 @@ class D4rtDataTableSource extends DataTableSource {
   final int Function() onSelectedRowCount;
 
   /// Callback for [DataTableSource.addListener].
-  final void Function(void Function())? onAddListener;
+  final void Function(VoidCallback)? onAddListener;
 
   /// Callback for [DataTableSource.removeListener].
-  final void Function(void Function())? onRemoveListener;
+  final void Function(VoidCallback)? onRemoveListener;
 
   /// Callback for [DataTableSource.dispose].
   final void Function()? onDispose;
@@ -419,11 +419,11 @@ class D4rtDataTableSource extends DataTableSource {
   int get selectedRowCount => onSelectedRowCount();
 
   @override
-  void addListener(void Function() listener) =>
+  void addListener(VoidCallback listener) =>
       onAddListener != null ? onAddListener!(listener) : super.addListener(listener);
 
   @override
-  void removeListener(void Function() listener) =>
+  void removeListener(VoidCallback listener) =>
       onRemoveListener != null ? onRemoveListener!(listener) : super.removeListener(listener);
 
   @override
@@ -470,7 +470,7 @@ void registerProxyFactories() {
         throw StateError('Interpreted class ${instance.klass.name} does not implement shouldRepaint');
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('addListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
@@ -480,7 +480,7 @@ void registerProxyFactories() {
           }
           : null,
       onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('removeListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
@@ -514,33 +514,11 @@ void registerProxyFactories() {
         final getter = instance.klass.findInstanceGetter('semanticsBuilder');
         if (getter != null) {
           final result = getter.bind(instance).call(visitor, [], {});
-           if (result == null) return null;
-           if (result is Callable) {
-             final _callable = result;
-             return (Size p0) {
-               final _out = _callable.call(visitor, [p0], {});
-               if (_out is List) {
-                 return _out.map((e) => D4.extractBridgedArg<CustomPainterSemantics>(e, 'semanticsBuilder')).toList();
-               }
-               return D4.extractBridgedArg<List<CustomPainterSemantics>>(_out, 'semanticsBuilder');
-             };
-           }
-           return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(result, 'semanticsBuilder');
+           return D4.extractBridgedArg<SemanticsBuilderCallback?>(result, 'semanticsBuilder');
         }
         try {
           final field = instance.getField('semanticsBuilder');
-           if (field == null) return null;
-           if (field is Callable) {
-             final _callable = field;
-             return (Size p0) {
-               final _out = _callable.call(visitor, [p0], {});
-               if (_out is List) {
-                 return _out.map((e) => D4.extractBridgedArg<CustomPainterSemantics>(e, 'semanticsBuilder')).toList();
-               }
-               return D4.extractBridgedArg<List<CustomPainterSemantics>>(_out, 'semanticsBuilder');
-             };
-           }
-           return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size)?>(field, 'semanticsBuilder');
+           return D4.extractBridgedArg<SemanticsBuilderCallback?>(field, 'semanticsBuilder');
         } catch (_) {}
         throw StateError('Interpreted class ${instance.klass.name} does not implement semanticsBuilder');
           }
@@ -568,7 +546,7 @@ void registerProxyFactories() {
         throw StateError('Interpreted class ${instance.klass.name} does not implement shouldReclip');
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('addListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
@@ -578,7 +556,7 @@ void registerProxyFactories() {
           }
           : null,
       onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('removeListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
@@ -908,7 +886,7 @@ void registerProxyFactories() {
         throw StateError('Interpreted class ${instance.klass.name} does not implement selectedRowCount');
       },
       onAddListener: instance.klass.findInstanceMethod('addListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('addListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
@@ -918,7 +896,7 @@ void registerProxyFactories() {
           }
           : null,
       onRemoveListener: instance.klass.findInstanceMethod('removeListener') != null
-          ? (void Function() listener) {
+          ? (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('removeListener');
         if (method != null) {
           final result = method.bind(instance).call(visitor, [listener], {});
