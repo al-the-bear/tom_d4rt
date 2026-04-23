@@ -1,75 +1,75 @@
-ID,Groups,Description,Baseline [04-22 20:08],[04-23 11:27],[04-23 16:24]
-,DCli Project - tomexample (advanced),process_execution,X/OK,X/OK,X/OK
-,DCli Project - standalone (advanced),redirect,X/OK,X/OK,X/OK
-,DCli Project - tomexample (advanced),environment,X/OK,X/OK,X/OK
-,parseSearchFilterDetails,contains match mode with surrounding asterisks,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — bare statements,should auto-import dart:io,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — main without imports,should execute void main and exit 0,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — main without imports,should auto-prefix imports for bridge usage,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — main without imports,should use int return from main as exit code,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — complete script,should execute complete script as-is,OK/OK,OK/OK,OK/OK
-,stdin error handling,should exit 1 on empty stdin,OK/OK,OK/OK,OK/OK
-,stdin error handling,should exit 0 on unclosed string (parser is lenient),OK/OK,OK/OK,OK/OK
-,stdin error handling,should exit 2 on syntax error (incomplete expression),OK/OK,OK/OK,OK/OK
-,stdin error handling,should exit 2 on runtime error,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,returns null for empty query,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,exact match is case-insensitive by default,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,exact match can be case-sensitive with double quotes,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,exact match can be case-sensitive with single quotes,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,startsWith match is case-insensitive with trailing asterisk,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,startsWith match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,contains match is case-insensitive with surrounding asterisks,OK/OK,OK/OK,OK/OK
-,parseSearchFilter,contains match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK
-,parseSearchFilterDetails,exact match mode with no wildcards,OK/OK,OK/OK,OK/OK
-,parseSearchFilterDetails,case-sensitive exact match with quotes,OK/OK,OK/OK,OK/OK
-,parseSearchFilterDetails,startsWith match mode with trailing asterisk,OK/OK,OK/OK,OK/OK
-,stdin shell script,test_stdin.sh passes all checks,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,01_hello,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,02_string_as_process,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,03_colors,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,04_file_write,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,05_progress_capture,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,06_env_access,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,07_basic_file_ops,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,10_temp_files,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,11_find_details,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide Examples,13_cross_platform,OK/OK,OK/OK,OK/OK
-,ContextStack,initial state,OK/OK,OK/OK,OK/OK
-,DCli Project - tomexample,color_output,OK/OK,OK/OK,OK/OK
-,CliState,cd changes directory,OK/OK,OK/OK,OK/OK
-,CliState,cd with absolute path,OK/OK,OK/OK,OK/OK
-,CliState,home returns to data directory,OK/OK,OK/OK,OK/OK
-,CliState,defines management,OK/OK,OK/OK,OK/OK
-,CliState,path resolution - relative paths,OK/OK,OK/OK,OK/OK
-,CliState,path resolution - absolute paths,OK/OK,OK/OK,OK/OK
-,CliState,path resolution - tilde expansion,OK/OK,OK/OK,OK/OK
-,ExecutionContext,multiline mode management,OK/OK,OK/OK,OK/OK
-,ContextStack,push and pop contexts,OK/OK,OK/OK,OK/OK
-,ContextStack,cannot pop root context,OK/OK,OK/OK,OK/OK
-,D4rtCliController,basic properties,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — bare statements,should print output and exit 0,OK/OK,OK/OK,OK/OK
-,D4rtCliController,ls lists directory contents,OK/OK,OK/OK,OK/OK
-,D4rtCliController,defines work correctly,OK/OK,OK/OK,OK/OK
-,DCli Project - tomexample,file_operations,OK/OK,OK/OK,OK/OK
-,D4rtCliController,eval executes expressions,OK/OK,OK/OK,OK/OK
-,D4rtCliController,multiline mode,OK/OK,OK/OK,OK/OK
-,D4rtCliController,help returns help text,OK/OK,OK/OK,OK/OK
-,D4rtCliController,info without name returns tool info,OK/OK,OK/OK,OK/OK
-,D4rtCliController,processPrompt handles comments,OK/OK,OK/OK,OK/OK
-,D4rtCliController,processPrompt handles empty lines,OK/OK,OK/OK,OK/OK
-,D4rtCliController,execute runs code in fresh environment,OK/OK,OK/OK,OK/OK
-,ExecuteResult,success result,OK/OK,OK/OK,OK/OK
-,DCli Project - tomexample,directory_operations,OK/OK,OK/OK,OK/OK
-,ExecuteResult,failure result,OK/OK,OK/OK,OK/OK
-,CliExceptions,CliException,OK/OK,OK/OK,OK/OK
-,CliExceptions,CliFileNotFoundException,OK/OK,OK/OK,OK/OK
-,CliExceptions,DirectoryNotFoundException,OK/OK,OK/OK,OK/OK
-,CliExceptions,ReplayException,OK/OK,OK/OK,OK/OK
-,DCli Project - standalone,kill_tomcat,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide - Advanced,08_command_execution,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide - Advanced,12_error_handling,OK/OK,OK/OK,OK/OK
-,DCli Scripting Guide - Advanced,14_shell_execution,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — bare statements,should use int return as exit code,OK/OK,OK/OK,OK/OK
-,stdin preprocessing — bare statements,should auto-import dart:math (stdlib bridge),OK/OK,OK/OK,OK/OK
-,DCli Project - tomexample (advanced),error_handling,OK/OK,OK/OK,OK/OK
-,D4rtCliController,directory navigation,OK/OK,OK/OK,OK/OK
+ID,Groups,Description,Baseline [04-22 20:08],[04-23 11:27],[04-23 16:24],[04-23 19:25]
+,DCli Project - tomexample (advanced),process_execution,X/OK,X/OK,X/OK,X/OK
+,DCli Project - standalone (advanced),redirect,X/OK,X/OK,X/OK,X/OK
+,DCli Project - tomexample (advanced),environment,X/OK,X/OK,X/OK,X/OK
+,stdin shell script,test_stdin.sh passes all checks,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should auto-import dart:io,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should execute void main and exit 0,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should auto-prefix imports for bridge usage,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — main without imports,should use int return from main as exit code,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — complete script,should execute complete script as-is,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 1 on empty stdin,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 0 on unclosed string (parser is lenient),OK/OK,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 2 on syntax error (incomplete expression),OK/OK,OK/OK,OK/OK,OK/OK
+,stdin error handling,should exit 2 on runtime error,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,returns null for empty query,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match is case-insensitive by default,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match can be case-sensitive with double quotes,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,exact match can be case-sensitive with single quotes,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,startsWith match is case-insensitive with trailing asterisk,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,startsWith match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,contains match is case-insensitive with surrounding asterisks,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilter,contains match can be case-sensitive with quotes,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,exact match mode with no wildcards,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,case-sensitive exact match with quotes,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,startsWith match mode with trailing asterisk,OK/OK,OK/OK,OK/OK,OK/OK
+,parseSearchFilterDetails,contains match mode with surrounding asterisks,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,01_hello,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,02_string_as_process,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,03_colors,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,04_file_write,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,05_progress_capture,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,06_env_access,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,07_basic_file_ops,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,10_temp_files,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,11_find_details,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide Examples,13_cross_platform,OK/OK,OK/OK,OK/OK,OK/OK
+,ContextStack,initial state,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Project - tomexample,color_output,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,cd changes directory,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,cd with absolute path,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,home returns to data directory,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,defines management,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - relative paths,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - absolute paths,OK/OK,OK/OK,OK/OK,OK/OK
+,CliState,path resolution - tilde expansion,OK/OK,OK/OK,OK/OK,OK/OK
+,ExecutionContext,multiline mode management,OK/OK,OK/OK,OK/OK,OK/OK
+,ContextStack,push and pop contexts,OK/OK,OK/OK,OK/OK,OK/OK
+,ContextStack,cannot pop root context,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,basic properties,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,directory navigation,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,ls lists directory contents,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,defines work correctly,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Project - tomexample,file_operations,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,eval executes expressions,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,multiline mode,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,help returns help text,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,info without name returns tool info,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,processPrompt handles comments,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,processPrompt handles empty lines,OK/OK,OK/OK,OK/OK,OK/OK
+,D4rtCliController,execute runs code in fresh environment,OK/OK,OK/OK,OK/OK,OK/OK
+,ExecuteResult,success result,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Project - tomexample,directory_operations,OK/OK,OK/OK,OK/OK,OK/OK
+,ExecuteResult,failure result,OK/OK,OK/OK,OK/OK,OK/OK
+,CliExceptions,CliException,OK/OK,OK/OK,OK/OK,OK/OK
+,CliExceptions,CliFileNotFoundException,OK/OK,OK/OK,OK/OK,OK/OK
+,CliExceptions,DirectoryNotFoundException,OK/OK,OK/OK,OK/OK,OK/OK
+,CliExceptions,ReplayException,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Project - standalone,kill_tomcat,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide - Advanced,08_command_execution,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide - Advanced,12_error_handling,OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Scripting Guide - Advanced,14_shell_execution,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should use int return as exit code,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should auto-import dart:math (stdlib bridge),OK/OK,OK/OK,OK/OK,OK/OK
+,DCli Project - tomexample (advanced),error_handling,OK/OK,OK/OK,OK/OK,OK/OK
+,stdin preprocessing — bare statements,should print output and exit 0,OK/OK,OK/OK,OK/OK,OK/OK
