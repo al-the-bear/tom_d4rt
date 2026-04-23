@@ -471,10 +471,18 @@ Exit criteria:
   phases (1–4) and are the responsibility of Phase 7's full
   downstream sweep.
 
-### Phase 7 — Publish and verify downstream (1 session)
+### Phase 7 — Publish and verify downstream (1 session) — ✅ COMPLETE (2026-04-23)
 
 This is the **final success gate**: every consumer package's test
 baseline must match the Phase 0 baseline, not just the flutterm suites.
+
+**Status:** Completed 2026-04-23. Generator bumped to `1.9.0`. One
+in-phase fix required (restore `_collectExtensionsFromImportsFromElement`
+— Phase 6 deleted a helper that was still needed for GEN-049
+extension-from-imports). Full per-consumer delta + enumeration of
+pre-existing-but-newly-surfaced failures documented in
+`doc/baseline_summary_refactor.md` under "Phase 7 — Final Success Gate".
+`dart pub publish` requires user OAuth and is flagged for manual run.
 
 - Bump `tom_d4rt_generator` version in pubspec.
 - `republish` per the project's publishing workflow

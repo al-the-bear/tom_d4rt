@@ -4084,17 +4084,30 @@ class BridgeGenerator {
     // global functions / variables.
     _collectSourceFileImportsFromElement(libraryElement, normalizedPath);
 
+    // GEN-049: Collect extensions from libraries imported by this file.
+    // Restored in Phase 7 after the Phase 6 AST deletion unintentionally
+    // removed the only call site. The helper itself has always been
+    // element-API based; see `_collectExtensionsFromImportsFromElement`.
+    final importedExtensions =
+        _collectExtensionsFromImportsFromElement(libraryElement);
+
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
     _typeAliases.addAll(extractor.typeAliases);
     _globalTypeToUri.addAll(extractor.globalTypeToUri);
 
+    final allExtensions = <ExtensionInfo>[
+      ...extractor.extensions,
+      ...importedExtensions,
+    ];
+
     if (verbose) {
       print(
         '[element-mode] globals: extracted ${extractor.globalFunctions.length} '
         'functions, ${extractor.globalVariables.length} variables, '
-        '${extractor.enums.length} enums, ${extractor.extensions.length} '
-        'extensions from $normalizedPath',
+        '${extractor.enums.length} enums, ${allExtensions.length} '
+        'extensions (${importedExtensions.length} from imports) '
+        'from $normalizedPath',
       );
     }
 
@@ -4102,9 +4115,159 @@ class BridgeGenerator {
       functions: extractor.globalFunctions,
       variables: extractor.globalVariables,
       enums: extractor.enums,
-      extensions: extractor.extensions,
+      extensions: allExtensions,
       setterNames: extractor.globalSetterNames,
     );
+  }
+
+  /// GEN-049: Collect extensions declared in libraries imported by
+  /// [libraryElement] so that the generator can bridge extension methods
+  /// defined elsewhere but visible at the source file. Element-API only —
+  /// mirrors the pre-Phase-6 `_collectExtensionsFromImports` helper that was
+  /// inadvertently deleted alongside the AST walker.
+  ///
+  /// Honours `show`/`hide` combinators via the import namespace. Skips:
+  ///   * `dart:` imports (built-in),
+  ///   * private extensions,
+  ///   * extensions on complex (non-`InterfaceType`) generic types,
+  ///   * extensions with zero bridgeable members,
+  ///   * duplicate extensions seen through multiple imports.
+  List<ExtensionInfo> _collectExtensionsFromImportsFromElement(
+    LibraryElement libraryElement,
+  ) {
+    final collectedExtensions = <ExtensionInfo>[];
+    final seenExtensions = <String>{};
+
+    for (final fragment in libraryElement.fragments) {
+      for (final import in fragment.libraryImports) {
+        final importedLibrary = import.importedLibrary;
+        if (importedLibrary == null) continue;
+
+        final libraryUri = importedLibrary.identifier;
+        if (libraryUri.startsWith('dart:')) continue;
+
+        // Namespace honours show/hide combinators.
+        final namespace = import.namespace;
+        final visibleNames = namespace.definedNames2.keys.toSet();
+
+        for (final extElement in importedLibrary.extensions) {
+          final extName = extElement.name;
+
+          // Named extensions must be in the visible namespace; unnamed
+          // extensions are always reachable via the extended type.
+          if (extName != null &&
+              extName.isNotEmpty &&
+              !visibleNames.contains(extName)) {
+            continue;
+          }
+
+          if (extName != null && extName.startsWith('_')) continue;
+
+          final extUri = extElement.firstFragment.libraryFragment.source.uri;
+          final extKey = '$extUri:${extName ?? '(unnamed)'}';
+          if (seenExtensions.contains(extKey)) continue;
+          seenExtensions.add(extKey);
+
+          final extendedType = extElement.extendedType;
+          String? onTypeName;
+          String? onTypeFullName;
+          String? onTypeUri;
+          final onTypeArgUris = <String, String>{};
+          if (extendedType is InterfaceType) {
+            onTypeName = extendedType.element.name;
+            // GEN-063: capture the full parameterised type (e.g.
+            // `List<CommandResult>`) so the emitter can prefix generic
+            // arguments correctly.
+            final displayType = extendedType.getDisplayString();
+            if (displayType != onTypeName) {
+              onTypeFullName = displayType;
+            }
+            onTypeUri = extendedType.element.firstFragment
+                .libraryFragment.source.uri
+                .toString();
+            for (final typeArg in extendedType.typeArguments) {
+              if (typeArg is InterfaceType) {
+                final argElement = typeArg.element;
+                final argName = argElement.name;
+                if (argName != null) {
+                  onTypeArgUris[argName] = argElement
+                      .firstFragment.libraryFragment.source.uri
+                      .toString();
+                }
+              }
+            }
+          } else {
+            // Complex / non-interface types (e.g. `List<T>`) — skip generic
+            // variants; the emitter has no way to render them without type
+            // substitution. Named, non-generic aliases are still handled.
+            final typeStr = extendedType.getDisplayString();
+            if (typeStr.contains('<')) continue;
+            onTypeName = typeStr;
+          }
+          if (onTypeName == null || onTypeName.isEmpty) continue;
+
+          final getterNames = <String>[];
+          final setterNames = <String>[];
+          final methodNames = <String>[];
+
+          for (final getter in extElement.getters) {
+            if (getter.isStatic) continue;
+            final getterName = getter.name;
+            if (getterName == null || getterName.startsWith('_')) continue;
+            getterNames.add(getterName);
+          }
+
+          for (final setter in extElement.setters) {
+            if (setter.isStatic) continue;
+            final setterName = setter.name;
+            if (setterName == null || setterName.startsWith('_')) continue;
+            // Analyzer 8.x encodes setters with a trailing `=` in their name.
+            final cleanName = setterName.endsWith('=')
+                ? setterName.substring(0, setterName.length - 1)
+                : setterName;
+            setterNames.add(cleanName);
+          }
+
+          for (final method in extElement.methods) {
+            if (method.isStatic) continue;
+            final methodName = method.name;
+            if (methodName == null || methodName.startsWith('_')) continue;
+            if (method.isOperator) continue;
+            methodNames.add(methodName);
+          }
+
+          if (getterNames.isEmpty &&
+              setterNames.isEmpty &&
+              methodNames.isEmpty) {
+            continue;
+          }
+
+          collectedExtensions.add(
+            ExtensionInfo(
+              name: extName,
+              onTypeName: onTypeName,
+              onTypeFullName: onTypeFullName,
+              onTypeArgUris: onTypeArgUris,
+              onTypeUri: onTypeUri,
+              sourceFile: extUri.toString(),
+              getterNames: getterNames,
+              setterNames: setterNames,
+              methodNames: methodNames,
+            ),
+          );
+
+          if (verbose) {
+            print(
+              '  GEN-049: Discovered extension '
+              '${extName ?? "(unnamed)"} on $onTypeName '
+              'from import $libraryUri',
+            );
+          }
+        }
+      }
+    }
+
+    return collectedExtensions;
   }
 
   /// Checks if a class name matches a pattern.

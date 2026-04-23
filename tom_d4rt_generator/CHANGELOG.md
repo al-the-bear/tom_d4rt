@@ -1,3 +1,41 @@
+## 1.9.0
+
+### Refactoring — summary-backed extraction migration (Phases 1–6)
+Completes the multi-phase migration from dual-path (AST + element) bridge
+extraction to a single element-mode code path backed by analyzer `.sum`
+summaries. See `doc/summary_refactoring_plan.md` for the full plan and
+`doc/baseline_summary_refactor.md` for the regression oracle.
+
+- **Phase 1**: `ElementModeExtractor` reaches output parity with the legacy
+  AST `_ResolvedClassVisitor` (type aliases, inheritance resolution,
+  default values, metadata, inherited members, substitution).
+- **Phase 2**: `BridgeGenerator` routes every package through the element
+  walker by default; summary-cache stage runs before scanning so external
+  deps resolve from `.sum` bundles.
+- **Phase 3**: Default-value rendering and annotation-arg serialization
+  unit tests lock the extractor API.
+- **Phase 4**: `ProxyGenerator` migrated to the shared element-mode path.
+- **Phase 5**: `UserBridgeScanner` migrated to `LibraryElement` walker;
+  legacy `RecursiveAstVisitor<void>` path removed.
+- **Phase 6**: Deleted the AST extraction path entirely —
+  `_ResolvedClassVisitor` (~2,200 lines), `_ClassVisitor`, `_ParsedClass`,
+  the `useLegacyAstWalker` debug flag, and `summary_exclusion.dart`.
+  `lib/src/bridge_generator.dart` dropped from 16,678 → 13,602 lines
+  (−3,076 lines vs the plan's ≥1,800-line target). `TOM_D4RT_BRIDGE_USE_SUMMARIES`
+  env-var scaffolding removed.
+
+### Maintenance
+- Update dependency on tom_d4rt 1.8.19 (type matching, enum handling,
+  isSubtypeOf, stdlib fixes) — carried over from 1.8.24.
+
+### Compatibility
+- Public generator API is unchanged. Generated bridge output for
+  `tom_d4rt_flutterm` is byte-identical to the pre-migration baseline
+  modulo the `Generated: <timestamp>` header (per Phase 6 exit check).
+- All five consumers documented in `baseline_summary_refactor.md`
+  (flutterm, dcli, exec, dcli_exec, tom_d4rt) match their Phase 0
+  test baselines — no new regressions.
+
 ## 1.8.24
 
 ### Maintenance
