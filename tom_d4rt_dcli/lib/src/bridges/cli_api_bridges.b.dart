@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-04-23T11:35:38.949171
+// Generated: 2026-04-22T20:00:55.440287
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
@@ -97,16 +97,6 @@ class CliApiBridge {
     };
   }
 
-  /// Returns the list of function typedef names declared in this library.
-  ///
-  /// Function typedefs like `typedef VoidCallback = void Function()` are
-  /// registered so that they can be used as type arguments in D4rt scripts.
-  static List<String> functionTypedefs() {
-    return [
-      'NativeFunctionImpl',
-    ];
-  }
-
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -172,12 +162,6 @@ class CliApiBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
-    }
-
-    // Register function typedefs for type resolution
-    final typedefs = functionTypedefs();
-    for (final name in typedefs) {
-      interpreter.registerFunctionTypedef(name, importPath);
     }
   }
 
@@ -263,13 +247,13 @@ class CliApiBridge {
       },
       'verifyNotEmpty': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'verifyNotEmpty');
-        final list = D4.getRequiredArg<List<dynamic>>(positional, 0, 'list', 'verifyNotEmpty');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyNotEmpty');
         final message = positional.length > 1 ? positional[1] as String? : null;
         return $tom_d4rt_dcli_8.verifyNotEmpty(list, message);
       },
       'verifyLength': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'verifyLength');
-        final list = D4.getRequiredArg<List<dynamic>>(positional, 0, 'list', 'verifyLength');
+        final list = D4.getRequiredArg<List>(positional, 0, 'list', 'verifyLength');
         final length = D4.getRequiredArg<int>(positional, 1, 'length', 'verifyLength');
         final message = positional.length > 2 ? positional[2] as String? : null;
         return $tom_d4rt_dcli_8.verifyLength(list, length, message);
@@ -324,8 +308,8 @@ class CliApiBridge {
       'verifyNull': 'bool verifyNull(Object? value, [String? message])',
       'verifyContains': 'bool verifyContains(String actual, String substring, [String? message])',
       'verifyMatches': 'bool verifyMatches(String actual, String pattern, [String? message])',
-      'verifyNotEmpty': 'bool verifyNotEmpty(List<dynamic> list, [String? message])',
-      'verifyLength': 'bool verifyLength(List<dynamic> list, int length, [String? message])',
+      'verifyNotEmpty': 'bool verifyNotEmpty(List list, [String? message])',
+      'verifyLength': 'bool verifyLength(List list, int length, [String? message])',
       'verifyThrows': 'bool verifyThrows(void Function() fn, [String? message])',
       'testSummary': 'bool testSummary()',
     };
@@ -1554,17 +1538,11 @@ BridgedClass _createExecuteResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'ExecuteResult');
+        final result = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'result', 'ExecuteResult', '<default unavailable>');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<StackTrace?>(named, 'stackTrace');
         final sourcesLoaded = D4.getNamedArgWithDefault<int>(named, 'sourcesLoaded', 1);
-        if (!named.containsKey('result')) {
-          return $tom_d4rt_dcli_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
-        }
-        if (named.containsKey('result')) {
-          final result = D4.getRequiredNamedArg<dynamic>(named, 'result', 'ExecuteResult');
-          return $tom_d4rt_dcli_5.ExecuteResult(success: success, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded, result: result);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $tom_d4rt_dcli_5.ExecuteResult(success: success, result: result, error: error, stackTrace: stackTrace, sourcesLoaded: sourcesLoaded);
       },
       'success': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ExecuteResult');
@@ -1741,7 +1719,7 @@ BridgedClass _createCliRuntimeBridge() {
     },
     getterSignatures: {
       'processDirectory': 'String get processDirectory',
-      'processDirectoryObject': 'Directory get processDirectoryObject',
+      'processDirectoryObject': 'io.Directory get processDirectoryObject',
       'pid': 'int get pid',
       'executable': 'String get executable',
       'resolvedExecutable': 'String get resolvedExecutable',
@@ -1810,7 +1788,7 @@ BridgedClass _createCliRuntimeImplBridge() {
     },
     getterSignatures: {
       'processDirectory': 'String get processDirectory',
-      'processDirectoryObject': 'Directory get processDirectoryObject',
+      'processDirectoryObject': 'io.Directory get processDirectoryObject',
       'pid': 'int get pid',
       'executable': 'String get executable',
       'resolvedExecutable': 'String get resolvedExecutable',
@@ -2229,7 +2207,7 @@ BridgedClass _createD4rtBridge() {
       'registerBridgedEnum': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_4.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 2, 'registerBridgedEnum');
-        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedEnumDefinition<Enum>>(positional, 0, 'definition', 'registerBridgedEnum');
+        final definition = D4.getRequiredArg<$tom_d4rt_2.BridgedEnumDefinition>(positional, 0, 'definition', 'registerBridgedEnum');
         final library = D4.getRequiredArg<String>(positional, 1, 'library', 'registerBridgedEnum');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         t.registerBridgedEnum(definition, library, sourceUri: sourceUri);
@@ -2281,7 +2259,7 @@ BridgedClass _createD4rtBridge() {
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registertopLevelFunction');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
         final signature = D4.getOptionalNamedArg<String?>(named, 'signature');
-        t.registertopLevelFunction(name, ($tom_d4rt_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_7.RuntimeType>? p3) { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3])); }, library, sourceUri: sourceUri, signature: signature);
+        t.registertopLevelFunction(name, ($tom_d4rt_5.InterpreterVisitor p0, List<Object?> p1, Map<String, Object?> p2, List<$tom_d4rt_7.RuntimeType>? p3) { return D4.callInterpreterCallback(visitor!, functionRaw, [p0, p1, p2, p3]); }, library, sourceUri: sourceUri, signature: signature);
         return null;
       },
       'registerGlobalVariable': (visitor, target, positional, named, typeArgs) {
@@ -2304,7 +2282,7 @@ BridgedClass _createD4rtBridge() {
         final getterRaw = positional[1];
         final library = D4.getRequiredArg<String>(positional, 2, 'library', 'registerGlobalGetter');
         final sourceUri = D4.getOptionalNamedArg<String?>(named, 'sourceUri');
-        t.registerGlobalGetter(name, () { return D4.castCallbackResult<Object?>(D4.callInterpreterCallback(visitor!, getterRaw, [])); }, library, sourceUri: sourceUri);
+        t.registerGlobalGetter(name, () { return D4.callInterpreterCallback(visitor!, getterRaw, []); }, library, sourceUri: sourceUri);
         return null;
       },
       'registerGlobalSetter': (visitor, target, positional, named, typeArgs) {
@@ -2425,7 +2403,7 @@ BridgedClass _createD4rtBridge() {
       '': 'D4rt()',
     },
     methodSignatures: {
-      'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition<Enum> definition, String library, {String? sourceUri})',
+      'registerBridgedEnum': 'void registerBridgedEnum(BridgedEnumDefinition definition, String library, {String? sourceUri})',
       'registerBridgedClass': 'void registerBridgedClass(BridgedClass definition, String library, {String? sourceUri})',
       'registerClassAlias': 'void registerClassAlias(String aliasName, String targetName, String library)',
       'registerFunctionTypedef': 'void registerFunctionTypedef(String name, String library)',

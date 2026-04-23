@@ -1,8 +1,8 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 13 files
-// Generated: 2026-04-23T11:27:20.534552
+// Generated: 2026-04-22T20:08:17.273992
 
-// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
+// ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt_exec/tom_d4rt_exec.dart';
@@ -133,16 +133,6 @@ class TomVscodeScriptingApiBridge {
     };
   }
 
-  /// Returns the list of function typedef names declared in this library.
-  ///
-  /// Function typedefs like `typedef VoidCallback = void Function()` are
-  /// registered so that they can be used as type arguments in D4rt scripts.
-  static List<String> functionTypedefs() {
-    return [
-      'ChatRequestHandler',
-    ];
-  }
-
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
@@ -199,12 +189,6 @@ class TomVscodeScriptingApiBridge {
 
     // Register global variables
     registerGlobalVariables(interpreter, importPath);
-
-    // Register function typedefs for type resolution
-    final typedefs = functionTypedefs();
-    for (final name in typedefs) {
-      interpreter.registerFunctionTypedef(name, importPath);
-    }
   }
 
   /// Registers all global variables with the interpreter.
@@ -339,34 +323,22 @@ BridgedClass _createVSCodeBridgeResultBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final success = D4.getRequiredNamedArg<bool>(named, 'success', 'VSCodeBridgeResult');
+        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
         final stackTrace = D4.getOptionalNamedArg<String?>(named, 'stackTrace');
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        if (!named.containsKey('value')) {
-          return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
-        }
-        if (named.containsKey('value')) {
-          final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'VSCodeBridgeResult');
-          return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration, value: value);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $tom_vscode_scripting_api_5.VSCodeBridgeResult(success: success, value: value, output: output, error: error, stackTrace: stackTrace, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'success': (visitor, positional, named) {
+        final value = D4.getRequiredNamedArgTodoDefault<dynamic>(named, 'value', 'VSCodeBridgeResult', '<default unavailable>');
         final output = D4.getNamedArgWithDefault<String>(named, 'output', '');
         final exception = D4.getOptionalNamedArg<String?>(named, 'exception');
         final exceptionStackTrace = D4.getOptionalNamedArg<String?>(named, 'exceptionStackTrace');
         final duration = D4.getRequiredNamedArg<Duration>(named, 'duration', 'VSCodeBridgeResult');
-        if (!named.containsKey('value')) {
-          return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
-        }
-        if (named.containsKey('value')) {
-          final value = D4.getRequiredNamedArg<dynamic>(named, 'value', 'VSCodeBridgeResult');
-          return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration, value: value);
-        }
-        throw StateError('Unreachable: all named parameter combinations should be covered');
+        return $tom_vscode_scripting_api_5.VSCodeBridgeResult.success(value: value, output: output, exception: exception, exceptionStackTrace: exceptionStackTrace, duration: duration);
       },
       'failure': (visitor, positional, named) {
         final error = D4.getRequiredNamedArg<String>(named, 'error', 'VSCodeBridgeResult');
@@ -631,7 +603,7 @@ BridgedClass _createLazyVSCodeBridgeAdapterBridge() {
       },
     },
     constructorSignatures: {
-      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, void Function(String message)? onStatusMessage, void Function(String message)? onErrorMessage})',
+      '': 'LazyVSCodeBridgeAdapter({String host = \'127.0.0.1\', int port = defaultVSCodeBridgePort, void Function(String)? onStatusMessage, void Function(String)? onErrorMessage})',
     },
     methodSignatures: {
       'setHostPort': 'Future<void> setHostPort(String host, int port)',
@@ -1751,7 +1723,7 @@ BridgedClass _createVSCodeChatBridge() {
         final description = D4.getOptionalNamedArg<String?>(named, 'description');
         final fullName = D4.getOptionalNamedArg<String?>(named, 'fullName');
         final timeoutSeconds = D4.getNamedArgWithDefault<int>(named, 'timeoutSeconds', 300);
-        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.extractBridgedArg<Future<$tom_vscode_scripting_api_6.ChatResult>>(D4.callInterpreterCallback(visitor!, handlerRaw, [p0, p1, p2]), 'callback', visitor); }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
+        return t.createChatParticipant(id, handler: ($tom_vscode_scripting_api_6.ChatRequest p0, $tom_vscode_scripting_api_6.ChatContext p1, $tom_vscode_scripting_api_6.ChatResponseStream p2) { return D4.callInterpreterCallback(visitor!, handlerRaw, [p0, p1, p2]) as Future<$tom_vscode_scripting_api_6.ChatResult>; }, description: description, fullName: fullName, timeoutSeconds: timeoutSeconds);
       },
     },
     staticMethods: {
@@ -2753,7 +2725,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('process: Missing required argument "processor" at position 0');
         }
         final processorRaw = positional[0];
-        return t.process((String p0, String p1) { return D4.extractBridgedArg<Future<dynamic>>(D4.callInterpreterCallback(visitor!, processorRaw, [p0, p1]), 'callback', visitor); });
+        return t.process((String p0, String p1) { return D4.callInterpreterCallback(visitor!, processorRaw, [p0, p1]) as Future<dynamic>; });
       },
       'filter': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_vscode_scripting_api_9.FileBatch>(target, 'FileBatch');
@@ -2762,7 +2734,7 @@ BridgedClass _createFileBatchBridge() {
           throw ArgumentError('filter: Missing required argument "predicate" at position 0');
         }
         final predicateRaw = positional[0];
-        return t.filter((String p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, predicateRaw, [p0]), 'callback', visitor); });
+        return t.filter((String p0) { return D4.callInterpreterCallback(visitor!, predicateRaw, [p0]) as bool; });
       },
     },
     staticMethods: {

@@ -19,39 +19,6 @@ import 'package:tom_chattools/tom_chattools.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 import 'package:tom_vscode_scripting_api/script_globals.dart';
 
-// ---------------------------------------------------------------------------
-// $RelaxedScopeKey
-// ---------------------------------------------------------------------------
-
-/// Auto-generated GEN-079 relaxer wrapper for ScopeKey<V>.
-class $RelaxedScopeKey<V> extends ScopeKey<V> {
-  final ScopeKey _inner;
-
-  $RelaxedScopeKey(this._inner) : super();
-
-  @override
-  V testCast(dynamic v) => _inner.testCast(v) as V;
-
-  @override
-  V Function() testFunctionCast(dynamic v) => _inner.testFunctionCast(v) as V Function();
-}
-
-
-/// Auto-generated relaxer factory for ScopeKey — dcli layer types.
-Object? _relaxScopeKey$dcli(Object value, String innerTypeArg) {
-  if (value is! ScopeKey) return null;
-  return switch (innerTypeArg) {
-    'Env' => $RelaxedScopeKey<Env>(value),
-    'Env?' => $RelaxedScopeKey<Env?>(value),
-    'PubCache' => $RelaxedScopeKey<PubCache>(value),
-    'PubCache?' => $RelaxedScopeKey<PubCache?>(value),
-    'Settings' => $RelaxedScopeKey<Settings>(value),
-    'Settings?' => $RelaxedScopeKey<Settings?>(value),
-    _ => null,
-  };
-}
-
-
 // =============================================================================
 // Registration
 // =============================================================================
@@ -61,7 +28,6 @@ Object? _relaxScopeKey$dcli(Object value, String innerTypeArg) {
 /// Call this once during bridge setup — replaces the old hand-written
 /// `registerGenericTypeRelaxers()` function.
 void registerRelaxers() {
-  D4.registerGenericTypeWrapper('ScopeKey', _relaxScopeKey$dcli);
 }
 
 // =============================================================================
@@ -77,7 +43,7 @@ Object? _rc2PathMap(
 ) {
   final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name as String? : null;
   if (typeName == null) return null;
-  final context = named.containsKey('context') ? D4.extractBridgedArg<Context?>(named['context'], 'context') : null;
+  final context = named.containsKey('context') ? named['context'] as p.Context? : null;
   return switch (typeName) {
     'dynamic' || 'Object' || 'Object?' => PathMap<dynamic>(context: context),
     'String' => PathMap<String>(context: context),
@@ -189,7 +155,6 @@ Object? _rc2PathMap(
     'Resources' => PathMap<Resources>(context: context),
     'RestoreFileException' => PathMap<RestoreFileException>(context: context),
     'RunException' => PathMap<RunException>(context: context),
-    'ScopeKey' => PathMap<ScopeKey>(context: context),
     'Selection' => PathMap<Selection>(context: context),
     'Settings' => PathMap<Settings>(context: context),
     'ShellDetection' => PathMap<ShellDetection>(context: context),
@@ -235,7 +200,7 @@ Object? _rc2PathMap_of(
   final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name as String? : null;
   if (typeName == null) return null;
   final other = positional.length > 0 ? positional[0] : null;
-  final context = named.containsKey('context') ? D4.extractBridgedArg<Context?>(named['context'], 'context') : null;
+  final context = named.containsKey('context') ? named['context'] as p.Context? : null;
   return switch (typeName) {
     'dynamic' || 'Object' || 'Object?' => PathMap<dynamic>.of(D4.coerceMap<String, dynamic>(other, 'other'), context: context),
     'String' => PathMap<String>.of(D4.coerceMap<String, String>(other, 'other'), context: context),
@@ -347,7 +312,6 @@ Object? _rc2PathMap_of(
     'Resources' => PathMap<Resources>.of(D4.coerceMap<String, Resources>(other, 'other'), context: context),
     'RestoreFileException' => PathMap<RestoreFileException>.of(D4.coerceMap<String, RestoreFileException>(other, 'other'), context: context),
     'RunException' => PathMap<RunException>.of(D4.coerceMap<String, RunException>(other, 'other'), context: context),
-    'ScopeKey' => PathMap<ScopeKey>.of(D4.coerceMap<String, ScopeKey>(other, 'other'), context: context),
     'Selection' => PathMap<Selection>.of(D4.coerceMap<String, Selection>(other, 'other'), context: context),
     'Settings' => PathMap<Settings>.of(D4.coerceMap<String, Settings>(other, 'other'), context: context),
     'ShellDetection' => PathMap<ShellDetection>.of(D4.coerceMap<String, ShellDetection>(other, 'other'), context: context),
@@ -379,321 +343,6 @@ Object? _rc2PathMap_of(
     'VsProgress' => PathMap<VsProgress>.of(D4.coerceMap<String, VsProgress>(other, 'other'), context: context),
     'Which' => PathMap<Which>.of(D4.coerceMap<String, Which>(other, 'other'), context: context),
     'WorkspaceFolder' => PathMap<WorkspaceFolder>.of(D4.coerceMap<String, WorkspaceFolder>(other, 'other'), context: context),
-    _ => null,
-  };
-}
-
-/// RC-2: Generic constructor factory for `ScopeKey<T>`.
-Object? _rc2ScopeKey(
-  dynamic visitor,
-  List<Object?> positional,
-  Map<String, Object?> named,
-  List<dynamic>? typeArgs,
-) {
-  final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name as String? : null;
-  if (typeName == null) return null;
-  final debugName = positional.length > 0 ? positional[0] as String? : null;
-  return switch (typeName) {
-    'dynamic' || 'Object' || 'Object?' => ScopeKey<dynamic>(debugName),
-    'String' => ScopeKey<String>(debugName),
-    'int' => ScopeKey<int>(debugName),
-    'double' => ScopeKey<double>(debugName),
-    'bool' => ScopeKey<bool>(debugName),
-    'num' => ScopeKey<num>(debugName),
-    'Ansi' => ScopeKey<Ansi>(debugName),
-    'AnsiColor' => ScopeKey<AnsiColor>(debugName),
-    'Ask' => ScopeKey<Ask>(debugName),
-    'AskValidatorException' => ScopeKey<AskValidatorException>(debugName),
-    'AskValidatorIPAddress' => ScopeKey<AskValidatorIPAddress>(debugName),
-    'BackupFileException' => ScopeKey<BackupFileException>(debugName),
-    'CatException' => ScopeKey<CatException>(debugName),
-    'ChatAttachment' => ScopeKey<ChatAttachment>(debugName),
-    'ChatContext' => ScopeKey<ChatContext>(debugName),
-    'ChatErrorDetails' => ScopeKey<ChatErrorDetails>(debugName),
-    'ChatMessage' => ScopeKey<ChatMessage>(debugName),
-    'ChatMessageFilter' => ScopeKey<ChatMessageFilter>(debugName),
-    'ChatParticipant' => ScopeKey<ChatParticipant>(debugName),
-    'ChatPromptReference' => ScopeKey<ChatPromptReference>(debugName),
-    'ChatReceiver' => ScopeKey<ChatReceiver>(debugName),
-    'ChatReceiverInfo' => ScopeKey<ChatReceiverInfo>(debugName),
-    'ChatRequest' => ScopeKey<ChatRequest>(debugName),
-    'ChatResponse' => ScopeKey<ChatResponse>(debugName),
-    'ChatResponseStream' => ScopeKey<ChatResponseStream>(debugName),
-    'ChatResult' => ScopeKey<ChatResult>(debugName),
-    'ChatSender' => ScopeKey<ChatSender>(debugName),
-    'ChatSettings' => ScopeKey<ChatSettings>(debugName),
-    'CliException' => ScopeKey<CliException>(debugName),
-    'CliFileNotFoundException' => ScopeKey<CliFileNotFoundException>(debugName),
-    'CliGlobalHolder' => ScopeKey<CliGlobalHolder>(debugName),
-    'CliNotInitializedException' => ScopeKey<CliNotInitializedException>(debugName),
-    'CliRuntimeImpl' => ScopeKey<CliRuntimeImpl>(debugName),
-    'CliState' => ScopeKey<CliState>(debugName),
-    'Column' => ScopeKey<Column>(debugName),
-    'Confirm' => ScopeKey<Confirm>(debugName),
-    'Context' => ScopeKey<Context>(debugName),
-    'ContextStack' => ScopeKey<ContextStack>(debugName),
-    'CopyException' => ScopeKey<CopyException>(debugName),
-    'CreateDirException' => ScopeKey<CreateDirException>(debugName),
-    'D4rt' => ScopeKey<D4rt>(debugName),
-    'D4rtCliController' => ScopeKey<D4rtCliController>(debugName),
-    'DCliException' => ScopeKey<DCliException>(debugName),
-    'DCliFunction' => ScopeKey<DCliFunction>(debugName),
-    'DCliFunctionException' => ScopeKey<DCliFunctionException>(debugName),
-    'DCliPaths' => ScopeKey<DCliPaths>(debugName),
-    'DartProject' => ScopeKey<DartProject>(debugName),
-    'DartProjectException' => ScopeKey<DartProjectException>(debugName),
-    'DartScript' => ScopeKey<DartScript>(debugName),
-    'DartSdk' => ScopeKey<DartSdk>(debugName),
-    'DeleteDirException' => ScopeKey<DeleteDirException>(debugName),
-    'DeleteException' => ScopeKey<DeleteException>(debugName),
-    'DirectoryNotFoundException' => ScopeKey<DirectoryNotFoundException>(debugName),
-    'Env' => ScopeKey<Env>(debugName),
-    'ExecuteResult' => ScopeKey<ExecuteResult>(debugName),
-    'ExecutionContext' => ScopeKey<ExecutionContext>(debugName),
-    'ExecutionException' => ScopeKey<ExecutionException>(debugName),
-    'Extension' => ScopeKey<Extension>(debugName),
-    'FetchData' => ScopeKey<FetchData>(debugName),
-    'FetchException' => ScopeKey<FetchException>(debugName),
-    'FetchProgress' => ScopeKey<FetchProgress>(debugName),
-    'FetchUrl' => ScopeKey<FetchUrl>(debugName),
-    'FileBatch' => ScopeKey<FileBatch>(debugName),
-    'FileNotFoundException' => ScopeKey<FileNotFoundException>(debugName),
-    'FileSort' => ScopeKey<FileSort>(debugName),
-    'FileSync' => ScopeKey<FileSync>(debugName),
-    'FileSystemWatcherOptions' => ScopeKey<FileSystemWatcherOptions>(debugName),
-    'Find' => ScopeKey<Find>(debugName),
-    'FindItem' => ScopeKey<FindItem>(debugName),
-    'FindProgress' => ScopeKey<FindProgress>(debugName),
-    'Format' => ScopeKey<Format>(debugName),
-    'HeadProgress' => ScopeKey<HeadProgress>(debugName),
-    'HelperLogging' => ScopeKey<HelperLogging>(debugName),
-    'ImportInfo' => ScopeKey<ImportInfo>(debugName),
-    'InputBoxOptions' => ScopeKey<InputBoxOptions>(debugName),
-    'InstallException' => ScopeKey<InstallException>(debugName),
-    'InvalidArgumentException' => ScopeKey<InvalidArgumentException>(debugName),
-    'InvalidMultilineModeException' => ScopeKey<InvalidMultilineModeException>(debugName),
-    'InvalidProjectTemplateException' => ScopeKey<InvalidProjectTemplateException>(debugName),
-    'InvalidTemplateException' => ScopeKey<InvalidTemplateException>(debugName),
-    'LanguageModelChat' => ScopeKey<LanguageModelChat>(debugName),
-    'LanguageModelChatMessage' => ScopeKey<LanguageModelChatMessage>(debugName),
-    'LanguageModelChatResponse' => ScopeKey<LanguageModelChatResponse>(debugName),
-    'LanguageModelToolInformation' => ScopeKey<LanguageModelToolInformation>(debugName),
-    'LanguageModelToolResult' => ScopeKey<LanguageModelToolResult>(debugName),
-    'LazyVSCodeBridgeAdapter' => ScopeKey<LazyVSCodeBridgeAdapter>(debugName),
-    'LockException' => ScopeKey<LockException>(debugName),
-    'MaxNestingDepthException' => ScopeKey<MaxNestingDepthException>(debugName),
-    'MessageOptions' => ScopeKey<MessageOptions>(debugName),
-    'MoveDirException' => ScopeKey<MoveDirException>(debugName),
-    'MoveException' => ScopeKey<MoveException>(debugName),
-    'MoveTreeException' => ScopeKey<MoveTreeException>(debugName),
-    'NamedLock' => ScopeKey<NamedLock>(debugName),
-    'NotAFileException' => ScopeKey<NotAFileException>(debugName),
-    'PathException' => ScopeKey<PathException>(debugName),
-    'PathMap' => ScopeKey<PathMap>(debugName),
-    'PathSet' => ScopeKey<PathSet>(debugName),
-    'Position' => ScopeKey<Position>(debugName),
-    'ProcessDetails' => ScopeKey<ProcessDetails>(debugName),
-    'ProcessHelper' => ScopeKey<ProcessHelper>(debugName),
-    'ProcessSyncException' => ScopeKey<ProcessSyncException>(debugName),
-    'PubCache' => ScopeKey<PubCache>(debugName),
-    'QuickPickItem' => ScopeKey<QuickPickItem>(debugName),
-    'Range' => ScopeKey<Range>(debugName),
-    'ReadException' => ScopeKey<ReadException>(debugName),
-    'Remote' => ScopeKey<Remote>(debugName),
-    'ReplayException' => ScopeKey<ReplayException>(debugName),
-    'ResourceException' => ScopeKey<ResourceException>(debugName),
-    'Resources' => ScopeKey<Resources>(debugName),
-    'RestoreFileException' => ScopeKey<RestoreFileException>(debugName),
-    'RunException' => ScopeKey<RunException>(debugName),
-    'Selection' => ScopeKey<Selection>(debugName),
-    'Settings' => ScopeKey<Settings>(debugName),
-    'ShellDetection' => ScopeKey<ShellDetection>(debugName),
-    'ShellException' => ScopeKey<ShellException>(debugName),
-    'StackList' => ScopeKey<StackList>(debugName),
-    'SymbolInfo' => ScopeKey<SymbolInfo>(debugName),
-    'TailProgress' => ScopeKey<TailProgress>(debugName),
-    'TelegramChatConfig' => ScopeKey<TelegramChatConfig>(debugName),
-    'TemplateNotFoundException' => ScopeKey<TemplateNotFoundException>(debugName),
-    'Terminal' => ScopeKey<Terminal>(debugName),
-    'TerminalOptions' => ScopeKey<TerminalOptions>(debugName),
-    'TextDocument' => ScopeKey<TextDocument>(debugName),
-    'TextEditor' => ScopeKey<TextEditor>(debugName),
-    'UnknownShell' => ScopeKey<UnknownShell>(debugName),
-    'VSCode' => ScopeKey<VSCode>(debugName),
-    'VSCodeBridgeAdapter' => ScopeKey<VSCodeBridgeAdapter>(debugName),
-    'VSCodeBridgeClient' => ScopeKey<VSCodeBridgeClient>(debugName),
-    'VSCodeBridgeResult' => ScopeKey<VSCodeBridgeResult>(debugName),
-    'VSCodeChat' => ScopeKey<VSCodeChat>(debugName),
-    'VSCodeCommands' => ScopeKey<VSCodeCommands>(debugName),
-    'VSCodeCommonCommands' => ScopeKey<VSCodeCommonCommands>(debugName),
-    'VSCodeExtensions' => ScopeKey<VSCodeExtensions>(debugName),
-    'VSCodeLanguageModel' => ScopeKey<VSCodeLanguageModel>(debugName),
-    'VSCodeUri' => ScopeKey<VSCodeUri>(debugName),
-    'VSCodeWindow' => ScopeKey<VSCodeWindow>(debugName),
-    'VSCodeWorkspace' => ScopeKey<VSCodeWorkspace>(debugName),
-    'VerificationFailure' => ScopeKey<VerificationFailure>(debugName),
-    'VsCodeHelper' => ScopeKey<VsCodeHelper>(debugName),
-    'VsProgress' => ScopeKey<VsProgress>(debugName),
-    'Which' => ScopeKey<Which>(debugName),
-    'WorkspaceFolder' => ScopeKey<WorkspaceFolder>(debugName),
-    _ => null,
-  };
-}
-
-/// RC-2: Generic constructor factory for `ScopeKey<T>.withDefault`.
-Object? _rc2ScopeKey_withDefault(
-  dynamic visitor,
-  List<Object?> positional,
-  Map<String, Object?> named,
-  List<dynamic>? typeArgs,
-) {
-  final typeName = typeArgs?.isNotEmpty == true ? typeArgs!.first.name as String? : null;
-  if (typeName == null) return null;
-  final defaultValue = positional.length > 0 ? positional[0] : null;
-  final debugName = positional.length > 1 ? positional[1] as String? : null;
-  return switch (typeName) {
-    'dynamic' || 'Object' || 'Object?' => ScopeKey<dynamic>.withDefault(defaultValue!, debugName),
-    'String' => ScopeKey<String>.withDefault(defaultValue as String, debugName),
-    'int' => ScopeKey<int>.withDefault(defaultValue as int, debugName),
-    'double' => ScopeKey<double>.withDefault((defaultValue as num).toDouble(), debugName),
-    'bool' => ScopeKey<bool>.withDefault(defaultValue as bool, debugName),
-    'num' => ScopeKey<num>.withDefault(defaultValue as num, debugName),
-    'Ansi' => ScopeKey<Ansi>.withDefault(defaultValue as Ansi, debugName),
-    'AnsiColor' => ScopeKey<AnsiColor>.withDefault(defaultValue as AnsiColor, debugName),
-    'Ask' => ScopeKey<Ask>.withDefault(defaultValue as Ask, debugName),
-    'AskValidatorException' => ScopeKey<AskValidatorException>.withDefault(defaultValue as AskValidatorException, debugName),
-    'AskValidatorIPAddress' => ScopeKey<AskValidatorIPAddress>.withDefault(defaultValue as AskValidatorIPAddress, debugName),
-    'BackupFileException' => ScopeKey<BackupFileException>.withDefault(defaultValue as BackupFileException, debugName),
-    'CatException' => ScopeKey<CatException>.withDefault(defaultValue as CatException, debugName),
-    'ChatAttachment' => ScopeKey<ChatAttachment>.withDefault(defaultValue as ChatAttachment, debugName),
-    'ChatContext' => ScopeKey<ChatContext>.withDefault(defaultValue as ChatContext, debugName),
-    'ChatErrorDetails' => ScopeKey<ChatErrorDetails>.withDefault(defaultValue as ChatErrorDetails, debugName),
-    'ChatMessage' => ScopeKey<ChatMessage>.withDefault(defaultValue as ChatMessage, debugName),
-    'ChatMessageFilter' => ScopeKey<ChatMessageFilter>.withDefault(defaultValue as ChatMessageFilter, debugName),
-    'ChatParticipant' => ScopeKey<ChatParticipant>.withDefault(defaultValue as ChatParticipant, debugName),
-    'ChatPromptReference' => ScopeKey<ChatPromptReference>.withDefault(defaultValue as ChatPromptReference, debugName),
-    'ChatReceiver' => ScopeKey<ChatReceiver>.withDefault(defaultValue as ChatReceiver, debugName),
-    'ChatReceiverInfo' => ScopeKey<ChatReceiverInfo>.withDefault(defaultValue as ChatReceiverInfo, debugName),
-    'ChatRequest' => ScopeKey<ChatRequest>.withDefault(defaultValue as ChatRequest, debugName),
-    'ChatResponse' => ScopeKey<ChatResponse>.withDefault(defaultValue as ChatResponse, debugName),
-    'ChatResponseStream' => ScopeKey<ChatResponseStream>.withDefault(defaultValue as ChatResponseStream, debugName),
-    'ChatResult' => ScopeKey<ChatResult>.withDefault(defaultValue as ChatResult, debugName),
-    'ChatSender' => ScopeKey<ChatSender>.withDefault(defaultValue as ChatSender, debugName),
-    'ChatSettings' => ScopeKey<ChatSettings>.withDefault(defaultValue as ChatSettings, debugName),
-    'CliException' => ScopeKey<CliException>.withDefault(defaultValue as CliException, debugName),
-    'CliFileNotFoundException' => ScopeKey<CliFileNotFoundException>.withDefault(defaultValue as CliFileNotFoundException, debugName),
-    'CliGlobalHolder' => ScopeKey<CliGlobalHolder>.withDefault(defaultValue as CliGlobalHolder, debugName),
-    'CliNotInitializedException' => ScopeKey<CliNotInitializedException>.withDefault(defaultValue as CliNotInitializedException, debugName),
-    'CliRuntimeImpl' => ScopeKey<CliRuntimeImpl>.withDefault(defaultValue as CliRuntimeImpl, debugName),
-    'CliState' => ScopeKey<CliState>.withDefault(defaultValue as CliState, debugName),
-    'Column' => ScopeKey<Column>.withDefault(defaultValue as Column, debugName),
-    'Confirm' => ScopeKey<Confirm>.withDefault(defaultValue as Confirm, debugName),
-    'Context' => ScopeKey<Context>.withDefault(defaultValue as Context, debugName),
-    'ContextStack' => ScopeKey<ContextStack>.withDefault(defaultValue as ContextStack, debugName),
-    'CopyException' => ScopeKey<CopyException>.withDefault(defaultValue as CopyException, debugName),
-    'CreateDirException' => ScopeKey<CreateDirException>.withDefault(defaultValue as CreateDirException, debugName),
-    'D4rt' => ScopeKey<D4rt>.withDefault(defaultValue as D4rt, debugName),
-    'D4rtCliController' => ScopeKey<D4rtCliController>.withDefault(defaultValue as D4rtCliController, debugName),
-    'DCliException' => ScopeKey<DCliException>.withDefault(defaultValue as DCliException, debugName),
-    'DCliFunction' => ScopeKey<DCliFunction>.withDefault(defaultValue as DCliFunction, debugName),
-    'DCliFunctionException' => ScopeKey<DCliFunctionException>.withDefault(defaultValue as DCliFunctionException, debugName),
-    'DCliPaths' => ScopeKey<DCliPaths>.withDefault(defaultValue as DCliPaths, debugName),
-    'DartProject' => ScopeKey<DartProject>.withDefault(defaultValue as DartProject, debugName),
-    'DartProjectException' => ScopeKey<DartProjectException>.withDefault(defaultValue as DartProjectException, debugName),
-    'DartScript' => ScopeKey<DartScript>.withDefault(defaultValue as DartScript, debugName),
-    'DartSdk' => ScopeKey<DartSdk>.withDefault(defaultValue as DartSdk, debugName),
-    'DeleteDirException' => ScopeKey<DeleteDirException>.withDefault(defaultValue as DeleteDirException, debugName),
-    'DeleteException' => ScopeKey<DeleteException>.withDefault(defaultValue as DeleteException, debugName),
-    'DirectoryNotFoundException' => ScopeKey<DirectoryNotFoundException>.withDefault(defaultValue as DirectoryNotFoundException, debugName),
-    'Env' => ScopeKey<Env>.withDefault(defaultValue as Env, debugName),
-    'ExecuteResult' => ScopeKey<ExecuteResult>.withDefault(defaultValue as ExecuteResult, debugName),
-    'ExecutionContext' => ScopeKey<ExecutionContext>.withDefault(defaultValue as ExecutionContext, debugName),
-    'ExecutionException' => ScopeKey<ExecutionException>.withDefault(defaultValue as ExecutionException, debugName),
-    'Extension' => ScopeKey<Extension>.withDefault(defaultValue as Extension, debugName),
-    'FetchData' => ScopeKey<FetchData>.withDefault(defaultValue as FetchData, debugName),
-    'FetchException' => ScopeKey<FetchException>.withDefault(defaultValue as FetchException, debugName),
-    'FetchProgress' => ScopeKey<FetchProgress>.withDefault(defaultValue as FetchProgress, debugName),
-    'FetchUrl' => ScopeKey<FetchUrl>.withDefault(defaultValue as FetchUrl, debugName),
-    'FileBatch' => ScopeKey<FileBatch>.withDefault(defaultValue as FileBatch, debugName),
-    'FileNotFoundException' => ScopeKey<FileNotFoundException>.withDefault(defaultValue as FileNotFoundException, debugName),
-    'FileSort' => ScopeKey<FileSort>.withDefault(defaultValue as FileSort, debugName),
-    'FileSync' => ScopeKey<FileSync>.withDefault(defaultValue as FileSync, debugName),
-    'FileSystemWatcherOptions' => ScopeKey<FileSystemWatcherOptions>.withDefault(defaultValue as FileSystemWatcherOptions, debugName),
-    'Find' => ScopeKey<Find>.withDefault(defaultValue as Find, debugName),
-    'FindItem' => ScopeKey<FindItem>.withDefault(defaultValue as FindItem, debugName),
-    'FindProgress' => ScopeKey<FindProgress>.withDefault(defaultValue as FindProgress, debugName),
-    'Format' => ScopeKey<Format>.withDefault(defaultValue as Format, debugName),
-    'HeadProgress' => ScopeKey<HeadProgress>.withDefault(defaultValue as HeadProgress, debugName),
-    'HelperLogging' => ScopeKey<HelperLogging>.withDefault(defaultValue as HelperLogging, debugName),
-    'ImportInfo' => ScopeKey<ImportInfo>.withDefault(defaultValue as ImportInfo, debugName),
-    'InputBoxOptions' => ScopeKey<InputBoxOptions>.withDefault(defaultValue as InputBoxOptions, debugName),
-    'InstallException' => ScopeKey<InstallException>.withDefault(defaultValue as InstallException, debugName),
-    'InvalidArgumentException' => ScopeKey<InvalidArgumentException>.withDefault(defaultValue as InvalidArgumentException, debugName),
-    'InvalidMultilineModeException' => ScopeKey<InvalidMultilineModeException>.withDefault(defaultValue as InvalidMultilineModeException, debugName),
-    'InvalidProjectTemplateException' => ScopeKey<InvalidProjectTemplateException>.withDefault(defaultValue as InvalidProjectTemplateException, debugName),
-    'InvalidTemplateException' => ScopeKey<InvalidTemplateException>.withDefault(defaultValue as InvalidTemplateException, debugName),
-    'LanguageModelChat' => ScopeKey<LanguageModelChat>.withDefault(defaultValue as LanguageModelChat, debugName),
-    'LanguageModelChatMessage' => ScopeKey<LanguageModelChatMessage>.withDefault(defaultValue as LanguageModelChatMessage, debugName),
-    'LanguageModelChatResponse' => ScopeKey<LanguageModelChatResponse>.withDefault(defaultValue as LanguageModelChatResponse, debugName),
-    'LanguageModelToolInformation' => ScopeKey<LanguageModelToolInformation>.withDefault(defaultValue as LanguageModelToolInformation, debugName),
-    'LanguageModelToolResult' => ScopeKey<LanguageModelToolResult>.withDefault(defaultValue as LanguageModelToolResult, debugName),
-    'LazyVSCodeBridgeAdapter' => ScopeKey<LazyVSCodeBridgeAdapter>.withDefault(defaultValue as LazyVSCodeBridgeAdapter, debugName),
-    'LockException' => ScopeKey<LockException>.withDefault(defaultValue as LockException, debugName),
-    'MaxNestingDepthException' => ScopeKey<MaxNestingDepthException>.withDefault(defaultValue as MaxNestingDepthException, debugName),
-    'MessageOptions' => ScopeKey<MessageOptions>.withDefault(defaultValue as MessageOptions, debugName),
-    'MoveDirException' => ScopeKey<MoveDirException>.withDefault(defaultValue as MoveDirException, debugName),
-    'MoveException' => ScopeKey<MoveException>.withDefault(defaultValue as MoveException, debugName),
-    'MoveTreeException' => ScopeKey<MoveTreeException>.withDefault(defaultValue as MoveTreeException, debugName),
-    'NamedLock' => ScopeKey<NamedLock>.withDefault(defaultValue as NamedLock, debugName),
-    'NotAFileException' => ScopeKey<NotAFileException>.withDefault(defaultValue as NotAFileException, debugName),
-    'PathException' => ScopeKey<PathException>.withDefault(defaultValue as PathException, debugName),
-    'PathMap' => ScopeKey<PathMap>.withDefault(defaultValue as PathMap, debugName),
-    'PathSet' => ScopeKey<PathSet>.withDefault(defaultValue as PathSet, debugName),
-    'Position' => ScopeKey<Position>.withDefault(defaultValue as Position, debugName),
-    'ProcessDetails' => ScopeKey<ProcessDetails>.withDefault(defaultValue as ProcessDetails, debugName),
-    'ProcessHelper' => ScopeKey<ProcessHelper>.withDefault(defaultValue as ProcessHelper, debugName),
-    'ProcessSyncException' => ScopeKey<ProcessSyncException>.withDefault(defaultValue as ProcessSyncException, debugName),
-    'PubCache' => ScopeKey<PubCache>.withDefault(defaultValue as PubCache, debugName),
-    'QuickPickItem' => ScopeKey<QuickPickItem>.withDefault(defaultValue as QuickPickItem, debugName),
-    'Range' => ScopeKey<Range>.withDefault(defaultValue as Range, debugName),
-    'ReadException' => ScopeKey<ReadException>.withDefault(defaultValue as ReadException, debugName),
-    'Remote' => ScopeKey<Remote>.withDefault(defaultValue as Remote, debugName),
-    'ReplayException' => ScopeKey<ReplayException>.withDefault(defaultValue as ReplayException, debugName),
-    'ResourceException' => ScopeKey<ResourceException>.withDefault(defaultValue as ResourceException, debugName),
-    'Resources' => ScopeKey<Resources>.withDefault(defaultValue as Resources, debugName),
-    'RestoreFileException' => ScopeKey<RestoreFileException>.withDefault(defaultValue as RestoreFileException, debugName),
-    'RunException' => ScopeKey<RunException>.withDefault(defaultValue as RunException, debugName),
-    'Selection' => ScopeKey<Selection>.withDefault(defaultValue as Selection, debugName),
-    'Settings' => ScopeKey<Settings>.withDefault(defaultValue as Settings, debugName),
-    'ShellDetection' => ScopeKey<ShellDetection>.withDefault(defaultValue as ShellDetection, debugName),
-    'ShellException' => ScopeKey<ShellException>.withDefault(defaultValue as ShellException, debugName),
-    'StackList' => ScopeKey<StackList>.withDefault(defaultValue as StackList, debugName),
-    'SymbolInfo' => ScopeKey<SymbolInfo>.withDefault(defaultValue as SymbolInfo, debugName),
-    'TailProgress' => ScopeKey<TailProgress>.withDefault(defaultValue as TailProgress, debugName),
-    'TelegramChatConfig' => ScopeKey<TelegramChatConfig>.withDefault(defaultValue as TelegramChatConfig, debugName),
-    'TemplateNotFoundException' => ScopeKey<TemplateNotFoundException>.withDefault(defaultValue as TemplateNotFoundException, debugName),
-    'Terminal' => ScopeKey<Terminal>.withDefault(defaultValue as Terminal, debugName),
-    'TerminalOptions' => ScopeKey<TerminalOptions>.withDefault(defaultValue as TerminalOptions, debugName),
-    'TextDocument' => ScopeKey<TextDocument>.withDefault(defaultValue as TextDocument, debugName),
-    'TextEditor' => ScopeKey<TextEditor>.withDefault(defaultValue as TextEditor, debugName),
-    'UnknownShell' => ScopeKey<UnknownShell>.withDefault(defaultValue as UnknownShell, debugName),
-    'VSCode' => ScopeKey<VSCode>.withDefault(defaultValue as VSCode, debugName),
-    'VSCodeBridgeAdapter' => ScopeKey<VSCodeBridgeAdapter>.withDefault(defaultValue as VSCodeBridgeAdapter, debugName),
-    'VSCodeBridgeClient' => ScopeKey<VSCodeBridgeClient>.withDefault(defaultValue as VSCodeBridgeClient, debugName),
-    'VSCodeBridgeResult' => ScopeKey<VSCodeBridgeResult>.withDefault(defaultValue as VSCodeBridgeResult, debugName),
-    'VSCodeChat' => ScopeKey<VSCodeChat>.withDefault(defaultValue as VSCodeChat, debugName),
-    'VSCodeCommands' => ScopeKey<VSCodeCommands>.withDefault(defaultValue as VSCodeCommands, debugName),
-    'VSCodeCommonCommands' => ScopeKey<VSCodeCommonCommands>.withDefault(defaultValue as VSCodeCommonCommands, debugName),
-    'VSCodeExtensions' => ScopeKey<VSCodeExtensions>.withDefault(defaultValue as VSCodeExtensions, debugName),
-    'VSCodeLanguageModel' => ScopeKey<VSCodeLanguageModel>.withDefault(defaultValue as VSCodeLanguageModel, debugName),
-    'VSCodeUri' => ScopeKey<VSCodeUri>.withDefault(defaultValue as VSCodeUri, debugName),
-    'VSCodeWindow' => ScopeKey<VSCodeWindow>.withDefault(defaultValue as VSCodeWindow, debugName),
-    'VSCodeWorkspace' => ScopeKey<VSCodeWorkspace>.withDefault(defaultValue as VSCodeWorkspace, debugName),
-    'VerificationFailure' => ScopeKey<VerificationFailure>.withDefault(defaultValue as VerificationFailure, debugName),
-    'VsCodeHelper' => ScopeKey<VsCodeHelper>.withDefault(defaultValue as VsCodeHelper, debugName),
-    'VsProgress' => ScopeKey<VsProgress>.withDefault(defaultValue as VsProgress, debugName),
-    'Which' => ScopeKey<Which>.withDefault(defaultValue as Which, debugName),
-    'WorkspaceFolder' => ScopeKey<WorkspaceFolder>.withDefault(defaultValue as WorkspaceFolder, debugName),
     _ => null,
   };
 }
@@ -819,7 +468,6 @@ Object? _rc2StackList(
     'Resources' => StackList<Resources>(),
     'RestoreFileException' => StackList<RestoreFileException>(),
     'RunException' => StackList<RunException>(),
-    'ScopeKey' => StackList<ScopeKey>(),
     'Selection' => StackList<Selection>(),
     'Settings' => StackList<Settings>(),
     'ShellDetection' => StackList<ShellDetection>(),
@@ -976,7 +624,6 @@ Object? _rc2StackList_fromList(
     'Resources' => StackList<Resources>.fromList(D4.coerceList<Resources>(initialStack, 'initialStack')),
     'RestoreFileException' => StackList<RestoreFileException>.fromList(D4.coerceList<RestoreFileException>(initialStack, 'initialStack')),
     'RunException' => StackList<RunException>.fromList(D4.coerceList<RunException>(initialStack, 'initialStack')),
-    'ScopeKey' => StackList<ScopeKey>.fromList(D4.coerceList<ScopeKey>(initialStack, 'initialStack')),
     'Selection' => StackList<Selection>.fromList(D4.coerceList<Selection>(initialStack, 'initialStack')),
     'Settings' => StackList<Settings>.fromList(D4.coerceList<Settings>(initialStack, 'initialStack')),
     'ShellDetection' => StackList<ShellDetection>.fromList(D4.coerceList<ShellDetection>(initialStack, 'initialStack')),
@@ -1019,8 +666,6 @@ Object? _rc2StackList_fromList(
 void registerGenericConstructors() {
   D4.registerGenericConstructor('PathMap', '', _rc2PathMap);
   D4.registerGenericConstructor('PathMap', 'of', _rc2PathMap_of);
-  D4.registerGenericConstructor('ScopeKey', '', _rc2ScopeKey);
-  D4.registerGenericConstructor('ScopeKey', 'withDefault', _rc2ScopeKey_withDefault);
   D4.registerGenericConstructor('StackList', '', _rc2StackList);
   D4.registerGenericConstructor('StackList', 'fromList', _rc2StackList_fromList);
 }
