@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 110 files
-// Generated: 2026-04-24T19:19:23.265292
+// Generated: 2026-04-24T19:41:03.132912
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1810,6 +1810,8 @@ BridgedClass _createCupertinoActivityIndicatorBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CupertinoActivityIndicator>(target, 'CupertinoActivityIndicator');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1918,6 +1920,8 @@ BridgedClass _createCupertinoLinearActivityIndicatorBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_4.CupertinoLinearActivityIndicator>(target, 'CupertinoLinearActivityIndicator');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2092,6 +2096,8 @@ BridgedClass _createCupertinoAdaptiveTextSelectionToolbarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_5.CupertinoAdaptiveTextSelectionToolbar>(target, 'CupertinoAdaptiveTextSelectionToolbar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2335,6 +2341,8 @@ BridgedClass _createCupertinoAppBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_6.CupertinoApp>(target, 'CupertinoApp');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2660,6 +2668,8 @@ BridgedClass _createCupertinoTabBarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_7.CupertinoTabBar>(target, 'CupertinoTabBar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2857,6 +2867,8 @@ BridgedClass _createCupertinoButtonBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_8.CupertinoButton>(target, 'CupertinoButton');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3014,6 +3026,8 @@ BridgedClass _createCupertinoCheckboxBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_9.CupertinoCheckbox>(target, 'CupertinoCheckbox');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3309,6 +3323,8 @@ BridgedClass _createCupertinoDynamicColorBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_10.CupertinoDynamicColor>(target, 'CupertinoDynamicColor');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3469,6 +3485,8 @@ BridgedClass _createCupertinoContextMenuBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.CupertinoContextMenu>(target, 'CupertinoContextMenu');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3591,6 +3609,8 @@ BridgedClass _createCupertinoContextMenuActionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_13.CupertinoContextMenuAction>(target, 'CupertinoContextMenuAction');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3699,6 +3719,8 @@ BridgedClass _createCupertinoFocusHaloBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_14.CupertinoFocusHalo>(target, 'CupertinoFocusHalo');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3839,6 +3861,8 @@ BridgedClass _createCupertinoDatePickerBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_15.CupertinoDatePicker>(target, 'CupertinoDatePicker');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3994,6 +4018,8 @@ BridgedClass _createCupertinoTimerPickerBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_15.CupertinoTimerPicker>(target, 'CupertinoTimerPicker');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4233,6 +4259,8 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_18.CupertinoDesktopTextSelectionToolbar>(target, 'CupertinoDesktopTextSelectionToolbar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4353,6 +4381,8 @@ BridgedClass _createCupertinoDesktopTextSelectionToolbarButtonBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_19.CupertinoDesktopTextSelectionToolbarButton>(target, 'CupertinoDesktopTextSelectionToolbarButton');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4470,6 +4500,8 @@ BridgedClass _createCupertinoAlertDialogBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoAlertDialog>(target, 'CupertinoAlertDialog');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4586,6 +4618,8 @@ BridgedClass _createCupertinoPopupSurfaceBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoPopupSurface>(target, 'CupertinoPopupSurface');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4711,6 +4745,8 @@ BridgedClass _createCupertinoActionSheetBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoActionSheet>(target, 'CupertinoActionSheet');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4829,6 +4865,8 @@ BridgedClass _createCupertinoActionSheetActionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoActionSheetAction>(target, 'CupertinoActionSheetAction');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4943,6 +4981,8 @@ BridgedClass _createCupertinoDialogActionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_20.CupertinoDialogAction>(target, 'CupertinoDialogAction');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5052,6 +5092,8 @@ BridgedClass _createCupertinoExpansionTileBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_21.CupertinoExpansionTile>(target, 'CupertinoExpansionTile');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5163,6 +5205,8 @@ BridgedClass _createCupertinoFormRowBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_22.CupertinoFormRow>(target, 'CupertinoFormRow');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5302,6 +5346,8 @@ BridgedClass _createCupertinoFormSectionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_23.CupertinoFormSection>(target, 'CupertinoFormSection');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -5421,6 +5467,8 @@ BridgedClass _createCupertinoIconThemeDataBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_24.CupertinoIconThemeData>(target, 'CupertinoIconThemeData');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8194,6 +8242,8 @@ BridgedClass _createCupertinoUserInterfaceLevelBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_26.CupertinoUserInterfaceLevel>(target, 'CupertinoUserInterfaceLevel');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8387,6 +8437,8 @@ BridgedClass _createCupertinoListSectionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_27.CupertinoListSection>(target, 'CupertinoListSection');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8560,6 +8612,8 @@ BridgedClass _createCupertinoListTileBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.CupertinoListTile>(target, 'CupertinoListTile');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -8669,6 +8723,8 @@ BridgedClass _createCupertinoListTileChevronBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.CupertinoListTileChevron>(target, 'CupertinoListTileChevron');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9194,6 +9250,8 @@ BridgedClass _createCupertinoTextMagnifierBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_30.CupertinoTextMagnifier>(target, 'CupertinoTextMagnifier');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9327,6 +9385,8 @@ BridgedClass _createCupertinoMagnifierBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_30.CupertinoMagnifier>(target, 'CupertinoMagnifier');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9523,6 +9583,8 @@ BridgedClass _createCupertinoNavigationBarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.CupertinoNavigationBar>(target, 'CupertinoNavigationBar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9730,6 +9792,8 @@ BridgedClass _createCupertinoSliverNavigationBarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.CupertinoSliverNavigationBar>(target, 'CupertinoSliverNavigationBar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9856,6 +9920,8 @@ BridgedClass _createCupertinoNavigationBarBackButtonBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_31.CupertinoNavigationBarBackButton>(target, 'CupertinoNavigationBarBackButton');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9962,6 +10028,8 @@ BridgedClass _createCupertinoPageScaffoldBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_32.CupertinoPageScaffold>(target, 'CupertinoPageScaffold');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10067,6 +10135,8 @@ BridgedClass _createCupertinoPageScaffoldBackgroundColorBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_32.CupertinoPageScaffoldBackgroundColor>(target, 'CupertinoPageScaffoldBackgroundColor');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10173,6 +10243,8 @@ BridgedClass _createObstructingPreferredSizeWidgetBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_32.ObstructingPreferredSizeWidget>(target, 'ObstructingPreferredSizeWidget');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10386,6 +10458,8 @@ BridgedClass _createCupertinoPickerBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_33.CupertinoPicker>(target, 'CupertinoPicker');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10502,6 +10576,8 @@ BridgedClass _createCupertinoPickerDefaultSelectionOverlayBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_33.CupertinoPickerDefaultSelectionOverlay>(target, 'CupertinoPickerDefaultSelectionOverlay');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10628,6 +10704,8 @@ BridgedClass _createCupertinoRadioBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.CupertinoRadio>(target, 'CupertinoRadio');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -10782,6 +10860,8 @@ BridgedClass _createCupertinoSliverRefreshControlBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.CupertinoSliverRefreshControl>(target, 'CupertinoSliverRefreshControl');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -11411,6 +11491,8 @@ BridgedClass _createCupertinoPageTransitionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoPageTransition>(target, 'CupertinoPageTransition');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -11532,6 +11614,8 @@ BridgedClass _createCupertinoFullscreenDialogTransitionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_36.CupertinoFullscreenDialogTransition>(target, 'CupertinoFullscreenDialogTransition');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -13079,6 +13163,8 @@ BridgedClass _createCupertinoScrollbarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_37.CupertinoScrollbar>(target, 'CupertinoScrollbar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -13276,6 +13362,8 @@ BridgedClass _createCupertinoSearchTextFieldBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_38.CupertinoSearchTextField>(target, 'CupertinoSearchTextField');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -13434,6 +13522,8 @@ BridgedClass _createCupertinoSegmentedControlBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_39.CupertinoSegmentedControl>(target, 'CupertinoSegmentedControl');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -13556,6 +13646,8 @@ BridgedClass _createCupertinoSheetTransitionBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_40.CupertinoSheetTransition>(target, 'CupertinoSheetTransition');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14121,6 +14213,8 @@ BridgedClass _createCupertinoSliderBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.CupertinoSlider>(target, 'CupertinoSlider');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14265,6 +14359,8 @@ BridgedClass _createCupertinoSlidingSegmentedControlBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_42.CupertinoSlidingSegmentedControl>(target, 'CupertinoSlidingSegmentedControl');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14383,6 +14479,8 @@ BridgedClass _createCupertinoSpellCheckSuggestionsToolbarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_43.CupertinoSpellCheckSuggestionsToolbar>(target, 'CupertinoSpellCheckSuggestionsToolbar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14542,6 +14640,8 @@ BridgedClass _createCupertinoSwitchBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_44.CupertinoSwitch>(target, 'CupertinoSwitch');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14750,6 +14850,8 @@ BridgedClass _createCupertinoTabScaffoldBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_45.CupertinoTabScaffold>(target, 'CupertinoTabScaffold');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -14988,6 +15090,8 @@ BridgedClass _createCupertinoTabViewBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_46.CupertinoTabView>(target, 'CupertinoTabView');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -15387,6 +15491,8 @@ BridgedClass _createCupertinoTextFieldBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_47.CupertinoTextField>(target, 'CupertinoTextField');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -15654,6 +15760,8 @@ BridgedClass _createCupertinoTextFormFieldRowBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_48.CupertinoTextFormFieldRow>(target, 'CupertinoTextFormFieldRow');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -15908,6 +16016,8 @@ BridgedClass _createCupertinoTextSelectionToolbarBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.CupertinoTextSelectionToolbar>(target, 'CupertinoTextSelectionToolbar');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16030,6 +16140,8 @@ BridgedClass _createCupertinoTextSelectionToolbarButtonBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CupertinoTextSelectionToolbarButton>(target, 'CupertinoTextSelectionToolbarButton');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16153,6 +16265,8 @@ BridgedClass _createCupertinoTextThemeDataBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_52.CupertinoTextThemeData>(target, 'CupertinoTextThemeData');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16259,6 +16373,8 @@ BridgedClass _createCupertinoThemeBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.CupertinoTheme>(target, 'CupertinoTheme');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16391,6 +16507,8 @@ BridgedClass _createInheritedCupertinoThemeBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.InheritedCupertinoTheme>(target, 'InheritedCupertinoTheme');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16511,6 +16629,8 @@ BridgedClass _createCupertinoThemeDataBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.CupertinoThemeData>(target, 'CupertinoThemeData');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16600,6 +16720,8 @@ BridgedClass _createNoDefaultCupertinoThemeDataBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_53.NoDefaultCupertinoThemeData>(target, 'NoDefaultCupertinoThemeData');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -16928,6 +17050,8 @@ BridgedClass _createImageConfigurationBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_75.ImageConfiguration>(target, 'ImageConfiguration');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -17237,6 +17361,8 @@ BridgedClass _createTextSpanBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_81.TextSpan>(target, 'TextSpan');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -17343,6 +17469,8 @@ BridgedClass _createTextEditingValueBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_95.TextEditingValue>(target, 'TextEditingValue');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -17563,6 +17691,8 @@ BridgedClass _createTextStyleBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_82.TextStyle>(target, 'TextStyle');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -17657,6 +17787,8 @@ BridgedClass _createSpellCheckResultsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_92.SpellCheckResults>(target, 'SpellCheckResults');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },

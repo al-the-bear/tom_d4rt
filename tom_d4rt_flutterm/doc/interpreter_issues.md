@@ -873,6 +873,87 @@ bucket-1 scope from the 20260424-1838 issue-analysis run.
 
 ---
 
+### [X] Fixed (13, GEN-103) — `operator ==` rejects null argument
+
+**Symptom** (5 scripts in the 20260426-1838 run)
+
+```
+Runtime Error: Native error during bridged operator '==' on X:
+  Argument Error: Invalid parameter "other": expected Object, got Null
+```
+
+…with X ∈ {`Color`, `RootElement`, `BoxConstraints`}, triggered
+whenever interpreted code evaluated `bridgedInstance == null` (or
+compared a bridged instance with a nullable that happened to be
+null).
+
+**Root cause**
+
+The Dart spec defines `bool operator ==(Object other)` but at
+runtime `other` is implicitly nullable — the compiler rewrites
+`a == b` to `identical(a, b) || (a != null && a == b)`. For a
+non-null `a`, comparing with `null` short-circuits to `false`
+*before* `operator ==` is called.
+
+The bridge generator was emitting equality adapters without that
+short-circuit:
+
+```dart
+'==': (visitor, target, positional, named, typeArgs) {
+  final t = D4.validateTarget<Color>(target, 'Color');
+  final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
+  return t == other;
+},
+```
+
+`D4.getRequiredArg<Object>` rejects `null` with an
+`ArgumentError`. The interpreter (both `tom_d4rt` and
+`tom_d4rt_ast`) feeds `null` into `positional[0]` for a
+`bridgedInstance == null` comparison, so the adapter threw before
+the native operator could run.
+
+**Fix (GEN-103)**
+
+Generator-only change in
+`tom_d4rt_generator/lib/src/bridge_generator.dart`, in both
+`_generateOperatorBody` and `_generateCombinedOperatorBody`. Emit
+a null short-circuit for `==` adapters before the
+`getRequiredArg` call:
+
+```dart
+// GEN-103: Dart spec — non-null == null is always false.
+if (positional.isEmpty || positional[0] == null) return false;
+```
+
+`D4.validateTarget` already guarantees `t` is non-null, so
+returning `false` when `other` is null matches Dart semantics
+exactly. No interpreter change needed — bug is purely in the
+generated adapter shape, so `tom_d4rt` ↔ `tom_d4rt_ast` stay in
+sync without edits.
+
+**Representative scripts** (all 5 now green)
+
+- `widgets/glowing_overscroll_indicator_test.dart`
+- `widgets/root_element_test.dart`
+- `widgets/spell_check_configuration_test.dart`
+- `material/toggle_buttons_theme_test.dart`
+- `material/toggle_buttons_theme_data_test.dart`
+
+**Regression check** (post-fix)
+
+- gii:                 56/1/26    (baseline range 56-57/26-27 — unchanged)
+- essential:           108/0/0    (baseline 108/0/0   — unchanged)
+- important:           163/5/1    (baseline 163/5/1   — unchanged)
+- secondary:           612/40/2   (baseline 612/40/2  — unchanged in aggregate; affected scripts verified individually)
+- hardly_relevant_2:   203/0/0    (all pass)
+- hardly_relevant_4:   227/0/0    (baseline 227/0/0   — unchanged)
+- hardly_relevant_5:   227/0/3    (baseline 227/0/3   — unchanged)
+
+All 5 target scripts pass individually via
+`flutter test --plain-name`. No regressions across any suite.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**

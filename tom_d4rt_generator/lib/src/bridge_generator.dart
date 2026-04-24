@@ -9380,6 +9380,19 @@ class BridgeGenerator {
           classTypeParams: cls.typeParameters,
           sourceFilePath: cls.sourceFile,
         );
+        // GEN-103: `operator ==` per Dart spec accepts `Object?` at runtime
+        // even though the declared parameter type is `Object`. When `other`
+        // is null, `t == other` must return false for a non-null `t` (which
+        // `validateTarget<T>` guarantees). Short-circuit before the
+        // `getRequiredArg<Object>` guard rejects null with an ArgumentError.
+        if (operatorName == '==') {
+          buffer.writeln(
+            "        // GEN-103: Dart spec — non-null == null is always false.",
+          );
+          buffer.writeln(
+            "        if (positional.isEmpty || positional[0] == null) return false;",
+          );
+        }
         buffer.writeln(
           "        final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');",
         );
@@ -9437,6 +9450,13 @@ class BridgeGenerator {
         classTypeParams: cls.typeParameters,
         sourceFilePath: cls.sourceFile,
       );
+      // GEN-103: see _generateOperatorBody for rationale.
+      if (operatorName == '==') {
+        buffer.writeln(
+          "          // GEN-103: Dart spec — non-null == null is always false.",
+        );
+        buffer.writeln("          if (positional[0] == null) return false;");
+      }
       buffer.writeln(
         "          final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');",
       );
@@ -9457,6 +9477,15 @@ class BridgeGenerator {
         classTypeParams: cls.typeParameters,
         sourceFilePath: cls.sourceFile,
       );
+      // GEN-103: see _generateOperatorBody for rationale.
+      if (operatorName == '==') {
+        buffer.writeln(
+          "        // GEN-103: Dart spec — non-null == null is always false.",
+        );
+        buffer.writeln(
+          "        if (positional.isEmpty || positional[0] == null) return false;",
+        );
+      }
       buffer.writeln(
         "        final other = D4.getRequiredArg<$operandType>(positional, 0, 'other', 'operator$operatorName');",
       );

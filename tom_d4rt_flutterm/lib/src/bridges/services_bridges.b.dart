@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-04-24T19:19:08.475129
+// Generated: 2026-04-24T19:40:48.903376
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1478,6 +1478,8 @@ BridgedClass _createAutofillConfigurationBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_12.AutofillConfiguration>(target, 'AutofillConfiguration');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1652,6 +1654,8 @@ BridgedClass _createTextInputTypeBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputType>(target, 'TextInputType');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1794,6 +1798,8 @@ BridgedClass _createTextInputConfigurationBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextInputConfiguration>(target, 'TextInputConfiguration');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -1920,6 +1926,8 @@ BridgedClass _createTextEditingValueBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.TextEditingValue>(target, 'TextEditingValue');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2021,6 +2029,8 @@ BridgedClass _createSelectionRectBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.SelectionRect>(target, 'SelectionRect');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2363,6 +2373,8 @@ BridgedClass _createIOSSystemContextMenuItemDataBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemData>(target, 'IOSSystemContextMenuItemData');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2395,6 +2407,8 @@ BridgedClass _createIOSSystemContextMenuItemDataCopyBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataCopy>(target, 'IOSSystemContextMenuItemDataCopy');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2430,6 +2444,8 @@ BridgedClass _createIOSSystemContextMenuItemDataCutBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataCut>(target, 'IOSSystemContextMenuItemDataCut');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2465,6 +2481,8 @@ BridgedClass _createIOSSystemContextMenuItemDataPasteBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataPaste>(target, 'IOSSystemContextMenuItemDataPaste');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2500,6 +2518,8 @@ BridgedClass _createIOSSystemContextMenuItemDataSelectAllBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataSelectAll>(target, 'IOSSystemContextMenuItemDataSelectAll');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2558,6 +2578,8 @@ BridgedClass _createIOSSystemContextMenuItemDataLookUpBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataLookUp>(target, 'IOSSystemContextMenuItemDataLookUp');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2622,6 +2644,8 @@ BridgedClass _createIOSSystemContextMenuItemDataSearchWebBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataSearchWeb>(target, 'IOSSystemContextMenuItemDataSearchWeb');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2686,6 +2710,8 @@ BridgedClass _createIOSSystemContextMenuItemDataShareBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataShare>(target, 'IOSSystemContextMenuItemDataShare');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2727,6 +2753,8 @@ BridgedClass _createIOSSystemContextMenuItemDataLiveTextBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataLiveText>(target, 'IOSSystemContextMenuItemDataLiveText');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -2791,6 +2819,8 @@ BridgedClass _createIOSSystemContextMenuItemDataCustomBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_50.IOSSystemContextMenuItemDataCustom>(target, 'IOSSystemContextMenuItemDataCustom');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -3804,6 +3834,8 @@ BridgedClass _createLogicalKeyboardKeyBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.LogicalKeyboardKey>(target, 'LogicalKeyboardKey');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -4830,6 +4862,8 @@ BridgedClass _createPhysicalKeyboardKeyBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_25.PhysicalKeyboardKey>(target, 'PhysicalKeyboardKey');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -6844,6 +6878,8 @@ BridgedClass _createKeyboardInsertedContentBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_24.KeyboardInsertedContent>(target, 'KeyboardInsertedContent');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -7792,6 +7828,8 @@ BridgedClass _createSystemMouseCursorBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_30.SystemMouseCursor>(target, 'SystemMouseCursor');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9373,6 +9411,8 @@ BridgedClass _createPredictiveBackEventBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_34.PredictiveBackEvent>(target, 'PredictiveBackEvent');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9418,6 +9458,8 @@ BridgedClass _createProcessTextActionBridge() {
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_35.ProcessTextAction>(target, 'ProcessTextAction');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9627,6 +9669,8 @@ BridgedClass _createSuggestionSpanBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.SuggestionSpan>(target, 'SuggestionSpan');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9677,6 +9721,8 @@ BridgedClass _createSpellCheckResultsBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.SpellCheckResults>(target, 'SpellCheckResults');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
@@ -9954,6 +10000,8 @@ BridgedClass _createSystemUiOverlayStyleBridge() {
       },
       '==': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_43.SystemUiOverlayStyle>(target, 'SystemUiOverlayStyle');
+        // GEN-103: Dart spec — non-null == null is always false.
+        if (positional.isEmpty || positional[0] == null) return false;
         final other = D4.getRequiredArg<Object>(positional, 0, 'other', 'operator==');
         return t == other;
       },
