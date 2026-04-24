@@ -701,7 +701,7 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 461 | widgets/widget_state_outlined_border_test.dart | 47 | 938 | fake | fixed |
 | 462 | widgets/widget_state_property_all_test.dart | 47 | 941 | fake | fixed |
 | 463 | widgets/widget_states_constraint_test.dart | 47 | 931 | fake | fixed |
-| 464 | widgets/widget_state_test.dart | 47 | 920 | fake | |
-| 465 | widgets/widget_state_text_style_test.dart | 47 | 923 | fake | |
-| 466 | widgets/widget_test.dart | 47 | 914 | fake | |
-| 467 | widgets/windowing_owner_win32_test.dart | 47 | 944 | fake | |
+| 464 | widgets/widget_state_test.dart | 47 | 920 | fake | fixed |
+| 465 | widgets/widget_state_text_style_test.dart | 47 | 923 | fake | fixed |
+| 466 | widgets/widget_test.dart | 47 | 914 | fake | fixed |
+| 467 | widgets/windowing_owner_win32_test.dart | 47 | 944 | fake | fixed |
