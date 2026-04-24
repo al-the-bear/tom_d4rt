@@ -670,13 +670,13 @@ Files that may have been replaced with fake demos. Need verification and restora
 |---|----------|-------|------|----------|-------|
 | 441 | widgets/undo_text_intent_test.dart | 45 | 1575 | fake | fixed |
 | 442 | widgets/unfocus_disposition_test.dart | 45 | 1593 | fake | fixed |
-| 443 | widgets/update_selection_intent_test.dart | 45 | 1598 | fake | |
-| 444 | widgets/user_scroll_notification_test.dart | 45 | 1587 | fake | |
-| 445 | widgets/viewport_element_mixin_test.dart | 45 | 932 | fake | |
-| 446 | widgets/viewport_notification_mixin_test.dart | 45 | 943 | fake | |
-| 447 | widgets/void_callback_action_test.dart | 45 | 922 | fake | |
-| 448 | widgets/void_callback_intent_test.dart | 45 | 927 | fake | |
-| 449 | widgets/weak_map_test.dart | 45 | 903 | fake | |
+| 443 | widgets/update_selection_intent_test.dart | 45 | 1598 | fake | fixed |
+| 444 | widgets/user_scroll_notification_test.dart | 45 | 1587 | fake | fixed |
+| 445 | widgets/viewport_element_mixin_test.dart | 45 | 932 | fake | fixed |
+| 446 | widgets/viewport_notification_mixin_test.dart | 45 | 943 | fake | fixed |
+| 447 | widgets/void_callback_action_test.dart | 45 | 922 | fake | fixed |
+| 448 | widgets/void_callback_intent_test.dart | 45 | 927 | fake | fixed |
+| 449 | widgets/weak_map_test.dart | 45 | 903 | fake | fixed |
 | 450 | widgets/web_browser_detection_test.dart | 45 | 920 | fake | |
 
 ## Batch 46
