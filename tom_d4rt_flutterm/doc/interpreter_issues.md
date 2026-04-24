@@ -792,6 +792,87 @@ A fifth, smaller edge fell out of the same diagnostic session:
 
 ---
 
+### [X] Fixed (12, GEN-102) — `ValueNotifier<T?>(null)` crashes generic-ctor factory
+
+**Symptom** (8 scripts in the 20260424-1838 run)
+
+```
+Runtime Error: Error in generic constructor factory for 'ValueNotifier':
+  type 'Null' is not a subtype of type 'int' in type cast
+```
+
+…with T ∈ {`int`, `String`, `bool`, `LogicalKeyboardKey`, `Offset`,
+`ChildVicinity`}. Every failure was triggered by script-side
+`ValueNotifier<T?>(null)` top-level declarations.
+
+**Root cause**
+
+The interpreter's `_resolveTypeAnnotation` strips the nullable `?`
+marker when it resolves a type argument to a `RuntimeType`. The
+flag lives on `SNamedType.isNullable` at the AST level but is lost
+once the symbol is looked up in the environment — `.name` on the
+returned `RuntimeType` (`BridgedClass`) returns just `'int'`.
+
+Downstream, the generated RC-2 factory (`_rc2ValueNotifier` in
+`flutter_relaxers.b.dart`) reads the type arg via
+`typeArgs!.first.name as String?` and switches on the bare class
+name. `ValueNotifier<int>` and `ValueNotifier<int?>` both surface
+as `typeName = 'int'`, so the `'int' => ValueNotifier<int>(_value
+as int)` case fires even when the script wrote
+`ValueNotifier<int?>(null)` — `null as int` crashes.
+
+The regular non-generic bridge constructor doesn't have this
+problem: it switches on `value.runtimeType` and routes `null`
+values to the `default:` branch, which produces
+`ValueNotifier<dynamic>(null)`. The `$Relaxed<V>` wrapper at
+bridge-method boundaries then adapts the untyped notifier to any
+typed contract a consumer expects.
+
+**Fix (GEN-102)**
+
+Generator-only change in
+`tom_d4rt_generator/lib/src/relaxer_generator.dart`
+(`_writeGenericConstructorFactory`). After the parameter
+extraction block and before the `switch (typeName)`, emit a
+null-guard for every required non-nullable exact-T positional /
+named param. When the guard fires, the factory returns `null` to
+fall through to the default bridge constructor:
+
+```dart
+// GEN-102: Fall through to default bridge constructor when a required
+// non-nullable T-typed value is null. The interpreter strips `?` from
+// resolved type arguments, so typeName cannot distinguish `<T>` from `<T?>`.
+if (_value == null) return null;
+```
+
+Applies uniformly to every RC-2 generic class that has one or
+more required non-nullable T-typed params (118 factories; the
+guard emits only where at least one qualifying param exists).
+
+**Representative scripts** (all 8 now green)
+
+- `widgets/render_tap_region_surface_test.dart`
+- `widgets/keyboard_listener_test.dart`
+- `widgets/overlay_state_test.dart`
+- `widgets/raw_dialog_route_test.dart`
+- `widgets/raw_radio_test.dart`
+- `widgets/render_two_dimensional_viewport_test.dart`
+- `widgets/restorable_bool_n_test.dart`
+- `widgets/gesture_detector_adv_test.dart`
+
+**Regression check** (post-fix)
+
+- essential:          108/0/0    (baseline 108/0/0   — unchanged)
+- important:          163/5/1    (baseline 163/5/1   — unchanged)
+- secondary:          612/40/2   (baseline 611/40/3  — +1 pass, -1 fail: gesture_detector_adv)
+- hardly_relevant_4:  227/0/0    (baseline 225/0/2   — +2 pass, -2 fail: keyboard_listener, overlay_state)
+- hardly_relevant_5:  227/0/3    (baseline 222/0/8   — +5 pass, -5 fail: raw_dialog_route, raw_radio, render_tap_region_surface, render_two_dimensional_viewport, restorable_bool_n)
+
+Net: **+8 passes, -8 fails, 0 regressions.** Exactly matches the
+bucket-1 scope from the 20260424-1838 issue-analysis run.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**

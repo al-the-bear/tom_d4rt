@@ -1969,6 +1969,41 @@ void _writeGenericConstructorFactory(
     }
   }
 
+  // GEN-102: Null-guard exact-T non-nullable required params.
+  //
+  // The interpreter's `_resolveTypeAnnotation` strips the nullable `?` from
+  // resolved type arguments — `ValueNotifier<int?>` surfaces here with
+  // `typeName = 'int'`, indistinguishable from `ValueNotifier<int>`. The
+  // switch cases below emit `ValueNotifier<int>(_value as int)`, which
+  // crashes on `null as int` when the script wrote `ValueNotifier<int?>(null)`.
+  //
+  // When a required non-nullable T-typed value is null, return null to fall
+  // through to the default bridge constructor. Its runtime-type switch (in
+  // foundation_bridges.b.dart) sends null values to the `default:` branch,
+  // producing `ValueNotifier<dynamic>(null)`. The `$Relaxed<T>` wrapper at
+  // bridge-method boundaries then adapts the untyped notifier to the typed
+  // contract expected by consumers.
+  final guardNames = <String>[
+    for (final p in positionalParams)
+      if (p.type == typeParamName && p.isRequired) _rc2SafeName(p.name),
+    for (final p in namedParams)
+      if (p.type == typeParamName && p.isRequired) _rc2SafeName(p.name),
+  ];
+  if (guardNames.isNotEmpty) {
+    buffer.writeln(
+      '  // GEN-102: Fall through to default bridge constructor when a required',
+    );
+    buffer.writeln(
+      '  // non-nullable T-typed value is null. The interpreter strips `?` from',
+    );
+    buffer.writeln(
+      '  // resolved type arguments, so typeName cannot distinguish `<T>` from `<T?>`.',
+    );
+    buffer.writeln(
+      '  if (${guardNames.map((n) => '$n == null').join(' || ')}) return null;',
+    );
+  }
+
   buffer.writeln('  return switch (typeName) {');
 
   // Primitive dispatches (for unbounded type params)
