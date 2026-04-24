@@ -629,19 +629,19 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 414 | widgets/slotted_multi_child_render_object_widget_mixin_test.dart | 42 | 1504 | fake | fixed |
 | 415 | widgets/slotted_multi_child_render_object_widget_test.dart | 42 | 1482 | fake | fixed |
 | 416 | widgets/slotted_render_object_element_test.dart | 42 | 1491 | fake | fixed |
-| 417 | widgets/snapshot_mode_test.dart | 42 | 1492 | fake | |
-| 418 | widgets/spell_check_configuration_test.dart | 42 | 933 | fake | |
-| 419 | widgets/standard_component_type_test.dart | 42 | 1444 | fake | |
-| 420 | widgets/static_selection_container_delegate_test.dart | 42 | 1559 | fake | |
+| 417 | widgets/snapshot_mode_test.dart | 42 | 1492 | fake | fixed |
+| 418 | widgets/spell_check_configuration_test.dart | 42 | 933 | fake | fixed |
+| 419 | widgets/standard_component_type_test.dart | 42 | 1444 | fake | fixed |
+| 420 | widgets/static_selection_container_delegate_test.dart | 42 | 1559 | fake | fixed |
 
 ## Batch 43
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
 | 421 | widgets/streambuilder_test.dart | 43 | 1926 | test | |
-| 422 | widgets/text_magnifier_configuration_test.dart | 43 | 933 | fake | |
-| 423 | widgets/text_selection_controls_test.dart | 43 | 933 | fake | |
-| 424 | widgets/text_selection_gesture_detector_builder_delegate_test.dart | 43 | 1623 | fake | |
+| 422 | widgets/text_magnifier_configuration_test.dart | 43 | 933 | fake | fixed |
+| 423 | widgets/text_selection_controls_test.dart | 43 | 933 | fake | fixed |
+| 424 | widgets/text_selection_gesture_detector_builder_delegate_test.dart | 43 | 1623 | fake | fixed |
 | 425 | widgets/tooltip_test.dart | 43 | 1920 | test | |
 | 426 | widgets/tooltip_trigger_mode_test.dart | 43 | 1037 | test | |
 | 427 | widgets/tooltip_window_test.dart | 43 | 1566 | fake | |
