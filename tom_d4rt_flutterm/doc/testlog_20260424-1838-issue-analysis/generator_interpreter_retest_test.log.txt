@@ -1,0 +1,307 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_retest_test.dart
+00:00 +0: (setUpAll)
+00:12 +0: Section 1 - Tests with workarounds reverted retest: animation/reverse_tween_test.dart
+[METRIC] script=retest/animation/reverse_tween_test.dart sourceBytes=45855 sourceChars=35359 bundleJsonBytes=402404 clearMs=9 readMs=6 bundleMs=243 httpMs=740 totalMs=1000 status=success httpStatus=200 outputLines=230 frameworkErrors=0
+00:13 +1: Section 1 - Tests with workarounds reverted retest: dart_ui/key_event_type_test.dart
+[METRIC] script=retest/dart_ui/key_event_type_test.dart sourceBytes=36897 sourceChars=36897 bundleJsonBytes=612822 clearMs=21 readMs=1 bundleMs=148 httpMs=407 totalMs=578 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/dart_ui/key_event_type_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'label' on bridged instance of 'Key'.
+00:14 +1 -1: Section 1 - Tests with workarounds reverted retest: dart_ui/key_event_type_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined property or method 'label' on bridged instance of 'Key'.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 52:7    main.<fn>.<fn>
+  
+00:14 +1 -1: Section 1 - Tests with workarounds reverted retest: dart_ui/vertex_mode_test.dart
+[METRIC] script=retest/dart_ui/vertex_mode_test.dart sourceBytes=39322 sourceChars=39292 bundleJsonBytes=480098 clearMs=30 readMs=4 bundleMs=79 httpMs=581 totalMs=696 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:14 +2 -1: Section 1 - Tests with workarounds reverted retest: dart_ui/color_space_test.dart
+[METRIC] script=retest/dart_ui/color_space_test.dart sourceBytes=27241 sourceChars=25531 bundleJsonBytes=262026 clearMs=25 readMs=1 bundleMs=23 httpMs=239 totalMs=290 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:15 +3 -1: Section 1 - Tests with workarounds reverted retest: dart_ui/system_color_palette_test.dart
+  Skip: SystemColor not supported on Linux
+00:15 +3 ~1 -1: Section 1 - Tests with workarounds reverted retest: foundation/object_created_test.dart
+[METRIC] script=retest/foundation/object_created_test.dart sourceBytes=4072 sourceChars=4072 bundleJsonBytes=58802 clearMs=2 readMs=0 bundleMs=8 httpMs=110 totalMs=123 status=success httpStatus=200 outputLines=38 frameworkErrors=0
+00:15 +4 ~1 -1: Section 1 - Tests with workarounds reverted retest: foundation/object_disposed_test.dart
+[METRIC] script=retest/foundation/object_disposed_test.dart sourceBytes=2348 sourceChars=2348 bundleJsonBytes=29098 clearMs=21 readMs=0 bundleMs=9 httpMs=83 totalMs=115 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:15 +5 ~1 -1: Section 1 - Tests with workarounds reverted retest: foundation/object_event_test.dart
+[METRIC] script=retest/foundation/object_event_test.dart sourceBytes=1181 sourceChars=1181 bundleJsonBytes=14022 clearMs=3 readMs=0 bundleMs=2 httpMs=119 totalMs=126 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:15 +6 ~1 -1: Section 1 - Tests with workarounds reverted retest: material/bottom_navigation_bar_type_test.dart
+[METRIC] script=retest/material/bottom_navigation_bar_type_test.dart sourceBytes=61834 sourceChars=61826 bundleJsonBytes=723185 clearMs=3 readMs=1 bundleMs=53 httpMs=492 totalMs=550 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:16 +7 ~1 -1: Section 1 - Tests with workarounds reverted retest: material/button_bar_theme_test.dart
+[METRIC] script=retest/material/button_bar_theme_test.dart sourceBytes=26697 sourceChars=26697 bundleJsonBytes=344429 clearMs=3 readMs=1 bundleMs=35 httpMs=398 totalMs=438 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in retest/material/button_bar_theme_test.dart (2 error(s)):
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+       Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+00:16 +7 ~1 -2: Section 1 - Tests with workarounds reverted retest: material/button_bar_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme); Argument Error: Invalid parameter "build": expected Widget, got InterpretedInstance(ButtonBarTheme)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 110:7   main.<fn>.<fn>
+  
+00:16 +7 ~1 -2: Section 1 - Tests with workarounds reverted retest: material/button_bar_layout_behavior_test.dart
+[METRIC] script=retest/material/button_bar_layout_behavior_test.dart sourceBytes=21530 sourceChars=20202 bundleJsonBytes=282319 clearMs=4 readMs=1 bundleMs=22 httpMs=237 totalMs=265 status=success httpStatus=200 outputLines=61 frameworkErrors=0
+00:16 +8 ~1 -2: Section 1 - Tests with workarounds reverted retest: material/button_text_theme_test.dart
+[METRIC] script=retest/material/button_text_theme_test.dart sourceBytes=21835 sourceChars=20421 bundleJsonBytes=290497 clearMs=3 readMs=1 bundleMs=20 httpMs=340 totalMs=365 status=success httpStatus=200 outputLines=72 frameworkErrors=0
+00:17 +9 ~1 -2: Section 1 - Tests with workarounds reverted retest: material/dropdown_menu_close_behavior_test.dart
+[METRIC] script=retest/material/dropdown_menu_close_behavior_test.dart sourceBytes=21738 sourceChars=18790 bundleJsonBytes=265032 clearMs=3 readMs=1 bundleMs=39 httpMs=974 totalMs=1019 status=success httpStatus=200 outputLines=97 frameworkErrors=0
+00:18 +10 ~1 -2: Section 1 - Tests with workarounds reverted retest: material/gapped_range_slider_track_shape_test.dart
+[METRIC] script=retest/material/gapped_range_slider_track_shape_test.dart sourceBytes=35597 sourceChars=35597 bundleJsonBytes=433180 clearMs=30 readMs=0 bundleMs=35 httpMs=485 totalMs=553 status=success httpStatus=200 outputLines=42 frameworkErrors=18
+
+  ⚠️  FRAMEWORK ERROR in retest/material/gapped_range_slider_track_shape_test.dart (18 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:18 +10 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/gapped_range_slider_track_shape_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 138:7   main.<fn>.<fn>
+  
+00:18 +10 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/hour_format_test.dart
+[METRIC] script=retest/material/hour_format_test.dart sourceBytes=47370 sourceChars=47368 bundleJsonBytes=618740 clearMs=18 readMs=1 bundleMs=57 httpMs=1365 totalMs=1442 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:20 +11 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/material_banner_closed_reason_test.dart
+[METRIC] script=retest/material/material_banner_closed_reason_test.dart sourceBytes=22177 sourceChars=19229 bundleJsonBytes=281278 clearMs=26 readMs=1 bundleMs=18 httpMs=345 totalMs=391 status=success httpStatus=200 outputLines=97 frameworkErrors=0
+00:20 +12 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/navigation_destination_label_behavior_test.dart
+[METRIC] script=retest/material/navigation_destination_label_behavior_test.dart sourceBytes=23039 sourceChars=20091 bundleJsonBytes=270427 clearMs=3 readMs=1 bundleMs=17 httpMs=335 totalMs=357 status=success httpStatus=200 outputLines=93 frameworkErrors=0
+00:20 +13 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/navigation_rail_label_type_test.dart
+[METRIC] script=retest/material/navigation_rail_label_type_test.dart sourceBytes=24170 sourceChars=21222 bundleJsonBytes=292161 clearMs=27 readMs=1 bundleMs=17 httpMs=385 totalMs=431 status=success httpStatus=200 outputLines=92 frameworkErrors=0
+00:21 +14 ~1 -3: Section 1 - Tests with workarounds reverted retest: material/popup_menu_position_test.dart
+[METRIC] script=retest/material/popup_menu_position_test.dart sourceBytes=23863 sourceChars=20911 bundleJsonBytes=297077 clearMs=26 readMs=1 bundleMs=18 httpMs=557 totalMs=603 status=error httpStatus=400 outputLines=78 frameworkErrors=0
+00:22 +14 ~1 -4: Section 1 - Tests with workarounds reverted retest: material/popup_menu_position_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Error in generic constructor factory for 'PopupMenuButton': 'package:flutter/src/material/popup_menu.dart': Failed assertion: line 1361 pos 15: '!(child != null && icon != null)': You can only pass [child] or [icon], not both.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 173:7   main.<fn>.<fn>
+  
+00:22 +14 ~1 -4: Section 1 - Tests with workarounds reverted retest: material/theme_extension_test.dart
+[METRIC] script=retest/material/theme_extension_test.dart sourceBytes=48728 sourceChars=48728 bundleJsonBytes=765174 clearMs=2 readMs=0 bundleMs=70 httpMs=270 totalMs=344 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/material/theme_extension_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'copyWith' on ThemeData: Argument Error: Invalid parameter "extensions": cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>> - t…
+00:22 +14 ~1 -5: Section 1 - Tests with workarounds reverted retest: material/theme_extension_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged method call 'copyWith' on ThemeData: Argument Error: Invalid parameter "extensions": cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>> - type 'InterpretedInstance' is not a subtype of type 'ThemeExtension<ThemeExtension<dynamic>>' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 180:7   main.<fn>.<fn>
+  
+00:22 +14 ~1 -5: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_data_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_data_test.dart sourceBytes=48130 sourceChars=48130 bundleJsonBytes=703543 clearMs=47 readMs=0 bundleMs=46 httpMs=219 totalMs=314 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/material/toggle_buttons_theme_data_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+00:22 +14 ~1 -6: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_data_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 187:7   main.<fn>.<fn>
+  
+00:22 +14 ~1 -6: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_test.dart
+[METRIC] script=retest/material/toggle_buttons_theme_test.dart sourceBytes=56958 sourceChars=56958 bundleJsonBytes=766828 clearMs=2 readMs=0 bundleMs=47 httpMs=106 totalMs=158 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/material/toggle_buttons_theme_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+00:22 +14 ~1 -7: Section 1 - Tests with workarounds reverted retest: material/toggle_buttons_theme_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged operator '==' on BoxConstraints: Argument Error: Invalid parameter "other": expected Object, got Null
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 194:7   main.<fn>.<fn>
+  
+00:22 +14 ~1 -7: Section 1 - Tests with workarounds reverted retest: painting/axis_direction_test.dart
+[METRIC] script=retest/painting/axis_direction_test.dart sourceBytes=44143 sourceChars=43905 bundleJsonBytes=629268 clearMs=24 readMs=1 bundleMs=31 httpMs=774 totalMs=832 status=success httpStatus=200 outputLines=29 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in retest/painting/axis_direction_test.dart (4 error(s)):
+       A RenderFlex overflowed by 13 pixels on the bottom.
+       A RenderFlex overflowed by 51 pixels on the right.
+       A RenderFlex overflowed by 13 pixels on the bottom.
+       A RenderFlex overflowed by 51 pixels on the right.
+00:23 +14 ~1 -8: Section 1 - Tests with workarounds reverted retest: painting/axis_direction_test.dart [E]
+  Expected: true
+    Actual: <false>
+  A RenderFlex overflowed by 13 pixels on the bottom.; A RenderFlex overflowed by 51 pixels on the right.; A RenderFlex overflowed by 13 pixels on the bottom.; A RenderFlex overflowed by 51 pixels on the right.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 202:7   main.<fn>.<fn>
+  
+00:23 +14 ~1 -8: Section 1 - Tests with workarounds reverted retest: rendering/hit_test_behavior_test.dart
+[METRIC] script=retest/rendering/hit_test_behavior_test.dart sourceBytes=33426 sourceChars=31822 bundleJsonBytes=332602 clearMs=23 readMs=1 bundleMs=19 httpMs=278 totalMs=322 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:24 +15 ~1 -8: Section 1 - Tests with workarounds reverted retest: rendering/over_scroll_header_stretch_configuration_test.dart
+[METRIC] script=retest/rendering/over_scroll_header_stretch_configuration_test.dart sourceBytes=56087 sourceChars=52927 bundleJsonBytes=639930 clearMs=3 readMs=1 bundleMs=38 httpMs=390 totalMs=433 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +16 ~1 -8: Section 1 - Tests with workarounds reverted retest: rendering/render_android_view_test.dart
+[METRIC] script=retest/rendering/render_android_view_test.dart sourceBytes=60674 sourceChars=60674 bundleJsonBytes=790646 clearMs=26 readMs=0 bundleMs=40 httpMs=1007 totalMs=1074 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +17 ~1 -8: Section 1 - Tests with workarounds reverted retest: rendering/render_animated_size_state_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~2 -8: Section 1 - Tests with workarounds reverted retest: rendering/render_sliver_box_child_manager_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~3 -8: Section 1 - Tests with workarounds reverted retest: services/message_codec_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~4 -8: Section 1 - Tests with workarounds reverted retest: services/method_codec_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~5 -8: Section 1 - Tests with workarounds reverted retest: widgets/android_view_surface_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~6 -8: Section 1 - Tests with workarounds reverted retest: widgets/app_kit_view_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~7 -8: Section 1 - Tests with workarounds reverted retest: widgets/back_button_listener_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~8 -8: Section 1 - Tests with workarounds reverted retest: widgets/box_scroll_view_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~9 -8: Section 1 - Tests with workarounds reverted retest: widgets/context_action_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~10 -8: Section 1 - Tests with workarounds reverted retest: widgets/default_selection_style_test.dart
+  Skip: moved to timeout_tests_test.dart
+00:25 +17 ~11 -8: Section 1 - Tests with workarounds reverted retest: widgets/default_text_editing_shortcuts_test.dart
+[METRIC] script=retest/widgets/default_text_editing_shortcuts_test.dart sourceBytes=38581 sourceChars=38581 bundleJsonBytes=467959 clearMs=19 readMs=0 bundleMs=23 httpMs=426 totalMs=470 status=success httpStatus=200 outputLines=0 frameworkErrors=4
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/default_text_editing_shortcuts_test.dart (4 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedI…
+       Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedI…
+       Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedI…
+       Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedI…
+00:26 +17 ~11 -9: Section 1 - Tests with workarounds reverted retest: widgets/default_text_editing_shortcuts_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' is not a subtype of type 'Intent' in type cast; Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' is not a subtype of type 'Intent' in type cast; Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' is not a subtype of type 'Intent' in type cast; Runtime Error: Native error during default bridged constructor for 'Shortcuts': Argument Error: Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' is not a subtype of type 'Intent' in type cast
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 303:7   main.<fn>.<fn>
+  
+00:26 +17 ~11 -9: Section 1 - Tests with workarounds reverted retest: widgets/live_text_input_status_test.dart
+[METRIC] script=retest/widgets/live_text_input_status_test.dart sourceBytes=48469 sourceChars=46799 bundleJsonBytes=483460 clearMs=5 readMs=1 bundleMs=42 httpMs=485 totalMs=535 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+00:26 +18 ~11 -9: Section 1 - Tests with workarounds reverted retest: widgets/lock_state_test.dart
+[METRIC] script=retest/widgets/lock_state_test.dart sourceBytes=49891 sourceChars=48235 bundleJsonBytes=488122 clearMs=2 readMs=1 bundleMs=29 httpMs=509 totalMs=542 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:27 +19 ~11 -9: Section 1 - Tests with workarounds reverted retest: widgets/nested_scroll_view_state_test.dart
+[METRIC] script=retest/widgets/nested_scroll_view_state_test.dart sourceBytes=55662 sourceChars=54210 bundleJsonBytes=525141 clearMs=27 readMs=1 bundleMs=33 httpMs=480 totalMs=542 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:27 +20 ~11 -9: Section 1 - Tests with workarounds reverted retest: widgets/next_focus_intent_test.dart
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceBytes=50650 sourceChars=49030 bundleJsonBytes=470957 clearMs=28 readMs=1 bundleMs=24 httpMs=323 totalMs=377 status=success httpStatus=200 outputLines=17 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/next_focus_intent_test.dart (1 error(s)):
+       Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to…
+00:28 +20 ~11 -10: Section 1 - Tests with workarounds reverted retest: widgets/next_focus_intent_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to "find" resolved to "Intent": either a non-Intent generic type argument or an example intent derived from Intent must be specified. Intent may be used as the generic type as long as the optional "intent" argument is passed.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 331:7   main.<fn>.<fn>
+  
+00:28 +20 ~11 -10: Section 1 - Tests with workarounds reverted retest: widgets/object_key_test.dart
+[METRIC] script=retest/widgets/object_key_test.dart sourceBytes=49180 sourceChars=47530 bundleJsonBytes=472940 clearMs=17 readMs=1 bundleMs=45 httpMs=330 totalMs=394 status=success httpStatus=200 outputLines=26 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/object_key_test.dart (1 error(s)):
+       Runtime Error: Undefined variable: identityHashCode
+00:28 +20 ~11 -11: Section 1 - Tests with workarounds reverted retest: widgets/object_key_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: identityHashCode
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 338:7   main.<fn>.<fn>
+  
+00:28 +20 ~11 -11: Section 1 - Tests with workarounds reverted retest: widgets/raw_dialog_route_test.dart
+[METRIC] script=retest/widgets/raw_dialog_route_test.dart sourceBytes=59662 sourceChars=59630 bundleJsonBytes=615746 clearMs=3 readMs=1 bundleMs=32 httpMs=576 totalMs=614 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:29 +21 ~11 -11: Section 1 - Tests with workarounds reverted retest: widgets/raw_keyboard_listener_test.dart
+[METRIC] script=retest/widgets/raw_keyboard_listener_test.dart sourceBytes=64612 sourceChars=64572 bundleJsonBytes=731665 clearMs=3 readMs=1 bundleMs=38 httpMs=133 totalMs=177 status=error httpStatus=400 outputLines=42 frameworkErrors=0
+00:29 +21 ~11 -12: Section 1 - Tests with workarounds reverted retest: widgets/raw_keyboard_listener_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined variable: RawKeyboardListener
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 352:7   main.<fn>.<fn>
+  
+00:29 +21 ~11 -12: Section 1 - Tests with workarounds reverted retest: widgets/raw_menu_overlay_info_test.dart
+[METRIC] script=retest/widgets/raw_menu_overlay_info_test.dart sourceBytes=31347 sourceChars=30753 bundleJsonBytes=345476 clearMs=2 readMs=1 bundleMs=17 httpMs=242 totalMs=264 status=success httpStatus=200 outputLines=23 frameworkErrors=0
+00:29 +22 ~11 -12: Section 1 - Tests with workarounds reverted retest: widgets/raw_radio_test.dart
+[METRIC] script=retest/widgets/raw_radio_test.dart sourceBytes=46987 sourceChars=46879 bundleJsonBytes=488712 clearMs=2 readMs=1 bundleMs=50 httpMs=475 totalMs=530 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/raw_radio_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed as…
+00:30 +22 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/raw_radio_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed assertion: line 58 pos 15: '!enabled || groupRegistry != null': an enabled raw radio must have a registry
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_retest_test.dart 26:3    expectSuccess
+  test/generator_interpreter_retest_test.dart 366:7   main.<fn>.<fn>
+  
+00:30 +22 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/redo_text_intent_test.dart
+[METRIC] script=retest/widgets/redo_text_intent_test.dart sourceBytes=57893 sourceChars=56759 bundleJsonBytes=706451 clearMs=71 readMs=1 bundleMs=57 httpMs=209 totalMs=340 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:30 +23 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_delegate_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_delegate_test.dart sourceBytes=69108 sourceChars=67980 bundleJsonBytes=764608 clearMs=2 readMs=1 bundleMs=43 httpMs=183 totalMs=230 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:30 +24 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_linux_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_linux_test.dart sourceBytes=64203 sourceChars=63172 bundleJsonBytes=750104 clearMs=2 readMs=1 bundleMs=41 httpMs=219 totalMs=265 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:30 +25 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_mac_o_s_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_mac_o_s_test.dart sourceBytes=73966 sourceChars=72928 bundleJsonBytes=830338 clearMs=45 readMs=1 bundleMs=46 httpMs=183 totalMs=276 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:31 +26 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_test.dart sourceBytes=98582 sourceChars=96080 bundleJsonBytes=1177415 clearMs=2 readMs=1 bundleMs=87 httpMs=189 totalMs=281 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:31 +27 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_controller_win32_test.dart
+[METRIC] script=retest/widgets/regular_window_controller_win32_test.dart sourceBytes=57827 sourceChars=56775 bundleJsonBytes=734414 clearMs=2 readMs=1 bundleMs=39 httpMs=200 totalMs=244 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:31 +28 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/regular_window_test.dart
+[METRIC] script=retest/widgets/regular_window_test.dart sourceBytes=54650 sourceChars=53604 bundleJsonBytes=698386 clearMs=2 readMs=1 bundleMs=32 httpMs=186 totalMs=223 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:31 +29 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/render_abstract_layout_builder_mixin_test.dart
+[METRIC] script=retest/widgets/render_abstract_layout_builder_mixin_test.dart sourceBytes=43817 sourceChars=42352 bundleJsonBytes=486284 clearMs=2 readMs=1 bundleMs=33 httpMs=239 totalMs=277 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:32 +30 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/render_nested_scroll_view_viewport_test.dart
+[METRIC] script=retest/widgets/render_nested_scroll_view_viewport_test.dart sourceBytes=10006 sourceChars=10006 bundleJsonBytes=91599 clearMs=3 readMs=0 bundleMs=5 httpMs=107 totalMs=116 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+00:32 +31 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/render_tap_region_surface_test.dart
+[METRIC] script=retest/widgets/render_tap_region_surface_test.dart sourceBytes=40017 sourceChars=38539 bundleJsonBytes=455349 clearMs=2 readMs=1 bundleMs=21 httpMs=123 totalMs=149 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:32 +32 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/replace_text_intent_test.dart
+[METRIC] script=retest/widgets/replace_text_intent_test.dart sourceBytes=59816 sourceChars=57840 bundleJsonBytes=596992 clearMs=2 readMs=1 bundleMs=46 httpMs=192 totalMs=243 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:32 +33 ~11 -13: Section 1 - Tests with workarounds reverted retest: widgets/request_focus_action_test.dart
+[METRIC] script=retest/widgets/request_focus_action_test.dart sourceBytes=51653 sourceChars=49789 bundleJsonBytes=512189 clearMs=2 readMs=1 bundleMs=25 httpMs=169 totalMs=199 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:32 +34 ~11 -13: (tearDownAll)
+00:33 +34 ~11 -13: Some tests failed.
