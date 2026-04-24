@@ -689,18 +689,18 @@ Files that may have been replaced with fake demos. Need verification and restora
 | 454 | widgets/widget_order_traversal_policy_test.dart | 46 | 935 | fake | fixed |
 | 455 | widgets/widgets_binding_observer_test.dart | 46 | 940 | fake | fixed |
 | 456 | widgets/widgets_binding_test.dart | 46 | 922 | fake | fixed |
-| 457 | widgets/widget_state_border_side_test.dart | 46 | 926 | fake | |
-| 458 | widgets/widget_state_color_test.dart | 46 | 910 | fake | |
-| 459 | widgets/widget_state_mapper_test.dart | 46 | 917 | fake | |
-| 460 | widgets/widget_state_mouse_cursor_test.dart | 46 | 929 | fake | |
+| 457 | widgets/widget_state_border_side_test.dart | 46 | 926 | fake | fixed |
+| 458 | widgets/widget_state_color_test.dart | 46 | 910 | fake | fixed |
+| 459 | widgets/widget_state_mapper_test.dart | 46 | 917 | fake | fixed |
+| 460 | widgets/widget_state_mouse_cursor_test.dart | 46 | 929 | fake | fixed |
 
 ## Batch 47
 
 | # | Filename | Batch | Size | Verified | Fixed |
 |---|----------|-------|------|----------|-------|
-| 461 | widgets/widget_state_outlined_border_test.dart | 47 | 938 | fake | |
-| 462 | widgets/widget_state_property_all_test.dart | 47 | 941 | fake | |
-| 463 | widgets/widget_states_constraint_test.dart | 47 | 931 | fake | |
+| 461 | widgets/widget_state_outlined_border_test.dart | 47 | 938 | fake | fixed |
+| 462 | widgets/widget_state_property_all_test.dart | 47 | 941 | fake | fixed |
+| 463 | widgets/widget_states_constraint_test.dart | 47 | 931 | fake | fixed |
 | 464 | widgets/widget_state_test.dart | 47 | 920 | fake | |
 | 465 | widgets/widget_state_text_style_test.dart | 47 | 923 | fake | |
 | 466 | widgets/widget_test.dart | 47 | 914 | fake | |
