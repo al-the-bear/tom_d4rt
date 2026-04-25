@@ -24,6 +24,13 @@ d4rtgen:
     - SingleChildLayoutDelegate
     - SliverPersistentHeaderDelegate
     - DataTableSource
+    # GEN-104: bucket #3 — generic-type-param subclass coercion.
+    # TransitionDelegate has a single abstract `resolve` method and a non-bounded
+    # type param, so the auto-proxy compiles cleanly. ParentDataWidget needs a
+    # super-constructor `child` argument and ThemeExtension is F-bounded
+    # (`T extends ThemeExtension<T>`); both fall out of the auto-proxy template
+    # and are deferred to a follow-up cluster.
+    - TransitionDelegate
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

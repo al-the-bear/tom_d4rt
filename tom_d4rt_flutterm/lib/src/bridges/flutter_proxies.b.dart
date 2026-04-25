@@ -439,6 +439,26 @@ class D4rtDataTableSource extends DataTableSource {
 
 }
 
+/// D4rt proxy for [TransitionDelegate].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [TransitionDelegate] via named
+/// function parameters.
+class D4rtTransitionDelegate<T> extends TransitionDelegate<T> {
+  /// Callback for [TransitionDelegate.resolve].
+  final Iterable<RouteTransitionRecord> Function({required List<RouteTransitionRecord> newPageRouteHistory, required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute, required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes}) onResolve;
+
+  /// Creates a [D4rtTransitionDelegate] with callback implementations.
+  D4rtTransitionDelegate({
+    required this.onResolve,
+  });
+
+  @override
+  Iterable<RouteTransitionRecord> resolve({required List<RouteTransitionRecord> newPageRouteHistory, required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute, required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes}) =>
+      onResolve(newPageRouteHistory: newPageRouteHistory, locationToExitingPageRoute: locationToExitingPageRoute, pageRouteToPagelessRoutes: pageRouteToPagelessRoutes);
+
+}
+
 // =========================================================================
 // Proxy Factory Registration (GEN-092)
 // =========================================================================
@@ -528,7 +548,7 @@ void registerProxyFactories() {
 
   // Register factory for CustomClipper
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
-    return D4rtCustomClipper(
+    return D4rtCustomClipper<dynamic>(
       onGetClip: (Size size) {
         final method = instance.klass.findInstanceMethod('getClip');
         if (method != null) {
@@ -939,6 +959,20 @@ void registerProxyFactories() {
         throw StateError('Interpreted class ${instance.klass.name} does not implement hasListeners');
           }
           : null,
+    );
+  });
+
+  // Register factory for TransitionDelegate
+  D4.registerInterfaceProxy('TransitionDelegate', (visitor, instance) {
+    return D4rtTransitionDelegate<dynamic>(
+      onResolve: ({required List<RouteTransitionRecord> newPageRouteHistory, required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute, required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes}) {
+        final method = instance.klass.findInstanceMethod('resolve');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [], {'newPageRouteHistory': newPageRouteHistory, 'locationToExitingPageRoute': locationToExitingPageRoute, 'pageRouteToPagelessRoutes': pageRouteToPagelessRoutes});
+           return D4.extractBridgedArg<Iterable<RouteTransitionRecord>>(result, 'resolve');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement resolve');
+      },
     );
   });
 

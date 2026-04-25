@@ -816,7 +816,14 @@ void _generateProxyFactoryRegistration(
       "  D4.registerInterfaceProxy('${proxy.className}', "
       '(visitor, instance) {',
     );
-    buffer.writeln('    return ${proxy.proxyName}(');
+    // GEN-104: emit explicit <dynamic, ...> type args for generic proxies so
+    // F-bounded type parameters (e.g. `ThemeExtension<T extends
+    // ThemeExtension<T>>`) compile. Without this Dart's type inference picks
+    // `Object?` which then fails the recursive bound check.
+    final typeArgList = proxy.typeParameterNames.isEmpty
+        ? ''
+        : '<${proxy.typeParameterNames.map((_) => 'dynamic').join(', ')}>';
+    buffer.writeln('    return ${proxy.proxyName}$typeArgList(');
 
     // Abstract methods — always provide a callback
     for (final method in proxy.abstractMethods) {

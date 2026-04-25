@@ -954,6 +954,125 @@ All 5 target scripts pass individually via
 
 ---
 
+### [X] Fixed (14, GEN-104) — `TransitionDelegate` subclass coercion at native bridge boundary
+
+**Symptom** (1 script in the 20260426-1838 run, present in both
+`gii` and `hardly_relevant_5` suites)
+
+```
+Argument Error: Invalid parameter "transitionDelegate":
+  expected TransitionDelegate<dynamic>, got
+  InterpretedInstance(_InstantTransitionDelegate)
+```
+
+The script declared
+`class _InstantTransitionDelegate extends TransitionDelegate<dynamic>`
+and overrode the single abstract `resolve()` method. When that
+instance was passed into a Flutter API that demanded a real
+`TransitionDelegate`, the bridge's argument coercion couldn't
+unwrap it — there was no native-proxy factory registered for
+`TransitionDelegate`, so the `extractBridgedArg` chain fell
+through to the generic wrapper which the native side rejected.
+
+**Root cause**
+
+`TransitionDelegate` is an abstract base used as a strategy
+object by the Flutter `Navigator` machinery. Like the other
+abstract delegate classes already covered in cluster 9 (e.g.
+`CustomPainter`, `FlowDelegate`), it needs an auto-generated
+proxy emitted into `flutter_proxies.b.dart` so
+`D4.registerInterfaceProxy('TransitionDelegate', …)` can wrap
+an `InterpretedInstance` as a real subclass. Bucket #3 of the
+failure analysis flagged the missing entry; without it, every
+user subclass tripped the bridge boundary check.
+
+A second, smaller issue surfaced when extending the proxy
+allowlist: the proxy generator was emitting
+
+```dart
+return D4rtTransitionDelegate(onResolve: …);
+```
+
+without explicit type arguments. For a non-bounded type
+parameter Dart's inference falls back to `Object?`, which is
+fine here, but the same code path would fail on F-bounded
+generics like `ThemeExtension<T extends ThemeExtension<T>>`
+because `Object?` doesn't satisfy the recursive bound. The
+generator should always emit `<dynamic, …>` at factory call
+sites.
+
+**Fix (GEN-104)**
+
+Two scoped, generator-only changes:
+
+1. `tom_d4rt_flutterm/buildkit.yaml` — add `TransitionDelegate`
+   to `proxyClasses:`, alongside `CustomPainter`,
+   `FlowDelegate`, `MultiChildLayoutDelegate`,
+   `SingleChildLayoutDelegate`,
+   `SliverPersistentHeaderDelegate`, `DataTableSource`. Comment
+   above the new entry records the deferred siblings:
+   `ParentDataWidget` (needs a super-constructor `child`
+   pass-through that the auto-proxy template doesn't emit) and
+   `ThemeExtension` (F-bounded generic that doesn't accept
+   `dynamic` as a type argument). Both are tracked for a
+   follow-up cluster.
+
+2. `tom_d4rt_generator/lib/src/proxy_generator.dart` —
+   in `_generateProxyFactoryRegistration`, emit explicit
+   `<dynamic, …>` type arguments at the proxy factory call
+   site:
+
+   ```dart
+   final typeArgList = proxy.typeParameterNames.isEmpty
+       ? ''
+       : '<${proxy.typeParameterNames.map((_) => 'dynamic').join(', ')}>';
+   buffer.writeln('    return ${proxy.proxyName}$typeArgList(');
+   ```
+
+   For `TransitionDelegate<T>` this becomes
+   `return D4rtTransitionDelegate<dynamic>(...)`. The change is
+   no-op for already-passing non-generic proxies, and unblocks
+   the F-bound case once the deferred items above are
+   generalised.
+
+Both edits are pure generator changes; the `tom_d4rt` ↔
+`tom_d4rt_ast` interpreter mirror is unaffected.
+
+**Representative script**
+
+- `widgets/transition_delegate_test.dart` (gii idx 19, also
+  present in `hardly_relevant_5`)
+
+**Regression check** (post-fix)
+
+- gii:                 57/1/25    (+1 vs cluster-13 baseline 56/1/26)
+- essential:           108/0/0    (unchanged)
+- important:           163/5/1    (unchanged)
+- secondary:           612/40/2   (unchanged)
+- hardly_relevant_2:   203/0/0    (unchanged)
+- hardly_relevant_4:   227/0/0    (unchanged)
+- hardly_relevant_5:   227/0/3    (+1 pass for transition_delegate_test; the 3 remaining failures are pre-existing — `root_element_mixin_test`, `widget_state_mapper_test`, `widget_state_test` — unrelated to this cluster)
+
+`transition_delegate_test` passes individually via
+`flutter test --plain-name`. No regressions in any suite.
+
+**Deferred follow-ups (still in bucket #3)**
+
+- `ParentDataWidget` — auto-proxy template needs a
+  super-constructor pass-through for the required `child`
+  argument.
+- `ThemeExtension<T extends ThemeExtension<T>>` — F-bound
+  rejects `dynamic`; needs a concrete-type-arg strategy or a
+  reified-parameter proxy.
+- `RenderBox` — surface area too large for the auto-proxy
+  template; needs a hand-written `D4UserBridge` or a curated
+  abstract-method subset.
+- `Intent` (zero abstract methods) — proxy generator skips
+  classes without abstract methods; needs a marker-class proxy
+  path so any subclass can pass the bridge boundary by identity.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**
