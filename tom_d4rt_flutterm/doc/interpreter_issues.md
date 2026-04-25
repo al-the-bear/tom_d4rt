@@ -2294,6 +2294,96 @@ No bridge regeneration is required — the generator is unchanged. The fix is a 
 
 ---
 
+### [X] Fixed (26) — Section Q heterogeneous failures: `identityHashCode`, custom enum getters via prefix-matched BridgedClass, demo widget bug, test-app build timeout (Section Q)
+
+**Resolution:** Three sub-clusters carved out of `issue_analysis.md`
+Section Q ("Other single-script failures") plus a test-harness
+adjustment to absorb the slightly heavier widget builds the fixes
+unblock.
+
+- **26a — `identityHashCode` missing from stdlib.** Multiple scripts
+  call the top-level `identityHashCode(o)` (counterpart to the already
+  bridged `identical`). Added a `NativeFunction` definition next to
+  `identical` in both `tom_d4rt/lib/src/stdlib/core.dart` and
+  `tom_d4rt_ast/lib/src/runtime/stdlib/core.dart` (delegates to
+  `dart:core` `identityHashCode`). Affected scripts: `object_key_test`
+  among others.
+
+- **26b — Custom enum getters (`KeyEventType.label`) lost when the
+  G-DCLI-05 prefix match in `Environment.toBridgedClass` wraps a
+  native enum under an unrelated `BridgedClass`.** When the script
+  reads `ui.KeyEventType.down.label`, the underlying value reaches
+  `visitPropertyAccess`/`visitPrefixedIdentifier` as a
+  `BridgedInstance` whose `bridgedClass` is `Key` (because
+  `'KeyEventType'.startsWith('Key')` triggered a name-prefix fallback
+  in the env lookup), so the `Key` BridgedClass has no `label` getter
+  and the access throws `Undefined property or method 'label' on
+  bridged instance of 'Key'.`. Fix: in the
+  `bridgedInstance.nativeObject is Enum` branch of both
+  `visitPropertyAccess` and `visitPrefixedIdentifier`, look the native
+  enum value up via `globalEnvironment.getBridgedEnumValue(enumObj)`
+  and dispatch through `BridgedEnumValue.get(propertyName)` so custom
+  getters registered on the `BridgedEnumDefinition` (e.g.
+  `KeyEventType.label`) resolve. Crucially the existing fast-path
+  switch (`name`/`index`/`hashCode`/`runtimeType`/`toString`) is kept
+  **first** to keep hot enum-property access free of the O(N·M)
+  `getBridgedEnumValue` walk; the `getBridgedEnumValue` fallback is
+  only entered for unknown properties.
+
+  Mirrored across all four call sites:
+  - `tom_d4rt/lib/src/interpreter_visitor.dart` — `visitPropertyAccess`
+    and `visitPrefixedIdentifier` enum-fallback branches.
+  - `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` —
+    `visitSPropertyAccess` and `visitSPrefixedIdentifier` enum-fallback
+    branches.
+
+  Affected scripts: `dart_ui/key_event_type_test.dart`.
+
+- **26c — `popup_menu_position_test` demo bug.** The script passed
+  both a `child:` widget and an `icon:` widget to a `PopupMenuButton`,
+  which Flutter rejects. Removed the conflicting `icon:` argument from
+  `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/retest/material/popup_menu_position_test.dart`.
+  This is a script-side fix only.
+
+- **Test-app build timeout bumped from 10s → 30s.** Once 26a and 26b
+  fixed the early aborts, scripts like `key_event_type_test` and
+  `object_key_test` now run their full StatefulWidget builds, which
+  for the heaviest demos legitimately need >10s under the interpreter.
+  Bumped the build-completer timeout in
+  `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/lib/main.dart` to
+  `Duration(seconds: 30)` to give comfortable headroom; the actual
+  observed completion times for the cluster-26 scripts are 1–1.5s.
+
+**Verification (per-script, with `D4RT_SKIP_BRIDGE_REGEN=1`)**
+
+- `retest/dart_ui/key_event_type_test.dart` —
+  `httpMs=738 totalMs=1098 frameworkErrors=0 status=success` (was
+  `frameworkErrors=1, Undefined property or method 'label' on bridged
+  instance of 'Key'.`).
+- `retest/widgets/object_key_test.dart` —
+  `httpMs=831 totalMs=1181 frameworkErrors=0 status=success` (was
+  `frameworkErrors=1, identityHashCode not defined`).
+- `retest/material/popup_menu_position_test.dart` —
+  `httpMs=1135 totalMs=1463 frameworkErrors=0 status=success` (was
+  `frameworkErrors=1, both child and icon arguments`).
+
+**Regression check** (post-fix vs cluster-25 reverted baseline)
+
+- gii:        +62 ~1 -20 (was +53 ~1 -29 — **+9 pass, -9 fail**).
+- essential:  +108 ~0 (unchanged).
+- important:  +164 ~5 (unchanged).
+- secondary:  +614 ~40 (no flakiness this run; unchanged at the suite
+  level).
+- retest:     +39 ~11 -8 (was +34 ~11 -13 — **+5 pass, -5 fail**).
+
+Total: **+14 tests** moved from fail → pass across gii and retest with
+zero regressions. Section Q's three sub-cluster items are closed; the
+remaining Section Q items (e.g. `raw_radio_test` with
+`!enabled || groupRegistry != null`) are framework-side or
+script-side residuals tracked separately.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

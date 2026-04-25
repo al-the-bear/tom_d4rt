@@ -548,21 +548,32 @@ The fix has three parts: (1) register `Intent` and `ThemeExtension` interface pr
 
 ### Q. Other single-script failures
 
-| Script | Message | Kind |
-|---|---|---|
-| `widgets/window_scope_test.dart` | `Assertion failed: No _DemoWindowScope found in context` | demo harness bug — missing `_DemoWindowScope` wrapper |
-| `widgets/render_custom_multi_child_layout_box_test.dart` | `Unsupported operator (*) for types null and int; childSemantics.renderObject._needsLayout is not true` | layout-phase ordering |
-| `widgets/render_custom_paint_test.dart` | `Build scheduled during frame` in `State.setState` | demo: `setState` called inside `build` / frame |
-| `widgets/route_information_reporting_type_test.dart` | `Switch expression was not exhaustive for value: RouteInformationReportingType.navigate` | interpreter exhaustiveness check on enum |
-| `widgets/render_object_element_test.dart` | see E above | — |
-| `dart_ui/key_event_type_test.dart` | `Undefined property or method 'label' on bridged instance of 'Key'.` | bridge gap on `KeyEvent.label` |
-| `material/button_bar_theme_test.dart` | (same error as toggle_buttons — C) | C |
-| `material/gapped_range_slider_track_shape_test.dart` | (retest, C-family) | C |
-| `material/popup_menu_position_test.dart` | `You can only pass [child] or [icon], not both` | demo bug |
-| `painting/axis_direction_test.dart` | retest — surfaces bucket C/B | re-classify in follow-up |
-| `widgets/object_key_test.dart` | `Undefined variable: identityHashCode` | stdlib gap |
-| `widgets/raw_keyboard_listener_test.dart` | `Undefined variable: RawKeyboardListener` | bridge gap (deprecated API; needs registration) |
-| `widgets/raw_radio_test.dart` (retest) | nested factory assertion | B + assertion in RawRadio ctor |
+> **Status: partially resolved by cluster 26 (2026-04-25).** Three
+> sub-clusters in this section have been fixed:
+> - `dart_ui/key_event_type_test.dart` (custom enum getter via
+>   prefix-matched BridgedClass — 26b)
+> - `widgets/object_key_test.dart` (`identityHashCode` stdlib gap — 26a)
+> - `material/popup_menu_position_test.dart` (script-side demo bug — 26c)
+>
+> See **Cluster 26** in `tom_d4rt_flutterm/doc/interpreter_issues.md`
+> for the root-cause analyses and fix narrative. The remaining rows
+> below are still open.
+
+| Script | Message | Kind | Status |
+|---|---|---|---|
+| `widgets/window_scope_test.dart` | `Assertion failed: No _DemoWindowScope found in context` | demo harness bug — missing `_DemoWindowScope` wrapper | open |
+| `widgets/render_custom_multi_child_layout_box_test.dart` | `Unsupported operator (*) for types null and int; childSemantics.renderObject._needsLayout is not true` | layout-phase ordering | open |
+| `widgets/render_custom_paint_test.dart` | `Build scheduled during frame` in `State.setState` | demo: `setState` called inside `build` / frame | open |
+| `widgets/route_information_reporting_type_test.dart` | `Switch expression was not exhaustive for value: RouteInformationReportingType.navigate` | interpreter exhaustiveness check on enum | open |
+| `widgets/render_object_element_test.dart` | see E above | — | open |
+| `dart_ui/key_event_type_test.dart` | `Undefined property or method 'label' on bridged instance of 'Key'.` | bridge gap on `KeyEvent.label` | **fixed (26b)** |
+| `material/button_bar_theme_test.dart` | (same error as toggle_buttons — C) | C | open |
+| `material/gapped_range_slider_track_shape_test.dart` | (retest, C-family) | C | open |
+| `material/popup_menu_position_test.dart` | `You can only pass [child] or [icon], not both` | demo bug | **fixed (26c)** |
+| `painting/axis_direction_test.dart` | retest — surfaces bucket C/B | re-classify in follow-up | open |
+| `widgets/object_key_test.dart` | `Undefined variable: identityHashCode` | stdlib gap | **fixed (26a)** |
+| `widgets/raw_keyboard_listener_test.dart` | `Undefined variable: RawKeyboardListener` | bridge gap (deprecated API; needs registration) | open |
+| `widgets/raw_radio_test.dart` (retest) | nested factory assertion | B + assertion in RawRadio ctor | open |
 
 ---
 
