@@ -2294,9 +2294,9 @@ No bridge regeneration is required — the generator is unchanged. The fix is a 
 
 ---
 
-### [X] Fixed (26) — Section Q heterogeneous failures: `identityHashCode`, custom enum getters via prefix-matched BridgedClass, demo widget bug, test-app build timeout (Section Q)
+### [X] Fixed (26) — Section Q heterogeneous failures: `identityHashCode`, custom enum getters via prefix-matched BridgedClass, demo widget bug, test-app build timeout, asymmetric enum `==` in switch (Section Q)
 
-**Resolution:** Three sub-clusters carved out of `issue_analysis.md`
+**Resolution:** Four sub-clusters carved out of `issue_analysis.md`
 Section Q ("Other single-script failures") plus a test-harness
 adjustment to absorb the slightly heavier widget builds the fixes
 unblock.
@@ -2354,6 +2354,30 @@ unblock.
   `Duration(seconds: 30)` to give comfortable headroom; the actual
   observed completion times for the cluster-26 scripts are 1–1.5s.
 
+- **26d — Asymmetric `==` between native Dart enum and
+  `BridgedEnumValue` causing switch-case "not exhaustive" errors.**
+  When a script's `_mode` field holds a value derived from one side
+  of the boundary (native enum) and the case constant resolves to
+  the other (`BridgedEnumValue`), `nativeEnum == bridgedEnumValue`
+  returns false because the native Dart enum's `operator==` doesn't
+  know about `BridgedEnumValue`; only the BridgedEnumValue side
+  implements cross-type equality. Result: every case fell through
+  and `visitSwitchExpression` threw
+  `Switch expression was not exhaustive for value: …`. Fix: at all
+  three constant-pattern match sites (legacy `SwitchCase`, statement
+  `ConstantPattern`, `_matchAndBind` `ConstantPattern`) try the
+  comparison both directions before declaring no match —
+  `switchValue == caseValue || (caseValue != null && caseValue == switchValue)`.
+  Mirrored across `tom_d4rt/lib/src/interpreter_visitor.dart` and
+  `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. The fix is
+  monotonic: it can only convert previously-unmatched cases into
+  matches, and for same-type comparisons the first half of the `||`
+  short-circuits exactly as before. Affected scripts:
+  `widgets/route_information_reporting_type_test.dart` (full build
+  reaches `+1: All tests passed!` post-fix; was
+  `Switch expression was not exhaustive for value:
+  RouteInformationReportingType.navigate`).
+
 **Verification (per-script, with `D4RT_SKIP_BRIDGE_REGEN=1`)**
 
 - `retest/dart_ui/key_event_type_test.dart` —
@@ -2366,6 +2390,11 @@ unblock.
 - `retest/material/popup_menu_position_test.dart` —
   `httpMs=1135 totalMs=1463 frameworkErrors=0 status=success` (was
   `frameworkErrors=1, both child and icon arguments`).
+- `widgets/route_information_reporting_type_test.dart` (in
+  `hardly_relevant_classes_5_test.dart`) — `frameworkErrors=0
+  status=success`, `+1: All tests passed!` (was `frameworkErrors=1,
+  Switch expression was not exhaustive for value:
+  RouteInformationReportingType.navigate`).
 
 **Regression check** (post-fix vs cluster-25 reverted baseline)
 
