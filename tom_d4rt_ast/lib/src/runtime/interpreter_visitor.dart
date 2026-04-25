@@ -1048,6 +1048,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               name: 'toString',
             );
         }
+        // Cluster-26 (Key.label dispatch): If a custom getter was registered
+        // on the BridgedEnumDefinition (e.g. KeyEventType.label), dispatch
+        // through the BridgedEnumValue. Only entered for unknown properties
+        // to keep built-in enum access on the fast path.
+        final bridgedEnumValue =
+            globalEnvironment.getBridgedEnumValue(enumObj);
+        if (bridgedEnumValue != null) {
+          try {
+            return bridgedEnumValue.get(memberName);
+          } on RuntimeD4rtException {
+            // Fall through to the "Undefined property" error below.
+          }
+        }
       }
 
       throw RuntimeD4rtException(
@@ -3303,12 +3316,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return targetValue.toString();
           default:
         }
-        // Use directly methods because we need the BridgedMethodCallable.
-        // Cluster 25: Method overrides take precedence over the generated
-        // bridged adapter (used to fix broken generic-method bridges like
-        // `ThemeData.extension<T>()` that ignore typeArgs).
-        final adapter = D4.findMethodOverride(bridgedClass.name, methodName) ??
-            bridgedClass.methods[methodName];
+        // Use directly methods because we need the BridgedMethodCallable
+        final adapter = bridgedClass.methods[methodName];
 
         if (adapter != null) {
           final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
@@ -3318,34 +3327,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final (positionalArgs, namedArgs) =
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
-          // Cluster 25: Evaluate the call's <T> arguments so adapters/overrides
-          // that need them (e.g. `ThemeData.extension<BrandTokens>()`) can
-          // consult the script-side InterpretedClass / BridgedClass key.
-          List<RuntimeType>? evaluatedTypeArguments;
-          final typeArgsNode = node.typeArguments;
-          if (typeArgsNode != null) {
-            evaluatedTypeArguments = typeArgsNode.arguments
-                .map((typeNode) => _resolveTypeAnnotation(typeNode))
-                .toList();
-          }
-
           try {
-            // Cluster 25: Wrap with withActiveVisitor so adapter-internal
-            // calls to D4.coerceList/coerceMap can resolve interface proxies
-            // (e.g. `theme.copyWith(extensions: [...])` where elements are
-            // script-side `BrandTokens extends ThemeExtension<BrandTokens>`).
-            // Without this, _activeVisitor is null inside coerceList and
-            // tryCreateInterfaceProxyWithVisitor is never called, leading to
-            // `InterpretedInstance is not a subtype of T` cast failures.
-            return D4.withActiveVisitor(
+            // Call the adapter with the native object
+            return adapter(
               this,
-              () => adapter(
-                this,
-                bridgedInstance.nativeObject,
-                positionalArgs,
-                namedArgs,
-                evaluatedTypeArguments,
-              ),
+              bridgedInstance.nativeObject,
+              positionalArgs,
+              namedArgs,
+              null,
             );
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
@@ -4515,6 +4504,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Fix I: Check if the nativeObject is actually an Enum
       if (bridgedInstance.nativeObject is Enum) {
         final enumObj = bridgedInstance.nativeObject as Enum;
+        // Fast path: built-in enum members. Keep this BEFORE the
+        // BridgedEnumValue lookup — the lookup is O(N*M) over all registered
+        // bridged enums and would dominate hot paths like `.name`/`.index`.
         switch (propertyName) {
           case 'name':
             return enumObj.name;
@@ -4530,6 +4522,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               arity: 0,
               name: 'toString',
             );
+        }
+        // Cluster-26 (Key.label dispatch): If the enum has a registered
+        // BridgedEnumValue, dispatch through it so custom getters (e.g.
+        // KeyEventType.label) registered on the BridgedEnumDefinition resolve.
+        // The G-DCLI-05 prefix match in toBridgedClass can otherwise wrap a
+        // native enum (KeyEventType) under an unrelated BridgedClass (Key).
+        final bridgedEnumValue =
+            globalEnvironment.getBridgedEnumValue(enumObj);
+        if (bridgedEnumValue != null) {
+          try {
+            return bridgedEnumValue.get(propertyName);
+          } on RuntimeD4rtException {
+            // Fall through to "Undefined property" error below.
+          }
         }
       }
 

@@ -119,5 +119,14 @@ class CoreStdlib {
           }
           return identical(arguments[0], arguments[1]);
         }, arity: 2, name: 'identical'));
+    environment.define(
+        'identityHashCode',
+        NativeFunction((visitor, arguments, namedArguments, typeArguments) {
+          if (arguments.length != 1) {
+            throw RuntimeD4rtException(
+                'identityHashCode requires one argument.');
+          }
+          return identityHashCode(arguments[0]);
+        }, arity: 1, name: 'identityHashCode'));
   }
 }

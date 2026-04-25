@@ -20,9 +20,7 @@ import 'package:flutter/material.dart'
         ButtonSegment,
         DropdownMenuEntry,
         DropdownMenuItem,
-        ScaffoldState,
-        ThemeData,
-        ThemeExtension;
+        ScaffoldState;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/rendering.dart'
     show
@@ -37,7 +35,6 @@ import 'package:flutter/widgets.dart'
         BuildContext,
         GlobalKey,
         InheritedWidget,
-        Intent,
         LeafRenderObjectWidget,
         MultiChildRenderObjectWidget,
         NavigatorState,
@@ -70,7 +67,6 @@ void registerD4rtRuntimeExtensions() {
   _registerTypeCoercions();
   _registerGenericConstructors();
   _registerSupplementaryMethods();
-  _registerMethodOverrides();
   _registerSupplementaryRelaxers();
   _registerGenericWidgetReCreators();
 }
@@ -234,38 +230,6 @@ void _registerInterfaceProxies() {
         key: _readKey(instance, visitor),
         child: _readChildWidget(instance, visitor) ??
             const _EmptyWidget());
-  });
-
-  // Cluster 25 (bucket #16): Intent is an abstract marker class with no
-  // abstract methods, so the proxy generator skips it (its skip rule
-  // requires at least one abstract / overridable member). Without a proxy,
-  // a script-side `class _MyIntent extends Intent { const _MyIntent(); }`
-  // produces an `InterpretedInstance` with `bridgedSuperclass = Intent`
-  // but `bridgedSuperObject = null` and no proxy factory, so coercion
-  // boundaries that expect `Intent` (e.g. `Shortcuts(shortcuts: <_, Intent>{})`)
-  // throw `InterpretedInstance is not a subtype of Intent` in `_coerceMapValue`.
-  // The proxy is purely a type-tag; Action lookup keys off `runtimeType`
-  // which still won't match the script class — but these visual-demo
-  // scripts don't exercise dispatch, only construction and rendering.
-  D4.registerInterfaceProxy('Intent', (visitor, instance) {
-    return _InterpretedIntent(visitor, instance);
-  });
-
-  // Cluster 25 (bucket #16): ThemeExtension's F-bounded generic
-  // (`T extends ThemeExtension<T>`) makes the auto-proxy template skip it,
-  // so a script-side `class BrandTokens extends ThemeExtension<BrandTokens>`
-  // has no native proxy. Coercion at `ThemeData.copyWith(extensions: ...)`
-  // (typed `List<ThemeExtension<ThemeExtension<dynamic>>>`) then fails
-  // with `InterpretedInstance is not a subtype of ThemeExtension<...>`.
-  //
-  // Proxy strategy: extend `ThemeExtension<dynamic>` (dynamic in a generic
-  // position is mutually assignable with any type arg in Dart's runtime
-  // type-test, so `_InterpretedThemeExtension is ThemeExtension<X>` is
-  // true for any X). Override `type` to use `instance.klass` as the
-  // extensions-map key so distinct script classes don't collide.
-  // `copyWith` and `lerp` delegate to the script methods.
-  D4.registerInterfaceProxy('ThemeExtension', (visitor, instance) {
-    return _InterpretedThemeExtension(visitor, instance);
   });
 }
 
@@ -1169,59 +1133,6 @@ void _registerSupplementaryMethods() {
 }
 
 // =============================================================================
-// Cluster 25: Method Overrides
-// =============================================================================
-
-/// Register method overrides that REPLACE the generated bridge adapters when
-/// the generator emits a broken or script-unaware implementation.
-void _registerMethodOverrides() {
-  // ---------------------------------------------------------------------------
-  // Cluster 25: ThemeData.extension<T>()
-  // ---------------------------------------------------------------------------
-  // The generated bridge adapter calls `t.extension()` with no type argument,
-  // which always returns null because `theme.extensions[ThemeExtension<dynamic>]`
-  // is not a registered key. Scripts using `theme.extension<BrandTokens>()!`
-  // therefore hit a null-bang error.
-  //
-  // The override consults `typeArgs[0]`:
-  //   • For script-side `BrandTokens extends ThemeExtension<BrandTokens>` the
-  //     `_InterpretedThemeExtension` proxy stores `_instance.klass` (an
-  //     InterpretedClass) as its `type` getter — so the lookup key is the
-  //     InterpretedClass itself.
-  //   • For native ThemeExtension subclasses the runtime stores the actual
-  //     Type as `extension.type` — so the lookup key is `bridgedClass.nativeType`.
-  //
-  // After the lookup we unwrap a `_InterpretedThemeExtension` proxy back to
-  // its underlying `InterpretedInstance` so the script gets a value typed as
-  // its own ThemeExtension subclass.
-  D4.registerMethodOverride('ThemeData', 'extension', (
-    visitor,
-    target,
-    positionalArgs,
-    namedArgs,
-    typeArgs,
-  ) {
-    final theme = target as ThemeData;
-    if (typeArgs == null || typeArgs.isEmpty) return null;
-    final typeArg = typeArgs[0];
-    Object? lookupKey;
-    if (typeArg is InterpretedClass) {
-      lookupKey = typeArg;
-    } else if (typeArg is BridgedClass) {
-      lookupKey = typeArg.nativeType;
-    } else {
-      return null;
-    }
-    final value = theme.extensions[lookupKey];
-    if (value == null) return null;
-    if (value is _InterpretedThemeExtension) {
-      return value._instance;
-    }
-    return value;
-  });
-}
-
-// =============================================================================
 // RC-8: Supplementary Relaxer Type Wrappers
 // =============================================================================
 
@@ -1731,105 +1642,5 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
       if (raw is bool) return raw;
     } catch (_) {}
     return false;
-  }
-}
-
-// =============================================================================
-// Cluster 25 (bucket #16): Intent + ThemeExtension proxies
-// =============================================================================
-//
-// Intent is an abstract marker class with no abstract members, so the
-// proxy generator skips it. ThemeExtension is F-bounded
-// (`T extends ThemeExtension<T>`), which the auto-proxy template can't
-// express. Both leave script subclasses without a native bridge target,
-// causing `InterpretedInstance is not a subtype of …` cast errors at
-// coercion boundaries. The proxies below are purely type-adapter layers:
-// they wrap an `InterpretedInstance` and expose the right native type
-// identity so `coerceList<Intent>` / `coerceMapValue<Intent>` /
-// `coerceList<ThemeExtension>` succeed.
-
-/// Native [Intent] backing an interpreted subclass. Acts as a passthrough
-/// type tag — Intent itself has no abstract methods.
-class _InterpretedIntent extends Intent {
-  _InterpretedIntent(this._visitor, this._instance);
-
-  // ignore: unused_field
-  final InterpreterVisitor _visitor;
-  // ignore: unused_field
-  final InterpretedInstance _instance;
-}
-
-/// Native [ThemeExtension] backing an interpreted subclass.
-///
-/// The bridge boundary expects raw `ThemeExtension`, which Dart expands
-/// to `ThemeExtension<ThemeExtension<dynamic>>` (one level of F-bound
-/// expansion + dynamic). To pass `proxy is ThemeExtension<ThemeExtension<dynamic>>`
-/// under Dart's invariant generics, the proxy must directly extend
-/// `ThemeExtension<ThemeExtension<dynamic>>` — `dynamic` in the inner
-/// type position makes this a valid F-bound (dynamic is mutually
-/// assignable with `ThemeExtension<dynamic>`).
-///
-/// The `type` getter is overridden to return the [InterpretedClass] so
-/// distinct script extensions (`BrandTokens`, `StatusTokens`, …) are
-/// stored under different keys in `ThemeData.extensions`. The bridge's
-/// own `theme.extension<T>()` adapter is unaware of this — that lookup
-/// is a separate concern; this fix targets only the construction-side
-/// cast error reported in cluster 25.
-///
-/// `copyWith()` and `lerp()` delegate to the script methods. The
-/// bridged-super dispatch relays named arguments at the call site; the
-/// proxy's no-arg signature here is just the minimum to satisfy
-/// Flutter's framework when it calls `copyWith()` directly without
-/// args (it doesn't, in normal `ThemeData` interpolation, but the
-/// override is required for the abstract-method check to be satisfied).
-class _InterpretedThemeExtension
-    extends ThemeExtension<_InterpretedThemeExtension> {
-  _InterpretedThemeExtension(this._visitor, this._instance);
-
-  final InterpreterVisitor _visitor;
-  final InterpretedInstance _instance;
-
-  /// Use the InterpretedClass as the unique key in
-  /// `ThemeData.extensions` so each script's ThemeExtension subclass
-  /// keeps its own slot. This allows `theme.extension<BrandTokens>()`
-  /// to find the right instance — the bridge's `extension<T>()` adapter
-  /// looks up `extensions[T]` where T is the script's InterpretedClass.
-  @override
-  Object get type => _instance.klass;
-
-  @override
-  _InterpretedThemeExtension copyWith() {
-    final method = _instance.klass.findInstanceMethod('copyWith');
-    if (method == null) return this;
-    final raw = method.bind(_instance).call(_visitor, const [], const {});
-    return _adaptResult(raw);
-  }
-
-  @override
-  _InterpretedThemeExtension lerp(
-      covariant _InterpretedThemeExtension? other, double t) {
-    final method = _instance.klass.findInstanceMethod('lerp');
-    if (method == null) return this;
-    // Unwrap a peer proxy back to its InterpretedInstance so the script
-    // sees a typed value of its own class rather than a foreign proxy.
-    final otherArg = other?._instance;
-    final raw = method.bind(_instance).call(_visitor, [otherArg, t], const {});
-    return _adaptResult(raw);
-  }
-
-  /// Re-wrap an interpreter return value so the framework sees a
-  /// proper `_InterpretedThemeExtension` result.
-  _InterpretedThemeExtension _adaptResult(Object? raw) {
-    if (raw is _InterpretedThemeExtension) return raw;
-    if (raw is BridgedInstance) {
-      final native = raw.nativeObject;
-      if (native is InterpretedInstance) {
-        return _InterpretedThemeExtension(_visitor, native);
-      }
-    }
-    if (raw is InterpretedInstance) {
-      return _InterpretedThemeExtension(_visitor, raw);
-    }
-    return this;
   }
 }

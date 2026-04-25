@@ -293,48 +293,6 @@ class D4 {
   }
 
   // ==========================================================================
-  // Cluster 25: Method Override Registry
-  // ==========================================================================
-
-  /// Method override adapters for bridged classes.
-  ///
-  /// Unlike supplementary methods (which fill gaps where no adapter exists),
-  /// method overrides REPLACE an existing bridged adapter when the generated
-  /// version is broken or needs script-aware behavior. They are checked
-  /// **before** the bridged adapter in instance-method dispatch.
-  ///
-  /// Used by [ThemeData.extension<T>()] in the flutterm bridge: the generated
-  /// adapter ignores typeArgs and calls `t.extension()` (no T), which always
-  /// returns null. The override consults `typeArgs[0]` (an InterpretedClass
-  /// for script-side ThemeExtension subclasses, or a BridgedClass for native
-  /// ones) to look up the correct entry in `theme.extensions`.
-  static final Map<String, Map<String, BridgedMethodAdapter>>
-      _methodOverrides = {};
-
-  /// Register a method override for a bridged class's instance method.
-  ///
-  /// [bridgedClassName] - The name of the bridged class.
-  /// [methodName] - The method name to override.
-  /// [adapter] - The replacement adapter (same signature as generated adapters).
-  static void registerMethodOverride(
-    String bridgedClassName,
-    String methodName,
-    BridgedMethodAdapter adapter,
-  ) {
-    _methodOverrides.putIfAbsent(bridgedClassName, () => {})[methodName] =
-        adapter;
-  }
-
-  /// Look up a method override for a bridged class's instance method.
-  /// Returns null if no override is registered.
-  static BridgedMethodAdapter? findMethodOverride(
-    String bridgedClassName,
-    String methodName,
-  ) {
-    return _methodOverrides[bridgedClassName]?[methodName];
-  }
-
-  // ==========================================================================
   // RC-8: Enum Static Getter Registry
   // ==========================================================================
 
