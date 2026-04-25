@@ -1,0 +1,788 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/hardly_relevant_classes_1_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Test App Health app is running
+00:11 +1: animation/ animation_behavior_test.dart
+[METRIC] script=animation/animation_behavior_test.dart sourceBytes=25739 sourceChars=25739 bundleJsonBytes=289166 clearMs=17 readMs=8 bundleMs=188 httpMs=825 totalMs=1042 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:12 +2: animation/ animation_eager_listener_mixin_test.dart
+[METRIC] script=animation/animation_eager_listener_mixin_test.dart sourceBytes=27347 sourceChars=27346 bundleJsonBytes=335842 clearMs=45 readMs=3 bundleMs=84 httpMs=606 totalMs=740 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:13 +3: animation/ animation_lazy_listener_mixin_test.dart
+[METRIC] script=animation/animation_lazy_listener_mixin_test.dart sourceBytes=34198 sourceChars=34198 bundleJsonBytes=402284 clearMs=3 readMs=1 bundleMs=56 httpMs=577 totalMs=639 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:14 +4: animation/ animation_local_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_listeners_mixin_test.dart sourceBytes=43581 sourceChars=43550 bundleJsonBytes=432776 clearMs=3 readMs=5 bundleMs=76 httpMs=751 totalMs=837 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:15 +5: animation/ animation_local_status_listeners_mixin_test.dart
+[METRIC] script=animation/animation_local_status_listeners_mixin_test.dart sourceBytes=45602 sourceChars=45571 bundleJsonBytes=436766 clearMs=23 readMs=6 bundleMs=67 httpMs=615 totalMs=713 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:15 +6: animation/ animation_status_test.dart
+[METRIC] script=animation/animation_status_test.dart sourceBytes=27233 sourceChars=27233 bundleJsonBytes=343974 clearMs=24 readMs=0 bundleMs=23 httpMs=650 totalMs=699 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:16 +7: animation/ catmull_rom_curve_test.dart
+[METRIC] script=animation/catmull_rom_curve_test.dart sourceBytes=43312 sourceChars=43295 bundleJsonBytes=399464 clearMs=73 readMs=1 bundleMs=27 httpMs=724 totalMs=826 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:17 +8: animation/ catmull_rom_spline_test.dart
+[METRIC] script=animation/catmull_rom_spline_test.dart sourceBytes=44843 sourceChars=44819 bundleJsonBytes=429291 clearMs=23 readMs=1 bundleMs=29 httpMs=660 totalMs=714 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +9: animation/ class_test.dart
+[METRIC] script=animation/class_test.dart sourceBytes=45240 sourceChars=45204 bundleJsonBytes=422856 clearMs=22 readMs=1 bundleMs=31 httpMs=519 totalMs=574 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:18 +10: animation/ color_tween_test.dart
+[METRIC] script=animation/color_tween_test.dart sourceBytes=42308 sourceChars=42279 bundleJsonBytes=529695 clearMs=26 readMs=1 bundleMs=48 httpMs=768 totalMs=844 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+00:19 +11: animation/ constant_tween_test.dart
+[METRIC] script=animation/constant_tween_test.dart sourceBytes=43636 sourceChars=43616 bundleJsonBytes=400638 clearMs=3 readMs=10 bundleMs=27 httpMs=847 totalMs=888 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:20 +12: animation/ cubic_test.dart
+[METRIC] script=animation/cubic_test.dart sourceBytes=3352 sourceChars=3352 bundleJsonBytes=49946 clearMs=24 readMs=1 bundleMs=4 httpMs=373 totalMs=402 status=success httpStatus=200 outputLines=31 frameworkErrors=0
+00:20 +13: animation/ curve2_d_sample_test.dart
+[METRIC] script=animation/curve2_d_sample_test.dart sourceBytes=47860 sourceChars=47840 bundleJsonBytes=460273 clearMs=3 readMs=1 bundleMs=29 httpMs=566 totalMs=601 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:21 +14: animation/ curve2_d_test.dart
+[METRIC] script=animation/curve2_d_test.dart sourceBytes=50456 sourceChars=40888 bundleJsonBytes=461526 clearMs=3 readMs=1 bundleMs=28 httpMs=673 totalMs=706 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:22 +15: animation/ curve_tween_test.dart
+[METRIC] script=animation/curve_tween_test.dart sourceBytes=55779 sourceChars=46097 bundleJsonBytes=511839 clearMs=42 readMs=1 bundleMs=42 httpMs=688 totalMs=773 status=success httpStatus=200 outputLines=237 frameworkErrors=0
+00:22 +16: animation/ curves_test.dart
+[METRIC] script=animation/curves_test.dart sourceBytes=3475 sourceChars=3475 bundleJsonBytes=44754 clearMs=28 readMs=0 bundleMs=18 httpMs=444 totalMs=492 status=success httpStatus=200 outputLines=70 frameworkErrors=0
+00:23 +17: animation/ elastic_in_curve_test.dart
+[METRIC] script=animation/elastic_in_curve_test.dart sourceBytes=54179 sourceChars=44327 bundleJsonBytes=493073 clearMs=4 readMs=1 bundleMs=38 httpMs=710 totalMs=755 status=success httpStatus=200 outputLines=252 frameworkErrors=0
+00:24 +18: animation/ elastic_in_out_curve_test.dart
+[METRIC] script=animation/elastic_in_out_curve_test.dart sourceBytes=56580 sourceChars=46327 bundleJsonBytes=523461 clearMs=51 readMs=1 bundleMs=30 httpMs=640 totalMs=724 status=success httpStatus=200 outputLines=243 frameworkErrors=0
+00:24 +19: animation/ elastic_out_curve_test.dart
+[METRIC] script=animation/elastic_out_curve_test.dart sourceBytes=60288 sourceChars=49513 bundleJsonBytes=554502 clearMs=3 readMs=1 bundleMs=31 httpMs=659 totalMs=696 status=success httpStatus=200 outputLines=248 frameworkErrors=0
+00:25 +20: animation/ flipped_curve_test.dart
+[METRIC] script=animation/flipped_curve_test.dart sourceBytes=55065 sourceChars=44585 bundleJsonBytes=507220 clearMs=2 readMs=1 bundleMs=29 httpMs=614 totalMs=648 status=success httpStatus=200 outputLines=236 frameworkErrors=0
+00:26 +21: animation/ int_tween_test.dart
+[METRIC] script=animation/int_tween_test.dart sourceBytes=53933 sourceChars=43827 bundleJsonBytes=496204 clearMs=2 readMs=1 bundleMs=28 httpMs=587 totalMs=620 status=success httpStatus=200 outputLines=271 frameworkErrors=0
+00:26 +22: animation/ interval_test.dart
+[METRIC] script=animation/interval_test.dart sourceBytes=48646 sourceChars=37930 bundleJsonBytes=441080 clearMs=3 readMs=1 bundleMs=29 httpMs=529 totalMs=564 status=success httpStatus=200 outputLines=250 frameworkErrors=0
+00:27 +23: animation/ parametric_curve_test.dart
+[METRIC] script=animation/parametric_curve_test.dart sourceBytes=48638 sourceChars=37481 bundleJsonBytes=435451 clearMs=3 readMs=1 bundleMs=78 httpMs=652 totalMs=735 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+00:28 +24: animation/ rect_tween_test.dart
+[METRIC] script=animation/rect_tween_test.dart sourceBytes=45969 sourceChars=35737 bundleJsonBytes=419217 clearMs=3 readMs=1 bundleMs=28 httpMs=491 totalMs=525 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:28 +25: animation/ reverse_tween_test.dart
+[METRIC] script=animation/reverse_tween_test.dart sourceBytes=46996 sourceChars=36500 bundleJsonBytes=424247 clearMs=3 readMs=1 bundleMs=47 httpMs=564 totalMs=616 status=success httpStatus=200 outputLines=230 frameworkErrors=0
+00:29 +26: animation/ saw_tooth_test.dart
+[METRIC] script=animation/saw_tooth_test.dart sourceBytes=41888 sourceChars=31353 bundleJsonBytes=367373 clearMs=2 readMs=1 bundleMs=28 httpMs=867 totalMs=899 status=success httpStatus=200 outputLines=264 frameworkErrors=0
+00:30 +27: animation/ size_tween_test.dart
+[METRIC] script=animation/size_tween_test.dart sourceBytes=45528 sourceChars=34449 bundleJsonBytes=431061 clearMs=2 readMs=1 bundleMs=23 httpMs=442 totalMs=470 status=success httpStatus=200 outputLines=233 frameworkErrors=0
+00:30 +28: animation/ split_test.dart
+[METRIC] script=animation/split_test.dart sourceBytes=45157 sourceChars=34495 bundleJsonBytes=398798 clearMs=2 readMs=1 bundleMs=20 httpMs=756 totalMs=780 status=success httpStatus=200 outputLines=216 frameworkErrors=0
+00:31 +29: animation/ step_tween_test.dart
+[METRIC] script=animation/step_tween_test.dart sourceBytes=39769 sourceChars=29243 bundleJsonBytes=349769 clearMs=2 readMs=1 bundleMs=19 httpMs=536 totalMs=560 status=success httpStatus=200 outputLines=247 frameworkErrors=0
+00:32 +30: animation/ three_point_cubic_test.dart
+[METRIC] script=animation/three_point_cubic_test.dart sourceBytes=43358 sourceChars=32796 bundleJsonBytes=383565 clearMs=2 readMs=1 bundleMs=18 httpMs=605 totalMs=628 status=success httpStatus=200 outputLines=257 frameworkErrors=0
+00:32 +31: animation/ threshold_test.dart
+[METRIC] script=animation/threshold_test.dart sourceBytes=43056 sourceChars=32188 bundleJsonBytes=372748 clearMs=2 readMs=1 bundleMs=23 httpMs=461 totalMs=489 status=success httpStatus=200 outputLines=246 frameworkErrors=0
+00:33 +32: cupertino/ class_test.dart
+[METRIC] script=cupertino/class_test.dart sourceBytes=4774 sourceChars=4774 bundleJsonBytes=61307 clearMs=50 readMs=0 bundleMs=4 httpMs=428 totalMs=483 status=success httpStatus=200 outputLines=39 frameworkErrors=0
+00:33 +33: cupertino/ cupertino_button_size_test.dart
+[METRIC] script=cupertino/cupertino_button_size_test.dart sourceBytes=33404 sourceChars=24908 bundleJsonBytes=260669 clearMs=2 readMs=1 bundleMs=21 httpMs=407 totalMs=431 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+00:34 +34: cupertino/ cupertino_desktop_text_selection_controls_test.dart
+[METRIC] script=cupertino/cupertino_desktop_text_selection_controls_test.dart sourceBytes=3954 sourceChars=3954 bundleJsonBytes=45488 clearMs=24 readMs=0 bundleMs=3 httpMs=366 totalMs=394 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:34 +35: cupertino/ cupertino_expansion_tile_test.dart
+[METRIC] script=cupertino/cupertino_expansion_tile_test.dart sourceBytes=3110 sourceChars=3110 bundleJsonBytes=40912 clearMs=2 readMs=0 bundleMs=2 httpMs=395 totalMs=401 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:34 +36: cupertino/ cupertino_focus_halo_test.dart
+[METRIC] script=cupertino/cupertino_focus_halo_test.dart sourceBytes=4290 sourceChars=4286 bundleJsonBytes=53747 clearMs=22 readMs=0 bundleMs=3 httpMs=404 totalMs=431 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:35 +37: cupertino/ cupertino_linear_activity_indicator_test.dart
+[METRIC] script=cupertino/cupertino_linear_activity_indicator_test.dart sourceBytes=4536 sourceChars=4536 bundleJsonBytes=54419 clearMs=2 readMs=0 bundleMs=3 httpMs=414 totalMs=421 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:35 +38: cupertino/ cupertino_list_section_type_test.dart
+[METRIC] script=cupertino/cupertino_list_section_type_test.dart sourceBytes=32764 sourceChars=23680 bundleJsonBytes=233026 clearMs=22 readMs=1 bundleMs=13 httpMs=401 totalMs=438 status=success httpStatus=200 outputLines=199 frameworkErrors=0
+00:36 +39: cupertino/ cupertino_list_tile_chevron_test.dart
+[METRIC] script=cupertino/cupertino_list_tile_chevron_test.dart sourceBytes=3763 sourceChars=3763 bundleJsonBytes=40408 clearMs=2 readMs=1 bundleMs=3 httpMs=398 totalMs=405 status=success httpStatus=200 outputLines=15 frameworkErrors=0
+00:36 +40: cupertino/ cupertino_text_selection_handle_controls_test.dart
+[METRIC] script=cupertino/cupertino_text_selection_handle_controls_test.dart sourceBytes=5166 sourceChars=5166 bundleJsonBytes=59718 clearMs=2 readMs=0 bundleMs=3 httpMs=323 totalMs=331 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:36 +41: cupertino/ cupertino_thumb_painter_test.dart
+[METRIC] script=cupertino/cupertino_thumb_painter_test.dart sourceBytes=4923 sourceChars=4923 bundleJsonBytes=64824 clearMs=21 readMs=0 bundleMs=3 httpMs=353 totalMs=379 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:37 +42: cupertino/ expansion_tile_transition_mode_test.dart
+[METRIC] script=cupertino/expansion_tile_transition_mode_test.dart sourceBytes=35861 sourceChars=26773 bundleJsonBytes=269064 clearMs=2 readMs=1 bundleMs=14 httpMs=467 totalMs=485 status=success httpStatus=200 outputLines=220 frameworkErrors=0
+00:37 +43: cupertino/ inherited_cupertino_theme_test.dart
+[METRIC] script=cupertino/inherited_cupertino_theme_test.dart sourceBytes=5356 sourceChars=5356 bundleJsonBytes=64760 clearMs=23 readMs=0 bundleMs=3 httpMs=368 totalMs=397 status=success httpStatus=200 outputLines=30 frameworkErrors=0
+00:38 +44: cupertino/ navigation_bar_bottom_mode_test.dart
+[METRIC] script=cupertino/navigation_bar_bottom_mode_test.dart sourceBytes=34525 sourceChars=25781 bundleJsonBytes=260163 clearMs=2 readMs=1 bundleMs=15 httpMs=420 totalMs=439 status=success httpStatus=200 outputLines=227 frameworkErrors=0
+00:38 +45: cupertino/ overlay_visibility_mode_test.dart
+[METRIC] script=cupertino/overlay_visibility_mode_test.dart sourceBytes=34716 sourceChars=25438 bundleJsonBytes=271940 clearMs=2 readMs=1 bundleMs=14 httpMs=395 totalMs=413 status=success httpStatus=200 outputLines=235 frameworkErrors=0
+00:39 +46: cupertino/ restorable_cupertino_tab_controller_test.dart
+[METRIC] script=cupertino/restorable_cupertino_tab_controller_test.dart sourceBytes=4468 sourceChars=4468 bundleJsonBytes=59275 clearMs=2 readMs=0 bundleMs=2 httpMs=423 totalMs=428 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:39 +47: dart_ui/ app_exit_response_test.dart
+[METRIC] script=dart_ui/app_exit_response_test.dart sourceBytes=15441 sourceChars=13333 bundleJsonBytes=145350 clearMs=3 readMs=1 bundleMs=21 httpMs=436 totalMs=462 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:39 +48: dart_ui/ app_exit_type_test.dart
+[METRIC] script=dart_ui/app_exit_type_test.dart sourceBytes=13867 sourceChars=13825 bundleJsonBytes=162341 clearMs=2 readMs=1 bundleMs=10 httpMs=401 totalMs=415 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:40 +49: dart_ui/ app_lifecycle_state_test.dart
+[METRIC] script=dart_ui/app_lifecycle_state_test.dart sourceBytes=17400 sourceChars=14958 bundleJsonBytes=151860 clearMs=2 readMs=0 bundleMs=12 httpMs=489 totalMs=505 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:40 +50: dart_ui/ backdrop_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/backdrop_filter_engine_layer_test.dart sourceBytes=15489 sourceChars=15157 bundleJsonBytes=170710 clearMs=3 readMs=1 bundleMs=11 httpMs=454 totalMs=471 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:41 +51: dart_ui/ blend_mode_test.dart
+[METRIC] script=dart_ui/blend_mode_test.dart sourceBytes=17962 sourceChars=14160 bundleJsonBytes=144568 clearMs=2 readMs=0 bundleMs=8 httpMs=524 totalMs=536 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:41 +52: dart_ui/ blur_style_test.dart
+[METRIC] script=dart_ui/blur_style_test.dart sourceBytes=17414 sourceChars=15013 bundleJsonBytes=171599 clearMs=2 readMs=1 bundleMs=9 httpMs=426 totalMs=439 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:42 +53: dart_ui/ box_height_style_test.dart
+[METRIC] script=dart_ui/box_height_style_test.dart sourceBytes=23095 sourceChars=19491 bundleJsonBytes=214346 clearMs=28 readMs=1 bundleMs=11 httpMs=464 totalMs=505 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+00:42 +54: dart_ui/ box_width_style_test.dart
+[METRIC] script=dart_ui/box_width_style_test.dart sourceBytes=18873 sourceChars=14371 bundleJsonBytes=135546 clearMs=3 readMs=1 bundleMs=12 httpMs=434 totalMs=451 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:43 +55: dart_ui/ callback_handle_test.dart
+[METRIC] script=dart_ui/callback_handle_test.dart sourceBytes=9650 sourceChars=9646 bundleJsonBytes=116653 clearMs=2 readMs=0 bundleMs=10 httpMs=371 totalMs=386 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:43 +56: dart_ui/ channel_buffers_test.dart
+[METRIC] script=dart_ui/channel_buffers_test.dart sourceBytes=17810 sourceChars=13306 bundleJsonBytes=129171 clearMs=2 readMs=1 bundleMs=10 httpMs=428 totalMs=442 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:44 +57: dart_ui/ checked_state_test.dart
+[METRIC] script=dart_ui/checked_state_test.dart sourceBytes=23531 sourceChars=20205 bundleJsonBytes=231428 clearMs=2 readMs=1 bundleMs=12 httpMs=424 totalMs=440 status=success httpStatus=200 outputLines=34 frameworkErrors=0
+00:44 +58: dart_ui/ class_test.dart
+[METRIC] script=dart_ui/class_test.dart sourceBytes=19285 sourceChars=14773 bundleJsonBytes=135569 clearMs=65 readMs=0 bundleMs=22 httpMs=480 totalMs=568 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:45 +59: dart_ui/ clip_op_test.dart
+[METRIC] script=dart_ui/clip_op_test.dart sourceBytes=23005 sourceChars=19371 bundleJsonBytes=200353 clearMs=2 readMs=0 bundleMs=13 httpMs=403 totalMs=420 status=success httpStatus=200 outputLines=37 frameworkErrors=0
+00:45 +60: dart_ui/ clip_path_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_path_engine_layer_test.dart sourceBytes=7849 sourceChars=7807 bundleJsonBytes=99855 clearMs=25 readMs=0 bundleMs=6 httpMs=356 totalMs=389 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:46 +61: dart_ui/ clip_r_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_rect_engine_layer_test.dart sourceBytes=8984 sourceChars=8956 bundleJsonBytes=115475 clearMs=2 readMs=1 bundleMs=7 httpMs=400 totalMs=412 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:46 +62: dart_ui/ clip_r_superellipse_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_r_superellipse_engine_layer_test.dart sourceBytes=31132 sourceChars=31132 bundleJsonBytes=444348 clearMs=2 readMs=0 bundleMs=38 httpMs=651 totalMs=693 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +63: dart_ui/ clip_rect_engine_layer_test.dart
+[METRIC] script=dart_ui/clip_rect_engine_layer_test.dart sourceBytes=26309 sourceChars=26309 bundleJsonBytes=380913 clearMs=2 readMs=0 bundleMs=26 httpMs=651 totalMs=681 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +64: dart_ui/ clip_test.dart
+[METRIC] script=dart_ui/clip_test.dart sourceBytes=44324 sourceChars=44242 bundleJsonBytes=420394 clearMs=2 readMs=1 bundleMs=31 httpMs=611 totalMs=646 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:48 +65: dart_ui/ color_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/color_filter_engine_layer_test.dart sourceBytes=25136 sourceChars=23430 bundleJsonBytes=257958 clearMs=2 readMs=1 bundleMs=18 httpMs=449 totalMs=473 status=success httpStatus=200 outputLines=13 frameworkErrors=0
+00:48 +66: dart_ui/ color_space_test.dart
+[METRIC] script=dart_ui/color_space_test.dart sourceBytes=27109 sourceChars=25399 bundleJsonBytes=262139 clearMs=2 readMs=1 bundleMs=16 httpMs=507 totalMs=528 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+00:49 +67: dart_ui/ dart_performance_mode_test.dart
+[METRIC] script=dart_ui/dart_performance_mode_test.dart sourceBytes=24591 sourceChars=22889 bundleJsonBytes=255690 clearMs=3 readMs=1 bundleMs=15 httpMs=565 totalMs=585 status=success httpStatus=200 outputLines=22 frameworkErrors=0
+00:50 +68: dart_ui/ dart_plugin_registrant_test.dart
+[METRIC] script=dart_ui/dart_plugin_registrant_test.dart sourceBytes=26740 sourceChars=25342 bundleJsonBytes=240593 clearMs=3 readMs=1 bundleMs=13 httpMs=487 totalMs=504 status=success httpStatus=200 outputLines=10 frameworkErrors=0
+00:50 +69: dart_ui/ display_feature_state_test.dart
+[METRIC] script=dart_ui/display_feature_state_test.dart sourceBytes=29786 sourceChars=27353 bundleJsonBytes=297186 clearMs=3 readMs=1 bundleMs=17 httpMs=469 totalMs=491 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:51 +70: dart_ui/ display_feature_type_test.dart
+[METRIC] script=dart_ui/display_feature_type_test.dart sourceBytes=32899 sourceChars=30764 bundleJsonBytes=340238 clearMs=51 readMs=1 bundleMs=18 httpMs=481 totalMs=552 status=success httpStatus=200 outputLines=24 frameworkErrors=0
+00:51 +71: dart_ui/ engine_layer_test.dart
+[METRIC] script=dart_ui/engine_layer_test.dart sourceBytes=25242 sourceChars=23415 bundleJsonBytes=245098 clearMs=3 readMs=1 bundleMs=13 httpMs=468 totalMs=486 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:52 +72: dart_ui/ filter_quality_test.dart
+[METRIC] script=dart_ui/filter_quality_test.dart sourceBytes=24934 sourceChars=23236 bundleJsonBytes=264968 clearMs=2 readMs=1 bundleMs=15 httpMs=514 totalMs=533 status=success httpStatus=200 outputLines=19 frameworkErrors=0
+00:52 +73: dart_ui/ font_style_test.dart
+[METRIC] script=dart_ui/font_style_test.dart sourceBytes=27919 sourceChars=25784 bundleJsonBytes=266241 clearMs=67 readMs=0 bundleMs=14 httpMs=522 totalMs=606 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+00:53 +74: dart_ui/ fragment_program_test.dart
+[METRIC] script=dart_ui/fragment_program_test.dart sourceBytes=26475 sourceChars=24767 bundleJsonBytes=241988 clearMs=3 readMs=1 bundleMs=11 httpMs=502 totalMs=518 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:53 +75: dart_ui/ fragment_shader_test.dart
+[METRIC] script=dart_ui/fragment_shader_test.dart sourceBytes=29402 sourceChars=27260 bundleJsonBytes=281947 clearMs=40 readMs=0 bundleMs=13 httpMs=521 totalMs=575 status=success httpStatus=200 outputLines=25 frameworkErrors=0
+00:54 +76: dart_ui/ frame_phase_test.dart
+[METRIC] script=dart_ui/frame_phase_test.dart sourceBytes=32315 sourceChars=30771 bundleJsonBytes=308793 clearMs=2 readMs=1 bundleMs=15 httpMs=464 totalMs=484 status=success httpStatus=200 outputLines=20 frameworkErrors=0
+00:54 +77: dart_ui/ image_byte_format_test.dart
+[METRIC] script=dart_ui/image_byte_format_test.dart sourceBytes=40437 sourceChars=39819 bundleJsonBytes=475731 clearMs=42 readMs=1 bundleMs=24 httpMs=612 totalMs=680 status=success httpStatus=200 outputLines=14 frameworkErrors=0
+00:55 +78: dart_ui/ image_filter_engine_layer_test.dart
+[METRIC] script=dart_ui/image_filter_engine_layer_test.dart sourceBytes=24245 sourceChars=24245 bundleJsonBytes=343962 clearMs=2 readMs=0 bundleMs=19 httpMs=617 totalMs=641 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:56 +79: dart_ui/ image_sampler_slot_test.dart
+[METRIC] script=dart_ui/image_sampler_slot_test.dart sourceBytes=28815 sourceChars=28815 bundleJsonBytes=452088 clearMs=23 readMs=0 bundleMs=48 httpMs=1190 totalMs=1263 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:57 +80: dart_ui/ isolate_name_server_test.dart
+01:27 +80 -1: dart_ui/ isolate_name_server_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+01:27 +80 -1: dart_ui/ key_event_device_type_test.dart
+01:57 +80 -2: dart_ui/ key_event_device_type_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+01:57 +80 -2: dart_ui/ key_event_type_test.dart
+02:27 +80 -3: dart_ui/ key_event_type_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+02:27 +80 -3: dart_ui/ offset_engine_layer_test.dart
+02:57 +80 -4: dart_ui/ offset_engine_layer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+02:57 +80 -4: dart_ui/ opacity_engine_layer_test.dart
+03:27 +80 -5: dart_ui/ opacity_engine_layer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+03:27 +80 -5: dart_ui/ painting_style_test.dart
+03:57 +80 -6: dart_ui/ painting_style_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+03:57 +80 -6: dart_ui/ path_fill_type_test.dart
+04:27 +80 -7: dart_ui/ path_fill_type_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+04:27 +80 -7: dart_ui/ path_operation_test.dart
+04:57 +80 -8: dart_ui/ path_operation_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+04:57 +80 -8: dart_ui/ picture_rasterization_exception_test.dart
+05:27 +80 -9: dart_ui/ picture_rasterization_exception_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+05:27 +80 -9: dart_ui/ pixel_format_test.dart
+05:57 +80 -10: dart_ui/ pixel_format_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+05:57 +80 -10: dart_ui/ placeholder_alignment_test.dart
+06:27 +80 -11: dart_ui/ placeholder_alignment_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+06:27 +80 -11: dart_ui/ plugin_utilities_test.dart
+06:57 +80 -12: dart_ui/ plugin_utilities_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+06:57 +80 -12: dart_ui/ point_mode_test.dart
+07:27 +80 -13: dart_ui/ point_mode_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+07:27 +80 -13: dart_ui/ pointer_change_test.dart
+07:57 +80 -14: dart_ui/ pointer_change_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+07:57 +80 -14: dart_ui/ pointer_device_kind_test.dart
+08:27 +80 -15: dart_ui/ pointer_device_kind_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+08:27 +80 -15: dart_ui/ pointer_signal_kind_test.dart
+08:57 +80 -16: dart_ui/ pointer_signal_kind_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+08:57 +80 -16: dart_ui/ root_isolate_token_test.dart
+09:27 +80 -17: dart_ui/ root_isolate_token_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+09:27 +80 -17: dart_ui/ semantics_hit_test_behavior_test.dart
+09:57 +80 -18: dart_ui/ semantics_hit_test_behavior_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+09:57 +80 -18: dart_ui/ semantics_input_type_test.dart
+10:27 +80 -19: dart_ui/ semantics_input_type_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+10:27 +80 -19: dart_ui/ semantics_role_test.dart
+10:57 +80 -20: dart_ui/ semantics_role_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+10:57 +80 -20: dart_ui/ semantics_validation_result_test.dart
+11:27 +80 -21: dart_ui/ semantics_validation_result_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+11:27 +80 -21: dart_ui/ shader_mask_engine_layer_test.dart
+11:57 +80 -22: dart_ui/ shader_mask_engine_layer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+11:57 +80 -22: dart_ui/ singleton_flutter_window_test.dart
+12:27 +80 -23: dart_ui/ singleton_flutter_window_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+12:27 +80 -23: dart_ui/ stroke_cap_test.dart
+12:57 +80 -24: dart_ui/ stroke_cap_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+12:57 +80 -24: dart_ui/ stroke_join_test.dart
+13:27 +80 -25: dart_ui/ stroke_join_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+13:27 +80 -25: dart_ui/ system_color_palette_test.dart
+13:57 +80 -26: dart_ui/ system_color_palette_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+13:57 +80 -26: dart_ui/ target_pixel_format_test.dart
+14:27 +80 -27: dart_ui/ target_pixel_format_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+14:27 +80 -27: dart_ui/ text_affinity_test.dart
+14:57 +80 -28: dart_ui/ text_affinity_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+14:57 +80 -28: dart_ui/ text_align_test.dart
+15:27 +80 -29: dart_ui/ text_align_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+15:27 +80 -29: dart_ui/ text_baseline_test.dart
+15:57 +80 -30: dart_ui/ text_baseline_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+15:57 +80 -30: dart_ui/ text_decoration_style_test.dart
+16:27 +80 -31: dart_ui/ text_decoration_style_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+16:27 +80 -31: dart_ui/ text_direction_test.dart
+16:57 +80 -32: dart_ui/ text_direction_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+16:57 +80 -32: dart_ui/ text_leading_distribution_test.dart
+17:27 +80 -33: dart_ui/ text_leading_distribution_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+17:27 +80 -33: dart_ui/ tile_mode_test.dart
+17:57 +80 -34: dart_ui/ tile_mode_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+17:57 +80 -34: dart_ui/ transform_engine_layer_test.dart
+18:27 +80 -35: dart_ui/ transform_engine_layer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+18:27 +80 -35: dart_ui/ tristate_test.dart
+18:57 +80 -36: dart_ui/ tristate_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+18:57 +80 -36: dart_ui/ uniform_float_slot_test.dart
+19:27 +80 -37: dart_ui/ uniform_float_slot_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+19:27 +80 -37: dart_ui/ uniform_vec2_slot_test.dart
+19:57 +80 -38: dart_ui/ uniform_vec2_slot_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+19:57 +80 -38: dart_ui/ uniform_vec3_slot_test.dart
+20:27 +80 -39: dart_ui/ uniform_vec3_slot_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+20:27 +80 -39: dart_ui/ uniform_vec4_slot_test.dart
+20:57 +80 -40: dart_ui/ uniform_vec4_slot_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+20:57 +80 -40: dart_ui/ vertex_mode_test.dart
+21:27 +80 -41: dart_ui/ vertex_mode_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+21:27 +80 -41: dart_ui/ view_focus_direction_test.dart
+21:57 +80 -42: dart_ui/ view_focus_direction_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+21:57 +80 -42: dart_ui/ view_focus_state_test.dart
+22:27 +80 -43: dart_ui/ view_focus_state_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+22:27 +80 -43: foundation/ abstract_node_test.dart
+22:57 +80 -44: foundation/ abstract_node_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+22:57 +80 -44: foundation/ caching_iterable_test.dart
+23:27 +80 -45: foundation/ caching_iterable_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+23:27 +80 -45: foundation/ category_test.dart
+23:57 +80 -46: foundation/ category_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+23:57 +80 -46: foundation/ class_test.dart
+24:27 +80 -47: foundation/ class_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+24:27 +80 -47: foundation/ diagnostic_level_test.dart
+24:57 +80 -48: foundation/ diagnostic_level_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+24:57 +80 -48: foundation/ diagnosticable_node_test.dart
+25:27 +80 -49: foundation/ diagnosticable_node_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+25:27 +80 -49: foundation/ diagnosticable_test.dart
+25:57 +80 -50: foundation/ diagnosticable_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+25:57 +80 -50: foundation/ diagnosticable_tree_mixin_test.dart
+26:27 +80 -51: foundation/ diagnosticable_tree_mixin_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+26:27 +80 -51: foundation/ diagnosticable_tree_node_test.dart
+26:57 +80 -52: foundation/ diagnosticable_tree_node_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+26:57 +80 -52: foundation/ diagnosticable_tree_test.dart
+27:27 +80 -53: foundation/ diagnosticable_tree_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+27:27 +80 -53: foundation/ diagnostics_block_test.dart
+27:57 +80 -54: foundation/ diagnostics_block_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+27:57 +80 -54: foundation/ diagnostics_property_test.dart
+28:27 +80 -55: foundation/ diagnostics_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+28:27 +80 -55: foundation/ diagnostics_serialization_delegate_test.dart
+28:57 +80 -56: foundation/ diagnostics_serialization_delegate_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+28:57 +80 -56: foundation/ diagnostics_stack_trace_test.dart
+29:27 +80 -57: foundation/ diagnostics_stack_trace_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+29:27 +80 -57: foundation/ diagnostics_tree_style_test.dart
+29:57 +80 -58: foundation/ diagnostics_tree_style_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+29:57 +80 -58: foundation/ documentation_icon_test.dart
+30:27 +80 -59: foundation/ documentation_icon_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+30:27 +80 -59: foundation/ double_property_test.dart
+30:57 +80 -60: foundation/ double_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+30:57 +80 -60: foundation/ enum_property_test.dart
+31:27 +80 -61: foundation/ enum_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+31:27 +80 -61: foundation/ error_spacer_test.dart
+31:57 +80 -62: foundation/ error_spacer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+31:57 +80 -62: foundation/ factory_test.dart
+32:27 +80 -63: foundation/ factory_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+32:27 +80 -63: foundation/ flag_property_test.dart
+32:57 +80 -64: foundation/ flag_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+32:57 +80 -64: foundation/ flags_summary_test.dart
+33:27 +80 -65: foundation/ flags_summary_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+33:27 +80 -65: foundation/ flutter_memory_allocations_test.dart
+33:57 +80 -66: foundation/ flutter_memory_allocations_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+33:57 +80 -66: foundation/ foundation_service_extensions_test.dart
+34:27 +80 -67: foundation/ foundation_service_extensions_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+34:27 +80 -67: foundation/ int_property_test.dart
+34:57 +80 -68: foundation/ int_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+34:57 +80 -68: foundation/ iterable_property_test.dart
+35:27 +80 -69: foundation/ iterable_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+35:27 +80 -69: foundation/ message_property_test.dart
+35:57 +80 -70: foundation/ message_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+35:57 +80 -70: foundation/ object_created_test.dart
+36:27 +80 -71: foundation/ object_created_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+36:27 +80 -71: foundation/ object_disposed_test.dart
+36:57 +80 -72: foundation/ object_disposed_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+36:57 +80 -72: foundation/ object_event_test.dart
+37:27 +80 -73: foundation/ object_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+37:27 +80 -73: foundation/ object_flag_property_test.dart
+37:57 +80 -74: foundation/ object_flag_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+37:57 +80 -74: foundation/ percent_property_test.dart
+38:27 +80 -75: foundation/ percent_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+38:27 +80 -75: foundation/ string_property_test.dart
+38:57 +80 -76: foundation/ string_property_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+38:57 +80 -76: foundation/ summary_test.dart
+39:27 +80 -77: foundation/ summary_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+39:27 +80 -77: foundation/ target_platform_test.dart
+39:57 +80 -78: foundation/ target_platform_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+39:57 +80 -78: foundation/ text_tree_configuration_test.dart
+40:27 +80 -79: foundation/ text_tree_configuration_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+40:27 +80 -79: foundation/ text_tree_renderer_test.dart
+40:57 +80 -80: foundation/ text_tree_renderer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+40:57 +80 -80: gestures/ base_tap_gesture_recognizer_test.dart
+41:27 +80 -81: gestures/ base_tap_gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+41:27 +80 -81: gestures/ class_test.dart
+41:57 +80 -82: gestures/ class_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+41:57 +80 -82: gestures/ drag_down_details_test.dart
+42:27 +80 -83: gestures/ drag_down_details_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+42:27 +80 -83: gestures/ drag_start_behavior_test.dart
+42:57 +80 -84: gestures/ drag_start_behavior_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+42:57 +80 -84: gestures/ drag_start_details_test.dart
+43:27 +80 -85: gestures/ drag_start_details_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+43:27 +80 -85: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart
+43:57 +80 -86: gestures/ flutter_error_details_for_pointer_event_dispatcher_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+43:57 +80 -86: gestures/ gesture_disposition_test.dart
+44:27 +80 -87: gestures/ gesture_disposition_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+44:27 +80 -87: gestures/ gesture_recognizer_state_test.dart
+44:57 +80 -88: gestures/ gesture_recognizer_state_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+44:57 +80 -88: gestures/ gesture_recognizer_test.dart
+45:27 +80 -89: gestures/ gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+45:27 +80 -89: gestures/ hit_test_dispatcher_test.dart
+45:57 +80 -90: gestures/ hit_test_dispatcher_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+45:57 +80 -90: gestures/ hit_testable_test.dart
+46:27 +80 -91: gestures/ hit_testable_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+46:27 +80 -91: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart
+46:57 +80 -92: gestures/ i_o_s_scroll_view_fling_velocity_tracker_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+46:57 +80 -92: gestures/ least_squares_solver_test.dart
+47:27 +80 -93: gestures/ least_squares_solver_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+47:27 +80 -93: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart
+47:57 +80 -94: gestures/ mac_o_s_scroll_view_fling_velocity_tracker_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+47:57 +80 -94: gestures/ multitouch_drag_strategy_test.dart
+48:27 +80 -95: gestures/ multitouch_drag_strategy_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+48:27 +80 -95: gestures/ offset_pair_test.dart
+48:57 +80 -96: gestures/ offset_pair_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+48:57 +80 -96: gestures/ one_sequence_gesture_recognizer_test.dart
+49:27 +80 -97: gestures/ one_sequence_gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+49:27 +80 -97: gestures/ pointer_added_event_test.dart
+49:57 +80 -98: gestures/ pointer_added_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+49:57 +80 -98: gestures/ pointer_cancel_event_test.dart
+50:27 +80 -99: gestures/ pointer_cancel_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+50:27 +80 -99: gestures/ pointer_down_event_test.dart
+50:57 +80 -100: gestures/ pointer_down_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+50:57 +80 -100: gestures/ pointer_enter_event_test.dart
+51:27 +80 -101: gestures/ pointer_enter_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+51:27 +80 -101: gestures/ pointer_event_converter_test.dart
+51:57 +80 -102: gestures/ pointer_event_converter_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+51:57 +80 -102: gestures/ pointer_event_resampler_test.dart
+52:27 +80 -103: gestures/ pointer_event_resampler_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+52:27 +80 -103: gestures/ pointer_event_test.dart
+52:57 +80 -104: gestures/ pointer_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+52:57 +80 -104: gestures/ pointer_exit_event_test.dart
+53:27 +80 -105: gestures/ pointer_exit_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+53:27 +80 -105: gestures/ pointer_hover_event_test.dart
+53:57 +80 -106: gestures/ pointer_hover_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+53:57 +80 -106: gestures/ pointer_move_event_test.dart
+54:27 +80 -107: gestures/ pointer_move_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+54:27 +80 -107: gestures/ pointer_pan_zoom_end_event_test.dart
+54:57 +80 -108: gestures/ pointer_pan_zoom_end_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+54:57 +80 -108: gestures/ pointer_pan_zoom_start_event_test.dart
+55:27 +80 -109: gestures/ pointer_pan_zoom_start_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+55:27 +80 -109: gestures/ pointer_pan_zoom_update_event_test.dart
+55:57 +80 -110: gestures/ pointer_pan_zoom_update_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+55:57 +80 -110: gestures/ pointer_removed_event_test.dart
+56:27 +80 -111: gestures/ pointer_removed_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+56:27 +80 -111: gestures/ pointer_scale_event_test.dart
+56:57 +80 -112: gestures/ pointer_scale_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+56:57 +80 -112: gestures/ pointer_scroll_event_test.dart
+57:27 +80 -113: gestures/ pointer_scroll_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+57:27 +80 -113: gestures/ pointer_scroll_inertia_cancel_event_test.dart
+57:57 +80 -114: gestures/ pointer_scroll_inertia_cancel_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+57:57 +80 -114: gestures/ pointer_signal_event_test.dart
+58:27 +80 -115: gestures/ pointer_signal_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+58:27 +80 -115: gestures/ pointer_signal_resolver_test.dart
+58:57 +80 -116: gestures/ pointer_signal_resolver_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+58:58 +80 -116: gestures/ pointer_up_event_test.dart
+59:28 +80 -117: gestures/ pointer_up_event_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+59:28 +80 -117: gestures/ polynomial_fit_test.dart
+59:58 +80 -118: gestures/ polynomial_fit_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+59:58 +80 -118: gestures/ primary_pointer_gesture_recognizer_test.dart
+60:28 +80 -119: gestures/ primary_pointer_gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+60:28 +80 -119: gestures/ sampling_clock_test.dart
+60:58 +80 -120: gestures/ sampling_clock_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+60:58 +80 -120: gestures/ tap_and_drag_gesture_recognizer_test.dart
+61:28 +80 -121: gestures/ tap_and_drag_gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+61:28 +80 -121: gestures/ tap_gesture_recognizer_test.dart
+61:58 +80 -122: gestures/ tap_gesture_recognizer_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+61:58 +80 -122: gestures/ tap_move_details_test.dart
+62:28 +80 -123: gestures/ tap_move_details_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+62:28 +80 -123: gestures/ velocity_estimate_test.dart
+62:58 +80 -124: gestures/ velocity_estimate_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+62:58 +80 -124: gestures/ velocity_tracker_test.dart
+63:28 +80 -125: gestures/ velocity_tracker_test.dart [E]
+  TimeoutException after 0:00:30.000000: Test timed out after 30 seconds. See https://pub.dev/packages/test#timeouts
+  dart:isolate  _RawReceivePort._handleMessage
+  
+63:28 +80 -125: (tearDownAll)
+63:28 +80 -125: Some tests failed.

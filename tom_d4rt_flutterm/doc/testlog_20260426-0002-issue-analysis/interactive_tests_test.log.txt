@@ -1,0 +1,22 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/interactive_tests_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Interactive tests showDialog - can tap OK button to dismiss
+[METRIC] script=material/showdialog_test.dart sourceBytes=2832 sourceChars=2832 bundleJsonBytes=31340 clearMs=9 readMs=6 bundleMs=113 httpMs=657 totalMs=790 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:14 +1: Interactive tests showBottomSheet - can tap to select option
+[METRIC] script=material/showbottomsheet_test.dart sourceBytes=4787 sourceChars=4787 bundleJsonBytes=50390 clearMs=28 readMs=1 bundleMs=33 httpMs=391 totalMs=455 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:17 +2: Interactive tests showMenu - can tap menu item
+[METRIC] script=material/showmenu_test.dart sourceBytes=3690 sourceChars=3688 bundleJsonBytes=49441 clearMs=27 readMs=1 bundleMs=47 httpMs=1044 totalMs=1121 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:20 +3: Interactive tests interaction - dismiss modal via barrier tap
+[METRIC] script=material/showdialog_test.dart sourceBytes=2832 sourceChars=2832 bundleJsonBytes=31340 clearMs=4 readMs=1 bundleMs=5 httpMs=396 totalMs=408 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Dismiss result: InteractResult(success, output: [])
+00:22 +4: Interactive tests showDatePicker - can tap Cancel to dismiss
+[METRIC] script=material/showdatepicker_test.dart sourceBytes=3181 sourceChars=3181 bundleJsonBytes=39409 clearMs=26 readMs=0 bundleMs=17 httpMs=484 totalMs=529 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:25 +5: Interactive tests showTimePicker - can tap Cancel to dismiss
+[METRIC] script=material/showtimepicker_test.dart sourceBytes=3589 sourceChars=3589 bundleJsonBytes=52499 clearMs=3 readMs=1 bundleMs=16 httpMs=405 totalMs=427 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+Interaction result: InteractResult(success, output: [])
+00:27 +6: (tearDownAll)
+00:27 +6: All tests passed!
