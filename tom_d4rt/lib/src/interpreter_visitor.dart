@@ -1283,33 +1283,41 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     ].contains(operatorName);
 
     if (checkExtensionEarly) {
+      // Bucket #14: only the lookup belongs in the outer try. Wrapping the
+      // call invocation here too made the broad `on RuntimeD4rtException`
+      // handler swallow re-thrown call-site errors and fall through to
+      // "Unsupported binary operator", masking the real cause.
+      Callable? extensionOperator;
       try {
-        final extensionOperator =
+        extensionOperator =
             environment.findExtensionMember(leftOperandValue, operatorName);
-
-        if (extensionOperator is ExtensionMemberCallable &&
-            extensionOperator.isOperator) {
-          Logger.debug(
-              "[BinaryExpression] Found extension operator '$operatorName' (early check) for type ${leftOperandValue?.runtimeType}. Calling...");
-          final extensionPositionalArgs = [leftOperandValue, rightOperandValue];
-          try {
-            return extensionOperator.call(this, extensionPositionalArgs, {});
-          } on ReturnException catch (e) {
-            return e.value;
-          } catch (e) {
-            throw RuntimeD4rtException(
-                "Error executing extension operator '$operatorName': $e");
-          }
-        }
-        // If no suitable extension operator found early, continue to standard checks
-        Logger.debug(
-            "[BinaryExpression] No suitable extension operator '$operatorName' found (early check) for type ${leftOperandValue?.runtimeType}. Continuing...");
       } on RuntimeD4rtException catch (findError) {
         // findExtensionMember throws if no member is found at all.
         Logger.debug(
             "[BinaryExpression] No extension member '$operatorName' found (early check) for type ${leftOperandValue?.runtimeType}. Error: ${findError.message}");
         // Continue to standard checks even if lookup failed early
       }
+      if (extensionOperator is ExtensionMemberCallable &&
+          extensionOperator.isOperator) {
+        Logger.debug(
+            "[BinaryExpression] Found extension operator '$operatorName' (early check) for type ${leftOperandValue?.runtimeType}. Calling...");
+        final extensionPositionalArgs = [leftOperandValue, rightOperandValue];
+        try {
+          return extensionOperator.call(this, extensionPositionalArgs, {});
+        } on ReturnException catch (e) {
+          return e.value;
+        } on RuntimeD4rtException {
+          // Already a runtime exception with context — propagate as-is so
+          // the user sees the underlying cause rather than swallowing it.
+          rethrow;
+        } catch (e) {
+          throw RuntimeD4rtException(
+              "Error executing extension operator '$operatorName': $e");
+        }
+      }
+      // If no suitable extension operator found early, continue to standard checks
+      Logger.debug(
+          "[BinaryExpression] No suitable extension operator '$operatorName' found (early check) for type ${leftOperandValue?.runtimeType}. Continuing...");
     }
 
     switch (operator.lexeme) {

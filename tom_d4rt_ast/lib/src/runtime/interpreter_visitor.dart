@@ -1462,31 +1462,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     ].contains(operatorName);
 
     if (checkExtensionEarly) {
+      Callable? extensionOperator;
       try {
-        final extensionOperator = environment.findExtensionMember(
+        extensionOperator = environment.findExtensionMember(
           leftOperandValue,
           operatorName,
-        );
-
-        if (extensionOperator is ExtensionMemberCallable &&
-            extensionOperator.isOperator) {
-          Logger.debug(
-            "[SBinaryExpression] Found extension operator '$operatorName' (early check) for type ${leftOperandValue?.runtimeType}. Calling...",
-          );
-          final extensionPositionalArgs = [leftOperandValue, rightOperandValue];
-          try {
-            return extensionOperator.call(this, extensionPositionalArgs, {});
-          } on ReturnException catch (e) {
-            return e.value;
-          } catch (e) {
-            throw RuntimeD4rtException(
-              "Error executing extension operator '$operatorName': $e",
-            );
-          }
-        }
-        // If no suitable extension operator found early, continue to standard checks
-        Logger.debug(
-          "[SBinaryExpression] No suitable extension operator '$operatorName' found (early check) for type ${leftOperandValue?.runtimeType}. Continuing...",
         );
       } on RuntimeD4rtException catch (findError) {
         // findExtensionMember throws if no member is found at all.
@@ -1495,6 +1475,31 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
         // Continue to standard checks even if lookup failed early
       }
+      if (extensionOperator is ExtensionMemberCallable &&
+          extensionOperator.isOperator) {
+        Logger.debug(
+          "[SBinaryExpression] Found extension operator '$operatorName' (early check) for type ${leftOperandValue?.runtimeType}. Calling...",
+        );
+        final extensionPositionalArgs = [leftOperandValue, rightOperandValue];
+        try {
+          return extensionOperator.call(this, extensionPositionalArgs, {});
+        } on ReturnException catch (e) {
+          return e.value;
+        } on RuntimeD4rtException {
+          // Already a runtime exception with context — let it propagate as-is
+          // so the user sees the underlying cause rather than swallowing it.
+          rethrow;
+        } catch (e) {
+          throw RuntimeD4rtException(
+            "Error executing extension operator '$operatorName': $e",
+          );
+        }
+      }
+      // If no suitable extension operator found early, continue to standard
+      // checks (built-in numeric handling, etc.).
+      Logger.debug(
+        "[SBinaryExpression] No suitable extension operator '$operatorName' found (early check) for type ${leftOperandValue?.runtimeType}. Continuing...",
+      );
     }
 
     switch (operator) {
