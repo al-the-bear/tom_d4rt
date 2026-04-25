@@ -565,7 +565,7 @@ class Environment {
     while (current != null) {
       // Check unnamed extensions
       for (final ext in current._unnamedExtensions) {
-        if (_matchesExtensionType(targetType, ext.onType)) {
+        if (_matchesExtensionType(targetType, ext.onType, value: target)) {
           final member = ext.findMember(name);
           if (member != null) {
             Logger.debug(
@@ -580,7 +580,7 @@ class Environment {
       // Check named extensions (stored as values)
       for (final value in current._values.values) {
         if (value is InterpretedExtension) {
-          if (_matchesExtensionType(targetType, value.onType)) {
+          if (_matchesExtensionType(targetType, value.onType, value: target)) {
             final member = value.findMember(name);
             if (member != null) {
               Logger.debug(
@@ -650,10 +650,14 @@ class Environment {
   /// - The extension itself handles type constraints at runtime
   bool _matchesExtensionType(
     RuntimeType targetType,
-    RuntimeType extensionOnType,
-  ) {
-    // First try the normal subtype check
-    if (targetType.isSubtypeOf(extensionOnType)) {
+    RuntimeType extensionOnType, {
+    Object? value,
+  }) {
+    // First try the normal subtype check. Pass the value through so types
+    // that need a runtime hierarchy probe (e.g. BridgedEnum.isSubtypeOf
+    // checking the underlying native enum against an interface like
+    // WidgetStatesConstraint) can perform it.
+    if (targetType.isSubtypeOf(extensionOnType, value: value)) {
       return true;
     }
 
@@ -683,6 +687,12 @@ class Environment {
     // G-DOV2-7 FIX: Handle InterpretedEnumValue - return its parent enum as the type
     if (value is InterpretedEnumValue) {
       return value.parentEnum; // InterpretedEnum is a RuntimeType
+    }
+    // Bucket #4 fix: Handle BridgedEnumValue so extension lookups against the
+    // enum's parent BridgedEnum can succeed (e.g. WidgetStateOperators on a
+    // WidgetState value).
+    if (value is BridgedEnumValue) {
+      return value.enumType;
     }
     // Handle Dart primitive/core types by looking them up in the environment
     // Assumes core types (String, int, bool, List, Map, etc.) are registered as BridgedClass

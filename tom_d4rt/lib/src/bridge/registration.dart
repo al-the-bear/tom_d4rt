@@ -218,7 +218,7 @@ class BridgedExtensionDefinition {
             List<Object?> positionalArgs,
             Map<String, Object?> namedArgs,
             List<RuntimeType>? typeArgs) {
-          final target = positionalArgs[0];
+          final target = _unwrapBridgedEnum(positionalArgs[0]);
           return entry.value(visitor, target!);
         },
         isGetter: true,
@@ -234,8 +234,10 @@ class BridgedExtensionDefinition {
             List<Object?> positionalArgs,
             Map<String, Object?> namedArgs,
             List<RuntimeType>? typeArgs) {
-          final target = positionalArgs[0];
-          final value = positionalArgs.length > 1 ? positionalArgs[1] : null;
+          final target = _unwrapBridgedEnum(positionalArgs[0]);
+          final value = positionalArgs.length > 1
+              ? _unwrapBridgedEnum(positionalArgs[1])
+              : null;
           entry.value(visitor, target!, value);
           return null;
         },
@@ -252,10 +254,25 @@ class BridgedExtensionDefinition {
             List<Object?> positionalArgs,
             Map<String, Object?> namedArgs,
             List<RuntimeType>? typeArgs) {
-          final target = positionalArgs[0];
-          final methodArgs = positionalArgs.sublist(1);
-          return entry.value(visitor, target!, methodArgs, namedArgs, typeArgs);
+          // Bucket #4 fix: Unwrap BridgedEnumValue → nativeValue so the
+          // generated adapter (which casts target to the native interface)
+          // receives the native enum, not the wrapper. Right operands of
+          // operator methods (e.g. `WidgetState.a | WidgetState.b`) need
+          // the same treatment.
+          final target = _unwrapBridgedEnum(positionalArgs[0]);
+          final methodArgs = positionalArgs
+              .sublist(1)
+              .map(_unwrapBridgedEnum)
+              .toList();
+          final unwrappedNamed = namedArgs
+              .map((k, v) => MapEntry(k, _unwrapBridgedEnum(v)));
+          return entry.value(
+              visitor, target!, methodArgs, unwrappedNamed, typeArgs);
         },
+        // Mark operator methods (e.g. `|`, `&`, `~`, `[]`, `==`) so the
+        // binary/unary operator dispatch sites recognise them as operator
+        // overloads rather than plain extension methods.
+        isOperator: _isDartOperatorName(entry.key),
         arity: 1,
       );
     }
@@ -267,3 +284,25 @@ class BridgedExtensionDefinition {
     );
   }
 }
+
+/// Unwraps a [BridgedEnumValue] to its underlying native enum value, so that
+/// generated bridge adapters (which expect native types when casting target
+/// or operating on operands) can use them directly.
+Object? _unwrapBridgedEnum(Object? value) {
+  if (value is BridgedEnumValue) return value.nativeValue;
+  return value;
+}
+
+/// Set of method names that correspond to overloadable Dart operators.
+const Set<String> _dartOperatorNames = {
+  '+', '-', '*', '/', '~/', '%',
+  '<<', '>>', '>>>',
+  '<', '<=', '>', '>=',
+  '==',
+  '&', '|', '^',
+  '~', // unary bitwise not
+  '[]', '[]=',
+  'unary-',
+};
+
+bool _isDartOperatorName(String name) => _dartOperatorNames.contains(name);

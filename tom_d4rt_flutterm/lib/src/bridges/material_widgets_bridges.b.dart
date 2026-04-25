@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-04-25T10:55:17.344333
+// Generated: 2026-04-25T12:40:36.422395
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -303,48 +303,47 @@ import 'package:flutter/src/widgets/overlay.dart' as $flutter_289;
 import 'package:flutter/src/widgets/page_transitions_builder.dart' as $flutter_290;
 import 'package:flutter/src/widgets/pages.dart' as $flutter_291;
 import 'package:flutter/src/widgets/platform_menu_bar.dart' as $flutter_292;
-import 'package:flutter/src/widgets/platform_view.dart' as $flutter_293;
-import 'package:flutter/src/widgets/preferred_size.dart' as $flutter_294;
-import 'package:flutter/src/widgets/radio_group.dart' as $flutter_295;
-import 'package:flutter/src/widgets/raw_menu_anchor.dart' as $flutter_296;
-import 'package:flutter/src/widgets/raw_tooltip.dart' as $flutter_297;
-import 'package:flutter/src/widgets/reorderable_list.dart' as $flutter_298;
-import 'package:flutter/src/widgets/repeating_animation_builder.dart' as $flutter_299;
-import 'package:flutter/src/widgets/restoration.dart' as $flutter_300;
-import 'package:flutter/src/widgets/router.dart' as $flutter_301;
-import 'package:flutter/src/widgets/routes.dart' as $flutter_302;
-import 'package:flutter/src/widgets/scroll_configuration.dart' as $flutter_303;
-import 'package:flutter/src/widgets/scroll_context.dart' as $flutter_304;
-import 'package:flutter/src/widgets/scroll_controller.dart' as $flutter_305;
-import 'package:flutter/src/widgets/scroll_metrics.dart' as $flutter_306;
-import 'package:flutter/src/widgets/scroll_notification.dart' as $flutter_307;
-import 'package:flutter/src/widgets/scroll_physics.dart' as $flutter_308;
-import 'package:flutter/src/widgets/scroll_position.dart' as $flutter_309;
-import 'package:flutter/src/widgets/scroll_view.dart' as $flutter_310;
-import 'package:flutter/src/widgets/scrollable.dart' as $flutter_311;
-import 'package:flutter/src/widgets/scrollable_helpers.dart' as $flutter_312;
-import 'package:flutter/src/widgets/scrollbar.dart' as $flutter_313;
-import 'package:flutter/src/widgets/selectable_region.dart' as $flutter_314;
-import 'package:flutter/src/widgets/service_extensions.dart' as $flutter_315;
-import 'package:flutter/src/widgets/shortcuts.dart' as $flutter_316;
-import 'package:flutter/src/widgets/sliver_floating_header.dart' as $flutter_317;
-import 'package:flutter/src/widgets/snapshot_widget.dart' as $flutter_318;
-import 'package:flutter/src/widgets/spell_check.dart' as $flutter_319;
-import 'package:flutter/src/widgets/standard_component_type.dart' as $flutter_320;
-import 'package:flutter/src/widgets/tap_region.dart' as $flutter_321;
-import 'package:flutter/src/widgets/text_selection.dart' as $flutter_322;
-import 'package:flutter/src/widgets/text_selection_toolbar_anchors.dart' as $flutter_323;
-import 'package:flutter/src/widgets/transitions.dart' as $flutter_324;
-import 'package:flutter/src/widgets/undo_history.dart' as $flutter_325;
-import 'package:flutter/src/widgets/widget_inspector.dart' as $flutter_326;
-import 'package:flutter/src/widgets/widget_state.dart' as $flutter_327;
+import 'package:flutter/src/widgets/preferred_size.dart' as $flutter_293;
+import 'package:flutter/src/widgets/radio_group.dart' as $flutter_294;
+import 'package:flutter/src/widgets/raw_menu_anchor.dart' as $flutter_295;
+import 'package:flutter/src/widgets/raw_tooltip.dart' as $flutter_296;
+import 'package:flutter/src/widgets/reorderable_list.dart' as $flutter_297;
+import 'package:flutter/src/widgets/repeating_animation_builder.dart' as $flutter_298;
+import 'package:flutter/src/widgets/restoration.dart' as $flutter_299;
+import 'package:flutter/src/widgets/router.dart' as $flutter_300;
+import 'package:flutter/src/widgets/routes.dart' as $flutter_301;
+import 'package:flutter/src/widgets/scroll_configuration.dart' as $flutter_302;
+import 'package:flutter/src/widgets/scroll_context.dart' as $flutter_303;
+import 'package:flutter/src/widgets/scroll_controller.dart' as $flutter_304;
+import 'package:flutter/src/widgets/scroll_metrics.dart' as $flutter_305;
+import 'package:flutter/src/widgets/scroll_notification.dart' as $flutter_306;
+import 'package:flutter/src/widgets/scroll_physics.dart' as $flutter_307;
+import 'package:flutter/src/widgets/scroll_position.dart' as $flutter_308;
+import 'package:flutter/src/widgets/scroll_view.dart' as $flutter_309;
+import 'package:flutter/src/widgets/scrollable.dart' as $flutter_310;
+import 'package:flutter/src/widgets/scrollable_helpers.dart' as $flutter_311;
+import 'package:flutter/src/widgets/scrollbar.dart' as $flutter_312;
+import 'package:flutter/src/widgets/selectable_region.dart' as $flutter_313;
+import 'package:flutter/src/widgets/service_extensions.dart' as $flutter_314;
+import 'package:flutter/src/widgets/shortcuts.dart' as $flutter_315;
+import 'package:flutter/src/widgets/sliver_floating_header.dart' as $flutter_316;
+import 'package:flutter/src/widgets/snapshot_widget.dart' as $flutter_317;
+import 'package:flutter/src/widgets/spell_check.dart' as $flutter_318;
+import 'package:flutter/src/widgets/standard_component_type.dart' as $flutter_319;
+import 'package:flutter/src/widgets/tap_region.dart' as $flutter_320;
+import 'package:flutter/src/widgets/text_selection.dart' as $flutter_321;
+import 'package:flutter/src/widgets/text_selection_toolbar_anchors.dart' as $flutter_322;
+import 'package:flutter/src/widgets/transitions.dart' as $flutter_323;
+import 'package:flutter/src/widgets/undo_history.dart' as $flutter_324;
+import 'package:flutter/src/widgets/widget_inspector.dart' as $flutter_325;
+import 'package:flutter/src/widgets/widget_state.dart' as $flutter_326;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/basic_message_channel_user_bridge.dart' as $tom_d4rt_flutterm_1;
 import 'package:tom_d4rt_flutterm/src/d4rt_user_bridges/strut_style_user_bridge.dart' as $tom_d4rt_flutterm_2;
 import 'package:vector_math/vector_math_64.dart' as $vector_math_1;
 import 'package:flutter/cupertino.dart' as $aux_flutter;
 import 'package:flutter/src/painting/colors.dart' as $aux_flutter_5;
 import 'package:flutter/src/rendering/shifted_box.dart' as $aux_flutter_7;
-import 'package:flutter/src/services/platform_views.dart' as $aux_flutter_20;
+import 'package:flutter/src/widgets/platform_view.dart' as $aux_flutter_20;
 import 'package:flutter/src/widgets/restoration_properties.dart' as $aux_flutter_8;
 import 'package:flutter/widgets.dart' as $aux_flutter_2;
 
@@ -1731,101 +1730,101 @@ class FlutterMaterialBridge {
         name: 'PlatformProvidedMenuItemType',
         values: $flutter_292.PlatformProvidedMenuItemType.values,
       ),
-      BridgedEnumDefinition<$flutter_297.TooltipTriggerMode>(
+      BridgedEnumDefinition<$flutter_296.TooltipTriggerMode>(
         name: 'TooltipTriggerMode',
-        values: $flutter_297.TooltipTriggerMode.values,
+        values: $flutter_296.TooltipTriggerMode.values,
       ),
-      BridgedEnumDefinition<$flutter_299.RepeatMode>(
+      BridgedEnumDefinition<$flutter_298.RepeatMode>(
         name: 'RepeatMode',
-        values: $flutter_299.RepeatMode.values,
+        values: $flutter_298.RepeatMode.values,
       ),
-      BridgedEnumDefinition<$flutter_301.RouteInformationReportingType>(
+      BridgedEnumDefinition<$flutter_300.RouteInformationReportingType>(
         name: 'RouteInformationReportingType',
-        values: $flutter_301.RouteInformationReportingType.values,
+        values: $flutter_300.RouteInformationReportingType.values,
       ),
-      BridgedEnumDefinition<$flutter_303.AndroidOverscrollIndicator>(
+      BridgedEnumDefinition<$flutter_302.AndroidOverscrollIndicator>(
         name: 'AndroidOverscrollIndicator',
-        values: $flutter_303.AndroidOverscrollIndicator.values,
+        values: $flutter_302.AndroidOverscrollIndicator.values,
       ),
-      BridgedEnumDefinition<$flutter_308.ScrollDecelerationRate>(
+      BridgedEnumDefinition<$flutter_307.ScrollDecelerationRate>(
         name: 'ScrollDecelerationRate',
-        values: $flutter_308.ScrollDecelerationRate.values,
+        values: $flutter_307.ScrollDecelerationRate.values,
       ),
-      BridgedEnumDefinition<$flutter_309.ScrollPositionAlignmentPolicy>(
+      BridgedEnumDefinition<$flutter_308.ScrollPositionAlignmentPolicy>(
         name: 'ScrollPositionAlignmentPolicy',
-        values: $flutter_309.ScrollPositionAlignmentPolicy.values,
+        values: $flutter_308.ScrollPositionAlignmentPolicy.values,
       ),
-      BridgedEnumDefinition<$flutter_310.ScrollViewKeyboardDismissBehavior>(
+      BridgedEnumDefinition<$flutter_309.ScrollViewKeyboardDismissBehavior>(
         name: 'ScrollViewKeyboardDismissBehavior',
-        values: $flutter_310.ScrollViewKeyboardDismissBehavior.values,
+        values: $flutter_309.ScrollViewKeyboardDismissBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_311.DiagonalDragBehavior>(
+      BridgedEnumDefinition<$flutter_310.DiagonalDragBehavior>(
         name: 'DiagonalDragBehavior',
-        values: $flutter_311.DiagonalDragBehavior.values,
+        values: $flutter_310.DiagonalDragBehavior.values,
       ),
-      BridgedEnumDefinition<$flutter_312.ScrollIncrementType>(
+      BridgedEnumDefinition<$flutter_311.ScrollIncrementType>(
         name: 'ScrollIncrementType',
-        values: $flutter_312.ScrollIncrementType.values,
+        values: $flutter_311.ScrollIncrementType.values,
       ),
-      BridgedEnumDefinition<$flutter_313.ScrollbarOrientation>(
+      BridgedEnumDefinition<$flutter_312.ScrollbarOrientation>(
         name: 'ScrollbarOrientation',
-        values: $flutter_313.ScrollbarOrientation.values,
+        values: $flutter_312.ScrollbarOrientation.values,
       ),
-      BridgedEnumDefinition<$flutter_314.SelectableRegionSelectionStatus>(
+      BridgedEnumDefinition<$flutter_313.SelectableRegionSelectionStatus>(
         name: 'SelectableRegionSelectionStatus',
-        values: $flutter_314.SelectableRegionSelectionStatus.values,
+        values: $flutter_313.SelectableRegionSelectionStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_315.WidgetsServiceExtensions>(
+      BridgedEnumDefinition<$flutter_314.WidgetsServiceExtensions>(
         name: 'WidgetsServiceExtensions',
-        values: $flutter_315.WidgetsServiceExtensions.values,
+        values: $flutter_314.WidgetsServiceExtensions.values,
       ),
-      BridgedEnumDefinition<$flutter_315.WidgetInspectorServiceExtensions>(
+      BridgedEnumDefinition<$flutter_314.WidgetInspectorServiceExtensions>(
         name: 'WidgetInspectorServiceExtensions',
-        values: $flutter_315.WidgetInspectorServiceExtensions.values,
+        values: $flutter_314.WidgetInspectorServiceExtensions.values,
       ),
-      BridgedEnumDefinition<$flutter_316.LockState>(
+      BridgedEnumDefinition<$flutter_315.LockState>(
         name: 'LockState',
-        values: $flutter_316.LockState.values,
+        values: $flutter_315.LockState.values,
       ),
-      BridgedEnumDefinition<$flutter_317.FloatingHeaderSnapMode>(
+      BridgedEnumDefinition<$flutter_316.FloatingHeaderSnapMode>(
         name: 'FloatingHeaderSnapMode',
-        values: $flutter_317.FloatingHeaderSnapMode.values,
+        values: $flutter_316.FloatingHeaderSnapMode.values,
       ),
-      BridgedEnumDefinition<$flutter_318.SnapshotMode>(
+      BridgedEnumDefinition<$flutter_317.SnapshotMode>(
         name: 'SnapshotMode',
-        values: $flutter_318.SnapshotMode.values,
+        values: $flutter_317.SnapshotMode.values,
       ),
-      BridgedEnumDefinition<$flutter_320.StandardComponentType>(
+      BridgedEnumDefinition<$flutter_319.StandardComponentType>(
         name: 'StandardComponentType',
-        values: $flutter_320.StandardComponentType.values,
+        values: $flutter_319.StandardComponentType.values,
         getters: {
-          'key': (visitor, target) => (target as $flutter_320.StandardComponentType).key,
+          'key': (visitor, target) => (target as $flutter_319.StandardComponentType).key,
         },
       ),
-      BridgedEnumDefinition<$flutter_322.ClipboardStatus>(
+      BridgedEnumDefinition<$flutter_321.ClipboardStatus>(
         name: 'ClipboardStatus',
-        values: $flutter_322.ClipboardStatus.values,
+        values: $flutter_321.ClipboardStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_322.LiveTextInputStatus>(
+      BridgedEnumDefinition<$flutter_321.LiveTextInputStatus>(
         name: 'LiveTextInputStatus',
-        values: $flutter_322.LiveTextInputStatus.values,
+        values: $flutter_321.LiveTextInputStatus.values,
       ),
-      BridgedEnumDefinition<$flutter_326.InspectorButtonVariant>(
+      BridgedEnumDefinition<$flutter_325.InspectorButtonVariant>(
         name: 'InspectorButtonVariant',
-        values: $flutter_326.InspectorButtonVariant.values,
+        values: $flutter_325.InspectorButtonVariant.values,
       ),
-      BridgedEnumDefinition<$flutter_327.WidgetState>(
+      BridgedEnumDefinition<$flutter_326.WidgetState>(
         name: 'WidgetState',
-        values: $flutter_327.WidgetState.values,
+        values: $flutter_326.WidgetState.values,
         methods: {
           'isSatisfiedBy': (visitor, target, positional, named, typeArgs) {
-            final t = target as $flutter_327.WidgetState;
-            final states = D4.coerceSet<$flutter_327.WidgetState>(positional[0], 'states');
+            final t = target as $flutter_326.WidgetState;
+            final states = D4.coerceSet<$flutter_326.WidgetState>(positional[0], 'states');
             return t.isSatisfiedBy(states);
           },
         },
         staticGetters: {
-          'any': () => $flutter_327.WidgetState.any,
+          'any': () => $flutter_326.WidgetState.any,
         },
       ),
     ];
@@ -1935,6 +1934,24 @@ class FlutterMaterialBridge {
           'characters': (visitor, target) => (target as String).characters,
         },
       ),
+      BridgedExtensionDefinition(
+        name: 'WidgetStateOperators',
+        onTypeName: 'WidgetStatesConstraint',
+        methods: {
+          '&': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_326.WidgetStatesConstraint;
+            return (t as dynamic) & positional[0];
+          },
+          '|': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_326.WidgetStatesConstraint;
+            return (t as dynamic) | positional[0];
+          },
+          '~': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_326.WidgetStatesConstraint;
+            return ~t;
+          },
+        },
+      ),
     ];
   }
 
@@ -1942,6 +1959,7 @@ class FlutterMaterialBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'StringCharacters': 'package:characters/src/extensions.dart',
+      'WidgetStateOperators': 'package:flutter/src/widgets/widget_state.dart',
     };
   }
 
@@ -2200,12 +2218,12 @@ class FlutterMaterialBridge {
       errors.add('Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e');
     }
     try {
-      interpreter.registerGlobalVariable('emptyTextSelectionControls', $flutter_322.emptyTextSelectionControls, importPath, sourceUri: 'package:flutter/src/widgets/text_selection.dart');
+      interpreter.registerGlobalVariable('emptyTextSelectionControls', $flutter_321.emptyTextSelectionControls, importPath, sourceUri: 'package:flutter/src/widgets/text_selection.dart');
     } catch (e) {
       errors.add('Failed to register variable "emptyTextSelectionControls": $e');
     }
     try {
-      interpreter.registerGlobalVariable('widgetFactory', $flutter_326.widgetFactory, importPath, sourceUri: 'package:flutter/src/widgets/widget_inspector.dart');
+      interpreter.registerGlobalVariable('widgetFactory', $flutter_325.widgetFactory, importPath, sourceUri: 'package:flutter/src/widgets/widget_inspector.dart');
     } catch (e) {
       errors.add('Failed to register variable "widgetFactory": $e');
     }
@@ -2643,12 +2661,12 @@ class FlutterMaterialBridge {
         final routeSettings = D4.getOptionalNamedArg<$flutter_286.RouteSettings?>(named, 'routeSettings');
         final anchorPoint = D4.getOptionalNamedArg<Offset?>(named, 'anchorPoint');
         final requestFocus = D4.getOptionalNamedArg<bool?>(named, 'requestFocus');
-        return $flutter_302.showGeneralDialog(context: context, pageBuilder: pageBuilder, barrierDismissible: barrierDismissible, barrierLabel: barrierLabel, barrierColor: barrierColor, transitionDuration: transitionDuration, transitionBuilder: transitionBuilder, useRootNavigator: useRootNavigator, fullscreenDialog: fullscreenDialog, routeSettings: routeSettings, anchorPoint: anchorPoint, requestFocus: requestFocus);
+        return $flutter_301.showGeneralDialog(context: context, pageBuilder: pageBuilder, barrierDismissible: barrierDismissible, barrierLabel: barrierLabel, barrierColor: barrierColor, transitionDuration: transitionDuration, transitionBuilder: transitionBuilder, useRootNavigator: useRootNavigator, fullscreenDialog: fullscreenDialog, routeSettings: routeSettings, anchorPoint: anchorPoint, requestFocus: requestFocus);
       },
       'defaultScrollNotificationPredicate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'defaultScrollNotificationPredicate');
-        final notification = D4.getRequiredArg<$flutter_307.ScrollNotification>(positional, 0, 'notification', 'defaultScrollNotificationPredicate');
-        return $flutter_307.defaultScrollNotificationPredicate(notification);
+        final notification = D4.getRequiredArg<$flutter_306.ScrollNotification>(positional, 0, 'notification', 'defaultScrollNotificationPredicate');
+        return $flutter_306.defaultScrollNotificationPredicate(notification);
       },
       'buildTextSpanWithSpellCheckSuggestions': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 5, 'buildTextSpanWithSpellCheckSuggestions');
@@ -2657,22 +2675,22 @@ class FlutterMaterialBridge {
         final style = D4.getRequiredArg<$flutter_222.TextStyle?>(positional, 2, 'style', 'buildTextSpanWithSpellCheckSuggestions');
         final misspelledTextStyle = D4.getRequiredArg<$flutter_222.TextStyle>(positional, 3, 'misspelledTextStyle', 'buildTextSpanWithSpellCheckSuggestions');
         final spellCheckResults = D4.getRequiredArg<$flutter_245.SpellCheckResults>(positional, 4, 'spellCheckResults', 'buildTextSpanWithSpellCheckSuggestions');
-        return $flutter_319.buildTextSpanWithSpellCheckSuggestions(value, composingWithinCurrentTextRange, style, misspelledTextStyle, spellCheckResults);
+        return $flutter_318.buildTextSpanWithSpellCheckSuggestions(value, composingWithinCurrentTextRange, style, misspelledTextStyle, spellCheckResults);
       },
       'debugTransformDebugCreator': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugTransformDebugCreator');
         final properties = D4.getRequiredArg<Iterable<$flutter_11.DiagnosticsNode>>(positional, 0, 'properties', 'debugTransformDebugCreator');
-        return $flutter_326.debugTransformDebugCreator(properties);
+        return $flutter_325.debugTransformDebugCreator(properties);
       },
       'debugIsLocalCreationLocation': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugIsLocalCreationLocation');
         final object = D4.getRequiredArg<Object>(positional, 0, 'object', 'debugIsLocalCreationLocation');
-        return $flutter_326.debugIsLocalCreationLocation(object);
+        return $flutter_325.debugIsLocalCreationLocation(object);
       },
       'debugIsWidgetLocalCreation': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'debugIsWidgetLocalCreation');
         final widget = D4.getRequiredArg<$flutter_273.Widget>(positional, 0, 'widget', 'debugIsWidgetLocalCreation');
-        return $flutter_326.debugIsWidgetLocalCreation(widget);
+        return $flutter_325.debugIsWidgetLocalCreation(widget);
       },
     };
   }
@@ -4538,7 +4556,7 @@ BridgedClass _createActionChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final disabledColor = D4.getOptionalNamedArg<Color?>(named, 'disabledColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
@@ -4567,7 +4585,7 @@ BridgedClass _createActionChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final disabledColor = D4.getOptionalNamedArg<Color?>(named, 'disabledColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
@@ -4955,7 +4973,7 @@ BridgedClass _createAdaptiveTextSelectionToolbarBridge() {
           throw ArgumentError('AdaptiveTextSelectionToolbar: Missing required named argument "children"');
         }
         final children = D4.coerceListOrNull<$flutter_273.Widget>(named['children'], 'children');
-        final anchors = D4.getRequiredNamedArg<$flutter_323.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_322.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
         return $flutter_26.AdaptiveTextSelectionToolbar(key: key, children: children, anchors: anchors);
       },
       'buttonItems': (visitor, positional, named) {
@@ -4964,12 +4982,12 @@ BridgedClass _createAdaptiveTextSelectionToolbarBridge() {
           throw ArgumentError('AdaptiveTextSelectionToolbar: Missing required named argument "buttonItems"');
         }
         final buttonItems = D4.coerceListOrNull<$flutter_261.ContextMenuButtonItem>(named['buttonItems'], 'buttonItems');
-        final anchors = D4.getRequiredNamedArg<$flutter_323.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_322.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
         return $flutter_26.AdaptiveTextSelectionToolbar.buttonItems(key: key, buttonItems: buttonItems, anchors: anchors);
       },
       'editable': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final clipboardStatus = D4.getRequiredNamedArg<$flutter_322.ClipboardStatus>(named, 'clipboardStatus', 'AdaptiveTextSelectionToolbar');
+        final clipboardStatus = D4.getRequiredNamedArg<$flutter_321.ClipboardStatus>(named, 'clipboardStatus', 'AdaptiveTextSelectionToolbar');
         if (!named.containsKey('onCopy')) {
           throw ArgumentError('AdaptiveTextSelectionToolbar: Missing required named argument "onCopy"');
         }
@@ -5002,7 +5020,7 @@ BridgedClass _createAdaptiveTextSelectionToolbarBridge() {
           throw ArgumentError('AdaptiveTextSelectionToolbar: Missing required named argument "onLiveTextInput"');
         }
         final onLiveTextInputRaw = named['onLiveTextInput'];
-        final anchors = D4.getRequiredNamedArg<$flutter_323.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_322.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
         return $flutter_26.AdaptiveTextSelectionToolbar.editable(key: key, clipboardStatus: clipboardStatus, onCopy: onCopyRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); }, onCut: onCutRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCutRaw, []); }, onPaste: onPasteRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPasteRaw, []); }, onSelectAll: onSelectAllRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSelectAllRaw, []); }, onLookUp: onLookUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLookUpRaw, []); }, onSearchWeb: onSearchWebRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSearchWebRaw, []); }, onShare: onShareRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShareRaw, []); }, onLiveTextInput: onLiveTextInputRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLiveTextInputRaw, []); }, anchors: anchors);
       },
       'editableText': (visitor, positional, named) {
@@ -5025,12 +5043,12 @@ BridgedClass _createAdaptiveTextSelectionToolbarBridge() {
         }
         final onShareRaw = named['onShare'];
         final selectionGeometry = D4.getRequiredNamedArg<$flutter_232.SelectionGeometry>(named, 'selectionGeometry', 'AdaptiveTextSelectionToolbar');
-        final anchors = D4.getRequiredNamedArg<$flutter_323.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
+        final anchors = D4.getRequiredNamedArg<$flutter_322.TextSelectionToolbarAnchors>(named, 'anchors', 'AdaptiveTextSelectionToolbar');
         return $flutter_26.AdaptiveTextSelectionToolbar.selectable(key: key, onCopy: () { D4.callInterpreterCallback(visitor!, onCopyRaw, []); }, onSelectAll: () { D4.callInterpreterCallback(visitor!, onSelectAllRaw, []); }, onShare: onShareRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onShareRaw, []); }, selectionGeometry: selectionGeometry, anchors: anchors);
       },
       'selectableRegion': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final selectableRegionState = D4.getRequiredNamedArg<$flutter_314.SelectableRegionState>(named, 'selectableRegionState', 'AdaptiveTextSelectionToolbar');
+        final selectableRegionState = D4.getRequiredNamedArg<$flutter_313.SelectableRegionState>(named, 'selectableRegionState', 'AdaptiveTextSelectionToolbar');
         return $flutter_26.AdaptiveTextSelectionToolbar.selectableRegion(key: key, selectableRegionState: selectableRegionState);
       },
     },
@@ -5397,10 +5415,10 @@ BridgedClass _createMaterialAppBridge() {
         final checkerboardOffscreenLayers = D4.getNamedArgWithDefault<bool>(named, 'checkerboardOffscreenLayers', false);
         final showSemanticsDebugger = D4.getNamedArgWithDefault<bool>(named, 'showSemanticsDebugger', false);
         final debugShowCheckedModeBanner = D4.getNamedArgWithDefault<bool>(named, 'debugShowCheckedModeBanner', true);
-        final shortcuts = D4.coerceMapOrNull<$flutter_316.ShortcutActivator, $flutter_251.Intent>(named['shortcuts'], 'shortcuts');
+        final shortcuts = D4.coerceMapOrNull<$flutter_315.ShortcutActivator, $flutter_251.Intent>(named['shortcuts'], 'shortcuts');
         final actions = D4.coerceMapOrNull<Type, $flutter_251.Action<$flutter_251.Intent>>(named['actions'], 'actions');
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_303.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_302.ScrollBehavior?>(named, 'scrollBehavior');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         final themeAnimationStyle = D4.getOptionalNamedArg<$flutter_3.AnimationStyle?>(named, 'themeAnimationStyle');
         if (!named.containsKey('themeAnimationDuration') && !named.containsKey('supportedLocales')) {
@@ -5424,11 +5442,11 @@ BridgedClass _createMaterialAppBridge() {
       'router': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final scaffoldMessengerKey = D4.getOptionalNamedArg<$flutter_273.GlobalKey<$flutter_152.ScaffoldMessengerState>?>(named, 'scaffoldMessengerKey');
-        final routeInformationProvider = D4.getOptionalNamedArg<$flutter_301.RouteInformationProvider?>(named, 'routeInformationProvider');
-        final routeInformationParser = D4.getOptionalNamedArg<$flutter_301.RouteInformationParser<Object>?>(named, 'routeInformationParser');
-        final routerDelegate = D4.getOptionalNamedArg<$flutter_301.RouterDelegate<Object>?>(named, 'routerDelegate');
-        final routerConfig = D4.getOptionalNamedArg<$flutter_301.RouterConfig<Object>?>(named, 'routerConfig');
-        final backButtonDispatcher = D4.getOptionalNamedArg<$flutter_301.BackButtonDispatcher?>(named, 'backButtonDispatcher');
+        final routeInformationProvider = D4.getOptionalNamedArg<$flutter_300.RouteInformationProvider?>(named, 'routeInformationProvider');
+        final routeInformationParser = D4.getOptionalNamedArg<$flutter_300.RouteInformationParser<Object>?>(named, 'routeInformationParser');
+        final routerDelegate = D4.getOptionalNamedArg<$flutter_300.RouterDelegate<Object>?>(named, 'routerDelegate');
+        final routerConfig = D4.getOptionalNamedArg<$flutter_300.RouterConfig<Object>?>(named, 'routerConfig');
+        final backButtonDispatcher = D4.getOptionalNamedArg<$flutter_300.BackButtonDispatcher?>(named, 'backButtonDispatcher');
         final builderRaw = named['builder'];
         final title = D4.getOptionalNamedArg<String?>(named, 'title');
         final onGenerateTitleRaw = named['onGenerateTitle'];
@@ -5450,10 +5468,10 @@ BridgedClass _createMaterialAppBridge() {
         final checkerboardOffscreenLayers = D4.getNamedArgWithDefault<bool>(named, 'checkerboardOffscreenLayers', false);
         final showSemanticsDebugger = D4.getNamedArgWithDefault<bool>(named, 'showSemanticsDebugger', false);
         final debugShowCheckedModeBanner = D4.getNamedArgWithDefault<bool>(named, 'debugShowCheckedModeBanner', true);
-        final shortcuts = D4.coerceMapOrNull<$flutter_316.ShortcutActivator, $flutter_251.Intent>(named['shortcuts'], 'shortcuts');
+        final shortcuts = D4.coerceMapOrNull<$flutter_315.ShortcutActivator, $flutter_251.Intent>(named['shortcuts'], 'shortcuts');
         final actions = D4.coerceMapOrNull<Type, $flutter_251.Action<$flutter_251.Intent>>(named['actions'], 'actions');
         final restorationScopeId = D4.getOptionalNamedArg<String?>(named, 'restorationScopeId');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_303.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_302.ScrollBehavior?>(named, 'scrollBehavior');
         final useInheritedMediaQuery = D4.getNamedArgWithDefault<bool>(named, 'useInheritedMediaQuery', false);
         final themeAnimationStyle = D4.getOptionalNamedArg<$flutter_3.AnimationStyle?>(named, 'themeAnimationStyle');
         if (!named.containsKey('themeAnimationDuration') && !named.containsKey('supportedLocales')) {
@@ -5678,9 +5696,9 @@ BridgedClass _createMaterialScrollBehaviorBridge() {
         final dragDevices = D4.coerceSetOrNull<PointerDeviceKind>(named['dragDevices'], 'dragDevices');
         final multitouchDragStrategy = D4.getOptionalNamedArg<$flutter_19.MultitouchDragStrategy?>(named, 'multitouchDragStrategy');
         final pointerAxisModifiers = D4.coerceSetOrNull<$flutter_240.LogicalKeyboardKey>(named['pointerAxisModifiers'], 'pointerAxisModifiers');
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final platform = D4.getOptionalNamedArg<$flutter_13.TargetPlatform?>(named, 'platform');
-        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_310.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
+        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_309.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
         return t.copyWith(scrollbars: scrollbars, overscroll: overscroll, dragDevices: dragDevices, multitouchDragStrategy: multitouchDragStrategy, pointerAxisModifiers: pointerAxisModifiers, physics: physics, platform: platform, keyboardDismissBehavior: keyboardDismissBehavior);
       },
       'getPlatform': (visitor, target, positional, named, typeArgs) {
@@ -5700,7 +5718,7 @@ BridgedClass _createMaterialScrollBehaviorBridge() {
         D4.requireMinArgs(positional, 3, 'buildScrollbar');
         final context = D4.getRequiredArg<$flutter_273.BuildContext>(positional, 0, 'context', 'buildScrollbar');
         final child = D4.getRequiredArg<$flutter_273.Widget>(positional, 1, 'child', 'buildScrollbar');
-        final details = D4.getRequiredArg<$flutter_312.ScrollableDetails>(positional, 2, 'details', 'buildScrollbar');
+        final details = D4.getRequiredArg<$flutter_311.ScrollableDetails>(positional, 2, 'details', 'buildScrollbar');
         return t.buildScrollbar(context, child, details);
       },
       'buildOverscrollIndicator': (visitor, target, positional, named, typeArgs) {
@@ -5708,7 +5726,7 @@ BridgedClass _createMaterialScrollBehaviorBridge() {
         D4.requireMinArgs(positional, 3, 'buildOverscrollIndicator');
         final context = D4.getRequiredArg<$flutter_273.BuildContext>(positional, 0, 'context', 'buildOverscrollIndicator');
         final child = D4.getRequiredArg<$flutter_273.Widget>(positional, 1, 'child', 'buildOverscrollIndicator');
-        final details = D4.getRequiredArg<$flutter_312.ScrollableDetails>(positional, 2, 'details', 'buildOverscrollIndicator');
+        final details = D4.getRequiredArg<$flutter_311.ScrollableDetails>(positional, 2, 'details', 'buildOverscrollIndicator');
         return t.buildOverscrollIndicator(context, child, details);
       },
       'velocityTrackerBuilder': (visitor, target, positional, named, typeArgs) {
@@ -5726,7 +5744,7 @@ BridgedClass _createMaterialScrollBehaviorBridge() {
       'shouldNotify': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_28.MaterialScrollBehavior>(target, 'MaterialScrollBehavior');
         D4.requireMinArgs(positional, 1, 'shouldNotify');
-        final oldDelegate = D4.getRequiredArg<$flutter_303.ScrollBehavior>(positional, 0, 'oldDelegate', 'shouldNotify');
+        final oldDelegate = D4.getRequiredArg<$flutter_302.ScrollBehavior>(positional, 0, 'oldDelegate', 'shouldNotify');
         return t.shouldNotify(oldDelegate);
       },
       'getKeyboardDismissBehavior': (visitor, target, positional, named, typeArgs) {
@@ -5780,7 +5798,7 @@ BridgedClass _createAppBarBridge() {
         final actions = D4.coerceListOrNull<$flutter_273.Widget>(named['actions'], 'actions');
         final automaticallyImplyActions = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyActions', true);
         final flexibleSpace = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'flexibleSpace');
-        final bottom = D4.getOptionalNamedArg<$flutter_294.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_293.PreferredSizeWidget?>(named, 'bottom');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final scrolledUnderElevation = D4.getOptionalNamedArg<double?>(named, 'scrolledUnderElevation');
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
@@ -5811,7 +5829,7 @@ BridgedClass _createAppBarBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_307.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
+          final notificationPredicate = ($flutter_306.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_29.AppBar(key: key, leading: leading, automaticallyImplyLeading: automaticallyImplyLeading, title: title, actions: actions, automaticallyImplyActions: automaticallyImplyActions, flexibleSpace: flexibleSpace, bottom: bottom, elevation: elevation, scrolledUnderElevation: scrolledUnderElevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, shape: shape, backgroundColor: backgroundColor, foregroundColor: foregroundColor, iconTheme: iconTheme, actionsIconTheme: actionsIconTheme, primary: primary, centerTitle: centerTitle, excludeHeaderSemantics: excludeHeaderSemantics, titleSpacing: titleSpacing, toolbarOpacity: toolbarOpacity, bottomOpacity: bottomOpacity, toolbarHeight: toolbarHeight, leadingWidth: leadingWidth, toolbarTextStyle: toolbarTextStyle, titleTextStyle: titleTextStyle, systemOverlayStyle: systemOverlayStyle, forceMaterialTransparency: forceMaterialTransparency, useDefaultSemanticsOrder: useDefaultSemanticsOrder, clipBehavior: clipBehavior, actionsPadding: actionsPadding, animateColor: animateColor, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -5996,7 +6014,7 @@ BridgedClass _createSliverAppBarBridge() {
         final actions = D4.coerceListOrNull<$flutter_273.Widget>(named['actions'], 'actions');
         final automaticallyImplyActions = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyActions', true);
         final flexibleSpace = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'flexibleSpace');
-        final bottom = D4.getOptionalNamedArg<$flutter_294.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_293.PreferredSizeWidget?>(named, 'bottom');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final scrolledUnderElevation = D4.getOptionalNamedArg<double?>(named, 'scrolledUnderElevation');
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
@@ -6044,7 +6062,7 @@ BridgedClass _createSliverAppBarBridge() {
         final actions = D4.coerceListOrNull<$flutter_273.Widget>(named['actions'], 'actions');
         final automaticallyImplyActions = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyActions', true);
         final flexibleSpace = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'flexibleSpace');
-        final bottom = D4.getOptionalNamedArg<$flutter_294.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_293.PreferredSizeWidget?>(named, 'bottom');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final scrolledUnderElevation = D4.getOptionalNamedArg<double?>(named, 'scrolledUnderElevation');
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
@@ -6092,7 +6110,7 @@ BridgedClass _createSliverAppBarBridge() {
         final actions = D4.coerceListOrNull<$flutter_273.Widget>(named['actions'], 'actions');
         final automaticallyImplyActions = D4.getNamedArgWithDefault<bool>(named, 'automaticallyImplyActions', true);
         final flexibleSpace = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'flexibleSpace');
-        final bottom = D4.getOptionalNamedArg<$flutter_294.PreferredSizeWidget?>(named, 'bottom');
+        final bottom = D4.getOptionalNamedArg<$flutter_293.PreferredSizeWidget?>(named, 'bottom');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final scrolledUnderElevation = D4.getOptionalNamedArg<double?>(named, 'scrolledUnderElevation');
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
@@ -8441,7 +8459,7 @@ BridgedClass _createBottomNavigationBarThemeDataBridge() {
         final type = D4.getOptionalNamedArg<$flutter_39.BottomNavigationBarType?>(named, 'type');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         final landscapeLayout = D4.getOptionalNamedArg<$flutter_39.BottomNavigationBarLandscapeLayout?>(named, 'landscapeLayout');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         return $flutter_40.BottomNavigationBarThemeData(backgroundColor: backgroundColor, elevation: elevation, selectedIconTheme: selectedIconTheme, unselectedIconTheme: unselectedIconTheme, selectedItemColor: selectedItemColor, unselectedItemColor: unselectedItemColor, selectedLabelStyle: selectedLabelStyle, unselectedLabelStyle: unselectedLabelStyle, showSelectedLabels: showSelectedLabels, showUnselectedLabels: showUnselectedLabels, type: type, enableFeedback: enableFeedback, landscapeLayout: landscapeLayout, mouseCursor: mouseCursor);
       },
     },
@@ -8478,7 +8496,7 @@ BridgedClass _createBottomNavigationBarThemeDataBridge() {
         final type = D4.getOptionalNamedArg<$flutter_39.BottomNavigationBarType?>(named, 'type');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         final landscapeLayout = D4.getOptionalNamedArg<$flutter_39.BottomNavigationBarLandscapeLayout?>(named, 'landscapeLayout');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         return t.copyWith(backgroundColor: backgroundColor, elevation: elevation, selectedIconTheme: selectedIconTheme, unselectedIconTheme: unselectedIconTheme, selectedItemColor: selectedItemColor, unselectedItemColor: unselectedItemColor, selectedLabelStyle: selectedLabelStyle, unselectedLabelStyle: unselectedLabelStyle, showSelectedLabels: showSelectedLabels, showUnselectedLabels: showUnselectedLabels, type: type, enableFeedback: enableFeedback, landscapeLayout: landscapeLayout, mouseCursor: mouseCursor);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -9056,13 +9074,13 @@ BridgedClass _createModalBottomSheetRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -9141,14 +9159,14 @@ BridgedClass _createModalBottomSheetRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -9159,14 +9177,14 @@ BridgedClass _createModalBottomSheetRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(target, 'ModalBottomSheetRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -9728,23 +9746,23 @@ BridgedClass _createButtonStyleBridge() {
     isAssignable: (v) => v is $flutter_45.ButtonStyle,
     constructors: {
       '': (visitor, positional, named) {
-        final textStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final foregroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'foregroundColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final minimumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'minimumSize');
-        final fixedSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'fixedSize');
-        final maximumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'maximumSize');
-        final iconColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'iconColor');
-        final iconSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'iconSize');
+        final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final foregroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'foregroundColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final minimumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'minimumSize');
+        final fixedSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'fixedSize');
+        final maximumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'maximumSize');
+        final iconColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'iconColor');
+        final iconSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'iconSize');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final tapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'tapTargetSize');
         final animationDuration = D4.getOptionalNamedArg<Duration?>(named, 'animationDuration');
@@ -9753,7 +9771,7 @@ BridgedClass _createButtonStyleBridge() {
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        return $flutter_45.ButtonStyle(textStyle: textStyle, backgroundColor: backgroundColor, foregroundColor: foregroundColor, overlayColor: overlayColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, foregroundBuilder: foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); });
+        return $flutter_45.ButtonStyle(textStyle: textStyle, backgroundColor: backgroundColor, foregroundColor: foregroundColor, overlayColor: overlayColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, foregroundBuilder: foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); });
       },
     },
     getters: {
@@ -9787,23 +9805,23 @@ BridgedClass _createButtonStyleBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_45.ButtonStyle>(target, 'ButtonStyle');
-        final textStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final foregroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'foregroundColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final minimumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'minimumSize');
-        final fixedSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'fixedSize');
-        final maximumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'maximumSize');
-        final iconColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'iconColor');
-        final iconSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'iconSize');
+        final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final foregroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'foregroundColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final minimumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'minimumSize');
+        final fixedSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'fixedSize');
+        final maximumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'maximumSize');
+        final iconColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'iconColor');
+        final iconSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'iconSize');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final tapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'tapTargetSize');
         final animationDuration = D4.getOptionalNamedArg<Duration?>(named, 'animationDuration');
@@ -9812,7 +9830,7 @@ BridgedClass _createButtonStyleBridge() {
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        return t.copyWith(textStyle: textStyle, backgroundColor: backgroundColor, foregroundColor: foregroundColor, overlayColor: overlayColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, foregroundBuilder: foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); });
+        return t.copyWith(textStyle: textStyle, backgroundColor: backgroundColor, foregroundColor: foregroundColor, overlayColor: overlayColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); }, foregroundBuilder: foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); });
       },
       'merge': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_45.ButtonStyle>(target, 'ButtonStyle');
@@ -11151,7 +11169,7 @@ BridgedClass _createCarouselViewBridge() {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final itemSnapping = D4.getNamedArgWithDefault<bool>(named, 'itemSnapping', false);
         final shrinkExtent = D4.getNamedArgWithDefault<double>(named, 'shrinkExtent', 0.0);
         final controller = D4.getOptionalNamedArg<$flutter_51.CarouselController?>(named, 'controller');
@@ -11173,7 +11191,7 @@ BridgedClass _createCarouselViewBridge() {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final itemSnapping = D4.getNamedArgWithDefault<bool>(named, 'itemSnapping', false);
         final shrinkExtent = D4.getNamedArgWithDefault<double>(named, 'shrinkExtent', 0.0);
         final controller = D4.getOptionalNamedArg<$flutter_51.CarouselController?>(named, 'controller');
@@ -11199,7 +11217,7 @@ BridgedClass _createCarouselViewBridge() {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final itemSnapping = D4.getNamedArgWithDefault<bool>(named, 'itemSnapping', false);
         final shrinkExtent = D4.getNamedArgWithDefault<double>(named, 'shrinkExtent', 0.0);
         final controller = D4.getOptionalNamedArg<$flutter_51.CarouselController?>(named, 'controller');
@@ -11222,7 +11240,7 @@ BridgedClass _createCarouselViewBridge() {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final itemSnapping = D4.getNamedArgWithDefault<bool>(named, 'itemSnapping', false);
         final shrinkExtent = D4.getNamedArgWithDefault<double>(named, 'shrinkExtent', 0.0);
         final controller = D4.getOptionalNamedArg<$flutter_51.CarouselController?>(named, 'controller');
@@ -11377,7 +11395,7 @@ BridgedClass _createCarouselScrollPhysicsBridge() {
     isAssignable: (v) => v is $flutter_51.CarouselScrollPhysics,
     constructors: {
       '': (visitor, positional, named) {
-        final parent = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'parent');
+        final parent = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'parent');
         return $flutter_51.CarouselScrollPhysics(parent: parent);
       },
     },
@@ -11396,47 +11414,47 @@ BridgedClass _createCarouselScrollPhysicsBridge() {
       'buildParent': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 1, 'buildParent');
-        final ancestor = D4.getRequiredArg<$flutter_308.ScrollPhysics?>(positional, 0, 'ancestor', 'buildParent');
+        final ancestor = D4.getRequiredArg<$flutter_307.ScrollPhysics?>(positional, 0, 'ancestor', 'buildParent');
         return t.buildParent(ancestor);
       },
       'applyTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 1, 'applyTo');
-        final ancestor = D4.getRequiredArg<$flutter_308.ScrollPhysics?>(positional, 0, 'ancestor', 'applyTo');
+        final ancestor = D4.getRequiredArg<$flutter_307.ScrollPhysics?>(positional, 0, 'ancestor', 'applyTo');
         return t.applyTo(ancestor);
       },
       'applyPhysicsToUserOffset': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 2, 'applyPhysicsToUserOffset');
-        final position = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 0, 'position', 'applyPhysicsToUserOffset');
+        final position = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 0, 'position', 'applyPhysicsToUserOffset');
         final offset = D4.getRequiredArg<double>(positional, 1, 'offset', 'applyPhysicsToUserOffset');
         return t.applyPhysicsToUserOffset(position, offset);
       },
       'shouldAcceptUserOffset': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 1, 'shouldAcceptUserOffset');
-        final position = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 0, 'position', 'shouldAcceptUserOffset');
+        final position = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 0, 'position', 'shouldAcceptUserOffset');
         return t.shouldAcceptUserOffset(position);
       },
       'recommendDeferredLoading': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 3, 'recommendDeferredLoading');
         final velocity = D4.getRequiredArg<double>(positional, 0, 'velocity', 'recommendDeferredLoading');
-        final metrics = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 1, 'metrics', 'recommendDeferredLoading');
+        final metrics = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 1, 'metrics', 'recommendDeferredLoading');
         final context = D4.getRequiredArg<$flutter_273.BuildContext>(positional, 2, 'context', 'recommendDeferredLoading');
         return t.recommendDeferredLoading(velocity, metrics, context);
       },
       'applyBoundaryConditions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 2, 'applyBoundaryConditions');
-        final position = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 0, 'position', 'applyBoundaryConditions');
+        final position = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 0, 'position', 'applyBoundaryConditions');
         final value = D4.getRequiredArg<double>(positional, 1, 'value', 'applyBoundaryConditions');
         return t.applyBoundaryConditions(position, value);
       },
       'adjustPositionForNewDimensions': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
-        final oldPosition = D4.getRequiredNamedArg<$flutter_306.ScrollMetrics>(named, 'oldPosition', 'adjustPositionForNewDimensions');
-        final newPosition = D4.getRequiredNamedArg<$flutter_306.ScrollMetrics>(named, 'newPosition', 'adjustPositionForNewDimensions');
+        final oldPosition = D4.getRequiredNamedArg<$flutter_305.ScrollMetrics>(named, 'oldPosition', 'adjustPositionForNewDimensions');
+        final newPosition = D4.getRequiredNamedArg<$flutter_305.ScrollMetrics>(named, 'newPosition', 'adjustPositionForNewDimensions');
         final isScrolling = D4.getRequiredNamedArg<bool>(named, 'isScrolling', 'adjustPositionForNewDimensions');
         final velocity = D4.getRequiredNamedArg<double>(named, 'velocity', 'adjustPositionForNewDimensions');
         return t.adjustPositionForNewDimensions(oldPosition: oldPosition, newPosition: newPosition, isScrolling: isScrolling, velocity: velocity);
@@ -11444,14 +11462,14 @@ BridgedClass _createCarouselScrollPhysicsBridge() {
       'createBallisticSimulation': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 2, 'createBallisticSimulation');
-        final position = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 0, 'position', 'createBallisticSimulation');
+        final position = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 0, 'position', 'createBallisticSimulation');
         final velocity = D4.getRequiredArg<double>(positional, 1, 'velocity', 'createBallisticSimulation');
         return t.createBallisticSimulation(position, velocity);
       },
       'toleranceFor': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselScrollPhysics>(target, 'CarouselScrollPhysics');
         D4.requireMinArgs(positional, 1, 'toleranceFor');
-        final metrics = D4.getRequiredArg<$flutter_306.ScrollMetrics>(positional, 0, 'metrics', 'toleranceFor');
+        final metrics = D4.getRequiredArg<$flutter_305.ScrollMetrics>(positional, 0, 'metrics', 'toleranceFor');
         return t.toleranceFor(metrics);
       },
       'carriedMomentum': (visitor, target, positional, named, typeArgs) {
@@ -11542,14 +11560,14 @@ BridgedClass _createCarouselControllerBridge() {
       'attach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselController>(target, 'CarouselController');
         D4.requireMinArgs(positional, 1, 'attach');
-        final position = D4.getRequiredArg<$flutter_309.ScrollPosition>(positional, 0, 'position', 'attach');
+        final position = D4.getRequiredArg<$flutter_308.ScrollPosition>(positional, 0, 'position', 'attach');
         t.attach(position);
         return null;
       },
       'detach': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselController>(target, 'CarouselController');
         D4.requireMinArgs(positional, 1, 'detach');
-        final position = D4.getRequiredArg<$flutter_309.ScrollPosition>(positional, 0, 'position', 'detach');
+        final position = D4.getRequiredArg<$flutter_308.ScrollPosition>(positional, 0, 'position', 'detach');
         t.detach(position);
         return null;
       },
@@ -11561,9 +11579,9 @@ BridgedClass _createCarouselControllerBridge() {
       'createScrollPosition': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_51.CarouselController>(target, 'CarouselController');
         D4.requireMinArgs(positional, 3, 'createScrollPosition');
-        final physics = D4.getRequiredArg<$flutter_308.ScrollPhysics>(positional, 0, 'physics', 'createScrollPosition');
-        final context = D4.getRequiredArg<$flutter_304.ScrollContext>(positional, 1, 'context', 'createScrollPosition');
-        final oldPosition = D4.getRequiredArg<$flutter_309.ScrollPosition?>(positional, 2, 'oldPosition', 'createScrollPosition');
+        final physics = D4.getRequiredArg<$flutter_307.ScrollPhysics>(positional, 0, 'physics', 'createScrollPosition');
+        final context = D4.getRequiredArg<$flutter_303.ScrollContext>(positional, 1, 'context', 'createScrollPosition');
+        final oldPosition = D4.getRequiredArg<$flutter_308.ScrollPosition?>(positional, 2, 'oldPosition', 'createScrollPosition');
         return t.createScrollPosition(physics, context, oldPosition);
       },
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -11660,7 +11678,7 @@ BridgedClass _createCarouselViewThemeDataBridge() {
       '': (visitor, positional, named) {
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final shape = D4.getOptionalNamedArg<$flutter_204.OutlinedBorder?>(named, 'shape');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsets?>(named, 'padding');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
@@ -11682,7 +11700,7 @@ BridgedClass _createCarouselViewThemeDataBridge() {
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final shape = D4.getOptionalNamedArg<$flutter_204.OutlinedBorder?>(named, 'shape');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsets?>(named, 'padding');
         final itemClipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'itemClipBehavior');
         return t.copyWith(backgroundColor: backgroundColor, elevation: elevation, shape: shape, overlayColor: overlayColor, padding: padding, itemClipBehavior: itemClipBehavior);
@@ -11894,11 +11912,11 @@ BridgedClass _createCheckboxBridge() {
         final onChangedRaw = named['onChanged'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final checkColor = D4.getOptionalNamedArg<Color?>(named, 'checkColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -11920,11 +11938,11 @@ BridgedClass _createCheckboxBridge() {
         final onChangedRaw = named['onChanged'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final checkColor = D4.getOptionalNamedArg<Color?>(named, 'checkColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12083,10 +12101,10 @@ BridgedClass _createCheckboxListTileBridge() {
         final onChangedRaw = named['onChanged'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final checkColor = D4.getOptionalNamedArg<Color?>(named, 'checkColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12129,10 +12147,10 @@ BridgedClass _createCheckboxListTileBridge() {
         final onChangedRaw = named['onChanged'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final checkColor = D4.getOptionalNamedArg<Color?>(named, 'checkColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12341,10 +12359,10 @@ BridgedClass _createCheckboxThemeDataBridge() {
     isAssignable: (v) => v is $flutter_55.CheckboxThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
-        final checkColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'checkColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final checkColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'checkColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12368,10 +12386,10 @@ BridgedClass _createCheckboxThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_55.CheckboxThemeData>(target, 'CheckboxThemeData');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
-        final checkColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'checkColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final checkColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'checkColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12810,7 +12828,7 @@ BridgedClass _createChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -12999,7 +13017,7 @@ BridgedClass _createRawChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
@@ -13313,7 +13331,7 @@ BridgedClass _createChipThemeDataBridge() {
     isAssignable: (v) => v is $flutter_57.ChipThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final deleteIconColor = D4.getOptionalNamedArg<Color?>(named, 'deleteIconColor');
         final disabledColor = D4.getOptionalNamedArg<Color?>(named, 'disabledColor');
@@ -13375,7 +13393,7 @@ BridgedClass _createChipThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_57.ChipThemeData>(target, 'ChipThemeData');
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final deleteIconColor = D4.getOptionalNamedArg<Color?>(named, 'deleteIconColor');
         final disabledColor = D4.getOptionalNamedArg<Color?>(named, 'disabledColor');
@@ -13509,7 +13527,7 @@ BridgedClass _createChoiceChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -13544,7 +13562,7 @@ BridgedClass _createChoiceChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -14901,7 +14919,7 @@ BridgedClass _createDataColumnBridge() {
         final tooltip = D4.getOptionalNamedArg<String?>(named, 'tooltip');
         final numeric = D4.getNamedArgWithDefault<bool>(named, 'numeric', false);
         final onSortRaw = named['onSort'];
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final headingRowAlignment = D4.getOptionalNamedArg<$flutter_228.MainAxisAlignment?>(named, 'headingRowAlignment');
         return $flutter_63.DataColumn(label: label, columnWidth: columnWidth, tooltip: tooltip, numeric: numeric, onSort: onSortRaw == null ? null : (int p0, bool p1) { D4.callInterpreterCallback(visitor!, onSortRaw, [p0, p1]); }, mouseCursor: mouseCursor, headingRowAlignment: headingRowAlignment);
       },
@@ -14946,8 +14964,8 @@ BridgedClass _createDataRowBridge() {
         final onSelectChangedRaw = named['onSelectChanged'];
         final onLongPressRaw = named['onLongPress'];
         final onHoverRaw = named['onHover'];
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         if (!named.containsKey('cells') || named['cells'] == null) {
           throw ArgumentError('DataRow: Missing required named argument "cells"');
         }
@@ -14960,8 +14978,8 @@ BridgedClass _createDataRowBridge() {
         final onSelectChangedRaw = named['onSelectChanged'];
         final onLongPressRaw = named['onLongPress'];
         final onHoverRaw = named['onHover'];
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         if (!named.containsKey('cells') || named['cells'] == null) {
           throw ArgumentError('DataRow: Missing required named argument "cells"');
         }
@@ -15071,12 +15089,12 @@ BridgedClass _createDataTableBridge() {
         final sortAscending = D4.getNamedArgWithDefault<bool>(named, 'sortAscending', true);
         final onSelectAllRaw = named['onSelectAll'];
         final decoration = D4.getOptionalNamedArg<$flutter_209.Decoration?>(named, 'decoration');
-        final dataRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
+        final dataRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
         final dataRowHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowHeight');
         final dataRowMinHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMinHeight');
         final dataRowMaxHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMaxHeight');
         final dataTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'dataTextStyle');
-        final headingRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
+        final headingRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
         final headingRowHeight = D4.getOptionalNamedArg<double?>(named, 'headingRowHeight');
         final headingTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'headingTextStyle');
         final horizontalMargin = D4.getOptionalNamedArg<double?>(named, 'horizontalMargin');
@@ -15242,7 +15260,7 @@ BridgedClass _createTableRowInkWellBridge() {
         final onHoverRaw = named['onHover'];
         final onSecondaryTapRaw = named['onSecondaryTap'];
         final onSecondaryTapDownRaw = named['onSecondaryTapDown'];
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         return $flutter_63.TableRowInkWell(key: key, child: child, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onDoubleTap: onDoubleTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDoubleTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHighlightChanged: onHighlightChangedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHighlightChangedRaw, [p0]); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onSecondaryTap: onSecondaryTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapRaw, []); }, onSecondaryTapDown: onSecondaryTapDownRaw == null ? null : ($flutter_20.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapDownRaw, [p0]); }, overlayColor: overlayColor, mouseCursor: mouseCursor);
       },
@@ -15496,20 +15514,20 @@ BridgedClass _createDataTableThemeDataBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final decoration = D4.getOptionalNamedArg<$flutter_209.Decoration?>(named, 'decoration');
-        final dataRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
+        final dataRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
         final dataRowHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowHeight');
         final dataRowMinHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMinHeight');
         final dataRowMaxHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMaxHeight');
         final dataTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'dataTextStyle');
-        final headingRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
+        final headingRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
         final headingRowHeight = D4.getOptionalNamedArg<double?>(named, 'headingRowHeight');
         final headingTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'headingTextStyle');
         final horizontalMargin = D4.getOptionalNamedArg<double?>(named, 'horizontalMargin');
         final columnSpacing = D4.getOptionalNamedArg<double?>(named, 'columnSpacing');
         final dividerThickness = D4.getOptionalNamedArg<double?>(named, 'dividerThickness');
         final checkboxHorizontalMargin = D4.getOptionalNamedArg<double?>(named, 'checkboxHorizontalMargin');
-        final headingCellCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'headingCellCursor');
-        final dataRowCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'dataRowCursor');
+        final headingCellCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'headingCellCursor');
+        final dataRowCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'dataRowCursor');
         final headingRowAlignment = D4.getOptionalNamedArg<$flutter_228.MainAxisAlignment?>(named, 'headingRowAlignment');
         return $flutter_65.DataTableThemeData(decoration: decoration, dataRowColor: dataRowColor, dataRowHeight: dataRowHeight, dataRowMinHeight: dataRowMinHeight, dataRowMaxHeight: dataRowMaxHeight, dataTextStyle: dataTextStyle, headingRowColor: headingRowColor, headingRowHeight: headingRowHeight, headingTextStyle: headingTextStyle, horizontalMargin: horizontalMargin, columnSpacing: columnSpacing, dividerThickness: dividerThickness, checkboxHorizontalMargin: checkboxHorizontalMargin, headingCellCursor: headingCellCursor, dataRowCursor: dataRowCursor, headingRowAlignment: headingRowAlignment);
       },
@@ -15537,20 +15555,20 @@ BridgedClass _createDataTableThemeDataBridge() {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_65.DataTableThemeData>(target, 'DataTableThemeData');
         final decoration = D4.getOptionalNamedArg<$flutter_209.Decoration?>(named, 'decoration');
-        final dataRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
+        final dataRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dataRowColor');
         final dataRowHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowHeight');
         final dataRowMinHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMinHeight');
         final dataRowMaxHeight = D4.getOptionalNamedArg<double?>(named, 'dataRowMaxHeight');
         final dataTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'dataTextStyle');
-        final headingRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
+        final headingRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
         final headingRowHeight = D4.getOptionalNamedArg<double?>(named, 'headingRowHeight');
         final headingTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'headingTextStyle');
         final horizontalMargin = D4.getOptionalNamedArg<double?>(named, 'horizontalMargin');
         final columnSpacing = D4.getOptionalNamedArg<double?>(named, 'columnSpacing');
         final dividerThickness = D4.getOptionalNamedArg<double?>(named, 'dividerThickness');
         final checkboxHorizontalMargin = D4.getOptionalNamedArg<double?>(named, 'checkboxHorizontalMargin');
-        final headingCellCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'headingCellCursor');
-        final dataRowCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'dataRowCursor');
+        final headingCellCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'headingCellCursor');
+        final dataRowCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'dataRowCursor');
         final headingRowAlignment = D4.getOptionalNamedArg<$flutter_228.MainAxisAlignment?>(named, 'headingRowAlignment');
         return t.copyWith(decoration: decoration, dataRowColor: dataRowColor, dataRowHeight: dataRowHeight, dataRowMinHeight: dataRowMinHeight, dataRowMaxHeight: dataRowMaxHeight, dataTextStyle: dataTextStyle, headingRowColor: headingRowColor, headingRowHeight: headingRowHeight, headingTextStyle: headingTextStyle, horizontalMargin: horizontalMargin, columnSpacing: columnSpacing, dividerThickness: dividerThickness, checkboxHorizontalMargin: checkboxHorizontalMargin, headingCellCursor: headingCellCursor, dataRowCursor: dataRowCursor, headingRowAlignment: headingRowAlignment);
       },
@@ -16588,18 +16606,18 @@ BridgedClass _createDatePickerThemeDataBridge() {
         final headerHelpStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'headerHelpStyle');
         final weekdayStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'weekdayStyle');
         final dayStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'dayStyle');
-        final dayForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayForegroundColor');
-        final dayBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayBackgroundColor');
-        final dayOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayOverlayColor');
-        final dayShape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'dayShape');
-        final todayForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'todayForegroundColor');
-        final todayBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'todayBackgroundColor');
+        final dayForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayForegroundColor');
+        final dayBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayBackgroundColor');
+        final dayOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayOverlayColor');
+        final dayShape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'dayShape');
+        final todayForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'todayForegroundColor');
+        final todayBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'todayBackgroundColor');
         final todayBorder = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'todayBorder');
         final yearStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'yearStyle');
-        final yearForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearForegroundColor');
-        final yearBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearBackgroundColor');
-        final yearOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearOverlayColor');
-        final yearShape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'yearShape');
+        final yearForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearForegroundColor');
+        final yearBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearBackgroundColor');
+        final yearOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearOverlayColor');
+        final yearShape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'yearShape');
         final rangePickerBackgroundColor = D4.getOptionalNamedArg<Color?>(named, 'rangePickerBackgroundColor');
         final rangePickerElevation = D4.getOptionalNamedArg<double?>(named, 'rangePickerElevation');
         final rangePickerShadowColor = D4.getOptionalNamedArg<Color?>(named, 'rangePickerShadowColor');
@@ -16610,7 +16628,7 @@ BridgedClass _createDatePickerThemeDataBridge() {
         final rangePickerHeaderHeadlineStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'rangePickerHeaderHeadlineStyle');
         final rangePickerHeaderHelpStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'rangePickerHeaderHelpStyle');
         final rangeSelectionBackgroundColor = D4.getOptionalNamedArg<Color?>(named, 'rangeSelectionBackgroundColor');
-        final rangeSelectionOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'rangeSelectionOverlayColor');
+        final rangeSelectionOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'rangeSelectionOverlayColor');
         final dividerColor = D4.getOptionalNamedArg<Color?>(named, 'dividerColor');
         final inputDecorationTheme = D4.getOptionalNamedArg<Object?>(named, 'inputDecorationTheme');
         final cancelButtonStyle = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'cancelButtonStyle');
@@ -16679,18 +16697,18 @@ BridgedClass _createDatePickerThemeDataBridge() {
         final headerHelpStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'headerHelpStyle');
         final weekdayStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'weekdayStyle');
         final dayStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'dayStyle');
-        final dayForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayForegroundColor');
-        final dayBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayBackgroundColor');
-        final dayOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'dayOverlayColor');
-        final dayShape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'dayShape');
-        final todayForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'todayForegroundColor');
-        final todayBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'todayBackgroundColor');
+        final dayForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayForegroundColor');
+        final dayBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayBackgroundColor');
+        final dayOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'dayOverlayColor');
+        final dayShape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'dayShape');
+        final todayForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'todayForegroundColor');
+        final todayBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'todayBackgroundColor');
         final todayBorder = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'todayBorder');
         final yearStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'yearStyle');
-        final yearForegroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearForegroundColor');
-        final yearBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearBackgroundColor');
-        final yearOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'yearOverlayColor');
-        final yearShape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'yearShape');
+        final yearForegroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearForegroundColor');
+        final yearBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearBackgroundColor');
+        final yearOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'yearOverlayColor');
+        final yearShape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'yearShape');
         final rangePickerBackgroundColor = D4.getOptionalNamedArg<Color?>(named, 'rangePickerBackgroundColor');
         final rangePickerElevation = D4.getOptionalNamedArg<double?>(named, 'rangePickerElevation');
         final rangePickerShadowColor = D4.getOptionalNamedArg<Color?>(named, 'rangePickerShadowColor');
@@ -16701,7 +16719,7 @@ BridgedClass _createDatePickerThemeDataBridge() {
         final rangePickerHeaderHeadlineStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'rangePickerHeaderHeadlineStyle');
         final rangePickerHeaderHelpStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'rangePickerHeaderHelpStyle');
         final rangeSelectionBackgroundColor = D4.getOptionalNamedArg<Color?>(named, 'rangeSelectionBackgroundColor');
-        final rangeSelectionOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'rangeSelectionOverlayColor');
+        final rangeSelectionOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'rangeSelectionOverlayColor');
         final dividerColor = D4.getOptionalNamedArg<Color?>(named, 'dividerColor');
         final inputDecorationTheme = D4.getOptionalNamedArg<$flutter_112.InputDecorationTheme?>(named, 'inputDecorationTheme');
         final cancelButtonStyle = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'cancelButtonStyle');
@@ -16988,7 +17006,7 @@ BridgedClass _createDesktopTextSelectionControlsBridge() {
         }
         final endpoints = D4.coerceList<$flutter_227.TextSelectionPoint>(positional[4], 'endpoints');
         final delegate = D4.getRequiredArg<$flutter_249.TextSelectionDelegate>(positional, 5, 'delegate', 'buildToolbar');
-        final clipboardStatus = D4.getRequiredArg<$flutter_10.ValueListenable<$flutter_322.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
+        final clipboardStatus = D4.getRequiredArg<$flutter_10.ValueListenable<$flutter_321.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
         final lastSecondaryTapDownPosition = D4.getRequiredArg<Offset?>(positional, 7, 'lastSecondaryTapDownPosition', 'buildToolbar');
         return t.buildToolbar(context, globalEditableRegion, textLineHeight, selectionMidpoint, endpoints, delegate, clipboardStatus, lastSecondaryTapDownPosition);
       },
@@ -17513,8 +17531,8 @@ BridgedClass _createAlertDialogBridge() {
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         final constraints = D4.getOptionalNamedArg<$flutter_226.BoxConstraints?>(named, 'constraints');
-        final scrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'scrollController');
-        final actionScrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'actionScrollController');
+        final scrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'scrollController');
+        final actionScrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'actionScrollController');
         if (!named.containsKey('insetPadding') && !named.containsKey('scrollable') && !named.containsKey('insetAnimationDuration') && !named.containsKey('insetAnimationCurve')) {
           return $flutter_73.AlertDialog.adaptive(key: key, icon: icon, iconPadding: iconPadding, iconColor: iconColor, title: title, titlePadding: titlePadding, titleTextStyle: titleTextStyle, content: content, contentPadding: contentPadding, contentTextStyle: contentTextStyle, actions: actions, actionsPadding: actionsPadding, actionsAlignment: actionsAlignment, actionsOverflowAlignment: actionsOverflowAlignment, actionsOverflowDirection: actionsOverflowDirection, actionsOverflowButtonSpacing: actionsOverflowButtonSpacing, buttonPadding: buttonPadding, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, semanticLabel: semanticLabel, clipBehavior: clipBehavior, shape: shape, alignment: alignment, constraints: constraints, scrollController: scrollController, actionScrollController: actionScrollController);
         }
@@ -18187,13 +18205,13 @@ BridgedClass _createDialogRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -18272,14 +18290,14 @@ BridgedClass _createDialogRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -18290,14 +18308,14 @@ BridgedClass _createDialogRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -20651,8 +20669,8 @@ BridgedClass _createDropdownMenuBridge() {
         final textInputAction = D4.getOptionalNamedArg<$flutter_249.TextInputAction?>(named, 'textInputAction');
         final cursorHeight = D4.getOptionalNamedArg<double?>(named, 'cursorHeight');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
-        final menuController = D4.getOptionalNamedArg<$flutter_296.MenuController?>(named, 'menuController');
-        return $flutter_81.DropdownMenu(key: key, enabled: enabled, width: width, menuHeight: menuHeight, leadingIcon: leadingIcon, trailingIcon: trailingIcon, showTrailingIcon: showTrailingIcon, trailingIconFocusNode: trailingIconFocusNode, label: label, hintText: hintText, helperText: helperText, errorText: errorText, selectedTrailingIcon: selectedTrailingIcon, enableFilter: enableFilter, enableSearch: enableSearch, keyboardType: keyboardType, textStyle: textStyle, textAlign: textAlign, inputDecorationTheme: inputDecorationTheme, decorationBuilder: decorationBuilderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_296.MenuController p1) { return D4.extractBridgedArg<$flutter_112.InputDecoration>(D4.callInterpreterCallback(visitor!, decorationBuilderRaw, [p0, p1]), 'callback', visitor); }, menuStyle: menuStyle, controller: controller, initialSelection: initialSelection, onSelected: onSelectedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, focusNode: focusNode, requestFocusOnTap: requestFocusOnTap, selectOnly: selectOnly, expandedInsets: expandedInsets, filterCallback: filterCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.coerceList<$flutter_81.DropdownMenuEntry<dynamic>>(D4.callInterpreterCallback(visitor!, filterCallbackRaw, [p0, p1]), 'callback'); }, searchCallback: searchCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, searchCallbackRaw, [p0, p1]), 'callback', visitor); }, alignmentOffset: alignmentOffset, dropdownMenuEntries: dropdownMenuEntries, inputFormatters: inputFormatters, closeBehavior: closeBehavior, maxLines: maxLines, textInputAction: textInputAction, cursorHeight: cursorHeight, restorationId: restorationId, menuController: menuController);
+        final menuController = D4.getOptionalNamedArg<$flutter_295.MenuController?>(named, 'menuController');
+        return $flutter_81.DropdownMenu(key: key, enabled: enabled, width: width, menuHeight: menuHeight, leadingIcon: leadingIcon, trailingIcon: trailingIcon, showTrailingIcon: showTrailingIcon, trailingIconFocusNode: trailingIconFocusNode, label: label, hintText: hintText, helperText: helperText, errorText: errorText, selectedTrailingIcon: selectedTrailingIcon, enableFilter: enableFilter, enableSearch: enableSearch, keyboardType: keyboardType, textStyle: textStyle, textAlign: textAlign, inputDecorationTheme: inputDecorationTheme, decorationBuilder: decorationBuilderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_295.MenuController p1) { return D4.extractBridgedArg<$flutter_112.InputDecoration>(D4.callInterpreterCallback(visitor!, decorationBuilderRaw, [p0, p1]), 'callback', visitor); }, menuStyle: menuStyle, controller: controller, initialSelection: initialSelection, onSelected: onSelectedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, focusNode: focusNode, requestFocusOnTap: requestFocusOnTap, selectOnly: selectOnly, expandedInsets: expandedInsets, filterCallback: filterCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.coerceList<$flutter_81.DropdownMenuEntry<dynamic>>(D4.callInterpreterCallback(visitor!, filterCallbackRaw, [p0, p1]), 'callback'); }, searchCallback: searchCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, searchCallbackRaw, [p0, p1]), 'callback', visitor); }, alignmentOffset: alignmentOffset, dropdownMenuEntries: dropdownMenuEntries, inputFormatters: inputFormatters, closeBehavior: closeBehavior, maxLines: maxLines, textInputAction: textInputAction, cursorHeight: cursorHeight, restorationId: restorationId, menuController: menuController);
       },
     },
     getters: {
@@ -20865,7 +20883,7 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
         final validatorRaw = named['validator'];
         final forceErrorText = D4.getOptionalNamedArg<String?>(named, 'forceErrorText');
         final errorBuilderRaw = named['errorBuilder'];
-        return $flutter_82.DropdownMenuFormField(key: key, enabled: enabled, width: width, menuHeight: menuHeight, leadingIcon: leadingIcon, trailingIcon: trailingIcon, label: label, hintText: hintText, helperText: helperText, selectedTrailingIcon: selectedTrailingIcon, enableFilter: enableFilter, enableSearch: enableSearch, keyboardType: keyboardType, textStyle: textStyle, textAlign: textAlign, inputDecorationTheme: inputDecorationTheme, decorationBuilder: decorationBuilderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_296.MenuController p1) { return D4.extractBridgedArg<$flutter_112.InputDecoration>(D4.callInterpreterCallback(visitor!, decorationBuilderRaw, [p0, p1]), 'callback', visitor); }, menuStyle: menuStyle, controller: controller, initialSelection: initialSelection, onSelected: onSelectedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, focusNode: focusNode, requestFocusOnTap: requestFocusOnTap, expandedInsets: expandedInsets, alignmentOffset: alignmentOffset, filterCallback: filterCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.coerceList<$flutter_81.DropdownMenuEntry<dynamic>>(D4.callInterpreterCallback(visitor!, filterCallbackRaw, [p0, p1]), 'callback'); }, searchCallback: searchCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, searchCallbackRaw, [p0, p1]), 'callback', visitor); }, dropdownMenuEntries: dropdownMenuEntries, inputFormatters: inputFormatters, closeBehavior: closeBehavior, maxLines: maxLines, textInputAction: textInputAction, restorationId: restorationId, onSaved: onSavedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSavedRaw, [p0]); }, autovalidateMode: autovalidateMode, validator: validatorRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<String?>(D4.callInterpreterCallback(visitor!, validatorRaw, [p0]), 'callback', visitor); }, forceErrorText: forceErrorText, errorBuilder: errorBuilderRaw == null ? null : ($flutter_273.BuildContext p0, String p1) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1]), 'callback', visitor); });
+        return $flutter_82.DropdownMenuFormField(key: key, enabled: enabled, width: width, menuHeight: menuHeight, leadingIcon: leadingIcon, trailingIcon: trailingIcon, label: label, hintText: hintText, helperText: helperText, selectedTrailingIcon: selectedTrailingIcon, enableFilter: enableFilter, enableSearch: enableSearch, keyboardType: keyboardType, textStyle: textStyle, textAlign: textAlign, inputDecorationTheme: inputDecorationTheme, decorationBuilder: decorationBuilderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_295.MenuController p1) { return D4.extractBridgedArg<$flutter_112.InputDecoration>(D4.callInterpreterCallback(visitor!, decorationBuilderRaw, [p0, p1]), 'callback', visitor); }, menuStyle: menuStyle, controller: controller, initialSelection: initialSelection, onSelected: onSelectedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSelectedRaw, [p0]); }, focusNode: focusNode, requestFocusOnTap: requestFocusOnTap, expandedInsets: expandedInsets, alignmentOffset: alignmentOffset, filterCallback: filterCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.coerceList<$flutter_81.DropdownMenuEntry<dynamic>>(D4.callInterpreterCallback(visitor!, filterCallbackRaw, [p0, p1]), 'callback'); }, searchCallback: searchCallbackRaw == null ? null : (List<$flutter_81.DropdownMenuEntry<dynamic>> p0, String p1) { return D4.extractBridgedArg<int?>(D4.callInterpreterCallback(visitor!, searchCallbackRaw, [p0, p1]), 'callback', visitor); }, dropdownMenuEntries: dropdownMenuEntries, inputFormatters: inputFormatters, closeBehavior: closeBehavior, maxLines: maxLines, textInputAction: textInputAction, restorationId: restorationId, onSaved: onSavedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onSavedRaw, [p0]); }, autovalidateMode: autovalidateMode, validator: validatorRaw == null ? null : (dynamic p0) { return D4.extractBridgedArg<String?>(D4.callInterpreterCallback(visitor!, validatorRaw, [p0]), 'callback', visitor); }, forceErrorText: forceErrorText, errorBuilder: errorBuilderRaw == null ? null : ($flutter_273.BuildContext p0, String p1) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, errorBuilderRaw, [p0, p1]), 'callback', visitor); });
       },
     },
     getters: {
@@ -21224,7 +21242,7 @@ BridgedClass _createElevatedButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget?>(named, 'child', 'ElevatedButton');
         return $flutter_84.ElevatedButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, style: style, focusNode: focusNode, autofocus: autofocus, clipBehavior: clipBehavior, statesController: statesController, child: child);
       },
@@ -21241,7 +21259,7 @@ BridgedClass _createElevatedButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'icon');
         final label = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'label', 'ElevatedButton');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
@@ -21365,9 +21383,9 @@ BridgedClass _createElevatedButtonBridge() {
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
-        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         return $flutter_84.ElevatedButton.styleFrom(foregroundColor: foregroundColor, backgroundColor: backgroundColor, disabledForegroundColor: disabledForegroundColor, disabledBackgroundColor: disabledBackgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, disabledIconColor: disabledIconColor, overlayColor: overlayColor, elevation: elevation, textStyle: textStyle, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, enabledMouseCursor: enabledMouseCursor, disabledMouseCursor: disabledMouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilder, foregroundBuilder: foregroundBuilder);
       },
     },
@@ -22529,7 +22547,7 @@ BridgedClass _createFilledButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget?>(named, 'child', 'FilledButton');
         return $flutter_91.FilledButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, style: style, focusNode: focusNode, autofocus: autofocus, clipBehavior: clipBehavior, statesController: statesController, child: child);
       },
@@ -22546,7 +22564,7 @@ BridgedClass _createFilledButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'icon');
         final label = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'label', 'FilledButton');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
@@ -22565,7 +22583,7 @@ BridgedClass _createFilledButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget?>(named, 'child', 'FilledButton');
         return $flutter_91.FilledButton.tonal(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, style: style, focusNode: focusNode, autofocus: autofocus, clipBehavior: clipBehavior, statesController: statesController, child: child);
       },
@@ -22582,7 +22600,7 @@ BridgedClass _createFilledButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'icon');
         final label = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'label', 'FilledButton');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
@@ -22706,9 +22724,9 @@ BridgedClass _createFilledButtonBridge() {
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
-        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         return $flutter_91.FilledButton.styleFrom(foregroundColor: foregroundColor, backgroundColor: backgroundColor, disabledForegroundColor: disabledForegroundColor, disabledBackgroundColor: disabledBackgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, disabledIconColor: disabledIconColor, overlayColor: overlayColor, elevation: elevation, textStyle: textStyle, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, enabledMouseCursor: enabledMouseCursor, disabledMouseCursor: disabledMouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilder, foregroundBuilder: foregroundBuilder);
       },
     },
@@ -22990,7 +23008,7 @@ BridgedClass _createFilterChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -23033,7 +23051,7 @@ BridgedClass _createFilterChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -24392,7 +24410,7 @@ BridgedClass _createFloatingActionButtonThemeDataBridge() {
         final extendedIconLabelSpacing = D4.getOptionalNamedArg<double?>(named, 'extendedIconLabelSpacing');
         final extendedPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'extendedPadding');
         final extendedTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'extendedTextStyle');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         return $flutter_97.FloatingActionButtonThemeData(foregroundColor: foregroundColor, backgroundColor: backgroundColor, focusColor: focusColor, hoverColor: hoverColor, splashColor: splashColor, elevation: elevation, focusElevation: focusElevation, hoverElevation: hoverElevation, disabledElevation: disabledElevation, highlightElevation: highlightElevation, shape: shape, enableFeedback: enableFeedback, iconSize: iconSize, sizeConstraints: sizeConstraints, smallSizeConstraints: smallSizeConstraints, largeSizeConstraints: largeSizeConstraints, extendedSizeConstraints: extendedSizeConstraints, extendedIconLabelSpacing: extendedIconLabelSpacing, extendedPadding: extendedPadding, extendedTextStyle: extendedTextStyle, mouseCursor: mouseCursor);
       },
     },
@@ -24443,7 +24461,7 @@ BridgedClass _createFloatingActionButtonThemeDataBridge() {
         final extendedIconLabelSpacing = D4.getOptionalNamedArg<double?>(named, 'extendedIconLabelSpacing');
         final extendedPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'extendedPadding');
         final extendedTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'extendedTextStyle');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         return t.copyWith(foregroundColor: foregroundColor, backgroundColor: backgroundColor, focusColor: focusColor, hoverColor: hoverColor, splashColor: splashColor, elevation: elevation, focusElevation: focusElevation, hoverElevation: hoverElevation, disabledElevation: disabledElevation, highlightElevation: highlightElevation, shape: shape, enableFeedback: enableFeedback, iconSize: iconSize, sizeConstraints: sizeConstraints, smallSizeConstraints: smallSizeConstraints, largeSizeConstraints: largeSizeConstraints, extendedSizeConstraints: extendedSizeConstraints, extendedIconLabelSpacing: extendedIconLabelSpacing, extendedPadding: extendedPadding, extendedTextStyle: extendedTextStyle, mouseCursor: mouseCursor);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -24908,7 +24926,7 @@ BridgedClass _createIconButtonBridge() {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
         final isSelected = D4.getOptionalNamedArg<bool?>(named, 'isSelected');
         final selectedIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'selectedIcon');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'icon', 'IconButton');
         return $flutter_100.IconButton(key: key, iconSize: iconSize, visualDensity: visualDensity, padding: padding, alignment: alignment, splashRadius: splashRadius, color: color, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, splashColor: splashColor, disabledColor: disabledColor, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, mouseCursor: mouseCursor, focusNode: focusNode, autofocus: autofocus, tooltip: tooltip, enableFeedback: enableFeedback, constraints: constraints, style: style, isSelected: isSelected, selectedIcon: selectedIcon, statesController: statesController, icon: icon);
       },
@@ -24940,7 +24958,7 @@ BridgedClass _createIconButtonBridge() {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
         final isSelected = D4.getOptionalNamedArg<bool?>(named, 'isSelected');
         final selectedIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'selectedIcon');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'icon', 'IconButton');
         return $flutter_100.IconButton.filled(key: key, iconSize: iconSize, visualDensity: visualDensity, padding: padding, alignment: alignment, splashRadius: splashRadius, color: color, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, splashColor: splashColor, disabledColor: disabledColor, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, mouseCursor: mouseCursor, focusNode: focusNode, autofocus: autofocus, tooltip: tooltip, enableFeedback: enableFeedback, constraints: constraints, style: style, isSelected: isSelected, selectedIcon: selectedIcon, statesController: statesController, icon: icon);
       },
@@ -24972,7 +24990,7 @@ BridgedClass _createIconButtonBridge() {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
         final isSelected = D4.getOptionalNamedArg<bool?>(named, 'isSelected');
         final selectedIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'selectedIcon');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'icon', 'IconButton');
         return $flutter_100.IconButton.filledTonal(key: key, iconSize: iconSize, visualDensity: visualDensity, padding: padding, alignment: alignment, splashRadius: splashRadius, color: color, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, splashColor: splashColor, disabledColor: disabledColor, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, mouseCursor: mouseCursor, focusNode: focusNode, autofocus: autofocus, tooltip: tooltip, enableFeedback: enableFeedback, constraints: constraints, style: style, isSelected: isSelected, selectedIcon: selectedIcon, statesController: statesController, icon: icon);
       },
@@ -25004,7 +25022,7 @@ BridgedClass _createIconButtonBridge() {
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
         final isSelected = D4.getOptionalNamedArg<bool?>(named, 'isSelected');
         final selectedIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'selectedIcon');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'icon', 'IconButton');
         return $flutter_100.IconButton.outlined(key: key, iconSize: iconSize, visualDensity: visualDensity, padding: padding, alignment: alignment, splashRadius: splashRadius, color: color, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, splashColor: splashColor, disabledColor: disabledColor, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, mouseCursor: mouseCursor, focusNode: focusNode, autofocus: autofocus, tooltip: tooltip, enableFeedback: enableFeedback, constraints: constraints, style: style, isSelected: isSelected, selectedIcon: selectedIcon, statesController: statesController, icon: icon);
       },
@@ -43941,7 +43959,7 @@ BridgedClass _createInkResponseBridge() {
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
         final highlightColor = D4.getOptionalNamedArg<Color?>(named, 'highlightColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashColor = D4.getOptionalNamedArg<Color?>(named, 'splashColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final enableFeedback = D4.getNamedArgWithDefault<bool>(named, 'enableFeedback', true);
@@ -43950,7 +43968,7 @@ BridgedClass _createInkResponseBridge() {
         final canRequestFocus = D4.getNamedArgWithDefault<bool>(named, 'canRequestFocus', true);
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final hoverDuration = D4.getOptionalNamedArg<Duration?>(named, 'hoverDuration');
         return $flutter_108.InkResponse(key: key, child: child, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onTapDown: onTapDownRaw == null ? null : ($flutter_20.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); }, onTapUp: onTapUpRaw == null ? null : ($flutter_20.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); }, onTapCancel: onTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapCancelRaw, []); }, onDoubleTap: onDoubleTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDoubleTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onLongPressUp: onLongPressUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressUpRaw, []); }, onSecondaryTap: onSecondaryTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapRaw, []); }, onSecondaryTapUp: onSecondaryTapUpRaw == null ? null : ($flutter_20.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapUpRaw, [p0]); }, onSecondaryTapDown: onSecondaryTapDownRaw == null ? null : ($flutter_20.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapDownRaw, [p0]); }, onSecondaryTapCancel: onSecondaryTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapCancelRaw, []); }, onHighlightChanged: onHighlightChangedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHighlightChangedRaw, [p0]); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, mouseCursor: mouseCursor, containedInkWell: containedInkWell, highlightShape: highlightShape, radius: radius, borderRadius: borderRadius, customBorder: customBorder, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, overlayColor: overlayColor, splashColor: splashColor, splashFactory: splashFactory, enableFeedback: enableFeedback, excludeFromSemantics: excludeFromSemantics, focusNode: focusNode, canRequestFocus: canRequestFocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, autofocus: autofocus, statesController: statesController, hoverDuration: hoverDuration);
       },
@@ -44151,7 +44169,7 @@ BridgedClass _createInkWellBridge() {
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
         final highlightColor = D4.getOptionalNamedArg<Color?>(named, 'highlightColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashColor = D4.getOptionalNamedArg<Color?>(named, 'splashColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final radius = D4.getOptionalNamedArg<double?>(named, 'radius');
@@ -44163,7 +44181,7 @@ BridgedClass _createInkWellBridge() {
         final canRequestFocus = D4.getNamedArgWithDefault<bool>(named, 'canRequestFocus', true);
         final onFocusChangeRaw = named['onFocusChange'];
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final hoverDuration = D4.getOptionalNamedArg<Duration?>(named, 'hoverDuration');
         return $flutter_108.InkWell(key: key, child: child, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onDoubleTap: onDoubleTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onDoubleTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onLongPressUp: onLongPressUpRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressUpRaw, []); }, onTapDown: onTapDownRaw == null ? null : ($flutter_20.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onTapDownRaw, [p0]); }, onTapUp: onTapUpRaw == null ? null : ($flutter_20.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onTapUpRaw, [p0]); }, onTapCancel: onTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapCancelRaw, []); }, onSecondaryTap: onSecondaryTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapRaw, []); }, onSecondaryTapUp: onSecondaryTapUpRaw == null ? null : ($flutter_20.TapUpDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapUpRaw, [p0]); }, onSecondaryTapDown: onSecondaryTapDownRaw == null ? null : ($flutter_20.TapDownDetails p0) { D4.callInterpreterCallback(visitor!, onSecondaryTapDownRaw, [p0]); }, onSecondaryTapCancel: onSecondaryTapCancelRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onSecondaryTapCancelRaw, []); }, onHighlightChanged: onHighlightChangedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHighlightChangedRaw, [p0]); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, mouseCursor: mouseCursor, focusColor: focusColor, hoverColor: hoverColor, highlightColor: highlightColor, overlayColor: overlayColor, splashColor: splashColor, splashFactory: splashFactory, radius: radius, borderRadius: borderRadius, customBorder: customBorder, enableFeedback: enableFeedback, excludeFromSemantics: excludeFromSemantics, focusNode: focusNode, canRequestFocus: canRequestFocus, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, autofocus: autofocus, statesController: statesController, hoverDuration: hoverDuration);
       },
@@ -44768,7 +44786,7 @@ BridgedClass _createInputChipBridge() {
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final color = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'color');
+        final color = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'color');
         final backgroundColor = D4.getOptionalNamedArg<Color?>(named, 'backgroundColor');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -46131,7 +46149,7 @@ BridgedClass _createListTileBridge() {
         final minTileHeight = D4.getOptionalNamedArg<double?>(named, 'minTileHeight');
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
         final internalAddSemanticForOnTap = D4.getNamedArgWithDefault<bool>(named, 'internalAddSemanticForOnTap', true);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         return $flutter_113.ListTile(key: key, leading: leading, title: title, subtitle: subtitle, trailing: trailing, isThreeLine: isThreeLine, dense: dense, visualDensity: visualDensity, shape: shape, style: style, selectedColor: selectedColor, iconColor: iconColor, textColor: textColor, titleTextStyle: titleTextStyle, subtitleTextStyle: subtitleTextStyle, leadingAndTrailingTextStyle: leadingAndTrailingTextStyle, contentPadding: contentPadding, enabled: enabled, onTap: onTapRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTapRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, mouseCursor: mouseCursor, selected: selected, focusColor: focusColor, hoverColor: hoverColor, splashColor: splashColor, focusNode: focusNode, autofocus: autofocus, tileColor: tileColor, selectedTileColor: selectedTileColor, enableFeedback: enableFeedback, horizontalTitleGap: horizontalTitleGap, minVerticalPadding: minVerticalPadding, minLeadingWidth: minLeadingWidth, minTileHeight: minTileHeight, titleAlignment: titleAlignment, internalAddSemanticForOnTap: internalAddSemanticForOnTap, statesController: statesController);
       },
     },
@@ -46334,7 +46352,7 @@ BridgedClass _createListTileThemeDataBridge() {
         final minVerticalPadding = D4.getOptionalNamedArg<double?>(named, 'minVerticalPadding');
         final minLeadingWidth = D4.getOptionalNamedArg<double?>(named, 'minLeadingWidth');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final minTileHeight = D4.getOptionalNamedArg<double?>(named, 'minTileHeight');
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
@@ -46388,7 +46406,7 @@ BridgedClass _createListTileThemeDataBridge() {
         final minLeadingWidth = D4.getOptionalNamedArg<double?>(named, 'minLeadingWidth');
         final minTileHeight = D4.getOptionalNamedArg<double?>(named, 'minTileHeight');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final isThreeLine = D4.getOptionalNamedArg<bool?>(named, 'isThreeLine');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
@@ -46498,7 +46516,7 @@ BridgedClass _createListTileThemeBridge() {
         final tileColor = D4.getOptionalNamedArg<Color?>(named, 'tileColor');
         final selectedTileColor = D4.getOptionalNamedArg<Color?>(named, 'selectedTileColor');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final horizontalTitleGap = D4.getOptionalNamedArg<double?>(named, 'horizontalTitleGap');
         final minVerticalPadding = D4.getOptionalNamedArg<double?>(named, 'minVerticalPadding');
         final minLeadingWidth = D4.getOptionalNamedArg<double?>(named, 'minLeadingWidth');
@@ -46619,7 +46637,7 @@ BridgedClass _createListTileThemeBridge() {
         final minLeadingWidth = D4.getOptionalNamedArg<double?>(named, 'minLeadingWidth');
         final minTileHeight = D4.getOptionalNamedArg<double?>(named, 'minTileHeight');
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final controlAffinity = D4.getOptionalNamedArg<$flutter_113.ListTileControlAffinity?>(named, 'controlAffinity');
         final isThreeLine = D4.getOptionalNamedArg<bool?>(named, 'isThreeLine');
@@ -48423,14 +48441,14 @@ BridgedClass _createWidgetStateInputBorderBridge() {
           throw ArgumentError('WidgetStateInputBorder: Missing required argument "callback" at position 0');
         }
         final callbackRaw = positional[0];
-        return $flutter_119.WidgetStateInputBorder.resolveWith((Set<$flutter_327.WidgetState> p0) { return D4.extractBridgedArg<$flutter_109.InputBorder>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
+        return $flutter_119.WidgetStateInputBorder.resolveWith((Set<$flutter_326.WidgetState> p0) { return D4.extractBridgedArg<$flutter_109.InputBorder>(D4.callInterpreterCallback(visitor!, callbackRaw, [p0]), 'callback', visitor); });
       },
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateInputBorder');
         if (positional.isEmpty) {
           throw ArgumentError('WidgetStateInputBorder: Missing required argument "map" at position 0');
         }
-        final map = D4.coerceMap<$flutter_327.WidgetStatesConstraint, $flutter_109.InputBorder>(positional[0], 'map');
+        final map = D4.coerceMap<$flutter_326.WidgetStatesConstraint, $flutter_109.InputBorder>(positional[0], 'map');
         return $flutter_119.WidgetStateInputBorder.fromMap(map);
       },
     },
@@ -48519,7 +48537,7 @@ BridgedClass _createWidgetStateInputBorderBridge() {
         if (positional.isEmpty) {
           throw ArgumentError('resolve: Missing required argument "states" at position 0');
         }
-        final states = D4.coerceSet<$flutter_327.WidgetState>(positional[0], 'states');
+        final states = D4.coerceSet<$flutter_326.WidgetState>(positional[0], 'states');
         return t.resolve(states);
       },
       '+': (visitor, target, positional, named, typeArgs) {
@@ -48582,7 +48600,7 @@ BridgedClass _createMaterialStateMixinBridge() {
     },
     setters: {
       'materialStates': (visitor, target, value) => 
-        D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin').materialStates = (value as Set).cast<$flutter_327.WidgetState>().toSet(),
+        D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin').materialStates = (value as Set).cast<$flutter_326.WidgetState>().toSet(),
     },
     methods: {
       'initState': (visitor, target, positional, named, typeArgs) {
@@ -48663,14 +48681,14 @@ BridgedClass _createMaterialStateMixinBridge() {
       'updateMaterialState': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin');
         D4.requireMinArgs(positional, 1, 'updateMaterialState');
-        final key = D4.getRequiredArg<$flutter_327.WidgetState>(positional, 0, 'key', 'updateMaterialState');
+        final key = D4.getRequiredArg<$flutter_326.WidgetState>(positional, 0, 'key', 'updateMaterialState');
         final onChangedRaw = named['onChanged'];
         return t.updateMaterialState(key, onChanged: onChangedRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); });
       },
       'setMaterialState': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin');
         D4.requireMinArgs(positional, 2, 'setMaterialState');
-        final state = D4.getRequiredArg<$flutter_327.WidgetState>(positional, 0, 'state', 'setMaterialState');
+        final state = D4.getRequiredArg<$flutter_326.WidgetState>(positional, 0, 'state', 'setMaterialState');
         final isSet = D4.getRequiredArg<bool>(positional, 1, 'isSet', 'setMaterialState');
         t.setMaterialState(state, isSet);
         return null;
@@ -48678,14 +48696,14 @@ BridgedClass _createMaterialStateMixinBridge() {
       'addMaterialState': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin');
         D4.requireMinArgs(positional, 1, 'addMaterialState');
-        final state = D4.getRequiredArg<$flutter_327.WidgetState>(positional, 0, 'state', 'addMaterialState');
+        final state = D4.getRequiredArg<$flutter_326.WidgetState>(positional, 0, 'state', 'addMaterialState');
         t.addMaterialState(state);
         return null;
       },
       'removeMaterialState': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_120.MaterialStateMixin>(target, 'MaterialStateMixin');
         D4.requireMinArgs(positional, 1, 'removeMaterialState');
-        final state = D4.getRequiredArg<$flutter_327.WidgetState>(positional, 0, 'state', 'removeMaterialState');
+        final state = D4.getRequiredArg<$flutter_326.WidgetState>(positional, 0, 'state', 'removeMaterialState');
         t.removeMaterialState(state);
         return null;
       },
@@ -48741,7 +48759,7 @@ BridgedClass _createMenuAnchorBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final controller = D4.getOptionalNamedArg<$flutter_296.MenuController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_295.MenuController?>(named, 'controller');
         final childFocusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'childFocusNode');
         final style = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'style');
         final alignmentOffset = D4.getNamedArgWithDefault<Offset?>(named, 'alignmentOffset', $dart_ui.Offset.zero);
@@ -48760,7 +48778,7 @@ BridgedClass _createMenuAnchorBridge() {
         final menuChildren = D4.coerceList<$flutter_273.Widget>(named['menuChildren'], 'menuChildren');
         final builderRaw = named['builder'];
         final child = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'child');
-        return $flutter_121.MenuAnchor(key: key, controller: controller, childFocusNode: childFocusNode, style: style, alignmentOffset: alignmentOffset, reservedPadding: reservedPadding, layerLink: layerLink, clipBehavior: clipBehavior, anchorTapClosesMenu: anchorTapClosesMenu, consumeOutsideTap: consumeOutsideTap, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, crossAxisUnconstrained: crossAxisUnconstrained, useRootOverlay: useRootOverlay, menuChildren: menuChildren, builder: builderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_296.MenuController p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, child: child);
+        return $flutter_121.MenuAnchor(key: key, controller: controller, childFocusNode: childFocusNode, style: style, alignmentOffset: alignmentOffset, reservedPadding: reservedPadding, layerLink: layerLink, clipBehavior: clipBehavior, anchorTapClosesMenu: anchorTapClosesMenu, consumeOutsideTap: consumeOutsideTap, onOpen: onOpenRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onOpenRaw, []); }, onClose: onCloseRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onCloseRaw, []); }, crossAxisUnconstrained: crossAxisUnconstrained, useRootOverlay: useRootOverlay, menuChildren: menuChildren, builder: builderRaw == null ? null : ($flutter_273.BuildContext p0, $flutter_295.MenuController p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, builderRaw, [p0, p1, p2]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -48891,7 +48909,7 @@ BridgedClass _createMenuBarBridge() {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final style = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'style');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final controller = D4.getOptionalNamedArg<$flutter_296.MenuController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_295.MenuController?>(named, 'controller');
         if (!named.containsKey('children') || named['children'] == null) {
           throw ArgumentError('MenuBar: Missing required named argument "children"');
         }
@@ -49012,7 +49030,7 @@ BridgedClass _createMenuItemButtonBridge() {
         final shortcut = D4.getOptionalNamedArg<$flutter_292.MenuSerializableShortcut?>(named, 'shortcut');
         final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final leadingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'leadingIcon');
         final trailingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'trailingIcon');
@@ -49210,7 +49228,7 @@ BridgedClass _createCheckboxMenuButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final shortcut = D4.getOptionalNamedArg<$flutter_292.MenuSerializableShortcut?>(named, 'shortcut');
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final trailingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'trailingIcon');
         final closeOnActivate = D4.getNamedArgWithDefault<bool>(named, 'closeOnActivate', true);
@@ -49356,7 +49374,7 @@ BridgedClass _createRadioMenuButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final shortcut = D4.getOptionalNamedArg<$flutter_292.MenuSerializableShortcut?>(named, 'shortcut');
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.none);
         final trailingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'trailingIcon');
         final closeOnActivate = D4.getNamedArgWithDefault<bool>(named, 'closeOnActivate', true);
@@ -49494,16 +49512,16 @@ BridgedClass _createSubmenuButtonBridge() {
         final onFocusChangeRaw = named['onFocusChange'];
         final onOpenRaw = named['onOpen'];
         final onCloseRaw = named['onClose'];
-        final controller = D4.getOptionalNamedArg<$flutter_296.MenuController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_295.MenuController?>(named, 'controller');
         final style = D4.getOptionalNamedArg<$flutter_45.ButtonStyle?>(named, 'style');
         final menuStyle = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'menuStyle');
         final alignmentOffset = D4.getOptionalNamedArg<Offset?>(named, 'alignmentOffset');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final leadingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'leadingIcon');
         final trailingIcon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'trailingIcon');
-        final submenuIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_273.Widget>?>(named, 'submenuIcon');
+        final submenuIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_273.Widget>?>(named, 'submenuIcon');
         final useRootOverlay = D4.getNamedArgWithDefault<bool>(named, 'useRootOverlay', false);
         if (!named.containsKey('menuChildren') || named['menuChildren'] == null) {
           throw ArgumentError('SubmenuButton: Missing required named argument "menuChildren"');
@@ -50351,17 +50369,17 @@ BridgedClass _createMenuStyleBridge() {
     isAssignable: (v) => v is $flutter_124.MenuStyle,
     constructors: {
       '': (visitor, positional, named) {
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final minimumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'minimumSize');
-        final fixedSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'fixedSize');
-        final maximumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'maximumSize');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final minimumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'minimumSize');
+        final fixedSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'fixedSize');
+        final maximumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'maximumSize');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         return $flutter_124.MenuStyle(backgroundColor: backgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, alignment: alignment);
@@ -50386,17 +50404,17 @@ BridgedClass _createMenuStyleBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_124.MenuStyle>(target, 'MenuStyle');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final minimumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'minimumSize');
-        final fixedSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'fixedSize');
-        final maximumSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'maximumSize');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final minimumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'minimumSize');
+        final fixedSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'fixedSize');
+        final maximumSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'maximumSize');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         return t.copyWith(backgroundColor: backgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, elevation: elevation, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, mouseCursor: mouseCursor, visualDensity: visualDensity, alignment: alignment);
@@ -50491,7 +50509,7 @@ BridgedClass _createMenuThemeDataBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final style = D4.getOptionalNamedArg<$flutter_124.MenuStyle?>(named, 'style');
-        final submenuIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_273.Widget>?>(named, 'submenuIcon');
+        final submenuIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_273.Widget>?>(named, 'submenuIcon');
         return $flutter_125.MenuThemeData(style: style, submenuIcon: submenuIcon);
       },
     },
@@ -51011,8 +51029,8 @@ BridgedClass _createNavigationBarBridge() {
         final indicatorShape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'indicatorShape');
         final height = D4.getOptionalNamedArg<double?>(named, 'height');
         final labelBehavior = D4.getOptionalNamedArg<$flutter_128.NavigationDestinationLabelBehavior?>(named, 'labelBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
         final labelPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'labelPadding');
         final maintainBottomViewPadding = D4.getNamedArgWithDefault<bool>(named, 'maintainBottomViewPadding', false);
         return $flutter_128.NavigationBar(key: key, animationDuration: animationDuration, selectedIndex: selectedIndex, destinations: destinations, onDestinationSelected: onDestinationSelectedRaw == null ? null : (int p0) { D4.callInterpreterCallback(visitor!, onDestinationSelectedRaw, [p0]); }, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, indicatorColor: indicatorColor, indicatorShape: indicatorShape, height: height, labelBehavior: labelBehavior, overlayColor: overlayColor, labelTextStyle: labelTextStyle, labelPadding: labelPadding, maintainBottomViewPadding: maintainBottomViewPadding);
@@ -51397,10 +51415,10 @@ BridgedClass _createNavigationBarThemeDataBridge() {
         final surfaceTintColor = D4.getOptionalNamedArg<Color?>(named, 'surfaceTintColor');
         final indicatorColor = D4.getOptionalNamedArg<Color?>(named, 'indicatorColor');
         final indicatorShape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'indicatorShape');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
-        final iconTheme = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final iconTheme = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
         final labelBehavior = D4.getOptionalNamedArg<$flutter_128.NavigationDestinationLabelBehavior?>(named, 'labelBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final labelPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'labelPadding');
         return $flutter_129.NavigationBarThemeData(height: height, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, indicatorColor: indicatorColor, indicatorShape: indicatorShape, labelTextStyle: labelTextStyle, iconTheme: iconTheme, labelBehavior: labelBehavior, overlayColor: overlayColor, labelPadding: labelPadding);
       },
@@ -51430,10 +51448,10 @@ BridgedClass _createNavigationBarThemeDataBridge() {
         final surfaceTintColor = D4.getOptionalNamedArg<Color?>(named, 'surfaceTintColor');
         final indicatorColor = D4.getOptionalNamedArg<Color?>(named, 'indicatorColor');
         final indicatorShape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'indicatorShape');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
-        final iconTheme = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final iconTheme = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
         final labelBehavior = D4.getOptionalNamedArg<$flutter_128.NavigationDestinationLabelBehavior?>(named, 'labelBehavior');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final labelPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'labelPadding');
         return t.copyWith(height: height, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, indicatorColor: indicatorColor, indicatorShape: indicatorShape, labelTextStyle: labelTextStyle, iconTheme: iconTheme, labelBehavior: labelBehavior, overlayColor: overlayColor, labelPadding: labelPadding);
       },
@@ -51901,8 +51919,8 @@ BridgedClass _createNavigationDrawerThemeDataBridge() {
         final indicatorColor = D4.getOptionalNamedArg<Color?>(named, 'indicatorColor');
         final indicatorShape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'indicatorShape');
         final indicatorSize = D4.getOptionalNamedArg<Size?>(named, 'indicatorSize');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
-        final iconTheme = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final iconTheme = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
         return $flutter_131.NavigationDrawerThemeData(tileHeight: tileHeight, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, indicatorColor: indicatorColor, indicatorShape: indicatorShape, indicatorSize: indicatorSize, labelTextStyle: labelTextStyle, iconTheme: iconTheme);
       },
     },
@@ -51930,8 +51948,8 @@ BridgedClass _createNavigationDrawerThemeDataBridge() {
         final indicatorColor = D4.getOptionalNamedArg<Color?>(named, 'indicatorColor');
         final indicatorShape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'indicatorShape');
         final indicatorSize = D4.getOptionalNamedArg<Size?>(named, 'indicatorSize');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
-        final iconTheme = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final iconTheme = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_277.IconThemeData>?>(named, 'iconTheme');
         return t.copyWith(tileHeight: tileHeight, backgroundColor: backgroundColor, elevation: elevation, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, indicatorColor: indicatorColor, indicatorShape: indicatorShape, indicatorSize: indicatorSize, labelTextStyle: labelTextStyle, iconTheme: iconTheme);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -52729,7 +52747,7 @@ BridgedClass _createOutlinedButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget?>(named, 'child', 'OutlinedButton');
         return $flutter_135.OutlinedButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, style: style, focusNode: focusNode, autofocus: autofocus, clipBehavior: clipBehavior, statesController: statesController, child: child);
       },
@@ -52746,7 +52764,7 @@ BridgedClass _createOutlinedButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'icon');
         final label = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'label', 'OutlinedButton');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
@@ -52870,9 +52888,9 @@ BridgedClass _createOutlinedButtonBridge() {
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
-        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         return $flutter_135.OutlinedButton.styleFrom(foregroundColor: foregroundColor, backgroundColor: backgroundColor, disabledForegroundColor: disabledForegroundColor, disabledBackgroundColor: disabledBackgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, disabledIconColor: disabledIconColor, overlayColor: overlayColor, elevation: elevation, textStyle: textStyle, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, enabledMouseCursor: enabledMouseCursor, disabledMouseCursor: disabledMouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilder, foregroundBuilder: foregroundBuilder);
       },
     },
@@ -53312,13 +53330,13 @@ BridgedClass _createMaterialPageRouteBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -53397,14 +53415,14 @@ BridgedClass _createMaterialPageRouteBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -53415,14 +53433,14 @@ BridgedClass _createMaterialPageRouteBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialPageRoute>(target, 'MaterialPageRoute');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -53793,13 +53811,13 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
       'canTransitionTo': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'canTransitionTo');
-        final nextRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
+        final nextRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'nextRoute', 'canTransitionTo');
         return t.canTransitionTo(nextRoute);
       },
       'canTransitionFrom': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'canTransitionFrom');
-        final previousRoute = D4.getRequiredArg<$flutter_302.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
+        final previousRoute = D4.getRequiredArg<$flutter_301.TransitionRoute>(positional, 0, 'previousRoute', 'canTransitionFrom');
         return t.canTransitionFrom(previousRoute);
       },
       'handleStartBackGesture': (visitor, target, positional, named, typeArgs) {
@@ -53878,14 +53896,14 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
       'registerPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'registerPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'registerPopEntry');
         t.registerPopEntry(popEntry);
         return null;
       },
       'unregisterPopEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'unregisterPopEntry');
-        final popEntry = D4.getRequiredArg<$flutter_302.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
+        final popEntry = D4.getRequiredArg<$flutter_301.PopEntry<Object?>>(positional, 0, 'popEntry', 'unregisterPopEntry');
         t.unregisterPopEntry(popEntry);
         return null;
       },
@@ -53896,14 +53914,14 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
       'addLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'addLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'addLocalHistoryEntry');
         t.addLocalHistoryEntry(entry);
         return null;
       },
       'removeLocalHistoryEntry': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(target, 'MaterialRouteTransitionMixin');
         D4.requireMinArgs(positional, 1, 'removeLocalHistoryEntry');
-        final entry = D4.getRequiredArg<$flutter_302.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
+        final entry = D4.getRequiredArg<$flutter_301.LocalHistoryEntry>(positional, 0, 'entry', 'removeLocalHistoryEntry');
         t.removeLocalHistoryEntry(entry);
         return null;
       },
@@ -54286,9 +54304,9 @@ BridgedClass _createPaginatedDataTableBridge() {
         final arrowHeadColor = D4.getOptionalNamedArg<Color?>(named, 'arrowHeadColor');
         final source = D4.getRequiredNamedArg<$flutter_64.DataTableSource>(named, 'source', 'PaginatedDataTable');
         final checkboxHorizontalMargin = D4.getOptionalNamedArg<double?>(named, 'checkboxHorizontalMargin');
-        final controller = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'controller');
         final primary = D4.getOptionalNamedArg<bool?>(named, 'primary');
-        final headingRowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
+        final headingRowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'headingRowColor');
         final dividerThickness = D4.getOptionalNamedArg<double?>(named, 'dividerThickness');
         final showEmptyRows = D4.getNamedArgWithDefault<bool>(named, 'showEmptyRows', true);
         if (!named.containsKey('rowsPerPage') && !named.containsKey('availableRowsPerPage')) {
@@ -54828,7 +54846,7 @@ BridgedClass _createPopupMenuItemBridge() {
         final enabled = D4.getNamedArgWithDefault<bool>(named, 'enabled', true);
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsets?>(named, 'padding');
         final textStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'textStyle');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget?>(named, 'child', 'PopupMenuItem');
         if (!named.containsKey('height')) {
@@ -55103,7 +55121,7 @@ BridgedClass _createCheckedPopupMenuItemBridge() {
         final checked = D4.getNamedArgWithDefault<bool>(named, 'checked', false);
         final enabled = D4.getNamedArgWithDefault<bool>(named, 'enabled', true);
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsets?>(named, 'padding');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final child = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'child');
         final onTapRaw = named['onTap'];
@@ -55562,9 +55580,9 @@ BridgedClass _createPopupMenuThemeDataBridge() {
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
         final surfaceTintColor = D4.getOptionalNamedArg<Color?>(named, 'surfaceTintColor');
         final textStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'textStyle');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final position = D4.getOptionalNamedArg<$flutter_141.PopupMenuPosition?>(named, 'position');
         final iconColor = D4.getOptionalNamedArg<Color?>(named, 'iconColor');
         final iconSize = D4.getOptionalNamedArg<double?>(named, 'iconSize');
@@ -55597,9 +55615,9 @@ BridgedClass _createPopupMenuThemeDataBridge() {
         final shadowColor = D4.getOptionalNamedArg<Color?>(named, 'shadowColor');
         final surfaceTintColor = D4.getOptionalNamedArg<Color?>(named, 'surfaceTintColor');
         final textStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'textStyle');
-        final labelTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
+        final labelTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'labelTextStyle');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final position = D4.getOptionalNamedArg<$flutter_141.PopupMenuPosition?>(named, 'position');
         final iconColor = D4.getOptionalNamedArg<Color?>(named, 'iconColor');
         final iconSize = D4.getOptionalNamedArg<double?>(named, 'iconSize');
@@ -56742,20 +56760,20 @@ BridgedClass _createRadioBridge() {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final toggleable = D4.getNamedArgWithDefault<bool>(named, 'toggleable', false);
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
-        final groupRegistry = D4.getOptionalNamedArg<$flutter_295.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final groupRegistry = D4.getOptionalNamedArg<$flutter_294.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
         final side = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'side');
-        final innerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'innerRadius');
+        final innerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'innerRadius');
         return $flutter_145.Radio(key: key, value: value, groupValue: groupValue, onChanged: onChangedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, mouseCursor: mouseCursor, toggleable: toggleable, activeColor: activeColor, fillColor: fillColor, focusColor: focusColor, hoverColor: hoverColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, visualDensity: visualDensity, focusNode: focusNode, autofocus: autofocus, enabled: enabled, groupRegistry: groupRegistry, backgroundColor: backgroundColor, side: side, innerRadius: innerRadius);
       },
       'adaptive': (visitor, positional, named) {
@@ -56766,10 +56784,10 @@ BridgedClass _createRadioBridge() {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final toggleable = D4.getNamedArgWithDefault<bool>(named, 'toggleable', false);
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
@@ -56777,10 +56795,10 @@ BridgedClass _createRadioBridge() {
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final useCupertinoCheckmarkStyle = D4.getNamedArgWithDefault<bool>(named, 'useCupertinoCheckmarkStyle', false);
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
-        final groupRegistry = D4.getOptionalNamedArg<$flutter_295.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final groupRegistry = D4.getOptionalNamedArg<$flutter_294.RadioGroupRegistry<dynamic>?>(named, 'groupRegistry');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
         final side = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'side');
-        final innerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'innerRadius');
+        final innerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'innerRadius');
         return $flutter_145.Radio.adaptive(key: key, value: value, groupValue: groupValue, onChanged: onChangedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, mouseCursor: mouseCursor, toggleable: toggleable, activeColor: activeColor, fillColor: fillColor, focusColor: focusColor, hoverColor: hoverColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, visualDensity: visualDensity, focusNode: focusNode, autofocus: autofocus, useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle, enabled: enabled, groupRegistry: groupRegistry, backgroundColor: backgroundColor, side: side, innerRadius: innerRadius);
       },
     },
@@ -56927,9 +56945,9 @@ BridgedClass _createRadioListTileBridge() {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final toggleable = D4.getNamedArgWithDefault<bool>(named, 'toggleable', false);
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final title = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'title');
@@ -56956,9 +56974,9 @@ BridgedClass _createRadioListTileBridge() {
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
         final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
         final internalAddSemanticForOnTap = D4.getNamedArgWithDefault<bool>(named, 'internalAddSemanticForOnTap', false);
-        final radioBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'radioBackgroundColor');
+        final radioBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'radioBackgroundColor');
         final radioSide = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'radioSide');
-        final radioInnerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'radioInnerRadius');
+        final radioInnerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'radioInnerRadius');
         return $flutter_146.RadioListTile(key: key, value: value, groupValue: groupValue, onChanged: onChangedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, mouseCursor: mouseCursor, toggleable: toggleable, activeColor: activeColor, fillColor: fillColor, hoverColor: hoverColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, title: title, subtitle: subtitle, isThreeLine: isThreeLine, dense: dense, secondary: secondary, selected: selected, controlAffinity: controlAffinity, autofocus: autofocus, contentPadding: contentPadding, shape: shape, tileColor: tileColor, selectedTileColor: selectedTileColor, visualDensity: visualDensity, focusNode: focusNode, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, enableFeedback: enableFeedback, horizontalTitleGap: horizontalTitleGap, minVerticalPadding: minVerticalPadding, minLeadingWidth: minLeadingWidth, minTileHeight: minTileHeight, radioScaleFactor: radioScaleFactor, titleAlignment: titleAlignment, enabled: enabled, internalAddSemanticForOnTap: internalAddSemanticForOnTap, radioBackgroundColor: radioBackgroundColor, radioSide: radioSide, radioInnerRadius: radioInnerRadius);
       },
       'adaptive': (visitor, positional, named) {
@@ -56969,9 +56987,9 @@ BridgedClass _createRadioListTileBridge() {
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final toggleable = D4.getNamedArgWithDefault<bool>(named, 'toggleable', false);
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final title = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'title');
@@ -56999,9 +57017,9 @@ BridgedClass _createRadioListTileBridge() {
         final useCupertinoCheckmarkStyle = D4.getNamedArgWithDefault<bool>(named, 'useCupertinoCheckmarkStyle', false);
         final titleAlignment = D4.getOptionalNamedArg<$flutter_113.ListTileTitleAlignment?>(named, 'titleAlignment');
         final internalAddSemanticForOnTap = D4.getNamedArgWithDefault<bool>(named, 'internalAddSemanticForOnTap', false);
-        final radioBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'radioBackgroundColor');
+        final radioBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'radioBackgroundColor');
         final radioSide = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'radioSide');
-        final radioInnerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'radioInnerRadius');
+        final radioInnerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'radioInnerRadius');
         return $flutter_146.RadioListTile.adaptive(key: key, value: value, groupValue: groupValue, onChanged: onChangedRaw == null ? null : (dynamic p0) { D4.callInterpreterCallback(visitor!, onChangedRaw, [p0]); }, mouseCursor: mouseCursor, toggleable: toggleable, activeColor: activeColor, fillColor: fillColor, hoverColor: hoverColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, title: title, subtitle: subtitle, isThreeLine: isThreeLine, dense: dense, secondary: secondary, selected: selected, controlAffinity: controlAffinity, autofocus: autofocus, contentPadding: contentPadding, shape: shape, tileColor: tileColor, selectedTileColor: selectedTileColor, visualDensity: visualDensity, focusNode: focusNode, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, enableFeedback: enableFeedback, horizontalTitleGap: horizontalTitleGap, minVerticalPadding: minVerticalPadding, minLeadingWidth: minLeadingWidth, minTileHeight: minTileHeight, radioScaleFactor: radioScaleFactor, enabled: enabled, useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle, titleAlignment: titleAlignment, internalAddSemanticForOnTap: internalAddSemanticForOnTap, radioBackgroundColor: radioBackgroundColor, radioSide: radioSide, radioInnerRadius: radioInnerRadius);
       },
     },
@@ -57179,15 +57197,15 @@ BridgedClass _createRadioThemeDataBridge() {
     isAssignable: (v) => v is $flutter_147.RadioThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
         final side = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'side');
-        final innerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'innerRadius');
+        final innerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'innerRadius');
         return $flutter_147.RadioThemeData(mouseCursor: mouseCursor, fillColor: fillColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, visualDensity: visualDensity, backgroundColor: backgroundColor, side: side, innerRadius: innerRadius);
       },
     },
@@ -57206,15 +57224,15 @@ BridgedClass _createRadioThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_147.RadioThemeData>(target, 'RadioThemeData');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final fillColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'fillColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final fillColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'fillColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final visualDensity = D4.getOptionalNamedArg<$flutter_190.VisualDensity?>(named, 'visualDensity');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
         final side = D4.getOptionalNamedArg<$flutter_204.BorderSide?>(named, 'side');
-        final innerRadius = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'innerRadius');
+        final innerRadius = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'innerRadius');
         return t.copyWith(mouseCursor: mouseCursor, fillColor: fillColor, overlayColor: overlayColor, splashRadius: splashRadius, materialTapTargetSize: materialTapTargetSize, visualDensity: visualDensity, backgroundColor: backgroundColor, side: side, innerRadius: innerRadius);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -57424,8 +57442,8 @@ BridgedClass _createRangeSliderBridge() {
         final labels = D4.getOptionalNamedArg<$flutter_149.RangeLabels?>(named, 'labels');
         final activeColor = D4.getOptionalNamedArg<Color?>(named, 'activeColor');
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final semanticFormatterCallbackRaw = named['semanticFormatterCallback'];
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final year2023 = D4.getOptionalNamedArg<bool?>(named, 'year2023');
@@ -58841,7 +58859,7 @@ BridgedClass _createRefreshIndicatorBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_307.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
+          final notificationPredicate = ($flutter_306.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_150.RefreshIndicator(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -58867,7 +58885,7 @@ BridgedClass _createRefreshIndicatorBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_307.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
+          final notificationPredicate = ($flutter_306.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_150.RefreshIndicator.adaptive(key: key, displacement: displacement, edgeOffset: edgeOffset, onRefresh: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, color: color, backgroundColor: backgroundColor, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, strokeWidth: strokeWidth, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -58889,7 +58907,7 @@ BridgedClass _createRefreshIndicatorBridge() {
         }
         if (named.containsKey('notificationPredicate')) {
           final notificationPredicateRaw = named['notificationPredicate'];
-          final notificationPredicate = ($flutter_307.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
+          final notificationPredicate = ($flutter_306.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); };
           return $flutter_150.RefreshIndicator.noSpinner(key: key, onRefresh: () { return D4.extractBridgedArg<Future<void>>(D4.callInterpreterCallback(visitor!, onRefreshRaw, []), 'callback', visitor); }, onStatusChange: onStatusChangeRaw == null ? null : ($flutter_150.RefreshIndicatorStatus? p0) { D4.callInterpreterCallback(visitor!, onStatusChangeRaw, [p0]); }, semanticsLabel: semanticsLabel, semanticsValue: semanticsValue, triggerMode: triggerMode, elevation: elevation, child: child, notificationPredicate: notificationPredicate);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -59175,14 +59193,14 @@ BridgedClass _createReorderableListViewBridge() {
         final footer = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'footer');
         final scrollDirection = D4.getNamedArgWithDefault<$flutter_202.Axis>(named, 'scrollDirection', $flutter_202.Axis.vertical);
         final reverse = D4.getNamedArgWithDefault<bool>(named, 'reverse', false);
-        final scrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'scrollController');
+        final scrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'scrollController');
         final primary = D4.getOptionalNamedArg<bool?>(named, 'primary');
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final shrinkWrap = D4.getNamedArgWithDefault<bool>(named, 'shrinkWrap', false);
         final anchor = D4.getNamedArgWithDefault<double>(named, 'anchor', 0.0);
         final cacheExtent = D4.getOptionalNamedArg<double?>(named, 'cacheExtent');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
-        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_310.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
+        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_309.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final autoScrollerVelocityScalar = D4.getOptionalNamedArg<double?>(named, 'autoScrollerVelocityScalar');
@@ -59213,14 +59231,14 @@ BridgedClass _createReorderableListViewBridge() {
         final footer = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'footer');
         final scrollDirection = D4.getNamedArgWithDefault<$flutter_202.Axis>(named, 'scrollDirection', $flutter_202.Axis.vertical);
         final reverse = D4.getNamedArgWithDefault<bool>(named, 'reverse', false);
-        final scrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'scrollController');
+        final scrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'scrollController');
         final primary = D4.getOptionalNamedArg<bool?>(named, 'primary');
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final shrinkWrap = D4.getNamedArgWithDefault<bool>(named, 'shrinkWrap', false);
         final anchor = D4.getNamedArgWithDefault<double>(named, 'anchor', 0.0);
         final cacheExtent = D4.getOptionalNamedArg<double?>(named, 'cacheExtent');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
-        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_310.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
+        final keyboardDismissBehavior = D4.getOptionalNamedArg<$flutter_309.ScrollViewKeyboardDismissBehavior?>(named, 'keyboardDismissBehavior');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final autoScrollerVelocityScalar = D4.getOptionalNamedArg<double?>(named, 'autoScrollerVelocityScalar');
@@ -59778,7 +59796,7 @@ BridgedClass _createScaffoldBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
-        final appBar = D4.getOptionalNamedArg<$flutter_294.PreferredSizeWidget?>(named, 'appBar');
+        final appBar = D4.getOptionalNamedArg<$flutter_293.PreferredSizeWidget?>(named, 'appBar');
         final body = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'body');
         final floatingActionButton = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'floatingActionButton');
         final floatingActionButtonLocation = D4.getOptionalNamedArg<$flutter_96.FloatingActionButtonLocation?>(named, 'floatingActionButtonLocation');
@@ -60164,7 +60182,7 @@ BridgedClass _createScaffoldStateBridge() {
       'registerForRestoration': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_152.ScaffoldState>(target, 'ScaffoldState');
         D4.requireMinArgs(positional, 2, 'registerForRestoration');
-        final property = D4.getRequiredArg<$flutter_300.RestorableProperty<Object?>>(positional, 0, 'property', 'registerForRestoration');
+        final property = D4.getRequiredArg<$flutter_299.RestorableProperty<Object?>>(positional, 0, 'property', 'registerForRestoration');
         final restorationId = D4.getRequiredArg<String>(positional, 1, 'restorationId', 'registerForRestoration');
         t.registerForRestoration(property, restorationId);
         return null;
@@ -60172,7 +60190,7 @@ BridgedClass _createScaffoldStateBridge() {
       'unregisterFromRestoration': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_152.ScaffoldState>(target, 'ScaffoldState');
         D4.requireMinArgs(positional, 1, 'unregisterFromRestoration');
-        final property = D4.getRequiredArg<$flutter_300.RestorableProperty<Object?>>(positional, 0, 'property', 'unregisterFromRestoration');
+        final property = D4.getRequiredArg<$flutter_299.RestorableProperty<Object?>>(positional, 0, 'property', 'unregisterFromRestoration');
         t.unregisterFromRestoration(property);
         return null;
       },
@@ -60217,7 +60235,7 @@ BridgedClass _createScaffoldStateBridge() {
       'didPushRouteInformation': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_152.ScaffoldState>(target, 'ScaffoldState');
         D4.requireMinArgs(positional, 1, 'didPushRouteInformation');
-        final routeInformation = D4.getRequiredArg<$flutter_301.RouteInformation>(positional, 0, 'routeInformation', 'didPushRouteInformation');
+        final routeInformation = D4.getRequiredArg<$flutter_300.RouteInformation>(positional, 0, 'routeInformation', 'didPushRouteInformation');
         return t.didPushRouteInformation(routeInformation);
       },
       'didChangeMetrics': (visitor, target, positional, named, typeArgs) {
@@ -60401,15 +60419,15 @@ BridgedClass _createScrollbarBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'Scrollbar');
-        final controller = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'controller');
+        final controller = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'controller');
         final thumbVisibility = D4.getOptionalNamedArg<bool?>(named, 'thumbVisibility');
         final trackVisibility = D4.getOptionalNamedArg<bool?>(named, 'trackVisibility');
         final thickness = D4.getOptionalNamedArg<double?>(named, 'thickness');
         final radius = D4.getOptionalNamedArg<Radius?>(named, 'radius');
         final notificationPredicateRaw = named['notificationPredicate'];
         final interactive = D4.getOptionalNamedArg<bool?>(named, 'interactive');
-        final scrollbarOrientation = D4.getOptionalNamedArg<$flutter_313.ScrollbarOrientation?>(named, 'scrollbarOrientation');
-        return $flutter_153.Scrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, trackVisibility: trackVisibility, thickness: thickness, radius: radius, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_307.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, interactive: interactive, scrollbarOrientation: scrollbarOrientation);
+        final scrollbarOrientation = D4.getOptionalNamedArg<$flutter_312.ScrollbarOrientation?>(named, 'scrollbarOrientation');
+        return $flutter_153.Scrollbar(key: key, child: child, controller: controller, thumbVisibility: thumbVisibility, trackVisibility: trackVisibility, thickness: thickness, radius: radius, notificationPredicate: notificationPredicateRaw == null ? null : ($flutter_306.ScrollNotification p0) { return D4.extractBridgedArg<bool>(D4.callInterpreterCallback(visitor!, notificationPredicateRaw, [p0]), 'callback', visitor); }, interactive: interactive, scrollbarOrientation: scrollbarOrientation);
       },
     },
     getters: {
@@ -60525,13 +60543,13 @@ BridgedClass _createScrollbarThemeDataBridge() {
     isAssignable: (v) => v is $flutter_154.ScrollbarThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final thumbVisibility = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<bool?>?>(named, 'thumbVisibility');
-        final thickness = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'thickness');
-        final trackVisibility = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<bool?>?>(named, 'trackVisibility');
+        final thumbVisibility = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<bool?>?>(named, 'thumbVisibility');
+        final thickness = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'thickness');
+        final trackVisibility = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<bool?>?>(named, 'trackVisibility');
         final radius = D4.getOptionalNamedArg<Radius?>(named, 'radius');
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackBorderColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackBorderColor');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackBorderColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackBorderColor');
         final crossAxisMargin = D4.getOptionalNamedArg<double?>(named, 'crossAxisMargin');
         final mainAxisMargin = D4.getOptionalNamedArg<double?>(named, 'mainAxisMargin');
         final minThumbLength = D4.getOptionalNamedArg<double?>(named, 'minThumbLength');
@@ -60556,14 +60574,14 @@ BridgedClass _createScrollbarThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_154.ScrollbarThemeData>(target, 'ScrollbarThemeData');
-        final thumbVisibility = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<bool?>?>(named, 'thumbVisibility');
-        final thickness = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'thickness');
-        final trackVisibility = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<bool?>?>(named, 'trackVisibility');
+        final thumbVisibility = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<bool?>?>(named, 'thumbVisibility');
+        final thickness = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'thickness');
+        final trackVisibility = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<bool?>?>(named, 'trackVisibility');
         final interactive = D4.getOptionalNamedArg<bool?>(named, 'interactive');
         final radius = D4.getOptionalNamedArg<Radius?>(named, 'radius');
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackBorderColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackBorderColor');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackBorderColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackBorderColor');
         final crossAxisMargin = D4.getOptionalNamedArg<double?>(named, 'crossAxisMargin');
         final mainAxisMargin = D4.getOptionalNamedArg<double?>(named, 'mainAxisMargin');
         final minThumbLength = D4.getOptionalNamedArg<double?>(named, 'minThumbLength');
@@ -60958,15 +60976,15 @@ BridgedClass _createSearchAnchorBridge() {
         final onChangedRaw = named['onChanged'];
         final onCloseRaw = named['onClose'];
         final onOpenRaw = named['onOpen'];
-        final barElevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'barElevation');
-        final barBackgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'barBackgroundColor');
-        final barOverlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'barOverlayColor');
-        final barSide = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'barSide');
-        final barShape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'barShape');
-        final barPadding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'barPadding');
+        final barElevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'barElevation');
+        final barBackgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'barBackgroundColor');
+        final barOverlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'barOverlayColor');
+        final barSide = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'barSide');
+        final barShape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'barShape');
+        final barPadding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'barPadding');
         final viewBarPadding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'viewBarPadding');
-        final barTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'barTextStyle');
-        final barHintStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'barHintStyle');
+        final barTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'barTextStyle');
+        final barHintStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'barHintStyle');
         final viewBuilderRaw = named['viewBuilder'];
         final viewLeading = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'viewLeading');
         final viewTrailing = D4.coerceListOrNull<$flutter_273.Widget>(named['viewTrailing'], 'viewTrailing');
@@ -61480,16 +61498,16 @@ BridgedClass _createSearchBarBridge() {
         final onChangedRaw = named['onChanged'];
         final onSubmittedRaw = named['onSubmitted'];
         final constraints = D4.getOptionalNamedArg<$flutter_226.BoxConstraints?>(named, 'constraints');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final textStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
-        final hintStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
+        final hintStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
         final textCapitalization = D4.getOptionalNamedArg<$flutter_249.TextCapitalization?>(named, 'textCapitalization');
         final enabled = D4.getNamedArgWithDefault<bool>(named, 'enabled', true);
         final autoFocus = D4.getNamedArgWithDefault<bool>(named, 'autoFocus', false);
@@ -61663,16 +61681,16 @@ BridgedClass _createSearchBarThemeDataBridge() {
     isAssignable: (v) => v is $flutter_157.SearchBarThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final textStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
-        final hintStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
+        final hintStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
         final constraints = D4.getOptionalNamedArg<$flutter_226.BoxConstraints?>(named, 'constraints');
         final textCapitalization = D4.getOptionalNamedArg<$flutter_249.TextCapitalization?>(named, 'textCapitalization');
         return $flutter_157.SearchBarThemeData(elevation: elevation, backgroundColor: backgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, overlayColor: overlayColor, side: side, shape: shape, padding: padding, textStyle: textStyle, hintStyle: hintStyle, constraints: constraints, textCapitalization: textCapitalization);
@@ -61696,16 +61714,16 @@ BridgedClass _createSearchBarThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_157.SearchBarThemeData>(target, 'SearchBarThemeData');
-        final elevation = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'elevation');
-        final backgroundColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
-        final shadowColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'shadowColor');
-        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
-        final side = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
-        final shape = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
-        final padding = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
-        final textStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
-        final hintStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
+        final elevation = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'elevation');
+        final backgroundColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'backgroundColor');
+        final shadowColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'shadowColor');
+        final surfaceTintColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'surfaceTintColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final side = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.BorderSide>?>(named, 'side');
+        final shape = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_204.OutlinedBorder>?>(named, 'shape');
+        final padding = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_211.EdgeInsetsGeometry>?>(named, 'padding');
+        final textStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'textStyle');
+        final hintStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'hintStyle');
         final constraints = D4.getOptionalNamedArg<$flutter_226.BoxConstraints?>(named, 'constraints');
         final textCapitalization = D4.getOptionalNamedArg<$flutter_249.TextCapitalization?>(named, 'textCapitalization');
         return t.copyWith(elevation: elevation, backgroundColor: backgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, overlayColor: overlayColor, side: side, shape: shape, padding: padding, textStyle: textStyle, hintStyle: hintStyle, constraints: constraints, textCapitalization: textCapitalization);
@@ -62734,10 +62752,10 @@ BridgedClass _createSelectableTextBridge() {
         final selectionWidthStyle = D4.getOptionalNamedArg<BoxWidthStyle?>(named, 'selectionWidthStyle');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final enableInteractiveSelection = D4.getNamedArgWithDefault<bool>(named, 'enableInteractiveSelection', true);
-        final selectionControls = D4.getOptionalNamedArg<$flutter_322.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_321.TextSelectionControls?>(named, 'selectionControls');
         final onTapRaw = named['onTap'];
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'scrollPhysics');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_303.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_302.ScrollBehavior?>(named, 'scrollBehavior');
         final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
         final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final textWidthBasis = D4.getOptionalNamedArg<$flutter_219.TextWidthBasis?>(named, 'textWidthBasis');
@@ -62778,10 +62796,10 @@ BridgedClass _createSelectableTextBridge() {
         final selectionWidthStyle = D4.getOptionalNamedArg<BoxWidthStyle?>(named, 'selectionWidthStyle');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final enableInteractiveSelection = D4.getNamedArgWithDefault<bool>(named, 'enableInteractiveSelection', true);
-        final selectionControls = D4.getOptionalNamedArg<$flutter_322.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_321.TextSelectionControls?>(named, 'selectionControls');
         final onTapRaw = named['onTap'];
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'scrollPhysics');
-        final scrollBehavior = D4.getOptionalNamedArg<$flutter_303.ScrollBehavior?>(named, 'scrollBehavior');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollBehavior = D4.getOptionalNamedArg<$flutter_302.ScrollBehavior?>(named, 'scrollBehavior');
         final semanticsLabel = D4.getOptionalNamedArg<String?>(named, 'semanticsLabel');
         final textHeightBehavior = D4.getOptionalNamedArg<TextHeightBehavior?>(named, 'textHeightBehavior');
         final textWidthBasis = D4.getOptionalNamedArg<$flutter_219.TextWidthBasis?>(named, 'textWidthBasis');
@@ -62962,7 +62980,7 @@ BridgedClass _createSelectionAreaBridge() {
       '': (visitor, positional, named) {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
-        final selectionControls = D4.getOptionalNamedArg<$flutter_322.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_321.TextSelectionControls?>(named, 'selectionControls');
         final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_284.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
         final onSelectionChangedRaw = named['onSelectionChanged'];
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'SelectionArea');
@@ -62971,7 +62989,7 @@ BridgedClass _createSelectionAreaBridge() {
         }
         if (named.containsKey('contextMenuBuilder')) {
           final contextMenuBuilderRaw = named['contextMenuBuilder'];
-          final contextMenuBuilder = ($flutter_273.BuildContext p0, $flutter_314.SelectableRegionState p1) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
+          final contextMenuBuilder = ($flutter_273.BuildContext p0, $flutter_313.SelectableRegionState p1) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, contextMenuBuilderRaw, [p0, p1]), 'callback', visitor); };
           return $flutter_162.SelectionArea(key: key, focusNode: focusNode, selectionControls: selectionControls, magnifierConfiguration: magnifierConfiguration, onSelectionChanged: onSelectionChangedRaw == null ? null : ($flutter_232.SelectedContent? p0) { D4.callInterpreterCallback(visitor!, onSelectionChangedRaw, [p0]); }, child: child, contextMenuBuilder: contextMenuBuilder);
         }
         throw StateError('Unreachable: all named parameter combinations should be covered');
@@ -63223,7 +63241,7 @@ BridgedClass _createSliderBridge() {
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
         final secondaryActiveColor = D4.getOptionalNamedArg<Color?>(named, 'secondaryActiveColor');
         final thumbColor = D4.getOptionalNamedArg<Color?>(named, 'thumbColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final semanticFormatterCallbackRaw = named['semanticFormatterCallback'];
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
@@ -63253,7 +63271,7 @@ BridgedClass _createSliderBridge() {
         final inactiveColor = D4.getOptionalNamedArg<Color?>(named, 'inactiveColor');
         final secondaryActiveColor = D4.getOptionalNamedArg<Color?>(named, 'secondaryActiveColor');
         final thumbColor = D4.getOptionalNamedArg<Color?>(named, 'thumbColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final semanticFormatterCallbackRaw = named['semanticFormatterCallback'];
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
@@ -64167,10 +64185,10 @@ BridgedClass _createSliderThemeDataBridge() {
         final valueIndicatorTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'valueIndicatorTextStyle');
         final minThumbSeparation = D4.getOptionalNamedArg<double?>(named, 'minThumbSeparation');
         final thumbSelectorRaw = named['thumbSelector'];
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final allowedInteraction = D4.getOptionalNamedArg<$flutter_164.SliderInteraction?>(named, 'allowedInteraction');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
-        final thumbSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'thumbSize');
+        final thumbSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'thumbSize');
         final trackGap = D4.getOptionalNamedArg<double?>(named, 'trackGap');
         final year2023 = D4.getOptionalNamedArg<bool?>(named, 'year2023');
         return $flutter_166.SliderThemeData(trackHeight: trackHeight, activeTrackColor: activeTrackColor, inactiveTrackColor: inactiveTrackColor, secondaryActiveTrackColor: secondaryActiveTrackColor, disabledActiveTrackColor: disabledActiveTrackColor, disabledInactiveTrackColor: disabledInactiveTrackColor, disabledSecondaryActiveTrackColor: disabledSecondaryActiveTrackColor, activeTickMarkColor: activeTickMarkColor, inactiveTickMarkColor: inactiveTickMarkColor, disabledActiveTickMarkColor: disabledActiveTickMarkColor, disabledInactiveTickMarkColor: disabledInactiveTickMarkColor, thumbColor: thumbColor, overlappingShapeStrokeColor: overlappingShapeStrokeColor, disabledThumbColor: disabledThumbColor, overlayColor: overlayColor, valueIndicatorColor: valueIndicatorColor, valueIndicatorStrokeColor: valueIndicatorStrokeColor, overlayShape: overlayShape, tickMarkShape: tickMarkShape, thumbShape: thumbShape, trackShape: trackShape, valueIndicatorShape: valueIndicatorShape, rangeTickMarkShape: rangeTickMarkShape, rangeThumbShape: rangeThumbShape, rangeTrackShape: rangeTrackShape, rangeValueIndicatorShape: rangeValueIndicatorShape, showValueIndicator: showValueIndicator, valueIndicatorTextStyle: valueIndicatorTextStyle, minThumbSeparation: minThumbSeparation, thumbSelector: thumbSelectorRaw == null ? null : (TextDirection p0, $flutter_149.RangeValues p1, double p2, Size p3, Size p4, double p5) { return D4.extractBridgedArg<$flutter_166.Thumb?>(D4.callInterpreterCallback(visitor!, thumbSelectorRaw, [p0, p1, p2, p3, p4, p5]), 'callback', visitor); }, mouseCursor: mouseCursor, allowedInteraction: allowedInteraction, padding: padding, thumbSize: thumbSize, trackGap: trackGap, year2023: year2023);
@@ -64255,10 +64273,10 @@ BridgedClass _createSliderThemeDataBridge() {
         final valueIndicatorTextStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'valueIndicatorTextStyle');
         final minThumbSeparation = D4.getOptionalNamedArg<double?>(named, 'minThumbSeparation');
         final thumbSelectorRaw = named['thumbSelector'];
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final allowedInteraction = D4.getOptionalNamedArg<$flutter_164.SliderInteraction?>(named, 'allowedInteraction');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
-        final thumbSize = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Size?>?>(named, 'thumbSize');
+        final thumbSize = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Size?>?>(named, 'thumbSize');
         final trackGap = D4.getOptionalNamedArg<double?>(named, 'trackGap');
         final year2023 = D4.getOptionalNamedArg<bool?>(named, 'year2023');
         return t.copyWith(trackHeight: trackHeight, activeTrackColor: activeTrackColor, inactiveTrackColor: inactiveTrackColor, secondaryActiveTrackColor: secondaryActiveTrackColor, disabledActiveTrackColor: disabledActiveTrackColor, disabledInactiveTrackColor: disabledInactiveTrackColor, disabledSecondaryActiveTrackColor: disabledSecondaryActiveTrackColor, activeTickMarkColor: activeTickMarkColor, inactiveTickMarkColor: inactiveTickMarkColor, disabledActiveTickMarkColor: disabledActiveTickMarkColor, disabledInactiveTickMarkColor: disabledInactiveTickMarkColor, thumbColor: thumbColor, overlappingShapeStrokeColor: overlappingShapeStrokeColor, disabledThumbColor: disabledThumbColor, overlayColor: overlayColor, valueIndicatorColor: valueIndicatorColor, valueIndicatorStrokeColor: valueIndicatorStrokeColor, overlayShape: overlayShape, tickMarkShape: tickMarkShape, thumbShape: thumbShape, trackShape: trackShape, valueIndicatorShape: valueIndicatorShape, rangeTickMarkShape: rangeTickMarkShape, rangeThumbShape: rangeThumbShape, rangeTrackShape: rangeTrackShape, rangeValueIndicatorShape: rangeValueIndicatorShape, showValueIndicator: showValueIndicator, valueIndicatorTextStyle: valueIndicatorTextStyle, minThumbSeparation: minThumbSeparation, thumbSelector: thumbSelectorRaw == null ? null : (TextDirection p0, $flutter_149.RangeValues p1, double p2, Size p3, Size p4, double p5) { return D4.extractBridgedArg<$flutter_166.Thumb?>(D4.callInterpreterCallback(visitor!, thumbSelectorRaw, [p0, p1, p2, p3, p4, p5]), 'callback', visitor); }, mouseCursor: mouseCursor, allowedInteraction: allowedInteraction, padding: padding, thumbSize: thumbSize, trackGap: trackGap, year2023: year2023);
@@ -65365,7 +65383,7 @@ BridgedClass _createSpellCheckSuggestionsToolbarBridge() {
       },
       'getToolbarAnchor': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'getToolbarAnchor');
-        final anchors = D4.getRequiredArg<$flutter_323.TextSelectionToolbarAnchors>(positional, 0, 'anchors', 'getToolbarAnchor');
+        final anchors = D4.getRequiredArg<$flutter_322.TextSelectionToolbarAnchors>(positional, 0, 'anchors', 'getToolbarAnchor');
         return $flutter_170.SpellCheckSuggestionsToolbar.getToolbarAnchor(anchors);
       },
     },
@@ -65556,8 +65574,8 @@ BridgedClass _createStepperBridge() {
           throw ArgumentError('Stepper: Missing required named argument "steps"');
         }
         final steps = D4.coerceList<$flutter_172.Step>(named['steps'], 'steps');
-        final controller = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'controller');
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final controller = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'controller');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final type = D4.getNamedArgWithDefault<$flutter_172.StepperType>(named, 'type', $flutter_172.StepperType.vertical);
         final currentStep = D4.getNamedArgWithDefault<int>(named, 'currentStep', 0);
         final onStepTappedRaw = named['onStepTapped'];
@@ -65566,7 +65584,7 @@ BridgedClass _createStepperBridge() {
         final controlsBuilderRaw = named['controlsBuilder'];
         final elevation = D4.getOptionalNamedArg<double?>(named, 'elevation');
         final margin = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'margin');
-        final connectorColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color>?>(named, 'connectorColor');
+        final connectorColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color>?>(named, 'connectorColor');
         final connectorThickness = D4.getOptionalNamedArg<double?>(named, 'connectorThickness');
         final stepIconBuilderRaw = named['stepIconBuilder'];
         final stepIconHeight = D4.getOptionalNamedArg<double?>(named, 'stepIconHeight');
@@ -65827,17 +65845,17 @@ BridgedClass _createSwitchBridge() {
         final onActiveThumbImageErrorRaw = named['onActiveThumbImageError'];
         final inactiveThumbImage = D4.getOptionalNamedArg<$flutter_214.ImageProvider<Object>?>(named, 'inactiveThumbImage');
         final onInactiveThumbImageErrorRaw = named['onInactiveThumbImageError'];
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
@@ -65862,16 +65880,16 @@ BridgedClass _createSwitchBridge() {
         final inactiveThumbImage = D4.getOptionalNamedArg<$flutter_214.ImageProvider<Object>?>(named, 'inactiveThumbImage');
         final onInactiveThumbImageErrorRaw = named['onInactiveThumbImageError'];
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final focusColor = D4.getOptionalNamedArg<Color?>(named, 'focusColor');
         final hoverColor = D4.getOptionalNamedArg<Color?>(named, 'hoverColor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
@@ -66048,14 +66066,14 @@ BridgedClass _createSwitchListTileBridge() {
         final onActiveThumbImageErrorRaw = named['onActiveThumbImageError'];
         final inactiveThumbImage = D4.getOptionalNamedArg<$flutter_214.ImageProvider<Object>?>(named, 'inactiveThumbImage');
         final onInactiveThumbImageErrorRaw = named['onInactiveThumbImageError'];
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
@@ -66097,14 +66115,14 @@ BridgedClass _createSwitchListTileBridge() {
         final onActiveThumbImageErrorRaw = named['onActiveThumbImageError'];
         final inactiveThumbImage = D4.getOptionalNamedArg<$flutter_214.ImageProvider<Object>?>(named, 'inactiveThumbImage');
         final onInactiveThumbImageErrorRaw = named['onInactiveThumbImageError'];
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final onFocusChangeRaw = named['onFocusChange'];
@@ -66314,15 +66332,15 @@ BridgedClass _createSwitchThemeDataBridge() {
     isAssignable: (v) => v is $flutter_175.SwitchThemeData,
     constructors: {
       '': (visitor, positional, named) {
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         return $flutter_175.SwitchThemeData(thumbColor: thumbColor, trackColor: trackColor, trackOutlineColor: trackOutlineColor, trackOutlineWidth: trackOutlineWidth, materialTapTargetSize: materialTapTargetSize, mouseCursor: mouseCursor, overlayColor: overlayColor, splashRadius: splashRadius, thumbIcon: thumbIcon, padding: padding);
       },
@@ -66343,15 +66361,15 @@ BridgedClass _createSwitchThemeDataBridge() {
     methods: {
       'copyWith': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$flutter_175.SwitchThemeData>(target, 'SwitchThemeData');
-        final thumbColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'thumbColor');
-        final trackColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackColor');
-        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
-        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
+        final thumbColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'thumbColor');
+        final trackColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackColor');
+        final trackOutlineColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'trackOutlineColor');
+        final trackOutlineWidth = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<double?>?>(named, 'trackOutlineWidth');
         final materialTapTargetSize = D4.getOptionalNamedArg<$flutter_190.MaterialTapTargetSize?>(named, 'materialTapTargetSize');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashRadius = D4.getOptionalNamedArg<double?>(named, 'splashRadius');
-        final thumbIcon = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
+        final thumbIcon = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_275.Icon>?>(named, 'thumbIcon');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         return t.copyWith(thumbColor: thumbColor, trackColor: trackColor, trackOutlineColor: trackOutlineColor, trackOutlineWidth: trackOutlineWidth, materialTapTargetSize: materialTapTargetSize, mouseCursor: mouseCursor, overlayColor: overlayColor, splashRadius: splashRadius, thumbIcon: thumbIcon, padding: padding);
       },
@@ -66560,9 +66578,9 @@ BridgedClass _createTabBarThemeBridge() {
         final labelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'labelStyle');
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
         final textScaler = D4.getOptionalNamedArg<$flutter_220.TextScaler?>(named, 'textScaler');
         final indicatorAnimation = D4.getOptionalNamedArg<$flutter_179.TabIndicatorAnimation?>(named, 'indicatorAnimation');
@@ -66663,9 +66681,9 @@ BridgedClass _createTabBarThemeBridge() {
         final labelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'labelStyle');
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
         final textScaler = D4.getOptionalNamedArg<$flutter_220.TextScaler?>(named, 'textScaler');
         final indicatorAnimation = D4.getOptionalNamedArg<$flutter_179.TabIndicatorAnimation?>(named, 'indicatorAnimation');
@@ -66759,9 +66777,9 @@ BridgedClass _createTabBarThemeDataBridge() {
         final labelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'labelStyle');
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
         final textScaler = D4.getOptionalNamedArg<$flutter_220.TextScaler?>(named, 'textScaler');
         final indicatorAnimation = D4.getOptionalNamedArg<$flutter_179.TabIndicatorAnimation?>(named, 'indicatorAnimation');
@@ -66802,9 +66820,9 @@ BridgedClass _createTabBarThemeDataBridge() {
         final labelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'labelStyle');
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
-        final mouseCursor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
+        final mouseCursor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_241.MouseCursor>?>(named, 'mouseCursor');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
         final textScaler = D4.getOptionalNamedArg<$flutter_220.TextScaler?>(named, 'textScaler');
         final indicatorAnimation = D4.getOptionalNamedArg<$flutter_179.TabIndicatorAnimation?>(named, 'indicatorAnimation');
@@ -67373,13 +67391,13 @@ BridgedClass _createTabBarBridge() {
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         final onTapRaw = named['onTap'];
         final onHoverRaw = named['onHover'];
         final onFocusChangeRaw = named['onFocusChange'];
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final splashBorderRadius = D4.getOptionalNamedArg<$flutter_203.BorderRadius?>(named, 'splashBorderRadius');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
@@ -67410,13 +67428,13 @@ BridgedClass _createTabBarBridge() {
         final unselectedLabelColor = D4.getOptionalNamedArg<Color?>(named, 'unselectedLabelColor');
         final unselectedLabelStyle = D4.getOptionalNamedArg<$flutter_222.TextStyle?>(named, 'unselectedLabelStyle');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
-        final overlayColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'overlayColor');
+        final overlayColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'overlayColor');
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         final onTapRaw = named['onTap'];
         final onHoverRaw = named['onHover'];
         final onFocusChangeRaw = named['onFocusChange'];
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final splashBorderRadius = D4.getOptionalNamedArg<$flutter_203.BorderRadius?>(named, 'splashBorderRadius');
         final tabAlignment = D4.getOptionalNamedArg<$flutter_179.TabAlignment?>(named, 'tabAlignment');
@@ -67589,7 +67607,7 @@ BridgedClass _createTabBarViewBridge() {
         }
         final children = D4.coerceList<$flutter_273.Widget>(named['children'], 'children');
         final controller = D4.getOptionalNamedArg<$flutter_177.TabController?>(named, 'controller');
-        final physics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'physics');
+        final physics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'physics');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final viewportFraction = D4.getNamedArgWithDefault<double>(named, 'viewportFraction', 1.0);
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
@@ -67936,7 +67954,7 @@ BridgedClass _createTextButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getOptionalNamedArg<Clip?>(named, 'clipBehavior');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final isSemanticButton = D4.getNamedArgWithDefault<bool?>(named, 'isSemanticButton', true);
         final child = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'child', 'TextButton');
         return $flutter_180.TextButton(key: key, onPressed: onPressedRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onPressedRaw, []); }, onLongPress: onLongPressRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onLongPressRaw, []); }, onHover: onHoverRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onHoverRaw, [p0]); }, onFocusChange: onFocusChangeRaw == null ? null : (bool p0) { D4.callInterpreterCallback(visitor!, onFocusChangeRaw, [p0]); }, style: style, focusNode: focusNode, autofocus: autofocus, clipBehavior: clipBehavior, statesController: statesController, isSemanticButton: isSemanticButton, child: child);
@@ -67954,7 +67972,7 @@ BridgedClass _createTextButtonBridge() {
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
         final clipBehavior = D4.getNamedArgWithDefault<Clip?>(named, 'clipBehavior', $dart_ui.Clip.none);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final icon = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'icon');
         final label = D4.getRequiredNamedArg<$flutter_273.Widget>(named, 'label', 'TextButton');
         final iconAlignment = D4.getOptionalNamedArg<$flutter_46.IconAlignment?>(named, 'iconAlignment');
@@ -68078,9 +68096,9 @@ BridgedClass _createTextButtonBridge() {
         final alignment = D4.getOptionalNamedArg<$flutter_201.AlignmentGeometry?>(named, 'alignment');
         final splashFactory = D4.getOptionalNamedArg<$flutter_108.InteractiveInkFeatureFactory?>(named, 'splashFactory');
         final backgroundBuilderRaw = named['backgroundBuilder'];
-        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final backgroundBuilder = backgroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, backgroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         final foregroundBuilderRaw = named['foregroundBuilder'];
-        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_327.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
+        final foregroundBuilder = foregroundBuilderRaw == null ? null : ($flutter_273.BuildContext p0, Set<$flutter_326.WidgetState> p1, $flutter_273.Widget? p2) { return D4.extractBridgedArg<$flutter_273.Widget>(D4.callInterpreterCallback(visitor!, foregroundBuilderRaw, [p0, p1, p2]), 'callback', visitor); };
         return $flutter_180.TextButton.styleFrom(foregroundColor: foregroundColor, backgroundColor: backgroundColor, disabledForegroundColor: disabledForegroundColor, disabledBackgroundColor: disabledBackgroundColor, shadowColor: shadowColor, surfaceTintColor: surfaceTintColor, iconColor: iconColor, iconSize: iconSize, iconAlignment: iconAlignment, disabledIconColor: disabledIconColor, overlayColor: overlayColor, elevation: elevation, textStyle: textStyle, padding: padding, minimumSize: minimumSize, fixedSize: fixedSize, maximumSize: maximumSize, side: side, shape: shape, enabledMouseCursor: enabledMouseCursor, disabledMouseCursor: disabledMouseCursor, visualDensity: visualDensity, tapTargetSize: tapTargetSize, animationDuration: animationDuration, enableFeedback: enableFeedback, alignment: alignment, splashFactory: splashFactory, backgroundBuilder: backgroundBuilder, foregroundBuilder: foregroundBuilder);
       },
     },
@@ -68340,7 +68358,7 @@ BridgedClass _createTextFieldBridge() {
         final key = D4.getOptionalNamedArg<$flutter_12.Key?>(named, 'key');
         final controller = D4.getOptionalNamedArg<$flutter_268.TextEditingController?>(named, 'controller');
         final focusNode = D4.getOptionalNamedArg<$flutter_270.FocusNode?>(named, 'focusNode');
-        final undoController = D4.getOptionalNamedArg<$flutter_325.UndoHistoryController?>(named, 'undoController');
+        final undoController = D4.getOptionalNamedArg<$flutter_324.UndoHistoryController?>(named, 'undoController');
         final decoration = D4.getNamedArgWithDefault<$flutter_112.InputDecoration?>(named, 'decoration', const $flutter_112.InputDecoration());
         final keyboardType = D4.getOptionalNamedArg<$flutter_249.TextInputType?>(named, 'keyboardType');
         final textInputAction = D4.getOptionalNamedArg<$flutter_249.TextInputAction?>(named, 'textInputAction');
@@ -68354,7 +68372,7 @@ BridgedClass _createTextFieldBridge() {
         final toolbarOptions = D4.getOptionalNamedArg<$flutter_268.ToolbarOptions?>(named, 'toolbarOptions');
         final showCursor = D4.getOptionalNamedArg<bool?>(named, 'showCursor');
         final autofocus = D4.getNamedArgWithDefault<bool>(named, 'autofocus', false);
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final obscuringCharacter = D4.getNamedArgWithDefault<String>(named, 'obscuringCharacter', '•');
         final obscureText = D4.getNamedArgWithDefault<bool>(named, 'obscureText', false);
         final autocorrect = D4.getOptionalNamedArg<bool?>(named, 'autocorrect');
@@ -68386,15 +68404,15 @@ BridgedClass _createTextFieldBridge() {
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final enableInteractiveSelection = D4.getOptionalNamedArg<bool?>(named, 'enableInteractiveSelection');
         final selectAllOnFocus = D4.getOptionalNamedArg<bool?>(named, 'selectAllOnFocus');
-        final selectionControls = D4.getOptionalNamedArg<$flutter_322.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_321.TextSelectionControls?>(named, 'selectionControls');
         final onTapRaw = named['onTap'];
         final onTapAlwaysCalled = D4.getNamedArgWithDefault<bool>(named, 'onTapAlwaysCalled', false);
         final onTapOutsideRaw = named['onTapOutside'];
         final onTapUpOutsideRaw = named['onTapUpOutside'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final buildCounterRaw = named['buildCounter'];
-        final scrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'scrollController');
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'scrollController');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'scrollPhysics');
         final autofillHints = named.containsKey('autofillHints') && named['autofillHints'] != null
             ? D4.coerceListOrNull<String>(named['autofillHints'], 'autofillHints')
             : const <String>[];
@@ -68405,7 +68423,7 @@ BridgedClass _createTextFieldBridge() {
         final stylusHandwritingEnabled = D4.getNamedArgWithDefault<bool>(named, 'stylusHandwritingEnabled', $aux_flutter.EditableText.defaultStylusHandwritingEnabled);
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
         final canRequestFocus = D4.getNamedArgWithDefault<bool>(named, 'canRequestFocus', true);
-        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_319.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
+        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_318.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
         final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_284.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
         final hintLocales = D4.coerceListOrNull<Locale>(named['hintLocales'], 'hintLocales');
         if (!named.containsKey('groupId') && !named.containsKey('contextMenuBuilder')) {
@@ -68574,7 +68592,7 @@ BridgedClass _createTextFieldBridge() {
       },
       'inferAndroidSpellCheckConfiguration': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'inferAndroidSpellCheckConfiguration');
-        final configuration = D4.getRequiredArg<$flutter_319.SpellCheckConfiguration?>(positional, 0, 'configuration', 'inferAndroidSpellCheckConfiguration');
+        final configuration = D4.getRequiredArg<$flutter_318.SpellCheckConfiguration?>(positional, 0, 'configuration', 'inferAndroidSpellCheckConfiguration');
         return $flutter_182.TextField.inferAndroidSpellCheckConfiguration(configuration);
       },
     },
@@ -68740,25 +68758,25 @@ BridgedClass _createTextFormFieldBridge() {
         final scrollPadding = D4.getNamedArgWithDefault<$flutter_211.EdgeInsets>(named, 'scrollPadding', const $flutter_211.EdgeInsets.all(20.0));
         final enableInteractiveSelection = D4.getOptionalNamedArg<bool?>(named, 'enableInteractiveSelection');
         final selectAllOnFocus = D4.getOptionalNamedArg<bool?>(named, 'selectAllOnFocus');
-        final selectionControls = D4.getOptionalNamedArg<$flutter_322.TextSelectionControls?>(named, 'selectionControls');
+        final selectionControls = D4.getOptionalNamedArg<$flutter_321.TextSelectionControls?>(named, 'selectionControls');
         final buildCounterRaw = named['buildCounter'];
-        final scrollPhysics = D4.getOptionalNamedArg<$flutter_308.ScrollPhysics?>(named, 'scrollPhysics');
+        final scrollPhysics = D4.getOptionalNamedArg<$flutter_307.ScrollPhysics?>(named, 'scrollPhysics');
         final autofillHints = D4.coerceListOrNull<String>(named['autofillHints'], 'autofillHints');
         final autovalidateMode = D4.getOptionalNamedArg<$flutter_272.AutovalidateMode?>(named, 'autovalidateMode');
-        final scrollController = D4.getOptionalNamedArg<$flutter_305.ScrollController?>(named, 'scrollController');
+        final scrollController = D4.getOptionalNamedArg<$flutter_304.ScrollController?>(named, 'scrollController');
         final restorationId = D4.getOptionalNamedArg<String?>(named, 'restorationId');
         final enableIMEPersonalizedLearning = D4.getNamedArgWithDefault<bool>(named, 'enableIMEPersonalizedLearning', true);
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
-        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_319.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
+        final spellCheckConfiguration = D4.getOptionalNamedArg<$flutter_318.SpellCheckConfiguration?>(named, 'spellCheckConfiguration');
         final magnifierConfiguration = D4.getOptionalNamedArg<$flutter_284.TextMagnifierConfiguration?>(named, 'magnifierConfiguration');
-        final undoController = D4.getOptionalNamedArg<$flutter_325.UndoHistoryController?>(named, 'undoController');
+        final undoController = D4.getOptionalNamedArg<$flutter_324.UndoHistoryController?>(named, 'undoController');
         final onAppPrivateCommandRaw = named['onAppPrivateCommand'];
         final cursorOpacityAnimates = D4.getOptionalNamedArg<bool?>(named, 'cursorOpacityAnimates');
         final selectionHeightStyle = D4.getOptionalNamedArg<BoxHeightStyle?>(named, 'selectionHeightStyle');
         final selectionWidthStyle = D4.getOptionalNamedArg<BoxWidthStyle?>(named, 'selectionWidthStyle');
         final dragStartBehavior = D4.getNamedArgWithDefault<$flutter_19.DragStartBehavior>(named, 'dragStartBehavior', $flutter_19.DragStartBehavior.start);
         final contentInsertionConfiguration = D4.getOptionalNamedArg<$flutter_268.ContentInsertionConfiguration?>(named, 'contentInsertionConfiguration');
-        final statesController = D4.getOptionalNamedArg<$flutter_327.WidgetStatesController?>(named, 'statesController');
+        final statesController = D4.getOptionalNamedArg<$flutter_326.WidgetStatesController?>(named, 'statesController');
         final clipBehavior = D4.getNamedArgWithDefault<Clip>(named, 'clipBehavior', $dart_ui.Clip.hardEdge);
         final scribbleEnabled = D4.getNamedArgWithDefault<bool>(named, 'scribbleEnabled', true);
         final stylusHandwritingEnabled = D4.getNamedArgWithDefault<bool>(named, 'stylusHandwritingEnabled', $aux_flutter_2.EditableText.defaultStylusHandwritingEnabled);
@@ -68936,7 +68954,7 @@ BridgedClass _createMaterialTextSelectionControlsBridge() {
         }
         final endpoints = D4.coerceList<$flutter_227.TextSelectionPoint>(positional[4], 'endpoints');
         final delegate = D4.getRequiredArg<$flutter_249.TextSelectionDelegate>(positional, 5, 'delegate', 'buildToolbar');
-        final clipboardStatus = D4.getRequiredArg<$flutter_10.ValueListenable<$flutter_322.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
+        final clipboardStatus = D4.getRequiredArg<$flutter_10.ValueListenable<$flutter_321.ClipboardStatus>?>(positional, 6, 'clipboardStatus', 'buildToolbar');
         final lastSecondaryTapDownPosition = D4.getRequiredArg<Offset?>(positional, 7, 'lastSecondaryTapDownPosition', 'buildToolbar');
         return t.buildToolbar(context, globalEditableRegion, textLineHeight, selectionMidpoint, endpoints, delegate, clipboardStatus, lastSecondaryTapDownPosition);
       },
@@ -71290,8 +71308,8 @@ BridgedClass _createTimePickerThemeDataBridge() {
         final inputDecorationTheme = D4.getOptionalNamedArg<Object?>(named, 'inputDecorationTheme');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
-        final timeSelectorSeparatorColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'timeSelectorSeparatorColor');
-        final timeSelectorSeparatorTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'timeSelectorSeparatorTextStyle');
+        final timeSelectorSeparatorColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'timeSelectorSeparatorColor');
+        final timeSelectorSeparatorTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'timeSelectorSeparatorTextStyle');
         return $flutter_193.TimePickerThemeData(backgroundColor: backgroundColor, cancelButtonStyle: cancelButtonStyle, confirmButtonStyle: confirmButtonStyle, dayPeriodBorderSide: dayPeriodBorderSide, dayPeriodColor: dayPeriodColor, dayPeriodShape: dayPeriodShape, dayPeriodTextColor: dayPeriodTextColor, dayPeriodTextStyle: dayPeriodTextStyle, dialBackgroundColor: dialBackgroundColor, dialHandColor: dialHandColor, dialTextColor: dialTextColor, dialTextStyle: dialTextStyle, elevation: elevation, entryModeIconColor: entryModeIconColor, helpTextStyle: helpTextStyle, hourMinuteColor: hourMinuteColor, hourMinuteShape: hourMinuteShape, hourMinuteTextColor: hourMinuteTextColor, hourMinuteTextStyle: hourMinuteTextStyle, inputDecorationTheme: inputDecorationTheme, padding: padding, shape: shape, timeSelectorSeparatorColor: timeSelectorSeparatorColor, timeSelectorSeparatorTextStyle: timeSelectorSeparatorTextStyle);
       },
     },
@@ -71348,8 +71366,8 @@ BridgedClass _createTimePickerThemeDataBridge() {
         final inputDecorationTheme = D4.getOptionalNamedArg<$flutter_112.InputDecorationTheme?>(named, 'inputDecorationTheme');
         final padding = D4.getOptionalNamedArg<$flutter_211.EdgeInsetsGeometry?>(named, 'padding');
         final shape = D4.getOptionalNamedArg<$flutter_204.ShapeBorder?>(named, 'shape');
-        final timeSelectorSeparatorColor = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<Color?>?>(named, 'timeSelectorSeparatorColor');
-        final timeSelectorSeparatorTextStyle = D4.getOptionalNamedArg<$flutter_327.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'timeSelectorSeparatorTextStyle');
+        final timeSelectorSeparatorColor = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<Color?>?>(named, 'timeSelectorSeparatorColor');
+        final timeSelectorSeparatorTextStyle = D4.getOptionalNamedArg<$flutter_326.WidgetStateProperty<$flutter_222.TextStyle>?>(named, 'timeSelectorSeparatorTextStyle');
         return t.copyWith(backgroundColor: backgroundColor, cancelButtonStyle: cancelButtonStyle, confirmButtonStyle: confirmButtonStyle, dayPeriodButtonStyle: dayPeriodButtonStyle, dayPeriodBorderSide: dayPeriodBorderSide, dayPeriodColor: dayPeriodColor, dayPeriodShape: dayPeriodShape, dayPeriodTextColor: dayPeriodTextColor, dayPeriodTextStyle: dayPeriodTextStyle, dialBackgroundColor: dialBackgroundColor, dialHandColor: dialHandColor, dialTextColor: dialTextColor, dialTextStyle: dialTextStyle, elevation: elevation, entryModeIconColor: entryModeIconColor, helpTextStyle: helpTextStyle, hourMinuteColor: hourMinuteColor, hourMinuteShape: hourMinuteShape, hourMinuteTextColor: hourMinuteTextColor, hourMinuteTextStyle: hourMinuteTextStyle, inputDecorationTheme: inputDecorationTheme, padding: padding, shape: shape, timeSelectorSeparatorColor: timeSelectorSeparatorColor, timeSelectorSeparatorTextStyle: timeSelectorSeparatorTextStyle);
       },
       'debugFillProperties': (visitor, target, positional, named, typeArgs) {
@@ -72025,14 +72043,14 @@ BridgedClass _createTooltipBridge() {
         final showDuration = D4.getOptionalNamedArg<Duration?>(named, 'showDuration');
         final exitDuration = D4.getOptionalNamedArg<Duration?>(named, 'exitDuration');
         final enableTapToDismiss = D4.getNamedArgWithDefault<bool>(named, 'enableTapToDismiss', true);
-        final triggerMode = D4.getOptionalNamedArg<$flutter_297.TooltipTriggerMode?>(named, 'triggerMode');
+        final triggerMode = D4.getOptionalNamedArg<$flutter_296.TooltipTriggerMode?>(named, 'triggerMode');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         final onTriggeredRaw = named['onTriggered'];
         final mouseCursor = D4.getOptionalNamedArg<$flutter_241.MouseCursor?>(named, 'mouseCursor');
         final ignorePointer = D4.getOptionalNamedArg<bool?>(named, 'ignorePointer');
         final positionDelegateRaw = named['positionDelegate'];
         final child = D4.getOptionalNamedArg<$flutter_273.Widget?>(named, 'child');
-        return $flutter_196.Tooltip(key: key, message: message, richMessage: richMessage, height: height, constraints: constraints, padding: padding, margin: margin, verticalOffset: verticalOffset, preferBelow: preferBelow, excludeFromSemantics: excludeFromSemantics, decoration: decoration, textStyle: textStyle, textAlign: textAlign, waitDuration: waitDuration, showDuration: showDuration, exitDuration: exitDuration, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, mouseCursor: mouseCursor, ignorePointer: ignorePointer, positionDelegate: positionDelegateRaw == null ? null : ($flutter_297.TooltipPositionContext p0) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]), 'callback', visitor); }, child: child);
+        return $flutter_196.Tooltip(key: key, message: message, richMessage: richMessage, height: height, constraints: constraints, padding: padding, margin: margin, verticalOffset: verticalOffset, preferBelow: preferBelow, excludeFromSemantics: excludeFromSemantics, decoration: decoration, textStyle: textStyle, textAlign: textAlign, waitDuration: waitDuration, showDuration: showDuration, exitDuration: exitDuration, enableTapToDismiss: enableTapToDismiss, triggerMode: triggerMode, enableFeedback: enableFeedback, onTriggered: onTriggeredRaw == null ? null : () { D4.callInterpreterCallback(visitor!, onTriggeredRaw, []); }, mouseCursor: mouseCursor, ignorePointer: ignorePointer, positionDelegate: positionDelegateRaw == null ? null : ($flutter_296.TooltipPositionContext p0) { return D4.extractBridgedArg<Offset>(D4.callInterpreterCallback(visitor!, positionDelegateRaw, [p0]), 'callback', visitor); }, child: child);
       },
     },
     getters: {
@@ -72332,7 +72350,7 @@ BridgedClass _createTooltipThemeDataBridge() {
         final waitDuration = D4.getOptionalNamedArg<Duration?>(named, 'waitDuration');
         final showDuration = D4.getOptionalNamedArg<Duration?>(named, 'showDuration');
         final exitDuration = D4.getOptionalNamedArg<Duration?>(named, 'exitDuration');
-        final triggerMode = D4.getOptionalNamedArg<$flutter_297.TooltipTriggerMode?>(named, 'triggerMode');
+        final triggerMode = D4.getOptionalNamedArg<$flutter_296.TooltipTriggerMode?>(named, 'triggerMode');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         return $flutter_197.TooltipThemeData(height: height, constraints: constraints, padding: padding, margin: margin, verticalOffset: verticalOffset, preferBelow: preferBelow, excludeFromSemantics: excludeFromSemantics, decoration: decoration, textStyle: textStyle, textAlign: textAlign, waitDuration: waitDuration, showDuration: showDuration, exitDuration: exitDuration, triggerMode: triggerMode, enableFeedback: enableFeedback);
       },
@@ -72371,7 +72389,7 @@ BridgedClass _createTooltipThemeDataBridge() {
         final waitDuration = D4.getOptionalNamedArg<Duration?>(named, 'waitDuration');
         final showDuration = D4.getOptionalNamedArg<Duration?>(named, 'showDuration');
         final exitDuration = D4.getOptionalNamedArg<Duration?>(named, 'exitDuration');
-        final triggerMode = D4.getOptionalNamedArg<$flutter_297.TooltipTriggerMode?>(named, 'triggerMode');
+        final triggerMode = D4.getOptionalNamedArg<$flutter_296.TooltipTriggerMode?>(named, 'triggerMode');
         final enableFeedback = D4.getOptionalNamedArg<bool?>(named, 'enableFeedback');
         return t.copyWith(height: height, constraints: constraints, padding: padding, margin: margin, verticalOffset: verticalOffset, preferBelow: preferBelow, excludeFromSemantics: excludeFromSemantics, decoration: decoration, textStyle: textStyle, textAlign: textAlign, waitDuration: waitDuration, showDuration: showDuration, exitDuration: exitDuration, triggerMode: triggerMode, enableFeedback: enableFeedback);
       },

@@ -4153,15 +4153,19 @@ class BridgeGenerator {
         for (final extElement in importedLibrary.extensions) {
           final extName = extElement.name;
 
-          // Named extensions must be in the visible namespace; unnamed
-          // extensions are always reachable via the extended type.
-          if (extName != null &&
-              extName.isNotEmpty &&
-              !visibleNames.contains(extName)) {
-            continue;
-          }
+          // Skip unnamed extensions: per Dart 3 semantics, an unnamed
+          // extension is library-private — only the library that declares
+          // it can invoke its members. The bridge file is a *different*
+          // library from the one that defines the extension, so emitting a
+          // direct call (`(target as T).method()`) won't compile. We can
+          // only safely bridge *named* extensions reachable through public
+          // exports (e.g. `WidgetStateOperators`).
+          if (extName == null || extName.isEmpty) continue;
 
-          if (extName != null && extName.startsWith('_')) continue;
+          // Named extensions must be in the visible namespace.
+          if (!visibleNames.contains(extName)) continue;
+
+          if (extName.startsWith('_')) continue;
 
           final extUri = extElement.firstFragment.libraryFragment.source.uri;
           final extKey = '$extUri:${extName ?? '(unnamed)'}';
@@ -4232,7 +4236,9 @@ class BridgeGenerator {
             if (method.isStatic) continue;
             final methodName = method.name;
             if (methodName == null || methodName.startsWith('_')) continue;
-            if (method.isOperator) continue;
+            // Operators ARE collected — the emitter routes them via
+            // _generateOperatorCall so extension-defined operators can be
+            // dispatched at runtime (e.g. WidgetStateOperators.|).
             methodNames.add(methodName);
           }
 
@@ -6193,6 +6199,16 @@ class BridgeGenerator {
     final resolvableExtensions = extensions.where((ext) {
       if (_isBuiltInType(ext.onTypeName)) return true;
       if (bridgedTypeNames.contains(ext.onTypeName)) return true;
+      // Bucket-#4 fix: accept on-types that are bridged in a sibling
+      // module of the workspace. When `material.dart` re-exports
+      // `widgets.dart`, an extension like `WidgetStateOperators on
+      // WidgetStatesConstraint` is reachable from material scripts even
+      // though `WidgetStatesConstraint` itself is bridged in widgets.dart
+      // (skipped here because of skipReExports). The type lives in
+      // `_globalTypeToUri` because it was discovered during barrel parsing,
+      // and `_resolveExtensionOnType` will pick the right import prefix
+      // (the module's source files transitively import widget_state.dart).
+      if (_globalTypeToUri.containsKey(ext.onTypeName)) return true;
       // Type is neither built-in nor bridged — skip it
       return false;
     }).toList();

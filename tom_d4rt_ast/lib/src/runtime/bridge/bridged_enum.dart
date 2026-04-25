@@ -29,7 +29,20 @@ class BridgedEnum implements RuntimeType {
 
   @override
   bool isSubtypeOf(RuntimeType other, {Object? value}) {
-    return other.name == 'Object' || other == this;
+    if (other.name == 'Object' || other == this) return true;
+    // Allow runtime hierarchy checks for interfaces/superclasses the native
+    // enum implements (e.g. WidgetState implements WidgetStatesConstraint).
+    // We delegate to BridgedClass.isAssignable using the underlying native
+    // enum value, which mirrors how BridgedClass.isSubtypeOf handles
+    // BridgedInstance values.
+    if (other is BridgedClass && other.isAssignable != null) {
+      final nativeValue =
+          value is BridgedEnumValue ? value.nativeValue : value;
+      if (nativeValue != null && other.isAssignable!(nativeValue)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /// Retrieves an enum value by its name, or handles built-in static

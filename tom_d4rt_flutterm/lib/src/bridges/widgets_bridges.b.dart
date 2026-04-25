@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 173 files
-// Generated: 2026-04-25T10:55:12.233848
+// Sources: 174 files
+// Generated: 2026-04-25T12:40:31.681746
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2304,6 +2304,24 @@ class FlutterWidgetsBridge {
           },
         },
       ),
+      BridgedExtensionDefinition(
+        name: 'WidgetStateOperators',
+        onTypeName: 'WidgetStatesConstraint',
+        methods: {
+          '&': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_285.WidgetStatesConstraint;
+            return (t as dynamic) & positional[0];
+          },
+          '|': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_285.WidgetStatesConstraint;
+            return (t as dynamic) | positional[0];
+          },
+          '~': (visitor, target, positional, named, typeArgs) {
+            final t = target as $flutter_285.WidgetStatesConstraint;
+            return ~t;
+          },
+        },
+      ),
     ];
   }
 
@@ -2312,6 +2330,7 @@ class FlutterWidgetsBridge {
     return {
       'StringCharacters': 'package:characters/src/extensions.dart',
       'HtmlElementViewImpl': 'package:flutter/src/widgets/_html_element_view_io.dart',
+      'WidgetStateOperators': 'package:flutter/src/widgets/widget_state.dart',
     };
   }
 

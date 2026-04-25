@@ -642,7 +642,14 @@ class ElementModeExtractor {
 
   void _processExtension(ExtensionElement ext) {
     final name = ext.name;
-    if (skipPrivate && name != null && name.startsWith('_')) return;
+    // Skip unnamed extensions: per Dart 3 semantics, an unnamed extension is
+    // library-private — only the library that declares it can invoke its
+    // members. The generated bridge file is a different library from the one
+    // that defines the extension, so emitting a direct call
+    // (`(target as T).method()`) won't compile. Bridges only support *named*
+    // extensions reachable through public exports.
+    if (name == null || name.isEmpty) return;
+    if (skipPrivate && name.startsWith('_')) return;
     if (_isInternalOrSkippable(ext)) return;
     if (!generateDeprecatedElements && _hasDeprecatedAnnotation(ext)) {
       skippedDeprecatedCount++;
