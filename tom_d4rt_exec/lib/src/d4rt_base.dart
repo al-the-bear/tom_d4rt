@@ -190,6 +190,40 @@ class D4rt {
     _runner.registerFunctionTypedef(name, library);
   }
 
+  /// GEN-107: Registered library re-exports keyed by source library URI.
+  ///
+  /// Each entry maps a source library URI to the list of libraries it
+  /// re-exports. Delegates to the inner [D4rtRunner].
+  Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+      get libraryReExports => _runner.libraryReExports;
+
+  /// GEN-107: Registers a re-export from one library to another.
+  ///
+  /// Mirrors Dart's `export 'other/library.dart' [show/hide …]` directive:
+  /// when [sourceUri] is loaded, the module loader will also merge the
+  /// symbols from [targetUri] into the source library's per-module
+  /// environment, applying [show] and [hide] filters.
+  ///
+  /// Generated bridge code calls this once per `export` directive in the
+  /// underlying Dart library so re-exports of stdlib types
+  /// (e.g. `flutter/services.dart` re-exports `dart:typed_data`) become
+  /// reachable through the source library without leaking into the global
+  /// environment.
+  ///
+  /// [sourceUri] The library doing the re-exporting.
+  /// [targetUri] The library being re-exported.
+  /// [show] Optional set of names to include from [targetUri].
+  /// [hide] Optional set of names to exclude from [targetUri].
+  void registerLibraryReExport(
+    String sourceUri,
+    String targetUri, {
+    Set<String>? show,
+    Set<String>? hide,
+  }) {
+    _runner.registerLibraryReExport(sourceUri, targetUri,
+        show: show, hide: hide);
+  }
+
   /// Registers a bridged extension for use in interpreted code.
   ///
   /// When the corresponding library is imported in a D4rt script, the extension
