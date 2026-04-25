@@ -149,12 +149,8 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('render_pointer_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'rendering/render_pointer_test.dart',
-      );
-      expect(result.success, isTrue, reason: result.error);
-    });
+    // render_pointer_test.dart: re-enabled in secondary_classes_test.dart
+    // (verified passing in 1.6s on 2026-04-26 after clusters 23/24/26 fixes).
 
     test('render_proxy_box_mixin_test.dart', () async {
       final result = await SendTestRunner.send(

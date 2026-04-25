@@ -643,7 +643,7 @@ void main() {
         'rendering/render_pointer_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'moved to timeout_tests_test.dart');
+    });
 
     test('layer_types_test.dart', () async {
       final result = await SendTestRunner.send(
