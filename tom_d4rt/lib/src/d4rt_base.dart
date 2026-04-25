@@ -164,6 +164,20 @@ class D4rt {
   /// and type arguments.
   final List<({String name, String library})> _functionTypedefs = [];
 
+  /// GEN-107: Bridge re-exports modelled in the runtime.
+  ///
+  /// Maps a source library URI to the list of libraries it re-exports
+  /// (with optional `show` / `hide` filters). The module loader merges
+  /// each re-exported library's bridges into the source library's
+  /// per-module environment, mirroring Dart's `export …` directives.
+  ///
+  /// Mirror of the same field on [D4rtRunner] in tom_d4rt_ast — kept in
+  /// lockstep so generated bridge code calling `registerLibraryReExport`
+  /// works against either interpreter.
+  final Map<String,
+          List<({String uri, Set<String>? show, Set<String>? hide})>>
+      _libraryReExports = {};
+
   InterpretedInstance? _interpretedInstance;
   InterpreterVisitor? _visitor;
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
@@ -242,6 +256,47 @@ class D4rt {
   /// [library] The library path where this typedef is exported from.
   void registerFunctionTypedef(String name, String library) {
     _functionTypedefs.add((name: name, library: library));
+  }
+
+  /// GEN-107: Registered library re-exports keyed by source library URI.
+  ///
+  /// Mirror of [D4rtRunner.libraryReExports] — see that getter for the
+  /// full contract. Exposed so the module loader can merge re-export
+  /// targets into the source library's per-module environment.
+  Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+      get libraryReExports => _libraryReExports;
+
+  /// GEN-107: Registers a re-export from one library to another.
+  ///
+  /// Mirrors Dart's `export 'other/library.dart' [show/hide …]` directive:
+  /// records that [sourceUri] re-exports symbols from [targetUri], with
+  /// optional [show] and [hide] filters.
+  ///
+  /// **Note:** this analyzer-based interpreter registers all bridges into
+  /// the shared `globalEnvironment`, so re-exports already work
+  /// transparently here — once any library imports a target, its
+  /// symbols are reachable everywhere. The API exists for parity with
+  /// `D4rtRunner.registerLibraryReExport` in `tom_d4rt_ast`, where
+  /// per-module bridge isolation makes the explicit merge step necessary.
+  /// Generated bridge code can call this on either interpreter without
+  /// branching.
+  ///
+  /// [sourceUri] The library doing the re-exporting (e.g.
+  /// `package:flutter/services.dart`).
+  /// [targetUri] The library being re-exported (e.g. `dart:typed_data`).
+  /// [show] Optional set of names to include from [targetUri].
+  /// [hide] Optional set of names to exclude from [targetUri].
+  void registerLibraryReExport(
+    String sourceUri,
+    String targetUri, {
+    Set<String>? show,
+    Set<String>? hide,
+  }) {
+    _libraryReExports.putIfAbsent(sourceUri, () => []).add((
+      uri: targetUri,
+      show: show,
+      hide: hide,
+    ));
   }
 
   /// Registers a bridged extension for use in interpreted code.

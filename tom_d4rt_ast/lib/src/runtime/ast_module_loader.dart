@@ -279,6 +279,8 @@ class AstModuleLoader implements ModuleContext {
     } else {
       moduleEnv = Environment(enclosing: globalEnvironment);
       _registerBridgesForUriInto(uriString, showNames, hideNames, moduleEnv);
+      // GEN-107: Merge re-exported libraries into this module's environment.
+      _mergeReExports(uriString, moduleEnv, showNames, hideNames, <String>{});
       _bridgedModuleEnvironments[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
     }
@@ -511,6 +513,89 @@ class AstModuleLoader implements ModuleContext {
     if (hideNames != null && hideNames.contains(name)) return false;
     if (showNames != null && !showNames.contains(name)) return false;
     return true;
+  }
+
+  /// GEN-107: Merge re-exported libraries' bridged content into [moduleEnv].
+  ///
+  /// Looks up [sourceUri] in [D4rtRunner.libraryReExports] and, for each
+  /// recorded re-export, registers the target library's bridges into the
+  /// source library's per-module environment under the combined `show`/`hide`
+  /// filters. Recurses to handle transitive re-exports
+  /// (e.g. `flutter/material.dart → flutter/widgets.dart → flutter/foundation.dart
+  /// → dart:typed_data`).
+  ///
+  /// [outerShow] / [outerHide] are the filters originally applied to the
+  /// import of [sourceUri]; per-re-export filters are intersected/unioned
+  /// with them so a hidden symbol stays hidden through the chain.
+  ///
+  /// [visited] guards against import cycles (a → b → a). Each URI is only
+  /// merged once per top-level merge call.
+  void _mergeReExports(
+    String sourceUri,
+    Environment moduleEnv,
+    Set<String>? outerShow,
+    Set<String>? outerHide,
+    Set<String> visited,
+  ) {
+    if (!visited.add(sourceUri)) return;
+    final reExports = runner.libraryReExports[sourceUri];
+    if (reExports == null || reExports.isEmpty) return;
+
+    for (final re in reExports) {
+      final effectiveShow = _intersectShow(outerShow, re.show);
+      final effectiveHide = _unionHide(outerHide, re.hide);
+
+      // Ensure the target library's bridged content is reachable.
+      // For dart: targets, _loadStdlibModule registers stdlib symbols
+      // (currently into globalEnvironment for non-isolated stdlibs, which
+      // is what the band-aid relies on). The call here ensures the stdlib
+      // registrar runs at least once even when only reached via re-export.
+      final targetUri = Uri.parse(re.uri);
+      if (targetUri.scheme == 'dart') {
+        // Best-effort: load the stdlib so its symbols are registered.
+        // Errors here mean the dart: library isn't supported — let the
+        // primary load path raise on the user's actual import instead.
+        try {
+          _loadStdlibModule(targetUri);
+        } on RuntimeD4rtException {
+          // Ignored: re-export of an unknown dart: library is the user's
+          // bridge configuration problem, surfaced when they import it.
+        }
+      }
+
+      // Merge any bridged content registered against the target URI into
+      // the source library's per-module environment, applying the
+      // combined show/hide filters.
+      _registerBridgesForUriInto(
+        re.uri,
+        effectiveShow,
+        effectiveHide,
+        moduleEnv,
+      );
+
+      // Recurse for transitive re-exports.
+      _mergeReExports(re.uri, moduleEnv, effectiveShow, effectiveHide, visited);
+    }
+  }
+
+  /// Intersect two optional show-filters.
+  ///
+  /// `null` means "show everything"; the intersection of `null` and any
+  /// set is that set; the intersection of two sets is the usual
+  /// set intersection.
+  Set<String>? _intersectShow(Set<String>? outer, Set<String>? inner) {
+    if (outer == null) return inner;
+    if (inner == null) return outer;
+    return outer.intersection(inner);
+  }
+
+  /// Union two optional hide-filters.
+  ///
+  /// `null` means "hide nothing"; the union with `null` is the other set;
+  /// the union of two sets is the usual set union.
+  Set<String>? _unionHide(Set<String>? outer, Set<String>? inner) {
+    if (outer == null && inner == null) return null;
+    return {...?outer, ...?inner};
   }
 
   // ===========================================================================

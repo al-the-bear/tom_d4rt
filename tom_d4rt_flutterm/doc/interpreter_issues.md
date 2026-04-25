@@ -1593,6 +1593,58 @@ cluster faster than interpreter changes.
 
 ---
 
+### [~] Partially fixed — bridge re-exports modelled in the runtime (GEN-107)
+
+**Status (2026-04-26)** — Phase 1 (runtime mechanism) landed.
+Phase 2 (generator emits the tuples) and Phase 3 (drop the
+`_isolatedStdlibs = {'math'}` band-aid) remain open.
+
+What's done:
+
+- `D4rtRunner.registerLibraryReExport(sourceUri, targetUri,
+  {show, hide})` in `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart`
+  records re-export edges keyed by source library URI.
+- `AstModuleLoader._mergeReExports` in `tom_d4rt_ast/lib/src/runtime
+  /ast_module_loader.dart` walks the recorded edges after
+  `_tryLoadBridgedModule` registers a library's own bridges, merges
+  each target library's bridges into the source library's per-module
+  env (intersecting `show` and unioning `hide` along the chain) and
+  recurses for transitive re-exports — with a visited-set guard
+  against import cycles.
+- Mirror API on `D4rt.registerLibraryReExport` in
+  `tom_d4rt/lib/src/d4rt_base.dart` for parity. The analyzer-based
+  loader registers everything into `globalEnvironment`, so
+  re-exports already work transparently there; the API is recorded
+  but the merge step is unwired (documented in the method's
+  docstring).
+- Unit tests in `tom_d4rt_ast/test/runtime/ast_module_loader_test.dart`
+  under `group('GEN-107 library re-exports')` verify: single
+  re-export merges, show/hide filters honoured, transitive chains
+  work, cycles don't infinite-loop, and target bridges do not leak
+  into `globalEnvironment`.
+
+What's still open:
+
+- **Generator change** (Phase 2 in the original plan): the bridge
+  generator does not yet scan analyzer `LibraryElement`'s
+  `exportNamespace` / `libraryExports` and emit
+  `runner.registerLibraryReExport(...)` calls in the generated
+  `*.b.dart` files. Until it does, no re-export edges exist at
+  runtime, so the `_isolatedStdlibs = {'math'}` band-aid is still
+  load-bearing for chains like
+  `flutter/services.dart → dart:typed_data → ByteData`.
+- **Cleanup** (Phase 3): drop `_isolatedStdlibs = {'math'}` once
+  the generator emits the tuples and the regression battery is
+  green.
+
+The runtime merge mechanism is intentionally generic: stdlib
+re-exports register the same way as package re-exports; the
+generator follow-up only needs to teach the generator to also
+record `dart:`-targeted exports for hand-bridged libraries
+(`flutter/services` → `dart:typed_data`, etc.).
+
+---
+
 ### [ ] Fixed — bridge re-exports modelled in the generator
 
 **Symptom (current)**

@@ -125,6 +125,27 @@ class D4rtRunner {
   final Map<Type, BridgedClass> _bridgedDefLookupByType = {};
   final Set<Permission> _grantedPermissions = {};
 
+  /// GEN-107: Bridge re-exports modelled in the runtime.
+  ///
+  /// Maps a source library URI to the list of libraries it re-exports
+  /// (with optional `show` / `hide` filters). The module loader consults
+  /// this map after registering a library's own bridges and merges each
+  /// re-exported library's symbols into the source library's per-module
+  /// environment, mirroring how Dart's `export 'other/library.dart'
+  /// [show/hide …]` directives publish another library's symbols under
+  /// the source library's URI.
+  ///
+  /// Without this, scripts that legitimately reach a stdlib type via a
+  /// transitive re-export chain in real Dart (e.g.
+  /// `flutter/services.dart → dart:typed_data → ByteData`) fail at
+  /// interpret time with "Undefined variable: …" once per-module bridge
+  /// isolation is in place — the workaround being the historical
+  /// `_isolatedStdlibs = {'math'}` band-aid that lets every other stdlib
+  /// leak into `globalEnvironment`.
+  final Map<String,
+          List<({String uri, Set<String>? show, Set<String>? hide})>>
+      _libraryReExports = {};
+
   InterpreterVisitor? _visitor;
   Environment? _globalEnvironment;
   bool _hasExecutedOnce = false;
@@ -224,6 +245,45 @@ class D4rtRunner {
   /// Registered function typedefs.
   List<({String name, String library})> get functionTypedefs =>
       _functionTypedefs;
+
+  /// GEN-107: Registered library re-exports keyed by source library URI.
+  ///
+  /// Each entry maps a source library URI to the list of libraries it
+  /// re-exports. The module loader merges each re-exported library's
+  /// symbols into the source library's per-module environment.
+  Map<String, List<({String uri, Set<String>? show, Set<String>? hide})>>
+      get libraryReExports => _libraryReExports;
+
+  /// GEN-107: Registers a re-export from one library to another.
+  ///
+  /// This mirrors Dart's `export 'other/library.dart' [show/hide …]`
+  /// directive: when [sourceUri] is loaded, the module loader will also
+  /// merge the symbols from [targetUri] into the source library's
+  /// per-module environment, applying [show] and [hide] filters.
+  ///
+  /// Generated bridge code calls this once per `export` directive in the
+  /// underlying Dart library so re-exports of stdlib types
+  /// (e.g. `flutter/services.dart` re-exports `dart:typed_data`) become
+  /// reachable through the source library without leaking into the
+  /// global environment.
+  ///
+  /// [sourceUri] The library doing the re-exporting (e.g.
+  /// `package:flutter/services.dart`).
+  /// [targetUri] The library being re-exported (e.g. `dart:typed_data`).
+  /// [show] Optional set of names to include from [targetUri].
+  /// [hide] Optional set of names to exclude from [targetUri].
+  void registerLibraryReExport(
+    String sourceUri,
+    String targetUri, {
+    Set<String>? show,
+    Set<String>? hide,
+  }) {
+    _libraryReExports.putIfAbsent(sourceUri, () => []).add((
+      uri: targetUri,
+      show: show,
+      hide: hide,
+    ));
+  }
 
   /// Registers a bridged extension.
   void registerBridgedExtension(

@@ -883,4 +883,216 @@ void main() {
       );
     });
   });
+
+  // ===========================================================================
+  // GEN-107: Bridge re-export merging
+  // ===========================================================================
+  //
+  // When a library is registered as a re-export of another library via
+  // [D4rtRunner.registerLibraryReExport], loading the source library should
+  // make the target library's bridges reachable through the source library's
+  // per-module environment — without leaking them into [globalEnvironment].
+  //
+  // These tests exercise the runtime merge mechanism only. The bridge
+  // generator emitting `registerLibraryReExport` calls is the follow-up work;
+  // here we verify that once those calls happen, the merge does the right
+  // thing.
+
+  group('GEN-107 library re-exports', () {
+    /// Marker class used purely as the [nativeType] of test BridgedClass
+    /// instances — we never instantiate it.
+    BridgedClass marker(String name) =>
+        BridgedClass(nativeType: Object, name: name);
+
+    test('merges a single re-exported bridged class into the source module',
+        () {
+      final runner = D4rtRunner();
+      // Target library has the bridge.
+      runner.registerBridgedClass(
+        marker('TargetClass'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      // Source library re-exports target.
+      runner.registerLibraryReExport(
+        'package:source/source.dart',
+        'package:target/target.dart',
+      );
+
+      // Source library itself has a bridge so _tryLoadBridgedModule
+      // recognises it as a bridged module.
+      runner.registerBridgedClass(
+        marker('SourceClass'),
+        'package:source/source.dart',
+        sourceUri: 'package:source/source.dart',
+      );
+
+      final loader = createLoader(runner: runner);
+      final module = loader.loadModule(Uri.parse('package:source/source.dart'));
+
+      // Both classes are reachable via the source module's exported env.
+      expect(module.exportedEnvironment.get('SourceClass'), isNotNull);
+      expect(module.exportedEnvironment.get('TargetClass'), isNotNull);
+    });
+
+    test('respects re-export show filter', () {
+      final runner = D4rtRunner();
+      runner.registerBridgedClass(
+        marker('Visible'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      runner.registerBridgedClass(
+        marker('Hidden'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      runner.registerBridgedClass(
+        marker('SourceAnchor'),
+        'package:source/source.dart',
+        sourceUri: 'package:source/source.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:source/source.dart',
+        'package:target/target.dart',
+        show: {'Visible'},
+      );
+
+      final loader = createLoader(runner: runner);
+      final module = loader.loadModule(Uri.parse('package:source/source.dart'));
+
+      expect(module.exportedEnvironment.get('Visible'), isNotNull);
+      expect(
+        () => module.exportedEnvironment.get('Hidden'),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+    });
+
+    test('respects re-export hide filter', () {
+      final runner = D4rtRunner();
+      runner.registerBridgedClass(
+        marker('Kept'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      runner.registerBridgedClass(
+        marker('Dropped'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      runner.registerBridgedClass(
+        marker('SourceAnchor'),
+        'package:source/source.dart',
+        sourceUri: 'package:source/source.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:source/source.dart',
+        'package:target/target.dart',
+        hide: {'Dropped'},
+      );
+
+      final loader = createLoader(runner: runner);
+      final module = loader.loadModule(Uri.parse('package:source/source.dart'));
+
+      expect(module.exportedEnvironment.get('Kept'), isNotNull);
+      expect(
+        () => module.exportedEnvironment.get('Dropped'),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+    });
+
+    test('handles transitive re-export chain', () {
+      // a → b → c. Importing a should reach class C declared in c.
+      final runner = D4rtRunner();
+      runner.registerBridgedClass(
+        marker('CClass'),
+        'package:c/c.dart',
+        sourceUri: 'package:c/c.dart',
+      );
+      runner.registerBridgedClass(
+        marker('AAnchor'),
+        'package:a/a.dart',
+        sourceUri: 'package:a/a.dart',
+      );
+      runner.registerBridgedClass(
+        marker('BAnchor'),
+        'package:b/b.dart',
+        sourceUri: 'package:b/b.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:a/a.dart',
+        'package:b/b.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:b/b.dart',
+        'package:c/c.dart',
+      );
+
+      final loader = createLoader(runner: runner);
+      final module = loader.loadModule(Uri.parse('package:a/a.dart'));
+
+      expect(module.exportedEnvironment.get('AAnchor'), isNotNull);
+      expect(module.exportedEnvironment.get('CClass'), isNotNull);
+    });
+
+    test('survives a re-export cycle without infinite recursion', () {
+      // a → b → a. Both libraries should still load and expose their own
+      // anchor classes; cycle is broken via the visited set.
+      final runner = D4rtRunner();
+      runner.registerBridgedClass(
+        marker('AClass'),
+        'package:a/a.dart',
+        sourceUri: 'package:a/a.dart',
+      );
+      runner.registerBridgedClass(
+        marker('BClass'),
+        'package:b/b.dart',
+        sourceUri: 'package:b/b.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:a/a.dart',
+        'package:b/b.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:b/b.dart',
+        'package:a/a.dart',
+      );
+
+      final loader = createLoader(runner: runner);
+      final module = loader.loadModule(Uri.parse('package:a/a.dart'));
+
+      expect(module.exportedEnvironment.get('AClass'), isNotNull);
+      expect(module.exportedEnvironment.get('BClass'), isNotNull);
+    });
+
+    test('does not leak target bridges into globalEnvironment', () {
+      final runner = D4rtRunner();
+      runner.registerBridgedClass(
+        marker('IsolatedTarget'),
+        'package:target/target.dart',
+        sourceUri: 'package:target/target.dart',
+      );
+      runner.registerBridgedClass(
+        marker('SourceAnchor'),
+        'package:source/source.dart',
+        sourceUri: 'package:source/source.dart',
+      );
+      runner.registerLibraryReExport(
+        'package:source/source.dart',
+        'package:target/target.dart',
+      );
+
+      final globalEnv = initStdlibEnvironment();
+      final loader = createLoader(runner: runner, environment: globalEnv);
+      loader.loadModule(Uri.parse('package:source/source.dart'));
+
+      // The re-exported target class is reachable via the source module's
+      // env (verified above) but must NOT have been registered into
+      // globalEnvironment — that would defeat per-module bridge isolation.
+      expect(
+        () => globalEnv.get('IsolatedTarget'),
+        throwsA(isA<RuntimeD4rtException>()),
+      );
+    });
+  });
 }
