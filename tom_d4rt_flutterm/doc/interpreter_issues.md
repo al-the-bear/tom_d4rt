@@ -1980,6 +1980,76 @@ fix lands them too.
 
 ---
 
+### [X] Fixed (22) — Inactive-element `findRenderObject` (bucket #13)
+
+**Symptom** (bucket #13 / Section M — "Inactive-element `findRenderObject`" in
+`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Native error during bridged method call 'findRenderObject' on
+X: Cannot get renderObject of inactive element.
+```
+
+Manifests as a **hard test failure** in the gii suite for
+`render_absorb_pointer_test.dart` and as `frameworkErrors=1` in the
+secondary suite for `render_aligning_shifted_box_test.dart`.
+
+**Affected scripts**
+
+- `rendering/render_aligning_shifted_box_test.dart`
+- `rendering/render_absorb_pointer_test.dart`
+
+**Root cause**
+
+Demo bug, not an interpreter bug. Both demos call
+`GlobalKey.currentContext?.findRenderObject()` after a
+`StatefulWidget`'s build cycle has unmounted the keyed element —
+typically inside a snapshot/diagnostics widget that runs after a
+`setState` triggered while the previous element is being torn down.
+
+In plain Dart this also throws `Cannot get renderObject of
+inactive element`; the error reaches us via the bridge, which is
+correct behavior. The null-check `currentContext == null` is
+insufficient because `currentContext` returns the BuildContext
+even when the element is in `_ElementLifecycle.failed` /
+deactivated state. The proper guard is `BuildContext.mounted`
+(Flutter 3.7+).
+
+**Fix**
+
+Demo-side changes only — no interpreter, bridge, or generator
+code touched.
+
+- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_aligning_shifted_box_test.dart`
+  — `_captureSnapshot`: tighten the early-return from
+  `if (hostContext == null)` to
+  `if (hostContext == null || !hostContext.mounted)` before
+  calling `findRenderObject`.
+- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/render_absorb_pointer_test.dart`
+  — `_snapshot`: replace the bare null-aware
+  `key.currentContext?.findRenderObject()` with an explicit
+  context + `mounted` check:
+  `final ro = (ctx != null && ctx.mounted) ? ctx.findRenderObject() : null;`.
+
+**Regression check** (post-fix vs post-cluster-21 state)
+
+- gii:        +62 ~1 -20 (unchanged in counts; `render_absorb_pointer_test`
+  still fails with a different error — `createRenderObject`
+  coercion, separate cluster — but the bucket #13
+  "Cannot get renderObject of inactive element" is gone)
+- essential:  +108 ~0 (unchanged)
+- important:  +164 ~5 (unchanged)
+- secondary:  +614 ~40 (unchanged in pass/fail counts;
+  `render_aligning_shifted_box_test` drops the bucket #13
+  framework-error line and now surfaces the underlying
+  `createRenderObject` coercion as `frameworkErrors=1` instead —
+  same count, different message; will fold into the next cluster
+  fix that addresses interpreted RenderObject subclass coercion)
+
+No bridge regeneration required.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

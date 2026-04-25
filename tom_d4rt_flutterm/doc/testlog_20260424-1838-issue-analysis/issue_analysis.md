@@ -431,7 +431,7 @@ No interpreter or bridge changes. `backdrop_filter_test` now reports
 `frameworkErrors=0`. See `tom_d4rt_flutterm/doc/interpreter_issues.md`
 cluster 21 for details.
 
-### M. Inactive-element `findRenderObject`
+### M. Inactive-element `findRenderObject` — RESOLVED (2026-04-25, cluster 22)
 
 ```
 Runtime Error: Native error during bridged method call 'findRenderObject' on
@@ -447,6 +447,14 @@ The demo calls `findRenderObject` on an element that has been removed from
 the tree. In plain Dart this also throws — this is correct behavior reached
 via the bridge. The fix is in the demo (guard with `element.mounted` or pull
 the RO from the live widget). Not an interpreter bug.
+
+**Resolution:** Closed as cluster 22 in
+`doc/interpreter_issues.md`. Both scripts now guard `findRenderObject`
+calls with explicit `BuildContext.mounted` checks. The bucket #13
+error no longer appears; the remaining `createRenderObject`
+coercion errors that surface in these scripts are a separate
+cluster (interpreted RenderObject subclass not unwrapped at
+bridge boundary) and will be addressed independently.
 
 ### N. Map-literal bitwise operators on `WidgetState` / `BridgedEnumValue`
 
