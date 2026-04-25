@@ -1195,6 +1195,21 @@ class BridgeGenerator {
   /// Key is the normalized source file path, value is a map of type name to import URI.
   final Map<String, Map<String, String>> _sourceFileImports = {};
 
+  /// GEN-107 Phase 2: Map of source file path to the list of `export …`
+  /// directives declared by that library (re-exports). Each entry mirrors
+  /// one Dart `export` directive and is keyed by the same path that
+  /// [_sourceFileImports] uses.
+  ///
+  /// Populated by [_collectSourceFileReExportsFromElement] alongside
+  /// [_collectSourceFileImportsFromElement]. Consumed by
+  /// [_generateBridgeFile] to emit `bridgeReExports()` factories and
+  /// `registerLibraryReExport(...)` calls so that `tom_d4rt_ast`'s
+  /// per-module `AstModuleLoader` can merge re-exported bridges into the
+  /// re-exporting library's environment.
+  final Map<String,
+          List<({String uri, Set<String>? show, Set<String>? hide})>>
+      _sourceFileReExports = {};
+
   /// Map of typedef names to their expanded function type signatures.
   /// Used to fall back to the definition when a typedef is not exported from the barrel.
   /// Key is the typedef name, value is the expanded signature (e.g., 'Object? Function(Object?)').
@@ -2745,6 +2760,9 @@ class BridgeGenerator {
           extensions: fileExtensions,
           importShowClause: importShowClause,
           importHideClause: importHideClause,
+          // GEN-107 Phase 2: directory-mode emits one *.b.dart per source
+          // file, so look up re-exports for that single file only.
+          reExportSourceFiles: [sourceFile],
         );
         await File(outFile).writeAsString(code);
         outputFiles.add(outFile);
@@ -3090,6 +3108,12 @@ class BridgeGenerator {
         extensions: filteredExtensions,
         importShowClause: importShowClause,
         importHideClause: importHideClause,
+        // GEN-107 Phase 2: bundle mode aggregates everything into one
+        // *.b.dart file — pass the full input list (which includes pure
+        // barrel files like `package:flutter/services.dart`) so their
+        // `export …` directives are emitted as `registerLibraryReExport`
+        // calls.
+        reExportSourceFiles: sourceFiles,
       );
       final outFile = outputPath.endsWith('.dart')
           ? outputPath
@@ -3604,6 +3628,10 @@ class BridgeGenerator {
       extensions: filteredExtensions,
       importShowClause: importShowClause,
       importHideClause: importHideClause,
+      // GEN-107 Phase 2: bundle mode via FileWriter — pass the full input
+      // list so pure-barrel `export …` directives are captured. See sibling
+      // caller in [generateBridges] for the rationale.
+      reExportSourceFiles: sourceFiles,
     );
 
     // Write using the FileWriter
@@ -4055,6 +4083,10 @@ class BridgeGenerator {
     // expressions.
     _collectSourceFileImportsFromElement(libraryElement, normalizedPath);
 
+    // GEN-107 Phase 2: capture `export …` directives so the generator can
+    // emit `registerLibraryReExport(...)` calls in the *.b.dart file.
+    _collectSourceFileReExportsFromElement(libraryElement, normalizedPath);
+
     skippedDeprecatedCount += extractor.skippedDeprecatedCount;
     _typedefExpansions.addAll(extractor.typedefExpansions);
     _typeAliases.addAll(extractor.typeAliases);
@@ -4118,6 +4150,11 @@ class BridgeGenerator {
     // resolve identifiers referenced from default-value expressions in
     // global functions / variables.
     _collectSourceFileImportsFromElement(libraryElement, normalizedPath);
+
+    // GEN-107 Phase 2: capture `export …` directives during the globals
+    // pass too — some bridged libraries reach this path without ever
+    // going through _tryElementModeClasses (e.g. globals-only files).
+    _collectSourceFileReExportsFromElement(libraryElement, normalizedPath);
 
     // GEN-049: Collect extensions from libraries imported by this file.
     // Restored in Phase 7 after the Phase 6 AST deletion unintentionally
@@ -5333,6 +5370,54 @@ class BridgeGenerator {
     _sourceFileImports[filePath] = typeToUri;
   }
 
+  /// GEN-107 Phase 2: Collects `export …` directives declared by
+  /// [libraryElement] and records them in [_sourceFileReExports] under
+  /// [filePath].
+  ///
+  /// Walks every fragment's [LibraryFragment.libraryExports] (the same
+  /// pattern used by [_collectSourceFileImportsFromElement] for imports),
+  /// reads the resolved [LibraryExport.exportedLibrary] to get the target
+  /// library's canonical URI, and translates `show` / `hide` combinators
+  /// into [Set<String>] values matching the runtime API on
+  /// `D4rtRunner.registerLibraryReExport`.
+  ///
+  /// Each `export` directive becomes one entry in the list, preserving
+  /// source order so the generator can later emit them as
+  /// `registerLibraryReExport(...)` calls verbatim.
+  void _collectSourceFileReExportsFromElement(
+    LibraryElement libraryElement,
+    String filePath,
+  ) {
+    final reExports =
+        <({String uri, Set<String>? show, Set<String>? hide})>[];
+
+    for (final fragment in libraryElement.fragments) {
+      for (final export in fragment.libraryExports) {
+        final exportedLibrary = export.exportedLibrary;
+        if (exportedLibrary == null) continue;
+
+        final targetUri = exportedLibrary.identifier;
+        if (targetUri.isEmpty) continue;
+
+        Set<String>? show;
+        Set<String>? hide;
+        for (final combinator in export.combinators) {
+          if (combinator is ShowElementCombinator) {
+            (show ??= <String>{}).addAll(combinator.shownNames);
+          } else if (combinator is HideElementCombinator) {
+            (hide ??= <String>{}).addAll(combinator.hiddenNames);
+          }
+        }
+
+        reExports.add((uri: targetUri, show: show, hide: hide));
+      }
+    }
+
+    if (reExports.isNotEmpty) {
+      _sourceFileReExports[filePath] = reExports;
+    }
+  }
+
   /// Pre-collect auxiliary imports needed for default values across classes and functions.
   void _collectAuxiliaryImportsFromDefaults({
     required List<ClassInfo> classes,
@@ -5678,6 +5763,13 @@ class BridgeGenerator {
     List<ExtensionInfo> extensions = const [],
     List<String> importShowClause = const [],
     List<String> importHideClause = const [],
+    // GEN-107 Phase 2: explicit list of source files whose `export …`
+    // directives should be looked up in [_sourceFileReExports]. Bundle-mode
+    // callers pass the full input list (which includes pure-barrel files
+    // with no direct declarations, like `package:flutter/services.dart`).
+    // Directory-mode callers pass `[sourceFile]`. Falls back to
+    // [allSourceFiles] when null.
+    List<String>? reExportSourceFiles,
   }) {
     final buffer = StringBuffer();
 
@@ -6364,6 +6456,63 @@ class BridgeGenerator {
     buffer.writeln('  }');
     buffer.writeln();
 
+    // GEN-107 Phase 2: collect `(sourceUri, targetUri, show, hide)` tuples
+    // for every `export …` directive declared by the bridged libraries, so
+    // generated code can call `interpreter.registerLibraryReExport(...)`.
+    // Falls back to [allSourceFiles] when callers don't pass the explicit
+    // list (covers older entry points that haven't been updated).
+    final reExportLookupFiles = reExportSourceFiles ?? allSourceFiles;
+    final reExportEntries =
+        <({String source, String target, Set<String>? show, Set<String>? hide})>[];
+    for (final filePath in reExportLookupFiles) {
+      final entries = _sourceFileReExports[filePath];
+      if (entries == null || entries.isEmpty) continue;
+      final sourceUri = _getPackageUri(filePath);
+      for (final entry in entries) {
+        reExportEntries.add((
+          source: sourceUri,
+          target: entry.uri,
+          show: entry.show,
+          hide: entry.hide,
+        ));
+      }
+    }
+
+    // Re-export factory — always emitted so the shape is stable across
+    // bridge files; the body is empty when the library declares no
+    // `export …` directives.
+    buffer.writeln(
+      '  /// GEN-107: Library re-exports declared by the bridged source',
+    );
+    buffer.writeln(
+      '  /// libraries. Each tuple mirrors a Dart `export \'…\'` directive.',
+    );
+    buffer.writeln(
+      '  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`',
+    );
+    buffer.writeln(
+      "  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).",
+    );
+    buffer.writeln(
+      '  static List<({String source, String target, Set<String>? show, Set<String>? hide})>',
+    );
+    buffer.writeln('  bridgeReExports() {');
+    buffer.writeln('    return [');
+    for (final r in reExportEntries) {
+      final showLiteral = r.show == null
+          ? 'null'
+          : '{${r.show!.map((s) => "'$s'").join(', ')}}';
+      final hideLiteral = r.hide == null
+          ? 'null'
+          : '{${r.hide!.map((s) => "'$s'").join(', ')}}';
+      buffer.writeln(
+        "      (source: '${r.source}', target: '${r.target}', show: $showLiteral, hide: $hideLiteral),",
+      );
+    }
+    buffer.writeln('    ];');
+    buffer.writeln('  }');
+    buffer.writeln();
+
     // registerBridges method - accepts import path as parameter
     buffer.writeln('  /// Registers all bridges with an interpreter.');
     buffer.writeln('  ///');
@@ -6457,6 +6606,19 @@ class BridgeGenerator {
       buffer.writeln('    for (final name in typedefs) {');
       buffer.writeln(
         '      interpreter.registerFunctionTypedef(name, importPath);',
+      );
+      buffer.writeln('    }');
+    }
+    // GEN-107 Phase 2: Register library re-exports.
+    // Emitted unconditionally — the loop is a no-op when the library
+    // declares no `export …` directives, but the call sequence keeps the
+    // generated shape stable across bridges.
+    if (reExportEntries.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln('    // GEN-107: Register library re-exports');
+      buffer.writeln('    for (final r in bridgeReExports()) {');
+      buffer.writeln(
+        '      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);',
       );
       buffer.writeln('    }');
     }

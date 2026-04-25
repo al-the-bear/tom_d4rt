@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-04-25T17:45:08.812509
+// Generated: 2026-04-25T22:38:16.329254
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -113,6 +113,25 @@ class FlutterSchedulerBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/binding.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/debug.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/priority.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/service_extensions.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/ticker.dart', show: null, hide: null),
+      (source: 'package:flutter/src/scheduler/binding.dart', target: 'dart:ui', show: {'AppLifecycleState', 'FrameTiming', 'TimingsCallback'}, hide: null),
+      (source: 'package:flutter/src/scheduler/binding.dart', target: 'package:flutter/src/scheduler/priority.dart', show: {'Priority'}, hide: null),
+      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticsNode'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -147,6 +166,11 @@ class FlutterSchedulerBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

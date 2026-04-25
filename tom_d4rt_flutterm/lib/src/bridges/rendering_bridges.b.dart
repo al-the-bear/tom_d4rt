@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-04-25T17:45:12.697481
+// Generated: 2026-04-25T22:38:20.149459
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -847,6 +847,75 @@ class FlutterRenderingBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticLevel', 'ValueChanged', 'ValueGetter', 'ValueSetter', 'VoidCallback'}, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/semantics.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/animated_size.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/binding.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/box.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/custom_layout.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/custom_paint.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/debug.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/debug_overflow_indicator.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/decorated_sliver.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/editable.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/error.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/flex.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/flow.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/image.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/image_filter_config.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/layer.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/layout_helper.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/list_body.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/list_wheel_viewport.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/mouse_tracker.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/object.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/paragraph.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/performance_overlay.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/platform_view.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/proxy_box.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/proxy_sliver.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/rotated_box.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/selection.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/service_extensions.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/shifted_box.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_fill.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_fixed_extent_list.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_grid.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_group.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_list.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_multi_box_adaptor.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_padding.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_persistent_header.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/sliver_tree.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/stack.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/table.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/table_border.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/texture.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/tweens.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/view.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/viewport.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/viewport_offset.dart', show: null, hide: null),
+      (source: 'package:flutter/rendering.dart', target: 'package:flutter/src/rendering/wrap.dart', show: null, hide: null),
+      (source: 'package:flutter/src/rendering/binding.dart', target: 'package:flutter/gestures.dart', show: {'HitTestResult'}, hide: null),
+      (source: 'package:flutter/src/rendering/debug.dart', target: 'package:flutter/foundation.dart', show: {'debugPrint'}, hide: null),
+      (source: 'package:flutter/src/rendering/image.dart', target: 'package:flutter/painting.dart', show: {'BoxFit', 'ImageRepeat'}, hide: null),
+      (source: 'package:flutter/src/rendering/mouse_tracker.dart', target: 'package:flutter/services.dart', show: {'MouseCursor', 'SystemMouseCursors'}, hide: null),
+      (source: 'package:flutter/src/rendering/object.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticPropertiesBuilder', 'DiagnosticsNode', 'DiagnosticsProperty', 'DoubleProperty', 'EnumProperty', 'ErrorDescription', 'ErrorHint', 'ErrorSummary', 'FlagProperty', 'FlutterError', 'InformationCollector', 'IntProperty', 'StringProperty'}, hide: null),
+      (source: 'package:flutter/src/rendering/object.dart', target: 'package:flutter/gestures.dart', show: {'HitTestEntry', 'HitTestResult'}, hide: null),
+      (source: 'package:flutter/src/rendering/object.dart', target: 'package:flutter/painting.dart', show: null, hide: null),
+      (source: 'package:flutter/src/rendering/proxy_box.dart', target: 'package:flutter/gestures.dart', show: {'PointerCancelEvent', 'PointerDownEvent', 'PointerEvent', 'PointerMoveEvent', 'PointerUpEvent'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -881,6 +950,11 @@ class FlutterRenderingBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

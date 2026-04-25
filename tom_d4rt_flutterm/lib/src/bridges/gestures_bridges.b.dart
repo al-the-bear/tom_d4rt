@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-04-25T17:45:11.437004
+// Generated: 2026-04-25T22:38:18.904407
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -365,6 +365,108 @@ class FlutterGesturesBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/arena.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/binding.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/constants.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/converter.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/debug.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/drag.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/drag_details.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/eager.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/events.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/force_press.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/gesture_details.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/gesture_settings.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/hit_test.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/long_press.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/lsq_solver.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/monodrag.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/multidrag.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/multitap.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/pointer_router.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/pointer_signal_resolver.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/recognizer.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/resampler.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/scale.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/tap.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/tap_and_drag.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/team.dart', show: null, hide: null),
+      (source: 'package:flutter/gestures.dart', target: 'package:flutter/src/gestures/velocity_tracker.dart', show: null, hide: null),
+      (source: 'package:flutter/src/gestures/gesture_settings.dart', target: 'dart:ui', show: {'FlutterView'}, hide: null),
+      (source: 'package:flutter/src/gestures/events.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/events.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticPropertiesBuilder'}, hide: null),
+      (source: 'package:flutter/src/gestures/events.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/src/gestures/events.dart', target: 'package:flutter/src/gestures/gesture_settings.dart', show: {'DeviceGestureSettings'}, hide: null),
+      (source: 'package:flutter/src/gestures/hit_test.dart', target: 'dart:ui', show: {'Offset'}, hide: null),
+      (source: 'package:flutter/src/gestures/hit_test.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/src/gestures/hit_test.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/pointer_router.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/src/gestures/pointer_router.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/pointer_signal_resolver.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerSignalEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'dart:ui', show: {'Offset'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticsNode', 'InformationCollector'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureArenaManager'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/src/gestures/hit_test.dart', show: {'HitTestEntry', 'HitTestResult', 'HitTestTarget'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/src/gestures/pointer_router.dart', show: {'PointerRouter'}, hide: null),
+      (source: 'package:flutter/src/gestures/binding.dart', target: 'package:flutter/src/gestures/pointer_signal_resolver.dart', show: {'PointerSignalResolver'}, hide: null),
+      (source: 'package:flutter/src/gestures/converter.dart', target: 'dart:ui', show: {'PointerData'}, hide: null),
+      (source: 'package:flutter/src/gestures/converter.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/velocity_tracker.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/drag_details.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/drag_details.dart', target: 'package:flutter/src/gestures/velocity_tracker.dart', show: {'Velocity'}, hide: null),
+      (source: 'package:flutter/src/gestures/drag.dart', target: 'package:flutter/src/gestures/drag_details.dart', show: {'DragEndDetails', 'DragUpdateDetails'}, hide: null),
+      (source: 'package:flutter/src/gestures/eager.dart', target: 'dart:ui', show: {'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/eager.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/force_press.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/force_press.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/long_press.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/long_press.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureDisposition'}, hide: null),
+      (source: 'package:flutter/src/gestures/long_press.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/long_press.dart', target: 'package:flutter/src/gestures/velocity_tracker.dart', show: {'Velocity'}, hide: null),
+      (source: 'package:flutter/src/gestures/team.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureArenaEntry', 'GestureArenaMember'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticPropertiesBuilder'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureDisposition'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent', 'PointerPanZoomStartEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:flutter/src/gestures/gesture_settings.dart', show: {'DeviceGestureSettings'}, hide: null),
+      (source: 'package:flutter/src/gestures/recognizer.dart', target: 'package:flutter/src/gestures/team.dart', show: {'GestureArenaTeam'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'dart:ui', show: {'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticPropertiesBuilder'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/src/gestures/drag.dart', show: {'DragEndDetails', 'DragUpdateDetails'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/src/gestures/drag_details.dart', show: {'DragDownDetails', 'DragStartDetails', 'DragUpdateDetails', 'GestureDragDownCallback', 'GestureDragStartCallback', 'GestureDragUpdateCallback'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent', 'PointerPanZoomStartEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/src/gestures/recognizer.dart', show: {'DragStartBehavior'}, hide: null),
+      (source: 'package:flutter/src/gestures/monodrag.dart', target: 'package:flutter/src/gestures/velocity_tracker.dart', show: {'VelocityEstimate', 'VelocityTracker'}, hide: null),
+      (source: 'package:flutter/src/gestures/multidrag.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/multidrag.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureDisposition'}, hide: null),
+      (source: 'package:flutter/src/gestures/multidrag.dart', target: 'package:flutter/src/gestures/drag.dart', show: {'Drag'}, hide: null),
+      (source: 'package:flutter/src/gestures/multidrag.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/multidrag.dart', target: 'package:flutter/src/gestures/gesture_settings.dart', show: {'DeviceGestureSettings'}, hide: null),
+      (source: 'package:flutter/src/gestures/tap.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/tap.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticPropertiesBuilder'}, hide: null),
+      (source: 'package:flutter/src/gestures/tap.dart', target: 'package:vector_math/vector_math_64.dart', show: {'Matrix4'}, hide: null),
+      (source: 'package:flutter/src/gestures/tap.dart', target: 'package:flutter/src/gestures/arena.dart', show: {'GestureDisposition'}, hide: null),
+      (source: 'package:flutter/src/gestures/tap.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerCancelEvent', 'PointerDownEvent', 'PointerEvent', 'PointerUpEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/multitap.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/multitap.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/multitap.dart', target: 'package:flutter/src/gestures/tap.dart', show: {'GestureTapCancelCallback', 'GestureTapDownCallback', 'TapDownDetails', 'TapUpDetails'}, hide: null),
+      (source: 'package:flutter/src/gestures/resampler.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/scale.dart', target: 'dart:ui', show: {'Offset', 'PointerDeviceKind'}, hide: null),
+      (source: 'package:flutter/src/gestures/scale.dart', target: 'package:flutter/src/gestures/events.dart', show: {'PointerDownEvent', 'PointerEvent', 'PointerPanZoomStartEvent'}, hide: null),
+      (source: 'package:flutter/src/gestures/scale.dart', target: 'package:flutter/src/gestures/recognizer.dart', show: {'DragStartBehavior'}, hide: null),
+      (source: 'package:flutter/src/gestures/scale.dart', target: 'package:flutter/src/gestures/velocity_tracker.dart', show: {'Velocity'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -399,6 +501,11 @@ class FlutterGesturesBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-04-25T17:45:08.609771
+// Generated: 2026-04-25T22:38:16.123948
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -101,6 +101,27 @@ class FlutterPhysicsBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/clamped_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/friction_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/gravity_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/spring_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/tolerance.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/utils.dart', show: null, hide: null),
+      (source: 'package:flutter/src/physics/simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (source: 'package:flutter/src/physics/clamped_simulation.dart', target: 'package:flutter/src/physics/simulation.dart', show: {'Simulation'}, hide: null),
+      (source: 'package:flutter/src/physics/friction_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (source: 'package:flutter/src/physics/spring_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -126,6 +147,11 @@ class FlutterPhysicsBridge {
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

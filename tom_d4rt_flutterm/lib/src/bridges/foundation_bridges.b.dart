@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-04-25T17:45:07.702842
+// Generated: 2026-04-25T22:38:15.158753
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -285,6 +285,56 @@ class FlutterFoundationBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/foundation.dart', target: 'package:meta/meta.dart', show: {'factory', 'immutable', 'internal', 'mustCallSuper', 'nonVirtual', 'optionalTypeArgs', 'protected', 'required', 'visibleForOverriding', 'visibleForTesting'}, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/annotations.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/assertions.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/basic_types.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/binding.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/bitfield.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/capabilities.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/change_notifier.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/collections.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/consolidate_response.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/constants.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/debug.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/diagnostics.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/isolates.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/key.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/licenses.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/memory_allocations.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/node.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/object.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/observer_list.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/persistent_hash_map.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/platform.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/print.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/serialization.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/service_extensions.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/stack_frame.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/synchronous_future.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/timeline.dart', show: null, hide: null),
+      (source: 'package:flutter/foundation.dart', target: 'package:flutter/src/foundation/unicode.dart', show: null, hide: null),
+      (source: 'package:flutter/src/foundation/assertions.dart', target: 'package:flutter/src/foundation/basic_types.dart', show: {'IterableFilter'}, hide: null),
+      (source: 'package:flutter/src/foundation/assertions.dart', target: 'package:flutter/src/foundation/diagnostics.dart', show: {'DiagnosticLevel', 'DiagnosticPropertiesBuilder', 'DiagnosticsNode', 'DiagnosticsTreeStyle'}, hide: null),
+      (source: 'package:flutter/src/foundation/assertions.dart', target: 'package:flutter/src/foundation/stack_frame.dart', show: {'StackFrame'}, hide: null),
+      (source: 'package:flutter/src/foundation/binding.dart', target: 'dart:ui', show: {'PlatformDispatcher', 'SingletonFlutterWindow', 'clampDouble'}, hide: null),
+      (source: 'package:flutter/src/foundation/binding.dart', target: 'package:flutter/src/foundation/basic_types.dart', show: {'AsyncCallback', 'AsyncValueGetter', 'AsyncValueSetter'}, hide: null),
+      (source: 'package:flutter/src/foundation/change_notifier.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/foundation/consolidate_response.dart', target: 'dart:io', show: {'HttpClientResponse'}, hide: null),
+      (source: 'package:flutter/src/foundation/consolidate_response.dart', target: 'dart:typed_data', show: {'Uint8List'}, hide: null),
+      (source: 'package:flutter/src/foundation/debug.dart', target: 'dart:ui', show: {'Brightness'}, hide: null),
+      (source: 'package:flutter/src/foundation/debug.dart', target: 'package:flutter/src/foundation/print.dart', show: {'DebugPrintCallback'}, hide: null),
+      (source: 'package:flutter/src/foundation/serialization.dart', target: 'dart:typed_data', show: {'ByteData', 'Endian', 'Float32List', 'Float64List', 'Int32List', 'Int64List', 'Uint8List'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -325,6 +375,11 @@ class FlutterFoundationBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 

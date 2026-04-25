@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-04-25T17:45:08.192508
+// Generated: 2026-04-25T22:38:15.687499
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -224,6 +224,61 @@ class FlutterAnimationBridge {
     };
   }
 
+  /// GEN-107: Library re-exports declared by the bridged source
+  /// libraries. Each tuple mirrors a Dart `export '…'` directive.
+  /// Consumed by `registerBridges` via `D4rt.registerLibraryReExport`
+  /// (mirrored on `D4rtRunner` in tom_d4rt_ast).
+  static List<({String source, String target, Set<String>? show, Set<String>? hide})>
+  bridgeReExports() {
+    return [
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/scheduler.dart', show: {'TickerCanceled'}, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation_controller.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animation_style.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/animations.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/curves.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/listener_helpers.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/tween.dart', show: null, hide: null),
+      (source: 'package:flutter/animation.dart', target: 'package:flutter/src/animation/tween_sequence.dart', show: null, hide: null),
+      (source: 'package:flutter/src/scheduler/binding.dart', target: 'dart:ui', show: {'AppLifecycleState', 'FrameTiming', 'TimingsCallback'}, hide: null),
+      (source: 'package:flutter/src/scheduler/binding.dart', target: 'package:flutter/src/scheduler/priority.dart', show: {'Priority'}, hide: null),
+      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/scheduler/ticker.dart', target: 'package:flutter/foundation.dart', show: {'DiagnosticsNode'}, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/binding.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/debug.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/priority.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/service_extensions.dart', show: null, hide: null),
+      (source: 'package:flutter/scheduler.dart', target: 'package:flutter/src/scheduler/ticker.dart', show: null, hide: null),
+      (source: 'package:flutter/src/animation/animation.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/animation/animation.dart', target: 'package:flutter/src/animation/tween.dart', show: {'Animatable'}, hide: null),
+      (source: 'package:flutter/src/animation/curves.dart', target: 'dart:ui', show: {'Offset'}, hide: null),
+      (source: 'package:flutter/src/animation/tween.dart', target: 'dart:ui', show: {'Color', 'Rect', 'Size'}, hide: null),
+      (source: 'package:flutter/src/animation/tween.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation'}, hide: null),
+      (source: 'package:flutter/src/animation/tween.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
+      (source: 'package:flutter/src/physics/simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (source: 'package:flutter/src/physics/clamped_simulation.dart', target: 'package:flutter/src/physics/simulation.dart', show: {'Simulation'}, hide: null),
+      (source: 'package:flutter/src/physics/friction_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (source: 'package:flutter/src/physics/spring_simulation.dart', target: 'package:flutter/src/physics/tolerance.dart', show: {'Tolerance'}, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/clamped_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/friction_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/gravity_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/spring_simulation.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/tolerance.dart', show: null, hide: null),
+      (source: 'package:flutter/physics.dart', target: 'package:flutter/src/physics/utils.dart', show: null, hide: null),
+      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/physics.dart', show: {'Simulation', 'SpringDescription'}, hide: null),
+      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/scheduler.dart', show: {'TickerFuture', 'TickerProvider'}, hide: null),
+      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation', 'AnimationStatus'}, hide: null),
+      (source: 'package:flutter/src/animation/animation_controller.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
+      (source: 'package:flutter/src/animation/animations.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/animation/animations.dart', target: 'package:flutter/src/animation/animation.dart', show: {'Animation', 'AnimationStatus', 'AnimationStatusListener'}, hide: null),
+      (source: 'package:flutter/src/animation/animations.dart', target: 'package:flutter/src/animation/curves.dart', show: {'Curve'}, hide: null),
+      (source: 'package:flutter/src/animation/listener_helpers.dart', target: 'dart:ui', show: {'VoidCallback'}, hide: null),
+      (source: 'package:flutter/src/animation/listener_helpers.dart', target: 'package:flutter/src/animation/animation.dart', show: {'AnimationStatus', 'AnimationStatusListener'}, hide: null),
+      (source: 'package:flutter/src/animation/tween_sequence.dart', target: 'package:flutter/src/animation/tween.dart', show: {'Animatable'}, hide: null),
+    ];
+  }
+
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
@@ -250,6 +305,11 @@ class FlutterAnimationBridge {
     final typedefs = functionTypedefs();
     for (final name in typedefs) {
       interpreter.registerFunctionTypedef(name, importPath);
+    }
+
+    // GEN-107: Register library re-exports
+    for (final r in bridgeReExports()) {
+      interpreter.registerLibraryReExport(r.source, r.target, show: r.show, hide: r.hide);
     }
   }
 
