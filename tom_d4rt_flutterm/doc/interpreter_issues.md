@@ -2435,6 +2435,41 @@ unblock.
 Total: **+14 tests** moved from fail → pass across gii and retest with
 zero regressions. Section Q's four cluster-26 sub-fixes are closed.
 
+### timeout_tests_test.dart sweep — secondary suite reactivation (2026-04-26)
+
+Audit of the 39 `skip:` markers in `test/secondary_classes_test.dart`.
+Two pre-existing exception classes survive: 4 deprecated-API skips
+(`ButtonBar`, `ButtonBarThemeData`, `RawKeyboardListener`) and 1
+platform-gated skip (`!Platform.isAndroid`). The remaining 34 entries
+were marked `skip: 'moved to timeout_tests_test.dart'`, with
+`timeout_tests_test.dart`'s docstring claiming the scripts
+"consistently time out under the d4rt interpreter."
+
+That claim is stale. Verification:
+
+1. **Per-test bisect**: each of the 34 reactivated tests was run in
+   isolation via `flutter test --plain-name` with a 65s wall-clock
+   timeout. **All 34 passed**, each in 20–23s. None crashed or froze
+   the test app.
+2. **Full-suite run**: `secondary_classes_test.dart` (now with the 34
+   reactivated) completed in ~7 minutes with the new tally
+   **649/0/5** (was 615/0/39). No regressions — 5 surviving skips
+   are the deprecated-API + platform-gated cases above.
+3. **Regression battery**: essential 108/0/0 ✓, important 164/0/5 ✓.
+
+The `secondary_classes_test.dart` skips have been removed; the 34
+tests run normally again. `timeout_tests_test.dart` still contains
+duplicate copies of these scripts plus 17 more from other suites —
+that file is now redundant for the secondary-suite portion and
+should be revisited (probable next step: drop it entirely, or keep
+only the 17 entries that still gate other suites).
+
+The original moves were almost certainly snapshotted at a moment
+when interpreter performance + framework regressions made the
+scripts flaky. Subsequent cluster fixes (most recently GEN-107
+library re-export modelling) restored them to green without anyone
+re-checking the gate.
+
 ### Section Q triage closure (2026-04-26)
 
 The remaining Section Q rows have been triaged and re-routed to their
