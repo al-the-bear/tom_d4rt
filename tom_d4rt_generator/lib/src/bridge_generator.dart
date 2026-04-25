@@ -675,9 +675,23 @@ class ClassInfo {
   /// Like abstract classes, they should not have bridge constructors.
   final bool isSealed;
 
-  /// Whether this class was declared as a `mixin` or `mixin class`.
-  /// Used to set `canBeUsedAsMixin: true` in the generated BridgedClass.
+  /// Whether this class was declared as a pure `mixin` (not a `mixin class`).
+  /// Used to force abstractness in the generated bridge — pure mixins cannot
+  /// be instantiated.
   final bool isMixin;
+
+  /// Whether this class can be used as a mixin in a `with` clause.
+  ///
+  /// True for:
+  ///   * Pure mixin declarations (`mixin Foo`).
+  ///   * Mixin classes (`mixin class Foo`, `abstract mixin class Foo`) —
+  ///     detected via `ClassElement.isMixinClass`.
+  ///
+  /// Maps directly to `BridgedClass.canBeUsedAsMixin` in the generated
+  /// registration. Without this flag, scripts that do
+  /// `class Foo with WidgetsBindingObserver` fail at runtime with
+  /// "Bridged class 'X' cannot be used as a mixin".
+  final bool canBeUsedAsMixin;
 
   final List<ConstructorInfo> constructors;
   final List<MemberInfo> members;
@@ -702,6 +716,7 @@ class ClassInfo {
     this.isAbstract = false,
     this.isSealed = false,
     this.isMixin = false,
+    this.canBeUsedAsMixin = false,
     this.constructors = const [],
     this.members = const [],
     this.typeParameters = const {},
@@ -4046,6 +4061,7 @@ class BridgeGenerator {
             isAbstract: c.isAbstract,
             isSealed: c.isSealed,
             isMixin: c.isMixin,
+            canBeUsedAsMixin: c.canBeUsedAsMixin,
             constructors: c.constructors,
             members: c.members,
             typeParameters: c.typeParameters,
@@ -7589,8 +7605,12 @@ class BridgeGenerator {
     // e.g., Curves.linear returns _Linear which should use Curve bridge
     buffer.writeln('    isAssignable: (v) => v is $prefixedName,');
 
-    // Mixins must set canBeUsedAsMixin so the interpreter allows them in `with` clauses
-    if (cls.isMixin) {
+    // Mixins must set canBeUsedAsMixin so the interpreter allows them in
+    // `with` clauses. This covers both pure `mixin Foo` declarations
+    // (extractor sets isMixin=true) and `mixin class Foo` /
+    // `abstract mixin class Foo` declarations (extractor sets
+    // canBeUsedAsMixin=true via ClassElement.isMixinClass).
+    if (cls.isMixin || cls.canBeUsedAsMixin) {
       buffer.writeln('    canBeUsedAsMixin: true,');
     }
 

@@ -1074,6 +1074,14 @@ class ElementModeExtractor {
         (classElement is ClassElement && classElement.isAbstract) || isMixin;
     final isSealedResolved =
         classElement is ClassElement && classElement.isSealed;
+    // Bucket-#5 fix: detect `mixin class Foo` / `abstract mixin class Foo`
+    // declarations so the bridge sets canBeUsedAsMixin=true. Without this
+    // flag, scripts that do `class X with WidgetsBindingObserver` fail with
+    // "Bridged class 'WidgetsBindingObserver' cannot be used as a mixin".
+    // Pure mixins (iterated via library.mixins) also need the flag — they
+    // come in with isMixin=true, so the OR keeps them covered.
+    final canBeUsedAsMixinResolved = isMixin ||
+        (classElement is ClassElement && classElement.isMixinClass);
 
     // GEN-093: Append inherited members (from all supertypes) so the renderer
     // sees a complete member list — in particular, inherited setters carry
@@ -1094,6 +1102,7 @@ class ElementModeExtractor {
         isAbstract: isAbstractResolved,
         isSealed: isSealedResolved,
         isMixin: isMixin,
+        canBeUsedAsMixin: canBeUsedAsMixinResolved,
         constructors: constructors,
         members: members,
         typeParameters: typeParams,

@@ -1073,6 +1073,105 @@ Both edits are pure generator changes; the `tom_d4rt` ↔
 
 ---
 
+### [X] Fixed (15, GEN-105) — `abstract mixin class` not flagged `canBeUsedAsMixin`
+
+**Symptom** (3 scripts in the 20260424-1838 run, bucket #5 /
+Cluster A in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Bridged class 'WidgetsBindingObserver' cannot be used as a mixin.
+Set canBeUsedAsMixin=true when registering the bridge.
+```
+
+**Affected scripts:**
+
+- `widgets/widgets_binding_observer_test.dart` (secondary_classes)
+- `widgets/widgets_binding_test.dart` (secondary_classes)
+- `widgets/root_element_mixin_test.dart` (hardly_relevant_classes_5)
+
+**Root cause**
+
+Dart 3 supports `mixin class Foo` and `abstract mixin class Foo`
+declarations — classes that double as mixins, usable in both
+extends and `with` clauses. Examples in Flutter:
+`WidgetsBindingObserver` and `RouteAware` are both declared
+`abstract mixin class …`.
+
+The `BridgedClass.canBeUsedAsMixin` runtime flag has been in
+place for a while — the interpreter consults it when resolving
+`with` clauses against a bridged target. But the generator was
+never wired to set the flag for `mixin class` declarations:
+
+1. `tom_d4rt_generator/lib/src/element_mode_extractor.dart` —
+   `_processClass` populated `ClassInfo.isMixin` only for pure
+   `mixin Foo` declarations (the analyzer's `isMixin` getter on
+   `MixinElement`). It never inspected `ClassElement.isMixinClass`,
+   which is the analyzer's flag for `mixin class` /
+   `abstract mixin class`.
+2. `tom_d4rt_generator/lib/src/bridge_generator.dart` — the
+   bridge emitter at the `BridgedClass(...)` write site only
+   looked at `cls.isMixin` to decide whether to emit
+   `canBeUsedAsMixin: true`. The mixin-class case wasn't covered.
+3. Subtler: even after the extractor side learned about
+   `isMixinClass`, the field had no surface on `ClassInfo`. The
+   generator's `_tryElementModeClasses` re-mapping path
+   constructs a fresh `ClassInfo` for each class it forwards to
+   the legacy emitter — without the field, the value was
+   silently dropped between extractor and emitter.
+
+**Fix (GEN-105)**
+
+Generator-only change in two files; no runtime mirror needed
+because the runtime flag was already there.
+
+1. `tom_d4rt_generator/lib/src/bridge_generator.dart`
+   - Add `final bool canBeUsedAsMixin;` to `ClassInfo` (defaults
+     to `false`) and the matching constructor parameter.
+   - Emitter: change the gate at the `BridgedClass(...)` write
+     site from `if (cls.isMixin)` to
+     `if (cls.isMixin || cls.canBeUsedAsMixin)`.
+   - `_tryElementModeClasses` re-mapping: forward the new field
+     (`canBeUsedAsMixin: c.canBeUsedAsMixin`) so it survives the
+     extractor → emitter handoff.
+
+2. `tom_d4rt_generator/lib/src/element_mode_extractor.dart`
+   - In `_processClass`, compute
+     `canBeUsedAsMixinResolved = isMixin || (classElement is ClassElement && classElement.isMixinClass)`
+     and pass it to the `ClassInfo(...)` call. This catches both
+     pure mixins and mixin-class declarations.
+
+After regeneration, both `WidgetsBindingObserver` and
+`RouteAware` now emit `canBeUsedAsMixin: true,` in
+`flutter_widgets.b.dart`.
+
+**Representative scripts** (all 3 now green at the test-runner
+level — original mixin error gone; remaining framework-error
+output belongs to other clusters)
+
+- `widgets/widgets_binding_observer_test.dart`
+- `widgets/widgets_binding_test.dart`
+- `widgets/root_element_mixin_test.dart`
+
+**Regression check** (post-fix, 20260425)
+
+- gii:                 55/1/27    (baseline 56/1/26 — pre-existing
+  flake delta; bucket-#5 scripts are not in gii)
+- essential:           108/0/0    (baseline 108/0/0 — unchanged)
+- important:           163/5/1    (baseline 163/5/1 — unchanged)
+- secondary:           614/40/0   (baseline 611/40/3 — +3 pass, -3 fail:
+  `widgets_binding`, `widgets_binding_observer`, plus
+  `gesture_detector_adv` carry-over from cluster 12)
+- hardly_relevant_5:   228/0/2    (baseline 222/0/8 — +6 pass, -6 fail:
+  `root_element_mixin_test` from this cluster, the rest from
+  earlier landings)
+
+Net: **0 regressions; bucket-#5 closed at the runner level.** The
+3 cluster-A scripts now run to completion; the residual framework
+errors they emit (Widget coercion, LateInitializationError, layout
+assertions) are downstream issues that belong to existing buckets.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**
