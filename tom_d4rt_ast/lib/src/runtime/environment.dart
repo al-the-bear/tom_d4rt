@@ -175,43 +175,59 @@ class Environment {
   /// [nativeObject] The native object to convert.
   ///
   /// Returns a [BridgedInstance] if a bridge is found for the object's type,
-  /// otherwise returns null.
+  /// otherwise throws a [D4rtException] (caller should handle).
+  ///
+  /// Resolution order:
+  ///   1. Direct lookup by [Type] (most specific — bridges with explicit
+  ///      [BridgedClass.nativeType]).
+  ///   2. [BridgedClass.isAssignable] iteration — keeps the LAST match across
+  ///      all enclosing environments. Bridges register general→specific, so
+  ///      the last match is the most specific (e.g., CupertinoTextThemeData
+  ///      wins over Diagnosticable). Required to disambiguate native types
+  ///      whose name happens to be a prefix of another bridge's name —
+  ///      e.g., `StringCharacters implements Characters`: without this step
+  ///      the name-prefix fallback in [toBridgedClass] would wrap it as
+  ///      `String`. Bucket #11 fix.
+  ///   3. [toBridgedClass] name-based fallbacks (private impl types,
+  ///      generic suffix matching, `*Impl` prefix matching). Used only when
+  ///      neither direct type lookup nor isAssignable found a bridge.
   BridgedInstance? toBridgedInstance(Object? nativeObject) {
     if (nativeObject == null) {
       return null;
     }
-    try {
-      final bridgedClass = toBridgedClass(nativeObject.runtimeType);
-      return BridgedInstance(bridgedClass, nativeObject);
-    } catch (e) {
-      // toBridgedClass failed - try using isAssignable
-      // This handles cases like Curves.linear returning a _Linear (private class)
-      // that should be bridged using the Curve (public supertype) bridge.
-      //
-      // We iterate through ALL registered bridges and keep the LAST match.
-      // Since bridges are registered from general to specific (foundation →
-      // widgets → material → cupertino), the last matching bridge is the most
-      // specific one. For example, if both Diagnosticable and
-      // CupertinoTextThemeData match, CupertinoTextThemeData (registered later)
-      // is preferred because it has the relevant getters/methods.
-      BridgedClass? bestMatch;
-      Environment? current = this;
-      while (current != null) {
-        for (final entry in current._bridgedClassesLookupByType.entries) {
-          final bridge = entry.value;
-          if (bridge.isAssignable != null &&
-              bridge.isAssignable!(nativeObject)) {
-            bestMatch = bridge;
-          }
-        }
-        current = current._enclosing;
+    final runtimeType = nativeObject.runtimeType;
+
+    // 1) Direct type lookup.
+    Environment? current = this;
+    while (current != null) {
+      final direct = current._bridgedClassesLookupByType[runtimeType];
+      if (direct != null) {
+        return BridgedInstance(direct, nativeObject);
       }
-      if (bestMatch != null) {
-        return BridgedInstance(bestMatch, nativeObject);
-      }
-      // No bridge found via isAssignable either, rethrow
-      rethrow;
+      current = current._enclosing;
     }
+
+    // 2) isAssignable iteration (keep LAST match for general→specific order).
+    BridgedClass? bestMatch;
+    current = this;
+    while (current != null) {
+      for (final entry in current._bridgedClassesLookupByType.entries) {
+        final bridge = entry.value;
+        if (bridge.isAssignable != null &&
+            bridge.isAssignable!(nativeObject)) {
+          bestMatch = bridge;
+        }
+      }
+      current = current._enclosing;
+    }
+    if (bestMatch != null) {
+      return BridgedInstance(bestMatch, nativeObject);
+    }
+
+    // 3) Name-based fallbacks (private impl, generic suffix, *Impl prefix).
+    //    [toBridgedClass] will throw if no bridge matches — propagate.
+    final bridgedClass = toBridgedClass(runtimeType);
+    return BridgedInstance(bridgedClass, nativeObject);
   }
 
   BridgedClass toBridgedClass(Type nativeType) {

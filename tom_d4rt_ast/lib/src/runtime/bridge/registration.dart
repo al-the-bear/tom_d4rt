@@ -4,6 +4,7 @@ import '../runtime_interfaces.dart'; // Import RuntimeType for type arguments
 import '../runtime_types.dart'; // Import InterpretedExtension for bridge extension
 import '../callable.dart'; // Import NativeExtensionCallable
 import 'bridged_enum.dart';
+import 'bridged_types.dart'; // Import BridgedInstance for unwrap helper
 
 // The idea is that these functions will encapsulate the native call
 // and type conversion.
@@ -285,11 +286,20 @@ class BridgedExtensionDefinition {
   }
 }
 
-/// Unwraps a [BridgedEnumValue] to its underlying native enum value, so that
-/// generated bridge adapters (which expect native types when casting target
-/// or operating on operands) can use them directly.
+/// Unwraps a [BridgedEnumValue] to its underlying native enum value, and a
+/// [BridgedInstance] to its underlying native object, so that generated bridge
+/// adapters (which cast target/operands to the native interface) can use them
+/// directly.
+///
+/// Bucket #4 (enums) introduced this helper for `WidgetState.a | WidgetState.b`
+/// style operator dispatch. Bucket #11 extends it to [BridgedInstance] so that
+/// extension members on bridged primitives — e.g. `String.characters` where
+/// `String` reaches the adapter wrapped as `BridgedInstance<String>` — can
+/// satisfy the adapter's `target as String` cast. This mirrors the unwrap that
+/// `D4.extractBridgedArg` already performs for method arguments.
 Object? _unwrapBridgedEnum(Object? value) {
   if (value is BridgedEnumValue) return value.nativeValue;
+  if (value is BridgedInstance) return value.nativeObject;
   return value;
 }
 
