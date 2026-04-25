@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 // Deep demo: BackdropFilter - Apply visual effects to content behind
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
@@ -498,71 +497,51 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
 
             const SizedBox(height: 16),
 
-            // Demo
+            // Demo — color matrices belong to ColorFilter.matrix (5x4 = 20
+            // entries), not ImageFilter.matrix (geometric 4x4 = 16 entries).
+            // BackdropFilter takes ImageFilter, so the right widget for color
+            // matrix transforms is ColorFiltered wrapping the content to be
+            // tinted.
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(
                 height: 200,
-                child: Stack(
-                  children: [
-                    // Colorful image substitute
-                    Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: const NetworkImage('https://picsum.photos/400/200'),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(Colors.transparent.withValues(alpha: 0), BlendMode.dst),
-                          onError: (_, __) {},
-                        ),
-                        gradient: const LinearGradient(
-                          colors: [Colors.pink, Colors.purple, Colors.indigo, Colors.cyan],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.matrix(matrices[_colorMatrixType]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: const NetworkImage('https://picsum.photos/400/200'),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(Colors.transparent.withValues(alpha: 0), BlendMode.dst),
+                        onError: (_, __) {},
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.image, size: 60, color: Colors.white.withValues(alpha: 0.8)),
-                            const SizedBox(height: 8),
-                            Text('Sample Content', style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 18)),
-                          ],
-                        ),
+                      gradient: const LinearGradient(
+                        colors: [Colors.pink, Colors.purple, Colors.indigo, Colors.cyan],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
                     ),
-                    // Color filter overlay
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: BackdropFilter(
-                          filter: ui.ImageFilter.matrix(
-                            Float64List.fromList(
-                              matrices[_colorMatrixType].map((e) => e.toDouble()).toList(),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.image, size: 60, color: Colors.white.withValues(alpha: 0.8)),
+                          const SizedBox(height: 8),
+                          Text('Sample Content', style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 18)),
+                          const SizedBox(height: 8),
+                          Text(
+                            matrixNames[_colorMatrixType],
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                             ),
                           ),
-                          child: Container(
-                            width: 200,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.1),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 2),
-                            ),
-                            child: Center(
-                              child: Text(
-                                matrixNames[_colorMatrixType],
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -816,7 +795,7 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     _buildBackgroundPattern(),
                     Positioned.fill(
                       child: TweenAnimationBuilder<double>(
-                        tween: Tween(begin: 0, end: _animatedBlur),
+                        tween: Tween<double>(begin: 0.0, end: _animatedBlur),
                         duration: const Duration(milliseconds: 300),
                         builder: (context, value, child) {
                           return BackdropFilter(
@@ -1096,12 +1075,13 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
     print('  - blendMode: BlendMode - How filter composites');
     print('  - child: Widget? - Widget above the filter');
     print('');
-    print('Common ImageFilter factories:');
+    print('Common ImageFilter factories (geometric transforms):');
     print('  - ImageFilter.blur(sigmaX, sigmaY, tileMode)');
-    print('  - ImageFilter.matrix(Float64List)');
+    print('  - ImageFilter.matrix(Float64List)  // 4x4 = 16 entries');
     print('  - ImageFilter.compose(outer, inner)');
     print('  - ImageFilter.dilate(radiusX, radiusY)');
     print('  - ImageFilter.erode(radiusX, radiusY)');
+    print('For color matrix transforms use ColorFilter.matrix + ColorFiltered');
 
     return Card(
       color: Colors.grey.shade100,
@@ -1127,7 +1107,7 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             ),
             const SizedBox(height: 4),
             const Text('• blur(sigmaX, sigmaY, [tileMode]) - Gaussian blur'),
-            const Text('• matrix(Float64List) - Color matrix transform'),
+            const Text('• matrix(Float64List 4x4) - Geometric transform (use ColorFilter.matrix for color)'),
             const Text('• compose(outer, inner) - Chain two filters'),
             const Text('• dilate(radiusX, radiusY) - Morphological dilation'),
             const Text('• erode(radiusX, radiusY) - Morphological erosion'),
