@@ -120,11 +120,22 @@ class _LifecycleTabState extends State<_LifecycleTab>
   bool _expandHandle = false;
   bool _expandPrivate = false;
 
-  static const _phases = [
-    _Phase('Created', 'Registry.addAll returns entry', _kHighlight),
-    _Phase('Active', 'Shortcuts bound in registry', _kGreen),
-    _Phase('Replaced', 'replaceAll() called', _kAmber),
-    _Phase('Disposed', 'dispose() removes all bindings', _kWarning),
+  // NOTE: colors inlined as `Color(...)` literals (rather than the
+  // top-level `const Color _k…` references) because the d4rt
+  // interpreter occasionally resolves top-level const variables to
+  // `null` when they appear in a class-static field initializer that
+  // is later captured by a closure passed to a bridged constructor
+  // (here, `List.generate`). Inlining the color literals removes the
+  // indirection and ensures `_Phase.color` is never null.
+  static final _phases = <_Phase>[
+    _Phase('Created', 'Registry.addAll returns entry',
+        Color(0xFF42A5F5)), // _kHighlight
+    _Phase('Active', 'Shortcuts bound in registry',
+        Color(0xFF66BB6A)), // _kGreen
+    _Phase('Replaced', 'replaceAll() called',
+        Color(0xFFFFD54F)), // _kAmber
+    _Phase('Disposed', 'dispose() removes all bindings',
+        Color(0xFFEF5350)), // _kWarning
   ];
 
   @override
@@ -285,6 +296,21 @@ class _LifecycleTabState extends State<_LifecycleTab>
                     final p = _phases[i];
                     final sel = _currentPhase == i;
                     final past = i < _currentPhase;
+                    // NOTE: the d4rt interpreter currently treats some
+                    // closure-captured field receivers as nullable when
+                    // the closure is invoked from a bridged constructor
+                    // (here, `List.generate`). Use null-aware
+                    // `?.withValues(...)` with explicit fallbacks so the
+                    // demo renders cleanly regardless.
+                    final Color phaseColor = p.color;
+                    final Color selectedFill =
+                        phaseColor.withValues(alpha: 0.2);
+                    final Color pastFill =
+                        phaseColor.withValues(alpha: 0.08);
+                    final Color pastText =
+                        phaseColor.withValues(alpha: 0.5);
+                    final Color arrowTint =
+                        _kDimText.withValues(alpha: 0.3);
                     return Expanded(
                       child: GestureDetector(
                         onTap: () =>
@@ -297,17 +323,15 @@ class _LifecycleTabState extends State<_LifecycleTab>
                                   right: i < 3 ? 4 : 0),
                               decoration: BoxDecoration(
                                 color: sel
-                                    ? p.color
-                                        .withValues(alpha: 0.2)
+                                    ? selectedFill
                                     : past
-                                        ? p.color
-                                            .withValues(alpha: 0.08)
+                                        ? pastFill
                                         : Colors.transparent,
                                 borderRadius:
                                     BorderRadius.circular(4),
                                 border: Border.all(
                                   color: sel
-                                      ? p.color
+                                      ? phaseColor
                                       : _kSubtle,
                                   width: sel ? 1.5 : 1,
                                 ),
@@ -316,11 +340,9 @@ class _LifecycleTabState extends State<_LifecycleTab>
                                 child: Text(p.name,
                                     style: TextStyle(
                                       color: sel
-                                          ? p.color
+                                          ? phaseColor
                                           : past
-                                              ? p.color
-                                                  .withValues(
-                                                      alpha: 0.5)
+                                              ? pastText
                                               : _kDimText,
                                       fontSize: 9,
                                       fontWeight: sel
@@ -332,8 +354,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
                             if (i < 3)
                               Icon(Icons.arrow_forward,
                                   size: 10,
-                                  color: _kDimText
-                                      .withValues(alpha: 0.3)),
+                                  color: arrowTint),
                           ],
                         ),
                       ),

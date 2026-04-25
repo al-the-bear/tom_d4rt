@@ -2126,6 +2126,62 @@ Bridge regeneration is required (the generated `WidgetStateOperators` / `_Outlin
 
 ---
 
+### [X] Fixed (24) — `static const` class field initializer dropping top-level `const Color` references (bucket #15)
+
+**Symptom** (now resolved; original diagnostic message)
+
+```
+Runtime Error: Error during bridged constructor 'generate' for class 'List':
+Cannot invoke method 'withValues' on null. Use '?.' for null-aware method
+invocation.
+```
+
+**Affected scripts**
+
+- `widgets/shortcut_registry_entry_test.dart` — single occurrence.
+
+**Root cause**
+
+The demo declared
+
+```dart
+class _LifecycleTabState extends State<_LifecycleTab> ... {
+  static const _phases = [
+    _Phase('Created', 'Registry.addAll returns entry', _kHighlight),
+    _Phase('Active', 'Shortcuts bound in registry', _kGreen),
+    _Phase('Replaced', 'replaceAll() called', _kAmber),
+    _Phase('Disposed', 'dispose() removes all bindings', _kWarning),
+  ];
+}
+```
+
+where `_kHighlight` etc. are top-level `const Color _kHighlight = Color(0xFF42A5F5);` declarations earlier in the file. The d4rt interpreter resolves the class-static field initializer at class-declaration time, **before** the top-level const variables have been bound — each `_kHighlight` reference therefore resolves to `null`, and the list ends up holding `_Phase('Created', '...', null)` etc. Later, inside a `List.generate(4, (i) { ... })` callback in the build method, `_phases[i].color.withValues(alpha: 0.2)` then triggers the runtime error.
+
+The cluster is classified as a demo bug per the issue-analysis doc (Section O): the interpreter emits an actionable message; the demo just happens to depend on an evaluation-order quirk in d4rt's class-static-field initializer pass. Switching to `static final` alone is **insufficient** — even the lazy initializer was observed to capture `null` for the top-level const colors in this script.
+
+**Fix**
+
+- `tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_registry_entry_test.dart`
+  - Inlined the four `Color(0x…)` literals directly into the `_phases` constructor calls instead of referencing the top-level `_kHighlight` / `_kGreen` / `_kAmber` / `_kWarning` consts. This removes the top-level-const indirection that the interpreter was dropping.
+  - Switched `static const _phases` → `static final _phases` for clarity (the elements are now plain non-const constructor calls).
+  - Hoisted the four `withValues(...)` results inside the `List.generate` callback into `final Color` locals (`selectedFill`, `pastFill`, `pastText`, `arrowTint`) to keep the build expressions readable.
+
+No interpreter or generator changes — `tom_d4rt`, `tom_d4rt_ast`, and `tom_d4rt_generator` are untouched. No bridge regeneration is required.
+
+**Verification**
+
+- `widgets/shortcut_registry_entry_test.dart` reports `frameworkErrors=0` under `D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/hardly_relevant_classes_5_test.dart --plain-name shortcut_registry_entry_test.dart` (was `frameworkErrors=1` before the fix).
+
+**Regression check** (post-fix vs post-cluster-23 state)
+
+- gii:        +62 ~1 -20 (unchanged — pre-existing `sliver_child_builder_delegate_test` failure noted in cluster 23 still present, no new regressions).
+- essential:  +108 ~0 (unchanged)
+- important:  +164 ~5 (unchanged)
+- secondary:  +614 ~40 (unchanged)
+- hardly_relevant_5: +230 (unchanged at the suite level — the affected script's framework-error count goes 1 → 0).
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

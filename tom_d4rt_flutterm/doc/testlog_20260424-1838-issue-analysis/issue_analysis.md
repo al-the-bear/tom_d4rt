@@ -494,7 +494,7 @@ behind the generic `Unsupported binary operator "|"` message.
   `on RuntimeD4rtException { rethrow; }` so call-site errors
   propagate to the user.
 
-### O. `List.generate` `?.` / null-safety in bridged factory
+### O. `List.generate` `?.` / null-safety in bridged factory — RESOLVED 2026-04-25 (cluster 24)
 
 ```
 Runtime Error: Error during bridged constructor 'generate' for class 'List':
@@ -510,6 +510,14 @@ Demo calls `someColor.withValues(alpha: x)` inside a `List.generate` callback
 where `someColor` is nullable. This is **demo code**, but the error message
 quality is what makes it hard to diagnose; the interpreter already emits the
 right message — just needs a fix in the demo.
+
+**Resolution (cluster 24):** the actual receiver was `_phases[i].color` and
+the `null` came from the class-static-const initializer of `_phases`
+referencing top-level `const Color _kHighlight` (etc.) before those
+top-levels were bound. Fix landed in the demo: inline the `Color(0x…)`
+literals into the `_phases` constructor calls and switch to `static final`.
+See **Cluster 24** in `tom_d4rt_flutterm/doc/interpreter_issues.md` for the
+full root-cause and fix narrative.
 
 ### P. Transition / type-generic coercion — `TransitionDelegate<T>`, `Shortcuts`, `ThemeData.extensions`
 
