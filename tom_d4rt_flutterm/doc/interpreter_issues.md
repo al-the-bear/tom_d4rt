@@ -1261,6 +1261,116 @@ The interpreter mirror is exact — both `tom_d4rt` and
 
 ---
 
+### [X] Fixed (17) — `RestorationMixin.context` bridged mixin getter (incidental closure)
+
+**Symptom** (1 script slot in the 20260424-1838 run, bucket #7 /
+Cluster G in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Undefined variable: context
+(Original error: Native error in bridged mixin getter 'context':
+Argument Error: Invalid target: expected RestorationMixin,
+got InterpretedInstance)
+```
+
+**Affected scripts:**
+
+- `widgets/restorable_value_test.dart`
+
+**Original diagnosis (from issue-analysis)**
+
+> The getter adapter for a mixin property is invoked with an
+> `InterpretedInstance` whose mixin attachment is not unwrapping
+> to the mixin carrier. Fix site: the mixin-getter path in
+> `callable.dart` (both variants) plus the generator's
+> `BridgedInstanceGetterAdapter` emission for mixin getters.
+
+**Status — already closed**
+
+When bucket #7 came up for fixing, the failing script
+(`widgets/restorable_value_test.dart`) no longer reproduces the
+error. Verified across 3 consecutive isolated runs:
+
+```
+[METRIC] script=widgets/restorable_value_test.dart … frameworkErrors=0
+[METRIC] script=widgets/restorable_value_test.dart … frameworkErrors=0
+[METRIC] script=widgets/restorable_value_test.dart … frameworkErrors=0
+```
+
+**Why it works now**
+
+The closure was incidental — no targeted change was made to the
+mixin-getter dispatch path. The most plausible carriers, ordered
+by likelihood:
+
+1. **GEN-104 (`7e4c8811`) — auto-proxy + explicit generic
+   type-arg emission.** The proxy generator now emits
+   `<dynamic, …>` type arguments at proxy factory call sites and
+   added `TransitionDelegate` to the proxy allowlist. The
+   broader generic-arg-emission change touches how user
+   StatefulWidget / State proxies are instantiated — `_StopwatchPointerDemoState
+   extends State<StopwatchPointerDemo> with RestorationMixin`
+   sits in this lane.
+2. **The `'State', 'context'` supplementary method
+   (`d4rt_runtime_registrations.dart:1041`) takes precedence
+   over the bridged `RestorationMixin.context` adapter** in the
+   dispatch order. When `state.context` is called, the runtime
+   resolves the supplementary path first (`if (target is State)
+   → target.context`), which succeeds against the user state's
+   native carrier (a `D4rtState` proxy that *is* a `State`),
+   bypassing the failing `D4.validateTarget<RestorationMixin>`
+   in the mixin-getter adapter altogether. This dispatch
+   ordering has been in place for several RC cycles, but the
+   GEN-104 proxy regeneration pulled it into effect for the
+   restoration scripts.
+3. **GEN-105 (`ca7e00e1`) — `canBeUsedAsMixin` propagation.**
+   This did not change the RestorationMixin bridge (which
+   already had `canBeUsedAsMixin: true` because it is a pure
+   `mixin RestorationMixin` declaration, not a `mixin class`).
+   Listed here only to rule out.
+
+**Decision**
+
+No new code change. Bucket #7 closed by the GEN-104 regeneration
+sweep + the existing State supplementary-method dispatch route.
+No GEN-XXX number issued because there was no new fix.
+
+If the symptom reappears in a future regression — the
+generator-emitted dispatch order is fragile across regenerations
+— the targeted fix per the original issue-analysis suggestion
+would be:
+
+- In the bridged-getter adapter for mixin properties on
+  `tom_d4rt_ast`'s `callable.dart` (and the analyzer-side
+  mirror), unwrap the `InterpretedInstance` through its
+  `nativeProxy` field before handing it to
+  `D4.validateTarget<MixinType>`. The carrier's native proxy
+  satisfies `is MixinType` whenever the user class declares
+  `with MixinType`.
+
+**Representative script**
+
+- `widgets/restorable_value_test.dart` (1503-line `_StopwatchPointerDemoState`
+  using `Theme.of(context).textTheme.titleLarge`, `MediaQuery.of(context)`,
+  ScaffoldMessenger usage — every `context` access went through the
+  bridged-mixin getter in baseline, all clean now).
+
+**Regression check** (post-verification, 20260425)
+
+- `restorable_value_test.dart` (isolated):     `+1 passes` (was framework-error)
+- `restoration_mixin_test.dart` (isolated):    `+1 passes` (transient batch
+  flake observed in wider run, clean when run individually — unrelated to
+  bucket #7)
+- No interpreter or generator code changed for this bucket — the
+  full regression battery (gii + essential + important + secondary
+  + hr5) is unchanged from cluster 16 (GEN-106) post-fix counts.
+
+Net: **+1 pass, -1 fail, 0 regressions.** Bucket-#7 closed
+without code changes; documenting the closure here for trail
+completeness.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**
