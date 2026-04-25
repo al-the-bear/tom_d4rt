@@ -3303,8 +3303,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return targetValue.toString();
           default:
         }
-        // Use directly methods because we need the BridgedMethodCallable
-        final adapter = bridgedClass.methods[methodName];
+        // Use directly methods because we need the BridgedMethodCallable.
+        // Cluster 25: Method overrides take precedence over the generated
+        // bridged adapter (used to fix broken generic-method bridges like
+        // `ThemeData.extension<T>()` that ignore typeArgs).
+        final adapter = D4.findMethodOverride(bridgedClass.name, methodName) ??
+            bridgedClass.methods[methodName];
 
         if (adapter != null) {
           final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
@@ -3314,14 +3318,34 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final (positionalArgs, namedArgs) =
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
+          // Cluster 25: Evaluate the call's <T> arguments so adapters/overrides
+          // that need them (e.g. `ThemeData.extension<BrandTokens>()`) can
+          // consult the script-side InterpretedClass / BridgedClass key.
+          List<RuntimeType>? evaluatedTypeArguments;
+          final typeArgsNode = node.typeArguments;
+          if (typeArgsNode != null) {
+            evaluatedTypeArguments = typeArgsNode.arguments
+                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .toList();
+          }
+
           try {
-            // Call the adapter with the native object
-            return adapter(
+            // Cluster 25: Wrap with withActiveVisitor so adapter-internal
+            // calls to D4.coerceList/coerceMap can resolve interface proxies
+            // (e.g. `theme.copyWith(extensions: [...])` where elements are
+            // script-side `BrandTokens extends ThemeExtension<BrandTokens>`).
+            // Without this, _activeVisitor is null inside coerceList and
+            // tryCreateInterfaceProxyWithVisitor is never called, leading to
+            // `InterpretedInstance is not a subtype of T` cast failures.
+            return D4.withActiveVisitor(
               this,
-              bridgedInstance.nativeObject,
-              positionalArgs,
-              namedArgs,
-              null,
+              () => adapter(
+                this,
+                bridgedInstance.nativeObject,
+                positionalArgs,
+                namedArgs,
+                evaluatedTypeArguments,
+              ),
             );
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
