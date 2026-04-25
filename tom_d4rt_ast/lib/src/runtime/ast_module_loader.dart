@@ -148,15 +148,20 @@ class AstModuleLoader implements ModuleContext {
     'isolate': (env) => IsolateStdlib.register(env),
   };
 
-  /// Per-stdlib isolated environments (GEN-101 fix, narrowed in GEN-101b).
-  /// Only `dart:math` is isolated — `min`, `max`, `pi`, … were the
-  /// observed name-collision source (scripts with fields named `min` or
-  /// `max` shadowed by globally-registered functions). Other stdlibs
-  /// (`convert`, `io`, `collection`, `typed_data`, `isolate`) keep their
-  /// symbols in globalEnvironment so scripts continue to reach them
-  /// transitively through bridged libraries like `flutter/services.dart`
-  /// that re-export typed_data / convert content.
-  static const Set<String> _isolatedStdlibs = {'math'};
+  /// Per-stdlib isolated environments (GEN-101 design, restored in GEN-107
+  /// Phase 3).
+  ///
+  /// Every stdlib with an explicit registrar gets its own environment
+  /// nested under [globalEnvironment]. Stdlib symbols never leak into the
+  /// global scope, so scripts that define fields named `min`, `max`,
+  /// `Stream`, … never collide with stdlib functions. Transitive reach
+  /// (e.g. `ByteData` through `flutter/services.dart`) is handled by the
+  /// GEN-107 re-export merge in [_mergeReExports], not by global leakage.
+  ///
+  /// `dart:core` and `dart:async` keep `null` registrars in
+  /// [_stdlibRegistrars] — they are pre-registered into [globalEnvironment]
+  /// at runner construction (because they are unconditional ambient names
+  /// in Dart) and therefore stay shared.
   final Map<String, Environment> _stdlibEnvironments = {};
 
   /// Loads a `dart:*` stdlib module by registering its definitions.
@@ -171,9 +176,12 @@ class AstModuleLoader implements ModuleContext {
     if (_stdlibRegistrars.containsKey(libName)) {
       final registrar = _stdlibRegistrars[libName];
 
-      // Isolated stdlibs get their own env. Currently only dart:math —
-      // keeps `min`/`max`/`pi` out of the unprefixed global scope.
-      if (registrar != null && _isolatedStdlibs.contains(libName)) {
+      // GEN-107 Phase 3: every stdlib with an explicit registrar is
+      // isolated. The math-only band-aid is gone — re-export merging now
+      // carries stdlib symbols into the libraries that re-export them
+      // (e.g. dart:typed_data → flutter/services.dart), so scripts no
+      // longer rely on a global leak to reach them transitively.
+      if (registrar != null) {
         Environment stdlibEnv;
         if (_stdlibEnvironments.containsKey(libName)) {
           stdlibEnv = _stdlibEnvironments[libName]!;
@@ -197,18 +205,10 @@ class AstModuleLoader implements ModuleContext {
         return module;
       }
 
-      // All other stdlibs (including dart:core, dart:async, and anything
-      // not in _isolatedStdlibs) register into globalEnvironment. This
-      // matches pre-GEN-101 behavior so scripts reaching stdlib symbols
-      // transitively (e.g. ByteData through flutter/services.dart) keep
-      // working.
-      if (registrar != null && !_registeredStdlibs.contains(libName)) {
-        registrar(globalEnvironment);
-        _registeredStdlibs.add(libName);
-        Logger.debug(
-          '[AstModuleLoader] Registered stdlib dart:$libName into globalEnvironment',
-        );
-      }
+      // dart:core / dart:async: registrar is null because they are
+      // pre-registered into globalEnvironment at runner construction.
+      // They stay shared so unprefixed names like `Object`, `String`,
+      // `Future`, `Stream` resolve without an explicit import.
       final emptyAst = SCompilationUnit(offset: 0, length: 0);
       final module = LoadedModule(
         ast: emptyAst,
@@ -545,18 +545,22 @@ class AstModuleLoader implements ModuleContext {
       final effectiveShow = _intersectShow(outerShow, re.show);
       final effectiveHide = _unionHide(outerHide, re.hide);
 
-      // Ensure the target library's bridged content is reachable.
-      // For dart: targets, _loadStdlibModule registers stdlib symbols
-      // (currently into globalEnvironment for non-isolated stdlibs, which
-      // is what the band-aid relies on). The call here ensures the stdlib
-      // registrar runs at least once even when only reached via re-export.
+      // For dart: targets, load the stdlib (Phase 3: now always isolated
+      // when there's an explicit registrar) and import its symbols into
+      // the source library's per-module environment. This is what makes
+      // `ByteData` reachable through `flutter/services.dart` even though
+      // typed_data no longer leaks into globalEnvironment.
       final targetUri = Uri.parse(re.uri);
       if (targetUri.scheme == 'dart') {
-        // Best-effort: load the stdlib so its symbols are registered.
-        // Errors here mean the dart: library isn't supported — let the
-        // primary load path raise on the user's actual import instead.
         try {
-          _loadStdlibModule(targetUri);
+          final stdlibModule = _loadStdlibModule(targetUri);
+          if (stdlibModule != null) {
+            moduleEnv.importEnvironment(
+              stdlibModule.exportedEnvironment,
+              show: effectiveShow,
+              hide: effectiveHide,
+            );
+          }
         } on RuntimeD4rtException {
           // Ignored: re-export of an unknown dart: library is the user's
           // bridge configuration problem, surfaced when they import it.

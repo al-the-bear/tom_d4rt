@@ -1532,7 +1532,7 @@ remaining error is now an interpreter-side cluster-9 bridge gap):
 | Script | Before | After | Fix |
 |--------|--------|-------|-----|
 | `widgets/navigation_toolbar_test.dart` | 70 | 0 | Wrap each `NavigationToolbar` in `SizedBox(height: kToolbarHeight)` (CustomMultiChildLayout requires bounded height). One central wrap in `_ToolbarCard.build` covers 3 sites; 3 direct sites edited individually. |
-| `services/codecs_test.dart` | 1 | 0 | Add explicit `import 'dart:typed_data';` (the d4rt bridge generator does not yet model the `flutter/services.dart` → `dart:typed_data` re-export — see GEN-107 Phase 2). |
+| `services/codecs_test.dart` | 1 | 0 | Add explicit `import 'dart:typed_data';` (the d4rt bridge generator did not model the `flutter/services.dart` → `dart:typed_data` re-export at the time — fixed end-to-end by GEN-107 Phases 2/3; the explicit import is no longer needed but harmless). |
 | `widgets/shortcut_registry_entry_test.dart` | 1 | 0 | The script's own comment described the workaround ("use null-aware `?.withValues(...)` with explicit fallbacks"); apply it to `phaseColor.withValues(...)` calls inside the `List.generate` closure. |
 | `rendering/render_proxy_sliver_test.dart` | 1 | 0 | Replace `event.channel.characters.first.toUpperCase()` with `event.channel.substring(0, 1).toUpperCase()` (d4rt's bridge for `String.characters` returns the String itself, so `.first` ends up on a String). |
 | `rendering/render_aligning_shifted_box_test.dart` | 1 | 1* | Same `.first` fix on `preset.label.characters.first`. The remaining framework error is now an interpreter-side cluster-9 issue (`createRenderObject: expected RenderObject, got InterpretedInstance(_DemoRenderAligningShiftedBox)`), not script-side. |
@@ -1642,155 +1642,81 @@ cluster faster than interpreter changes.
 
 ---
 
-### [~] Partially fixed — bridge re-exports modelled in the runtime (GEN-107)
+### [X] Fixed — bridge re-exports modelled across runtime + generator (GEN-107)
 
-**Status (2026-04-26)** — Phase 1 (runtime mechanism) landed.
-Phase 2 (generator emits the tuples) and Phase 3 (drop the
-`_isolatedStdlibs = {'math'}` band-aid) remain open.
+**Status (2026-04-25)** — All three phases landed.
 
-What's done:
+- **Phase 1** — runtime mechanism in `tom_d4rt_ast` + `tom_d4rt`
+  (commit 870c5763).
+- **Phase 2** — bridge generator emits `registerLibraryReExport(...)`
+  calls into every `*.b.dart` (commit 2be6a70f), with the
+  `tom_d4rt_exec` API mirror as a follow-up (commit 37f0b70c) so
+  the regenerated bridges compile against `tom_d4rt_exec.D4rt`.
+- **Phase 3** — `_isolatedStdlibs = {'math'}` band-aid removed.
+  Every stdlib with an explicit registrar (`math`, `convert`,
+  `collection`, `typed_data`, `io`, `isolate`) is now isolated in
+  its own per-stdlib environment. Transitive reach
+  (`flutter/services.dart → dart:typed_data → ByteData`) flows
+  through the GEN-107 re-export merge instead of a global leak.
+
+What landed:
 
 - `D4rtRunner.registerLibraryReExport(sourceUri, targetUri,
   {show, hide})` in `tom_d4rt_ast/lib/src/runtime/d4rt_runner.dart`
   records re-export edges keyed by source library URI.
-- `AstModuleLoader._mergeReExports` in `tom_d4rt_ast/lib/src/runtime
-  /ast_module_loader.dart` walks the recorded edges after
-  `_tryLoadBridgedModule` registers a library's own bridges, merges
-  each target library's bridges into the source library's per-module
-  env (intersecting `show` and unioning `hide` along the chain) and
-  recurses for transitive re-exports — with a visited-set guard
-  against import cycles.
+- `AstModuleLoader._mergeReExports` in
+  `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart` walks the
+  recorded edges after `_tryLoadBridgedModule` registers a library's
+  own bridges, merges each target library's bridges into the source
+  library's per-module env (intersecting `show` and unioning `hide`
+  along the chain) and recurses for transitive re-exports — with a
+  visited-set guard against import cycles. For `dart:` targets it
+  imports the isolated stdlib environment into the source moduleEnv
+  so symbols like `ByteData` reach scripts that only import
+  `flutter/services.dart`.
 - Mirror API on `D4rt.registerLibraryReExport` in
-  `tom_d4rt/lib/src/d4rt_base.dart` for parity. The analyzer-based
-  loader registers everything into `globalEnvironment`, so
-  re-exports already work transparently there; the API is recorded
-  but the merge step is unwired (documented in the method's
+  `tom_d4rt/lib/src/d4rt_base.dart` and
+  `tom_d4rt_exec/lib/src/d4rt_base.dart` (delegates to the inner
+  `D4rtRunner`) for parity. The analyzer-based loader in `tom_d4rt`
+  registers everything into `globalEnvironment`, so re-exports
+  already work transparently there; the API is recorded but the
+  merge step is a no-op there (documented in the method's
   docstring).
+- Bridge generator (`tom_d4rt_generator/lib/src/bridge_generator.dart`)
+  scans `LibraryFragment.libraryExports` while walking each library
+  in element mode, emits a stable `bridgeReExports()` factory in
+  every `*.b.dart`, and adds a registration loop in
+  `registerBridges()` calling
+  `interpreter.registerLibraryReExport(source, target, show:, hide:)`
+  for each entry. Pure barrel files (no class registrations and
+  therefore not in `allSourceFiles`) are still covered: bundle-mode
+  callers pass the full input `sourceFiles` list, which includes
+  top-level barrels via `parseExportFiles`.
 - Unit tests in `tom_d4rt_ast/test/runtime/ast_module_loader_test.dart`
   under `group('GEN-107 library re-exports')` verify: single
   re-export merges, show/hide filters honoured, transitive chains
   work, cycles don't infinite-loop, and target bridges do not leak
   into `globalEnvironment`.
 
-What's still open:
+Verification (`tom_d4rt_flutterm`, `D4RT_SKIP_BRIDGE_REGEN=1`,
+serial runs):
 
-- **Generator change** (Phase 2 in the original plan): the bridge
-  generator does not yet scan analyzer `LibraryElement`'s
-  `exportNamespace` / `libraryExports` and emit
-  `runner.registerLibraryReExport(...)` calls in the generated
-  `*.b.dart` files. Until it does, no re-export edges exist at
-  runtime, so the `_isolatedStdlibs = {'math'}` band-aid is still
-  load-bearing for chains like
-  `flutter/services.dart → dart:typed_data → ByteData`.
-- **Cleanup** (Phase 3): drop `_isolatedStdlibs = {'math'}` once
-  the generator emits the tuples and the regression battery is
-  green.
+| Suite     | Phase 0 baseline | After Phase 3 | Delta |
+|-----------|------------------|---------------|-------|
+| essential | 108 / 0 / 0      | 108 / 0 / 0   | OK    |
+| important | 163 / 1 / 5      | 164 / 0 / 5   | `services/codecs_test.dart` now passes |
+| secondary | 612 / 2 / 40     | 615 / 0 / 39  | `widgets/gesture_detector_adv_test.dart` and one paired secondary now pass |
+
+No new failures. The two pre-existing flutterm-bucket failures
+that GEN-107 was scoped to fix
+(`services/codecs_test.dart`, `widgets/gesture_detector_adv_test.dart`)
+are now green.
 
 The runtime merge mechanism is intentionally generic: stdlib
 re-exports register the same way as package re-exports; the
-generator follow-up only needs to teach the generator to also
-record `dart:`-targeted exports for hand-bridged libraries
-(`flutter/services` → `dart:typed_data`, etc.).
-
----
-
-### [ ] Fixed — bridge re-exports modelled in the generator
-
-**Symptom (current)**
-
-Scripts that legitimately reach a stdlib type via a transitive
-re-export chain in real Dart fail at interpret time with
-"Undefined variable: …". The current workaround is GEN-101b which
-isolates only `dart:math` and lets every other stdlib leak into
-`globalEnvironment` so chains like
-`flutter/services.dart → dart:typed_data → ByteData` keep working
-by accident.
-
-**Root cause**
-
-The bridge generator scans each library's API and emits a bridged
-module containing only that library's own declarations. Real Dart
-libraries also have `export 'other/library.dart'` directives that
-re-publish another library's symbols under their own URI; the
-generator currently ignores those directives, so the bridge for
-`flutter/services.dart` doesn't expose the typed_data symbols that
-`flutter/services.dart` re-exports in source. The interpreter
-therefore can't find `ByteData` from a script that imports
-`flutter/services.dart` only — even though that script would compile
-in plain Dart.
-
-The over-broad `_isolatedStdlibs = {'math'}` set in
-`tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart` is the
-band-aid; once re-exports are modelled, every stdlib (and every
-package library) can be properly isolated and the set goes away.
-
-**Plan**
-
-1. **Generator change**: when the bridge generator analyses a
-   library, also scan its `export` directives via the analyzer.
-   For each `export 'package:foo/bar.dart' [show/hide …];`, record
-   the (uri, show, hide) tuple alongside the library's own
-   declarations.
-2. **Bridge config emission**: emit those tuples into the generated
-   bridge config — e.g. a `reExports: const [
-   ('dart:typed_data', null, null),
-   ('package:flutter/foundation.dart', null, null),
-   …]` field next to the existing class / function lists.
-3. **Module-loader wiring**: when the interpreter loads a bridged
-   library, after registering the library's own bridges into the
-   per-module env it also resolves each re-export tuple (loading
-   the target library if needed) and merges its exported env into
-   the current one with the show/hide filters applied. This is
-   essentially `importEnvironment` re-used for re-exports.
-4. **Deduplication / proxy-bridges**: a class can now appear in
-   multiple module envs by reference — that's fine, the existing
-   bridge instances are just *referenced* from each importing env,
-   not re-registered. The "bridge already registered" guard should
-   only fire when two *different* `BridgedClass` instances claim
-   the same name. If the same instance appears multiple times,
-   skip silently. (The user's "proxy-bridges" suggestion — a
-   thin reference type — is not strictly needed if equality on the
-   `BridgedClass` instance is sufficient; keep it as a fallback if
-   instance identity isn't preserved across re-exports.)
-5. **Stdlib hand-bridges**: do the same declaration manually for
-   the small set of hand-maintained stdlib bridges (one
-   `reExports: [...]` field per library config). E.g. the
-   `flutter/services` bridge gains `reExports: ['dart:typed_data']`,
-   the `flutter/foundation` bridge gains `reExports: ['dart:async',
-   'dart:typed_data', 'dart:collection']`, etc.
-6. **Cleanup**: with re-exports modelled, drop the
-   `_isolatedStdlibs = {'math'}` narrowing and isolate every stdlib
-   in its own env (the original GEN-101 design). The math fix
-   (cluster 5) still holds because nothing else `export`s
-   `dart:math`.
-
-**Why this is broader than just stdlib**
-
-Re-exports are pervasive across Flutter packages
-(`flutter/material.dart` re-exports `flutter/widgets.dart`,
-`flutter/widgets.dart` re-exports `flutter/foundation.dart`, etc.).
-Today this either works by accident (everything Flutter is
-registered with overlapping module envs) or via ad-hoc per-library
-include lists. A single generator-driven re-export model fixes
-both stdlib and Flutter cross-library reachability with the same
-mechanism.
-
-**Where to look**
-
-- `tom_d4rt_generator/lib/src/relaxer_generator.dart` and any
-  partner files that walk the analyzer's `LibraryElement` (look
-  for `library.exportNamespace` or `library.libraryExports`).
-- `tom_d4rt_ast/lib/src/runtime/ast_module_loader.dart`
-  `_loadStdlibModule` / `_tryLoadBridgedModule` for the merge
-  point.
-- The hand-bridged Flutter library configs that need an
-  `reExports` field added.
-
-**Out of scope (documented elsewhere)**
-
-Once this lands, cluster 12's `ByteData` sub-issue (script-forgot-
-to-import-typed_data) becomes irrelevant — the script imports
-`flutter/services.dart` and ByteData arrives via the re-export.
+generator emits `dart:`-targeted exports for hand-bridged libraries
+(`flutter/services` → `dart:typed_data`, etc.) the same way it
+emits `package:` exports.
 
 ---
 
