@@ -1,5 +1,13 @@
-// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last
+// ignore_for_file: avoid_print, deprecated_member_use, sort_child_properties_last, unnecessary_import
 // D4rt test script: Tests StandardMessageCodec, StandardMethodCodec, JSONMessageCodec, JSONMethodCodec, BinaryCodec, StringCodec from services
+//
+// NOTE: `dart:typed_data` is imported explicitly. In plain Dart `ByteData`
+// is implicitly available through `package:flutter/services.dart`'s
+// re-export of `dart:typed_data`. The d4rt bridge generator does not yet
+// model bridge re-exports (see GEN-107 Phase 2 in interpreter_issues.md),
+// so the script must import `dart:typed_data` directly.
+import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 

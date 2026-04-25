@@ -1,4 +1,4 @@
-// ignore_for_file: always_declare_return_types
+// ignore_for_file: always_declare_return_types, unnecessary_nullable_for_final_variable_declarations
 import 'package:flutter/material.dart';
 
 /// Deep visual test for ShortcutRegistryEntry.
@@ -302,13 +302,16 @@ class _LifecycleTabState extends State<_LifecycleTab>
                     // (here, `List.generate`). Use null-aware
                     // `?.withValues(...)` with explicit fallbacks so the
                     // demo renders cleanly regardless.
-                    final Color phaseColor = p.color;
+                    final Color? phaseColor = p.color;
                     final Color selectedFill =
-                        phaseColor.withValues(alpha: 0.2);
+                        phaseColor?.withValues(alpha: 0.2) ??
+                            const Color(0x33888888);
                     final Color pastFill =
-                        phaseColor.withValues(alpha: 0.08);
+                        phaseColor?.withValues(alpha: 0.08) ??
+                            const Color(0x14888888);
                     final Color pastText =
-                        phaseColor.withValues(alpha: 0.5);
+                        phaseColor?.withValues(alpha: 0.5) ??
+                            const Color(0x80888888);
                     final Color arrowTint =
                         _kDimText.withValues(alpha: 0.3);
                     return Expanded(
@@ -331,7 +334,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
                                     BorderRadius.circular(4),
                                 border: Border.all(
                                   color: sel
-                                      ? phaseColor
+                                      ? (phaseColor ?? _kSubtle)
                                       : _kSubtle,
                                   width: sel ? 1.5 : 1,
                                 ),
@@ -340,7 +343,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
                                 child: Text(p.name,
                                     style: TextStyle(
                                       color: sel
-                                          ? phaseColor
+                                          ? (phaseColor ?? _kDimText)
                                           : past
                                               ? pastText
                                               : _kDimText,

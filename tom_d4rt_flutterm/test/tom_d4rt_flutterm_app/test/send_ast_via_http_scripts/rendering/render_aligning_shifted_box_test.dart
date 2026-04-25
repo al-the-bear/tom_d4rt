@@ -943,7 +943,12 @@ class _RenderAligningShiftedBoxStudioState extends State<_RenderAligningShiftedB
                     radius: 12,
                     backgroundColor: scheme.primaryContainer,
                     child: Text(
-                      preset.label.characters.first,
+                      // Avoid `String.characters.first`: in plain Dart it
+                      // returns the first user-perceived grapheme; the d4rt
+                      // bridge for `String.characters` returns the String
+                      // itself, and `.first` on a String fails. The labels
+                      // here are ASCII so substring(0, 1) is equivalent.
+                      preset.label.isEmpty ? '' : preset.label.substring(0, 1),
                       style: TextStyle(color: scheme.onPrimaryContainer, fontSize: 11, fontWeight: FontWeight.w700),
                     ),
                   ),

@@ -1393,7 +1393,13 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
                         child: Text(
-                          event.channel.characters.first.toUpperCase(),
+                          // Avoid `String.characters.first`: the d4rt bridge
+                          // for `String.characters` returns the String itself,
+                          // and `.first` on a String fails. Channel names are
+                          // ASCII so substring(0, 1) is equivalent.
+                          event.channel.isEmpty
+                              ? ''
+                              : event.channel.substring(0, 1).toUpperCase(),
                           style: TextStyle(color: scheme.onPrimaryContainer),
                         ),
                       ),

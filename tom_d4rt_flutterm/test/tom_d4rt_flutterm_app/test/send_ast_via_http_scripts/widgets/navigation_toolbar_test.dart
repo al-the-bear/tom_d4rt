@@ -609,7 +609,11 @@ class _ToolbarCard extends StatelessWidget {
               color: tone.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: toolbar,
+            // NavigationToolbar uses CustomMultiChildLayout internally
+            // and crashes when handed an unbounded height (it inherits
+            // Column's infinite-height constraint here). Pin it to
+            // kToolbarHeight, which is what AppBar uses.
+            child: SizedBox(height: kToolbarHeight, child: toolbar),
           ),
         ],
       ),
@@ -773,7 +777,11 @@ class _ComparisonCardState extends State<_ComparisonCard> {
               color: widget.tone.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: NavigationToolbar(
+            // NavigationToolbar uses CustomMultiChildLayout and requires a
+            // bounded height. Pin to kToolbarHeight (AppBar's standard).
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: NavigationToolbar(
               centerMiddle: widget.centerMiddle,
               middleSpacing: widget.middleSpacing,
               leading: FilledButton.tonal(
@@ -799,6 +807,7 @@ class _ComparisonCardState extends State<_ComparisonCard> {
                 },
                 child: const Text('Action'),
               ),
+            ),
             ),
           ),
           const SizedBox(height: 8),
@@ -928,7 +937,11 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                           color: _amber.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: NavigationToolbar(
+                        // NavigationToolbar uses CustomMultiChildLayout and
+                        // requires a bounded height. Pin to kToolbarHeight.
+                        child: SizedBox(
+                          height: kToolbarHeight,
+                          child: NavigationToolbar(
                           centerMiddle: _centerMiddle,
                           middleSpacing: 12,
                           leading: FilledButton.tonal(
@@ -958,6 +971,7 @@ class _ResponsiveSceneState extends State<_ResponsiveScene> {
                                   ],
                                 )
                               : FilledButton.tonal(onPressed: () => _push('trail action'), child: const Text('Action')),
+                        ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -1390,7 +1404,11 @@ class _PracticalModuleState extends State<_PracticalModule> {
               color: widget.tone.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: NavigationToolbar(
+            // NavigationToolbar uses CustomMultiChildLayout and requires a
+            // bounded height. Pin to kToolbarHeight.
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: NavigationToolbar(
               centerMiddle: _centerMiddle,
               middleSpacing: _spacing,
               leading: FilledButton.tonal(
@@ -1428,6 +1446,7 @@ class _PracticalModuleState extends State<_PracticalModule> {
                   ),
                 ],
               ),
+            ),
             ),
           ),
           const SizedBox(height: 6),
