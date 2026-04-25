@@ -9150,7 +9150,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 final caseValue = member.expression.accept<Object?>(this);
                 Logger.debug(
                     "[Switch] Checking legacy case value: $caseValue against $switchValue");
-                if (switchValue == caseValue) {
+                // Cluster-26: see _matchAndBind ConstantPattern — the
+                // native enum / BridgedEnumValue boundary is asymmetric.
+                if (switchValue == caseValue ||
+                    (caseValue != null && caseValue == switchValue)) {
                   matched = true;
                   execute = true;
                   Logger.debug("[Switch] Matched legacy case: $caseValue");
@@ -9167,7 +9170,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   final caseValue = pattern.expression.accept<Object?>(this);
                   Logger.debug(
                       "[Switch] Checking pattern case value: $caseValue against $switchValue");
-                  if (switchValue == caseValue) {
+                  // Cluster-26: see _matchAndBind ConstantPattern — the
+                  // native enum / BridgedEnumValue boundary is asymmetric.
+                  if (switchValue == caseValue ||
+                      (caseValue != null && caseValue == switchValue)) {
                     matched = true;
                     execute = true; // Start executing
                     Logger.debug("[Switch] Matched pattern case: $caseValue");
@@ -9426,9 +9432,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Handles: case 1:, case "abc":, case MyClass.constant:
       // Evaluate the constant expression within the pattern
       final patternValue = pattern.expression.accept<Object?>(this);
-      // Compare the switch value against the evaluated pattern constant
-      // Use simple equality check for now.
-      if (value != patternValue) {
+      // Compare the switch value against the evaluated pattern constant.
+      // Cluster-26: cross-type-boundary equality is asymmetric — the native
+      // Dart enum's operator== doesn't know about BridgedEnumValue, so
+      // `nativeEnum == bridgedEnumValue` always returns false even when they
+      // refer to the same value. BridgedEnumValue.operator== handles the
+      // other direction. Try both sides before declaring no match.
+      final matches = value == patternValue ||
+          (patternValue != null && patternValue == value);
+      if (!matches) {
         throw PatternMatchD4rtException(
             "Constant pattern value $patternValue does not match switch value $value");
       }
