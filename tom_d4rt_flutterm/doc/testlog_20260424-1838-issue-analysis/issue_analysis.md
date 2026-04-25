@@ -548,32 +548,96 @@ The fix has three parts: (1) register `Intent` and `ThemeExtension` interface pr
 
 ### Q. Other single-script failures
 
-> **Status: partially resolved by cluster 26 (2026-04-25).** Three
-> sub-clusters in this section have been fixed:
+> **Status: closed by cluster 26 (2026-04-25, full triage on 2026-04-26).**
+> Four sub-clusters were fixed under cluster 26 and the remaining rows have
+> been re-classified — every Section Q row now has a definitive disposition:
+> fixed, resolved-by-skip, cosmetic-only, deferred-to-existing-bucket, or
+> escalated-to-its-own-cluster.
+>
+> Cluster 26 fixes:
 > - `dart_ui/key_event_type_test.dart` (custom enum getter via
 >   prefix-matched BridgedClass — 26b)
 > - `widgets/object_key_test.dart` (`identityHashCode` stdlib gap — 26a)
 > - `material/popup_menu_position_test.dart` (script-side demo bug — 26c)
+> - `widgets/route_information_reporting_type_test.dart` (symmetric `==` at
+>   ConstantPattern boundary between `BridgedEnumValue` and native enum — 26d)
 >
 > See **Cluster 26** in `tom_d4rt_flutterm/doc/interpreter_issues.md`
-> for the root-cause analyses and fix narrative. The remaining rows
-> below are still open.
+> for the root-cause analyses and fix narrative.
+>
+> Re-classification of the remaining rows (2026-04-26):
+>
+> - `widgets/render_custom_multi_child_layout_box_test.dart` and
+>   `widgets/render_custom_paint_test.dart` were **moved to
+>   `timeout_tests_test.dart`** (skipped from the regular suites). They no
+>   longer surface in essential / important / secondary regressions, so they
+>   are removed from active triage. Confirmed in
+>   `secondary_classes_test.log.txt` ("Skip: moved to timeout_tests_test.dart").
+> - `widgets/render_object_element_test.dart` — Widget coercion of an
+>   interpreted instance where a bridged `Widget` is expected. Same root
+>   cause as **Section E**; tracked there for a future Section-E cluster.
+>   Removed from Section Q.
+> - `material/button_bar_theme_test.dart` and
+>   `material/gapped_range_slider_track_shape_test.dart` — base scripts
+>   pass; only the **retest** versions fail, with the same Widget-coercion
+>   error as Section E ("expected Widget, got InterpretedInstance(...)").
+>   Re-classified into Section E. Section C (operator `==` nullable) is
+>   not the actual root cause for these two — the original toggle-buttons
+>   diagnosis was carried forward incorrectly.
+> - `painting/axis_direction_test.dart` — base script passes. The retest
+>   only emits cosmetic `RenderFlex overflowed` warnings (silent framework
+>   layout warnings), no functional failure. Moved to **silent framework
+>   errors** section; closed without code change.
+> - `widgets/raw_keyboard_listener_test.dart` — bridge gap on
+>   `RawKeyboardListener`, an API deprecated in Flutter 3.18 in favor of
+>   `KeyboardListener`. **Deferred (decision: do not fix);** the script
+>   should be retired or rewritten against the non-deprecated API. Tracked
+>   as a flutterm-side script cleanup, not an interpreter/bridge issue.
+> - `widgets/raw_radio_test.dart` — base failure is the generic
+>   `ValueNotifier<String>` null-cast pattern from **Section B** (already
+>   the canonical first-priority cluster in the recommended ordering).
+>   Re-classified into Section B; the retest's `enabled raw radio must
+>   have a registry` is a script bug downstream of the Section B fix and
+>   will be re-evaluated after Section B lands.
+> - `widgets/window_scope_test.dart` — **escalated to its own cluster.**
+>   Original Section Q diagnosis ("missing `_DemoWindowScope` wrapper")
+>   is incorrect — the wrapper IS present at line 41 of the script. The
+>   real bug is structural: the script defines an interpreted class
+>   `_DemoWindowScope extends InheritedModel<_ScopeAspect>`, then consumers
+>   inside the wrapped subtree call `_DemoWindowScope.of(context)` which
+>   in turn calls
+>   `InheritedModel.inheritFrom<_DemoWindowScope>(context, aspect: aspect)`.
+>   In native Flutter this resolves; in d4rt it fails because the
+>   `inheritFrom` static-method bridge in `widgets_bridges.b.dart` calls
+>   the native `InheritedModel.inheritFrom(context, aspect: aspect)`
+>   without forwarding the type argument, and Flutter's element-tree
+>   lookup uses runtime-type identity. An interpreted subclass of
+>   `InheritedModel` does not currently materialize as a native
+>   `_DemoWindowScope` Type in the element tree — there is no proxy
+>   generator for `InheritedWidget` / `InheritedModel` analogous to the
+>   one used for `StatelessWidget` / `StatefulWidget`. Fixing this
+>   requires either (a) generating a proxy `InheritedModel` subclass
+>   per interpreted class extending `InheritedModel`, or (b) routing the
+>   `inheritFrom<T>` lookup through an interpreter-side registry keyed
+>   on the script's class name. Tracked as a future cluster
+>   ("interpreted-extends-bridged InheritedWidget proxy gap"). Out of
+>   scope for cluster 26.
 
-| Script | Message | Kind | Status |
-|---|---|---|---|
-| `widgets/window_scope_test.dart` | `Assertion failed: No _DemoWindowScope found in context` | demo harness bug — missing `_DemoWindowScope` wrapper | open |
-| `widgets/render_custom_multi_child_layout_box_test.dart` | `Unsupported operator (*) for types null and int; childSemantics.renderObject._needsLayout is not true` | layout-phase ordering | open |
-| `widgets/render_custom_paint_test.dart` | `Build scheduled during frame` in `State.setState` | demo: `setState` called inside `build` / frame | open |
-| `widgets/route_information_reporting_type_test.dart` | `Switch expression was not exhaustive for value: RouteInformationReportingType.navigate` | interpreter exhaustiveness check on enum | open |
-| `widgets/render_object_element_test.dart` | see E above | — | open |
-| `dart_ui/key_event_type_test.dart` | `Undefined property or method 'label' on bridged instance of 'Key'.` | bridge gap on `KeyEvent.label` | **fixed (26b)** |
-| `material/button_bar_theme_test.dart` | (same error as toggle_buttons — C) | C | open |
-| `material/gapped_range_slider_track_shape_test.dart` | (retest, C-family) | C | open |
-| `material/popup_menu_position_test.dart` | `You can only pass [child] or [icon], not both` | demo bug | **fixed (26c)** |
-| `painting/axis_direction_test.dart` | retest — surfaces bucket C/B | re-classify in follow-up | open |
-| `widgets/object_key_test.dart` | `Undefined variable: identityHashCode` | stdlib gap | **fixed (26a)** |
-| `widgets/raw_keyboard_listener_test.dart` | `Undefined variable: RawKeyboardListener` | bridge gap (deprecated API; needs registration) | open |
-| `widgets/raw_radio_test.dart` (retest) | nested factory assertion | B + assertion in RawRadio ctor | open |
+| Script | Message | Disposition |
+|---|---|---|
+| `widgets/window_scope_test.dart` | `Assertion failed: No _DemoWindowScope found in context` | **escalated** — own cluster (interpreted-extends-bridged InheritedWidget proxy gap) |
+| `widgets/render_custom_multi_child_layout_box_test.dart` | (n/a) | **resolved** — moved to `timeout_tests_test.dart` (skipped) |
+| `widgets/render_custom_paint_test.dart` | (n/a) | **resolved** — moved to `timeout_tests_test.dart` (skipped) |
+| `widgets/route_information_reporting_type_test.dart` | `Switch expression was not exhaustive...` | **fixed (26d)** — symmetric `==` at ConstantPattern |
+| `widgets/render_object_element_test.dart` | see E | **moved to Section E** — Widget coercion |
+| `dart_ui/key_event_type_test.dart` | `Undefined property... 'label' on Key` | **fixed (26b)** |
+| `material/button_bar_theme_test.dart` | `expected Widget, got InterpretedInstance(ButtonBarTheme)` (retest only) | **moved to Section E** — Widget coercion (was misdiagnosed as C) |
+| `material/gapped_range_slider_track_shape_test.dart` | (retest only) | **moved to Section E** — Widget coercion |
+| `material/popup_menu_position_test.dart` | `You can only pass [child] or [icon]...` | **fixed (26c)** |
+| `painting/axis_direction_test.dart` | RenderFlex overflowed (cosmetic) | **closed** — silent framework warning, no functional failure |
+| `widgets/object_key_test.dart` | `Undefined variable: identityHashCode` | **fixed (26a)** |
+| `widgets/raw_keyboard_listener_test.dart` | `Undefined variable: RawKeyboardListener` | **deferred** — deprecated API, retire/rewrite the script |
+| `widgets/raw_radio_test.dart` | `ValueNotifier<String>` null-cast | **moved to Section B** — generic constructor factory |
 
 ---
 

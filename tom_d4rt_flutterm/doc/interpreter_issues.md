@@ -2406,10 +2406,61 @@ unblock.
 - retest:     +39 ~11 -8 (was +34 ~11 -13 — **+5 pass, -5 fail**).
 
 Total: **+14 tests** moved from fail → pass across gii and retest with
-zero regressions. Section Q's three sub-cluster items are closed; the
-remaining Section Q items (e.g. `raw_radio_test` with
-`!enabled || groupRegistry != null`) are framework-side or
-script-side residuals tracked separately.
+zero regressions. Section Q's four cluster-26 sub-fixes are closed.
+
+### Section Q triage closure (2026-04-26)
+
+The remaining Section Q rows have been triaged and re-routed to their
+correct buckets — Section Q is now considered fully closed at the
+classification level. Authoritative table in
+`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`. Summary:
+
+- **Resolved-by-skip** (no longer running):
+  `widgets/render_custom_paint_test.dart`,
+  `widgets/render_custom_multi_child_layout_box_test.dart` were moved to
+  `timeout_tests_test.dart` and are skipped in essential / important /
+  secondary suites.
+- **Cosmetic-only**: `painting/axis_direction_test.dart` retest only
+  surfaces silent `RenderFlex overflowed` warnings — no functional
+  failure. Closed.
+- **Re-routed to Section E** (Widget coercion of an interpreted
+  instance to a bridged Widget supertype):
+  `widgets/render_object_element_test.dart`,
+  `material/button_bar_theme_test.dart` (retest),
+  `material/gapped_range_slider_track_shape_test.dart` (retest). The
+  toggle-buttons "Section C" diagnosis was carried forward incorrectly
+  for the latter two — the actual error is the Section E coercion
+  pattern.
+- **Re-routed to Section B** (generic constructor factory):
+  `widgets/raw_radio_test.dart` base failure is the canonical
+  `ValueNotifier<String>` null-cast. The retest's
+  `enabled raw radio must have a registry` is a script-level downstream
+  symptom and will be re-evaluated after Section B lands.
+- **Deferred (decision: do not fix)**:
+  `widgets/raw_keyboard_listener_test.dart` — `RawKeyboardListener` is
+  deprecated in Flutter 3.18 in favor of `KeyboardListener`. Tracked as a
+  flutterm-side script cleanup, not an interpreter/bridge gap.
+- **Escalated to its own future cluster**:
+  `widgets/window_scope_test.dart`. The original "demo harness bug"
+  diagnosis is wrong — the `_DemoWindowScope` wrapper IS present at
+  line 41. The real bug is structural: the script defines an interpreted
+  class `_DemoWindowScope extends InheritedModel<_ScopeAspect>` and
+  consumers call `_DemoWindowScope.of(context)` which routes to
+  `InheritedModel.inheritFrom<_DemoWindowScope>(context, aspect: ...)`.
+  In native Flutter this resolves; in d4rt it fails because (a) the
+  `inheritFrom` static-method bridge in
+  `widgets_bridges.b.dart:44563-44568` does not forward the type
+  argument to the native call, and (b) there is no proxy generator for
+  `InheritedWidget` / `InheritedModel` analogous to the one used for
+  `StatelessWidget` / `StatefulWidget` — so an interpreted subclass of
+  `InheritedModel` does not materialize as a distinct native Type in
+  the element tree, and Flutter's runtime-type lookup cannot find it.
+  Fixing this requires either (1) generating a proxy `InheritedModel`
+  subclass per interpreted class extending `InheritedModel`, or (2)
+  routing `inheritFrom<T>` through an interpreter-side registry keyed
+  on the script's class name. Out of scope for cluster 26; tracked as
+  a future cluster ("interpreted-extends-bridged InheritedWidget proxy
+  gap").
 
 ---
 
