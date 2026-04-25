@@ -109,7 +109,8 @@ dynamic build(BuildContext context) {
   Widget pmBuildButton(PopupMenuPosition pos, String label, IconData icon) {
     return PopupMenuButton<String>(
       position: pos,
-      icon: Icon(icon, color: const Color(0xFFFF8F00)),
+      // PopupMenuButton asserts !(child != null && icon != null) — pass only
+      // the styled child container; the icon is rendered inside it.
       tooltip: '$label (${pos.name})',
       itemBuilder: (ctx) => pmMenuItems.map((item) {
         return PopupMenuItem<String>(value: item, child: Text(item));

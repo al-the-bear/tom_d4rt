@@ -416,14 +416,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // Yield to allow the frame to be scheduled and built
       await Future<void>.delayed(Duration.zero);
 
-      // Wait for the build to complete (with timeout)
+      // Wait for the build to complete (with timeout).
+      // Cluster-26: bumped from 10s → 30s. The original 10s budget was
+      // sufficient when several interpreter bugs caused heavy scripts to
+      // bail early; once those are fixed (e.g. KeyEventType.label, ObjectKey)
+      // the scripts now run their full StatefulWidget build, which can
+      // legitimately need >10s for very large widget trees in the
+      // interpreter. 30s gives comfortable headroom.
       final result = await completer.future.timeout(
-        const Duration(seconds: 10),
+        const Duration(seconds: 30),
         onTimeout: () {
           _capturingFrameworkErrors = false;
           return _BuildResult(
             success: false,
-            error: 'Build timed out after 10 seconds',
+            error: 'Build timed out after 30 seconds',
             output: _capturedOutput,
           );
         },

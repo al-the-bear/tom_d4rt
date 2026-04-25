@@ -2182,7 +2182,43 @@ No interpreter or generator changes — `tom_d4rt`, `tom_d4rt_ast`, and `tom_d4r
 
 ---
 
-### [X] Fixed (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P)
+### [REVERTED] (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P)
+
+> **Status: REVERTED 2026-04-25.** The original cluster 25 commits
+> (`cdbd0c44` interpreter, `c9374500` flutterm registrations,
+> `9a6eebf7` doc) introduced a **regression of ~24 widget-build tests
+> across gii / essential / important** that all surfaced as
+> `Build timed out after 10 seconds`. The bisect identified two
+> independent triggers in the cluster-25 patch:
+>
+> 1. **`node.typeArguments` evaluation** in the bridged-instance
+>    method-dispatch site called `_resolveTypeAnnotation` for every
+>    type-argument slot. Script-side type parameters (`<E>` in a
+>    generic helper, `<T>` inside an interpreted class method) are
+>    not bound as `RuntimeType` values in the environment, so
+>    `_resolveTypeAnnotation` threw `Type 'E' not found.`. The throw
+>    escaped pre-build and Flutter's widget-tree retry-loop hung
+>    past the 10s timeout.
+> 2. The combination of **`findMethodOverride` lookup on every bridged
+>    instance method** plus **`D4.withActiveVisitor` wrap on every
+>    adapter call** independently broke `rendering/renderobjects_basic
+>    /clip/layout`, `material/datepicker_widgets`, and
+>    `material/scaffold` even with a try/catch around the typeArgs
+>    eval — these scripts have no script-side type parameters at all,
+>    so the throw-and-swallow narrow-fix was insufficient. Reverting
+>    the override-lookup + visitor-wrap restores them all.
+>
+> The narrow `try { _resolveTypeAnnotation(...) } catch (_) { dynamic }`
+> swallow alone recovered gii (+38 → +63) but left ~5 essential /
+> important regressions intact, so the whole cluster was rolled back.
+> Section P (`Intent` / `ThemeExtension<T>` / `ThemeData.extension<T>()`)
+> remains **deferred** for a less-invasive approach. Suggested follow-up:
+> register the override lookup only when the registry is non-empty for
+> a given class (gate on `D4.hasMethodOverrides(bridgedClass.name)`),
+> and skip the `withActiveVisitor` wrap on adapters that don't take
+> typeArgs. The two affected retest scripts
+> (`default_text_editing_shortcuts_test.dart`,
+> `theme_extension_test.dart`) stay in the open issue log.
 
 **Symptom** (now resolved)
 
