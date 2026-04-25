@@ -519,7 +519,9 @@ literals into the `_phases` constructor calls and switch to `static final`.
 See **Cluster 24** in `tom_d4rt_flutterm/doc/interpreter_issues.md` for the
 full root-cause and fix narrative.
 
-### P. Transition / type-generic coercion — `TransitionDelegate<T>`, `Shortcuts`, `ThemeData.extensions`
+### P. [RESOLVED] Transition / type-generic coercion — `TransitionDelegate<T>`, `Shortcuts`, `ThemeData.extensions`
+
+**Status:** RESOLVED in **Cluster 25** (`tom_d4rt_flutterm/doc/interpreter_issues.md`).
 
 ```
 Runtime Error: Native error during default bridged constructor for 'Navigator':
@@ -538,13 +540,11 @@ List to List<ThemeExtension<ThemeExtension<dynamic>>>
 
 **Affected scripts:**
 
-- `widgets/transition_delegate_test.dart`
-- `widgets/default_text_editing_shortcuts_test.dart`
-- `material/theme_extension_test.dart`
+- `widgets/transition_delegate_test.dart` — already passing (stale entry; included for sanity check, no action needed)
+- `widgets/default_text_editing_shortcuts_test.dart` — fixed (Intent proxy)
+- `material/theme_extension_test.dart` — fixed (ThemeExtension F-bound proxy + active-visitor wrap + ThemeData.extension override)
 
-Same family as E / F but through generic type parameters. The coercion helper
-needs a path that maps a user-subclass `InterpretedInstance` to its native
-bridge when the parameter is declared `T` with a bound we know about.
+The fix has three parts: (1) register `Intent` and `ThemeExtension` interface proxies in `d4rt_runtime_registrations.dart` (the F-bound proxy uses canonical `extends ThemeExtension<_InterpretedThemeExtension>`); (2) wrap bridge instance-method dispatch with `D4.withActiveVisitor` in both `tom_d4rt` and `tom_d4rt_ast` so adapter-internal `coerceList` can resolve interface proxies; (3) introduce a method-override registry (`D4.registerMethodOverride`) and override `ThemeData.extension<T>()` to consult `typeArgs[0]` (an `InterpretedClass` for script-side ThemeExtension subclasses, or a `BridgedClass.nativeType` for native ones) as the lookup key in `theme.extensions`. See **Cluster 25** in `tom_d4rt_flutterm/doc/interpreter_issues.md` for the full root-cause and fix narrative.
 
 ### Q. Other single-script failures
 

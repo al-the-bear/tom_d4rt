@@ -2182,6 +2182,82 @@ No interpreter or generator changes — `tom_d4rt`, `tom_d4rt_ast`, and `tom_d4r
 
 ---
 
+### [X] Fixed (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P)
+
+**Symptom** (now resolved)
+
+Three independent failure modes all fed by Section P "Transition / type-generic coercion" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`:
+
+1. `retest/widgets/default_text_editing_shortcuts_test.dart` —
+   ```
+   InterpretedInstance is not a subtype of type 'Intent'
+   ```
+   Script subclasses of `Intent` (`Intent` is an abstract bridged class) could not pose as `Intent` when passed to native widgets that accept an `Intent` parameter.
+
+2. `retest/material/theme_extension_test.dart` —
+   ```
+   InterpretedInstance is not a subtype of type 'ThemeExtension<ThemeExtension<dynamic>>'
+   ```
+   from inside the auto-generated `ThemeData.copyWith(extensions: ...)` adapter. The bridge emits `D4.coerceListOrNull<ThemeExtension>(named['extensions'], 'extensions')`; raw-type expansion makes the target element type `ThemeExtension<ThemeExtension<dynamic>>`, and the script's `BrandTokens extends ThemeExtension<BrandTokens>` instances arrive as `InterpretedInstance` with no proxy to bridge them.
+
+   Followed (after the proxy was registered) by:
+   ```
+   Null check operator used on a null value at Instance of 'SPostfixExpression'
+   ```
+   from `theme.extension<BrandTokens>()!`. The generated `ThemeData.extension` adapter is `(visitor, target, …, typeArgs) => t.extension();` — it ignores `typeArgs` and calls the native extension with no `T`, so the lookup `extensions[ThemeExtension<dynamic>]` returns null for every script class.
+
+3. `widgets/transition_delegate_test.dart` was listed in Section P but already passed under the current main; left as a stale doc entry (no action required for this cluster).
+
+**Affected scripts**
+
+- `retest/widgets/default_text_editing_shortcuts_test.dart`
+- `retest/material/theme_extension_test.dart`
+
+**Root cause**
+
+Three layered defects:
+
+1. **No interface proxy for the abstract bridged superclass.** When a script declares `class _MyIntent extends Intent { … }` or `class BrandTokens extends ThemeExtension<BrandTokens> { … }`, the generic-bridge generator skips proxy creation for `Intent` (no abstract methods to delegate) and skips `ThemeExtension<T extends ThemeExtension<T>>` entirely (F-bounded generic). With no proxy registered via `D4.registerInterfaceProxy`, the InterpretedInstance arrives at `D4.coerceList`/`D4.tryCreateInterfaceProxyWithVisitor<T>` with no factory to wrap it.
+
+2. **`D4._activeVisitor` was null inside bridge instance-method adapters.** `D4.tryCreateInterfaceProxyWithVisitor<T>` needs the active visitor to call the proxy factory, but the bridged-instance method-dispatch site (`tom_d4rt/lib/src/interpreter_visitor.dart` and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`) called the adapter directly without wrapping in `D4.withActiveVisitor`. Even with a proxy registered, `_activeVisitor=null` short-circuited the proxy-creation path inside `coerceList` for adapter-internal coercions (e.g. inside the auto-generated `copyWith` adapter calling `D4.coerceListOrNull<ThemeExtension>(named['extensions'], …)`).
+
+3. **`ThemeData.extension<T>()` adapter dropped its type argument.** The generator emits no-typeArg-aware code for generic instance methods that use `T` as a runtime key. The site-specific bridge for `ThemeData.extension` becomes `t.extension()` (no `T`), which returns null because Flutter's `extension<T>()` reads `extensions[T]` and the call-site `T = ThemeExtension<dynamic>` is never an actual key. Even with the proxy fix above, `theme.extension<BrandTokens>()!` therefore null-checks on null.
+
+**Fix**
+
+- `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+  - Added `_InterpretedIntent extends Intent` user-bridge proxy and registered it via `D4.registerInterfaceProxy('Intent', …)` so script `Intent` subclasses are bridged to a real native `Intent`.
+  - Added `_InterpretedThemeExtension extends ThemeExtension<_InterpretedThemeExtension>` (canonical F-bound — verified at runtime that `is ThemeExtension<ThemeExtension<dynamic>>` accepts the canonical F-bound) and registered it via `D4.registerInterfaceProxy('ThemeExtension', …)`. The proxy stores `_instance.klass` as its `type` getter so each script's ThemeExtension subclass owns its own slot in `theme.extensions`. `copyWith` and `lerp` delegate to the script's interpreted methods and re-wrap the result via `_adaptResult`.
+  - New `_registerMethodOverrides()` registers `ThemeData.extension` with an override that consults `typeArgs[0]` — an `InterpretedClass` for script-side ThemeExtension subclasses, a `BridgedClass` for native ones — to look up `theme.extensions[lookupKey]`. When the result is a `_InterpretedThemeExtension` proxy, the override unwraps it back to its `_instance` (the `InterpretedInstance`) so the script gets a value typed as its own subclass.
+
+- `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and `tom_d4rt/lib/src/generator/d4.dart`
+  - Added `_methodOverrides` registry plus `D4.registerMethodOverride(className, methodName, adapter)` and `D4.findMethodOverride(className, methodName)`. Unlike supplementary methods (which fill *gaps*), overrides **replace** an existing bridged adapter — checked **before** `bridgedClass.methods[methodName]` in dispatch.
+
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` and `tom_d4rt/lib/src/interpreter_visitor.dart` (kept in lockstep)
+  - In the bridged-instance method-dispatch path (the `else if (toBridgedInstance(targetValue).$2)` branch of `visitMethodInvocation`):
+    - Resolved `node.typeArguments` into `evaluatedTypeArguments` and now pass them to the adapter (was hard-coded `null`).
+    - Look up `D4.findMethodOverride(bridgedClass.name, methodName)` first, fall back to `bridgedClass.methods[methodName]`.
+    - Wrapped the adapter call in `D4.withActiveVisitor(this, () => adapter(...))` so adapter-internal `D4.coerceList` / `D4.coerceMap` calls can resolve interface proxies via `tryCreateInterfaceProxyWithVisitor<T>`.
+
+No bridge regeneration is required — the generator is unchanged. The fix is a runtime-level patch in `d4rt_runtime_registrations.dart` plus a small interpreter wiring change.
+
+**Verification**
+
+- `retest/widgets/default_text_editing_shortcuts_test.dart` — `frameworkErrors=0` (was `InterpretedInstance is not a subtype of type 'Intent'` before).
+- `retest/material/theme_extension_test.dart` — `frameworkErrors=0` (was the `ThemeExtension<ThemeExtension<dynamic>>` cast error first, then the null-bang error after the proxy fix).
+- `widgets/transition_delegate_test.dart` (gii) — still passes (was already passing on main; included for sanity).
+
+**Regression check** (post-fix vs post-cluster-24 state)
+
+- gii:        +38 ~1 -44 (matches pre-existing baseline; the gii suite tracks open issues — no new regressions; the pre-existing `sliver_child_builder_delegate_test` build-timeout pattern from cluster 23 is unchanged).
+- essential:  +108 ~0 (unchanged)
+- important:  +164 ~5 (unchanged)
+- secondary:  +614 ~40 (unchanged — `widgets_binding_test` framework error noted is pre-existing and unrelated)
+- hardly_relevant_5: +230 (unchanged)
+- retest:     +38 ~11 -9 (was +36 ~11 -11 pre-fix — **+2 pass, -2 fail**: `default_text_editing_shortcuts_test.dart` and `theme_extension_test.dart` move from failing to passing; the remaining 9 retest failures are pre-existing and untouched by this cluster.)
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its
