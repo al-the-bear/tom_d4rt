@@ -232,7 +232,7 @@ class _RenderAligningShiftedBoxStudioState extends State<_RenderAligningShiftedB
 
   void _captureSnapshot(String reason) {
     final BuildContext? hostContext = _hostKey.currentContext;
-    if (hostContext == null) {
+    if (hostContext == null || !hostContext.mounted) {
       return;
     }
 

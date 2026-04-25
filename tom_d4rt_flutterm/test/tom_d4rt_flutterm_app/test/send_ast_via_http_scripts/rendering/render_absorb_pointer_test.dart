@@ -1217,7 +1217,8 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
   }
 
   Widget _snapshot(ThemeData theme, GlobalKey key, String title) {
-    final ro = key.currentContext?.findRenderObject();
+    final ctx = key.currentContext;
+    final ro = (ctx != null && ctx.mounted) ? ctx.findRenderObject() : null;
     final lines = <String>[
       'renderObject: ${ro?.runtimeType ?? 'null'}',
       if (ro is RenderBox) 'size: ${ro.hasSize ? ro.size : 'no-size'}',
