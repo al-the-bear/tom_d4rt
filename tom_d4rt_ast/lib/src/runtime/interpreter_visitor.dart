@@ -5428,8 +5428,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             } else {
               // Sync initializer: Use the computed value
               initValue = result;
-              Logger.debug(
-                "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",
+              Logger.debugLazy(
+                () =>
+                    "[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.",
               );
               environment.define(variableName, initValue);
             }

@@ -1693,6 +1693,108 @@ to-import-typed_data) becomes irrelevant — the script imports
 
 ---
 
+### [X] Fixed (19) — eager `Logger.debug` interpolation invokes Flutter Element `toString()` mid-mount (bucket #9)
+
+**Symptom** (bucket #9 / Cluster I — "Bridged field access on child
+instance" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Native error during bridged method call 'visitAncestorElements'
+  on StatelessElement: LateInitializationError: Field '_children@28042623'
+  has not been initialized.
+```
+
+**Affected scripts**
+
+- `widgets/render_tree_root_element_test.dart`
+- `widgets/root_element_test.dart`
+
+Both scripts call `element.visitAncestorElements((ancestor) { ... })`
+from inside a `Builder.builder` callback, then declare a local
+variable holding the ancestor (`Element? rootCandidate; …
+rootCandidate = ancestor;`).
+
+**Root cause**
+
+`tom_d4rt_ast` (and the mirrored `tom_d4rt`) sprinkle
+`Logger.debug("...$value...")` calls through the interpreter for
+diagnostic tracing. Two examples on the hot path of every
+variable assignment:
+
+```dart
+// interpreter_visitor.dart — visitVariableDeclarationList
+Logger.debug("[VariableDeclList] Sync init for '$variableName'. Defined as $initValue.");
+
+// environment.dart — Environment.assign
+Logger.debug("[Env.assign] Attempting to assign '$name' = $value in env: $hashCode");
+```
+
+Dart evaluates string interpolation **eagerly** at the call site —
+before `Logger.debug` runs and decides whether `debugEnabled` is
+on. So `$initValue.toString()` is invoked unconditionally, even
+when logging is silenced. For most values this is harmless, but
+for a Flutter `Element`, `toString()` walks the diagnostic tree
+(`_ElementDiagnosticableTreeNode` → children traversal) and may
+read `_children` on a `MultiChildRenderObjectElement`.
+
+`visitAncestorElements` is called from inside `Builder.build`
+during the *first* mount cascade. The walk reaches the
+ancestor `Column` (a `MultiChildRenderObjectElement`) **while
+its own `mount()` is still inflating children** — the line
+`_children = children;` only runs after `inflateWidget(...)` has
+returned for every child (framework.dart:7286). The script's
+`var local = ancestor;` triggers a `Logger.debug("…$initValue.")`
+that interpolates the still-mid-mount Column; the diagnostic
+tree access hits `_children` which is `late` and unassigned →
+`LateInitializationError`. The error wraps as "Native error
+during bridged method call 'visitAncestorElements'".
+
+The trigger is simply *any* assignment whose initializer is the
+ancestor reference — the variable does not need to be read
+afterwards, the type annotation does not matter, and the error
+manifests for both top-level closure-capture and pure
+function-local declarations. Reading
+`ancestor.widget.runtimeType` and storing the resulting String,
+or assigning a non-Element value, both work fine.
+
+**Fix**
+
+Add lazy variants (`Logger.debugLazy`, `infoLazy`, `warnLazy`,
+`errorLazy`) that take a `String Function() builder` and only
+build the message when `_shouldLog` returns true. Convert the
+two hot-path interpolations of arbitrary script values to the
+lazy form. Mirrored in `tom_d4rt` and `tom_d4rt_ast`.
+
+- `tom_d4rt/lib/src/utils/logger/logger.dart` +
+  `tom_d4rt_ast/lib/src/runtime/utils/logger/logger.dart` —
+  add `*Lazy` methods.
+- `tom_d4rt/lib/src/interpreter_visitor.dart` +
+  `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+  (`visitVariableDeclarationList`) — switch `Logger.debug` →
+  `Logger.debugLazy(() => …)` for the sync-init log line.
+- `tom_d4rt/lib/src/environment.dart` +
+  `tom_d4rt_ast/lib/src/runtime/environment.dart`
+  (`Environment.assign`) — same.
+
+No bridge regeneration needed.
+
+**Regression check** (post-fix vs `testlog_20260424-1838-issue-analysis` baseline)
+
+- gii:        +59 ~1 -23 (was +53 ~1 -29 — **+6** passes, no regressions)
+- essential:  +108 (was +108 — unchanged)
+- important:  +164 ~5 (was +163 ~5 -1 — **+1** pass, 0 fail)
+- secondary:  +614 ~40 (was +611 ~40 -3 — **+3** passes, 0 fail)
+- hr5:        +228 -2 (was +222 -8 — **+6** passes, 0 regressions)
+
+Net: **+16 passes, -16 fails, 0 regressions** across the battery.
+Both bucket #9 cluster scripts pass. The unrelated incidental
+fixes (gii +4, hr5 +6 etc.) are scripts that also tripped
+ancestor-walk / mount-time diagnostics on different bridged
+classes — the same `Logger.debug` eager interpolation was
+triggering similar `toString()` chain failures elsewhere.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

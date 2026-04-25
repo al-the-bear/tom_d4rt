@@ -49,6 +49,32 @@ class Logger {
   static void error(String message, {Object? error, StackTrace? stackTrace}) =>
       log(message, level: D4LogLevel.error, error: error, stackTrace: stackTrace);
 
+  // Lazy variants — message is built only if logging is actually enabled.
+  // Use these when the message interpolates values whose `toString()` may be
+  // expensive or unsafe (e.g., a Flutter Element mid-mount whose diagnostic
+  // tree access triggers `LateInitializationError`).
+  static void debugLazy(String Function() builder) {
+    if (!_shouldLog(D4LogLevel.debug)) return;
+    log(builder(), level: D4LogLevel.debug);
+  }
+
+  static void infoLazy(String Function() builder) {
+    if (!_shouldLog(D4LogLevel.info)) return;
+    log(builder(), level: D4LogLevel.info);
+  }
+
+  static void warnLazy(String Function() builder) {
+    if (!_shouldLog(D4LogLevel.warning)) return;
+    log(builder(), level: D4LogLevel.warning);
+  }
+
+  static void errorLazy(String Function() builder,
+      {Object? error, StackTrace? stackTrace}) {
+    if (!_shouldLog(D4LogLevel.error)) return;
+    log(builder(),
+        level: D4LogLevel.error, error: error, stackTrace: stackTrace);
+  }
+
   static bool _shouldLog(D4LogLevel level) {
     if (!debugEnabled) return false;
     return level.index >= minLevel.index;

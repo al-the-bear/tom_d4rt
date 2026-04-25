@@ -278,7 +278,7 @@ never emitted a `D4rtGradientTransform` adapter or its
 See cluster 18 in `tom_d4rt_flutterm/doc/interpreter_issues.md`
 for the full closure write-up and regression numbers.
 
-### I. Bridged field access on child instance — `_rootRuntimeType`, `_children`
+### I. Bridged field access on child instance — `_rootRuntimeType`, `_children` — RESOLVED (2026-04-25)
 
 ```
 Runtime Error: Undefined variable: _rootRuntimeType (Original error:
@@ -300,6 +300,31 @@ path; fixing C should unblock it. The second is a native-layer late field not
 being initialized through the bridged call sequence — points at
 `visitAncestorElements` needing a stricter pre-check when the element is
 still attaching.
+
+**Root cause (bucket #9):** Eager Dart string interpolation inside
+`Logger.debug("...$initValue...")` in `interpreter_visitor.dart` (variable
+declaration init) and `environment.dart` (`Environment.assign`) called
+`toString()` on the interpolated value *before* the logger decided whether
+debug was enabled. When `initValue` was a Flutter `Element` mid-mount (e.g.
+the ancestor visited by `visitAncestorElements` while a
+`MultiChildRenderObjectElement` was still inflating its children), the
+diagnostic-tree walk hit the not-yet-initialized
+`MultiChildRenderObjectElement._children` late field and raised
+`LateInitializationError`, surfaced through the bridged call wrapper.
+
+**Fix:** Added `Logger.debugLazy / infoLazy / warnLazy / errorLazy` in both
+`tom_d4rt/lib/src/utils/logger/logger.dart` and
+`tom_d4rt_ast/lib/src/runtime/utils/logger/logger.dart`. The lazy variants
+take a `String Function()` builder and only invoke it when the level is
+actually enabled. Switched the two hot interpolation sites
+(`interpreter_visitor.dart` variable decl init and `environment.dart`
+`Environment.assign`) to `debugLazy`, mirrored across both interpreters.
+Bridge regeneration was not required.
+
+**Regression battery delta (vs. baseline):** +16 passes, 0 regressions
+(gii +6, important +1, secondary +3, hr5 +6; essential unchanged). See
+cluster 19 in `tom_d4rt_flutterm/doc/interpreter_issues.md` for full
+numbers.
 
 ### J. `CustomPainter.preset` undefined
 

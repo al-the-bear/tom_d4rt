@@ -458,8 +458,9 @@ class Environment {
   }
 
   Object? assign(String name, Object? value) {
-    Logger.debug(
-      "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode",
+    Logger.debugLazy(
+      () =>
+          "[Env.assign] Attempting to assign '$name' = $value in env: $hashCode",
     );
     if (_values.containsKey(name)) {
       final existing = _values[name];
