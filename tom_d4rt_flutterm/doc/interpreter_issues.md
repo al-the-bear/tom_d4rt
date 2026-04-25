@@ -1172,6 +1172,95 @@ assertions) are downstream issues that belong to existing buckets.
 
 ---
 
+### [X] Fixed (16, GEN-106) — `dart:typed_data` not eagerly registered
+
+**Symptom** (2 script slots in the 20260424-1838 run, bucket #6 /
+Cluster D in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Undefined variable: ByteData
+```
+
+**Affected scripts:**
+
+- `services/codecs_test.dart` (important_classes,
+  generator_interpreter_issues — counted twice)
+
+**Root cause**
+
+The `dart:typed_data` stdlib bridge (`ByteData`, `Uint8List`,
+`ByteBuffer`, `Endian`, the integer / float view lists) is fully
+defined in `tom_d4rt_ast/lib/src/runtime/stdlib/typed_data.dart`
+and `tom_d4rt/lib/src/stdlib/typed_data.dart` — the issue analysis
+suggested it was missing, but that diagnosis was wrong. The actual
+bug was in the **registration timing**:
+
+`Stdlib.register()` (called once per execution from
+`d4rt_runner._initEnvironment`) only registered `dart:core` and
+`dart:async` eagerly. Every other stdlib (math, convert,
+collection, typed_data, isolate) was lazy-loaded by
+`AstModuleLoader._loadStdlibModule` only when the script
+explicitly ran `import 'dart:typed_data'`.
+
+`codecs_test.dart` imports `package:flutter/services.dart`
+(re-exports types that *use* `ByteData`) and
+`package:flutter/widgets.dart`, but never `dart:typed_data`
+directly — the script comment explicitly says "using ByteData
+directly" because `Uint8List` wasn't reliably reachable through
+the bridge. Without the explicit import, the typed_data registrar
+never fired, so `ByteData` was never bound in `globalEnvironment`,
+and the lookup raised "Undefined variable".
+
+The comment in `ast_module_loader.dart` (`_isolatedStdlibs`) had
+already noted this expectation — typed_data / convert / collection
+"keep their symbols in globalEnvironment so scripts continue to
+reach them transitively through bridged libraries like
+flutter/services.dart that re-export typed_data / convert
+content". But "transitive reach" only worked for already-loaded
+stdlibs; for typed_data the loader was waiting on an import that
+never came.
+
+**Fix (GEN-106)**
+
+Two-line change, mirrored in both runtimes:
+
+- `tom_d4rt_ast/lib/src/runtime/stdlib/stdlib.dart` — add
+  `TypedDataStdlib.register(environment)` after the existing
+  core + async registrations.
+- `tom_d4rt/lib/src/stdlib/stdlib.dart` — same change.
+
+The class names in `dart:typed_data` (`ByteData`, `Uint8List`,
+`Endian`, …) are unique enough that name-collision with user
+script symbols is not a concern. `dart:math` stays lazy +
+isolated because it exports `min`, `max`, `pi`, `e` — short
+names that frequently collide with user fields. A subsequent
+`import 'dart:typed_data'` in the script triggers a no-op
+re-registration via `defineBridge` (which logs a "redefining
+bridged class" warning but doesn't fail) — the small cost of
+not threading `_registeredStdlibs` between the eager
+`Stdlib.register` and the lazy `AstModuleLoader` paths.
+
+**Representative script**
+
+- `widgets/.../services/codecs_test.dart` (uses
+  `ByteData(5)` + `setUint8(...)` to feed `BinaryCodec`)
+
+**Regression check** (post-fix, 20260425)
+
+- gii:                 58/1/24    (baseline 55/1/27 — +3 pass, -3 fail
+  for codecs_test + 2 siblings that ran ByteData paths)
+- essential:           108/0/0    (unchanged)
+- important:           164/5/0    (baseline 163/5/1 — +1 pass, -1 fail:
+  codecs_test)
+- secondary:           614/40/0   (unchanged)
+- hardly_relevant_5:   228/0/2    (unchanged)
+
+Net: **+4 passes, -4 fails, 0 regressions.** Bucket-#6 closed.
+The interpreter mirror is exact — both `tom_d4rt` and
+`tom_d4rt_ast` carry the same change to `Stdlib.register`.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**
