@@ -2050,6 +2050,82 @@ No bridge regeneration required.
 
 ---
 
+### [X] Fixed (23) — extension binary operators on `WidgetState` / `BridgedEnumValue` (bucket #14)
+
+**Symptom** (now resolved; original diagnostic messages)
+
+```
+Runtime Error: Unsupported binary operator "&" (in Map literal)
+Runtime Error: Unsupported binary operator "|" (in Map literal)
+```
+
+**Affected scripts**
+
+- `widgets/widget_state_mapper_test.dart` — `WidgetState.pressed & WidgetState.selected: ...` and `WidgetState.hovered & ~WidgetState.disabled: ...` map keys.
+- `widgets/widget_state_test.dart` — `WidgetState.hovered | WidgetState.focused: ...` map key.
+
+Both target `WidgetStateOperators on WidgetStatesConstraint`, the
+extension that defines `&`, `|`, and `~` for the `WidgetState` enum.
+
+**Root cause (two interacting bugs)**
+
+1. **Generator** — `_generateOperatorCall` in
+   `tom_d4rt_generator/lib/src/bridge_generator.dart` emitted
+   `(t as dynamic) | positional[0]` for every bridged binary operator.
+   Dart resolves extension methods **statically**: dynamic dispatch
+   never reaches an extension member, so the call landed on the
+   native `WidgetState` instance (which has no `|` / `&`) and threw
+   `NoSuchMethodError`. The unary `~` case already worked because
+   it operated on the statically-typed `t` directly.
+2. **Interpreter** — `SBinaryExpression`'s "early extension check"
+   in both `tom_d4rt/lib/src/interpreter_visitor.dart` and
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` wrapped
+   the lookup *and* the call in a single `try { … } on
+   RuntimeD4rtException catch (findError) { … }`. The inner
+   `RuntimeD4rtException("Error executing extension operator …")`
+   from a failed call was therefore caught silently, execution fell
+   through to the `case '&'` / `case '|'` switch arms, and the user
+   saw the generic `Unsupported binary operator` message instead
+   of the underlying `NoSuchMethodError`.
+
+**Fix**
+
+- `tom_d4rt_generator/lib/src/bridge_generator.dart`
+  - `_generateOperatorCall` accepts an optional `extensionOnType`
+    parameter. When non-null (extension call site), it emits
+    `t op (positional[0] as $extensionOnType)` so the call is
+    statically dispatched against the extension's on-type. The
+    existing `(t as dynamic) op positional[0]` form is preserved
+    for native instance operators (enums, etc.) where dynamic
+    dispatch is correct.
+  - The extension emission site (~line 6294) passes `onTypeCast`
+    as the new argument.
+- `tom_d4rt/lib/src/interpreter_visitor.dart` and
+  `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+  - The outer `try` in the early-extension-check path now wraps
+    only `findExtensionMember`. The call invocation lives outside
+    that try, with its own narrow `on ReturnException` /
+    `on RuntimeD4rtException { rethrow; }` / `catch (e)` chain so
+    re-thrown call-site errors propagate to the user instead of
+    being swallowed.
+
+**Verification**
+
+- `widgets/widget_state_mapper_test.dart` and `widgets/widget_state_test.dart` no longer raise `Unsupported binary operator`. Both run to completion under `D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/hardly_relevant_classes_5_test.dart --plain-name widget_state_`.
+- After regenerating bridges (`tool/regenerate_bridges.dart`), the only `(t as dynamic) [&|^]` patterns in the generated `lib/src/bridges/*.b.dart` belong to enum/instance-method emission; the `WidgetStateOperators` adapter now contains `t & (positional[0] as $flutter_285.WidgetStatesConstraint)` (statically dispatched).
+
+**Regression check** (post-fix vs post-cluster-22 state)
+
+- gii:        +61 ~1 -21 (vs baseline 62/1/20 — `widgets/sliver_child_builder_delegate_test.dart` newly fails on a `Map.contains` lookup that is **pre-existing** in the current main; verified by stashing all four changed sources and re-running, which reproduces the same failure.)
+- essential:  +108 ~0 (unchanged)
+- important:  +164 ~5 (unchanged)
+- secondary:  +614 ~40 (unchanged)
+- hardly_relevant_5: +230 (vs baseline 227/0/3 — **+3 pass, -3 fail**: the two bucket-#14 scripts plus one incidental closure from the propagated extension-operator error path.)
+
+Bridge regeneration is required (the generated `WidgetStateOperators` / `_OutlineGeometry+` operator adapters change).
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

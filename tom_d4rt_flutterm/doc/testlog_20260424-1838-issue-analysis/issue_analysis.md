@@ -456,7 +456,7 @@ coercion errors that surface in these scripts are a separate
 cluster (interpreted RenderObject subclass not unwrapped at
 bridge boundary) and will be addressed independently.
 
-### N. Map-literal bitwise operators on `WidgetState` / `BridgedEnumValue`
+### N. Map-literal bitwise operators on `WidgetState` / `BridgedEnumValue` — RESOLVED (2026-04-25, cluster 23)
 
 ```
 Runtime Error: Operand for unary '~' must be an int or have an operator
@@ -465,23 +465,34 @@ defined, but was BridgedEnumValue. (in Map literal)
 Runtime Error: Unsupported binary operator "|" (in Map literal)
 ```
 
-**Affected scripts:**
+**Affected scripts (now passing):**
 
 - `widgets/widget_state_mapper_test.dart`
 - `widgets/widget_state_test.dart`
 
-`WidgetState` uses `WidgetStatePropertyAll` map keys that combine enum values
-with `|` and `~`. `WidgetState` is a Flutter Enum that overloads `operator |`
-and `operator ~` (see `WidgetStatesConstraint`), but the generator / bridge
-does not expose these operators on the bridged enum.
+Resolved by cluster 23 — see
+`doc/interpreter_issues.md` → "[X] Fixed (23) — extension binary
+operators on `WidgetState` / `BridgedEnumValue` (bucket #14)" for
+the full diagnosis. Two interacting bugs were addressed: (1) the
+generator's `_generateOperatorCall` emitted `(t as dynamic) | x`,
+which cannot reach extension methods because Dart resolves
+extensions statically; (2) `SBinaryExpression`'s early-extension
+check in both `tom_d4rt` and `tom_d4rt_ast` swallowed re-thrown
+call-site exceptions, masking the underlying `NoSuchMethodError`
+behind the generic `Unsupported binary operator "|"` message.
 
-**Fix site:** generator enum-operator emission
-(`tom_d4rt_generator/lib/src/bridge_generator.dart`) — emit operator adapters
-for `BridgedEnum` values when the enum declares operators in source. Mirror
-runtime dispatch in `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
-binary/unary evaluation to handle `BridgedEnumValue` operands when the
-adapter exists. **This is a new cluster** and should be added to
-`doc/interpreter_issues.md`.
+**Fix sites:**
+
+- `tom_d4rt_generator/lib/src/bridge_generator.dart` —
+  `_generateOperatorCall` now takes an optional `extensionOnType`
+  and emits static dispatch (`t op (positional[0] as $onType)`)
+  for the extension call site.
+- `tom_d4rt/lib/src/interpreter_visitor.dart` and
+  `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` —
+  `SBinaryExpression`'s outer `try` now wraps only
+  `findExtensionMember`; the call invocation has its own narrow
+  `on RuntimeD4rtException { rethrow; }` so call-site errors
+  propagate to the user.
 
 ### O. `List.generate` `?.` / null-safety in bridged factory
 
