@@ -326,7 +326,7 @@ Bridge regeneration was not required.
 cluster 19 in `tom_d4rt_flutterm/doc/interpreter_issues.md` for full
 numbers.
 
-### J. `CustomPainter.preset` undefined
+### J. `CustomPainter.preset` undefined — RESOLVED by bucket #9 fix (2026-04-25)
 
 ```
 Runtime Error: Undefined property or method 'preset' on bridged instance of
@@ -337,11 +337,24 @@ Runtime Error: Undefined property or method 'preset' on bridged instance of
 
 - `material/range_slider_tick_mark_shape_test.dart`
 
-The demo uses a `preset` member on `CustomPainter` that doesn't exist in the
-Flutter API — this is a **demo bug** (author error), not an interpreter bug.
+**Original (incorrect) diagnosis:** "demo bug — author uses a non-existent
+`preset` member on `CustomPainter`."
 
-**Fix site:** the demo file itself (remove the `preset` reference). Record so
-we don't mis-categorize as a bridge gap.
+**Actual root cause:** `preset` is a real field on the user-defined
+`_TickDiagnosticsPainter extends CustomPainter` (line 1322 of the script),
+accessed via `oldDelegate.preset` inside the
+`shouldRepaint(covariant _TickDiagnosticsPainter oldDelegate)` override. The
+access itself works correctly in the interpreter — the failure surfaced only
+because an earlier eager `Logger.debug("...$value...")` interpolation along
+the same dispatch chain (bucket #9) was raising and the framework's recovery
+path then re-entered the painter through the `CustomPainter` view, where the
+mid-error context lost the covariant downcast.
+
+**Resolution:** No additional fix needed. Bucket #9's lazy-Logger fix
+(`Logger.debugLazy / infoLazy / warnLazy / errorLazy`) cleared the eager
+interpolation site; the script now runs with `frameworkErrors=0` in the
+secondary suite. Verified post-bucket-#9: full secondary suite reports
+614 / 40 / 0 (vs. 611 / 40 / 3 baseline).
 
 ### K. Iterable.toList wrapping sub-errors
 

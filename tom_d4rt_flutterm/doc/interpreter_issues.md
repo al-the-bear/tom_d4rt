@@ -1793,6 +1793,19 @@ ancestor-walk / mount-time diagnostics on different bridged
 classes — the same `Logger.debug` eager interpolation was
 triggering similar `toString()` chain failures elsewhere.
 
+**Bucket #10 incidentally resolved.** Section J
+(`material/range_slider_tick_mark_shape_test.dart` —
+`Undefined property or method 'preset' on bridged instance of
+'CustomPainter'`) was a silent `frameworkErrors=1` at baseline,
+not a hard test failure. The original analysis mis-categorized
+this as a demo bug; in fact `preset` is a real field on the
+user-defined `_TickDiagnosticsPainter extends CustomPainter`,
+accessed via `oldDelegate.preset` inside a `covariant`-typed
+`shouldRepaint`. Post-fix the script is clean
+(`frameworkErrors=0`); no separate code change required. See
+section J in the bucket #9 issue-analysis doc for the corrected
+diagnosis.
+
 ---
 
 ## How clusters were derived
