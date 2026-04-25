@@ -356,7 +356,7 @@ interpolation site; the script now runs with `frameworkErrors=0` in the
 secondary suite. Verified post-bucket-#9: full secondary suite reports
 614 / 40 / 0 (vs. 611 / 40 / 3 baseline).
 
-### K. Iterable.toList wrapping sub-errors
+### K. Iterable.toList wrapping sub-errors — RESOLVED (2026-04-25, cluster 20)
 
 ```
 Runtime Error: Native error during bridged method call 'toList' on Iterable:
@@ -368,16 +368,28 @@ Runtime Error: Error in generic constructor factory for 'RawRadio':
 '!enabled || groupRegistr[...]
 ```
 
-**Affected scripts:**
+**Affected scripts (all four now passing):**
 
 - `rendering/render_proxy_sliver_test.dart` — inner: `.first` on String
 - `widgets/glowing_overscroll_indicator_test.dart` — inner: operator `==` Color null
 - `rendering/render_aligning_shifted_box_test.dart` — inner: `.first` on String
 - `widgets/raw_radio_test.dart` (retest) — inner: RawRadio factory assertion
 
-These wrap buckets C / J etc.; not a separate root cause, but noted because
-the interpreter's error-wrapping path hides the original stack location.
-Worth surfacing the inner Runtime-Error line as the top-level message.
+**Root cause:** Not actually error-wrapping — these scripts use
+`label.characters.first`, `colorIterable.first`, etc. on a String /
+collection. The native call returns a `StringCharacters` (subtype of
+`Characters`), and `Environment.toBridgedInstance` was wrapping it as
+the `String` bridge because the G-DCLI-05 name-prefix fallback in
+`toBridgedClass` matched `'StringCharacters'.startsWith('String')` and
+ran *before* `BridgedClass.isAssignable` was consulted. Result: every
+`Characters` method/getter (`.first`, `.toList`, etc.) failed with
+"Undefined property or method 'X' on bridged instance of 'String'".
+
+**Fix (cluster 20):** Re-ordered `toBridgedInstance` resolution to
+1) direct type lookup → 2) `isAssignable` iteration → 3) name-based
+fallbacks. `isAssignable` now correctly identifies `StringCharacters`
+as `Characters`. Mirrored in `tom_d4rt` and `tom_d4rt_ast`. See
+`tom_d4rt_flutterm/doc/interpreter_issues.md` cluster 20 for details.
 
 ### L. Constructor-parameter validation — `ImageFilter.matrix`
 

@@ -1808,6 +1808,94 @@ diagnosis.
 
 ---
 
+### [X] Fixed (20) — `toBridgedInstance` name-prefix fallback shadows `isAssignable` (bucket #11)
+
+**Symptom** (bucket #11 / Section K — "Iterable.toList wrapping
+sub-errors" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Native error during bridged method call 'toList' on Iterable:
+Runtime Error: Undefined property or method 'first' on bridged instance of 'String'.
+```
+
+**Affected scripts**
+
+- `rendering/render_proxy_sliver_test.dart` — `.first` on String
+- `widgets/glowing_overscroll_indicator_test.dart` — `.first` on Color list
+- `rendering/render_aligning_shifted_box_test.dart` — `.first` on String
+- `widgets/raw_radio_test.dart` (retest) — RawRadio factory assertion
+
+The four scripts hit `label.characters.first`,
+`colorIterable.first`, etc. on a `String` / collection. The
+underlying call returns a `StringCharacters` (subtype of
+`Characters`), but the interpreter wrapped it as the `String`
+bridge — every subsequent `Characters`-method dispatch then
+failed with "Undefined property or method 'X' on bridged instance
+of 'String'".
+
+**Root cause**
+
+`Environment.toBridgedInstance` was delegating directly to
+`Environment.toBridgedClass`, which performs three resolution
+strategies: direct type lookup → name-based fallbacks (private
+`_Impl`, `*<T>` suffix, `*Impl` prefix) → `isAssignable`. The
+G-DCLI-05 prefix fallback at `tom_d4rt/lib/src/environment.dart:283`
+(intended to map `ProgressBothImpl` → `Progress`) is broad: any
+type whose name starts with another bridge's name matches. So
+`'StringCharacters'.startsWith('String')` returned true, and the
+walker stopped before ever consulting the `Characters` bridge's
+`isAssignable: (v) => v is Characters` callback.
+
+**Fix**
+
+Restructure `toBridgedInstance` so the resolution order is:
+
+1. **Direct type lookup** — `_bridgedClassesLookupByType[runtimeType]`,
+   most specific.
+2. **`isAssignable` iteration** — walk every bridge in every
+   enclosing scope, keeping the LAST match (bridges register
+   general → specific). With this step `StringCharacters` resolves
+   to the `Characters` bridge before any name-based fallback runs.
+3. **Name-based fallbacks via `toBridgedClass`** — only consulted
+   when neither direct type nor `isAssignable` finds a match. This
+   keeps the existing G-DCLI-05 / generic-suffix / private-impl
+   behaviour for types that lack `isAssignable` (notably anonymous
+   subclasses introduced through proxy generation).
+
+Mirrored in `tom_d4rt` and `tom_d4rt_ast`. No bridge regeneration
+needed.
+
+- `tom_d4rt/lib/src/environment.dart` +
+  `tom_d4rt_ast/lib/src/runtime/environment.dart` —
+  `toBridgedInstance` rewrite; doc comment cites this cluster.
+- `tom_d4rt/lib/src/bridge/registration.dart` +
+  `tom_d4rt_ast/lib/src/runtime/bridge/registration.dart` —
+  `_unwrapBridgedEnum` extended to also unwrap `BridgedInstance`
+  for symmetry with `D4.extractBridgedArg` (defensive; the
+  primary dispatch site at
+  `interpreter_visitor.dart:4476` already unwraps before calling
+  the extension adapter).
+
+**Regression check** (post-fix vs `testlog_20260424-1838-issue-analysis` baseline)
+
+- gii:        +60 ~1 -22 (was +53 ~1 -29 — **+7** passes, no regressions)
+- essential:  +108 (was +108 — unchanged)
+- important:  +164 ~5 (was +163 ~5 -1 — **+1** pass, 0 fail)
+- secondary:  +614 ~40 (was +611 ~40 -3 — **+3** passes, 0 fail)
+- hr3:        +199 ~2 (was +199 ~2 — unchanged)
+- hr5:        +228 -2 (was +222 -8 — **+6** passes, 0 regressions)
+- retest:     +36 ~11 -11 (was +34 ~11 -13 — **+2** passes, 0 regressions)
+
+Net (combined with cluster 19): **+19 passes, -19 fails, 0
+regressions** across the battery. All four bucket #11 scripts
+pass; the additional incidental fixes (gii +1 vs cluster-19
+state, retest +2, hr5 +6) are scripts whose primary failure
+was likewise routed through the same name-prefix shadowing —
+e.g., `Iterable<T>` subtypes wrapped as `Iterable`, list views
+wrapped as `List`, etc.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its
