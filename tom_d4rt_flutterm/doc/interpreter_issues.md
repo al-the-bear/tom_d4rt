@@ -1896,6 +1896,90 @@ wrapped as `List`, etc.
 
 ---
 
+### [X] Fixed (21) — `BackdropFilter` + `ImageFilter.matrix` confused with color matrix (bucket #12)
+
+**Symptom** (bucket #12 / Section L — "Constructor-parameter
+validation — `ImageFilter.matrix`" in
+`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Native error during bridged constructor 'matrix' for class
+'ImageFilter': Invalid argument(s): "matrix4" must have 16 entries.
+```
+
+Manifests as `frameworkErrors=1` in the secondary suite — silent
+in pass/skip/fail counts, visible only in the per-script log.
+
+**Affected scripts**
+
+- `widgets/backdrop_filter_test.dart`
+
+**Root cause**
+
+Demo bug, not an interpreter bug. Section 3 of the demo ("Color
+Matrix Filters") declared 20-element 5×4 color matrices and
+passed them to `BackdropFilter(filter: ui.ImageFilter.matrix(...))`:
+
+```dart
+BackdropFilter(
+  filter: ui.ImageFilter.matrix(Float64List.fromList(matrices[i])),
+  ...
+)
+```
+
+But `ImageFilter.matrix` is for **geometric** transforms — its
+contract is `Float64List` of length 16 (a 4×4 transform), enforced
+at native bridge boundary. Color matrices in Flutter are
+`ColorFilter.matrix(List<double>)` (length 20) wrapped in
+`ColorFiltered`, never in `BackdropFilter`.
+
+A latent secondary bug was hiding behind the primary crash: section
+6 of the same demo passed
+`Tween(begin: 0, end: _animatedBlur)` to a
+`TweenAnimationBuilder<double>`. The int literal `0` does not
+auto-widen to `double` through d4rt's typed-list coercion, so once
+section 3 stopped throwing the framework now hit
+`type 'int' is not a subtype of type 'double?' in type cast`
+instead.
+
+**Fix**
+
+Demo-side changes only — no interpreter or bridge code touched.
+File:
+`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_filter_test.dart`.
+
+- Section 3: replace the `BackdropFilter` + `ui.ImageFilter.matrix`
+  hierarchy with `ColorFiltered` + `ColorFilter.matrix` wrapping
+  the colorful background container. The 20-element matrices are
+  now passed to the correct factory; section 3 demonstrates the
+  matrix transforms it always intended (grayscale, sepia, invert,
+  high-contrast).
+- Section 6: change `Tween(begin: 0, end: _animatedBlur)` to
+  `Tween<double>(begin: 0.0, end: _animatedBlur)`. Explicit type
+  arg + double literal sidestep the int → double? cast.
+- Drop the now-unused `dart:typed_data` import; correct the API
+  reference text to clarify `ImageFilter.matrix` is a 4×4
+  geometric transform and point readers at `ColorFilter.matrix`
+  for color matrices.
+
+`ColorFilter.matrix` and `ColorFiltered` are already bridged in
+`dart_ui_bridges.b.dart` and `widgets_bridges.b.dart`; no bridge
+regeneration required.
+
+**Regression check** (post-fix vs post-cluster-20 state)
+
+- gii:        +62 ~1 -20 (was +60 ~1 -22 — **+2** passes, no regressions)
+- essential:  +108 (unchanged)
+- important:  +164 ~5 (unchanged)
+- secondary:  +614 ~40 (unchanged in pass/fail; backdrop_filter_test
+  drops `frameworkErrors` 1 → 0)
+
+The +2 in gii are scripts that were also routed through the same
+`Tween(begin: 0, ...)` int/double-cast pattern, so the secondary
+fix lands them too.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

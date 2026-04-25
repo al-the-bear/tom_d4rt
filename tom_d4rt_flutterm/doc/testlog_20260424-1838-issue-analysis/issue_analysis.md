@@ -391,7 +391,7 @@ fallbacks. `isAssignable` now correctly identifies `StringCharacters`
 as `Characters`. Mirrored in `tom_d4rt` and `tom_d4rt_ast`. See
 `tom_d4rt_flutterm/doc/interpreter_issues.md` cluster 20 for details.
 
-### L. Constructor-parameter validation — `ImageFilter.matrix`
+### L. Constructor-parameter validation — `ImageFilter.matrix` — RESOLVED (2026-04-25, cluster 21)
 
 ```
 Runtime Error: Native error during bridged constructor 'matrix' for class
@@ -402,9 +402,34 @@ Runtime Error: Native error during bridged constructor 'matrix' for class
 
 - `widgets/backdrop_filter_test.dart`
 
-The demo passes a list of the wrong length. Fix is in the demo (use a proper
-`Matrix4.identity().storage` or `Float64List(16)`), and optionally the
-generator could emit a pre-flight length check with a friendlier message.
+**Root cause:** Section 3 of the demo ("Color Matrix Filters") wrapped a
+20-element 5×4 color matrix in `BackdropFilter(filter: ui.ImageFilter.matrix(...))`.
+`ImageFilter.matrix` is for **geometric** transforms — its parameter is
+`Float64List` of 16 entries (a 4×4 transform). Color matrix transforms in
+Flutter are `ColorFilter.matrix(List<double> matrix)` (5×4 = 20) wrapped in
+`ColorFiltered`, not `BackdropFilter`. The demo author conflated the two.
+
+A latent bug was hiding behind this crash: section 6 used
+`Tween(begin: 0, end: _animatedBlur)` inside a `TweenAnimationBuilder<double>`.
+The int literal `0` doesn't auto-widen to `double` in d4rt's typed-list
+coercion, so once section 3 stopped throwing the framework hit
+`type 'int' is not a subtype of type 'double?' in type cast` instead.
+
+**Fix (cluster 21):** Demo-only changes in
+`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/backdrop_filter_test.dart`:
+
+- Section 3: replace `BackdropFilter` + `ui.ImageFilter.matrix(...)` with
+  `ColorFiltered` + `ColorFilter.matrix(...)` wrapping the colorful
+  background. The 20-element matrices are now passed to the right factory.
+- Section 6: change `Tween(begin: 0, end: _animatedBlur)` to
+  `Tween<double>(begin: 0.0, end: _animatedBlur)`.
+- Drop the now-unused `dart:typed_data` import; correct the API-reference
+  text to clarify `ImageFilter.matrix` is a 4×4 geometric transform and
+  point at `ColorFilter.matrix` for color matrices.
+
+No interpreter or bridge changes. `backdrop_filter_test` now reports
+`frameworkErrors=0`. See `tom_d4rt_flutterm/doc/interpreter_issues.md`
+cluster 21 for details.
 
 ### M. Inactive-element `findRenderObject`
 
