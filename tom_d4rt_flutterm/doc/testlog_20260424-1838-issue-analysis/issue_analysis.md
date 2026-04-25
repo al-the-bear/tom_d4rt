@@ -202,7 +202,7 @@ carrier. Fix site: the mixin-getter path in `callable.dart` (both variants)
 plus the generator's `BridgedInstanceGetterAdapter` emission for mixin
 getters.
 
-### H. Late-init template defects
+### H. Late-init template defects — **CLOSED (cluster 18)**
 
 ```
 Runtime Error: Undefined variable: _value (Original error:
@@ -212,20 +212,71 @@ accessed before being assigned.)
 
 **Affected scripts:**
 
-- `widgets/restorable_property_test.dart`
+- `widgets/restorable_property_test.dart` — already passing pre-fix
 - `widgets/shader_mask_test.dart`
-- `widgets/single_child_render_object_element_test.dart`
-- `widgets/single_child_render_object_widget_test.dart`
+- `widgets/single_child_render_object_element_test.dart` — already passing pre-fix
+- `widgets/single_child_render_object_widget_test.dart` — already passing pre-fix
 
-For `_animController`, the demo author placed the `late final` field outside
-`State.initState` — the interpreter walks the class body at declaration time
-and evaluates the accessor. Either the demo template needs to stay strict
-(late only in `State.initState`, never as a class-body field), or the
-interpreter should defer accessor evaluation until first use. The latter is
-the real fix because plain Dart handles this fine.
+**Original diagnosis (kept for trail completeness):**
 
-**Fix site:** `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
-(declaration-pass handling of `late` fields) + mirror in `tom_d4rt`.
+> For `_animController`, the demo author placed the `late final` field
+> outside `State.initState` — the interpreter walks the class body at
+> declaration time and evaluates the accessor. Either the demo template
+> needs to stay strict (late only in `State.initState`, never as a
+> class-body field), or the interpreter should defer accessor
+> evaluation until first use. The latter is the real fix because plain
+> Dart handles this fine.
+>
+> **Fix site:** `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+> (declaration-pass handling of `late` fields) + mirror in `tom_d4rt`.
+
+**Actual root cause and resolution** — late-init was a *secondary*
+symptom. In `shader_mask_test.dart` the cascade
+`_animController = AnimationController(vsync: this, …)..repeat();`
+threw inside `AnimationController(vsync: this, …)` because
+`vsync: this` resolution to a `TickerProvider` proxy failed; the
+assignment never happened, and the framework's subsequent `dispose()`
+read the still-uninitialised `_animController`.
+
+The proxy lookup failed because the script uses an interpreted mixin
+that `implements TickerProvider`:
+
+```dart
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T>
+    implements TickerProvider { … }
+class _ShaderMaskDemoState extends State<ShaderMaskDemo>
+    with _TickerProviderShim { … }
+```
+
+Two interpreter gaps were responsible:
+
+1. `visitMixinDeclaration` did not process the mixin's `implements`
+   clause, so `_TickerProviderShim.bridgedInterfaces` was empty.
+2. `D4.tryCreateInterfaceProxyWithVisitor` walked only the
+   *interpreted superclass chain*, never recursing into a class's
+   *interpreted mixins or interfaces* to collect their bridged
+   contributions.
+
+After fixing both gaps, a separate latent issue surfaced: the script
+also defines `class _SlideGradientTransform extends GradientTransform`
+and passes it as `LinearGradient(transform: …)`. `GradientTransform`
+was not in `buildkit.yaml` `proxyClasses:`, so the proxy generator
+never emitted a `D4rtGradientTransform` adapter or its
+`registerInterfaceProxy` factory.
+
+**Fixes (cluster 18):**
+
+- `visitMixinDeclaration` now processes `implementsClause` (both
+  `tom_d4rt_ast` and `tom_d4rt`).
+- `tryCreateInterfaceProxyWithVisitor` now recursively visits every
+  reachable interpreted ancestor — superclass, mixins, interfaces —
+  collecting their bridged super/interfaces/mixins (both
+  interpreters).
+- `tom_d4rt_flutterm/buildkit.yaml` adds `GradientTransform` to
+  `proxyClasses:`; bridges regenerated.
+
+See cluster 18 in `tom_d4rt_flutterm/doc/interpreter_issues.md`
+for the full closure write-up and regression numbers.
 
 ### I. Bridged field access on child instance — `_rootRuntimeType`, `_children`
 

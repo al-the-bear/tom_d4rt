@@ -1371,6 +1371,157 @@ completeness.
 
 ---
 
+### [X] Fixed (18) — `vsync: this` via interpreted mixin + missing `GradientTransform` proxy (bucket #8)
+
+**Symptom** (1 script slot in the 20260424-1838 run, bucket #8 /
+Cluster H — "Late-init template defects" in
+`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+
+```
+Runtime Error: Undefined variable: _animController (Original error:
+LateInitializationError: Late variable '_animController' without
+initializer is accessed before being assigned.)
+```
+
+**Affected scripts at issue-analysis time:**
+
+- `widgets/shader_mask_test.dart` (only one still failing at the
+  start of bucket #8 work)
+- `widgets/restorable_property_test.dart` — *passing pre-fix*
+- `widgets/single_child_render_object_element_test.dart` — *passing pre-fix*
+- `widgets/single_child_render_object_widget_test.dart` — *passing pre-fix*
+
+The latter three were already passing in isolated runs at the time
+the bucket was opened — they had been incidentally closed by
+GEN-104/GEN-105 regen. Only `shader_mask_test.dart` still surfaced
+the error.
+
+**Original diagnosis (from issue-analysis)**
+
+> For `_animController`, the demo author placed the `late final`
+> field outside `State.initState` — the interpreter walks the class
+> body at declaration time and evaluates the accessor. Either the
+> demo template needs to stay strict (late only in
+> `State.initState`, never as a class-body field), or the
+> interpreter should defer accessor evaluation until first use.
+
+**Actual root cause** — late-init was a *secondary* symptom. The
+script declares
+
+```dart
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T>
+    implements TickerProvider {
+  @override Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
+}
+class _ShaderMaskDemoState extends State<ShaderMaskDemo>
+    with _TickerProviderShim {
+  late AnimationController _animController;
+  @override void initState() {
+    super.initState();
+    _animController = AnimationController(vsync: this, …)..repeat();
+  }
+  @override void dispose() { _animController.dispose(); super.dispose(); }
+}
+```
+
+The cascade `_animController = AnimationController(vsync: this,…)..repeat();`
+evaluates `AnimationController(vsync: this, …)` first; if that
+throws, the assignment never runs. The Flutter framework still
+calls `dispose()` on the broken state, which then reads
+`_animController` — and the **secondary** `LateInitializationError`
+masks the primary failure.
+
+The primary failure was inside the bridged `AnimationController`
+constructor: `D4.getRequiredNamedArg<TickerProvider>(named, 'vsync',
+'AnimationController')` could not satisfy `TickerProvider` from
+`this` (an `InterpretedInstance` of `_ShaderMaskDemoState`).
+
+Two interpreter gaps caused the proxy lookup to fail:
+
+1. `visitMixinDeclaration` (in both `tom_d4rt_ast` and `tom_d4rt`)
+   never processed the mixin's `implements` clause. So
+   `_TickerProviderShim.bridgedInterfaces` was empty —
+   `TickerProvider` was nowhere on the runtime class.
+
+2. `D4.tryCreateInterfaceProxyWithVisitor` walked
+   `walk.bridgedSuperclass / bridgedInterfaces / bridgedMixins` at
+   each step of the interpreted superclass chain, but **never
+   recursed into `walk.mixins` or `walk.interfaces`** (the
+   *interpreted* mixins / interfaces). So even with #1 fixed, the
+   shim's bridged `TickerProvider` interface would still not be
+   visible from `_ShaderMaskDemoState`'s class object.
+
+After fixing both gaps, the proxy resolution succeeded, the
+constructor returned a valid AnimationController, the cascade ran,
+and `_animController` got assigned — eliminating the late-init
+follow-up error.
+
+This **then** uncovered a new, previously-hidden issue: the script
+also uses
+
+```dart
+class _SlideGradientTransform extends GradientTransform { … }
+…
+LinearGradient(…, transform: _SlideGradientTransform(…))
+```
+
+`GradientTransform` was *not* in `buildkit.yaml` `proxyClasses:`,
+so no `D4rtGradientTransform` proxy class was generated and no
+factory was registered with `D4.registerInterfaceProxy('GradientTransform',
+…)`. Without that, an interpreted subclass of `GradientTransform`
+could not satisfy `LinearGradient(transform: …)`.
+
+**Fixes**
+
+1. `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`
+   `visitMixinDeclaration`: process `node.implementsClause`,
+   populating `mixinClass.interfaces` /
+   `mixinClass.bridgedInterfaces`. Mirrored in
+   `tom_d4rt/lib/src/interpreter_visitor.dart`.
+
+2. `tom_d4rt_ast/lib/src/runtime/generator/d4.dart`
+   `tryCreateInterfaceProxyWithVisitor`: replaced the linear
+   superclass-chain walker with a recursive collector that visits
+   the interpreted superclass *and* every interpreted mixin and
+   interpreted interface, gathering each level's bridged
+   contributions (super/interfaces/mixins) and their transitive
+   supertypes. Mirrored in `tom_d4rt/lib/src/generator/d4.dart`.
+
+3. `tom_d4rt_flutterm/buildkit.yaml`: added `GradientTransform` to
+   `proxyClasses:`. The proxy generator emits the
+   `D4rtGradientTransform` adapter and registration as part of
+   `lib/src/bridges/flutter_proxies.b.dart`.
+
+4. Regenerated all bridges via `dart run tool/regenerate_bridges.dart`.
+
+**After fix**
+
+- `widgets/shader_mask_test.dart`: `frameworkErrors=0`, all sections
+  render including the animated shimmer using
+  `_SlideGradientTransform` and the `_TickerProviderShim`-driven
+  `AnimationController`.
+
+**Regression check** (post-fix, 20260425)
+
+- generator_interpreter_issues_test:
+  baseline 57 / 0 / 29 → **59 / 1 / 23** (+2 pass, -6 fail, +1 skip)
+- essential_classes_test:        108 / 0 / 0 (unchanged)
+- important_classes_test:        164 / 5 / 0 (no failures)
+- secondary_classes_test:        614 / 40 / 0 (no failures; baseline had 3F)
+- hardly_relevant_classes_5:     228 / 0 / 2 (baseline 225 / 0 / 8 — +3 pass, -6 fail)
+
+Net: **+2 pass, -6 fail in gii; no regressions across the
+battery**, multiple incidental closures in hr5 / secondary from the
+proxy walker now reaching previously-shadowed bridged interfaces.
+
+**Representative script**
+
+- `widgets/shader_mask_test.dart` — uses an interpreted mixin
+  `implements TickerProvider` plus a script-defined
+  `_SlideGradientTransform extends GradientTransform`.
+
+---
+
 ### [ ] Fixed — script-side / Flutter framework limitations (out-of-scope?)
 
 **Symptom**

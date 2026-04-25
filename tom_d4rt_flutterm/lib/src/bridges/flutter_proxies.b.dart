@@ -10,6 +10,7 @@ library;
 // ignore_for_file: unused_import, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
@@ -456,6 +457,26 @@ class D4rtTransitionDelegate<T> extends TransitionDelegate<T> {
   @override
   Iterable<RouteTransitionRecord> resolve({required List<RouteTransitionRecord> newPageRouteHistory, required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute, required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes}) =>
       onResolve(newPageRouteHistory: newPageRouteHistory, locationToExitingPageRoute: locationToExitingPageRoute, pageRouteToPagelessRoutes: pageRouteToPagelessRoutes);
+
+}
+
+/// D4rt proxy for [GradientTransform].
+///
+/// Delegates abstract methods to callback functions, enabling
+/// D4rt scripts to implement [GradientTransform] via named
+/// function parameters.
+class D4rtGradientTransform extends GradientTransform {
+  /// Callback for [GradientTransform.transform].
+  final Matrix4? Function(Rect, {TextDirection? textDirection}) onTransform;
+
+  /// Creates a [D4rtGradientTransform] with callback implementations.
+  D4rtGradientTransform({
+    required this.onTransform,
+  });
+
+  @override
+  Matrix4? transform(Rect bounds, {TextDirection? textDirection}) =>
+      onTransform(bounds, textDirection: textDirection);
 
 }
 
@@ -972,6 +993,20 @@ void registerProxyFactories() {
            return D4.extractBridgedArg<Iterable<RouteTransitionRecord>>(result, 'resolve');
         }
         throw StateError('Interpreted class ${instance.klass.name} does not implement resolve');
+      },
+    );
+  });
+
+  // Register factory for GradientTransform
+  D4.registerInterfaceProxy('GradientTransform', (visitor, instance) {
+    return D4rtGradientTransform(
+      onTransform: (Rect bounds, {TextDirection? textDirection}) {
+        final method = instance.klass.findInstanceMethod('transform');
+        if (method != null) {
+          final result = method.bind(instance).call(visitor, [bounds], {'textDirection': textDirection});
+           return D4.extractBridgedArg<Matrix4?>(result, 'transform');
+        }
+        throw StateError('Interpreted class ${instance.klass.name} does not implement transform');
       },
     );
   });

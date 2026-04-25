@@ -31,6 +31,12 @@ d4rtgen:
     # (`T extends ThemeExtension<T>`); both fall out of the auto-proxy template
     # and are deferred to a follow-up cluster.
     - TransitionDelegate
+    # Cluster-18 (bucket #8): GradientTransform is an abstract painting class
+    # with a single overridable method `transform(Rect, {TextDirection?}) ->
+    # Matrix4?`. Scripts subclass it to build animated gradient effects (see
+    # widgets/shader_mask_test.dart). Without an interpreter proxy, instances
+    # of script subclasses cannot be passed to `LinearGradient(transform: …)`.
+    - GradientTransform
   modules:
     # --- Layer 0: dart:ui (most fundamental) ---
     - name: dart_ui

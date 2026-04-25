@@ -1521,8 +1521,9 @@ class D4 {
     InterpretedInstance instance,
     InterpreterVisitor visitor,
   ) {
-    // Walk hierarchy starting from `instance.klass` and climbing the
-    // interpreted superclass chain. At every level collect:
+    // Walk hierarchy starting from `instance.klass` and recursively traverse
+    // the interpreted superclass chain plus all interpreted mixins and
+    // interpreted interfaces. At every level collect:
     //   - the bridgedSuperclass name (direct)
     //   - bridgedInterfaces / bridgedMixins names
     //   - transitively registered supertypes of each (Bug-102b)
@@ -1534,35 +1535,52 @@ class D4 {
     //   class _DashboardDelegate extends _BaseDelegate { ... }
     // failed to resolve because _DashboardDelegate.bridgedSuperclass is
     // null (its bridged super is one interpreted hop away).
+    //
+    // Cluster-18 (bucket #8) extends this further: scripts may use an
+    // interpreted mixin to satisfy a bridged interface, e.g.
+    //   mixin _TickerProviderShim<T extends StatefulWidget> on State<T>
+    //       implements TickerProvider { ... }
+    //   class _DemoState extends State<...> with _TickerProviderShim
+    // Without recursing into `walk.mixins` and `walk.interfaces`, the
+    // bridged contributions of the interpreted mixin (here TickerProvider)
+    // are invisible to proxy resolution.
     final seen = <String>{};
     final candidates = <String>[];
     void add(String n) {
       if (seen.add(n)) candidates.add(n);
     }
-
-    InterpretedClass? walk = instance.klass;
-    while (walk != null) {
-      final directSuper = walk.bridgedSuperclass;
-      if (directSuper != null) {
-        add(directSuper.name);
-        for (final s in BridgedClass.transitiveSupertypeNames(directSuper.name)) {
-          add(s);
-        }
+    void addBridged(BridgedClass bc) {
+      add(bc.name);
+      for (final s in BridgedClass.transitiveSupertypeNames(bc.name)) {
+        add(s);
       }
-      for (final iface in walk.bridgedInterfaces) {
-        add(iface.name);
-        for (final s in BridgedClass.transitiveSupertypeNames(iface.name)) {
-          add(s);
-        }
-      }
-      for (final mixin in walk.bridgedMixins) {
-        add(mixin.name);
-        for (final s in BridgedClass.transitiveSupertypeNames(mixin.name)) {
-          add(s);
-        }
-      }
-      walk = walk.superclass;
     }
+
+    final visitedClasses = <InterpretedClass>{};
+    void collectFromInterpreted(InterpretedClass? c) {
+      if (c == null) return;
+      if (!visitedClasses.add(c)) return;
+      if (c.bridgedSuperclass != null) {
+        addBridged(c.bridgedSuperclass!);
+      }
+      for (final iface in c.bridgedInterfaces) {
+        addBridged(iface);
+      }
+      for (final mixin in c.bridgedMixins) {
+        addBridged(mixin);
+      }
+      // Recurse into interpreted ancestors so an interpreted mixin's or
+      // interface's bridged contributions are also discovered.
+      collectFromInterpreted(c.superclass);
+      for (final m in c.mixins) {
+        collectFromInterpreted(m);
+      }
+      for (final i in c.interfaces) {
+        collectFromInterpreted(i);
+      }
+    }
+
+    collectFromInterpreted(instance.klass);
 
     for (final name in candidates) {
       final factory = _interfaceProxies[name];

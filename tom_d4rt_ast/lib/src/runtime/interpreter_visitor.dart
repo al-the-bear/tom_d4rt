@@ -8197,6 +8197,48 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
+    // Cluster-18: Resolve 'implements' clause for mixins. Without this, an
+    // interpreted mixin like
+    //   mixin _TickerProviderShim on State<T> implements TickerProvider { ... }
+    // never records TickerProvider as a bridged interface, so callers using
+    // `vsync: this` (where `this` is a State that mixes in this shim) cannot
+    // satisfy a TickerProvider parameter through interface-proxy resolution.
+    if (node.implementsClause != null) {
+      Logger.debug(
+        "[Visitor.visitMixinDeclaration] Processing 'implements' clause for '$mixinName' in env: ${environment.hashCode}",
+      );
+      for (final interfaceType in node.implementsClause!.interfaces) {
+        final interfaceName = interfaceType.name!.name;
+        try {
+          final potentialInterface = environment.get(interfaceName);
+          if (potentialInterface is InterpretedClass) {
+            if (potentialInterface.isBase) {
+              throw RuntimeD4rtException(
+                "Mixin '$mixinName' cannot implement base class '$interfaceName' outside of its library.",
+              );
+            }
+            mixinClass.interfaces.add(potentialInterface);
+            Logger.debug(
+              "[Visitor.visitMixinDeclaration] Added interface '$interfaceName' for '$mixinName'",
+            );
+          } else if (potentialInterface is BridgedClass) {
+            mixinClass.bridgedInterfaces.add(potentialInterface);
+            Logger.debug(
+              "[Visitor.visitMixinDeclaration] Added bridged interface '$interfaceName' for '$mixinName'",
+            );
+          } else {
+            throw RuntimeD4rtException(
+              "Mixin '$mixinName' cannot implement non-class '$interfaceName' (${potentialInterface?.runtimeType}).",
+            );
+          }
+        } on RuntimeD4rtException {
+          throw RuntimeD4rtException(
+            "Interface '$interfaceName' not found for mixin '$mixinName'. Ensure it's defined.",
+          );
+        }
+      }
+    }
+
     // Populate members ON THE EXISTING mixinClass object
     final declarationEnv =
         environment; // Members use the mixin's declaration env
