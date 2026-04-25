@@ -54,18 +54,37 @@ const _binaryOperators = {
 
 /// Generates the appropriate code for calling an operator.
 ///
-/// For binary operators like `<`, generates `(t as dynamic) < positional[0]`.
+/// For binary operators like `<`, generates `(t as dynamic) < positional[0]`
+/// by default. When [extensionOnType] is non-null, emits static dispatch
+/// (`t < (positional[0] as <onType>)`) instead — required for extension
+/// operators because Dart resolves extensions **statically**: dynamic
+/// dispatch can never reach an extension method, even if the extension
+/// is in scope. (Bucket #14: `WidgetState.a | WidgetState.b` failed with
+/// `NoSuchMethodError: Class 'WidgetState' has no instance method '|'`
+/// because the previous emission used `as dynamic`.)
+///
 /// For index operator `[]`, generates `t[positional[0]]`.
 /// For index setter `[]=`, generates `t[positional[0]] = positional[1]`.
-/// For unary `~`, generates `~t`.
-///
-/// The `as dynamic` cast is used for binary operators because we don't have
-/// the operand type info. This lets Dart's runtime dispatch handle it.
+/// For unary `~`, generates `~t` (already statically dispatched on `t`'s
+/// declared type, so it works for extensions without further changes).
 ///
 /// Returns null if the name is not an operator (caller should use normal method call).
-String? _generateOperatorCall(String operatorName, String targetVar) {
+String? _generateOperatorCall(
+  String operatorName,
+  String targetVar, {
+  String? extensionOnType,
+}) {
   if (_binaryOperators.contains(operatorName)) {
+    if (extensionOnType != null) {
+      // Static dispatch — required for extension operators. The right
+      // operand is cast to the on-type because the typical Flutter
+      // extension-operator signature is symmetric (e.g.,
+      // `WidgetStateOperators on WidgetStatesConstraint` defines
+      // `WidgetStatesConstraint operator |(WidgetStatesConstraint other)`).
+      return 'return $targetVar $operatorName (positional[0] as $extensionOnType);';
+    }
     // Use dynamic cast to let Dart runtime dispatch handle the operator
+    // (correct for native instance operators on the bridged type).
     return 'return ($targetVar as dynamic) $operatorName positional[0];';
   } else if (operatorName == '[]') {
     return 'return $targetVar[positional[0]];';
@@ -6290,8 +6309,15 @@ class BridgeGenerator {
           );
           buffer.writeln('            final t = target as $onTypeCast;');
 
-          // Check if this is an operator - use operator syntax instead of Function.apply
-          final operatorCall = _generateOperatorCall(methodName, 't');
+          // Check if this is an operator - use operator syntax instead of Function.apply.
+          // Bucket #14: pass `onTypeCast` so binary operators emit static
+          // dispatch (extensions are resolved statically; dynamic dispatch
+          // never reaches an extension method).
+          final operatorCall = _generateOperatorCall(
+            methodName,
+            't',
+            extensionOnType: onTypeCast,
+          );
           if (operatorCall != null) {
             buffer.writeln('            $operatorCall');
           } else {
