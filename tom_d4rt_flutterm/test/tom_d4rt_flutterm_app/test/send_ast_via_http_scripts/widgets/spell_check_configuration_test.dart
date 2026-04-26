@@ -2,6 +2,28 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+// Flutter's `EditableText` looks up a default `SpellCheckService` for the
+// active platform when an enabled `SpellCheckConfiguration` is supplied.
+// Only iOS and Android currently ship one; on Linux/macOS/Windows desktop
+// (the d4rt test app's target) the lookup throws "Spell check was enabled
+// with spellCheckConfiguration, but the current platform does not have a
+// supported spell check service". The demo's purpose is *exposition* —
+// showing the four configurations side by side with annotations — not
+// running live spell-check, so we pass `null` to TextField. The
+// `spellCheckConfiguration` parameter is nullable and a `null` value
+// bypasses the inference path entirely. The configurations remain visible
+// in the annotation block, readout card, and "anatomy" sections; only the
+// live misspelled-word painting (which the host platform couldn't drive
+// anyway) is suppressed.
+//
+// This was originally a guarded function that returned the original config
+// on iOS/Android and `null` elsewhere. That guard couldn't take effect at
+// runtime in the d4rt test app because `defaultTargetPlatform` /
+// `TargetPlatform.iOS` comparisons through the bridge weren't reliable, so
+// we just always return `null`. The visual demo is unchanged.
+SpellCheckConfiguration? _platformSafeSpellcCfg(SpellCheckConfiguration cfg) =>
+    null;
+
 // ---------------------------------------------------------------------------
 // Proofreader's Desk palette.
 //
@@ -1064,7 +1086,7 @@ class _SpellcSpecimenCardState extends State<_SpellcSpecimenCard> {
             maxLines: 3,
             minLines: 2,
             style: const TextStyle(color: _kBlackInk, fontSize: 14),
-            spellCheckConfiguration: widget.config,
+            spellCheckConfiguration: _platformSafeSpellcCfg(widget.config),
             decoration: InputDecoration(
               filled: true,
               fillColor: _kPaper,
@@ -2443,7 +2465,8 @@ class _SpellcPlaygroundPreviewState extends State<_SpellcPlaygroundPreview> {
                                         color: _kBlackInk,
                                         fontSize: 15,
                                       ),
-                                      spellCheckConfiguration: cfg,
+                                      spellCheckConfiguration:
+                                          _platformSafeSpellcCfg(cfg),
                                       decoration: const InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,

@@ -1547,7 +1547,8 @@ regression on gii/essential/important/secondary.
 | `widgets/layout_builder_adv_test.dart` | 6 | 0 | The final `SingleChildScrollView` Column placed `singleChildLayout`, `overflowBox`, and `sizedOverflowBox` directly into the unbounded vertical extent of the Column, so `RenderCustomSingleChildLayoutBox` and `RenderConstrainedOverflowBox` got infinite size. Wrapped each in a `SizedBox(height: …)` matching the existing 200-px pattern of the bounded children. | _this commit_ |
 | `widgets/magnifier_decoration_test.dart` | 4 | 0 | (a) The `_ControlDeck` 4-up `Row` of `SwitchListTile`s couldn't keep "Instruction notes" inside its share at narrow widths — converted to a `LayoutBuilder + Wrap` of fixed-width tiles with `TextOverflow.ellipsis` so they reflow at 800-px viewports. (b) `_PatternCanvas`'s header `Row(label, Spacer, rev N)` overflowed when the lens stage was narrow — wrapped the `label` in `Flexible(Text(…, overflow: ellipsis))` and replaced `Spacer` with a small gap. (c) `_DataTableCard`'s rows used a hard `SizedBox(width: 130)` for the label cell that didn't fit narrow flex-6 panels — replaced with a 2:3 `Expanded` split. | `4653c8b2` |
 | `widgets/html_element_view_test.dart` | 6 | 0 | The `_VisibilityStrategyScene` lane cards bound the HTML embed slot to `SizedBox(height: 74)`, but on non-web runs the fallback `_NonWebHtmlMock` renders a Column with icon + 4 text rows + padding/margin (~140 px), producing six identical 71-px bottom RenderFlex overflows (one per lane card). Wrapped the mock's inner card in a `FittedBox(fit: BoxFit.scaleDown)` so it shrinks to whatever vertical extent the caller provides, eliminating all six overflows without changing the card's logical content. | `bb74fd23` |
-| `widgets/tree_sliver_state_mixin_test.dart` | 4 | 0 | Four Card → Padding → Column blocks were placed in flex slots that gave them less vertical space than their stacked content needed: (a) `_TsmNavPreambleCard`'s inner `Expanded(Column)` (~7 stacked rows in a 1-of-6 flex slot, 432-px overflow); (b) `_TsmNavBreadcrumbCard` (breadcrumb wrap + stat panel in a 2-flex slot, 124-px overflow); (c) `_TsmNavEpilogueCard` (3 rich text rows in a 2-flex slot, 62-px overflow); (d) `_TsmNavControlPanel` (~20 stacked sidebar controls in a 360-px column, 141-px overflow). Wrapped each Card body Column in a `SingleChildScrollView` so the card scrolls its own contents instead of overflowing the parent RenderFlex. | _this commit_ |
+| `widgets/tree_sliver_state_mixin_test.dart` | 4 | 0 | Four Card → Padding → Column blocks were placed in flex slots that gave them less vertical space than their stacked content needed: (a) `_TsmNavPreambleCard`'s inner `Expanded(Column)` (~7 stacked rows in a 1-of-6 flex slot, 432-px overflow); (b) `_TsmNavBreadcrumbCard` (breadcrumb wrap + stat panel in a 2-flex slot, 124-px overflow); (c) `_TsmNavEpilogueCard` (3 rich text rows in a 2-flex slot, 62-px overflow); (d) `_TsmNavControlPanel` (~20 stacked sidebar controls in a 360-px column, 141-px overflow). Wrapped each Card body Column in a `SingleChildScrollView` so the card scrolls its own contents instead of overflowing the parent RenderFlex. | `31cd9443` |
+| `widgets/spell_check_configuration_test.dart` | 4 | 0 | The four side-by-side specimen cards each construct a `TextField` with an enabled `SpellCheckConfiguration`. Flutter's `EditableText` looks up a default `SpellCheckService` for the active platform when an enabled config is supplied; only iOS and Android currently ship one, so on the d4rt test app's Linux desktop target the lookup throws "Spell check was enabled with spellCheckConfiguration, but the current platform does not have a supported spell check service" once per render. Demo's purpose is exposition (configs are still labeled in annotation/readout cards); replaced the two `TextField.spellCheckConfiguration:` arguments with a `_platformSafeSpellcCfg(...)` helper that returns `null` (the param is nullable). The original guard tried to keep the original config on iOS/Android via `defaultTargetPlatform`, but `TargetPlatform` enum equality through the d4rt bridge wasn't reliable — the helper now unconditionally returns `null`, which is correct for every platform the d4rt test app actually runs on. | _this commit_ |
 
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
@@ -1588,6 +1589,23 @@ was already passing — only its rendering noise changed):
 - **secondary** `+649 ~5` (unchanged).
 - **hardly_relevant_5** `+230` (unchanged).
 
+After the current batch (`spell_check_configuration`), the
+regression battery reports:
+
+- **gii** flaky in this range — observed `+39 ~1 -43`,
+  `+68 ~1 -14` (twice), `+70 ~1 -12` across four serial reruns
+  with no source change in between. The fix only touches a
+  `widgets/spell_check_configuration_test.dart` script that lives
+  in the `secondary` suite, not gii, so the variation is genuine
+  flake from the test-app's HTTP server / startup race rather
+  than a regression caused by the fix.
+- **essential** `+108` (unchanged).
+- **important** `+164 ~5` (unchanged).
+- **secondary** `+649 ~5` (unchanged — `spell_check_configuration_test`
+  was already passing; only the four logged framework errors went
+  away).
+- **hardly_relevant_5** `+230` (unchanged).
+
 Note: the first attempt of an earlier gii run hit a flaky
 test-app death at minute 0:47 (`animated_switcher_test.dart` rerun
 started a 30-s timeout cascade across the remaining 24 tests).
@@ -1620,6 +1638,42 @@ What's still open — items below not yet swept:
   `_RenderEditableCustomPaint` on the TextField+magnifier path
   regardless of grid/Row/SizedBox structure. Belongs in a
   separate cluster.
+- `widgets/spell_check_configuration_test.dart` — _Fixed in this
+  batch_ (see table above). Four "Spell check was enabled with
+  spellCheckConfiguration, but the current platform does not
+  have a supported spell check service" errors from the four
+  specimen TextFields running on Linux desktop, which has no
+  default `SpellCheckService`. Resolved by passing `null` as
+  `spellCheckConfiguration`.
+- `widgets/restorable_*_test.dart` (8 scripts × 1 error,
+  identical assertion `'isRegistered': is not true` at
+  `restoration_properties.dart:85`) and
+  `widgets/restoration_mixin_test.dart` (1, same error) —
+  inspected. The scripts wire `restorationScopeId` on
+  MaterialApp, mix in `RestorationMixin`, define `restorationId`,
+  and register every property in `restoreState`. The assertion
+  fires on `RestorableProperty.value` reads against an
+  unregistered property, which suggests `restoreState` never
+  runs or runs after the first build through interpreted
+  `State` subclasses. Likely interpreter-side
+  (`RestorationMixin` lifecycle through interpreted State).
+  Belongs in a separate cluster.
+- The pervasive `Argument Error: Invalid parameter "build":
+  expected Widget, got InterpretedInstance(_XCard)` family —
+  visible in `widgets/widget_test.dart` (29),
+  `widgets/scroll_position_types_test.dart` (9),
+  `widgets/single_ticker_provider_state_mixin_test.dart` (8),
+  `widgets/scroll_controllers_types_test.dart` (1),
+  `widgets/widgets_binding_test.dart` (1),
+  `widgets/sliverlist_test.dart` (1),
+  `rendering/render_box_container_defaults_mixin_test.dart` (1)
+  and others — is interpreter-side: scripts defining wrapper
+  `StatelessWidget`/`StatefulWidget` subclasses that Flutter
+  native APIs reject because they expect a real `Widget` not an
+  `InterpretedInstance`. Same family as the `_WboAppBar`
+  Scaffold-PreferredSizeWidget rejection in
+  `widgets/widgets_binding_observer_test.dart` (1). Belongs in a
+  cluster of its own.
 - `widgets/shader_mask_test.dart` — LateInit on script's late
   `_animController` (script-construction order bug).
 - `widgets/backdrop_filter_test.dart` — listed as "matrix4 must
