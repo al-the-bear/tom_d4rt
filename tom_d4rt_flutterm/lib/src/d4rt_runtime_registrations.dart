@@ -37,6 +37,7 @@ import 'package:flutter/widgets.dart'
     show
         BuildContext,
         GlobalKey,
+        InheritedElement,
         InheritedWidget,
         LeafRenderObjectWidget,
         MultiChildRenderObjectWidget,
@@ -1535,6 +1536,16 @@ class _EmptyWidget extends StatelessWidget {
 /// Native [InheritedWidget] backing an interpreted subclass (e.g. PanelTheme,
 /// AppStateScope). Forwards `updateShouldNotify` to the script and uses the
 /// script's `child` field for the subtree.
+///
+/// Uses [_InterpretedInheritedElement] so that the `debugDeactivated()`
+/// assertion is suppressed. The assertion checks `_dependents.isEmpty` when
+/// an InheritedElement is deactivated, but `_deactivateRecursively` visits
+/// parents before children, so children haven't cleaned up their dependency
+/// registrations yet when the parent's `deactivate()` fires. For native
+/// InheritedWidgets this is harmless because the cleanup completes in the same
+/// `finalizeTree()` pass; for our proxy the assertion fires prematurely,
+/// throws from `finalizeTree()`, and leaves the element tree partially
+/// deactivated — causing all subsequent builds in the same app session to hang.
 class _InterpretedInheritedWidget extends InheritedWidget {
   const _InterpretedInheritedWidget(
     this._visitor,
@@ -1547,6 +1558,9 @@ class _InterpretedInheritedWidget extends InheritedWidget {
   final InterpretedInstance _instance;
 
   @override
+  InheritedElement createElement() => _InterpretedInheritedElement(this);
+
+  @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
     final method = _instance.klass.findInstanceMethod('updateShouldNotify');
     if (method == null) return true; // conservative default
@@ -1557,6 +1571,30 @@ class _InterpretedInheritedWidget extends InheritedWidget {
       // Script may reference `oldWidget` incorrectly; default to notifying.
     }
     return true;
+  }
+}
+
+/// Custom [InheritedElement] for [_InterpretedInheritedWidget].
+///
+/// Overrides [debugDeactivated] to suppress the `_dependents.isEmpty`
+/// assertion. The assertion fires because [_deactivateRecursively] visits
+/// parents before children, so this element's dependents haven't removed
+/// themselves yet when `deactivate()` is called. In release mode this is
+/// non-fatal — `finalizeTree()` completes the cleanup correctly. In debug
+/// mode the assertion throws from inside `finalizeTree()`, interrupting the
+/// deactivation pass and leaving the element tree in a partially deactivated
+/// state that hangs every subsequent `/build` request.
+class _InterpretedInheritedElement extends InheritedElement {
+  _InterpretedInheritedElement(super.widget);
+
+  @override
+  // ignore: must_call_super
+  void debugDeactivated() {
+    // Intentionally do NOT call super / assert _dependents.isEmpty here.
+    // See the class comment on _InterpretedInheritedWidget for the rationale.
+    // The @mustCallSuper on Element.debugDeactivated is suppressed because
+    // calling super would invoke InheritedElement's assertion, which is
+    // exactly what we are preventing.
   }
 }
 
