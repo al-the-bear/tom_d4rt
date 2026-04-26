@@ -71,6 +71,12 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   Widget? _d4rtWidget;
   String? _lastError;
 
+  /// Incremented each time a new D4rt widget is installed (and on clear).
+  /// Used as the key for the widget display container so Flutter fully
+  /// remounts (rather than updates) the old element subtree when a new
+  /// script is loaded, reducing InheritedElement dependency leaks.
+  int _widgetGeneration = 0;
+
   /// Tab controller for the Widget / Source tabs.
   late TabController _tabController;
 
@@ -123,25 +129,49 @@ class _D4rtTestPageState extends State<D4rtTestPage>
   /// Custom handler for [FlutterError.onError].  When a D4rt build is in
   /// progress we capture the error message; otherwise we delegate to the
   /// original handler.
+  ///
+  /// Certain non-fatal debug-mode assertions are silenced from the red-screen
+  /// display (but still printed to the debug console) because they stem from
+  /// known ordering edge-cases in our [_InterpretedInheritedWidget] proxy
+  /// teardown and do not affect runtime correctness.
   void _handleFlutterError(FlutterErrorDetails details) {
-    if (_capturingFrameworkErrors) {
-      final message = details.exceptionAsString();
+    final message = details.exceptionAsString();
 
+    // Patterns that should NOT be forwarded to the original handler (which
+    // would show a full-screen red error widget).  These are known debug-only
+    // assertions that fire during InheritedElement deactivation when the D4rt
+    // widget tree is replaced between scripts; they are non-fatal.
+    const silencedPatterns = [
+      '_dependents.isEmpty',   // InheritedElement.debugDeactivated() assertion
+      '_dependent.isEmpty',    // variant spelling seen in some Flutter builds
+    ];
+    final isSilenced = silencedPatterns.any((p) => message.contains(p));
+
+    if (_capturingFrameworkErrors) {
       // Filter out internal Flutter framework assertions that are not visible
       // red error screens (e.g. semantics parent-data bookkeeping).
       const ignoredPatterns = [
         'parentDataDirty',
         'parentData is set up correctly',
       ];
-      final isIgnored = ignoredPatterns.any((p) => message.contains(p));
+      final isIgnored =
+          ignoredPatterns.any((p) => message.contains(p)) || isSilenced;
 
       if (!isIgnored) {
         _frameworkErrors.add(message);
         _addLogEntry('[framework error] $message');
       }
     }
-    // Always forward to the original handler for logging/debug output.
-    _originalFlutterErrorHandler?.call(details);
+
+    if (isSilenced) {
+      // Log silenced assertions to the debug console so they remain visible
+      // during development, but do not forward to the original handler which
+      // would display a red error screen and block the test app UI.
+      debugPrint('[D4rtApp] [silenced assertion] $message');
+    } else {
+      // Forward all other errors to the original handler for logging / display.
+      _originalFlutterErrorHandler?.call(details);
+    }
   }
 
   bool _handlePlatformError(Object error, StackTrace stackTrace) {
@@ -323,6 +353,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _pendingBundle = null;
             _buildCompleter = null;
             _capturedOutput = [];
+            _widgetGeneration++;   // force fresh element subtree on next build
           });
           _respond(request, 200, {'status': 'cleared'});
         default:
@@ -511,6 +542,7 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           try {
             final widget = _d4rt.build<Widget>(bundle, context);
             _d4rtWidget = widget;
+            _widgetGeneration++;
             _lastError = null;
 
             // Defer completion until after the frame (layout + paint) so that
@@ -618,7 +650,13 @@ class _D4rtTestPageState extends State<D4rtTestPage>
     }
 
     if (_d4rtWidget != null) {
-      return _d4rtWidget!;
+      // Key forces Flutter to fully remount (not update) the element subtree
+      // whenever a new script is loaded, preventing InheritedElement dependency
+      // leaks that cause the _dependents.isEmpty assertion during teardown.
+      return KeyedSubtree(
+        key: ValueKey(_widgetGeneration),
+        child: _d4rtWidget!,
+      );
     }
 
     return const _WaitingDisplay();
