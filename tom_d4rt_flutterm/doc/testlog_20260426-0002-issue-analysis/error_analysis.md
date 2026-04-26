@@ -172,8 +172,8 @@ Cluster breakdown:
 | RenderBox coercion | 1 | `rendering/box_hit_test_result_test.dart` | New variant (BoxHitTestEntry constructor) |
 | Function-typed callback coercion | 1 | `rendering/custom_painter_semantics_test.dart` | Section E variant |
 | InheritedWidget proxy gap | 3 | `widgets/window_scope_test.dart`, `widgets/inherited_theme_test.dart`, `widgets/inherited_widget_test.dart` | Section Q closure (2026-04-26) — escalated cluster |
-| Layout/overflow (cosmetic + RenderFlex infinite) | 4 | `widgets/animated_switcher_test.dart`, `widgets/html_element_view_test.dart`, `widgets/layout_builder_adv_test.dart`, `widgets/magnifier_decoration_test.dart` | Mostly script-side (overflow) + GEN-094 close family |
-| ScrollController state precondition | 2 | `widgets/list_wheel_scroll_view_test.dart`, `widgets/list_wheel_viewport_test.dart` | New |
+| Layout/overflow (cosmetic + RenderFlex infinite) | 4 | `widgets/animated_switcher_test.dart`, `widgets/html_element_view_test.dart`, `widgets/layout_builder_adv_test.dart`, `widgets/magnifier_decoration_test.dart` | RESOLVED 2026-04-26 (Plan F.1) |
+| ScrollController state precondition | 2 | `widgets/list_wheel_scroll_view_test.dart`, `widgets/list_wheel_viewport_test.dart` | RESOLVED 2026-04-26 (Plan F.2) |
 | `setState` during frame | 1 | `rendering/render_custom_paint_test.dart` | Script-side scheduling bug |
 | Interpreter operator gap (`null * int`) | 1 | `rendering/render_custom_multi_child_layout_box_test.dart` | New |
 | Other (Container children list) | 1 | `widgets/render_object_element_test.dart` | Section E variant |
@@ -722,33 +722,85 @@ same). Implement after Plan D is complete.
 
 ---
 
-### Plan F — Layout/overflow and ScrollController script-side fixes (4+2 gii failures)
+### Plan F — Layout/overflow and ScrollController script-side fixes (4+2 gii failures) — RESOLVED 2026-04-26
 
-#### F.1 Layout/overflow (4 gii failures)
+#### F.1 Layout/overflow (4 gii failures) — RESOLVED
 
 **Affected:** `animated_switcher_test.dart`, `html_element_view_test.dart`,
 `layout_builder_adv_test.dart`, `magnifier_decoration_test.dart`
 
-Most surface as `RenderFlex overflowed by N pixels` or
-`BoxConstraints forces an infinite height`. These are cosmetic layout
-warnings in scripts that use the test viewport (800×600) without adequate
-size constraints.
+Surfaced as `RenderFlex overflowed by N pixels` or "object was given an
+infinite size during layout" in scripts that compose multi-section demo
+trees inside the 800×600 test viewport.
 
-**Fix:** Wrap the relevant test widget trees in `SizedBox.shrink()` or
-constrain the widgets explicitly within the script. This is a script-side fix,
-not an interpreter gap. After fixing, these should move from fail to pass.
+**Fix applied (script-side, in earlier sessions; verified 2026-04-26):**
 
-#### F.2 ScrollController state precondition (2 gii failures)
+- `animated_switcher_test.dart` — bumped fixed-height card to 96 px so the
+  16+16 padding + 28-px icon + 4-px gap + text-line height fit without the
+  4-pixel `RenderFlex` bottom overflow.
+- `html_element_view_test.dart` — wrapped the `_NonWebHtmlMock` content in
+  `FittedBox(fit: BoxFit.scaleDown)` so the natural ~140-px card scales
+  into 74-px lane SizedBoxes instead of producing 71-px overflows.
+- `layout_builder_adv_test.dart` — wrapped each child of the outer
+  `SingleChildScrollView` Column in a SizedBox with a finite height so
+  `CustomSingleChildLayout`, `OverflowBox`, and `SizedOverflowBox` no
+  longer get an unbounded vertical extent.
+- `magnifier_decoration_test.dart` — switched `SwitchListTile` rows to
+  `LayoutBuilder` + `Wrap` so they reflow at narrow widths; replaced the
+  fixed 130-px label column in `_DataTableCard` with a 2:3 flex split;
+  wrapped lens labels in `Flexible` + `TextOverflow.ellipsis`.
+
+**Verification 2026-04-26:**
+
+- `flutter test test/generator_interpreter_issues_test.dart` — all four
+  scripts pass with `frameworkErrors=0` (run alone and in the full gii
+  suite).
+- Bisect harness: each script run via `bisect/current.dart` →
+  `status=success`, `frameworkErrors=0`.
+
+#### F.2 ScrollController state precondition (2 gii failures) — RESOLVED
 
 **Affected:** `list_wheel_scroll_view_test.dart`, `list_wheel_viewport_test.dart`
 
-**Root cause:** The script accesses `ScrollController` state before the
-controller is attached to a scroll view. The error is typically
-`ScrollController not attached to any scroll views`.
+**Root cause:** Side-panel `_InfoTable` rows read
+`FixedExtentScrollController.selectedItem` (and raw
+`ScrollController.offset`) on the very first build, before the wheel
+viewport had attached the controller. Flutter asserts
+`positions.isNotEmpty` and throws "FixedExtentScrollController.selectedItem
+cannot be accessed before a scroll view is built with it." Some scenes
+also paired `FixedExtentScrollPhysics` with a raw `Scrollable` +
+`ListWheelViewport`, which requires a `_FixedExtentScrollPosition`.
 
-**Fix:** In the script's demo widget, guard `ScrollController` accesses in
-`initState()` with `WidgetsBinding.instance.addPostFrameCallback((_) { ... })`
-so they run after the first frame when the controller is attached.
+**Fix applied (script-side, in earlier sessions; verified 2026-04-26):**
+
+- `list_wheel_scroll_view_test.dart` — guarded the `selectedItem` read
+  with `_controller.hasClients` in both `_FundamentalsScene._InfoTable`
+  and `_PhysicsScene._InfoTable`, falling back to the locally tracked
+  `_selected` state when the wheel has not attached yet.
+- `list_wheel_viewport_test.dart` — `_ViewportWheel` now defaults its
+  physics to `BouncingScrollPhysics` (compatible with a plain
+  `ScrollController`); the "fixed" pipeline preset uses
+  `ClampingScrollPhysics` instead of `FixedExtentScrollPhysics`. Side
+  panels read controller state through the `_pixels` listener cache
+  rather than directly during build.
+
+**Verification 2026-04-26:**
+
+- gii: both scripts pass with `frameworkErrors=0`.
+- Bisect harness: both pass under `bisect/current.dart` →
+  `status=success`, `frameworkErrors=0`.
+
+**Regression check 2026-04-26 (serial flutter test runs):**
+
+| Suite | Result |
+| ----- | ------ |
+| `essential_classes_test.dart` | 108 passed, 0 failed |
+| `important_classes_test.dart` | 164 passed, 5 skipped, 0 failed |
+| `secondary_classes_test.dart` | 649 passed, 5 skipped, 0 failed |
+
+No regressions. The Plan F closure does not require any further code
+change — earlier-session script-side fixes had already landed and Plan F
+just needed verification + documentation.
 
 ---
 
