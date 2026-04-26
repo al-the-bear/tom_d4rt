@@ -515,31 +515,45 @@ test the correct exception path.
 
 ---
 
-### Plan B — `callback_handle_test.dart` slow-build backlog (blocks `hardly_relevant_classes_1_test`)
+### Plan B — `callback_handle_test.dart` slow-build backlog (blocks `hardly_relevant_classes_1_test`) — **[RESOLVED 2026-04-26]**
 
-**Symptom (from §7.3):** `callback_handle_test.dart` build takes 30 272 ms
-(just over 30-second timeout), causing a clearMs backlog that cascades and
-eventually crashes the test app process over the next 6 tests.
+**Status:** Resolved as a side effect of Plan A.1. No script or harness change
+required.
 
-**Assessment:** The script calls `ui.CallbackHandle.fromRawHandle(12345)` and
-other dart:ui APIs that may involve platform-channel round-trips during the
-widget build phase on Linux.
+**Original symptom (from §7.3):** `callback_handle_test.dart` build was
+reported at 30 272 ms (just over the 30-second timeout), causing a clearMs
+backlog that cascaded and eventually crashed the test app process over the
+following 6 tests.
 
-**Fix approach:**
-1. Open `dart_ui/callback_handle_test.dart`. Move any async API calls
-   (`ui.CallbackHandle.fromRawHandle(...)`, `PluginUtilities.*`, etc.) out of
-   the widget's `build()` method into `initState()` + `FutureBuilder` or
-   `setState` pattern so the initial build returns quickly with a loading
-   indicator.
-2. Goal: bring initial-build time under 5 seconds (well below the 30-second timeout).
-3. Run isolated: `flutter test test/bisect_test.dart` with
-   `bisect/current.dart = dart_ui/callback_handle_test.dart`.
-4. Remove the `skip:` from `callback_handle_test.dart` in
-   `test/hardly_relevant_classes_1_test.dart`.
-5. Re-run `flutter test test/hardly_relevant_classes_1_test.dart` to confirm
-   the suite passes cleanly (should be 205+/0/0 or similar after this fix).
+**Verification (2026-04-26, post Plan A.1):**
 
-**Impact:** Completes `hardly_relevant_classes_1_test` clean baseline.
+| Run | Context | clearMs | bundleMs | httpMs | totalMs | status |
+|-----|---------|--------:|---------:|-------:|--------:|--------|
+| Bisect (`bisect/current.dart` = `callback_handle_test.dart`) | isolated | 9 | 217 | 760 | 998 | success |
+| Suite (`hardly_relevant_classes_1_test`) | after `box_width_style_test.dart` | 2 | 9 | 382 | 395 | success |
+
+The 30 s build never reproduces post Plan A.1. The cascade trigger described
+in §7.3 (`+86 ~2 -117`) is gone — the suite is currently `+204 ~1 -0` (only
+intentional `isolate_name_server_test` skip remains). The `callback_handle_test`
+script is *not* skipped in `test/hardly_relevant_classes_1_test.dart` (grep
+confirms only one `skip:` marker, for `isolate_name_server`).
+
+**Why this is fixed:** The 30 s outlier in run-3 of §7.3 was almost certainly
+a Linux-Flutter platform-channel response-time tail; the engine state was
+already destabilised by `image_sampler_slot_test` (the BLOCKED A.1 trigger
+that crashed the engine asynchronously). With `image_sampler_slot_test`
+unblocked by Plan A.1 — the engine no longer crashes, the FragmentProgram
+type is no longer touched synchronously during initState — the platform
+channel is no longer destabilised, and `callback_handle_test`'s build
+completes promptly.
+
+**No bridge or interpreter change is required.** Modifying the script to
+move work out of `build()` is unnecessary: the script is purely synchronous
+(no `await` calls, no `Future`-returning APIs in `build()`), and the slow
+behaviour was a downstream symptom of the unrelated FragmentProgram race.
+
+**Impact:** Completes `hardly_relevant_classes_1_test` clean baseline at
+`+204 ~1 -0`.
 
 ---
 
@@ -752,7 +766,7 @@ After Plans D–H land, re-evaluate the 8 retest failures:
 |------|------|-----------------------|
 | 1 | A.1 — FragmentProgram D4UserBridge stub | BLOCKED → cleared |
 | 2 | A.2 — Picture.toImage guard | BLOCKED → cleared |
-| 3 | B — callback_handle_test slow-build fix | Clears last hardly_relevant_1 skip |
+| 3 | B — callback_handle_test slow-build fix | **RESOLVED 2026-04-26** — no action needed; resolved by A.1 (suite already +204 ~1 -0) |
 | 4 | C — Test-app build-handler hardening | Structural safety |
 | 5 | D — Section E coercion + RenderObject proxy | ~5–8 gii -fail, ~30+ framework errors cleared |
 | 6 | F.1 — Layout/overflow script fixes | ~4 gii -fail |
