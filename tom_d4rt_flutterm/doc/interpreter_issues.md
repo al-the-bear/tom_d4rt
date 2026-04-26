@@ -2729,6 +2729,54 @@ change required.
 
 ---
 
+### [X] Fixed (27, 2026-04-26) — Plan D Phase 2: RenderAligningShiftedBox + ParentDataWidget interface proxies
+
+**Affected scripts:** `rendering/render_aligning_shifted_box_test.dart`,
+`widgets/render_object_element_test.dart`, `widgets/parent_data_widget_test.dart`
+(and any other scripts whose classes extend these abstract bases).
+
+**Root cause:** Scripts that extend `RenderAligningShiftedBox` or
+`ParentDataWidget<T>` fail at `super()` in their constructors because the
+bridge emits `isAbstract: true, constructors: {}` for both classes (GEN-051
+strips non-factory constructors of abstract classes). With no interface proxy
+registered for either name, the callable.dart super-call handler throws
+`"Bridged superclass does not have a constructor named ''"`.
+
+**Fix:** Two new proxy classes in `d4rt_runtime_registrations.dart`,
+registered in `registerD4rtInterfaceProxyOverrides()`:
+
+- `_InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox` —
+  constructed with `alignment: Alignment.center, textDirection: null` (safe
+  defaults; `Alignment.center.resolve(null)` does not throw). Forwards
+  `computeDryLayout`, `performLayout`, `paint`, `hitTestChildren`, and
+  `setupParentData` to the interpreted class. Registered under
+  `'RenderAligningShiftedBox'` only to avoid incorrectly proxying other
+  `RenderBox` subclass hierarchies.
+
+- `_InterpretedParentDataWidget extends ParentDataWidget<ParentData>` —
+  reads `child` from the instance's field map (D4rt stores `super.child`
+  initializer-params as instance fields). Forwards `applyParentData` to the
+  interpreted class. Returns `Widget` for `debugTypicalAncestorWidgetClass`
+  (debug-only; does not affect runtime behaviour). Registered under
+  `'ParentDataWidget'`.
+
+Both proxies use the same `instance.nativeProxy` identity-caching pattern
+as Plan D's `_InterpretedRenderBox`.
+
+**Verification (2026-04-26):**
+
+| Suite | Before | After |
+| ----- | ------ | ----- |
+| `generator_interpreter_issues` | 69 / 1 / 13 | **70 / 1 / 11** (+1 pass, -2 fail) |
+| `essential_classes`            | 108 / 0 / 0 | **108 / 0 / 0** (no regression) |
+| `important_classes`            | 164 / 5 / 0 | **164 / 5 / 0** (no regression) |
+| `secondary_classes`            | 649 / 5 / 0 | **649 / 5 / 0** (no regression) |
+
+Net: **+1 gii pass, -2 gii failures; no regressions across essential /
+important / secondary.** Committed as `403e18ee`.
+
+---
+
 ### [RESOLVED 2026-04-26] Picture.toImage() with zero/invalid dimensions — diagnosis was wrong
 
 **Affected script:** `dart_ui/picture_rasterization_exception_test.dart`
