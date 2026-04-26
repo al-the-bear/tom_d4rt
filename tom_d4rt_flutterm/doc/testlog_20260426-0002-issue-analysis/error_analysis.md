@@ -408,3 +408,362 @@ remaining test coverage.
 **Recommendation:** Fix the test app's build handler cancellation first (it is a
 one-time structural fix that benefits every future slow script) and then remove
 the `callback_handle_test` skip and re-run to close this section.
+
+---
+
+## 8. Error Fixing Plan (2026-04-26)
+
+This section provides a step-by-step execution plan for reducing failures
+further, ordered by impact. Each item names the exact files to touch, the
+approach, and an expected outcome in terms of gii/retest counts.
+
+**Current baseline (post Section Q closure, 2026-04-26):**
+- `gii`:    ~+69 ~1 -13
+- `retest`: ~+50 ~11 -8
+- `hardly_relevant_classes_1_test`: +204 ~1 -0 (fixed this session — isolate_name_server skipped, image_sampler_slot fixed)
+
+---
+
+### Plan A — BLOCKED item investigation: are the two crashes Linux Flutter bugs or interpreter/bridge bugs?
+
+The two BLOCKED items from this session need triage before we can decide
+whether to fix them here or file upstream.
+
+#### A.1 — `ui.FragmentProgram` / `ui.FragmentShader` type access crash
+
+**Symptom:** Bare type reference `final Type t = ui.FragmentProgram` triggers
+a native shader-system initialization in the Flutter engine that crashes
+asynchronously after HTTP 200 is sent.
+
+**Assessment:**
+- On native Flutter code, `final Type t = ui.FragmentProgram` is a compile-time
+  type mirror reference — it does **not** trigger runtime shader system init.
+  It is equivalent to `Type t = int`.
+- In the d4rt bridge, `ui.FragmentProgram` is accessed as a `BridgedClass`
+  via a static getter or constructor lookup. That lookup resolves to the
+  **actual native class object**, which *does* call into the Flutter shader
+  system at class-init time.
+- **Verdict:** This is a **bridge-layer bug**, not a Linux Flutter bug. Native
+  code accessing `FragmentProgram` as a Type mirror does not trigger init.
+  The bridge is materialising the class reference in a way that triggers eager
+  class initialisation on the native side. On Android/iOS this may be silently
+  ignored; on Linux desktop the shader system init fails fatally.
+
+**Fix approach:**
+1. Locate the `FragmentProgram` and `FragmentShader` bridge entries in
+   `tom_d4rt_flutterm/lib/src/bridges/dart_ui_bridges.b.dart`.
+2. Add a `D4UserBridge` override in
+   `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/` that stubs out
+   `FragmentProgram`/`FragmentShader` constructors and type-getter as
+   `UnsupportedError('FragmentProgram not supported on this platform')`
+   instead of calling native. Regenerate after.
+3. Validate by un-commenting the removed probes in
+   `dart_ui/image_sampler_slot_test.dart` and running
+   `flutter test test/bisect_test.dart` (confirm key_event_device_type_test
+   still passes after image_sampler_slot).
+
+**Impact:** Unblocks the 2 permanently-failing sentinel probes in
+`image_sampler_slot_test.dart`. Does not directly change gii count (those
+probes are not in gii), but clears the BLOCKED marker in `interpreter_issues.md`.
+
+---
+
+#### A.2 — `Picture.toImage()` with zero/invalid dimensions crashes native engine
+
+**Symptom:** `Picture.toImage(0, 20)` (zero width) reaches the native C++
+rasterizer and crashes the engine process instead of throwing
+`PictureRasterizationException`.
+
+**Assessment:**
+- The Flutter SDK contract is clear: `Picture.toImage()` with width ≤ 0 or
+  height ≤ 0 must throw `PictureRasterizationException` synchronously (or
+  return a rejected `Future`).
+- Native Flutter apps that call `Picture.toImage(0, 20)` **do** throw
+  `PictureRasterizationException` — the native binding validates dimensions
+  before calling into the rasterizer.
+- In the d4rt bridge, the `toImage` adapter passes the raw arguments to the
+  native method without the dimension guard. On Linux the native rasterizer
+  path is different (no GPU pipeline, falls to software rasterizer) and the
+  guard is apparently missing there as well — resulting in a fatal crash rather
+  than an exception.
+- **Verdict:** The crash is a **bridge-layer omission** (missing dimension guard
+  in the `toImage` adapter). The Flutter SDK bug (missing guard in the Linux
+  native backend) may also be present, but we can close the gap on the bridge
+  side independently with a pre-call guard.
+
+**Fix approach:**
+1. Add a `D4UserBridge` override for `Picture` in
+   `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/` that adds a pre-call guard
+   to `toImage`:
+   ```dart
+   if (width <= 0 || height <= 0) {
+     throw PictureRasterizationException(
+       'width and height must be greater than zero',
+     );
+   }
+   ```
+2. The sentinel probe in `picture_rasterization_exception_test.dart` currently
+   asserts `false` (BRIDGE BUG). After the fix, un-comment the
+   `await p.toImage(0, 20)` call and assert that `PictureRasterizationException`
+   is thrown (the probe expects a thrown exception; the `false` sentinel is
+   replaced with `true`).
+3. Validate with `flutter test test/bisect_test.dart` with
+   `bisect/current.dart = picture_rasterization_exception_test.dart`.
+
+**Impact:** Clears 1 permanently-failing sentinel probe. The test will then
+test the correct exception path.
+
+---
+
+### Plan B — `callback_handle_test.dart` slow-build backlog (blocks `hardly_relevant_classes_1_test`)
+
+**Symptom (from §7.3):** `callback_handle_test.dart` build takes 30 272 ms
+(just over 30-second timeout), causing a clearMs backlog that cascades and
+eventually crashes the test app process over the next 6 tests.
+
+**Assessment:** The script calls `ui.CallbackHandle.fromRawHandle(12345)` and
+other dart:ui APIs that may involve platform-channel round-trips during the
+widget build phase on Linux.
+
+**Fix approach:**
+1. Open `dart_ui/callback_handle_test.dart`. Move any async API calls
+   (`ui.CallbackHandle.fromRawHandle(...)`, `PluginUtilities.*`, etc.) out of
+   the widget's `build()` method into `initState()` + `FutureBuilder` or
+   `setState` pattern so the initial build returns quickly with a loading
+   indicator.
+2. Goal: bring initial-build time under 5 seconds (well below the 30-second timeout).
+3. Run isolated: `flutter test test/bisect_test.dart` with
+   `bisect/current.dart = dart_ui/callback_handle_test.dart`.
+4. Remove the `skip:` from `callback_handle_test.dart` in
+   `test/hardly_relevant_classes_1_test.dart`.
+5. Re-run `flutter test test/hardly_relevant_classes_1_test.dart` to confirm
+   the suite passes cleanly (should be 205+/0/0 or similar after this fix).
+
+**Impact:** Completes `hardly_relevant_classes_1_test` clean baseline.
+
+---
+
+### Plan C — Test-app build-handler hardening (structural fix)
+
+**Symptom:** Any script whose build exceeds the 30-second timeout creates a
+clearMs backlog. If enough backlog accumulates, the test app crashes.
+Affected scripts so far: `callback_handle_test.dart` (run 3), any future
+long-running build.
+
+**Fix approach:**
+1. In the test app's HTTP server (`tom_d4rt_flutterm_app`), the `/build`
+   endpoint must cancel any in-flight build when a `/clear` request arrives,
+   rather than waiting indefinitely.
+2. Introduce a `CancelToken` or `Completer`-based cancellation: the `/clear`
+   handler signals the in-flight `/build` task to abort, frees the widget tree,
+   and responds immediately.
+3. This is a one-time structural fix that makes the test harness robust against
+   all future slow or crashing scripts.
+4. Validate by reproducing the run-3 cascade (send `callback_handle_test.dart`
+   then immediately send the next script) and confirming the suite does not hang.
+
+**Impact:** Structural safety net; does not change gii/retest counts but
+prevents future slow scripts from cascading into suite-level timeouts.
+
+---
+
+### Plan D — Section E coercion: interpreted Widget / RenderObject accepted by native APIs (highest-leverage)
+
+**Current impact:** ~30+ framework errors in passing suites (one per
+interpreted Widget subclass name) + 5–6 gii failures (Section E +
+RenderObject coercion variants).
+
+**Affected gii scripts:** `render_box_container_defaults_mixin_test.dart`,
+`render_absorb_pointer_test.dart`, `relayout_when_system_fonts_change_mixin_test.dart`,
+`render_aligning_shifted_box_test.dart`, `box_hit_test_result_test.dart`,
+`render_object_element_test.dart`, `custom_painter_semantics_test.dart`;
+plus retest `button_bar_theme_test.dart`, `gapped_range_slider_track_shape_test.dart`.
+
+**Root cause:** An interpreted class `class _Foo extends StatelessWidget` is
+represented as an `InterpretedInstance` at runtime. When a bridge method
+receives an `InterpretedInstance` where it expects a native `Widget`, it throws
+`ArgumentError: Invalid parameter "build": expected Widget, got InterpretedInstance`.
+
+**Fix approach (interpreter side — `tom_d4rt` + `tom_d4rt_ast`):**
+1. In `InterpreterVisitor` (and its `tom_d4rt_ast` mirror), when passing an
+   `InterpretedInstance` to a bridged method that expects a `Widget`,
+   `RenderObject`, or similar bridged supertype, look up the proxy class
+   registered for that interpreted class and coerce through it.
+2. The `StatelessWidget` / `StatefulWidget` proxies already exist — extend
+   coercion logic to cover `RenderObject`, `RenderBox`, `LeafRenderObjectWidget`,
+   `SingleChildRenderObjectWidget`, `MultiChildRenderObjectWidget`, and
+   `PreferredSizeWidget` subtypes.
+3. **Generator side (`tom_d4rt_generator`):** Generate a `RenderObject`
+   proxy class (analogous to `StatelessWidgetProxy` / `StatefulWidgetProxy`)
+   for every interpreted class that extends `RenderObject` or its subclasses.
+   The proxy wraps the `InterpretedInstance` and delegates all abstract methods
+   to the interpreter.
+4. Mirror all interpreter-side changes in `tom_d4rt_ast`.
+5. Regenerate flutterm bridges.
+6. Run `flutter test test/generator_interpreter_issues_test.dart` — expect
+   the RenderObject-coercion cluster (5–6 failures) to close.
+7. Run essential + important + secondary suites — expect framework-error counts
+   to drop significantly.
+
+**Note:** This is the highest-impact single fix. Completing it clears the
+largest cluster of both gii failures and framework noise.
+
+---
+
+### Plan E — InheritedWidget proxy gap (3 gii failures)
+
+**Affected scripts:** `widgets/window_scope_test.dart`,
+`widgets/inherited_theme_test.dart`, `widgets/inherited_widget_test.dart`
+
+**Root cause (from Section Q closure note in `interpreter_issues.md`):**
+- `InheritedModel.inheritFrom<T>` bridge does not forward the type argument `T`
+  to the native call (`widgets_bridges.b.dart:44563–44568`).
+- No proxy class is generated for `InheritedWidget` / `InheritedModel`
+  analogous to the `StatelessWidget` proxy, so the interpreted subclass does
+  not materialise as a distinct native `Type` in the element tree.
+- Flutter's runtime-type lookup (`context.dependOnInheritedWidgetOfExactType<T>`)
+  cannot find the interpreted class.
+
+**Fix approach:**
+1. **Generator:** Add `InheritedWidget` and `InheritedModel` to the set of
+   classes that receive proxy generation. The proxy must override `updateShouldNotify`
+   to delegate to the interpreter.
+2. **Bridge patch:** In `widgets_bridges.b.dart` (via generator or `D4UserBridge`),
+   fix `InheritedModel.inheritFrom<T>` to forward the type argument. This may
+   require a manual `D4UserBridge` since the type argument is an interpreter-side
+   class, not a native type.
+3. Regenerate flutterm bridges.
+4. Run `flutter test test/generator_interpreter_issues_test.dart` — expect
+   `window_scope_test.dart`, `inherited_theme_test.dart`,
+   `inherited_widget_test.dart` to pass.
+
+**Note:** Depends partially on Plan D (the proxy infrastructure pattern is the
+same). Implement after Plan D is complete.
+
+---
+
+### Plan F — Layout/overflow and ScrollController script-side fixes (4+2 gii failures)
+
+#### F.1 Layout/overflow (4 gii failures)
+
+**Affected:** `animated_switcher_test.dart`, `html_element_view_test.dart`,
+`layout_builder_adv_test.dart`, `magnifier_decoration_test.dart`
+
+Most surface as `RenderFlex overflowed by N pixels` or
+`BoxConstraints forces an infinite height`. These are cosmetic layout
+warnings in scripts that use the test viewport (800×600) without adequate
+size constraints.
+
+**Fix:** Wrap the relevant test widget trees in `SizedBox.shrink()` or
+constrain the widgets explicitly within the script. This is a script-side fix,
+not an interpreter gap. After fixing, these should move from fail to pass.
+
+#### F.2 ScrollController state precondition (2 gii failures)
+
+**Affected:** `list_wheel_scroll_view_test.dart`, `list_wheel_viewport_test.dart`
+
+**Root cause:** The script accesses `ScrollController` state before the
+controller is attached to a scroll view. The error is typically
+`ScrollController not attached to any scroll views`.
+
+**Fix:** In the script's demo widget, guard `ScrollController` accesses in
+`initState()` with `WidgetsBinding.instance.addPostFrameCallback((_) { ... })`
+so they run after the first frame when the controller is attached.
+
+---
+
+### Plan G — Interpreter operator gaps (`null * int`, `null & int`) (framework errors + 1 gii failure)
+
+**Affected:** `rendering/render_custom_multi_child_layout_box_test.dart` (gii),
+plus framework error lines in other scripts.
+
+**Error messages:**
+- `Runtime Error: Unsupported binary operator "&"`
+- `Runtime Error: Unsupported operator (*) for null * int`
+
+**Fix approach (`tom_d4rt` + mirror in `tom_d4rt_ast`):**
+1. In `InterpreterVisitor._evaluateBinaryExpression` (or equivalent), when the
+   left operand is `null`, the operators `*` and `&` should null-propagate:
+   `null * anything = null`, `null & anything = null` (matching Dart's null
+   coercion semantics under `?` operators).
+2. Add test cases to `tom_d4rt/test/` covering null-arithmetic operators.
+3. Mirror fix in `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
+
+**Impact:** Closes 1 gii failure + clears framework-error noise in several
+passing scripts.
+
+---
+
+### Plan H — `late` field initialisation order in interpreted classes (framework errors)
+
+**Error:** `Late variable '…' without initializer is accessed before being assigned`
+(fields `_value`, `_builder`).
+
+**Affected:** Various scripts — surfaces as framework errors in passing suites.
+
+**Fix approach (`tom_d4rt` + `tom_d4rt_ast`):**
+1. In `InterpreterVisitor`, when evaluating `late` field access, check if the
+   field has been initialised in the `Environment`. If not, throw
+   `LateInitializationError` (matching native Dart behaviour).
+2. The issue is likely that interpreted `late` fields are initialised in the
+   order they appear in the class body, but accessed before their initialiser
+   expression has been evaluated (e.g., during the `super()` constructor call).
+3. Add `late` field ordering tests to the `tom_d4rt` test suite.
+
+---
+
+### Plan I — `TwoDimensionalScrollView` default constructor adapter (framework errors)
+
+**Error:** `Bridged superclass 'TwoDimensionalScrollView' does not have a
+constructor named ''`
+
+**Affected:** A small number of scripts in `hardly_relevant_classes_*`.
+
+**Fix approach (generator):**
+1. The generator should emit a default-constructor (no-args) adapter for
+   abstract bridged base classes even when the class has only named
+   constructors, to allow the proxy-constructor pattern.
+2. Audit other abstract bridged bases for the same gap (grep for
+   `does not have a constructor named ''` in log files).
+3. Regenerate flutterm bridges.
+
+---
+
+### Plan J — Retest cluster review (after Plans D–G)
+
+After Plans D–H land, re-evaluate the 8 retest failures:
+
+| Script | Cluster | Likely status after plan |
+|--------|---------|--------------------------|
+| `button_bar_theme_test.dart` | Section E | Closes after Plan D |
+| `gapped_range_slider_track_shape_test.dart` | Section E + null check | Closes after Plans D + G |
+| `theme_extension_test.dart` | Section P — ThemeExtension generic coercion | Separate cluster; needs explicit investigation |
+| `axis_direction_test.dart` | RenderFlex overflow (cosmetic) | May close after Plan F.1 |
+| `default_text_editing_shortcuts_test.dart` | `Map<ShortcutActivator, Intent>` coercion | Related to Plan D (map generic coercion) |
+| `next_focus_intent_test.dart` | `Actions.maybeFind<T>` type forwarding | Separate generic-forwarding gap |
+| `raw_keyboard_listener_test.dart` | Deprecated API | No fix — script should be updated to `KeyboardListener` |
+| `raw_radio_test.dart` | Section B generic constructor factory | Section B cluster (separate) |
+
+---
+
+### Execution order summary
+
+| Step | Plan | Estimated improvement |
+|------|------|-----------------------|
+| 1 | A.1 — FragmentProgram D4UserBridge stub | BLOCKED → cleared |
+| 2 | A.2 — Picture.toImage guard | BLOCKED → cleared |
+| 3 | B — callback_handle_test slow-build fix | Clears last hardly_relevant_1 skip |
+| 4 | C — Test-app build-handler hardening | Structural safety |
+| 5 | D — Section E coercion + RenderObject proxy | ~5–8 gii -fail, ~30+ framework errors cleared |
+| 6 | F.1 — Layout/overflow script fixes | ~4 gii -fail |
+| 7 | F.2 — ScrollController precondition fixes | ~2 gii -fail |
+| 8 | E — InheritedWidget proxy | ~3 gii -fail (after D) |
+| 9 | G — Null operator gaps | ~1 gii -fail + framework noise |
+| 10 | H — `late` field init order | Framework noise reduction |
+| 11 | I — TwoDimensionalScrollView constructor adapter | Framework noise reduction |
+| 12 | J — Retest cluster review | ~3–4 retest -fail (after D, G) |
+
+**Expected end state after all plans complete:**
+- `gii`: ~0 failures (all clusters closed)
+- `retest`: ~4 failures (deprecated API + generic-forwarding gaps still open)
+- Framework errors in passing suites: minimal (structural issues remain for generic coercion edge cases)
