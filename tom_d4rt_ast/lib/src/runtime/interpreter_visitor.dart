@@ -3364,6 +3364,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           final (positionalArgs, namedArgs) =
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
+          // Plan E: forward script-supplied generic type arguments to the
+          // bridged method adapter so interceptors (e.g. for
+          // `Element.dependOnInheritedWidgetOfExactType<T>`) can act on `T`.
+          List<RuntimeType>? evaluatedTypeArguments;
+          final typeArgsNode = node.typeArguments;
+          if (typeArgsNode != null) {
+            evaluatedTypeArguments = typeArgsNode.arguments
+                .map((typeNode) => _resolveTypeAnnotation(typeNode))
+                .toList();
+          }
+
           try {
             // Call the adapter with the native object
             return adapter(
@@ -3371,7 +3382,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               bridgedInstance.nativeObject,
               positionalArgs,
               namedArgs,
-              null,
+              evaluatedTypeArguments,
             );
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively

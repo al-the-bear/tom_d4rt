@@ -9378,6 +9378,30 @@ class BridgeGenerator {
 
   /// Generates method body code.
   /// Returns false if the method cannot be bridged.
+  /// Plan E: Methods on `Element` whose bridge adapters drop `T` and whose
+  /// resolution depends on script-supplied generic type arguments. The
+  /// generator emits a `D4.findBridgedMethodInterceptor('Element', name)` hook
+  /// at the top of these adapters so `tom_d4rt_flutterm` can override the
+  /// native call with an ancestor-walk resolver that matches interpreted
+  /// `InheritedWidget` subclasses by `InterpretedInstance.klass`.
+  static const Map<String, String> _bridgedMethodInterceptHooks = {
+    'dependOnInheritedWidgetOfExactType': 'Element',
+    'getInheritedWidgetOfExactType': 'Element',
+    'getElementForInheritedWidgetOfExactType': 'Element',
+  };
+
+  /// Plan E (static): Static methods whose adapter must consult a runtime
+  /// interceptor when one is registered. Used for `InheritedModel.inheritFrom`
+  /// where Flutter's native lookup is type-erased and a script-supplied `<T>`
+  /// has to drive an ancestor-walk against `_InterpretedInheritedWidget`.
+  ///
+  /// Maps method name → conceptual owner class. The hook is emitted on every
+  /// bridged class that exposes a matching static method, so subclasses share
+  /// the same interceptor key (mirrors the instance-method hook pattern).
+  static const Map<String, String> _bridgedStaticMethodInterceptHooks = {
+    'inheritFrom': 'InheritedModel',
+  };
+
   bool _generateMethodBody(
     StringBuffer buffer,
     ClassInfo cls,
@@ -9385,6 +9409,26 @@ class BridgeGenerator {
     List<String>? warnings,
   }) {
     final prefixedName = _getPrefixedClassName(cls.name, cls.sourceFile);
+
+    // Plan E: emit interceptor hook for selected methods so script-supplied
+    // generic type arguments survive the bridge boundary. See
+    // `_bridgedMethodInterceptHooks` for the hook list.
+    final interceptOwner = _bridgedMethodInterceptHooks[method.name];
+    if (interceptOwner != null) {
+      buffer.writeln(
+        "        final _interceptor = D4.findBridgedMethodInterceptor('$interceptOwner', '${method.name}');",
+      );
+      buffer.writeln(
+        "        if (_interceptor != null) {",
+      );
+      buffer.writeln(
+        "          return _interceptor(visitor, target, positional, named, typeArgs);",
+      );
+      buffer.writeln(
+        "        }",
+      );
+    }
+
     buffer.writeln(
       "        final t = D4.validateTarget<$prefixedName>(target, '${cls.name}');",
     );
@@ -9741,6 +9785,22 @@ class BridgeGenerator {
         .where((p) => !p.isNamed)
         .toList();
     final namedParams = method.parameters.where((p) => p.isNamed).toList();
+
+    // Plan E (static): emit interceptor hook for selected static methods so
+    // script-supplied generic type arguments survive the bridge boundary. See
+    // `_bridgedStaticMethodInterceptHooks` for the hook list.
+    final staticInterceptOwner =
+        _bridgedStaticMethodInterceptHooks[method.name];
+    if (staticInterceptOwner != null) {
+      buffer.writeln(
+        "        final _staticInterceptor = D4.findBridgedStaticMethodInterceptor('$staticInterceptOwner', '${method.name}');",
+      );
+      buffer.writeln("        if (_staticInterceptor != null) {");
+      buffer.writeln(
+        "          return _staticInterceptor(visitor, positional, named, typeArgs);",
+      );
+      buffer.writeln("        }");
+    }
 
     // Required positional args validation
     final requiredCount = positionalParams.where((p) => p.isRequired).length;

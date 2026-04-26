@@ -7,7 +7,8 @@ library;
 
 import '../bridge/bridged_types.dart';
 import '../bridge/bridged_enum.dart';
-import '../bridge/registration.dart' show BridgedMethodAdapter;
+import '../bridge/registration.dart'
+    show BridgedMethodAdapter, BridgedStaticMethodAdapter;
 import '../callable.dart';
 import '../exceptions.dart';
 import '../interpreter_visitor.dart';
@@ -303,6 +304,85 @@ class D4 {
     String methodName,
   ) {
     return _supplementaryMethods[bridgedClassName]?[methodName];
+  }
+
+  // ==========================================================================
+  // Plan E: Bridged Method Interceptors
+  // ==========================================================================
+
+  /// Bridged method interceptors keyed by class name then method name.
+  ///
+  /// Generated bridge adapters for selected methods (currently
+  /// `Element.dependOnInheritedWidgetOfExactType`,
+  /// `Element.getInheritedWidgetOfExactType`,
+  /// `Element.getElementForInheritedWidgetOfExactType`) emit a hook check at
+  /// the top of their adapter body. If an interceptor is registered for the
+  /// owning class + method name, it runs in place of the native call,
+  /// receiving the full `(visitor, target, positional, named, typeArgs)`
+  /// tuple — including any script-supplied generic type arguments which the
+  /// native bridge call would otherwise drop.
+  ///
+  /// Used by `tom_d4rt_flutterm` to resolve interpreted `InheritedWidget`
+  /// subclasses by walking the element tree and matching
+  /// `_InterpretedInheritedWidget._instance.klass` against `typeArgs[0]`,
+  /// since interpreted subclasses share the same native runtimeType and
+  /// Flutter's `_inheritedElements[T]` lookup is type-erased.
+  static final Map<String, Map<String, BridgedMethodAdapter>>
+      _methodInterceptors = {};
+
+  /// Register an interceptor for a bridged method. Replaces any previously
+  /// registered interceptor for the same `(className, methodName)` pair.
+  ///
+  /// The [className] is the conceptual owner of the method (e.g. `'Element'`)
+  /// — bridge adapters generated on subclasses look up the same key.
+  static void registerBridgedMethodInterceptor(
+    String className,
+    String methodName,
+    BridgedMethodAdapter interceptor,
+  ) {
+    _methodInterceptors.putIfAbsent(className, () => {})[methodName] =
+        interceptor;
+  }
+
+  /// Look up a bridged method interceptor for `(className, methodName)`.
+  /// Returns `null` when no interceptor has been registered.
+  static BridgedMethodAdapter? findBridgedMethodInterceptor(
+    String className,
+    String methodName,
+  ) {
+    return _methodInterceptors[className]?[methodName];
+  }
+
+  // ==========================================================================
+  // Plan E: Bridged Static Method Interceptors
+  // ==========================================================================
+  //
+  // Same idea as [_methodInterceptors] but for static methods (e.g.
+  // `InheritedModel.inheritFrom<T>`). Keyed by `(className, methodName)`.
+  // The interceptor receives `(visitor, positional, named, typeArgs)` —
+  // matching [BridgedStaticMethodAdapter].
+  static final Map<String, Map<String, BridgedStaticMethodAdapter>>
+      _staticMethodInterceptors = {};
+
+  /// Register an interceptor for a bridged static method. Replaces any
+  /// previously registered interceptor for the same `(className, methodName)`
+  /// pair.
+  static void registerBridgedStaticMethodInterceptor(
+    String className,
+    String methodName,
+    BridgedStaticMethodAdapter interceptor,
+  ) {
+    _staticMethodInterceptors.putIfAbsent(className, () => {})[methodName] =
+        interceptor;
+  }
+
+  /// Look up a bridged static method interceptor for `(className, methodName)`.
+  /// Returns `null` when no interceptor has been registered.
+  static BridgedStaticMethodAdapter? findBridgedStaticMethodInterceptor(
+    String className,
+    String methodName,
+  ) {
+    return _staticMethodInterceptors[className]?[methodName];
   }
 
   // ==========================================================================
