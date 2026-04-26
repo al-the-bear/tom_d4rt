@@ -1391,28 +1391,36 @@ class _NonWebHtmlMock extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
+      // The mock content has a natural height of ~140 px but several call
+      // sites embed it in a SizedBox as small as 74 px (e.g. the visibility
+      // lane cards). Wrap the inner card in FittedBox(scaleDown) so it
+      // shrinks to fit the available height instead of triggering a
+      // RenderFlex bottom overflow.
       child: Center(
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.8),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0xFFCBD9E6)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.web, size: 20, color: Color(0xFF43627B)),
-              const SizedBox(height: 4),
-              Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
-              const SizedBox(height: 4),
-              Text('Mock HtmlElementView<$tag>', style: const TextStyle(fontSize: 12)),
-              const SizedBox(height: 2),
-              Text('isVisible=$isVisible | behavior=${behavior.name}', style: const TextStyle(fontSize: 11, color: Color(0xFF536779))),
-              const SizedBox(height: 4),
-              const Text('Non-web runtime simulation', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF405A70))),
-            ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.8),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: const Color(0xFFCBD9E6)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.web, size: 20, color: Color(0xFF43627B)),
+                const SizedBox(height: 4),
+                Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
+                const SizedBox(height: 4),
+                Text('Mock HtmlElementView<$tag>', style: const TextStyle(fontSize: 12)),
+                const SizedBox(height: 2),
+                Text('isVisible=$isVisible | behavior=${behavior.name}', style: const TextStyle(fontSize: 11, color: Color(0xFF536779))),
+                const SizedBox(height: 4),
+                const Text('Non-web runtime simulation', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF405A70))),
+              ],
+            ),
           ),
         ),
       ),

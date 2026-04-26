@@ -1545,12 +1545,13 @@ regression on gii/essential/important/secondary.
 | `widgets/list_wheel_scroll_view_test.dart` | 2 | 0 | Two `_InfoRow`s read `_controller.selectedItem` directly during build before the `ListWheelScrollView` had attached the controller. Guarded with `controller.hasClients ? '$controller.selectedItem' : '$_selected'`. | `39baf0f7` |
 | `widgets/list_wheel_viewport_test.dart` | 9 | 0 | Script uses raw `Scrollable + ListWheelViewport`, which only accepts a plain `ScrollController` and non-`FixedExtent` physics (`FixedExtentScrollController` only works with `ListWheelScrollView`). Default physics changed to `BouncingScrollPhysics()` and the pipeline scene's `_PipelinePhysics.{fixed,bouncing,clamping}` switch maps to `Clamping/Bouncing/Clamping` (no `FixedExtent*` parents). | `39baf0f7` |
 | `widgets/layout_builder_adv_test.dart` | 6 | 0 | The final `SingleChildScrollView` Column placed `singleChildLayout`, `overflowBox`, and `sizedOverflowBox` directly into the unbounded vertical extent of the Column, so `RenderCustomSingleChildLayoutBox` and `RenderConstrainedOverflowBox` got infinite size. Wrapped each in a `SizedBox(height: …)` matching the existing 200-px pattern of the bounded children. | _this commit_ |
-| `widgets/magnifier_decoration_test.dart` | 4 | 0 | (a) The `_ControlDeck` 4-up `Row` of `SwitchListTile`s couldn't keep "Instruction notes" inside its share at narrow widths — converted to a `LayoutBuilder + Wrap` of fixed-width tiles with `TextOverflow.ellipsis` so they reflow at 800-px viewports. (b) `_PatternCanvas`'s header `Row(label, Spacer, rev N)` overflowed when the lens stage was narrow — wrapped the `label` in `Flexible(Text(…, overflow: ellipsis))` and replaced `Spacer` with a small gap. (c) `_DataTableCard`'s rows used a hard `SizedBox(width: 130)` for the label cell that didn't fit narrow flex-6 panels — replaced with a 2:3 `Expanded` split. | _this commit_ |
+| `widgets/magnifier_decoration_test.dart` | 4 | 0 | (a) The `_ControlDeck` 4-up `Row` of `SwitchListTile`s couldn't keep "Instruction notes" inside its share at narrow widths — converted to a `LayoutBuilder + Wrap` of fixed-width tiles with `TextOverflow.ellipsis` so they reflow at 800-px viewports. (b) `_PatternCanvas`'s header `Row(label, Spacer, rev N)` overflowed when the lens stage was narrow — wrapped the `label` in `Flexible(Text(…, overflow: ellipsis))` and replaced `Spacer` with a small gap. (c) `_DataTableCard`'s rows used a hard `SizedBox(width: 130)` for the label cell that didn't fit narrow flex-6 panels — replaced with a 2:3 `Expanded` split. | `4653c8b2` |
+| `widgets/html_element_view_test.dart` | 6 | 0 | The `_VisibilityStrategyScene` lane cards bound the HTML embed slot to `SizedBox(height: 74)`, but on non-web runs the fallback `_NonWebHtmlMock` renders a Column with icon + 4 text rows + padding/margin (~140 px), producing six identical 71-px bottom RenderFlex overflows (one per lane card). Wrapped the mock's inner card in a `FittedBox(fit: BoxFit.scaleDown)` so it shrinks to whatever vertical extent the caller provides, eliminating all six overflows without changing the card's logical content. | _this commit_ |
 
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
 
-After commit `4653c8b2` (this batch), the serial regression
+After commit `4653c8b2` (prior batch), the serial regression
 battery (D4RT_SKIP_BRIDGE_REGEN=1) reports:
 
 - **gii** `+67 ~1 -15` (was `+63 ~1 -19`) — net **+4 improvement**,
@@ -1561,12 +1562,28 @@ battery (D4RT_SKIP_BRIDGE_REGEN=1) reports:
 - **important** `+164 ~5` (all pass, unchanged).
 - **secondary** `+649 ~5` (all pass, unchanged).
 
-Note: the first attempt of the gii run hit a flaky test-app death
-at minute 0:47 (`animated_switcher_test.dart` rerun started a
-30-s timeout cascade across the remaining 24 tests). Running the
-suite a second time produced the clean `+67 ~1 -15` above and
-`animated_switcher_test.dart` runs cleanly in isolation, so the
-hang is not caused by any of the script-side fixes.
+After the current batch (`html_element_view`), the regression
+battery reports:
+
+- **gii** `+69 ~1 -13` (was `+67 ~1 -15`) — net **+2 improvement**
+  (one more script flipped to 0 framework errors:
+  `html_element_view_test`). The remaining `-13` are interpreter-
+  side clusters (createRenderObject native errors,
+  `dependOnInheritedWidgetOfExactType` failures for interpreted
+  `InheritedWidget` subclasses, `Map.contains` missing in the
+  `Map` bridge, `InterpretedFunction` arriving where Flutter
+  expects a native typedef) — none are script-fixable.
+- **essential** `+108` (unchanged).
+- **important** `+164 ~5` (unchanged).
+- **secondary** `+649 ~5` (unchanged).
+
+Note: the first attempt of an earlier gii run hit a flaky
+test-app death at minute 0:47 (`animated_switcher_test.dart` rerun
+started a 30-s timeout cascade across the remaining 24 tests).
+Running the suite a second time produced the clean `+67 ~1 -15`
+result, and `animated_switcher_test.dart` runs cleanly in
+isolation, so the hang is not caused by any of the script-side
+fixes.
 
 What's still open — items below not yet swept:
 
@@ -1577,8 +1594,10 @@ What's still open — items below not yet swept:
   called without AppStateScope in context`. Same pattern.
 - `widgets/window_scope_test.dart` (1) — `No _DemoWindowScope
   found in context`. Same pattern.
-- `widgets/html_element_view_test.dart` (6 × 71-px right
-  overflows) — cause unclear; deferred until runtime info clearer.
+- `widgets/html_element_view_test.dart` — _Fixed in this batch_
+  (see table above). Six identical 71-px bottom overflows from
+  the non-web mock exceeding `SizedBox(height: 74)`; resolved
+  with a `FittedBox(scaleDown)` wrapper.
 - `widgets/tree_sliver_state_mixin_test.dart` (4 bottom
   overflows: 432/124/62/141 px) — deferred until cause clearer.
 - `widgets/shader_mask_test.dart` — LateInit on script's late
