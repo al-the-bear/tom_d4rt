@@ -15,31 +15,17 @@ void main() {
     await SendTestRunner.tearDown();
   });
 
-  test('widgets/slotted_multi_child_render_object_widget_test.dart (C4)',
-      () async {
-    final result = await SendTestRunner.send(
-        'widgets/slotted_multi_child_render_object_widget_test.dart');
-    print('STATUS: ${result.success}');
-    print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
-    print('OUTPUT_COUNT: ${result.output.length}');
-    final fwErrors =
-        result.output.where((s) => s.contains('Runtime Error')).take(5);
-    for (final e in fwErrors) {
-      print('FW: $e');
-    }
-  });
-
-  test('widgets/slotted_multi_child_render_object_widget_mixin_test.dart (C4)',
-      () async {
-    final result = await SendTestRunner.send(
-        'widgets/slotted_multi_child_render_object_widget_mixin_test.dart');
-    print('STATUS: ${result.success}');
-    print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
-    print('OUTPUT_COUNT: ${result.output.length}');
-    final fwErrors =
-        result.output.where((s) => s.contains('Runtime Error')).take(5);
-    for (final e in fwErrors) {
-      print('FW: $e');
-    }
-  });
+  for (final script in <String>[
+    'retest/widgets/default_text_editing_shortcuts_test.dart',
+    'widgets/shortcut_activator_test.dart',
+    'widgets/shortcut_manager_test.dart',
+    'widgets/shortcut_map_property_test.dart',
+  ]) {
+    test('$script (C5)', () async {
+      final result = await SendTestRunner.send(script);
+      print('STATUS: ${result.success}');
+      print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
+      print('OUTPUT_COUNT: ${result.output.length}');
+    });
+  }
 }

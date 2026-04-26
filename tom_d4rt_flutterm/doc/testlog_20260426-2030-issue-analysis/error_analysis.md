@@ -223,13 +223,13 @@ After the fix the original Column / Row / Stack coercion error is gone for both 
 
 ### C5 — Generic `Map` coercion: `Map<ShortcutActivator, Intent>`
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Medium-High · **Owner:** generator (relaxer for typed maps)
+**Severity:** Medium-High · **Owner:** tom_d4rt_flutterm runtime registrations
 
 **Representative error**
 
-- `Native error during default bridged constructor for 'Shortcuts': Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' …`
+- `Native error during default bridged constructor for 'Shortcuts': Invalid parameter "shortcuts": cannot convert Map to Map<ShortcutActivator, Intent> - type 'InterpretedInstance' is not a subtype of type 'Intent' in type cast`
 
 **Affected scripts**
 
@@ -238,9 +238,23 @@ After the fix the original Column / Row / Stack coercion error is gone for both 
 - `widgets/shortcut_manager_test.dart`
 - `widgets/shortcut_map_property_test.dart`
 
-**Analysis.** Map literals built in interpreted code reach `Shortcuts(shortcuts: …)` as `InterpretedInstance` (the d4rt-side Map class), not a `Map<ShortcutActivator, Intent>`. The relaxer wraps `List<T>` and singular Widget args but does not yet wrap `Map<K, V>` for typed maps where K/V are bridged classes.
+**Analysis.** The original "missing `D4.coerceMap`" diagnosis was incorrect — `D4.coerceMap<K, V>` already exists in `tom_d4rt/lib/src/generator/d4.dart` (lines 703–749) and the bridge generator already emits it for `Shortcuts.shortcuts` and `ShortcutMapProperty.value`. The real cause is one level deeper: `coerceMap` correctly walks each map value through `_coerceMapValue`, which (for an `InterpretedInstance` value) falls back to `tryCreateInterfaceProxyWithVisitor<Intent>(v, visitor)`. The bridged `Intent` class has an empty constructors map (it's abstract with only `const Intent()`), so when an interpreted class extends `Intent`, the interpreter never populates `instance.bridgedSuperObject`, and no `Intent` interface proxy was registered — so `_coerceMapValue` fell through to `unwrapped as V` and threw the canonical "InterpretedInstance is not a subtype of type 'Intent'" cast error.
 
-**Suggested fix.** Add `D4.coerceMap<K, V>(value)` and emit a relaxer call for any `Map<K, V>` parameter where K or V is a bridged class. Cover both directions (interpreter → native, and native → interpreter for callbacks returning maps).
+**Fix applied.** Registered `Intent` as an interface proxy in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` plus a new `_InterpretedIntent extends Intent` proxy class. The proxy is a pure tag wrapper (Intent is an empty const-constructible base in Flutter — no virtual behaviour to forward across the bridge boundary for the construct-time path the C5 scripts exercise). The proxy is cached on `instance.nativeProxy` so repeated boundary crossings reuse the same wrapper.
+
+After the fix, all four scripts have **zero** Map<ShortcutActivator, Intent> coercion errors. Remaining framework errors on three scripts (`Constraints.maxWidth`, `CustomPainter.progress`, RenderFlex overflow) are unrelated downstream issues belonging to other clusters (C20-style bridge gap, layout overflow).
+
+**No mirroring needed** — change lives entirely in `tom_d4rt_flutterm` (registration shim layer); `tom_d4rt` and `tom_d4rt_ast` are untouched.
+
+**Verification.** Bisect (`flutter test test/bisect_test.dart`) confirms:
+- `default_text_editing_shortcuts_test.dart`: 4 → 0 framework errors
+- `shortcut_activator_test.dart`: Shortcuts coercion gone (1 unrelated `Constraints.maxWidth` error remains)
+- `shortcut_manager_test.dart`: Shortcuts coercion + `_RebindPrimaryIntent.toString` gone (1 unrelated `CustomPainter.progress` remains)
+- `shortcut_map_property_test.dart`: `ShortcutMapProperty` coercion gone (1 unrelated layout overflow remains)
+
+Regression suites all clean: essential 108/0/0, important 164/0/5, secondary 649/0/5 — no script regressed.
+
+**Limitation (documented for future reference).** `runtimeType` of `_InterpretedIntent` is the same for every interpreted Intent subclass, so `Actions.invoke` / Type-keyed action dispatch cannot route through this proxy. None of the C5 scripts exercise actual shortcut invocation (they only build the widget tree), so this is acceptable here. Real shortcut dispatch for fully-interpreted Intents would require a per-class proxy generator — separate concern, not in C5 scope.
 
 ---
 
@@ -678,7 +692,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C2 — Late final 'color' (single-script) ✅ Fixed | Medium | interpreter (visitSwitchStatement) | 1 | 0 |
 | C3 — `!` on null (broad) ⚠️ Partial (gir hard-fail fixed; 7 non-fatal deferred) | Medium | mixed | 8 | 0 |
 | C4 — List<Widget> coercion ⚠️ Partial (Section E coercion fixed via SlottedMultiChildRenderObjectWidget proxy; render-object mixin gap deferred to follow-up cluster) | High | tom_d4rt_flutterm runtime registrations | 2 | 0 |
-| C5 — Map<ShortcutActivator, Intent> coercion | Medium-High | generator | 4 | 1 |
+| C5 — Map<ShortcutActivator, Intent> coercion ✅ Fixed (Intent interface proxy registered; coerceMap already in place) | Medium-High | tom_d4rt_flutterm runtime registrations | 4 | 1 |
 | C6 — Map<Type, Action<Intent>> coercion | Medium | generator | 3 | 0 |
 | C6b — ThemeExtension nested generic coercion | Low | generator | 1 | 1 |
 | C7 — TwoDimensionalScrollView ctor | Medium | generator | 3 | 0 |

@@ -46,6 +46,7 @@ import 'package:flutter/widgets.dart'
         GlobalKey,
         InheritedElement,
         InheritedWidget,
+        Intent,
         LeafRenderObjectWidget,
         MultiChildRenderObjectWidget,
         NavigatorState,
@@ -236,6 +237,23 @@ void _registerInterfaceProxies() {
     return _InterpretedMultiChildRenderObjectWidget(visitor, instance,
         key: _readKey(instance, visitor),
         children: _readChildrenWidgets(instance, visitor));
+  });
+
+  // Intent — scripts that subclass `Intent` (e.g. for `Shortcuts(shortcuts:
+  // <ShortcutActivator, Intent>{ … : const _MyIntent() })`) reach
+  // `D4.coerceMap<…, Intent>` as InterpretedInstances. The bridged `Intent`
+  // class has an empty constructors map (it's abstract with only `const
+  // Intent()`), so the interpreter never populates `bridgedSuperObject`. With
+  // no registered proxy, `coerceMap` falls through to `instance as Intent`
+  // and throws. Cache the proxy on `instance.nativeProxy` so repeated
+  // boundary crossings reuse the same wrapper (preserves identity for
+  // const-style script Intents).
+  D4.registerInterfaceProxy('Intent', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is Intent) return cached;
+    final proxy = _InterpretedIntent(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
   });
 
   // SlottedMultiChildRenderObjectWidget — scripts that subclass this abstract
@@ -1595,6 +1613,29 @@ class _InterpretedMultiChildRenderObjectWidget
   @override
   void updateRenderObject(BuildContext context, RenderObject renderObject) =>
       _updateRenderObject(_visitor, _instance, context, renderObject);
+}
+
+/// Native [Intent] backing an interpreted subclass. Intent is a pure tag type
+/// in Flutter (abstract class with only `const Intent()` and no virtual
+/// behaviour the bridge boundary cares about), so the proxy holds a
+/// back-reference to the interpreted instance but doesn't override anything.
+///
+/// Limitation: `runtimeType` is `_InterpretedIntent` for every interpreted
+/// Intent subclass, so `Actions.invoke` / Type-keyed action lookup cannot
+/// dispatch through this proxy. That's acceptable for the C5 scripts (which
+/// only build the widget tree and do not exercise shortcut invocation), and
+/// is the same trade-off accepted by the existing layout/clip delegate
+/// proxies. Real shortcut dispatch for fully-interpreted Intents is a
+/// separate concern.
+class _InterpretedIntent extends Intent {
+  _InterpretedIntent(this._visitor, this._instance) : super();
+
+  // Held for parity with the other proxies and to keep the InterpretedInstance
+  // reachable for possible future forwarding (toString, debugFillProperties).
+  // ignore: unused_field
+  final InterpreterVisitor _visitor;
+  // ignore: unused_field
+  final InterpretedInstance _instance;
 }
 
 /// Native [SlottedMultiChildRenderObjectWidget] backing an interpreted
