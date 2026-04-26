@@ -59,6 +59,8 @@ Each cluster lists: representative pattern → affected scripts → analysis →
 
 ### C1 — RenderObject mixin proxy gap (`_InterpretedRenderBox` not a `ContainerRenderObjectMixin`)
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** High · **Owner:** generator (proxy generator) + tom_d4rt_flutterm user-bridge
 
 **Representative errors**
@@ -82,6 +84,8 @@ Each cluster lists: representative pattern → affected scripts → analysis →
 
 ### C2 — `LateInitializationError: Late final variable 'color' has already been assigned` (single-script regression candidate)
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Medium · **Owner:** interpreter (late-final reassignment guard) **and/or** test script
 
 **Representative error**
@@ -104,6 +108,8 @@ Two candidate root causes:
 ---
 
 ### C3 — `Null check operator used on a null value` (broad symptom)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium · **Owner:** mixed (interpreter + bridge package + scripts)
 
@@ -133,6 +139,8 @@ Two candidate root causes:
 
 ### C4 — Section E: `cannot convert <Interpreted> to <Concrete Widget subtype>` at native bridge boundary
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** High · **Owner:** generator (relaxer) + interpreter (proxy widening)
 
 **Representative errors**
@@ -152,6 +160,8 @@ Two candidate root causes:
 ---
 
 ### C5 — Generic `Map` coercion: `Map<ShortcutActivator, Intent>`
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium-High · **Owner:** generator (relaxer for typed maps)
 
@@ -174,6 +184,8 @@ Two candidate root causes:
 
 ### C6 — `Map<Type, Action<Intent>>` coercion (sibling of C5)
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Medium · **Owner:** generator (relaxer)
 
 **Representative error**
@@ -192,6 +204,8 @@ Two candidate root causes:
 
 ### C6b — `cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>>`
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low (one script) · **Owner:** generator (relaxer)
 
 **Representative error**
@@ -207,6 +221,8 @@ Two candidate root causes:
 ---
 
 ### C7 — `TwoDimensionalScrollView` / `TwoDimensionalViewport` default constructor missing
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium · **Owner:** generator (constructor emission for abstract classes with named-only constructors)
 
@@ -227,6 +243,8 @@ Two candidate root causes:
 ---
 
 ### C8 — `BoxConstraints has a negative minimum height` and `BoxConstraints forces an infinite height/width` (script-side layout)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low (cosmetic, script-only) · **Owner:** test scripts
 
@@ -249,6 +267,8 @@ Two candidate root causes:
 ---
 
 ### C9 — `RenderFlex overflowed by N pixels` (script-side cosmetic)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low (cosmetic) · **Owner:** test scripts
 
@@ -273,6 +293,8 @@ Two candidate root causes:
 ---
 
 ### C10 — `RestorationProperties: 'isRegistered': is not true` assertion
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium · **Owner:** interpreter (mixin lifecycle dispatch) + tom_d4rt_flutterm user-bridge
 
@@ -306,6 +328,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C11 — `Cannot invoke method 'withValues' on null` (Color.withValues feeding off null)
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low · **Owner:** test scripts (mostly) and tom_d4rt_flutterm user-bridge
 
 **Representative error**
@@ -327,6 +351,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C12 — `Object.hash` static method missing on bridged `Object`
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low (one script, but it's a real interpreter gap) · **Owner:** tom_d4rt stdlib bridge for `dart:core`
 
 **Representative error**
@@ -345,6 +371,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C13 — `Future.delayed` constructor missing
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low · **Owner:** tom_d4rt stdlib bridge for `dart:async`
 
 **Representative error**
@@ -362,6 +390,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 ---
 
 ### C14 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (Plan E2 residual)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** High · **Owner:** interpreter (BuildContext propagation)
 
@@ -382,6 +412,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C15 — `WidgetStateMapper` `merge` field access (Symbol("merge"))
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low · **Owner:** generator (bridge for `WidgetStateProperty.merge`)
 
 **Representative error**
@@ -399,6 +431,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 ---
 
 ### C16 — `Bridged class 'Map' has no instance method named 'contains'`
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low · **Owner:** tom_d4rt stdlib bridge for `dart:core` (Map)
 
@@ -418,6 +452,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C17 — `semanticsBuilder` typed function-callback coercion
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Medium · **Owner:** generator (callback wrapping)
 
 **Representative error**
@@ -436,6 +472,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ### C18 — `Offset(dx: null)` constructor null coercion (Plan G2)
 
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
 **Severity:** Low · **Owner:** interpreter (positional → named null guard) or test scripts
 
 **Representative error**
@@ -453,6 +491,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 ---
 
 ### C19 — `'!childSemantics.renderObject._needsLayout': is not true` (semantics during layout)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium · **Owner:** interpreter (frame scheduling) + scripts
 
@@ -480,6 +520,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 ---
 
 ### C20 — Interpreter operator + statement-level gaps (catch-all)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium (each is a real Dart-feature hole) · **Owner:** interpreter (multiple visit methods)
 
