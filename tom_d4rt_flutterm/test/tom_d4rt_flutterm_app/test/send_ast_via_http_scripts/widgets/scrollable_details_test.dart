@@ -820,8 +820,11 @@ class _LaboratoryState extends State<_Laboratory> {
                     ),
                     const SizedBox(height: 14),
                     // --- Live viewport + diagnostics side by side ---
+                    // CrossAxisAlignment.start avoids forcing infinite
+                    // height through the unbounded SingleChildScrollView
+                    // ancestor.
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Expanded(
                           flex: 3,
@@ -946,8 +949,10 @@ class _LaboratoryState extends State<_Laboratory> {
                   style: TextStyle(color: _kSoftInk, fontSize: 13),
                 ),
               ),
+              // CrossAxisAlignment.start avoids forcing infinite height
+              // through the unbounded SingleChildScrollView parent.
               Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   // Clip.none
                   Expanded(
@@ -1156,8 +1161,10 @@ class _LaboratoryState extends State<_Laboratory> {
                   style: TextStyle(color: _kSoftInk, fontSize: 13),
                 ),
               ),
+              // CrossAxisAlignment.start avoids forcing infinite height
+              // through the unbounded SingleChildScrollView parent.
               Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   // NeverScrollable
                   Expanded(
@@ -1372,8 +1379,10 @@ class _LaboratoryState extends State<_Laboratory> {
                 ),
               ),
               const SizedBox(height: 10),
+              // CrossAxisAlignment.start avoids forcing infinite height
+              // through the unbounded SingleChildScrollView parent.
               Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: Container(

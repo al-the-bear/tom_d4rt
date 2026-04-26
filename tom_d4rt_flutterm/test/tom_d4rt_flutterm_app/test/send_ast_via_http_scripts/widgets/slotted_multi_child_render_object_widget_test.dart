@@ -1089,9 +1089,14 @@ class _MyCard extends
             ],
           );
         }
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
+        // IntrinsicHeight bounds the Row's vertical extent so that
+        // CrossAxisAlignment.stretch does not propagate the unbounded
+        // height inherited from the surrounding scrollable Column.
+        return IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
+          ),
         );
       },
     );

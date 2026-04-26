@@ -753,15 +753,20 @@ class _HeroCalloutRow extends StatelessWidget {
           ),
         ];
         if (wide) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(child: cells[0]),
-              const SizedBox(width: 12),
-              Expanded(child: cells[1]),
-              const SizedBox(width: 12),
-              Expanded(child: cells[2]),
-            ],
+          // IntrinsicHeight bounds the Row's vertical extent so that
+          // CrossAxisAlignment.stretch does not propagate the unbounded
+          // height inherited from the SingleChildScrollView ancestor.
+          return IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(child: cells[0]),
+                const SizedBox(width: 12),
+                Expanded(child: cells[1]),
+                const SizedBox(width: 12),
+                Expanded(child: cells[2]),
+              ],
+            ),
           );
         }
         return Column(

@@ -857,46 +857,51 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
           'dragDetails field is the giveaway.',
       child: Column(
         children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: _causeCard(
-                  title: 'User drag start',
-                  accent: _rocketRed,
-                  bullet: 'dragDetails != null',
-                  description:
-                      'Finger / mouse / trackpad drag. Framework emits '
-                      'ScrollStartNotification with DragStartDetails that '
-                      'include globalPosition, localPosition, sourceTimeStamp '
-                      'and PointerDeviceKind.',
-                  action: const _HintText(
-                      '↙ scroll the list on the right to fire'),
+          // IntrinsicHeight bounds the Row's vertical extent so that
+          // CrossAxisAlignment.stretch does not propagate the unbounded
+          // height inherited from SingleChildScrollView's Column parent.
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: _causeCard(
+                    title: 'User drag start',
+                    accent: _rocketRed,
+                    bullet: 'dragDetails != null',
+                    description:
+                        'Finger / mouse / trackpad drag. Framework emits '
+                        'ScrollStartNotification with DragStartDetails that '
+                        'include globalPosition, localPosition, sourceTimeStamp '
+                        'and PointerDeviceKind.',
+                    action: const _HintText(
+                        '↙ scroll the list on the right to fire'),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _causeCard(
-                  title: 'Programmatic animateTo',
-                  accent: _goldSpark,
-                  bullet: 'dragDetails == null',
-                  description:
-                      'controller.animateTo / ScrollPosition.goBallistic. '
-                      'Fires ScrollStartNotification without drag metadata. '
-                      'Use this to distinguish UI automation from human '
-                      'scrolling for analytics.',
-                  action: ElevatedButton.icon(
-                    icon: const Icon(Icons.bolt, size: 16),
-                    label: const Text('animateTo'),
-                    onPressed: _programmaticFire,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _goldSpark,
-                      foregroundColor: _inkBlack,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _causeCard(
+                    title: 'Programmatic animateTo',
+                    accent: _goldSpark,
+                    bullet: 'dragDetails == null',
+                    description:
+                        'controller.animateTo / ScrollPosition.goBallistic. '
+                        'Fires ScrollStartNotification without drag metadata. '
+                        'Use this to distinguish UI automation from human '
+                        'scrolling for analytics.',
+                    action: ElevatedButton.icon(
+                      icon: const Icon(Icons.bolt, size: 16),
+                      label: const Text('animateTo'),
+                      onPressed: _programmaticFire,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _goldSpark,
+                        foregroundColor: _inkBlack,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 12),
           SizedBox(

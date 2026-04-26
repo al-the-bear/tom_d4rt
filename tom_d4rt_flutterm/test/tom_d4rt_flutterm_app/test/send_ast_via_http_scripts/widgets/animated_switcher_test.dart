@@ -1226,9 +1226,11 @@ class _AnimatedSwitcherDemoState extends State<AnimatedSwitcherDemo> {
                     }),
                   ),
                   const SizedBox(height: 16),
-                  // Step content
+                  // Step content. Height bumped from 80 to 96 to fit
+                  // padding(16+16) + icon(28) + gap(4) + text-line height
+                  // without a 4-pixel RenderFlex bottom overflow.
                   SizedBox(
-                    height: 80,
+                    height: 96,
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 400),
                       transitionBuilder: (child, animation) {

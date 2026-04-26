@@ -395,9 +395,14 @@ class _BuildOwnerAssignmentLabDemoState
                 row.add(_buildArrow(horizontal: true));
               }
             }
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: row,
+            // IntrinsicHeight bounds the row's vertical extent so that
+            // CrossAxisAlignment.stretch does not propagate the unbounded
+            // height it inherits from SingleChildScrollView.
+            return IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: row,
+              ),
             );
           }
           final List<Widget> col = <Widget>[];
@@ -769,14 +774,20 @@ class _BuildOwnerAssignmentLabDemoState
         builder: (BuildContext context, BoxConstraints constraints) {
           final bool wide = constraints.maxWidth >= 820;
           if (wide) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                for (int i = 0; i < scenarios.length; i++) ...<Widget>[
-                  Expanded(child: _buildScenarioCard(scenarios[i])),
-                  if (i != scenarios.length - 1) const SizedBox(width: 12),
+            // IntrinsicHeight bounds the row's height so that
+            // CrossAxisAlignment.stretch can compute a finite cross-axis
+            // extent inside the SingleChildScrollView.
+            return IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  for (int i = 0; i < scenarios.length; i++) ...<Widget>[
+                    Expanded(child: _buildScenarioCard(scenarios[i])),
+                    if (i != scenarios.length - 1)
+                      const SizedBox(width: 12),
+                  ],
                 ],
-              ],
+              ),
             );
           }
           return Wrap(
