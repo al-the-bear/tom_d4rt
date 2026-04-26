@@ -100,7 +100,14 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     }
 
     try {
-      await ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag');
+      // D4RT-WORKAROUND: FragmentProgram.fromAsset hangs on Linux for missing
+      // assets (platform channel never returns). Race with a 2 s timeout so
+      // the probe degrades gracefully without blocking the test suite.
+      await Future.any(<Future<void>>[
+        ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag')
+            .then<void>((_) {}),
+        Future<void>.delayed(const Duration(seconds: 2)),
+      ]);
       _record('FragmentProgram.fromAsset probe', true);
     } catch (e) {
       _record(

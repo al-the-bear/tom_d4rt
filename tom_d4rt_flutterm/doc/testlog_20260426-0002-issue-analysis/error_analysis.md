@@ -5,6 +5,14 @@
 **Git revision at run time:** `b64ec056` (`test(tom_d4rt_flutterm): reactivate 34 'moved to timeout_tests' skips in secondary suite`)
 **Environment:** `D4RT_SKIP_BRIDGE_REGEN=1` (no regen during run; pre-existing `*.b.dart` used as committed)
 
+> **Follow-up runs** (2026-04-26):
+> - **Run 2** (`hardly_relevant_classes_1_test_run2.log.txt`) — `isolate_name_server_test.dart` skipped.
+>   Result: `+79 ~1 -125`. New cascade trigger: `image_sampler_slot_test.dart`.
+> - **Run 3** (`hardly_relevant_classes_1_test_run3.log.txt`) — both `isolate_name_server_test.dart` and
+>   `image_sampler_slot_test.dart` skipped.
+>   Result: `+86 ~2 -117`. New cascade trigger: `callback_handle_test.dart` slow-build backlog.
+>   See §7 for full analysis of run 2/3.
+
 Each suite was executed serially (never in parallel — the test app's
 local HTTP server is shared and concurrent runs corrupt results).
 Per-suite artefacts in this folder:
@@ -290,3 +298,113 @@ fix once Section E lands.
 The test app fragility (Recommendation 2) is the only structural
 hazard surfaced by this run; everything else is either an existing
 known cluster or a script-side cleanup.
+
+---
+
+## 7. Follow-up runs on `hardly_relevant_classes_1_test` (2026-04-26)
+
+### 7.1 Objective
+
+Skip `isolate_name_server_test.dart` (confirmed crash trigger from §2),
+document the isolate limitation, and re-run to obtain a correct baseline.
+
+### 7.2 Run 2 — `isolate_name_server_test.dart` skipped
+
+**Log:** `hardly_relevant_classes_1_test_run2.log.txt`
+
+| Metric | Value |
+|--------|-------|
+| Result | `+79 ~1 -125` |
+| Elapsed | ~7 min |
+| Cascade trigger | `dart_ui/image_sampler_slot_test.dart` |
+| Cascade type | App process crash (same as §2) |
+
+**Root cause:** `image_sampler_slot_test.dart` calls
+`ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag')`
+inside a widget `initState()` async callback. On the Linux desktop test runner
+the platform channel for this call sometimes never returns — the test times out
+after 30 s and the test app dies. In the original run this call completed
+quickly (timing luck); in run 2 it hung.
+
+The `image_sampler_slot_test.dart` script was updated with a
+`Future.any(<[fromAsset, Future.delayed(2s)]>)` timeout race and
+**also skipped** in the test file with the patch noted.
+
+**Why image_sampler_slot passed in run 1 but crashed in run 2:** Non-deterministic
+platform channel response time for missing asset loads on Linux. The script is
+inherently flaky without the 2-second timeout race.
+
+### 7.3 Run 3 — both `isolate_name_server_test.dart` and `image_sampler_slot_test.dart` skipped
+
+**Log:** `hardly_relevant_classes_1_test_run3.log.txt`
+
+| Metric | Value |
+|--------|-------|
+| Result | `+86 ~2 -117` |
+| Elapsed | ~4 min |
+| Cascade trigger | `dart_ui/callback_handle_test.dart` slow-build backlog |
+| Cascade type | HTTP build-handler deadlock → eventual app crash |
+
+**Root cause:** `callback_handle_test.dart` is a slow-build script. Its `build`
+HTTP request takes 30 272 ms — just over the 30-second response timeout — so the
+test app returns `400 Timeout` while the build is still running in the background.
+
+```
+[METRIC] script=dart_ui/callback_handle_test.dart …
+         httpMs=30272 status=error httpStatus=400 outputLines=34 frameworkErrors=0
+```
+
+The script *did* execute (34 output lines), but the test-app server's response
+arrived too late. After the 400 is returned, the background build continues. When
+subsequent tests call `/clear` they must wait for the still-running build to
+complete. Each accumulated `/clear` wait pushes the next test over the 30-second
+threshold:
+
+| Script | clearMs | Cascade position |
+|--------|--------:|-----------------|
+| `pixel_format_test.dart` | 152 633 ms | 2nd failure |
+| `placeholder_alignment_test.dart` | 122 631 ms | 3rd |
+| `plugin_utilities_test.dart` | 92 634 ms | 4th |
+| `point_mode_test.dart` | 62 635 ms | 5th |
+| `pointer_change_test.dart` | 32 637 ms | 6th |
+| `target_pixel_format_test.dart` | 11 ms — **connection refused** | App dead |
+
+After six accumulated slow-clear operations, the test app process terminates.
+All subsequent tests fail with `SocketException: Connection refused`.
+
+**What's different from the §2 cascade:** The §2 cascade (isolate_name_server)
+was an immediate app crash — the process died while handling the script. The
+run-3 cascade is a *slow-build backlog* that accumulates over six tests and
+causes a deferred crash. The mechanism is the same test-app fragility flagged in
+Recommendation 2 (§6), but the trigger is a slow widget build rather than an
+isolate-API crash.
+
+**Why `callback_handle_test.dart` is slow:** The script's widget calls
+`ui.CallbackHandle.fromRawHandle(12345)` and accesses several dart:ui APIs that
+may involve platform channel round-trips on Linux, making the widget build take
+just over 30 seconds on slower machines/runs.
+
+### 7.4 Pending — next steps for a clean baseline
+
+To get `hardly_relevant_classes_1_test` to pass cleanly, two independent fixes
+are needed:
+
+1. **Test-app hardening (Recommendation 2 from §6):** The `/build` endpoint must
+   be able to *cancel* a running build when a `/clear` request arrives, rather
+   than waiting indefinitely. Without this, any script whose build exceeds 30 s
+   will create a clearMs backlog that cascades.
+
+2. **`callback_handle_test.dart` speed fix:** The widget should not require
+   platform-channel round-trips during build. Move any async API calls to
+   `initState()` and use a `FutureBuilder` / `setState` pattern so the initial
+   build is fast. Once the build completes in <30 s, the slow-backlog cascade
+   will not trigger even before the test-app hardening is in place.
+
+Until these two items land, the best achievable baseline with skips only is
+`+86 ~2 -117` (run 3). Skipping all six slow-build scripts would move the
+failure count to `+92 ~8 -111+` but would not reveal the *true* quality of the
+remaining test coverage.
+
+**Recommendation:** Fix the test app's build handler cancellation first (it is a
+one-time structural fix that benefits every future slow script) and then remove
+the `callback_handle_test` skip and re-run to close this section.

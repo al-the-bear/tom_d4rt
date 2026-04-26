@@ -13,6 +13,8 @@ bridge-side adapter infrastructure.
 | 3 | [Sealed class exhaustiveness](#3-sealed-class-exhaustiveness) | TBD | Script workaround |
 | 4 | [Platform capability (SystemColor)](#4-platform-capability-systemcolor) | 1 | Script workaround |
 | 5 | [Abstract class inheritance](#5-abstract-class-inheritance) | State-related | Adapter + interceptor |
+| 6 | [Real Dart isolates not supported](#6-real-dart-isolates-not-supported) | 1 (skipped) | Won't fix — fundamental limit |
+| 7 | [FragmentProgram.fromAsset hangs on missing assets (Linux)](#7-fragmentprogramfromasset-hangs-on-missing-assets-linux) | 1 (skipped) | Script fix needed |
 
 ---
 
@@ -592,3 +594,127 @@ typed `T Function(...)`.
 
 This requires re-running the bridge generator and regenerating every
 `.b.dart` file under `tom_d4rt_flutterm/lib/src/bridges/`.
+
+---
+
+## 6. Real Dart Isolates Not Supported
+
+### Error Messages
+
+```
+NoSuchMethodError: The getter 'sendPort' was called on null.
+Null check operator used on a null value
+IsolateNameServer.registerPortWithName returned false
+```
+
+### Impact
+
+- Any script using `IsolateNameServer` (registering/looking up ports by name)
+- Any script using `Isolate.spawn()` or `Isolate.run()`
+- Any script using `ReceivePort` / `SendPort` for cross-isolate communication
+- Affected test: `dart_ui/isolate_name_server_test.dart` (skipped in `hardly_relevant_classes_1_test.dart`)
+
+### Why This Cannot Be Fixed
+
+The D4rt interpreter runs all interpreted code in a **single Dart isolate** (the
+host application's main isolate). It provides limited async/await simulation via
+`Future` and `Stream` bridge support, but it does not spawn real OS-level
+isolates and therefore cannot support:
+
+1. **`Isolate.spawn()`** — requires transferring a closure to a new native isolate.
+   The interpreter cannot serialize an `InterpretedFunction` across the isolate
+   boundary.
+2. **`IsolateNameServer.registerPortWithName()` / `lookupPortByName()`** — these
+   APIs register `SendPort` objects in a global registry shared across isolates.
+   Without real isolate spawning, there are no secondary isolates whose ports
+   could be registered, and the registry is always empty.
+3. **`ReceivePort` / `SendPort` for cross-isolate messages** — message passing
+   between isolates relies on the Dart runtime's inter-isolate channel. The
+   interpreter has no mechanism to intercept or synthesize these channels.
+
+### Status
+
+**Won't fix — fundamental limit.** The interpreter is intentionally single-threaded
+to maintain sandboxing guarantees. Supporting real isolates would require either:
+- Native host code to pre-spawn isolates and proxy interpreted code into them
+  (very complex, breaks sandboxing), or
+- A first-class "simulated isolate" model (major interpreter rework, not planned).
+
+### Test Disposition
+
+Tests covering `IsolateNameServer` are **skipped** with a note in the test file.
+This is tracked here as a known limitation rather than a bug.
+
+---
+
+## 7. FragmentProgram.fromAsset Hangs on Missing Assets (Linux)
+
+### Error Messages
+
+```
+TimeoutException after 0:00:30.000000: Test timed out after 30 seconds.
+  dart:isolate  _RawReceivePort._handleMessage
+```
+
+No `[METRIC]` line follows; the HTTP request never returns.
+
+### Impact
+
+- `dart_ui/image_sampler_slot_test.dart` — calls
+  `ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag')`
+  inside a widget `initState` async callback.
+- On the Linux desktop test runner, the platform message for a missing
+  asset sometimes never returns. The test app process stays alive but
+  blocked on the platform channel, so the test times out after 30 s and
+  all subsequent tests in the suite also time out (the `/clear` endpoint
+  is also blocked).
+
+### Why It Is Intermittent
+
+The asset loading is handled by Flutter's engine platform channel. On
+Linux (particularly with `flutter run -d linux` in test mode), the
+platform responder for asset loads is non-deterministic: sometimes it
+responds quickly with "asset not found", sometimes it blocks indefinitely.
+The test passed in the original run but failed in the re-run after
+`isolate_name_server_test.dart` was skipped.
+
+### Root Cause in the Script
+
+The script intentionally probes `FragmentProgram.fromAsset` with a
+non-existent path as a "capability probe":
+
+```dart
+try {
+  await ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag');
+  _record('FragmentProgram.fromAsset probe', true);
+} catch (e) {
+  _record('FragmentProgram.fromAsset probe', true,
+      note: 'Expected in test env without bundled shader asset: $e');
+}
+```
+
+The intent is to catch the exception and record it. But the `await` never
+returns when the platform channel hangs.
+
+### Script Fix
+
+Wrap the `fromAsset` call in a `Future.any` race with a short timeout:
+
+```dart
+// D4RT-WORKAROUND: FragmentProgram.fromAsset hangs on Linux for missing assets.
+// Race with a timeout so the probe degrades gracefully.
+try {
+  await Future.any(<Future<void>>[
+    ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag'),
+    Future<void>.delayed(const Duration(seconds: 2)),
+  ]);
+  _record('FragmentProgram.fromAsset probe', true);
+} catch (e) {
+  _record('FragmentProgram.fromAsset probe', true,
+      note: 'Expected in test env: $e');
+}
+```
+
+Until the script is fixed, the test is **skipped** in
+`hardly_relevant_classes_1_test.dart` to prevent test-suite cascade
+failures.
