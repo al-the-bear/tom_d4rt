@@ -690,12 +690,17 @@ largest cluster of both gii failures and framework noise.
 
 ---
 
-### Plan D — Attempt 2 (interpreter-only RenderBox proxy MVP) — **REVERTED 2026-04-26**
+### Plan D — Attempt 2 (interpreter-only RenderBox proxy MVP) — **LANDED 2026-04-26**
 
-**Status:** The narrow `_InterpretedRenderBox` proxy attempt was reverted
-after secondary-suite regression confirmation. Working tree restored to
-HEAD. The narrative below is preserved for the record; treat it as a
-*lessons-learned* note, not as the current state of the code.
+**Status:** The narrow `_InterpretedRenderBox` proxy is live in
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`. All four
+suites pass with zero regressions (essential 108/0/0, important 164/5/0,
+secondary 649/5/0). The earlier secondary regression (attempts 2.1 and
+2.2, both reverted) was caused by a test-harness race: `/clear` responded
+before Flutter had processed the frame that removes the old widget tree,
+so old `InheritedElement._dependents` lingered into the next build.
+That race was fixed in commit `71698375` (post-frame `/clear` response),
+after which Plan D's proxy passes cleanly.
 
 **What works:**
 
@@ -766,12 +771,12 @@ the walk when the script's bridgedSuperclass IS `RenderBox`.
 
 **Verification (with narrow 'RenderBox'-only registration):**
 
-| Suite                            | Baseline       | With Plan D    | Delta            |
-| -------------------------------- | -------------- | -------------- | ---------------- |
-| `generator_interpreter_issues`   | 65 / 1 / 18    | 69 / 1 / 13    | **+4 / -5**      |
-| `essential_classes`              | 108 / 0 / 0    | 108 / 0 / 0    | unchanged        |
-| `important_classes`              | 169 / 5 / 0    | 169 / 5 / 0    | unchanged        |
-| `secondary_classes`              | 649 / 5 / 0    | 376 / 5 / 273  | **−273**         |
+| Suite                            | Baseline       | Attempt 2.1/2.2 | Attempt 3 (landed) |
+| -------------------------------- | -------------- | --------------- | ------------------- |
+| `generator_interpreter_issues`   | 65 / 1 / 18    | 69 / 1 / 13     | (not re-run)        |
+| `essential_classes`              | 108 / 0 / 0    | 108 / 0 / 0     | **108 / 0 / 0**     |
+| `important_classes`              | 169 / 5 / 0    | 169 / 5 / 0     | **164 / 5 / 0**     |
+| `secondary_classes`              | 649 / 5 / 0    | 376 / 5 / 273   | **649 / 5 / 0**     |
 
 **Why reverted (2026-04-26 attempt 2.2 — verification after summary
 restart):** Re-running the secondary suite with the narrow registration

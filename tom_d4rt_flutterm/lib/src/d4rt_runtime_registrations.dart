@@ -25,8 +25,11 @@ import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/rendering.dart'
     show
         BoxConstraints,
+        BoxHitTestResult,
         CustomClipper,
         MultiChildLayoutDelegate,
+        PaintingContext,
+        RenderBox,
         RenderObject,
         SingleChildLayoutDelegate;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
@@ -261,6 +264,30 @@ void registerD4rtInterfaceProxyOverrides() {
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
     final proxy = _InterpretedCustomClipperPath(visitor, instance);
     instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // Plan D — RenderBox proxy.
+  //
+  // Scripts that subclass RenderBox directly need a native RenderBox so
+  // bridges that take a RenderBox/RenderObject parameter accept the
+  // interpreted instance. The proxy delegates performLayout, paint,
+  // hitTest{,Self,Children}, and setupParentData to the interpreted class;
+  // everything else inherits RenderBox defaults.
+  //
+  // Identity caching via `instance.nativeProxy = proxy` is critical:
+  // d4.dart short-circuits at `arg.nativeProxy is T`, so subsequent
+  // boundary crossings reuse the same proxy object.
+  //
+  // Registered under 'RenderBox' only — not under broader names like
+  // 'RenderObject'. The proxy walk's `proxy is T` cast succeeds whenever
+  // `_InterpretedRenderBox is T`, so registering under 'RenderObject'
+  // would incorrectly proxy RenderSliver subclasses too.
+  D4.registerInterfaceProxy('RenderBox', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is RenderBox) return cached;
+    final proxy = _InterpretedRenderBox(visitor, instance);
+    instance.nativeProxy = proxy;
     return proxy;
   });
 }
@@ -1642,5 +1669,102 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
       if (raw is bool) return raw;
     } catch (_) {}
     return false;
+  }
+}
+
+// =============================================================================
+// Plan D — RenderBox proxy
+// =============================================================================
+//
+// Native [RenderBox] backed by an interpreted subclass. Registered as the
+// interface-proxy factory for the bridged class name 'RenderBox'.
+//
+// Surface area is intentionally minimal — the most common interpreted
+// overrides are forwarded; everything else inherits RenderBox defaults.
+// If a script overrides a method not forwarded here, the inherited Flutter
+// behaviour runs rather than the script body — a well-defined fallback.
+class _InterpretedRenderBox extends RenderBox {
+  _InterpretedRenderBox(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  static const Object _kNotImplemented = Object();
+
+  /// Invoke an instance method by name, returning [_kNotImplemented] if the
+  /// interpreted class doesn't define it (so callers can fall through to the
+  /// RenderBox default).
+  Object? _maybeInvoke(String methodName, List<Object?> args,
+      [Map<String, Object?> named = const {}]) {
+    final method = _instance.klass.findInstanceMethod(methodName);
+    if (method == null) return _kNotImplemented;
+    return method.bind(_instance).call(_visitor, args, named);
+  }
+
+  @override
+  void performLayout() {
+    final result = _maybeInvoke('performLayout', const []);
+    if (identical(result, _kNotImplemented)) {
+      size = constraints.smallest;
+      return;
+    }
+    // RenderBox.size has a @protected setter that may not be exposed in the
+    // bridge adapter table. Read it back from the interpreted field map.
+    if (!hasSize) {
+      try {
+        final reflected = _instance.get('size', visitor: _visitor);
+        if (reflected is Size) size = reflected;
+      } catch (_) {}
+    }
+    if (!hasSize) size = constraints.smallest;
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    final result = _maybeInvoke('paint', [context, offset]);
+    if (identical(result, _kNotImplemented)) super.paint(context, offset);
+  }
+
+  @override
+  bool hitTest(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTest');
+    if (method == null) return super.hitTest(result, position: position);
+    final raw = method
+        .bind(_instance)
+        .call(_visitor, [result], {'position': position});
+    if (raw is bool) return raw;
+    return false;
+  }
+
+  @override
+  bool hitTestSelf(Offset position) {
+    final method = _instance.klass.findInstanceMethod('hitTestSelf');
+    if (method == null) return super.hitTestSelf(position);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [position], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTestChildren');
+    if (method == null) {
+      return super.hitTestChildren(result, position: position);
+    }
+    try {
+      final raw = method
+          .bind(_instance)
+          .call(_visitor, [result], {'position': position});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  void setupParentData(RenderObject child) {
+    final result = _maybeInvoke('setupParentData', [child]);
+    if (identical(result, _kNotImplemented)) super.setupParentData(child);
   }
 }
