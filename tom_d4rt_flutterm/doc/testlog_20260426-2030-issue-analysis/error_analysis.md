@@ -106,9 +106,9 @@ Captured runs: `/tmp/c1_no_secondary_reg_essential.log`, `/tmp/c1_no_secondary_r
 
 ### C2 — `LateInitializationError: Late final variable 'color' has already been assigned` (single-script regression candidate)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Medium · **Owner:** interpreter (late-final reassignment guard) **and/or** test script
+**Severity:** Medium · **Owner:** interpreter (`visitSwitchStatement`)
 
 **Representative error**
 
@@ -118,14 +118,29 @@ Captured runs: `/tmp/c1_no_secondary_reg_essential.log`, `/tmp/c1_no_secondary_r
 
 - `widgets/web_browser_detection_test.dart` (44 occurrences — all in this one script)
 
-**Analysis.** All 44 hits come from one script. A `late final` field declared on a `StatefulWidget`'s `State` is being assigned more than once across rebuilds — the test exercises a custom widget with a `late final Color color;` initialised in `initState` or `build`. In native Dart, `late final` survives one assignment per object; if the proxy/state is reused across builds and the assignment runs on every `build`, you get this exact error.
+**Root cause.** The interpreter's `visitSwitchStatement` did not break out of the case-member loop after running the body of a `SwitchPatternCase` whose pattern is a `ConstantPattern` (Dart 3 `case _WbdSupport.full:` syntax). The non-constant pattern path already had the correct fall-through-prevention break (G-DOV-8); the constant-pattern path did not. After the matched case ran, `execute` stayed `true` and `matched` stayed `true`, so on the next loop iteration the next case's `statementsToExecute` were still executed via the bottom `if (execute) { ... }` block.
 
-Two candidate root causes:
+In `_WbdSupportBadge.build()`, `late final Color color; ... switch (support) { case _WbdSupport.full: color = …; case _WbdSupport.partial: color = …; … }` therefore reassigned `color` (and three other `late final` locals) for every subsequent case after the matched one — triggering `LateInitializationError` on the second assignment to the same `LateVariable` instance.
 
-- Interpreter bug: the `late final` field is associated with the wrong storage scope (e.g., per-build instead of per-`State`), so each rebuild looks like a fresh object on which the assignment is "first" — but the underlying native field has already been written to.
-- Script bug: the test really does assign on each build (genuine bug in user code that we should expose).
+Dart 3 pattern-switch semantics specify NO implicit fall-through (unlike legacy `SwitchCase` which requires an explicit `break`/`return`/`throw` to terminate the body). The fix mirrors that semantic.
 
-**Suggested fix.** Read `widgets/web_browser_detection_test.dart` in the test app and verify whether `late final color` is assigned once or per-build. If once → interpreter-side: late-final binding lifecycle in `Environment`/`InterpreterVisitor` field initialisation needs to be tied to the State, not the build closure. If per-build → fix the test (use plain `final` initialiser, or `late` without `final`).
+**Fix.** In `visitSwitchStatement` (both `tom_d4rt/lib/src/interpreter_visitor.dart` and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`):
+
+1. Declared a per-iteration `bool patternCaseMatchedThisIteration = false;` flag at the top of the for-member loop body.
+2. Set the flag to `true` when an `SSwitchPatternCase` / `SwitchPatternCase` with a `(S)ConstantPattern` matches.
+3. After the bottom `if (execute) { ... }` execution block, added `if (patternCaseMatchedThisIteration) { execute = false; break; }` to exit the loop, matching the existing G-DOV-8 break for non-constant patterns.
+
+Both interpreter trees were updated in lockstep.
+
+**Verification (post-fix).**
+
+- `widgets/web_browser_detection_test.dart` no longer produces any `LateInitializationError` (verified via grep on full test log).
+- Essential: 108/0/0 (matches baseline).
+- Important: 164/0/5 (matches baseline).
+- Secondary: 649/0/5 (matches baseline).
+- gii: 71/11/1 (matches baseline — same 11 failures, all from C1/C8/C9/C14/C17/C18/C19/C20).
+
+The remaining 19 framework errors in `web_browser_detection_test.dart` are layout-cascade issues ("BoxConstraints forces an infinite width" / "RenderBox was not laid out") similar in nature to C22 — script-side viewport sizing, not C2's late-final reassignment. Tracked separately from C2.
 
 ---
 
@@ -635,7 +650,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | Cluster | Severity | Owner | # scripts | Hard fails (gii/gir) |
 |---|---|---|---:|---:|
 | C1 — RenderObject mixin proxy gap | High | generator | 2 | 2 |
-| C2 — Late final 'color' (single-script) | Medium | interpreter or script | 1 | 0 |
+| C2 — Late final 'color' (single-script) ✅ Fixed | Medium | interpreter (visitSwitchStatement) | 1 | 0 |
 | C3 — `!` on null (broad) | Medium | mixed | 8 | 1 |
 | C4 — List<Widget> coercion | High | generator | 2 | 0 |
 | C5 — Map<ShortcutActivator, Intent> coercion | Medium-High | generator | 4 | 1 |

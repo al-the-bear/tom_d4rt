@@ -10526,6 +10526,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           for (int i = startIndex; i < node.members.length; i++) {
             final member = node.members[i];
             List<SAstNode> statementsToExecute = [];
+            // Cluster C2: Dart 3 pattern cases do not fall through. When a
+            // SwitchPatternCase with a constant pattern matches and runs,
+            // we must break out of the for loop after executing — otherwise
+            // subsequent cases would run with `execute` still true,
+            // re-evaluating their bodies (e.g. reassigning `late final`
+            // locals → "already been assigned").
+            bool patternCaseMatchedThisIteration = false;
 
             if (member is SSwitchCase) {
               if (!matched) {
@@ -10561,6 +10568,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                       (caseValue != null && caseValue == switchValue)) {
                     matched = true;
                     execute = true; // Start executing
+                    patternCaseMatchedThisIteration = true;
                     Logger.debug("[Switch] Matched pattern case: $caseValue");
                   }
                 }
@@ -10701,6 +10709,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   );
                 }
               }
+            }
+            // Cluster C2: Dart 3 SwitchPatternCase with a constant pattern
+            // does not fall through. After running its body, exit the
+            // member loop so subsequent cases are not re-executed.
+            if (patternCaseMatchedThisIteration) {
+              execute = false;
+              break;
             }
           }
           // Normal completion - exit the while(true) loop
