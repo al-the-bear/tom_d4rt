@@ -1174,6 +1174,31 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             ? rightOperandValue.call(this, [])
             : rightOperandValue;
 
+    // Plan G: null-propagation for arithmetic and bitwise operators.
+    //
+    // In strict Dart, `null * x`, `x - null`, etc. throw `NoSuchMethodError`
+    // (or a type-cast error inside a bridged adapter). The D4rt interpreter
+    // is intentionally lenient for dynamic UI scripts that may sample
+    // transient nulls — for example, an animated controller value read
+    // before the bridged getter is ready, or a layout parameter that hasn't
+    // been pumped yet — and returns `null` so the surrounding expression can
+    // null-cascade rather than aborting the render pipeline mid-frame.
+    //
+    // Only arithmetic and bitwise operators participate; equality (`==`,
+    // `!=`), comparison (`<`, `<=`, `>`, `>=`), and the short-circuit /
+    // null-coalescing operators (`&&`, `||`, `??`) keep their normal
+    // null-aware semantics. `+` is excluded so String concatenation keeps
+    // its existing `'$left$right'` stringify fallback (`'foo' + null`
+    // continues to produce `'foonull'`).
+    const nullPropagatingOps = <String>{
+      '*', '/', '~/', '%', '-',
+      '&', '|', '^', '<<', '>>', '>>>',
+    };
+    if (nullPropagatingOps.contains(operator.lexeme) &&
+        (left == null || right == null)) {
+      return null;
+    }
+
     if (left is num && right is num) {
       switch (operator) {
         case TokenType.PLUS:
