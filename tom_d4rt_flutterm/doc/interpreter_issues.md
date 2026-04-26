@@ -1550,6 +1550,24 @@ regression on gii/essential/important/secondary.
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
 
+After commit `4653c8b2` (this batch), the serial regression
+battery (D4RT_SKIP_BRIDGE_REGEN=1) reports:
+
+- **gii** `+67 ~1 -15` (was `+63 ~1 -19`) — net **+4 improvement**,
+  matching the four scripts that flipped to 0 framework errors
+  this and last batch (`layout_builder_adv`, `magnifier_decoration`,
+  `list_wheel_scroll_view`, `list_wheel_viewport`).
+- **essential** `+108` (all pass, unchanged).
+- **important** `+164 ~5` (all pass, unchanged).
+- **secondary** `+649 ~5` (all pass, unchanged).
+
+Note: the first attempt of the gii run hit a flaky test-app death
+at minute 0:47 (`animated_switcher_test.dart` rerun started a
+30-s timeout cascade across the remaining 24 tests). Running the
+suite a second time produced the clean `+67 ~1 -15` above and
+`animated_switcher_test.dart` runs cleanly in isolation, so the
+hang is not caused by any of the script-side fixes.
+
 What's still open — items below not yet swept:
 
 - `widgets/inherited_theme_test.dart` (6) — `PanelTheme.of called
