@@ -572,15 +572,6 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
-      // This script calls ui.FragmentProgram.fromAsset() for a non-existent
-      // shader asset. On the Linux desktop test runner the platform message
-      // sometimes never returns, causing the test (and all subsequent tests
-      // in the group) to time out. The script has been patched with a 2-second
-      // Future.any race to make the probe non-blocking. Skip has been kept to
-      // confirm the fix is effective; remove after one successful run.
-      skip: 'image_sampler_slot_test hangs intermittently on Linux '
-          '(FragmentProgram.fromAsset for missing asset — script patched, '
-          'skip retained until fix is verified)',
     );
 
     test(

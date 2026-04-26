@@ -2691,6 +2691,32 @@ classification level. Authoritative table in
   a future cluster ("interpreted-extends-bridged InheritedWidget proxy
   gap").
 
+### [BLOCKED] ui.FragmentProgram / ui.FragmentShader type access crashes Flutter engine (2026-04-26)
+
+**Affected script:** `dart_ui/image_sampler_slot_test.dart`
+
+**Root cause:** Any reference to `ui.FragmentProgram` or `ui.FragmentShader` as
+bare Dart types (e.g. `final Type t = ui.FragmentProgram;`) triggers native
+shader-system initialization in the Flutter engine that causes an unhandled
+async error **after** the HTTP 200 response is sent. The test app then exits
+with "Application finished." and all subsequent tests get "Connection reset by
+peer" cascade. This was confirmed step-by-step via bisection:
+- Minimal build body + full `_runProbes()` → crashes
+- Remove `_runProbes()` → passes
+- Re-add `_runProbes()` with only `ui.FragmentProgram` type probe → crashes
+- Re-add without any `ui.FragmentProgram` / `ui.FragmentShader` reference → passes
+
+**Workaround applied:** All probes that access `ui.FragmentProgram` or
+`ui.FragmentShader` removed from `_runProbes()` in
+`dart_ui/image_sampler_slot_test.dart`. A permanently-failing sentinel probe
+documents the gap.
+
+**Fix required:** Bridge-layer investigation of what `ui.FragmentProgram` type
+access triggers in the Flutter native shader pipeline and why it causes a
+deferred engine crash on Linux desktop.
+
+---
+
 ### [BLOCKED] Picture.toImage() with zero/invalid dimensions crashes native engine (2026-04-26)
 
 **Affected script:** `dart_ui/picture_rasterization_exception_test.dart`

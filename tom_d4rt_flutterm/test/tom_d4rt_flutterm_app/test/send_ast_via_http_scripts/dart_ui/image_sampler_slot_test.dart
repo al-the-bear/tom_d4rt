@@ -76,45 +76,22 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     _failed.clear();
     _notes.clear();
 
-    try {
-      final Type t = ui.FragmentProgram;
-      final String typeName = t.toString();
-      _record('FragmentProgram type is available', typeName.contains('FragmentProgram'));
-    } catch (e) {
-      _record('FragmentProgram type is available', false, note: e.toString());
-    }
-
-    try {
-      final Type t = ui.FragmentShader;
-      final String shaderType = t.toString();
-      _record('FragmentShader type is available', shaderType.contains('FragmentShader'));
-    } catch (e) {
-      _record('FragmentShader type is available', false, note: e.toString());
-    }
+    // D4RT-WORKAROUND: Any reference to ui.FragmentProgram or ui.FragmentShader
+    // (even as a bare Type reference, e.g. `final Type t = ui.FragmentProgram`)
+    // triggers native shader-system initialization that causes an unhandled async
+    // error after the HTTP response is sent, crashing the Flutter engine and
+    // cascading all subsequent tests as "Connection refused".
+    // All probes that touch FragmentProgram/FragmentShader are omitted.
+    // See interpreter_issues.md "FragmentProgram type access crashes Linux engine".
+    _record('FragmentProgram/FragmentShader probes', false,
+        note: 'BRIDGE BUG: accessing ui.FragmentProgram or ui.FragmentShader '
+            'crashes Linux test app — probes omitted (see issues)');
 
     try {
       final String samplerName = 'ImageSamplerSlot';
       _record('ImageSamplerSlot symbol is known', samplerName.contains('SamplerSlot'));
     } catch (e) {
       _record('ImageSamplerSlot symbol is known', false, note: e.toString());
-    }
-
-    try {
-      // D4RT-WORKAROUND: FragmentProgram.fromAsset hangs on Linux for missing
-      // assets (platform channel never returns). Race with a 2 s timeout so
-      // the probe degrades gracefully without blocking the test suite.
-      await Future.any(<Future<void>>[
-        ui.FragmentProgram.fromAsset('shaders/not_existing_sampler_demo.frag')
-            .then<void>((_) {}),
-        Future<void>.delayed(const Duration(seconds: 2)),
-      ]);
-      _record('FragmentProgram.fromAsset probe', true);
-    } catch (e) {
-      _record(
-        'FragmentProgram.fromAsset probe',
-        true,
-        note: 'Expected in test env without bundled shader asset: $e',
-      );
     }
 
     try {
