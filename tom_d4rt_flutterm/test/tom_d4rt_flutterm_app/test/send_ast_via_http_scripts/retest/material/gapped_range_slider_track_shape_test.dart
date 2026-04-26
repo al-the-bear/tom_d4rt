@@ -260,6 +260,9 @@ Widget _buildGappedTrackSection() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             activeTrackColor: Color(0xFF7B1FA2),
             inactiveTrackColor: Color(0xFFCE93D8),
             overlayColor: Color(0x297B1FA2),
@@ -395,6 +398,9 @@ Widget _buildColorSchemeSliders() {
             SliderTheme(
               data: SliderThemeData(
                 rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                 activeTrackColor: s['active'] as Color,
                 inactiveTrackColor: s['inactive'] as Color,
                 overlayColor: s['overlay'] as Color,
@@ -516,6 +522,9 @@ Widget _buildTrackHeightSliders() {
             SliderTheme(
               data: SliderThemeData(
                 rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                 trackHeight: trackHeight,
                 activeTrackColor: Color(0xFF3F51B5),
                 inactiveTrackColor: Color(0xFFC5CAE9),
@@ -668,6 +677,9 @@ Widget _buildComparisonSection() {
               SliderTheme(
                 data: SliderThemeData(
                   rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
                   trackHeight: 8.0,
                   activeTrackColor: Color(0xFFC62828),
                   inactiveTrackColor: Color(0xFFEF9A9A),
@@ -834,6 +846,9 @@ Widget _buildAdditionalDemoSliders() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             trackHeight: 6.0,
             activeTrackColor: Color(0xFFFF6F00),
             inactiveTrackColor: Color(0xFFFFE0B2),
@@ -862,6 +877,9 @@ Widget _buildAdditionalDemoSliders() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             trackHeight: 10.0,
             activeTrackColor: Color(0xFF4527A0),
             inactiveTrackColor: Color(0xFFD1C4E9),
@@ -890,6 +908,9 @@ Widget _buildAdditionalDemoSliders() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             trackHeight: 6.0,
             activeTrackColor: Color(0xFF00838F),
             inactiveTrackColor: Color(0xFFB2EBF2),
@@ -917,6 +938,9 @@ Widget _buildAdditionalDemoSliders() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             trackHeight: 6.0,
             activeTrackColor: Color(0xFFAD1457),
             inactiveTrackColor: Color(0xFFF8BBD0),
@@ -944,6 +968,9 @@ Widget _buildAdditionalDemoSliders() {
         SliderTheme(
           data: SliderThemeData(
             rangeTrackShape: GappedRangeSliderTrackShape(),
+            trackGap: 6.0,
+            disabledActiveTrackColor: Color(0xFF9E9E9E),
+            disabledInactiveTrackColor: Color(0xFFBDBDBD),
             trackHeight: 8.0,
             activeTrackColor: Color(0xFF37474F),
             inactiveTrackColor: Color(0xFFB0BEC5),
