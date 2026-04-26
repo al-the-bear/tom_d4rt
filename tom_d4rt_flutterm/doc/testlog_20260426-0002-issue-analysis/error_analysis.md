@@ -690,35 +690,127 @@ largest cluster of both gii failures and framework noise.
 
 ---
 
-### Plan E — InheritedWidget proxy gap (3 gii failures)
+### Plan E — InheritedWidget proxy gap (3 gii failures) — DEFERRED 2026-04-26
 
 **Affected scripts:** `widgets/window_scope_test.dart`,
 `widgets/inherited_theme_test.dart`, `widgets/inherited_widget_test.dart`
 
-**Root cause (from Section Q closure note in `interpreter_issues.md`):**
-- `InheritedModel.inheritFrom<T>` bridge does not forward the type argument `T`
-  to the native call (`widgets_bridges.b.dart:44563–44568`).
-- No proxy class is generated for `InheritedWidget` / `InheritedModel`
-  analogous to the `StatelessWidget` proxy, so the interpreted subclass does
-  not materialise as a distinct native `Type` in the element tree.
-- Flutter's runtime-type lookup (`context.dependOnInheritedWidgetOfExactType<T>`)
-  cannot find the interpreted class.
+**Failure surface (12 framework errors total):**
+- `inherited_widget_test.dart` — 5 errors:
+  `AppStateScope.watch/read called without AppStateScope in context`
+- `inherited_theme_test.dart` — 6 errors:
+  `PanelTheme.of/read called with no PanelTheme in context`
+- `window_scope_test.dart` — 1 error:
+  `Assertion failed: No _DemoWindowScope found in context`
 
-**Fix approach:**
-1. **Generator:** Add `InheritedWidget` and `InheritedModel` to the set of
-   classes that receive proxy generation. The proxy must override `updateShouldNotify`
-   to delegate to the interpreter.
-2. **Bridge patch:** In `widgets_bridges.b.dart` (via generator or `D4UserBridge`),
-   fix `InheritedModel.inheritFrom<T>` to forward the type argument. This may
-   require a manual `D4UserBridge` since the type argument is an interpreter-side
-   class, not a native type.
-3. Regenerate flutterm bridges.
-4. Run `flutter test test/generator_interpreter_issues_test.dart` — expect
-   `window_scope_test.dart`, `inherited_theme_test.dart`,
-   `inherited_widget_test.dart` to pass.
+In every failure the script defines a subclass of `InheritedWidget` /
+`InheritedTheme` / `InheritedModel`, builds it into the tree, then a
+descendant calls `context.dependOnInheritedWidgetOfExactType<MyClass>()`
+and the lookup returns `null` — which the script handles by `throw`ing
+its own `FlutterError`/assertion. The construction succeeds; only the
+exact-type lookup fails.
 
-**Note:** Depends partially on Plan D (the proxy infrastructure pattern is the
-same). Implement after Plan D is complete.
+**Investigation 2026-04-26:**
+
+Investigation closed with the following diagnosis. The investigation
+surface is much larger than the original Plan E description indicated
+— the right comparison is to the deferred Plan D, not to a tactical
+generator tweak.
+
+1. **InheritedWidget proxy is already in place.** A proxy
+   (`_InterpretedInheritedWidget`) is registered in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart:228` and
+   the supertype registry already maps `InheritedTheme`, `InheritedModel`,
+   `InheritedNotifier` → `InheritedWidget` (lines 117-137). The
+   Bug-46 FIX in `callable.dart:860` correctly recognises the proxy
+   when scripts `super`-call the empty `InheritedWidget` constructor.
+   So construction succeeds and the script's interpreted subclass
+   ends up in the element tree as a real `_InterpretedInheritedWidget`.
+
+2. **The actual root cause is not a missing proxy.** It is the
+   collision of two facts:
+   - The bridge adapters for `dependOnInheritedWidgetOfExactType`,
+     `getInheritedWidgetOfExactType`, and
+     `getElementForInheritedWidgetOfExactType` (emitted on every
+     `Element` subclass bridge — `widgets_bridges.b.dart:6366`,
+     `:22102`, `:33455`, `:33890`) **ignore the `typeArgs`
+     parameter** and call the native method with no `T`, so Dart
+     defaults to `T = InheritedWidget`.
+   - Even if `T` were forwarded, every interpreted `InheritedWidget`
+     subclass collapses to the same native `runtimeType`
+     (`_InterpretedInheritedWidget`). Flutter's
+     `_inheritedElements` map is keyed by `widget.runtimeType`,
+     so `dependOnInheritedWidgetOfExactType<AppStateScope>()` could
+     never disambiguate between two interpreted subclasses sharing
+     the proxy class — the lookup is fundamentally type-erased.
+
+3. **The fix shape is Plan-D-sized, not Plan-E-sized.** The
+   original Plan E sketch ("add `InheritedWidget` / `InheritedModel`
+   to `proxyClasses`, fix `InheritedModel.inheritFrom<T>` to
+   forward T") would not actually move the needle: the proxy is
+   already generated and the lookup-by-T problem is downstream of
+   the proxy. A real fix needs all of:
+   - A bridge-generator change that, for the three exact-type
+     lookup methods, emits an adapter which honours `typeArgs`
+     and dispatches to a runtime hook when `typeArgs` is non-empty.
+   - A new `D4` runtime registry (e.g.
+     `D4.registerInheritedTypeResolver`) that the generated
+     adapter consults.
+   - A resolver implementation (in
+     `d4rt_runtime_registrations.dart`) that walks
+     `Element.visitAncestorElements` looking for an
+     `InheritedElement` whose widget is a
+     `_InterpretedInheritedWidget` whose
+     `_instance.klass` matches the requested `RuntimeType`
+     (with supertype walk for `InheritedTheme.of`-style
+     subclass dispatch), then calls `dependOnInheritedElement`.
+   - Mirroring of all interpreter-side changes between
+     `tom_d4rt_ast` and `tom_d4rt`.
+   - A full bridge regeneration of `tom_d4rt_flutterm`.
+   - Serial verification across essential / important / secondary
+     suites.
+
+   That scope (generator surgery + cross-interpreter mirroring +
+   identity-matching ancestor walk + full regen + serial regression
+   sweep) is the same scale as the deferred Plan D. The original
+   Plan E text already flagged this dependency:
+
+     > "Note: Depends partially on Plan D (the proxy infrastructure
+     > pattern is the same). Implement after Plan D is complete."
+
+4. **Decision.** Defer Plan E to a dedicated cluster, paired with
+   Plan D. Continue with the tactical clusters in this analysis
+   that fit the cluster-fix verification protocol.
+
+**State at deferral:** baseline 12 framework errors across the three
+scripts. No code changes landed in this turn. `bisect/current.dart`
+left clean. error_analysis.md updated with this diagnosis and
+deferral.
+
+**Re-entry checklist (when paired with Plan D):**
+1. Add `D4.registerBridgedMethodInterceptor(className, methodName,
+   interceptor)` to `tom_d4rt_ast/lib/src/runtime/generator/d4.dart`
+   and mirror in `tom_d4rt/lib/src/generator/d4.dart`.
+2. Modify `tom_d4rt_generator/lib/src/bridge_generator.dart` to
+   emit a hook check at the top of method adapters whose name
+   matches `dependOnInheritedWidgetOfExactType`,
+   `getInheritedWidgetOfExactType`, or
+   `getElementForInheritedWidgetOfExactType`. (Or generalise to
+   "any method with a generic `T` type parameter that is part
+   of the configured intercept list".)
+3. Implement the resolver in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`:
+   `Element.visitAncestorElements` → match
+   `InheritedElement.widget._instance.klass` against
+   `typeArgs[0]` (`RuntimeType`) by identity / supertype chain,
+   then `dependOnInheritedElement(matched, aspect: aspect)`.
+4. Regenerate flutterm bridges
+   (`tom_d4rt_flutterm/tool/regenerate_bridges.dart`).
+5. Verify the three scripts via bisect harness, then full
+   `generator_interpreter_issues_test`, then serial
+   essential/important/secondary suites.
+6. Update this section to RESOLVED only after all four suites
+   match baseline (no regression).
 
 ---
 
