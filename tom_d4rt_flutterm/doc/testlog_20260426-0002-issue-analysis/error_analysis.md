@@ -690,6 +690,140 @@ largest cluster of both gii failures and framework noise.
 
 ---
 
+### Plan D — Attempt 2 (interpreter-only RenderBox proxy MVP) — **REVERTED 2026-04-26**
+
+**Status:** The narrow `_InterpretedRenderBox` proxy attempt was reverted
+after secondary-suite regression confirmation. Working tree restored to
+HEAD. The narrative below is preserved for the record; treat it as a
+*lessons-learned* note, not as the current state of the code.
+
+**What works:**
+
+- Scripts whose direct `bridgedSuperclass` is `RenderBox` now produce a
+  native `_InterpretedRenderBox` at the bridge boundary. The proxy
+  caches itself on `instance.nativeProxy` so identity is preserved
+  across boundary crossings (BoxHitTestEntry's `target` parameter,
+  RenderObjectWidget.createRenderObject's RenderObject return, etc.).
+- `_InterpretedRenderBox.performLayout()` invokes the interpreted
+  `performLayout` method, then reads back `instance.get('size')` to
+  push the script-assigned size onto the native proxy (works around
+  `RenderBox.size`'s @protected setter not being exposed in the
+  bridge-generated setter table). Falls back to `constraints.smallest`
+  if the script didn't set a size.
+- `paint`, `hitTest`, `hitTestSelf`, `hitTestChildren`, `setupParentData`
+  delegate to interpreted overrides when present, else inherit
+  RenderBox defaults.
+
+**What this closes (failing → progressed past bridge boundary):**
+
+- `rendering/render_absorb_pointer_test.dart` — was failing at "expected
+  RenderBox, got InterpretedInstance"; now reaches the script body and
+  fails only on a benign `RenderFlex overflowed by 76 pixels` layout
+  warning (not the proxy boundary).
+- `rendering/box_hit_test_result_test.dart` — was failing at the
+  BoxHitTestEntry constructor's `target` parameter; now reaches the
+  script body. The remaining failure (`Cannot invoke method 'contains'
+  on null`) is a script-intrinsic bug — `_MockRenderBox` is never
+  inserted into the render tree so its `size` is null, exposed only
+  because the boundary check now passes.
+
+**What this does NOT close (Plan-D remainders, need Phase 2):**
+
+- `rendering/render_aligning_shifted_box_test.dart` — script extends
+  `RenderAligningShiftedBox`, not `RenderBox`. The proxy walk only
+  tries the bridgedSuperclass name 'RenderAligningShiftedBox' (no
+  factory registered) and never reaches 'RenderBox'. Needs a
+  per-abstract-base proxy class (Phase 2): `_InterpretedRenderShiftedBox`,
+  `_InterpretedRenderAligningShiftedBox`, etc. Each must extend the
+  matching concrete superclass so the framework's internal casts (e.g.
+  `child is RenderObjectWithChildMixin<RenderObject>`) succeed.
+- `rendering/render_box_container_defaults_mixin_test.dart` — failure is
+  on `_DefaultsContainer` (a Widget, not RenderBox) — different boundary.
+- `widgets/render_object_element_test.dart` — failure is on
+  `_DemoPriorityParentDataWidget` (a ParentDataWidget) — different
+  boundary, needs a ParentDataWidget proxy.
+- `rendering/custom_painter_semantics_test.dart` — failure is on a typed
+  callback (`semanticsBuilder`), not a RenderBox boundary.
+- `rendering/relayout_when_system_fonts_change_mixin_test.dart` — also a
+  RenderBox subclass; the surface error needs further analysis (likely
+  similar to absorb_pointer, behind the boundary now).
+
+**Why broader proxy registrations were rejected (attempt 2.1):** Trying
+to register the same `_InterpretedRenderBox` factory under broader names
+('RenderObject', 'RenderShiftedBox', 'RenderAligningShiftedBox',
+'RenderProxyBox', 'RenderProxyBoxWithHitTestBehavior',
+'RenderConstrainedBox') regressed the secondary suite by 254 tests
+(from 649 → 395 passes). The issue: the proxy walk's `proxy is T` cast
+at d4.dart:1589 succeeds whenever `_InterpretedRenderBox is T` — but
+when T is `RenderObject`, that cast trivially succeeds, so any
+interpreted class whose bridgedSuperclass walk reaches 'RenderObject'
+ends up with a `_InterpretedRenderBox` that is structurally wrong for
+its actual hierarchy (e.g. a script extending `RenderSliver` is NOT a
+RenderBox, but the cast `proxy is RenderObject` would succeed and the
+proxy would be installed). The narrow 'RenderBox'-only registration
+avoids this because the candidate name 'RenderBox' is only added to
+the walk when the script's bridgedSuperclass IS `RenderBox`.
+
+**Verification (with narrow 'RenderBox'-only registration):**
+
+| Suite                            | Baseline       | With Plan D    | Delta            |
+| -------------------------------- | -------------- | -------------- | ---------------- |
+| `generator_interpreter_issues`   | 65 / 1 / 18    | 69 / 1 / 13    | **+4 / -5**      |
+| `essential_classes`              | 108 / 0 / 0    | 108 / 0 / 0    | unchanged        |
+| `important_classes`              | 169 / 5 / 0    | 169 / 5 / 0    | unchanged        |
+| `secondary_classes`              | 649 / 5 / 0    | 376 / 5 / 273  | **−273**         |
+
+**Why reverted (2026-04-26 attempt 2.2 — verification after summary
+restart):** Re-running the secondary suite with the narrow registration
+applied reproduced a hard regression. The test app crashes during
+`Building widget [rendering/render_indexed_semantics_test.dart]`
+(httpMs jumps from 822 → 5436, status `transport_error`, "Lost
+connection to device"). All ~272 tests after that point fail with
+`Bad state: Transport failure` because the test-app HTTP server is
+down. With the proxy reverted (HEAD), the same script runs in 822 ms,
+status `success`, and the suite finishes 649 / 5 / 0.
+
+The crash mode is not interpreter-side: the script defines no
+classes (top-level functions only), so `_InterpretedRenderBox` is
+never instantiated when interpreting it. The hang happens *during
+build inside the test app*, with a silenced
+`framework.dart:6268 '_dependents.isEmpty'` assertion preceding the
+connection loss. Hypothesis: defining a real `RenderBox` subclass
+(`_InterpretedRenderBox`) in the test app introduces a side-effect
+in the render tree's debug machinery (registered descriptions,
+performance overlay, semantics enumeration, etc.) that interacts
+poorly with the leftover `_dependents` from the prior
+`render_ignore_pointer_test.dart` build. Reproduction requires
+running the secondary suite end-to-end, so further root-causing is
+multi-hour work and out of scope for the narrow MVP.
+
+The +4 gii / 0 essential / 0 important deltas don't justify the
+−273 secondary regression. Per cluster-fix protocol ("Revert or
+narrow the fix if it causes a regression in any of the four
+suites"), Plan D is reverted. Phase 2 (per-abstract-base proxies +
+ParentDataWidget proxy) and Phase 3 (generator-side RenderObject
+proxy emission) remain DEFERRED — see *Remaining work* below.
+
+**Remaining work for full Plan D close:**
+
+1. Phase 2: per-abstract-base proxy classes for `RenderShiftedBox`,
+   `RenderAligningShiftedBox`, `RenderProxyBox`,
+   `RenderProxyBoxWithHitTestBehavior`. Each extends the matching
+   concrete superclass directly.
+2. Phase 2: ParentDataWidget proxy class (`_InterpretedParentDataWidget`)
+   so scripts subclassing `ParentDataWidget` can flow through bridge
+   boundaries that expect `Widget`.
+3. Phase 2: investigate `_DefaultsContainer`-style cases — script
+   classes that are Widgets but get rejected at bridge boundaries
+   despite the existing StatelessWidget/StatefulWidget proxies.
+4. Phase 3 (multi-day): generator-side `RenderObjectProxy` emission
+   (the originally scoped Plan D step #3) for any RenderObject
+   subclass — replaces the hand-written proxies in (1) and (2) above
+   and is the path to scaling to all RenderBox/RenderObject hierarchies
+   without manual registration.
+
+---
+
 ### Plan E — InheritedWidget proxy gap (3 gii failures) — DEFERRED 2026-04-26
 
 **Affected scripts:** `widgets/window_scope_test.dart`,
