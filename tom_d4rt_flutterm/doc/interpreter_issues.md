@@ -1538,7 +1538,8 @@ regression on gii/essential/important/secondary.
 | `widgets/scroll_start_notification_test.dart` | 1 | 0 | (Layout fix from prior batch.) | `bb74fd23` |
 | `widgets/root_element_mixin_test.dart` | 1 | 0 | Same. | `bb74fd23` |
 | `widgets/scrollable_details_test.dart` | 1 | 0 | Same. | `bb74fd23` |
-| `widgets/img_element_platform_view_test.dart` | n | 0 | Same. | `bb74fd23` |
+| `widgets/img_element_platform_view_test.dart` | 18 | 18 | Partial: bb74fd23 wrapped only `_HeroCalloutRow`'s `LayoutBuilder` in `IntrinsicHeight`. The script's second `LayoutBuilder` (`_SeoComparison`) was missed, so the Row(stretch) cascade still produced 18 errors (1 BoxConstraints + 16 RenderBox-not-laid-out + 1 sliver_multi_box_adaptor child.hasSize). Completion is recorded in the next row. | `bb74fd23` |
+| `widgets/img_element_platform_view_test.dart` | 18 | 0 | Completed bb74fd23: `_SeoComparison` (line ~1859) had the same Row(crossAxisAlignment.stretch) inside a SingleChildScrollView pattern. Wrapped its wide-branch Row in `IntrinsicHeight` mirroring `_HeroCalloutRow`'s comment on line 757 ("IntrinsicHeight bounds the Row's vertical extent so that CrossAxisAlignment.stretch does not propagate the unbounded height inherited from the SingleChildScrollView ancestor"). Verified isolated 18 → 0. | `fe03695f` |
 | `widgets/slotted_multi_child_test.dart` | n | 0 | Same. | `bb74fd23` |
 | `widgets/animated_switcher_test.dart` | 1 | 0 | Bumped fixed `SizedBox` height to fit the inner Column without a 4-pixel bottom RenderFlex overflow. | `bb74fd23` |
 | `rendering/custom_painter_semantics_test.dart` | 2 | 1* | Region 4 "Label" SemanticRegion height 35 → 42 to fit Icon(18) + SizedBox(2) + bold Text without ~3-px RenderFlex bottom overflow. The remaining error is interpreter-level (`semanticsBuilder` returning `InterpretedFunction`). | `39baf0f7` |
@@ -1605,6 +1606,22 @@ regression battery reports:
   was already passing; only the four logged framework errors went
   away).
 - **hardly_relevant_5** `+230` (unchanged).
+
+After the current batch (`img_element_platform_view`, completing
+the partial bb74fd23 fix), the regression battery reports:
+
+- **gii** `+69 ~1 -13` (unchanged — img_element script lives in
+  `hardly_relevant_4`, not gii).
+- **essential** `+108` (unchanged).
+- **important** `+164 ~5` (unchanged).
+- **secondary** `+649 ~5` (unchanged when run alone). The chained
+  run hit the same flaky test-app death documented above
+  (`+71 ~5 -578` cascade after `[process] test app exited with
+  code 0` mid-run); a clean isolated re-run produced
+  `+649 ~5`. Not a regression caused by the fix.
+- The 18 logged framework errors on
+  `widgets/img_element_platform_view_test.dart` (which lives in
+  `hardly_relevant_4`) went away.
 
 Note: the first attempt of an earlier gii run hit a flaky
 test-app death at minute 0:47 (`animated_switcher_test.dart` rerun
