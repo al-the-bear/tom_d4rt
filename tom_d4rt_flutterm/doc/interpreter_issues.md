@@ -2777,6 +2777,122 @@ important / secondary.** Committed as `403e18ee`.
 
 ---
 
+### [X] Fixed (28, 2026-04-26) — Plan E: InheritedWidget exact-type lookup honours interpreted subclass typeArgs
+
+**Affected scripts (gii):**
+- `widgets/window_scope_test.dart` — RESOLVED end-to-end
+- `widgets/inherited_theme_test.dart` — exact-type lookup machinery resolved; residual null-context boundary tracked as Plan E2
+- `widgets/inherited_widget_test.dart` — same as above
+
+**Symptom (was):** Scripts defined a subclass of `InheritedWidget` /
+`InheritedTheme` / `InheritedModel`, mounted it in the tree, and a
+descendant called
+`context.dependOnInheritedWidgetOfExactType<MyClass>()`. The lookup
+returned `null`, the script handler threw its own `FlutterError`, and
+the test failed with `AppStateScope.watch called without
+AppStateScope in context`, `PanelTheme.of called with no PanelTheme
+in context`, or `Assertion failed: No _DemoWindowScope found in
+context`.
+
+**Root cause (was):** Two compounding issues:
+
+1. The bridge adapters for `dependOnInheritedWidgetOfExactType`,
+   `getInheritedWidgetOfExactType`, and
+   `getElementForInheritedWidgetOfExactType` (emitted on every
+   `Element` subclass bridge) **ignored the `typeArgs`** parameter
+   and called the native method without `T`, so Dart defaulted to
+   `T = InheritedWidget`.
+
+2. Even if `T` were forwarded, every interpreted `InheritedWidget`
+   subclass collapses to the same native `runtimeType`
+   (`_InterpretedInheritedWidget`). Flutter's
+   `_inheritedElements` map is keyed by `widget.runtimeType`, so
+   subclass disambiguation could never work natively — the lookup is
+   fundamentally type-erased on the interpreter side and the
+   resolver has to be runtime-driven, matching the
+   `_instance.klass.name` directly.
+
+**Fix shape:** generator + interpreter + runtime-registrations.
+
+1. **Runtime registry (interpreter, mirrored):**
+   `D4.registerBridgedMethodInterceptor(className, methodName,
+   interceptor)` and `D4.registerBridgedStaticMethodInterceptor(...)`
+   in both `tom_d4rt/lib/src/generator/d4.dart` and
+   `tom_d4rt_ast/lib/src/runtime/generator/d4.dart`. Both d4.dart
+   files now also `show BridgedStaticMethodAdapter` from
+   registration.dart.
+
+2. **Bridge generator emits hooks:** Two intercept tables in
+   `tom_d4rt_generator/lib/src/bridge_generator.dart` —
+   `_bridgedMethodInterceptHooks` (for the three exact-type lookups
+   on `Element`) and `_bridgedStaticMethodInterceptHooks` (for
+   `InheritedModel.inheritFrom`). Each generated adapter checks the
+   registry before validating arguments and forwards
+   `(visitor, target?, positional, named, typeArgs)` to the
+   interceptor when registered.
+
+3. **Resolver (`tom_d4rt_flutterm`):** A single resolver in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+   walks `Element.visitAncestorElements`, matching each ancestor's
+   widget against the requested type argument by
+   `widget._instance.klass.name`. Subclass dispatch
+   (`InheritedTheme.of` looking for a concrete `_FooTheme`) folds
+   in the interpreted-supertype walk so the resolver matches
+   anywhere in the hierarchy. The
+   `InheritedModel.inheritFrom<T>` static path uses the same
+   resolver and additionally honours the `aspect` named parameter
+   via `element.dependOnInheritedElement(matched, aspect: aspect)`.
+
+4. **Visitor-passing fix on proxy `build()` calls:** The four
+   proxy widget classes
+   (`_InterpretedStatelessWidget._buildShim`,
+   `_InterpretedStatefulWidget`'s `_InterpretedState.build`, and
+   the InheritedWidget / InheritedTheme proxy build paths) now
+   pass `_visitor` as the third argument to
+   `D4.extractBridgedArg<Widget>(result, 'build', _visitor)`.
+   Without this, framework-driven build paths ran with
+   `D4._activeVisitor` unset and interface-proxy resolution
+   silently skipped, leaving downstream interpreted widgets
+   visible as `InterpretedInstance` to the next bridge call site
+   (surfaced as 6× `_BuildCounterShell expected Widget` errors
+   during the first attempt).
+
+5. **Cross-interpreter mirror:** Every change above is duplicated
+   between `tom_d4rt` and `tom_d4rt_ast`. The d4.dart pair, the
+   generator emission table, and the runtime-registrations
+   resolver are identical line-for-line.
+
+**Verification (2026-04-26, serial flutter test runs,
+`D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+| Suite | Baseline (post-G/F/27) | Post-Plan-E |
+|-------|------------------------|-------------|
+| `generator_interpreter_issues_test`  | 68 / 14 / 1 | **71 / 11 / 1** (+3 pass, -3 fail) |
+| `essential_classes_test`             | 108 / 0 / 0 | **108 / 0 / 0** (match) |
+| `important_classes_test`             | 164 / 5 / 0 | **164 / 5 / 0** (match) |
+| `secondary_classes_test`             | 649 / 5 / 0 | **649 / 5 / 0** (match) |
+
+Test-run artefacts in `doc/testlog_plane_verify/`.
+
+**Per-script outcome:**
+
+| Script | Pre | Post |
+|--------|-----|------|
+| `window_scope_test`     | 1 framework error | **0 framework errors, passes** |
+| `inherited_theme_test`  | 6 framework errors | **1 framework error** (null-context, Plan E2) |
+| `inherited_widget_test` | 5 framework errors | **1 framework error** (null-context, Plan E2) |
+
+**Plan E2 (open):** The two residual gii failures surface
+`Cannot invoke method 'dependOnInheritedWidgetOfExactType' on
+null` — the receiver `BuildContext` is itself null when the script
+reaches the call. That is downstream of Plan E (the resolver only
+fires after the receiver is non-null) and is a separate cluster.
+Likely an interpreted `static` helper accepting
+`BuildContext context` and being called from a closure that loses
+the captured context. Tracked separately.
+
+---
+
 ### [RESOLVED 2026-04-26] Picture.toImage() with zero/invalid dimensions — diagnosis was wrong
 
 **Affected script:** `dart_ui/picture_rasterization_exception_test.dart`

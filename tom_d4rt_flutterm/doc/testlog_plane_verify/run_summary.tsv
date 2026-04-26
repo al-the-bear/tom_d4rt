@@ -1,0 +1,5 @@
+suite	status	passed	failed	skipped	framework_errors
+essential_classes_test	PASS	108	0	0	1
+important_classes_test	PASS	164	0	5	1
+secondary_classes_test	PASS	649	0	5	33
+generator_interpreter_issues_test	FAIL	71	11	1	11

@@ -829,7 +829,125 @@ proxy emission) remain DEFERRED — see *Remaining work* below.
 
 ---
 
-### Plan E — InheritedWidget proxy gap (3 gii failures) — DEFERRED 2026-04-26
+### Plan E — InheritedWidget proxy gap (3 gii failures) — RESOLVED 2026-04-26 (window_scope), follow-up cluster opened for residual null-context
+
+**Status update (2026-04-26 follow-up):** Re-entered with the full
+generator + interpreter + runtime-registrations scope sketched in
+the deferral checklist. All planned pieces landed:
+
+1. **Runtime registry for instance-method interceptors.** Added
+   `D4.registerBridgedMethodInterceptor(className, methodName, interceptor)`
+   and `D4.findBridgedMethodInterceptor(...)` to
+   `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and mirrored to
+   `tom_d4rt/lib/src/generator/d4.dart`. The generated method
+   adapter consults the registry before validating arguments —
+   when a hook is registered, the script's call is dispatched to
+   the runtime resolver instead of the native receiver method.
+
+2. **Runtime registry for static-method interceptors.** Added
+   `D4.registerBridgedStaticMethodInterceptor(...)` /
+   `D4.findBridgedStaticMethodInterceptor(...)` (same pair, but
+   for the `BridgedStaticMethodAdapter` typedef). Mirrored across
+   both d4.dart files. Required updating the
+   `import '../bridge/registration.dart' show BridgedMethodAdapter`
+   line to `show BridgedMethodAdapter, BridgedStaticMethodAdapter`.
+
+3. **Bridge generator emits hooks at the top of selected
+   adapters.** Two intercept tables in
+   `tom_d4rt_generator/lib/src/bridge_generator.dart`:
+   - `_bridgedMethodInterceptHooks`: `{ 'dependOnInheritedWidgetOfExactType': 'Element', ... }`
+     — emits the instance-method hook check before
+     `requireMinArgs`.
+   - `_bridgedStaticMethodInterceptHooks`: `{ 'inheritFrom': 'InheritedModel' }`
+     — same pattern but in `_generateStaticMethodBody`.
+
+4. **Resolver implementation** lives in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`. It
+   walks `Element.visitAncestorElements`, matching each
+   ancestor's widget against the requested type argument by
+   `_instance.klass.name`. Subclass dispatch (`InheritedTheme.of`
+   looking for a concrete `_FooTheme`) folds in the supertype walk
+   so the resolver matches anywhere in the interpreted hierarchy.
+   The `InheritedModel.inheritFrom<T>` static path uses the same
+   resolver and additionally honours the `aspect` named parameter
+   via `element.dependOnInheritedElement(matched, aspect: aspect)`.
+
+5. **Visitor-passing fix on proxy `build()` calls.** The four
+   proxy widget classes now pass `_visitor` as the third argument
+   to `D4.extractBridgedArg<Widget>(result, 'build', _visitor)`.
+   Without this, framework-driven build paths ran with
+   `D4._activeVisitor` unset and interface-proxy resolution
+   silently skipped, leaving downstream interpreted widgets
+   visible as `InterpretedInstance` to the next bridge call site.
+   Surfaced as 6× `_BuildCounterShell expected Widget` errors
+   during the first attempt; fully resolved by passing the
+   visitor explicitly.
+
+6. **Cross-interpreter mirror.** Every change above is duplicated
+   between `tom_d4rt` and `tom_d4rt_ast`. The d4.dart pair, the
+   generator emission table, and the runtime-registrations
+   resolver are identical line-for-line.
+
+7. **Bridge regeneration.** Ran
+   `tom_d4rt_flutterm/tool/regenerate_bridges.dart` after each
+   generator change. The hook block is visible in
+   `widgets_bridges.b.dart:45133` (Element instance methods) and
+   in the InheritedModel.inheritFrom static-method body.
+
+**Verification (serial flutter test runs, `D4RT_SKIP_BRIDGE_REGEN=1`):**
+
+| Suite | Baseline (post-G) | Post-Plan-E | Δ |
+|-------|-------------------|-------------|---|
+| `essential_classes_test`             | 108 / 0 / 0 | 108 / 0 / 0 | match |
+| `important_classes_test`             | 164 / 5 / 0 | 164 / 5 / 0 | match |
+| `secondary_classes_test`             | 649 / 5 / 0 | 649 / 5 / 0 | match |
+| `generator_interpreter_issues_test`  | 68 / 14 / 1 | **71 / 11 / 1** | **+3 pass / -3 fail** |
+
+Per-target script verification (gii):
+
+| Script | Pre-Plan-E | Post-Plan-E | Status |
+|--------|-----------|-------------|--------|
+| `widgets/window_scope_test.dart`     | 1 framework error (`Assertion failed: No _DemoWindowScope found in context`) | **0 framework errors, passes** | RESOLVED |
+| `widgets/inherited_theme_test.dart`  | 6 framework errors (`PanelTheme.of called with no PanelTheme in context`)    | **1 framework error** (`Cannot invoke method 'dependOnInheritedWidgetOfExactType' on null`) | exact-type lookup machinery resolved; new boundary surfaces (Plan E2) |
+| `widgets/inherited_widget_test.dart` | 5 framework errors (`AppStateScope.watch called without AppStateScope in context`) | **1 framework error** (same as above)              | same as above |
+
+Test-run artefacts captured in
+`doc/testlog_plane_verify/`: per-suite log + result.json plus
+`run_summary.tsv`.
+
+The InheritedWidget exact-type lookup itself is now fixed: scripts
+that previously asserted `lookup returned null` no longer do, the
+ancestor walk locates the matching `_InterpretedInheritedWidget`,
+and the `_instance.klass.name`-keyed dispatch returns the right
+ancestor regardless of `runtimeType` collision. Window scope's
+sole error path is closed end-to-end.
+
+**Plan E2 — Null `BuildContext` receiver in Inherited lookups (open).**
+
+The two residual gii failures surface a different boundary:
+`Cannot invoke method 'dependOnInheritedWidgetOfExactType' on
+null` means the receiver — the `BuildContext` itself — is null
+when the script reaches the call. That is downstream of Plan E
+(the exact-type resolver fires only after the receiver is
+non-null). Triage path: instrument the bridge
+`dependOnInheritedWidgetOfExactType` adapter to log when
+`target == null`, then capture the script context and trace back
+through the interpreter call stack. Likely an interpreted
+`static` helper accepting `BuildContext context` and being
+called from a closure that loses the captured context.
+Tracked separately from Plan E.
+
+**Re-entry checklist (all complete):**
+1. ✅ `D4.registerBridgedMethodInterceptor(...)` added in both d4.dart files.
+2. ✅ Generator emits hook check at top of method adapters.
+3. ✅ Resolver walks `Element.visitAncestorElements` and matches by `_instance.klass.name`.
+4. ✅ Regenerated flutterm bridges.
+5. ✅ Verified via gii + serial essential/important/secondary.
+6. ✅ All four suites match or exceed baseline.
+
+---
+
+### Plan E — Original deferral notes (reference, superseded by RESOLVED status above)
 
 **Affected scripts:** `widgets/window_scope_test.dart`,
 `widgets/inherited_theme_test.dart`, `widgets/inherited_widget_test.dart`
