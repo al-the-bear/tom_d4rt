@@ -355,7 +355,20 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             _capturedOutput = [];
             _widgetGeneration++;   // force fresh element subtree on next build
           });
-          _respond(request, 200, {'status': 'cleared'});
+          // Post-frame fix: respond AFTER Flutter has processed the frame so
+          // the old element subtree is fully deactivated before the test runner
+          // sends the next /build. Without this, /clear responds immediately,
+          // the runner fires /build before Flutter runs the next frame, and
+          // both the old tree's teardown and the new tree's mount happen in the
+          // same frame — triggering InheritedElement.debugDeactivated()'s
+          // '_dependents.isEmpty' assertion and occasionally freezing the app.
+          // The addPostFrameCallback fires after rasterisation; at that point
+          // all InheritedElement dependencies from the old tree are gone.
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              _respond(request, 200, {'status': 'cleared'});
+            }
+          });
         default:
           _respond(request, 404, {'error': 'Not found: $path'});
       }
