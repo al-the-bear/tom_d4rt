@@ -609,7 +609,45 @@ tests with clearMs backlog.
 
 ---
 
-### Plan D — Section E coercion: interpreted Widget / RenderObject accepted by native APIs (highest-leverage)
+### Plan D — Section E coercion: interpreted Widget / RenderObject accepted by native APIs (highest-leverage) — **[ATTEMPT 1 REVERTED 2026-04-26]**
+
+**Status:** Interpreter-only narrow slice (ParentDataWidget + basic RenderBox
+interface proxies in `d4rt_runtime_registrations.dart`) attempted on 2026-04-26
+and reverted. The slice regressed gii by 30 tests
+(`+39 ~1 -43` vs baseline `+69 ~1 -13`) including failures in tests outside
+Plan D's stated scope: `inherited_theme_test` (`PanelTheme.of called with no
+PanelTheme in context`, 6×), `inherited_widget_test`, `list_wheel_scroll_view_test`,
+`list_wheel_viewport_test`. The same Plan D scripts the slice targeted
+(`render_box_container_defaults_mixin_test` etc.) still failed in gii with the
+original `Argument Error: Invalid parameter "build": expected Widget, got
+InterpretedInstance` — the slice did not actually close any of the targeted
+failures.
+
+**Diagnosis of why the narrow slice failed:** The bridges call
+`D4.validateTarget<Widget>(...)` / `D4.coerceList<RenderObject>` etc. on the
+interpreted instance at the parameter boundary, before any
+`tryCreateInterfaceProxyWithVisitor` call site is reached for these arguments.
+A `RenderBox` interface-proxy registration alone is not enough: the bridge
+generator needs to emit a *coercion shim* (analogous to the `StatelessWidget`
+proxy machinery) so that the interpreted instance is adapted to a concrete
+native `Widget` / `RenderObject` *as it crosses the bridge boundary*, not only
+when it is later up-cast to an interface. The supertype-registry edits
+made in the slice (`'RenderObject': [...]`, `'RenderBox': [...]`,
+`'RenderProxyBox': [...]`, etc.) also broke `_supertypeRegistry`'s additive
+contract: `BridgedClass.registerSupertypes` uses `putIfAbsent + addAll`, so
+edits added supertypes to entries that the generator-emitted bridges had
+already populated, perturbing the candidate-walk order in
+`tryCreateInterfaceProxyWithVisitor` and causing spurious proxy resolutions
+in non-RenderBox contexts (the InheritedWidget / list_wheel regressions).
+
+**Conclusion:** Plan D as written cannot be done interpreter-side only. The
+generator-side step (point 3 below — emit a `RenderObjectProxy` per
+interpreted RenderObject subclass, analogous to the `StatelessWidgetProxy`)
+is load-bearing. The interpreter-only attempt regressed unrelated tests
+because the supertype-registry mutation has cross-cutting effects.
+
+**Status going forward:** DEFERRED — needs the full generator + interpreter
++ `tom_d4rt_ast` mirror work as originally scoped (multi-day).
 
 **Current impact:** ~30+ framework errors in passing suites (one per
 interpreted Widget subclass name) + 5–6 gii failures (Section E +
