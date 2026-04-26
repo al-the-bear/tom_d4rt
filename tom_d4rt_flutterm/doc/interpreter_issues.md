@@ -2691,58 +2691,73 @@ classification level. Authoritative table in
   a future cluster ("interpreted-extends-bridged InheritedWidget proxy
   gap").
 
-### [BLOCKED] ui.FragmentProgram / ui.FragmentShader type access crashes Flutter engine (2026-04-26)
+### [RESOLVED 2026-04-26] ui.FragmentProgram / ui.FragmentShader type access timing race on Linux test app
 
 **Affected script:** `dart_ui/image_sampler_slot_test.dart`
 
-**Root cause:** Any reference to `ui.FragmentProgram` or `ui.FragmentShader` as
-bare Dart types (e.g. `final Type t = ui.FragmentProgram;`) triggers native
-shader-system initialization in the Flutter engine that causes an unhandled
-async error **after** the HTTP 200 response is sent. The test app then exits
-with "Application finished." and all subsequent tests get "Connection reset by
-peer" cascade. This was confirmed step-by-step via bisection:
-- Minimal build body + full `_runProbes()` → crashes
-- Remove `_runProbes()` → passes
-- Re-add `_runProbes()` with only `ui.FragmentProgram` type probe → crashes
-- Re-add without any `ui.FragmentProgram` / `ui.FragmentShader` reference → passes
+**Original symptom:** Any reference to `ui.FragmentProgram` / `ui.FragmentShader`
+as bare Dart types from `_runProbes()` (called synchronously from `initState`)
+caused the Flutter Linux test app to exit with "Application finished." after
+HTTP 200, cascading subsequent tests with "Connection reset by peer".
 
-**Workaround applied:** All probes that access `ui.FragmentProgram` or
-`ui.FragmentShader` removed from `_runProbes()` in
-`dart_ui/image_sampler_slot_test.dart`. A permanently-failing sentinel probe
-documents the gap.
+**Real root cause (verified by bisection 2026-04-26):** The crash is **not** a
+bridge bug or interpreter bug. It is a startup-timing race specific to the
+Linux test environment (no GPU, headless, with Atk-CRITICAL / Fontconfig
+warnings). Touching shader-related types synchronously in `initState` —
+before the engine has dispatched its first frame — collides with native
+shader-pipeline initialisation and kills the engine asynchronously.
 
-**Fix required:** Bridge-layer investigation of what `ui.FragmentProgram` type
-access triggers in the Flutter native shader pipeline and why it causes a
-deferred engine crash on Linux desktop.
+Reproduction matrix (all on Linux test harness with `bisect_test.dart`):
+
+| Setup | Bundle | Result |
+| ----- | ------ | ------ |
+| Minimal repro: bare `ui.FragmentProgram` access in initState | 18 KB | PASS |
+| Demo state class + stubbed `build()` + `ui.FragmentProgram` access in initState | 430 KB | CRASH |
+| Demo state class + stubbed `build()` + NO `ui.FragmentProgram` access | 425 KB | PASS |
+| Demo state class + stubbed `build()` + `await Future<void>.delayed(Duration.zero)` then `ui.FragmentProgram` access | 430 KB | PASS |
+
+A single-microtask yield (`await Future<void>.delayed(Duration.zero)`) before
+the type access is sufficient — the engine settles, then the type read is safe.
+The 200 ms variant also passes, confirming this is a timing condition rather
+than a true API failure.
+
+**Fix applied:** `dart_ui/image_sampler_slot_test.dart` `_runProbes()` now
+yields once via `await Future<void>.delayed(Duration.zero);` before the
+`ui.FragmentProgram` / `ui.FragmentShader` type probes. The probes are
+re-enabled and assert the SDK types are reachable. No bridge or interpreter
+change required.
 
 ---
 
-### [BLOCKED] Picture.toImage() with zero/invalid dimensions crashes native engine (2026-04-26)
+### [RESOLVED 2026-04-26] Picture.toImage() with zero/invalid dimensions — diagnosis was wrong
 
 **Affected script:** `dart_ui/picture_rasterization_exception_test.dart`
 
-**Root cause:** Calling `dart:ui Picture.toImage(0, 20)` (zero width) with the
-bridge crashes the native Flutter rasterizer at the C++ level **after** the
-HTTP 200 response has already been sent back to the test harness. The test
-appears to succeed (HTTP 200), but the engine exits immediately afterward with
-"Application finished." — killing all subsequent tests in the suite ("Connection
-refused" / "Connection reset by peer" cascade).
+**Original symptom:** `await p.toImage(0, 20)` was reported to crash the
+native Flutter engine asynchronously after HTTP 200, cascading subsequent
+tests with "Connection reset by peer".
 
-**Flutter SDK spec:** `Picture.toImage()` with zero or negative dimensions
-should throw `PictureRasterizationException`. The bridge does not handle this —
-instead the zero-dimension rasterize request reaches the native rasterizer, which
-crashes the engine process.
+**Real root cause (verified by bisection 2026-04-26):** The original BLOCKED
+diagnosis was incorrect. The Flutter SDK (`_NativePicture.toImage` in
+`sky_engine/lib/ui/painting.dart` lines 7867–7889) **does** validate
+`width <= 0 || height <= 0` and throws `Exception('Invalid image dimensions.')`
+synchronously. The bridge passes the parameters straight through to the SDK,
+so the SDK validation reaches user code unchanged.
 
-**Workaround applied:** The `await p.toImage(0, 20)` call in `_runProbes()` is
-commented out in the script with a `// BRIDGE BUG` note. The probe that tested
-it is replaced with a permanently-failing sentinel probe so the issue remains
-visible in test output.
+Reproduction matrix (all on Linux test harness with `bisect_test.dart`):
 
-**Fix required:** The `Picture.toImage` bridge adapter must validate width/height
-> 0 before calling the native method, and throw `PictureRasterizationException`
-(or equivalent) when dimensions are invalid — matching the Flutter SDK contract.
-This is a bridge-layer fix in `dart_ui_bridges.b.dart` (via the generator or a
-`D4UserBridge` override).
+| Setup | Result |
+| ----- | ------ |
+| Full demo + `await p.toImage(0, 20)` in try/catch (3× runs) | PASS |
+| Full demo + `await p.toImage(0, 20)` without try/catch (unhandled) | PASS |
+| Full demo + the test alone in `hardly_relevant_classes_1_test.dart` | PASS |
+| Full demo + 8 follow-up tests in the same suite | PASS — no cascade |
+
+**Fix applied:** `dart_ui/picture_rasterization_exception_test.dart` now
+re-enables the `await p.toImage(0, 20)` probe in a `try/catch` and asserts
+that the SDK throws on invalid dimensions. No bridge or interpreter change
+required. The earlier BLOCKED status was likely a transient Linux-test
+environment hiccup misattributed to invalid dimensions.
 
 ---
 

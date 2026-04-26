@@ -76,16 +76,25 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     _failed.clear();
     _notes.clear();
 
-    // D4RT-WORKAROUND: Any reference to ui.FragmentProgram or ui.FragmentShader
-    // (even as a bare Type reference, e.g. `final Type t = ui.FragmentProgram`)
-    // triggers native shader-system initialization that causes an unhandled async
-    // error after the HTTP response is sent, crashing the Flutter engine and
-    // cascading all subsequent tests as "Connection refused".
-    // All probes that touch FragmentProgram/FragmentShader are omitted.
-    // See interpreter_issues.md "FragmentProgram type access crashes Linux engine".
-    _record('FragmentProgram/FragmentShader probes', false,
-        note: 'BRIDGE BUG: accessing ui.FragmentProgram or ui.FragmentShader '
-            'crashes Linux test app — probes omitted (see issues)');
+    // Yield once to let the engine settle before touching shader types.
+    // On Linux test environments, synchronously touching ui.FragmentProgram
+    // during initState (before the first frame) can race with engine startup
+    // and crash the test app. Yielding via Future.delayed(Duration.zero)
+    // schedules the type access onto the next microtask, after the engine
+    // has stabilised.
+    await Future<void>.delayed(Duration.zero);
+    try {
+      final Type t = ui.FragmentProgram;
+      _record('FragmentProgram type accessible', t.toString().contains('FragmentProgram'));
+    } catch (e) {
+      _record('FragmentProgram type accessible', false, note: e.toString());
+    }
+    try {
+      final Type t = ui.FragmentShader;
+      _record('FragmentShader type accessible', t.toString().contains('FragmentShader'));
+    } catch (e) {
+      _record('FragmentShader type accessible', false, note: e.toString());
+    }
 
     try {
       final String samplerName = 'ImageSamplerSlot';
