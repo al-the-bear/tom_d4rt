@@ -188,7 +188,7 @@ The other seven scripts (`scroll_*`, `sliver_*`, `slotted_*`, `text_magnifier_*`
 
 ### C4 — Section E: `cannot convert <Interpreted> to <Concrete Widget subtype>` at native bridge boundary
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred
 
 **Severity:** High · **Owner:** generator (relaxer) + interpreter (proxy widening)
 
@@ -202,9 +202,22 @@ The other seven scripts (`scroll_*`, `sliver_*`, `slotted_*`, `text_magnifier_*`
 - `widgets/slotted_multi_child_render_object_widget_mixin_test.dart`
 - `widgets/slotted_multi_child_render_object_widget_test.dart`
 
-**Analysis.** Section E (interpreted Widget at native bridge boundary) is the long-standing problem: when the user constructs a `Column(children: [MyInterpretedWidget(...)])`, the interpreter passes an `InterpretedInstance` into the native list, and the constructor adapter rejects it because `InterpretedInstance is! Widget`. The current generator emits a relaxer for List<Widget> but only when the static type is exactly `List<Widget>`; here the script declares `List<MyWidget>` or relies on inference and the relaxer fires too late.
+**Analysis.** Section E (interpreted Widget at native bridge boundary) is the long-standing problem: when the user constructs a `Column(children: [MyInterpretedWidget(...)])`, the interpreter passes an `InterpretedInstance` into the native list, and the constructor adapter rejects it because `InterpretedInstance is! Widget`. For both affected scripts, the `_SmcrowDashboardCard` / `_SmcrowmBindingWidget` interpreted classes extend `SlottedMultiChildRenderObjectWidget<…>`. `D4.coerceList<Widget>` walks the bridged super chain via `tryCreateInterfaceProxyWithVisitor<Widget>` looking for a registered interface-proxy factory — but no factory was registered for `SlottedMultiChildRenderObjectWidget`, so the cast fell through to `e as Widget` and threw.
 
-**Suggested fix.** Extend `relaxer_generator.dart` to recognise any `List<T>` where `T` is `Widget` or a subtype and to wrap each element through `D4.coerceWidget(...)` (which already exists for the singular case). Mirror the `D4` helper in `tom_d4rt_ast` per the "fix in lockstep" rule. Verify with the slotted mixin scripts.
+**Fix applied (Partial).** Added `SlottedMultiChildRenderObjectWidget` registration plus a new `_InterpretedSlottedMultiChildRenderObjectWidget` proxy class to `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`. The proxy:
+
+- forwards `slots` getter via `instance.get('slots', visitor: …)`,
+- forwards `childForSlot(slot)` via interpreted method dispatch + `D4.extractBridgedArg<Widget>`,
+- forwards `createRenderObject` / `updateRenderObject` via the existing `_createRenderObject` / `_updateRenderObject` helpers,
+- erases generic type args to `<dynamic, RenderObject>` so any concrete `SlotType` / `ChildType` from the script works.
+
+After the fix the original Column / Row / Stack coercion error is gone for both C4 scripts. The interpreted widget instances now flow through the bridge boundary as native `SlottedMultiChildRenderObjectWidget`s. **No mirroring needed** — the change lives entirely in `tom_d4rt_flutterm` (registration shim layer); `tom_d4rt` and `tom_d4rt_ast` are untouched.
+
+**Verification.** `flutter test test/bisect_test.dart` shows the Column coercion errors gone for both scripts. Regression suites all clean: essential 108/0/0, important 164/0/5, secondary 649/0/5 — no script regressed.
+
+**Why "Partial".** The fix exposes a downstream issue that was previously masked: the interpreted render object subclass (`_SmcrowDashboardRender extends RenderBox with SlottedContainerRenderObjectMixin<…>`) reaches Flutter as a plain `_InterpretedRenderBox` proxy that doesn't mix in `SlottedContainerRenderObjectMixin`, so `createRenderObject` returns an object that fails the mixin type check at the framework boundary. The new error surfaces as `Bad state: Interpreted _SmcrowDashboardCard.createRenderObject must return a RenderObject mixing in SlottedContainerRenderObjectMixin, got _InterpretedRenderBox` (4× in `…_test.dart`, 1× in `…_mixin_test.dart`) plus downstream layout cascade errors (RenderFlex hasSize assertions, infinite-height constraints). This is a separate cluster — render-object proxy widening to support mixin-in interpreted render objects — and is not a Section E coercion concern.
+
+**Follow-up cluster (proposed).** A new cluster covering `_InterpretedRenderBox` not propagating interpreted mixins (`SlottedContainerRenderObjectMixin`, `RenderBoxContainerDefaultsMixin`, etc.). Would require either (a) per-mixin native render-object proxies, or (b) generating composite proxies that mix in the bridged mixins detected on the interpreted class.
 
 ---
 
@@ -664,7 +677,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C1 — RenderObject mixin proxy gap | High | generator | 2 | 2 |
 | C2 — Late final 'color' (single-script) ✅ Fixed | Medium | interpreter (visitSwitchStatement) | 1 | 0 |
 | C3 — `!` on null (broad) ⚠️ Partial (gir hard-fail fixed; 7 non-fatal deferred) | Medium | mixed | 8 | 0 |
-| C4 — List<Widget> coercion | High | generator | 2 | 0 |
+| C4 — List<Widget> coercion ⚠️ Partial (Section E coercion fixed via SlottedMultiChildRenderObjectWidget proxy; render-object mixin gap deferred to follow-up cluster) | High | tom_d4rt_flutterm runtime registrations | 2 | 0 |
 | C5 — Map<ShortcutActivator, Intent> coercion | Medium-High | generator | 4 | 1 |
 | C6 — Map<Type, Action<Intent>> coercion | Medium | generator | 3 | 0 |
 | C6b — ThemeExtension nested generic coercion | Low | generator | 1 | 1 |

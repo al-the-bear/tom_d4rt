@@ -54,6 +54,8 @@ import 'package:flutter/widgets.dart'
         SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
         SizedBox,
+        SlottedContainerRenderObjectMixin,
+        SlottedMultiChildRenderObjectWidget,
         State,
         StatefulWidget,
         StatelessWidget,
@@ -234,6 +236,19 @@ void _registerInterfaceProxies() {
     return _InterpretedMultiChildRenderObjectWidget(visitor, instance,
         key: _readKey(instance, visitor),
         children: _readChildrenWidgets(instance, visitor));
+  });
+
+  // SlottedMultiChildRenderObjectWidget — scripts that subclass this abstract
+  // widget (with the SlottedMultiChildRenderObjectWidgetMixin's `slots` /
+  // `childForSlot` API) need a native proxy so they can be passed where any
+  // Widget is expected (e.g. `Column(children: [_MySlotted(...)])`). Without
+  // this registration, `D4.coerceList<Widget>` cannot walk the bridged super
+  // chain back to a concrete native Widget proxy and the InterpretedInstance
+  // fails the `is Widget` test.
+  D4.registerInterfaceProxy('SlottedMultiChildRenderObjectWidget',
+      (visitor, instance) {
+    return _InterpretedSlottedMultiChildRenderObjectWidget(visitor, instance,
+        key: _readKey(instance, visitor));
   });
 
   // Bug-102: InheritedWidget scripts that wrap a subtree (e.g. PanelTheme,
@@ -1579,6 +1594,70 @@ class _InterpretedMultiChildRenderObjectWidget
 
   @override
   void updateRenderObject(BuildContext context, RenderObject renderObject) =>
+      _updateRenderObject(_visitor, _instance, context, renderObject);
+}
+
+/// Native [SlottedMultiChildRenderObjectWidget] backing an interpreted
+/// subclass. Forwards `slots`, `childForSlot`, and the render-object lifecycle
+/// to the interpreter so scripts can implement the slotted-multi-child idiom
+/// without compiling against the analyzer at runtime.
+///
+/// Type parameters are erased to `<dynamic, RenderObject>` because the
+/// interpreted subclass may use any concrete `SlotType` / `ChildType`. Flutter
+/// only needs the resulting [RenderObject] to mix in
+/// [SlottedContainerRenderObjectMixin]; the concrete type arguments are
+/// internal to the interpreter.
+class _InterpretedSlottedMultiChildRenderObjectWidget
+    extends SlottedMultiChildRenderObjectWidget<dynamic, RenderObject> {
+  _InterpretedSlottedMultiChildRenderObjectWidget(
+    this._visitor,
+    this._instance, {
+    super.key,
+  });
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Iterable<dynamic> get slots {
+    final raw = _instance.get('slots', visitor: _visitor);
+    if (raw is Iterable) return raw;
+    if (raw == null) return const <dynamic>[];
+    throw StateError(
+        'Interpreted ${_instance.klass.name}.slots must return an Iterable, got ${raw.runtimeType}');
+  }
+
+  @override
+  Widget? childForSlot(dynamic slot) {
+    final method = _instance.klass.findInstanceMethod('childForSlot');
+    if (method == null) {
+      throw StateError(
+          'Interpreted ${_instance.klass.name} does not implement childForSlot()');
+    }
+    final raw = method.bind(_instance).call(_visitor, [slot], {});
+    if (raw == null) return null;
+    return D4.extractBridgedArg<Widget>(raw, 'childForSlot', _visitor);
+  }
+
+  @override
+  SlottedContainerRenderObjectMixin<dynamic, RenderObject> createRenderObject(
+      BuildContext context) {
+    final raw = _invokeInterpretedAs<RenderObject>(
+        _visitor, _instance, 'createRenderObject', [context]);
+    if (raw is SlottedContainerRenderObjectMixin<dynamic, RenderObject>) {
+      return raw;
+    }
+    throw StateError(
+        'Interpreted ${_instance.klass.name}.createRenderObject must return a '
+        'RenderObject mixing in SlottedContainerRenderObjectMixin, got '
+        '${raw.runtimeType}');
+  }
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    SlottedContainerRenderObjectMixin<dynamic, RenderObject> renderObject,
+  ) =>
       _updateRenderObject(_visitor, _instance, context, renderObject);
 }
 
