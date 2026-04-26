@@ -292,14 +292,16 @@ Widget _buildSemanticRegionVisualization() {
                   'Volume: 75%',
                 ),
               ),
-              // Region 4 - Label semantic
+              // Region 4 - Label semantic. Height bumped from 35 to 42
+              // so the Icon(18) + SizedBox(2) + bold Text fit without
+              // a ~3-pixel RenderFlex bottom overflow.
               Positioned(
                 right: 20,
                 bottom: 30,
                 child: _buildSemanticRegion(
                   'Label',
                   80,
-                  35,
+                  42,
                   _kTeal500,
                   Icons.label,
                   'Status',

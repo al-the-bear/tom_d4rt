@@ -356,6 +356,12 @@ class _ViewportWheel extends StatefulWidget {
 }
 
 class _ViewportWheelState extends State<_ViewportWheel> {
+  // The Scrollable below pairs a raw ListWheelViewport with a plain
+  // ScrollController; that combination requires non-FixedExtent physics
+  // (FixedExtentScrollPhysics needs a FixedExtentScrollController, but
+  // FixedExtentScrollController in turn only works with ListWheelScrollView,
+  // not with a raw Scrollable). We default to BouncingScrollPhysics so the
+  // demo works out of the box and can still be overridden via widget.physics.
   late ScrollController _controller;
   int _selected = 0;
 
@@ -396,7 +402,10 @@ class _ViewportWheelState extends State<_ViewportWheel> {
         Scrollable(
           controller: _controller,
           axisDirection: AxisDirection.down,
-          physics: widget.physics ?? const FixedExtentScrollPhysics(),
+          // BouncingScrollPhysics works with the plain ScrollController above;
+          // FixedExtentScrollPhysics would assert because raw Scrollable +
+          // ListWheelViewport cannot use a FixedExtentScrollController.
+          physics: widget.physics ?? const BouncingScrollPhysics(),
           viewportBuilder: (context, offset) {
             return ListWheelViewport(
               offset: offset,
@@ -987,10 +996,15 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
   @override
   Widget build(BuildContext context) {
     final h = widget.compact ? 860.0 : 1040.0;
+    // The wheel below is built with a raw Scrollable + ListWheelViewport,
+    // which requires a plain ScrollController and therefore cannot use
+    // FixedExtentScrollPhysics (or any physics whose chain includes it).
+    // The "fixed" choice still demonstrates the snap-to-item feel via
+    // ClampingScrollPhysics, which works with a regular ScrollController.
     final physics = switch (_physics) {
-      _PipelinePhysics.fixed => const FixedExtentScrollPhysics(),
-      _PipelinePhysics.bouncing => const BouncingScrollPhysics(parent: FixedExtentScrollPhysics()),
-      _PipelinePhysics.clamping => const ClampingScrollPhysics(parent: FixedExtentScrollPhysics()),
+      _PipelinePhysics.fixed => const ClampingScrollPhysics(),
+      _PipelinePhysics.bouncing => const BouncingScrollPhysics(),
+      _PipelinePhysics.clamping => const ClampingScrollPhysics(),
     };
 
     return SizedBox(

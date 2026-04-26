@@ -384,7 +384,16 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           _InfoRow(label: 'selected index', value: '$_selected'),
                           _InfoRow(label: 'selected label', value: _items[_selected]),
                           _InfoRow(label: 'itemExtent', value: '62 px'),
-                          _InfoRow(label: 'controller item', value: '${_controller.selectedItem}'),
+                          _InfoRow(
+                            label: 'controller item',
+                            // Guard `selectedItem` against being read before the
+                            // ListWheelScrollView has attached the controller —
+                            // the first build runs the info-table side panel
+                            // before the wheel itself is laid out.
+                            value: _controller.hasClients
+                                ? '${_controller.selectedItem}'
+                                : '$_selected',
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -930,7 +939,15 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
                       _InfoTable(
                         rows: [
                           _InfoRow(label: 'selected', value: '$_selected'),
-                          _InfoRow(label: 'controller', value: '${_controller.selectedItem}'),
+                          _InfoRow(
+                            label: 'controller',
+                            // Same `hasClients` guard as in _FundamentalsScene
+                            // — read `selectedItem` only after the wheel has
+                            // attached the controller.
+                            value: _controller.hasClients
+                                ? '${_controller.selectedItem}'
+                                : '$_selected',
+                          ),
                           _InfoRow(label: 'physics', value: _physics.name),
                         ],
                       ),
