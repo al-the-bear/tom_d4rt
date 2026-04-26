@@ -753,7 +753,9 @@ Widget _buildAddWithPaintOffsetSection() {
 
   bool hitTestCallback(BoxHitTestResult r, Offset pos) {
     print('Hit test callback called with position: $pos');
-    if (childBox.size.contains(pos)) {
+    // Use the mock's own boxSize field rather than RenderBox.size — the
+    // mock is never laid out by a real pipeline, so size has no value.
+    if (childBox.boxSize.contains(pos)) {
       r.add(BoxHitTestEntry(childBox, pos));
       return true;
     }

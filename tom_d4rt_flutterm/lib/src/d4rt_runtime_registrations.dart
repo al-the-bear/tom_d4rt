@@ -27,12 +27,15 @@ import 'package:flutter/rendering.dart'
     show
         BoxConstraints,
         BoxHitTestResult,
+        ContainerBoxParentData,
+        ContainerRenderObjectMixin,
         CustomClipper,
         MultiChildLayoutDelegate,
         PaintingContext,
         ParentData,
         RenderAligningShiftedBox,
         RenderBox,
+        RenderBoxContainerDefaultsMixin,
         RenderObject,
         SingleChildLayoutDelegate;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
@@ -295,7 +298,33 @@ void registerD4rtInterfaceProxyOverrides() {
   D4.registerInterfaceProxy('RenderBox', (visitor, instance) {
     final cached = instance.nativeProxy;
     if (cached is RenderBox) return cached;
-    final proxy = _InterpretedRenderBox(visitor, instance);
+    // Cluster C1 — RenderBox proxy mixin gap.
+    //
+    // Scripts that subclass RenderBox with `with ContainerRenderObjectMixin`
+    // need a proxy that mixes in the same container infrastructure so framework
+    // casts like `proxy as ContainerRenderObjectMixin<RenderObject, ContainerParentDataMixin<RenderObject>>`
+    // succeed. Pick the container-aware proxy at first instantiation so the
+    // cached `instance.nativeProxy` already satisfies later container-typed
+    // casts.
+    final proxy = _classChainHasBridgedMixin(
+      instance.klass,
+      'ContainerRenderObjectMixin',
+    )
+        ? _InterpretedRenderBoxContainer(visitor, instance)
+        : _InterpretedRenderBox(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // Cluster C1 — also register the container proxy under
+  // 'ContainerRenderObjectMixin' so the proxy walk can resolve through the
+  // mixin candidate when the class chain didn't surface 'RenderBox' first
+  // (e.g., when a script uses an interpreted superclass that itself extends
+  // RenderBox via its own bridged contributions).
+  D4.registerInterfaceProxy('ContainerRenderObjectMixin', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is ContainerRenderObjectMixin) return cached;
+    final proxy = _InterpretedRenderBoxContainer(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -1845,6 +1874,143 @@ class _InterpretedRenderBox extends RenderBox {
     final method = _instance.klass.findInstanceMethod('hitTestChildren');
     if (method == null) {
       return super.hitTestChildren(result, position: position);
+    }
+    try {
+      final raw = method
+          .bind(_instance)
+          .call(_visitor, [result], {'position': position});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  void setupParentData(RenderObject child) {
+    final result = _maybeInvoke('setupParentData', [child]);
+    if (identical(result, _kNotImplemented)) super.setupParentData(child);
+  }
+}
+
+// =============================================================================
+// Cluster C1 — RenderBox proxy mixin gap
+// =============================================================================
+//
+// Walk an [InterpretedClass]'s ancestor chain looking for a bridged mixin
+// whose name matches [mixinName]. Inspects the class's own `bridgedMixins`,
+// then recurses into:
+//   - bridgedSuperclass.name (rare — bridged classes can be themselves named
+//     like the mixin if the script chains a custom mixin name)
+//   - interpreted superclass
+//   - interpreted mixins (in case a script's intermediate class uses the mixin)
+//
+// Used by the 'RenderBox' proxy factory to choose between the plain proxy
+// and the container-aware proxy at first instantiation, before
+// `instance.nativeProxy` is cached.
+bool _classChainHasBridgedMixin(InterpretedClass? klass, String mixinName) {
+  var cursor = klass;
+  final visited = <InterpretedClass>{};
+  while (cursor != null && visited.add(cursor)) {
+    for (final mixin in cursor.bridgedMixins) {
+      if (mixin.name == mixinName) return true;
+    }
+    if (cursor.bridgedSuperclass?.name == mixinName) return true;
+    for (final interpretedMixin in cursor.mixins) {
+      if (_classChainHasBridgedMixin(interpretedMixin, mixinName)) return true;
+    }
+    cursor = cursor.superclass;
+  }
+  return false;
+}
+
+// =============================================================================
+// Cluster C1 — Container-aware RenderBox proxy
+// =============================================================================
+//
+// Like [_InterpretedRenderBox], but mixes in [ContainerRenderObjectMixin] and
+// [RenderBoxContainerDefaultsMixin] so that scripts subclassing
+// `RenderBox with ContainerRenderObjectMixin<RenderBox, _MyParentData>,
+//                RenderBoxContainerDefaultsMixin<RenderBox, _MyParentData>`
+// produce a native proxy that satisfies framework casts to
+// `ContainerRenderObjectMixin`. The generic type parameters are bound to
+// `RenderBox` / `ContainerBoxParentData<RenderBox>` because that is the
+// concrete pairing the container defaults mixin requires; scripts that use
+// a more specific parent-data subclass must derive it from
+// [ContainerBoxParentData].
+//
+// The forwarding pattern (performLayout, paint, hitTest{,Self,Children},
+// setupParentData) mirrors [_InterpretedRenderBox] verbatim. setupParentData
+// falls back to assigning a default `ContainerBoxParentData<RenderBox>` so
+// child container linkage works even when scripts don't override it.
+class _InterpretedRenderBoxContainer extends RenderBox
+    with
+        ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>>,
+        RenderBoxContainerDefaultsMixin<RenderBox,
+            ContainerBoxParentData<RenderBox>> {
+  _InterpretedRenderBoxContainer(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  static const Object _kNotImplemented = Object();
+
+  Object? _maybeInvoke(String methodName, List<Object?> args,
+      [Map<String, Object?> named = const {}]) {
+    final method = _instance.klass.findInstanceMethod(methodName);
+    if (method == null) return _kNotImplemented;
+    return method.bind(_instance).call(_visitor, args, named);
+  }
+
+  @override
+  void performLayout() {
+    final result = _maybeInvoke('performLayout', const []);
+    if (identical(result, _kNotImplemented)) {
+      size = constraints.smallest;
+      return;
+    }
+    if (!hasSize) {
+      try {
+        final reflected = _instance.get('size', visitor: _visitor);
+        if (reflected is Size) size = reflected;
+      } catch (_) {}
+    }
+    if (!hasSize) size = constraints.smallest;
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    final result = _maybeInvoke('paint', [context, offset]);
+    if (identical(result, _kNotImplemented)) {
+      defaultPaint(context, offset);
+    }
+  }
+
+  @override
+  bool hitTest(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTest');
+    if (method == null) return super.hitTest(result, position: position);
+    final raw = method
+        .bind(_instance)
+        .call(_visitor, [result], {'position': position});
+    if (raw is bool) return raw;
+    return false;
+  }
+
+  @override
+  bool hitTestSelf(Offset position) {
+    final method = _instance.klass.findInstanceMethod('hitTestSelf');
+    if (method == null) return super.hitTestSelf(position);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [position], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTestChildren');
+    if (method == null) {
+      return defaultHitTestChildren(result, position: position);
     }
     try {
       final raw = method
