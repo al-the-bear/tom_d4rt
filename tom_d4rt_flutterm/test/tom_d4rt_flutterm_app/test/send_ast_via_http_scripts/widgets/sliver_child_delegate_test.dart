@@ -578,7 +578,13 @@ class _BuilderDelegateScene extends StatelessWidget {
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        counter.value += 1;
+                        // Defer ValueNotifier mutation past the current
+                        // build frame: mutating during build would cause
+                        // the listening ValueListenableBuilder to schedule
+                        // a rebuild while the framework is mid-build.
+                        WidgetsBinding.instance.addPostFrameCallback(
+                          (_) => counter.value += 1,
+                        );
                         return _BuilderDelegateCard(index: index);
                       },
                       childCount: 10000,
@@ -724,14 +730,21 @@ class _ListDelegateScene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Eagerly construct all 50 cards and increment the counter during
-    // construction. This proves the list delegate materialises everything
-    // before the sliver ever paints.
+    // Eagerly construct all 50 cards and count them during construction.
+    // This proves the list delegate materialises everything before the
+    // sliver ever paints. The ValueNotifier mutation is deferred to a
+    // post-frame callback so the listening ValueListenableBuilder is
+    // not asked to rebuild while the framework is mid-build.
     final List<Widget> children = <Widget>[];
+    int constructed = 0;
     for (int i = 0; i < 50; i++) {
-      counter.value += 1;
+      constructed += 1;
       children.add(_ListDelegateCard(index: i));
     }
+    final int newCount = counter.value + constructed;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => counter.value = newCount,
+    );
     debugPrint(
       'SliverChildListDelegate — constructed ${children.length} widgets eagerly',
     );
@@ -914,8 +927,13 @@ class _CustomDelegateScene extends StatelessWidget {
     final _LoggingChildDelegate delegate = _LoggingChildDelegate(
       childCount: 20,
       onBuild: (int index) {
-        counter.value += 1;
-        log.value = 'build(index=$index) → build count ${counter.value}';
+        // Defer ValueNotifier mutations past the current build frame:
+        // mutating during build would cause the listening
+        // ValueListenableBuilders to schedule a rebuild mid-build.
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          counter.value += 1;
+          log.value = 'build(index=$index) → build count ${counter.value}';
+        });
       },
       onFinishLayout: (int first, int last) {
         log.value = 'didFinishLayout(firstIndex=$first, lastIndex=$last)';
