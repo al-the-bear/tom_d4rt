@@ -16,11 +16,11 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/scroll_to_document_boundary_intent_test.dart',
-    'widgets/select_all_text_intent_test.dart',
-    'widgets/select_intent_test.dart',
+    'widgets/two_dimensional_child_builder_delegate_test.dart',
+    'widgets/two_dimensional_child_manager_test.dart',
+    'widgets/two_dimensional_scrollable_state_test.dart',
   ]) {
-    test('$script (C6)', () async {
+    test('$script (C7)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

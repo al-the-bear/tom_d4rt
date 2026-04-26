@@ -315,23 +315,48 @@ Regression suites all clean: essential 108/0/0, important 164/0/5, secondary 649
 
 ### C7 — `TwoDimensionalScrollView` / `TwoDimensionalViewport` default constructor missing
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred
 
-**Severity:** Medium · **Owner:** generator (constructor emission for abstract classes with named-only constructors)
+**Severity:** Medium · **Owner:** interpreter runtime (super-arg capture for proxied abstract classes) **+** tom_d4rt_flutterm runtime registrations (full method-forwarding proxies for the two-axis scroll family)
 
 **Representative error**
 
 - `Error during constructor execution for class '_TwoDBuildGridView': Bridged superclass 'TwoDimensionalScrollView' does not have a constructor named ''. Check bridge definition.`
+- (Cascading) `BoxConstraints forces an infinite height/width.`, `RenderBox was not laid out`, `'!childSemantics.renderObject._needsLayout': is not true.`
 
 **Affected scripts**
 
-- `widgets/two_dimensional_child_builder_delegate_test.dart`
-- `widgets/two_dimensional_child_manager_test.dart`
-- `widgets/two_dimensional_scrollable_state_test.dart` (also implicated in C8 layout fallout)
+- `widgets/two_dimensional_child_builder_delegate_test.dart` — extends all three (`_TwoDBuildGridView extends TwoDimensionalScrollView`, `_TwoDBuildGridViewport extends TwoDimensionalViewport`, `_RenderTwoDBuildGridViewport extends RenderTwoDimensionalViewport`)
+- `widgets/two_dimensional_child_manager_test.dart` — extends `TwoDimensionalChildBuilderDelegate`, `TwoDimensionalScrollView`, `TwoDimensionalViewport`, `RenderTwoDimensionalViewport`
+- `widgets/two_dimensional_scrollable_state_test.dart` — extends `TwoDimensionalViewport` and `RenderTwoDimensionalViewport` (also implicated in C8 layout fallout)
 
-**Analysis.** `TwoDimensionalScrollView` / `TwoDimensionalViewport` (Flutter's two-axis scroll APIs) declare only named constructors (`super.someName(...)`). When a user widget extends them with `class MyView extends TwoDimensionalScrollView { MyView() : super(...); }`, the interpreter's constructor dispatch looks up the empty-named (`''`) constructor on the bridged superclass and fails.
+**Analysis.** Re-reading the cluster against the runtime substantially deepens the picture beyond the original "empty-name ctor" framing:
 
-**Suggested fix.** Bridge generator should emit a `''` (empty-name) constructor adapter that forwards to the canonical named constructor when the source class has only named constructors. Alternatively, the interpreter's super-call resolution should fall back to "single available constructor" when the empty name is requested on an abstract bridged class. Pick one and apply consistently.
+1. `TwoDimensionalScrollView` / `TwoDimensionalViewport` / `RenderTwoDimensionalViewport` are emitted by the bridge generator with `isAbstract: true, constructors: {}` — GEN-051 strips non-factory constructors of abstract / sealed classes (`tom_d4rt_generator/lib/src/bridge_generator.dart:7823`), and these classes only have non-factory generative constructors. So they reach the interpreter as bridged classes with an empty constructor map.
+2. The interpreter's super-call dispatch (`tom_d4rt_ast/lib/src/runtime/callable.dart:830-878`) handles this case via the **Bug-46** fix path: when no constructor adapter exists *and* an interface proxy is registered for the bridged super, it skips the super() call entirely (the proxy will be created later at the bridge boundary). Without a registered proxy it throws the observed error. **There is no shorter fix at the runtime layer** — Plan I (a broader runtime no-op fallback for any abstract bridged super without a proxy) was deferred because it caused cross-test contamination in the gii suite.
+3. So the path forward is the same C5 / C6 pattern: register an interface proxy in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`. **But unlike Intent / Action / SlottedMultiChildRenderObjectWidget, these scripts are not satisfied by a tag-wrapper proxy:**
+   - `_TwoDBuildGridView.buildViewport` reads inherited `delegate`, `cacheExtent`, `cacheExtentStyle`, `clipBehavior`, `mainAxis`, `horizontalDetails.direction`, `verticalDetails.direction` — fields that live on the bridged super, not on the InterpretedInstance.
+   - `_TwoDSSViewport.createRenderObject` and `_TwoDMgrWarehouseViewport.createRenderObject` read inherited `verticalOffset`, `horizontalOffset`, `verticalAxisDirection`, `horizontalAxisDirection`, `mainAxis`, `delegate`, `cacheExtent`, `cacheExtentStyle`, `clipBehavior`.
+   - `_RenderTwoDBuildGridViewport.layoutChildSequence` reads inherited `horizontalOffset`, `verticalOffset`, `viewportDimension`, `delegate`, and calls inherited `buildOrObtainChildFor`, `parentDataOf`.
+4. The **structural blocker**: when callable.dart takes the proxy no-op path, it executes `continue` at line 864 *before* evaluating the super() argument list. The values the script wrote (e.g. `super(delegate: delegate, mainAxis: Axis.vertical)`) are never captured anywhere — the corresponding `SArgumentList` is left un-evaluated, and the InterpretedInstance has no field to record them on. Any proxy registered for `TwoDimensionalScrollView` therefore cannot reconstruct the inherited state.
+5. A real fix for C7 is therefore **two coordinated changes** that must land in lockstep:
+   - **Runtime change (mirrored in `tom_d4rt` + `tom_d4rt_ast`):** in the proxy-no-op branch of `callable.dart`, evaluate the super() argument list with `_evaluateArgumentsForInvocation` and store the result on the InterpretedInstance (e.g., `instance.superCallNamedArgs`, `instance.superCallPositionalArgs`). Add the storage fields to `InterpretedInstance` in both packages. Audit existing proxy registrations (LeafRenderObjectWidget, SingleChildRenderObjectWidget, MultiChildRenderObjectWidget, SlottedMultiChildRenderObjectWidget, Intent, Action, InheritedWidget) to confirm none of them rely on the args being *un*evaluated for side-effect reasons.
+   - **Bridge package change:** register interface proxies for `TwoDimensionalScrollView` / `TwoDimensionalViewport` / `RenderTwoDimensionalViewport`. Each proxy's constructor reads the captured super-args from the InterpretedInstance and forwards them to the corresponding native super-constructor; each overrides the relevant abstract method (`buildViewport` / `createRenderObject` / `updateRenderObject` / `layoutChildSequence`) to dispatch into the interpreted instance via `instance.klass.findInstanceMethod(...).bind(instance).call(...)`. The render-object proxy is the most demanding — it must mix in the right `RenderObjectWithChildMixin` / `RenderAbstractViewport` chain, expose `buildOrObtainChildFor` / `parentDataOf` correctly, and route `layoutChildSequence` callbacks back into the interpreter without re-entering the bridge boundary.
+6. Even with both changes, **`two_dimensional_scrollable_state_test.dart` is independently implicated by C8** (the script wraps an unbounded layout that fires `BoxConstraints forces an infinite height` regardless of how the viewport is proxied). 100 % cluster pass therefore depends on a corresponding C8 script patch.
+
+**Action this turn — Reverted / Deferred.** No code change. The minimal "tag-wrapper" proxy pattern that worked for C5/C6 cannot fix C7's scripts because they exercise the inherited render-pipeline state. A correct fix is an interpreter-runtime change (super-arg capture) plus a multi-method proxy in the bridge package — substantially bigger than a single cluster turn and not safely composable with the C8 script bugs that overlap the third script. Documented in detail above so a follow-up cluster (provisional **C7-extended** or rolled into the C1/C21 RenderObject-proxy work) can pick it up cleanly.
+
+**Verification.** `flutter test test/bisect_test.dart` reproduces the original error on all three scripts:
+
+```
+Runtime Error: Error during constructor execution for class '_TwoDSSViewport':
+  Bridged superclass 'TwoDimensionalViewport' does not have a constructor named ''.
+  Check bridge definition.
+```
+
+followed by the cascading layout / semantics assertions listed above. No regression suite was run because no production code changed.
+
+**Mirroring note.** No code changes; tom_d4rt ↔ tom_d4rt_ast remain in sync on the existing Bug-46 path. When the follow-up lands, the super-arg-capture change must be mirrored in both `tom_d4rt/lib/src/callable.dart` and `tom_d4rt_ast/lib/src/runtime/callable.dart`, and the new `superCall*` storage must be added to the `InterpretedInstance` class in both packages.
 
 ---
 
@@ -712,7 +737,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C5 — Map<ShortcutActivator, Intent> coercion ✅ Fixed (Intent interface proxy registered; coerceMap already in place) | Medium-High | tom_d4rt_flutterm runtime registrations | 4 | 1 |
 | C6 — Map<Type, Action<Intent>> coercion ✅ Fixed (Action interface proxy registered) | Medium | tom_d4rt_flutterm runtime registrations | 3 | 0 |
 | C6b — ThemeExtension nested generic coercion | Low | generator | 1 | 1 |
-| C7 — TwoDimensionalScrollView ctor | Medium | generator | 3 | 0 |
+| C7 — TwoDimensionalScrollView ctor 🟡 Reverted/Deferred (requires interpreter super-arg-capture + multi-method proxies; tag-wrapper pattern insufficient) | Medium | interpreter runtime + tom_d4rt_flutterm runtime registrations | 3 | 0 |
 | C8 — BoxConstraints layout (script) | Low | scripts | ~14 | 0 |
 | C9 — RenderFlex overflow (script) | Low | scripts | 7 | 3 |
 | C10 — RestorationProperty.isRegistered | Medium | interpreter+bridge | 13 | 0 |
