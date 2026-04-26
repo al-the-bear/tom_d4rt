@@ -39,6 +39,7 @@ import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
         BuildContext,
+        Element,
         GlobalKey,
         InheritedElement,
         InheritedWidget,
@@ -60,6 +61,8 @@ import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedClass, BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
+import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
+    show RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
@@ -77,6 +80,7 @@ void registerD4rtRuntimeExtensions() {
   _registerSupplementaryMethods();
   _registerSupplementaryRelaxers();
   _registerGenericWidgetReCreators();
+  _registerBridgedMethodInterceptors();
 }
 
 // =============================================================================
@@ -611,7 +615,12 @@ class _InterpretedStatelessWidget extends StatelessWidget {
     if (method != null) {
       final bound = method.bind(_instance);
       final result = bound.call(_visitor, [context], {});
-      return D4.extractBridgedArg<Widget>(result, 'build');
+      // Pass _visitor so extractBridgedArg can resolve interface proxies
+      // for InterpretedInstance return values (e.g. when a script's build
+      // returns another script-defined StatelessWidget/StatefulWidget).
+      // Without the visitor the lookup falls back to D4._activeVisitor,
+      // which is only set during script execution, not framework rendering.
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
     }
     throw StateError(
       'Interpreted class ${_instance.klass.name} does not implement build()',
@@ -726,7 +735,7 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
     if (method != null) {
       final bound = method.bind(_stateInstance);
       final result = bound.call(_visitor, [context], {});
-      return D4.extractBridgedArg<Widget>(result, 'build');
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
     }
     throw StateError(
       'Interpreted State ${_stateInstance.klass.name} does not implement build()',
@@ -841,7 +850,7 @@ class _InterpretedSingleTickerProviderState
     if (method != null) {
       final bound = method.bind(_stateInstance);
       final result = bound.call(_visitor, [context], {});
-      return D4.extractBridgedArg<Widget>(result, 'build');
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
     }
     throw StateError(
       'Interpreted State ${_stateInstance.klass.name} does not implement build()',
@@ -946,7 +955,7 @@ class _InterpretedMultiTickerProviderState
     if (method != null) {
       final bound = method.bind(_stateInstance);
       final result = bound.call(_visitor, [context], {});
-      return D4.extractBridgedArg<Widget>(result, 'build');
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
     }
     throw StateError(
       'Interpreted State ${_stateInstance.klass.name} does not implement build()',
@@ -1982,4 +1991,154 @@ class _InterpretedParentDataWidget extends ParentDataWidget<ParentData> {
     // formatting. Return Widget as a safe, always-valid ancestor hint.
     return Widget;
   }
+}
+
+// =============================================================================
+// Plan E: InheritedWidget exact-type lookup interceptors
+// =============================================================================
+
+/// Register interceptors for the three `Element` exact-type lookup methods so
+/// script-supplied generic type arguments survive the bridge boundary.
+///
+/// **Why:** the generated bridge adapters for
+/// `dependOnInheritedWidgetOfExactType<T>`,
+/// `getInheritedWidgetOfExactType<T>`, and
+/// `getElementForInheritedWidgetOfExactType<T>` previously dropped `T` and
+/// called the native method without any type argument. Even if `T` were
+/// forwarded, every interpreted `InheritedWidget` subclass collapses to the
+/// same native `runtimeType` (`_InterpretedInheritedWidget`), so Flutter's
+/// `_inheritedElements` map (keyed by `widget.runtimeType`) cannot
+/// disambiguate. The interceptor walks ancestor elements, matches by
+/// `_InterpretedInheritedWidget._instance.klass.name` for interpreted
+/// subclasses (and by native `runtimeType.toString()` for bridged
+/// subclasses), then either registers a dependency
+/// (`dependOnInheritedElement`) or returns the matched widget/element.
+///
+/// **Return shape:** when the matched widget is an
+/// `_InterpretedInheritedWidget`, the interceptor returns its
+/// `_instance` (the `InterpretedInstance`) rather than the native proxy.
+/// Scripts hold the result and access user-defined fields/methods on it
+/// (`scope.watch(...)`); the interpreter dispatches those calls directly
+/// against the `InterpretedClass`. Returning the proxy would force
+/// dispatch through the bridge, which doesn't know about user-defined
+/// members.
+void _registerBridgedMethodInterceptors() {
+  D4.registerBridgedMethodInterceptor(
+    'Element',
+    'dependOnInheritedWidgetOfExactType',
+    (visitor, target, positional, named, typeArgs) {
+      final element = target is Element ? target : null;
+      if (element == null) return null;
+      final aspect = named['aspect'];
+      final matched = _findInheritedElementForType(element, typeArgs);
+      if (matched == null) return null;
+      element.dependOnInheritedElement(matched, aspect: aspect);
+      final widget = matched.widget;
+      return widget is InheritedWidget
+          ? _unwrapInheritedWidget(widget)
+          : widget;
+    },
+  );
+
+  D4.registerBridgedMethodInterceptor(
+    'Element',
+    'getInheritedWidgetOfExactType',
+    (visitor, target, positional, named, typeArgs) {
+      final element = target is Element ? target : null;
+      if (element == null) return null;
+      final matched = _findInheritedElementForType(element, typeArgs);
+      if (matched == null) return null;
+      final widget = matched.widget;
+      return widget is InheritedWidget
+          ? _unwrapInheritedWidget(widget)
+          : widget;
+    },
+  );
+
+  D4.registerBridgedMethodInterceptor(
+    'Element',
+    'getElementForInheritedWidgetOfExactType',
+    (visitor, target, positional, named, typeArgs) {
+      final element = target is Element ? target : null;
+      if (element == null) return null;
+      return _findInheritedElementForType(element, typeArgs);
+    },
+  );
+
+  // Plan E (static): InheritedModel.inheritFrom<T>(context, {aspect}).
+  //
+  // This is a top-level static, not an Element method, so it goes through the
+  // static-method interceptor registry. The native impl is type-erased on
+  // interpreted subclasses (every `_InterpretedInheritedWidget` shares the
+  // same runtimeType), so we replicate the ancestor walk and aspect-aware
+  // dependency registration.
+  D4.registerBridgedStaticMethodInterceptor(
+    'InheritedModel',
+    'inheritFrom',
+    (visitor, positional, named, typeArgs) {
+      final context = positional.isNotEmpty
+          ? (positional[0] is BuildContext
+                ? positional[0] as BuildContext
+                : null)
+          : null;
+      if (context == null) return null;
+      final aspect = named['aspect'];
+      // BuildContext.dependOnInheritedElement requires an Element; in
+      // practice every BuildContext is also an Element.
+      final element = context is Element ? context : null;
+      if (element == null) return null;
+      final matched = _findInheritedElementForType(element, typeArgs);
+      if (matched == null) return null;
+      element.dependOnInheritedElement(matched, aspect: aspect);
+      final widget = matched.widget;
+      return widget is InheritedWidget
+          ? _unwrapInheritedWidget(widget)
+          : widget;
+    },
+  );
+}
+
+/// Walk [from]'s ancestors looking for an `InheritedElement` whose widget
+/// matches the requested generic type argument.
+///
+/// Matches are decided by name: for `_InterpretedInheritedWidget` (the proxy
+/// for a script-defined subclass) we compare against the
+/// `InterpretedInstance.klass.name`; for native widgets we compare
+/// `widget.runtimeType.toString()`. Returns `null` when no ancestor matches
+/// or when no type argument was supplied.
+InheritedElement? _findInheritedElementForType(
+  Element from,
+  List<RuntimeType>? typeArgs,
+) {
+  if (typeArgs == null || typeArgs.isEmpty) return null;
+  final wantedName = typeArgs[0].name;
+  InheritedElement? match;
+  from.visitAncestorElements((ancestor) {
+    if (ancestor is InheritedElement) {
+      final widget = ancestor.widget;
+      String candidateName;
+      if (widget is _InterpretedInheritedWidget) {
+        candidateName = widget._instance.klass.name;
+      } else {
+        candidateName = widget.runtimeType.toString();
+      }
+      if (candidateName == wantedName) {
+        match = ancestor;
+        return false; // stop walking
+      }
+    }
+    return true; // keep walking
+  });
+  return match;
+}
+
+/// Unwrap `_InterpretedInheritedWidget` to the underlying `InterpretedInstance`
+/// so script field/method dispatch goes directly through the
+/// `InterpretedClass` rather than through a native proxy that doesn't know
+/// the user-defined members. Native `InheritedWidget`s are returned as-is.
+Object _unwrapInheritedWidget(InheritedWidget widget) {
+  if (widget is _InterpretedInheritedWidget) {
+    return widget._instance;
+  }
+  return widget;
 }

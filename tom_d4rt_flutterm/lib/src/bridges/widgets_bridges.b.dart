@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-04-26T15:36:08.231190
+// Generated: 2026-04-26T20:01:30.282349
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -6372,15 +6372,27 @@ BridgedClass _createRenderObjectToWidgetElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_123.RenderObjectToWidgetElement>(target, 'RenderObjectToWidgetElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_123.RenderObjectToWidgetElement>(target, 'RenderObjectToWidgetElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_123.RenderObjectToWidgetElement>(target, 'RenderObjectToWidgetElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -22111,15 +22123,27 @@ BridgedClass _createRootElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_137.RootElement>(target, 'RootElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_137.RootElement>(target, 'RootElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_137.RootElement>(target, 'RootElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -33483,15 +33507,27 @@ BridgedClass _createBuildContextBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.BuildContext>(target, 'BuildContext');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.BuildContext>(target, 'BuildContext');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.BuildContext>(target, 'BuildContext');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -33919,15 +33955,27 @@ BridgedClass _createElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.Element>(target, 'Element');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.Element>(target, 'Element');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.Element>(target, 'Element');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -34478,15 +34526,27 @@ BridgedClass _createComponentElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ComponentElement>(target, 'ComponentElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ComponentElement>(target, 'ComponentElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ComponentElement>(target, 'ComponentElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -34892,15 +34952,27 @@ BridgedClass _createStatelessElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatelessElement>(target, 'StatelessElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatelessElement>(target, 'StatelessElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatelessElement>(target, 'StatelessElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -35310,15 +35382,27 @@ BridgedClass _createStatefulElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatefulElement>(target, 'StatefulElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatefulElement>(target, 'StatefulElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.StatefulElement>(target, 'StatefulElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -35736,15 +35820,27 @@ BridgedClass _createProxyElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ProxyElement>(target, 'ProxyElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ProxyElement>(target, 'ProxyElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ProxyElement>(target, 'ProxyElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -36167,15 +36263,27 @@ BridgedClass _createParentDataElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ParentDataElement>(target, 'ParentDataElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ParentDataElement>(target, 'ParentDataElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.ParentDataElement>(target, 'ParentDataElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -36609,15 +36717,27 @@ BridgedClass _createInheritedElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.InheritedElement>(target, 'InheritedElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.InheritedElement>(target, 'InheritedElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.InheritedElement>(target, 'InheritedElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -37080,15 +37200,27 @@ BridgedClass _createRenderObjectElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderObjectElement>(target, 'RenderObjectElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderObjectElement>(target, 'RenderObjectElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderObjectElement>(target, 'RenderObjectElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -37517,15 +37649,27 @@ BridgedClass _createLeafRenderObjectElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.LeafRenderObjectElement>(target, 'LeafRenderObjectElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.LeafRenderObjectElement>(target, 'LeafRenderObjectElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.LeafRenderObjectElement>(target, 'LeafRenderObjectElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -37957,15 +38101,27 @@ BridgedClass _createSingleChildRenderObjectElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.SingleChildRenderObjectElement>(target, 'SingleChildRenderObjectElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.SingleChildRenderObjectElement>(target, 'SingleChildRenderObjectElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.SingleChildRenderObjectElement>(target, 'SingleChildRenderObjectElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -38398,15 +38554,27 @@ BridgedClass _createMultiChildRenderObjectElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.MultiChildRenderObjectElement>(target, 'MultiChildRenderObjectElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.MultiChildRenderObjectElement>(target, 'MultiChildRenderObjectElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.MultiChildRenderObjectElement>(target, 'MultiChildRenderObjectElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -38835,15 +39003,27 @@ BridgedClass _createRenderTreeRootElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderTreeRootElement>(target, 'RenderTreeRootElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderTreeRootElement>(target, 'RenderTreeRootElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RenderTreeRootElement>(target, 'RenderTreeRootElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -39348,15 +39528,27 @@ BridgedClass _createNotifiableElementMixinBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.NotifiableElementMixin>(target, 'NotifiableElementMixin');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.NotifiableElementMixin>(target, 'NotifiableElementMixin');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.NotifiableElementMixin>(target, 'NotifiableElementMixin');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -39761,15 +39953,27 @@ BridgedClass _createRootElementMixinBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RootElementMixin>(target, 'RootElementMixin');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RootElementMixin>(target, 'RootElementMixin');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_164.RootElementMixin>(target, 'RootElementMixin');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -44926,6 +45130,10 @@ BridgedClass _createInheritedModelBridge() {
     },
     staticMethods: {
       'inheritFrom': (visitor, positional, named, typeArgs) {
+        final _staticInterceptor = D4.findBridgedStaticMethodInterceptor('InheritedModel', 'inheritFrom');
+        if (_staticInterceptor != null) {
+          return _staticInterceptor(visitor, positional, named, typeArgs);
+        }
         D4.requireMinArgs(positional, 1, 'inheritFrom');
         final context = D4.getRequiredArg<$flutter_164.BuildContext>(positional, 0, 'context', 'inheritFrom');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
@@ -45168,15 +45376,27 @@ BridgedClass _createInheritedModelElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_176.InheritedModelElement>(target, 'InheritedModelElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_176.InheritedModelElement>(target, 'InheritedModelElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_176.InheritedModelElement>(target, 'InheritedModelElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -47968,15 +48188,27 @@ BridgedClass _createListWheelElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_182.ListWheelElement>(target, 'ListWheelElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_182.ListWheelElement>(target, 'ListWheelElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_182.ListWheelElement>(target, 'ListWheelElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -72894,15 +73126,27 @@ BridgedClass _createViewportElementMixinBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_227.ViewportElementMixin>(target, 'ViewportElementMixin');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_227.ViewportElementMixin>(target, 'ViewportElementMixin');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_227.ViewportElementMixin>(target, 'ViewportElementMixin');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -82449,15 +82693,27 @@ BridgedClass _createSliverMultiBoxAdaptorElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_246.SliverMultiBoxAdaptorElement>(target, 'SliverMultiBoxAdaptorElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_246.SliverMultiBoxAdaptorElement>(target, 'SliverMultiBoxAdaptorElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_246.SliverMultiBoxAdaptorElement>(target, 'SliverMultiBoxAdaptorElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
@@ -85479,15 +85735,27 @@ BridgedClass _createSlottedRenderObjectElementBridge() {
         return t.dependOnInheritedElement(ancestor, aspect: aspect);
       },
       'dependOnInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'dependOnInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_254.SlottedRenderObjectElement>(target, 'SlottedRenderObjectElement');
         final aspect = D4.getOptionalNamedArg<Object?>(named, 'aspect');
         return t.dependOnInheritedWidgetOfExactType(aspect: aspect);
       },
       'getInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_254.SlottedRenderObjectElement>(target, 'SlottedRenderObjectElement');
         return t.getInheritedWidgetOfExactType();
       },
       'getElementForInheritedWidgetOfExactType': (visitor, target, positional, named, typeArgs) {
+        final _interceptor = D4.findBridgedMethodInterceptor('Element', 'getElementForInheritedWidgetOfExactType');
+        if (_interceptor != null) {
+          return _interceptor(visitor, target, positional, named, typeArgs);
+        }
         final t = D4.validateTarget<$flutter_254.SlottedRenderObjectElement>(target, 'SlottedRenderObjectElement');
         return t.getElementForInheritedWidgetOfExactType();
       },
