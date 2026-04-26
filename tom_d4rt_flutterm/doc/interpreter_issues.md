@@ -2691,6 +2691,33 @@ classification level. Authoritative table in
   a future cluster ("interpreted-extends-bridged InheritedWidget proxy
   gap").
 
+### [BLOCKED] Picture.toImage() with zero/invalid dimensions crashes native engine (2026-04-26)
+
+**Affected script:** `dart_ui/picture_rasterization_exception_test.dart`
+
+**Root cause:** Calling `dart:ui Picture.toImage(0, 20)` (zero width) with the
+bridge crashes the native Flutter rasterizer at the C++ level **after** the
+HTTP 200 response has already been sent back to the test harness. The test
+appears to succeed (HTTP 200), but the engine exits immediately afterward with
+"Application finished." — killing all subsequent tests in the suite ("Connection
+refused" / "Connection reset by peer" cascade).
+
+**Flutter SDK spec:** `Picture.toImage()` with zero or negative dimensions
+should throw `PictureRasterizationException`. The bridge does not handle this —
+instead the zero-dimension rasterize request reaches the native rasterizer, which
+crashes the engine process.
+
+**Workaround applied:** The `await p.toImage(0, 20)` call in `_runProbes()` is
+commented out in the script with a `// BRIDGE BUG` note. The probe that tested
+it is replaced with a permanently-failing sentinel probe so the issue remains
+visible in test output.
+
+**Fix required:** The `Picture.toImage` bridge adapter must validate width/height
+> 0 before calling the native method, and throw `PictureRasterizationException`
+(or equivalent) when dimensions are invalid — matching the Flutter SDK contract.
+This is a bridge-layer fix in `dart_ui_bridges.b.dart` (via the generator or a
+`D4UserBridge` override).
+
 ---
 
 ## How clusters were derived

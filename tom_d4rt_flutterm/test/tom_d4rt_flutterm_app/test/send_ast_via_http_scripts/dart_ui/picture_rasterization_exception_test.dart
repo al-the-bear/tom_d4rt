@@ -238,13 +238,14 @@ class _PictureRasterizationExceptionDemoPageState extends State<_PictureRasteriz
       probe('Picture.toImage succeeds for valid dimensions', false);
     }
 
-    try {
-      await p.toImage(0, 20);
-      probe('Invalid dimensions can trigger exception path', false);
-    } catch (e) {
-      probe('Invalid dimensions can trigger exception path', e is Exception || e is Error);
-      probe('Exception text is non-empty', e.toString().isNotEmpty);
-    }
+    // BRIDGE BUG: Picture.toImage() with zero/invalid dimensions should throw
+    // PictureRasterizationException per Flutter SDK spec, but instead crashes
+    // the native Flutter engine asynchronously (after HTTP response is sent),
+    // killing the test app and cascading all subsequent tests as "Connection
+    // refused". Disabled until the bridge handles this correctly.
+    // See interpreter_issues.md cluster "Picture.toImage invalid dimensions".
+    // await p.toImage(0, 20);
+    probe('Invalid dimensions crash test app (bridge bug - disabled)', false);
 
     p.dispose();
     probe('summary text can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));

@@ -2319,21 +2319,31 @@ class _TeachingTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // A non-uniform Border (a colored left accent + neutral other sides)
+    // cannot coexist with `borderRadius` on a BoxDecoration — Flutter
+    // throws "A borderRadius can only be given on borders with uniform
+    // colors". Split the look in two: a uniform-bordered rounded card,
+    // plus a separate colored accent strip rendered as the first child
+    // of the Row.
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: _kSurface,
         borderRadius: BorderRadius.circular(14),
-        border: Border(
-          left: BorderSide(color: tile.tone, width: 4),
-          top: BorderSide(color: _kLine),
-          right: BorderSide(color: _kLine),
-          bottom: BorderSide(color: _kLine),
-        ),
+        border: Border.all(color: _kLine),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Container(
+            width: 4,
+            height: 36,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: tile.tone,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
           Container(
             width: 36,
             height: 36,
