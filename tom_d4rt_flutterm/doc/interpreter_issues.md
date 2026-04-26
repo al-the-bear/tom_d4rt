@@ -1546,7 +1546,8 @@ regression on gii/essential/important/secondary.
 | `widgets/list_wheel_viewport_test.dart` | 9 | 0 | Script uses raw `Scrollable + ListWheelViewport`, which only accepts a plain `ScrollController` and non-`FixedExtent` physics (`FixedExtentScrollController` only works with `ListWheelScrollView`). Default physics changed to `BouncingScrollPhysics()` and the pipeline scene's `_PipelinePhysics.{fixed,bouncing,clamping}` switch maps to `Clamping/Bouncing/Clamping` (no `FixedExtent*` parents). | `39baf0f7` |
 | `widgets/layout_builder_adv_test.dart` | 6 | 0 | The final `SingleChildScrollView` Column placed `singleChildLayout`, `overflowBox`, and `sizedOverflowBox` directly into the unbounded vertical extent of the Column, so `RenderCustomSingleChildLayoutBox` and `RenderConstrainedOverflowBox` got infinite size. Wrapped each in a `SizedBox(height: …)` matching the existing 200-px pattern of the bounded children. | _this commit_ |
 | `widgets/magnifier_decoration_test.dart` | 4 | 0 | (a) The `_ControlDeck` 4-up `Row` of `SwitchListTile`s couldn't keep "Instruction notes" inside its share at narrow widths — converted to a `LayoutBuilder + Wrap` of fixed-width tiles with `TextOverflow.ellipsis` so they reflow at 800-px viewports. (b) `_PatternCanvas`'s header `Row(label, Spacer, rev N)` overflowed when the lens stage was narrow — wrapped the `label` in `Flexible(Text(…, overflow: ellipsis))` and replaced `Spacer` with a small gap. (c) `_DataTableCard`'s rows used a hard `SizedBox(width: 130)` for the label cell that didn't fit narrow flex-6 panels — replaced with a 2:3 `Expanded` split. | `4653c8b2` |
-| `widgets/html_element_view_test.dart` | 6 | 0 | The `_VisibilityStrategyScene` lane cards bound the HTML embed slot to `SizedBox(height: 74)`, but on non-web runs the fallback `_NonWebHtmlMock` renders a Column with icon + 4 text rows + padding/margin (~140 px), producing six identical 71-px bottom RenderFlex overflows (one per lane card). Wrapped the mock's inner card in a `FittedBox(fit: BoxFit.scaleDown)` so it shrinks to whatever vertical extent the caller provides, eliminating all six overflows without changing the card's logical content. | _this commit_ |
+| `widgets/html_element_view_test.dart` | 6 | 0 | The `_VisibilityStrategyScene` lane cards bound the HTML embed slot to `SizedBox(height: 74)`, but on non-web runs the fallback `_NonWebHtmlMock` renders a Column with icon + 4 text rows + padding/margin (~140 px), producing six identical 71-px bottom RenderFlex overflows (one per lane card). Wrapped the mock's inner card in a `FittedBox(fit: BoxFit.scaleDown)` so it shrinks to whatever vertical extent the caller provides, eliminating all six overflows without changing the card's logical content. | `bb74fd23` |
+| `widgets/tree_sliver_state_mixin_test.dart` | 4 | 0 | Four Card → Padding → Column blocks were placed in flex slots that gave them less vertical space than their stacked content needed: (a) `_TsmNavPreambleCard`'s inner `Expanded(Column)` (~7 stacked rows in a 1-of-6 flex slot, 432-px overflow); (b) `_TsmNavBreadcrumbCard` (breadcrumb wrap + stat panel in a 2-flex slot, 124-px overflow); (c) `_TsmNavEpilogueCard` (3 rich text rows in a 2-flex slot, 62-px overflow); (d) `_TsmNavControlPanel` (~20 stacked sidebar controls in a 360-px column, 141-px overflow). Wrapped each Card body Column in a `SingleChildScrollView` so the card scrolls its own contents instead of overflowing the parent RenderFlex. | _this commit_ |
 
 Regression battery results are recorded with each commit in
 `session_resume.d4rt.md` (no new regressions in any sweep).
@@ -1577,6 +1578,16 @@ battery reports:
 - **important** `+164 ~5` (unchanged).
 - **secondary** `+649 ~5` (unchanged).
 
+After the current batch (`tree_sliver_state_mixin`), the
+regression battery reports unchanged headline counts (the script
+was already passing — only its rendering noise changed):
+
+- **gii** `+69 ~1 -13` (unchanged).
+- **essential** `+108` (unchanged).
+- **important** `+164 ~5` (unchanged).
+- **secondary** `+649 ~5` (unchanged).
+- **hardly_relevant_5** `+230` (unchanged).
+
 Note: the first attempt of an earlier gii run hit a flaky
 test-app death at minute 0:47 (`animated_switcher_test.dart` rerun
 started a 30-s timeout cascade across the remaining 24 tests).
@@ -1598,8 +1609,17 @@ What's still open — items below not yet swept:
   (see table above). Six identical 71-px bottom overflows from
   the non-web mock exceeding `SizedBox(height: 74)`; resolved
   with a `FittedBox(scaleDown)` wrapper.
-- `widgets/tree_sliver_state_mixin_test.dart` (4 bottom
-  overflows: 432/124/62/141 px) — deferred until cause clearer.
+- `widgets/tree_sliver_state_mixin_test.dart` — _Fixed in this
+  batch_ (see table above). Four Card body Columns wrapped in
+  `SingleChildScrollView` to handle flex slots whose vertical
+  extent was smaller than the stacked content height.
+- `widgets/text_magnifier_configuration_test.dart` (9 errors) —
+  reclassified as interpreter-side. Three layout rewrites all
+  failed to clear the errors; the underlying constraint
+  `BoxConstraints(w=…, h=-Infinity)` is produced by
+  `_RenderEditableCustomPaint` on the TextField+magnifier path
+  regardless of grid/Row/SizedBox structure. Belongs in a
+  separate cluster.
 - `widgets/shader_mask_test.dart` — LateInit on script's late
   `_animController` (script-construction order bug).
 - `widgets/backdrop_filter_test.dart` — listed as "matrix4 must

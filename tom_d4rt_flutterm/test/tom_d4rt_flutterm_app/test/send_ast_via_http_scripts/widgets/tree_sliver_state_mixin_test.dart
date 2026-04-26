@@ -1318,7 +1318,11 @@ class _TsmNavControlPanel extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(14),
-        child: Column(
+        // The sidebar control panel stacks ~20 controls vertically; even
+        // on a tall window this readily exceeds the column height the Row
+        // gives the SizedBox(width: 360). Scroll on overflow.
+        child: SingleChildScrollView(
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const _TsmNavSectionTitle(
@@ -1437,6 +1441,7 @@ class _TsmNavControlPanel extends StatelessWidget {
             const SizedBox(height: 8),
             _TsmNavGetNodeForProbe(parent: parent),
           ],
+          ),
         ),
       ),
     );
@@ -2108,8 +2113,15 @@ class _TsmNavPreambleCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 14),
+            // The wide layout allocates this preamble card a single flex
+            // unit out of six (1+3+2), which on an 800-px column area
+            // gives it ~110 px — well below the ~430 px the Column below
+            // needs for its 7 stacked rows. Wrap in a SingleChildScrollView
+            // so the card scrolls its own contents instead of overflowing
+            // the RenderFlex.
             Expanded(
-              child: Column(
+              child: SingleChildScrollView(
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
@@ -2174,6 +2186,7 @@ class _TsmNavPreambleCard extends StatelessWidget {
                     ),
                   ),
                 ],
+                ),
               ),
             ),
           ],
@@ -2224,7 +2237,12 @@ class _TsmNavBreadcrumbCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(14),
-        child: Column(
+        // The bottom row gives this card a fraction of a 2-flex slot;
+        // when the selected node has many ancestors the breadcrumb wrap
+        // plus stat panel exceed the allotted height. Scroll instead of
+        // overflowing.
+        child: SingleChildScrollView(
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const _TsmNavSectionTitle(
@@ -2329,6 +2347,7 @@ class _TsmNavBreadcrumbCard extends StatelessWidget {
                 ),
               ),
           ],
+          ),
         ),
       ),
     );
@@ -2518,7 +2537,10 @@ class _TsmNavEpilogueCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(14),
-        child: Column(
+        // Three rich text rows stacked vertically — too tall for the
+        // 2-flex bottom slot. Allow the card to scroll its contents.
+        child: SingleChildScrollView(
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const _TsmNavSectionTitle(
@@ -2554,6 +2576,7 @@ class _TsmNavEpilogueCard extends StatelessWidget {
                   'a build() — they schedule setState on the tree.',
             ),
           ],
+          ),
         ),
       ),
     );
