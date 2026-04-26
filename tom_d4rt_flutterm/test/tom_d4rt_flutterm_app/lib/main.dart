@@ -301,6 +301,22 @@ class _D4rtTestPageState extends State<D4rtTestPage>
         case '/logs':
           _respond(request, 200, {'logs': _logs});
         case '/clear':
+          // Plan C — Test-app build-handler hardening: actively cancel any
+          // in-flight /build so a slow/blocked build doesn't keep a follower
+          // /clear waiting until the /build's 30s timeout fires. Without this
+          // step, a build that took >30s would create a clearMs backlog that
+          // cascaded to subsequent tests (see §7.3 of error_analysis.md).
+          final inflight = _buildCompleter;
+          if (inflight != null && !inflight.isCompleted) {
+            inflight.complete(
+              _BuildResult(
+                success: false,
+                error: 'cleared by client',
+                output: List<String>.from(_capturedOutput),
+              ),
+            );
+          }
+          _capturingFrameworkErrors = false;
           setState(() {
             _d4rtWidget = null;
             _lastError = null;
@@ -505,14 +521,19 @@ class _D4rtTestPageState extends State<D4rtTestPage>
               _buildCompleter = null;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 _capturingFrameworkErrors = false;
-                completer?.complete(
-                  _BuildResult(
-                    success: true,
-                    widgetType: widget.runtimeType.toString(),
-                    output: output,
-                    frameworkErrors: List<String>.from(_frameworkErrors),
-                  ),
-                );
+                // Plan C — guard against double-completion. A concurrent /clear
+                // may have completed this completer with 'cleared by client'
+                // already; calling complete() again would throw.
+                if (completer != null && !completer.isCompleted) {
+                  completer.complete(
+                    _BuildResult(
+                      success: true,
+                      widgetType: widget.runtimeType.toString(),
+                      output: output,
+                      frameworkErrors: List<String>.from(_frameworkErrors),
+                    ),
+                  );
+                }
               });
             }
           } on FlutterD4rtException catch (e) {
@@ -520,10 +541,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
-              _buildCompleter?.complete(
-                _BuildResult(success: false, error: e.message, output: output),
-              );
+              final c = _buildCompleter;
               _buildCompleter = null;
+              if (c != null && !c.isCompleted) {
+                c.complete(
+                  _BuildResult(
+                    success: false,
+                    error: e.message,
+                    output: output,
+                  ),
+                );
+              }
             }
           } catch (e, stackTrace) {
             _lastError = e.toString();
@@ -531,14 +559,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
             if (!buildCompleted) {
               buildCompleted = true;
               _capturingFrameworkErrors = false;
-              _buildCompleter?.complete(
-                _BuildResult(
-                  success: false,
-                  error: e.toString(),
-                  output: output,
-                ),
-              );
+              final c = _buildCompleter;
               _buildCompleter = null;
+              if (c != null && !c.isCompleted) {
+                c.complete(
+                  _BuildResult(
+                    success: false,
+                    error: e.toString(),
+                    output: output,
+                  ),
+                );
+              }
             }
           }
         },
@@ -550,14 +581,17 @@ class _D4rtTestPageState extends State<D4rtTestPage>
           if (!buildCompleted) {
             buildCompleted = true;
             _capturingFrameworkErrors = false;
-            _buildCompleter?.complete(
-              _BuildResult(
-                success: false,
-                error: 'Uncaught error: $error',
-                output: output,
-              ),
-            );
+            final c = _buildCompleter;
             _buildCompleter = null;
+            if (c != null && !c.isCompleted) {
+              c.complete(
+                _BuildResult(
+                  success: false,
+                  error: 'Uncaught error: $error',
+                  output: output,
+                ),
+              );
+            }
           }
         },
         zoneSpecification: ZoneSpecification(

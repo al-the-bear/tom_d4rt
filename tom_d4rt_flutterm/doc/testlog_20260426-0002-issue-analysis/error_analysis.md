@@ -557,27 +557,55 @@ behaviour was a downstream symptom of the unrelated FragmentProgram race.
 
 ---
 
-### Plan C — Test-app build-handler hardening (structural fix)
+### Plan C — Test-app build-handler hardening (structural fix) — **[RESOLVED 2026-04-26]**
 
-**Symptom:** Any script whose build exceeds the 30-second timeout creates a
-clearMs backlog. If enough backlog accumulates, the test app crashes.
-Affected scripts so far: `callback_handle_test.dart` (run 3), any future
-long-running build.
+**Status:** Implemented in `tom_d4rt_flutterm_app/lib/main.dart`.
 
-**Fix approach:**
-1. In the test app's HTTP server (`tom_d4rt_flutterm_app`), the `/build`
-   endpoint must cancel any in-flight build when a `/clear` request arrives,
-   rather than waiting indefinitely.
-2. Introduce a `CancelToken` or `Completer`-based cancellation: the `/clear`
-   handler signals the in-flight `/build` task to abort, frees the widget tree,
-   and responds immediately.
-3. This is a one-time structural fix that makes the test harness robust against
-   all future slow or crashing scripts.
-4. Validate by reproducing the run-3 cascade (send `callback_handle_test.dart`
-   then immediately send the next script) and confirming the suite does not hang.
+**Original symptom:** Any script whose build exceeds the 30-second `/build`
+timeout creates a clearMs backlog. If enough backlog accumulates, the test
+app crashes. Affected scripts so far: `callback_handle_test.dart` (run 3),
+any future long-running build.
 
-**Impact:** Structural safety net; does not change gii/retest counts but
+**Implemented fix:**
+
+1. `/clear` handler now actively completes any in-flight `_buildCompleter`
+   with `_BuildResult(success: false, error: 'cleared by client', …)`
+   *before* clearing state. This unblocks the in-flight `/build` await
+   immediately so it does not consume its full 30 s timeout.
+2. The build success post-frame callback, the synchronous catch blocks, and
+   the `runZonedGuarded` async-error handler all now check
+   `if (completer != null && !completer.isCompleted)` before calling
+   `complete(...)`. This makes the completion paths idempotent under the
+   new race where `/clear` may have already settled the completer.
+3. `_capturingFrameworkErrors = false` is set in `/clear` so framework
+   errors from the cancelled build are not attributed to the next test.
+
+**Constraints honoured:**
+
+- `_d4rt.build()` is still synchronous; nothing inside the interpreter is
+  cancellable. Plan C does not pretend to free CPU mid-build — it ensures
+  that when the loop *does* return, the in-flight `/build` await settles
+  immediately on `/clear` instead of running its 30 s clock down.
+- The fix changes only the `/clear` cancellation contract and the
+  double-completion guards. The success / failure paths in normal operation
+  are unchanged.
+
+**Validation:**
+
+| Step | Result |
+|------|--------|
+| `dart analyze test/tom_d4rt_flutterm_app/lib/main.dart` | No issues found |
+| Bisect run (`bisect_test.dart`, `bisect/current.dart` = `callback_handle_test.dart`) | passes: 998 ms isolated |
+| `essential_classes_test`   | +108 / 0 / 0 (matches baseline) |
+| `important_classes_test`   | +164 ~5 / 0 (matches baseline) |
+| `secondary_classes_test`   | +649 ~5 / 0 (matches baseline) |
+| `hardly_relevant_classes_1_test` | +204 ~1 / 0 (matches baseline) |
+
+**Impact:** Structural safety net. Does not change gii/retest counts but
 prevents future slow scripts from cascading into suite-level timeouts.
+Future regressions where a script's build legitimately exceeds 30 s now
+fail their own test cleanly (timeout) instead of poisoning the next 5–6
+tests with clearMs backlog.
 
 ---
 
@@ -767,7 +795,7 @@ After Plans D–H land, re-evaluate the 8 retest failures:
 | 1 | A.1 — FragmentProgram D4UserBridge stub | BLOCKED → cleared |
 | 2 | A.2 — Picture.toImage guard | BLOCKED → cleared |
 | 3 | B — callback_handle_test slow-build fix | **RESOLVED 2026-04-26** — no action needed; resolved by A.1 (suite already +204 ~1 -0) |
-| 4 | C — Test-app build-handler hardening | Structural safety |
+| 4 | C — Test-app build-handler hardening | **RESOLVED 2026-04-26** — `/clear` now actively cancels in-flight `/build`; double-complete guards added |
 | 5 | D — Section E coercion + RenderObject proxy | ~5–8 gii -fail, ~30+ framework errors cleared |
 | 6 | F.1 — Layout/overflow script fixes | ~4 gii -fail |
 | 7 | F.2 — ScrollController precondition fixes | ~2 gii -fail |
