@@ -41,6 +41,7 @@ import 'package:flutter/rendering.dart'
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
+        Action,
         BuildContext,
         Element,
         GlobalKey,
@@ -252,6 +253,27 @@ void _registerInterfaceProxies() {
     final cached = instance.nativeProxy;
     if (cached is Intent) return cached;
     final proxy = _InterpretedIntent(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // Action — scripts that subclass `Action<T extends Intent>` (e.g.
+  // `class _CallbackSelectIntentAction extends Action<SelectIntent>` used as
+  // values of `Actions(actions: <Type, Action<Intent>>{ … })`) reach
+  // `D4.coerceMap<Type, Action<Intent>>` as InterpretedInstances. The bridged
+  // `Action` class is abstract with only the `overridable` factory constructor
+  // and no default constructor, so the interpreter never populates
+  // `bridgedSuperObject` for user subclasses. Without a registered proxy,
+  // `coerceMap` falls through to `instance as Action<Intent>` and throws.
+  // Mirrors the C5 `Intent` pattern: tag-wrapper proxy parameterised at
+  // `Action<Intent>` (erased) so it satisfies the Map's value type cast even
+  // when the script's class is `Action<SelectIntent>`. Cache the proxy on
+  // `instance.nativeProxy` so repeated boundary crossings reuse the same
+  // wrapper.
+  D4.registerInterfaceProxy('Action', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is Action<Intent>) return cached;
+    final proxy = _InterpretedAction(visitor, instance);
     instance.nativeProxy ??= proxy;
     return proxy;
   });
@@ -1636,6 +1658,37 @@ class _InterpretedIntent extends Intent {
   final InterpreterVisitor _visitor;
   // ignore: unused_field
   final InterpretedInstance _instance;
+}
+
+/// Native [Action] backing an interpreted `Action<T extends Intent>` subclass.
+/// Type parameter is erased to [Intent] so the proxy satisfies
+/// `Map<Type, Action<Intent>>` value-type casts at the bridge boundary even
+/// when the script declares `Action<SelectIntent>` (or any other Intent
+/// subtype).
+///
+/// Like [_InterpretedIntent], the proxy holds a back-reference to the
+/// interpreted instance but does not forward [invoke] / [isEnabled] /
+/// [consumesKey] into the interpreter. The C6 scripts only build the widget
+/// tree (and do not exercise `Actions.invoke`), matching the same trade-off
+/// accepted by the layout/clip delegate proxies. Real action dispatch through
+/// `Actions.invoke` for fully-interpreted Action subclasses is a separate
+/// concern.
+class _InterpretedAction extends Action<Intent> {
+  _InterpretedAction(this._visitor, this._instance) : super();
+
+  // ignore: unused_field
+  final InterpreterVisitor _visitor;
+  // ignore: unused_field
+  final InterpretedInstance _instance;
+
+  @override
+  Object? invoke(Intent intent) {
+    throw UnimplementedError(
+        'Interpreted Action subclasses cannot be dispatched through '
+        'Actions.invoke yet (interpreted ${_instance.klass.name}). '
+        'The proxy exists to satisfy Map<Type, Action<Intent>> coercion '
+        'at the bridge boundary; invocation is not forwarded.');
+  }
 }
 
 /// Native [SlottedMultiChildRenderObjectWidget] backing an interpreted

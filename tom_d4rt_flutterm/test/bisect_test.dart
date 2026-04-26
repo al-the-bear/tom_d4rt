@@ -16,12 +16,11 @@ void main() {
   });
 
   for (final script in <String>[
-    'retest/widgets/default_text_editing_shortcuts_test.dart',
-    'widgets/shortcut_activator_test.dart',
-    'widgets/shortcut_manager_test.dart',
-    'widgets/shortcut_map_property_test.dart',
+    'widgets/scroll_to_document_boundary_intent_test.dart',
+    'widgets/select_all_text_intent_test.dart',
+    'widgets/select_intent_test.dart',
   ]) {
-    test('$script (C5)', () async {
+    test('$script (C6)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

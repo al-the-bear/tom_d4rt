@@ -260,9 +260,9 @@ Regression suites all clean: essential 108/0/0, important 164/0/5, secondary 649
 
 ### C6 — `Map<Type, Action<Intent>>` coercion (sibling of C5)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Medium · **Owner:** generator (relaxer)
+**Severity:** Medium · **Owner:** runtime registrations (interface proxy)
 
 **Representative error**
 
@@ -274,7 +274,24 @@ Regression suites all clean: essential 108/0/0, important 164/0/5, secondary 649
 - `widgets/select_all_text_intent_test.dart`
 - `widgets/select_intent_test.dart`
 
-**Analysis.** Same problem as C5 but with `Type` keys. The interpreter has its own `Type` representation; the relaxer needs to unwrap the interpreted `Type` token to a native `Type` literal before populating the map. Fix is the same `D4.coerceMap<K, V>` extension as C5, with `Type` key support.
+**Analysis (revised).** Same shape as C5: scripts subclass `Action<T extends Intent>` (e.g. `class _CallbackSelectIntentAction extends Action<SelectIntent>`) and pass instances as values of `Actions(actions: <Type, Action<Intent>>{ … })`. The `D4.coerceMap<Type, Action<Intent>>` path handles `Type` keys correctly (the interpreter's `Type` is already routed through the standard coercion); the missing piece was the *value* side. The bridged `Action` class is abstract with only an `overridable` factory constructor and no default constructor, so the interpreter never populates `bridgedSuperObject` for user subclasses, and `coerceMap`'s fallback `instance as Action<Intent>` throws.
+
+**Fix.** Mirrors C5: registered an `Action` interface proxy in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`. The proxy class `_InterpretedAction extends Action<Intent>` (type-erased to `Action<Intent>` so it satisfies the Map's value-type cast even when the script's class is `Action<SelectIntent>`) holds a back-reference to the `InterpretedInstance` and is cached on `instance.nativeProxy` for repeat boundary crossings. `invoke` throws `UnimplementedError` — the C6 scripts only build the widget tree (no `Actions.invoke` dispatch through interpreted Actions), matching the trade-off accepted by `_InterpretedIntent` in C5.
+
+**Verification.** `flutter test test/bisect_test.dart`: all 3 scripts return STATUS=true. `scroll_to_document_boundary_intent_test` and `select_intent_test` emit zero framework errors. `select_all_text_intent_test` retains 3 unrelated rendering errors (`BoxConstraints negative minimum height` in `_RenderEditableCustomPaint`) that pre-exist and are downstream from the C6 fix.
+
+**Regression.** All four sequential suites match baseline `doc/testlog_20260426-2030-issue-analysis/`:
+
+- essential: 108/0/0 = baseline
+- important: 169/0/0 = baseline
+- secondary: 654/0/0 = baseline
+- generator_interpreter_issues: 72 pass / 11 fail / 0 error = baseline
+
+(One initial GII run produced spurious 31-test "errors" but a clean sequential rerun matched baseline exactly — confirmed flakiness, not a regression from this change.)
+
+**Mirroring.** No `tom_d4rt` ↔ `tom_d4rt_ast` mirror needed: the fix lives entirely in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` (downstream registration), not in interpreter or D4 helpers.
+
+**Limitation.** Scripts that exercise `Actions.invoke(SomeIntent)` against an interpreter-only Action subclass will hit the proxy's `UnimplementedError`. Real action dispatch into interpreted Actions is a separate concern.
 
 ---
 
@@ -693,7 +710,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C3 — `!` on null (broad) ⚠️ Partial (gir hard-fail fixed; 7 non-fatal deferred) | Medium | mixed | 8 | 0 |
 | C4 — List<Widget> coercion ⚠️ Partial (Section E coercion fixed via SlottedMultiChildRenderObjectWidget proxy; render-object mixin gap deferred to follow-up cluster) | High | tom_d4rt_flutterm runtime registrations | 2 | 0 |
 | C5 — Map<ShortcutActivator, Intent> coercion ✅ Fixed (Intent interface proxy registered; coerceMap already in place) | Medium-High | tom_d4rt_flutterm runtime registrations | 4 | 1 |
-| C6 — Map<Type, Action<Intent>> coercion | Medium | generator | 3 | 0 |
+| C6 — Map<Type, Action<Intent>> coercion ✅ Fixed (Action interface proxy registered) | Medium | tom_d4rt_flutterm runtime registrations | 3 | 0 |
 | C6b — ThemeExtension nested generic coercion | Low | generator | 1 | 1 |
 | C7 — TwoDimensionalScrollView ctor | Medium | generator | 3 | 0 |
 | C8 — BoxConstraints layout (script) | Low | scripts | ~14 | 0 |
