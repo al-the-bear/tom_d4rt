@@ -156,6 +156,11 @@ dynamic build(BuildContext context) {
   print('All layout builder advanced tests passed');
 
   // ========== RETURN WIDGET ==========
+  // Each child is wrapped in a SizedBox with a finite height because the
+  // outer SingleChildScrollView leaves the Column's vertical extent
+  // unbounded. CustomSingleChildLayout, OverflowBox, and SizedOverflowBox
+  // would otherwise try to expand to infinity during layout and trigger
+  // "object was given an infinite size during layout" errors.
   return MaterialApp(
     home: Scaffold(
       body: SingleChildScrollView(
@@ -164,9 +169,9 @@ dynamic build(BuildContext context) {
             SizedBox(height: 200, child: layoutBuilder),
             SizedBox(height: 200, child: orientationBuilder),
             SizedBox(height: 200, child: multiChildLayout),
-            singleChildLayout,
-            overflowBox,
-            sizedOverflowBox,
+            SizedBox(height: 200, child: singleChildLayout),
+            SizedBox(height: 320, child: overflowBox),
+            SizedBox(height: 160, child: sizedOverflowBox),
           ],
         ),
       ),

@@ -188,45 +188,49 @@ class _ControlDeck extends StatelessWidget {
             style: TextStyle(color: Color(0xFFDDEBF7), height: 1.35),
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: SwitchListTile(
-                  value: compact,
-                  onChanged: onCompactChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-              ),
-              Expanded(
-                child: SwitchListTile(
-                  value: guide,
-                  onChanged: onGuideChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-              ),
-              Expanded(
-                child: SwitchListTile(
-                  value: notes,
-                  onChanged: onNotesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-              ),
-              Expanded(
-                child: SwitchListTile(
-                  value: rtl,
-                  onChanged: onRtlChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-              ),
-            ],
+          // Use a Wrap so the four SwitchListTiles flow to a second row at
+          // narrower viewport widths instead of squeezing each label tighter
+          // than its intrinsic width and overflowing the inner Row inside
+          // SwitchListTile (the longest label here is "Instruction notes").
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final tileWidth = (constraints.maxWidth / 2).clamp(220.0, 340.0);
+              SizedBox tile(Widget child) => SizedBox(width: tileWidth, child: child);
+              return Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  tile(SwitchListTile(
+                    value: compact,
+                    onChanged: onCompactChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Compact scenes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  )),
+                  tile(SwitchListTile(
+                    value: guide,
+                    onChanged: onGuideChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Guide overlays', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  )),
+                  tile(SwitchListTile(
+                    value: notes,
+                    onChanged: onNotesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Instruction notes', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  )),
+                  tile(SwitchListTile(
+                    value: rtl,
+                    onChanged: onRtlChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('RTL mode', overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  )),
+                ],
+              );
+            },
           ),
           Text('Global scale: ${scale.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
           Slider(
@@ -1270,8 +1274,18 @@ class _PatternCanvas extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
-              const Spacer(),
+              // Guard against the lens stage being narrower than the
+              // composite "<context> lens" / "<context> lens lens" label —
+              // ellipsis lets the label shrink instead of overflowing the
+              // canvas Row to the right.
+              Flexible(
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+                ),
+              ),
+              const SizedBox(width: 6),
               Text('rev $revision', style: TextStyle(color: tone.withValues(alpha: 0.75), fontWeight: FontWeight.w600, fontSize: 12)),
             ],
           ),
@@ -1379,10 +1393,29 @@ class _DataTableCard extends StatelessWidget {
             .map(
               (r) => Padding(
                 padding: const EdgeInsets.only(bottom: 4),
+                // Use a 2:3 flex split for the label/value columns instead of
+                // a hard SizedBox(width: 130). The data table renders inside
+                // narrow flex 6 / 15 side panels where 130 px of label can be
+                // most of the row, leaving the value column unable to fit.
                 child: Row(
                   children: [
-                    SizedBox(width: 130, child: Text(r.label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                    Expanded(child: Text(r.value, style: const TextStyle(fontSize: 12))),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        r.label,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        r.value,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),

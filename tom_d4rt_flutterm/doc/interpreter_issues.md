@@ -1524,36 +1524,45 @@ proxy walker now reaching previously-shadowed bridged interfaces.
 
 ### [~] Partially fixed — script-side / Flutter framework limitations
 
-**Status (2026-04-25)** — first sweep landed in commit `354216e4`:
-five scripts edited, four cleared (0 framework errors), one
-partially cleared (the script-side `.first` issue is fixed; the
-remaining error is now an interpreter-side cluster-9 bridge gap):
+**Status (2026-04-26)** — three sweeps so far. Cumulative table
+below; each commit verifies isolated 0-framework-error and runs
+regression on gii/essential/important/secondary.
 
-| Script | Before | After | Fix |
-|--------|--------|-------|-----|
-| `widgets/navigation_toolbar_test.dart` | 70 | 0 | Wrap each `NavigationToolbar` in `SizedBox(height: kToolbarHeight)` (CustomMultiChildLayout requires bounded height). One central wrap in `_ToolbarCard.build` covers 3 sites; 3 direct sites edited individually. |
-| `services/codecs_test.dart` | 1 | 0 | Add explicit `import 'dart:typed_data';` (the d4rt bridge generator did not model the `flutter/services.dart` → `dart:typed_data` re-export at the time — fixed end-to-end by GEN-107 Phases 2/3; the explicit import is no longer needed but harmless). |
-| `widgets/shortcut_registry_entry_test.dart` | 1 | 0 | The script's own comment described the workaround ("use null-aware `?.withValues(...)` with explicit fallbacks"); apply it to `phaseColor.withValues(...)` calls inside the `List.generate` closure. |
-| `rendering/render_proxy_sliver_test.dart` | 1 | 0 | Replace `event.channel.characters.first.toUpperCase()` with `event.channel.substring(0, 1).toUpperCase()` (d4rt's bridge for `String.characters` returns the String itself, so `.first` ends up on a String). |
-| `rendering/render_aligning_shifted_box_test.dart` | 1 | 1* | Same `.first` fix on `preset.label.characters.first`. The remaining framework error is now an interpreter-side cluster-9 issue (`createRenderObject: expected RenderObject, got InterpretedInstance(_DemoRenderAligningShiftedBox)`), not script-side. |
+| Script | Before | After | Fix | Commit |
+|--------|--------|-------|-----|--------|
+| `widgets/navigation_toolbar_test.dart` | 70 | 0 | Wrap each `NavigationToolbar` in `SizedBox(height: kToolbarHeight)` (CustomMultiChildLayout requires bounded height). One central wrap in `_ToolbarCard.build` covers 3 sites; 3 direct sites edited individually. | `354216e4` |
+| `services/codecs_test.dart` | 1 | 0 | Add explicit `import 'dart:typed_data';` (the d4rt bridge generator did not model the `flutter/services.dart` → `dart:typed_data` re-export at the time — fixed end-to-end by GEN-107 Phases 2/3; the explicit import is no longer needed but harmless). | `354216e4` |
+| `widgets/shortcut_registry_entry_test.dart` | 1 | 0 | The script's own comment described the workaround ("use null-aware `?.withValues(...)` with explicit fallbacks"); apply it to `phaseColor.withValues(...)` calls inside the `List.generate` closure. | `354216e4` |
+| `rendering/render_proxy_sliver_test.dart` | 1 | 0 | Replace `event.channel.characters.first.toUpperCase()` with `event.channel.substring(0, 1).toUpperCase()` (d4rt's bridge for `String.characters` returns the String itself, so `.first` ends up on a String). | `354216e4` |
+| `rendering/render_aligning_shifted_box_test.dart` | 1 | 1* | Same `.first` fix on `preset.label.characters.first`. The remaining framework error is now an interpreter-side cluster-9 issue (`createRenderObject: expected RenderObject, got InterpretedInstance(_DemoRenderAligningShiftedBox)`), not script-side. | `354216e4` |
+| `widgets/scroll_start_notification_test.dart` | 1 | 0 | (Layout fix from prior batch.) | `bb74fd23` |
+| `widgets/root_element_mixin_test.dart` | 1 | 0 | Same. | `bb74fd23` |
+| `widgets/scrollable_details_test.dart` | 1 | 0 | Same. | `bb74fd23` |
+| `widgets/img_element_platform_view_test.dart` | n | 0 | Same. | `bb74fd23` |
+| `widgets/slotted_multi_child_test.dart` | n | 0 | Same. | `bb74fd23` |
+| `widgets/animated_switcher_test.dart` | 1 | 0 | Bumped fixed `SizedBox` height to fit the inner Column without a 4-pixel bottom RenderFlex overflow. | `bb74fd23` |
+| `rendering/custom_painter_semantics_test.dart` | 2 | 1* | Region 4 "Label" SemanticRegion height 35 → 42 to fit Icon(18) + SizedBox(2) + bold Text without ~3-px RenderFlex bottom overflow. The remaining error is interpreter-level (`semanticsBuilder` returning `InterpretedFunction`). | `39baf0f7` |
+| `widgets/list_wheel_scroll_view_test.dart` | 2 | 0 | Two `_InfoRow`s read `_controller.selectedItem` directly during build before the `ListWheelScrollView` had attached the controller. Guarded with `controller.hasClients ? '$controller.selectedItem' : '$_selected'`. | `39baf0f7` |
+| `widgets/list_wheel_viewport_test.dart` | 9 | 0 | Script uses raw `Scrollable + ListWheelViewport`, which only accepts a plain `ScrollController` and non-`FixedExtent` physics (`FixedExtentScrollController` only works with `ListWheelScrollView`). Default physics changed to `BouncingScrollPhysics()` and the pipeline scene's `_PipelinePhysics.{fixed,bouncing,clamping}` switch maps to `Clamping/Bouncing/Clamping` (no `FixedExtent*` parents). | `39baf0f7` |
+| `widgets/layout_builder_adv_test.dart` | 6 | 0 | The final `SingleChildScrollView` Column placed `singleChildLayout`, `overflowBox`, and `sizedOverflowBox` directly into the unbounded vertical extent of the Column, so `RenderCustomSingleChildLayoutBox` and `RenderConstrainedOverflowBox` got infinite size. Wrapped each in a `SizedBox(height: …)` matching the existing 200-px pattern of the bounded children. | _this commit_ |
+| `widgets/magnifier_decoration_test.dart` | 4 | 0 | (a) The `_ControlDeck` 4-up `Row` of `SwitchListTile`s couldn't keep "Instruction notes" inside its share at narrow widths — converted to a `LayoutBuilder + Wrap` of fixed-width tiles with `TextOverflow.ellipsis` so they reflow at 800-px viewports. (b) `_PatternCanvas`'s header `Row(label, Spacer, rev N)` overflowed when the lens stage was narrow — wrapped the `label` in `Flexible(Text(…, overflow: ellipsis))` and replaced `Spacer` with a small gap. (c) `_DataTableCard`'s rows used a hard `SizedBox(width: 130)` for the label cell that didn't fit narrow flex-6 panels — replaced with a 2:3 `Expanded` split. | _this commit_ |
 
-Regression battery after the fix (D4RT_SKIP_BRIDGE_REGEN=1):
-gii `+63 ~1 -19` (was `+62 ~1 -20`), essential `+108`, important
-`+164 ~5`, secondary `+615 ~39`. Net +1 improvement, no new
-regressions.
+Regression battery results are recorded with each commit in
+`session_resume.d4rt.md` (no new regressions in any sweep).
 
 What's still open — items below not yet swept:
 
-- `widgets/animated_switcher_test.dart` — RenderFlex overflow by 4
-  pixels on the bottom (cosmetic; doesn't fail the test, but
-  produces noise).
-- `widgets/magnifier_decoration_test.dart` — 4 RenderFlex overflows
-  on the right (3.9 / 23 / 1.4 / 2.9 pixels).
-- `widgets/list_wheel_scroll_view_test.dart`,
-  `widgets/list_wheel_viewport_test.dart` — FixedExtent script
-  mismatches.
-- `widgets/html_element_view_test.dart` — platform view
-  constraints.
+- `widgets/inherited_theme_test.dart` (6) — `PanelTheme.of called
+  with no PanelTheme in context`. Likely script logic (missing
+  ancestor).
+- `widgets/inherited_widget_test.dart` (5) — `AppStateScope.watch
+  called without AppStateScope in context`. Same pattern.
+- `widgets/window_scope_test.dart` (1) — `No _DemoWindowScope
+  found in context`. Same pattern.
+- `widgets/html_element_view_test.dart` (6 × 71-px right
+  overflows) — cause unclear; deferred until runtime info clearer.
+- `widgets/tree_sliver_state_mixin_test.dart` (4 bottom
+  overflows: 432/124/62/141 px) — deferred until cause clearer.
 - `widgets/shader_mask_test.dart` — LateInit on script's late
   `_animController` (script-construction order bug).
 - `widgets/backdrop_filter_test.dart` — listed as "matrix4 must
@@ -1561,17 +1570,19 @@ What's still open — items below not yet swept:
   script calls `ColorFilter.matrix(...)` (correct 5×4 = 20-entry
   matrix), but the bridge dispatches the `matrix` constructor name
   to `ImageFilter.matrix` (4×4 = 16 entries) and validation fails.
-  This is an interpreter/bridge ambiguity, not a script bug — move
-  to a separate cluster.
+  Interpreter/bridge ambiguity, not a script bug — separate
+  cluster.
 - The various `Build scheduled during frame` /
   `Cannot invoke method 'withValues' on null` /
   `RenderCustomMultiChildLayoutBox infinite size` cases that
   overlap with clusters 8 / 9 / 10 — leave them to those clusters'
   fixes rather than papering over each script.
 
-\*The remaining `render_aligning_shifted_box_test.dart` framework
-error is reclassified as cluster-9 ("interpreted RenderObject
-subclasses").
+\*The remaining `render_aligning_shifted_box_test.dart` and
+`custom_painter_semantics_test.dart` framework errors are
+reclassified as cluster-9 ("interpreted RenderObject subclasses"
+/ "interpreted callback returned where Flutter expected a native
+typedef value").
 
 **Symptom (original)**
 
