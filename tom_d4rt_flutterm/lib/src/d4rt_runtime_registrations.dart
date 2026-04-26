@@ -316,19 +316,6 @@ void registerD4rtInterfaceProxyOverrides() {
     return proxy;
   });
 
-  // Cluster C1 — also register the container proxy under
-  // 'ContainerRenderObjectMixin' so the proxy walk can resolve through the
-  // mixin candidate when the class chain didn't surface 'RenderBox' first
-  // (e.g., when a script uses an interpreted superclass that itself extends
-  // RenderBox via its own bridged contributions).
-  D4.registerInterfaceProxy('ContainerRenderObjectMixin', (visitor, instance) {
-    final cached = instance.nativeProxy;
-    if (cached is ContainerRenderObjectMixin) return cached;
-    final proxy = _InterpretedRenderBoxContainer(visitor, instance);
-    instance.nativeProxy = proxy;
-    return proxy;
-  });
-
   // Plan D Phase 2 — RenderAligningShiftedBox proxy.
   //
   // Scripts that subclass RenderAligningShiftedBox (or any intermediate

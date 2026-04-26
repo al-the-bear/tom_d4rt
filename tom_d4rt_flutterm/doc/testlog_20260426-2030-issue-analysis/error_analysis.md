@@ -80,17 +80,27 @@ Each cluster lists: representative pattern → affected scripts → analysis →
 
 **Suggested fix.** Generate proxy variants for the mixin combinations the rendering layer actually demands: a `_InterpretedRenderBoxContainer<ChildType, ParentDataType>` that mixes in `ContainerRenderObjectMixin` + `ContainerParentDataMixin` + `RenderBoxContainerDefaultsMixin`. The proxy must propagate `size` to the native side at the end of every `performLayout`. Mirror the proxy_generator change between `tom_d4rt_generator` and the consuming user bridges in `tom_d4rt_flutterm/lib/src/d4rt_user_bridges/rendering/`.
 
-**Resolution (2026-04-26) — Partial.** Implemented the container-aware proxy `_InterpretedRenderBoxContainer` in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` that mixes in `ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>>` and `RenderBoxContainerDefaultsMixin<RenderBox, ContainerBoxParentData<RenderBox>>`. The `RenderBox` proxy factory now inspects the interpreted class chain (new helper `_classChainHasBridgedMixin`) and dispatches to the container variant whenever the script's class chain includes `ContainerRenderObjectMixin`; otherwise the existing `_InterpretedRenderBox` is used. A second factory is also registered under `ContainerRenderObjectMixin` so the proxy walk can resolve through the mixin candidate. Method forwarding mirrors `_InterpretedRenderBox` exactly (`performLayout`, `paint`, `hitTest{,Self,Children}`, `setupParentData`), with `paint` falling back to `defaultPaint` and `hitTestChildren` falling back to `defaultHitTestChildren` so container scripts that don't override these methods still get correct child traversal. Done in tom_d4rt_flutterm only — no changes needed in tom_d4rt or tom_d4rt_ast (proxy infrastructure already supports the registration). The fix unblocks the original cast error and is verified on:
+**Resolution (2026-04-26) — Partial.** Implemented the container-aware proxy `_InterpretedRenderBoxContainer` in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` that mixes in `ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>>` and `RenderBoxContainerDefaultsMixin<RenderBox, ContainerBoxParentData<RenderBox>>`. The `RenderBox` proxy factory now inspects the interpreted class chain (new helper `_classChainHasBridgedMixin`) and dispatches to the container variant whenever the script's class chain includes `ContainerRenderObjectMixin`; otherwise the existing `_InterpretedRenderBox` is used. Method forwarding mirrors `_InterpretedRenderBox` exactly (`performLayout`, `paint`, `hitTest{,Self,Children}`, `setupParentData`), with `paint` falling back to `defaultPaint` and `hitTestChildren` falling back to `defaultHitTestChildren` so container scripts that don't override these methods still get correct child traversal. Done in tom_d4rt_flutterm only — no changes needed in tom_d4rt or tom_d4rt_ast (proxy infrastructure already supports the registration). The fix unblocks the original cast error and is verified on:
 
-- `rendering/render_box_container_defaults_mixin_test.dart` — original cast `_InterpretedRenderBox is not a subtype of ContainerRenderObjectMixin` is gone. Test now fails on a downstream issue: `_DefaultsParentData extends ContainerBoxParentData<RenderBox>` (interpreted) is rejected when assigned to `RenderObject.parentData` (`Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)`). This is a separate cluster (parent-data interpreted-instance proxy gap) that should be opened as its own ticket.
-- `rendering/box_hit_test_result_test.dart` — the original `Cannot invoke 'contains' on null` came from a script bug (`childBox.size` access on an un-laid mock) and was fixed in-script (line 758 → use `boxSize`). The proxy fix is not directly required for this script, but with both changes the script now executes through all sections; remaining `frameworkErrors` are pre-existing layout warnings in the visualization Containers (`RenderFlex/RenderPadding given infinite size`) that exist independent of C1.
+- `rendering/render_box_container_defaults_mixin_test.dart` — original cast `_InterpretedRenderBox is not a subtype of ContainerRenderObjectMixin` is gone. Test now fails on a downstream issue: `_DefaultsParentData extends ContainerBoxParentData<RenderBox>` (interpreted) is rejected when assigned to `RenderObject.parentData` (`Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)` × 5). This is a separate cluster (parent-data interpreted-instance proxy gap) — see **C21** below.
+- `rendering/box_hit_test_result_test.dart` — the original `Cannot invoke 'contains' on null` came from a script bug (`childBox.size` access on an un-laid mock) and was fixed in-script (line 758 → use `boxSize`). The proxy fix is not directly required for this script, but with both changes the script now executes through all sections; remaining `frameworkErrors` are pre-existing visualization-layout warnings (`RenderFlex/RenderPadding given infinite size`) inside the SingleChildScrollView. These are script-side and independent of C1 — see **C22** below.
 
-**Regression status.** Essential / important / secondary suites in this run are flaky at the test-app/HTTP-transport level even on the unchanged baseline (pre-fix `git stash` baseline run also yields large `clear_failed` cascades after a single transient `transport_error`). Comparing pre-fix and post-fix runs of the same suites shows no fix-induced regressions: `essential_classes_test.dart` ran 107/-1 with the fix vs 106/-2 without; both deltas are flake noise on the same handful of transport-affected tests. `important_classes_test.dart` ran 75/-89 with the fix vs 9/-155 without (the fix is, if anything, slightly better here — same explanation: shared HTTP transport flakiness).
+**False-start — secondary suite regression and recovery.** A first iteration of this fix added a *second* interface-proxy registration directly under `'ContainerRenderObjectMixin'` (alongside the dispatch in the `'RenderBox'` factory). That second registration intercepted any `InterpretedInstance` the framework cast through `ContainerRenderObjectMixin` — including instances that were never RenderBox subclasses — and produced bogus `_InterpretedRenderBoxContainer` proxies that corrupted state across subsequent rendering tests. Symptom: secondary suite went from baseline 649/0/5-skip to 69/580/5-skip, with rendering tests timing out at 30 s (`hittest_pipeline_test.dart`, `render_box_types_test.dart`, …) and the test-app process eventually crashing (transport_error → cascade of `clear_failed`). The redundant registration was removed; the dispatch in the `'RenderBox'` factory alone is sufficient to satisfy the framework's `proxy as ContainerRenderObjectMixin` casts because the RenderBox factory is what actually constructs the proxy when a script subclasses RenderBox.
 
-**Open follow-ups (separate cluster candidates).**
+**Regression status — clean.** With the trimmed fix in place, all three regression suites match their pre-fix baselines exactly:
 
-- **Parent-data proxy gap** (newly surfaced by C1 fix): scripts that subclass `ParentData` / `ContainerBoxParentData` and pass an instance into a native `RenderObject.parentData` setter need an interface-proxy registration analogous to `RenderBox` so the interpreted parent-data is wrapped in a native shell.
-- **Visualization layout warnings** in `box_hit_test_result_test.dart` (and likely sibling rendering scripts) — independent of C1; may form a script-side cluster of "CustomPaint / Column unbounded" cleanups.
+| Suite | Baseline | With trimmed C1 fix | Delta |
+|---|---|---|---|
+| essential_classes_test | 108 / 0 | 108 / 0 | none |
+| important_classes_test | 164 / 0 / 5-skip | 164 / 0 / 5-skip | none |
+| secondary_classes_test | 649 / 0 / 5-skip | 649 / 0 / 5-skip | none |
+
+Captured runs: `/tmp/c1_no_secondary_reg_essential.log`, `/tmp/c1_no_secondary_reg_important.log`, `/tmp/c1_no_secondary_reg.log` (secondary).
+
+**Open follow-ups (now logged as separate clusters).**
+
+- **C21 — Parent-data proxy gap** (newly surfaced by C1 fix): scripts that subclass `ParentData` / `ContainerBoxParentData` and pass an instance into a native `RenderObject.parentData` setter need an interface-proxy registration analogous to `RenderBox` so the interpreted parent-data is wrapped in a native shell.
+- **C22 — Visualization layout warnings** in `box_hit_test_result_test.dart` (script-side `RenderFlex/RenderPadding given infinite size` cascades inside the SingleChildScrollView). Independent of C1.
 
 ---
 
@@ -574,6 +584,52 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 
 ---
 
+### C21 — Interpreted ParentData rejected at native `RenderObject.parentData` setter (downstream of C1)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
+**Severity:** High (blocks any script that subclasses `ParentData` / `ContainerBoxParentData`) · **Owner:** tom_d4rt_flutterm runtime registrations + interpreter (round-trip cast)
+
+**Representative error**
+
+- `Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)`
+
+**Affected scripts**
+
+- `rendering/render_box_container_defaults_mixin_test.dart` (gii fail — surfaced once C1 cast was unblocked)
+
+**Analysis.** The script defines `class _DefaultsParentData extends ContainerBoxParentData<RenderBox>` and assigns instances directly to a native RenderBox's `parentData` setter (`child.parentData = _DefaultsParentData()`) inside the interpreted `setupParentData` override forwarded by `_InterpretedRenderBoxContainer`. The native setter does an `is ParentData` check and rejects the raw `InterpretedInstance`. Unlike RenderBox/RenderObject — for which we have an interface proxy registered — there is no proxy registration for `ParentData` (or `ContainerBoxParentData`), so the value reaches the bridge boundary unwrapped.
+
+The fix is structurally analogous to the C1 RenderBox proxy:
+
+1. Add `_InterpretedParentData` (or a parameterised `_InterpretedContainerBoxParentData<ChildType>`) that **extends** the appropriate native ParentData class and forwards field reads/writes (`nextSibling`, `previousSibling`, `offset`, plus any user-defined fields like `id`) through to the wrapped `InterpretedInstance` via `findInstanceField` / setter dispatch.
+2. Register `D4.registerInterfaceProxy('ParentData', …)` and `'ContainerBoxParentData', …` so the bridge auto-coerces `InterpretedInstance` arguments at any native API that takes a ParentData.
+3. Round-trip handling: when the script reads `child.parentData! as _DefaultsParentData`, the cast must succeed even though `child.parentData` returns the native proxy. Either the cast site must unwrap to the underlying `InterpretedInstance`, or the proxy must satisfy `as InterpretedClass` checks via the existing interpreter cast-hook path (the same machinery that lets `_InterpretedRenderBox` satisfy `as MyRenderBox`).
+
+**Suggested fix.** Land the `_InterpretedParentData` proxy + registration in `lib/src/d4rt_runtime_registrations.dart`, mirroring the structure of `_InterpretedRenderBox` / `_InterpretedRenderBoxContainer`. Verify on `render_box_container_defaults_mixin_test.dart`; expect new downstream issues for any user-defined parent-data fields that aren't yet forwarded.
+
+---
+
+### C22 — Visualization-layout cascade in `box_hit_test_result_test.dart` (script-side)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+
+**Severity:** Low · **Owner:** test script
+
+**Representative error**
+
+- `RenderFlex object was given an infinite size during layout. … BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity) … exact size … Size(1870.0, Infinity)` (multiple, also `RenderPadding`)
+
+**Affected scripts**
+
+- `rendering/box_hit_test_result_test.dart` (gii fail — surfaced once C1 cast and the in-script `boxSize` patch unblocked execution)
+
+**Analysis.** The build tree is `Scaffold > body: SingleChildScrollView(padding: EdgeInsets.all(16), child: Column(crossAxisAlignment: start, children: [_buildIntroductionCard(), _buildCreationSection(), …]))`. Each of the inner `_buildXxxSection()` methods returns a top-level `Column` with default `mainAxisSize: MainAxisSize.max`. Inside an unbounded scroll viewport, a Flex with `MainAxisSize.max` resolves to `Size(width, Infinity)`, which Flutter flags. The original failure (`Cannot invoke 'contains' on null`) crashed the test before these warnings were emitted; with the fix the script runs through and the warnings come out as `frameworkErrors` that fail `expectSuccess`.
+
+**Suggested fix.** Set `mainAxisSize: MainAxisSize.min` on each top-level section Column (or wrap problematic descendants in `IntrinsicHeight`/`ConstrainedBox`). Strictly script-side; no interpreter or generator change needed.
+
+---
+
 ## Cluster summary
 
 | Cluster | Severity | Owner | # scripts | Hard fails (gii/gir) |
@@ -599,6 +655,8 @@ Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError
 | C18 — Offset(dx: null) | Low | script | 1 | 0 |
 | C19 — !childSemantics._needsLayout | Medium | interpreter | 11 | 1 |
 | C20 — Misc operator + bridge gaps | Medium | interpreter | ≥8 | 4 |
+| C21 — ParentData proxy gap (downstream of C1) | High | tom_d4rt_flutterm + interpreter | 1 | 1 |
+| C22 — Visualization layout warnings (script) | Low | scripts | 1 | 1 |
 
 ## Recommended fix order
 
@@ -606,7 +664,7 @@ The next active-work cluster from the open log (`interpreter_issues.md`) should 
 
 1. **C14 — Plan E2 (null BuildContext)** — completes Plan E and unblocks two gii fails immediately.
 2. **C4 + C5 + C6 + C6b — Generic coercion (List/Map of bridged types)** — single relaxer-generator change, unblocks 4+ gir/secondary scripts and removes a long-standing Section E pain point.
-3. **C1 + C19 — RenderObject proxy** — two coupled clusters; biggest impact on the rendering-test surface.
+3. **C1 + C19 + C21 — RenderObject proxy chain** — three coupled clusters; biggest impact on the rendering-test surface. C21 must follow C1 because it surfaces only when scripts can subclass container RenderBox.
 4. **C7 — TwoDimensionalScrollView empty-name ctor** — small generator change, three scripts.
 5. **C12 + C13 + C20c — stdlib holes (`Object.hash`, `Future.delayed`, `Iterable.indexed`)** — quick wins.
 6. **C10 — RestorationProperty proxy lifecycle** — high script count (13) but cosmetic in passing suites; tackle once C1 lands.
