@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 5 files
-// Generated: 2026-04-25T22:38:17.238778
+// Generated: 2026-04-26T15:36:01.576070
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -623,6 +623,7 @@ BridgedClass _createSemanticsBindingBridge() {
     name: 'SemanticsBinding',
     isAssignable: (v) => v is $flutter_5.SemanticsBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -862,6 +863,7 @@ BridgedClass _createSemanticsEventBridge() {
     nativeType: $flutter_8.SemanticsEvent,
     name: 'SemanticsEvent',
     isAssignable: (v) => v is $flutter_8.SemanticsEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3251,6 +3253,7 @@ BridgedClass _createSemanticsSortKeyBridge() {
     nativeType: $flutter_7.SemanticsSortKey,
     name: 'SemanticsSortKey',
     isAssignable: (v) => v is $flutter_7.SemanticsSortKey,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3390,6 +3393,7 @@ BridgedClass _createSemanticsServiceBridge() {
     nativeType: $flutter_9.SemanticsService,
     name: 'SemanticsService',
     isAssignable: (v) => v is $flutter_9.SemanticsService,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 11 files
-// Generated: 2026-04-25T22:38:15.687499
+// Generated: 2026-04-26T15:35:59.982213
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -408,6 +408,7 @@ BridgedClass _createTickerProviderBridge() {
     nativeType: $flutter_14.TickerProvider,
     name: 'TickerProvider',
     isAssignable: (v) => v is $flutter_14.TickerProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -560,6 +561,7 @@ BridgedClass _createAnimationBridge() {
     nativeType: $flutter_1.Animation,
     name: 'Animation',
     isAssignable: (v) => v is $flutter_1.Animation,
+    isAbstract: true,
     constructors: {
       'fromValueListenable': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animation');
@@ -664,6 +666,7 @@ BridgedClass _createParametricCurveBridge() {
     nativeType: $flutter_5.ParametricCurve,
     name: 'ParametricCurve',
     isAssignable: (v) => v is $flutter_5.ParametricCurve,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -701,6 +704,7 @@ BridgedClass _createCurveBridge() {
     nativeType: $flutter_5.Curve,
     name: 'Curve',
     isAssignable: (v) => v is $flutter_5.Curve,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1095,6 +1099,7 @@ BridgedClass _createCurve2DBridge() {
     nativeType: $flutter_5.Curve2D,
     name: 'Curve2D',
     isAssignable: (v) => v is $flutter_5.Curve2D,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1570,6 +1575,7 @@ BridgedClass _createCurvesBridge() {
     nativeType: $flutter_5.Curves,
     name: 'Curves',
     isAssignable: (v) => v is $flutter_5.Curves,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -1674,6 +1680,7 @@ BridgedClass _createAnimatableBridge() {
     nativeType: $flutter_7.Animatable,
     name: 'Animatable',
     isAssignable: (v) => v is $flutter_7.Animatable,
+    isAbstract: true,
     constructors: {
       'fromCallback': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Animatable');
@@ -2534,6 +2541,7 @@ BridgedClass _createSimulationBridge() {
     nativeType: $flutter_11.Simulation,
     name: 'Simulation',
     isAssignable: (v) => v is $flutter_11.Simulation,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3797,6 +3805,7 @@ BridgedClass _createCompoundAnimationBridge() {
     nativeType: $flutter_4.CompoundAnimation,
     name: 'CompoundAnimation',
     isAssignable: (v) => v is $flutter_4.CompoundAnimation,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4428,6 +4437,7 @@ BridgedClass _createAnimationWithParentMixinBridge() {
     name: 'AnimationWithParentMixin',
     isAssignable: (v) => v is $flutter_4.AnimationWithParentMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4499,6 +4509,7 @@ BridgedClass _createAnimationLazyListenerMixinBridge() {
     name: 'AnimationLazyListenerMixin',
     isAssignable: (v) => v is $flutter_6.AnimationLazyListenerMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4548,6 +4559,7 @@ BridgedClass _createAnimationEagerListenerMixinBridge() {
     name: 'AnimationEagerListenerMixin',
     isAssignable: (v) => v is $flutter_6.AnimationEagerListenerMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4585,6 +4597,7 @@ BridgedClass _createAnimationLocalListenersMixinBridge() {
     name: 'AnimationLocalListenersMixin',
     isAssignable: (v) => v is $flutter_6.AnimationLocalListenersMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4650,6 +4663,7 @@ BridgedClass _createAnimationLocalStatusListenersMixinBridge() {
     name: 'AnimationLocalStatusListenersMixin',
     isAssignable: (v) => v is $flutter_6.AnimationLocalStatusListenersMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {

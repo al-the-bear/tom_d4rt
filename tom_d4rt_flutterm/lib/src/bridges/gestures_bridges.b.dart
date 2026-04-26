@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-04-25T22:38:18.904407
+// Generated: 2026-04-26T15:36:03.164177
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -871,6 +871,7 @@ BridgedClass _createGestureArenaMemberBridge() {
     nativeType: $flutter_5.GestureArenaMember,
     name: 'GestureArenaMember',
     isAssignable: (v) => v is $flutter_5.GestureArenaMember,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -2467,6 +2468,7 @@ BridgedClass _createPointerSignalEventBridge() {
     nativeType: $flutter_13.PointerSignalEvent,
     name: 'PointerSignalEvent',
     isAssignable: (v) => v is $flutter_13.PointerSignalEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3806,6 +3808,7 @@ BridgedClass _createHitTestableBridge() {
     nativeType: $flutter_17.HitTestable,
     name: 'HitTestable',
     isAssignable: (v) => v is $flutter_17.HitTestable,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3843,6 +3846,7 @@ BridgedClass _createHitTestDispatcherBridge() {
     nativeType: $flutter_17.HitTestDispatcher,
     name: 'HitTestDispatcher',
     isAssignable: (v) => v is $flutter_17.HitTestDispatcher,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3870,6 +3874,7 @@ BridgedClass _createHitTestTargetBridge() {
     nativeType: $flutter_17.HitTestTarget,
     name: 'HitTestTarget',
     isAssignable: (v) => v is $flutter_17.HitTestTarget,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4271,6 +4276,7 @@ BridgedClass _createGestureBindingBridge() {
     name: 'GestureBinding',
     isAssignable: (v) => v is $flutter_6.GestureBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4517,6 +4523,7 @@ BridgedClass _createPointerEventConverterBridge() {
     nativeType: $flutter_8.PointerEventConverter,
     name: 'PointerEventConverter',
     isAssignable: (v) => v is $flutter_8.PointerEventConverter,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -5086,6 +5093,7 @@ BridgedClass _createDragBridge() {
     nativeType: $flutter_10.Drag,
     name: 'Drag',
     isAssignable: (v) => v is $flutter_10.Drag,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -5778,6 +5786,7 @@ BridgedClass _createPositionedGestureDetailsBridge() {
     nativeType: $flutter_15.PositionedGestureDetails,
     name: 'PositionedGestureDetails',
     isAssignable: (v) => v is $flutter_15.PositionedGestureDetails,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -6644,6 +6653,7 @@ BridgedClass _createGestureRecognizerBridge() {
     nativeType: $flutter_25.GestureRecognizer,
     name: 'GestureRecognizer',
     isAssignable: (v) => v is $flutter_25.GestureRecognizer,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -6836,6 +6846,7 @@ BridgedClass _createOneSequenceGestureRecognizerBridge() {
     nativeType: $flutter_25.OneSequenceGestureRecognizer,
     name: 'OneSequenceGestureRecognizer',
     isAssignable: (v) => v is $flutter_25.OneSequenceGestureRecognizer,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7091,6 +7102,7 @@ BridgedClass _createPrimaryPointerGestureRecognizerBridge() {
     nativeType: $flutter_25.PrimaryPointerGestureRecognizer,
     name: 'PrimaryPointerGestureRecognizer',
     isAssignable: (v) => v is $flutter_25.PrimaryPointerGestureRecognizer,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -8923,6 +8935,7 @@ BridgedClass _createMultiDragPointerStateBridge() {
     nativeType: $flutter_21.MultiDragPointerState,
     name: 'MultiDragPointerState',
     isAssignable: (v) => v is $flutter_21.MultiDragPointerState,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -8990,6 +9003,7 @@ BridgedClass _createMultiDragGestureRecognizerBridge() {
     nativeType: $flutter_21.MultiDragGestureRecognizer,
     name: 'MultiDragGestureRecognizer',
     isAssignable: (v) => v is $flutter_21.MultiDragGestureRecognizer,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -10227,6 +10241,7 @@ BridgedClass _createBaseTapGestureRecognizerBridge() {
     nativeType: $flutter_28.BaseTapGestureRecognizer,
     name: 'BaseTapGestureRecognizer',
     isAssignable: (v) => v is $flutter_28.BaseTapGestureRecognizer,
+    isAbstract: true,
     constructors: {
     },
     getters: {

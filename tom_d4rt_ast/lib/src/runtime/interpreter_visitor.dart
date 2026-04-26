@@ -335,6 +335,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
       return value;
+    } on LateInitializationError {
+      // Plan H: late local accessed before assignment must surface unwrapped —
+      // do NOT fall through to the implicit-'this' lookup that would
+      // ultimately rewrap as "Undefined variable".
+      rethrow;
     } on RuntimeD4rtException catch (getErr) {
       // Ignore get() error for now, try 'this' then
       Logger.debug(
@@ -489,6 +494,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "Undefined variable: $name (this exists as native type ${thisInstance?.runtimeType}",
       );
     } on RuntimeD4rtException catch (thisErr) {
+      // Plan H: rethrow LateInitializationError directly (without wrapping
+      // as "Undefined variable") so it surfaces to the framework error
+      // reporter unwrapped — matches native Dart behaviour and gives
+      // accurate diagnostics for "late variable accessed before assigned".
+      if (thisErr is LateInitializationError) {
+        rethrow;
+      }
       // 'this' not found OR instance.get() failed
       // If get() failed with a specific error, propagate it if it is NOT "Undefined property".
       if (thisErr.message.contains("Undefined property '$name'") ||
@@ -7271,6 +7283,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           } else {
             throw RuntimeD4rtException("Undefined variable: $variableName");
           }
+        } on LateInitializationError {
+          // Plan H: surface unwrapped — matches native Dart behaviour.
+          rethrow;
         } on RuntimeD4rtException {
           throw RuntimeD4rtException("Undefined variable: $variableName");
         }

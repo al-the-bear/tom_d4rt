@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-04-25T22:38:23.917039
+// Generated: 2026-04-26T15:36:08.231190
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -3314,6 +3314,7 @@ BridgedClass _createCharactersBridge() {
     nativeType: $characters_1.Characters,
     name: 'Characters',
     isAssignable: (v) => v is $characters_1.Characters,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Characters');
@@ -3705,6 +3706,7 @@ BridgedClass _createCharacterRangeBridge() {
     nativeType: $characters_1.CharacterRange,
     name: 'CharacterRange',
     isAssignable: (v) => v is $characters_1.CharacterRange,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CharacterRange');
@@ -4047,6 +4049,7 @@ BridgedClass _createIntentBridge() {
     nativeType: $flutter_122.Intent,
     name: 'Intent',
     isAssignable: (v) => v is $flutter_122.Intent,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4097,6 +4100,7 @@ BridgedClass _createActionBridge() {
     nativeType: $flutter_122.Action,
     name: 'Action',
     isAssignable: (v) => v is $flutter_122.Action,
+    isAbstract: true,
     constructors: {
       'overridable': (visitor, positional, named) {
         final defaultAction = D4.getRequiredNamedArg<$flutter_122.Action<$flutter_122.Intent>>(named, 'defaultAction', 'Action');
@@ -4325,6 +4329,7 @@ BridgedClass _createContextActionBridge() {
     nativeType: $flutter_122.ContextAction,
     name: 'ContextAction',
     isAssignable: (v) => v is $flutter_122.ContextAction,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5416,6 +5421,7 @@ BridgedClass _createActivateActionBridge() {
     nativeType: $flutter_122.ActivateAction,
     name: 'ActivateAction',
     isAssignable: (v) => v is $flutter_122.ActivateAction,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5577,6 +5583,7 @@ BridgedClass _createSelectActionBridge() {
     nativeType: $flutter_122.SelectAction,
     name: 'SelectAction',
     isAssignable: (v) => v is $flutter_122.SelectAction,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5738,6 +5745,7 @@ BridgedClass _createDismissActionBridge() {
     nativeType: $flutter_122.DismissAction,
     name: 'DismissAction',
     isAssignable: (v) => v is $flutter_122.DismissAction,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9054,6 +9062,7 @@ BridgedClass _createStreamBuilderBaseBridge() {
     nativeType: $flutter_131.StreamBuilderBase,
     name: 'StreamBuilderBase',
     isAssignable: (v) => v is $flutter_131.StreamBuilderBase,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -11356,6 +11365,7 @@ BridgedClass _createAutomaticKeepAliveClientMixinBridge() {
     name: 'AutomaticKeepAliveClientMixin',
     isAssignable: (v) => v is $flutter_134.AutomaticKeepAliveClientMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -21659,6 +21669,7 @@ BridgedClass _createWidgetsBindingObserverBridge() {
     name: 'WidgetsBindingObserver',
     isAssignable: (v) => v is $flutter_137.WidgetsBindingObserver,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -23207,6 +23218,7 @@ BridgedClass _createWidgetsBindingBridge() {
     name: 'WidgetsBinding',
     isAssignable: (v) => v is $flutter_137.WidgetsBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -25390,6 +25402,7 @@ BridgedClass _createDragBoundaryDelegateBridge() {
     nativeType: $flutter_151.DragBoundaryDelegate,
     name: 'DragBoundaryDelegate',
     isAssignable: (v) => v is $flutter_151.DragBoundaryDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -28200,6 +28213,7 @@ BridgedClass _createFeedbackBridge() {
     nativeType: $flutter_158.Feedback,
     name: 'Feedback',
     isAssignable: (v) => v is $flutter_158.Feedback,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -29591,6 +29605,7 @@ BridgedClass _createFocusTraversalPolicyBridge() {
     nativeType: $flutter_162.FocusTraversalPolicy,
     name: 'FocusTraversalPolicy',
     isAssignable: (v) => v is $flutter_162.FocusTraversalPolicy,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -30001,6 +30016,7 @@ BridgedClass _createFocusOrderBridge() {
     nativeType: $flutter_162.FocusOrder,
     name: 'FocusOrder',
     isAssignable: (v) => v is $flutter_162.FocusOrder,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -31393,6 +31409,7 @@ BridgedClass _createDirectionalFocusTraversalPolicyMixinBridge() {
     name: 'DirectionalFocusTraversalPolicyMixin',
     isAssignable: (v) => v is $flutter_162.DirectionalFocusTraversalPolicyMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32181,6 +32198,7 @@ BridgedClass _createGlobalKeyBridge() {
     nativeType: $flutter_164.GlobalKey,
     name: 'GlobalKey',
     isAssignable: (v) => v is $flutter_164.GlobalKey,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         final debugLabel = D4.getOptionalNamedArg<String?>(named, 'debugLabel');
@@ -32305,6 +32323,7 @@ BridgedClass _createWidgetBridge() {
     nativeType: $flutter_164.Widget,
     name: 'Widget',
     isAssignable: (v) => v is $flutter_164.Widget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32401,6 +32420,7 @@ BridgedClass _createStatelessWidgetBridge() {
     nativeType: $flutter_164.StatelessWidget,
     name: 'StatelessWidget',
     isAssignable: (v) => v is $flutter_164.StatelessWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32493,6 +32513,7 @@ BridgedClass _createStatefulWidgetBridge() {
     nativeType: $flutter_164.StatefulWidget,
     name: 'StatefulWidget',
     isAssignable: (v) => v is $flutter_164.StatefulWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32583,6 +32604,7 @@ BridgedClass _createStateBridge() {
     nativeType: $flutter_164.State,
     name: 'State',
     isAssignable: (v) => v is $flutter_164.State,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32699,6 +32721,7 @@ BridgedClass _createProxyWidgetBridge() {
     nativeType: $flutter_164.ProxyWidget,
     name: 'ProxyWidget',
     isAssignable: (v) => v is $flutter_164.ProxyWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32786,6 +32809,7 @@ BridgedClass _createParentDataWidgetBridge() {
     nativeType: $flutter_164.ParentDataWidget,
     name: 'ParentDataWidget',
     isAssignable: (v) => v is $flutter_164.ParentDataWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32897,6 +32921,7 @@ BridgedClass _createInheritedWidgetBridge() {
     nativeType: $flutter_164.InheritedWidget,
     name: 'InheritedWidget',
     isAssignable: (v) => v is $flutter_164.InheritedWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -32991,6 +33016,7 @@ BridgedClass _createRenderObjectWidgetBridge() {
     nativeType: $flutter_164.RenderObjectWidget,
     name: 'RenderObjectWidget',
     isAssignable: (v) => v is $flutter_164.RenderObjectWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -33100,6 +33126,7 @@ BridgedClass _createLeafRenderObjectWidgetBridge() {
     nativeType: $flutter_164.LeafRenderObjectWidget,
     name: 'LeafRenderObjectWidget',
     isAssignable: (v) => v is $flutter_164.LeafRenderObjectWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -33209,6 +33236,7 @@ BridgedClass _createSingleChildRenderObjectWidgetBridge() {
     nativeType: $flutter_164.SingleChildRenderObjectWidget,
     name: 'SingleChildRenderObjectWidget',
     isAssignable: (v) => v is $flutter_164.SingleChildRenderObjectWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -33320,6 +33348,7 @@ BridgedClass _createMultiChildRenderObjectWidgetBridge() {
     nativeType: $flutter_164.MultiChildRenderObjectWidget,
     name: 'MultiChildRenderObjectWidget',
     isAssignable: (v) => v is $flutter_164.MultiChildRenderObjectWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -33431,6 +33460,7 @@ BridgedClass _createBuildContextBridge() {
     nativeType: $flutter_164.BuildContext,
     name: 'BuildContext',
     isAssignable: (v) => v is $flutter_164.BuildContext,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -33690,6 +33720,7 @@ BridgedClass _createElementBridge() {
     nativeType: $flutter_164.Element,
     name: 'Element',
     isAssignable: (v) => v is $flutter_164.Element,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -34248,6 +34279,7 @@ BridgedClass _createComponentElementBridge() {
     nativeType: $flutter_164.ComponentElement,
     name: 'ComponentElement',
     isAssignable: (v) => v is $flutter_164.ComponentElement,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -35505,6 +35537,7 @@ BridgedClass _createProxyElementBridge() {
     nativeType: $flutter_164.ProxyElement,
     name: 'ProxyElement',
     isAssignable: (v) => v is $flutter_164.ProxyElement,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -36848,6 +36881,7 @@ BridgedClass _createRenderObjectElementBridge() {
     nativeType: $flutter_164.RenderObjectElement,
     name: 'RenderObjectElement',
     isAssignable: (v) => v is $flutter_164.RenderObjectElement,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -38602,6 +38636,7 @@ BridgedClass _createRenderTreeRootElementBridge() {
     nativeType: $flutter_164.RenderTreeRootElement,
     name: 'RenderTreeRootElement',
     isAssignable: (v) => v is $flutter_164.RenderTreeRootElement,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -39114,6 +39149,7 @@ BridgedClass _createNotifiableElementMixinBridge() {
     name: 'NotifiableElementMixin',
     isAssignable: (v) => v is $flutter_164.NotifiableElementMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -39526,6 +39562,7 @@ BridgedClass _createRootElementMixinBridge() {
     name: 'RootElementMixin',
     isAssignable: (v) => v is $flutter_164.RootElementMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -39938,6 +39975,7 @@ BridgedClass _createGestureRecognizerFactoryBridge() {
     nativeType: $flutter_165.GestureRecognizerFactory,
     name: 'GestureRecognizerFactory',
     isAssignable: (v) => v is $flutter_165.GestureRecognizerFactory,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -40573,6 +40611,7 @@ BridgedClass _createSemanticsGestureDelegateBridge() {
     nativeType: $flutter_165.SemanticsGestureDelegate,
     name: 'SemanticsGestureDelegate',
     isAssignable: (v) => v is $flutter_165.SemanticsGestureDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -42817,6 +42856,7 @@ BridgedClass _createImplicitlyAnimatedWidgetBridge() {
     nativeType: $flutter_175.ImplicitlyAnimatedWidget,
     name: 'ImplicitlyAnimatedWidget',
     isAssignable: (v) => v is $flutter_175.ImplicitlyAnimatedWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -42913,6 +42953,7 @@ BridgedClass _createImplicitlyAnimatedWidgetStateBridge() {
     nativeType: $flutter_175.ImplicitlyAnimatedWidgetState,
     name: 'ImplicitlyAnimatedWidgetState',
     isAssignable: (v) => v is $flutter_175.ImplicitlyAnimatedWidgetState,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -43060,6 +43101,7 @@ BridgedClass _createAnimatedWidgetBaseStateBridge() {
     nativeType: $flutter_175.AnimatedWidgetBaseState,
     name: 'AnimatedWidgetBaseState',
     isAssignable: (v) => v is $flutter_175.AnimatedWidgetBaseState,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -44799,6 +44841,7 @@ BridgedClass _createInheritedModelBridge() {
     nativeType: $flutter_176.InheritedModel,
     name: 'InheritedModel',
     isAssignable: (v) => v is $flutter_176.InheritedModel,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -45397,6 +45440,7 @@ BridgedClass _createInheritedNotifierBridge() {
     nativeType: $flutter_177.InheritedNotifier,
     name: 'InheritedNotifier',
     isAssignable: (v) => v is $flutter_177.InheritedNotifier,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -45493,6 +45537,7 @@ BridgedClass _createInheritedThemeBridge() {
     nativeType: $flutter_178.InheritedTheme,
     name: 'InheritedTheme',
     isAssignable: (v) => v is $flutter_178.InheritedTheme,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -46064,6 +46109,7 @@ BridgedClass _createAbstractLayoutBuilderBridge() {
     nativeType: $flutter_181.AbstractLayoutBuilder,
     name: 'AbstractLayoutBuilder',
     isAssignable: (v) => v is $flutter_181.AbstractLayoutBuilder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -46182,6 +46228,7 @@ BridgedClass _createConstrainedLayoutBuilderBridge() {
     nativeType: $flutter_181.ConstrainedLayoutBuilder,
     name: 'ConstrainedLayoutBuilder',
     isAssignable: (v) => v is $flutter_181.ConstrainedLayoutBuilder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -46430,6 +46477,7 @@ BridgedClass _createRenderAbstractLayoutBuilderMixinBridge() {
     name: 'RenderAbstractLayoutBuilderMixin',
     isAssignable: (v) => v is $flutter_181.RenderAbstractLayoutBuilderMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -46930,6 +46978,7 @@ BridgedClass _createListWheelChildDelegateBridge() {
     nativeType: $flutter_182.ListWheelChildDelegate,
     name: 'ListWheelChildDelegate',
     isAssignable: (v) => v is $flutter_182.ListWheelChildDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -48340,6 +48389,7 @@ BridgedClass _createLocalizationsDelegateBridge() {
     nativeType: $flutter_183.LocalizationsDelegate,
     name: 'LocalizationsDelegate',
     isAssignable: (v) => v is $flutter_183.LocalizationsDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -48390,6 +48440,7 @@ BridgedClass _createWidgetsLocalizationsBridge() {
     nativeType: $flutter_183.WidgetsLocalizations,
     name: 'WidgetsLocalizations',
     isAssignable: (v) => v is $flutter_183.WidgetsLocalizations,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -50592,6 +50643,7 @@ BridgedClass _createRouteBridge() {
     nativeType: $flutter_189.Route,
     name: 'Route',
     isAssignable: (v) => v is $flutter_189.Route,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -50783,6 +50835,7 @@ BridgedClass _createPageBridge() {
     nativeType: $flutter_189.Page,
     name: 'Page',
     isAssignable: (v) => v is $flutter_189.Page,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -51052,6 +51105,7 @@ BridgedClass _createRouteTransitionRecordBridge() {
     nativeType: $flutter_189.RouteTransitionRecord,
     name: 'RouteTransitionRecord',
     isAssignable: (v) => v is $flutter_189.RouteTransitionRecord,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -51112,6 +51166,7 @@ BridgedClass _createTransitionDelegateBridge() {
     nativeType: $flutter_189.TransitionDelegate,
     name: 'TransitionDelegate',
     isAssignable: (v) => v is $flutter_189.TransitionDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -55310,6 +55365,7 @@ BridgedClass _createNotificationBridge() {
     nativeType: $flutter_192.Notification,
     name: 'Notification',
     isAssignable: (v) => v is $flutter_192.Notification,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -57702,6 +57758,7 @@ BridgedClass _createPageTransitionsBuilderBridge() {
     nativeType: $flutter_198.PageTransitionsBuilder,
     name: 'PageTransitionsBuilder',
     isAssignable: (v) => v is $flutter_198.PageTransitionsBuilder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -58416,6 +58473,7 @@ BridgedClass _createPageRouteBridge() {
     nativeType: $flutter_200.PageRoute,
     name: 'PageRoute',
     isAssignable: (v) => v is $flutter_200.PageRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -59636,6 +59694,7 @@ BridgedClass _createPlatformMenuDelegateBridge() {
     nativeType: $flutter_204.PlatformMenuDelegate,
     name: 'PlatformMenuDelegate',
     isAssignable: (v) => v is $flutter_204.PlatformMenuDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -60296,6 +60355,7 @@ BridgedClass _createMenuSerializableShortcutBridge() {
     name: 'MenuSerializableShortcut',
     isAssignable: (v) => v is $flutter_204.MenuSerializableShortcut,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -61313,6 +61373,7 @@ BridgedClass _createPreferredSizeWidgetBridge() {
     nativeType: $flutter_207.PreferredSizeWidget,
     name: 'PreferredSizeWidget',
     isAssignable: (v) => v is $flutter_207.PreferredSizeWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -61770,6 +61831,7 @@ BridgedClass _createRadioGroupRegistryBridge() {
     nativeType: $flutter_209.RadioGroupRegistry,
     name: 'RadioGroupRegistry',
     isAssignable: (v) => v is $flutter_209.RadioGroupRegistry,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -61813,6 +61875,7 @@ BridgedClass _createRadioClientBridge() {
     name: 'RadioClient',
     isAssignable: (v) => v is $flutter_209.RadioClient,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64108,6 +64171,7 @@ BridgedClass _createRestorablePropertyBridge() {
     nativeType: $flutter_215.RestorableProperty,
     name: 'RestorableProperty',
     isAssignable: (v) => v is $flutter_215.RestorableProperty,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64198,6 +64262,7 @@ BridgedClass _createRestorationMixinBridge() {
     name: 'RestorationMixin',
     isAssignable: (v) => v is $flutter_215.RestorationMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64360,6 +64425,7 @@ BridgedClass _createRestorableValueBridge() {
     nativeType: $flutter_216.RestorableValue,
     name: 'RestorableValue',
     isAssignable: (v) => v is $flutter_216.RestorableValue,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -65834,6 +65900,7 @@ BridgedClass _createRestorableListenableBridge() {
     nativeType: $flutter_216.RestorableListenable,
     name: 'RestorableListenable',
     isAssignable: (v) => v is $flutter_216.RestorableListenable,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -65925,6 +65992,7 @@ BridgedClass _createRestorableChangeNotifierBridge() {
     nativeType: $flutter_216.RestorableChangeNotifier,
     name: 'RestorableChangeNotifier',
     isAssignable: (v) => v is $flutter_216.RestorableChangeNotifier,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -66592,6 +66660,7 @@ BridgedClass _createBackButtonDispatcherBridge() {
     nativeType: $flutter_217.BackButtonDispatcher,
     name: 'BackButtonDispatcher',
     isAssignable: (v) => v is $flutter_217.BackButtonDispatcher,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67075,6 +67144,7 @@ BridgedClass _createRouteInformationParserBridge() {
     nativeType: $flutter_217.RouteInformationParser,
     name: 'RouteInformationParser',
     isAssignable: (v) => v is $flutter_217.RouteInformationParser,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -67115,6 +67185,7 @@ BridgedClass _createRouterDelegateBridge() {
     nativeType: $flutter_217.RouterDelegate,
     name: 'RouterDelegate',
     isAssignable: (v) => v is $flutter_217.RouterDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67194,6 +67265,7 @@ BridgedClass _createRouteInformationProviderBridge() {
     nativeType: $flutter_217.RouteInformationProvider,
     name: 'RouteInformationProvider',
     isAssignable: (v) => v is $flutter_217.RouteInformationProvider,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67440,6 +67512,7 @@ BridgedClass _createPopNavigatorRouterDelegateMixinBridge() {
     name: 'PopNavigatorRouterDelegateMixin',
     isAssignable: (v) => v is $flutter_217.PopNavigatorRouterDelegateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67521,6 +67594,7 @@ BridgedClass _createOverlayRouteBridge() {
     nativeType: $flutter_218.OverlayRoute,
     name: 'OverlayRoute',
     isAssignable: (v) => v is $flutter_218.OverlayRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67680,6 +67754,7 @@ BridgedClass _createTransitionRouteBridge() {
     nativeType: $flutter_218.TransitionRoute,
     name: 'TransitionRoute',
     isAssignable: (v) => v is $flutter_218.TransitionRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -67934,6 +68009,7 @@ BridgedClass _createPredictiveBackRouteBridge() {
     nativeType: $flutter_218.PredictiveBackRoute,
     name: 'PredictiveBackRoute',
     isAssignable: (v) => v is $flutter_218.PredictiveBackRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -68026,6 +68102,7 @@ BridgedClass _createModalRouteBridge() {
     nativeType: $flutter_218.ModalRoute,
     name: 'ModalRoute',
     isAssignable: (v) => v is $flutter_218.ModalRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -68469,6 +68546,7 @@ BridgedClass _createPopupRouteBridge() {
     nativeType: $flutter_218.PopupRoute,
     name: 'PopupRoute',
     isAssignable: (v) => v is $flutter_218.PopupRoute,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -68968,6 +69046,7 @@ BridgedClass _createRouteAwareBridge() {
     name: 'RouteAware',
     isAssignable: (v) => v is $flutter_218.RouteAware,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -69418,6 +69497,7 @@ BridgedClass _createPopEntryBridge() {
     nativeType: $flutter_218.PopEntry,
     name: 'PopEntry',
     isAssignable: (v) => v is $flutter_218.PopEntry,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -69465,6 +69545,7 @@ BridgedClass _createLocalHistoryRouteBridge() {
     name: 'LocalHistoryRoute',
     isAssignable: (v) => v is $flutter_218.LocalHistoryRoute,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -69870,6 +69951,7 @@ BridgedClass _createScrollActivityDelegateBridge() {
     nativeType: $flutter_220.ScrollActivityDelegate,
     name: 'ScrollActivityDelegate',
     isAssignable: (v) => v is $flutter_220.ScrollActivityDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -69923,6 +70005,7 @@ BridgedClass _createScrollActivityBridge() {
     nativeType: $flutter_220.ScrollActivity,
     name: 'ScrollActivity',
     isAssignable: (v) => v is $flutter_220.ScrollActivity,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -70129,6 +70212,7 @@ BridgedClass _createScrollHoldControllerBridge() {
     nativeType: $flutter_220.ScrollHoldController,
     name: 'ScrollHoldController',
     isAssignable: (v) => v is $flutter_220.ScrollHoldController,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -71060,6 +71144,7 @@ BridgedClass _createScrollContextBridge() {
     nativeType: $flutter_223.ScrollContext,
     name: 'ScrollContext',
     isAssignable: (v) => v is $flutter_223.ScrollContext,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -71419,6 +71504,7 @@ BridgedClass _createSliverChildDelegateBridge() {
     nativeType: $flutter_225.SliverChildDelegate,
     name: 'SliverChildDelegate',
     isAssignable: (v) => v is $flutter_225.SliverChildDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -71759,6 +71845,7 @@ BridgedClass _createTwoDimensionalChildDelegateBridge() {
     nativeType: $flutter_225.TwoDimensionalChildDelegate,
     name: 'TwoDimensionalChildDelegate',
     isAssignable: (v) => v is $flutter_225.TwoDimensionalChildDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -72113,6 +72200,7 @@ BridgedClass _createScrollMetricsBridge() {
     name: 'ScrollMetrics',
     isAssignable: (v) => v is $flutter_226.ScrollMetrics,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -72178,6 +72266,7 @@ BridgedClass _createScrollNotificationBridge() {
     nativeType: $flutter_227.ScrollNotification,
     name: 'ScrollNotification',
     isAssignable: (v) => v is $flutter_227.ScrollNotification,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -72556,6 +72645,7 @@ BridgedClass _createViewportNotificationMixinBridge() {
     name: 'ViewportNotificationMixin',
     isAssignable: (v) => v is $flutter_227.ViewportNotificationMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -72605,6 +72695,7 @@ BridgedClass _createViewportElementMixinBridge() {
     name: 'ViewportElementMixin',
     isAssignable: (v) => v is $flutter_227.ViewportElementMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -74060,6 +74151,7 @@ BridgedClass _createScrollPositionBridge() {
     nativeType: $flutter_230.ScrollPosition,
     name: 'ScrollPosition',
     isAssignable: (v) => v is $flutter_230.ScrollPosition,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -75066,6 +75158,7 @@ BridgedClass _createScrollViewBridge() {
     nativeType: $flutter_233.ScrollView,
     name: 'ScrollView',
     isAssignable: (v) => v is $flutter_233.ScrollView,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -75401,6 +75494,7 @@ BridgedClass _createBoxScrollViewBridge() {
     nativeType: $flutter_233.BoxScrollView,
     name: 'BoxScrollView',
     isAssignable: (v) => v is $flutter_233.BoxScrollView,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -78564,6 +78658,7 @@ BridgedClass _createMultiSelectableSelectionContainerDelegateBridge() {
     nativeType: $flutter_237.MultiSelectableSelectionContainerDelegate,
     name: 'MultiSelectableSelectionContainerDelegate',
     isAssignable: (v) => v is $flutter_237.MultiSelectableSelectionContainerDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -78998,6 +79093,7 @@ BridgedClass _createSelectionDetailsBridge() {
     nativeType: $flutter_237.SelectionDetails,
     name: 'SelectionDetails',
     isAssignable: (v) => v is $flutter_237.SelectionDetails,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -79315,6 +79411,7 @@ BridgedClass _createSelectionContainerDelegateBridge() {
     nativeType: $flutter_238.SelectionContainerDelegate,
     name: 'SelectionContainerDelegate',
     isAssignable: (v) => v is $flutter_238.SelectionContainerDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -79846,6 +79943,7 @@ BridgedClass _createShortcutActivatorBridge() {
     nativeType: $flutter_243.ShortcutActivator,
     name: 'ShortcutActivator',
     isAssignable: (v) => v is $flutter_243.ShortcutActivator,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -81217,6 +81315,7 @@ BridgedClass _createSliverWithKeepAliveWidgetBridge() {
     nativeType: $flutter_246.SliverWithKeepAliveWidget,
     name: 'SliverWithKeepAliveWidget',
     isAssignable: (v) => v is $flutter_246.SliverWithKeepAliveWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -81326,6 +81425,7 @@ BridgedClass _createSliverMultiBoxAdaptorWidgetBridge() {
     nativeType: $flutter_246.SliverMultiBoxAdaptorWidget,
     name: 'SliverMultiBoxAdaptorWidget',
     isAssignable: (v) => v is $flutter_246.SliverMultiBoxAdaptorWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -84184,6 +84284,7 @@ BridgedClass _createSliverPersistentHeaderDelegateBridge() {
     nativeType: $flutter_250.SliverPersistentHeaderDelegate,
     name: 'SliverPersistentHeaderDelegate',
     isAssignable: (v) => v is $flutter_250.SliverPersistentHeaderDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -84989,6 +85090,7 @@ BridgedClass _createTreeSliverStateMixinBridge() {
     name: 'TreeSliverStateMixin',
     isAssignable: (v) => v is $flutter_253.TreeSliverStateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -85055,6 +85157,7 @@ BridgedClass _createSlottedMultiChildRenderObjectWidgetBridge() {
     nativeType: $flutter_254.SlottedMultiChildRenderObjectWidget,
     name: 'SlottedMultiChildRenderObjectWidget',
     isAssignable: (v) => v is $flutter_254.SlottedMultiChildRenderObjectWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -85614,6 +85717,7 @@ BridgedClass _createSlottedContainerRenderObjectMixinBridge() {
     name: 'SlottedContainerRenderObjectMixin',
     isAssignable: (v) => v is $flutter_254.SlottedContainerRenderObjectMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -86321,6 +86425,7 @@ BridgedClass _createSnapshotPainterBridge() {
     nativeType: $flutter_255.SnapshotPainter,
     name: 'SnapshotPainter',
     isAssignable: (v) => v is $flutter_255.SnapshotPainter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -86584,6 +86689,7 @@ BridgedClass _createStatusTransitionWidgetBridge() {
     nativeType: $flutter_259.StatusTransitionWidget,
     name: 'StatusTransitionWidget',
     isAssignable: (v) => v is $flutter_259.StatusTransitionWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -87774,6 +87880,7 @@ BridgedClass _createTapRegionRegistryBridge() {
     nativeType: $flutter_263.TapRegionRegistry,
     name: 'TapRegionRegistry',
     isAssignable: (v) => v is $flutter_263.TapRegionRegistry,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -90243,6 +90350,7 @@ BridgedClass _createDirectionalTextEditingIntentBridge() {
     nativeType: $flutter_265.DirectionalTextEditingIntent,
     name: 'DirectionalTextEditingIntent',
     isAssignable: (v) => v is $flutter_265.DirectionalTextEditingIntent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -90464,6 +90572,7 @@ BridgedClass _createDirectionalCaretMovementIntentBridge() {
     nativeType: $flutter_265.DirectionalCaretMovementIntent,
     name: 'DirectionalCaretMovementIntent',
     isAssignable: (v) => v is $flutter_265.DirectionalCaretMovementIntent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -91998,6 +92107,7 @@ BridgedClass _createTextSelectionControlsBridge() {
     nativeType: $flutter_266.TextSelectionControls,
     name: 'TextSelectionControls',
     isAssignable: (v) => v is $flutter_266.TextSelectionControls,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -92623,6 +92733,7 @@ BridgedClass _createTextSelectionGestureDetectorBuilderDelegateBridge() {
     nativeType: $flutter_266.TextSelectionGestureDetectorBuilderDelegate,
     name: 'TextSelectionGestureDetectorBuilderDelegate',
     isAssignable: (v) => v is $flutter_266.TextSelectionGestureDetectorBuilderDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -93396,6 +93507,7 @@ BridgedClass _createTextSelectionHandleControlsBridge() {
     name: 'TextSelectionHandleControls',
     isAssignable: (v) => v is $flutter_266.TextSelectionHandleControls,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -93967,6 +94079,7 @@ BridgedClass _createSingleTickerProviderStateMixinBridge() {
     name: 'SingleTickerProviderStateMixin',
     isAssignable: (v) => v is $flutter_270.SingleTickerProviderStateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -94094,6 +94207,7 @@ BridgedClass _createTickerProviderStateMixinBridge() {
     name: 'TickerProviderStateMixin',
     isAssignable: (v) => v is $flutter_270.TickerProviderStateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -94326,6 +94440,7 @@ BridgedClass _createToggleablePainterBridge() {
     nativeType: $flutter_272.ToggleablePainter,
     name: 'ToggleablePainter',
     isAssignable: (v) => v is $flutter_272.ToggleablePainter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -94510,6 +94625,7 @@ BridgedClass _createToggleableStateMixinBridge() {
     name: 'ToggleableStateMixin',
     isAssignable: (v) => v is $flutter_272.ToggleableStateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -94689,6 +94805,7 @@ BridgedClass _createAnimatedWidgetBridge() {
     nativeType: $flutter_273.AnimatedWidget,
     name: 'AnimatedWidget',
     isAssignable: (v) => v is $flutter_273.AnimatedWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -96665,6 +96782,7 @@ BridgedClass _createTwoDimensionalScrollViewBridge() {
     nativeType: $flutter_275.TwoDimensionalScrollView,
     name: 'TwoDimensionalScrollView',
     isAssignable: (v) => v is $flutter_275.TwoDimensionalScrollView,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -96790,6 +96908,7 @@ BridgedClass _createTwoDimensionalViewportBridge() {
     nativeType: $flutter_276.TwoDimensionalViewport,
     name: 'TwoDimensionalViewport',
     isAssignable: (v) => v is $flutter_276.TwoDimensionalViewport,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -96984,6 +97103,7 @@ BridgedClass _createRenderTwoDimensionalViewportBridge() {
     nativeType: $flutter_276.RenderTwoDimensionalViewport,
     name: 'RenderTwoDimensionalViewport',
     isAssignable: (v) => v is $flutter_276.RenderTwoDimensionalViewport,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -97789,6 +97909,7 @@ BridgedClass _createTwoDimensionalChildManagerBridge() {
     nativeType: $flutter_276.TwoDimensionalChildManager,
     name: 'TwoDimensionalChildManager',
     isAssignable: (v) => v is $flutter_276.TwoDimensionalChildManager,
+    isAbstract: true,
     constructors: {
     },
   );
@@ -98280,6 +98401,7 @@ BridgedClass _createUniqueWidgetBridge() {
     nativeType: $flutter_278.UniqueWidget,
     name: 'UniqueWidget',
     isAssignable: (v) => v is $flutter_278.UniqueWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -99835,6 +99957,7 @@ BridgedClass _createInspectorButtonBridge() {
     nativeType: $flutter_283.InspectorButton,
     name: 'InspectorButton',
     isAssignable: (v) => v is $flutter_283.InspectorButton,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -100359,6 +100482,7 @@ BridgedClass _createWidgetInspectorServiceBridge() {
     name: 'WidgetInspectorService',
     isAssignable: (v) => v is $flutter_283.WidgetInspectorService,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -100928,6 +101052,7 @@ BridgedClass _createWidgetStatesConstraintBridge() {
     nativeType: $flutter_285.WidgetStatesConstraint,
     name: 'WidgetStatesConstraint',
     isAssignable: (v) => v is $flutter_285.WidgetStatesConstraint,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -100956,6 +101081,7 @@ BridgedClass _createWidgetStateColorBridge() {
     nativeType: $flutter_285.WidgetStateColor,
     name: 'WidgetStateColor',
     isAssignable: (v) => v is $flutter_285.WidgetStateColor,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateColor');
@@ -101105,6 +101231,7 @@ BridgedClass _createWidgetStateMouseCursorBridge() {
     nativeType: $flutter_285.WidgetStateMouseCursor,
     name: 'WidgetStateMouseCursor',
     isAssignable: (v) => v is $flutter_285.WidgetStateMouseCursor,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateMouseCursor');
@@ -101209,6 +101336,7 @@ BridgedClass _createWidgetStateBorderSideBridge() {
     nativeType: $flutter_285.WidgetStateBorderSide,
     name: 'WidgetStateBorderSide',
     isAssignable: (v) => v is $flutter_285.WidgetStateBorderSide,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateBorderSide');
@@ -101343,6 +101471,7 @@ BridgedClass _createWidgetStateOutlinedBorderBridge() {
     nativeType: $flutter_285.WidgetStateOutlinedBorder,
     name: 'WidgetStateOutlinedBorder',
     isAssignable: (v) => v is $flutter_285.WidgetStateOutlinedBorder,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateOutlinedBorder');
@@ -101485,6 +101614,7 @@ BridgedClass _createWidgetStateTextStyleBridge() {
     nativeType: $flutter_285.WidgetStateTextStyle,
     name: 'WidgetStateTextStyle',
     isAssignable: (v) => v is $flutter_285.WidgetStateTextStyle,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateTextStyle');
@@ -101725,6 +101855,7 @@ BridgedClass _createWidgetStatePropertyBridge() {
     nativeType: $flutter_285.WidgetStateProperty,
     name: 'WidgetStateProperty',
     isAssignable: (v) => v is $flutter_285.WidgetStateProperty,
+    isAbstract: true,
     constructors: {
       'fromMap': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateProperty');
@@ -102848,6 +102979,7 @@ BridgedClass _createImageProviderBridge() {
     nativeType: $flutter_44.ImageProvider,
     name: 'ImageProvider',
     isAssignable: (v) => v is $flutter_44.ImageProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {

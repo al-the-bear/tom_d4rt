@@ -720,6 +720,17 @@ class InterpretedFunction implements Callable {
                     explicitSuperCalled = true;
                     continue;
                   }
+                  // Plan I (deferred): a broader runtime no-op for abstract
+                  // bridged superclasses without constructor adapters caused
+                  // cross-test contamination in the gii suite (scripts that
+                  // previously aborted at super() now ran through and left
+                  // Flutter widget state lingering between tests). The
+                  // `isAbstract` flag is still emitted by the generator and
+                  // surfaced on `BridgedClass` for future targeted fixes,
+                  // but the runtime fallback here intentionally only fires
+                  // for explicitly-registered interface proxies (above).
+                  // TwoDimensionalScrollView et al. need a dedicated
+                  // interface proxy in d4rt_runtime_registrations.dart.
                   throw RuntimeD4rtException(
                       "Bridged superclass '${bridgedSuperClass.name}' does not have a constructor named '$superConstructorName'. Check bridge definition.");
                 }

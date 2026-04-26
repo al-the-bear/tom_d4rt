@@ -587,5 +587,85 @@ void main() {
       ''';
       expect(execute(code), equals("async-result-other-work"));
     });
+
+    // Plan H: surface LateInitializationError unwrapped (no "Undefined variable" wrap).
+
+    test('I-LATE-H1: late local accessed before assignment throws LateInitializationError. [2026-04-26] (PASS)', () {
+      final code = '''
+        main() {
+          late String name;
+          return name;
+        }
+      ''';
+      expect(
+        () => execute(code),
+        throwsA(
+          isA<LateInitializationError>().having(
+            (e) => e.message,
+            'message',
+            allOf(
+              contains('LateInitializationError'),
+              contains("'name'"),
+              isNot(contains('Undefined variable')),
+            ),
+          ),
+        ),
+      );
+    });
+
+    test('I-LATE-H2: late instance field accessed before assignment throws LateInitializationError unwrapped. [2026-04-26] (PASS)', () {
+      final code = '''
+        class Box {
+          late String value;
+          String read() => value;
+        }
+        main() {
+          return Box().read();
+        }
+      ''';
+      expect(
+        () => execute(code),
+        throwsA(
+          isA<LateInitializationError>().having(
+            (e) => e.message,
+            'message',
+            allOf(
+              contains('LateInitializationError'),
+              contains("'value'"),
+              isNot(contains('Undefined variable')),
+            ),
+          ),
+        ),
+      );
+    });
+
+    test('I-LATE-H3: late instance field accessed before assignment via implicit-this in method body. [2026-04-26] (PASS)', () {
+      final code = '''
+        class Box {
+          late String value;
+          bool isSame(String other) {
+            // Triggers SimpleIdentifier read of late uninitialised field via implicit this.
+            return identical(value, other);
+          }
+        }
+        main() {
+          return Box().isSame("x");
+        }
+      ''';
+      expect(
+        () => execute(code),
+        throwsA(
+          isA<LateInitializationError>().having(
+            (e) => e.message,
+            'message',
+            allOf(
+              contains('LateInitializationError'),
+              contains("'value'"),
+              isNot(contains('Undefined variable')),
+            ),
+          ),
+        ),
+      );
+    });
   });
 }

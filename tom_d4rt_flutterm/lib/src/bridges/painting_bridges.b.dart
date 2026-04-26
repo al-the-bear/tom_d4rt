@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-04-25T22:38:14.374052
+// Generated: 2026-04-26T15:35:58.767320
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1172,6 +1172,7 @@ BridgedClass _createAlignmentGeometryBridge() {
     nativeType: $flutter_10.AlignmentGeometry,
     name: 'AlignmentGeometry',
     isAssignable: (v) => v is $flutter_10.AlignmentGeometry,
+    isAbstract: true,
     constructors: {
       'xy': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'AlignmentGeometry');
@@ -1782,6 +1783,7 @@ BridgedClass _createPaintingBindingBridge() {
     name: 'PaintingBinding',
     isAssignable: (v) => v is $flutter_13.PaintingBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -2280,6 +2282,7 @@ BridgedClass _createBorderRadiusGeometryBridge() {
     nativeType: $flutter_14.BorderRadiusGeometry,
     name: 'BorderRadiusGeometry',
     isAssignable: (v) => v is $flutter_14.BorderRadiusGeometry,
+    isAbstract: true,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BorderRadiusGeometry');
@@ -3064,6 +3067,7 @@ BridgedClass _createShapeBorderBridge() {
     nativeType: $flutter_15.ShapeBorder,
     name: 'ShapeBorder',
     isAssignable: (v) => v is $flutter_15.ShapeBorder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3180,6 +3184,7 @@ BridgedClass _createOutlinedBorderBridge() {
     nativeType: $flutter_15.OutlinedBorder,
     name: 'OutlinedBorder',
     isAssignable: (v) => v is $flutter_15.OutlinedBorder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3304,6 +3309,7 @@ BridgedClass _createBoxBorderBridge() {
     nativeType: $flutter_16.BoxBorder,
     name: 'BoxBorder',
     isAssignable: (v) => v is $flutter_16.BoxBorder,
+    isAbstract: true,
     constructors: {
       'fromLTRB': (visitor, positional, named) {
         final top = D4.getNamedArgWithDefault<$flutter_15.BorderSide>(named, 'top', $flutter_15.BorderSide.none);
@@ -4342,6 +4348,7 @@ BridgedClass _createClipContextBridge() {
     nativeType: $flutter_21.ClipContext,
     name: 'ClipContext',
     isAssignable: (v) => v is $flutter_21.ClipContext,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5118,6 +5125,7 @@ BridgedClass _createDecorationBridge() {
     nativeType: $flutter_25.Decoration,
     name: 'Decoration',
     isAssignable: (v) => v is $flutter_25.Decoration,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5226,6 +5234,7 @@ BridgedClass _createBoxPainterBridge() {
     nativeType: $flutter_25.BoxPainter,
     name: 'BoxPainter',
     isAssignable: (v) => v is $flutter_25.BoxPainter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5369,6 +5378,7 @@ BridgedClass _createDecorationImagePainterBridge() {
     nativeType: $flutter_26.DecorationImagePainter,
     name: 'DecorationImagePainter',
     isAssignable: (v) => v is $flutter_26.DecorationImagePainter,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -5406,6 +5416,7 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
     nativeType: $flutter_27.EdgeInsetsGeometry,
     name: 'EdgeInsetsGeometry',
     isAssignable: (v) => v is $flutter_27.EdgeInsetsGeometry,
+    isAbstract: true,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsetsGeometry');
@@ -6525,6 +6536,7 @@ BridgedClass _createGradientTransformBridge() {
     nativeType: $flutter_31.GradientTransform,
     name: 'GradientTransform',
     isAssignable: (v) => v is $flutter_31.GradientTransform,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -6605,6 +6617,7 @@ BridgedClass _createGradientBridge() {
     nativeType: $flutter_31.Gradient,
     name: 'Gradient',
     isAssignable: (v) => v is $flutter_31.Gradient,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7256,6 +7269,7 @@ BridgedClass _createImageProviderBridge() {
     nativeType: $flutter_34.ImageProvider,
     name: 'ImageProvider',
     isAssignable: (v) => v is $flutter_34.ImageProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -7401,6 +7415,7 @@ BridgedClass _createAssetBundleImageProviderBridge() {
     nativeType: $flutter_34.AssetBundleImageProvider,
     name: 'AssetBundleImageProvider',
     isAssignable: (v) => v is $flutter_34.AssetBundleImageProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -7665,6 +7680,7 @@ BridgedClass _createNetworkImageBridge() {
     nativeType: $flutter_34.NetworkImage,
     name: 'NetworkImage',
     isAssignable: (v) => v is $flutter_34.NetworkImage,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'NetworkImage');
@@ -8613,6 +8629,7 @@ BridgedClass _createImageStreamCompleterBridge() {
     nativeType: $flutter_36.ImageStreamCompleter,
     name: 'ImageStreamCompleter',
     isAssignable: (v) => v is $flutter_36.ImageStreamCompleter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9199,6 +9216,7 @@ BridgedClass _createInlineSpanBridge() {
     nativeType: $flutter_37.InlineSpan,
     name: 'InlineSpan',
     isAssignable: (v) => v is $flutter_37.InlineSpan,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9622,6 +9640,7 @@ BridgedClass _createMatrixUtilsBridge() {
     nativeType: $flutter_39.MatrixUtils,
     name: 'MatrixUtils',
     isAssignable: (v) => v is $flutter_39.MatrixUtils,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -9854,6 +9873,7 @@ BridgedClass _createNotchedShapeBridge() {
     nativeType: $flutter_40.NotchedShape,
     name: 'NotchedShape',
     isAssignable: (v) => v is $flutter_40.NotchedShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -10094,6 +10114,7 @@ BridgedClass _createPlaceholderSpanBridge() {
     nativeType: $flutter_43.PlaceholderSpan,
     name: 'PlaceholderSpan',
     isAssignable: (v) => v is $flutter_43.PlaceholderSpan,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -10553,6 +10574,7 @@ BridgedClass _createShaderWarmUpBridge() {
     nativeType: $flutter_45.ShaderWarmUp,
     name: 'ShaderWarmUp',
     isAssignable: (v) => v is $flutter_45.ShaderWarmUp,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -11724,6 +11746,7 @@ BridgedClass _createTextScalerBridge() {
     nativeType: $flutter_51.TextScaler,
     name: 'TextScaler',
     isAssignable: (v) => v is $flutter_51.TextScaler,
+    isAbstract: true,
     constructors: {
       'linear': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextScaler');

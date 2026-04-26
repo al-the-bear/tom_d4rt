@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 43 files
-// Generated: 2026-04-25T22:38:18.177063
+// Generated: 2026-04-26T15:36:02.476797
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1107,6 +1107,7 @@ BridgedClass _createAssetBundleBridge() {
     nativeType: $flutter_10.AssetBundle,
     name: 'AssetBundle',
     isAssignable: (v) => v is $flutter_10.AssetBundle,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -1277,6 +1278,7 @@ BridgedClass _createCachingAssetBundleBridge() {
     nativeType: $flutter_10.CachingAssetBundle,
     name: 'CachingAssetBundle',
     isAssignable: (v) => v is $flutter_10.CachingAssetBundle,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -1445,6 +1447,7 @@ BridgedClass _createAssetManifestBridge() {
     nativeType: $flutter_11.AssetManifest,
     name: 'AssetManifest',
     isAssignable: (v) => v is $flutter_11.AssetManifest,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -1518,6 +1521,7 @@ BridgedClass _createAutofillHintsBridge() {
     nativeType: $flutter_12.AutofillHints,
     name: 'AutofillHints',
     isAssignable: (v) => v is $flutter_12.AutofillHints,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -1738,6 +1742,7 @@ BridgedClass _createAutofillClientBridge() {
     nativeType: $flutter_12.AutofillClient,
     name: 'AutofillClient',
     isAssignable: (v) => v is $flutter_12.AutofillClient,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1772,6 +1777,7 @@ BridgedClass _createAutofillScopeBridge() {
     nativeType: $flutter_12.AutofillScope,
     name: 'AutofillScope',
     isAssignable: (v) => v is $flutter_12.AutofillScope,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -1812,6 +1818,7 @@ BridgedClass _createAutofillScopeMixinBridge() {
     name: 'AutofillScopeMixin',
     isAssignable: (v) => v is $flutter_12.AutofillScopeMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -2188,6 +2195,7 @@ BridgedClass _createScribbleClientBridge() {
     nativeType: $flutter_50.ScribbleClient,
     name: 'ScribbleClient',
     isAssignable: (v) => v is $flutter_50.ScribbleClient,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3074,6 +3082,7 @@ BridgedClass _createTextSelectionDelegateBridge() {
     name: 'TextSelectionDelegate',
     isAssignable: (v) => v is $flutter_50.TextSelectionDelegate,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3170,6 +3179,7 @@ BridgedClass _createTextInputClientBridge() {
     name: 'TextInputClient',
     isAssignable: (v) => v is $flutter_50.TextInputClient,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3293,6 +3303,7 @@ BridgedClass _createDeltaTextInputClientBridge() {
     name: 'DeltaTextInputClient',
     isAssignable: (v) => v is $flutter_50.DeltaTextInputClient,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -3427,6 +3438,7 @@ BridgedClass _createTextInputControlBridge() {
     name: 'TextInputControl',
     isAssignable: (v) => v is $flutter_50.TextInputControl,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3550,6 +3562,7 @@ BridgedClass _createTextEditingDeltaBridge() {
     nativeType: $flutter_48.TextEditingDelta,
     name: 'TextEditingDelta',
     isAssignable: (v) => v is $flutter_48.TextEditingDelta,
+    isAbstract: true,
     constructors: {
       'fromJSON': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextEditingDelta');
@@ -3921,6 +3934,7 @@ BridgedClass _createBinaryMessengerBridge() {
     nativeType: $flutter_13.BinaryMessenger,
     name: 'BinaryMessenger',
     isAssignable: (v) => v is $flutter_13.BinaryMessenger,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3971,6 +3985,7 @@ BridgedClass _createKeyboardKeyBridge() {
     nativeType: $flutter_25.KeyboardKey,
     name: 'KeyboardKey',
     isAssignable: (v) => v is $flutter_25.KeyboardKey,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -5669,6 +5684,7 @@ BridgedClass _createKeyEventBridge() {
     nativeType: $flutter_23.KeyEvent,
     name: 'KeyEvent',
     isAssignable: (v) => v is $flutter_23.KeyEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -6305,6 +6321,7 @@ BridgedClass _createServicesBindingBridge() {
     name: 'ServicesBinding',
     isAssignable: (v) => v is $flutter_14.ServicesBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -6777,6 +6794,7 @@ BridgedClass _createSystemContextMenuClientBridge() {
     name: 'SystemContextMenuClient',
     isAssignable: (v) => v is $flutter_14.SystemContextMenuClient,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -6868,6 +6886,7 @@ BridgedClass _createClipboardBridge() {
     nativeType: $flutter_16.Clipboard,
     name: 'Clipboard',
     isAssignable: (v) => v is $flutter_16.Clipboard,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -6908,6 +6927,7 @@ BridgedClass _createDeferredComponentBridge() {
     nativeType: $flutter_18.DeferredComponent,
     name: 'DeferredComponent',
     isAssignable: (v) => v is $flutter_18.DeferredComponent,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -6936,6 +6956,7 @@ BridgedClass _createFlutterVersionBridge() {
     nativeType: $flutter_20.FlutterVersion,
     name: 'FlutterVersion',
     isAssignable: (v) => v is $flutter_20.FlutterVersion,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -7019,6 +7040,7 @@ BridgedClass _createHapticFeedbackBridge() {
     nativeType: $flutter_22.HapticFeedback,
     name: 'HapticFeedback',
     isAssignable: (v) => v is $flutter_22.HapticFeedback,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -7131,6 +7153,7 @@ BridgedClass _createLiveTextBridge() {
     nativeType: $flutter_27.LiveText,
     name: 'LiveText',
     isAssignable: (v) => v is $flutter_27.LiveText,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -7157,6 +7180,7 @@ BridgedClass _createMessageCodecBridge() {
     nativeType: $flutter_28.MessageCodec,
     name: 'MessageCodec',
     isAssignable: (v) => v is $flutter_28.MessageCodec,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -7229,6 +7253,7 @@ BridgedClass _createMethodCodecBridge() {
     nativeType: $flutter_28.MethodCodec,
     name: 'MethodCodec',
     isAssignable: (v) => v is $flutter_28.MethodCodec,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -7689,6 +7714,7 @@ BridgedClass _createPointerEventBridge() {
     nativeType: $flutter_7.PointerEvent,
     name: 'PointerEvent',
     isAssignable: (v) => v is $flutter_7.PointerEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7909,6 +7935,7 @@ BridgedClass _createMouseCursorSessionBridge() {
     nativeType: $flutter_30.MouseCursorSession,
     name: 'MouseCursorSession',
     isAssignable: (v) => v is $flutter_30.MouseCursorSession,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7946,6 +7973,7 @@ BridgedClass _createMouseCursorBridge() {
     nativeType: $flutter_30.MouseCursor,
     name: 'MouseCursor',
     isAssignable: (v) => v is $flutter_30.MouseCursor,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -8079,6 +8107,7 @@ BridgedClass _createSystemMouseCursorsBridge() {
     nativeType: $flutter_30.SystemMouseCursors,
     name: 'SystemMouseCursors',
     isAssignable: (v) => v is $flutter_30.SystemMouseCursors,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -8776,6 +8805,7 @@ BridgedClass _createAndroidViewControllerBridge() {
     nativeType: $flutter_33.AndroidViewController,
     name: 'AndroidViewController',
     isAssignable: (v) => v is $flutter_33.AndroidViewController,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9420,6 +9450,7 @@ BridgedClass _createDarwinPlatformViewControllerBridge() {
     nativeType: $flutter_33.DarwinPlatformViewController,
     name: 'DarwinPlatformViewController',
     isAssignable: (v) => v is $flutter_33.DarwinPlatformViewController,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9558,6 +9589,7 @@ BridgedClass _createPlatformViewControllerBridge() {
     nativeType: $flutter_33.PlatformViewController,
     name: 'PlatformViewController',
     isAssignable: (v) => v is $flutter_33.PlatformViewController,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9705,6 +9737,7 @@ BridgedClass _createProcessTextServiceBridge() {
     nativeType: $flutter_35.ProcessTextService,
     name: 'ProcessTextService',
     isAssignable: (v) => v is $flutter_35.ProcessTextService,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -9783,6 +9816,7 @@ BridgedClass _createScribeBridge() {
     nativeType: $flutter_38.Scribe,
     name: 'Scribe',
     isAssignable: (v) => v is $flutter_38.Scribe,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -9971,6 +10005,7 @@ BridgedClass _createSpellCheckServiceBridge() {
     nativeType: $flutter_41.SpellCheckService,
     name: 'SpellCheckService',
     isAssignable: (v) => v is $flutter_41.SpellCheckService,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -10064,6 +10099,7 @@ BridgedClass _createSystemChannelsBridge() {
     nativeType: $flutter_42.SystemChannels,
     name: 'SystemChannels',
     isAssignable: (v) => v is $flutter_42.SystemChannels,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -10268,6 +10304,7 @@ BridgedClass _createSystemChromeBridge() {
     nativeType: $flutter_43.SystemChrome,
     name: 'SystemChrome',
     isAssignable: (v) => v is $flutter_43.SystemChrome,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -10340,6 +10377,7 @@ BridgedClass _createSystemNavigatorBridge() {
     nativeType: $flutter_44.SystemNavigator,
     name: 'SystemNavigator',
     isAssignable: (v) => v is $flutter_44.SystemNavigator,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -10385,6 +10423,7 @@ BridgedClass _createSystemSoundBridge() {
     nativeType: $flutter_45.SystemSound,
     name: 'SystemSound',
     isAssignable: (v) => v is $flutter_45.SystemSound,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -10409,6 +10448,7 @@ BridgedClass _createTextBoundaryBridge() {
     nativeType: $flutter_46.TextBoundary,
     name: 'TextBoundary',
     isAssignable: (v) => v is $flutter_46.TextBoundary,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -10636,6 +10676,7 @@ BridgedClass _createTextInputFormatterBridge() {
     nativeType: $flutter_49.TextInputFormatter,
     name: 'TextInputFormatter',
     isAssignable: (v) => v is $flutter_49.TextInputFormatter,
+    isAbstract: true,
     constructors: {
       'withFunction': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'TextInputFormatter');
@@ -10800,6 +10841,7 @@ BridgedClass _createTextLayoutMetricsBridge() {
     nativeType: $flutter_51.TextLayoutMetrics,
     name: 'TextLayoutMetrics',
     isAssignable: (v) => v is $flutter_51.TextLayoutMetrics,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -10906,6 +10948,7 @@ BridgedClass _createUndoManagerClientBridge() {
     name: 'UndoManagerClient',
     isAssignable: (v) => v is $flutter_52.UndoManagerClient,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {

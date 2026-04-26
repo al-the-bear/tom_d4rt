@@ -7802,6 +7802,16 @@ class BridgeGenerator {
       buffer.writeln('    canBeUsedAsMixin: true,');
     }
 
+    // Plan I: emit isAbstract so the runtime can treat super() calls
+    // against an abstract bridged base as a no-op when no constructor
+    // adapter was emitted (GEN-051 strips non-factory constructors of
+    // abstract classes). Sealed-only classes are not flagged: sealed
+    // typically restricts subclassing intentionally and we want
+    // super-call failures there to surface, not silently no-op.
+    if (cls.isAbstract && !cls.isSealed) {
+      buffer.writeln('    isAbstract: true,');
+    }
+
     // Use nativeNames from UserBridge if available
     if (userBridge != null && userBridge.hasNativeNames) {
       buffer.writeln('    nativeNames: $prefixedUserBridge.nativeNames,');

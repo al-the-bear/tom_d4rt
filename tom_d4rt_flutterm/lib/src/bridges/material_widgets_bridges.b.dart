@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-04-25T22:38:29.109179
+// Generated: 2026-04-26T15:36:13.577562
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -5802,6 +5802,7 @@ BridgedClass _createAnimatedIconsBridge() {
     nativeType: $flutter_27.AnimatedIcons,
     name: 'AnimatedIcons',
     isAssignable: (v) => v is $flutter_27.AnimatedIcons,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -5848,6 +5849,7 @@ BridgedClass _createAnimatedIconDataBridge() {
     nativeType: $flutter_27.AnimatedIconData,
     name: 'AnimatedIconData',
     isAssignable: (v) => v is $flutter_27.AnimatedIconData,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -10439,6 +10441,7 @@ BridgedClass _createButtonStyleButtonBridge() {
     nativeType: $flutter_46.ButtonStyleButton,
     name: 'ButtonStyleButton',
     isAssignable: (v) => v is $flutter_46.ButtonStyleButton,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13096,6 +13099,7 @@ BridgedClass _createChipAttributesBridge() {
     nativeType: $flutter_56.ChipAttributes,
     name: 'ChipAttributes',
     isAssignable: (v) => v is $flutter_56.ChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13156,6 +13160,7 @@ BridgedClass _createDeletableChipAttributesBridge() {
     nativeType: $flutter_56.DeletableChipAttributes,
     name: 'DeletableChipAttributes',
     isAssignable: (v) => v is $flutter_56.DeletableChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13184,6 +13189,7 @@ BridgedClass _createCheckmarkableChipAttributesBridge() {
     nativeType: $flutter_56.CheckmarkableChipAttributes,
     name: 'CheckmarkableChipAttributes',
     isAssignable: (v) => v is $flutter_56.CheckmarkableChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13206,6 +13212,7 @@ BridgedClass _createSelectableChipAttributesBridge() {
     nativeType: $flutter_56.SelectableChipAttributes,
     name: 'SelectableChipAttributes',
     isAssignable: (v) => v is $flutter_56.SelectableChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13238,6 +13245,7 @@ BridgedClass _createDisabledChipAttributesBridge() {
     nativeType: $flutter_56.DisabledChipAttributes,
     name: 'DisabledChipAttributes',
     isAssignable: (v) => v is $flutter_56.DisabledChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -13260,6 +13268,7 @@ BridgedClass _createTappableChipAttributesBridge() {
     nativeType: $flutter_56.TappableChipAttributes,
     name: 'TappableChipAttributes',
     isAssignable: (v) => v is $flutter_56.TappableChipAttributes,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -15294,6 +15303,7 @@ BridgedClass _createColorsBridge() {
     nativeType: $flutter_61.Colors,
     name: 'Colors',
     isAssignable: (v) => v is $flutter_61.Colors,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -15948,6 +15958,7 @@ BridgedClass _createDataTableSourceBridge() {
     nativeType: $flutter_64.DataTableSource,
     name: 'DataTableSource',
     isAssignable: (v) => v is $flutter_64.DataTableSource,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -16278,6 +16289,7 @@ BridgedClass _createCalendarDelegateBridge() {
     nativeType: $flutter_66.CalendarDelegate,
     name: 'CalendarDelegate',
     isAssignable: (v) => v is $flutter_66.CalendarDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -16648,6 +16660,7 @@ BridgedClass _createDateUtilsBridge() {
     nativeType: $flutter_66.DateUtils,
     name: 'DateUtils',
     isAssignable: (v) => v is $flutter_66.DateUtils,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -22148,6 +22161,7 @@ BridgedClass _createElevationOverlayBridge() {
     nativeType: $flutter_86.ElevationOverlay,
     name: 'ElevationOverlay',
     isAssignable: (v) => v is $flutter_86.ElevationOverlay,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -24299,6 +24313,7 @@ BridgedClass _createFloatingActionButtonLocationBridge() {
     nativeType: $flutter_96.FloatingActionButtonLocation,
     name: 'FloatingActionButtonLocation',
     isAssignable: (v) => v is $flutter_96.FloatingActionButtonLocation,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24371,6 +24386,7 @@ BridgedClass _createStandardFabLocationBridge() {
     nativeType: $flutter_96.StandardFabLocation,
     name: 'StandardFabLocation',
     isAssignable: (v) => v is $flutter_96.StandardFabLocation,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24422,6 +24438,7 @@ BridgedClass _createFloatingActionButtonAnimatorBridge() {
     nativeType: $flutter_96.FloatingActionButtonAnimator,
     name: 'FloatingActionButtonAnimator',
     isAssignable: (v) => v is $flutter_96.FloatingActionButtonAnimator,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24481,6 +24498,7 @@ BridgedClass _createFabTopOffsetYBridge() {
     name: 'FabTopOffsetY',
     isAssignable: (v) => v is $flutter_96.FabTopOffsetY,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24533,6 +24551,7 @@ BridgedClass _createFabFloatOffsetYBridge() {
     name: 'FabFloatOffsetY',
     isAssignable: (v) => v is $flutter_96.FabFloatOffsetY,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24585,6 +24604,7 @@ BridgedClass _createFabDockedOffsetYBridge() {
     name: 'FabDockedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabDockedOffsetY,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24637,6 +24657,7 @@ BridgedClass _createFabContainedOffsetYBridge() {
     name: 'FabContainedOffsetY',
     isAssignable: (v) => v is $flutter_96.FabContainedOffsetY,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24689,6 +24710,7 @@ BridgedClass _createFabStartOffsetXBridge() {
     name: 'FabStartOffsetX',
     isAssignable: (v) => v is $flutter_96.FabStartOffsetX,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24741,6 +24763,7 @@ BridgedClass _createFabCenterOffsetXBridge() {
     name: 'FabCenterOffsetX',
     isAssignable: (v) => v is $flutter_96.FabCenterOffsetX,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24793,6 +24816,7 @@ BridgedClass _createFabEndOffsetXBridge() {
     name: 'FabEndOffsetX',
     isAssignable: (v) => v is $flutter_96.FabEndOffsetX,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -24845,6 +24869,7 @@ BridgedClass _createFabMiniOffsetAdjustmentBridge() {
     name: 'FabMiniOffsetAdjustment',
     isAssignable: (v) => v is $flutter_96.FabMiniOffsetAdjustment,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -25974,6 +25999,7 @@ BridgedClass _createIconsBridge() {
     nativeType: $flutter_102.Icons,
     name: 'Icons',
     isAssignable: (v) => v is $flutter_102.Icons,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -44318,6 +44344,7 @@ BridgedClass _createInteractiveInkFeatureBridge() {
     nativeType: $flutter_108.InteractiveInkFeature,
     name: 'InteractiveInkFeature',
     isAssignable: (v) => v is $flutter_108.InteractiveInkFeature,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -44407,6 +44434,7 @@ BridgedClass _createInteractiveInkFeatureFactoryBridge() {
     nativeType: $flutter_108.InteractiveInkFeatureFactory,
     name: 'InteractiveInkFeatureFactory',
     isAssignable: (v) => v is $flutter_108.InteractiveInkFeatureFactory,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -44869,6 +44897,7 @@ BridgedClass _createInputBorderBridge() {
     nativeType: $flutter_109.InputBorder,
     name: 'InputBorder',
     isAssignable: (v) => v is $flutter_109.InputBorder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -47477,6 +47506,7 @@ BridgedClass _createMaterialInkControllerBridge() {
     nativeType: $flutter_116.MaterialInkController,
     name: 'MaterialInkController',
     isAssignable: (v) => v is $flutter_116.MaterialInkController,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -47681,6 +47711,7 @@ BridgedClass _createInkFeatureBridge() {
     nativeType: $flutter_116.InkFeature,
     name: 'InkFeature',
     isAssignable: (v) => v is $flutter_116.InkFeature,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -48010,6 +48041,7 @@ BridgedClass _createMaterialLocalizationsBridge() {
     nativeType: $flutter_118.MaterialLocalizations,
     name: 'MaterialLocalizations',
     isAssignable: (v) => v is $flutter_118.MaterialLocalizations,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -48942,6 +48974,7 @@ BridgedClass _createWidgetStateInputBorderBridge() {
     nativeType: $flutter_119.WidgetStateInputBorder,
     name: 'WidgetStateInputBorder',
     isAssignable: (v) => v is $flutter_119.WidgetStateInputBorder,
+    isAbstract: true,
     constructors: {
       'resolveWith': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'WidgetStateInputBorder');
@@ -49090,6 +49123,7 @@ BridgedClass _createMaterialStateMixinBridge() {
     name: 'MaterialStateMixin',
     isAssignable: (v) => v is $flutter_120.MaterialStateMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -51218,6 +51252,7 @@ BridgedClass _createMergeableMaterialItemBridge() {
     nativeType: $flutter_126.MergeableMaterialItem,
     name: 'MergeableMaterialItem',
     isAssignable: (v) => v is $flutter_126.MergeableMaterialItem,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -51433,6 +51468,7 @@ BridgedClass _createDurationsBridge() {
     nativeType: $flutter_127.Durations,
     name: 'Durations',
     isAssignable: (v) => v is $flutter_127.Durations,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -51483,6 +51519,7 @@ BridgedClass _createEasingBridge() {
     nativeType: $flutter_127.Easing,
     name: 'Easing',
     isAssignable: (v) => v is $flutter_127.Easing,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -54150,6 +54187,7 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
     name: 'MaterialRouteTransitionMixin',
     isAssignable: (v) => v is $flutter_137.MaterialRouteTransitionMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -55119,6 +55157,7 @@ BridgedClass _createPopupMenuEntryBridge() {
     nativeType: $flutter_140.PopupMenuEntry,
     name: 'PopupMenuEntry',
     isAssignable: (v) => v is $flutter_140.PopupMenuEntry,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -56424,6 +56463,7 @@ BridgedClass _createProgressIndicatorBridge() {
     nativeType: $flutter_143.ProgressIndicator,
     name: 'ProgressIndicator',
     isAssignable: (v) => v is $flutter_143.ProgressIndicator,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -58079,6 +58119,7 @@ BridgedClass _createRangeSliderThumbShapeBridge() {
     nativeType: $flutter_149.RangeSliderThumbShape,
     name: 'RangeSliderThumbShape',
     isAssignable: (v) => v is $flutter_149.RangeSliderThumbShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -58564,6 +58605,7 @@ BridgedClass _createRangeSliderValueIndicatorShapeBridge() {
     nativeType: $flutter_149.RangeSliderValueIndicatorShape,
     name: 'RangeSliderValueIndicatorShape',
     isAssignable: (v) => v is $flutter_149.RangeSliderValueIndicatorShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -58624,6 +58666,7 @@ BridgedClass _createRangeSliderTickMarkShapeBridge() {
     nativeType: $flutter_149.RangeSliderTickMarkShape,
     name: 'RangeSliderTickMarkShape',
     isAssignable: (v) => v is $flutter_149.RangeSliderTickMarkShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -58678,6 +58721,7 @@ BridgedClass _createRangeSliderTrackShapeBridge() {
     nativeType: $flutter_149.RangeSliderTrackShape,
     name: 'RangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.RangeSliderTrackShape,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -59317,6 +59361,7 @@ BridgedClass _createBaseRangeSliderTrackShapeBridge() {
     name: 'BaseRangeSliderTrackShape',
     isAssignable: (v) => v is $flutter_149.BaseRangeSliderTrackShape,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -61296,6 +61341,7 @@ BridgedClass _createSearchDelegateBridge() {
     nativeType: $flutter_155.SearchDelegate,
     name: 'SearchDelegate',
     isAssignable: (v) => v is $flutter_155.SearchDelegate,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -63925,6 +63971,7 @@ BridgedClass _createSliderTickMarkShapeBridge() {
     nativeType: $flutter_165.SliderTickMarkShape,
     name: 'SliderTickMarkShape',
     isAssignable: (v) => v is $flutter_165.SliderTickMarkShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -63971,6 +64018,7 @@ BridgedClass _createSliderTrackShapeBridge() {
     nativeType: $flutter_165.SliderTrackShape,
     name: 'SliderTrackShape',
     isAssignable: (v) => v is $flutter_165.SliderTrackShape,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64504,6 +64552,7 @@ BridgedClass _createBaseSliderTrackShapeBridge() {
     name: 'BaseSliderTrackShape',
     isAssignable: (v) => v is $flutter_165.BaseSliderTrackShape,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64893,6 +64942,7 @@ BridgedClass _createSliderComponentShapeBridge() {
     nativeType: $flutter_167.SliderComponentShape,
     name: 'SliderComponentShape',
     isAssignable: (v) => v is $flutter_167.SliderComponentShape,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -70246,6 +70296,7 @@ BridgedClass _createThemeExtensionBridge() {
     nativeType: $flutter_190.ThemeExtension,
     name: 'ThemeExtension',
     isAssignable: (v) => v is $flutter_190.ThemeExtension,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -73529,6 +73580,7 @@ BridgedClass _createShapeBorderBridge() {
     nativeType: $flutter_204.ShapeBorder,
     name: 'ShapeBorder',
     isAssignable: (v) => v is $flutter_204.ShapeBorder,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -74529,6 +74581,7 @@ BridgedClass _createEdgeInsetsGeometryBridge() {
     nativeType: $flutter_211.EdgeInsetsGeometry,
     name: 'EdgeInsetsGeometry',
     isAssignable: (v) => v is $flutter_211.EdgeInsetsGeometry,
+    isAbstract: true,
     constructors: {
       'all': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'EdgeInsetsGeometry');
@@ -74967,6 +75020,7 @@ BridgedClass _createImageProviderBridge() {
     nativeType: $flutter_214.ImageProvider,
     name: 'ImageProvider',
     isAssignable: (v) => v is $flutter_214.ImageProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {

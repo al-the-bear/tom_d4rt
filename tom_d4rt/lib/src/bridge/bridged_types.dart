@@ -128,6 +128,18 @@ class BridgedClass implements RuntimeType {
   // Support for mixin usage
   final bool canBeUsedAsMixin;
 
+  /// Whether the bridged native class is `abstract` (cannot be instantiated
+  /// directly).
+  ///
+  /// Plan I: when an interpreted subclass calls `super()` against an abstract
+  /// bridged base whose generator emitted no constructor adapter (because of
+  /// GEN-051's abstract/sealed skip rule), the runtime treats the super-call
+  /// as a no-op — the abstract type can never be constructed natively, so
+  /// the subclass's own proxy/state is what carries the bridged identity.
+  /// Mirrors the existing `D4.hasInterfaceProxy` fallback behaviour for the
+  /// case where no proxy is registered.
+  final bool isAbstract;
+
   // Adapters for constructors
   Map<String, BridgedConstructorCallable> constructors = {};
   // Adapters for instance methods
@@ -154,6 +166,7 @@ class BridgedClass implements RuntimeType {
       this.nativeNames,
       this.typeParameterCount = 0,
       this.canBeUsedAsMixin = false,
+      this.isAbstract = false,
       this.isAssignable,
       this.constructors = const {},
       this.staticMethods = const {},

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-04-25T22:38:20.149459
+// Generated: 2026-04-26T15:36:04.434827
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -2799,6 +2799,7 @@ BridgedClass _createRendererBindingBridge() {
     name: 'RendererBinding',
     isAssignable: (v) => v is $flutter_41.RendererBinding,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4000,6 +4001,7 @@ BridgedClass _createContainerBoxParentDataBridge() {
     nativeType: $flutter_42.ContainerBoxParentData,
     name: 'ContainerBoxParentData',
     isAssignable: (v) => v is $flutter_42.ContainerBoxParentData,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4052,6 +4054,7 @@ BridgedClass _createRenderBoxBridge() {
     nativeType: $flutter_42.RenderBox,
     name: 'RenderBox',
     isAssignable: (v) => v is $flutter_42.RenderBox,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -4687,6 +4690,7 @@ BridgedClass _createRenderBoxContainerDefaultsMixinBridge() {
     name: 'RenderBoxContainerDefaultsMixin',
     isAssignable: (v) => v is $flutter_42.RenderBoxContainerDefaultsMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5338,6 +5342,7 @@ BridgedClass _createMultiChildLayoutDelegateBridge() {
     nativeType: $flutter_43.MultiChildLayoutDelegate,
     name: 'MultiChildLayoutDelegate',
     isAssignable: (v) => v is $flutter_43.MultiChildLayoutDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -6196,6 +6201,7 @@ BridgedClass _createCustomPainterBridge() {
     nativeType: $flutter_44.CustomPainter,
     name: 'CustomPainter',
     isAssignable: (v) => v is $flutter_44.CustomPainter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7050,6 +7056,7 @@ BridgedClass _createDebugOverflowIndicatorMixinBridge() {
     name: 'DebugOverflowIndicatorMixin',
     isAssignable: (v) => v is $flutter_46.DebugOverflowIndicatorMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -9497,6 +9504,7 @@ BridgedClass _createRenderEditablePainterBridge() {
     nativeType: $flutter_48.RenderEditablePainter,
     name: 'RenderEditablePainter',
     isAssignable: (v) => v is $flutter_48.RenderEditablePainter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -11201,6 +11209,7 @@ BridgedClass _createFlowPaintingContextBridge() {
     nativeType: $flutter_51.FlowPaintingContext,
     name: 'FlowPaintingContext',
     isAssignable: (v) => v is $flutter_51.FlowPaintingContext,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -11251,6 +11260,7 @@ BridgedClass _createFlowDelegateBridge() {
     nativeType: $flutter_51.FlowDelegate,
     name: 'FlowDelegate',
     isAssignable: (v) => v is $flutter_51.FlowDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -12971,6 +12981,7 @@ BridgedClass _createImageFilterConfigBridge() {
     nativeType: $flutter_53.ImageFilterConfig,
     name: 'ImageFilterConfig',
     isAssignable: (v) => v is $flutter_53.ImageFilterConfig,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ImageFilterConfig');
@@ -13186,6 +13197,7 @@ BridgedClass _createLayerBridge() {
     nativeType: $flutter_54.Layer,
     name: 'Layer',
     isAssignable: (v) => v is $flutter_54.Layer,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -18684,6 +18696,7 @@ BridgedClass _createChildLayoutHelperBridge() {
     nativeType: $flutter_55.ChildLayoutHelper,
     name: 'ChildLayoutHelper',
     isAssignable: (v) => v is $flutter_55.ChildLayoutHelper,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -19596,6 +19609,7 @@ BridgedClass _createListWheelChildManagerBridge() {
     nativeType: $flutter_57.ListWheelChildManager,
     name: 'ListWheelChildManager',
     isAssignable: (v) => v is $flutter_57.ListWheelChildManager,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -21009,6 +21023,7 @@ BridgedClass _createConstraintsBridge() {
     nativeType: $flutter_59.Constraints,
     name: 'Constraints',
     isAssignable: (v) => v is $flutter_59.Constraints,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -21233,6 +21248,7 @@ BridgedClass _createPipelineManifoldBridge() {
     nativeType: $flutter_59.PipelineManifold,
     name: 'PipelineManifold',
     isAssignable: (v) => v is $flutter_59.PipelineManifold,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -21285,6 +21301,7 @@ BridgedClass _createRenderObjectBridge() {
     nativeType: $flutter_59.RenderObject,
     name: 'RenderObject',
     isAssignable: (v) => v is $flutter_59.RenderObject,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -21907,6 +21924,7 @@ BridgedClass _createRenderObjectWithChildMixinBridge() {
     name: 'RenderObjectWithChildMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithChildMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -22387,6 +22405,7 @@ BridgedClass _createRenderObjectWithLayoutCallbackMixinBridge() {
     name: 'RenderObjectWithLayoutCallbackMixin',
     isAssignable: (v) => v is $flutter_59.RenderObjectWithLayoutCallbackMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -22867,6 +22886,7 @@ BridgedClass _createContainerParentDataMixinBridge() {
     name: 'ContainerParentDataMixin',
     isAssignable: (v) => v is $flutter_59.ContainerParentDataMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -22915,6 +22935,7 @@ BridgedClass _createContainerRenderObjectMixinBridge() {
     name: 'ContainerRenderObjectMixin',
     isAssignable: (v) => v is $flutter_59.ContainerRenderObjectMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -23461,6 +23482,7 @@ BridgedClass _createRelayoutWhenSystemFontsChangeMixinBridge() {
     name: 'RelayoutWhenSystemFontsChangeMixin',
     isAssignable: (v) => v is $flutter_59.RelayoutWhenSystemFontsChangeMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -23935,6 +23957,7 @@ BridgedClass _createSemanticsAnnotationsMixinBridge() {
     name: 'SemanticsAnnotationsMixin',
     isAssignable: (v) => v is $flutter_59.SemanticsAnnotationsMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -25539,6 +25562,7 @@ BridgedClass _createRenderInlineChildrenContainerDefaultsBridge() {
     name: 'RenderInlineChildrenContainerDefaults',
     isAssignable: (v) => v is $flutter_60.RenderInlineChildrenContainerDefaults,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -27663,6 +27687,7 @@ BridgedClass _createRenderDarwinPlatformViewBridge() {
     nativeType: $flutter_62.RenderDarwinPlatformView,
     name: 'RenderDarwinPlatformView',
     isAssignable: (v) => v is $flutter_62.RenderDarwinPlatformView,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -31049,6 +31074,7 @@ BridgedClass _createRenderProxyBoxWithHitTestBehaviorBridge() {
     nativeType: $flutter_63.RenderProxyBoxWithHitTestBehavior,
     name: 'RenderProxyBoxWithHitTestBehavior',
     isAssignable: (v) => v is $flutter_63.RenderProxyBoxWithHitTestBehavior,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -38824,6 +38850,7 @@ BridgedClass _createCustomClipperBridge() {
     nativeType: $flutter_63.CustomClipper,
     name: 'CustomClipper',
     isAssignable: (v) => v is $flutter_63.CustomClipper,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -58431,6 +58458,7 @@ BridgedClass _createRenderProxyBoxMixinBridge() {
     name: 'RenderProxyBoxMixin',
     isAssignable: (v) => v is $flutter_63.RenderProxyBoxMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -59121,6 +59149,7 @@ BridgedClass _createRenderAnimatedOpacityMixinBridge() {
     name: 'RenderAnimatedOpacityMixin',
     isAssignable: (v) => v is $flutter_63.RenderAnimatedOpacityMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -59610,6 +59639,7 @@ BridgedClass _createRenderProxySliverBridge() {
     nativeType: $flutter_64.RenderProxySliver,
     name: 'RenderProxySliver',
     isAssignable: (v) => v is $flutter_64.RenderProxySliver,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64375,6 +64405,7 @@ BridgedClass _createSelectionHandlerBridge() {
     nativeType: $flutter_66.SelectionHandler,
     name: 'SelectionHandler',
     isAssignable: (v) => v is $flutter_66.SelectionHandler,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64575,6 +64606,7 @@ BridgedClass _createSelectionUtilsBridge() {
     nativeType: $flutter_66.SelectionUtils,
     name: 'SelectionUtils',
     isAssignable: (v) => v is $flutter_66.SelectionUtils,
+    isAbstract: true,
     constructors: {
     },
     staticMethods: {
@@ -64608,6 +64640,7 @@ BridgedClass _createSelectionEventBridge() {
     nativeType: $flutter_66.SelectionEvent,
     name: 'SelectionEvent',
     isAssignable: (v) => v is $flutter_66.SelectionEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -64861,6 +64894,7 @@ BridgedClass _createSelectionRegistrarBridge() {
     nativeType: $flutter_66.SelectionRegistrar,
     name: 'SelectionRegistrar',
     isAssignable: (v) => v is $flutter_66.SelectionRegistrar,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -65060,6 +65094,7 @@ BridgedClass _createSelectableBridge() {
     name: 'Selectable',
     isAssignable: (v) => v is $flutter_66.Selectable,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -65152,6 +65187,7 @@ BridgedClass _createSelectionRegistrantBridge() {
     name: 'SelectionRegistrant',
     isAssignable: (v) => v is $flutter_66.SelectionRegistrant,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -65252,6 +65288,7 @@ BridgedClass _createRenderShiftedBoxBridge() {
     nativeType: $flutter_68.RenderShiftedBox,
     name: 'RenderShiftedBox',
     isAssignable: (v) => v is $flutter_68.RenderShiftedBox,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -66642,6 +66679,7 @@ BridgedClass _createRenderAligningShiftedBoxBridge() {
     nativeType: $flutter_68.RenderAligningShiftedBox,
     name: 'RenderAligningShiftedBox',
     isAssignable: (v) => v is $flutter_68.RenderAligningShiftedBox,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -71011,6 +71049,7 @@ BridgedClass _createSingleChildLayoutDelegateBridge() {
     nativeType: $flutter_68.SingleChildLayoutDelegate,
     name: 'SingleChildLayoutDelegate',
     isAssignable: (v) => v is $flutter_68.SingleChildLayoutDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -73132,6 +73171,7 @@ BridgedClass _createRenderSliverBridge() {
     nativeType: $flutter_69.RenderSliver,
     name: 'RenderSliver',
     isAssignable: (v) => v is $flutter_69.RenderSliver,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -73689,6 +73729,7 @@ BridgedClass _createRenderSliverSingleBoxAdapterBridge() {
     nativeType: $flutter_69.RenderSliverSingleBoxAdapter,
     name: 'RenderSliverSingleBoxAdapter',
     isAssignable: (v) => v is $flutter_69.RenderSliverSingleBoxAdapter,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -74893,6 +74934,7 @@ BridgedClass _createRenderSliverHelpersBridge() {
     name: 'RenderSliverHelpers',
     isAssignable: (v) => v is $flutter_69.RenderSliverHelpers,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -78069,6 +78111,7 @@ BridgedClass _createRenderSliverFixedExtentBoxAdaptorBridge() {
     nativeType: $flutter_71.RenderSliverFixedExtentBoxAdaptor,
     name: 'RenderSliverFixedExtentBoxAdaptor',
     isAssignable: (v) => v is $flutter_71.RenderSliverFixedExtentBoxAdaptor,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -80466,6 +80509,7 @@ BridgedClass _createSliverGridLayoutBridge() {
     nativeType: $flutter_72.SliverGridLayout,
     name: 'SliverGridLayout',
     isAssignable: (v) => v is $flutter_72.SliverGridLayout,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -80586,6 +80630,7 @@ BridgedClass _createSliverGridDelegateBridge() {
     nativeType: $flutter_72.SliverGridDelegate,
     name: 'SliverGridDelegate',
     isAssignable: (v) => v is $flutter_72.SliverGridDelegate,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -83559,6 +83604,7 @@ BridgedClass _createRenderSliverBoxChildManagerBridge() {
     nativeType: $flutter_75.RenderSliverBoxChildManager,
     name: 'RenderSliverBoxChildManager',
     isAssignable: (v) => v is $flutter_75.RenderSliverBoxChildManager,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -83716,6 +83762,7 @@ BridgedClass _createRenderSliverMultiBoxAdaptorBridge() {
     nativeType: $flutter_75.RenderSliverMultiBoxAdaptor,
     name: 'RenderSliverMultiBoxAdaptor',
     isAssignable: (v) => v is $flutter_75.RenderSliverMultiBoxAdaptor,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -84442,6 +84489,7 @@ BridgedClass _createKeepAliveParentDataMixinBridge() {
     name: 'KeepAliveParentDataMixin',
     isAssignable: (v) => v is $flutter_75.KeepAliveParentDataMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -84487,6 +84535,7 @@ BridgedClass _createRenderSliverWithKeepAliveMixinBridge() {
     name: 'RenderSliverWithKeepAliveMixin',
     isAssignable: (v) => v is $flutter_75.RenderSliverWithKeepAliveMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -85044,6 +85093,7 @@ BridgedClass _createRenderSliverEdgeInsetsPaddingBridge() {
     nativeType: $flutter_76.RenderSliverEdgeInsetsPadding,
     name: 'RenderSliverEdgeInsetsPadding',
     isAssignable: (v) => v is $flutter_76.RenderSliverEdgeInsetsPadding,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -86295,6 +86345,7 @@ BridgedClass _createRenderSliverPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverPersistentHeader,
     name: 'RenderSliverPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverPersistentHeader,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -86910,6 +86961,7 @@ BridgedClass _createRenderSliverScrollingPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverScrollingPersistentHeader,
     name: 'RenderSliverScrollingPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverScrollingPersistentHeader,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -87530,6 +87582,7 @@ BridgedClass _createRenderSliverPinnedPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverPinnedPersistentHeader,
     name: 'RenderSliverPinnedPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverPinnedPersistentHeader,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -88180,6 +88233,7 @@ BridgedClass _createRenderSliverFloatingPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverFloatingPersistentHeader,
     name: 'RenderSliverFloatingPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverFloatingPersistentHeader,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -88839,6 +88893,7 @@ BridgedClass _createRenderSliverFloatingPinnedPersistentHeaderBridge() {
     nativeType: $flutter_77.RenderSliverFloatingPinnedPersistentHeader,
     name: 'RenderSliverFloatingPinnedPersistentHeader',
     isAssignable: (v) => v is $flutter_77.RenderSliverFloatingPinnedPersistentHeader,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -92409,6 +92464,7 @@ BridgedClass _createTableColumnWidthBridge() {
     nativeType: $flutter_80.TableColumnWidth,
     name: 'TableColumnWidth',
     isAssignable: (v) => v is $flutter_80.TableColumnWidth,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -95372,6 +95428,7 @@ BridgedClass _createRenderAbstractViewportBridge() {
     nativeType: $flutter_85.RenderAbstractViewport,
     name: 'RenderAbstractViewport',
     isAssignable: (v) => v is $flutter_85.RenderAbstractViewport,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -95921,6 +95978,7 @@ BridgedClass _createRenderViewportBaseBridge() {
     nativeType: $flutter_85.RenderViewportBase,
     name: 'RenderViewportBase',
     isAssignable: (v) => v is $flutter_85.RenderViewportBase,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -98598,6 +98656,7 @@ BridgedClass _createViewportOffsetBridge() {
     nativeType: $flutter_86.ViewportOffset,
     name: 'ViewportOffset',
     isAssignable: (v) => v is $flutter_86.ViewportOffset,
+    isAbstract: true,
     constructors: {
       'fixed': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'ViewportOffset');

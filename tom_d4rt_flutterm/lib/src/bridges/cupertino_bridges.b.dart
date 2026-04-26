@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 110 files
-// Generated: 2026-04-25T22:38:33.075082
+// Generated: 2026-04-26T15:36:17.627034
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -3478,6 +3478,7 @@ BridgedClass _createCupertinoColorsBridge() {
     nativeType: $flutter_10.CupertinoColors,
     name: 'CupertinoColors',
     isAssignable: (v) => v is $flutter_10.CupertinoColors,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -5905,6 +5906,7 @@ BridgedClass _createCupertinoIconsBridge() {
     nativeType: $flutter_25.CupertinoIcons,
     name: 'CupertinoIcons',
     isAssignable: (v) => v is $flutter_25.CupertinoIcons,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -9154,6 +9156,7 @@ BridgedClass _createCupertinoLocalizationsBridge() {
     nativeType: $flutter_29.CupertinoLocalizations,
     name: 'CupertinoLocalizations',
     isAssignable: (v) => v is $flutter_29.CupertinoLocalizations,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -10578,6 +10581,7 @@ BridgedClass _createObstructingPreferredSizeWidgetBridge() {
     nativeType: $flutter_32.ObstructingPreferredSizeWidget,
     name: 'ObstructingPreferredSizeWidget',
     isAssignable: (v) => v is $flutter_32.ObstructingPreferredSizeWidget,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -12876,6 +12880,7 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
     name: 'CupertinoRouteTransitionMixin',
     isAssignable: (v) => v is $flutter_36.CupertinoRouteTransitionMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -17485,6 +17490,7 @@ BridgedClass _createImageProviderBridge() {
     nativeType: $flutter_75.ImageProvider,
     name: 'ImageProvider',
     isAssignable: (v) => v is $flutter_75.ImageProvider,
+    isAbstract: true,
     constructors: {
     },
     methods: {

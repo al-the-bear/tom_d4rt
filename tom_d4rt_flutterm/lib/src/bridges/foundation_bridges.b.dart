@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-04-25T22:38:15.158753
+// Generated: 2026-04-26T15:35:59.455288
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -1372,6 +1372,7 @@ BridgedClass _createDiagnosticsNodeBridge() {
     nativeType: $flutter_12.DiagnosticsNode,
     name: 'DiagnosticsNode',
     isAssignable: (v) => v is $flutter_12.DiagnosticsNode,
+    isAbstract: true,
     constructors: {
       'message': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DiagnosticsNode');
@@ -3656,6 +3657,7 @@ BridgedClass _createDiagnosticableTreeBridge() {
     nativeType: $flutter_12.DiagnosticableTree,
     name: 'DiagnosticableTree',
     isAssignable: (v) => v is $flutter_12.DiagnosticableTree,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -3847,6 +3849,7 @@ BridgedClass _createDiagnosticsSerializationDelegateBridge() {
     nativeType: $flutter_12.DiagnosticsSerializationDelegate,
     name: 'DiagnosticsSerializationDelegate',
     isAssignable: (v) => v is $flutter_12.DiagnosticsSerializationDelegate,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('subtreeDepth') && !named.containsKey('includeProperties')) {
@@ -3967,6 +3970,7 @@ BridgedClass _createDiagnosticableBridge() {
     name: 'Diagnosticable',
     isAssignable: (v) => v is $flutter_12.Diagnosticable,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4012,6 +4016,7 @@ BridgedClass _createDiagnosticableTreeMixinBridge() {
     name: 'DiagnosticableTreeMixin',
     isAssignable: (v) => v is $flutter_12.DiagnosticableTreeMixin,
     canBeUsedAsMixin: true,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -4229,6 +4234,7 @@ BridgedClass _createStackFilterBridge() {
     nativeType: $flutter_2.StackFilter,
     name: 'StackFilter',
     isAssignable: (v) => v is $flutter_2.StackFilter,
+    isAbstract: true,
     constructors: {
     },
     methods: {
@@ -5245,6 +5251,7 @@ BridgedClass _createBindingBaseBridge() {
     nativeType: $flutter_4.BindingBase,
     name: 'BindingBase',
     isAssignable: (v) => v is $flutter_4.BindingBase,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5429,6 +5436,7 @@ BridgedClass _createBitFieldBridge() {
     nativeType: $flutter_5.BitField,
     name: 'BitField',
     isAssignable: (v) => v is $flutter_5.BitField,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'BitField');
@@ -5481,6 +5489,7 @@ BridgedClass _createListenableBridge() {
     nativeType: $flutter_7.Listenable,
     name: 'Listenable',
     isAssignable: (v) => v is $flutter_7.Listenable,
+    isAbstract: true,
     constructors: {
       'merge': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Listenable');
@@ -5532,6 +5541,7 @@ BridgedClass _createValueListenableBridge() {
     nativeType: $flutter_7.ValueListenable,
     name: 'ValueListenable',
     isAssignable: (v) => v is $flutter_7.ValueListenable,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -5813,6 +5823,7 @@ BridgedClass _createKeyBridge() {
     nativeType: $flutter_14.Key,
     name: 'Key',
     isAssignable: (v) => v is $flutter_14.Key,
+    isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Key');
@@ -5835,6 +5846,7 @@ BridgedClass _createLocalKeyBridge() {
     nativeType: $flutter_14.LocalKey,
     name: 'LocalKey',
     isAssignable: (v) => v is $flutter_14.LocalKey,
+    isAbstract: true,
     constructors: {
     },
   );
@@ -6035,6 +6047,7 @@ BridgedClass _createLicenseEntryBridge() {
     nativeType: $flutter_15.LicenseEntry,
     name: 'LicenseEntry',
     isAssignable: (v) => v is $flutter_15.LicenseEntry,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -6093,6 +6106,7 @@ BridgedClass _createLicenseRegistryBridge() {
     nativeType: $flutter_15.LicenseRegistry,
     name: 'LicenseRegistry',
     isAssignable: (v) => v is $flutter_15.LicenseRegistry,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -6131,6 +6145,7 @@ BridgedClass _createObjectEventBridge() {
     nativeType: $flutter_16.ObjectEvent,
     name: 'ObjectEvent',
     isAssignable: (v) => v is $flutter_16.ObjectEvent,
+    isAbstract: true,
     constructors: {
     },
     getters: {
@@ -7256,6 +7271,7 @@ BridgedClass _createFlutterTimelineBridge() {
     nativeType: $flutter_26.FlutterTimeline,
     name: 'FlutterTimeline',
     isAssignable: (v) => v is $flutter_26.FlutterTimeline,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
@@ -7459,6 +7475,7 @@ BridgedClass _createUnicodeBridge() {
     nativeType: $flutter_27.Unicode,
     name: 'Unicode',
     isAssignable: (v) => v is $flutter_27.Unicode,
+    isAbstract: true,
     constructors: {
     },
     staticGetters: {
