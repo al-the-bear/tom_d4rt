@@ -1540,6 +1540,7 @@ regression on gii/essential/important/secondary.
 | `widgets/scrollable_details_test.dart` | 1 | 0 | Same. | `bb74fd23` |
 | `widgets/img_element_platform_view_test.dart` | 18 | 18 | Partial: bb74fd23 wrapped only `_HeroCalloutRow`'s `LayoutBuilder` in `IntrinsicHeight`. The script's second `LayoutBuilder` (`_SeoComparison`) was missed, so the Row(stretch) cascade still produced 18 errors (1 BoxConstraints + 16 RenderBox-not-laid-out + 1 sliver_multi_box_adaptor child.hasSize). Completion is recorded in the next row. | `bb74fd23` |
 | `widgets/img_element_platform_view_test.dart` | 18 | 0 | Completed bb74fd23: `_SeoComparison` (line ~1859) had the same Row(crossAxisAlignment.stretch) inside a SingleChildScrollView pattern. Wrapped its wide-branch Row in `IntrinsicHeight` mirroring `_HeroCalloutRow`'s comment on line 757 ("IntrinsicHeight bounds the Row's vertical extent so that CrossAxisAlignment.stretch does not propagate the unbounded height inherited from the SingleChildScrollView ancestor"). Verified isolated 18 → 0. | `fe03695f` |
+| `widgets/sliver_child_delegate_test.dart` | 8 | 0 | Three sites mutated `counter.value` (and one mutated `log.value`) inside delegate builders or directly in `build()`; the notifiers feed three `ValueListenableBuilder`s, so each mutation scheduled a rebuild while the framework was already mid-build (`setState() or markNeedsBuild() called during build. ... A ValueListenableBuilder<int> widget cannot be marked as needing to build because the framework is already in the process of building widgets`). Wrapped each mutation in `WidgetsBinding.instance.addPostFrameCallback` so the notifier value updates after the current frame: (a) `_BuilderDelegateScene`'s `SliverChildBuilderDelegate.builder` (~line 581) increments via post-frame callback; (b) `_ListDelegateScene`'s eager construction loop (~line 730) counts locally, assigns once via post-frame callback; (c) `_CustomDelegateScene`'s `_LoggingChildDelegate.onBuild` (~line 916) runs both counter+log mutations from a single post-frame callback to preserve the visible "build count N → log message" ordering. | `cdb022db` |
 | `widgets/slotted_multi_child_test.dart` | n | 0 | Same. | `bb74fd23` |
 | `widgets/animated_switcher_test.dart` | 1 | 0 | Bumped fixed `SizedBox` height to fit the inner Column without a 4-pixel bottom RenderFlex overflow. | `bb74fd23` |
 | `rendering/custom_painter_semantics_test.dart` | 2 | 1* | Region 4 "Label" SemanticRegion height 35 → 42 to fit Icon(18) + SizedBox(2) + bold Text without ~3-px RenderFlex bottom overflow. The remaining error is interpreter-level (`semanticsBuilder` returning `InterpretedFunction`). | `39baf0f7` |
@@ -1622,6 +1623,33 @@ the partial bb74fd23 fix), the regression battery reports:
 - The 18 logged framework errors on
   `widgets/img_element_platform_view_test.dart` (which lives in
   `hardly_relevant_4`) went away.
+
+After the current batch (`sliver_child_delegate`), the regression
+battery reports clean (no test-app death this run):
+
+- **gii** `+69 ~1 -13` (unchanged — sliver_child_delegate script
+  lives in `hardly_relevant_5`, not gii).
+- **essential** `+108` (unchanged).
+- **important** `+164 ~5` (unchanged).
+- **secondary** `+649 ~5` (unchanged).
+- The 8 logged framework errors on
+  `widgets/sliver_child_delegate_test.dart` went away.
+
+Investigated but reverted in this sweep:
+
+- `widgets/widget_state_color_test.dart` (9 errors,
+  BoxConstraints infinite height pattern). The script's
+  `_WscFromMapVsResolveWith.build()` has the textbook
+  `Row(crossAxisAlignment: CrossAxisAlignment.stretch)` inside a
+  `ListView` ancestor, so the same `IntrinsicHeight` wrap that
+  fixed img_element looked applicable. Wrapping it kept the error
+  count at 9 but changed the mix: the sliver_multi_box_adaptor
+  cascade got slightly shorter and four new `Null check operator
+  used on a null value` errors appeared from the
+  `IntrinsicHeight` intrinsic-height pass hitting an interpreter-
+  side null somewhere downstream. Reverted; the residual is now
+  classified as an interpreter-level issue rather than a
+  script-side layout bug.
 
 Note: the first attempt of an earlier gii run hit a flaky
 test-app death at minute 0:47 (`animated_switcher_test.dart` rerun
