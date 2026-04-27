@@ -482,6 +482,11 @@ class ListCore {
           'firstOrNull': (visitor, target) => (target as List).firstOrNull,
           'lastOrNull': (visitor, target) => (target as List).lastOrNull,
           'singleOrNull': (visitor, target) => (target as List).singleOrNull,
+          // Dart 3 IndexedIterable extension: returns Iterable<(int, E)>.
+          // The List bridge has its own getters map (no Iterable
+          // inheritance), so the getter must be exposed here too — the
+          // lookup hits the List bridge first.
+          'indexed': (visitor, target) => (target as List).indexed,
         },
         setters: {
           'length': (visitor, target, value) {

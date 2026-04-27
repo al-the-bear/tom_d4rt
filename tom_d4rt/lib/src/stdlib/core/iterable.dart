@@ -193,6 +193,9 @@ class IterableCore {
           'lastOrNull': (visitor, target) => (target as Iterable).lastOrNull,
           'singleOrNull': (visitor, target) =>
               (target as Iterable).singleOrNull,
+          // Dart 3 IndexedIterable extension: returns Iterable<(int, E)>.
+          // Bridged here so scripts can use `for (final (i, x) in xs.indexed)`.
+          'indexed': (visitor, target) => (target as Iterable).indexed,
         },
       );
 }
