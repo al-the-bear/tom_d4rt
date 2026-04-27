@@ -272,6 +272,45 @@ class InterpretedFunction implements Callable {
     return params.where((p) => p.isPositional).length;
   }
 
+  /// GEN-095 (D8f): true when the function can be called with no arguments,
+  /// i.e. it has no required positional parameters and no required-named
+  /// parameters. Used by the binary-expression visitor to decide whether to
+  /// auto-invoke a function value (legitimate for zero-arg thunks, wrong for
+  /// any callback that takes arguments — see semantics_gesture_delegate_test
+  /// where `onHorizontalDrag == null` was crashing because the comparison
+  /// auto-invoked the `(DragUpdateDetails d) {}` callback with []).
+  bool get canCallWithoutArgs {
+    final params = _parameters?.parameters;
+    if (params == null || params.isEmpty) return true;
+    for (final param in params) {
+      // DefaultFormalParameter wraps optional positional or any named
+      // (with or without a default value). Optional positional is fine to
+      // omit; required-named (`{required ...}`) is not.
+      if (param is DefaultFormalParameter) {
+        if (param.isNamed) {
+          final inner = param.parameter;
+          if (inner is SimpleFormalParameter && inner.isRequired) {
+            return false;
+          }
+          if (inner is FieldFormalParameter && inner.isRequired) {
+            return false;
+          }
+          if (inner is FunctionTypedFormalParameter && inner.isRequired) {
+            return false;
+          }
+        }
+        // Optional positional or non-required named — fine to skip.
+        continue;
+      }
+      // Non-wrapped: SimpleFormalParameter (required positional/named),
+      // FieldFormalParameter (this.x), SuperFormalParameter (super.x),
+      // FunctionTypedFormalParameter — all required positional in this
+      // unwrapped form.
+      return false;
+    }
+    return true;
+  }
+
   /// Get all positional parameter names (required and optional).
   List<String> get positionalParameterNames {
     final params = _parameters?.parameters;

@@ -1447,15 +1447,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
 
     final leftBridgedInstance = toBridgedInstance(leftOperandValue);
+    // GEN-095 (D8f): an InterpretedFunction is a *function value*, not a
+    // thunk. Auto-invoking it here corrupts equality / null-check semantics
+    // for callbacks (e.g. `onHorizontalDrag == null` would invoke the
+    // closure with zero args and fail when its parameter list isn't empty).
+    // Only auto-call zero-arg functions so the existing arithmetic-on-thunk
+    // leniency (e.g. a getter that yielded a `() => 1` thunk) still works.
     final left = leftBridgedInstance.$2
         ? leftBridgedInstance.$1!.nativeObject
-        : (leftOperandValue is InterpretedFunction)
+        : (leftOperandValue is InterpretedFunction &&
+                leftOperandValue.canCallWithoutArgs)
         ? leftOperandValue.call(this, [])
         : leftOperandValue;
     final rightBridgedInstance = toBridgedInstance(rightOperandValue);
     final right = rightBridgedInstance.$2
         ? rightBridgedInstance.$1!.nativeObject
-        : (rightOperandValue is InterpretedFunction)
+        : (rightOperandValue is InterpretedFunction &&
+                rightOperandValue.canCallWithoutArgs)
         ? rightOperandValue.call(this, [])
         : rightOperandValue;
 

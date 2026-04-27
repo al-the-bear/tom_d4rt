@@ -354,6 +354,41 @@ class InterpretedFunction implements Callable {
     }).length;
   }
 
+  /// GEN-095 (D8f): true when the function can be called with no arguments,
+  /// i.e. it has no required positional parameters and no required-named
+  /// parameters. Used by the binary-expression visitor to decide whether to
+  /// auto-invoke a function value (legitimate for zero-arg thunks, wrong for
+  /// any callback that takes arguments — see semantics_gesture_delegate_test
+  /// where `onHorizontalDrag == null` was crashing because the comparison
+  /// auto-invoked the `(DragUpdateDetails d) {}` callback with []).
+  bool get canCallWithoutArgs {
+    final params = _parameters?.parameters;
+    if (params == null || params.isEmpty) return true;
+    for (final param in params) {
+      SAstNode actualParam = param;
+      if (param is SDefaultFormalParameter) {
+        // Optional positional or optional-named — fine to skip; but a
+        // required-named (`{required ...}`) is still missing without args.
+        actualParam = param.parameter ?? param;
+        if (param.isNamed &&
+            actualParam is SSimpleFormalParameter &&
+            actualParam.isRequired) {
+          return false;
+        }
+        continue;
+      }
+      if (actualParam is SSimpleFormalParameter) {
+        if (actualParam.isPositional && actualParam.isRequired) return false;
+        if (actualParam.isNamed && actualParam.isRequired) return false;
+      } else if (actualParam is SFieldFormalParameter ||
+          actualParam is SFunctionTypedFormalParameter ||
+          actualParam is SSuperFormalParameter) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /// Get all positional parameter names (required and optional).
   List<String> get positionalParameterNames {
     final params = _parameters?.parameters;

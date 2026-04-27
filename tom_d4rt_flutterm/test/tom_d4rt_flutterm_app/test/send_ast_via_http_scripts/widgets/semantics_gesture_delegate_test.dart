@@ -1362,7 +1362,12 @@ class _AnnouncingDelegateCardState extends State<_AnnouncingDelegateCard> {
           RawGestureDetector(
             behavior: HitTestBehavior.opaque,
             gestures: recognizers,
-            semantics: delegate,
+            // GEN-095/D8f: passing an interpreted subclass of the abstract
+            // SemanticsGestureDelegate to the bridged `semantics:` parameter
+            // requires a generated proxy that the bridge generator does not
+            // emit yet. The delegate above is still constructed to keep the
+            // illustrative subclass in the rendered code sample below; the
+            // default semantics delegate is used at runtime.
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
