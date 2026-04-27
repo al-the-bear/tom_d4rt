@@ -2110,8 +2110,19 @@ class BridgedMixinMethodCallable implements Callable {
       // fall back to the InterpretedInstance for purely interpreted
       // bridged-mixin shapes.
       final effectiveTarget = target ?? instance;
-      return adapter(visitor, effectiveTarget, positionalArguments,
-          namedArguments, typeArguments);
+      // D4 (Cluster D4 fix): wrap adapter dispatch in
+      // `D4.withActiveVisitor` so that visitor-less D4 helpers invoked by
+      // the adapter (e.g. `D4.getRequiredArg<RestorableProperty<Object?>>`
+      // inside `RestorationMixin.registerForRestoration`) can resolve
+      // interface proxies via `tryCreateInterfaceProxyWithVisitor<T>`.
+      // Without this wrap, `_activeVisitor` is null and an
+      // `InterpretedInstance` argument that needs a registered interface
+      // proxy fails the `is T` cast.
+      return D4.withActiveVisitor(
+        visitor,
+        () => adapter(visitor, effectiveTarget, positionalArguments,
+            namedArguments, typeArguments),
+      );
     } catch (e, s) {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");

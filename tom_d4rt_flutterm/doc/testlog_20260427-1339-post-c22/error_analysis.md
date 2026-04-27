@@ -350,7 +350,7 @@ the test harness — and belongs to its own cluster pass.
 
 ## D4 — `RestorableProperty<T>` interface proxy missing for `RestorationMixin.registerForRestoration`
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** tom_d4rt_flutterm runtime registrations
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** tom_d4rt_flutterm runtime registrations + tom_d4rt(_ast) runtime types
 
 **Representative error**
 
@@ -361,20 +361,78 @@ the test harness — and belongs to its own cluster pass.
 - `widgets/restorable_property_test.dart`
 - `widgets/restorable_value_test.dart`
 
-**Analysis.** Same shape as C5 (`Intent`) and C6 (`Action<T>`):
-interpreted subclass extends an abstract bridged base
-(`RestorableProperty<T>`) but no interface proxy is registered, so the
-`InterpretedInstance` reaches the bridge boundary unwrapped and is
-rejected by the parameter type check.
+**Analysis.** Two independent layers had to be repaired together:
 
-**Suggested fix.** Register a `RestorableProperty<Object?>` interface
-proxy in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`,
-mirroring `_InterpretedIntent` / `_InterpretedAction`. The proxy needs
-to forward `createDefaultValue`, `fromPrimitives`, `toPrimitives`,
-`initWithValue`, `dispose` to the interpreted instance, plus the
-listenable surface (`addListener` / `removeListener` /
-`notifyListeners`) since `RestorableProperty` extends
-`ChangeNotifier`. Cache on `instance.nativeProxy`.
+1. *Missing interface proxy.* `RestorableProperty<T>` and its convenience
+   subclass `RestorableValue<T>` are abstract bridged classes with
+   empty `constructors:` maps, so an interpreted subclass like
+   `_RestorableDuration extends RestorableValue<Duration>` never
+   populates `bridgedSuperObject`. Without a registered interface proxy
+   the raw `InterpretedInstance` reaches the bridge boundary and is
+   rejected by `D4.getRequiredArg<RestorableProperty<Object?>>`.
+2. *Missing `withActiveVisitor` wrap on bridged-mixin dispatch.*
+   `BridgedMixinMethodCallable.call` (the callable that backs
+   `RestorationMixin.registerForRestoration` — and every other bridged
+   mixin method on an interpreted instance) invoked the adapter
+   directly. The adapter's `D4.getRequiredArg<T>` calls
+   `extractBridgedArg<T>` *without* a visitor, falling back to
+   `_activeVisitor`. Because the wrap was missing, `_activeVisitor` was
+   `null` at the moment the proxy walk would have fired, so even with a
+   correctly-registered proxy the walk never ran. (Mirrors the same
+   class of fix landed in D5 for static-method dispatch and earlier in
+   C6b for instance-method dispatch.)
+
+**Fix (2026-04-28).** Two-part landing:
+
+1. **`RestorableProperty` / `RestorableValue` interface proxy** — added
+   `_InterpretedRestorableValue extends RestorableValue<Object?>
+   implements D4InterpretedProxy` in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`, with
+   `D4.registerInterfaceProxy('RestorableProperty', …)` and
+   `D4.registerInterfaceProxy('RestorableValue', …)` registrations.
+   The proxy extends `RestorableValue<Object?>` (the type-erased
+   convenience tier — `RestorableValue<T>` itself extends
+   `RestorableProperty<T>`) so the `proxy is RestorableProperty<Object?>`
+   cast succeeds. It forwards the four overrides the contract documents
+   — `createDefaultValue`, `fromPrimitives`, `toPrimitives`,
+   `didUpdateValue` — to the interpreted instance via
+   `findInstanceMethod(...).bind(_instance).call(_visitor, ...)`.
+   `initWithValue`, the `value` getter/setter, the listener surface
+   (`addListener` / `removeListener` / `notifyListeners`) and `dispose`
+   are inherited from `RestorableValue` + `ChangeNotifier`: the proxy is
+   the canonical storage for `_value` and the listener list, and the
+   interpreted instance reaches them via `nativeProxy` bridge dispatch.
+   Result is cached on `instance.nativeProxy` so identity is preserved
+   across boundary crossings.
+
+2. **`BridgedMixinMethodCallable` wraps `withActiveVisitor`** — in
+   `tom_d4rt_ast/lib/src/runtime/runtime_types.dart` (and mirrored in
+   `tom_d4rt/lib/src/runtime_types.dart`), the adapter call inside
+   `BridgedMixinMethodCallable.call` is now wrapped in
+   `D4.withActiveVisitor(visitor, () => adapter(...))`. Without this
+   wrap, visitor-less D4 helpers invoked by the adapter (e.g.
+   `D4.getRequiredArg<RestorableProperty<Object?>>` inside
+   `RestorationMixin.registerForRestoration`) cannot consult the
+   interface-proxy registry via `tryCreateInterfaceProxyWithVisitor<T>`,
+   and an `InterpretedInstance` argument that needs a registered proxy
+   fails the `is T` cast.
+
+**Verification.**
+
+- Bisect harness on the two D4 scripts: both pass with
+  `frameworkErrors=0` (was: 1 each).
+- Regression suites (with `D4RT_SKIP_BRIDGE_REGEN=1`):
+  - gii (`generator_interpreter_issues_test`) 82 passed, 1 skipped — identical to baseline.
+  - Essential 108/0/0 — identical to baseline.
+  - Important 164/0 with 5 skips — identical to baseline.
+  - Secondary 649/0 with 5 skips — identical to baseline.
+  - No regressions.
+
+**Files touched.**
+
+- `tom_ai/d4rt/tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` — `RestorableProperty` / `RestorableValue` import + registrations + `_InterpretedRestorableValue` adapter class.
+- `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/runtime_types.dart` — wrap `BridgedMixinMethodCallable` adapter dispatch in `D4.withActiveVisitor`.
+- `tom_ai/d4rt/tom_d4rt/lib/src/runtime_types.dart` — mirror of the above.
 
 ---
 

@@ -69,6 +69,8 @@ import 'package:flutter/widgets.dart'
         ParentDataWidget,
         PreferredSizeWidget,
         RenderTwoDimensionalViewport,
+        RestorableProperty,
+        RestorableValue,
         RestorationBucket,
         RestorationMixin,
         ScrollableDetails,
@@ -486,6 +488,47 @@ void registerD4rtInterfaceProxyOverrides() {
     final cached = instance.nativeProxy;
     if (cached is CustomPainter) return cached;
     final proxy = _InterpretedCustomPainter(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // Cluster D4 — RestorableProperty<T> / RestorableValue<T> proxy.
+  //
+  // Scripts that subclass `RestorableValue<T>` (or `RestorableProperty<T>`
+  // directly) hit `Argument Error: Invalid parameter "property": expected
+  // RestorableProperty<Object?>, got InterpretedInstance(...)` when passed
+  // to `RestorationMixin.registerForRestoration`. The bridged base classes
+  // are abstract with no default constructor, so the interpreter cannot
+  // materialise a native `RestorableValue` for the user subclass and the
+  // raw InterpretedInstance fails the bridge boundary cast.
+  //
+  // The proxy extends `RestorableValue<Object?>` (the type-erased convenience
+  // tier — `RestorableValue<T>` itself extends `RestorableProperty<T>`) so
+  // it satisfies the `RestorableProperty<Object?>` parameter type. It
+  // forwards `createDefaultValue`, `fromPrimitives`, `toPrimitives`, and
+  // `didUpdateValue` to the interpreted instance — these are the four
+  // methods scripts override per the `RestorableValue` contract.
+  // `initWithValue` / `value` getter/setter / `notifyListeners` /
+  // `addListener` / `removeListener` are inherited from
+  // `RestorableValue` + `ChangeNotifier`: the proxy is the canonical
+  // storage for `_value` and the listener list, and the interpreted
+  // instance reaches them via `nativeProxy` bridge dispatch.
+  //
+  // Registered under both 'RestorableProperty' and 'RestorableValue' so
+  // either bridged-super name in the script's class chain resolves the
+  // walk on its first hit (no reliance on transitive-supertype expansion
+  // for either entry point).
+  D4.registerInterfaceProxy('RestorableProperty', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is RestorableProperty) return cached;
+    final proxy = _InterpretedRestorableValue(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('RestorableValue', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is RestorableValue) return cached;
+    final proxy = _InterpretedRestorableValue(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -3800,6 +3843,80 @@ class _InterpretedWidgetStatesConstraint implements WidgetStatesConstraint {
     throw StateError(
         'Interpreted ${_instance.klass.name}.isSatisfiedBy must return bool; '
         'got ${result.runtimeType}');
+  }
+}
+
+/// Native [RestorableValue]/[RestorableProperty] backing an interpreted
+/// subclass — Cluster D4.
+///
+/// Scripts that subclass `RestorableValue<T>` (e.g.
+/// `_RestorableDuration extends RestorableValue<Duration>`) need a native
+/// `RestorableProperty`
+/// instance to satisfy `RestorationMixin.registerForRestoration(property)`.
+/// The proxy extends `RestorableValue<Object?>` (the type-erased
+/// convenience tier) so it satisfies the parameter cast and inherits the
+/// `_value` storage + listener list. Only `createDefaultValue`,
+/// `fromPrimitives`, `toPrimitives`, and `didUpdateValue` are forwarded —
+/// these are the four overrides the `RestorableValue` contract documents.
+class _InterpretedRestorableValue extends RestorableValue<Object?>
+    implements D4InterpretedProxy {
+  _InterpretedRestorableValue(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  @override
+  Object? createDefaultValue() {
+    final method = _instance.klass.findInstanceMethod('createDefaultValue');
+    if (method == null) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'createDefaultValue() — RestorableValue<T> subclasses must override it.',
+      );
+    }
+    return method.bind(_instance).call(_visitor, const [], const {});
+  }
+
+  @override
+  Object? fromPrimitives(Object? data) {
+    final method = _instance.klass.findInstanceMethod('fromPrimitives');
+    if (method == null) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'fromPrimitives(Object? data) — RestorableValue<T> subclasses must '
+        'override it.',
+      );
+    }
+    return method.bind(_instance).call(_visitor, [data], const {});
+  }
+
+  @override
+  Object? toPrimitives() {
+    final method = _instance.klass.findInstanceMethod('toPrimitives');
+    if (method == null) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement '
+        'toPrimitives() — RestorableValue<T> subclasses must override it.',
+      );
+    }
+    return method.bind(_instance).call(_visitor, const [], const {});
+  }
+
+  @override
+  void didUpdateValue(Object? oldValue) {
+    final method = _instance.klass.findInstanceMethod('didUpdateValue');
+    if (method == null) {
+      // RestorableValue's contract: if subclasses don't override, just notify
+      // listeners. Skipping the forwarding keeps default-restorable scripts
+      // (those that only define createDefaultValue/fromPrimitives/toPrimitives
+      // without a custom equality check) working.
+      notifyListeners();
+      return;
+    }
+    method.bind(_instance).call(_visitor, [oldValue], const {});
   }
 }
 

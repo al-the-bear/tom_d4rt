@@ -16,11 +16,10 @@ void main() {
   });
 
   for (final script in <String>[
-    // D2 — Field/getter access on bridged mixin instance reaches nowhere.
-    'widgets/form_test.dart',
-    'widgets/scroll_position_with_single_context_test.dart',
-    'widgets/shortcut_activator_test.dart',
-    'widgets/shortcut_manager_test.dart',
+    // D4 — `RestorableProperty<T>` interface proxy missing for
+    // `RestorationMixin.registerForRestoration`.
+    'widgets/restorable_property_test.dart',
+    'widgets/restorable_value_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);
