@@ -16,9 +16,10 @@ void main() {
   });
 
   for (final script in <String>[
-    // C20f — `Error in generic constructor factory for 'RawRadio'`
-    // surfaced from the gir suite.
-    'retest/widgets/raw_radio_test.dart',
+    // Plan E2 — Null `BuildContext` in
+    // `dependOnInheritedWidgetOfExactType` (open).
+    'widgets/inherited_theme_test.dart',
+    'widgets/inherited_widget_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

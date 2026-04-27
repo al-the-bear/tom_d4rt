@@ -972,14 +972,50 @@ Mirrored fix in:
 
 **Logs.** `ztmp/c21_logs/{bisect_post_fix,post_fix_gii,post_fix_essential,post_fix_important,post_fix_secondary}.log`.
 
-## Plan E2 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (open)
+## Plan E2 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (Fixed 2026-04-27)
 
-Two residual gii failures from `widgets/inherited_theme_test.dart` and
-`widgets/inherited_widget_test.dart` (already closed in this run; not
-present in current gii output). Likely an interpreted `static` helper
-accepting `BuildContext context` that loses the captured context when
-called from a closure. Tracked separately in
-`doc/interpreter_issues.md` (Plan-E entry).
+**Status:** Fixed. The two scripts that originally exhibited the
+`Cannot invoke method 'dependOnInheritedWidgetOfExactType' on null`
+shape (`widgets/inherited_theme_test.dart` —
+`PanelTheme.of(context)`, and `widgets/inherited_widget_test.dart` —
+`AppStateScope.watch(context)`) both pass at 0 FE in the current
+post-C22/post-C21 state. The closure-call shape that used to lose
+the receiver binding for an interpreted static helper has been
+closed by the cumulative interpreter improvements landed in C20a
+(tear-off + extension dispatch), C20d (StateUserBridge scheduler-
+phase deferral), C20f (RadioGroup.maybeOf static interceptor) and
+C21 (Dart null-shorting for chained `?.`).
+
+**Verification.**
+
+- Bisect (`widgets/inherited_theme_test.dart`,
+  `widgets/inherited_widget_test.dart`): both 0 FE
+  (`ztmp/plan_e2_logs/baseline_bisect.log`).
+- gii section showing both scripts at 0 FE
+  (`ztmp/c21_logs/post_fix_gii.log`, lines for `inherited_theme_test`
+  and `inherited_widget_test`).
+- Focused regression tests added in
+  `tom_d4rt/test/_plan_e2_static_in_closure_test.dart` and
+  `tom_d4rt_exec/test/_plan_e2_static_in_closure_test.dart`. These
+  reproduce the exact dispatch shape (interpreted `static` helper
+  accepting a receiver argument, called from inside a closure that
+  either receives the receiver as a parameter or captures it from the
+  enclosing scope). All three patterns pass on both the analyzer-
+  based interpreter (`tom_d4rt`) and the AST-based runner
+  (`tom_d4rt_exec`/`tom_d4rt_ast`).
+- Regression suites unchanged from C21-fix baseline: gii 80/1/2,
+  essential 108/0/0, important 164/0/5, secondary 649/0/5.
+
+**Why now closed without a code change.** The original Plan E2
+trigger was a side-effect of broken closure parameter binding under
+specific dispatch paths (extension dispatch on bridged operands,
+tear-off shape, scheduler-phase context resolution). The C20-series
+fixes restored those paths, and the C21 null-shorting fix covered
+the residual `?.` chain pattern that surfaced as "context is null"
+where it was actually "an inner `?.` in the chain went to null and
+the outer `.x.y` rethrew". With both classes of bug closed, the
+Plan E2 symptom no longer reproduces. The new regression tests
+prevent silent re-introduction.
 
 ## Future cluster — Interpreted-extends-bridged `InheritedModel` proxy gap
 
@@ -1005,12 +1041,15 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C21,
-Plan E2, InheritedModel proxy) detailed above.
+Carry-over clusters (C1, C3, C4, C7,
+InheritedModel proxy) detailed above.
 C20a closed 2026-04-27 (tear-off + map-key + WidgetStatesConstraint proxy).
 C20b closed 2026-04-27 (SForEachPartsWithPattern in collection literals).
 C20d closed 2026-04-27 (StateUserBridge scheduler-phase deferral workaround).
 C20f closed 2026-04-27 (RadioGroup.maybeOf static interceptor for typed lookup).
+C21 closed 2026-04-27 (null-shorting through `.` after `?.` in selector chain).
+Plan E2 closed 2026-04-27 (de facto — closed cumulatively by C20-series + C21;
+regression tests added).
 
 ---
 
