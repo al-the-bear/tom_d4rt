@@ -505,3 +505,99 @@ Color(0xFF112233).withValues(alpha: alpha);
 This keeps the script identical in behaviour for valid inputs and
 avoids the engine-level assertion when a degenerate input slips
 through.
+
+## D3 — Reading `RestorableProperty.value` in `initState()` before `restoreState()` registers it
+
+**Status.** Not an interpreter bug — script authoring contract.
+This pattern fails in plain Flutter for the same reason; the
+interpreter was correct to surface it (the `LateInitializationError`
+that previously masked the cause was a downstream consequence, see
+the matching D3 entry in
+`doc/testlog_20260427-1339-post-c22/error_analysis.md`).
+
+**The Dart/Flutter code that triggers the problem.** A
+`State` with `RestorationMixin` declares one or more
+`RestorableProperty` fields and constructs a controller in
+`initState()` whose argument depends on the property's `.value`:
+
+```dart
+class _MyState extends State<MyWidget> with RestorationMixin {
+  final RestorableString _playerName = RestorableString('Player 1');
+  late TextEditingController _nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    // BUG: reading _playerName.value here asserts `isRegistered`
+    // because registerForRestoration runs later, in restoreState().
+    _nameController = TextEditingController(text: _playerName.value);
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_playerName, 'player_name');
+    _nameController.text = _playerName.value; // safe — registered
+  }
+
+  @override
+  String get restorationId => 'my_state';
+}
+```
+
+The framework's call order is `initState()` first, then
+`didChangeDependencies()` (which calls `restoreState()` from
+`RestorationMixin`). At the `initState()` call site, the property has
+not yet been registered; `RestorableProperty.value` calls
+`assert(isRegistered)` and throws. In a script that catches the
+exception (e.g., the `_callVoidMethod` lifecycle dispatcher in the
+interpreter, or any `try/catch` in user code) the controller
+assignment is skipped and a later `_nameController.<member>` read
+surfaces as `LateInitializationError`, masking the real cause.
+
+**Functional workaround (when authoring scripts).** Initialise
+controllers in `initState()` with the same literal default the
+`RestorableProperty` was constructed with. Let `restoreState()` sync
+the controller to the restored value once registration has succeeded:
+
+```dart
+@override
+void initState() {
+  super.initState();
+  // Use the default that matches RestorableString('Player 1') above.
+  _nameController = TextEditingController(text: 'Player 1');
+}
+
+@override
+void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+  registerForRestoration(_playerName, 'player_name');
+  _nameController.text = _playerName.value; // restored value lands here
+}
+```
+
+For `RestorableStringN(null)` / `RestorableValue<T?>(null)` style
+defaults, the literal collapses to `''` (or whatever default the
+controller accepts), e.g.:
+
+```dart
+final RestorableStringN _feedback = RestorableStringN(null);
+late final TextEditingController _feedbackCtrl;
+
+@override
+void initState() {
+  super.initState();
+  _feedbackCtrl = TextEditingController()..addListener(_onFeedbackChanged);
+}
+
+@override
+void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+  registerForRestoration(_feedback, 'feedback');
+  _feedbackCtrl.removeListener(_onFeedbackChanged);
+  _feedbackCtrl.text = _feedback.value ?? '';
+  _feedbackCtrl.addListener(_onFeedbackChanged);
+}
+```
+
+This preserves the script's observable behaviour — fresh sessions
+start with the literal default, restored sessions get hydrated in
+`restoreState()` — and is the pattern the Flutter SDK itself uses in
+its `RestorableProperty` examples.

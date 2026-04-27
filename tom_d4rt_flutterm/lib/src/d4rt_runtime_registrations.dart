@@ -54,6 +54,7 @@ import 'package:flutter/widgets.dart'
         Axis,
         BuildContext,
         DiagonalDragBehavior,
+        EditableTextState,
         Element,
         GlobalKey,
         InheritedElement,
@@ -81,6 +82,7 @@ import 'package:flutter/widgets.dart'
         StatefulElement,
         StatefulWidget,
         StatelessWidget,
+        TextSelectionGestureDetectorBuilderDelegate,
         TickerProviderStateMixin,
         TwoDimensionalChildDelegate,
         TwoDimensionalChildManager,
@@ -484,6 +486,30 @@ void registerD4rtInterfaceProxyOverrides() {
     final cached = instance.nativeProxy;
     if (cached is CustomPainter) return cached;
     final proxy = _InterpretedCustomPainter(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // Cluster D3 — TextSelectionGestureDetectorBuilderDelegate proxy.
+  //
+  // The auto-generated bridge for this abstract interface is getter-only
+  // (no constructor exposure), so the interpreter cannot materialise an
+  // interpreted subclass that satisfies a `TextSelectionGestureDetectorBuilder
+  // ({required TextSelectionGestureDetectorBuilderDelegate delegate})` cast.
+  // Without a registered interface proxy, passing the interpreted instance
+  // hits `Argument Error: Invalid parameter "delegate"`.
+  //
+  // The proxy reads the three required getters (`editableTextKey`,
+  // `forcePressEnabled`, `selectionEnabled`) off the interpreted instance
+  // via `InterpretedInstance.get`. nativeProxy caching ensures the same
+  // delegate identity is preserved across boundary crossings so the builder
+  // sees a stable object.
+  D4.registerInterfaceProxy('TextSelectionGestureDetectorBuilderDelegate',
+      (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is TextSelectionGestureDetectorBuilderDelegate) return cached;
+    final proxy =
+        _InterpretedTextSelectionGestureDetectorBuilderDelegate(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -3774,5 +3800,60 @@ class _InterpretedWidgetStatesConstraint implements WidgetStatesConstraint {
     throw StateError(
         'Interpreted ${_instance.klass.name}.isSatisfiedBy must return bool; '
         'got ${result.runtimeType}');
+  }
+}
+
+/// Native [TextSelectionGestureDetectorBuilderDelegate] backing an interpreted
+/// implementer — Cluster D3.
+///
+/// `TextSelectionGestureDetectorBuilder({required delegate})` performs a
+/// concrete-type check on `delegate`; without this proxy the interpreted
+/// instance fails the cast. The proxy forwards the three getters in the
+/// interface to the script class via [InterpretedInstance.get], coercing the
+/// returned values into the strongly-typed return shapes the framework
+/// expects.
+class _InterpretedTextSelectionGestureDetectorBuilderDelegate
+    implements TextSelectionGestureDetectorBuilderDelegate, D4InterpretedProxy {
+  _InterpretedTextSelectionGestureDetectorBuilderDelegate(
+      this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  @override
+  GlobalKey<EditableTextState> get editableTextKey {
+    final raw = _instance.get('editableTextKey', visitor: _visitor);
+    if (raw is GlobalKey<EditableTextState>) return raw;
+    if (raw is BridgedInstance &&
+        raw.nativeObject is GlobalKey<EditableTextState>) {
+      return raw.nativeObject as GlobalKey<EditableTextState>;
+    }
+    throw StateError(
+      'Interpreted class ${_instance.klass.name} editableTextKey getter '
+      'must return a GlobalKey<EditableTextState>; got ${raw.runtimeType}',
+    );
+  }
+
+  @override
+  bool get forcePressEnabled {
+    final raw = _instance.get('forcePressEnabled', visitor: _visitor);
+    if (raw is bool) return raw;
+    throw StateError(
+      'Interpreted class ${_instance.klass.name} forcePressEnabled getter '
+      'must return a bool; got ${raw.runtimeType}',
+    );
+  }
+
+  @override
+  bool get selectionEnabled {
+    final raw = _instance.get('selectionEnabled', visitor: _visitor);
+    if (raw is bool) return raw;
+    throw StateError(
+      'Interpreted class ${_instance.klass.name} selectionEnabled getter '
+      'must return a bool; got ${raw.runtimeType}',
+    );
   }
 }

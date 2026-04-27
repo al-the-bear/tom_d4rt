@@ -267,7 +267,7 @@ variable. `CustomPainter.progress` is a script-side field on a
 
 ## D3 — `late` instance field on a bridged-mixin lifecycle path reads as un-assigned
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (field-lifecycle scope)
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** tom_d4rt_flutterm runtime registrations + script authors
 
 **Representative error**
 
@@ -275,31 +275,76 @@ variable. `CustomPainter.progress` is a script-side field on a
 
 **Affected scripts**
 
-- `widgets/restorable_string_test.dart` — `_productNameController`
+- `widgets/restorable_string_test.dart` — `_productNameController` *(cleared earlier by D2)*
 - `widgets/restorable_string_n_test.dart` — `_feedbackCtrl`
 - `widgets/restoration_mixin_test.dart` — `_nameController`
 - `widgets/text_selection_gesture_detector_builder_delegate_test.dart` — `_builder`
 
-**Analysis.** This is a sibling of the prior C20h cluster. Scripts
-declare `late <ControllerType> _ctrl;` at class level and assign in
-`initState()` / `restoreState()`. The first read happens via a getter
-or a build-callback that runs **before** `initState` actually executes
-the assignment in the interpreter — most likely because the bridged
-mixin's lifecycle (`State.didChangeDependencies` → `build`) drives
-through the native `_InterpretedState` proxy and the build-callback
-runs before the script's `initState` finishes.
+**Root cause.** The original "late instance field" framing was a
+red herring — the `LateInitializationError` was always a downstream
+consequence of an exception thrown earlier in `initState()` that
+bypassed the `_xxxCtrl = …` assignment. Surfacing the swallowed
+exception via a temporary `_callVoidMethod` instrumentation revealed
+two distinct primary errors:
 
-Note that `restorable_property_test.dart` (the C20h script) is now
-clean (`frameworkErrors=0`), so an earlier fix unblocked the simpler
-shape. The remaining four scripts share the `with RestorationMixin` /
-`with TextSelectionGestureDetectorBuilderDelegate` pattern — the late
-field belongs to the interpreted class and is read by a method
-inherited from the bridged mixin.
+1. **Three `RestorableProperty` scripts** — `restorable_string_test`,
+   `restorable_string_n_test`, `restoration_mixin_test` all
+   constructed their `TextEditingController(text: _restorable.value …)`
+   in `initState()`. `RestorableProperty.value` asserts
+   `isRegistered`, but `registerForRestoration(...)` only runs in
+   `restoreState()`, which the framework calls **after** `initState()`
+   (via `RestorationMixin.didChangeDependencies`). This is a script
+   bug — plain Flutter would fail the same way.
+2. **`text_selection_gesture_detector_builder_delegate_test`** —
+   `TextSelectionGestureDetectorBuilder({required delegate})`
+   rejected the interpreted `_TsgdbdBridgeDelegate` with
+   `Argument Error: Invalid parameter "delegate": expected
+   TextSelectionGestureDetectorBuilderDelegate, got
+   InterpretedInstance(...)`. The interface had no registered proxy,
+   so the interpreted instance never crossed the bridge boundary as a
+   native delegate.
 
-**Suggested fix.** Trace `LateVariable` setter scope binding when the
-setter is invoked from an interpreted method that was reached via a
-bridged-super dispatch. Likely the setter writes to a different
-`InterpretedInstance` than the getter reads from (proxy double-binding).
+**Fix (2026-04-27).**
+
+1. **Script-side rewrites** — replaced pre-registration
+   `_restorable.value` reads in `initState()` with the literal default
+   the `RestorableProperty` was constructed with, in
+   `restorable_string_n_test.dart` and `restoration_mixin_test.dart`.
+   `restoreState()` already syncs the controllers to the restored
+   value via `_syncControllerFrom(...)` / `_nameController.text =
+   _playerName.value` after registration succeeds.
+   `restorable_string_test.dart` was already clean (cleared by D2).
+2. **`TextSelectionGestureDetectorBuilderDelegate` interface proxy** —
+   added `_InterpretedTextSelectionGestureDetectorBuilderDelegate
+   implements TextSelectionGestureDetectorBuilderDelegate,
+   D4InterpretedProxy` in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`, plus
+   its `D4.registerInterfaceProxy('TextSelectionGestureDetectorBuilder
+   Delegate', ...)` registration. The proxy forwards
+   `editableTextKey`, `forcePressEnabled`, `selectionEnabled` to the
+   interpreted class via `InterpretedInstance.get`. Pattern mirrors
+   `_InterpretedPreferredSizeWidget` (D5) and
+   `_InterpretedCustomPainter` (D2).
+
+**Verification.**
+
+- Bisect (4 scripts): all D3 errors gone.
+  - `restorable_string_test.dart`: 0 framework errors.
+  - `restorable_string_n_test.dart`: 0 framework errors.
+  - `restoration_mixin_test.dart`: D3 errors gone; residual
+    `_RenderEditableCustomPaint` layout errors are a *different*
+    cluster (TextField/EditableText render issue, not D3).
+  - `text_selection_gesture_detector_builder_delegate_test.dart`:
+    D3 errors gone; same residual layout cluster.
+- Regression (rule b): gii / essential / important / secondary all
+  pass with no new failures (skip counts unchanged: ~1, 0, ~5, ~5).
+
+**Note on residual layout errors.** The two scripts that embed
+`TextField` / `EditableText` now reach rendering and trip a
+`_RenderEditableCustomPaint` layout assertion (`BoxConstraints has a
+negative minimum height`). This is independent of D3 — it would
+appear in any interpreted script that constructs a TextField under
+the test harness — and belongs to its own cluster pass.
 
 ---
 
