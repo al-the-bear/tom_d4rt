@@ -530,6 +530,8 @@ bridged methods like `DefaultTextStyle.merge`.
 ## D6 — Layout cascade: `BoxConstraints forces an infinite height/width` + `RenderBox was not laid out` (script-side)
 
 - [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low (cosmetic, script-only) · **Owner:** test scripts
+- **Progress (2026-04-28):** 3/18 scripts patched with the C22
+  ListView replacement (script-only).
 
 **Representative errors**
 
@@ -584,10 +586,44 @@ pattern. The negative-minimum-height variant additionally needs the
 script to clamp its computed height to `>= 0` (or wrap in a `SizedBox`
 that won't go negative).
 
-**Status — Partial.** No script has been patched in this run. The C22
-fix demonstrated the pattern; the remaining 18 scripts need the same
-treatment, one commit per script (script-only changes, single retest
-sufficient per the project's regression rules).
+**Status — Partial (3/18 patched, 2026-04-28).** Three scripts have
+landed the C22 ListView-replacement pattern in this run:
+
+| Script | FE before | FE after | Notes |
+|---|---|---|---|
+| `widgets/scroll_increment_details_test.dart` | 21 | **0** | `body: SingleChildScrollView(child: Column(...))` → `body: ListView(children: [...])` with each section wrapped in `Center(child: ConstrainedBox(maxWidth: 1100, child: …))` to preserve the original max-width design intent. |
+| `widgets/scrollbar_painter_test.dart` | 18 | **4** | Cascade root removed by replacing `_StudioBody`'s SCV/Column with a `ListView`. The 4 residual FEs are cosmetic `RenderFlex overflowed by 40–54 pixels on the bottom` warnings inside individual section sub-widgets — a separate script-authoring follow-up, not the layout cascade. |
+| `widgets/restorable_bool_test.dart` | 19 | **0** | `child: SingleChildScrollView(child: Column(crossAxisAlignment: stretch, children: [...]))` → `child: ListView(children: [...])`. |
+
+Verified via `tom_d4rt_flutterm/test/bisect_test.dart` (3 D6 scripts;
+script-only changes, single retest sufficient per the regression
+rules).
+
+**Side-note on `widgets/restorable_double_test.dart`** — listed in the
+table above with FE=1 (overflow 17 px) — already reports FE=0 on a
+fresh run and needs no patch in this campaign.
+
+**Remaining work (15 scripts).** Two flavours:
+
+- **Infinite-height/width cascade (10 scripts)** —
+  `scroll_position_types_test`, `text_magnifier_configuration_test`,
+  `widget_test`, `weak_map_test`, `widget_state_color_test`,
+  `widget_state_text_style_test`, `web_browser_detection_test`,
+  `standard_component_type_test`,
+  `sliver_multi_box_adaptor_element_test`. Most have nested
+  `SingleChildScrollView`/`Stack`/`CustomScrollView` shapes that
+  require bespoke per-script analysis rather than a wholesale C22
+  replacement.
+- **Negative minimum height (5 scripts)** —
+  `select_all_text_intent_test`, `transpose_characters_intent_test`,
+  `undo_history_value_test`, `unfocus_disposition_test`,
+  `update_selection_intent_test`. Different root cause:
+  `RenderEditable.performLayout` receiving `BoxConstraints(h=-Infinity;
+  NOT NORMALIZED)`. Needs height-clamping (`SizedBox` with non-negative
+  min) at the script call sites — not the same C22 fix.
+
+Each remaining script is an independent script-only patch (single
+retest sufficient).
 
 ---
 

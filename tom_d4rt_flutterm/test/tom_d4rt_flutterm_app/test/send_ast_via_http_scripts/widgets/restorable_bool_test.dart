@@ -1480,24 +1480,27 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
             ],
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildThemeSection(),
-              const SizedBox(height: 16),
-              const Divider(indent: 24, endIndent: 24, height: 1),
-              _buildSettingsListSection(),
-              const SizedBox(height: 16),
-              const Divider(indent: 24, endIndent: 24, height: 1),
-              _buildDismissSection(),
-              const SizedBox(height: 16),
-              const Divider(indent: 24, endIndent: 24, height: 1),
-              _buildFeatureFlagsSection(),
-              const SizedBox(height: 16),
-              const Divider(indent: 24, endIndent: 24, height: 1),
-              _buildTeachingSection(),
-              const SizedBox(height: 24),
+        // D6: replaced `SingleChildScrollView(child: Column(...))` with
+        // `ListView(children: [...])` — the inner sections contain
+        // LayoutBuilder/IntrinsicHeight that fail when given the
+        // unbounded-height constraint that SCV passes through. ListView's
+        // sliver-based layout gives each section a bounded slot.
+        child: ListView(
+          children: [
+            _buildThemeSection(),
+            const SizedBox(height: 16),
+            const Divider(indent: 24, endIndent: 24, height: 1),
+            _buildSettingsListSection(),
+            const SizedBox(height: 16),
+            const Divider(indent: 24, endIndent: 24, height: 1),
+            _buildDismissSection(),
+            const SizedBox(height: 16),
+            const Divider(indent: 24, endIndent: 24, height: 1),
+            _buildFeatureFlagsSection(),
+            const SizedBox(height: 16),
+            const Divider(indent: 24, endIndent: 24, height: 1),
+            _buildTeachingSection(),
+            const SizedBox(height: 24),
               // Footer summary: counts the number of registered RestorableBools.
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
@@ -1533,7 +1536,6 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
             ],
           ),
         ),
-      ),
     );
   }
 }

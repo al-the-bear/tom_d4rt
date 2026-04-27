@@ -112,28 +112,30 @@ class _StudioBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    // D6: replaced `SingleChildScrollView(child: Column(...))` with
+    // `ListView(children: [...])` so each section sits in a
+    // bounded-height slot, killing the infinite-height cascade
+    // (LayoutBuilder/IntrinsicHeight inside the sections were the
+    // amplifier).
+    return ListView(
       padding: const EdgeInsets.fromLTRB(28, 24, 28, 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
-          _HeroHeader(),
-          SizedBox(height: 28),
-          _DriverAndPanelsSection(),
-          SizedBox(height: 28),
-          _HorizontalPanelSection(),
-          SizedBox(height: 28),
-          _FadeDemoSection(),
-          SizedBox(height: 28),
-          _TrackStylingSection(),
-          SizedBox(height: 28),
-          _ParameterReferenceSection(),
-          SizedBox(height: 28),
-          _TeachingPanelSection(),
-          SizedBox(height: 28),
-          _FooterCard(),
-        ],
-      ),
+      children: const <Widget>[
+        _HeroHeader(),
+        SizedBox(height: 28),
+        _DriverAndPanelsSection(),
+        SizedBox(height: 28),
+        _HorizontalPanelSection(),
+        SizedBox(height: 28),
+        _FadeDemoSection(),
+        SizedBox(height: 28),
+        _TrackStylingSection(),
+        SizedBox(height: 28),
+        _ParameterReferenceSection(),
+        SizedBox(height: 28),
+        _TeachingPanelSection(),
+        SizedBox(height: 28),
+        _FooterCard(),
+      ],
     );
   }
 }

@@ -126,36 +126,80 @@ class _IncrementCalculatorPage extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      // D6: replaced `SingleChildScrollView(child: Column(...))` with
+      // a `ListView` whose children are individually wrapped in
+      // `Center+ConstrainedBox(maxWidth: 1100)`. The previous structure
+      // allowed unbounded-height constraints to reach inner
+      // `LayoutBuilder` widgets, which fail on infinite vertical
+      // bounds. ListView gives each child a bounded slot, which closes
+      // the infinite-height cascade (same C22 pattern).
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1100),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _HeroHeader(),
-                SizedBox(height: 28),
-                _LiveCalculatorSection(),
-                SizedBox(height: 28),
-                _TypeComparisonSection(),
-                SizedBox(height: 28),
-                _CustomCalculatorDemoSection(),
-                SizedBox(height: 28),
-                _ScrollMetricsReferenceCard(),
-                SizedBox(height: 28),
-                _FormulaGallerySection(),
-                SizedBox(height: 28),
-                _TeachingPanelSection(),
-                SizedBox(height: 28),
-                _UseCasesStrip(),
-                SizedBox(height: 28),
-                _FooterSummaryCard(),
-                SizedBox(height: 40),
-              ],
+        children: const <Widget>[
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _HeroHeader(),
             ),
           ),
-        ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _LiveCalculatorSection(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _TypeComparisonSection(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _CustomCalculatorDemoSection(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _ScrollMetricsReferenceCard(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _FormulaGallerySection(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _TeachingPanelSection(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _UseCasesStrip(),
+            ),
+          ),
+          SizedBox(height: 28),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 1100),
+              child: _FooterSummaryCard(),
+            ),
+          ),
+          SizedBox(height: 40),
+        ],
       ),
     );
   }

@@ -16,10 +16,13 @@ void main() {
   });
 
   for (final script in <String>[
-    // D4 — `RestorableProperty<T>` interface proxy missing for
-    // `RestorationMixin.registerForRestoration`.
-    'widgets/restorable_property_test.dart',
-    'widgets/restorable_value_test.dart',
+    // D6 — Layout cascade (script-only). Each entry should report
+    // frameworkErrors=0 after the C22-style ListView/MainAxisSize.min
+    // patches land. scrollbar_painter still has 4 RenderFlex overflow
+    // FEs (script authoring follow-up, separate from the cascade).
+    'widgets/scroll_increment_details_test.dart',
+    'widgets/scrollbar_painter_test.dart',
+    'widgets/restorable_bool_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);
