@@ -240,6 +240,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         case 'dynamic':
           return value;
         default:
+          // C21: If the value is a native interface-proxy that wraps an
+          // InterpretedInstance and the cast target names a class in the
+          // wrapped instance's class chain, unwrap to the InterpretedInstance
+          // so subsequent property/method access dispatches against the
+          // scripted class (which knows about user-defined fields and
+          // methods that the bridged proxy alone cannot serve).
+          if (value is D4InterpretedProxy) {
+            final inner = value.d4rtInstance;
+            if (inner is InterpretedInstance &&
+                _interpretedClassChainHasName(inner.klass, typeName)) {
+              return inner;
+            }
+          }
           // For custom/interpreted types, we can add logic here
           // For now, we accept all (permissive behavior)
           return value;
@@ -258,6 +271,37 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     throw RuntimeD4rtException(
       "Cast failed with 'as' : value of type $valueDesc cannot be cast to $typeDesc",
     );
+  }
+
+  /// C21: Walk an [InterpretedClass]'s **interpreted** ancestor chain and
+  /// return true if any class, mixin, or interface matches [typeName].
+  ///
+  /// Used by [visitAsExpression] to decide whether a `value as TypeName` cast
+  /// against a [D4InterpretedProxy] should unwrap to the embedded
+  /// [InterpretedInstance]. Only interpreted ancestors count — when [typeName]
+  /// names a *bridged* ancestor (e.g. `RenderBox`), unwrapping would defeat
+  /// the proxy's purpose of satisfying native `is`-checks and subsequent
+  /// native API calls. The unwrap path exists to let scripts read
+  /// user-defined fields after a downcast to a script class
+  /// (`child.parentData! as _DefaultsParentData`); native casts must keep
+  /// returning the proxy.
+  bool _interpretedClassChainHasName(InterpretedClass? klass, String typeName) {
+    if (klass == null) return false;
+    final visited = <InterpretedClass>{};
+    bool walk(InterpretedClass? c) {
+      if (c == null || !visited.add(c)) return false;
+      if (c.name == typeName) return true;
+      if (walk(c.superclass)) return true;
+      for (final m in c.mixins) {
+        if (walk(m)) return true;
+      }
+      for (final i in c.interfaces) {
+        if (walk(i)) return true;
+      }
+      return false;
+    }
+
+    return walk(klass);
   }
 
   @override
@@ -2025,7 +2069,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 Logger.debug(
                   "[Assignment] Assigning to bridged 'this'.$variableName via setter adapter.",
                 );
-                setterAdapter(this, thisInstance.nativeObject, rhsValue);
+                D4.withActiveVisitor<void>(
+                  this,
+                  () => setterAdapter(
+                    this,
+                    thisInstance.nativeObject,
+                    rhsValue,
+                  ),
+                );
                 return rhsValue; // Simple assignment returns RHS value
               } else {
                 // Compound assignment: this.bridgedProp op= value
@@ -2052,7 +2103,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 Logger.debug(
                   "[Assignment] Compound assigning to bridged 'this'.$variableName via setter adapter.",
                 );
-                setterAdapter(this, thisInstance.nativeObject, newValue);
+                D4.withActiveVisitor<void>(
+                  this,
+                  () => setterAdapter(
+                    this,
+                    thisInstance.nativeObject,
+                    newValue,
+                  ),
+                );
                 return newValue; // Compound assignment returns new value
               }
             } else {
@@ -2351,7 +2409,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             Logger.debug(
               "[Assignment] Assigning to bridged instance property '${bridgedInstance.bridgedClass.name}.$propertyName' via setter adapter.",
             );
-            setterAdapter(this, bridgedInstance.nativeObject, rhsValue);
+            // Wrap with withActiveVisitor so that D4 helper methods (e.g.
+            // extractBridgedArg) can access the visitor for interface proxy
+            // creation when the setter coerces InterpretedInstance arguments.
+            D4.withActiveVisitor<void>(
+              this,
+              () =>
+                  setterAdapter(this, bridgedInstance.nativeObject, rhsValue),
+            );
             return rhsValue; // Simple assignment returns RHS value
           } else {
             // Compound assignment: bridgedInstance.property op= value
@@ -2377,7 +2442,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             Logger.debug(
               "[Assignment] Compound assigning to bridged instance property '${bridgedInstance.bridgedClass.name}.$propertyName' via setter adapter.",
             );
-            setterAdapter(this, bridgedInstance.nativeObject, newValue);
+            // Wrap with withActiveVisitor so that D4 helper methods (e.g.
+            // extractBridgedArg) can access the visitor for interface proxy
+            // creation when the setter coerces InterpretedInstance arguments.
+            D4.withActiveVisitor<void>(
+              this,
+              () =>
+                  setterAdapter(this, bridgedInstance.nativeObject, newValue),
+            );
             return newValue; // Compound assignment returns new value
           }
         } else {
@@ -2415,7 +2487,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (setterAdapter != null) {
             try {
               // Call the setter adapter with the native object and the new value
-              setterAdapter(this, nativeSuperObject, rhsValue);
+              D4.withActiveVisitor<void>(
+                this,
+                () => setterAdapter(this, nativeSuperObject, rhsValue),
+              );
               return rhsValue; // Assignment returns the right value
             } catch (e, s) {
               Logger.error(
@@ -2460,7 +2535,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             );
 
             // Set new value
-            setterAdapter(this, nativeSuperObject, newValue);
+            D4.withActiveVisitor<void>(
+              this,
+              () => setterAdapter(this, nativeSuperObject, newValue),
+            );
 
             return newValue;
           } catch (e, s) {
@@ -2702,7 +2780,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             Logger.debug(
               "[Assignment - SPropertyAccess] Assigning to bridged instance property '${bridgedInstance.bridgedClass.name}.$propertyName' via setter adapter.",
             );
-            setterAdapter(this, bridgedInstance.nativeObject, rhsValue);
+            // Wrap with withActiveVisitor so D4 helpers can resolve the
+            // visitor for interface proxy creation when coercing args.
+            D4.withActiveVisitor<void>(
+              this,
+              () =>
+                  setterAdapter(this, bridgedInstance.nativeObject, rhsValue),
+            );
             return rhsValue; // Simple assignment returns RHS value
           } else {
             // Compound assignment: bridgedInstance.property op= value
@@ -2728,7 +2812,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             Logger.debug(
               "[Assignment - SPropertyAccess] Compound assigning to bridged instance property '${bridgedInstance.bridgedClass.name}.$propertyName' via setter adapter.",
             );
-            setterAdapter(this, bridgedInstance.nativeObject, newValue);
+            // Wrap with withActiveVisitor so D4 helpers can resolve the
+            // visitor for interface proxy creation when coercing args.
+            D4.withActiveVisitor<void>(
+              this,
+              () =>
+                  setterAdapter(this, bridgedInstance.nativeObject, newValue),
+            );
             return newValue; // Compound assignment returns new value
           }
         } else {

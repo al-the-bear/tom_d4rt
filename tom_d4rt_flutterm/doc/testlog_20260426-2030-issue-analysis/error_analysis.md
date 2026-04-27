@@ -983,27 +983,101 @@ The remaining 5 sub-issues (C20a, C20b, C20d, C20f, C20h₂) are all `status=suc
 
 ### C21 — Interpreted ParentData rejected at native `RenderObject.parentData` setter (downstream of C1)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred
+
+**Status (2026-04-27).** Representative error eliminated. The single
+script that drove the cluster (`render_box_container_defaults_mixin_test`)
+still fails the suite, but on different downstream errors that belong
+elsewhere (script-side `setState() during build` + cascading
+`RenderBox was not laid out` assertions). Outside the cluster the fix
+nets +2 passing gii tests with no regressions in essential / important
+/ secondary.
 
 **Severity:** High (blocks any script that subclasses `ParentData` / `ContainerBoxParentData`) · **Owner:** tom_d4rt_flutterm runtime registrations + interpreter (round-trip cast)
 
 **Representative error**
 
-- `Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)`
+- `Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)` — fully eliminated.
 
 **Affected scripts**
 
 - `rendering/render_box_container_defaults_mixin_test.dart` (gii fail — surfaced once C1 cast was unblocked)
 
-**Analysis.** The script defines `class _DefaultsParentData extends ContainerBoxParentData<RenderBox>` and assigns instances directly to a native RenderBox's `parentData` setter (`child.parentData = _DefaultsParentData()`) inside the interpreted `setupParentData` override forwarded by `_InterpretedRenderBoxContainer`. The native setter does an `is ParentData` check and rejects the raw `InterpretedInstance`. Unlike RenderBox/RenderObject — for which we have an interface proxy registered — there is no proxy registration for `ParentData` (or `ContainerBoxParentData`), so the value reaches the bridge boundary unwrapped.
+**Analysis (original).** The script defines `class _DefaultsParentData extends ContainerBoxParentData<RenderBox>` and assigns instances directly to a native RenderBox's `parentData` setter (`child.parentData = _DefaultsParentData()`) inside the interpreted `setupParentData` override forwarded by `_InterpretedRenderBoxContainer`. The native setter does an `is ParentData` check and rejects the raw `InterpretedInstance`. Unlike RenderBox/RenderObject — for which we have an interface proxy registered — there is no proxy registration for `ParentData` (or `ContainerBoxParentData`), so the value reaches the bridge boundary unwrapped.
 
-The fix is structurally analogous to the C1 RenderBox proxy:
+**What was done.**
 
-1. Add `_InterpretedParentData` (or a parameterised `_InterpretedContainerBoxParentData<ChildType>`) that **extends** the appropriate native ParentData class and forwards field reads/writes (`nextSibling`, `previousSibling`, `offset`, plus any user-defined fields like `id`) through to the wrapped `InterpretedInstance` via `findInstanceField` / setter dispatch.
-2. Register `D4.registerInterfaceProxy('ParentData', …)` and `'ContainerBoxParentData', …` so the bridge auto-coerces `InterpretedInstance` arguments at any native API that takes a ParentData.
-3. Round-trip handling: when the script reads `child.parentData! as _DefaultsParentData`, the cast must succeed even though `child.parentData` returns the native proxy. Either the cast site must unwrap to the underlying `InterpretedInstance`, or the proxy must satisfy `as InterpretedClass` checks via the existing interpreter cast-hook path (the same machinery that lets `_InterpretedRenderBox` satisfy `as MyRenderBox`).
+1. **`D4InterpretedProxy` marker** — new abstract class in
+   `tom_d4rt_ast/lib/src/runtime/runtime_interfaces.dart` (mirrored to
+   `tom_d4rt/lib/src/runtime_interfaces.dart`). Native proxies that wrap
+   an `InterpretedInstance` declare `Object get d4rtInstance`, enabling
+   the interpreter to round-trip from the proxy back to the wrapped
+   instance during a downcast.
+2. **`visitAsExpression` cast unwrap** — when the cast value is a
+   `D4InterpretedProxy` and the cast target names a class anywhere in
+   the wrapped instance's *interpreted* ancestor chain
+   (`InterpretedClass.name`, `superclass`, `mixins`, `interfaces`,
+   recursively), the visitor returns the wrapped `InterpretedInstance`
+   instead of the native proxy. The walk **excludes bridged
+   ancestors** — `child as RenderBox` must keep the proxy so subsequent
+   native API calls and `is` checks continue to work; the unwrap only
+   helps cases like `child.parentData! as _DefaultsParentData` where the
+   target is a script class.
+3. **`_InterpretedContainerBoxParentData`** — new proxy in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` extending
+   `ContainerBoxParentData<RenderBox>` and implementing
+   `D4InterpretedProxy`. Registered as the interface-proxy factory for
+   both `'ContainerBoxParentData'` and `'ParentData'`. Existing
+   `_InterpretedRenderBox` / `_InterpretedRenderBoxContainer` /
+   `_InterpretedRenderAligningShiftedBox` / `_InterpretedParentDataWidget`
+   were also extended to implement `D4InterpretedProxy` (so reads off
+   them can round-trip through `as`).
+4. **Setter adapter `withActiveVisitor` wrap** — bare
+   `setterAdapter(this, target, value)` calls in the assignment paths of
+   `interpreter_visitor` (Cases 1–3 plus `BoundBridgedSuper`) were not
+   wrapped in `D4.withActiveVisitor`, so when a bridge setter coerced
+   an `InterpretedInstance` argument the static `D4._activeVisitor` was
+   `null` and the registered interface-proxy factory was never
+   consulted. All eight call sites in both
+   `tom_d4rt_ast/.../interpreter_visitor.dart` and
+   `tom_d4rt/.../interpreter_visitor.dart` are now wrapped — this on
+   its own picks up cases (e.g. setter coercion paths) that were
+   silently degrading bridge behaviour.
+5. **`_InterpretedParentDataWidget.debugIsValidRenderObject` override** —
+   the proxy is forced to bind `T = ParentData` (Dart cannot specialise
+   generic type arguments at runtime), and the base implementation
+   asserts `T != ParentData`. Override delegates to an interpreted
+   `debugIsValidRenderObject` if defined, otherwise accepts and lets
+   the explicit `as` cast inside the interpreted `applyParentData`
+   validate the type.
 
-**Suggested fix.** Land the `_InterpretedParentData` proxy + registration in `lib/src/d4rt_runtime_registrations.dart`, mirroring the structure of `_InterpretedRenderBox` / `_InterpretedRenderBoxContainer`. Verify on `render_box_container_defaults_mixin_test.dart`; expect new downstream issues for any user-defined parent-data fields that aren't yet forwarded.
+**Result.**
+
+- Representative `Argument Error: Invalid parameter "parentData": …`
+  fully eliminated.
+- `render_box_container_defaults_mixin_test.dart` still fails, with
+  *new* downstream errors that belong elsewhere: `setState() during
+  build` (script-side reaction inside the `onSnapshot` callback) and
+  cascading `hasSize` / `RenderBox was not laid out` assertions from
+  the failed layout. These were predicted by the original C21 analysis
+  ("expect new downstream issues") and should be tracked separately.
+- gii suite went from baseline `+75 ~1 -7` (post-C14) to **`+77 ~1 -5`**
+  with this change — two scripts now pass that previously failed (most
+  likely the same scripts where the setter-adapter `withActiveVisitor`
+  wrap unblocked an interface-proxy lookup), zero regressions.
+- essential `108/108`, important `164 ~5`, secondary `649 ~5` — all
+  pass.
+
+**Verification.**
+
+- `flutter test --plain-name 'render_box_container_defaults_mixin_test'`:
+  before fix → 5 frameworkErrors (all "Invalid parameter parentData");
+  after fix → 6 frameworkErrors (all layout-cascade / setState — none
+  of them the C21 representative error).
+- `dart analyze` clean (info-level only) on `tom_d4rt`, `tom_d4rt_ast`,
+  `tom_d4rt_flutterm` lib/.
+- Test logs: `doc/testlog_20260427-c21/`
+  (`c21_after_*.log.txt`, `regression2_*.log.txt`).
 
 ---
 

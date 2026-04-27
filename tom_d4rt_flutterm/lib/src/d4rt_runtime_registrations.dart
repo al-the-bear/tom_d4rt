@@ -71,7 +71,7 @@ import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedClass, BridgedInstance;
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
-    show RuntimeType;
+    show D4InterpretedProxy, RuntimeType;
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
@@ -411,6 +411,39 @@ void registerD4rtInterfaceProxyOverrides() {
     final child = _readChildWidget(instance, visitor) ?? const SizedBox();
     final proxy = _InterpretedParentDataWidget(
         visitor, instance, child: child, key: _readKey(instance, visitor));
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // Cluster C21 — ContainerBoxParentData / ParentData proxy.
+  //
+  // Scripts that subclass `ContainerBoxParentData<RenderBox>` to attach
+  // user-defined fields (e.g. `_DefaultsParentData { String id }`) need a
+  // native ParentData instance to satisfy `RenderObject.parentData = ...`.
+  // The bridge for `ContainerBoxParentData` is `isAbstract: true`, so the
+  // interpreted construction returns an InterpretedInstance that the
+  // generated setter rejects via `extractBridgedArg<ParentData>`.
+  //
+  // The proxy `_InterpretedContainerBoxParentData` is a concrete
+  // `ContainerBoxParentData<RenderBox>` that satisfies the native is-check
+  // and exposes the wrapped InterpretedInstance via D4InterpretedProxy so
+  // the round-trip cast `child.parentData! as _UserParentData` unwraps to
+  // the InterpretedInstance and subsequent `.userField` accesses dispatch
+  // through the InterpretedClass.
+  //
+  // Both 'ContainerBoxParentData' and 'ParentData' are registered so the
+  // proxy chain covers scripts that subclass either name directly.
+  D4.registerInterfaceProxy('ContainerBoxParentData', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is ContainerBoxParentData<RenderBox>) return cached;
+    final proxy = _InterpretedContainerBoxParentData(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+  D4.registerInterfaceProxy('ParentData', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is ParentData) return cached;
+    final proxy = _InterpretedContainerBoxParentData(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -2175,13 +2208,16 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
 // overrides are forwarded; everything else inherits RenderBox defaults.
 // If a script overrides a method not forwarded here, the inherited Flutter
 // behaviour runs rather than the script body — a well-defined fallback.
-class _InterpretedRenderBox extends RenderBox {
+class _InterpretedRenderBox extends RenderBox implements D4InterpretedProxy {
   _InterpretedRenderBox(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
   static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
 
   /// Invoke an instance method by name, returning [_kNotImplemented] if the
   /// interpreted class doesn't define it (so callers can fall through to the
@@ -2315,13 +2351,17 @@ class _InterpretedRenderBoxContainer extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>>,
         RenderBoxContainerDefaultsMixin<RenderBox,
-            ContainerBoxParentData<RenderBox>> {
+            ContainerBoxParentData<RenderBox>>
+    implements D4InterpretedProxy {
   _InterpretedRenderBoxContainer(this._visitor, this._instance);
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
 
   static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
 
   Object? _maybeInvoke(String methodName, List<Object?> args,
       [Map<String, Object?> named = const {}]) {
@@ -2413,7 +2453,8 @@ class _InterpretedRenderBoxContainer extends RenderBox
 //
 // performLayout uses the same `hasSize` fallback pattern as _InterpretedRenderBox
 // to handle scripts that assign to `size` via the bridge setter.
-class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox {
+class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
+    implements D4InterpretedProxy {
   _InterpretedRenderAligningShiftedBox(this._visitor, this._instance)
       : super(
           // Safe defaults: center alignment resolves without textDirection.
@@ -2425,6 +2466,9 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox {
   final InterpretedInstance _instance;
 
   static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
 
   Object? _maybeInvoke(String methodName, List<Object?> args,
       [Map<String, Object?> named = const {}]) {
@@ -2506,12 +2550,16 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox {
 //
 // debugTypicalAncestorWidgetClass returns Widget as a safe fallback — it is
 // used only in debug error messages and does not affect runtime behaviour.
-class _InterpretedParentDataWidget extends ParentDataWidget<ParentData> {
+class _InterpretedParentDataWidget extends ParentDataWidget<ParentData>
+    implements D4InterpretedProxy {
   _InterpretedParentDataWidget(this._visitor, this._instance,
       {required super.child, super.key});
 
   final InterpreterVisitor _visitor;
   final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
 
   @override
   void applyParentData(RenderObject renderObject) {
@@ -2527,6 +2575,61 @@ class _InterpretedParentDataWidget extends ParentDataWidget<ParentData> {
     // formatting. Return Widget as a safe, always-valid ancestor hint.
     return Widget;
   }
+
+  // Cluster C21 follow-up — the base class implementation runs
+  // `assert(T != ParentData)`, but our proxy is forced to bind T = ParentData
+  // (Dart cannot specialise generic type arguments at runtime). The
+  // interpreted subclass keeps the real generic bound (e.g.
+  // `ParentDataWidget<_DefaultsParentData>`) and performs an explicit `as`
+  // cast inside `applyParentData`, so downstream type errors are still
+  // surfaced. Delegate to an interpreted override if present, otherwise
+  // accept and let the cast in `applyParentData` validate the type.
+  @override
+  bool debugIsValidRenderObject(RenderObject renderObject) {
+    final method = _instance.klass.findInstanceMethod(
+      'debugIsValidRenderObject',
+    );
+    if (method != null) {
+      final result = method
+          .bind(_instance)
+          .call(_visitor, [renderObject], const {});
+      if (result is bool) return result;
+    }
+    return true;
+  }
+}
+
+// =============================================================================
+// Cluster C21 — Container-aware ParentData proxy
+// =============================================================================
+//
+// Native [ContainerBoxParentData<RenderBox>] backed by an interpreted
+// subclass. Registered as the interface-proxy factory for
+// 'ContainerBoxParentData' and 'ParentData'.
+//
+// The proxy holds the InterpretedInstance so that:
+//   1. `child.parentData = _UserParentData()` succeeds — the proxy is the
+//      native object stored on the parent data slot.
+//   2. `child.parentData! as _UserParentData` unwraps back to the
+//      InterpretedInstance via [D4InterpretedProxy] (handled in
+//      `visitAsExpression`), giving scripts access to user-defined fields.
+//
+// The generic type parameter is bound to RenderBox because that is the
+// concrete pairing required by RenderBoxContainerDefaultsMixin and the
+// scripts that exercise this code path. Scripts that need a different
+// child type would need a dedicated registration.
+class _InterpretedContainerBoxParentData
+    extends ContainerBoxParentData<RenderBox>
+    implements D4InterpretedProxy {
+  // The visitor is unused for now (no method forwarding) but the registration
+  // factory passes one — accept and discard to keep the factory signature
+  // uniform with the other proxies in this file.
+  _InterpretedContainerBoxParentData(InterpreterVisitor _, this._instance);
+
+  final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
 }
 
 // =============================================================================

@@ -1,0 +1,47 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_issues_test.dart
+00:00 +0: (setUpAll)
+00:23 +0: Section 2 - Bridge Generator Issues (80) rendering/render_box_container_defaults_mixin_test.dart
+[METRIC] script=rendering/render_box_container_defaults_mixin_test.dart sourceBytes=64831 sourceChars=64831 bundleJsonBytes=1002530 clearMs=50 readMs=7 bundleMs=337 httpMs=1844 totalMs=2240 status=success httpStatus=200 outputLines=0 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_box_container_defaults_mixin_test.dart (6 error(s)):
+       Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebu…
+       RenderBox was not laid out: _InterpretedRenderBoxContainer#bbef3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#b6171 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#a5bbc NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#fce88 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#a5bbc
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+00:26 +0 -1: Section 2 - Bridge Generator Issues (80) rendering/render_box_container_defaults_mixin_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+  While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
+  This might be because setState() was called from a layout or paint callback. If a change is needed to the widget tree, it should be applied as the tree is being built. Scheduling a change for the subsequent frame instead results in an interface that lags behind by one frame. If this was done to make your build dependent on a size measured at layout time, consider using a LayoutBuilder, CustomSingleChildLayout, or CustomMultiChildLayout. If, on the other hand, the one frame delay is the desired effect, for example because this is an animation, consider scheduling the frame in a post-frame callback using SchedulerBinding.addPostFrameCallback or using an AnimationController to trigger the animation.; RenderBox was not laid out: _InterpretedRenderBoxContainer#bbef3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#b6171 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#a5bbc NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#fce88 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#a5bbc
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 371:7   main.<fn>.<fn>
+  
+00:26 +0 -1: (tearDownAll)
+00:26 +0 -1: Some tests failed.
