@@ -466,7 +466,12 @@ class _BuilderDemoPage extends StatefulWidget {
 
 class _BuilderDemoPageState extends State<_BuilderDemoPage> {
   int _totalItems = 50;
-  final Set<int> _builtIndices = {};
+  // C16: bare `{}` is ambiguous between Set and Map. Real Dart uses the
+  // declared `Set<int>` LHS to disambiguate, but d4rt's empty-collection
+  // inference defaults to Map when the literal carries no type argument
+  // — so a later `.contains(index)` call hits Map (which has only
+  // containsKey/containsValue) and fails. Make the literal explicit.
+  final Set<int> _builtIndices = <int>{};
   bool _keepAlives = true;
   bool _repaintBoundaries = true;
 

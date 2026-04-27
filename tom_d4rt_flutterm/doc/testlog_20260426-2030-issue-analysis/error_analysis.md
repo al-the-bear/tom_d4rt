@@ -738,9 +738,9 @@ The 21 remaining framework errors are layout cascades (`BoxConstraints forces an
 
 ### C16 — `Bridged class 'Map' has no instance method named 'contains'`
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Low · **Owner:** tom_d4rt stdlib bridge for `dart:core` (Map)
+**Severity:** Low · **Owner:** script (script-side disambiguation of empty `{}` literal)
 
 **Representative error**
 
@@ -750,9 +750,37 @@ The 21 remaining framework errors are layout cascades (`BoxConstraints forces an
 
 - `widgets/sliver_child_builder_delegate_test.dart` (gii fail)
 
-**Analysis.** Pure standard-library hole. `Map` exposes `containsKey` / `containsValue`; `contains` is *not* a `Map` member. The user code is calling `someMap.contains(x)` — likely on a value the interpreter has typed as `Map` but that the script author intended to use as `Set` (or vice versa). Could be a script bug or a type inference mismatch in the interpreter.
+**Analysis.** Not an interpreter type-mismatch and not a stdlib hole — `Map` correctly exposes `containsKey`/`containsValue`, `Set` exposes `contains`, and the script was indeed reaching for the Set semantics:
 
-**Suggested fix.** Read `sliver_child_builder_delegate_test.dart`: if the script really uses `someSet.contains(x)`, then the interpreter is mis-typing the receiver as `Map` — fix the inference. If the script intended `containsKey` → patch the script.
+```dart
+final Set<int> _builtIndices = {};   // ⚠ bare {} → ambiguous
+// ...
+if (!_builtIndices.contains(index)) { ... }
+```
+
+The bare `{}` collection literal is ambiguous between `Set` and `Map` in Dart. Real Dart uses the declared LHS type (`Set<int>`) to disambiguate at parse time. d4rt's empty-collection inference doesn't fully honour the LHS declaration and defaults `{}` to `Map` — so `_builtIndices` is bound to a `Map<dynamic, dynamic>` at runtime, and the later `.contains(index)` call lands on the bridged `Map` class which only has `containsKey` / `containsValue`.
+
+**Fix (script-only — Rule (a)).** Disambiguate the literal explicitly:
+
+```dart
+// C16: bare `{}` is ambiguous between Set and Map. Real Dart uses the
+// declared `Set<int>` LHS to disambiguate, but d4rt's empty-collection
+// inference defaults to Map when the literal carries no type argument
+// — so a later `.contains(index)` call hits Map (which has only
+// containsKey/containsValue) and fails. Make the literal explicit.
+final Set<int> _builtIndices = <int>{};
+```
+
+**Verification (script-only → individual retest sufficient, Rule (a)).**
+
+| | Baseline | Post-fix |
+|---|---:|---:|
+| Framework errors in `sliver_child_builder_delegate_test.dart` | 1 | 0 |
+| `Map` `contains` errors | 1 | 0 |
+
+Captured logs: `doc/testlog_20260427-c16/c16_baseline.log.txt`, `c16_after.log.txt`.
+
+**Note.** A follow-up interpreter improvement could honour the LHS declared type for empty collection literals and pick `Set` when the LHS is `Set<...>` — but it is not required to close C16. Filed as a future generalization in the long-tail interpreter audit.
 
 ---
 
@@ -934,7 +962,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C13 — `Future.delayed` missing ✅ Fixed (added named factory ctors `delayed`/`value`/`error`/`microtask`/`sync` to `constructors` map of bridged `Future` in both packages — required for `Future<T>.delayed(...)` explicit-type-arg form) | Low | stdlib | 1 | 0 |
 | C14 — Null BuildContext ✅ Fixed (added `nativeStateProxy` getter-only fallback on `InterpretedInstance`; plain interpreted `State` subclasses now resolve `this.context` / `this.mounted` to the proxy's `_element`-backed values without setting `nativeProxy` — preserves Bug-45 setState semantics) | High | interpreter | 2 | 0 |
 | C15 — WidgetStateMapper.merge ✅ Fixed (script — pre-resolve `WidgetStateTextStyle.fromMap` mapper to a static `TextStyle` for `ChipThemeData.labelStyle`; real-Flutter limitation — `material/chip.dart:1375` calls `.merge` directly on `labelStyle` without `WidgetStateProperty.resolveAs`, and `WidgetStateMapper.noSuchMethod` throws on any call other than `resolve`) | Low | script | 1 | 0 |
-| C16 — Map.contains | Low | stdlib or script | 1 | 1 |
+| C16 — Map.contains ✅ Fixed (script — `<int>{}` to disambiguate empty literal from `Map`; d4rt's empty-collection inference defaults `{}` to `Map` when LHS has no inline type argument) | Low | script | 1 | 0 |
 | C17 — semanticsBuilder typedef callback | Medium | generator | 1 | 1 |
 | C18 — Offset(dx: null) | Low | script | 1 | 0 |
 | C19 — !childSemantics._needsLayout | Medium | interpreter | 11 | 1 |
@@ -953,5 +981,5 @@ The next active-work cluster from the open log (`interpreter_issues.md`) should 
 5. **C12 + C13 + C20c — stdlib holes (`Object.hash`, `Future.delayed`, `Iterable.indexed`)** — quick wins.
 6. **C10 — RestorationProperty proxy lifecycle** — high script count (13) but cosmetic in passing suites; tackle once C1 lands.
 7. **C2 + C20h — Late-binding lifecycle audit** — needs investigation; may be a script bug or a real interpreter regression.
-8. **C8 + C9 + C11 + C16 + C18 — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work.
+8. **C8 + C9 + C11 + ~~C16~~ + C18 — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work. (~~C16~~ fixed in `<int>{}` disambiguation turn.)
 9. **~~C15~~ + C17 + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit. (~~C15~~ fixed in script-pre-resolve turn.)

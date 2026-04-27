@@ -1,0 +1,9 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/sliver_child_builder_delegate_test.dart (C16)
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceBytes=33023 sourceChars=31529 bundleJsonBytes=361496 clearMs=92 readMs=17 bundleMs=319 httpMs=1211 totalMs=1640 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 4
+00:13 +1: (tearDownAll)
+00:13 +1: All tests passed!
