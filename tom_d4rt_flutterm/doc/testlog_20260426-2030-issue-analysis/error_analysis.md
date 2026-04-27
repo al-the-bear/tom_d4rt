@@ -433,7 +433,7 @@ Per the regression rule, only individual retest is required for script-only chan
 
 ### C10 — `RestorationProperties: 'isRegistered': is not true` assertion
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Medium · **Owner:** interpreter (mixin lifecycle dispatch) + tom_d4rt_flutterm user-bridge
 
@@ -462,6 +462,53 @@ Per the regression rule, only individual retest is required for script-only chan
 Related: `widgets/form_test.dart` raises `Undefined property or method 'hasError' on bridged instance of 'RestorationMixin'` (essential suite framework error), pointing at the same `RestorationMixin` proxy gap.
 
 **Suggested fix.** Audit the proxy generator's mixin-dispatch (`proxy_generator.dart`) — when the user class mixes in `RestorationMixin`, the proxy must call `restoreState`/`didToggleBucket` on the native mixin during the `State.didChangeDependencies` lifecycle. Mirror the fix in tom_d4rt_ast.
+
+**Fix (2026-04-27).** Two coordinated changes:
+
+1. **`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`** — added a new
+   `_InterpretedRestorationMixinState` native State proxy that actually `with`s
+   `RestorationMixin<_InterpretedStatefulWidget>`, mirroring the existing
+   `_InterpretedSingleTickerProviderState` pattern. Selected by
+   `_InterpretedStatefulWidget.createState()` whenever the interpreted class
+   chain mixes in `RestorationMixin`. The proxy delegates `initState`,
+   `didChangeDependencies`, `restoreState`, `restorationId`, and the rest of
+   the State lifecycle to the interpreted instance with the standard
+   re-entrancy guard (`_lifecycleInProgress`). With this in place the framework
+   actually invokes `RestorationMixin._register`, so
+   `RestorationProperty.value`'s `isRegistered` assertion stops firing.
+2. **`tom_d4rt_ast/lib/src/runtime/runtime_types.dart`** + **`tom_d4rt/lib/src/runtime_types.dart`** —
+   bridged-mixin method/getter dispatch was passing the raw
+   `InterpretedInstance` to the adapter, so adapters like
+   `RestorationMixin.registerForRestoration` failed
+   `D4.validateTarget<RestorationMixin>(target, ...)` even after the proxy was
+   in place. Added a `mixinTarget = nativeProxy ?? bridgedSuperObject ?? this`
+   fallback at the dispatch site (mirroring the existing bridgedSuperclass
+   pattern at line 1292) and threaded a `target:` parameter through
+   `BridgedMixinMethodCallable`. Mirrored in both interpreters per the
+   tom_d4rt ↔ tom_d4rt_ast lockstep rule.
+
+**Verification.** Bisect run after fix (`ztmp/c10_after_mixin_dispatch_fix.log`):
+the original `'isRegistered': is not true` assertion is gone in **all 13** scripts.
+Seven scripts (`restorable_bool`, `restorable_date_time`, `restorable_int`,
+`restorable_int_n`, `restorable_listenable`, `restorable_num`, `restorable_num_n`)
+now run cleanly with zero framework errors. The remaining six surface
+**unrelated downstream errors** that are not part of C10:
+`restorable_double` (RenderFlex overflow — C9-family), `restorable_double_n`
+(`Compound assignment operator += not handled for types double and null` —
+interpreter limitation), `restorable_route_future` (`padLeft on null` — script
+bug), `restorable_string`, `restorable_string_n`, `restoration_mixin`
+(`LateInitializationError` on user-declared `late TextEditingController`
+fields — separate timing/init issue). These belong to other clusters and are
+out of scope for C10.
+
+**Regression results** (`ztmp/c10_*.log`):
+
+- `generator_interpreter_issues_test`: `+42 ~1 -40` — identical to pre-fix
+  baseline (re-ran with my changes stashed: `c10_pre_baseline_gii.log`); zero
+  regression.
+- `essential_classes_test`: **108/108 passed** (no skips, no failures).
+- `important_classes_test`: **164/164 passed** (5 skipped, no failures).
+- `secondary_classes_test`: **649/649 passed** (5 skipped, no failures).
 
 ---
 
@@ -761,7 +808,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C7 — TwoDimensionalScrollView ctor 🟡 Reverted/Deferred (requires interpreter super-arg-capture + multi-method proxies; tag-wrapper pattern insufficient) | Medium | interpreter runtime + tom_d4rt_flutterm runtime registrations | 3 | 0 |
 | C8 — BoxConstraints layout (script) | Low | scripts | ~14 | 0 |
 | C9 — RenderFlex overflow (script) ⚠️ Partial (6/7 scripts fixed; scroll_position overflow gated by out-of-scope `_controller` runtime error) | Low | scripts | 7 | 3 |
-| C10 — RestorationProperty.isRegistered | Medium | interpreter+bridge | 13 | 0 |
+| C10 — RestorationProperty.isRegistered ✅ Fixed (RestorationMixin State proxy + bridged-mixin nativeProxy fallback; assertion gone in 13/13, 7 scripts now clean, 6 have unrelated downstream errors) | Medium | interpreter+bridge | 13 | 0 |
 | C11 — `withValues` on null (script) | Low | scripts | 4 | 0 |
 | C12 — `Object.hash` missing | Low | stdlib | 1 | 0 |
 | C13 — `Future.delayed` missing | Low | stdlib | 1 | 0 |

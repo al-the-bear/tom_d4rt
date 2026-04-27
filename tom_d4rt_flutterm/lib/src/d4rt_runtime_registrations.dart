@@ -53,6 +53,8 @@ import 'package:flutter/widgets.dart'
         NavigatorState,
         FormState,
         ParentDataWidget,
+        RestorationBucket,
+        RestorationMixin,
         SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
         SizedBox,
@@ -743,6 +745,16 @@ class _InterpretedStatefulWidget extends StatefulWidget {
           result.nativeProxy = state;
           return state;
         }
+        // C10: scripts that mix `RestorationMixin` into a State subclass need
+        // a native State proxy that *actually* mixes in `RestorationMixin`,
+        // otherwise Flutter's `_RestorationMixin.didChangeDependencies` flow
+        // never runs, `restoreState` is never called, and any read of a
+        // `RestorableProperty.value` asserts `'isRegistered': is not true`.
+        if (_usesRestorationMixin(result.klass)) {
+          final state = _InterpretedRestorationMixinState(_visitor, result);
+          result.nativeProxy = state;
+          return state;
+        }
         return _InterpretedState(_visitor, result);
       }
     }
@@ -765,6 +777,29 @@ class _InterpretedStatefulWidget extends StatefulWidget {
     return klass.bridgedMixins.any(
       (m) => m.name == 'SingleTickerProviderStateMixin',
     );
+  }
+
+  /// Check if an interpreted class mixes in `RestorationMixin`.
+  ///
+  /// Walks the interpreted class hierarchy and inspects `bridgedMixins` at
+  /// every level so a script that adds RestorationMixin via an interpreted
+  /// intermediate base is still detected.
+  static bool _usesRestorationMixin(InterpretedClass klass) {
+    final visited = <InterpretedClass>{};
+    bool walk(InterpretedClass? c) {
+      if (c == null) return false;
+      if (!visited.add(c)) return false;
+      if (c.bridgedMixins.any((m) => m.name == 'RestorationMixin')) {
+        return true;
+      }
+      if (walk(c.superclass)) return true;
+      for (final m in c.mixins) {
+        if (walk(m)) return true;
+      }
+      return false;
+    }
+
+    return walk(klass);
   }
 }
 
@@ -1088,6 +1123,172 @@ class _InterpretedMultiTickerProviderState
   // override checks this set; the second entry returns immediately so
   // Flutter's framework super-chain only runs once and the script's body
   // only runs once.
+  final Set<String> _lifecycleInProgress = <String>{};
+}
+
+// =============================================================================
+// C10: RestorationMixin State Proxy
+// =============================================================================
+
+/// A native [State] with [RestorationMixin] that delegates lifecycle methods
+/// to an interpreted D4rt State subclass.
+///
+/// Selected by [_InterpretedStatefulWidget.createState] when the interpreted
+/// State subclass declares `with RestorationMixin`. This is necessary because
+/// `RestorationMixin` is a *real* mixin (its `didChangeDependencies` override
+/// drives bucket discovery and the eventual `restoreState` call). Using the
+/// plain [_InterpretedState] proxy leaves the mixin off the native State, so
+/// `restoreState` is never invoked, no `RestorableProperty` is registered,
+/// and reading `.value` asserts `'isRegistered': is not true`.
+///
+/// The proxy overrides:
+///   - [restorationId] getter — delegates to the interpreted instance's
+///     `restorationId` getter (or `restorationId` field).
+///   - [restoreState] — dispatches to the interpreted instance's
+///     `restoreState(oldBucket, initialRestore)` method, which then calls
+///     [registerForRestoration] for each property. Because the proxy itself
+///     is a `RestorationMixin`, `registerForRestoration` resolves to the
+///     native mixin implementation and the property's `_register` runs.
+class _InterpretedRestorationMixinState
+    extends State<_InterpretedStatefulWidget>
+    with RestorationMixin<_InterpretedStatefulWidget> {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _stateInstance;
+
+  _InterpretedRestorationMixinState(this._visitor, this._stateInstance);
+
+  @override
+  String? get restorationId {
+    // Look up `restorationId` on the interpreted class chain — it may be
+    // declared as a getter (`String? get restorationId => ...`) or as a
+    // plain field (`final String? restorationId = ...`). Both surface via
+    // `findInstanceGetter` first; fall back to a direct field read.
+    final getter = _stateInstance.klass.findInstanceGetter('restorationId');
+    if (getter != null) {
+      try {
+        final result = getter.bind(_stateInstance).call(_visitor, [], {});
+        return result as String?;
+      } catch (_) {
+        // Fall through to field read.
+      }
+    }
+    try {
+      final value = _stateInstance.get('restorationId', visitor: _visitor);
+      return value as String?;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    if (_lifecycleInProgress.contains('restoreState')) return;
+    _lifecycleInProgress.add('restoreState');
+    try {
+      // RestorationMixin.restoreState is abstract — there is no super body
+      // to call. The interpreted method is responsible for invoking
+      // `registerForRestoration` for each property.
+      final method = _stateInstance.klass.findInstanceMethod('restoreState');
+      if (method != null) {
+        method
+            .bind(_stateInstance)
+            .call(_visitor, [oldBucket, initialRestore], {});
+      }
+    } finally {
+      _lifecycleInProgress.remove('restoreState');
+    }
+  }
+
+  @override
+  void initState() {
+    if (_lifecycleInProgress.contains('initState')) return;
+    _lifecycleInProgress.add('initState');
+    try {
+      super.initState();
+      _callVoidMethod('initState');
+    } finally {
+      _lifecycleInProgress.remove('initState');
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_lifecycleInProgress.contains('didChangeDependencies')) return;
+    _lifecycleInProgress.add('didChangeDependencies');
+    try {
+      // RestorationMixin.didChangeDependencies handles bucket discovery and,
+      // on first/replacement bucket, dispatches to our `restoreState`
+      // override above. Calling super first preserves that flow.
+      super.didChangeDependencies();
+      _callVoidMethod('didChangeDependencies');
+    } finally {
+      _lifecycleInProgress.remove('didChangeDependencies');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final method = _stateInstance.klass.findInstanceMethod('build');
+    if (method != null) {
+      final bound = method.bind(_stateInstance);
+      final result = bound.call(_visitor, [context], {});
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
+    }
+    throw StateError(
+      'Interpreted State ${_stateInstance.klass.name} does not implement build()',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _InterpretedStatefulWidget oldWidget) {
+    if (_lifecycleInProgress.contains('didUpdateWidget')) return;
+    _lifecycleInProgress.add('didUpdateWidget');
+    try {
+      super.didUpdateWidget(oldWidget);
+      _callVoidMethod('didUpdateWidget');
+    } finally {
+      _lifecycleInProgress.remove('didUpdateWidget');
+    }
+  }
+
+  @override
+  void deactivate() {
+    if (_lifecycleInProgress.contains('deactivate')) return;
+    _lifecycleInProgress.add('deactivate');
+    try {
+      _callVoidMethod('deactivate');
+      super.deactivate();
+    } finally {
+      _lifecycleInProgress.remove('deactivate');
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_lifecycleInProgress.contains('dispose')) return;
+    _lifecycleInProgress.add('dispose');
+    try {
+      _callVoidMethod('dispose');
+      super.dispose();
+    } finally {
+      _lifecycleInProgress.remove('dispose');
+    }
+  }
+
+  void _callVoidMethod(String name) {
+    final method = _stateInstance.klass.findInstanceMethod(name);
+    if (method != null) {
+      try {
+        method.bind(_stateInstance).call(_visitor, [], {});
+      } catch (_) {
+        // Lifecycle methods may call super which isn't available in proxy.
+      }
+    }
+  }
+
+  // Re-entrancy guard mirroring _InterpretedState — `super.initState()` in
+  // a script body re-routes through this proxy, so without this set the
+  // override would recurse indefinitely.
   final Set<String> _lifecycleInProgress = <String>{};
 }
 

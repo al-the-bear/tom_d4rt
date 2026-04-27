@@ -1391,6 +1391,14 @@ class InterpretedInstance implements RuntimeValue {
     for (int i = klass.bridgedMixins.length - 1; i >= 0; i--) {
       final bridgedMixin = klass.bridgedMixins[i];
 
+      // C10: For bridged mixins backed by native Flutter mixins (e.g.
+      // RestorationMixin), the adapter expects a real instance of the
+      // mixin type. When a native State proxy mixes the bridged mixin in
+      // (see d4rt_runtime_registrations.dart), the proxy is registered on
+      // `nativeProxy` and is the correct target. Fall back to
+      // `bridgedSuperObject`, then to `this` for purely-interpreted use.
+      final mixinTarget = nativeProxy ?? bridgedSuperObject ?? this;
+
       // Try getter first
       final getterAdapter = bridgedMixin.findInstanceGetterAdapter(name);
       if (getterAdapter != null) {
@@ -1398,7 +1406,7 @@ class InterpretedInstance implements RuntimeValue {
             "[Instance.get] Found getter '$name' in bridged mixin '${bridgedMixin.name}'. Calling adapter directly.");
         try {
           // For bridged mixins, call the getter directly and return the value
-          return getterAdapter(visitor, this);
+          return getterAdapter(visitor, mixinTarget);
         } catch (e, s) {
           Logger.error(
               "Native exception during bridged mixin getter '$name': $e\n$s");
@@ -1412,9 +1420,10 @@ class InterpretedInstance implements RuntimeValue {
       if (methodAdapter != null) {
         Logger.debug(
             "[Instance.get] Found method '$name' in bridged mixin '${bridgedMixin.name}'. Creating bound callable.");
-        // Return a callable that binds the method to this instance
+        // Return a callable that binds the method to the appropriate target
         return BridgedMixinMethodCallable(
-            this, methodAdapter, name, bridgedMixin.name);
+            this, methodAdapter, name, bridgedMixin.name,
+            target: mixinTarget);
       }
     }
 
@@ -2037,9 +2046,14 @@ class BridgedMixinMethodCallable implements Callable {
   final BridgedMethodAdapter adapter;
   final String methodName;
   final String bridgedMixinName;
+  // C10: Optional override target. When the bridged mixin is backed by a
+  // native State proxy (e.g. RestorationMixin), the proxy is the correct
+  // target for the adapter, not the InterpretedInstance.
+  final Object? target;
 
   BridgedMixinMethodCallable(
-      this.instance, this.adapter, this.methodName, this.bridgedMixinName);
+      this.instance, this.adapter, this.methodName, this.bridgedMixinName,
+      {this.target});
 
   @override
   int get arity => 0; // Arity validation is done by the adapter
@@ -2049,12 +2063,13 @@ class BridgedMixinMethodCallable implements Callable {
       [Map<String, Object?> namedArguments = const {},
       List<RuntimeType>? typeArguments]) {
     try {
-      // For bridged mixins, we need to create a temporary native-like object
-      // or handle the call differently since the adapter expects a native object
-      // but we have an interpreted instance. For now, we'll pass the instance directly
-      // and let the adapter handle the conversion.
-      return adapter(visitor, instance, positionalArguments, namedArguments,
-          typeArguments);
+      // C10: Prefer explicit target (set by dispatch site to nativeProxy
+      // / bridgedSuperObject when a native mixin instance is required);
+      // fall back to the InterpretedInstance for purely interpreted
+      // bridged-mixin shapes.
+      final effectiveTarget = target ?? instance;
+      return adapter(visitor, effectiveTarget, positionalArguments,
+          namedArguments, typeArguments);
     } catch (e, s) {
       Logger.error(
           "[BridgedMixinMethodCallable] Native exception during call to '$bridgedMixinName.$methodName': $e\n$s");
