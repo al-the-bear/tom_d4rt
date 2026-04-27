@@ -27,6 +27,7 @@ import 'package:flutter/rendering.dart'
     show
         BoxConstraints,
         BoxHitTestResult,
+        BoxParentData,
         ContainerBoxParentData,
         ContainerRenderObjectMixin,
         CustomClipper,
@@ -357,18 +358,26 @@ void registerD4rtInterfaceProxyOverrides() {
     if (cached is RenderBox) return cached;
     // Cluster C1 — RenderBox proxy mixin gap.
     //
-    // Scripts that subclass RenderBox with `with ContainerRenderObjectMixin`
-    // need a proxy that mixes in the same container infrastructure so framework
-    // casts like `proxy as ContainerRenderObjectMixin<RenderObject, ContainerParentDataMixin<RenderObject>>`
-    // succeed. Pick the container-aware proxy at first instantiation so the
-    // cached `instance.nativeProxy` already satisfies later container-typed
-    // casts.
-    final proxy = _classChainHasBridgedMixin(
-      instance.klass,
-      'ContainerRenderObjectMixin',
-    )
-        ? _InterpretedRenderBoxContainer(visitor, instance)
-        : _InterpretedRenderBox(visitor, instance);
+    // Scripts that subclass RenderBox with one of the container-style render
+    // mixins need a proxy that already mixes in the same infrastructure so the
+    // framework's `proxy as <mixin>` casts succeed. Pick the appropriate proxy
+    // variant at first instantiation so the cached `instance.nativeProxy`
+    // already satisfies later mixin-typed casts.
+    //
+    // Dispatch order matters: SlottedContainerRenderObjectMixin is its own
+    // children-storage scheme (`_slotToChild`), unrelated to the legacy
+    // ContainerRenderObjectMixin linked-list. The slotted variant is checked
+    // first because scripts that use it never use the linked-list mixin (and
+    // mixing both in a single proxy would conflict on `attach`/`detach`/etc.).
+    final klass = instance.klass;
+    final RenderBox proxy;
+    if (_classChainHasBridgedMixin(klass, 'SlottedContainerRenderObjectMixin')) {
+      proxy = _InterpretedSlottedRenderBox(visitor, instance);
+    } else if (_classChainHasBridgedMixin(klass, 'ContainerRenderObjectMixin')) {
+      proxy = _InterpretedRenderBoxContainer(visitor, instance);
+    } else {
+      proxy = _InterpretedRenderBox(visitor, instance);
+    }
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -2435,6 +2444,194 @@ class _InterpretedRenderBoxContainer extends RenderBox
   void setupParentData(RenderObject child) {
     final result = _maybeInvoke('setupParentData', [child]);
     if (identical(result, _kNotImplemented)) super.setupParentData(child);
+  }
+}
+
+// =============================================================================
+// Cluster C1 follow-up — Slot-aware RenderBox proxy
+// =============================================================================
+//
+// Like [_InterpretedRenderBox], but mixes in [SlottedContainerRenderObjectMixin]
+// so scripts that subclass `RenderBox with SlottedContainerRenderObjectMixin<S,
+// RenderBox>` produce a native proxy that satisfies the framework cast
+// performed by [_InterpretedSlottedMultiChildRenderObjectWidget.createRenderObject]:
+// `raw is SlottedContainerRenderObjectMixin<dynamic, RenderObject>`. Without
+// this proxy the bridged super of the script's render-object class is plain
+// `RenderBox`, so the standard `_InterpretedRenderBox` is created and the cast
+// fails with "must return a RenderObject mixing in
+// SlottedContainerRenderObjectMixin, got _InterpretedRenderBox" (D7 in
+// `doc/testlog_20260427-1339-post-c22/error_analysis.md`).
+//
+// Type erasure: the slot type is erased to `dynamic` and the child type is
+// fixed to `RenderBox` because the slot type is per-script (typically a custom
+// enum) but the child is always a `RenderBox` for the demo corpus. The
+// covariant cast from `<dynamic, RenderBox>` to `<dynamic, RenderObject>`
+// performed by the widget proxy succeeds because `RenderBox <: RenderObject`.
+//
+// Method forwarding (performLayout, paint, hitTest{,Self,Children},
+// setupParentData) mirrors [_InterpretedRenderBox] verbatim. The mixin
+// provides `attach`, `detach`, `redepthChildren`, `visitChildren`, and the
+// `_slotToChild` plumbing, so the proxy does not need to override them — the
+// element calls into the mixin directly via the proxy.
+class _InterpretedSlottedRenderBox extends RenderBox
+    with SlottedContainerRenderObjectMixin<dynamic, RenderBox>
+    implements D4InterpretedProxy {
+  _InterpretedSlottedRenderBox(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  Object? _maybeInvoke(String methodName, List<Object?> args,
+      [Map<String, Object?> named = const {}]) {
+    final method = _instance.klass.findInstanceMethod(methodName);
+    if (method == null) return _kNotImplemented;
+    return method.bind(_instance).call(_visitor, args, named);
+  }
+
+  @override
+  void performLayout() {
+    final result = _maybeInvoke('performLayout', const []);
+    if (identical(result, _kNotImplemented)) {
+      size = constraints.smallest;
+      return;
+    }
+    if (!hasSize) {
+      try {
+        final reflected = _instance.get('size', visitor: _visitor);
+        if (reflected is Size) size = reflected;
+      } catch (_) {}
+    }
+    if (!hasSize) size = constraints.smallest;
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    final result = _maybeInvoke('paint', [context, offset]);
+    if (identical(result, _kNotImplemented)) {
+      // Default: paint each slot child at its parent-data offset.
+      for (final child in children) {
+        final parentData = child.parentData;
+        final childOffset = parentData is BoxParentData
+            ? parentData.offset + offset
+            : offset;
+        context.paintChild(child, childOffset);
+      }
+    }
+  }
+
+  @override
+  bool hitTest(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTest');
+    if (method == null) return super.hitTest(result, position: position);
+    final raw = method
+        .bind(_instance)
+        .call(_visitor, [result], {'position': position});
+    if (raw is bool) return raw;
+    return false;
+  }
+
+  @override
+  bool hitTestSelf(Offset position) {
+    final method = _instance.klass.findInstanceMethod('hitTestSelf');
+    if (method == null) return super.hitTestSelf(position);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [position], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
+    final method = _instance.klass.findInstanceMethod('hitTestChildren');
+    if (method == null) {
+      // Default: walk slot children in reverse paint order.
+      for (final child in children.toList().reversed) {
+        final parentData = child.parentData;
+        final childOffset =
+            parentData is BoxParentData ? parentData.offset : Offset.zero;
+        final hit = result.addWithPaintOffset(
+          offset: childOffset,
+          position: position,
+          hitTest: (BoxHitTestResult r, Offset p) =>
+              child.hitTest(r, position: p),
+        );
+        if (hit) return true;
+      }
+      return false;
+    }
+    try {
+      final raw = method
+          .bind(_instance)
+          .call(_visitor, [result], {'position': position});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  void setupParentData(RenderBox child) {
+    final result = _maybeInvoke('setupParentData', [child]);
+    if (identical(result, _kNotImplemented)) {
+      // The mixin doesn't ship a default setupParentData — fall back to a
+      // BoxParentData so children that store offsets still work.
+      if (child.parentData is! BoxParentData) {
+        child.parentData = BoxParentData();
+      }
+    }
+  }
+
+  @override
+  double computeMinIntrinsicWidth(double height) {
+    final method =
+        _instance.klass.findInstanceMethod('computeMinIntrinsicWidth');
+    if (method == null) return super.computeMinIntrinsicWidth(height);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [height], const {});
+      if (raw is num) return raw.toDouble();
+    } catch (_) {}
+    return super.computeMinIntrinsicWidth(height);
+  }
+
+  @override
+  double computeMaxIntrinsicWidth(double height) {
+    final method =
+        _instance.klass.findInstanceMethod('computeMaxIntrinsicWidth');
+    if (method == null) return super.computeMaxIntrinsicWidth(height);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [height], const {});
+      if (raw is num) return raw.toDouble();
+    } catch (_) {}
+    return super.computeMaxIntrinsicWidth(height);
+  }
+
+  @override
+  double computeMinIntrinsicHeight(double width) {
+    final method =
+        _instance.klass.findInstanceMethod('computeMinIntrinsicHeight');
+    if (method == null) return super.computeMinIntrinsicHeight(width);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [width], const {});
+      if (raw is num) return raw.toDouble();
+    } catch (_) {}
+    return super.computeMinIntrinsicHeight(width);
+  }
+
+  @override
+  double computeMaxIntrinsicHeight(double width) {
+    final method =
+        _instance.klass.findInstanceMethod('computeMaxIntrinsicHeight');
+    if (method == null) return super.computeMaxIntrinsicHeight(width);
+    try {
+      final raw = method.bind(_instance).call(_visitor, [width], const {});
+      if (raw is num) return raw.toDouble();
+    } catch (_) {}
+    return super.computeMaxIntrinsicHeight(width);
   }
 }
 

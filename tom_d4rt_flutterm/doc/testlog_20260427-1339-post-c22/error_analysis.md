@@ -359,7 +359,12 @@ sufficient per the project's regression rules).
 
 ## D7 — `createRenderObject` must return a `SlottedContainerRenderObjectMixin`-mixed render object
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator (proxy generator) + tom_d4rt_flutterm runtime registrations
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator (proxy generator) + tom_d4rt_flutterm runtime registrations
+- **Resolution (2026-04-27):** Option (1) landed — see C1 above for
+  the per-script results (createRenderObject assertion gone in all
+  3 scripts; element_test fully clean; widget_test surfaces a new
+  layout cascade rooted in slot-mixin private member access from
+  interpreted scripts).
 
 **Representative error**
 
@@ -450,12 +455,56 @@ the authoritative status lives in
 `doc/testlog_20260426-2030-issue-analysis/error_analysis.md` and
 `doc/interpreter_issues.md`.
 
-## C1 — `_InterpretedRenderBox` mixin proxy gap (Partial)
+## C1 — `_InterpretedRenderBox` mixin proxy gap (Partial — slot-mixin variant landed 04-27)
 
-Container-mixin dispatch landed in 04-26 fix; downstream slot-mixin
-gap is now D7 above. RenderBox proxy still does not propagate
-arbitrary interpreted mixins. **Open follow-up:** mixin-aware composite
-proxies.
+**Status (2026-04-27):** Slot-mixin variant of the proxy landed.
+
+**What changed.** `lib/src/d4rt_runtime_registrations.dart` now adds a
+third proxy class `_InterpretedSlottedRenderBox extends RenderBox with
+SlottedContainerRenderObjectMixin<dynamic, RenderBox>` and extends the
+`'RenderBox'` interface-proxy dispatch to pick it when the interpreted
+class chain contains a bridged `SlottedContainerRenderObjectMixin`
+(checked via the existing `_classChainHasBridgedMixin` walker). The
+container variant `_InterpretedRenderBoxContainer` (04-26) still
+applies for `ContainerRenderObjectMixin`, with the plain
+`_InterpretedRenderBox` as fallback.
+
+The proxy implements `performLayout`, `paint`, `hitTest*`,
+`setupParentData` (defaults to `BoxParentData`) and the four intrinsic
+sizing methods, all routed through `_maybeInvoke` so script-side
+overrides take precedence over native defaults. Type parameters are
+erased to `<dynamic, RenderBox>` to satisfy element-side casts.
+
+**Per-script effect** (bisect harness):
+
+- `widgets/slotted_render_object_element_test.dart`: 1 → 0 FE (clean)
+- `widgets/slotted_multi_child_render_object_widget_mixin_test.dart`:
+  8 → 7 FE — the createRenderObject "must return a RenderObject mixing
+  in SlottedContainerRenderObjectMixin" assertion is gone; the
+  remaining 7 errors (1× `BoxConstraints forces an infinite height`,
+  3× `RenderBox was not laid out`, 3× null-check) are the same
+  upstream cascade already present in baseline.
+- `widgets/slotted_multi_child_render_object_widget_test.dart`:
+  6 → 12 FE — 5× createRenderObject + 1× `dart:ui/math.dart` assertion
+  are gone; with `performLayout` now executing, a previously-masked
+  cascade surfaces: 1× script-side null receiver on `child.size.height`,
+  1× `_InterpretedSlottedRenderBox` NEEDS-PAINT, 7× downstream
+  NEEDS-PAINT/`hasSize`, 3× null-check. Same shape as the C1 container
+  variant exposing C21 in 04-26.
+
+**Regression suites** (essential / important / secondary, run serial,
+`D4RT_SKIP_BRIDGE_REGEN=1`): 108/0/0, 164/0/5, 649/0/5 — match the
+post-C22 baseline. No regression.
+
+**Why Partial.** The slot-mixin proxy variant (the planned C1 follow-up)
+landed cleanly. The newly surfaced `widget_test` cascade is rooted
+either in a script-side null in `_childFor(slot)?.size.height` access
+or in the bridge not exposing the private `_childFor`/`_slotToChild`
+to interpreted code. Capture artifacts:
+`doc/testlog_20260427-c1-followup/{baseline,c1_after}_bisect.log.txt`,
+`{essential,important,secondary}.log.txt`. Open follow-ups: the
+private slotted-mixin member access in interpreted scripts, and
+mixin-aware composite proxies for the general case.
 
 ## C3 — `Null check operator used on a null value` (Partial)
 

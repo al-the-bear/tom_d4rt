@@ -1,0 +1,91 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:23 +0: widgets/slotted_multi_child_render_object_widget_mixin_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_mixin_test.dart sourceBytes=75971 sourceChars=75880 bundleJsonBytes=936093 clearMs=43 readMs=11 bundleMs=384 httpMs=1527 totalMs=1968 status=success httpStatus=200 outputLines=0 frameworkErrors=7
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_mixin_test.dart (7 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#45781 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#69ae8 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#54272 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+STATUS: true
+FRAMEWORK_ERRORS: [BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+  ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+The offending constraints were:
+  BoxConstraints(0.0<=w<=Infinity, h=Infinity), RenderBox was not laid out: RenderFlex#45781 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderFlex#69ae8 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderPadding#54272 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', Null check operator used on a null value, Null check operator used on a null value, Null check operator used on a null value]
+OUTPUT_COUNT: 0
+00:25 +1: widgets/slotted_multi_child_render_object_widget_test.dart
+[METRIC] script=widgets/slotted_multi_child_render_object_widget_test.dart sourceBytes=73191 sourceChars=73134 bundleJsonBytes=994111 clearMs=101 readMs=1 bundleMs=119 httpMs=1352 totalMs=1573 status=success httpStatus=200 outputLines=0 frameworkErrors=12
+
+  ⚠️  FRAMEWORK ERROR in widgets/slotted_multi_child_render_object_widget_test.dart (12 error(s)):
+       Runtime Error: Cannot access property 'height' on null. Use '?.' for null-aware access.
+       RenderBox was not laid out: _InterpretedSlottedRenderBox#5ba38 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos …
+       RenderBox was not laid out: RenderFlex#d880d relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#43773 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#81f69 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderPadding#7841d relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#be243 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#6ea13 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#f97fc relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Cannot access property 'height' on null. Use '?.' for null-aware access., RenderBox was not laid out: _InterpretedSlottedRenderBox#5ba38 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderFlex#d880d relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderPadding#43773 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderDecoratedBox#81f69 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderPadding#7841d relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderFlex#be243 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderFlex#6ea13 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', RenderBox was not laid out: RenderPadding#f97fc relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize', Null check operator used on a null value, Null check operator used on a null value, Null check operator used on a null value]
+OUTPUT_COUNT: 0
+00:27 +2: widgets/slotted_render_object_element_test.dart
+[METRIC] script=widgets/slotted_render_object_element_test.dart sourceBytes=82460 sourceChars=82258 bundleJsonBytes=1074906 clearMs=169 readMs=1 bundleMs=132 httpMs=1135 totalMs=1439 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+00:28 +3: (tearDownAll)
+00:29 +3: All tests passed!
