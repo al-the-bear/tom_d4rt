@@ -698,9 +698,9 @@ Two scripts in gii now report *more* framework errors (`box_hit_test_result_test
 
 ### C15 — `WidgetStateMapper` `merge` field access (Symbol("merge"))
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Low · **Owner:** generator (bridge for `WidgetStateProperty.merge`)
+**Severity:** Low · **Owner:** test script (real-Flutter API limitation)
 
 **Representative error**
 
@@ -708,11 +708,31 @@ Two scripts in gii now report *more* framework errors (`box_hit_test_result_test
 
 **Affected scripts**
 
-- `widgets/widget_state_text_style_test.dart` (5+ occurrences, contributes the bulk of the script's 70 errors)
+- `widgets/widget_state_text_style_test.dart` (5 occurrences in the chip showcase section)
 
-**Analysis.** `WidgetStateMapper.merge` (or `WidgetStateProperty.merge`) was renamed/added in a recent Flutter version. The generated bridge for `WidgetStateMapper` doesn't declare the `merge` static method. A `Symbol("merge")` access typically indicates the bridge tried `noSuchMethod` after a missing instance member.
+**Analysis.** Original cluster premise was wrong — there is no `WidgetStateMapper.merge` method to bridge. The error comes from `WidgetStateMapper.noSuchMethod` (`flutter/lib/src/widgets/widget_state.dart:1054`), which throws on *any* call other than `resolve` / `==` / `hashCode` / `toString`. The script's `_WstsChipShowcaseState.build` set `ChipThemeData.labelStyle = WidgetStateTextStyle.fromMap(...)` (returns `_WidgetTextStyleMapper extends WidgetStateMapper<TextStyle>`). Flutter's `material/chip.dart:1375` then calls `labelStyle.merge(widget.labelStyle)` *directly*, with no `WidgetStateProperty.resolveAs` indirection — a real-Flutter limitation. The same script in real Flutter would throw the same error: `ChipThemeData.labelStyle` is typed `TextStyle?` and is not actually a state-resolving slot. The script's docstring claim that "ChipThemeData.labelStyle accepts WidgetStateProperty<TextStyle>" is incorrect.
 
-**Suggested fix.** Re-check the generated `widget_state.b.dart` — verify `WidgetStateMapper.merge`, `WidgetStateProperty.merge`, and `WidgetStateMapper.of` are emitted. If the source signature has changed, regenerate from the current Flutter SDK. The fix is in the generator + regen, not in the script.
+**Fix.** Pre-resolve `chipLabelMapper` for the empty state set and feed the resulting static `TextStyle` to the chip theme. Showcase intent is preserved — the `fromMap` factory call still demonstrates the declarative `WidgetStateMap` surface — but the chip widget receives a real `TextStyle` it can `.merge` without tripping `noSuchMethod`.
+
+```dart
+final WidgetStateTextStyle chipLabelMapper =
+    WidgetStateTextStyle.fromMap(<WidgetStatesConstraint, TextStyle>{ … });
+final TextStyle chipLabel = chipLabelMapper.resolve(<WidgetState>{});
+…
+labelStyle: chipLabel,
+secondaryLabelStyle: chipLabel,
+```
+
+Annotated in the script with a `// C15:` comment block explaining the real-Flutter limitation.
+
+**Verification.** `D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/bisect_test.dart` on `widget_state_text_style_test.dart`:
+
+| | Baseline | Post-fix |
+|---|---:|---:|
+| Total framework errors | 26 | 21 |
+| `Symbol("merge")` errors | 5 | 0 |
+
+The 21 remaining framework errors are layout cascades (`BoxConstraints forces an infinite height`, `RenderBox was not laid out: 'hasSize'`, `'!childSemantics.renderObject._needsLayout': is not true`) and belong to clusters C8 / C19 / C22 — not C15. No further regression suite needed: only the test script was changed (Rule (a)).
 
 ---
 
@@ -913,7 +933,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C12 — `Object.hash` missing ✅ Fixed (added `Object.hash`/`hashAll`/`hashAllUnordered` static method adapters to bridged `Object` in both packages; arity-dispatched to native overloads) | Low | stdlib | 1 | 0 |
 | C13 — `Future.delayed` missing ✅ Fixed (added named factory ctors `delayed`/`value`/`error`/`microtask`/`sync` to `constructors` map of bridged `Future` in both packages — required for `Future<T>.delayed(...)` explicit-type-arg form) | Low | stdlib | 1 | 0 |
 | C14 — Null BuildContext ✅ Fixed (added `nativeStateProxy` getter-only fallback on `InterpretedInstance`; plain interpreted `State` subclasses now resolve `this.context` / `this.mounted` to the proxy's `_element`-backed values without setting `nativeProxy` — preserves Bug-45 setState semantics) | High | interpreter | 2 | 0 |
-| C15 — WidgetStateMapper.merge | Low | generator | 1 | 0 |
+| C15 — WidgetStateMapper.merge ✅ Fixed (script — pre-resolve `WidgetStateTextStyle.fromMap` mapper to a static `TextStyle` for `ChipThemeData.labelStyle`; real-Flutter limitation — `material/chip.dart:1375` calls `.merge` directly on `labelStyle` without `WidgetStateProperty.resolveAs`, and `WidgetStateMapper.noSuchMethod` throws on any call other than `resolve`) | Low | script | 1 | 0 |
 | C16 — Map.contains | Low | stdlib or script | 1 | 1 |
 | C17 — semanticsBuilder typedef callback | Medium | generator | 1 | 1 |
 | C18 — Offset(dx: null) | Low | script | 1 | 0 |
@@ -934,4 +954,4 @@ The next active-work cluster from the open log (`interpreter_issues.md`) should 
 6. **C10 — RestorationProperty proxy lifecycle** — high script count (13) but cosmetic in passing suites; tackle once C1 lands.
 7. **C2 + C20h — Late-binding lifecycle audit** — needs investigation; may be a script bug or a real interpreter regression.
 8. **C8 + C9 + C11 + C16 + C18 — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work.
-9. **C15 + C17 + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit.
+9. **~~C15~~ + C17 + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit. (~~C15~~ fixed in script-pre-resolve turn.)

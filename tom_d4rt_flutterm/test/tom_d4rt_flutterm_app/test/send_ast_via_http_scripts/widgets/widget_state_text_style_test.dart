@@ -1834,7 +1834,17 @@ class _WstsChipShowcaseState extends State<_WstsChipShowcase> {
 
   @override
   Widget build(BuildContext context) {
-    final WidgetStateTextStyle chipLabel =
+    // C15: ChipThemeData.labelStyle is typed `TextStyle?` and Flutter's
+    // chip implementation calls `labelStyle.merge(...)` directly on it
+    // (see `material/chip.dart:1375`) without `WidgetStateProperty`
+    // resolution — so a `WidgetStateTextStyle.fromMap(...)` value (which
+    // is a `WidgetStateMapper<TextStyle>` whose `noSuchMethod` throws on
+    // any call other than `resolve`) cannot be used directly as a chip
+    // label style. This is a real-Flutter limitation, not a d4rt issue.
+    // Build the map declaratively, then resolve it once for the empty
+    // state set so the showcase still demonstrates the `fromMap` factory
+    // surface while feeding the chip a static `TextStyle` it can merge.
+    final WidgetStateTextStyle chipLabelMapper =
         WidgetStateTextStyle.fromMap(<WidgetStatesConstraint, TextStyle>{
       WidgetState.disabled: const TextStyle(
         color: _kLeadLight,
@@ -1862,6 +1872,7 @@ class _WstsChipShowcaseState extends State<_WstsChipShowcase> {
         letterSpacing: 0.6,
       ),
     });
+    final TextStyle chipLabel = chipLabelMapper.resolve(<WidgetState>{});
 
     final ChipThemeData baseChipTheme = ChipTheme.of(context);
     final ChipThemeData tuned = baseChipTheme.copyWith(
