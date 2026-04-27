@@ -10642,7 +10642,10 @@ class BridgeGenerator {
         classTypeParams: classTypeParams,
         sourceFilePath: sourceFilePath,
       );
-      final coerceMethod = isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList';
+      // GEN-096 (D8g): pick coerceNestedList for List<List<X>> params.
+      final picked = _pickListCoerce(elementType, isNullable);
+      final coerceMethod = picked.method;
+      final coerceGeneric = picked.generic;
       if (param.isRequired) {
         // GEN-071: Required nullable params only check containsKey, non-nullable also check null
         final requiredCheck = isNullable
@@ -10654,7 +10657,7 @@ class BridgeGenerator {
         );
         buffer.writeln("        }");
         buffer.writeln(
-          "        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');",
+          "        final $localName = $coerceMethod<$coerceGeneric>(named['${param.name}'], '${param.name}');",
         );
       } else if (param.defaultValue != null) {
         // Check if default is wrappable
@@ -10674,7 +10677,7 @@ class BridgeGenerator {
             "        final $localName = named.containsKey('${param.name}') && named['${param.name}'] != null",
           );
           buffer.writeln(
-            "            ? $coerceMethod<$elementType>(named['${param.name}'], '${param.name}')",
+            "            ? $coerceMethod<$coerceGeneric>(named['${param.name}'], '${param.name}')",
           );
           buffer.writeln("            : $typedDefault;");
         } else {
@@ -10697,12 +10700,14 @@ class BridgeGenerator {
           );
           buffer.writeln("        }");
           buffer.writeln(
-            "        final $localName = $coerceMethod<$elementType>(named['${param.name}'], '${param.name}');",
+            "        final $localName = $coerceMethod<$coerceGeneric>(named['${param.name}'], '${param.name}');",
           );
         }
       } else {
+        // GEN-096 (D8g): always-nullable variant for optional named lists.
+        final nullablePicked = _pickListCoerce(elementType, true);
         buffer.writeln(
-          "        final $localName = D4.coerceListOrNull<$elementType>(named['${param.name}'], '${param.name}');",
+          "        final $localName = ${nullablePicked.method}<${nullablePicked.generic}>(named['${param.name}'], '${param.name}');",
         );
       }
       return true;
@@ -12815,6 +12820,37 @@ class BridgeGenerator {
     // GEN-075: Also match Iterable<> — D4rt sends lists for both
     return (baseType.startsWith('List<') || baseType.startsWith('Iterable<')) &&
         baseType.endsWith('>');
+  }
+
+  /// GEN-096 (D8g): pick the correct D4 coerce method + generic argument
+  /// for a list parameter. When the resolved [elementType] is itself a
+  /// `List<X>` (or `List<X>?`) — i.e. the parameter is `List<List<X>>` —
+  /// emit `D4.coerceNestedList<X>` instead of `D4.coerceList<List<X>>`.
+  /// `coerceList<List<X>>` cannot synthesize the typed inner `List<X>` at
+  /// runtime: the inner row arrives as `List<dynamic>` and the
+  /// `as List<X>` cast fails, e.g. for `TwoDimensionalChildListDelegate`'s
+  /// `children: List<List<Widget>>` parameter.
+  ({String method, String generic}) _pickListCoerce(
+    String elementType,
+    bool isNullable,
+  ) {
+    var inner = elementType;
+    if (inner.endsWith('?')) {
+      inner = inner.substring(0, inner.length - 1);
+    }
+    if (inner.startsWith('List<') && inner.endsWith('>')) {
+      final innerInner = inner.substring(5, inner.length - 1);
+      return (
+        method: isNullable
+            ? 'D4.coerceNestedListOrNull'
+            : 'D4.coerceNestedList',
+        generic: innerInner,
+      );
+    }
+    return (
+      method: isNullable ? 'D4.coerceListOrNull' : 'D4.coerceList',
+      generic: elementType,
+    );
   }
 
   /// RC-7: Emit a parameter-aware enum method adapter with proper collection

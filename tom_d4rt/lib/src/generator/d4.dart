@@ -628,6 +628,17 @@ class D4 {
     }
   }
 
+  /// GEN-096 (D8g): nullable variant of [coerceNestedList]. Returns null if
+  /// `arg` is null, otherwise delegates to [coerceNestedList]. Used by the
+  /// bridge generator for parameters typed `List<List<T>>?`.
+  static List<List<T>>? coerceNestedListOrNull<T>(
+    Object? arg,
+    String paramName,
+  ) {
+    if (arg == null) return null;
+    return coerceNestedList<T>(arg, paramName);
+  }
+
   // ==========================================================================
   // Set Coercion
   // ==========================================================================

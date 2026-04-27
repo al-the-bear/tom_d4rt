@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-04-27T20:47:33.965736
+// Generated: 2026-04-28T01:11:51.647964
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -92944,7 +92944,7 @@ BridgedClass _createRenderTableBridge() {
         final configuration = D4.getNamedArgWithDefault<$flutter_34.ImageConfiguration>(named, 'configuration', $flutter_34.ImageConfiguration.empty);
         final defaultVerticalAlignment = D4.getNamedArgWithDefault<$flutter_80.TableCellVerticalAlignment>(named, 'defaultVerticalAlignment', $flutter_80.TableCellVerticalAlignment.top);
         final textBaseline = D4.getOptionalNamedArg<TextBaseline?>(named, 'textBaseline');
-        final children = D4.coerceListOrNull<List<$flutter_42.RenderBox>>(named['children'], 'children');
+        final children = D4.coerceNestedListOrNull<$flutter_42.RenderBox>(named['children'], 'children');
         if (!named.containsKey('defaultColumnWidth')) {
           return $flutter_80.RenderTable(columns: columns, rows: rows, columnWidths: columnWidths, textDirection: textDirection, border: border, rowDecorations: rowDecorations, configuration: configuration, defaultVerticalAlignment: defaultVerticalAlignment, textBaseline: textBaseline, children: children);
         }

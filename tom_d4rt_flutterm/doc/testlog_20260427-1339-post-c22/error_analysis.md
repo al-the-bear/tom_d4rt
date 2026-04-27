@@ -694,7 +694,27 @@ per known slot-mixin. Option (2) is the right long-term answer.
 
 ## D8 — Misc interpreter / bridge gaps
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Mixed · **Owner:** interpreter + bridge generator
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Mixed · **Owner:** interpreter + bridge generator
+
+**Status (2026-04-28, GEN-095 + GEN-096):** 7 of 8 sub-issues at FE=0
+post-fix; D8e is a C3-cascade carryover and stays deferred (the
+underlying interpreter layout/intrinsics gap for `Row +
+crossAxisAlignment.stretch + Expanded` inside `SliverToBoxAdapter` is
+documented in `interpreter_unfixable.md`; two script-side workarounds
+were already attempted and made the cascade worse).
+
+| Sub | Status | Resolution |
+|---|---|---|
+| D8a | FE=0 | Already passing in this run (script-side `??` defaults). |
+| D8b | FE=0 | Already passing in this run (script-side `?.padLeft`). |
+| D8c | FE=0 | Already passing in this run (script-side null guard). |
+| D8d | FE=0 | Already passing in this run (script-side null guard). |
+| D8e | FE=8 | **Deferred** — C3 cascade (`Row(stretch) + Expanded` in `SliverToBoxAdapter`); see `interpreter_unfixable.md`. |
+| D8f | FE=0 | **Fixed** — GEN-095 in `tom_d4rt_ast` + `tom_d4rt`: binary-expression auto-call of `InterpretedFunction` was unconditional and corrupted `==`/`!=` semantics for callbacks; now guarded by new `InterpretedFunction.canCallWithoutArgs` so only true zero-arg thunks are auto-invoked. Plus a script-side workaround for the `SemanticsGestureDelegate` proxy gap (no proxy is generated for the abstract bridged class — left as a known follow-up; see GEN-095 note in script). |
+| D8g | FE=0 | **Fixed** — GEN-096 in `tom_d4rt_generator` + D4 helpers: bridge generator now emits `D4.coerceNestedList<X>` for `List<List<X>>` parameters (e.g. `TwoDimensionalChildListDelegate.children`). Previously emitted `D4.coerceList<List<X>>`, which couldn't synthesize the typed inner list at runtime. New helper `coerceNestedListOrNull<T>` was added to both `tom_d4rt/lib/src/generator/d4.dart` and `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` for nullable-outer variants. |
+| D8h | FE=0 | Already passing in this run (script-side `textDirection`). |
+
+
 
 **Issues bucketed here**
 
