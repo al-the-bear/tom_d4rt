@@ -128,6 +128,7 @@ Widget _buildInfoCard(String title, String description, IconData icon) {
         SizedBox(width: 14),
         Expanded(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -163,6 +164,7 @@ Widget _buildCodeBlock(String title, String code) {
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -252,6 +254,7 @@ Widget _buildResultCard(String title, List<Widget> children) {
       ],
     ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -578,6 +581,7 @@ Widget _buildCreationSection() {
   print('Created wrapped BoxHitTestResult: ${wrappedResult.runtimeType}');
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader(
@@ -673,6 +677,7 @@ Widget _buildAddMethodSection() {
   }
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('2. add() Method', Icons.add_circle_outline),
@@ -771,6 +776,7 @@ Widget _buildAddWithPaintOffsetSection() {
   print('Result path length: ${result.path.length}');
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('3. addWithPaintOffset()', Icons.transform),
@@ -880,6 +886,7 @@ Widget _buildAddWithPaintTransformSection() {
   print('addWithPaintTransform returned: $hasHit');
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('4. addWithPaintTransform()', Icons.threesixty),
@@ -977,6 +984,7 @@ Widget _buildPathPropertySection() {
   }
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('5. path Property', Icons.route),
@@ -1059,6 +1067,7 @@ Widget _buildHitTestEntrySection() {
   print('  transform: ${entry.transform}');
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('6. HitTestEntry Entries', Icons.view_in_ar),
@@ -1175,6 +1184,7 @@ Widget _buildWrapUnwrapSection() {
   print('  Wrapped path length: ${wrappedResult.path.length}');
 
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('7. Wrap/Unwrap Pattern', Icons.wrap_text),
@@ -1334,23 +1344,20 @@ class _BoxHitTestResultDemoScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: ListView(
         padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildIntroductionCard(),
-            _buildCreationSection(),
-            _buildAddMethodSection(),
-            _buildAddWithPaintOffsetSection(),
-            _buildAddWithPaintTransformSection(),
-            _buildPathPropertySection(),
-            _buildHitTestEntrySection(),
-            _buildWrapUnwrapSection(),
-            _buildSummarySection(),
-            SizedBox(height: 40),
-          ],
-        ),
+        children: [
+          _buildIntroductionCard(),
+          _buildCreationSection(),
+          _buildAddMethodSection(),
+          _buildAddWithPaintOffsetSection(),
+          _buildAddWithPaintTransformSection(),
+          _buildPathPropertySection(),
+          _buildHitTestEntrySection(),
+          _buildWrapUnwrapSection(),
+          _buildSummarySection(),
+          SizedBox(height: 40),
+        ],
       ),
     );
   }
@@ -1375,6 +1382,7 @@ Widget _buildIntroductionCard() {
       ],
     ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -1390,6 +1398,7 @@ Widget _buildIntroductionCard() {
             SizedBox(width: 16),
             Expanded(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -1459,6 +1468,7 @@ Widget _buildFeatureChip(String label) {
 
 Widget _buildSummarySection() {
   return Column(
+    mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       _buildSectionHeader('Summary', Icons.summarize),

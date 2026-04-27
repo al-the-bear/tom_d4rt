@@ -1083,7 +1083,7 @@ nets +2 passing gii tests with no regressions in essential / important
 
 ### C22 — Visualization-layout cascade in `box_hit_test_result_test.dart` (script-side)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low · **Owner:** test script
 
@@ -1098,6 +1098,33 @@ nets +2 passing gii tests with no regressions in essential / important
 **Analysis.** The build tree is `Scaffold > body: SingleChildScrollView(padding: EdgeInsets.all(16), child: Column(crossAxisAlignment: start, children: [_buildIntroductionCard(), _buildCreationSection(), …]))`. Each of the inner `_buildXxxSection()` methods returns a top-level `Column` with default `mainAxisSize: MainAxisSize.max`. Inside an unbounded scroll viewport, a Flex with `MainAxisSize.max` resolves to `Size(width, Infinity)`, which Flutter flags. The original failure (`Cannot invoke 'contains' on null`) crashed the test before these warnings were emitted; with the fix the script runs through and the warnings come out as `frameworkErrors` that fail `expectSuccess`.
 
 **Suggested fix.** Set `mainAxisSize: MainAxisSize.min` on each top-level section Column (or wrap problematic descendants in `IntrinsicHeight`/`ConstrainedBox`). Strictly script-side; no interpreter or generator change needed.
+
+**What was done (2026-04-27).** Strictly script-side. Two layered fixes were applied to
+`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/rendering/box_hit_test_result_test.dart`:
+
+1. Added `mainAxisSize: MainAxisSize.min` on every Column in the script — both
+   the 8 top-level section Columns returned by `_buildXxxSection()` (per the
+   suggested fix) and the 5 inner Columns inside `_buildCodeBlock`,
+   `_buildResultCard`, `_buildIntroductionCard`, `_buildInfoCard`, and the
+   intro-card's `Expanded`. Empirically this alone did not move
+   `frameworkErrors=10` — the suggested fix did not fully cover the cascade.
+2. Replaced the body's `SingleChildScrollView(padding: …, child: Column(…))`
+   with `ListView(padding: …, children: [...])`. ListView's sliver-based
+   layout gives each child a finite-height slot, which fully eliminates the
+   unbounded-viewport cascade.
+
+**Result.** `frameworkErrors=10 → 0`; the gii test for
+`rendering/box_hit_test_result_test.dart` now passes (+1).
+
+**Verification.** Per regression rule (a) — script-only change, single-test
+retest sufficient. Logs in
+`tom_d4rt_flutterm/doc/testlog_20260427-c22/`:
+`c22_baseline.log.txt` (10 errors) →
+`c22_after_outer_fix.log.txt` (still 10) →
+`c22_after_inner_columns.log.txt` (still 10) →
+`c22_after_all_columns.log.txt` (still 10, `mainAxisSize.min` insufficient
+alone) →
+`c22_after_listview.log.txt` (`frameworkErrors=0`, +1 PASS).
 
 ---
 

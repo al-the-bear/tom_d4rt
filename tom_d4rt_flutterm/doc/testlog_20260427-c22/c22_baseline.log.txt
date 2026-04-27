@@ -1,0 +1,168 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_issues_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart
+[METRIC] script=rendering/box_hit_test_result_test.dart sourceBytes=52727 sourceChars=48711 bundleJsonBytes=528766 clearMs=43 readMs=11 bundleMs=289 httpMs=2271 totalMs=2616 status=success httpStatus=200 outputLines=6 frameworkErrors=10
+
+  ⚠️  FRAMEWORK ERROR in rendering/box_hit_test_result_test.dart (10 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+00:14 +0 -1: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart [E]
+  Expected: true
+    Actual: <false>
+  RenderParagraph object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderParagraph were:
+    BoxConstraints(w=1696.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1696.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderDecoratedBox object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderDecoratedBox were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#827de relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#77fb5] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#b77cf] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#7e46a] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1902.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 331:7   main.<fn>.<fn>
+  
+00:14 +0 -1: (tearDownAll)
+00:14 +0 -1: Some tests failed.
