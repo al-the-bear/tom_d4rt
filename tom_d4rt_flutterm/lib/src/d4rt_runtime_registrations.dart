@@ -36,6 +36,7 @@ import 'package:flutter/rendering.dart'
         ContainerBoxParentData,
         ContainerRenderObjectMixin,
         CustomClipper,
+        CustomPainter,
         HitTestBehavior,
         MultiChildLayoutDelegate,
         PaintingContext,
@@ -89,7 +90,7 @@ import 'package:flutter/widgets.dart'
         WidgetState,
         WidgetStatesConstraint;
 import 'dart:ui' show Clip;
-import 'dart:ui' show Offset, Path, Size;
+import 'dart:ui' show Canvas, Offset, Path, Size;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
     show BridgedClass, BridgedInstance;
@@ -188,6 +189,27 @@ void _registerBridgedSupertypes() {
     ],
     // State hierarchy
     'State': ['Diagnosticable'],
+    // D2: Concrete State subclasses & their mixins. Without these the
+    // `isAssignable` iteration in `Environment.toBridgedInstance` cannot
+    // disambiguate between e.g. `FormFieldState` and `RestorationMixin`,
+    // both of which match an instance of `FormFieldState<String>`. The
+    // specificity filter drops bridges that are supertypes of another
+    // match, which requires the supertype links recorded here.
+    'FormFieldState': ['State', 'RestorationMixin', 'Diagnosticable'],
+    'RestorationMixin': ['Diagnosticable'],
+    'TickerProviderStateMixin': ['State', 'TickerProvider', 'Diagnosticable'],
+    'SingleTickerProviderStateMixin': [
+      'State',
+      'TickerProvider',
+      'Diagnosticable',
+    ],
+    // D2: BoxConstraints/SliverConstraints disambiguate against the abstract
+    // `Constraints` base. Without these, instances whose runtimeType is a
+    // private impl (e.g. `_BodyBoxConstraints`) get wrapped as `Constraints`
+    // because of LAST-match-wins iteration.
+    'BoxConstraints': ['Constraints'],
+    'SliverConstraints': ['Constraints'],
+    'Constraints': ['Diagnosticable'],
     // Painting
     'Decoration': [],
     'BoxDecoration': ['Decoration'],
@@ -441,6 +463,28 @@ void registerD4rtInterfaceProxyOverrides() {
   D4.registerInterfaceProxy('CustomClipper', (visitor, instance) {
     final proxy = _InterpretedCustomClipperPath(visitor, instance);
     instance.nativeProxy ??= proxy;
+    return proxy;
+  });
+
+  // Cluster D2 — CustomPainter proxy.
+  //
+  // The auto-generated `D4rtCustomPainter` (flutter_proxies.b.dart) is a
+  // callback-only adapter with no back-reference to the interpreted instance.
+  // That breaks scripts that read fields off another painter — e.g.
+  // `bool shouldRepaint(covariant _MyPainter old) => old.progress != progress;`
+  // — because once the framework hands a `D4rtCustomPainter` back to the
+  // interpreter, property access on it has no path to the underlying
+  // InterpretedInstance.
+  //
+  // The hand-written `_InterpretedCustomPainter` implements `D4InterpretedProxy`
+  // and exposes the InterpretedInstance via `d4rtInstance`. The interpreter's
+  // visitSPropertyAccess / visitSPrefixedIdentifier unwraps to that and
+  // forwards the field read to the script class — `old.progress` resolves.
+  D4.registerInterfaceProxy('CustomPainter', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is CustomPainter) return cached;
+    final proxy = _InterpretedCustomPainter(visitor, instance);
+    instance.nativeProxy = proxy;
     return proxy;
   });
 
@@ -1012,11 +1056,20 @@ class _InterpretedStatefulWidget extends StatefulWidget {
 
 /// A native [State] that delegates lifecycle methods to an interpreted
 /// D4rt State subclass.
-class _InterpretedState extends State<_InterpretedStatefulWidget> {
+///
+/// Implements [D4InterpretedProxy] so the BridgedInstance dispatch can
+/// unwrap to the originating [InterpretedInstance] when the script
+/// accesses a field/getter declared on its own State subclass that
+/// the bridged `State` class doesn't expose (D2 fix).
+class _InterpretedState extends State<_InterpretedStatefulWidget>
+    implements D4InterpretedProxy {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
   _InterpretedState(this._visitor, this._stateInstance);
+
+  @override
+  Object get d4rtInstance => _stateInstance;
 
   @override
   void initState() {
@@ -1127,11 +1180,15 @@ class _InterpretedState extends State<_InterpretedStatefulWidget> {
 /// returns it directly for TickerProvider-typed parameters.
 class _InterpretedSingleTickerProviderState
     extends State<_InterpretedStatefulWidget>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin
+    implements D4InterpretedProxy {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
   _InterpretedSingleTickerProviderState(this._visitor, this._stateInstance);
+
+  @override
+  Object get d4rtInstance => _stateInstance;
 
   @override
   void initState() {
@@ -1232,11 +1289,15 @@ class _InterpretedSingleTickerProviderState
 /// delegates lifecycle methods to an interpreted D4rt State subclass.
 class _InterpretedMultiTickerProviderState
     extends State<_InterpretedStatefulWidget>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin
+    implements D4InterpretedProxy {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
   _InterpretedMultiTickerProviderState(this._visitor, this._stateInstance);
+
+  @override
+  Object get d4rtInstance => _stateInstance;
 
   @override
   void initState() {
@@ -1358,11 +1419,15 @@ class _InterpretedMultiTickerProviderState
 ///     native mixin implementation and the property's `_register` runs.
 class _InterpretedRestorationMixinState
     extends State<_InterpretedStatefulWidget>
-    with RestorationMixin<_InterpretedStatefulWidget> {
+    with RestorationMixin<_InterpretedStatefulWidget>
+    implements D4InterpretedProxy {
   final InterpreterVisitor _visitor;
   final InterpretedInstance _stateInstance;
 
   _InterpretedRestorationMixinState(this._visitor, this._stateInstance);
+
+  @override
+  Object get d4rtInstance => _stateInstance;
 
   @override
   String? get restorationId {
@@ -2365,6 +2430,82 @@ class _InterpretedCustomClipperPath extends CustomClipper<Path> {
       if (raw is bool) return raw;
     } catch (_) {}
     return false;
+  }
+}
+
+/// Native [CustomPainter] backing an interpreted subclass — Cluster D2.
+///
+/// Replaces the auto-generated `D4rtCustomPainter` proxy at the runtime
+/// registration layer. The auto-generated proxy is callback-only (no
+/// back-reference to the interpreted instance), so once it crosses a bridge
+/// boundary and re-enters the interpreter, property access on it cannot
+/// reach the underlying InterpretedInstance fields.
+///
+/// This proxy implements [D4InterpretedProxy] so the interpreter's
+/// visitSPropertyAccess / visitSPrefixedIdentifier unwrap fallback
+/// recovers the InterpretedInstance and forwards reads to the script class.
+/// Common case: `bool shouldRepaint(covariant _MyPainter old) =>
+/// old.progress != progress;` — `old.progress` resolves through the unwrap.
+class _InterpretedCustomPainter extends CustomPainter
+    implements D4InterpretedProxy {
+  _InterpretedCustomPainter(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final method = _instance.klass.findInstanceMethod('paint');
+    if (method == null) return;
+    try {
+      method.bind(_instance).call(_visitor, [canvas, size], const {});
+    } catch (_) {/* silently swallow paint exceptions */}
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    final method = _instance.klass.findInstanceMethod('shouldRepaint');
+    if (method == null) return true;
+    try {
+      // If oldDelegate is itself a proxy, pass the interpreted instance
+      // through so the script's `covariant _MyPainter old` parameter type
+      // accepts it — otherwise the type cast inside the script would fail.
+      final Object arg = oldDelegate is D4InterpretedProxy
+          ? (oldDelegate as D4InterpretedProxy).d4rtInstance
+          : oldDelegate;
+      final raw = method.bind(_instance).call(_visitor, [arg], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return true;
+  }
+
+  @override
+  bool shouldRebuildSemantics(covariant CustomPainter oldDelegate) {
+    final method =
+        _instance.klass.findInstanceMethod('shouldRebuildSemantics');
+    if (method == null) return shouldRepaint(oldDelegate);
+    try {
+      final Object arg = oldDelegate is D4InterpretedProxy
+          ? (oldDelegate as D4InterpretedProxy).d4rtInstance
+          : oldDelegate;
+      final raw = method.bind(_instance).call(_visitor, [arg], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return false;
+  }
+
+  @override
+  bool? hitTest(Offset position) {
+    final method = _instance.klass.findInstanceMethod('hitTest');
+    if (method == null) return null;
+    try {
+      final raw = method.bind(_instance).call(_visitor, [position], const {});
+      if (raw is bool) return raw;
+    } catch (_) {}
+    return null;
   }
 }
 

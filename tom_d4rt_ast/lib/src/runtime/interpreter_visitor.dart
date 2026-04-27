@@ -1165,6 +1165,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       }
 
+      // D2: D4InterpretedProxy unwrap fallback (see visitSPropertyAccess).
+      final nativeForUnwrap = bridgedInstance.nativeObject;
+      if (nativeForUnwrap is D4InterpretedProxy) {
+        final inner = nativeForUnwrap.d4rtInstance;
+        if (inner is InterpretedInstance) {
+          try {
+            return inner.get(memberName, visitor: this);
+          } catch (_) {
+            // fall through
+          }
+        }
+      }
+
       throw RuntimeD4rtException(
         "Undefined property or method '$memberName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
       );
@@ -4763,6 +4776,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return bridgedEnumValue.get(propertyName);
           } on RuntimeD4rtException {
             // Fall through to "Undefined property" error below.
+          }
+        }
+      }
+
+      // D2: If the bridged instance wraps a D4InterpretedProxy (a native
+      // proxy that holds a back-reference to the originating
+      // [InterpretedInstance]), retry the property access on the wrapped
+      // instance. Used for proxies like D4rtCustomPainter that route
+      // bridged-callback dispatch to script-defined fields/getters
+      // (e.g. `progress`) declared on the script's CustomPainter subclass.
+      final native = bridgedInstance.nativeObject;
+      if (native is D4InterpretedProxy) {
+        final inner = native.d4rtInstance;
+        if (inner is InterpretedInstance) {
+          try {
+            return inner.get(propertyName, visitor: this);
+          } catch (_) {
+            // fall through to throw with original context
           }
         }
       }

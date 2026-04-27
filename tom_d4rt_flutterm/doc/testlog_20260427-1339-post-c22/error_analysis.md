@@ -176,7 +176,45 @@ suite list eliminates the cascade.
 
 ## D2 — Field/getter access on bridged mixin instance reaches nowhere
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (mixin field/getter resolution)
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (mixin field/getter resolution)
+
+**Resolution.** Two interpreter bugs and one runtime-registration gap:
+
+1. `Environment.toBridgedInstance` step-2 (`isAssignable` iteration) used
+   LAST-match-wins iteration, so `_BodyBoxConstraints` (matches both
+   `BoxConstraints` and `Constraints`) was wrapped as the abstract
+   `Constraints` and `.maxWidth` failed. Fix: collect all `isAssignable`
+   matches, then drop bridges that are supertypes of another match (per
+   `BridgedClass.transitiveSupertypeNames`). Mirrored across
+   `tom_d4rt_ast/lib/src/runtime/environment.dart` and
+   `tom_d4rt/lib/src/environment.dart`. Required supertype-registry
+   entries added in `d4rt_runtime_registrations._registerBridgedSupertypes`
+   (`FormFieldState`, `RestorationMixin`, `TickerProviderStateMixin`,
+   `SingleTickerProviderStateMixin`, `BoxConstraints`, `SliverConstraints`,
+   `Constraints`).
+2. `visitSPropertyAccess` and `visitSPrefixedIdentifier` had no
+   D4InterpretedProxy unwrap fallback. After step-1 picks the right
+   bridge, the property may still be a script-side field (e.g.
+   `_controller` on a `with SingleTickerProviderStateMixin` State).
+   Fix: before throwing "Undefined property", if the bridged
+   nativeObject implements `D4InterpretedProxy`, retry the property
+   read on the wrapped `InterpretedInstance`. Mirrored across both
+   visitors.
+3. Auto-generated `D4rtCustomPainter` (flutter_proxies.b.dart) is a
+   callback-only proxy with no instance back-reference, so step-2
+   couldn't recover the script's `progress` field on the round-trip.
+   Fix: hand-written `_InterpretedCustomPainter` registered via
+   `registerD4rtInterfaceProxyOverrides()` that implements
+   `D4InterpretedProxy` with `d4rtInstance => _instance`. Same pattern
+   already applied to State proxies (`_InterpretedState`,
+   `_InterpretedSingleTickerProviderState`,
+   `_InterpretedMultiTickerProviderState`,
+   `_InterpretedRestorationMixinState`).
+
+**Verification.** All four bisect scripts run with `STATUS: true` and
+no D2 "Undefined property" errors. Regression suites all green
+serially: gii 82/0/0, essential 108/0/0, important 164/0/0,
+secondary 649/0/0.
 
 **Representative error**
 

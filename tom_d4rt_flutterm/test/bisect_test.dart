@@ -16,10 +16,11 @@ void main() {
   });
 
   for (final script in <String>[
-    // Plan E2 — Null `BuildContext` in
-    // `dependOnInheritedWidgetOfExactType` (open).
-    'widgets/inherited_theme_test.dart',
-    'widgets/inherited_widget_test.dart',
+    // D2 — Field/getter access on bridged mixin instance reaches nowhere.
+    'widgets/form_test.dart',
+    'widgets/scroll_position_with_single_context_test.dart',
+    'widgets/shortcut_activator_test.dart',
+    'widgets/shortcut_manager_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

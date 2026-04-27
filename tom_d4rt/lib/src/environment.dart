@@ -204,27 +204,61 @@ class Environment {
       current = current._enclosing;
     }
 
-    // 2) isAssignable iteration (keep LAST match for general→specific order).
-    BridgedClass? bestMatch;
+    // 2) isAssignable iteration. Bridges may register in any order, so we
+    //    collect ALL matches and then drop those that are supertypes of
+    //    another match using [BridgedClass.transitiveSupertypeNames]. The
+    //    remaining set is "leaf" matches; we pick the last one (preserves
+    //    legacy LAST-wins behaviour when the registry doesn't disambiguate).
+    //
+    //    D2 fix: A native object whose runtimeType is a private impl of
+    //    BoxConstraints (e.g. `_BodyBoxConstraints`) was wrapped as
+    //    `Constraints` because the LAST-match-wins iteration picked the
+    //    abstract base. With `BoxConstraints: [Constraints, ...]` registered
+    //    in the supertype registry, the filter drops `Constraints` and
+    //    keeps `BoxConstraints`, so `.maxWidth` resolves correctly.
+    final allMatches = <BridgedClass>[];
     current = this;
     while (current != null) {
       for (final entry in current._bridgedClassesLookupByType.entries) {
         final bridge = entry.value;
         if (bridge.isAssignable != null &&
             bridge.isAssignable!(nativeObject)) {
-          bestMatch = bridge;
+          allMatches.add(bridge);
         }
       }
       current = current._enclosing;
     }
-    if (bestMatch != null) {
-      return BridgedInstance(bestMatch, nativeObject);
+    if (allMatches.isNotEmpty) {
+      final filtered = _filterToMostSpecific(allMatches);
+      final picked = filtered.isNotEmpty ? filtered.last : allMatches.last;
+      return BridgedInstance(picked, nativeObject);
     }
 
     // 3) Name-based fallbacks (private impl, generic suffix, *Impl prefix).
     //    [toBridgedClass] will throw if no bridge matches — propagate.
     final bridgedClass = toBridgedClass(runtimeType);
     return BridgedInstance(bridgedClass, nativeObject);
+  }
+
+  /// D2: From a list of `isAssignable` matches, drop bridges that are
+  /// supertypes of any other match (per [BridgedClass.transitiveSupertypeNames]).
+  /// The remaining bridges are the "most specific" candidates — typically a
+  /// single concrete type plus possibly unrelated mixins. Order is preserved
+  /// so the caller can apply LAST-wins for tie-breaking among the leaves.
+  List<BridgedClass> _filterToMostSpecific(List<BridgedClass> matches) {
+    if (matches.length <= 1) return matches;
+    // Build the union of supertypes of all matches by name.
+    final supertypeUnion = <String>{};
+    for (final m in matches) {
+      supertypeUnion.addAll(BridgedClass.transitiveSupertypeNames(m.name));
+    }
+    // Drop matches whose name appears in the supertype union (they are
+    // ancestors of another match).
+    final leaves =
+        matches.where((m) => !supertypeUnion.contains(m.name)).toList(
+              growable: false,
+            );
+    return leaves;
   }
 
   BridgedClass toBridgedClass(Type nativeType) {
@@ -696,6 +730,30 @@ class Environment {
         // No bridged class found for this type
         Logger.debug(
             "[getRuntimeType] No BridgedClass found for native type ${value.runtimeType}");
+      }
+      // C20a fix: When the runtime type isn't a registered bridge (e.g.
+      // private impl types returned by extension operators like
+      // `WidgetState.a | WidgetState.b` returning a `_WidgetStateOr`),
+      // fall back to `isAssignable` iteration so we can recover the
+      // bridged interface (e.g. `WidgetStatesConstraint`) it implements.
+      // This lets subsequent operator dispatch (e.g. `& ~WidgetState.x`
+      // applied to the OR result) reach the right extension.
+      Environment? current = this;
+      BridgedClass? bestMatch;
+      while (current != null) {
+        for (final entry in current._bridgedClassesLookupByType.entries) {
+          final bridge = entry.value;
+          if (bridge.isAssignable != null && bridge.isAssignable!(value)) {
+            bestMatch = bridge;
+          }
+        }
+        current = current._enclosing;
+      }
+      if (bestMatch != null) {
+        Logger.debug(
+            "[getRuntimeType] Resolved native ${value.runtimeType} via "
+            "isAssignable to BridgedClass(${bestMatch.name})");
+        return bestMatch;
       }
     }
 
