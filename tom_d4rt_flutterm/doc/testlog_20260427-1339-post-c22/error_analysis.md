@@ -814,7 +814,7 @@ defensive infrastructure, matching the long-standing
 |---|---|---|
 | ~~C20a~~ | ~~`Unsupported binary operator "&"`~~ | ~~`widgets/widget_states_constraint_test.dart` (hr5, 1 FE)~~ — **closed 2026-04-27** |
 | ~~C20b~~ | ~~`Unsupported for-loop type in collection literal: SForEachPartsWithPattern`~~ | ~~`widgets/fractional_translation_test.dart` (hr4, 1 FE)~~ — **closed 2026-04-27** |
-| C20d | `Native error in bridged superclass method 'State.setState': Build scheduled during frame.` | `rendering/render_box_container_defaults_mixin_test.dart` (gii fail), `rendering/render_custom_paint_test.dart` (gii fail) |
+| ~~C20d~~ | ~~`Native error in bridged superclass method 'State.setState': Build scheduled during frame.`~~ | ~~`rendering/render_box_container_defaults_mixin_test.dart` (gii fail), `rendering/render_custom_paint_test.dart` (gii fail)~~ — **closed 2026-04-27 (workaround)** |
 | C20f | `Error in generic constructor factory for 'RawRadio'` | `retest/widgets/raw_radio_test.dart` (gir fail) |
 | C20h₂ | `LateInitializationError: Late variable '_<...>' without initializer` | `widgets/text_selection_gesture_detector_builder_delegate_test.dart` — folded into D3 |
 
@@ -850,17 +850,38 @@ even though the statement-level for-in already supported it via
 Implemented in both `tom_d4rt/lib/src/interpreter_visitor.dart` and
 `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
 
-C20d (`setState` during frame) needs an interpreter trampoline that
-defers the rebuild via `WidgetsBinding.instance.addPostFrameCallback`.
+C20d closed 2026-04-27 (workaround) — added a
+`StateUserBridge.overrideMethodSetState` user-bridge override in
+`tom_d4rt_flutterm/lib/src/d4rt_user_bridges/state_user_bridge.dart`
+that wraps the auto-generated `State.setState` adapter with a
+scheduler-phase guard. When
+`SchedulerBinding.instance.schedulerPhase` is
+`transientCallbacks`, `midFrameMicrotasks`, or
+`persistentCallbacks` (i.e. the framework is mid-frame), the
+callback is deferred via
+`WidgetsBinding.instance.addPostFrameCallback`; otherwise it runs
+synchronously as before. The supplementary registration in
+`d4rt_runtime_registrations.dart` was kept as the unbridged
+fallback. After regenerating the bridges, gii went from 79/1/3 →
+80/1/2 (`render_box_container_defaults_mixin_test.dart` flipped
+FAIL → PASS). The second driving script,
+`rendering/render_custom_paint_test.dart`, still fails gii on the
+unrelated downstream error `Bad state: No element` (from a
+`path.computeMetrics().first` call where the path has no metrics)
+— that is a separate cluster, not C20d. Behavioural deviation from
+real Flutter (real Flutter throws; the bridge defers) documented in
+`doc/interpreter_unfixable.md` (C20d). Regression: essential 108/0/0,
+important 164/5/0, secondary 649/5/0 — all matching baseline.
+
 C20f is a generic constructor-factory bug in the generator.
 
 ## C21 — Interpreted `ParentData` proxy (Partial)
 
 Representative error eliminated by 04-27 fix. The single driving
 script (`rendering/render_box_container_defaults_mixin_test.dart`)
-still fails gii, but on different downstream errors that belong to
-C20d (`setState` during frame) and the layout cascade — folded into
-D6 above.
+flipped FAIL → PASS in gii on 2026-04-27 once the C20d
+`State.setState` workaround landed. Any residual layout-cascade
+noise from this script is folded into D6 above.
 
 ## Plan E2 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (open)
 
@@ -895,10 +916,11 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C20d/f, C21,
+Carry-over clusters (C1, C3, C4, C7, C20f, C21,
 Plan E2, InheritedModel proxy) detailed above.
 C20a closed 2026-04-27 (tear-off + map-key + WidgetStatesConstraint proxy).
 C20b closed 2026-04-27 (SForEachPartsWithPattern in collection literals).
+C20d closed 2026-04-27 (StateUserBridge scheduler-phase deferral workaround).
 
 ---
 
