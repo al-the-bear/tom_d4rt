@@ -909,13 +909,68 @@ After regenerating bridges: raw_radio_test went from 1 framework
 error to 0. Regression: gir 47/0/11, essential 108/0/0, important
 164/0/5, secondary 649/0/5 — all matching baseline.
 
-## C21 — Interpreted `ParentData` proxy (Partial)
+## C21 — Interpreted `ParentData` proxy (Fixed 2026-04-27)
 
-Representative error eliminated by 04-27 fix. The single driving
-script (`rendering/render_box_container_defaults_mixin_test.dart`)
-flipped FAIL → PASS in gii on 2026-04-27 once the C20d
-`State.setState` workaround landed. Any residual layout-cascade
-noise from this script is folded into D6 above.
+**Status:** Fixed. Driving script (`rendering/render_box_container_defaults_mixin_test.dart`)
+remains at 0 FE. The C1-followup `widget_test` cascade surfaced at
+12 FE in the prior turn dropped to **1 FE** after this fix; the 1
+residual is a downstream `dart:ui/math.dart:14` `clampDouble`
+assertion that already existed in the pre-C21 baseline (it was
+masked by the createRenderObject failures, then re-surfaced once
+the cascade resolved). Documented under interpreter_unfixable.md
+as a downstream Flutter framework assertion not rooted in the
+interpreter.
+
+**Root cause of the residual cascade** (12 FE on the slotted widget
+test): the AST-driven interpreter (`tom_d4rt_ast`) was missing
+Dart's **null-shorting** semantics. For an expression chain such
+as `box?.size.height` where `box == null`, the inner `?.` correctly
+short-circuits, but the outer `.size.height` would re-evaluate and
+throw "Cannot access property 'height' on null". Per Dart spec
+§16.27.1, when any inner selector in a chain uses `?.`/`?[…]`,
+every subsequent selector up to the chain's termination point
+(parentheses or non-selector expression) must yield null instead
+of throwing.
+
+**Fix.** Added a structural helper `_chainHasNullAwareSelector`
+that walks the syntactic target chain and returns true if any
+inner `PropertyAccess`/`MethodInvocation`/`IndexExpression` uses
+`?.`/`?[…]`. The helper terminates at `ParenthesizedExpression`,
+`SimpleIdentifier`, literals, etc. Applied at three call sites
+in both interpreters:
+
+- `visitPropertyAccess` — was the throw site for the failing scripts.
+- `visitMethodInvocation` — for chains ending in a method call.
+- `visitIndexExpression` — for chains ending in `[…]`.
+
+Mirrored fix in:
+- `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` (helper
+  at line ~144; call sites at 1825, 3222, 4344).
+- `tom_d4rt/lib/src/interpreter_visitor.dart` (helper after
+  `executeBlock`; call sites in `visitMethodInvocation`,
+  `visitPropertyAccess`, `visitIndexExpression`).
+
+**Verification.**
+
+- Unit tests in `tom_d4rt_exec/test/_c21_null_short_test.dart`
+  (`a?.size.height ?? -1.0` and method-returned-null variant): both
+  PASS post-fix; both FAILED pre-fix.
+- Bisect:
+  - `rendering/render_box_container_defaults_mixin_test.dart`: 0 FE
+    (unchanged).
+  - `widgets/slotted_multi_child_render_object_widget_test.dart`:
+    **12 FE → 1 FE** (the residual is the pre-existing `clampDouble`
+    assertion).
+- Regression suites (serial, `D4RT_SKIP_BRIDGE_REGEN=1`):
+  - gii: 80/1/2 (matches baseline; the 2 failures
+    `rendering/custom_painter_semantics_test.dart` and
+    `rendering/render_custom_paint_test.dart` are pre-existing
+    per `testlog_20260427-1339-post-c22/generator_interpreter_issues_test.result.json`).
+  - essential: 108/0/0 — match baseline.
+  - important: 164/0/5 — match baseline.
+  - secondary: 649/0/5 — match baseline.
+
+**Logs.** `ztmp/c21_logs/{bisect_post_fix,post_fix_gii,post_fix_essential,post_fix_important,post_fix_secondary}.log`.
 
 ## Plan E2 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (open)
 

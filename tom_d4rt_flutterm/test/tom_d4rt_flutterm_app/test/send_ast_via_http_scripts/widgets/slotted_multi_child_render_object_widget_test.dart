@@ -311,10 +311,10 @@ class _SmcrowDashboardRender extends RenderBox
     actionsBox?.layout(actionsC, parentUsesSize: true);
 
     double dy = padding;
-    final double headerH = math.max(
-      iconBox?.size.height ?? 0,
-      (titleBox?.size.height ?? 0) + (subBox?.size.height ?? 0) + 2,
-    );
+    final h1 = iconBox?.size.height ?? 0;
+    final h2 = titleBox?.size.height ?? 0;
+    final h3 = subBox?.size.height ?? 0;
+    final double headerH = math.max(h1, h2 + h3 + 2);
 
     if (iconBox != null) {
       _place(iconBox, Offset(padding, dy));

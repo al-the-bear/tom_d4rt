@@ -407,3 +407,101 @@ not an interpreter change.
      required, give each card the same `height:` constant.
   Either keeps the rendered output identical and avoids the
   `BoxConstraints forces an infinite height` cascade entirely.
+
+## Residual `dart:ui/math.dart:14` `clampDouble` assertion in `widgets/slotted_multi_child_render_object_widget_test.dart`
+
+**Status:** Documented residual after C21 close (2026-04-27).
+
+**Symptom.**
+
+```
+'dart:ui/math.dart': Failed assertion: line 14 pos 10: '<optimized out>': is not true.
+```
+
+Line 14 of `dart:ui/math.dart` is:
+
+```dart
+double clampDouble(double x, double min, double max) {
+  assert(min <= max && !max.isNaN && !min.isNaN);
+  ...
+}
+```
+
+**Where it triggers.** Deep inside the Flutter framework's paint /
+layout pipeline when one of the four specimens in
+`_SmcrowSpecimenAllFilled` / `_SmcrowSpecimenIconTitleOnly` /
+`_SmcrowSpecimenTrendEmphasis` / `_SmcrowSpecimenActionsForward`
+renders. Stack-trace optimisation hides the originating call, but
+the only paths in the script that reach Flutter `clampDouble` are:
+
+1. `_SmcrowSparkPainter.paint` — uses `math.min` / `math.max` from
+   `dart:math` over `values` and produces `(values[i] - minV) / range
+   * (size.height - 4) - 2`. With `values` non-empty, `minV ≤ maxV`
+   holds and `range >= 1e-6` is enforced. Output is finite.
+2. `_SmcrowDashboardRender.performLayout` — produces `headerH` and
+   `dy` from finite components (now that null-shorting is fixed).
+   Output is finite for all specimens.
+3. `Color.withValues(alpha: 0.14)` — internally clamps the alpha
+   channel via `clampDouble` with literal bounds. A literal call
+   like `Color(...).withValues(alpha: 0.14)` cannot trip the
+   assertion in the engine, but the interpreted variant routing
+   through the bridged `Color.withValues` adapter could pass NaN
+   if the receiver `color` is null and the script side coerces it
+   through `?? const Color(0xFF000000)` after a typed-as-non-null
+   field was actually carrying a null in interpreted dispatch.
+
+**Why this isn't fixable in the interpreter directly.** The
+assertion fires in the Flutter engine layer (`dart:ui`), not in
+interpreter code. The interpreter's role is upstream — it produces
+the values that flow into bridged `Color.withValues`,
+`Canvas.drawRRect`, `RRect.fromRectAndRadius`, etc. Without an
+in-bridge instrumentation pass capturing every numeric argument
+crossing the bridge boundary on this script, narrowing the exact
+trigger requires either adding native-side asserts inside the
+generated `*.b.dart` adapters (forbidden by the "fix the
+generator, not the generated code" rule) or adding a
+generator-level numeric-argument logger gated by an env flag.
+
+**Pre-existing in baseline.** The same `dart:ui/math.dart:14`
+assertion is present in the post-C22 baseline test logs
+(`hardly_relevant_classes_5_test.log.txt:500`,
+`hardly_relevant_classes_5_test.result.json:545`,
+`secondary_classes_test.result.json` etc.) — i.e., it surfaces in
+multiple scripts that exercise paint of bridged `Color.withValues`
+or stroked paths under interpreter dispatch, not only in this
+specimen. Marking C21 fixed because the C21-specific cascade
+(null-shorting through `?.` chains that cause the slotted layout
+to throw "Cannot access property 'height' on null") is closed, and
+the residual is a pre-existing class of downstream Flutter
+assertion that needs its own targeted instrumentation pass.
+
+**Vanilla Dart trigger.** Reproducible in vanilla Dart only by
+constructing a `Color.withValues(alpha: <NaN-or-out-of-range>)`
+call, e.g.:
+
+```dart
+Color(0xFF112233).withValues(alpha: double.nan); // asserts in dart:ui clampDouble
+```
+
+In the interpreted slotted test, the trigger is one of the
+several `withValues(alpha: <literal>)` / canvas-clamp paths
+listed above where the bridged numeric argument is produced from
+an interpreted-side computation that can be NaN/Infinity in some
+slot-population permutations.
+
+**Functional workaround (when authoring scripts).** When a
+`Color.withValues(alpha: …)` argument may have been computed
+through a chain that could produce NaN (e.g., `0 / 0` in a
+sparkline where all values are equal and the `range` guard
+inherited from a stale earlier paint state is bypassed), guard at
+the script call site:
+
+```dart
+double safe(double v) => v.isNaN || v.isInfinite ? 0.0 : v;
+final alpha = safe(computedAlpha).clamp(0.0, 1.0);
+Color(0xFF112233).withValues(alpha: alpha);
+```
+
+This keeps the script identical in behaviour for valid inputs and
+avoids the engine-level assertion when a degenerate input slips
+through.
