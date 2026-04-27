@@ -16,13 +16,14 @@ void main() {
   });
 
   for (final script in <String>[
-    // D6 — Layout cascade (script-only). Each entry should report
-    // frameworkErrors=0 after the C22-style ListView/MainAxisSize.min
-    // patches land. scrollbar_painter still has 4 RenderFlex overflow
-    // FEs (script authoring follow-up, separate from the cascade).
-    'widgets/scroll_increment_details_test.dart',
-    'widgets/scrollbar_painter_test.dart',
-    'widgets/restorable_bool_test.dart',
+    // D7 — SlottedContainerRenderObjectMixin cluster. Option (1) of
+    // C1 (slot-mixin proxy variant) closed the createRenderObject
+    // assertion in all 3 scripts; element_test fully clean. The two
+    // multi_child_* scripts have residual layout cascades that this
+    // round investigates.
+    'widgets/slotted_render_object_element_test.dart',
+    'widgets/slotted_multi_child_render_object_widget_mixin_test.dart',
+    'widgets/slotted_multi_child_render_object_widget_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

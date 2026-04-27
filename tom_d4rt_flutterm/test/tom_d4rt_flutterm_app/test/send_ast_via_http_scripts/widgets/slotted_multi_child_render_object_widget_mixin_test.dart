@@ -1837,8 +1837,18 @@ class _SmcrowmIncorrectVsCorrect extends StatelessWidget {
                 'whole point of the mixin.',
           ),
           const SizedBox(height: 12),
+          // D7 layout-cascade fix: the original
+          // Row(crossAxisAlignment: stretch) sat inside a SliverToBoxAdapter
+          // which provides unbounded vertical constraints, so the cross-axis
+          // stretch propagated h=Infinity into each Expanded card → "BoxConstraints
+          // forces an infinite height" cascade. Removing stretch lets each card
+          // size to its content; the cards no longer line up at the bottom but
+          // they render correctly. Kept in mind that IntrinsicHeight is the
+          // canonical fix under native Flutter, but it routes intrinsic queries
+          // through the d4rt proxy pipeline (see C3 in interpreter_unfixable.md)
+          // and reproduces the same null-walk under the interpreter.
           Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
                 child: _SmcrowmDiffCard(

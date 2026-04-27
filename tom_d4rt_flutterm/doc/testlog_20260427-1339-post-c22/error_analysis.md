@@ -629,12 +629,28 @@ retest sufficient).
 
 ## D7 — `createRenderObject` must return a `SlottedContainerRenderObjectMixin`-mixed render object
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator (proxy generator) + tom_d4rt_flutterm runtime registrations
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator (proxy generator) + tom_d4rt_flutterm runtime registrations
 - **Resolution (2026-04-27):** Option (1) landed — see C1 above for
   the per-script results (createRenderObject assertion gone in all
-  3 scripts; element_test fully clean; widget_test surfaces a new
-  layout cascade rooted in slot-mixin private member access from
-  interpreted scripts).
+  3 scripts; element_test fully clean).
+- **Closing the cluster (2026-04-28):** All 3 D7 scripts now report
+  `frameworkErrors=0`. The original D7 assertion was already gone in
+  all 3 scripts thanks to the C1 slot-mixin proxy. On a fresh run
+  `slotted_multi_child_render_object_widget_test.dart` came in clean
+  (the previously-reported 12-FE cascade did not reproduce — the
+  surrounding C21/C22 fixes that landed in the meantime appear to
+  have flushed it). The remaining 7-FE cascade in
+  `slotted_multi_child_render_object_widget_mixin_test.dart` was a
+  script-side D6-shaped issue: a single `Row(crossAxisAlignment:
+  stretch)` inside a `SliverToBoxAdapter` (`_SmcrowmIncorrectVsCorrect`)
+  was propagating `h=Infinity` into each `Expanded` card via the
+  cross-axis stretch. Switched to `crossAxisAlignment: start` —
+  cards now size to their content (no longer line up at the bottom,
+  but render correctly) and the cascade is gone. `IntrinsicHeight`
+  would be the canonical native-Flutter fix but routes intrinsic
+  queries through the d4rt slot-mixin proxy pipeline (see C3 in
+  `interpreter_unfixable.md`) and reproduces the same null-walk
+  under the interpreter.
 
 **Representative error**
 
