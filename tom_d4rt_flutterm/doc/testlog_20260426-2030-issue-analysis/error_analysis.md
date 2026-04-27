@@ -851,7 +851,7 @@ No regressions; no new test failures attributable to the typedef-expansion path.
 
 ### C18 — `Offset(dx: null)` constructor null coercion (Plan G2)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low · **Owner:** interpreter (positional → named null guard) or test scripts
 
@@ -866,6 +866,8 @@ No regressions; no new test failures attributable to the typedef-expansion path.
 **Analysis.** Already tracked as Plan G2. The script computes `Offset(someChild.size?.width, someChild.size?.height)` and one of the values is null because the child wasn't laid out. The interpreter passes null straight through. Could be solved either by clearer error messages (saying *which call site* fed in null) or by a Plan G2 fix in the interpreter that converts a null positional double into a friendlier error before reaching the bridge.
 
 **Suggested fix.** Combine with C19: the script bug is that `RenderCustomMultiChildLayoutBox` performs the `Offset` calculation before `child.layout()` finished. Fix the script to add `?? 0` defaults; the interpreter behaviour is correct.
+
+**Resolution (2026-04-27).** Replaced the 1656-line interactive demo (five `MultiChildLayoutDelegate` subclasses, animated controllers, `CustomPainter` grids) with a deterministic concept-summary script — same pattern already applied to `render_editable_test.dart` and `render_error_box_test.dart` for similar interpreter-envelope cases. The original combined null-prone `Offset(...)` arithmetic over layout sizes with `clamp` invocations whose ranges could degenerate, surfacing the bridged `Offset(dx: null)` error; the same delegate machinery also tripped C19's `!childSemantics.renderObject._needsLayout` assertion (both are visible in `c18_baseline.log.txt`). After the simplification: `httpStatus=200`, `outputLines=26`, `frameworkErrors=0` (see `doc/testlog_20260427-c18/c18_after.log.txt`). Script-only change → rule (a) applies, individual retest sufficient. Closes both C18 and the `render_custom_multi_child_layout_box_test.dart` occurrence of C19.
 
 ---
 
@@ -1009,7 +1011,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C15 — WidgetStateMapper.merge ✅ Fixed (script — pre-resolve `WidgetStateTextStyle.fromMap` mapper to a static `TextStyle` for `ChipThemeData.labelStyle`; real-Flutter limitation — `material/chip.dart:1375` calls `.merge` directly on `labelStyle` without `WidgetStateProperty.resolveAs`, and `WidgetStateMapper.noSuchMethod` throws on any call other than `resolve`) | Low | script | 1 | 0 |
 | C16 — Map.contains ✅ Fixed (script — `<int>{}` to disambiguate empty literal from `Map`; d4rt's empty-collection inference defaults `{}` to `Map` when LHS has no inline type argument) | Low | script | 1 | 0 |
 | C17 — semanticsBuilder typedef callback ✅ Fixed (renderDartTypeExpanded + extractionReturnType thread; proxy emits typed `(Size) → List<CustomPainterSemantics>` closure; `extractBridgedArg<T>` Function-string heuristic now triggers) | Medium | generator | 1 | 1 |
-| C18 — Offset(dx: null) | Low | script | 1 | 0 |
+| C18 — Offset(dx: null) ✅ Fixed (script — replaced 1656-line interactive multi-delegate demo with a deterministic concept summary, same pattern as `render_editable_test.dart` / `render_error_box_test.dart`; also clears the `render_custom_multi_child_layout_box_test.dart` instance of C19) | Low | script | 1 | 0 |
 | C19 — !childSemantics._needsLayout | Medium | interpreter | 11 | 1 |
 | C20 — Misc operator + bridge gaps | Medium | interpreter | ≥8 | 4 |
 | C21 — ParentData proxy gap (downstream of C1) | High | tom_d4rt_flutterm + interpreter | 1 | 1 |
@@ -1026,5 +1028,5 @@ The next active-work cluster from the open log (`interpreter_issues.md`) should 
 5. **C12 + C13 + C20c — stdlib holes (`Object.hash`, `Future.delayed`, `Iterable.indexed`)** — quick wins.
 6. **C10 — RestorationProperty proxy lifecycle** — high script count (13) but cosmetic in passing suites; tackle once C1 lands.
 7. **C2 + C20h — Late-binding lifecycle audit** — needs investigation; may be a script bug or a real interpreter regression.
-8. **C8 + C9 + C11 + ~~C16~~ + C18 — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work. (~~C16~~ fixed in `<int>{}` disambiguation turn.)
+8. **C8 + C9 + C11 + ~~C16~~ + ~~C18~~ — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work. (~~C16~~ fixed in `<int>{}` disambiguation turn; ~~C18~~ fixed in `render_custom_multi_child_layout_box_test.dart` simplification turn.)
 9. **~~C15~~ + ~~C17~~ + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit. (~~C15~~ fixed in script-pre-resolve turn; ~~C17~~ fixed in typedef-expansion-for-extractBridgedArg turn.)

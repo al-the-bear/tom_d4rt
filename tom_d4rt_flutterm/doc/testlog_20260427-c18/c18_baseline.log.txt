@@ -1,0 +1,13 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: rendering/render_custom_multi_child_layout_box_test.dart (C18)
+[METRIC] script=rendering/render_custom_multi_child_layout_box_test.dart sourceBytes=66763 sourceChars=66763 bundleJsonBytes=1071676 clearMs=112 readMs=8 bundleMs=369 httpMs=2586 totalMs=3078 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_multi_child_layout_box_test.dart (2 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Offset': Argument Error: Invalid parameter "dx": expected double, got Null
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error during default bridged constructor for 'Offset': Argument Error: Invalid parameter "dx": expected double, got Null, 'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.]
+OUTPUT_COUNT: 0
+00:14 +1: (tearDownAll)
+00:15 +1: All tests passed!

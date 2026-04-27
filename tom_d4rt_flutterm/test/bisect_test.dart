@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    'rendering/custom_painter_semantics_test.dart',
+    'rendering/render_custom_multi_child_layout_box_test.dart',
   ]) {
-    test('$script (C17)', () async {
+    test('$script (C18)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

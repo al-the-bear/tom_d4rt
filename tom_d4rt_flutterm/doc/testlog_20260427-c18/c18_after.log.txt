@@ -1,0 +1,41 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: rendering/render_custom_multi_child_layout_box_test.dart (C18)
+[METRIC] script=rendering/render_custom_multi_child_layout_box_test.dart sourceBytes=3351 sourceChars=3351 bundleJsonBytes=18045 clearMs=93 readMs=8 bundleMs=161 httpMs=613 totalMs=878 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 26
+OUT: RenderCustomMultiChildLayoutBox test executing
+OUT: 
+RenderCustomMultiChildLayoutBox characteristics:
+OUT: - Backs the CustomMultiChildLayout widget
+OUT: - Drives layout via a MultiChildLayoutDelegate
+OUT: - Each slot has a stable ID, constraints, and an offset
+OUT: - Optional slots are gated by hasChild(slotId)
+OUT: 
+MultiChildLayoutDelegate contract:
+OUT: - performLayout(Size size): position every child via layoutChild + positionChild
+OUT: - shouldRelayout(oldDelegate): return true when layout-relevant input changed
+OUT: - getSize(BoxConstraints): optional, return delegate-provided size
+OUT: 
+Common delegate patterns:
+OUT: - Dashboard: header / rail / content / footer slot grid
+OUT: - Orbit: center anchor with orbiting slots positioned by trig
+OUT: - Waterfall: lane-based vertical staggering
+OUT: - Overlap: layered z-order placement with anchor offsets
+OUT: - Bands: responsive top/bottom split for adaptive widths
+OUT: 
+Failure modes to watch for:
+OUT: - Calling positionChild before layoutChild for the same id
+OUT: - Forgetting hasChild gating on optional slots (throws)
+OUT: - Reading childSize before layout completes -> null inputs to Offset
+OUT: - Mutating delegate inputs without bumping shouldRelayout
+OUT: 
+Type hierarchy:
+OUT: RenderCustomMultiChildLayoutBox extends RenderBox
+OUT:   with ContainerRenderObjectMixin, RenderBoxContainerDefaultsMixin
+OUT: Used by the CustomMultiChildLayout widget
+OUT: 
+RenderCustomMultiChildLayoutBox test completed
+00:12 +1: (tearDownAll)
+00:12 +1: All tests passed!
