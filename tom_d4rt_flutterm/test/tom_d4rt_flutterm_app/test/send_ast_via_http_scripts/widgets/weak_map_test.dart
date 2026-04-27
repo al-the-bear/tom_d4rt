@@ -178,7 +178,7 @@ class _WmLatAppBarTitle extends StatelessWidget {
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: _wmLatAqua.withValues(alpha: 0.5),
+                color: (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.5),
                 blurRadius: 12,
                 offset: const Offset(0, 3),
               ),
@@ -248,7 +248,7 @@ class _WmLatAppBarPainter extends CustomPainter {
     final Paint hex = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.8
-      ..color = _wmLatAqua.withValues(alpha: 0.22);
+      ..color = (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.22);
     const double r = 22;
     final double h = r * math.sqrt(3.0);
     for (double y = -h; y < size.height + h; y += h) {
@@ -262,8 +262,8 @@ class _WmLatAppBarPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..shader = RadialGradient(
         colors: <Color>[
-          _wmLatAqua.withValues(alpha: 0.45),
-          _wmLatAqua.withValues(alpha: 0.0),
+          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.0),
         ],
       ).createShader(
         Rect.fromCircle(
@@ -320,7 +320,7 @@ class _WmLatBackgroundPainter extends CustomPainter {
     final Paint lattice = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.6
-      ..color = _wmLatIndigo.withValues(alpha: 0.08);
+      ..color = (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.08);
     const double r = 30;
     final double h = r * math.sqrt(3.0);
     for (double y = -h; y < size.height + h; y += h) {
@@ -335,9 +335,9 @@ class _WmLatBackgroundPainter extends CustomPainter {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: <Color>[
-          _wmLatAqua.withValues(alpha: 0.0),
-          _wmLatAqua.withValues(alpha: 0.09),
-          _wmLatAqua.withValues(alpha: 0.0),
+          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.0),
+          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.09),
+          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.0),
         ],
         stops: <double>[
           (phase - 0.2).clamp(0.0, 1.0),
@@ -389,10 +389,10 @@ class _WmLatTableOfContents extends StatelessWidget {
                       height: 28,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: e.accent.withValues(alpha: 0.14),
+                        color: (e.accent ?? const Color(0xFF000000)).withValues(alpha: 0.14),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                          color: e.accent.withValues(alpha: 0.7),
+                          color: (e.accent ?? const Color(0xFF000000)).withValues(alpha: 0.7),
                         ),
                       ),
                       child: Text(
@@ -468,7 +468,7 @@ class _WmLatCard extends StatelessWidget {
         border: Border.all(color: _wmLatSilver),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: _wmLatIndigo.withValues(alpha: 0.06),
+            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.06),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -480,12 +480,12 @@ class _WmLatCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
             decoration: BoxDecoration(
-              color: accent.withValues(alpha: 0.08),
+              color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.08),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(14),
               ),
               border: Border(
-                bottom: BorderSide(color: accent.withValues(alpha: 0.35)),
+                bottom: BorderSide(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
               ),
             ),
             child: Row(
@@ -570,7 +570,7 @@ class _WmLatChapterHeader extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[accent, accent.withValues(alpha: 0.7)],
+                colors: <Color>[accent, (accent ?? const Color(0xFF000000)).withValues(alpha: 0.7)],
               ),
               borderRadius: BorderRadius.circular(10),
             ),
@@ -631,9 +631,9 @@ class _WmLatPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.14),
+        color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: color.withValues(alpha: 0.55)),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -710,7 +710,7 @@ class _WmLatDivider extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       height: 1,
-      color: _wmLatSilver.withValues(alpha: 0.7),
+      color: (_wmLatSilver ?? const Color(0xFF000000)).withValues(alpha: 0.7),
     );
   }
 }
@@ -926,7 +926,7 @@ class _WmLatLatticeDiagramPainter extends CustomPainter {
     );
 
     final Paint edge = Paint()
-      ..color = _wmLatIndigo.withValues(alpha: 0.3)
+      ..color = (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.3)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2;
     final List<Offset> nodes = <Offset>[];
@@ -1109,9 +1109,9 @@ class _WmLatApiRow extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.06),
+        color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.4)),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1177,9 +1177,9 @@ class _WmLatPlatformCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: accent.withValues(alpha: 0.07),
+        color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: accent.withValues(alpha: 0.45)),
+        border: Border.all(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1284,7 +1284,7 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                            color: steps[i].color.withValues(alpha: 0.35),
+                            color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.35),
                             blurRadius: 6,
                           ),
                         ],
@@ -1302,7 +1302,7 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                       Container(
                         width: 2,
                         height: 36,
-                        color: steps[i].color.withValues(alpha: 0.4),
+                        color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.4),
                       ),
                   ],
                 ),
@@ -1312,10 +1312,10 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(bottom: 4),
                     decoration: BoxDecoration(
-                      color: steps[i].color.withValues(alpha: 0.06),
+                      color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: steps[i].color.withValues(alpha: 0.35),
+                        color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.35),
                       ),
                     ),
                     child: Column(
@@ -1735,9 +1735,9 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: d.hue.withValues(alpha: 0.07),
+        color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: d.hue.withValues(alpha: 0.5)),
+        border: Border.all(color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1751,7 +1751,7 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: d.hue.withValues(alpha: 0.45),
+                  color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.45),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -1822,9 +1822,9 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: _wmLatDangerPale.withValues(alpha: 0.5),
+        color: (_wmLatDangerPale ?? const Color(0xFF000000)).withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _wmLatDanger.withValues(alpha: 0.45)),
+        border: Border.all(color: (_wmLatDanger ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1945,9 +1945,9 @@ class _WmLatToolbarButton extends StatelessWidget {
           padding:
               const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.12),
+            color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: color.withValues(alpha: 0.5)),
+            border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -1997,8 +1997,8 @@ class _WmLatParticleTile extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: selected
-                ? accent.withValues(alpha: 0.15)
-                : _wmLatSilverSoft.withValues(alpha: 0.6),
+                ? (accent ?? const Color(0xFF000000)).withValues(alpha: 0.15)
+                : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.6),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: selected ? accent : _wmLatSilver,
@@ -2070,9 +2070,9 @@ class _WmLatReleasedKeyTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -2103,7 +2103,7 @@ class _WmLatEmptyPanel extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: _wmLatSilverSoft.withValues(alpha: 0.7),
+        color: (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: _wmLatSilver),
       ),
@@ -2342,8 +2342,8 @@ class _WmLatChapterCacheState extends State<_WmLatChapterCache> {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: hot
-            ? _wmLatAmberPale.withValues(alpha: 0.5)
-            : _wmLatSilverSoft.withValues(alpha: 0.7),
+            ? (_wmLatAmberPale ?? const Color(0xFF000000)).withValues(alpha: 0.5)
+            : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: hot ? _wmLatAmber : _wmLatSilver),
       ),
@@ -2441,9 +2441,9 @@ class _WmLatChapterCacheState extends State<_WmLatChapterCache> {
           height: 84,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: _wmLatIndigo.withValues(alpha: 0.1),
+            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: _wmLatIndigo.withValues(alpha: 0.5)),
+            border: Border.all(color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -2508,9 +2508,9 @@ class _WmLatTinyBtn extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.15),
+            color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: color.withValues(alpha: 0.55)),
+            border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
           ),
           child: Text(
             label,
@@ -2703,9 +2703,9 @@ class _WmLatChapterMatrix extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: _wmLatIndigo.withValues(alpha: 0.12),
+                color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _wmLatIndigo.withValues(alpha: 0.5)),
+                border: Border.all(color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
               ),
               child: Text(
                 c,
@@ -2725,7 +2725,7 @@ class _WmLatChapterMatrix extends StatelessWidget {
   Widget _buildRow(int i) {
     final _WmLatMatrixRow r = _rows[i];
     final Color bg = i.isEven
-        ? _wmLatSilverSoft.withValues(alpha: 0.4)
+        ? (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.4)
         : Colors.transparent;
     return Container(
       color: bg,
@@ -2771,9 +2771,9 @@ class _WmLatChapterMatrix extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withValues(alpha: 0.4)),
+        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3029,10 +3029,10 @@ class _WmLatChapterContrastState extends State<_WmLatChapterContrast> {
       margin: const EdgeInsets.symmetric(vertical: 3),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: accent.withValues(alpha: strongHeld ? 0.1 : 0.03),
+        color: (accent ?? const Color(0xFF000000)).withValues(alpha: strongHeld ? 0.1 : 0.03),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: accent.withValues(alpha: strongHeld ? 0.5 : 0.25),
+          color: (accent ?? const Color(0xFF000000)).withValues(alpha: strongHeld ? 0.5 : 0.25),
         ),
       ),
       child: Row(
@@ -3220,10 +3220,10 @@ class _WmLatChapterRecipes extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: r.accent.withValues(alpha: 0.5)),
+              border: Border.all(color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: r.accent.withValues(alpha: 0.12),
+                  color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.12),
                   blurRadius: 10,
                   offset: const Offset(0, 3),
                 ),
@@ -3235,7 +3235,7 @@ class _WmLatChapterRecipes extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
                   decoration: BoxDecoration(
-                    color: r.accent.withValues(alpha: 0.12),
+                    color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.12),
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(12)),
                   ),
@@ -3284,10 +3284,10 @@ class _WmLatChapterRecipes extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: _wmLatAmberPale.withValues(alpha: 0.5),
+                          color: (_wmLatAmberPale ?? const Color(0xFF000000)).withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: _wmLatAmber.withValues(alpha: 0.45),
+                            color: (_wmLatAmber ?? const Color(0xFF000000)).withValues(alpha: 0.45),
                           ),
                         ),
                         child: Row(
@@ -3431,7 +3431,7 @@ class _WmLatChapterEpilogue extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: _wmLatIndigo.withValues(alpha: 0.45),
+                  color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.45),
                 ),
               ),
               child: const Column(
@@ -3536,9 +3536,9 @@ class _WmLatChapterEpilogue extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: g.color.withValues(alpha: 0.07),
+        color: (g.color ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: g.color.withValues(alpha: 0.5)),
+        border: Border.all(color: (g.color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

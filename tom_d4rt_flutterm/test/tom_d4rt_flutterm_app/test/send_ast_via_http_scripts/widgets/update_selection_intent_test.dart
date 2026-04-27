@@ -79,11 +79,11 @@ class _UsiLabPetriPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint ring = Paint()
-      ..color = tone.withValues(alpha: 0.22)
+      ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: 0.22)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.4;
     final Paint fill = Paint()
-      ..color = tone.withValues(alpha: 0.08)
+      ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: 0.08)
       ..style = PaintingStyle.fill;
     final Offset c = Offset(size.width / 2, size.height / 2);
     final double r = size.shortestSide / 2 - 2;
@@ -99,13 +99,13 @@ class _UsiLabPetriPainter extends CustomPainter {
         c.dy + radius * _sin(t),
       );
       final Paint dot = Paint()
-        ..color = tone.withValues(alpha: 0.55)
+        ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: 0.55)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(p, 1.8 + (i % 3) * 0.6, dot);
     }
     // crosshair
     final Paint cross = Paint()
-      ..color = tone.withValues(alpha: 0.35)
+      ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: 0.35)
       ..strokeWidth = 0.8;
     canvas.drawLine(Offset(c.dx - r, c.dy), Offset(c.dx + r, c.dy), cross);
     canvas.drawLine(Offset(c.dx, c.dy - r), Offset(c.dx, c.dy + r), cross);
@@ -166,7 +166,7 @@ class _UsiLabRibbonPainter extends CustomPainter {
       ..strokeWidth = 6
       ..strokeCap = StrokeCap.round;
     final Paint oldBand = Paint()
-      ..color = _usiLabSteel.withValues(alpha: 0.7)
+      ..color = (_usiLabSteel ?? const Color(0xFF000000)).withValues(alpha: 0.7)
       ..strokeWidth = 6
       ..strokeCap = StrokeCap.round;
     final Paint newBand = Paint()
@@ -235,8 +235,8 @@ class _UsiLabBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
-        color: tone.withValues(alpha: 0.14),
-        border: Border.all(color: tone.withValues(alpha: 0.6)),
+        color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.14),
+        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -270,7 +270,7 @@ class _UsiLabPanel extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: _usiLabSteel.withValues(alpha: 0.18),
+            color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(alpha: 0.18),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -596,7 +596,7 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: _usiLabPaper,
-        border: Border.all(color: _usiLabSteel.withValues(alpha: 0.45)),
+        border: Border.all(color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
@@ -607,7 +607,7 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
         style: _usiLabMono.copyWith(fontSize: 14, color: _usiLabInk),
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: _usiLabSteelDeep.withValues(alpha: 0.6)),
+            borderSide: BorderSide(color: (_usiLabSteelDeep ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
             borderRadius: BorderRadius.circular(6),
           ),
           filled: true,
@@ -754,7 +754,7 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
                 activeTrackColor: _usiLabTealDeep,
                 inactiveTrackColor: _usiLabDivider,
                 thumbColor: _usiLabTeal,
-                overlayColor: _usiLabTeal.withValues(alpha: 0.18),
+                overlayColor: (_usiLabTeal ?? const Color(0xFF000000)).withValues(alpha: 0.18),
               ),
               child: Slider(
                 value: value.clamp(0, max == 0 ? 1 : max).toDouble(),
@@ -973,7 +973,7 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: _usiLabTealDeep.withValues(alpha: 0.15),
+              color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(alpha: 0.15),
               blurRadius: 4,
               offset: const Offset(0, 1),
             ),
@@ -1236,7 +1236,7 @@ class _UsiLabEpilogue extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: _usiLabPaper,
-        border: Border.all(color: r.tone.withValues(alpha: 0.5)),
+        border: Border.all(color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -1245,9 +1245,9 @@ class _UsiLabEpilogue extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
             decoration: BoxDecoration(
-              color: r.tone.withValues(alpha: 0.1),
+              color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.1),
               border: Border(
-                bottom: BorderSide(color: r.tone.withValues(alpha: 0.3)),
+                bottom: BorderSide(color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
               ),
             ),
             child: Row(
@@ -1447,7 +1447,7 @@ class _UsiLabFlowDiagram extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: step.tone.withValues(alpha: 0.4),
+                      color: (step.tone ?? const Color(0xFF000000)).withValues(alpha: 0.4),
                       blurRadius: 6,
                     ),
                   ],
@@ -1709,14 +1709,14 @@ class _UsiLabBanner extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            _usiLabTealPale.withValues(alpha: 0.55),
+            (_usiLabTealPale ?? const Color(0xFF000000)).withValues(alpha: 0.55),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _usiLabTealDeep.withValues(alpha: 0.35)),
+        border: Border.all(color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
         boxShadow: [
           BoxShadow(
-            color: _usiLabTeal.withValues(alpha: 0.12),
+            color: (_usiLabTeal ?? const Color(0xFF000000)).withValues(alpha: 0.12),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),

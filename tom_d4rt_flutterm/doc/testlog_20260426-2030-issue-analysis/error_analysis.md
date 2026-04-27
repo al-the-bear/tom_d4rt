@@ -514,7 +514,7 @@ out of scope for C10.
 
 ### C11 — `Cannot invoke method 'withValues' on null` (Color.withValues feeding off null)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low · **Owner:** test scripts (mostly) and tom_d4rt_flutterm user-bridge
 
@@ -532,6 +532,40 @@ out of scope for C10.
 **Analysis.** Code calls `someColor.withValues(alpha: …)` where `someColor` came back null (likely from `Theme.of(context).colorScheme.x` when the theme isn't set or the field is intentionally optional). The interpreter is correct to surface this — same family as C3.
 
 **Suggested fix.** Patch the scripts to use `?.withValues(...) ?? defaultColor`. No interpreter work.
+
+**Fix (2026-04-27).** Script-only patch. Wrapped every `<receiver>.withValues(`
+call in the four affected scripts with a null-coalescing guard:
+
+`<receiver>.withValues(alpha: a)` → `(<receiver> ?? const Color(0xFF000000)).withValues(alpha: a)`
+
+Applied via a Python regex pass that handles bare identifiers
+(`_smbaePhosphor`), dotted property paths (`row.tone`), and indexed access
+(`steps[i].color`). The first regex run mishandled `steps[i].color` by only
+matching the trailing identifier (`.color`), producing invalid syntax
+(`steps[i].(color ?? ...)`) — fixed by anchoring the receiver match with a
+negative lookbehind `(?<![\w.\)\]])` and including `\[[^\[\]]*\]` segments in
+the receiver chain. After the fix, replacement counts:
+
+| Script | `.withValues(` total | Wrapped |
+|---|---:|---:|
+| `widgets/sliver_multi_box_adaptor_element_test.dart` | 56 | 56 |
+| `widgets/slotted_multi_child_render_object_widget_test.dart` | 46 | 46 |
+| `widgets/update_selection_intent_test.dart` | 19 | 19 |
+| `widgets/weak_map_test.dart` | 59 | 59 |
+
+**Verification.** Bisect run after fix (`ztmp/c11_after_fix2.log`): **4/4 passed**;
+the original `Cannot invoke method 'withValues' on null` error is gone in all
+four scripts. Remaining framework errors are unrelated and tracked elsewhere:
+`sliver_multi_box_adaptor_element` — `RenderShrinkWrappingViewport does not
+support returning intrinsic dimensions` (layout); `slotted_multi_child_render_object_widget`
+— `_SmcrowDashboardCard.createRenderObject must return a RenderObject mixing in
+SlottedContainerRenderObjectMixin` (C4 family — render-object mixin proxy gap);
+`update_selection_intent` — `SliderTheme.of(context)` getting a null context
+(separate bridge issue); `weak_map` — `BoxConstraints forces an infinite
+height` (layout-cascade, C8 family).
+
+Per Rule (a) (script-only changes), individual per-script retest is sufficient
+— no essential/important/secondary regression suite required.
 
 ---
 
@@ -809,7 +843,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C8 — BoxConstraints layout (script) | Low | scripts | ~14 | 0 |
 | C9 — RenderFlex overflow (script) ⚠️ Partial (6/7 scripts fixed; scroll_position overflow gated by out-of-scope `_controller` runtime error) | Low | scripts | 7 | 3 |
 | C10 — RestorationProperty.isRegistered ✅ Fixed (RestorationMixin State proxy + bridged-mixin nativeProxy fallback; assertion gone in 13/13, 7 scripts now clean, 6 have unrelated downstream errors) | Medium | interpreter+bridge | 13 | 0 |
-| C11 — `withValues` on null (script) | Low | scripts | 4 | 0 |
+| C11 — `withValues` on null (script) ✅ Fixed (4/4 scripts patched with `(receiver ?? const Color(0xFF000000)).withValues(...)`; 180 call sites wrapped) | Low | scripts | 4 | 0 |
 | C12 — `Object.hash` missing | Low | stdlib | 1 | 0 |
 | C13 — `Future.delayed` missing | Low | stdlib | 1 | 0 |
 | C14 — Null BuildContext (Plan E2) | High | interpreter | 2 | 2 |

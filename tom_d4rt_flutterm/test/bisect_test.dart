@@ -16,21 +16,12 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/restorable_bool_test.dart',
-    'widgets/restorable_date_time_test.dart',
-    'widgets/restorable_double_test.dart',
-    'widgets/restorable_double_n_test.dart',
-    'widgets/restorable_int_test.dart',
-    'widgets/restorable_int_n_test.dart',
-    'widgets/restorable_listenable_test.dart',
-    'widgets/restorable_num_test.dart',
-    'widgets/restorable_num_n_test.dart',
-    'widgets/restorable_route_future_test.dart',
-    'widgets/restorable_string_test.dart',
-    'widgets/restorable_string_n_test.dart',
-    'widgets/restoration_mixin_test.dart',
+    'widgets/sliver_multi_box_adaptor_element_test.dart',
+    'widgets/slotted_multi_child_render_object_widget_test.dart',
+    'widgets/update_selection_intent_test.dart',
+    'widgets/weak_map_test.dart',
   ]) {
-    test('$script (C10)', () async {
+    test('$script (C11)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
