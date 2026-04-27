@@ -1,0 +1,20 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:58 +0: dart_ui/point_mode_test.dart (C20c+e)
+[METRIC] script=dart_ui/point_mode_test.dart sourceBytes=31525 sourceChars=30315 bundleJsonBytes=444001 clearMs=54 readMs=11 bundleMs=294 httpMs=1075 totalMs=1436 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/point_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'indexed' on bridged instance of 'List'.
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Undefined property or method 'indexed' on bridged instance of 'List'.]
+OUTPUT_COUNT: 11
+00:59 +1: retest/widgets/next_focus_intent_test.dart (C20c+e)
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceBytes=51283 sourceChars=49663 bundleJsonBytes=471400 clearMs=109 readMs=1 bundleMs=119 httpMs=822 totalMs=1052 status=success httpStatus=200 outputLines=17 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/next_focus_intent_test.dart (1 error(s)):
+       Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to…
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to "find" resolved to "Intent": either a non-Intent generic type argument or an example intent derived from Intent must be specified. Intent may be used as the generic type as long as the optional "intent" argument is passed.]
+OUTPUT_COUNT: 17
+01:00 +2: (tearDownAll)
+01:00 +2: All tests passed!

@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    // Bisect harness — restore scripts here for the next cluster.
+    // Add scripts here for ad-hoc bisect runs.
   ]) {
-    test('$script (bisect)', () async {
+    test(script, () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

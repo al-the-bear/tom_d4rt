@@ -912,8 +912,19 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 8),
               Builder(builder: (ctx) {
-                final action =
-                    Actions.maybeFind<NextFocusIntent>(ctx);
+                // Cluster C20e workaround: the d4rt interpreter erases the
+                // generic type argument across the bridge boundary, so
+                // `Actions.maybeFind<NextFocusIntent>(ctx)` resolves to
+                // `T = Intent` inside Flutter and trips the
+                // `assert(type != Intent)` check at
+                // `package:flutter/src/widgets/actions.dart:866`. Passing a
+                // concrete `NextFocusIntent` instance via the optional
+                // `intent` parameter pins the runtime type without relying
+                // on the erased type argument.
+                final action = Actions.maybeFind<NextFocusIntent>(
+                  ctx,
+                  intent: const NextFocusIntent(),
+                );
                 return Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

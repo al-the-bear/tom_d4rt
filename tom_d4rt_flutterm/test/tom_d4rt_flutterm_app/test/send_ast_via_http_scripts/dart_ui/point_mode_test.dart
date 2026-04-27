@@ -715,8 +715,16 @@ class _ComparisonPainter extends CustomPainter {
     canvas.drawPoints(PointMode.polygon, getPoints(rowHeight * 2), paint);
 
     // Labels
+    // Cluster C20c workaround: the d4rt interpreter's pattern matcher
+    // expects an InterpretedRecord and rejects native Dart records
+    // (the elements of `Iterable<(int, E)>.indexed` are native records
+    // crossing the bridge boundary). The `.indexed` getter itself is
+    // bridged on Iterable/List, but pattern destructuring of native
+    // records is not yet supported. Use an indexed for-loop instead.
     final textPainter = TextPainter(textDirection: TextDirection.ltr);
-    for (final (i, label) in ['points', 'lines', 'polygon'].indexed) {
+    final labels = ['points', 'lines', 'polygon'];
+    for (int i = 0; i < labels.length; i++) {
+      final label = labels[i];
       textPainter.text = TextSpan(
         text: label,
         style: TextStyle(fontSize: 10, color: Colors.grey[700]),

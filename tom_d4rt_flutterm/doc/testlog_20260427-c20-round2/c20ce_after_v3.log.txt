@@ -1,0 +1,14 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: dart_ui/point_mode_test.dart (C20c+e)
+[METRIC] script=dart_ui/point_mode_test.dart sourceBytes=32002 sourceChars=30792 bundleJsonBytes=445989 clearMs=86 readMs=20 bundleMs=288 httpMs=1041 totalMs=1438 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 11
+00:13 +1: retest/widgets/next_focus_intent_test.dart (C20c+e)
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceBytes=51326 sourceChars=49706 bundleJsonBytes=471639 clearMs=65 readMs=7 bundleMs=101 httpMs=735 totalMs=910 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 17
+00:14 +2: (tearDownAll)
+00:14 +2: All tests passed!

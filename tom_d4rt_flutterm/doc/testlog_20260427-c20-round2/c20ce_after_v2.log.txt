@@ -1,0 +1,17 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:56 +0: dart_ui/point_mode_test.dart (C20c+e)
+[METRIC] script=dart_ui/point_mode_test.dart sourceBytes=31525 sourceChars=30315 bundleJsonBytes=444001 clearMs=154 readMs=11 bundleMs=266 httpMs=1115 totalMs=1556 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/point_mode_test.dart (1 error(s)):
+       PatternMatchException: Expected a Record, but got (int, String)
+STATUS: true
+FRAMEWORK_ERRORS: [PatternMatchException: Expected a Record, but got (int, String)]
+OUTPUT_COUNT: 11
+00:57 +1: retest/widgets/next_focus_intent_test.dart (C20c+e)
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceBytes=51326 sourceChars=49706 bundleJsonBytes=471639 clearMs=57 readMs=1 bundleMs=107 httpMs=815 totalMs=981 status=success httpStatus=200 outputLines=17 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 17
+00:58 +2: (tearDownAll)
+00:58 +2: All tests passed!
