@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    // C20 closed (commit pending). Restore as needed for the next bisect.
+    // Bisect harness — restore scripts here for the next cluster.
   ]) {
-    test('$script (C20)', () async {
+    test('$script (bisect)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

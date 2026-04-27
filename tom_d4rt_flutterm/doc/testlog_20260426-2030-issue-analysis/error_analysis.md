@@ -142,6 +142,8 @@ Both interpreter trees were updated in lockstep.
 
 The remaining 19 framework errors in `web_browser_detection_test.dart` are layout-cascade issues ("BoxConstraints forces an infinite width" / "RenderBox was not laid out") similar in nature to C22 — script-side viewport sizing, not C2's late-final reassignment. Tracked separately from C2.
 
+**Re-verification (2026-04-27).** Spot-checked at the request of the cluster-fix campaign: the `patternCaseMatchedThisIteration` flag is still present in both `tom_d4rt/lib/src/interpreter_visitor.dart` and `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`. Bisect retest of `widgets/web_browser_detection_test.dart` (`doc/testlog_20260427-c2-reverify/c2_reverify.log.txt`): `status=success httpStatus=200 frameworkErrors=19`, zero `LateInitializationError` occurrences in the full log — exactly the post-fix shape recorded above. C2 remains **Fixed**; no further action needed. The 19 layout-cascade errors continue to be a script-side issue tracked under C8/C22.
+
 ---
 
 ### C3 — `Null check operator used on a null value` (broad symptom)
