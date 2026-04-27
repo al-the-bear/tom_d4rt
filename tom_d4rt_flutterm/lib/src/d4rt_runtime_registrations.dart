@@ -2828,9 +2828,11 @@ class _InterpretedRenderAligningShiftedBox extends RenderAligningShiftedBox
       super.performLayout();
       return;
     }
-    // If the interpreted method did NOT set size through the bridge setter,
-    // read it back from the instance's field map (same pattern as
-    // _InterpretedRenderBox).
+    // C19 fallback: if the script's `size = …` somehow didn't route through
+    // the bridged setter (older interpreter path), read it back from the
+    // instance's field map. After the C19 Instance.set fix this is dead
+    // code on the happy path but kept defensively, matching the
+    // _InterpretedRenderBox pattern.
     if (!hasSize) {
       try {
         final reflected = _instance.get('size', visitor: _visitor);

@@ -16,11 +16,8 @@ void main() {
   });
 
   for (final script in <String>[
-    // C7 — TwoDimensionalScrollView / Viewport / RenderTwoDimensionalViewport
-    // need super-arg-capture + multi-method interface proxies.
-    'widgets/two_dimensional_child_builder_delegate_test.dart',
-    'widgets/two_dimensional_child_manager_test.dart',
-    'widgets/two_dimensional_scrollable_state_test.dart',
+    // C19 — RenderAligningShiftedBox.alignChild hasSize assertion.
+    'rendering/render_aligning_shifted_box_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

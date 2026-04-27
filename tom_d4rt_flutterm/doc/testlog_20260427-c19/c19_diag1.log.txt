@@ -1,7 +1,7 @@
 00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
 00:00 +0: (setUpAll)
-00:11 +0: rendering/render_aligning_shifted_box_test.dart
-[METRIC] script=rendering/render_aligning_shifted_box_test.dart sourceBytes=51396 sourceChars=51396 bundleJsonBytes=739761 clearMs=116 readMs=8 bundleMs=349 httpMs=1756 totalMs=2233 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+00:23 +0: rendering/render_aligning_shifted_box_test.dart
+[METRIC] script=rendering/render_aligning_shifted_box_test.dart sourceBytes=51396 sourceChars=51396 bundleJsonBytes=739761 clearMs=114 readMs=7 bundleMs=336 httpMs=1669 totalMs=2129 status=success httpStatus=200 outputLines=0 frameworkErrors=2
 
   ⚠️  FRAMEWORK ERROR in rendering/render_aligning_shifted_box_test.dart (2 error(s)):
        Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild': 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not t…
@@ -9,5 +9,5 @@
 STATUS: true
 FRAMEWORK_ERRORS: [Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild': 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not true., 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 373 pos 12: 'child!.hasSize': is not true.]
 OUTPUT_COUNT: 0
-00:14 +1: (tearDownAll)
-00:14 +1: All tests passed!
+00:25 +1: (tearDownAll)
+00:26 +1: All tests passed!

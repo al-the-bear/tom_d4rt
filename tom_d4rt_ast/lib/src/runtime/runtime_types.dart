@@ -1561,24 +1561,33 @@ class InterpretedInstance implements RuntimeValue {
         return; // Setter called, assignment done
       }
 
-      // Check bridged superclass at this level before moving up
-      if (currentClass.bridgedSuperclass != null &&
-          bridgedSuperObject != null) {
-        final bridgedSuper = currentClass.bridgedSuperclass!;
-        final nativeTarget = bridgedSuperObject!;
-        final setterAdapter = bridgedSuper.findInstanceSetterAdapter(name);
+      // Check bridged superclass at this level before moving up.
+      // C19: Mirror the read-path pattern (line ~1319) and fall back to
+      // `nativeProxy` when `bridgedSuperObject` is null. Interface-proxy
+      // factories (e.g. _InterpretedRenderAligningShiftedBox) install
+      // themselves on `nativeProxy` because the abstract bridged super
+      // has no constructor adapter to populate `bridgedSuperObject`.
+      // Without this fallback, `script.size = …` lands in `_fields`
+      // instead of routing to the bridged setter, leaving the proxy's
+      // real `_size` unset and tripping `hasSize`/`alignChild` asserts.
+      if (currentClass.bridgedSuperclass != null) {
+        final nativeTarget = bridgedSuperObject ?? nativeProxy;
+        if (nativeTarget != null) {
+          final bridgedSuper = currentClass.bridgedSuperclass!;
+          final setterAdapter = bridgedSuper.findInstanceSetterAdapter(name);
 
-        if (setterAdapter != null) {
-          Logger.debug(
-              "[Instance.set] Found setter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.");
-          try {
-            setterAdapter(visitor, nativeTarget, value);
-            return; // Setter called, assignment done
-          } catch (e, s) {
-            Logger.error(
-                "Native exception during bridged superclass setter '$name': $e\n$s");
-            throw RuntimeD4rtException(
-                "Native error in bridged superclass setter '$name': $e");
+          if (setterAdapter != null) {
+            Logger.debug(
+                "[Instance.set] Found setter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.");
+            try {
+              setterAdapter(visitor, nativeTarget, value);
+              return; // Setter called, assignment done
+            } catch (e, s) {
+              Logger.error(
+                  "Native exception during bridged superclass setter '$name': $e\n$s");
+              throw RuntimeD4rtException(
+                  "Native error in bridged superclass setter '$name': $e");
+            }
           }
         }
       }

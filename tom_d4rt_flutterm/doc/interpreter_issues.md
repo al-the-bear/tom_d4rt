@@ -2925,6 +2925,61 @@ environment hiccup misattributed to invalid dimensions.
 
 ---
 
+### [X] Fixed (29, 2026-04-27) — C19: Instance.set ignored bridged setter when proxy lived on `nativeProxy`
+
+**Affected script:** `rendering/render_aligning_shifted_box_test.dart`
+(2 framework errors, single gii failure carried over from C7).
+
+**Root cause:** `InterpretedInstance.set()` only routed through a
+bridged superclass setter when `bridgedSuperObject != null`. For
+interface-proxy factories like `_InterpretedRenderAligningShiftedBox`,
+the abstract bridged superclass has no constructor adapter, so
+`bridgedSuperObject` stays null and the proxy is installed on
+`nativeProxy` instead. The script's `size = constraints.constrain(...)`
+inside the interpreted `performLayout` therefore landed in the
+InterpretedInstance's `_fields` map, the proxy's real `_size` was
+never set, and `alignChild()` tripped `hasSize`/`child!.hasSize`
+assertions in `RenderAligningShiftedBox`.
+
+Diagnostic capture confirmed `childHasSize=true` (child layout did
+run via the bridged `c.layout(...)`) but `hasSize=false` on the proxy
+itself at the moment alignChild threw — i.e. the size assignment
+*was* evaluated but routed to the wrong target.
+
+**Fix:** Mirror the `Instance.get` (RC-6) read-path in `Instance.set`:
+fall back to `nativeProxy` as the native target when
+`bridgedSuperObject` is null, before consulting
+`bridgedSuperclass.findInstanceSetterAdapter(name)`. Applied
+identically in:
+
+- `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`
+- `tom_d4rt/lib/src/runtime_types.dart`
+
+No bridge regen needed. The `_InterpretedRenderAligningShiftedBox`
+proxy's `_instance.get('size')` reflected fallback (added during
+Plan-D Phase-2) is now dead code on the happy path but kept
+defensively, matching the long-standing `_InterpretedRenderBox`
+pattern.
+
+**Verification (post-fix):**
+
+- `bisect_test` for `rendering/render_aligning_shifted_box_test.dart`
+  → status=success, FE=0
+- essential 108/0/0, important 164/5/0, secondary 649/5/0 — match
+  baseline (no regressions).
+- gii 79/1/3 (was 78/1/4) — the C19 script flips FAIL→PASS;
+  remaining 3 gii failures (`custom_painter_semantics`,
+  `render_box_container_defaults_mixin`, `render_custom_paint`)
+  belong to other clusters.
+
+**Wider implication:** Any property assignment on an interpreted
+class that subclasses an abstract bridged class (interface-proxy
+pattern) now routes correctly through the bridged setter. This may
+also incidentally improve scripts in other proxy-backed clusters
+once their interpreter-side cascades are addressed.
+
+---
+
 ## How clusters were derived
 
 `generator_interpreter_issues_test.dart` was run end-to-end. Its

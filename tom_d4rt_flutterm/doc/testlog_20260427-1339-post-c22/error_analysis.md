@@ -755,20 +755,58 @@ example, abstract bridged super classes whose constructors are
 stripped by GEN-051 and whose subclasses need to forward to the
 native super-constructor.
 
-## C19 — `'!childSemantics.renderObject._needsLayout': is not true` (recurring)
+## C19 — `'hasSize': is not true` inside `RenderAligningShiftedBox.alignChild` (FIXED 2026-04-27)
 
-Single gii-fail script `render_aligning_shifted_box_test.dart` still
-emits 2 framework errors:
+Single gii-fail script `render_aligning_shifted_box_test.dart`
+emitted 2 framework errors:
 
 ```
 Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild':
   'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not true.
+  ... line 373 pos 12: 'child!.hasSize': is not true.
 ```
 
-The 04-26 Plan-D Phase-2 fix ("RenderAligningShiftedBox + ParentDataWidget
-interface proxies") landed but this script still trips the `hasSize`
-assertion inside `alignChild`. Likely the proxy's `performLayout`
-doesn't propagate `child.layout(parentUsesSize: true)` correctly.
+**Root cause** — `InterpretedInstance.set()` in the analyzer-free
+runtime (and its analyzer-based mirror) only routed through a bridged
+superclass setter when `bridgedSuperObject != null`. For interface-proxy
+factories like `_InterpretedRenderAligningShiftedBox`, the abstract
+bridged superclass has no constructor adapter, so `bridgedSuperObject`
+stays null and the proxy is installed on `nativeProxy` instead. As a
+result the script's `size = constraints.constrain(...)` inside
+`performLayout` landed in the InterpretedInstance's `_fields` map
+instead of routing to the bridged `size` setter. The proxy's real
+`_size` was never populated, leaving `hasSize=false` when the script
+subsequently called `alignChild()`. Diagnostic capture confirmed:
+`childHasSize=true` (child layout ran) but `hasSize=false` (proxy
+size unset) at the moment alignChild threw.
+
+**Fix** — Mirror the read-path pattern (`Instance.get`, RC-6) in
+`Instance.set`: when `bridgedSuperObject` is null, fall back to
+`nativeProxy` as the native target before consulting
+`bridgedSuperclass.findInstanceSetterAdapter(name)`. Applied
+identically to:
+
+- `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`
+- `tom_d4rt/lib/src/runtime_types.dart`
+
+No bridge regen needed (interpreter-only change). The previous
+`_InterpretedRenderAligningShiftedBox.performLayout` reflected-size
+fallback (read `size` from the instance field map after the
+interpreted call) is now dead code on the happy path but kept as
+defensive infrastructure, matching the long-standing
+`_InterpretedRenderBox` pattern.
+
+**Verification (2026-04-27 post-fix run):**
+
+- `bisect_test` for `rendering/render_aligning_shifted_box_test.dart`
+  → status=success, FE=0
+- essential 108/0/0 (matches baseline)
+- important 164/5/0 (matches baseline)
+- secondary 649/5/0 (matches baseline)
+- gii 79/1/3 (was 78/1/4 — `render_aligning_shifted_box_test`
+  flipped from FAIL→PASS; remaining 3 gii failures belong to other
+  clusters: `custom_painter_semantics`, `render_box_container_defaults_mixin`,
+  `render_custom_paint`).
 
 ## C20a, C20b, C20d, C20f, C20h₂ — Interpreter operator + statement-level gaps (Partial)
 
@@ -827,7 +865,7 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C19, C20a/b/d/f, C21,
+Carry-over clusters (C1, C3, C4, C7, C20a/b/d/f, C21,
 Plan E2, InheritedModel proxy) detailed above.
 
 ---
