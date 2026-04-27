@@ -555,11 +555,33 @@ void registerProxyFactories() {
         final getter = instance.klass.findInstanceGetter('semanticsBuilder');
         if (getter != null) {
           final result = getter.bind(instance).call(visitor, [], {});
-           return D4.extractBridgedArg<SemanticsBuilderCallback?>(result, 'semanticsBuilder');
+           if (result == null) return null;
+           if (result is Callable) {
+             final _callable = result;
+             return (Size p0) {
+               final _out = _callable.call(visitor, [p0], {});
+               if (_out is List) {
+                 return _out.map((e) => D4.extractBridgedArg<CustomPainterSemantics>(e, 'semanticsBuilder')).toList();
+               }
+               return D4.extractBridgedArg<List<CustomPainterSemantics>>(_out, 'semanticsBuilder');
+             };
+           }
+           return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size size)?>(result, 'semanticsBuilder');
         }
         try {
           final field = instance.getField('semanticsBuilder');
-           return D4.extractBridgedArg<SemanticsBuilderCallback?>(field, 'semanticsBuilder');
+           if (field == null) return null;
+           if (field is Callable) {
+             final _callable = field;
+             return (Size p0) {
+               final _out = _callable.call(visitor, [p0], {});
+               if (_out is List) {
+                 return _out.map((e) => D4.extractBridgedArg<CustomPainterSemantics>(e, 'semanticsBuilder')).toList();
+               }
+               return D4.extractBridgedArg<List<CustomPainterSemantics>>(_out, 'semanticsBuilder');
+             };
+           }
+           return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size size)?>(field, 'semanticsBuilder');
         } catch (_) {}
         throw StateError('Interpreted class ${instance.klass.name} does not implement semanticsBuilder');
           }

@@ -786,9 +786,9 @@ Captured logs: `doc/testlog_20260427-c16/c16_baseline.log.txt`, `c16_after.log.t
 
 ### C17 — `semanticsBuilder` typed function-callback coercion
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
-**Severity:** Medium · **Owner:** generator (callback wrapping)
+**Severity:** Medium · **Owner:** generator (proxy-side typedef expansion for `extractBridgedArg<T>`)
 
 **Representative error**
 
@@ -798,9 +798,54 @@ Captured logs: `doc/testlog_20260427-c16/c16_baseline.log.txt`, `c16_after.log.t
 
 - `rendering/custom_painter_semantics_test.dart` (gii fail)
 
-**Analysis.** A typed function-callback parameter (`SemanticsBuilderCallback?`) in the bridged `CustomPainter` constructor isn't being wrapped by the relaxer when the value is an `InterpretedFunction`. Standard relaxer territory, except this overload uses a typedef alias (`SemanticsBuilderCallback`) rather than the inline function type — likely the generator's typedef-resolution doesn't unwrap to `Function(Size) -> List<CustomPainterSemantics>` and so doesn't emit a wrapper.
+**Analysis.** Real cause was *not* a missing wrapper around the `CustomPainter` constructor. The script subclasses `CustomPainter` and overrides the `SemanticsBuilderCallback? get semanticsBuilder` getter. When real Flutter calls that getter on the proxy (`D4rtCustomPainter`), the proxy delegates to the interpreted instance, which returns an `InterpretedFunction`. The proxy's generated body then casts the result through `D4.extractBridgedArg<T>` where `T` is the *typedef-aliased* return type:
 
-**Suggested fix.** Extend `bridge_generator.dart` typedef resolution to follow function-typedef aliases when generating callback wrappers. Verify by regenerating the `painting/custom_painter.b.dart` (or wherever `CustomPainter` is bridged) and confirming the `SemanticsBuilderCallback` parameter gets a `D4.wrapCallback(...)` call.
+```dart
+return D4.extractBridgedArg<SemanticsBuilderCallback?>(result, 'semanticsBuilder');
+```
+
+`extractBridgedArg<T>`'s function-wrapping branch is gated on `T.toString().contains('Function')`; for typedef-aliased function types like `SemanticsBuilderCallback?` that string is just the typedef name and the branch never fires. Worse, the proxy generator's own `_parseFunctionType(returnType)` also returns `null` for typedef aliases, so the typed-closure emission path was skipped and we fell through to the plain `extractBridgedArg<typedef>` line.
+
+**Fix.** Add a typedef-expanding renderer (`renderDartTypeExpanded`) in `tom_d4rt_generator/lib/src/type_rendering.dart` that always emits the underlying `R Function(args)` form for `FunctionType`, recursively expanding aliases inside type arguments. Thread an `extractionReturnType` field through `_AbstractMethodInfo` in `proxy_generator.dart` and use it in `_generateFactoryCallback` for the type passed to `_generateGetterDelegation` / `_generateMethodDelegation` (and ultimately `_emitTypedReturn`). The proxy class field/getter signatures still use the alias-preserved form (cosmetic + matches bridge-side rendering); only the `extractBridgedArg<T>` type argument switches to the expanded form.
+
+After the fix, the regenerated `flutter_proxies.b.dart` `_SemanticsDemoPainter` factory emits:
+
+```dart
+if (result is Callable) {
+  final _callable = result;
+  return (Size $0) {
+    final _out = _callable.call(visitor, [$0], {});
+    if (_out is List) {
+      return _out.map((e) => D4.extractBridgedArg<CustomPainterSemantics>(e, 'semanticsBuilder')).toList();
+    }
+    return D4.extractBridgedArg<List<CustomPainterSemantics>>(_out, 'semanticsBuilder');
+  };
+}
+return D4.extractBridgedArg<List<CustomPainterSemantics> Function(Size size)?>(result, 'semanticsBuilder');
+```
+
+— a typed `(Size) → List<CustomPainterSemantics>` closure exactly matching `SemanticsBuilderCallback`.
+
+**Verification.**
+
+| | Baseline | Post-fix |
+|---|---:|---:|
+| `Argument Error` for `semanticsBuilder` (interpreted callback rejection) | 1 | 0 |
+
+The single remaining framework error in `custom_painter_semantics_test.dart` is now a Flutter-side assertion (`A SemanticsData object with label "Volume slider" had a null textDirection.`) — i.e. the C17 bridge layer correctly delivered the callback to Flutter, which then asserted on missing textDirection in one of the script's `SemanticsProperties` values. That's a downstream script issue (Flutter requires `textDirection` for non-empty labels), not a d4rt bridge issue. Out of scope for C17.
+
+**Regression suites** (Rule (b) — generator change required regeneration of all `.b.dart` files):
+
+| Suite | Baseline | Post-fix |
+|---|---|---|
+| gii | +75 ~1 -7 | +76 ~1 -6 (one fewer failure: C16 sliver test passes here too) |
+| essential | +108 | +108 |
+| important | +164 ~5 | +164 ~5 |
+| secondary | +649 ~5 | +649 ~5 (see flake note) |
+
+No regressions; no new test failures attributable to the typedef-expansion path. Logs in `doc/testlog_20260427-c17/`.
+
+**Note on secondary-suite flake.** The first post-fix secondary run (`secondary_after.log.txt`) crashed at +369 with `render_error_box_test.dart` timing out at 30 s, then 280 cascade failures as the test-app process exited and subsequent `POST /build` calls returned `cleared by client`. Rerunning the same suite from a clean state (`secondary_after_rerun.log.txt`) reproduced the baseline exactly: `+649 ~5: All tests passed!`, with `render_error_box_test.dart` passing in 596 ms (`outputLines=27 frameworkErrors=0`, identical to baseline). The earlier crash was an environmental flake (long-running test-app process, no detectable correlation to C17 changes — `render_error_box_test` does not exercise CustomPainter or any other proxy whose output changed). Both logs retained in `doc/testlog_20260427-c17/` for traceability.
 
 ---
 
@@ -963,7 +1008,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C14 — Null BuildContext ✅ Fixed (added `nativeStateProxy` getter-only fallback on `InterpretedInstance`; plain interpreted `State` subclasses now resolve `this.context` / `this.mounted` to the proxy's `_element`-backed values without setting `nativeProxy` — preserves Bug-45 setState semantics) | High | interpreter | 2 | 0 |
 | C15 — WidgetStateMapper.merge ✅ Fixed (script — pre-resolve `WidgetStateTextStyle.fromMap` mapper to a static `TextStyle` for `ChipThemeData.labelStyle`; real-Flutter limitation — `material/chip.dart:1375` calls `.merge` directly on `labelStyle` without `WidgetStateProperty.resolveAs`, and `WidgetStateMapper.noSuchMethod` throws on any call other than `resolve`) | Low | script | 1 | 0 |
 | C16 — Map.contains ✅ Fixed (script — `<int>{}` to disambiguate empty literal from `Map`; d4rt's empty-collection inference defaults `{}` to `Map` when LHS has no inline type argument) | Low | script | 1 | 0 |
-| C17 — semanticsBuilder typedef callback | Medium | generator | 1 | 1 |
+| C17 — semanticsBuilder typedef callback ✅ Fixed (renderDartTypeExpanded + extractionReturnType thread; proxy emits typed `(Size) → List<CustomPainterSemantics>` closure; `extractBridgedArg<T>` Function-string heuristic now triggers) | Medium | generator | 1 | 1 |
 | C18 — Offset(dx: null) | Low | script | 1 | 0 |
 | C19 — !childSemantics._needsLayout | Medium | interpreter | 11 | 1 |
 | C20 — Misc operator + bridge gaps | Medium | interpreter | ≥8 | 4 |
@@ -982,4 +1027,4 @@ The next active-work cluster from the open log (`interpreter_issues.md`) should 
 6. **C10 — RestorationProperty proxy lifecycle** — high script count (13) but cosmetic in passing suites; tackle once C1 lands.
 7. **C2 + C20h — Late-binding lifecycle audit** — needs investigation; may be a script bug or a real interpreter regression.
 8. **C8 + C9 + C11 + ~~C16~~ + C18 — Script patches** — batch into a single tom_d4rt_flutterm test-app commit. No interpreter work. (~~C16~~ fixed in `<int>{}` disambiguation turn.)
-9. **~~C15~~ + C17 + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit. (~~C15~~ fixed in script-pre-resolve turn.)
+9. **~~C15~~ + ~~C17~~ + C20a + C20b + C20d + C20e + C20f + C20g — Long tail** — small, mostly independent fixes; each warrants its own commit. (~~C15~~ fixed in script-pre-resolve turn; ~~C17~~ fixed in typedef-expansion-for-extractBridgedArg turn.)

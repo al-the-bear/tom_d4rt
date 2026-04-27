@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/sliver_child_builder_delegate_test.dart',
+    'rendering/custom_painter_semantics_test.dart',
   ]) {
-    test('$script (C16)', () async {
+    test('$script (C17)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

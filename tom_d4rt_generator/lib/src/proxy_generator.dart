@@ -28,12 +28,23 @@ import 'package:path/path.dart' as p;
 import 'bridge_config.dart';
 import 'file_generators.dart' show ensureBDartExtension;
 import 'sdk_utils.dart' show getSdkPath;
-import 'type_rendering.dart' show renderDartType;
+import 'type_rendering.dart' show renderDartType, renderDartTypeExpanded;
 
 /// Information about a method that needs proxying.
 class _AbstractMethodInfo {
   final String name;
   final String returnType;
+
+  /// C17: typedef-expanded return type used as the type argument to
+  /// `D4.extractBridgedArg<T>` and as the input to `_parseFunctionType` in
+  /// `_emitTypedReturn`. For function-typed typedef aliases (e.g.
+  /// `SemanticsBuilderCallback?`), [returnType] preserves the alias for the
+  /// proxy class's field/getter signatures while [extractionReturnType]
+  /// expands to `List<CustomPainterSemantics> Function(Size)?` so the
+  /// runtime can recognise it as a function type and wrap interpreted
+  /// callables correctly. For non-function types this is identical to
+  /// [returnType].
+  final String extractionReturnType;
   final List<_MethodParam> params;
   final bool isGetter;
 
@@ -44,10 +55,11 @@ class _AbstractMethodInfo {
   _AbstractMethodInfo({
     required this.name,
     required this.returnType,
+    String? extractionReturnType,
     required this.params,
     this.isGetter = false,
     this.isAbstract = true,
-  });
+  }) : extractionReturnType = extractionReturnType ?? returnType;
 
   /// The Function type signature for the callback parameter.
   String get callbackType {
@@ -644,6 +656,9 @@ _AbstractMethodInfo _methodElementToInfo(
     // aliases (`VoidCallback`, `ValueChanged<T>`, …) in the proxy
     // signature, matching what the bridge generator emits.
     returnType: renderDartType(method.returnType),
+    // C17: expanded form for `extractBridgedArg<T>` so typedef-aliased
+    // function returns parse as function types at runtime.
+    extractionReturnType: renderDartTypeExpanded(method.returnType),
     params: method.formalParameters.map(_paramElementToInfo).toList(),
     isAbstract: isAbstract,
   );
@@ -656,6 +671,8 @@ _AbstractMethodInfo _accessorElementToInfo(
   return _AbstractMethodInfo(
     name: accessor.displayName,
     returnType: renderDartType(accessor.returnType),
+    // C17: see _methodElementToInfo.
+    extractionReturnType: renderDartTypeExpanded(accessor.returnType),
     params: [],
     isGetter: true,
     isAbstract: isAbstract,
@@ -872,8 +889,14 @@ void _generateFactoryCallback(
 
   // Erase class type parameters (e.g. T → dynamic) since the factory
   // closure is not inside the generic class scope.
-  final erasedReturnType = _eraseTypeParams(
-    method.returnType,
+  //
+  // C17: erase on the typedef-expanded return type so the
+  // `extractBridgedArg<T>` call inside the delegation body sees the
+  // explicit `R Function(A)` form for typedef-aliased function returns.
+  // The proxy class field/getter signatures (emitted earlier) still use
+  // the alias-preserved `method.returnType`.
+  final erasedExtractionReturnType = _eraseTypeParams(
+    method.extractionReturnType,
     typeParameterNames,
   );
 
@@ -881,7 +904,9 @@ void _generateFactoryCallback(
     // Getter callback
     if (isRequired) {
       buffer.writeln('      $callbackName: () {');
-      _generateGetterDelegation(buffer, methodName, erasedReturnType);
+      _generateGetterDelegation(
+        buffer, methodName, erasedExtractionReturnType,
+      );
       buffer.writeln('      },');
     } else {
       // Overridable getter — only wire if interpreted class has it
@@ -889,7 +914,9 @@ void _generateFactoryCallback(
         "      $callbackName: instance.klass.findInstanceGetter('$methodName') != null",
       );
       buffer.writeln('          ? () {');
-      _generateGetterDelegation(buffer, methodName, erasedReturnType);
+      _generateGetterDelegation(
+        buffer, methodName, erasedExtractionReturnType,
+      );
       buffer.writeln('          }');
       buffer.writeln('          : null,');
     }
@@ -904,7 +931,7 @@ void _generateFactoryCallback(
       _generateMethodDelegation(
         buffer,
         methodName,
-        erasedReturnType,
+        erasedExtractionReturnType,
         argList,
         namedArgMap,
         isVoid: isVoid,
@@ -919,7 +946,7 @@ void _generateFactoryCallback(
       _generateMethodDelegation(
         buffer,
         methodName,
-        erasedReturnType,
+        erasedExtractionReturnType,
         argList,
         namedArgMap,
         isVoid: isVoid,

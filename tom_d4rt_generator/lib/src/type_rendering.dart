@@ -101,3 +101,65 @@ String renderDartType(DartType type) {
   }
   return type.getDisplayString();
 }
+
+/// Renders [type] like [renderDartType] but **always expands function-typedef
+/// aliases** to their underlying `Return Function(args)` form.
+///
+/// C17: the proxy generator must use this rendering when emitting the type
+/// argument to `D4.extractBridgedArg<T>` for a getter / method whose return
+/// type is a function-typed typedef alias (e.g. `SemanticsBuilderCallback?`,
+/// `ValueChanged<T>?`). The runtime extractor decides whether to wrap an
+/// `InterpretedFunction` based on `T.toString().contains('Function')` —
+/// alias-preserved typedef names like `SemanticsBuilderCallback` don't match
+/// that heuristic, and the proxy-side `_parseFunctionType` also returns
+/// `null` for them. The expanded form `List<CustomPainterSemantics> Function(Size)?`
+/// triggers both code paths correctly.
+///
+/// Class-rename / interface typedefs are unaffected: only `FunctionType`
+/// aliases are expanded; type arguments inside other types are still
+/// recursively expanded too (so `Map<String, ValueChanged<int>?>` becomes
+/// `Map<String, void Function(int)?>`).
+String renderDartTypeExpanded(DartType type) {
+  if (type is InterfaceType) {
+    final baseName = type.element.name;
+    if (baseName == null) return type.getDisplayString();
+    final args = type.typeArguments;
+    final renderedArgs = args.map(renderDartTypeExpanded).toList();
+    final allDynamic = renderedArgs.isNotEmpty &&
+        renderedArgs.every((a) => a == 'dynamic');
+    final argsText = (renderedArgs.isEmpty || allDynamic)
+        ? ''
+        : '<${renderedArgs.join(', ')}>';
+    final nullable =
+        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    return '$baseName$argsText$nullable';
+  }
+  if (type is FunctionType) {
+    // C17: bypass alias preservation — emit the expanded function form.
+    final returnType = renderDartTypeExpanded(type.returnType);
+    final positional = <String>[];
+    final optional = <String>[];
+    final named = <String>[];
+    for (final p in type.formalParameters) {
+      final pt = renderDartTypeExpanded(p.type);
+      final pn = p.name ?? '';
+      final label = pn.isNotEmpty ? '$pt $pn' : pt;
+      if (p.isRequiredPositional) {
+        positional.add(label);
+      } else if (p.isOptionalPositional) {
+        optional.add(label);
+      } else if (p.isRequiredNamed) {
+        named.add('required $label');
+      } else {
+        named.add(label);
+      }
+    }
+    final parts = [...positional];
+    if (optional.isNotEmpty) parts.add('[${optional.join(', ')}]');
+    if (named.isNotEmpty) parts.add('{${named.join(', ')}}');
+    final nullable =
+        type.nullabilitySuffix == NullabilitySuffix.question ? '?' : '';
+    return '$returnType Function(${parts.join(', ')})$nullable';
+  }
+  return type.getDisplayString();
+}
