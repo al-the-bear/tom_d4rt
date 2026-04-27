@@ -126,6 +126,46 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return lastValue;
   }
 
+  /// Returns true if the given expression chain contains a null-aware
+  /// selector (`?.`, `?[…]`) somewhere along the receiver path.
+  ///
+  /// Dart's null-shorting semantics terminate at the outermost selector of
+  /// a chain that contains *any* `?.` or `?[…]`. Concretely, when the
+  /// interpreter evaluates `a?.b.c.d`:
+  ///   - the inner `a?.b` short-circuits to `null` when `a` is `null`,
+  ///   - the outer `.c` and `.d` selectors are then *also* required to
+  ///     yield `null` (rather than throw on `null.c`).
+  ///
+  /// Each [visitPropertyAccess]/[visitMethodInvocation]/[visitIndexExpression]
+  /// only knows its own immediate operator. To honour null-shorting, we walk
+  /// down the syntactic target chain looking for any `?.`/`?[…]`. The walk
+  /// stops at parentheses and other expressions that terminate null-shorting
+  /// (e.g. `(a?.b).c` does *not* short-circuit on the outer `.c`).
+  bool _chainHasNullAwareSelector(SExpression? expr) {
+    if (expr == null) return false;
+    if (expr is SPropertyAccess) {
+      if (expr.operator == '?.') return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is SMethodInvocation) {
+      if (expr.operator == '?.') return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is SIndexExpression) {
+      if (expr.isNullAware) return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is SPostfixExpression) {
+      // Postfix `!` (null-assertion) does not terminate null-shorting at
+      // the syntax level: `a?.b!.c` short-circuits when `a` is null,
+      // because `!` is part of the same selector chain. Walk through.
+      return _chainHasNullAwareSelector(expr.operand);
+    }
+    // SParenthesizedExpression, SSimpleIdentifier, literals, etc. all
+    // terminate the chain — null-shorting cannot reach past them.
+    return false;
+  }
+
   @override
   Object? visitTopLevelVariableDeclaration(STopLevelVariableDeclaration node) {
     for (final variable in node.variables!.variables) {
@@ -1779,6 +1819,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       return null;
     }
 
+    // C21 — Dart null-shorting: when an inner selector in this chain
+    // uses `?.`/`?[…]` (e.g. `a?.b[i]` where `a == null`), the outer
+    // index access must short-circuit to null instead of throwing.
+    if (targetValue == null && _chainHasNullAwareSelector(node.target)) {
+      return null;
+    }
+
     final indexValue = index!.accept<Object?>(this);
 
     if (targetValue is AsyncSuspensionRequest) return targetValue;
@@ -3168,6 +3215,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (isNullAware) {
           return null;
         }
+        // C21 — Dart null-shorting: when an inner selector in this chain
+        // uses `?.` (e.g. `a?.b.c()` where `a == null`), the outer `.c()`
+        // must short-circuit to null instead of throwing. The chain
+        // terminates at parentheses or non-selector expressions.
+        if (_chainHasNullAwareSelector(node.target)) {
+          return null;
+        }
         throw RuntimeD4rtException(
           "Cannot invoke method '$methodName' on null. Use '?.' for null-aware method invocation.",
         );
@@ -4278,6 +4332,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Null safety support: if the target is null and the access is null-aware, return null
     if (target == null) {
       if (isNullAware) {
+        return null;
+      }
+      // C21 — Dart null-shorting: when an inner selector in this chain uses
+      // `?.` (e.g. `a?.b.c.d` where `a == null`), every subsequent selector
+      // up to the chain's termination point must also yield null instead of
+      // throwing. The chain terminates at parentheses or non-selector
+      // expressions; the helper walks the syntactic target chain and stops
+      // there. Without this fix, `a?.b.c` throws "Cannot access property 'c'
+      // on null" because the outer `.c` only sees `operator == '.'`.
+      if (_chainHasNullAwareSelector(node.target)) {
         return null;
       }
       // G-DOV-10/11 FIX: Try extension lookup on nullable types before throwing

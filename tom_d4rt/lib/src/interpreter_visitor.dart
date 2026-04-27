@@ -87,6 +87,37 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return executeBlock(node.statements, Environment(enclosing: environment));
   }
 
+  /// Returns true if the given expression chain contains a null-aware
+  /// selector (`?.`, `?[…]`) somewhere along the receiver path.
+  ///
+  /// Mirrors `_chainHasNullAwareSelector` in tom_d4rt_ast. Used to implement
+  /// Dart's null-shorting semantics: when an inner selector in a chain uses
+  /// `?.`/`?[…]`, every subsequent selector up to the chain's termination
+  /// point must yield null instead of throwing. The chain terminates at
+  /// parentheses or non-selector expressions.
+  bool _chainHasNullAwareSelector(Expression? expr) {
+    if (expr == null) return false;
+    if (expr is PropertyAccess) {
+      if (expr.operator.lexeme == '?.') return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is MethodInvocation) {
+      if (expr.operator?.lexeme == '?.') return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is IndexExpression) {
+      if (expr.isNullAware) return true;
+      return _chainHasNullAwareSelector(expr.target);
+    }
+    if (expr is PostfixExpression) {
+      // Postfix `!` does not terminate null-shorting at the syntax level.
+      return _chainHasNullAwareSelector(expr.operand);
+    }
+    // ParenthesizedExpression, SimpleIdentifier, literals, etc. all
+    // terminate the chain.
+    return false;
+  }
+
   Object? executeBlock(
       List<Statement> statements, Environment blockEnvironment) {
     final previousEnvironment = environment;
@@ -1588,6 +1619,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return null;
     }
 
+    // C21 — Dart null-shorting: when an inner selector in this chain
+    // uses `?.`/`?[…]` (e.g. `a?.b[i]` where `a == null`), the outer
+    // index access must short-circuit to null instead of throwing.
+    if (targetValue == null && _chainHasNullAwareSelector(node.target)) {
+      return null;
+    }
+
     final indexValue = index.accept<Object?>(this);
 
     if (targetValue is AsyncSuspensionRequest) return targetValue;
@@ -2743,6 +2781,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (isNullAware) {
           return null;
         }
+        // C21 — Dart null-shorting: when an inner selector in this chain
+        // uses `?.` (e.g. `a?.b.c()` where `a == null`), the outer `.c()`
+        // must short-circuit to null instead of throwing.
+        if (_chainHasNullAwareSelector(node.target)) {
+          return null;
+        }
         throw RuntimeD4rtException(
             "Cannot invoke method '$methodName' on null. Use '?.' for null-aware method invocation.");
       }
@@ -3690,6 +3734,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Null safety support: if the target is null and the access is null-aware, return null
     if (target == null) {
       if (isNullAware) {
+        return null;
+      }
+      // C21 — Dart null-shorting: when an inner selector in this chain
+      // uses `?.` (e.g. `a?.b.c` where `a == null`), the outer `.c` must
+      // short-circuit to null instead of throwing.
+      if (_chainHasNullAwareSelector(node.target)) {
         return null;
       }
       // G-DOV-10/11 FIX: Try extension lookup on nullable types before throwing
