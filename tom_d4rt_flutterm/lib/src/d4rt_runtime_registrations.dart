@@ -755,7 +755,16 @@ class _InterpretedStatefulWidget extends StatefulWidget {
           result.nativeProxy = state;
           return state;
         }
-        return _InterpretedState(_visitor, result);
+        // C14: plain interpreted State subclasses get a State proxy but no
+        // `nativeProxy` (Bug-45 — would route setState etc. through Flutter
+        // and trigger cascading rebuild loops). Store the proxy on
+        // `nativeStateProxy` so read-only State getters (`context`,
+        // `mounted`) on the script's State subclass can still resolve to
+        // the proxy's real `_element`-backed values via the getter-only
+        // fallback in `runtime_types.dart`.
+        final state = _InterpretedState(_visitor, result);
+        result.nativeStateProxy = state;
+        return state;
       }
     }
     throw StateError(

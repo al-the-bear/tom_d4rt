@@ -648,7 +648,7 @@ Added `delayed`, `value`, `error`, `microtask`, and `sync` entries to the `const
 
 ### C14 — Null `BuildContext` in `dependOnInheritedWidgetOfExactType` (Plan E2 residual)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** High · **Owner:** interpreter (BuildContext propagation)
 
@@ -661,9 +661,38 @@ Added `delayed`, `value`, `error`, `microtask`, and `sync` entries to the `const
 - `widgets/inherited_theme_test.dart` (gii fail)
 - `widgets/inherited_widget_test.dart` (gii fail)
 
-**Analysis.** Plan E (commit `194c2f04`) fixed the *exact-type lookup* path but left a residual null-context case: when an interpreted `Stateless`/`Stateful` Widget calls `Theme.of(context)` from inside its `build` and the `context` is the proxy's *outer* context (held in a closure), the interpreter is passing `null` to `dependOnInheritedWidgetOfExactType`. Two scripts hit this; both call `InheritedTheme.of` / `InheritedWidget.of` from inside a builder closure.
+**Analysis.** The original Plan-E hypothesis (closure captures a stale `context`) was wrong. Diagnostics added to `visitMethodInvocation` and `visitSimpleIdentifier` (history-buffer entries `CALL_SITE@<offset>`, `CTX_LEX@<offset>`, `CTX_THIS_INTERP@<offset>`) showed the failing call site is `_PracticalWorkspaceSceneState._wsTop` (`inherited_widget_test.dart:1934`) calling `AppStateScope.watch(context)`. `context` resolves *implicitly* via `this` (no lexical binding in the enclosing function) and `InterpretedInstance.get('context')` returns `null` for the interpreted State subclass. Root cause: Bug-45 deliberately *does not* set `nativeProxy` on plain interpreted States (because `setState`/`markNeedsBuild` would then route through the Flutter adapter and trigger cascading rebuild loops). With `nativeProxy == null` and no script-level `context` field on the subclass, `get()` walks past the bridged `State` superclass without firing the bridged `context` getter, falls through every dispatch branch, and lands on the RC-9 last-chance fallback returning `null`.
 
-**Suggested fix.** Trace the BuildContext capture in `proxy_generator.dart`'s `_InterpretedWidget.build` wrapper — confirm that when a closure inside `build` is invoked at framework-callback time, the captured `context` is the live proxy `Element`'s context, not a stale snapshot. If the proxy stores `_lastContext` per build, ensure builders get it via `Function.apply` rather than a let-binding at construction time. This is "Plan E2".
+**Fix (this turn).** New field `Object? nativeStateProxy` on `InterpretedInstance` plus a *getter-only* fallback in the bridged-superclass branch of `InterpretedInstance.get`:
+
+```dart
+final nativeTarget   = bridgedSuperObject ?? nativeProxy;        // strict — drives methods
+final getterTarget   = nativeTarget ?? nativeStateProxy;         // relaxed — drives getters only
+if (getterTarget != null || nativeTarget != null) {
+  final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
+  if (getterAdapter != null && getterTarget != null) {
+    return getterAdapter(visitor, getterTarget);                 // ← reaches State.context
+  }
+  if (nativeTarget != null) {
+    // method + supplementary-method dispatch — unchanged, strict target
+  }
+}
+```
+
+Wired in `_InterpretedStatefulWidget.createState` (flutterm `d4rt_runtime_registrations.dart`): plain `State` subclasses now `result.nativeStateProxy = state` before the `_InterpretedState` proxy is returned. Bug-45 semantics preserved — `setState` etc. still need `nativeTarget` (which is `null`) and so still hit the RC-9 no-op fallback rather than dispatching through Flutter.
+
+Mirrored across `tom_d4rt/lib/src/runtime_types.dart` and `tom_d4rt_ast/lib/src/runtime/runtime_types.dart` (the analyzer-based version's bridged-super branch was structurally tighter — restructured to match the AST-driven version's getter/method split).
+
+**Verification.** `bisect_test.dart` on both C14 scripts: 0 framework errors after the fix. Regression suites (`D4RT_SKIP_BRIDGE_REGEN=1`):
+
+| Suite | Baseline | Post-fix | Δ |
+|---|---|---|---|
+| gii | 71/1/11 | 75/1/7 | +4 pass / −4 fail (incl. both C14 scripts; bonuses: `relayout_when_system_fonts_change_mixin_test`, `render_absorb_pointer_test`) |
+| essential | All passed (108) | All passed (108) | −1 framework error |
+| important | All passed (164/5) | All passed (164/5) | unchanged |
+| secondary | All passed (649/5) | All passed (649/5) | −7 framework errors |
+
+Two scripts in gii now report *more* framework errors (`box_hit_test_result_test`: 1→10, `render_box_container_defaults_mixin_test`: 1→5). Not regressions — both were already gii fails; execution proceeds further now and surfaces latent layout / `_InterpretedParentData` errors that the early null-context throw was masking. They belong to C21 / C22, not C14.
 
 ---
 
@@ -883,7 +912,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C11 — `withValues` on null (script) ✅ Fixed (4/4 scripts patched with `(receiver ?? const Color(0xFF000000)).withValues(...)`; 180 call sites wrapped) | Low | scripts | 4 | 0 |
 | C12 — `Object.hash` missing ✅ Fixed (added `Object.hash`/`hashAll`/`hashAllUnordered` static method adapters to bridged `Object` in both packages; arity-dispatched to native overloads) | Low | stdlib | 1 | 0 |
 | C13 — `Future.delayed` missing ✅ Fixed (added named factory ctors `delayed`/`value`/`error`/`microtask`/`sync` to `constructors` map of bridged `Future` in both packages — required for `Future<T>.delayed(...)` explicit-type-arg form) | Low | stdlib | 1 | 0 |
-| C14 — Null BuildContext (Plan E2) | High | interpreter | 2 | 2 |
+| C14 — Null BuildContext ✅ Fixed (added `nativeStateProxy` getter-only fallback on `InterpretedInstance`; plain interpreted `State` subclasses now resolve `this.context` / `this.mounted` to the proxy's `_element`-backed values without setting `nativeProxy` — preserves Bug-45 setState semantics) | High | interpreter | 2 | 0 |
 | C15 — WidgetStateMapper.merge | Low | generator | 1 | 0 |
 | C16 — Map.contains | Low | stdlib or script | 1 | 1 |
 | C17 — semanticsBuilder typedef callback | Medium | generator | 1 | 1 |
@@ -897,7 +926,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 
 The next active-work cluster from the open log (`interpreter_issues.md`) should pick up the highest-leverage items first:
 
-1. **C14 — Plan E2 (null BuildContext)** — completes Plan E and unblocks two gii fails immediately.
+1. ~~**C14 — Plan E2 (null BuildContext)**~~ ✅ Fixed in `nativeStateProxy` turn — both gii fails (`inherited_theme_test`, `inherited_widget_test`) now pass.
 2. **C4 + C5 + C6 + C6b — Generic coercion (List/Map of bridged types)** — single relaxer-generator change, unblocks 4+ gir/secondary scripts and removes a long-standing Section E pain point.
 3. **C1 + C19 + C21 — RenderObject proxy chain** — three coupled clusters; biggest impact on the rendering-test surface. C21 must follow C1 because it surfaces only when scripts can subclass container RenderBox.
 4. **C7 — TwoDimensionalScrollView empty-name ctor** — small generator change, three scripts.

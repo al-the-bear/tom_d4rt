@@ -1,0 +1,420 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_issues_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: Section 2 - Bridge Generator Issues (80) widgets/render_object_to_widget_adapter_test.dart
+[METRIC] script=widgets/render_object_to_widget_adapter_test.dart sourceBytes=43600 sourceChars=42134 bundleJsonBytes=492227 clearMs=91 readMs=11 bundleMs=302 httpMs=789 totalMs=1196 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:13 +1: Section 2 - Bridge Generator Issues (80) widgets/render_tree_root_element_test.dart
+[METRIC] script=widgets/render_tree_root_element_test.dart sourceBytes=11889 sourceChars=11889 bundleJsonBytes=114775 clearMs=86 readMs=0 bundleMs=36 httpMs=1135 totalMs=1259 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:14 +2: Section 2 - Bridge Generator Issues (80) widgets/restorable_enum_n_test.dart
+[METRIC] script=widgets/restorable_enum_n_test.dart sourceBytes=45081 sourceChars=45053 bundleJsonBytes=574734 clearMs=75 readMs=3 bundleMs=70 httpMs=555 totalMs=705 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +3: Section 2 - Bridge Generator Issues (80) widgets/route_information_test.dart
+[METRIC] script=widgets/route_information_test.dart sourceBytes=65430 sourceChars=63080 bundleJsonBytes=672187 clearMs=47 readMs=1 bundleMs=106 httpMs=516 totalMs=671 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:15 +4: Section 2 - Bridge Generator Issues (80) widgets/route_pop_disposition_test.dart
+[METRIC] script=widgets/route_pop_disposition_test.dart sourceBytes=62082 sourceChars=60018 bundleJsonBytes=589380 clearMs=97 readMs=1 bundleMs=59 httpMs=507 totalMs=666 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:16 +5: Section 2 - Bridge Generator Issues (80) widgets/router_config_test.dart
+[METRIC] script=widgets/router_config_test.dart sourceBytes=39204 sourceChars=37598 bundleJsonBytes=427857 clearMs=62 readMs=1 bundleMs=37 httpMs=858 totalMs=959 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:17 +6: Section 2 - Bridge Generator Issues (80) widgets/scroll_activity_test.dart
+[METRIC] script=widgets/scroll_activity_test.dart sourceBytes=40384 sourceChars=39020 bundleJsonBytes=436030 clearMs=118 readMs=5 bundleMs=46 httpMs=484 totalMs=655 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:17 +7: Section 2 - Bridge Generator Issues (80) widgets/scroll_position_alignment_policy_test.dart
+[METRIC] script=widgets/scroll_position_alignment_policy_test.dart sourceBytes=43985 sourceChars=42033 bundleJsonBytes=447619 clearMs=63 readMs=5 bundleMs=50 httpMs=508 totalMs=626 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:18 +8: Section 2 - Bridge Generator Issues (80) widgets/scroll_view_keyboard_dismiss_behavior_test.dart
+[METRIC] script=widgets/scroll_view_keyboard_dismiss_behavior_test.dart sourceBytes=57388 sourceChars=55210 bundleJsonBytes=564844 clearMs=65 readMs=1 bundleMs=39 httpMs=460 totalMs=567 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:19 +9: Section 2 - Bridge Generator Issues (80) widgets/select_action_test.dart
+[METRIC] script=widgets/select_action_test.dart sourceBytes=58208 sourceChars=56158 bundleJsonBytes=614627 clearMs=32 readMs=1 bundleMs=76 httpMs=452 totalMs=563 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:19 +10: Section 2 - Bridge Generator Issues (80) widgets/shortcut_registry_entry_test.dart
+[METRIC] script=widgets/shortcut_registry_entry_test.dart sourceBytes=57191 sourceChars=55753 bundleJsonBytes=564650 clearMs=32 readMs=1 bundleMs=47 httpMs=426 totalMs=508 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:20 +11: Section 2 - Bridge Generator Issues (80) widgets/shortcut_serialization_test.dart
+[METRIC] script=widgets/shortcut_serialization_test.dart sourceBytes=53949 sourceChars=52533 bundleJsonBytes=588585 clearMs=53 readMs=1 bundleMs=36 httpMs=396 totalMs=487 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:20 +12: Section 2 - Bridge Generator Issues (80) widgets/single_activator_test.dart
+[METRIC] script=widgets/single_activator_test.dart sourceBytes=53859 sourceChars=52443 bundleJsonBytes=612503 clearMs=29 readMs=1 bundleMs=37 httpMs=457 totalMs=524 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:21 +13: Section 2 - Bridge Generator Issues (80) widgets/toolbar_items_parent_data_test.dart
+[METRIC] script=widgets/toolbar_items_parent_data_test.dart sourceBytes=26251 sourceChars=26247 bundleJsonBytes=358445 clearMs=56 readMs=1 bundleMs=36 httpMs=421 totalMs=516 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:21 +14: Section 2 - Bridge Generator Issues (80) widgets/toolbar_options_test.dart
+[METRIC] script=widgets/toolbar_options_test.dart sourceBytes=18490 sourceChars=18488 bundleJsonBytes=250290 clearMs=62 readMs=1 bundleMs=18 httpMs=364 totalMs=446 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:22 +15: Section 2 - Bridge Generator Issues (80) widgets/tooltip_position_context_test.dart
+[METRIC] script=widgets/tooltip_position_context_test.dart sourceBytes=16399 sourceChars=16399 bundleJsonBytes=240709 clearMs=59 readMs=0 bundleMs=18 httpMs=342 totalMs=421 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:22 +16: Section 2 - Bridge Generator Issues (80) widgets/tooltip_window_controller_delegate_test.dart
+[METRIC] script=widgets/tooltip_window_controller_delegate_test.dart sourceBytes=16347 sourceChars=16341 bundleJsonBytes=217101 clearMs=104 readMs=1 bundleMs=17 httpMs=347 totalMs=470 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:23 +17: Section 2 - Bridge Generator Issues (80) widgets/tooltip_window_controller_test.dart
+[METRIC] script=widgets/tooltip_window_controller_test.dart sourceBytes=16337 sourceChars=16331 bundleJsonBytes=231500 clearMs=50 readMs=0 bundleMs=21 httpMs=342 totalMs=414 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:23 +18: Section 2 - Bridge Generator Issues (80) widgets/transition_delegate_test.dart
+[METRIC] script=widgets/transition_delegate_test.dart sourceBytes=34960 sourceChars=33755 bundleJsonBytes=396518 clearMs=65 readMs=0 bundleMs=26 httpMs=810 totalMs=903 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+00:24 +19: Section 2 - Bridge Generator Issues (80) widgets/traversal_direction_test.dart
+[METRIC] script=widgets/traversal_direction_test.dart sourceBytes=16048 sourceChars=16042 bundleJsonBytes=220775 clearMs=31 readMs=1 bundleMs=15 httpMs=362 totalMs=411 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:24 +20: Section 2 - Bridge Generator Issues (80) widgets/traversal_edge_behavior_test.dart
+[METRIC] script=widgets/traversal_edge_behavior_test.dart sourceBytes=14755 sourceChars=14751 bundleJsonBytes=197759 clearMs=55 readMs=0 bundleMs=15 httpMs=355 totalMs=427 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:25 +21: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_anchor_test.dart
+[METRIC] script=widgets/window_positioner_anchor_test.dart sourceBytes=33257 sourceChars=33257 bundleJsonBytes=486644 clearMs=52 readMs=0 bundleMs=51 httpMs=593 totalMs=698 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:25 +22: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_constraint_adjustment_test.dart
+[METRIC] script=widgets/window_positioner_constraint_adjustment_test.dart sourceBytes=35281 sourceChars=35281 bundleJsonBytes=548460 clearMs=28 readMs=0 bundleMs=51 httpMs=518 totalMs=599 status=success httpStatus=200 outputLines=2 frameworkErrors=0
+00:26 +23: Section 2 - Bridge Generator Issues (80) widgets/window_positioner_test.dart
+[METRIC] script=widgets/window_positioner_test.dart sourceBytes=44100 sourceChars=44100 bundleJsonBytes=651782 clearMs=34 readMs=0 bundleMs=40 httpMs=1195 totalMs=1272 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:27 +24: Section 2 - Bridge Generator Issues (80) widgets/window_scope_test.dart
+[METRIC] script=widgets/window_scope_test.dart sourceBytes=27119 sourceChars=27119 bundleJsonBytes=367296 clearMs=64 readMs=0 bundleMs=46 httpMs=528 totalMs=639 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:28 +25: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_linux_test.dart
+[METRIC] script=widgets/windowing_owner_linux_test.dart sourceBytes=33676 sourceChars=33675 bundleJsonBytes=458625 clearMs=32 readMs=3 bundleMs=33 httpMs=384 totalMs=454 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:28 +26: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_mac_o_s_test.dart
+[METRIC] script=widgets/windowing_owner_mac_o_s_test.dart sourceBytes=32763 sourceChars=32763 bundleJsonBytes=443597 clearMs=56 readMs=0 bundleMs=25 httpMs=443 totalMs=527 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:29 +27: Section 2 - Bridge Generator Issues (80) widgets/windowing_owner_test.dart
+[METRIC] script=widgets/windowing_owner_test.dart sourceBytes=33101 sourceChars=33101 bundleJsonBytes=435841 clearMs=57 readMs=1 bundleMs=29 httpMs=516 totalMs=604 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:30 +28: Section 2 - Bridge Generator Issues (80) widgets/slidetransition_test.dart
+[METRIC] script=widgets/slidetransition_test.dart sourceBytes=6068 sourceChars=6058 bundleJsonBytes=83546 clearMs=58 readMs=0 bundleMs=5 httpMs=376 totalMs=441 status=success httpStatus=200 outputLines=11 frameworkErrors=0
+00:30 +29: Section 2 - Bridge Generator Issues (80) widgets/nestedscrollview_test.dart
+[METRIC] script=widgets/nestedscrollview_test.dart sourceBytes=2795 sourceChars=2795 bundleJsonBytes=40206 clearMs=57 readMs=0 bundleMs=2 httpMs=391 totalMs=452 status=success httpStatus=200 outputLines=6 frameworkErrors=0
+00:31 +30: Section 2 - Bridge Generator Issues (80) animation/tweensequence_test.dart
+[METRIC] script=animation/tweensequence_test.dart sourceBytes=11260 sourceChars=11230 bundleJsonBytes=131945 clearMs=56 readMs=0 bundleMs=8 httpMs=621 totalMs=687 status=success httpStatus=200 outputLines=58 frameworkErrors=0
+00:31 +31: Section 2 - Bridge Generator Issues (80) services/codecs_test.dart
+[METRIC] script=services/codecs_test.dart sourceBytes=8229 sourceChars=8215 bundleJsonBytes=102696 clearMs=54 readMs=0 bundleMs=6 httpMs=443 totalMs=506 status=success httpStatus=200 outputLines=46 frameworkErrors=0
+00:32 +32: Section 2 - Bridge Generator Issues (80) services/channels_test.dart
+[METRIC] script=services/channels_test.dart sourceBytes=6041 sourceChars=6031 bundleJsonBytes=79612 clearMs=36 readMs=0 bundleMs=6 httpMs=477 totalMs=520 status=success httpStatus=200 outputLines=56 frameworkErrors=0
+00:32 +33: Section 2 - Bridge Generator Issues (80) semantics/semantics_config_test.dart
+[METRIC] script=semantics/semantics_config_test.dart sourceBytes=79435 sourceChars=78883 bundleJsonBytes=1013425 clearMs=100 readMs=1 bundleMs=69 httpMs=1344 totalMs=1516 status=success httpStatus=200 outputLines=68 frameworkErrors=0
+00:34 +34: Section 2 - Bridge Generator Issues (80) widgets/layout_builder_adv_test.dart
+[METRIC] script=widgets/layout_builder_adv_test.dart sourceBytes=7192 sourceChars=7192 bundleJsonBytes=105699 clearMs=88 readMs=0 bundleMs=7 httpMs=409 totalMs=506 status=success httpStatus=200 outputLines=26 frameworkErrors=0
+00:34 +35: Section 2 - Bridge Generator Issues (80) material/scaffold_messenger_test.dart
+[METRIC] script=material/scaffold_messenger_test.dart sourceBytes=36533 sourceChars=36533 bundleJsonBytes=487764 clearMs=31 readMs=0 bundleMs=34 httpMs=402 totalMs=469 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:35 +36: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart
+[METRIC] script=rendering/box_hit_test_result_test.dart sourceBytes=52727 sourceChars=48711 bundleJsonBytes=528766 clearMs=65 readMs=0 bundleMs=25 httpMs=1372 totalMs=1464 status=success httpStatus=200 outputLines=6 frameworkErrors=10
+
+  ⚠️  FRAMEWORK ERROR in rendering/box_hit_test_result_test.dart (10 error(s)):
+       RenderParagraph object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that al…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderDecoratedBox object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that…
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderFlex object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows …
+       RenderPadding object was given an infinite size during layout.
+This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allo…
+00:36 +36 -1: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart [E]
+  Expected: true
+    Actual: <false>
+  RenderParagraph object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderParagraph were:
+    BoxConstraints(w=1696.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1696.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1836.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1836.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderDecoratedBox object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderDecoratedBox were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderFlex object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderFlex were:
+    BoxConstraints(0.0<=w<=1870.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1870.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.; RenderPadding object was given an infinite size during layout.
+  This probably means that it is a render object that tries to be as big as possible, but it was put inside another render object that allows its children to pick their own size.
+  The nearest ancestor providing an unbounded height constraint is: _RenderSingleChildViewport#37685 relayoutBoundary=up9 NEEDS-LAYOUT NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE:
+    needs compositing
+    creator: _SingleChildViewport ← IgnorePointer-[GlobalKey#72044] ← Semantics ← Listener ← _GestureSemantics ← RawGestureDetector-[LabeledGlobalKey<RawGestureDetectorState>#d1ce5] ← Listener ← _ScrollableScope ← _ScrollSemantics-[GlobalKey#92fbd] ← NotificationListener<ScrollMetricsNotification> ← Transform ← StretchEffect ← ⋯
+    parentData: <none> (can use size)
+    constraints: BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=442.6)
+    size: MISSING
+    offset: Offset(0.0, -0.0)
+  The constraints that applied to the RenderPadding were:
+    BoxConstraints(0.0<=w<=1902.0, 0.0<=h<=Infinity)
+  The exact size it was given was:
+    Size(1902.0, Infinity)
+  See https://flutter.dev/to/unbounded-constraints for more information.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 331:7   main.<fn>.<fn>
+  
+00:36 +36 -1: Section 2 - Bridge Generator Issues (80) rendering/custom_painter_semantics_test.dart
+[METRIC] script=rendering/custom_painter_semantics_test.dart sourceBytes=41024 sourceChars=39718 bundleJsonBytes=464770 clearMs=38 readMs=1 bundleMs=24 httpMs=631 totalMs=696 status=success httpStatus=200 outputLines=10 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in rendering/custom_painter_semantics_test.dart (1 error(s)):
+       Argument Error: Invalid parameter "semanticsBuilder": expected ((Size) => List<CustomPainterSemantics>)?, got InterpretedFunction
+00:37 +36 -2: Section 2 - Bridge Generator Issues (80) rendering/custom_painter_semantics_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Argument Error: Invalid parameter "semanticsBuilder": expected ((Size) => List<CustomPainterSemantics>)?, got InterpretedFunction
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 339:7   main.<fn>.<fn>
+  
+00:37 +36 -2: Section 2 - Bridge Generator Issues (80) rendering/relayout_when_system_fonts_change_mixin_test.dart
+[METRIC] script=rendering/relayout_when_system_fonts_change_mixin_test.dart sourceBytes=60088 sourceChars=60082 bundleJsonBytes=833697 clearMs=105 readMs=0 bundleMs=52 httpMs=919 totalMs=1078 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:38 +37 -2: Section 2 - Bridge Generator Issues (80) rendering/render_absorb_pointer_test.dart
+[METRIC] script=rendering/render_absorb_pointer_test.dart sourceBytes=58216 sourceChars=58210 bundleJsonBytes=844747 clearMs=72 readMs=0 bundleMs=32 httpMs=918 totalMs=1024 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:39 +38 -2: Section 2 - Bridge Generator Issues (80) rendering/render_aligning_shifted_box_test.dart
+[METRIC] script=rendering/render_aligning_shifted_box_test.dart sourceBytes=51396 sourceChars=51396 bundleJsonBytes=739761 clearMs=121 readMs=0 bundleMs=40 httpMs=947 totalMs=1110 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_aligning_shifted_box_test.dart (2 error(s)):
+       Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild': 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not t…
+       'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 373 pos 12: 'child!.hasSize': is not true.
+00:40 +38 -3: Section 2 - Bridge Generator Issues (80) rendering/render_aligning_shifted_box_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild': 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not true.; 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 373 pos 12: 'child!.hasSize': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 363:7   main.<fn>.<fn>
+  
+00:40 +38 -3: Section 2 - Bridge Generator Issues (80) rendering/render_box_container_defaults_mixin_test.dart
+[METRIC] script=rendering/render_box_container_defaults_mixin_test.dart sourceBytes=64831 sourceChars=64831 bundleJsonBytes=1002530 clearMs=166 readMs=0 bundleMs=61 httpMs=988 totalMs=1216 status=success httpStatus=200 outputLines=0 frameworkErrors=5
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_box_container_defaults_mixin_test.dart (5 error(s)):
+       Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+       Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+       Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+       Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+       Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+00:41 +38 -4: Section 2 - Bridge Generator Issues (80) rendering/render_box_container_defaults_mixin_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData); Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData); Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData); Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData); Argument Error: Invalid parameter "parentData": expected ParentData, got InterpretedInstance(_DefaultsParentData)
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 371:7   main.<fn>.<fn>
+  
+00:41 +38 -4: Section 2 - Bridge Generator Issues (80) rendering/render_custom_multi_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_multi_child_layout_box_test.dart sourceBytes=66763 sourceChars=66763 bundleJsonBytes=1071676 clearMs=71 readMs=1 bundleMs=82 httpMs=1327 totalMs=1482 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_multi_child_layout_box_test.dart (2 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Offset': Argument Error: Invalid parameter "dx": expected double, got Null
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:43 +38 -5: Section 2 - Bridge Generator Issues (80) rendering/render_custom_multi_child_layout_box_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error during default bridged constructor for 'Offset': Argument Error: Invalid parameter "dx": expected double, got Null; 'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 379:7   main.<fn>.<fn>
+  
+00:43 +38 -5: Section 2 - Bridge Generator Issues (80) rendering/render_custom_paint_test.dart
+[METRIC] script=rendering/render_custom_paint_test.dart sourceBytes=59708 sourceChars=59708 bundleJsonBytes=957290 clearMs=71 readMs=1 bundleMs=56 httpMs=1184 totalMs=1313 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_paint_test.dart (2 error(s)):
+       Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebu…
+       Bad state: No element
+00:44 +38 -6: Section 2 - Bridge Generator Issues (80) rendering/render_custom_paint_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+  While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
+  This might be because setState() was called from a layout or paint callback. If a change is needed to the widget tree, it should be applied as the tree is being built. Scheduling a change for the subsequent frame instead results in an interface that lags behind by one frame. If this was done to make your build dependent on a size measured at layout time, consider using a LayoutBuilder, CustomSingleChildLayout, or CustomMultiChildLayout. If, on the other hand, the one frame delay is the desired effect, for example because this is an animation, consider scheduling the frame in a post-frame callback using SchedulerBinding.addPostFrameCallback or using an AnimationController to trigger the animation.; Bad state: No element
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 387:7   main.<fn>.<fn>
+  
+00:44 +38 -6: Section 2 - Bridge Generator Issues (80) rendering/render_custom_single_child_layout_box_test.dart
+[METRIC] script=rendering/render_custom_single_child_layout_box_test.dart sourceBytes=71483 sourceChars=71483 bundleJsonBytes=1147113 clearMs=59 readMs=0 bundleMs=57 httpMs=1240 totalMs=1359 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:46 +39 -6: Section 2 - Bridge Generator Issues (80) rendering/render_physical_shape_test.dart
+[METRIC] script=rendering/render_physical_shape_test.dart sourceBytes=63808 sourceChars=63808 bundleJsonBytes=1024037 clearMs=76 readMs=0 bundleMs=55 httpMs=752 totalMs=885 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +40 -6: Section 2 - Bridge Generator Issues (80) rendering/render_shrink_wrapping_viewport_test.dart
+[METRIC] script=rendering/render_shrink_wrapping_viewport_test.dart sourceBytes=64567 sourceChars=64561 bundleJsonBytes=757690 clearMs=73 readMs=6 bundleMs=49 httpMs=556 totalMs=685 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:47 +41 -6: Section 2 - Bridge Generator Issues (80) widgets/android_view_test.dart
+  Skip: AndroidView only renders on Android
+00:47 +41 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/animated_cross_fade_test.dart
+[METRIC] script=widgets/animated_cross_fade_test.dart sourceBytes=58164 sourceChars=53052 bundleJsonBytes=606175 clearMs=96 readMs=1 bundleMs=40 httpMs=731 totalMs=870 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:48 +42 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/animated_switcher_test.dart
+[METRIC] script=widgets/animated_switcher_test.dart sourceBytes=59802 sourceChars=54682 bundleJsonBytes=631989 clearMs=80 readMs=1 bundleMs=40 httpMs=606 totalMs=729 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:49 +43 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/autofill_group_test.dart
+[METRIC] script=widgets/autofill_group_test.dart sourceBytes=66941 sourceChars=66941 bundleJsonBytes=926938 clearMs=69 readMs=1 bundleMs=55 httpMs=1257 totalMs=1382 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:50 +44 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/backdrop_filter_test.dart
+[METRIC] script=widgets/backdrop_filter_test.dart sourceBytes=48840 sourceChars=44020 bundleJsonBytes=475210 clearMs=63 readMs=1 bundleMs=23 httpMs=894 totalMs=982 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:51 +45 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/composited_transform_follower_test.dart
+[METRIC] script=widgets/composited_transform_follower_test.dart sourceBytes=66306 sourceChars=63812 bundleJsonBytes=745737 clearMs=58 readMs=1 bundleMs=40 httpMs=549 totalMs=650 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:52 +46 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/fixed_extent_metrics_test.dart
+[METRIC] script=widgets/fixed_extent_metrics_test.dart sourceBytes=48899 sourceChars=48313 bundleJsonBytes=472886 clearMs=35 readMs=1 bundleMs=22 httpMs=559 totalMs=618 status=success httpStatus=200 outputLines=28 frameworkErrors=0
+00:52 +47 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/glowing_overscroll_indicator_test.dart
+[METRIC] script=widgets/glowing_overscroll_indicator_test.dart sourceBytes=52718 sourceChars=52718 bundleJsonBytes=675666 clearMs=61 readMs=0 bundleMs=34 httpMs=1151 totalMs=1248 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:54 +48 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/html_element_view_test.dart
+[METRIC] script=widgets/html_element_view_test.dart sourceBytes=59882 sourceChars=59882 bundleJsonBytes=788267 clearMs=84 readMs=0 bundleMs=81 httpMs=1360 totalMs=1527 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:55 +49 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/image_filtered_test.dart
+[METRIC] script=widgets/image_filtered_test.dart sourceBytes=88772 sourceChars=88772 bundleJsonBytes=1282899 clearMs=92 readMs=0 bundleMs=93 httpMs=3679 totalMs=3866 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:59 +50 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/indexed_stack_test.dart
+[METRIC] script=widgets/indexed_stack_test.dart sourceBytes=82895 sourceChars=82895 bundleJsonBytes=1197133 clearMs=85 readMs=0 bundleMs=62 httpMs=2357 totalMs=2506 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:02 +51 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/inherited_theme_test.dart
+[METRIC] script=widgets/inherited_theme_test.dart sourceBytes=93998 sourceChars=93998 bundleJsonBytes=1418191 clearMs=116 readMs=0 bundleMs=95 httpMs=1980 totalMs=2194 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:04 +52 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/inherited_widget_test.dart
+[METRIC] script=widgets/inherited_widget_test.dart sourceBytes=88375 sourceChars=88375 bundleJsonBytes=1335922 clearMs=96 readMs=0 bundleMs=77 httpMs=1755 totalMs=1930 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:06 +53 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_scroll_view_test.dart
+[METRIC] script=widgets/list_wheel_scroll_view_test.dart sourceBytes=62920 sourceChars=62916 bundleJsonBytes=847769 clearMs=81 readMs=1 bundleMs=96 httpMs=1936 totalMs=2115 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:08 +54 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/list_wheel_viewport_test.dart
+[METRIC] script=widgets/list_wheel_viewport_test.dart sourceBytes=65200 sourceChars=65200 bundleJsonBytes=868319 clearMs=85 readMs=0 bundleMs=53 httpMs=1977 totalMs=2117 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:10 +55 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/magnifier_decoration_test.dart
+[METRIC] script=widgets/magnifier_decoration_test.dart sourceBytes=60369 sourceChars=60367 bundleJsonBytes=837840 clearMs=101 readMs=1 bundleMs=49 httpMs=2341 totalMs=2493 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:13 +56 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/navigation_toolbar_test.dart
+[METRIC] script=widgets/navigation_toolbar_test.dart sourceBytes=65128 sourceChars=65045 bundleJsonBytes=831317 clearMs=100 readMs=1 bundleMs=45 httpMs=1662 totalMs=1809 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:14 +57 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/overflow_bar_test.dart
+[METRIC] script=widgets/overflow_bar_test.dart sourceBytes=70015 sourceChars=70015 bundleJsonBytes=924812 clearMs=85 readMs=0 bundleMs=48 httpMs=1882 totalMs=2017 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:16 +58 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/overflow_box_test.dart
+[METRIC] script=widgets/overflow_box_test.dart sourceBytes=75480 sourceChars=75480 bundleJsonBytes=1017545 clearMs=93 readMs=0 bundleMs=51 httpMs=1960 totalMs=2106 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:18 +59 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/page_storage_bucket_test.dart
+[METRIC] script=widgets/page_storage_bucket_test.dart sourceBytes=84402 sourceChars=84402 bundleJsonBytes=1074109 clearMs=100 readMs=0 bundleMs=83 httpMs=1975 totalMs=2160 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:21 +60 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/page_storage_test.dart
+[METRIC] script=widgets/page_storage_test.dart sourceBytes=77358 sourceChars=77358 bundleJsonBytes=1086776 clearMs=103 readMs=1 bundleMs=60 httpMs=2067 totalMs=2232 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:23 +61 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/parent_data_widget_test.dart
+[METRIC] script=widgets/parent_data_widget_test.dart sourceBytes=62828 sourceChars=51226 bundleJsonBytes=496635 clearMs=100 readMs=1 bundleMs=28 httpMs=484 totalMs=615 status=success httpStatus=200 outputLines=456 frameworkErrors=0
+01:23 +62 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/physical_model_test.dart
+[METRIC] script=widgets/physical_model_test.dart sourceBytes=53034 sourceChars=47920 bundleJsonBytes=540955 clearMs=26 readMs=1 bundleMs=26 httpMs=601 totalMs=655 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:24 +63 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/render_object_element_test.dart
+[METRIC] script=widgets/render_object_element_test.dart sourceBytes=37302 sourceChars=36294 bundleJsonBytes=381705 clearMs=81 readMs=1 bundleMs=22 httpMs=754 totalMs=859 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:25 +64 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/render_object_widget_test.dart
+[METRIC] script=widgets/render_object_widget_test.dart sourceBytes=33947 sourceChars=32809 bundleJsonBytes=419827 clearMs=28 readMs=1 bundleMs=22 httpMs=656 totalMs=708 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:26 +65 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/restorable_enum_test.dart
+[METRIC] script=widgets/restorable_enum_test.dart sourceBytes=69409 sourceChars=67101 bundleJsonBytes=741577 clearMs=30 readMs=1 bundleMs=42 httpMs=457 totalMs=531 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:26 +66 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/restorable_text_editing_controller_test.dart
+[METRIC] script=widgets/restorable_text_editing_controller_test.dart sourceBytes=52812 sourceChars=50810 bundleJsonBytes=569550 clearMs=29 readMs=1 bundleMs=28 httpMs=404 totalMs=463 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:27 +67 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/root_widget_test.dart
+[METRIC] script=widgets/root_widget_test.dart sourceBytes=39627 sourceChars=38283 bundleJsonBytes=451059 clearMs=30 readMs=1 bundleMs=24 httpMs=416 totalMs=472 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:27 +68 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/shader_mask_test.dart
+[METRIC] script=widgets/shader_mask_test.dart sourceBytes=46753 sourceChars=42225 bundleJsonBytes=504143 clearMs=100 readMs=0 bundleMs=15 httpMs=598 totalMs=715 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:28 +69 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/single_child_render_object_element_test.dart
+[METRIC] script=widgets/single_child_render_object_element_test.dart sourceBytes=56828 sourceChars=55393 bundleJsonBytes=587974 clearMs=99 readMs=0 bundleMs=17 httpMs=397 totalMs=515 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:28 +70 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/single_child_render_object_widget_test.dart
+[METRIC] script=widgets/single_child_render_object_widget_test.dart sourceBytes=55271 sourceChars=53857 bundleJsonBytes=545331 clearMs=56 readMs=0 bundleMs=15 httpMs=372 totalMs=445 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:29 +71 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/stateful_element_test.dart
+[METRIC] script=widgets/stateful_element_test.dart sourceBytes=35605 sourceChars=34474 bundleJsonBytes=421913 clearMs=93 readMs=0 bundleMs=14 httpMs=568 totalMs=677 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:30 +72 ~1 -6: Section 2 - Bridge Generator Issues (80) widgets/stateless_element_test.dart
+[METRIC] script=widgets/stateless_element_test.dart sourceBytes=28085 sourceChars=28085 bundleJsonBytes=387057 clearMs=39 readMs=0 bundleMs=11 httpMs=417 totalMs=468 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+01:30 +73 ~1 -6: Section 2 - Interpreter Issues (3) widgets/scrollbar_orientation_test.dart
+[METRIC] script=widgets/scrollbar_orientation_test.dart sourceBytes=31402 sourceChars=30200 bundleJsonBytes=353074 clearMs=50 readMs=0 bundleMs=10 httpMs=692 totalMs=754 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:31 +74 ~1 -6: Section 2 - Interpreter Issues (3) widgets/sliver_animated_list_state_test.dart
+[METRIC] script=widgets/sliver_animated_list_state_test.dart sourceBytes=32173 sourceChars=31069 bundleJsonBytes=412431 clearMs=45 readMs=0 bundleMs=13 httpMs=518 totalMs=577 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:31 +75 ~1 -6: Section 2 - Interpreter Issues (3) widgets/sliver_child_builder_delegate_test.dart
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceBytes=32659 sourceChars=31167 bundleJsonBytes=361232 clearMs=55 readMs=1 bundleMs=19 httpMs=543 totalMs=618 status=success httpStatus=200 outputLines=4 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/sliver_child_builder_delegate_test.dart (1 error(s)):
+       Runtime Error: Bridged class 'Map' has no instance method named 'contains'. Error during extension lookup: Bridged class 'Map' has no instance method named 'contains'.
+01:32 +75 ~1 -7: Section 2 - Interpreter Issues (3) widgets/sliver_child_builder_delegate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Bridged class 'Map' has no instance method named 'contains'. Error during extension lookup: Bridged class 'Map' has no instance method named 'contains'.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/generator_interpreter_issues_test.dart 25:3    expectSuccess
+  test/generator_interpreter_issues_test.dart 703:7   main.<fn>.<fn>
+  
+01:32 +75 ~1 -7: (tearDownAll)
+01:32 +75 ~1 -7: Some tests failed.

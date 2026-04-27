@@ -1005,6 +1005,16 @@ class InterpretedInstance implements RuntimeValue {
   // and trigger cascading rebuild loops).
   InterpretedInstance? interpretedStatefulWidget;
 
+  // C14: getter-only fallback target for bridged-superclass instance getters
+  // when neither `bridgedSuperObject` nor `nativeProxy` is set. Currently
+  // populated by `_InterpretedStatefulWidget.createState` for plain State
+  // subclasses (the ones that don't get a `nativeProxy` to avoid Bug-45's
+  // setState cascading loops). Lets `this.context`, `this.mounted`, etc. on
+  // the script's State subclass return the proxy's real `_element`-backed
+  // values, while methods like `setState` continue to dispatch through the
+  // RC-9 no-op fallback (so no Flutter rebuild is scheduled from script).
+  Object? nativeStateProxy;
+
   // Store generic type arguments for this instance (e.g., for List<String>, this would be [StringType])
   final List<RuntimeType>? typeArguments;
 
@@ -1289,8 +1299,15 @@ class InterpretedInstance implements RuntimeValue {
       // RC-6: Use nativeProxy as fallback when bridgedSuperObject is null.
       // This supports abstract class adapters (like _InterpretedState for State).
       if (currentClass.bridgedSuperclass != null) {
+        // C14: getters may additionally fall back to `nativeStateProxy` so
+        // read-only State members (`context`, `mounted`) on plain interpreted
+        // State subclasses (no nativeProxy by Bug-45 design) still resolve
+        // through the proxy's real `_element`. Methods deliberately exclude
+        // it to preserve Bug-45 — `setState` etc. on plain States must keep
+        // routing to the RC-9 no-op fallback below, not back through Flutter.
         final nativeTarget = bridgedSuperObject ?? nativeProxy;
-        if (nativeTarget != null) {
+        final getterTarget = nativeTarget ?? nativeStateProxy;
+        if (getterTarget != null || nativeTarget != null) {
           final bridgedSuper = currentClass.bridgedSuperclass!;
 
           // RC-6b: For 'widget' access on State subclasses with nativeProxy,
@@ -1311,13 +1328,14 @@ class InterpretedInstance implements RuntimeValue {
             }
           }
 
-          // Try getter first
+          // Try getter first — getters may use `nativeStateProxy` as
+          // fallback target (C14), methods may not.
           final getterAdapter = bridgedSuper.findInstanceGetterAdapter(name);
-          if (getterAdapter != null) {
+          if (getterAdapter != null && getterTarget != null) {
             Logger.debug(
                 "[Instance.get] Found getter '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Calling adapter.");
           try {
-            final result = getterAdapter(visitor, nativeTarget);
+            final result = getterAdapter(visitor, getterTarget);
 
             // Check if result is a native enum that has been bridged
             if (result != null && visitor != null) {
@@ -1337,28 +1355,32 @@ class InterpretedInstance implements RuntimeValue {
           }
         }
 
-        // Try method next
-        final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
-        if (methodAdapter != null) {
-          Logger.debug(
-              "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.");
-          return BridgedSuperMethodCallable(
-              nativeTarget, methodAdapter, name, bridgedSuper.name);
-        }
+        // Methods require the strict `nativeTarget` (no nativeStateProxy
+        // fallback) — see Bug-45.
+        if (nativeTarget != null) {
+          // Try method next
+          final methodAdapter = bridgedSuper.findInstanceMethodAdapter(name);
+          if (methodAdapter != null) {
+            Logger.debug(
+                "[Instance.get] Found method '$name' in bridged superclass '${bridgedSuper.name}' at level '${currentClass.name}'. Returning bound callable.");
+            return BridgedSuperMethodCallable(
+                nativeTarget, methodAdapter, name, bridgedSuper.name);
+          }
 
-        // RC-5: Check supplementary method adapters for unbridged methods.
-        // Methods like ChangeNotifier.notifyListeners() are @protected and
-        // not included in the generated bridge. Supplementary adapters
-        // registered via D4.registerSupplementaryMethod() fill this gap.
-        final supplementaryAdapter = D4.findSupplementaryMethod(
-            bridgedSuper.name, name);
-        if (supplementaryAdapter != null) {
-          Logger.debug(
-              "[Instance.get] Found supplementary method '$name' for bridged superclass '${bridgedSuper.name}'.");
-          return BridgedSuperMethodCallable(
-              nativeTarget, supplementaryAdapter, name, bridgedSuper.name);
+          // RC-5: Check supplementary method adapters for unbridged methods.
+          // Methods like ChangeNotifier.notifyListeners() are @protected and
+          // not included in the generated bridge. Supplementary adapters
+          // registered via D4.registerSupplementaryMethod() fill this gap.
+          final supplementaryAdapter = D4.findSupplementaryMethod(
+              bridgedSuper.name, name);
+          if (supplementaryAdapter != null) {
+            Logger.debug(
+                "[Instance.get] Found supplementary method '$name' for bridged superclass '${bridgedSuper.name}'.");
+            return BridgedSuperMethodCallable(
+                nativeTarget, supplementaryAdapter, name, bridgedSuper.name);
+          }
         }
-        } // end if (nativeTarget != null)
+        } // end if (getterTarget != null || nativeTarget != null)
       } // end if (bridgedSuperclass != null)
 
       // Move up to the superclass

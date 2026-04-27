@@ -16,9 +16,10 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/semantics_gesture_delegate_test.dart',
+    'widgets/inherited_theme_test.dart',
+    'widgets/inherited_widget_test.dart',
   ]) {
-    test('$script (C13)', () async {
+    test('$script (C14)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
