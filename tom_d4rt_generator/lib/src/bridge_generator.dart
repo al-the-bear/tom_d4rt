@@ -9397,15 +9397,25 @@ class BridgeGenerator {
   };
 
   /// Plan E (static): Static methods whose adapter must consult a runtime
-  /// interceptor when one is registered. Used for `InheritedModel.inheritFrom`
-  /// where Flutter's native lookup is type-erased and a script-supplied `<T>`
-  /// has to drive an ancestor-walk against `_InterpretedInheritedWidget`.
+  /// interceptor when one is registered. Used for cases where the native call
+  /// drops a script-supplied `<T>` at the bridge boundary (Flutter's static
+  /// lookups are typically keyed by the exact reified type argument).
   ///
-  /// Maps method name → conceptual owner class. The hook is emitted on every
-  /// bridged class that exposes a matching static method, so subclasses share
-  /// the same interceptor key (mirrors the instance-method hook pattern).
+  /// Keyed by `'ClassName.methodName'`; value is the conceptual owner class
+  /// used as the runtime registry key. Keying by both class and method (rather
+  /// than method name alone) avoids cross-talk between unrelated classes that
+  /// happen to share a method name (e.g. many widgets define a `maybeOf`).
+  ///
+  /// Examples:
+  /// - `InheritedModel.inheritFrom<T>`: the native impl is type-erased on
+  ///   interpreted subclasses; the interceptor walks `Element` ancestors and
+  ///   matches `_InterpretedInheritedWidget` by `InterpretedInstance.klass`.
+  /// - `RadioGroup.maybeOf<T>`: dispatches to `RadioGroup.maybeOf<T>(context)`
+  ///   for known type-arg names so the inherited-widget lookup finds the
+  ///   actual `_RadioGroupStateScope<T>` rather than a `<dynamic>` miss.
   static const Map<String, String> _bridgedStaticMethodInterceptHooks = {
-    'inheritFrom': 'InheritedModel',
+    'InheritedModel.inheritFrom': 'InheritedModel',
+    'RadioGroup.maybeOf': 'RadioGroup',
   };
 
   bool _generateMethodBody(
@@ -9794,9 +9804,11 @@ class BridgeGenerator {
 
     // Plan E (static): emit interceptor hook for selected static methods so
     // script-supplied generic type arguments survive the bridge boundary. See
-    // `_bridgedStaticMethodInterceptHooks` for the hook list.
+    // `_bridgedStaticMethodInterceptHooks` for the hook list. Keyed by
+    // `'ClassName.methodName'` so unrelated classes that share a method name
+    // (e.g. many widgets define their own `maybeOf`) don't share a hook.
     final staticInterceptOwner =
-        _bridgedStaticMethodInterceptHooks[method.name];
+        _bridgedStaticMethodInterceptHooks['${cls.name}.${method.name}'];
     if (staticInterceptOwner != null) {
       buffer.writeln(
         "        final _staticInterceptor = D4.findBridgedStaticMethodInterceptor('$staticInterceptOwner', '${method.name}');",

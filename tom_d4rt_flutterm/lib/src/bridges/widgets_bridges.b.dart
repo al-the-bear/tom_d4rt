@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-04-27T20:10:39.479726
+// Generated: 2026-04-27T20:47:37.843086
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member
 
@@ -62014,6 +62014,10 @@ BridgedClass _createRadioGroupBridge() {
     },
     staticMethods: {
       'maybeOf': (visitor, positional, named, typeArgs) {
+        final _staticInterceptor = D4.findBridgedStaticMethodInterceptor('RadioGroup', 'maybeOf');
+        if (_staticInterceptor != null) {
+          return _staticInterceptor(visitor, positional, named, typeArgs);
+        }
         D4.requireMinArgs(positional, 1, 'maybeOf');
         final context = D4.getRequiredArg<$flutter_164.BuildContext>(positional, 0, 'context', 'maybeOf');
         return $flutter_209.RadioGroup.maybeOf(context);

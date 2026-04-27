@@ -16,8 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    // C19 — RenderAligningShiftedBox.alignChild hasSize assertion.
-    'rendering/render_aligning_shifted_box_test.dart',
+    // C20f — `Error in generic constructor factory for 'RawRadio'`
+    // surfaced from the gir suite.
+    'retest/widgets/raw_radio_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

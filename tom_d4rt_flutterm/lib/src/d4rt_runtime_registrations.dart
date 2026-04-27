@@ -58,6 +58,8 @@ import 'package:flutter/widgets.dart'
         InheritedElement,
         InheritedWidget,
         Intent,
+        RadioGroup,
+        RadioGroupRegistry,
         LeafRenderObjectWidget,
         MultiChildRenderObjectWidget,
         NavigatorState,
@@ -75,6 +77,7 @@ import 'package:flutter/widgets.dart'
         SlottedContainerRenderObjectMixin,
         SlottedMultiChildRenderObjectWidget,
         State,
+        StatefulElement,
         StatefulWidget,
         StatelessWidget,
         TickerProviderStateMixin,
@@ -3119,6 +3122,59 @@ void _registerBridgedMethodInterceptors() {
       return widget is InheritedWidget
           ? _unwrapInheritedWidget(widget)
           : widget;
+    },
+  );
+
+  // C20f: RadioGroup.maybeOf<T>(context) drops <T> at the bridge boundary.
+  // Native lookup uses `dependOnInheritedWidgetOfExactType<_RadioGroupStateScope<T>>()`
+  // which is keyed by the exact reified type argument — calling without `<T>`
+  // resolves to `<dynamic>` and never matches the actual `_RadioGroupStateScope<String>`
+  // (or other concrete T) in the tree, so the registry comes back null and any
+  // enabled `RawRadio<T>` consumer trips its `groupRegistry != null` assertion.
+  //
+  // We dispatch to the native generic call for a known set of common type-arg
+  // names; for unknown `<T>` we fall back to a type-agnostic ancestor walk that
+  // returns the first State implementing `RadioGroupRegistry` (RadioGroup<T>'s
+  // private state implements `RadioGroupRegistry<T>`).
+  D4.registerBridgedStaticMethodInterceptor(
+    'RadioGroup',
+    'maybeOf',
+    (visitor, positional, named, typeArgs) {
+      if (positional.isEmpty) return null;
+      final ctx = positional[0];
+      if (ctx is! BuildContext) return null;
+
+      final typeName = (typeArgs != null && typeArgs.isNotEmpty)
+          ? typeArgs[0].name
+          : null;
+
+      final byType = switch (typeName) {
+        'String' => RadioGroup.maybeOf<String>(ctx),
+        'int' => RadioGroup.maybeOf<int>(ctx),
+        'double' => RadioGroup.maybeOf<double>(ctx),
+        'num' => RadioGroup.maybeOf<num>(ctx),
+        'bool' => RadioGroup.maybeOf<bool>(ctx),
+        'Object' => RadioGroup.maybeOf<Object>(ctx),
+        _ => null,
+      };
+      if (byType != null) return byType;
+
+      // Type-agnostic fallback for script-defined or unsupported `<T>`: walk
+      // ancestors looking for the enclosing RadioGroup's State (which
+      // implements RadioGroupRegistry<T>). Note: this skips inherited-widget
+      // dependency registration — RawRadio rebuilds via its own listener.
+      RadioGroupRegistry? registry;
+      ctx.visitAncestorElements((element) {
+        if (element is StatefulElement) {
+          final state = element.state;
+          if (state is RadioGroupRegistry) {
+            registry = state as RadioGroupRegistry;
+            return false;
+          }
+        }
+        return true;
+      });
+      return registry;
     },
   );
 }

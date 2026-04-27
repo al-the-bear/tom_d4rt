@@ -815,7 +815,7 @@ defensive infrastructure, matching the long-standing
 | ~~C20a~~ | ~~`Unsupported binary operator "&"`~~ | ~~`widgets/widget_states_constraint_test.dart` (hr5, 1 FE)~~ — **closed 2026-04-27** |
 | ~~C20b~~ | ~~`Unsupported for-loop type in collection literal: SForEachPartsWithPattern`~~ | ~~`widgets/fractional_translation_test.dart` (hr4, 1 FE)~~ — **closed 2026-04-27** |
 | ~~C20d~~ | ~~`Native error in bridged superclass method 'State.setState': Build scheduled during frame.`~~ | ~~`rendering/render_box_container_defaults_mixin_test.dart` (gii fail), `rendering/render_custom_paint_test.dart` (gii fail)~~ — **closed 2026-04-27 (workaround)** |
-| C20f | `Error in generic constructor factory for 'RawRadio'` | `retest/widgets/raw_radio_test.dart` (gir fail) |
+| ~~C20f~~ | ~~`Error in generic constructor factory for 'RawRadio'`~~ | ~~`retest/widgets/raw_radio_test.dart` (gir fail)~~ — **closed 2026-04-27** |
 | C20h₂ | `LateInitializationError: Late variable '_<...>' without initializer` | `widgets/text_selection_gesture_detector_builder_delegate_test.dart` — folded into D3 |
 
 C20a closed 2026-04-27 — the `&` was a red herring. The actual
@@ -873,7 +873,41 @@ real Flutter (real Flutter throws; the bridge defers) documented in
 `doc/interpreter_unfixable.md` (C20d). Regression: essential 108/0/0,
 important 164/5/0, secondary 649/5/0 — all matching baseline.
 
-C20f is a generic constructor-factory bug in the generator.
+C20f closed 2026-04-27 — the cluster description was misleading.
+The "Error in generic constructor factory for 'RawRadio'" was a
+*symptom*; the actual root cause was that
+`RadioGroup.maybeOf<T>(context)` drops `<T>` at the bridge boundary.
+Native `maybeOf<T>` uses
+`context.dependOnInheritedWidgetOfExactType<_RadioGroupStateScope<T>>()`,
+which is keyed by the exact reified type argument. The generated
+static-method bridge ignored `typeArgs` and called
+`RadioGroup.maybeOf(context)` (i.e. `<dynamic>`), so the lookup
+never matched the concrete `_RadioGroupStateScope<String>` in the
+tree and returned null. The script's `RawRadio<String>(groupRegistry:
+registry, enabled: true)` then asserted on
+`!enabled || groupRegistry != null`. The RC-2 factory was a
+red herring — it received and forwarded `null` correctly.
+
+Two coordinated changes:
+
+1. **Bridge generator** (`tom_d4rt_generator/lib/src/bridge_generator.dart`):
+   the `_bridgedStaticMethodInterceptHooks` map was keyed by method
+   name alone, which would route every `*.maybeOf` static (many
+   widgets define one) through the same registry slot. Re-keyed
+   to `'ClassName.methodName'` so unrelated classes don't share a
+   hook. Added `'RadioGroup.maybeOf': 'RadioGroup'`.
+2. **Runtime registration**
+   (`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`):
+   registered a `RadioGroup.maybeOf` static interceptor that
+   dispatches to the native `RadioGroup.maybeOf<T>(context)` for
+   the common builtin type-arg names (`String`, `int`, `double`,
+   `num`, `bool`, `Object`); for unknown `<T>` it falls back to a
+   type-agnostic ancestor walk that returns the first
+   `StatefulElement.state` implementing `RadioGroupRegistry`.
+
+After regenerating bridges: raw_radio_test went from 1 framework
+error to 0. Regression: gir 47/0/11, essential 108/0/0, important
+164/0/5, secondary 649/0/5 — all matching baseline.
 
 ## C21 — Interpreted `ParentData` proxy (Partial)
 
@@ -916,11 +950,12 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C20f, C21,
+Carry-over clusters (C1, C3, C4, C7, C21,
 Plan E2, InheritedModel proxy) detailed above.
 C20a closed 2026-04-27 (tear-off + map-key + WidgetStatesConstraint proxy).
 C20b closed 2026-04-27 (SForEachPartsWithPattern in collection literals).
 C20d closed 2026-04-27 (StateUserBridge scheduler-phase deferral workaround).
+C20f closed 2026-04-27 (RadioGroup.maybeOf static interceptor for typed lookup).
 
 ---
 
