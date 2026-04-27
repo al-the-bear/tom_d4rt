@@ -1052,11 +1052,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       final methodAdapter = bridgedInstance.bridgedClass
           .findInstanceMethodAdapter(memberName);
       if (methodAdapter != null) {
+        // C20a fix: prefixed identifier `prefix.method` is a method tear-off
+        // when not followed by an invocation. Return the callable rather than
+        // invoking it with empty arguments. The previous `.call(this, [], {})`
+        // crashed bridges that index `positionalArgs[0]` (e.g. Set.contains
+        // used as `_kAllStates.where(states.contains)`), surfacing as
+        // "Set.contains: Invalid value" RangeError.
         return BridgedMethodCallable(
           bridgedInstance,
           methodAdapter,
           memberName,
-        ).call(this, [], {});
+        );
       }
 
       // No adapter found, try extension methods/getters
