@@ -30,7 +30,7 @@ exercised directly.
 | `hardly_relevant_classes_1_test`     |  80 |  1 | 124 | 0  | **engine cascade** — see D1 below |
 | `hardly_relevant_classes_2_test`     | 203 |  0 |   0 | 0  | clean |
 | `hardly_relevant_classes_3_test`     | 199 |  2 |   0 | 0  | clean |
-| `hardly_relevant_classes_4_test`     | 227 |  0 |   0 | 1  | one C20b carry-over (`fractional_translation_test`) |
+| `hardly_relevant_classes_4_test`     | 227 |  0 |   0 | 1  | ~~one C20b carry-over (`fractional_translation_test`)~~ — closed 2026-04-27 |
 | `hardly_relevant_classes_5_test`     | 230 |  0 |   0 | 38 | suite passes; FE noise concentrated in `widgets/` |
 | `interactive_tests_test`             |   6 |  0 |   0 | 0  | clean |
 | `generator_interpreter_issues_test`  |  78 |  1 |   4 | 4  | 4 gii fails, all FE-asserting |
@@ -813,7 +813,7 @@ defensive infrastructure, matching the long-standing
 | Sub | Error | Script |
 |---|---|---|
 | ~~C20a~~ | ~~`Unsupported binary operator "&"`~~ | ~~`widgets/widget_states_constraint_test.dart` (hr5, 1 FE)~~ — **closed 2026-04-27** |
-| C20b | `Unsupported for-loop type in collection literal: SForEachPartsWithPattern` | `widgets/fractional_translation_test.dart` (hr4, 1 FE) |
+| ~~C20b~~ | ~~`Unsupported for-loop type in collection literal: SForEachPartsWithPattern`~~ | ~~`widgets/fractional_translation_test.dart` (hr4, 1 FE)~~ — **closed 2026-04-27** |
 | C20d | `Native error in bridged superclass method 'State.setState': Build scheduled during frame.` | `rendering/render_box_container_defaults_mixin_test.dart` (gii fail), `rendering/render_custom_paint_test.dart` (gii fail) |
 | C20f | `Error in generic constructor factory for 'RawRadio'` | `retest/widgets/raw_radio_test.dart` (gir fail) |
 | C20h₂ | `LateInitializationError: Late variable '_<...>' without initializer` | `widgets/text_selection_gesture_detector_builder_delegate_test.dart` — folded into D3 |
@@ -839,8 +839,17 @@ Three coordinated fixes, mirrored across `tom_d4rt` and
    `_InterpretedWidgetStatesConstraint` delegating
    `isSatisfiedBy(Set<WidgetState>)` to the interpreter.
 
-C20b is a real Dart-feature hole in the interpreter
-(`SForEachPartsWithPattern` in collection literals).
+C20b closed 2026-04-27 — `SForEachPartsWithPattern` (Dart 3 record-
+pattern destructuring inside collection-literal `for` loops, e.g.
+`for (final (IconData icon, String label) in entries) ...`) was
+unhandled in the collection-literal visitor's `SForElement` branch,
+even though the statement-level for-in already supported it via
+`_executeForInWithPattern`. Mirrored the same logic into
+`_processCollectionElement`: per-iteration scope with
+`_matchAndBind(pattern, item, env)`, then dispatch to the body.
+Implemented in both `tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
+
 C20d (`setState` during frame) needs an interpreter trampoline that
 defers the rebuild via `WidgetsBinding.instance.addPostFrameCallback`.
 C20f is a generic constructor-factory bug in the generator.
@@ -886,9 +895,10 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C20b/d/f, C21,
+Carry-over clusters (C1, C3, C4, C7, C20d/f, C21,
 Plan E2, InheritedModel proxy) detailed above.
 C20a closed 2026-04-27 (tear-off + map-key + WidgetStatesConstraint proxy).
+C20b closed 2026-04-27 (SForEachPartsWithPattern in collection literals).
 
 ---
 
