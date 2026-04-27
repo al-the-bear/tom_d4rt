@@ -82,7 +82,9 @@ import 'package:flutter/widgets.dart'
         TwoDimensionalChildManager,
         TwoDimensionalScrollView,
         TwoDimensionalViewport,
-        Widget;
+        Widget,
+        WidgetState,
+        WidgetStatesConstraint;
 import 'dart:ui' show Clip;
 import 'dart:ui' show Offset, Path, Size;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
@@ -390,6 +392,22 @@ void _registerInterfaceProxies() {
   D4.markProxyCapturesSuperArgs('TwoDimensionalScrollView');
   D4.markProxyCapturesSuperArgs('TwoDimensionalViewport');
   D4.markProxyCapturesSuperArgs('RenderTwoDimensionalViewport');
+
+  // C20a follow-up — WidgetStatesConstraint. Scripts subclass it (typically
+  // via `implements WidgetStatesConstraint`) to use a custom predicate as a
+  // map key in `WidgetStateColor.fromMap` / `WidgetStatePropertyMap` /
+  // `WidgetStateMapper`. Without a registered proxy, `D4.coerceMap<…,
+  // WidgetStatesConstraint>` falls through to `instance as
+  // WidgetStatesConstraint` and throws. The proxy forwards `isSatisfiedBy`
+  // back into the interpreter so the resolver evaluates the script's
+  // predicate at lookup time.
+  D4.registerInterfaceProxy('WidgetStatesConstraint', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is WidgetStatesConstraint) return cached;
+    final proxy = _InterpretedWidgetStatesConstraint(visitor, instance);
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  });
 }
 
 /// Bug-103: Override the generator-produced proxies for
@@ -3521,5 +3539,37 @@ class _InterpretedRenderTwoDimensionalViewport
           'layoutChildSequence()');
     }
     method.bind(_instance).call(_visitor, const [], const {});
+  }
+}
+
+/// Native [WidgetStatesConstraint] backing an interpreted user class that
+/// `implements WidgetStatesConstraint` (C20a follow-up).
+///
+/// Forwards `isSatisfiedBy(Set<WidgetState> states)` to the interpreter so the
+/// resolver (e.g. `WidgetStateColor.fromMap` / `WidgetStatePropertyMap`)
+/// evaluates the script's predicate at lookup time. The proxy also implements
+/// `&`, `|` and `~` by composing through the bridged operator overloads so
+/// expressions like `WidgetState.pressed & ~_MyConstraint()` continue to
+/// work whether the interpreted predicate appears on the left or right.
+class _InterpretedWidgetStatesConstraint implements WidgetStatesConstraint {
+  _InterpretedWidgetStatesConstraint(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  bool isSatisfiedBy(Set<WidgetState> states) {
+    final method = _instance.klass.findInstanceMethod('isSatisfiedBy');
+    if (method == null) {
+      throw StateError(
+          'Interpreted class ${_instance.klass.name} does not implement '
+          'isSatisfiedBy(Set<WidgetState>)');
+    }
+    final result =
+        method.bind(_instance).call(_visitor, [states], const {});
+    if (result is bool) return result;
+    throw StateError(
+        'Interpreted ${_instance.klass.name}.isSatisfiedBy must return bool; '
+        'got ${result.runtimeType}');
   }
 }

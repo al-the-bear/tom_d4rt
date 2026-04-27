@@ -812,14 +812,35 @@ defensive infrastructure, matching the long-standing
 
 | Sub | Error | Script |
 |---|---|---|
-| C20a | `Unsupported binary operator "&"` | `widgets/widget_states_constraint_test.dart` (hr5, 1 FE) |
+| ~~C20a~~ | ~~`Unsupported binary operator "&"`~~ | ~~`widgets/widget_states_constraint_test.dart` (hr5, 1 FE)~~ — **closed 2026-04-27** |
 | C20b | `Unsupported for-loop type in collection literal: SForEachPartsWithPattern` | `widgets/fractional_translation_test.dart` (hr4, 1 FE) |
 | C20d | `Native error in bridged superclass method 'State.setState': Build scheduled during frame.` | `rendering/render_box_container_defaults_mixin_test.dart` (gii fail), `rendering/render_custom_paint_test.dart` (gii fail) |
 | C20f | `Error in generic constructor factory for 'RawRadio'` | `retest/widgets/raw_radio_test.dart` (gir fail) |
 | C20h₂ | `LateInitializationError: Late variable '_<...>' without initializer` | `widgets/text_selection_gesture_detector_builder_delegate_test.dart` — folded into D3 |
 
-C20a, C20b are real Dart-feature holes in the interpreter (user `&`
-operator dispatch; `SForEachPartsWithPattern` in collection literals).
+C20a closed 2026-04-27 — the `&` was a red herring. The actual
+failure was a `Set.contains` `RangeError: Invalid value` raised when
+`states.contains` was passed as a callback (`_kAllStates.where(states.contains)`).
+Three coordinated fixes, mirrored across `tom_d4rt` and
+`tom_d4rt_ast`:
+
+1. **Method tear-off in `visitSPrefixedIdentifier`** —
+   `prefix.method` (without an immediate invocation) was being
+   *invoked* with empty arguments instead of returning a callable.
+   On bridges that index `positionalArgs[0]` (e.g. Set.contains) this
+   surfaced as `RangeError`. Now returns a `BridgedMethodCallable`.
+2. **`D4._coerceMapKey<K>` helper** — added to handle
+   `InterpretedInstance` keys via `bridgedSuperObject` and
+   `tryCreateInterfaceProxyWithVisitor`, so user-defined
+   `WidgetStatesConstraint` subclasses can be coerced into native
+   map keys.
+3. **`WidgetStatesConstraint` interface proxy registration** in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` with a
+   `_InterpretedWidgetStatesConstraint` delegating
+   `isSatisfiedBy(Set<WidgetState>)` to the interpreter.
+
+C20b is a real Dart-feature hole in the interpreter
+(`SForEachPartsWithPattern` in collection literals).
 C20d (`setState` during frame) needs an interpreter trampoline that
 defers the rebuild via `WidgetsBinding.instance.addPostFrameCallback`.
 C20f is a generic constructor-factory bug in the generator.
@@ -865,8 +886,9 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C7, C20a/b/d/f, C21,
+Carry-over clusters (C1, C3, C4, C7, C20b/d/f, C21,
 Plan E2, InheritedModel proxy) detailed above.
+C20a closed 2026-04-27 (tear-off + map-key + WidgetStatesConstraint proxy).
 
 ---
 
