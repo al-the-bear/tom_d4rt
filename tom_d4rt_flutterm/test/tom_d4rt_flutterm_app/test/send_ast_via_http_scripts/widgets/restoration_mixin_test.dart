@@ -177,7 +177,11 @@ class _BoardGameSessionDemoState extends State<BoardGameSessionDemo>
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: _playerName.value);
+    // Use the literal default that matches RestorableString('Player 1') above.
+    // Reading _playerName.value here (before registerForRestoration runs in
+    // restoreState) trips the `isRegistered` assertion in plain Flutter too,
+    // so this is the script-side fix, not an interpreter limitation.
+    _nameController = TextEditingController(text: 'Player 1');
     _nameController.addListener(_onNameChanged);
     debugPrint(
       '[RestorationMixin] initState: created TextEditingController for the '

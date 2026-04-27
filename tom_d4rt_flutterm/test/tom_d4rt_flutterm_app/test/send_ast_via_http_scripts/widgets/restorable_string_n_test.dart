@@ -113,14 +113,14 @@ class _FeedbackKioskDemoState extends State<FeedbackKioskDemo>
   @override
   void initState() {
     super.initState();
-    _feedbackCtrl = TextEditingController(text: _feedbackText.value ?? '')
-      ..addListener(_onFeedbackChanged);
-    _emailCtrl = TextEditingController(text: _optionalEmail.value ?? '')
-      ..addListener(_onEmailChanged);
-    _suggestionCtrl = TextEditingController(text: _suggestionText.value ?? '')
-      ..addListener(_onSuggestionChanged);
-    _nameCtrl = TextEditingController(text: _optionalName.value ?? '')
-      ..addListener(_onNameChanged);
+    // Defaults match the RestorableStringN(null) initial values declared above
+    // (which collapse to '' via `?? ''`). We use literals here because reading
+    // RestorableProperty.value before registerForRestoration runs in
+    // restoreState would assert on `isRegistered` in plain Flutter as well.
+    _feedbackCtrl = TextEditingController()..addListener(_onFeedbackChanged);
+    _emailCtrl = TextEditingController()..addListener(_onEmailChanged);
+    _suggestionCtrl = TextEditingController()..addListener(_onSuggestionChanged);
+    _nameCtrl = TextEditingController()..addListener(_onNameChanged);
   }
 
   @override
