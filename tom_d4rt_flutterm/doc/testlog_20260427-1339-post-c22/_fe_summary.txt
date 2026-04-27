@@ -1,0 +1,108 @@
+==================== essential_classes_test.log.txt ====================
+  ⚠️  FRAMEWORK ERROR in widgets/form_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'hasError' on bridged instance of 'RestorationMixin'.
+==================== important_classes_test.log.txt ====================
+==================== secondary_classes_test.log.txt ====================
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_position_types_test.dart (19 error(s)):
+       BoxConstraints forces an infinite height.
+       RenderBox was not laid out: RenderFlex#4505a relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#71d1a relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#8db47 relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#b8301 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#90773 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#914cd relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderSingleChildViewport#e0a53 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderIgnorePointer#0615e relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsAnnotations#a63ae relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#256a4 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsGestureHandler#b0681 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#25033 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderScrollSemantics#28ed0 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderTransform#aeba5 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderClipRect#d578c relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#613b1 relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderTransform#aeba5 relayoutBoundary=up3
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  ⚠️  FRAMEWORK ERROR in rendering/custom_painter_semantics_test.dart (1 error(s)):
+       A SemanticsData object with label "Information card" had a null textDirection.
+  ⚠️  FRAMEWORK ERROR in rendering/render_aligning_shifted_box_test.dart (2 error(s)):
+       Runtime Error: Native error in bridged superclass method 'RenderAligningShiftedBox.alignChild': 'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 374 pos 12: 'hasSize': is not t…
+       'package:flutter/src/rendering/shifted_box.dart': Failed assertion: line 373 pos 12: 'child!.hasSize': is not true.
+  ⚠️  FRAMEWORK ERROR in rendering/render_box_container_defaults_mixin_test.dart (6 error(s)):
+       Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+       RenderBox was not laid out: _InterpretedRenderBoxContainer#56778 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#c3727 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#46258 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#06030 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#46258
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_paint_test.dart (2 error(s)):
+       Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+       Bad state: No element
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_bool_test.dart (19 error(s)):
+       BoxConstraints forces an infinite height.
+       RenderBox was not laid out: RenderFlex#dd0a8 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderLayoutBuilder#7634b relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#a1571 relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#dc005 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#8a8a3 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderSingleChildViewport#4c686 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderIgnorePointer#68f3f relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsAnnotations#96214 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#5b29b relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsGestureHandler#37e38 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#1eb31 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderScrollSemantics#d6121 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderTransform#3b488 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderClipRect#fd5f2 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#80041 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#473dc relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#473dc relayoutBoundary=up1
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_double_test.dart (1 error(s)):
+       A RenderFlex overflowed by 17 pixels on the bottom.
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_property_test.dart (1 error(s)):
+       Runtime Error: Native error in bridged mixin method 'RestorationMixin.registerForRestoration': Argument Error: Invalid parameter "property": expected RestorableProperty<Object?>, got InterpretedInstan…
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_string_test.dart (1 error(s)):
+       Runtime Error: LateInitializationError: Late variable '_productNameController' without initializer is accessed before being assigned.
+  ⚠️  FRAMEWORK ERROR in widgets/restorable_value_test.dart (1 error(s)):
+       Runtime Error: Native error in bridged mixin method 'RestorationMixin.registerForRestoration': Argument Error: Invalid parameter "property": expected RestorableProperty<Object?>, got InterpretedInstan…
+  ⚠️  FRAMEWORK ERROR in widgets/restoration_mixin_test.dart (1 error(s)):
+       Runtime Error: LateInitializationError: Late variable '_nameController' without initializer is accessed before being assigned.
+  ⚠️  FRAMEWORK ERROR in widgets/text_magnifier_configuration_test.dart (6 error(s)):
+       BoxConstraints forces an infinite height.
+       RenderBox was not laid out: RenderFlex#904af relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#eb562 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+  ⚠️  FRAMEWORK ERROR in widgets/widget_test.dart (26 error(s)):
+       BoxConstraints forces an infinite height.
+       RenderBox was not laid out: RenderFlex#bacf9 relayoutBoundary=up23 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#e7978 relayoutBoundary=up22 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#d9d14 relayoutBoundary=up21 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#0c64f relayoutBoundary=up20 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderColoredBox#67056 relayoutBoundary=up19 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderClipRRect#ceff4 relayoutBoundary=up18 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#73467 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderDecoratedBox#5e493 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#a3bd6 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderFlex#3c8aa relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderConstrainedBox#de715 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#bb952 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderSingleChildViewport#e7ad5 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderIgnorePointer#4659c relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsAnnotations#8d0ab relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#37f0d relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderSemanticsGestureHandler#af3e1 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPointerListener#2dc64 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: _RenderScrollSemantics#20140 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderTransform#c0253 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderClipRect#2fd2d relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderPadding#091db relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderStack#6a42c relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+       RenderBox was not laid out: RenderTransform#c0253 relayoutBoundary=up4
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  ⚠️  FRAMEWORK ERROR in widgets/widgets_binding_observer_test.dart (1 error(s)):
+       Runtime Error: Native error during default bridged constructor for 'Scaffold': Argument Error: Invalid parameter "appBar": expected PreferredSizeWidget?, got InterpretedInstance(_WboAppBar)
+  ⚠️  FRAMEWORK ERROR in widgets/widgets_binding_test.dart (1 error(s)):
+       Runtime Error: Native error during static bridged method call 'merge' on DefaultTextStyle: Argument Error: Invalid parameter "child": expected Widget, got InterpretedInstance(_WbnPipeBackdrop)

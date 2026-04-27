@@ -1,0 +1,23 @@
+=== git ===
+86cf522cbb62af00db1e0e1c77299cd1e7b24566
+Fix C22: ListView replaces SingleChildScrollView in box_hit_test_result_test
+The cluster's suggested fix (mainAxisSize: MainAxisSize.min on each
+top-level section Column) was applied to all 13 Columns in the script
+but did not move frameworkErrors=10. The unbounded-viewport cascade
+persisted somewhere deeper in the tree.
+
+Replacing the body's `SingleChildScrollView(padding: …, child: Column(…))`
+with `ListView(padding: …, children: [...])` resolves it cleanly:
+ListView's sliver-based layout gives each child a finite-height slot,
+fully eliminating the infinite-size cascade.
+
+Strictly script-side; no interpreter or generator change needed.
+
+Result: frameworkErrors=10 → 0; gii test for
+rendering/box_hit_test_result_test.dart now passes (+1). Logs in
+tom_d4rt_flutterm/doc/testlog_20260427-c22/.
+
+Co-Authored-By: Claude Opus 4 <noreply@anthropic.com>
+
+=== date ===
+Mon Apr 27 01:39:28 PM CEST 2026

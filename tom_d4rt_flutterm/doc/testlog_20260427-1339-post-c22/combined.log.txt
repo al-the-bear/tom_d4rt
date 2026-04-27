@@ -1,0 +1,56 @@
+===== 13:39:28 START essential_classes_test =====
+[METRIC] script=services/textformatter_test.dart sourceBytes=53063 sourceChars=48716 bundleJsonBytes=601205 clearMs=43 readMs=1 bundleMs=37 httpMs=680 totalMs=762 status=success httpStatus=200 outputLines=18 frameworkErrors=0
+01:07 +108: (tearDownAll)
+01:08 +108: All tests passed!
+===== 13:40:44 END essential_classes_test =====
+===== 13:40:44 START important_classes_test =====
+[METRIC] script=proxies/singlechildlayout_proxy_test.dart sourceBytes=2205 sourceChars=2205 bundleJsonBytes=24686 clearMs=44 readMs=0 bundleMs=2 httpMs=343 totalMs=390 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+01:31 +164 ~5: (tearDownAll)
+01:31 +164 ~5: All tests passed!
+===== 13:42:23 END important_classes_test =====
+===== 13:42:23 START secondary_classes_test =====
+[METRIC] script=widgets/will_pop_scope_test.dart sourceBytes=40910 sourceChars=40908 bundleJsonBytes=432101 clearMs=54 readMs=0 bundleMs=18 httpMs=613 totalMs=687 status=success httpStatus=200 outputLines=50 frameworkErrors=0
+07:37 +649 ~5: (tearDownAll)
+07:37 +649 ~5: All tests passed!
+===== 13:50:09 END secondary_classes_test =====
+===== 13:50:09 START hardly_relevant_classes_1_test =====
+  
+13:22 +80 ~1 -124: (tearDownAll)
+13:22 +80 ~1 -124: Some tests failed.
+===== 14:03:39 END hardly_relevant_classes_1_test =====
+===== 14:03:39 START hardly_relevant_classes_2_test =====
+[METRIC] script=physics/spring_type_test.dart sourceBytes=953 sourceChars=953 bundleJsonBytes=14714 clearMs=79 readMs=0 bundleMs=1 httpMs=312 totalMs=394 status=success httpStatus=200 outputLines=9 frameworkErrors=0
+02:42 +203: (tearDownAll)
+02:42 +203: All tests passed!
+===== 14:06:30 END hardly_relevant_classes_2_test =====
+===== 14:06:30 START hardly_relevant_classes_3_test =====
+[METRIC] script=services/undo_direction_test.dart sourceBytes=991 sourceChars=991 bundleJsonBytes=14745 clearMs=45 readMs=0 bundleMs=1 httpMs=473 totalMs=521 status=success httpStatus=200 outputLines=8 frameworkErrors=0
+02:17 +199 ~2: (tearDownAll)
+02:17 +199 ~2: All tests passed!
+===== 14:08:56 END hardly_relevant_classes_3_test =====
+===== 14:08:56 START hardly_relevant_classes_4_test =====
+[METRIC] script=widgets/pop_entry_test.dart sourceBytes=44153 sourceChars=44111 bundleJsonBytes=551323 clearMs=86 readMs=1 bundleMs=33 httpMs=724 totalMs=846 status=success httpStatus=200 outputLines=16 frameworkErrors=0
+02:53 +227: (tearDownAll)
+02:54 +227: All tests passed!
+===== 14:11:58 END hardly_relevant_classes_4_test =====
+===== 14:11:58 START hardly_relevant_classes_5_test =====
+[METRIC] script=widgets/windowing_owner_win32_test.dart sourceBytes=102789 sourceChars=102653 bundleJsonBytes=1134162 clearMs=97 readMs=2 bundleMs=54 httpMs=1157 totalMs=1311 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+03:23 +230: (tearDownAll)
+03:23 +230: All tests passed!
+===== 14:15:30 END hardly_relevant_classes_5_test =====
+===== 14:15:30 START interactive_tests_test =====
+Interaction result: InteractResult(success, output: [])
+00:27 +6: (tearDownAll)
+00:28 +6: All tests passed!
+===== 14:16:06 END interactive_tests_test =====
+===== 14:16:06 START generator_interpreter_issues_test =====
+[METRIC] script=widgets/sliver_child_builder_delegate_test.dart sourceBytes=33023 sourceChars=31529 bundleJsonBytes=361496 clearMs=26 readMs=1 bundleMs=16 httpMs=698 totalMs=742 status=success httpStatus=200 outputLines=4 frameworkErrors=0
+01:36 +78 ~1 -4: (tearDownAll)
+01:37 +78 ~1 -4: Some tests failed.
+===== 14:17:51 END generator_interpreter_issues_test =====
+===== 14:17:51 START generator_interpreter_retest_test =====
+[METRIC] script=retest/widgets/request_focus_action_test.dart sourceBytes=51653 sourceChars=49789 bundleJsonBytes=512189 clearMs=50 readMs=1 bundleMs=36 httpMs=466 totalMs=556 status=success httpStatus=200 outputLines=1 frameworkErrors=0
+00:47 +45 ~11 -2: (tearDownAll)
+00:48 +45 ~11 -2: Some tests failed.
+===== 14:18:47 END generator_interpreter_retest_test =====
+ALL TESTS DONE 14:18:47

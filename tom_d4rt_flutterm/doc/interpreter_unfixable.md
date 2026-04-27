@@ -168,8 +168,139 @@ The adapter pattern is implemented in `d4rt_runtime_registrations.dart` (proxies
 
 ## Change Log
 
+- 2026-04-27: Add four script-side / engine-platform cases from `testlog_20260427-1339-post-c22` (image_sampler_slot engine cascade, layout-cascade D6, multi-ticker D8g, semantics textDirection D8h)
 - 2025-04-13: Add property interceptor mechanism (RC-9) for generic externalized property handling
 - 2025-04-13: Document abstract class inheritance limitation and adapter proxy solution
 - 2025-01-21: Add 7 more enum exhaustiveness fixes (popup_menu_position, axis_direction, hit_test_behavior, render_android_view, vertex_mode, live_text_input_status, lock_state)
 - 2025-01-21: Add index 32 (framework null errors), 34, 36, 38, 40 (enum exhaustiveness)
 - 2025-01-21: Initial document with issues 13, 16, 30 documented
+
+---
+
+## Cases from `testlog_20260427-1339-post-c22`
+
+The following four cases surfaced (or re-surfaced) in the post-C22 run.
+They are documented here because the actual underlying trigger is in
+the Flutter framework / engine or in the test script's authoring, not
+in the interpreter — so a "fix" is a workaround on the consuming side,
+not an interpreter change.
+
+### `dart_ui/image_sampler_slot_test.dart` — FragmentProgram engine cascade in multi-test suites
+
+- **Source:** `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/dart_ui/image_sampler_slot_test.dart`
+- **Symptom:** When run as part of `hardly_relevant_classes_1_test`, the
+  test itself completes (`status=success frameworkErrors=0`), but every
+  subsequent script in the same suite (124 scripts: remaining `dart_ui/*`
+  + all `gestures/*`) times out at the 30-second per-script limit. After
+  ~12 minutes the runner enters a `clear_failed` cascade with
+  `clearMs=735219`.
+- **Underlying Dart/Flutter trigger:** `ui.FragmentProgram` /
+  `ui.FragmentShader` engine pipeline initialisation on the Linux test
+  harness leaves the test app process in a state where the next
+  HTTP-driven test cannot start. The earlier resolved entry in
+  `interpreter_issues.md` ("FragmentProgram / FragmentShader timing
+  race") added `await Future<void>.delayed(Duration.zero)` so the
+  *current* script finishes cleanly, but the engine destabilisation
+  persists across the *suite* boundary into the next test. The bisect
+  verification (`bisect_test.dart`) only exercises the one-script path
+  and so missed the suite-level cascade. Reference: Flutter issue
+  tracker on FragmentProgram + Linux desktop test harness; the engine
+  side races between pipeline shutdown and the next platform-channel
+  request.
+- **Why not interpreter-fixable:** The hang is in the engine's GPU /
+  Skia pipeline teardown, after the interpreter has already returned
+  `status=success`. No interpreter or bridge change can reach into the
+  engine's internal pipeline state.
+- **Workaround:** Either (a) skip
+  `dart_ui/image_sampler_slot_test.dart` from the
+  `hardly_relevant_classes_1_test` script list and run it in a
+  dedicated single-script suite, or (b) tear down + re-spawn the test
+  app process after the script. Option (a) is the lowest-risk and is
+  the recommended path: removing this one entry from the suite list
+  eliminates all 124 cascading timeouts. Functional coverage is
+  preserved because the script still runs, just in isolation.
+
+### Layout cascade — `BoxConstraints forces an infinite height/width` + `RenderBox was not laid out` (D6)
+
+- **Source:** 18 scripts in `secondary_classes_test` and
+  `hardly_relevant_classes_5_test` (see D6 in
+  `testlog_20260427-1339-post-c22/error_analysis.md` for the full
+  list — `widget_test.dart`, `scroll_position_types_test.dart`,
+  `restorable_bool_test.dart`, …).
+- **Symptom:** Recurring framework errors during `build`/`layout` —
+  `BoxConstraints forces an infinite height.`, `RenderBox was not laid
+  out: … NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE`, the
+  `!childSemantics.renderObject._needsLayout` assertion at
+  `rendering/object.dart` line 5737, plus negative-minimum-height and
+  `RenderShrinkWrappingViewport does not support returning intrinsic
+  dimensions` variants. The suite passes; the noise is cosmetic.
+- **Underlying Dart/Flutter trigger:** Real Flutter layout protocol —
+  the script places a `Column` containing `Expanded` children inside
+  an unbounded-height parent (`SingleChildScrollView`, a `LayoutBuilder`
+  returning a sliver, or a `Row` with `mainAxisSize: max`). Flutter's
+  `RenderFlex` requires a bounded main-axis extent when any child is
+  `Expanded`, and an unbounded parent breaks that contract. The
+  interpreter is faithfully forwarding the framework's assertion. This
+  is identical to the C22 root cause that was already closed for
+  `box_hit_test_result_test.dart` in the prior campaign.
+- **Why not interpreter-fixable:** The constraint chain is computed
+  entirely inside Flutter's `RenderObject` layout protocol. The
+  interpreter does not — and should not — alter
+  `BoxConstraints`/`performLayout` semantics. Patching the interpreter
+  to silence the assertion would mask real bugs in user widgets.
+- **Workaround (C22 ListView-replacement pattern):** Drop the
+  `SingleChildScrollView`, drop the outer `Column`, list the section
+  widgets directly as `ListView` children, and either remove
+  `Expanded` or wrap the section's content in `SizedBox(height: …)`.
+  Same functional behaviour (scrollable test panel with multiple
+  sections), no infinite-constraint propagation. The negative-minimum
+  variant additionally needs `clamp(0.0, double.infinity)` on the
+  computed height. One commit per script, single-suite retest.
+
+### `RawTooltipState is a SingleTickerProviderStateMixin but multiple tickers were created` (D8g)
+
+- **Source:**
+  `widgets/two_dimensional_child_list_delegate_test.dart` (`hr5`).
+- **Symptom:** Real Flutter assertion fired during `initState` /
+  `_createTicker` of `RawTooltipState`. The script declares
+  `with SingleTickerProviderStateMixin` and constructs more than one
+  `AnimationController` (each controller takes a `Ticker` from the
+  vsync provider).
+- **Underlying Dart/Flutter trigger:**
+  `SingleTickerProviderStateMixin.createTicker` asserts that the mixed-in
+  `State` has produced exactly one ticker for its lifetime
+  (`flutter/src/scheduler/ticker.dart`). `TickerProviderStateMixin` is
+  the multi-ticker variant. This is a fundamental contract of the
+  mixin family.
+- **Why not interpreter-fixable:** The assertion is enforced by the
+  bridged native `SingleTickerProviderStateMixin`. The interpreter
+  cannot change the mixin's contract without forking the framework
+  class, which would diverge from Flutter semantics.
+- **Workaround:** Replace `with SingleTickerProviderStateMixin` with
+  `with TickerProviderStateMixin` in the test script's State class —
+  one-token edit. Alternatively, refactor the script to share a single
+  `AnimationController` across the animations it drives. Same
+  observable test behaviour either way.
+
+### `SemanticsData object … had a null textDirection` (D8h)
+
+- **Source:** `rendering/custom_painter_semantics_test.dart` (gii fail).
+- **Symptom:** Flutter framework assertion thrown when a
+  `SemanticsConfiguration` carrying a non-empty `label` is finalised
+  without a `textDirection` set on the node or any ancestor.
+- **Underlying Dart/Flutter trigger:** `SemanticsNode._sanitiseSemanticsUpdate`
+  requires `textDirection != null` whenever the node carries text-bearing
+  semantic fields (`label`, `value`, `hint`, `tooltip`,
+  `decreasedValue`, `increasedValue`). This is a hard
+  invariant of Flutter's accessibility tree and is not affected by the
+  interpreter.
+- **Why not interpreter-fixable:** The assertion is fired by the
+  framework after `markNeedsSemanticsUpdate`; the interpreter has no
+  hook into semantics-tree finalisation, and silencing the assertion
+  would produce an invalid accessibility tree.
+- **Workaround:** In the test script, pass
+  `textDirection: TextDirection.ltr` (or `.rtl`) on the
+  `Semantics`/`SemanticsConfiguration` that owns the `label`, or wrap
+  the painter under a `Directionality(textDirection: TextDirection.ltr,
+  child: …)` so the implicit lookup succeeds. Same observable test
+  output, valid semantics tree.
