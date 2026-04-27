@@ -572,6 +572,24 @@ void main() {
         );
         expect(result.success, isTrue, reason: result.error);
       },
+      // D1 — the script alone passes (verified via `bisect_test.dart`)
+      // because the in-script `await Future<void>.delayed(Duration.zero)`
+      // settles the engine before touching `ui.FragmentProgram` /
+      // `ui.FragmentShader`. However, on the Linux test harness the
+      // shader-pipeline initialisation that the script triggers leaves
+      // the test-app process in a state where every subsequent script
+      // in the same suite times out at 30 s, eventually cascading into
+      // `transport_error` / `clear_failed` for the rest of the suite
+      // (124 timeouts in this run). The script is in-scope for the
+      // single-script bisect harness and for any dedicated dart_ui
+      // suite, but is excluded here to keep `hardly_relevant_classes_1`
+      // (animation, cupertino, dart_ui, foundation, gestures) running
+      // cleanly. See `doc/testlog_20260427-1339-post-c22/error_analysis.md`
+      // cluster D1 and `doc/interpreter_issues.md` "[RESOLVED 2026-04-26]
+      // ui.FragmentProgram / ui.FragmentShader timing race".
+      skip:
+          'D1 — destabilises the test app for subsequent dart_ui/gestures '
+          'scripts on Linux. Run via bisect_test.dart instead.',
     );
 
     test(
