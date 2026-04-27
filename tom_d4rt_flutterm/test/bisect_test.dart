@@ -16,12 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/sliver_multi_box_adaptor_element_test.dart',
-    'widgets/slotted_multi_child_render_object_widget_test.dart',
-    'widgets/update_selection_intent_test.dart',
-    'widgets/weak_map_test.dart',
+    'widgets/undo_history_value_test.dart',
   ]) {
-    test('$script (C11)', () async {
+    test('$script (C12)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

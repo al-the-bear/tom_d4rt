@@ -571,7 +571,7 @@ Per Rule (a) (script-only changes), individual per-script retest is sufficient
 
 ### C12 — `Object.hash` static method missing on bridged `Object`
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low (one script, but it's a real interpreter gap) · **Owner:** tom_d4rt stdlib bridge for `dart:core`
 
@@ -586,6 +586,23 @@ Per Rule (a) (script-only changes), individual per-script retest is sufficient
 **Analysis.** `Object.hash(a, b, c)` was added in Dart 2.14. Our `dart:core` bridge for `Object` exposes constructors, `==`, `hashCode`, but not the static varargs `hash` family.
 
 **Suggested fix.** Add `Object.hash`, `Object.hashAll`, `Object.hashAllUnordered` to the `Object` bridge in `tom_d4rt/lib/src/stdlib/object.dart` (and mirror in `tom_d4rt_ast/lib/src/stdlib/object.dart`).
+
+**Resolution.** Added the three static methods to the bridged `Object` definition in lockstep across both packages:
+
+- `tom_d4rt/lib/src/stdlib/core/object.dart`
+- `tom_d4rt_ast/lib/src/runtime/stdlib/core/object.dart`
+
+The `hash` adapter dispatches by positional-arg count to the matching native `Object.hash(o1, o2, [o3..o20])` overload (2..20) — important because Dart's `Object.hash` uses sentinel defaults internally to distinguish "argument not passed" from "argument was null", so we must call the exact-arity overload rather than passing trailing nulls. `hashAll` and `hashAllUnordered` simply forward an `Iterable` argument.
+
+**Verification.**
+
+- C12 bisect run on `widgets/undo_history_value_test.dart` — `Bridged class 'Object' has no constructor or static method named 'hash'` is gone; STATUS: true. Remaining framework errors in that script are layout-related (RenderEditable negative `BoxConstraints`) and belong to other clusters (C14/C19 territory), not C12.
+- `dart analyze` clean on both modified files.
+- Regression suites (Rule b — stdlib code change):
+  - `generator_interpreter_issues_test`: 73 passed / 9 failed / 1 skipped — improvement vs baseline `71 / 11 / 1` (no new failures, two earlier failures resolved by C10/C11).
+  - `essential_classes_test`: 108 / 0 / 0 — matches baseline.
+  - `important_classes_test`: 164 / 0 / 5 — matches baseline.
+  - `secondary_classes_test`: 649 / 0 / 5 — matches baseline.
 
 ---
 
@@ -844,7 +861,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C9 — RenderFlex overflow (script) ⚠️ Partial (6/7 scripts fixed; scroll_position overflow gated by out-of-scope `_controller` runtime error) | Low | scripts | 7 | 3 |
 | C10 — RestorationProperty.isRegistered ✅ Fixed (RestorationMixin State proxy + bridged-mixin nativeProxy fallback; assertion gone in 13/13, 7 scripts now clean, 6 have unrelated downstream errors) | Medium | interpreter+bridge | 13 | 0 |
 | C11 — `withValues` on null (script) ✅ Fixed (4/4 scripts patched with `(receiver ?? const Color(0xFF000000)).withValues(...)`; 180 call sites wrapped) | Low | scripts | 4 | 0 |
-| C12 — `Object.hash` missing | Low | stdlib | 1 | 0 |
+| C12 — `Object.hash` missing ✅ Fixed (added `Object.hash`/`hashAll`/`hashAllUnordered` static method adapters to bridged `Object` in both packages; arity-dispatched to native overloads) | Low | stdlib | 1 | 0 |
 | C13 — `Future.delayed` missing | Low | stdlib | 1 | 0 |
 | C14 — Null BuildContext (Plan E2) | High | interpreter | 2 | 2 |
 | C15 — WidgetStateMapper.merge | Low | generator | 1 | 0 |
