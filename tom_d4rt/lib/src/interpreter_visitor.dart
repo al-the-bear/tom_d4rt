@@ -5603,6 +5603,41 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           throw RuntimeD4rtException(
               'Value used in collection \'for-in\' must be an Iterable, but got ${iterableValue?.runtimeType}');
         }
+      } else if (loopParts is ForEachPartsWithPattern) {
+        // C20b — Dart 3 record-pattern destructuring in collection-literal
+        // for-in:  for (final (IconData icon, String label) in entries) ...
+        // Each iteration creates a fresh scope, binds the pattern, then runs
+        // the body to add the produced element(s) to the collection.
+        final iterableExpression = loopParts.iterable;
+        final pattern = loopParts.pattern;
+        final iterableValue = iterableExpression.accept<Object?>(this);
+
+        Iterable<Object?> iterable;
+        if (iterableValue is Iterable) {
+          iterable = iterableValue;
+        } else {
+          final bridged = toBridgedInstance(iterableValue);
+          if (bridged.$2 && bridged.$1?.nativeObject is Iterable) {
+            iterable = bridged.$1!.nativeObject as Iterable;
+          } else {
+            throw RuntimeD4rtException(
+                'Value used in collection \'for-in\' must be an Iterable, but got ${iterableValue?.runtimeType}');
+          }
+        }
+
+        final previousEnvironment = environment;
+        try {
+          for (final item in iterable) {
+            // Fresh per-iteration env so pattern-declared variables are
+            // scoped to a single trip through the body.
+            final iterationEnv = Environment(enclosing: previousEnvironment);
+            environment = iterationEnv;
+            _matchAndBind(pattern, item, iterationEnv);
+            _processCollectionElement(element.body, collection, isMap: isMap);
+          }
+        } finally {
+          environment = previousEnvironment;
+        }
       } else if (loopParts is ForPartsWithDeclarations ||
           loopParts is ForPartsWithExpression) {
         AstNode? initialization;
