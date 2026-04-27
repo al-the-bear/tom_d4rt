@@ -208,108 +208,62 @@ class _SpwscDemoHomeState extends State<_SpwscDemoHome> {
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: _handleScrollNotification,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final bool wide = constraints.maxWidth >= 960;
-            return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _HeroHeader(
-                    pixels: _pixels,
-                    minExtent: _minExtent,
-                    maxExtent: _maxExtent,
-                  ),
-                  const SizedBox(height: 24),
-                  if (wide)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: _LivePixelDashboard(
-                            controller: _controller,
-                            pixels: _pixels,
-                            minExtent: _minExtent,
-                            maxExtent: _maxExtent,
-                            viewport: _viewport,
-                            axis: _axisDir,
-                            outOfRange: _outOfRange,
-                            atEdge: _atEdge,
-                            haveDimensions: _haveDimensions,
-                            extentBefore: _extentBefore,
-                            extentInside: _extentInside,
-                            extentAfter: _extentAfter,
-                            userDirection: _userDirection,
-                            activity: _lastActivity,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          flex: 2,
-                          child: _MethodPlayground(
-                            onJumpMin: _jumpToStart,
-                            onJumpMax: _jumpToEnd,
-                            onAnimate: _animateToMid,
-                            onPointer: _pointerNudge,
-                            activity: _lastActivity,
-                          ),
-                        ),
-                      ],
-                    )
-                  else
-                    Column(
-                      children: [
-                        _LivePixelDashboard(
-                          controller: _controller,
-                          pixels: _pixels,
-                          minExtent: _minExtent,
-                          maxExtent: _maxExtent,
-                          viewport: _viewport,
-                          axis: _axisDir,
-                          outOfRange: _outOfRange,
-                          atEdge: _atEdge,
-                          haveDimensions: _haveDimensions,
-                          extentBefore: _extentBefore,
-                          extentInside: _extentInside,
-                          extentAfter: _extentAfter,
-                          userDirection: _userDirection,
-                          activity: _lastActivity,
-                        ),
-                        const SizedBox(height: 20),
-                        _MethodPlayground(
-                          onJumpMin: _jumpToStart,
-                          onJumpMax: _jumpToEnd,
-                          onAnimate: _animateToMid,
-                          onPointer: _pointerNudge,
-                          activity: _lastActivity,
-                        ),
-                      ],
-                    ),
-                  const SizedBox(height: 24),
-                  _ActivityDiagram(current: _lastActivity),
-                  const SizedBox(height: 24),
-                  _ActivityObserverCard(activity: _lastActivity),
-                  const SizedBox(height: 24),
-                  _HoldDemonstration(
-                    holding: _heldHold != null,
-                    onHold: _startHold,
-                    onRelease: _releaseHold,
-                    activity: _lastActivity,
-                  ),
-                  const SizedBox(height: 24),
-                  const _MethodReferenceCard(),
-                  const SizedBox(height: 24),
-                  const _TeachingPanel(),
-                  const SizedBox(height: 24),
-                  const _WhenToReachIn(),
-                  const SizedBox(height: 24),
-                  const _FooterSummary(),
-                ],
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _HeroHeader(
+                pixels: _pixels,
+                minExtent: _minExtent,
+                maxExtent: _maxExtent,
               ),
-            );
-          },
+              const SizedBox(height: 24),
+              _LivePixelDashboard(
+                controller: _controller,
+                pixels: _pixels,
+                minExtent: _minExtent,
+                maxExtent: _maxExtent,
+                viewport: _viewport,
+                axis: _axisDir,
+                outOfRange: _outOfRange,
+                atEdge: _atEdge,
+                haveDimensions: _haveDimensions,
+                extentBefore: _extentBefore,
+                extentInside: _extentInside,
+                extentAfter: _extentAfter,
+                userDirection: _userDirection,
+                activity: _lastActivity,
+              ),
+              const SizedBox(height: 20),
+              _MethodPlayground(
+                onJumpMin: _jumpToStart,
+                onJumpMax: _jumpToEnd,
+                onAnimate: _animateToMid,
+                onPointer: _pointerNudge,
+                activity: _lastActivity,
+              ),
+              const SizedBox(height: 24),
+              _ActivityDiagram(current: _lastActivity),
+              const SizedBox(height: 24),
+              _ActivityObserverCard(activity: _lastActivity),
+              const SizedBox(height: 24),
+              _HoldDemonstration(
+                holding: _heldHold != null,
+                onHold: _startHold,
+                onRelease: _releaseHold,
+                activity: _lastActivity,
+              ),
+              const SizedBox(height: 24),
+              const _MethodReferenceCard(),
+              const SizedBox(height: 24),
+              const _TeachingPanel(),
+              const SizedBox(height: 24),
+              const _WhenToReachIn(),
+              const SizedBox(height: 24),
+              const _FooterSummary(),
+            ],
+          ),
         ),
       ),
     );
@@ -1240,50 +1194,46 @@ class _ActivityDiagram extends StatelessWidget {
               style: TextStyle(color: _slate, fontSize: 12, height: 1.4),
             ),
             const SizedBox(height: 16),
-            LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints c) {
-                final bool compact = c.maxWidth < 720;
-                return Flex(
-                  direction: compact ? Axis.vertical : Axis.horizontal,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _ActivityNode(
-                      title: 'IdleScrollActivity',
-                      caption: 'resting state',
-                      colour: _slate,
-                      highlighted: current == 'IdleScrollActivity',
-                    ),
-                    _Arrow(compact: compact, label: 'hold()'),
-                    _ActivityNode(
-                      title: 'HoldScrollActivity',
-                      caption: 'position is pinned',
-                      colour: _rose,
-                      highlighted: current == 'HoldScrollActivity',
-                    ),
-                    _Arrow(compact: compact, label: 'drag()'),
-                    _ActivityNode(
-                      title: 'DragScrollActivity',
-                      caption: 'finger on screen',
-                      colour: _cobalt,
-                      highlighted: current == 'DragScrollActivity',
-                    ),
-                    _Arrow(compact: compact, label: 'fling'),
-                    _ActivityNode(
-                      title: 'BallisticScrollActivity',
-                      caption: 'physics simulation',
-                      colour: _amber,
-                      highlighted: current == 'BallisticScrollActivity',
-                    ),
-                    _Arrow(compact: compact, label: 'simulation ends'),
-                    _ActivityNode(
-                      title: 'IdleScrollActivity',
-                      caption: 'back at rest',
-                      colour: _slate,
-                      highlighted: false,
-                    ),
-                  ],
-                );
-              },
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                _ActivityNode(
+                  title: 'IdleScrollActivity',
+                  caption: 'resting state',
+                  colour: _slate,
+                  highlighted: current == 'IdleScrollActivity',
+                ),
+                _Arrow(compact: true, label: 'hold()'),
+                _ActivityNode(
+                  title: 'HoldScrollActivity',
+                  caption: 'position is pinned',
+                  colour: _rose,
+                  highlighted: current == 'HoldScrollActivity',
+                ),
+                _Arrow(compact: true, label: 'drag()'),
+                _ActivityNode(
+                  title: 'DragScrollActivity',
+                  caption: 'finger on screen',
+                  colour: _cobalt,
+                  highlighted: current == 'DragScrollActivity',
+                ),
+                _Arrow(compact: true, label: 'fling'),
+                _ActivityNode(
+                  title: 'BallisticScrollActivity',
+                  caption: 'physics simulation',
+                  colour: _amber,
+                  highlighted: current == 'BallisticScrollActivity',
+                ),
+                _Arrow(compact: true, label: 'simulation ends'),
+                _ActivityNode(
+                  title: 'IdleScrollActivity',
+                  caption: 'back at rest',
+                  colour: _slate,
+                  highlighted: false,
+                ),
+              ],
             ),
             const SizedBox(height: 14),
             Row(

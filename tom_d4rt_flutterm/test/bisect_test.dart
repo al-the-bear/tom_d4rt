@@ -16,11 +16,15 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/two_dimensional_child_builder_delegate_test.dart',
-    'widgets/two_dimensional_child_manager_test.dart',
-    'widgets/two_dimensional_scrollable_state_test.dart',
+    'rendering/relayout_when_system_fonts_change_mixin_test.dart',
+    'rendering/render_absorb_pointer_test.dart',
+    'retest/painting/axis_direction_test.dart',
+    'widgets/scroll_position_with_single_context_test.dart',
+    'widgets/shortcut_map_property_test.dart',
+    'widgets/single_ticker_provider_state_mixin_test.dart',
+    'widgets/undo_history_state_test.dart',
   ]) {
-    test('$script (C7)', () async {
+    test('$script (C9)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

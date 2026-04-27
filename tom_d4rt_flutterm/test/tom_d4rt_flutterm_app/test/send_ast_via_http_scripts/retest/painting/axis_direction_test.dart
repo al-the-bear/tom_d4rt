@@ -305,11 +305,9 @@ dynamic build(BuildContext context) {
                       fontWeight: FontWeight.bold,
                       color: c)),
               SizedBox(height: 4.0),
-              Row(children: [
+              Wrap(spacing: 6.0, runSpacing: 4.0, children: [
                 adBadge('index ${d.index}', c),
-                SizedBox(width: 6.0),
                 adBadge(axis == Axis.vertical ? 'vertical' : 'horizontal', adPrimary),
-                SizedBox(width: 6.0),
                 adBadge(reversed ? 'reversed' : 'natural', reversed ? Colors.red.shade700 : Colors.teal.shade700),
               ]),
               SizedBox(height: 6.0),
@@ -607,12 +605,18 @@ dynamic build(BuildContext context) {
           child: Padding(
             padding: EdgeInsets.all(4.0),
             child: isVert
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: children)
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: children),
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: children),
+                  )
+                : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: children),
+                  ),
           ),
         ),
       ]),

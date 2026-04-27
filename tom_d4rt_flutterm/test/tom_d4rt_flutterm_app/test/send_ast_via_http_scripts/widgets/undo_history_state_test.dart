@@ -285,7 +285,7 @@ class _UhStLeatherSpine extends StatelessWidget {
       width: 232,
       child: CustomPaint(
         painter: _UhStLeatherPainter(),
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -395,7 +395,7 @@ class _UhStLeatherSpine extends StatelessWidget {
                   onChanged: onStackCap,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 18),
               _UhStCounterRow(label: 'commits', value: commits),
               _UhStCounterRow(label: 'reverts', value: reverts),
             ],

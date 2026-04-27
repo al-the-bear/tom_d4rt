@@ -747,7 +747,7 @@ class _PulsingBlobCardState extends State<_PulsingBlobCard>
           'CurvedAnimation. The curve reshapes the 0-1 value without '
           'asking for a second vsync.',
       child: SizedBox(
-        height: 260,
+        height: 280,
         child: Row(
           children: <Widget>[
             Expanded(

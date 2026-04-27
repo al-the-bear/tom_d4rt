@@ -386,7 +386,7 @@ followed by the cascading layout / semantics assertions listed above. No regress
 
 ### C9 — `RenderFlex overflowed by N pixels` (script-side cosmetic)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low (cosmetic) · **Owner:** test scripts
 
@@ -396,17 +396,38 @@ followed by the cascading layout / semantics assertions listed above. No regress
 
 **Affected scripts**
 
-- `rendering/relayout_when_system_fonts_change_mixin_test.dart` (gii fail — should be a soft warning, but the test asserts no errors)
-- `rendering/render_absorb_pointer_test.dart` (gii fail — same reason)
-- `retest/painting/axis_direction_test.dart` (gir fail)
-- `widgets/scroll_position_with_single_context_test.dart`
-- `widgets/shortcut_map_property_test.dart`
-- `widgets/single_ticker_provider_state_mixin_test.dart`
-- `widgets/undo_history_state_test.dart`
+- `rendering/relayout_when_system_fonts_change_mixin_test.dart` (gii fail — should be a soft warning, but the test asserts no errors) — **Fixed**
+- `rendering/render_absorb_pointer_test.dart` (gii fail — same reason) — **Fixed**
+- `retest/painting/axis_direction_test.dart` (gir fail) — **Fixed**
+- `widgets/scroll_position_with_single_context_test.dart` — **Partial** (overflow coupled to out-of-scope `_controller` runtime error)
+- `widgets/shortcut_map_property_test.dart` — **Fixed**
+- `widgets/single_ticker_provider_state_mixin_test.dart` — **Fixed**
+- `widgets/undo_history_state_test.dart` — **Fixed**
 
 **Analysis.** Same nature as C8 — test viewports are too small for the rendered content. The gii/gir failures here are because `tester.takeException()` flushes the overflow exception and the test asserts the exception list is empty. These are test-harness contract violations rather than interpreter bugs.
 
-**Suggested fix.** Either size each test's viewport (`tester.view.physicalSize = const Size(800, 600); tester.view.devicePixelRatio = 1;`) or wrap the offending widget in a `MediaQuery` with sufficient size. This is purely test-script work.
+**Resolution (2026-04-27).** Patched the seven affected scripts directly (no generator/interpreter changes). Pattern depended on the layout:
+
+- `relayout_when_system_fonts_change_mixin_test.dart`, `render_absorb_pointer_test.dart`: wrapped `ToggleButtons` rows in horizontal `SingleChildScrollView` (the buttons exceeded the 800px viewport width).
+- `axis_direction_test.dart`: replaced inner `Column`/`Row` overflow surfaces with `SingleChildScrollView` so the diagram cells can shrink.
+- `shortcut_map_property_test.dart`: bumped `SizedBox(height: 260)` → `SizedBox(height: 320)`.
+- `single_ticker_provider_state_mixin_test.dart`: bumped `SizedBox(height: 260)` → `SizedBox(height: 280)`.
+- `undo_history_state_test.dart`: wrapped the spine `Padding`/`Column` in a vertical `SingleChildScrollView`; replaced `Spacer` with `SizedBox(height: 18)` so the column has bounded height.
+- `scroll_position_with_single_context_test.dart`: replaced the outer `LayoutBuilder` with an unconditional vertical `SingleChildScrollView`+`Column`. This eliminated the `maxWidth` runtime error (3 → 2 framework errors), but the remaining 98110px right-side overflow is downstream of an unrelated `_controller` runtime error on `SingleTickerProviderStateMixin` — that runtime exception aborts state setup, leaving the layout in a degenerate state. Fixing the runtime error belongs to a separate proxy-mixin cluster; once it lands, the overflow should disappear naturally.
+
+**Verification.** `D4RT_SKIP_BRIDGE_REGEN=1 flutter test test/bisect_test.dart` (logs in `ztmp/c9_baseline.log` → `ztmp/c9_after_fix.log` → `ztmp/c9_verify.log`):
+
+| Script | Baseline | After Fix |
+| --- | --- | --- |
+| `relayout_when_system_fonts_change_mixin_test.dart` | 1 overflow | 0 errors |
+| `render_absorb_pointer_test.dart` | 1 overflow | 0 errors |
+| `axis_direction_test.dart` | 4 overflows | 0 errors |
+| `scroll_position_with_single_context_test.dart` | 3 errors (1 overflow + 2 runtime) | 2 errors (1 overflow + 1 runtime — out-of-scope) |
+| `shortcut_map_property_test.dart` | 1 overflow | 0 errors |
+| `single_ticker_provider_state_mixin_test.dart` | 1 overflow | 0 errors |
+| `undo_history_state_test.dart` | 1 overflow | 0 errors |
+
+Per the regression rule, only individual retest is required for script-only changes (no regression suite needed). 6/7 scripts pass; the remaining script's overflow is gated by a separate cluster.
 
 ---
 
@@ -739,7 +760,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C6b — ThemeExtension nested generic coercion | Low | generator | 1 | 1 |
 | C7 — TwoDimensionalScrollView ctor 🟡 Reverted/Deferred (requires interpreter super-arg-capture + multi-method proxies; tag-wrapper pattern insufficient) | Medium | interpreter runtime + tom_d4rt_flutterm runtime registrations | 3 | 0 |
 | C8 — BoxConstraints layout (script) | Low | scripts | ~14 | 0 |
-| C9 — RenderFlex overflow (script) | Low | scripts | 7 | 3 |
+| C9 — RenderFlex overflow (script) ⚠️ Partial (6/7 scripts fixed; scroll_position overflow gated by out-of-scope `_controller` runtime error) | Low | scripts | 7 | 3 |
 | C10 — RestorationProperty.isRegistered | Medium | interpreter+bridge | 13 | 0 |
 | C11 — `withValues` on null (script) | Low | scripts | 4 | 0 |
 | C12 — `Object.hash` missing | Low | stdlib | 1 | 0 |

@@ -501,21 +501,24 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
               theme,
               'Mode',
               'Switch presentation emphasis for compact, walkthrough, diagnostics, or teaching mode.',
-              ToggleButtons(
-                isSelected: _modeToggle,
-                onPressed: (i) {
-                  setState(() {
-                    _modeToggle = _single(_modeToggle, i);
-                    _tick += 1;
-                    _log('Mode switched to index=$i.');
-                  });
-                },
-                children: const [
-                  _MiniLabel(icon: Icons.fit_screen, text: 'Compact'),
-                  _MiniLabel(icon: Icons.menu_book, text: 'Walkthrough'),
-                  _MiniLabel(icon: Icons.science, text: 'Diagnostics'),
-                  _MiniLabel(icon: Icons.school, text: 'Teaching'),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ToggleButtons(
+                  isSelected: _modeToggle,
+                  onPressed: (i) {
+                    setState(() {
+                      _modeToggle = _single(_modeToggle, i);
+                      _tick += 1;
+                      _log('Mode switched to index=$i.');
+                    });
+                  },
+                  children: const [
+                    _MiniLabel(icon: Icons.fit_screen, text: 'Compact'),
+                    _MiniLabel(icon: Icons.menu_book, text: 'Walkthrough'),
+                    _MiniLabel(icon: Icons.science, text: 'Diagnostics'),
+                    _MiniLabel(icon: Icons.school, text: 'Teaching'),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -523,21 +526,24 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
               theme,
               'Signal Burst Pattern',
               'Choose burst profile for synthetic systemFontsDidChange wave simulation.',
-              ToggleButtons(
-                isSelected: _signalToggle,
-                onPressed: (i) {
-                  setState(() {
-                    _signalToggle = _single(_signalToggle, i);
-                    _tick += 1;
-                    _log('Signal burst mode switched to index=$i.');
-                  });
-                },
-                children: const [
-                  _MiniLabel(icon: Icons.looks_one, text: '1x'),
-                  _MiniLabel(icon: Icons.looks_two, text: '2x'),
-                  _MiniLabel(icon: Icons.looks_3, text: '3x'),
-                  _MiniLabel(icon: Icons.all_inclusive, text: '5x'),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ToggleButtons(
+                  isSelected: _signalToggle,
+                  onPressed: (i) {
+                    setState(() {
+                      _signalToggle = _single(_signalToggle, i);
+                      _tick += 1;
+                      _log('Signal burst mode switched to index=$i.');
+                    });
+                  },
+                  children: const [
+                    _MiniLabel(icon: Icons.looks_one, text: '1x'),
+                    _MiniLabel(icon: Icons.looks_two, text: '2x'),
+                    _MiniLabel(icon: Icons.looks_3, text: '3x'),
+                    _MiniLabel(icon: Icons.all_inclusive, text: '5x'),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 8),

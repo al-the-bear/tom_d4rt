@@ -193,7 +193,7 @@ class _DiagnosticBlueprintHero extends StatelessWidget {
     return _FramedCard(
       accent: _kCobalt,
       child: SizedBox(
-        height: 260,
+        height: 320,
         child: Stack(
           children: <Widget>[
             const Positioned.fill(
