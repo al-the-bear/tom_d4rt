@@ -746,16 +746,7 @@ class D4 {
     // Coerce each key-value pair to the expected types
     try {
       return value.map<K, V>((k, v) {
-        final key = k is BridgedInstance
-            ? k.nativeObject as K
-            : k is BridgedEnumValue
-                ? k.nativeValue as K
-                : k is BridgedClass
-                    ? k.nativeType as K // ENG-002: class name → Type
-                    : k is InterpretedClass && k.bridgedSuperclass != null
-                        ? k.bridgedSuperclass!.nativeType
-                              as K // InterpretedClass → bridged superclass Type
-                        : k as K;
+        final key = _coerceMapKey<K>(k, paramName, visitor);
         final val = _coerceMapValue<V>(v, paramName, visitor);
         return MapEntry(key, val);
       });
@@ -777,6 +768,45 @@ class D4 {
   ]) {
     if (arg == null) return null;
     return coerceMap<K, V>(arg, paramName, visitor);
+  }
+
+  /// Coerce a single map key.
+  ///
+  /// Handles BridgedInstance, BridgedEnumValue, BridgedClass, InterpretedClass
+  /// and InterpretedInstance — the latter via bridgedSuperObject or an
+  /// interface proxy (C20a follow-up: maps with user-defined classes
+  /// implementing a bridged abstract type, e.g. WidgetStatesConstraint).
+  static K _coerceMapKey<K>(
+    Object? k,
+    String paramName,
+    InterpreterVisitor? visitor,
+  ) {
+    if (k is BridgedInstance) {
+      return k.nativeObject as K;
+    }
+    if (k is BridgedEnumValue) {
+      return k.nativeValue as K;
+    }
+    if (k is BridgedClass) {
+      return k.nativeType as K; // ENG-002: class name → Type
+    }
+    if (k is InterpretedClass && k.bridgedSuperclass != null) {
+      return k.bridgedSuperclass!.nativeType as K;
+    }
+    if (k is InterpretedInstance) {
+      if (k.bridgedSuperObject is K) {
+        return k.bridgedSuperObject as K;
+      }
+      final effectiveVisitor = visitor ?? _activeVisitor;
+      if (_interfaceProxies.isNotEmpty && effectiveVisitor != null) {
+        final proxy = tryCreateInterfaceProxyWithVisitor<K>(
+          k,
+          effectiveVisitor,
+        );
+        if (proxy != null) return proxy;
+      }
+    }
+    return k as K;
   }
 
   /// Coerce a single map value, handling function type wrapping.
