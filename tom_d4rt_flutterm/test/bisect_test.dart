@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/widget_test.dart',
+    // C20 closed (commit pending). Restore as needed for the next bisect.
   ]) {
-    test('$script (C19)', () async {
+    test('$script (C20)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

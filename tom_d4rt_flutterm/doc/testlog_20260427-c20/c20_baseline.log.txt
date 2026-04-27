@@ -1,0 +1,75 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/widget_states_constraint_test.dart (C20)
+[METRIC] script=widgets/widget_states_constraint_test.dart sourceBytes=102907 sourceChars=102789 bundleJsonBytes=1162705 clearMs=85 readMs=12 bundleMs=426 httpMs=866 totalMs=1391 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_states_constraint_test.dart (1 error(s)):
+       Runtime Error: Unsupported binary operator "&"
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Unsupported binary operator "&"]
+OUTPUT_COUNT: 0
+00:13 +1: widgets/fractional_translation_test.dart (C20)
+[METRIC] script=widgets/fractional_translation_test.dart sourceBytes=100505 sourceChars=96905 bundleJsonBytes=1387391 clearMs=56 readMs=1 bundleMs=151 httpMs=729 totalMs=939 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/fractional_translation_test.dart (1 error(s)):
+       Unimplemented Error: Unsupported for-loop type in collection literal: SForEachPartsWithPattern
+STATUS: true
+FRAMEWORK_ERRORS: [Unimplemented Error: Unsupported for-loop type in collection literal: SForEachPartsWithPattern]
+OUTPUT_COUNT: 0
+00:14 +2: dart_ui/point_mode_test.dart (C20)
+[METRIC] script=dart_ui/point_mode_test.dart sourceBytes=31525 sourceChars=30315 bundleJsonBytes=444001 clearMs=44 readMs=1 bundleMs=55 httpMs=732 totalMs=834 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in dart_ui/point_mode_test.dart (1 error(s)):
+       Runtime Error: Undefined property or method 'indexed' on bridged instance of 'List'.
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Undefined property or method 'indexed' on bridged instance of 'List'.]
+OUTPUT_COUNT: 11
+00:14 +3: rendering/render_custom_paint_test.dart (C20)
+[METRIC] script=rendering/render_custom_paint_test.dart sourceBytes=59708 sourceChars=59708 bundleJsonBytes=957290 clearMs=150 readMs=1 bundleMs=101 httpMs=1809 totalMs=2062 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in rendering/render_custom_paint_test.dart (2 error(s)):
+       Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebu…
+       Bad state: No element
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error in bridged superclass method 'State.setState': Build scheduled during frame.
+While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
+This might be because setState() was called from a layout or paint callback. If a change is needed to the widget tree, it should be applied as the tree is being built. Scheduling a change for the subsequent frame instead results in an interface that lags behind by one frame. If this was done to make your build dependent on a size measured at layout time, consider using a LayoutBuilder, CustomSingleChildLayout, or CustomMultiChildLayout. If, on the other hand, the one frame delay is the desired effect, for example because this is an animation, consider scheduling the frame in a post-frame callback using SchedulerBinding.addPostFrameCallback or using an AnimationController to trigger the animation., Bad state: No element]
+OUTPUT_COUNT: 0
+00:16 +4: retest/widgets/next_focus_intent_test.dart (C20)
+[METRIC] script=retest/widgets/next_focus_intent_test.dart sourceBytes=50650 sourceChars=49030 bundleJsonBytes=470957 clearMs=90 readMs=1 bundleMs=39 httpMs=676 totalMs=808 status=success httpStatus=200 outputLines=17 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/next_focus_intent_test.dart (1 error(s)):
+       Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to…
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error during static bridged method call 'maybeFind' on Actions: 'package:flutter/src/widgets/actions.dart': Failed assertion: line 866 pos 7: 'type != Intent': The type passed to "find" resolved to "Intent": either a non-Intent generic type argument or an example intent derived from Intent must be specified. Intent may be used as the generic type as long as the optional "intent" argument is passed.]
+OUTPUT_COUNT: 17
+00:17 +5: retest/widgets/raw_radio_test.dart (C20)
+[METRIC] script=retest/widgets/raw_radio_test.dart sourceBytes=46987 sourceChars=46879 bundleJsonBytes=488712 clearMs=64 readMs=4 bundleMs=37 httpMs=867 totalMs=974 status=success httpStatus=200 outputLines=11 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/widgets/raw_radio_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed as…
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error during bridged method call 'toList' on Iterable: Runtime Error: Error in generic constructor factory for 'RawRadio': 'package:flutter/src/widgets/raw_radio.dart': Failed assertion: line 58 pos 15: '!enabled || groupRegistry != null': an enabled raw radio must have a registry]
+OUTPUT_COUNT: 11
+00:18 +6: retest/widgets/raw_keyboard_listener_test.dart (C20)
+[METRIC] script=retest/widgets/raw_keyboard_listener_test.dart sourceBytes=64612 sourceChars=64572 bundleJsonBytes=731665 clearMs=71 readMs=1 bundleMs=53 httpMs=447 totalMs=574 status=error httpStatus=400 outputLines=42 frameworkErrors=0
+STATUS: false
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 42
+00:19 +7: widgets/restorable_property_test.dart (C20)
+[METRIC] script=widgets/restorable_property_test.dart sourceBytes=43583 sourceChars=43543 bundleJsonBytes=507414 clearMs=59 readMs=1 bundleMs=61 httpMs=404 totalMs=526 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+00:19 +8: widgets/text_selection_gesture_detector_builder_delegate_test.dart (C20)
+[METRIC] script=widgets/text_selection_gesture_detector_builder_delegate_test.dart sourceBytes=70902 sourceChars=70800 bundleJsonBytes=849217 clearMs=51 readMs=0 bundleMs=38 httpMs=2108 totalMs=2199 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/text_selection_gesture_detector_builder_delegate_test.dart (2 error(s)):
+       Runtime Error: LateInitializationError: Late variable '_builder' without initializer is accessed before being assigned.
+       Runtime Error: LateInitializationError: Late variable '_builder' without initializer is accessed before being assigned.
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: LateInitializationError: Late variable '_builder' without initializer is accessed before being assigned., Runtime Error: LateInitializationError: Late variable '_builder' without initializer is accessed before being assigned.]
+OUTPUT_COUNT: 0
+00:22 +9: (tearDownAll)
+00:22 +9: All tests passed!
