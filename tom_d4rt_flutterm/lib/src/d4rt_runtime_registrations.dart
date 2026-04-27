@@ -1558,6 +1558,12 @@ void _registerSupplementaryMethods() {
   });
 
   // State.setState — triggers rebuild by calling setState on the native State.
+  //
+  // Note: For interpreted State subclasses extending the bridged State, the
+  // primary `setState` route is the generated bridge in `widgets_bridges.b.dart`
+  // (overridden by `StateUserBridge` in `lib/src/d4rt_user_bridges/` to add
+  // the C20d scheduler-phase guard). This supplementary registration remains
+  // as a fallback for code paths that resolve through `findSupplementaryMethod`.
   D4.registerSupplementaryMethod('State', 'setState', (
     visitor,
     target,
