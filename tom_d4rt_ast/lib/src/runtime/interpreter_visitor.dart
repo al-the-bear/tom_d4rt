@@ -3466,13 +3466,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           }
 
           try {
-            // Call the adapter with the native object
-            return adapter(
+            // C6b fix (mirror of tom_d4rt/interpreter_visitor.dart): wrap
+            // with `D4.withActiveVisitor` so visitor-less helpers invoked
+            // inside the adapter (e.g. `D4.coerceList<T>` resolving
+            // InterpretedInstance values via registered interface proxies
+            // for higher-kinded generics like
+            // `ThemeExtension<ThemeExtension<dynamic>>`) can read
+            // `_activeVisitor`.
+            return D4.withActiveVisitor(
               this,
-              bridgedInstance.nativeObject,
-              positionalArgs,
-              namedArgs,
-              evaluatedTypeArguments,
+              () => adapter(
+                this,
+                bridgedInstance.nativeObject,
+                positionalArgs,
+                namedArgs,
+                evaluatedTypeArguments,
+              ),
             );
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively

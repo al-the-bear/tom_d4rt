@@ -2991,9 +2991,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           }
 
           try {
-            // Call the adapter with the native object
-            return adapter(this, bridgedInstance.nativeObject, positionalArgs,
-                namedArgs, evaluatedTypeArguments);
+            // C6b fix: wrap with `D4.withActiveVisitor` so visitor-less
+            // helpers invoked inside the adapter (e.g. `D4.coerceList<T>`
+            // resolving InterpretedInstance values via registered interface
+            // proxies for higher-kinded generics like
+            // `ThemeExtension<ThemeExtension<dynamic>>`) can read
+            // `_activeVisitor`. Mirror of the C4/D5 wrap on static-method
+            // dispatch (line ~3246) — bridged-instance method dispatch had
+            // the same gap. Mirrored in tom_d4rt_ast.
+            return D4.withActiveVisitor(
+              this,
+              () => adapter(this, bridgedInstance.nativeObject, positionalArgs,
+                  namedArgs, evaluatedTypeArguments),
+            );
           } on ReturnException catch (e) {
             // Native calls shouldn't throw ReturnException directly, but handle defensively
             return e.value;

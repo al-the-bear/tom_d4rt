@@ -4580,9 +4580,19 @@ class BridgedMethodCallable implements Callable {
       [Map<String, Object?> namedArguments = const {},
       List<RuntimeType>? typeArguments]) {
     try {
-      // Call the adapter with the native object of the instance and the arguments
-      return _adapter(visitor, _instance.nativeObject, positionalArguments,
-          namedArguments, typeArguments);
+      // C6b fix (mirror of tom_d4rt/callable.dart): wrap adapter dispatch
+      // in `D4.withActiveVisitor` so visitor-less D4 helpers invoked inside
+      // the adapter (e.g. `D4.coerceList<T>` walking interface proxies for
+      // higher-kinded generics like `ThemeExtension<ThemeExtension<dynamic>>`)
+      // can resolve InterpretedInstance values via registered interface
+      // proxies. Without this wrap, `_activeVisitor` is null and the proxy
+      // walk is skipped, causing argument-cast failures on raw bridged
+      // instance method calls.
+      return D4.withActiveVisitor(
+        visitor,
+        () => _adapter(visitor, _instance.nativeObject, positionalArguments,
+            namedArguments, typeArguments),
+      );
     } on ArgumentError catch (e) {
       // Convert native ArgumentError to RuntimeError
       throw RuntimeD4rtException(

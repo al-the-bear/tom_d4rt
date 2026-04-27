@@ -617,11 +617,54 @@ is D7). The remaining `PreferredSizeWidget` + single-arg `Widget`
 gap was folded into D5 and closed on 2026-04-27 — see the D5 section
 above for the fix details and verification.
 
-## C6b — `cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>>` (Open)
+## C6b — `cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>>` (Fixed 2026-04-27)
 
 Higher-kinded generic in `ThemeData.extensions`. Surfaced again here
 on `retest/material/theme_extension_test.dart` (gir fail). The
-generator's relaxer doesn't recognise the nested generic.
+generator's relaxer didn't recognise the nested generic, and the
+follow-up `theme.extension<T>()` call dropped its type-argument at
+the bridge boundary.
+
+**Fix (multi-part):**
+
+1. **Interface proxy for `ThemeExtension`** — Added
+   `_InterpretedThemeExtension extends ThemeExtension<_InterpretedThemeExtension>`
+   in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` and
+   registered it via `D4.registerInterfaceProxy('ThemeExtension', …)`.
+   By F-bounded covariance, `_InterpretedThemeExtension` is also a
+   `ThemeExtension<ThemeExtension<dynamic>>`, satisfying the cast
+   inside `D4.coerceList<…>`. `type` is overridden to return the
+   `InterpretedClass` so each script-side subclass occupies its own
+   slot in `ThemeData.extensions`.
+2. **Active-visitor wrap** — `D4.coerceList` only consults registered
+   interface proxies when `D4._activeVisitor` is set. Two call sites
+   were dispatching adapters without a `withActiveVisitor` wrap:
+   `BridgedMethodCallable.call` (callable.dart) and the
+   bridged-instance method dispatch in `visitMethodInvocation`
+   (interpreter_visitor.dart line ~2995 in `tom_d4rt`, ~3470 in
+   `tom_d4rt_ast`). Both wrapped now; mirrored across `tom_d4rt`
+   ↔ `tom_d4rt_ast`.
+3. **`ThemeData.extension<T>()` interceptor** — Added `'extension':
+   'ThemeData'` to `_bridgedMethodInterceptHooks` in
+   `tom_d4rt_generator/lib/src/bridge_generator.dart` so the generated
+   bridge consults `D4.findBridgedMethodInterceptor('ThemeData',
+   'extension')` before falling through to the type-erased
+   `t.extension()` call. Bridges regenerated. Registered the
+   matching interceptor in `d4rt_runtime_registrations.dart`: walks
+   `theme.extensions.values`, matching `_InterpretedThemeExtension`
+   proxies by `_instance.klass.name == typeArgs[0].name` and
+   returning the underlying `InterpretedInstance` so script field
+   dispatch goes through the `InterpretedClass`. Native ThemeExtensions
+   match by `runtimeType.toString()`.
+
+**Verification (2026-04-27):**
+- bisect on `retest/material/theme_extension_test.dart`: STATUS true,
+  FRAMEWORK_ERRORS [], OUTPUT_COUNT 0
+  (`doc/testlog_20260427-c6b/c6b_after_fix3.log.txt`)
+- gii: +78 ~1 -4 (matches baseline)
+- essential: +108 (matches baseline)
+- important: +164 ~5 (matches baseline)
+- secondary: +649 ~5 (matches baseline)
 
 ## C7 — `TwoDimensionalScrollView` / `TwoDimensionalViewport` ctor missing (Reverted/Deferred)
 
@@ -705,7 +748,7 @@ window-scope rewrites), but still architecturally open.
 | D7 — Slotted RO mixin            | Medium   | generator + regs | 3              | 15 |
 | D8 — misc gaps                   | Mixed    | interp + scripts | 8              | ~27 |
 
-Carry-over clusters (C1, C3, C4, C6b, C7, C19, C20a/b/d/f, C21,
+Carry-over clusters (C1, C3, C4, C7, C19, C20a/b/d/f, C21,
 Plan E2, InheritedModel proxy) detailed above.
 
 ---

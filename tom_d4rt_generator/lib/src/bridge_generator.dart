@@ -9388,6 +9388,12 @@ class BridgeGenerator {
     'dependOnInheritedWidgetOfExactType': 'Element',
     'getInheritedWidgetOfExactType': 'Element',
     'getElementForInheritedWidgetOfExactType': 'Element',
+    // C6b: ThemeData.extension<T>() drops <T> at the bridge boundary so the
+    // native call returns null for interpreted ThemeExtension subclasses.
+    // The flutterm runtime registers an interceptor that walks
+    // `theme.extensions.values`, matching `_InterpretedThemeExtension` proxies
+    // against `typeArgs[0]` and returning the underlying `InterpretedInstance`.
+    'extension': 'ThemeData',
   };
 
   /// Plan E (static): Static methods whose adapter must consult a runtime

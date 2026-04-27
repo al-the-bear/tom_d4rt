@@ -20,7 +20,9 @@ import 'package:flutter/material.dart'
         ButtonSegment,
         DropdownMenuEntry,
         DropdownMenuItem,
-        ScaffoldState;
+        ScaffoldState,
+        ThemeData,
+        ThemeExtension;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/painting.dart' show Alignment;
 import 'package:flutter/rendering.dart'
@@ -325,6 +327,19 @@ void _registerInterfaceProxies() {
         key: _readKey(instance, visitor),
         child: _readChildWidget(instance, visitor) ??
             const _EmptyWidget());
+  });
+
+  // C6b: ThemeExtension scripts subclass `ThemeExtension<T>` (F-bounded
+  // polymorphism: `T extends ThemeExtension<T>`) and pass a list of
+  // instances to `ThemeData.copyWith(extensions: …)`. The bridge call
+  // site `D4.coerceListOrNull<ThemeExtension>(…)` resolves T to
+  // `ThemeExtension<ThemeExtension<dynamic>>`, and the proxy walk needs
+  // a registered factory to convert each InterpretedInstance into a
+  // native ThemeExtension. Without this proxy, `D4.coerceList` falls
+  // through to `e as T`, which fails with `type 'InterpretedInstance'
+  // is not a subtype of type 'ThemeExtension<ThemeExtension<dynamic>>'`.
+  D4.registerInterfaceProxy('ThemeExtension', (visitor, instance) {
+    return _InterpretedThemeExtension(visitor, instance);
   });
 }
 
@@ -2972,6 +2987,34 @@ void _registerBridgedMethodInterceptors() {
     },
   );
 
+  // C6b: ThemeData.extension<T>() drops <T> at the bridge boundary so the
+  // native call returns null for interpreted ThemeExtension subclasses.
+  // Walk `theme.extensions.values`, matching `_InterpretedThemeExtension`
+  // proxies by `_instance.klass.name` against `typeArgs[0].name`, and
+  // returning the underlying `InterpretedInstance` so script field/method
+  // dispatch goes through the `InterpretedClass`. Native ThemeExtensions
+  // are matched by `runtimeType.toString()`.
+  D4.registerBridgedMethodInterceptor(
+    'ThemeData',
+    'extension',
+    (visitor, target, positional, named, typeArgs) {
+      final theme = target is ThemeData ? target : null;
+      if (theme == null) return null;
+      if (typeArgs == null || typeArgs.isEmpty) return null;
+      final wantedName = typeArgs[0].name;
+      for (final ext in theme.extensions.values) {
+        if (ext is _InterpretedThemeExtension) {
+          if (ext._instance.klass.name == wantedName) {
+            return ext._instance;
+          }
+        } else if (ext.runtimeType.toString() == wantedName) {
+          return ext;
+        }
+      }
+      return null;
+    },
+  );
+
   // Plan E (static): InheritedModel.inheritFrom<T>(context, {aspect}).
   //
   // This is a top-level static, not an Element method, so it goes through the
@@ -3048,4 +3091,62 @@ Object _unwrapInheritedWidget(InheritedWidget widget) {
     return widget._instance;
   }
   return widget;
+}
+
+// ---------------------------------------------------------------------------
+// C6b: ThemeExtension proxy for interpreted ThemeExtension subclasses
+// ---------------------------------------------------------------------------
+
+/// Native [ThemeExtension] backing an interpreted subclass (e.g. BrandTokens
+/// extends ThemeExtension<BrandTokens>). Forwards `copyWith()` and `lerp()`
+/// to the script.
+///
+/// Uses F-bounded polymorphism: `_InterpretedThemeExtension extends
+/// ThemeExtension<_InterpretedThemeExtension>`. By covariance, this is also
+/// a `ThemeExtension<ThemeExtension<dynamic>>`, which is what bridges
+/// resolve `<T extends ThemeExtension<T>>` to at runtime — that satisfies
+/// the cast inside `D4.coerceList<ThemeExtension>` for
+/// `ThemeData.copyWith(extensions: …)`.
+///
+/// `type` is overridden to return the [InterpretedClass] so each script-side
+/// ThemeExtension subclass occupies its own slot in `ThemeData.extensions`.
+class _InterpretedThemeExtension
+    extends ThemeExtension<_InterpretedThemeExtension> {
+  _InterpretedThemeExtension(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Object get type => _instance.klass;
+
+  @override
+  ThemeExtension<_InterpretedThemeExtension> copyWith() {
+    final method = _instance.klass.findInstanceMethod('copyWith');
+    if (method == null) return this;
+    try {
+      final result = method.bind(_instance).call(_visitor, const [], const {});
+      if (result is InterpretedInstance) {
+        return _InterpretedThemeExtension(_visitor, result);
+      }
+    } catch (_) {}
+    return this;
+  }
+
+  @override
+  ThemeExtension<_InterpretedThemeExtension> lerp(
+      covariant ThemeExtension<_InterpretedThemeExtension>? other, double t) {
+    final method = _instance.klass.findInstanceMethod('lerp');
+    if (method == null) return this;
+    final otherArg =
+        other is _InterpretedThemeExtension ? other._instance : other;
+    try {
+      final result =
+          method.bind(_instance).call(_visitor, [otherArg, t], const {});
+      if (result is InterpretedInstance) {
+        return _InterpretedThemeExtension(_visitor, result);
+      }
+    } catch (_) {}
+    return this;
+  }
 }

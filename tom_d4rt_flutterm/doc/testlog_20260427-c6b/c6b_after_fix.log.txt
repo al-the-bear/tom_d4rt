@@ -1,0 +1,12 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:58 +0: retest/material/theme_extension_test.dart
+[METRIC] script=retest/material/theme_extension_test.dart sourceBytes=48728 sourceChars=48728 bundleJsonBytes=765174 clearMs=83 readMs=1 bundleMs=343 httpMs=783 totalMs=1213 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in retest/material/theme_extension_test.dart (1 error(s)):
+       Runtime Error: Native error during bridged method call 'copyWith' on ThemeData: Argument Error: Invalid parameter "extensions": cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>> - t…
+STATUS: true
+FRAMEWORK_ERRORS: [Runtime Error: Native error during bridged method call 'copyWith' on ThemeData: Argument Error: Invalid parameter "extensions": cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>> - type 'InterpretedInstance' is not a subtype of type 'ThemeExtension<ThemeExtension<dynamic>>' in type cast]
+OUTPUT_COUNT: 0
+00:59 +1: (tearDownAll)
+00:59 +1: All tests passed!

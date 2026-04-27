@@ -1,0 +1,9 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+00:29 +0: retest/material/theme_extension_test.dart
+[METRIC] script=retest/material/theme_extension_test.dart sourceBytes=48728 sourceChars=48728 bundleJsonBytes=765174 clearMs=89 readMs=7 bundleMs=340 httpMs=2024 totalMs=2464 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+00:32 +1: (tearDownAll)
+00:32 +1: All tests passed!
