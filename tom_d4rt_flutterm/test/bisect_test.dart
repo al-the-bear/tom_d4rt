@@ -16,8 +16,16 @@ void main() {
   });
 
   for (final script in <String>[
-    // C3 carryover — null-check cascade.
-    'widgets/scroll_deceleration_rate_test.dart',
+    // C4 / D5 carryover — PreferredSizeWidget interface proxy +
+    // single-arg Widget coercion through static bridged methods.
+    'widgets/widgets_binding_observer_test.dart',
+    'widgets/sliver_multi_box_adaptor_widget_test.dart',
+    'widgets/snapshot_mode_test.dart',
+    'widgets/undo_text_intent_test.dart',
+    'widgets/viewport_element_mixin_test.dart',
+    'widgets/viewport_notification_mixin_test.dart',
+    'widgets/widget_inspector_service_test.dart',
+    'widgets/widgets_binding_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

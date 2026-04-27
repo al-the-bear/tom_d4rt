@@ -253,7 +253,56 @@ listenable surface (`addListener` / `removeListener` /
 
 ## D5 — Section E carry-over: `PreferredSizeWidget?` and `Widget` coercion at native bridge boundary
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator + tom_d4rt_flutterm registrations
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** generator + tom_d4rt_flutterm registrations
+
+**Fix (2026-04-27).** Two-part landing:
+
+1. **`PreferredSizeWidget` interface proxy** — added a new
+   `_InterpretedPreferredSizeWidget extends StatelessWidget implements
+   PreferredSizeWidget` adapter in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`, plus its
+   `D4.registerInterfaceProxy('PreferredSizeWidget', …)` registration.
+   `preferredSize` reads the script's getter via
+   `instance.get('preferredSize', visitor: _visitor)` and unwraps native
+   / bridged `Size`. `build` delegates to the interpreted instance's
+   `build` method. Because the registered interface-proxy walk extends
+   along `bridgedSuperclass` and `bridgedInterfaces` (with transitive
+   supertypes), the existing `class _Foo extends StatelessWidget
+   implements PreferredSizeWidget` pattern resolves correctly.
+2. **Static-method dispatch wraps `withActiveVisitor`** — in
+   `tom_d4rt/lib/src/interpreter_visitor.dart` (and mirrored in
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`) the
+   `staticMethodAdapter` invocation is now wrapped in
+   `D4.withActiveVisitor(this, …)`. `D4.getRequiredNamedArg<T>` and
+   `extractBridgedArg<T>` no longer receive an explicit visitor on this
+   path, so without the wrap they could not consult registered
+   interface proxies; static bridges like `DefaultTextStyle.merge`
+   therefore rejected interpreted `Widget` arguments. Constructor
+   dispatch already had this wrap.
+
+**Verification.**
+
+- Bisect run on the 8 affected scripts (`doc/testlog_20260427-c4/c4_after_fix.log.txt`):
+  - 6/8 scripts: framework errors 1→0 (clean fix).
+  - `widgets_binding_observer_test.dart`: original
+    `PreferredSizeWidget` rejection is gone; 3 new follow-ups surfaced
+    that were previously masked by the early Scaffold-gate rejection
+    (1× borderRadius non-uniform, 2× `RenderFlex` overflow 4.5 px).
+    All cosmetic / script-authoring; not interpreter issues.
+  - `snapshot_mode_test.dart`: original rejection gone; 1 follow-up
+    (`RenderFlex` overflow 14 px). Cosmetic.
+- Regression suites (with `D4RT_SKIP_BRIDGE_REGEN=1`):
+  - Essential 108/0/0 — identical to baseline.
+  - Important 164/0 with 5 skips (= 169) — identical to baseline.
+  - Secondary 649/0 with 5 skips (= 654) — identical to baseline,
+    minus one improvement: `widgets_binding_test.dart` no longer emits
+    framework errors. No regressions.
+
+**Files touched.**
+
+- `tom_ai/d4rt/tom_d4rt/lib/src/interpreter_visitor.dart` — wrap static method dispatch in `D4.withActiveVisitor`.
+- `tom_ai/d4rt/tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart` — mirror of the above.
+- `tom_ai/d4rt/tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart` — `PreferredSizeWidget` import + proxy registration + `_InterpretedPreferredSizeWidget` adapter class.
 
 **Representative errors**
 
@@ -561,11 +610,12 @@ workaround are documented at the end of `doc/interpreter_unfixable.md`
 ("`Row(crossAxisAlignment: stretch)` + `Expanded` inside
 `SliverToBoxAdapter` (C3)").
 
-## C4 — Section E coercion (Partial)
+## C4 — Section E coercion (Fixed)
 
-`SlottedMultiChildRenderObjectWidget` proxy landed; downstream is D7.
-`PreferredSizeWidget` and single-arg `Widget` parameters still fail —
-folded into D5 above.
+`SlottedMultiChildRenderObjectWidget` proxy landed earlier (downstream
+is D7). The remaining `PreferredSizeWidget` + single-arg `Widget`
+gap was folded into D5 and closed on 2026-04-27 — see the D5 section
+above for the fix details and verification.
 
 ## C6b — `cannot convert List to List<ThemeExtension<ThemeExtension<dynamic>>>` (Open)
 

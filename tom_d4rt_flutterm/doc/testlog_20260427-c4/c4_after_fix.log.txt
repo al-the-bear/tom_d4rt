@@ -1,0 +1,56 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/bisect_test.dart
+00:00 +0: (setUpAll)
+01:00 +0: widgets/widgets_binding_observer_test.dart
+[METRIC] script=widgets/widgets_binding_observer_test.dart sourceBytes=121573 sourceChars=121388 bundleJsonBytes=1409296 clearMs=39 readMs=12 bundleMs=402 httpMs=1231 totalMs=1685 status=success httpStatus=200 outputLines=0 frameworkErrors=3
+
+  ⚠️  FRAMEWORK ERROR in widgets/widgets_binding_observer_test.dart (3 error(s)):
+       A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color
+       A RenderFlex overflowed by 4.5 pixels on the bottom.
+       A RenderFlex overflowed by 4.5 pixels on the bottom.
+STATUS: true
+FRAMEWORK_ERRORS: [A borderRadius can only be given on borders with uniform colors.
+The following is not uniform:
+BorderSide.color, A RenderFlex overflowed by 4.5 pixels on the bottom., A RenderFlex overflowed by 4.5 pixels on the bottom.]
+OUTPUT_COUNT: 0
+01:01 +1: widgets/sliver_multi_box_adaptor_widget_test.dart
+[METRIC] script=widgets/sliver_multi_box_adaptor_widget_test.dart sourceBytes=79201 sourceChars=79079 bundleJsonBytes=917469 clearMs=97 readMs=1 bundleMs=91 httpMs=1329 totalMs=1519 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+01:03 +2: widgets/snapshot_mode_test.dart
+[METRIC] script=widgets/snapshot_mode_test.dart sourceBytes=78600 sourceChars=78539 bundleJsonBytes=1065682 clearMs=111 readMs=4 bundleMs=98 httpMs=778 totalMs=993 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in widgets/snapshot_mode_test.dart (1 error(s)):
+       A RenderFlex overflowed by 14 pixels on the bottom.
+STATUS: true
+FRAMEWORK_ERRORS: [A RenderFlex overflowed by 14 pixels on the bottom.]
+OUTPUT_COUNT: 0
+01:04 +3: widgets/undo_text_intent_test.dart
+[METRIC] script=widgets/undo_text_intent_test.dart sourceBytes=54936 sourceChars=54830 bundleJsonBytes=697930 clearMs=30 readMs=1 bundleMs=79 httpMs=839 totalMs=951 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+01:05 +4: widgets/viewport_element_mixin_test.dart
+[METRIC] script=widgets/viewport_element_mixin_test.dart sourceBytes=83396 sourceChars=83296 bundleJsonBytes=953331 clearMs=74 readMs=1 bundleMs=95 httpMs=568 totalMs=740 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+01:05 +5: widgets/viewport_notification_mixin_test.dart
+[METRIC] script=widgets/viewport_notification_mixin_test.dart sourceBytes=71834 sourceChars=71766 bundleJsonBytes=927483 clearMs=37 readMs=1 bundleMs=128 httpMs=1643 totalMs=1810 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+01:07 +6: widgets/widget_inspector_service_test.dart
+[METRIC] script=widgets/widget_inspector_service_test.dart sourceBytes=106471 sourceChars=106359 bundleJsonBytes=1311521 clearMs=100 readMs=1 bundleMs=122 httpMs=605 totalMs=830 status=success httpStatus=200 outputLines=3 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 3
+01:08 +7: widgets/widgets_binding_test.dart
+[METRIC] script=widgets/widgets_binding_test.dart sourceBytes=111887 sourceChars=111749 bundleJsonBytes=1293427 clearMs=31 readMs=1 bundleMs=112 httpMs=1046 totalMs=1191 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+STATUS: true
+FRAMEWORK_ERRORS: []
+OUTPUT_COUNT: 0
+01:09 +8: (tearDownAll)
+01:10 +8: All tests passed!

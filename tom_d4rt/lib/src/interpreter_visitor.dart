@@ -3235,8 +3235,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
 
             try {
-              final result = staticMethodAdapter(
-                  this, positionalArgs, namedArgs, evaluatedTypeArguments);
+              // C4/D5 fix: wrap with withActiveVisitor so D4 helpers
+              // (e.g. getRequiredNamedArg → extractBridgedArg) can resolve
+              // the visitor and walk registered interface proxies for
+              // InterpretedInstance arguments. Without this, single-arg
+              // Widget parameters on static bridged methods like
+              // `DefaultTextStyle.merge(child: …)` reject script-defined
+              // StatelessWidget subclasses because the proxy lookup is
+              // skipped (visitor is null).
+              final result = D4.withActiveVisitor(
+                this,
+                () => staticMethodAdapter(
+                    this, positionalArgs, namedArgs, evaluatedTypeArguments),
+              );
 
               return result;
             } on RuntimeD4rtException catch (e) {

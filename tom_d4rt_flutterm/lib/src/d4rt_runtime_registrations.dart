@@ -54,6 +54,7 @@ import 'package:flutter/widgets.dart'
         NavigatorState,
         FormState,
         ParentDataWidget,
+        PreferredSizeWidget,
         RestorationBucket,
         RestorationMixin,
         SingleChildRenderObjectWidget,
@@ -279,6 +280,27 @@ void _registerInterfaceProxies() {
     final proxy = _InterpretedAction(visitor, instance);
     instance.nativeProxy ??= proxy;
     return proxy;
+  });
+
+  // PreferredSizeWidget — scripts subclass StatelessWidget and implement
+  // PreferredSizeWidget (the typical "custom AppBar" pattern):
+  //
+  //   class _MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  //     @override Size get preferredSize => const Size.fromHeight(76);
+  //     @override Widget build(BuildContext context) => …;
+  //   }
+  //
+  // The class chain has bridgedSuperclass = StatelessWidget and
+  // bridgedInterfaces = [PreferredSizeWidget]. The proxy walk in
+  // `tryCreateInterfaceProxyWithVisitor` first tries StatelessWidget,
+  // whose proxy is a Widget but not a PreferredSizeWidget — the `is T`
+  // check fails for `T = PreferredSizeWidget` (e.g. Scaffold.appBar) and
+  // the loop continues. With this registration the next candidate is
+  // PreferredSizeWidget, whose proxy extends StatelessWidget and
+  // implements PreferredSizeWidget, satisfying the cast.
+  D4.registerInterfaceProxy('PreferredSizeWidget', (visitor, instance) {
+    return _InterpretedPreferredSizeWidget(visitor, instance,
+        key: _readKey(instance, visitor));
   });
 
   // SlottedMultiChildRenderObjectWidget — scripts that subclass this abstract
@@ -735,6 +757,55 @@ class _InterpretedStatelessWidget extends StatelessWidget {
       // returns another script-defined StatelessWidget/StatefulWidget).
       // Without the visitor the lookup falls back to D4._activeVisitor,
       // which is only set during script execution, not framework rendering.
+      return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
+    }
+    throw StateError(
+      'Interpreted class ${_instance.klass.name} does not implement build()',
+    );
+  }
+}
+
+/// A native [StatelessWidget] that *also* implements [PreferredSizeWidget],
+/// for D4rt script classes shaped like
+/// `class _MyAppBar extends StatelessWidget implements PreferredSizeWidget`.
+///
+/// Scaffold.appBar (and similar `PreferredSizeWidget?` parameters) reject the
+/// plain `_InterpretedStatelessWidget` proxy because it isn't a
+/// PreferredSizeWidget. Registering this proxy under
+/// `'PreferredSizeWidget'` lets the proxy walk in
+/// `tryCreateInterfaceProxyWithVisitor<PreferredSizeWidget>` find a
+/// candidate that satisfies the cast.
+///
+/// `preferredSize` reads the script's `preferredSize` getter via
+/// [InterpretedInstance.get]; `build` delegates the same way as
+/// `_InterpretedStatelessWidget`.
+class _InterpretedPreferredSizeWidget extends StatelessWidget
+    implements PreferredSizeWidget {
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  const _InterpretedPreferredSizeWidget(this._visitor, this._instance,
+      {super.key});
+
+  @override
+  Size get preferredSize {
+    final raw = _instance.get('preferredSize', visitor: _visitor);
+    if (raw is Size) return raw;
+    if (raw is BridgedInstance && raw.nativeObject is Size) {
+      return raw.nativeObject as Size;
+    }
+    throw StateError(
+      'Interpreted class ${_instance.klass.name} preferredSize getter '
+      'must return a Size; got ${raw.runtimeType}',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final method = _instance.klass.findInstanceMethod('build');
+    if (method != null) {
+      final bound = method.bind(_instance);
+      final result = bound.call(_visitor, [context], {});
       return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
     }
     throw StateError(
