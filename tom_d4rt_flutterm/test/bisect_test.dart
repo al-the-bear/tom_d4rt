@@ -16,9 +16,11 @@ void main() {
   });
 
   for (final script in <String>[
-    // C6b — ThemeExtension nested generic coercion in relaxer
-    // (`Iterable<ThemeExtension<ThemeExtension<dynamic>>>` parameter).
-    'retest/material/theme_extension_test.dart',
+    // C7 — TwoDimensionalScrollView / Viewport / RenderTwoDimensionalViewport
+    // need super-arg-capture + multi-method interface proxies.
+    'widgets/two_dimensional_child_builder_delegate_test.dart',
+    'widgets/two_dimensional_child_manager_test.dart',
+    'widgets/two_dimensional_scrollable_state_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

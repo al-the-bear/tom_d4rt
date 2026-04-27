@@ -1022,6 +1022,17 @@ class InterpretedInstance implements RuntimeValue {
   // RC-9 no-op fallback (so no Flutter rebuild is scheduled from script).
   Object? nativeStateProxy;
 
+  // C7: When the user-defined constructor calls `super(...)` and the bridged
+  // superclass has no constructor adapter (because it's abstract / has only
+  // generative constructors stripped by GEN-051) but an interface proxy is
+  // registered, the no-op super-call branch in callable.dart now evaluates
+  // the argument list and stashes it here. The proxy factory in
+  // `d4rt_runtime_registrations.dart` reads these to forward to the native
+  // super-constructor when materialising the proxy. Null means "no super-arg
+  // capture happened" (the common case; legacy proxies don't depend on this).
+  List<Object?>? superCallPositionalArgs;
+  Map<String, Object?>? superCallNamedArgs;
+
   // Store generic type arguments for this instance (e.g., for List<String>, this would be [StringType])
   final List<RuntimeType>? typeArguments;
 

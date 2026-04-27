@@ -715,6 +715,44 @@ class InterpretedFunction implements Callable {
                   // — the proxy will materialize at the bridge boundary,
                   // reading child/key/etc. from the InterpretedInstance.
                   if (D4.hasInterfaceProxy(bridgedSuperClass.name)) {
+                    // C7: A small set of opt-in proxies need the script's
+                    // `super(...)` argument list captured onto the
+                    // InterpretedInstance so their `create()` factory can
+                    // forward to the native super-constructor (e.g.
+                    // TwoDimensionalScrollView/Viewport/RenderTwoDim..
+                    // Viewport, whose constructors are abstract-stripped).
+                    // Capturing for *every* registered proxy is unsafe — the
+                    // captured `child` / `children` args leak across the
+                    // secondary rendering test stream and produce 30 s HTTP
+                    // timeouts on `render_error_box_test.dart` onward — so
+                    // capture is gated by `D4.proxyCapturesSuperArgs(name)`.
+                    // Legacy proxies (Intent / Action / InheritedWidget tag
+                    // wrappers, Stateless/StatefulWidget, the RenderObject
+                    // widget bases, …) keep the previous behaviour.
+                    if (thisValue is InterpretedInstance &&
+                        D4.proxyCapturesSuperArgs(bridgedSuperClass.name)) {
+                      try {
+                        final (p, n) = _evaluateArgumentsForInvocation(
+                            visitor,
+                            initializer.argumentList,
+                            "super()");
+                        final capturedPositional = List<Object?>.from(p);
+                        final capturedNamed = Map<String, Object?>.from(n);
+                        // Merge in super-formal forwards (super.foo
+                        // parameters declared in the user constructor).
+                        capturedPositional
+                            .insertAll(0, superPositionalForwards);
+                        for (final entry in superNamedForwards.entries) {
+                          capturedNamed.putIfAbsent(
+                              entry.key, () => entry.value);
+                        }
+                        thisValue.superCallPositionalArgs = capturedPositional;
+                        thisValue.superCallNamedArgs = capturedNamed;
+                      } catch (e) {
+                        Logger.debug(
+                            "[SuperCall] Argument evaluation failed for proxy-only bridged super '${bridgedSuperClass.name}': $e — proceeding without capture.");
+                      }
+                    }
                     Logger.debug(
                         "[SuperCall] Bridged superclass '${bridgedSuperClass.name}' has no '$superConstructorName' constructor adapter, but an interface proxy is registered — skipping super() call (the proxy will be created at the bridge boundary).");
                     explicitSuperCalled = true;

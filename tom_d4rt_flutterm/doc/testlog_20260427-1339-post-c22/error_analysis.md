@@ -666,15 +666,94 @@ the bridge boundary.
 - important: +164 ~5 (matches baseline)
 - secondary: +649 ~5 (matches baseline)
 
-## C7 — `TwoDimensionalScrollView` / `TwoDimensionalViewport` ctor missing (Reverted/Deferred)
+## C7 — `TwoDimensionalScrollView` / `TwoDimensionalViewport` ctor missing (Fixed Partial 2026-04-27)
 
 Surfaced again on three hr5 scripts:
 `widgets/two_dimensional_child_builder_delegate_test.dart`,
 `widgets/two_dimensional_child_manager_test.dart`,
-`widgets/two_dimensional_scrollable_state_test.dart`. Requires
+`widgets/two_dimensional_scrollable_state_test.dart`. Required
 super-arg-capture in the interpreter callable layer plus multi-method
-proxies in the bridge package — substantial coordinated change. See
-prior cluster doc for the implementation plan.
+proxies in the bridge package — landed as four coordinated changes:
+
+1. **InterpretedInstance super-arg storage** — added
+   `superCallPositionalArgs` / `superCallNamedArgs` fields on
+   `InterpretedInstance` in both `tom_d4rt/lib/src/runtime_types.dart`
+   and `tom_d4rt_ast/lib/src/runtime/runtime_types.dart`.
+
+2. **Opt-in super-arg capture in the proxy-no-op branch** — in
+   `callable.dart` of both packages, when the bridged super has no
+   constructor adapter but does have a registered interface proxy, the
+   `super(...)` argument list is evaluated and stashed on the
+   InterpretedInstance — but **only** when the bridged super name is
+   in `D4._superArgCapturingProxies`. Capturing for *every* registered
+   proxy was unsafe: the captured `child` / `children` references
+   leaked across the secondary rendering test stream and produced 30 s
+   HTTP timeouts on `render_error_box_test.dart` onward (verified by
+   bisect). The opt-in mechanism (`D4.markProxyCapturesSuperArgs(name)`
+   / `D4.proxyCapturesSuperArgs(name)`) was added to D4 in both
+   packages. Both explicit `super(...)` args and super-formal forwards
+   (`super.foo` parameters) are merged into the captured map so that
+   either declaration style works.
+
+3. **Three native proxies in `tom_d4rt_flutterm`** — added
+   `_InterpretedTwoDimensionalScrollView`,
+   `_InterpretedTwoDimensionalViewport`, and
+   `_InterpretedRenderTwoDimensionalViewport` in
+   `lib/src/d4rt_runtime_registrations.dart`. Each:
+
+   - reads the captured super-args from `instance.superCallNamedArgs`
+     via `_readSuperArg<T>(...)`, which goes through
+     `D4.extractBridgedArgOrNull<T>` so InterpretedInstance delegates
+     (e.g. a script-defined `_TwoDMgrCountingDelegate extends
+     TwoDimensionalChildBuilderDelegate`) are unwrapped to their native
+     `bridgedSuperObject`;
+   - forwards them to the native super-constructor with sensible
+     defaults for optional super-args;
+   - sets `instance.nativeProxy` so the interpreter resolves inherited
+     getters/methods (e.g. `delegate`, `horizontalOffset`,
+     `viewportDimension`, `buildOrObtainChildFor`, `parentDataOf`)
+     through the proxy's bridged super class via the RC-6 fallback in
+     `InterpretedInstance.get`;
+   - dispatches the abstract overrides (`buildViewport`,
+     `createRenderObject` / `updateRenderObject`,
+     `layoutChildSequence`) into the interpreted method via
+     `_invokeInterpretedAs<T>`.
+
+4. **Opt-in registrations** — the three proxies call
+   `D4.markProxyCapturesSuperArgs(name)` to enable the capture branch.
+
+**Verification.**
+
+- `flutter test test/bisect_test.dart` (the three C7 scripts):
+  - Script 1 `two_dimensional_child_builder_delegate_test.dart`:
+    `STATUS=true`, `FRAMEWORK_ERRORS=[]` (was 4 errors at baseline).
+  - Script 2 `two_dimensional_child_manager_test.dart`:
+    `STATUS=true`, `FRAMEWORK_ERRORS=[]` (was 3 errors at baseline).
+  - Script 3 `two_dimensional_scrollable_state_test.dart`:
+    `STATUS=true`, `FRAMEWORK_ERRORS=[BoxConstraints forces an
+    infinite height ...]` — independently implicated by **C8** (see
+    `testlog_20260426-2030-issue-analysis/error_analysis.md` line
+    347). Script 3 closure is therefore deferred to the C8 fix.
+
+- Regression suites (all serial, `D4RT_SKIP_BRIDGE_REGEN=1`):
+  - `essential_classes_test`: **108 passed / 0 failed**, same as
+    baseline (`testlog_20260427-1339-post-c22`).
+  - `important_classes_test`: **164 passed / 5 skipped / 0 failed**,
+    same as baseline.
+  - `generator_interpreter_issues_test`: **78 passed / 1 skipped /
+    4 failed**, same as baseline (no new failures introduced — the 4
+    failures are pre-existing rendering/* and semantics issues
+    unrelated to C7).
+  - `secondary_classes_test`: **649 passed / 5 skipped / 0 failed**,
+    same as baseline.
+
+**Status: Partial Fix.** Scripts 1 and 2 are fully closed; script 3
+is deferred to C8 (BoxConstraints/layout cascade). The C7 mechanism
+(super-arg capture + multi-method proxies + opt-in gate) is now
+available for any future cluster that needs the same shape — for
+example, abstract bridged super classes whose constructors are
+stripped by GEN-051 and whose subclasses need to forward to the
+native super-constructor.
 
 ## C19 — `'!childSemantics.renderObject._needsLayout': is not true` (recurring)
 

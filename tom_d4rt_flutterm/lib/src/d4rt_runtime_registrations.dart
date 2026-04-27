@@ -25,14 +25,18 @@ import 'package:flutter/material.dart'
         ThemeExtension;
 import 'package:flutter/painting.dart' as painting show StrutStyle, TextStyle;
 import 'package:flutter/painting.dart' show Alignment;
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/rendering.dart'
     show
+        AxisDirection,
         BoxConstraints,
         BoxHitTestResult,
         BoxParentData,
+        CacheExtentStyle,
         ContainerBoxParentData,
         ContainerRenderObjectMixin,
         CustomClipper,
+        HitTestBehavior,
         MultiChildLayoutDelegate,
         PaintingContext,
         ParentData,
@@ -40,12 +44,15 @@ import 'package:flutter/rendering.dart'
         RenderBox,
         RenderBoxContainerDefaultsMixin,
         RenderObject,
-        SingleChildLayoutDelegate;
+        SingleChildLayoutDelegate,
+        ViewportOffset;
 import 'package:flutter/scheduler.dart' show Ticker, TickerProvider;
 import 'package:flutter/widgets.dart'
     show
         Action,
+        Axis,
         BuildContext,
+        DiagonalDragBehavior,
         Element,
         GlobalKey,
         InheritedElement,
@@ -57,8 +64,11 @@ import 'package:flutter/widgets.dart'
         FormState,
         ParentDataWidget,
         PreferredSizeWidget,
+        RenderTwoDimensionalViewport,
         RestorationBucket,
         RestorationMixin,
+        ScrollableDetails,
+        ScrollViewKeyboardDismissBehavior,
         SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
         SizedBox,
@@ -68,7 +78,12 @@ import 'package:flutter/widgets.dart'
         StatefulWidget,
         StatelessWidget,
         TickerProviderStateMixin,
+        TwoDimensionalChildDelegate,
+        TwoDimensionalChildManager,
+        TwoDimensionalScrollView,
+        TwoDimensionalViewport,
         Widget;
+import 'dart:ui' show Clip;
 import 'dart:ui' show Offset, Path, Size;
 import 'package:tom_d4rt_exec/d4rt.dart' show D4;
 import 'package:tom_d4rt_ast/src/runtime/bridge/bridged_types.dart'
@@ -341,6 +356,40 @@ void _registerInterfaceProxies() {
   D4.registerInterfaceProxy('ThemeExtension', (visitor, instance) {
     return _InterpretedThemeExtension(visitor, instance);
   });
+
+  // C7: TwoDimensionalScrollView / TwoDimensionalViewport /
+  // RenderTwoDimensionalViewport — scripts subclass these abstract
+  // bridged classes, override `buildViewport` / `createRenderObject` /
+  // `updateRenderObject` / `layoutChildSequence`, and pass instances
+  // where a Widget / RenderObject is expected. Each proxy:
+  //   - reads the captured super-args from `instance.superCallNamedArgs`
+  //     (set by the C7 super-arg-capture branch in callable.dart) and
+  //     forwards them to the native super-constructor;
+  //   - sets `instance.nativeProxy` so the interpreter resolves
+  //     inherited getters/methods (e.g. `delegate`, `horizontalOffset`,
+  //     `viewportDimension`, `buildOrObtainChildFor`, `parentDataOf`)
+  //     through the proxy's bridged super class.
+  D4.registerInterfaceProxy('TwoDimensionalScrollView',
+      (visitor, instance) {
+    return _InterpretedTwoDimensionalScrollView.create(visitor, instance);
+  });
+  D4.registerInterfaceProxy('TwoDimensionalViewport',
+      (visitor, instance) {
+    return _InterpretedTwoDimensionalViewport.create(visitor, instance);
+  });
+  D4.registerInterfaceProxy('RenderTwoDimensionalViewport',
+      (visitor, instance) {
+    return _InterpretedRenderTwoDimensionalViewport.create(visitor, instance);
+  });
+  // Opt these three proxies into the C7 super-arg capture branch in
+  // callable.dart. Without this, their `create()` factories cannot
+  // reconstruct the inherited render-pipeline state. All other registered
+  // proxies (Stateless/StatefulWidget, LeafRenderObjectWidget, Intent,
+  // Action, InheritedWidget, ThemeExtension, …) keep the no-capture path
+  // — see `D4.proxyCapturesSuperArgs` for the rationale.
+  D4.markProxyCapturesSuperArgs('TwoDimensionalScrollView');
+  D4.markProxyCapturesSuperArgs('TwoDimensionalViewport');
+  D4.markProxyCapturesSuperArgs('RenderTwoDimensionalViewport');
 }
 
 /// Bug-103: Override the generator-produced proxies for
@@ -3148,5 +3197,327 @@ class _InterpretedThemeExtension
       }
     } catch (_) {}
     return this;
+  }
+}
+
+// =============================================================================
+// C7: TwoDimensionalScrollView / Viewport / RenderViewport proxies
+// =============================================================================
+//
+// Scripts that subclass `TwoDimensionalScrollView`, `TwoDimensionalViewport`,
+// and `RenderTwoDimensionalViewport` (typical custom 2-axis grid demo) need
+// real native instances of those types so Flutter's render pipeline can
+// drive `build` / `buildViewport` / `createRenderObject` / `layoutChildSequence`.
+//
+// The bridge generator emits these classes with `isAbstract: true,
+// constructors: {}` (GEN-051 strips non-factory constructors of abstract
+// classes) — they have no constructor adapter, so a plain super-call from the
+// interpreted constructor fails. The C7 super-arg-capture branch in
+// `callable.dart` evaluates the user's `super(...)` argument list (merged
+// with `super.foo` parameter forwards) and stashes the result on the
+// `InterpretedInstance` (`superCallNamedArgs` / `superCallPositionalArgs`).
+//
+// Each proxy's `create(...)` static factory:
+//   1. reads the named super-args off the InterpretedInstance,
+//   2. forwards them to the native super-constructor (with sane defaults
+//      for missing named args — keeps the proxy resilient against scripts
+//      that don't set every super-formal),
+//   3. attaches `instance.nativeProxy = this` so the interpreter resolves
+//      inherited getters/methods through the bridged super of this proxy
+//      (delegate, horizontalOffset, verticalOffset, viewportDimension,
+//      buildOrObtainChildFor, parentDataOf, …).
+//
+// Each proxy overrides exactly one virtual hook back into the interpreter:
+//   - `_InterpretedTwoDimensionalScrollView.buildViewport`
+//   - `_InterpretedTwoDimensionalViewport.createRenderObject` /
+//     `updateRenderObject`
+//   - `_InterpretedRenderTwoDimensionalViewport.layoutChildSequence`
+
+/// Read a captured `super(...)` named arg and unwrap it to a native [T].
+///
+/// Captured args may be raw native values (the script passed e.g.
+/// `Axis.vertical`), [BridgedInstance]s (a wrapped enum / value type), or
+/// [InterpretedInstance]s extending a bridged class (e.g. a script-defined
+/// `_TwoDMgrCountingDelegate extends TwoDimensionalChildBuilderDelegate`).
+/// `D4.extractBridgedArgOrNull` handles all three: native pass-through,
+/// `BridgedInstance.nativeObject` unwrapping, and interpreted-instance
+/// proxy/`bridgedSuperObject` resolution. Without this unwrap, complex
+/// types such as a delegate that the script subclassed would fail the
+/// bare `is T` check and surface as a missing-arg [StateError].
+T? _readSuperArg<T>(
+  InterpretedInstance instance,
+  String name, [
+  InterpreterVisitor? visitor,
+]) {
+  final raw = instance.superCallNamedArgs?[name];
+  if (raw == null) return null;
+  try {
+    return D4.extractBridgedArgOrNull<T>(raw, name, visitor);
+  } catch (_) {
+    // extractBridgedArgOrNull throws ArgumentError on type mismatch; for
+    // optional super-args we prefer to return null so the caller can fall
+    // back to a default (e.g. `Axis.vertical`).
+    return null;
+  }
+}
+
+/// Native [TwoDimensionalScrollView] backing an interpreted subclass.
+class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
+  _InterpretedTwoDimensionalScrollView._(
+    this._visitor,
+    this._instance, {
+    super.key,
+    super.primary,
+    super.mainAxis,
+    super.verticalDetails,
+    super.horizontalDetails,
+    required super.delegate,
+    super.cacheExtent,
+    super.cacheExtentStyle,
+    super.diagonalDragBehavior,
+    super.dragStartBehavior,
+    super.keyboardDismissBehavior,
+    super.clipBehavior,
+    super.hitTestBehavior,
+  });
+
+  static _InterpretedTwoDimensionalScrollView create(
+    InterpreterVisitor visitor,
+    InterpretedInstance instance,
+  ) {
+    final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
+        instance, 'delegate', visitor);
+    if (delegate == null) {
+      throw StateError(
+          'C7: Interpreted TwoDimensionalScrollView subclass '
+          '${instance.klass.name} did not pass a `delegate` to super(...).');
+    }
+    final proxy = _InterpretedTwoDimensionalScrollView._(
+      visitor,
+      instance,
+      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+          _readKey(instance, visitor),
+      primary: _readSuperArg<bool>(instance, 'primary', visitor),
+      mainAxis: _readSuperArg<Axis>(instance, 'mainAxis', visitor) ??
+          Axis.vertical,
+      verticalDetails: _readSuperArg<ScrollableDetails>(
+              instance, 'verticalDetails', visitor) ??
+          const ScrollableDetails.vertical(),
+      horizontalDetails: _readSuperArg<ScrollableDetails>(
+              instance, 'horizontalDetails', visitor) ??
+          const ScrollableDetails.horizontal(),
+      delegate: delegate,
+      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
+      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
+          instance, 'cacheExtentStyle', visitor),
+      diagonalDragBehavior: _readSuperArg<DiagonalDragBehavior>(
+              instance, 'diagonalDragBehavior', visitor) ??
+          DiagonalDragBehavior.none,
+      dragStartBehavior: _readSuperArg<DragStartBehavior>(
+              instance, 'dragStartBehavior', visitor) ??
+          DragStartBehavior.start,
+      keyboardDismissBehavior:
+          _readSuperArg<ScrollViewKeyboardDismissBehavior>(
+              instance, 'keyboardDismissBehavior', visitor),
+      clipBehavior:
+          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
+              Clip.hardEdge,
+      hitTestBehavior:
+          _readSuperArg<HitTestBehavior>(instance, 'hitTestBehavior', visitor) ??
+              HitTestBehavior.opaque,
+    );
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  }
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Widget buildViewport(
+    BuildContext context,
+    ViewportOffset verticalOffset,
+    ViewportOffset horizontalOffset,
+  ) =>
+      _invokeInterpretedAs<Widget>(_visitor, _instance, 'buildViewport',
+          [context, verticalOffset, horizontalOffset]);
+}
+
+/// Native [TwoDimensionalViewport] backing an interpreted subclass.
+class _InterpretedTwoDimensionalViewport extends TwoDimensionalViewport {
+  _InterpretedTwoDimensionalViewport._(
+    this._visitor,
+    this._instance, {
+    super.key,
+    required super.verticalOffset,
+    required super.verticalAxisDirection,
+    required super.horizontalOffset,
+    required super.horizontalAxisDirection,
+    required super.delegate,
+    required super.mainAxis,
+    super.cacheExtent,
+    super.cacheExtentStyle,
+    super.clipBehavior,
+  });
+
+  static _InterpretedTwoDimensionalViewport create(
+    InterpreterVisitor visitor,
+    InterpretedInstance instance,
+  ) {
+    final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
+        instance, 'delegate', visitor);
+    final verticalOffset = _readSuperArg<ViewportOffset>(
+        instance, 'verticalOffset', visitor);
+    final horizontalOffset = _readSuperArg<ViewportOffset>(
+        instance, 'horizontalOffset', visitor);
+    final verticalAxisDirection = _readSuperArg<AxisDirection>(
+        instance, 'verticalAxisDirection', visitor);
+    final horizontalAxisDirection = _readSuperArg<AxisDirection>(
+        instance, 'horizontalAxisDirection', visitor);
+    final mainAxis = _readSuperArg<Axis>(instance, 'mainAxis', visitor);
+    if (delegate == null ||
+        verticalOffset == null ||
+        horizontalOffset == null ||
+        verticalAxisDirection == null ||
+        horizontalAxisDirection == null ||
+        mainAxis == null) {
+      throw StateError(
+          'C7: Interpreted TwoDimensionalViewport subclass '
+          '${instance.klass.name} did not pass all required '
+          'super-args (delegate / verticalOffset / horizontalOffset / '
+          'verticalAxisDirection / horizontalAxisDirection / mainAxis).');
+    }
+    final proxy = _InterpretedTwoDimensionalViewport._(
+      visitor,
+      instance,
+      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+          _readKey(instance, visitor),
+      verticalOffset: verticalOffset,
+      verticalAxisDirection: verticalAxisDirection,
+      horizontalOffset: horizontalOffset,
+      horizontalAxisDirection: horizontalAxisDirection,
+      delegate: delegate,
+      mainAxis: mainAxis,
+      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
+      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
+          instance, 'cacheExtentStyle', visitor),
+      clipBehavior:
+          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
+              Clip.hardEdge,
+    );
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  }
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  RenderTwoDimensionalViewport createRenderObject(BuildContext context) {
+    final raw = _invokeInterpretedAs<RenderObject>(
+        _visitor, _instance, 'createRenderObject', [context]);
+    if (raw is RenderTwoDimensionalViewport) return raw;
+    throw StateError(
+        'Interpreted ${_instance.klass.name}.createRenderObject must return a '
+        'RenderTwoDimensionalViewport, got ${raw.runtimeType}');
+  }
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    RenderTwoDimensionalViewport renderObject,
+  ) {
+    final method = _instance.klass.findInstanceMethod('updateRenderObject');
+    if (method == null) return;
+    method.bind(_instance).call(_visitor, [context, renderObject], {});
+  }
+}
+
+/// Native [RenderTwoDimensionalViewport] backing an interpreted subclass.
+///
+/// `layoutChildSequence` dispatches into the interpreted method. The
+/// interpreted method reads inherited getters (`horizontalOffset`,
+/// `verticalOffset`, `viewportDimension`, `delegate`) and calls inherited
+/// methods (`buildOrObtainChildFor`, `parentDataOf`, `markNeedsLayout`)
+/// through the bridge boundary; resolution lands on this proxy because we
+/// set `instance.nativeProxy = this` in [create].
+class _InterpretedRenderTwoDimensionalViewport
+    extends RenderTwoDimensionalViewport {
+  _InterpretedRenderTwoDimensionalViewport._(
+    this._visitor,
+    this._instance, {
+    required super.horizontalOffset,
+    required super.horizontalAxisDirection,
+    required super.verticalOffset,
+    required super.verticalAxisDirection,
+    required super.delegate,
+    required super.mainAxis,
+    required super.childManager,
+    super.cacheExtent,
+    super.cacheExtentStyle,
+    super.clipBehavior,
+  });
+
+  static _InterpretedRenderTwoDimensionalViewport create(
+    InterpreterVisitor visitor,
+    InterpretedInstance instance,
+  ) {
+    final delegate = _readSuperArg<TwoDimensionalChildDelegate>(
+        instance, 'delegate', visitor);
+    final verticalOffset = _readSuperArg<ViewportOffset>(
+        instance, 'verticalOffset', visitor);
+    final horizontalOffset = _readSuperArg<ViewportOffset>(
+        instance, 'horizontalOffset', visitor);
+    final verticalAxisDirection = _readSuperArg<AxisDirection>(
+        instance, 'verticalAxisDirection', visitor);
+    final horizontalAxisDirection = _readSuperArg<AxisDirection>(
+        instance, 'horizontalAxisDirection', visitor);
+    final mainAxis = _readSuperArg<Axis>(instance, 'mainAxis', visitor);
+    final childManager = _readSuperArg<TwoDimensionalChildManager>(
+        instance, 'childManager', visitor);
+    if (delegate == null ||
+        verticalOffset == null ||
+        horizontalOffset == null ||
+        verticalAxisDirection == null ||
+        horizontalAxisDirection == null ||
+        mainAxis == null ||
+        childManager == null) {
+      throw StateError(
+          'C7: Interpreted RenderTwoDimensionalViewport subclass '
+          '${instance.klass.name} did not pass all required super-args.');
+    }
+    final proxy = _InterpretedRenderTwoDimensionalViewport._(
+      visitor,
+      instance,
+      horizontalOffset: horizontalOffset,
+      horizontalAxisDirection: horizontalAxisDirection,
+      verticalOffset: verticalOffset,
+      verticalAxisDirection: verticalAxisDirection,
+      delegate: delegate,
+      mainAxis: mainAxis,
+      childManager: childManager,
+      cacheExtent: _readSuperArg<double>(instance, 'cacheExtent', visitor),
+      cacheExtentStyle: _readSuperArg<CacheExtentStyle>(
+          instance, 'cacheExtentStyle', visitor),
+      clipBehavior:
+          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ??
+              Clip.hardEdge,
+    );
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  }
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  void layoutChildSequence() {
+    final method = _instance.klass.findInstanceMethod('layoutChildSequence');
+    if (method == null) {
+      throw StateError(
+          'Interpreted ${_instance.klass.name} does not implement '
+          'layoutChildSequence()');
+    }
+    method.bind(_instance).call(_visitor, const [], const {});
   }
 }

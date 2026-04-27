@@ -160,6 +160,24 @@ class D4 {
   static bool hasInterfaceProxy(String bridgedTypeName) =>
       _interfaceProxies.containsKey(bridgedTypeName);
 
+  /// Bridged-class names whose proxy `create()` reads the script's
+  /// `super(...)` argument list off [InterpretedInstance.superCallNamedArgs]
+  /// / [InterpretedInstance.superCallPositionalArgs]. See the matching
+  /// tom_d4rt_ast helper for the full rationale.
+  static final Set<String> _superArgCapturingProxies = <String>{};
+
+  /// Mark [bridgedTypeName] as a proxy that needs `super(...)` args
+  /// captured onto the [InterpretedInstance]. See [_superArgCapturingProxies].
+  static void markProxyCapturesSuperArgs(String bridgedTypeName) {
+    _superArgCapturingProxies.add(bridgedTypeName);
+  }
+
+  /// Returns true when the proxy registered for [bridgedTypeName] needs the
+  /// script's `super(...)` argument list captured. See
+  /// [_superArgCapturingProxies].
+  static bool proxyCapturesSuperArgs(String bridgedTypeName) =>
+      _superArgCapturingProxies.contains(bridgedTypeName);
+
   // ==========================================================================
   // RC-3: Type Coercion Registration
   // ==========================================================================

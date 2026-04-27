@@ -168,6 +168,38 @@ class D4 {
   static bool hasInterfaceProxy(String bridgedTypeName) =>
       _interfaceProxies.containsKey(bridgedTypeName);
 
+  /// Bridged-class names whose proxy `create()` reads the script's
+  /// `super(...)` argument list off [InterpretedInstance.superCallNamedArgs]
+  /// / [InterpretedInstance.superCallPositionalArgs].
+  ///
+  /// The vast majority of registered proxies (LeafRenderObjectWidget,
+  /// SingleChildRenderObjectWidget, Intent, Action, InheritedWidget, the
+  /// StatelessWidget/StatefulWidget tag-wrappers, …) do not need the
+  /// super-args because the relevant state lives on the InterpretedInstance
+  /// fields. For those, evaluating the super(...) args at the proxy-no-op
+  /// branch is pure overhead and — empirically — leaks references through
+  /// the captured `child` / `children` arguments, polluting the test app
+  /// across the rendering test stream and producing 30 s HTTP timeouts on
+  /// `render_error_box_test.dart` and following.
+  ///
+  /// C7 introduces a small set of proxies (TwoDimensionalScrollView /
+  /// TwoDimensionalViewport / RenderTwoDimensionalViewport) that *do* need
+  /// the super-args to forward to the native super-constructor. Those
+  /// proxies opt in via [markProxyCapturesSuperArgs].
+  static final Set<String> _superArgCapturingProxies = <String>{};
+
+  /// Mark [bridgedTypeName] as a proxy that needs `super(...)` args
+  /// captured onto the [InterpretedInstance]. See [_superArgCapturingProxies].
+  static void markProxyCapturesSuperArgs(String bridgedTypeName) {
+    _superArgCapturingProxies.add(bridgedTypeName);
+  }
+
+  /// Returns true when the proxy registered for [bridgedTypeName] needs the
+  /// script's `super(...)` argument list captured. See
+  /// [_superArgCapturingProxies].
+  static bool proxyCapturesSuperArgs(String bridgedTypeName) =>
+      _superArgCapturingProxies.contains(bridgedTypeName);
+
   // ==========================================================================
   // RC-3: Type Coercion Registration
   // ==========================================================================
