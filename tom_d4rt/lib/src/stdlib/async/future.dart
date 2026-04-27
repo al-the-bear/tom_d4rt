@@ -15,6 +15,47 @@ class FutureAsync {
             }
             throw RuntimeD4rtException('Invalid arguments for Future constructor.');
           },
+          // Named factory constructors. Dart's `Future.delayed`/`Future.value`/
+          // `Future.error`/`Future.microtask`/`Future.sync` are factory
+          // constructors, so scripts that write `Future<T>.delayed(...)` —
+          // explicit type-arg form — route through constructor lookup, not
+          // the static-method path. Registering them here makes both
+          // `Future.delayed(...)` and `Future<T>.delayed(...)` resolve.
+          'delayed': (visitor, positionalArgs, namedArgs) {
+            final duration = positionalArgs[0] as Duration;
+            final computation = positionalArgs.get<InterpretedFunction?>(1);
+            return Future.delayed(
+              duration,
+              computation == null ? null : () => computation.call(visitor, []),
+            );
+          },
+          'value': (visitor, positionalArgs, namedArgs) {
+            return Future.value(positionalArgs.get<dynamic>(0));
+          },
+          'error': (visitor, positionalArgs, namedArgs) {
+            final error = positionalArgs[0];
+            if (error == null) {
+              throw RuntimeD4rtException(
+                  'Future.error requires a non-null error object.');
+            }
+            final stackTrace = positionalArgs.get<StackTrace?>(1);
+            return Future.error(error, stackTrace);
+          },
+          'microtask': (visitor, positionalArgs, namedArgs) {
+            final computation = positionalArgs[0];
+            if (computation is! InterpretedFunction) {
+              throw RuntimeD4rtException(
+                  'Future.microtask requires an Function.');
+            }
+            return Future.microtask(() => computation.call(visitor, []));
+          },
+          'sync': (visitor, positionalArgs, namedArgs) {
+            final computation = positionalArgs[0];
+            if (computation is! InterpretedFunction) {
+              throw RuntimeD4rtException('Future.sync requires an Function.');
+            }
+            return Future.sync(() => computation.call(visitor, []));
+          },
         },
         staticMethods: {
           'delayed': (visitor, positionalArgs, namedArgs, _) {

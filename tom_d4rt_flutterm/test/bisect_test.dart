@@ -16,9 +16,9 @@ void main() {
   });
 
   for (final script in <String>[
-    'widgets/undo_history_value_test.dart',
+    'widgets/semantics_gesture_delegate_test.dart',
   ]) {
-    test('$script (C12)', () async {
+    test('$script (C13)', () async {
       final result = await SendTestRunner.send(script);
       print('STATUS: ${result.success}');
       print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');

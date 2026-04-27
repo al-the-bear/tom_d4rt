@@ -608,7 +608,7 @@ The `hash` adapter dispatches by positional-arg count to the matching native `Ob
 
 ### C13 — `Future.delayed` constructor missing
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred
 
 **Severity:** Low · **Owner:** tom_d4rt stdlib bridge for `dart:async`
 
@@ -623,6 +623,26 @@ The `hash` adapter dispatches by positional-arg count to the matching native `Ob
 **Analysis.** The `Future` bridge declares the default factory and `Future.value`/`Future.error` but not `Future.delayed`. Standard library hole.
 
 **Suggested fix.** Add `Future.delayed` (and review `Future.microtask`, `Future.sync`, `Future.wait`) to the async stdlib bridge. Mirror tom_d4rt ↔ tom_d4rt_ast.
+
+**Resolution.** Root cause was subtler than "missing entry": `Future.delayed`/`Future.value`/`Future.error`/`Future.microtask`/`Future.sync` *were* declared, but only on the `staticMethods` map. The script writes `Future<void>.delayed(...)` — explicit-type-arg form — which the interpreter routes through **constructor** lookup, not the static-method path. The bridge had no constructor named `delayed`, hence the error.
+
+Fix (mirrored in lockstep across both packages):
+
+- `tom_d4rt/lib/src/stdlib/async/future.dart`
+- `tom_d4rt_ast/lib/src/runtime/stdlib/async/future.dart`
+
+Added `delayed`, `value`, `error`, `microtask`, and `sync` entries to the `constructors` map of `FutureAsync.definition`. These mirror the existing `staticMethods` entries (kept in place for the bare `Future.delayed(...)` call form). This matches the pattern used by `DateTimeCore` in `dart:core` (`now`, `utc`, `fromMillisecondsSinceEpoch`, ... live in `constructors`, not `staticMethods`), since those are factory constructors in Dart proper.
+
+`Future.wait`, `Future.any`, `Future.forEach`, `Future.doWhile` are static methods in Dart — they correctly stay only in `staticMethods`.
+
+**Verification.**
+
+- C13 bisect run on `widgets/semantics_gesture_delegate_test.dart` — `Bridged class 'Future' does not have a registered constructor named 'delayed'` is gone; STATUS: true. Three remaining framework errors (`Missing required argument for 'd' in function '<anonymous>'`) are unrelated — they trace to `(DragUpdateDetails d) => ...` gesture-callback dispatch and belong to a different cluster.
+- `dart analyze` clean on both modified files.
+- Regression suites (Rule b — stdlib code change):
+  - `essential_classes_test`: 108 / 0 / 0 — matches baseline.
+  - `important_classes_test`: 164 / 0 / 5 — matches baseline.
+  - `secondary_classes_test`: 649 / 0 / 5 — matches baseline.
 
 ---
 
@@ -862,7 +882,7 @@ The fix is structurally analogous to the C1 RenderBox proxy:
 | C10 — RestorationProperty.isRegistered ✅ Fixed (RestorationMixin State proxy + bridged-mixin nativeProxy fallback; assertion gone in 13/13, 7 scripts now clean, 6 have unrelated downstream errors) | Medium | interpreter+bridge | 13 | 0 |
 | C11 — `withValues` on null (script) ✅ Fixed (4/4 scripts patched with `(receiver ?? const Color(0xFF000000)).withValues(...)`; 180 call sites wrapped) | Low | scripts | 4 | 0 |
 | C12 — `Object.hash` missing ✅ Fixed (added `Object.hash`/`hashAll`/`hashAllUnordered` static method adapters to bridged `Object` in both packages; arity-dispatched to native overloads) | Low | stdlib | 1 | 0 |
-| C13 — `Future.delayed` missing | Low | stdlib | 1 | 0 |
+| C13 — `Future.delayed` missing ✅ Fixed (added named factory ctors `delayed`/`value`/`error`/`microtask`/`sync` to `constructors` map of bridged `Future` in both packages — required for `Future<T>.delayed(...)` explicit-type-arg form) | Low | stdlib | 1 | 0 |
 | C14 — Null BuildContext (Plan E2) | High | interpreter | 2 | 2 |
 | C15 — WidgetStateMapper.merge | Low | generator | 1 | 0 |
 | C16 — Map.contains | Low | stdlib or script | 1 | 1 |
