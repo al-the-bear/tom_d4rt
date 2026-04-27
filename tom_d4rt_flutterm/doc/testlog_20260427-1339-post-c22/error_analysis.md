@@ -506,12 +506,60 @@ to interpreted code. Capture artifacts:
 private slotted-mixin member access in interpreted scripts, and
 mixin-aware composite proxies for the general case.
 
-## C3 — `Null check operator used on a null value` (Partial)
+## C3 — `Null check operator used on a null value` (Reverted/Deferred)
 
 Broad symptom across multiple scripts. Some instances closed by
-script patches. New instances surfaced in this run on
-`widgets/scroll_deceleration_rate_test.dart` (8 occurrences) — folded
-into D8e above.
+script patches in earlier runs. The post-C22 instance on
+`widgets/scroll_deceleration_rate_test.dart` (8 occurrences, folded
+into D8e above) was investigated this round — bisect log + attempted
+fix logs in `doc/testlog_20260427-c3/`.
+
+**Bisect finding.** The 8 errors are a single layout cascade
+originating from `_TelemetryRow.build()` (Section 3 of the
+`CustomScrollView`, lines 828–858), with the same pattern present in
+`_CoastCurves.build()` (lines 1083–…). Both wrap a
+`Row(crossAxisAlignment: CrossAxisAlignment.stretch, [Expanded(card),
+SizedBox, Expanded(card)])` inside a `SliverToBoxAdapter`. The sliver
+adapter passes bounded width but **unbounded height** down; the
+cross-axis stretch propagates `h=Infinity` into each `Expanded` and
+`ChildLayoutHelper.layoutChild` fires the `BoxConstraints forces an
+infinite height` assertion. The downstream `RenderBox was not laid
+out` and `Null check operator used on a null value` entries are the
+framework's post-failure walk over half-laid-out boxes.
+
+Bisect proof:
+
+| Sections present | frameworkErrors | log |
+| ---------------- | --------------- | --- |
+| 1+2 only         | 0               | `c3_bisect_no_sections3_5.log.txt` (then no 6–11) |
+| 3 only           | 8               | `c3_bisect_section3_only.log.txt` |
+| 6–11 removed     | 8               | `c3_bisect_no_sections6_11.log.txt` |
+
+**Why the obvious script-side fixes don't help.** Two textbook
+workarounds were tried; both made it *worse* (8 → 11 errors):
+
+| Attempt                                     | Errors | Log |
+| ------------------------------------------- | ------ | --- |
+| Wrap each Row in `IntrinsicHeight(...)`     | 11     | `c3_after_intrinsic.log.txt` |
+| Drop `stretch` → `CrossAxisAlignment.start` | 11     | `c3_after_no_stretch.log.txt` |
+
+Under native Flutter `IntrinsicHeight` is the canonical resolution;
+under d4rt it routes intrinsic queries through proxy
+render-objects (`_InterpretedSlottedRenderBox`, the slot-mixin
+proxies) and adds further null-checks instead of removing them.
+Removing `stretch` lets the children self-size but leaves
+`_TelemetryCard`'s decoration walk reading `null` heights from the
+mismatched child boxes.
+
+**Status.** Both attempted patches reverted. Script back at the
+8-error baseline (`c3_after_revert.log.txt`). The cluster is
+**Reverted/Deferred** — the genuine fix lives in the d4rt
+intrinsics/layout path for `Row + Expanded` under unbounded
+cross-axis constraints (proxy/slot-mixin layout pipeline), not in
+the script. The underlying trigger and a functional script-authoring
+workaround are documented at the end of `doc/interpreter_unfixable.md`
+("`Row(crossAxisAlignment: stretch)` + `Expanded` inside
+`SliverToBoxAdapter` (C3)").
 
 ## C4 — Section E coercion (Partial)
 

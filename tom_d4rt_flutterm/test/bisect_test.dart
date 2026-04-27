@@ -16,10 +16,8 @@ void main() {
   });
 
   for (final script in <String>[
-    // C1 follow-up — slot-mixin proxy verification.
-    'widgets/slotted_multi_child_render_object_widget_mixin_test.dart',
-    'widgets/slotted_multi_child_render_object_widget_test.dart',
-    'widgets/slotted_render_object_element_test.dart',
+    // C3 carryover — null-check cascade.
+    'widgets/scroll_deceleration_rate_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);

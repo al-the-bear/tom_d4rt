@@ -304,3 +304,63 @@ not an interpreter change.
   the painter under a `Directionality(textDirection: TextDirection.ltr,
   child: …)` so the implicit lookup succeeds. Same observable test
   output, valid semantics tree.
+
+### `Row(crossAxisAlignment: stretch)` + `Expanded` inside `SliverToBoxAdapter` (C3)
+
+- **Source:** `widgets/scroll_deceleration_rate_test.dart` (8 framework
+  errors, post-C22 run). Bisected to `_TelemetryRow.build()` (lines
+  828–858) — the same pattern also appears in `_CoastCurves.build()`
+  (lines 1083–…).
+- **Symptom (cluster of 8 entries from one cascade):**
+  1. `BoxConstraints forces an infinite height.` reported by
+     `ChildLayoutHelper.layoutChild` with constraints
+     `BoxConstraints(0.0<=w<=Infinity, h=Infinity)`.
+  2. `RenderBox was not laid out: RenderFlex#…` (`hasSize` assertion at
+     `box.dart:2251`).
+  3. `RenderBox was not laid out: RenderPadding#…` (same assertion).
+  4. Five `Null check operator used on a null value` entries from the
+     framework's post-failure walk over half-laid-out boxes.
+- **Underlying Dart/Flutter trigger:** The script puts a
+  `Padding > Row(crossAxisAlignment: CrossAxisAlignment.stretch,
+  children: [Expanded(child: _TelemetryCard…), SizedBox(width: 14),
+  Expanded(child: _TelemetryCard…)])` inside a `SliverToBoxAdapter`
+  child of a `CustomScrollView`. `SliverToBoxAdapter` gives its child
+  bounded width but **unbounded height**. `crossAxisAlignment: stretch`
+  asks the cross-axis (vertical) extent to match the parent's — which
+  is `Infinity` — so each `Expanded` child receives
+  `BoxConstraints(0..w, h=Infinity)` and the layout-helper assertion
+  fires before the `RenderFlex` settles a height. From there the
+  half-finished render tree trips a chain of `RenderBox was not laid
+  out` and null-check noise.
+- **Why not interpreter-fixable in isolation:** Two script-side
+  workarounds were tried in this run and both **increased** the error
+  count from 8 to 11 under d4rt (logs in
+  `doc/testlog_20260427-c3/c3_after_intrinsic.log.txt` and
+  `…/c3_after_no_stretch.log.txt`):
+  1. Wrapping each `Row` in `IntrinsicHeight` so the cross-axis stretch
+     resolves to the children's intrinsic height. Under native Flutter
+     this is the textbook fix; under d4rt the interpreter's intrinsic
+     pass through `_InterpretedSlottedRenderBox` / proxy render-objects
+     adds further null-checks rather than removing them.
+  2. Dropping `crossAxisAlignment: stretch` (changing it to `.start`).
+     This passes constraints with `h=Infinity` removed at the Row level,
+     but the children no longer have matched heights and the
+     `_TelemetryCard` decorations end up with `null` size readings in
+     d4rt's post-layout walk, which produces *more* null-check entries
+     than baseline.
+  Both attempts were reverted; the script remains at the 8-error
+  baseline cascade. The genuine fix lives in the interpreter's
+  layout/intrinsics path for `Row` + `Expanded` under unbounded
+  cross-axis constraints, not in the script.
+- **Functional workaround (when authoring fresh scripts):** Avoid the
+  `Row(crossAxisAlignment: stretch) + Expanded` pattern inside
+  `SliverToBoxAdapter` (or any vertically-unbounded parent). Two
+  equivalent ways to keep the visual layout:
+  1. Pin a finite height on the row's parent —
+     `SizedBox(height: <intrinsic>, child: Row(... Expanded ...))` —
+     so cross-axis stretch resolves against a bounded value.
+  2. Replace `Expanded` with explicit `SizedBox(width: …)` children
+     and drop `crossAxisAlignment: stretch`; if matched heights are
+     required, give each card the same `height:` constant.
+  Either keeps the rendered output identical and avoids the
+  `BoxConstraints forces an infinite height` cascade entirely.
