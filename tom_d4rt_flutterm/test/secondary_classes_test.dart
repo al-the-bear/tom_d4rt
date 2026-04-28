@@ -329,12 +329,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('button_types_test.dart (deprecated: ButtonBar)', () async {
+    test('button_types_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/button_types_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Uses deprecated Flutter API: ButtonBar');
+    });
 
     test('scaffold_advanced_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -448,12 +448,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('toggle_segmented_test.dart (deprecated: ButtonBar)', () async {
+    test('toggle_segmented_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/toggle_segmented_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Uses deprecated Flutter API: ButtonBar');
+    });
 
     test('reorderable_material_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -527,12 +527,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('button_styles_misc_test.dart (deprecated: ButtonBarThemeData)', () async {
+    test('button_styles_misc_test.dart', () async {
       final result = await SendTestRunner.send(
         'material/button_styles_misc_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Uses deprecated Flutter API: ButtonBarThemeData');
+    });
 
     test('autocomplete_chips_test.dart', () async {
       final result = await SendTestRunner.send(
@@ -1089,12 +1089,12 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('platform_menu_widgets_test.dart (deprecated: RawKeyboardListener)', () async {
+    test('platform_menu_widgets_test.dart', () async {
       final result = await SendTestRunner.send(
         'widgets/platform_menu_widgets_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'Uses deprecated Flutter API: RawKeyboardListener');
+    });
 
     test('scroll_position_types_test.dart', () async {
       final result = await SendTestRunner.send(

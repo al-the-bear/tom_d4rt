@@ -582,54 +582,10 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test(
-      'showdialog_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/showdialog_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'moved to interactive_tests_test.dart (tap OK to dismiss)',
-    );
-
-    test(
-      'showbottomsheet_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/showbottomsheet_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'moved to interactive_tests_test.dart (tap Share to dismiss)',
-    );
-
     test('showmenu_test.dart', () async {
       final result = await SendTestRunner.send('material/showmenu_test.dart');
       expect(result.success, isTrue, reason: result.error);
     }, skip: 'moved to interactive_tests_test.dart (tap Option A to dismiss)');
-
-    test(
-      'showdatepicker_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/showdatepicker_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'moved to interactive_tests_test.dart (tap Cancel to dismiss)',
-    );
-
-    test(
-      'showtimepicker_test.dart',
-      () async {
-        final result = await SendTestRunner.send(
-          'material/showtimepicker_test.dart',
-        );
-        expect(result.success, isTrue, reason: result.error);
-      },
-      skip: 'moved to interactive_tests_test.dart (tap Cancel to dismiss)',
-    );
   });
 
   // ============================================================

@@ -372,14 +372,14 @@ void main() {
         'rendering/render_darwin_platform_view_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'moved to timeout_tests_test.dart');
+    });
 
     test('render_decorated_sliver_test.dart', () async {
       final result = await SendTestRunner.send(
         'rendering/render_decorated_sliver_test.dart',
       );
       expect(result.success, isTrue, reason: result.error);
-    }, skip: 'moved to timeout_tests_test.dart');
+    });
 
     test('render_editable_painter_test.dart', () async {
       final result = await SendTestRunner.send(
