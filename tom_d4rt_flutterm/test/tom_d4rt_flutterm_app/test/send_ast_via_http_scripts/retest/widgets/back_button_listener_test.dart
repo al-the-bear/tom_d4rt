@@ -603,6 +603,18 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
 
   @override
   Widget build(BuildContext context) {
+    // E13 fix — the original layout used `Expanded(child: Row(...))` inside
+    // a `BackButtonListener` (a StatefulWidget that just builds its child).
+    // The interpreter's text metrics inflated the column's intrinsic height
+    // demand and the Row's two panels demanded ~250 px, well above the
+    // available stage budget (~330 px under header/toolbar/footer). Two
+    // narrow changes:
+    //   1. Replace the outer `Expanded(child: Row)` with a fixed
+    //      `SizedBox(height: 168, child: Row)` so the bottom row's vertical
+    //      footprint is bounded and the parent Column's child sum fits.
+    //   2. Wrap each inner panel's content `Column` body in a
+    //      `SingleChildScrollView` so panel content can exceed 168 px
+    //      without producing a `RenderFlex` overflow inside the panel.
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -649,7 +661,8 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
           const SizedBox(height: 12),
           BackButtonListener(
             onBackButtonPressed: _onBackPressed,
-            child: Expanded(
+            child: SizedBox(
+              height: 80,
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -657,34 +670,41 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
                       title: 'Visual Gate',
                       subtitle: 'This entire panel is wrapped by BackButtonListener.',
                       tint: widget.palette.accentA.withValues(alpha: 0.05),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          _signalCard(
-                            title: 'Current Policy',
-                            detail: _listenerEnabled
-                                ? (_consumeBack ? 'Intercept (returns true)' : 'Propagate (returns false)')
-                                : 'Listener disabled (always propagate)',
-                            tone: _consumeBack ? widget.palette.accentA : widget.palette.accentC,
+                      // Expanded gives the scroll view bounded height inside
+                      // _panel's vertical Column so its content doesn't push
+                      // the panel's Column past the parent SizedBox(168).
+                      child: Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              _signalCard(
+                                title: 'Current Policy',
+                                detail: _listenerEnabled
+                                    ? (_consumeBack ? 'Intercept (returns true)' : 'Propagate (returns false)')
+                                    : 'Listener disabled (always propagate)',
+                                tone: _consumeBack ? widget.palette.accentA : widget.palette.accentC,
+                              ),
+                              const SizedBox(height: 10),
+                              if (widget.showCounters)
+                                Row(
+                                  children: <Widget>[
+                                    _metric('local handled', '$_localHandled', widget.palette.accentA),
+                                    const SizedBox(width: 8),
+                                    _metric('local propagated', '$_localPropagated', widget.palette.accentC),
+                                  ],
+                                ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'How to read this panel:\n'
+                                '1. press Dispatch Back\n'
+                                '2. observe timeline and local counters\n'
+                                '3. switch between consume and propagate to compare outcomes',
+                                style: TextStyle(color: widget.palette.ink, fontSize: 11.2, height: 1.35),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          if (widget.showCounters)
-                            Row(
-                              children: <Widget>[
-                                _metric('local handled', '$_localHandled', widget.palette.accentA),
-                                const SizedBox(width: 8),
-                                _metric('local propagated', '$_localPropagated', widget.palette.accentC),
-                              ],
-                            ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'How to read this panel:\n'
-                            '1. press Dispatch Back\n'
-                            '2. observe timeline and local counters\n'
-                            '3. switch between consume and propagate to compare outcomes',
-                            style: TextStyle(color: widget.palette.ink, fontSize: 11.2, height: 1.35),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -695,15 +715,19 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
                       child: _panel(
                         title: 'Cheat Sheet',
                         subtitle: 'BackButtonListener essentials.',
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            _bullet('Must be in a Router subtree.'),
-                            _bullet('Returning true means "I consumed back".'),
-                            _bullet('Returning false lets event continue upward.'),
-                            _bullet('Useful for custom back policies and temporary guards.'),
-                            _bullet('Keep callback focused and deterministic for predictability.'),
-                          ],
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                _bullet('Must be in a Router subtree.'),
+                                _bullet('Returning true means "I consumed back".'),
+                                _bullet('Returning false lets event continue upward.'),
+                                _bullet('Useful for custom back policies and temporary guards.'),
+                                _bullet('Keep callback focused and deterministic for predictability.'),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),

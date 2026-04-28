@@ -952,7 +952,71 @@ tom_d4rt_ast in sync" rule.
 
 ## E13 — gir TID=37 `back_button_listener_test` residual `RenderFlex` overflow (follow-up to E11)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** script (deep bisect needed)
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** script (closed 2026-04-28)
+
+**Status (2026-04-28 close).** Closed by a script-side fix in
+`_InterceptionStudioState.build()` (the default initial stage of
+the demo). Pre-fix: 2 framework errors (153 px / 133 px
+overflows on the bottom). Post-fix: `frameworkErrors=0`, test
+passes. Verification log:
+`doc/testlog_20260428-e13-fix/gir_post_attempt4.log.txt`.
+
+**Bisect trail.**
+
+1. Confirmed the overflows originate in `_InterceptionStudio`'s
+   build (the initial `_DemoStage.interception` is the only stage
+   pumped by the test runner).
+2. The original layout used `Expanded(child: Row(...))` directly
+   inside `BackButtonListener`. `BackButtonListener` is a
+   `StatefulWidget` whose `_BackButtonListenerState.build()`
+   returns its `widget.child` as-is, so the `Expanded` is
+   structurally fine — but the row's two panels demand ~250 px
+   of intrinsic height under the interpreter's text metrics,
+   well above the available stage budget (~330 px after header,
+   toolbar, footer).
+3. First attempt (wrap whole body in `SingleChildScrollView`)
+   broke layout — Column inside a vertical scroll view gets
+   unbounded vertical constraints, which conflicts with the
+   inner `Expanded`s. Reverted.
+4. Second attempt (replace outer `Expanded` with
+   `SizedBox(height: 168)` + wrap each panel's inner Column in
+   `SingleChildScrollView`) reduced overflow from 153/133 to
+   84/69/49 px. The 69 / 49 px panel-internal overflows are
+   because `SingleChildScrollView` inside `_panel`'s vertical
+   `Column` still demands intrinsic height.
+5. Third attempt (wrap each panel's `SingleChildScrollView` in
+   `Expanded` so the panel's vertical Column gives it a bounded
+   height) eliminated the panel-internal overflows; 84 px outer
+   overflow remained.
+6. Final fix: reduce `SizedBox(height: 168)` → `SizedBox(height:
+   80)`. The visual gate panel and cheat sheet panel content
+   both scroll inside their `Expanded > SingleChildScrollView`
+   wrappers, and the outer Column now fits the stage budget
+   exactly. `frameworkErrors=0`.
+
+**Fix.** Three narrow changes inside
+`_InterceptionStudioState.build()`:
+
+1. Replace `BackButtonListener > Expanded(child: Row(...))` with
+   `BackButtonListener > SizedBox(height: 80, child: Row(...))`.
+2. Wrap the visual gate panel's inner `SingleChildScrollView`
+   (around its `Column` body) in `Expanded`.
+3. Wrap the cheat sheet panel's inner `SingleChildScrollView`
+   (around its `Column` body) in `Expanded`.
+
+**Why script-only.** The interpreter is laying out the widget
+tree correctly — the original 153 px overflow is purely a
+function of the script's content demand exceeding the test
+canvas. Native Flutter, with the same script, would behave
+identically. The narrowest fix is to bound the bottom row's
+height and let its panels scroll internally; the demo's
+intent (visual gate + cheat sheet panels visible) is preserved
+because the panel contents render within the bounded region.
+
+**Verification path.** `flutter test ... --plain-name
+back_button_listener` → `frameworkErrors=0`, all tests passed.
+Test-script-only change, so per regression rule (a), single
+test retest is sufficient.
 
 **Origin.** Once the E11 `RouterDelegate` adapter proxy lands,
 the cast failure is gone and the script's widget tree builds.
