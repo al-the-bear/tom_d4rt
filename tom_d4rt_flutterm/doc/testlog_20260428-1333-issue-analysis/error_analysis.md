@@ -1382,7 +1382,24 @@ required. The investigation findings are reproducible from
 
 ## E13 — Enum exhaustiveness on bridged enums (script-side, 15 scripts) — carry-over from `script_rewrites.md`
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (add `default:` arm)
+- [x] Fixed (closed-by-pre-existing-rewrite 2026-04-28)  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** scripts (add `default:` arm)
+
+**Status (2026-04-28 close).** All 15 scripts already carry the
+documented workaround in their `retest/` rewrites. No code change
+needed in this run; closure is by attribution to the prior
+`retest/` rewrite pass that introduced the workaround under the
+`// D4RT-LIMITATION: enum exhaustiveness` comment marker.
+
+Verification (2026-04-28): for each of the 15 scripts under
+`test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/retest/`,
+the count of `switch (` openings matches the count of
+`// D4RT-LIMITATION: enum exhaustiveness` annotations on the
+catch-all arm (`default:` for switch statements, `_ =>` for
+switch expressions). One file (`hour_format_test.dart`) shows a
+single switch in a string-literal display block which has no
+runtime effect; the three executable switches all carry the
+workaround. The `services/` paths in the original tracker are
+the rewritten `widgets/` paths in the actual corpus.
 
 **Status.** Tracked as the "Enum exhaustiveness — `switch` over
 bridged enum" entry in `script_rewrites.md`. Mirrored here so the
@@ -2151,7 +2168,7 @@ test-app watchdog only.
 | E10 — `render_animated_size_state` 2.0 px overflow | Low | interpreter | 1 (gir TID=31) | 1 failure |
 | E11 — `back_button_listener` Router routerDelegate adapter | Medium | interpreter | 1 (gir TID=37) | 1 failure |
 | E12 — Auto-generated abstract-class adapters (DESIGN) | Low | generator | (n/a) | (design exploration) |
-| E13 — Enum exhaustiveness on bridged enums   | Low    | scripts     | 15              | 15 compile errors |
+| E13 — Enum exhaustiveness on bridged enums   | Low    | scripts     | 15              | 15 compile errors → 0 (CLOSED 2026-04-28; all retest/ rewrites carry the documented `default:` / `_ =>` workaround) |
 | E14 — `SystemColor` Linux platform guard     | Low    | scripts     | 1 (skipped)     | 0 FE (skip in place) |
 | E15 — `setState` in scheduler frame phases (C20d) | Medium | scripts | (multiple deep-demo) | (deferral mitigation in place) |
 | E16 — `Row(stretch)` + `Expanded` in `SliverToBoxAdapter` (C3) | Low | scripts | 1 | 8 FE |
@@ -2213,8 +2230,10 @@ above), D5/D7 (2026-04-27).
      from generator output.
 
    **Script-side rewrites to apply (no interpreter change):**
-   - **E13** — add `default:` arms to 15 bridged-enum `switch`
-     scripts (batchable 5–6 per PR).
+   - **E13** — CLOSED 2026-04-28. All 15 retest/ rewrites
+     already carry the documented `default:` arm (or `_ =>`
+     wildcard for switch expressions) tagged with
+     `// D4RT-LIMITATION: enum exhaustiveness`.
    - **E14** — `SystemColor` Linux skip is in place; no action
      beyond keeping the platform guard.
    - **E15** — apply `addPostFrameCallback` / outside-frame
