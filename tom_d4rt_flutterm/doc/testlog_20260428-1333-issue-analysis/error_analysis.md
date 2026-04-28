@@ -1716,10 +1716,42 @@ script level. This update is documentation reconciliation only
 
 ## D4 — RestorableProperty proxy
 
-Documented under `interpreter_unfixable.md` "D3 — Reading
+- [x] Fixed (closed-by-attribution 2026-04-28) - [ ] Partial - [ ] Open · **Severity:** Medium · **Owner:** scripts (interpreter root cause documented as architectural limitation)
+
+**Status.** D4 catalogues the `RestorableProperty` proxy
+behaviour where the interpreter cannot expose
+`RestorableProperty.value` correctly when accessed in
+`initState()` before `restoreState()` runs. Documented under
+the same `interpreter_unfixable.md` entry as D3 ("D3 — Reading
 `RestorableProperty.value` in `initState()` before
-`restoreState()` registers it". No new instances in this run
-beyond E4.
+`restoreState()` registers it") because the two clusters share
+a single root cause: the interpreter has no restore-bucket
+emulation, so any path that depends on `RestorationMixin.
+restoreState` running ahead of the first build is broken.
+
+**This run's instances.** No new instances surfaced beyond
+the two captured under **E4** (`restorable_property_test`,
+`restorable_string_test`). Both were closed there 2026-04-28:
+
+- `restorable_property_test` — already FE=0 at the E4 pre-fix
+  bisect; untouched.
+- `restorable_string_test` — closed via the documented
+  initState-seeding workaround (seed `TextEditingController`
+  from default-constant literals, let `restoreState()` sync
+  from `_X.value` after `registerForRestoration`).
+
+**Closure rationale.** With no D4-specific re-surfaces
+remaining in this run and the E4 fixes verified at FE=0
+(`doc/testlog_20260428-e4-fix/e4_bisect_post.log.txt`), D4 is
+closed-by-attribution. The underlying architectural limitation
+remains documented in `interpreter_unfixable.md` for future
+occurrences — these must continue to apply the
+initState-seeding workaround.
+
+**No additional verification required.** Per regression rule
+(a) the relevant scripts were verified under E4. This update
+is documentation reconciliation only — no code or scripts
+changed in this turn.
 
 ## D5 — Section E PreferredSize/Widget
 
