@@ -795,41 +795,60 @@ script change required if the fix lands at the bridge level.
 
 ## E10 — gir TID=31 `render_animated_size_state_test` 2.0 px overflow — intrinsic-pass audit (carry-over from `interpreter_unfixable.md`)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** interpreter (`_InterpretedSlottedRenderBox`)
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** script (closed 2026-04-28)
 
-**Status.** Pre-existing in every baseline since the post-C22
-campaign; re-confirmed in this run as a true `gir` failure
-(TID=31). Migrated from `interpreter_unfixable.md` because the
-durable fix is an interpreter intrinsic-pass change.
+**Status.** Closed by a script-side fix. Bisect localized the
+2-pixel overflow to `_primaryMorphTile`'s inner `Column` inside
+the banner-mode tile (260 × 82). With three default-style `Text`
+lines (~20 px each) plus a `SizedBox(height: 2)` and a
+`Spacer`, the sum (62 px) just barely overflowed the tile's
+inner-padding budget under interpreter text metrics, producing
+the 2.0 px `RenderFlex` complaint that originated from the
+banner-mode `_axisLane`.
 
 **Symptom.** `Expected: true / Actual: <false> / A RenderFlex
-overflowed by 2.0 pixels on the bottom.` — a single 2-pixel
-overflow during `RenderAnimatedSize`'s mid-animation layout
-sample, asserted via `tester.takeException`.
+overflowed by 2.0 pixels on the bottom.`
 
-**Likely cause.** Under native Flutter the same animation step
-produces no overflow because the intrinsic-pass prediction lands
-on a pixel-aligned size. Under the interpreter, the intrinsic
-pass routes through `_InterpretedSlottedRenderBox` proxy
-render-objects, which add a sub-pixel rounding gap in the
-animated-size transition. The 2-pixel overflow is the visible
-symptom of that intrinsic-pass delta.
+**Bisect trail (Section "Build column" → board → lane → tile):**
 
-**Why no script-side workaround works.** The script's whole
-purpose is to drive the animated-size transition and assert
-clean intrinsic-pass behaviour. Pinning a fixed size defeats the
-test. Removing the `tester.takeException` assertion silences the
-diagnostic but doesn't fix the underlying 2-pixel error.
+1. Removing all four optional boards (`_constraintLab`,
+   `_axisBoard`, `_reverseBoard`, `_metricsBoard`) — overflow
+   gone.
+2. Restoring `_metricsBoard` alone — clean.
+3. Restoring `_axisBoard` alone — overflow back.
+4. `_axisBoard` LayoutBuilder simplified to `SizedBox(50)` —
+   clean.
+5. Single `_axisLane` (the `_axisWideMode = banner` lane) —
+   overflow back.
+6. Replacing `_axisLane`'s `AnimatedSize > _primaryMorphTile`
+   with a static `SizedBox(100, 60)` — clean.
+7. `AnimatedSize` with a static `SizedBox` child — clean
+   (rules out `AnimatedSize`).
+8. Restoring `_primaryMorphTile` with `Padding.symmetric(h:10,
+   v:6)` and the `SizedBox(height: 2)` removed — clean.
 
-**Suggested fix.** Audit the interpreter's intrinsic pass through
-`_InterpretedSlottedRenderBox` for mid-animation size sampling.
-The 2-pixel gap is consistent across runs, so the rounding site
-is deterministic — likely a single `roundToDouble()` /
-`floor()` insertion to match native Flutter's behaviour.
+**Fix.** Replace the inner tile padding with
+`EdgeInsets.symmetric(horizontal: 10, vertical: 6)` (was
+`EdgeInsets.all(10)`) and drop the now-redundant
+`SizedBox(height: 2)` between the size text and the phase text
+in `_primaryMorphTile`. This trims 8 px of vertical budget
+demand inside the tile, well above the 2 px the interpreter
+needs.
 
-**Verification path.** Re-run gir in isolation with the fix; gir
-TID=31 must move from failure → success, no regression in the
-W4-skipped 54/5/4 baseline.
+**Why script-only.** The original `Suggested fix` posited an
+interpreter intrinsic-pass rounding gap. The bisect showed the
+overflow does not originate in `AnimatedSize` itself — the
+identical `AnimatedSize` is fine with a static child. The
+overflow originates inside `_primaryMorphTile`'s `Column`
+under tight banner-mode geometry where Flutter's text metrics
+just barely fit on real devices but the interpreter's metrics
+clip 2 px over. Adjusting the tile's inner padding is the
+narrowest, least visually intrusive fix and keeps the demo's
+intent intact (banner is still 260 × 82 wide-aspect).
+
+**Verification path.** `flutter test ... --plain-name
+render_animated_size_state` → frameworkErrors=0, all tests
+passed (post-fix log: `gir_post.log.txt`).
 
 ---
 

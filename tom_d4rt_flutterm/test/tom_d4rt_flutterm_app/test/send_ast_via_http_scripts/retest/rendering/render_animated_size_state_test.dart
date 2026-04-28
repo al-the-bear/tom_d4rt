@@ -818,7 +818,7 @@ class _RenderAnimatedSizeStateObservatoryState extends State<_RenderAnimatedSize
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -828,7 +828,6 @@ class _RenderAnimatedSizeStateObservatoryState extends State<_RenderAnimatedSize
                 '${(_alwaysFixedWidth ? 180 : size.width).toStringAsFixed(0)} x ${(_alwaysFixedHeight ? 108 : size.height).toStringAsFixed(0)}',
                 style: TextStyle(color: scheme.onPrimaryContainer),
               ),
-              const SizedBox(height: 2),
               Text('phase $_phaseLabel', style: TextStyle(color: scheme.onPrimaryContainer)),
             ],
           ),
@@ -1253,6 +1252,7 @@ class _RenderAnimatedSizeStateObservatoryState extends State<_RenderAnimatedSize
                   reverseDuration: _reverseDuration,
                   curve: _curvePresets[_curveIndex].curve,
                   alignment: Alignment.center,
+                  clipBehavior: Clip.hardEdge,
                   child: _primaryMorphTile(scheme, mode),
                 ),
               ),
