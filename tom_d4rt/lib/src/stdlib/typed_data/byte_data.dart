@@ -5,6 +5,18 @@ class ByteDataTypedData {
   static BridgedClass get definition => BridgedClass(
         name: 'ByteData',
         nativeType: ByteData,
+        // E1 fix: native ByteData instances arriving from `Uint8List.buffer
+        // .asByteData()`, `StandardMessageCodec.encodeMessage`, etc., have a
+        // private runtime type (`_ByteDataView`) that is not registered as a
+        // direct bridge key. Without `isAssignable`, [Environment
+        // .toBridgedInstance] step 2 (assignability iteration) cannot find
+        // the `ByteData` bridge, and step 3's name-based fallback strips the
+        // leading underscore to `ByteDataView` which does not match the
+        // bridge name `ByteData`. Adding the explicit assignability test
+        // routes any `ByteData` subclass through the bridge so getters such
+        // as `lengthInBytes` resolve. Mirrors the pattern documented in
+        // [BridgedClass] and used by `Set` / `Curve`.
+        isAssignable: (v) => v is ByteData,
         typeParameterCount: 0,
         constructors: {
           '': (visitor, positionalArgs, namedArgs) {

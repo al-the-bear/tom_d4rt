@@ -1,0 +1,8 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e1_bisect_test.dart
+00:00 +0: (setUpAll)
+00:58 +0: E1 — _ByteDataView.lengthInBytes retest/services/message_codec_test.dart (gir TID=33)
+[METRIC] script=retest/services/message_codec_test.dart sourceBytes=3686 sourceChars=3686 bundleJsonBytes=47974 clearMs=76 readMs=33 bundleMs=149 httpMs=806 totalMs=1067 status=success httpStatus=200 outputLines=35 frameworkErrors=0
+00:59 +1: E1 — _ByteDataView.lengthInBytes retest/services/method_codec_test.dart (gir TID=34)
+[METRIC] script=retest/services/method_codec_test.dart sourceBytes=2113 sourceChars=2113 bundleJsonBytes=26700 clearMs=111 readMs=0 bundleMs=27 httpMs=531 totalMs=672 status=success httpStatus=200 outputLines=21 frameworkErrors=0
+00:59 +2: (tearDownAll)
+01:00 +2: All tests passed!

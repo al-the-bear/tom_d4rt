@@ -89,11 +89,11 @@ this run's evidence.
 
 ---
 
-## E1 — `_ByteDataView.lengthInBytes` runtime gap (NEW)
+## E1 — `_ByteDataView.lengthInBytes` runtime gap (FIXED)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** interpreter / dart:typed_data bridge
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter / dart:typed_data bridge
 
-**Symptom.** Two retest scripts in services/ now fail with the
+**Symptom.** Two retest scripts in services/ failed with the
 same shape:
 
 - `retest/services/message_codec_test.dart` (gir TID=33):
@@ -107,22 +107,41 @@ The shape matches the `dart:typed_data` re-export gap addressed in
 is the *internal* `dart:typed_data` view returned from
 `Uint8List.buffer.asByteData()` — not the public `ByteData` bridge.
 
-**Likely cause.** The script does
-`buffer.asByteData(0, message.lengthInBytes)` where `buffer` is a
-`Uint8List.buffer.asUint8List(...)`-style chain. The interpreter's
-property-access path doesn't resolve `lengthInBytes` on the
-private `_ByteDataView` runtime type — only on the public
-`ByteData` / `Uint8List` bridges.
+**Root cause.** Native `ByteData` instances arriving from
+`Uint8List.buffer.asByteData()` and `StandardMessageCodec.encodeMessage(...)`
+have a private runtime type (`_ByteDataView`) that is not registered
+as a direct bridge key. `Environment.toBridgedInstance` step 1
+(direct type lookup) misses; step 2 (assignability iteration)
+needed an explicit `isAssignable` predicate on the `ByteData` bridge
+to match — without one, step 3's name-based fallback strips the
+leading underscore to `ByteDataView` which still does not match the
+bridge name `ByteData`.
 
-**Suggested fix.** Either (a) widen the `dart:typed_data` bridge
-registration to map `_ByteDataView` → `ByteData` so the existing
-`lengthInBytes` getter routes through, or (b) extend the
-property-access fallback to walk `D4InterpretedProxy` /
-nativeObject's runtime type ancestors when the leading bridge is
-private. Option (a) is the lower-risk path.
+**Fix applied (option a).** Added `isAssignable: (v) => v is ByteData`
+to the `ByteData` `BridgedClass` definition in:
 
-**Verification path.** Bisect-run the two scripts after the fix;
-expect 0 FE on both and gir TIDs 33, 34 → success.
+- `tom_d4rt/lib/src/stdlib/typed_data/byte_data.dart`
+- `tom_d4rt_ast/lib/src/runtime/stdlib/typed_data/byte_data.dart`
+  (mirror, per the "keep tom_d4rt ↔ tom_d4rt_ast in sync" rule)
+
+This routes any `ByteData` subclass — including the private
+`_ByteDataView` — through the `ByteData` bridge so getters such as
+`lengthInBytes` resolve. Mirrors the pattern documented in
+`BridgedClass` and used by `Set` / `Curve`.
+
+**Verification.**
+
+- `e1_bisect_test.dart` (the two target scripts in isolation):
+  both pass, FE=0.
+- `painting/resize_image_key_test.dart` standalone (the script that
+  appeared to regress in the secondary suite first run): passes
+  in 1611 ms, FE=0 — the secondary-suite first-run wedge was
+  test-app flakiness (cascade of 30-s timeouts after one wedged
+  script), not an interpreter regression.
+- Regression suites (re-run after flakiness):
+  essential = 108/0/0, important = 164/0/0,
+  secondary = 653 +1 ~1 — match baseline exactly.
+- Logs: `doc/testlog_20260428-e1-fix/`.
 
 ---
 
