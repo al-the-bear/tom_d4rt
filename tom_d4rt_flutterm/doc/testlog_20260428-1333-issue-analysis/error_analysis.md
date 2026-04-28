@@ -271,7 +271,7 @@ cluster, distinct shape).
 
 ## E4 — `late` field uninitialised in restoration scripts (NEW shape) — carry-over D3 partial
 
-- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter / scripts
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Medium · **Owner:** scripts
 
 **Symptom.** Two secondary suite scripts:
 
@@ -280,21 +280,32 @@ cluster, distinct shape).
 - `widgets/restorable_string_test.dart` —
   `Late variable '_productNameController' without initializer is accessed before being assigned.`
 
-**Likely cause.** The interpreter still mis-orders the
-`registerForRestoration` lifecycle: the `late` controller field
-is read in the script's `build()` before `restoreState()` has
-called `registerForRestoration(_controller, 'key')`. The
-documented workaround in `interpreter_unfixable.md`
-("Reading `RestorableProperty.value` in `initState()` before
-`restoreState()` registers it") covers `value` reads, but the
-two scripts above hit it via the `late` controller pattern,
-not via `value`.
+**Resolution.** Script-only fix following the documented D3
+workaround (`script_rewrites.md`, `interpreter_unfixable.md`):
+seed each `TextEditingController` in `initState()` from the
+literal default constants (`_kDefaultProductName`, `_kDefaultSku`,
+…) instead of reading the matching `RestorableString.value`. The
+existing `restoreState()` body already syncs controller text from
+`_X.value` *after* `registerForRestoration`, so the round-trip
+remains correct. Applied to `widgets/restorable_string_test.dart`.
 
-**Suggested fix.** The script-side workaround pattern (assign
-`_controller = TextEditingController()` in `initState()` and only
-hydrate `text` in `restoreState()`) already exists in
-`interpreter_unfixable.md` and resolves the symptom. These two
-scripts haven't yet been patched. Apply the workaround to both.
+Pre-fix bisect surprise: `widgets/restorable_property_test.dart`
+was already passing (`frameworkErrors=0`) before any E4 change —
+likely closed by a prior unrelated commit; left untouched.
+
+**Verification.**
+
+- Pre-fix log:
+  `doc/testlog_20260428-e4-fix/e4_bisect_pre.log.txt` —
+  `restorable_property_test`: FE=0; `restorable_string_test`: FE=1
+  (`LateInitializationError: '_productNameController'`).
+- Post-fix log:
+  `doc/testlog_20260428-e4-fix/e4_bisect_post.log.txt` —
+  both scripts FE=0, all tests pass.
+
+Per regression rule (a), test-script-only change: individual
+retest sufficient; no essential/important/secondary suite re-run
+required.
 
 The interpreter-side fix would be to deliver the
 `RestorationMixin.restoreState` dispatch *before* the first build

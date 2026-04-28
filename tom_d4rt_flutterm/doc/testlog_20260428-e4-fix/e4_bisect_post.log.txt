@@ -1,0 +1,8 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e4_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/restorable_property_test.dart
+[METRIC] script=widgets/restorable_property_test.dart sourceBytes=43583 sourceChars=43543 bundleJsonBytes=507414 clearMs=94 readMs=23 bundleMs=355 httpMs=676 totalMs=1150 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:12 +1: widgets/restorable_string_test.dart
+[METRIC] script=widgets/restorable_string_test.dart sourceBytes=60758 sourceChars=60692 bundleJsonBytes=643369 clearMs=51 readMs=7 bundleMs=96 httpMs=1284 totalMs=1439 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:14 +2: (tearDownAll)
+00:14 +2: All tests passed!

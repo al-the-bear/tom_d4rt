@@ -195,13 +195,23 @@ class _LabelPrinterStudioDemoState extends State<LabelPrinterStudioDemo>
   @override
   void initState() {
     super.initState();
+    // Note: this script originally seeded each controller from the
+    // matching `RestorableString.value` here. Under the d4rt
+    // interpreter, `RestorableProperty.value` reads before
+    // `restoreState` has registered the property surface a
+    // `LateInitializationError` (`_value`) instead of Flutter's
+    // "no value yet" message, which propagates and leaves the
+    // surrounding `late final` controller field unassigned. The
+    // documented D3 workaround in `interpreter_unfixable.md` is
+    // to seed controllers with the *literal default* and only
+    // sync from `RestorableProperty.value` inside `restoreState`,
+    // which is functionally equivalent in real Flutter.
     _productNameController =
-        TextEditingController(text: _productName.value);
-    _skuController = TextEditingController(text: _sku.value);
-    _taglineController = TextEditingController(text: _tagline.value);
-    _addressController =
-        TextEditingController(text: _recipientAddress.value);
-    _neonController = TextEditingController(text: _neonSignText.value);
+        TextEditingController(text: _kDefaultProductName);
+    _skuController = TextEditingController(text: _kDefaultSku);
+    _taglineController = TextEditingController(text: _kDefaultTagline);
+    _addressController = TextEditingController(text: _kDefaultAddress);
+    _neonController = TextEditingController(text: _kDefaultNeonText);
 
     _productNameController.addListener(_onProductNameChanged);
     _skuController.addListener(_onSkuChanged);
