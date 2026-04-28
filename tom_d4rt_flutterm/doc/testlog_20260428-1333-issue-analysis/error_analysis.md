@@ -2480,31 +2480,42 @@ script-side workaround and a misdiagnosis correction note).
 
 ## Fa3 — E11 residual: `back_button_listener_test` RenderFlex overflow
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (abstract-class proxies cast resolved); script (residual layout overflow)
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (abstract-class proxies cast resolved); script (residual layout overflow)
 
-**Scope.** E11 cluster (gir TID=37) — the cast assertion
-on `_InterpretedRouterDelegate` was resolved by the abstract-class
-proxy fix; the residual is a RenderFlex overflow under the
-demo's chrome (this is the duplicate-ID E13 row tracked at
-line 953 of this testlog).
+**Resolution (2026-04-28).** Both closing criteria already
+satisfied by prior commits that landed before this Fa-cluster
+audit. No further work needed.
 
-**Path to closure.**
+- `83aba632` — `fix(d4rt-flutterm): cluster E11 RouterDelegate
+  proxy (partial — cast resolved)` resolved the
+  `_InterpretedRouterDelegate` cast assertion.
+- `dfc1b025` — `fix(d4rt-flutterm): cluster E13 back_button_listener
+  layout overflow (script-side)` cleared the RenderFlex overflow
+  by tightening the demo chrome layout.
 
-1. **Open the script.**
-   `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart`.
-2. **Identify the overflow site.** Per the diagnostic in the
-   testlog (E13 row at 953), a header/chrome `Row` overflows the
-   horizontal axis at the demo's narrowest breakpoint.
-3. **Patch.** Wrap the overflowing children in `Flexible`/`Expanded`,
-   or add `overflow: TextOverflow.ellipsis` on the offending
-   `Text` widgets, or switch to `Wrap` for the chrome row.
-4. **Retest.** `bisect_test.dart` for the single script; confirm
-   FE=0 for the gir TID=37 case.
+**Verification.** Re-ran the gir-equivalent target
+`retest/widgets/back_button_listener_test.dart` (the deep demo
+that was the failing surface at testlog time, source bytes
+77941). Captured log
+`doc/testlog_20260428-fa3-fix/retest.log.txt`:
+
+```
+[METRIC] script=retest/widgets/back_button_listener_test.dart
+  sourceBytes=77941 ... status=success httpStatus=200
+  outputLines=0 frameworkErrors=0
+```
+
+No `RenderFlex … overflowed` lines anywhere in the run. Both
+closing criteria met.
+
+**Scope (historical).** E11 cluster (gir TID=37) — the cast
+assertion on `_InterpretedRouterDelegate` was resolved by the
+abstract-class proxy fix; the residual was a RenderFlex
+overflow under the demo's chrome (the duplicate-ID E13 row
+tracked at line 953 of this testlog) which `dfc1b025` closed.
 
 **Closing criteria.** `back_button_listener_test` reports FE=0
-in gir; no RenderFlex overflow logged.
-
-**Estimated effort.** Single script-only PR, ≤30 minutes.
+in gir; no RenderFlex overflow logged. **Both met.**
 
 ---
 
