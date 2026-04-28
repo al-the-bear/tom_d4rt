@@ -1673,11 +1673,46 @@ reconciliation only — no code or scripts changed in this turn.
 
 ## D3 — late-field uninitialised
 
-Documented in `interpreter_unfixable.md` as the
-`registerForRestoration` lifecycle ordering issue. Two new
-re-surfaces in this run captured under E4. Workaround pattern
-(initialise `_controller` in `initState`) needs to be applied to
-the two re-surfaced scripts.
+- [x] Fixed (closed-by-attribution 2026-04-28) - [ ] Partial - [ ] Open · **Severity:** Medium · **Owner:** scripts (interpreter root cause documented as architectural limitation)
+
+**Status.** Documented in `interpreter_unfixable.md` as the
+`registerForRestoration` lifecycle ordering issue (D3 — Reading
+`RestorableProperty.value` in `initState()` before
+`restoreState()` registers it). The interpreter cannot deliver
+`RestorationMixin.restoreState` dispatch ahead of the first
+build without a full restore-bucket emulation, which is out of
+scope for the cluster-by-cluster campaign.
+
+**This run's re-surfaces.** The two new occurrences caught in
+the 2026-04-28 baseline — `widgets/restorable_property_test.dart`
+and `widgets/restorable_string_test.dart` — were re-clustered
+into **E4** and closed there 2026-04-28:
+
+- `restorable_property_test` was already passing
+  (`frameworkErrors=0`) at the pre-fix bisect; left untouched
+  (likely closed by a prior unrelated commit).
+- `restorable_string_test` was closed by applying the
+  documented D3 workaround pattern from `script_rewrites.md`:
+  seed `TextEditingController` instances in `initState()` from
+  the literal default constants
+  (`_kDefaultProductName`, `_kDefaultSku`, …) instead of
+  reading the matching `RestorableString.value`. The existing
+  `restoreState()` body already syncs controller text from
+  `_X.value` *after* `registerForRestoration`, so the
+  round-trip stays correct.
+
+**Closure rationale.** With both re-surfaces verified at
+`frameworkErrors=0` post-fix
+(`doc/testlog_20260428-e4-fix/e4_bisect_post.log.txt`), D3's
+in-run instances are resolved. The underlying architectural
+limitation remains documented in `interpreter_unfixable.md` —
+new occurrences must continue to apply the
+initState-seeding workaround.
+
+**No additional verification required.** Per regression rule
+(a) the script-side fix was applied and verified at the E4
+script level. This update is documentation reconciliation only
+— no code or scripts changed in this turn.
 
 ## D4 — RestorableProperty proxy
 
