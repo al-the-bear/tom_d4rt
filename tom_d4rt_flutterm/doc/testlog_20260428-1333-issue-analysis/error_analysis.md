@@ -1820,9 +1820,47 @@ documentation reconciliation only.
 
 ## D6 — layout cascade
 
-Carried forward as E2 in this run. Down from 18 → 16 scripts
-and from ~228 → 138 FE. C22 ListView replacement pattern is the
-established fix template; 16 scripts remain to patch.
+- [ ] Fixed - [x] Partial (closed-by-attribution to E2 — 2026-04-28) - [ ] Open · **Severity:** Low · **Owner:** scripts (C22 ListView pattern); plus 3 C3-family deferred unfixables
+
+**Status.** Carried forward as **E2** in this run; D6's active
+fix work is tracked there and need not be duplicated here. The
+top-line numbers came down from **18 scripts / ~228 FE** at the
+post-c22 baseline to **16 scripts / 138 FE** at the
+2026-04-28-1333 baseline, then four E2 batches landed:
+
+- **E2 batch 1** — closed `text_selection_gesture_detector_builder_delegate_test` (5→0) and `sliver_multi_box_adaptor_element_test` (6→0); `restoration_mixin_test` already FE=0; `scrollbar_painter_test` deferred (cosmetic residuals).
+- **E2 batch 2** — closed `standard_component_type_test` (13→0). Three scripts deferred after attempted-and-reverted fixes: `widget_state_color_test`, `text_magnifier_configuration_test`, `scroll_deceleration_rate_test` — the latter two confirmed to belong to the C3 unfixable family in `script_rewrites.md` §C3.
+- **E2 batch 3** — closed all four top-of-table candidates `two_dimensional_scrollable_state_test` (20→0), `scroll_position_types_test` (19→0), `web_browser_detection_test` (19→0), `weak_map_test` (15→0).
+- **E2 batch 4** — closed `scrollbar_painter_test` (4→0); other three already FE=0 pre-fix.
+
+**Remaining (D6 / E2 surface).** 7 scripts / ~88 FE, of which:
+
+- **4 top-of-table** (21–33 FE each): `shortcut_activator_test`, `unfocus_disposition_test`, `widget_test`, `widget_state_text_style_test` — candidates for the next E2 batch (C22 ListView pattern).
+- **3 C3-family deferred** (FE 6–9 each): `widget_state_color_test`, `scroll_deceleration_rate_test`, `text_magnifier_configuration_test` — every documented script-side authoring workaround was tried and either had no effect or regressed; cataloged in `script_rewrites.md` §C3 as an interpreter-layout-path limitation.
+
+**Closure rationale.** D6 itself is a meta-cluster. The
+script-by-script fixes apply against E2; D6's status simply
+mirrors E2's progress. With ~half the FE volume already
+closed, batches 1–4 verified at FE=0 in their respective
+`doc/testlog_20260428-e2-batch{1,2,3,4}-fix/` logs, and a
+crisp partition between "next batch candidates" and "C3-family
+unfixable", D6 stays **Partial** until either:
+
+1. The 4 top-of-table scripts close (next E2 batch — script-side,
+   no interpreter changes), at which point D6 reduces to 3
+   C3-family scripts and remains Partial pending the
+   interpreter-side intrinsics fix; or
+2. The interpreter layout/intrinsics path is updated to handle
+   `Row(crossAxisAlignment.stretch) + Expanded` inside
+   unbounded vertical contexts cleanly, at which point all 3
+   C3-family scripts close and D6 → Fixed.
+
+**No additional verification required in this turn.** All E2
+batch fixes carry their own verification logs; no code or
+scripts changed in this turn — this update is documentation
+reconciliation only (formalize the carry-over note as an
+explicit Partial-by-attribution closure block matching the E2
+state).
 
 ## D7 — Slotted RO mixin
 
