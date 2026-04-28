@@ -201,8 +201,62 @@ cascade root was already closed in `126cf860`). Per regression
 rule (a), test-script-only changes; individual retest
 sufficient.
 
-**Remaining.** 13 scripts / ~133 FE (`scrollbar_painter_test` 4 +
-top-of-table 12 entries). The top-of-table batch is the next
+**Batch 2 (table positions #9–#12 — bottom-up sweep) — 2026-04-28.**
+
+- `widgets/standard_component_type_test.dart` (13 FE → 0). Replaced
+  the root `Row(stretch) > Expanded > CustomScrollView` body whose
+  ten `SliverToBoxAdapter` children each handed unbounded vertical
+  extent to `_Sct*` widgets that were `Padding > Column(default
+  mainAxisSize.max)`. Replaced the entire `CustomScrollView` with a
+  `ListView` whose direct children are the `_Sct*` widgets (with
+  the original `SliverPadding` becoming a regular `Padding` on the
+  specimen-grid item, and inter-section `SliverToBoxAdapter > SizedBox`
+  spacers becoming raw `SizedBox`). `ListView` resolves each child
+  to its intrinsic height; the `RenderParagraph object was given an
+  infinite size` cascade collapses cleanly.
+- `widgets/widget_state_color_test.dart` (9 FE) — **deferred**.
+  Cascade root is `_WscFromMapVsResolveWith` (`Row(stretch) +
+  Expanded` cards inside a `ListView` item). Tried wrapping in
+  `IntrinsicHeight`: no change (still 9 FE). Tried IntrinsicHeight
+  with `crossAxisAlignment.stretch` retained on inner Row: same.
+  The cascade reproduces the same C3-shape (Row(stretch)+Expanded
+  in unbounded vertical) that has documented unfixable workarounds
+  in `script_rewrites.md` §C3. Reverted; matches the C3 family.
+- `widgets/text_magnifier_configuration_test.dart` (6 FE) —
+  **deferred**. Tried the C22 ListView replacement on the root
+  `CustomScrollView`: regressed from 6 → 9 FE. Reverted. The
+  internal Sliver content (intro/cross-section/playground/api
+  cards) contains its own bounded-context expectations that ListView
+  breaks; an interior-section-level fix would be required and is
+  out of scope for the bottom-up sweep.
+- `widgets/scroll_deceleration_rate_test.dart` (8 FE) —
+  **deferred**. Already documented as the canonical C3 pattern in
+  `script_rewrites.md` §C3 (`_TelemetryRow` and `_CoastCurves` use
+  `Row(crossAxisAlignment: stretch) + Expanded` inside
+  `SliverToBoxAdapter`). Tried the SizedBox(height: 140) wrap (the
+  one workaround that hadn't been tried previously — prior attempts
+  were `IntrinsicHeight` and removing `crossAxisAlignment.stretch`):
+  regressed from 8 → 11 FE, matching the prior-attempt regression
+  shape. Reverted. Confirmed unfixable by every documented
+  authoring workaround; the durable fix lives in the interpreter's
+  layout/intrinsics path.
+
+**Verification.** `test/e2_batch2_bisect_test.dart` (isolation
+harness, since deleted): pre-fix
+`doc/testlog_20260428-e2-batch2-fix/e2_batch2_bisect_pre.log.txt`,
+post-fix
+`…/e2_batch2_bisect_post.log.txt` (with all four candidate fixes;
+shows three regressions),
+`…/e2_batch2_bisect_post_after_revert.log.txt` (reverts of three;
+shows `standard_component_type=0`, others at original baseline).
+Per regression rule (a), test-script-only changes; individual
+retest sufficient.
+
+**Remaining.** 12 scripts / ~120 FE (top-of-table 8 +
+`widget_state_color` 9 + `scroll_deceleration_rate` 8 +
+`text_magnifier_configuration` 6 + `scrollbar_painter` 4 −
+batch-2 closures). Three of those (deferred above) are bound to
+the C3 unfixable family; the top-of-table batch is the next
 candidate.
 
 **Top-FE scripts (this run, ordered by FE count):**

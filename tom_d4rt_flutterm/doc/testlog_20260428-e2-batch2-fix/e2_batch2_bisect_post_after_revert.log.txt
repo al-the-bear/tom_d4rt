@@ -1,0 +1,111 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e2_batch2_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/text_magnifier_configuration_test.dart
+[METRIC] script=widgets/text_magnifier_configuration_test.dart sourceBytes=71421 sourceChars=71369 bundleJsonBytes=902429 clearMs=49 readMs=11 bundleMs=366 httpMs=1085 totalMs=1514 status=success httpStatus=200 outputLines=0 frameworkErrors=6
+
+  ⚠️  FRAMEWORK ERROR in widgets/text_magnifier_configuration_test.dart (6 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderPadding's layout() function by the following function, which probably computed the invalid constraints in que…
+       RenderBox was not laid out: RenderFlex#727c2 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#4cc19 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:13 +0 -1: widgets/text_magnifier_configuration_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderPadding's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(w=622.0, h=Infinity); RenderBox was not laid out: RenderFlex#727c2 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#4cc19 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch2_bisect_test.dart 33:7                main.<fn>
+  
+00:13 +0 -1: widgets/scroll_deceleration_rate_test.dart
+[METRIC] script=widgets/scroll_deceleration_rate_test.dart sourceBytes=71926 sourceChars=71841 bundleJsonBytes=866927 clearMs=63 readMs=1 bundleMs=88 httpMs=1028 totalMs=1181 status=success httpStatus=200 outputLines=0 frameworkErrors=8
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_deceleration_rate_test.dart (8 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#7c885 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#2481c relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:14 +0 -2: widgets/scroll_deceleration_rate_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Null check operator used on a null value; Null check operator used on a null value; BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(0.0<=w<=Infinity, h=Infinity); RenderBox was not laid out: RenderFlex#7c885 relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#2481c relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch2_bisect_test.dart 33:7                main.<fn>
+  
+00:14 +0 -2: widgets/widget_state_color_test.dart
+[METRIC] script=widgets/widget_state_color_test.dart sourceBytes=93138 sourceChars=92956 bundleJsonBytes=1121186 clearMs=62 readMs=1 bundleMs=103 httpMs=714 totalMs=881 status=success httpStatus=200 outputLines=0 frameworkErrors=9
+
+  ⚠️  FRAMEWORK ERROR in widgets/widget_state_color_test.dart (9 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#10584 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#5a624 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderRepaintBoundary#55676 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       'package:flutter/src/rendering/sliver_multi_box_adaptor.dart': Failed assertion: line 629 pos 12: 'child.hasSize': is not true.
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:15 +0 -3: widgets/widget_state_color_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(0.0<=w<=Infinity, h=Infinity); RenderBox was not laid out: RenderFlex#10584 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#5a624 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderRepaintBoundary#55676 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; 'package:flutter/src/rendering/sliver_multi_box_adaptor.dart': Failed assertion: line 629 pos 12: 'child.hasSize': is not true.; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch2_bisect_test.dart 33:7                main.<fn>
+  
+00:15 +0 -3: widgets/standard_component_type_test.dart
+[METRIC] script=widgets/standard_component_type_test.dart sourceBytes=91977 sourceChars=91891 bundleJsonBytes=1060606 clearMs=114 readMs=1 bundleMs=79 httpMs=2216 totalMs=2411 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+00:17 +1 -3: (tearDownAll)
+00:18 +1 -3: Some tests failed.

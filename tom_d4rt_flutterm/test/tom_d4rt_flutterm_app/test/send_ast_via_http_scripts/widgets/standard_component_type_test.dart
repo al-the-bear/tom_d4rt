@@ -232,69 +232,74 @@ class _SctCataloguePageState extends State<_SctCataloguePage>
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          // C22 ListView-replacement pattern: the original
+          // `CustomScrollView(slivers: [SliverToBoxAdapter(child:
+          // <_Sct* widget>)])` chain handed each `_Sct*` widget the
+          // unbounded-main-axis BoxConstraints that
+          // SliverToBoxAdapter produces (`0..Infinity` height). Each
+          // `_Sct*` widget is a `Padding > Column(mainAxisSize: max
+          // by default)`, and that combination cascades into
+          // `RenderParagraph object was given an infinite size during
+          // layout` once the outer Column tries to fill the unbounded
+          // main axis. ListView gives each child a bounded slot
+          // sized to the child's intrinsic height, which is the
+          // shape every `_Sct*` widget already accommodates.
           Expanded(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: _SctHeroHeader(
-                    ribbonController: _ribbonController,
-                    pulseController: _pulseController,
-                    selected: selected,
-                    totalCount: _kSpecimens.length,
-                  ),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                _SctHeroHeader(
+                  ribbonController: _ribbonController,
+                  pulseController: _pulseController,
+                  selected: selected,
+                  totalCount: _kSpecimens.length,
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 18)),
-                SliverToBoxAdapter(
-                  child: _SctControlBar(
-                    useDropdownDial: _useDropdownDial,
-                    onToggleDial: (bool value) {
-                      setState(() {
-                        _useDropdownDial = value;
-                      });
-                    },
-                    showPartNumbers: _showPartNumbers,
-                    onTogglePartNumbers: (bool value) {
-                      setState(() {
-                        _showPartNumbers = value;
-                      });
-                    },
-                    cardDensity: _cardDensity,
-                    onDensityChanged: (double value) {
-                      setState(() {
-                        _cardDensity = value;
-                      });
-                    },
-                  ),
+                const SizedBox(height: 18),
+                _SctControlBar(
+                  useDropdownDial: _useDropdownDial,
+                  onToggleDial: (bool value) {
+                    setState(() {
+                      _useDropdownDial = value;
+                    });
+                  },
+                  showPartNumbers: _showPartNumbers,
+                  onTogglePartNumbers: (bool value) {
+                    setState(() {
+                      _showPartNumbers = value;
+                    });
+                  },
+                  cardDensity: _cardDensity,
+                  onDensityChanged: (double value) {
+                    setState(() {
+                      _cardDensity = value;
+                    });
+                  },
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 18)),
-                SliverToBoxAdapter(
-                  child: _SctDialPanel(
-                    useDropdown: _useDropdownDial,
-                    selectedIndex: _selectedIndex,
-                    onChanged: _setSelected,
-                  ),
+                const SizedBox(height: 18),
+                _SctDialPanel(
+                  useDropdown: _useDropdownDial,
+                  selectedIndex: _selectedIndex,
+                  onChanged: _setSelected,
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 18)),
-                SliverPadding(
+                const SizedBox(height: 18),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  sliver: SliverToBoxAdapter(
-                    child: _SctSpecimenGrid(
-                      selectedIndex: _selectedIndex,
-                      density: _cardDensity,
-                      showPartNumber: _showPartNumbers,
-                      onTap: _setSelected,
-                    ),
+                  child: _SctSpecimenGrid(
+                    selectedIndex: _selectedIndex,
+                    density: _cardDensity,
+                    showPartNumber: _showPartNumbers,
+                    onTap: _setSelected,
                   ),
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 28)),
-                const SliverToBoxAdapter(child: _SctLookupTable()),
-                const SliverToBoxAdapter(child: SizedBox(height: 28)),
-                const SliverToBoxAdapter(child: _SctAccordionSection()),
-                const SliverToBoxAdapter(child: SizedBox(height: 28)),
-                const SliverToBoxAdapter(child: _SctPitfallCard()),
-                const SliverToBoxAdapter(child: SizedBox(height: 28)),
-                const SliverToBoxAdapter(child: _SctFootnotes()),
-                const SliverToBoxAdapter(child: SizedBox(height: 48)),
+                const SizedBox(height: 28),
+                const _SctLookupTable(),
+                const SizedBox(height: 28),
+                const _SctAccordionSection(),
+                const SizedBox(height: 28),
+                const _SctPitfallCard(),
+                const SizedBox(height: 28),
+                const _SctFootnotes(),
+                const SizedBox(height: 48),
               ],
             ),
           ),
