@@ -518,7 +518,17 @@ next interpreter pass.
 
 ## Change Log
 
-- 2026-04-28 (latest): **Add E8 entry — `ScrollController`
+- 2026-04-28 (latest): **Close E9 in `error_analysis.md` —
+  `clampDouble` class is empty.** Sweep of essential, important,
+  secondary, hr5, and gii suites recorded zero
+  `dart:ui/math.dart` line-14 `<optimized out>` triggers. The
+  C21 fix (slotted-multichild constructor routing) removed the
+  only upstream that was producing NaN / out-of-range numerics
+  reaching the engine; no residual call sites remain. The
+  `D4RT_TRACE_NUMERIC_ARGS=1` instrumentation and
+  `D4.checkFiniteNumeric` bridge guard are kept as a future
+  tripwire only. See `doc/testlog_20260428-e9-fix/`.
+- 2026-04-28: **Add E8 entry — `ScrollController`
   state-field-through-StatelessWidget-chain.** Cluster E8
   closed partial (8→2). Layout-cascade fix (drop `stretch`
   from 4 `Row` sites) landed in `script_rewrites.md`. Residual

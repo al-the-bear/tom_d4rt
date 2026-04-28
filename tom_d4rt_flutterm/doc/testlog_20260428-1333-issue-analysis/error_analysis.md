@@ -700,17 +700,48 @@ propagated state-field controller.
 
 ## E9 — `dart:ui/math.dart:14` `clampDouble` numeric-arg passthrough audit (carry-over from `interpreter_unfixable.md`)
 
-- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Low · **Owner:** generator / numeric-arg passthrough
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** generator / numeric-arg passthrough
 
-**Status.** Migrated 2026-04-28 from
-`interpreter_unfixable.md` because the durable fix is an
+**Status (2026-04-28 close).** Closed **fixed** by the cluster's
+own verification path: a fresh sweep of the essential, important,
+secondary, hr5, and gii suites recorded **zero** `clampDouble`
+assertions and **zero** `dart:ui/math.dart` line-14 `<optimized
+out>` triggers in any framework-error stream. Logs in
+`doc/testlog_20260428-e9-fix/` (`essential_pre.log.txt`,
+`important_pre.log.txt`, `secondary_pre.log.txt`,
+`hr5_pre.log.txt`, `gii_pre.log.txt`).
+
+The single concrete script that historically produced the
+assertion was
+`widgets/slotted_multi_child_render_object_widget_test.dart`,
+where the line-14 trigger always co-occurred with a `Bad state:
+… must return a RenderObject mixing in
+SlottedContainerRenderObjectMixin, got _InterpretedRenderBox`
+runtime error (see
+`doc/testlog_20260427-1339-post-c22/hardly_relevant_classes_5_test.log.txt`).
+Closing C21 (2026-04-27) by routing slotted-multichild
+constructors through the proper mixin removed the upstream cause;
+without the bad-state cascade, no script in the corpus is now
+producing NaN / out-of-range numerics that reach the engine
+`clampDouble`.
+
+The `D4RT_TRACE_NUMERIC_ARGS=1` instrumentation flag and the
+`D4.checkFiniteNumeric` bridge guard described under "Suggested
+fix" remain a *future* enhancement — useful as a tripwire if the
+class re-emerges from a different upstream — but neither is
+required to close E9, since the verification criterion ("count
+of `<optimized out>` clampDouble assertions should drop to zero
+in hr5 + secondary FE samples after the per-call-site fixes")
+is already satisfied.
+
+**Migrated history.** Migrated 2026-04-28 from
+`interpreter_unfixable.md` because the durable fix was an
 interpreter / generator change, not a framework limitation. The
-script-specific cascade in
-`widgets/slotted_multi_child_render_object_widget_test` was
-closed in C21 (2026-04-27). The residual is a *class* of
-downstream `dart:ui` assertions that fire when the interpreted
-side passes a NaN / out-of-range numeric across a bridge
-boundary.
+script-specific cascade was closed in C21 (2026-04-27). The
+residual was a *class* of downstream `dart:ui` assertions that
+could fire when the interpreted side passed a NaN / out-of-range
+numeric across a bridge boundary; sweep above confirms the class
+is currently empty.
 
 **Symptom.**
 
@@ -1318,7 +1349,7 @@ test-app watchdog only.
 | E6 — Records `.$1`/`.$2` access              | Medium | interpreter | 1               | 1 FE |
 | E7 — `+=` on null double                     | Low    | interpreter | 1               | 1 FE |
 | E8 — `!` on null curve                       | Low    | script / interpreter | 1     | 8 FE |
-| E9 — `clampDouble` numeric-arg passthrough audit | Low | generator | (cross-suite) | (residual class) |
+| E9 — `clampDouble` numeric-arg passthrough audit | Low | generator | (cross-suite) | 0 occurrences (CLOSED 2026-04-28; sweep clean) |
 | E10 — `render_animated_size_state` 2.0 px overflow | Low | interpreter | 1 (gir TID=31) | 1 failure |
 | E11 — `back_button_listener` Router routerDelegate adapter | Medium | interpreter | 1 (gir TID=37) | 1 failure |
 | E12 — Auto-generated abstract-class adapters (DESIGN) | Low | generator | (n/a) | (design exploration) |
