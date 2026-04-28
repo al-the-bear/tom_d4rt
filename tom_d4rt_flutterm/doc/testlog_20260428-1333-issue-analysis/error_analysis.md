@@ -289,16 +289,48 @@ harness, since deleted): pre-fix
 passed). Per regression rule (a), test-script-only changes;
 individual retest sufficient.
 
-**Remaining.** 8 scripts / ~92 FE (top-of-table 4
+**Batch 4 (table positions #13–#16 — bottom-of-table sweep) — 2026-04-28.**
+Four scripts. Three were already at 0 FE pre-fix (closed by
+earlier batches' interpreter/regen work, not yet reflected in
+the table snapshot above). One required a script-side fix.
+**All four closed.**
+
+- `widgets/sliver_multi_box_adaptor_element_test.dart` (table 6
+  FE → 0 FE pre-fix). Already clean — no action.
+- `widgets/text_selection_gesture_detector_builder_delegate_test.dart`
+  (table 5 FE → 0 FE pre-fix). Already clean — no action.
+- `widgets/scrollbar_painter_test.dart` (4 FE → 0). Residual FE
+  set after the post-c22 ListView fix were `RenderFlex overflowed
+  by 40 / 40 / 40 / 54 pixels on the bottom`. Root cause:
+  `_FauxContentBackground` rendered a Column of six fixed-height
+  decorative bars (6 × `Container(height: 10)` + paddings ≈ 116
+  px) inside the `Stack` slot of `_PreviewPanel`'s `Expanded`,
+  which is only ~79 px tall for panels A/B/C (3-line config
+  footer) and ~65 px for panel D (4-line config footer). Replaced
+  the fixed-height bars with `Expanded` children so the bars
+  flex to whatever vertical space the parent Stack offers; this
+  closes the four overflows simultaneously without altering the
+  visual rhythm.
+- `widgets/restoration_mixin_test.dart` (table 3 FE → 0 FE
+  pre-fix). Already clean — no action.
+
+**Verification.** `test/e2_batch4_bisect_test.dart` (isolation
+harness, since deleted): pre-fix
+`doc/testlog_20260428-e2-batch4-fix/e2_batch4_bisect_pre.log.txt`
+(0/0/4/0 FE — only `scrollbar_painter` failing), post-fix
+`…/e2_batch4_bisect_post.log.txt` (0/0/0/0 FE, all 4 tests
+passed). Per regression rule (a), test-script-only change;
+individual retest sufficient.
+
+**Remaining.** 7 scripts / ~88 FE (top-of-table 4
 [`shortcut_activator` 33, `unfocus_disposition` 27,
 `widget_test` 26, `widget_state_text_style` 21] +
 `widget_state_color` 9 + `scroll_deceleration_rate` 8 +
-`text_magnifier_configuration` 6 + `scrollbar_painter` 4 −
-batch-3 closures). Three of the deferred set
-(`widget_state_color`, `scroll_deceleration_rate`,
-`text_magnifier_configuration`) remain bound to the C3
-unfixable family; the four top-of-table 21–33 FE scripts are
-the next candidate.
+`text_magnifier_configuration` 6 − batch-3/4 closures). Three of
+the deferred set (`widget_state_color`,
+`scroll_deceleration_rate`, `text_magnifier_configuration`)
+remain bound to the C3 unfixable family; the four top-of-table
+21–33 FE scripts are the next candidate.
 
 **Top-FE scripts (this run, ordered by FE count):**
 

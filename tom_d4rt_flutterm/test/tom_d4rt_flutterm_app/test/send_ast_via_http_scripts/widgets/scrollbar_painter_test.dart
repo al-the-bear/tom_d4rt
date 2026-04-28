@@ -918,19 +918,24 @@ class _FauxContentBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Bars use Expanded so the decorative background flexes into whatever
+    // height the parent Stack offers — keeps the panel layout overflow-free
+    // even when the surrounding row height is tight (e.g. 4-line config
+    // footer leaves only ~65 px for the preview area).
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: List<Widget>.generate(6, (int i) {
           final opacity = 0.10 + (i % 3) * 0.04;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
-            child: Container(
-              height: 10,
-              decoration: BoxDecoration(
-                color: accent.withValues(alpha: opacity),
-                borderRadius: BorderRadius.circular(4),
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: opacity),
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
             ),
           );
