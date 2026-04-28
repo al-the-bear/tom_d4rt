@@ -338,12 +338,24 @@ void main() {
         ' Re-evaluate once W2 is fixed.'
         ' See doc/interpreter_issues.md.');
 
-    test('retest: widgets/lock_state_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'retest/widgets/lock_state_test.dart',
-      );
-      expectSuccess(result);
-    });
+    test(
+      'retest: widgets/lock_state_test.dart',
+      () async {
+        final result = await SendTestRunner.send(
+          'retest/widgets/lock_state_test.dart',
+        );
+        expectSuccess(result);
+      },
+      skip:
+          'W4 (2026-04-28): wedges test app /build with '
+          '"HttpException: Connection closed before full header was received", '
+          'then test app process dies and cascades 19 subsequent retests with '
+          'SocketException: Connection refused. Captured in '
+          'doc/testlog_20260428-1333-issue-analysis/error_analysis.md cluster R '
+          'and doc/interpreter_issues.md "[WEDGE — Watchlist] W4". Skipping '
+          'until the structural test-app watchdog (interpreter_issues.md META) '
+          'lands or the underlying lock-state interpreter shape is diagnosed.',
+    );
 
     test('retest: widgets/nested_scroll_view_state_test.dart', () async {
       final result = await SendTestRunner.send(

@@ -3147,9 +3147,17 @@ confirmed, the fix is to (a) cancel pending tickers in the
 
 ---
 
-### [WEDGE — Watchlist] W4 (2026-04-28) — `retest/widgets/lock_state_test.dart` independent wedger
+### [WEDGE — Skipped 2026-04-28 evening] W4 — `retest/widgets/lock_state_test.dart` independent wedger
 
-**Status:** Watchlist — *not* skipped. Run5 (W1+W2+W3 skipped)
+**Status:** Skipped in `generator_interpreter_retest_test.dart` as
+of 2026-04-28 evening. Per-user request after the
+`testlog_20260428-1333-issue-analysis` analysis confirmed the
+script triggers an `HttpException: Connection closed before full
+header was received` on `POST /build`, after which the test app
+process dies and 19 subsequent retests cascade with
+`SocketException: Connection refused (errno = 111)`.
+
+**Original notes (preserved for context):** Run5 (W1+W2+W3 skipped)
 showed the cascade simply shifted to start at this test (line
 125: `+30 ~4` then `lock_state_test [E] 30s timeout`,
 followed by 24 cascade timeouts). The script is 1183 lines —
@@ -3157,13 +3165,22 @@ another "deep demo" payload — but with only 4 Actions/Intent
 references, suggesting the wedge family is broader than just
 Actions/Shortcuts/Intent (W1, W2).
 
-**Decision:** Stop the per-script skip whack-a-mole.
-Continuing to add W5, W6, ... is not a productive use of
-turns — every deep-demo script in the alphabetical run order
-is a candidate. The structural fix needs to land in the test
-app's lifecycle + interpreter teardown paths
-(`tom_d4rt_flutterm_app/lib/main.dart`, interpreter visitor
-teardown), not in `generator_interpreter_retest_test.dart`.
+**Why we relented on the skip whack-a-mole.** The per-script skip
+recovers 19 cascade victims (gir TIDs 44–62 in
+`testlog_20260428-1333-issue-analysis/error_analysis.md` cluster
+R) immediately and unblocks the rest of the retest suite. The
+structural fix (test-app watchdog + interpreter teardown) is the
+durable path and is still tracked under "[META] Structural
+cascade in retest suite" — the W4 skip is the day-1 mitigation,
+not a substitute.
+
+**Cluster F4 in `testlog_20260428-1333-issue-analysis/error_analysis.md`**
+captures the interpreter-side investigation work that needs to land
+to remove the skip: diagnose what `lock_state_test`'s deep-demo
+shape is doing on `/build` that crashes the test app process,
+then either (a) fix the underlying interpreter or test-app
+crash mode, or (b) close the issue under
+`interpreter_unfixable.md` with a script-side workaround.
 
 **See "Structural cascade in retest suite" note below.**
 
