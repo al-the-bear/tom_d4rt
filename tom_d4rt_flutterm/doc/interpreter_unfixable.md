@@ -29,6 +29,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [Abstract Class Inheritance — architecture](#abstract-class-inheritance) | Interpreter limitation (worked around via adapter proxies; auto-generation explored as E12) | Architectural |
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
 | [E3 — `findAncestorStateOfType<T>()` ignores type argument](#e3--findancestorstateoftypet-ignores-type-argument) | Interpreter limitation (bridge generator drops `T`; script-side rewrite supplied) | `widgets/scroll_position_with_single_context_test.dart` |
+| [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -286,6 +287,72 @@ Functionally equivalent in real Flutter, and side-steps the
 interpreter limitation entirely. Applied to
 `widgets/scroll_position_with_single_context_test.dart` (E3,
 2026-04-28).
+
+---
+
+## E6 — Native Dart Record named-field access (interpreter limitation)
+
+**Category.** Interpreter / generator architectural limitation.
+
+**Triggering shape.** A d4rt script reads a *named* field on a
+**native** Dart record (the `({name: value, age: int})` syntax)
+that crossed the interpreter ↔ native boundary — for example,
+the result of a stdlib API or a bridged getter that returns
+`({String name, int age})`.
+
+```dart
+final ({String name, int age}) entry = someBridgedCall();
+print(entry.name); // RuntimeD4rtException at this access
+```
+
+**What works.** Positional fields (`.$1`, `.$2`, …) are routed
+through `dynamic` dispatch in the interpreter (added 2026-04-28
+for E6). The script `widgets/platform_menu_widgets_test.dart`
+exercises this path and passes.
+
+**Why named-field access is unfixable here.** Dart records
+expose their named fields only as **statically-resolved
+getters** — the field name has to be known at compile time so
+the Dart compiler can emit the right vtable lookup. From inside
+the interpreter we only have a `String` for the field name at
+runtime, with no compile-time site to dispatch from. The two
+"normal" ways out are both blocked:
+
+- `dart:mirrors` would let us look the getter up reflectively,
+  but Flutter forbids `dart:mirrors`.
+- `(record as dynamic).fieldName` doesn't help because
+  `fieldName` is a Dart identifier, not a string variable; you
+  can't say `(record as dynamic).(name)` at runtime.
+
+A switch-table that hard-codes a finite list of names won't work
+either, because record literals can use *any* identifier.
+
+**Architectural workaround.** The interpreter recognises
+`InterpretedRecord` (records authored inside d4rt source) as a
+distinct runtime type that carries its named fields in a `Map`,
+so reflection by string name *does* work for those. Scripts that
+need named-field access should construct or convert to
+`InterpretedRecord` rather than relying on a native record value.
+
+When the value comes from a bridged API and only its native form
+is available, the practical alternatives are:
+
+- destructure with a record-pattern at the boundary —
+  `final (:name, :age) = bridgedCall();` — which the interpreter
+  *does* understand, and lets you operate on plain locals from
+  there;
+- expose the data through a class with explicit getters in the
+  bridge instead of a record return type.
+
+The interpreter throws a clear, intentional error in this case:
+"Cannot access named field 'X' on a native Dart record. Native
+records expose positional fields ('\$1', '\$2', …) but their
+named fields are not reflectively accessible without
+`dart:mirrors`."
+
+**Documented.** 2026-04-28 with the E6 fix in
+`tom_d4rt/lib/src/interpreter_visitor.dart` and
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
 
 ---
 

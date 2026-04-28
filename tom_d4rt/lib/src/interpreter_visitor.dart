@@ -1062,6 +1062,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "Record has no field named '$memberName'. Available fields: ${record.namedFields.keys.join(', ')}");
         }
       }
+    } else if (prefixValue is Record) {
+      // E6: native Dart Record (e.g., produced by `Iterable.indexed` from
+      // dart:core). Records do not implement reflection without
+      // `dart:mirrors`, so we route positional access via `dynamic`
+      // dispatch ($1..$9) and Object members directly.
+      return _accessNativeRecordField(prefixValue, memberName);
     } else if (prefixValue is InterpretedExtensionTypeInstance) {
       // Lim-1 FIX: Handle property access on extension type instances
       final extensionInstance = prefixValue;
@@ -4160,6 +4166,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "Record has no field named '$propertyName'. Available fields: ${record.namedFields.keys.join(', ')}");
         }
       }
+    } else if (target is Record) {
+      // E6: native Dart Record (e.g., produced by `Iterable.indexed`).
+      // Route positional access via dynamic dispatch — see
+      // _accessNativeRecordField for the limitations.
+      return _accessNativeRecordField(target, propertyName);
     } else if (target is BridgedEnumValue) {
       return target.get(propertyName);
     } else if (target is BridgedEnum) {
@@ -10812,6 +10823,76 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           show: showNames, hide: hideNames);
     }
     return null; // Import directives do not produce a value.
+  }
+
+  /// E6 — Access a field of a native Dart `Record` value by name.
+  ///
+  /// Native Dart records (the `(int, String)` syntax) are produced by
+  /// stdlib APIs such as `Iterable.indexed` and survive across the
+  /// interpreter ↔ native boundary. They expose positional fields via
+  /// the synthetic getters `$1`, `$2`, … but do not implement
+  /// reflection without `dart:mirrors` (forbidden in Flutter), so we
+  /// dispatch positional access through `dynamic` calls and clamp the
+  /// supported arity at 9 (covers all common record literals).
+  ///
+  /// Named-field access on native records is not supported because
+  /// the field name is only known at the call site and there is no
+  /// reflective lookup; callers should use `InterpretedRecord` for
+  /// records authored inside d4rt source if they need named fields.
+  Object? _accessNativeRecordField(Record record, String fieldName) {
+    switch (fieldName) {
+      case 'hashCode':
+        return record.hashCode;
+      case 'runtimeType':
+        return record.runtimeType;
+      case 'toString':
+        return NativeFunction(
+          (_, args, __, ___) => record.toString(),
+          arity: 0,
+          name: 'toString',
+        );
+    }
+    if (fieldName.startsWith(r'$') && fieldName.length > 1) {
+      final indexStr = fieldName.substring(1);
+      final index = int.tryParse(indexStr);
+      if (index == null || index < 1) {
+        throw RuntimeD4rtException(
+            "Invalid positional record field accessor '$fieldName'.");
+      }
+      // ignore: avoid_dynamic_calls
+      final dyn = record as dynamic;
+      try {
+        switch (index) {
+          case 1:
+            return dyn.$1;
+          case 2:
+            return dyn.$2;
+          case 3:
+            return dyn.$3;
+          case 4:
+            return dyn.$4;
+          case 5:
+            return dyn.$5;
+          case 6:
+            return dyn.$6;
+          case 7:
+            return dyn.$7;
+          case 8:
+            return dyn.$8;
+          case 9:
+            return dyn.$9;
+        }
+      } on NoSuchMethodError {
+        throw RuntimeD4rtException(
+            "Native record has no positional field \$$index. Record: $record");
+      }
+      throw RuntimeD4rtException(
+          "Native record positional field \$$index exceeds the supported arity (max 9).");
+    }
+    throw RuntimeD4rtException(
+        "Cannot access named field '$fieldName' on a native Dart record. "
+        "Native records expose positional fields ('\$1', '\$2', …) but their "
+        "named fields are not reflectively accessible without `dart:mirrors`.");
   }
 
   /// Helper method to create the appropriate operand for ++ and -- operators.

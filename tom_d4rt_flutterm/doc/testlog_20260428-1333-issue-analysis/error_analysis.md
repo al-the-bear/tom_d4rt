@@ -537,28 +537,61 @@ Script-only change → rule (a): individual retest sufficient.
 
 ## E6 — `widgets/platform_menu_widgets_test` records-in-Iterable (NEW)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** interpreter / dart:core records bridge
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter / dart:core records bridge
 
 **Symptom.** `secondary/widgets/platform_menu_widgets_test.dart`
-emits 1 FE:
+emitted 1 FE:
 
 ```
 Runtime Error: Native error during bridged method call 'toList'
 on Iterable: Runtime Error: Cannot access property '$1' on target of type (int, String).
 ```
 
-**Likely cause.** The script iterates a `List<(int, String)>`
-record-element collection and calls `.toList()`; somewhere in the
-chain the interpreter unwraps a record element via positional
-field access (`.$1`) but the runtime target is a Dart `Record`
-that the bridge generator hasn't taught the property-access path
-about.
+**Root cause.** The script uses `iterable.indexed.map((pair) =>
+…).toList()`. `Iterable.indexed` is a stdlib extension that
+returns an `Iterable<(int, T)>` of **native** Dart records (the
+`(int, String)` syntax). When the interpreter passes each
+`pair` into the d4rt closure, the value is a real
+`dart:core` `Record`, not an `InterpretedRecord`. The
+property-access paths (`PrefixedIdentifier`, `PropertyAccess`)
+only recognised `InterpretedRecord` and fell through to the
+generic "Cannot access property '\$N' on target of type …"
+error.
 
-**Suggested fix.** Extend the AST-driven property-access path to
-recognise Dart's `Record` runtime type and route `.$1`/`.$2`/etc.
-to `Record.positional[i]`. Mirror across `tom_d4rt` and
-`tom_d4rt_ast`. Likely a 10-line patch + regression test for
-record-typed collection iteration.
+Native Dart records do not support reflection without
+`dart:mirrors` (which Flutter forbids), so the fix has to dispatch
+positional access through `dynamic` calls.
+
+**Resolution.** Added a `prefixValue is Record` /
+`target is Record` branch to both property-access paths in
+`tom_d4rt/lib/src/interpreter_visitor.dart` and the mirror
+`tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`,
+delegating to a new helper `_accessNativeRecordField(record,
+name)` that:
+
+- routes `hashCode` / `runtimeType` / `toString` to the native
+  Object members,
+- handles `\$1`..`\$9` via a switch that calls
+  `(record as dynamic).\$N` (covers the practical record arity in
+  Flutter scripts),
+- throws a clear, documented error for higher arities and for
+  named-field access (which is genuinely unfixable without
+  `dart:mirrors` — also documented in
+  `interpreter_unfixable.md`).
+
+**Verification (2026-04-28).**
+
+- Pre-fix: 1 FE in `platform_menu_widgets_test.dart`
+  (`doc/testlog_20260428-e6-fix/e6_bisect_pre.log.txt`).
+- Post-fix: `frameworkErrors=0` for the script
+  (`doc/testlog_20260428-e6-fix/e6_bisect_post_v1.log.txt`).
+- Regression (rule (b) — interpreter change):
+  - gii (`regress_gii.log.txt`): +81 ~2, all passed.
+  - essential (`regress_essential.log.txt`): +108, all passed.
+  - important (`regress_important.log.txt`): +164, all passed.
+  - secondary (`regress_secondary.log.txt`): +653 ~1, all passed.
+    `platform_menu_widgets_test.dart` reports
+    `frameworkErrors=0` in this suite too.
 
 ---
 
