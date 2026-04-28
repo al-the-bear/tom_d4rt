@@ -601,3 +601,141 @@ This preserves the script's observable behaviour — fresh sessions
 start with the literal default, restored sessions get hydrated in
 `restoreState()` — and is the pattern the Flutter SDK itself uses in
 its `RestorableProperty` examples.
+
+---
+
+## Cases from `testlog_20260428-1333-issue-analysis`
+
+This run produced zero true test failures across `essential`,
+`important`, `secondary`, `hr1`–`hr5`, `interactive`, and `gii`
+(2127 / 2128 tests passing — single skip in `secondary` is a
+documented `IsolateNameServer` skip). The `gir` suite reported 24
+"errors", of which 4 are real failures and 20 are W4 transport-
+cascade victims.
+
+The cases below cannot be fixed at the interpreter level, and the
+documented workaround is the only reliable path forward.
+
+### E2 — Layout-cascade FE (16 scripts) — script-side `ListView` workaround
+
+**Why unfixable at the interpreter.** The leading exceptions
+(`BoxConstraints forces an infinite height/width`, `BoxConstraints
+has a negative minimum height`, `RenderShrinkWrappingViewport does
+not support intrinsic dimensions`, `RenderParagraph object was
+given an infinite size during layout`, `RenderFlex overflowed by N
+pixels on the bottom`) are emitted by Flutter's render tree when
+the deep-demo widget shape combines `SingleChildScrollView` +
+`Column` + `Expanded` (or similar unbounded-height + viewport-
+intrinsic patterns). The interpreter is faithfully driving the
+script's widget tree; the cascade is a property of the demo
+widget shape, not of the interpreter.
+
+These scripts pass at the suite level (no `tester.takeException`
+assertion). They appear as `[METRIC] frameworkErrors=N` lines and
+do not block any test. We document them here as the canonical
+"FE noise that is not interpreter-rooted".
+
+**Workaround pattern (C22 — established 2026-04-26).** Replace
+the unbounded-scroll-with-Column-and-Expanded shape with a
+`ListView` that owns its own scroll axis and intrinsic constraints:
+
+```dart
+// Before — produces "BoxConstraints forces an infinite height"
+SingleChildScrollView(
+  child: Column(
+    children: [
+      Header(),
+      Expanded(child: Body()),  // unbounded inside scroll
+      Footer(),
+    ],
+  ),
+)
+
+// After — ListView constrains each child's main-axis extent
+ListView(
+  children: [
+    Header(),
+    Body(),
+    Footer(),
+  ],
+)
+```
+
+The 16 scripts where the workaround is needed in this run are
+listed in `error_analysis.md` cluster E2. Each is independent and
+can be patched in batches of 4–6 per PR. No interpreter or bridge
+change is required; this is a script-shape issue.
+
+**Closing criteria.** Each fixed script must drop to 0 FE in its
+parent suite; `bisect_test.dart` for that script must continue to
+report `STATUS: true`.
+
+### E5 — `widgets_binding_observer_test` non-uniform `borderRadius`
+
+**Why unfixable at the interpreter.** The script defines a
+`Border` with per-side `BorderSide.color` (non-uniform colour)
+and applies a `borderRadius` to it. Flutter's `Border.paint`
+explicitly rejects this combination: `A borderRadius can only be
+given on borders with uniform colors. The following is not
+uniform: BorderSide.color`. This assertion fires inside Flutter's
+own painter code, not the interpreter, and is a script-side
+mistake — the interpreter is faithfully forwarding the constructor
+arguments.
+
+**Workaround.** Either drop `borderRadius` for the non-uniform-
+colour border, or unify the colours across all four sides. The
+script-side patch is one line; no interpreter change applies.
+
+### Cluster R — `gir` W4 transport cascade (test-app structural)
+
+**Why unfixable at the interpreter.** The cascade trigger
+(`retest/widgets/lock_state_test.dart` at gir TID=43) emits an
+`HttpException: Connection closed before full header was received`
+on `POST /build`, after which the test app process dies and every
+subsequent script fails at `GET /clear` with `SocketException:
+Connection refused (errno = 111)` against the (now closed)
+ephemeral port. The cascade is in the **test runner ↔ test app
+transport layer**, not the interpreter — the interpreter never
+got a chance to evaluate the next script's source.
+
+**Workaround.**
+
+1. **Skip** `widgets/lock_state_test.dart` in
+   `generator_interpreter_retest_test.dart` using the same
+   `skip:` pattern already applied for W1, W2, W3, W5 wedgers.
+   This recovers the 19 cascade victims (gir TIDs 44–62)
+   immediately.
+2. **Test-app watchdog** (META structural fix tracked in
+   `interpreter_issues.md` "[META] Structural cascade in retest
+   suite") — extend `SendTestRunner` so a single
+   `Connection closed` / `Connection refused` triggers a fast
+   app-process restart and a port re-discovery rather than letting
+   subsequent /clear calls fail against a dead socket. This
+   converts a 20-script cascade into a single failure + 19
+   retries.
+
+The skip is the safe day-1 mitigation; the watchdog is the
+durable fix and is the highest-leverage structural change pending
+across the wedge taxonomy (it would also close W1, W2, W3 once
+they re-surface).
+
+### gir TID=31 `render_animated_size_state_test.dart` — pre-existing 2.0 px overflow
+
+Already documented earlier in this file. Re-confirmed in this
+run as still failing with `RenderFlex overflowed by 2.0 pixels
+on the bottom`. No new interpreter signal.
+
+### gir TID=37 `back_button_listener_test.dart` — Router routerDelegate coercion
+
+Already documented earlier in this file. Re-confirmed in this
+run as still failing with `Argument Error: Invalid parameter
+"routerDelegate": expected RouterDelegate<dynamic>, got
+InterpretedInstance(_BackLabRouterDelegate)`. This is the
+"interpreted-extends-bridged abstract delegate at the native
+bridge boundary" shape; the architecturally-clean fix is the
+same one tracked under the "future cluster — InheritedModel
+proxy" entry in `interpreter_issues.md`, generalised to any
+bridged abstract class with a `routerDelegate`-style parameter.
+The script-side workaround (a thin native shim that the script
+constructs and passes a callback to) is documented in the
+script's own `// SKIP` comment.
