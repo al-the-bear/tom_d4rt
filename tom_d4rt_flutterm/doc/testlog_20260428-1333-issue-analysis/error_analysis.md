@@ -63,8 +63,9 @@ app for ~60 s, then "Lost connection to device" cascaded the next
   cases. See Cluster R.
 
 True interpreter test failures across the entire run after W4 skip:
-**4 in `gir` only** — 2 of which are documented unfixables and 2
-are fixable under E1. All other suites are at zero failures.
+**4 in `gir` only** — `render_animated_size_state` (now tracked
+as E10), `back_button_listener` (now E11), and 2 newly-surfaced
+E1 `_ByteDataView` cases. All other suites are at zero failures.
 
 ---
 
@@ -364,7 +365,288 @@ script or expose the missing bridge getter.
 
 ---
 
-# Cluster R — `gir` W4 transport cascade (carry-over from `interpreter_issues.md`)
+## E9 — `dart:ui/math.dart:14` `clampDouble` numeric-arg passthrough audit (carry-over from `interpreter_unfixable.md`)
+
+- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Low · **Owner:** generator / numeric-arg passthrough
+
+**Status.** Migrated 2026-04-28 from
+`interpreter_unfixable.md` because the durable fix is an
+interpreter / generator change, not a framework limitation. The
+script-specific cascade in
+`widgets/slotted_multi_child_render_object_widget_test` was
+closed in C21 (2026-04-27). The residual is a *class* of
+downstream `dart:ui` assertions that fire when the interpreted
+side passes a NaN / out-of-range numeric across a bridge
+boundary.
+
+**Symptom.**
+
+```
+'dart:ui/math.dart': Failed assertion: line 14 pos 10:
+'<optimized out>': is not true.
+```
+
+Line 14 is `assert(min <= max && !max.isNaN && !min.isNaN);`
+inside `clampDouble`. Surfaces in the post-c22 baseline test
+logs (`hardly_relevant_classes_5_test.log.txt:500`,
+`hardly_relevant_classes_5_test.result.json:545`,
+`secondary_classes_test.result.json`, …) — i.e., across multiple
+scripts that exercise paint of bridged `Color.withValues` or
+stroked paths under interpreter dispatch. **Not observed in
+this run's secondary FE sample** for the slotted specimen
+script — the C21 close holds — but the broader class may still
+appear in other paint-heavy scripts.
+
+**Likely cause.** Bridged numeric arguments routed through
+generated wrappers (e.g., `Color.withValues(alpha: …)`) can
+arrive at the engine layer as NaN or Infinity when the
+interpreted-side computation produces those values from
+null-shorting (`?.` chains over nullable doubles), unguarded
+divisions, or coercion of `int? → double` failures. Native
+dispatch never observes these because the Dart compiler narrows
+the types at the call site; the interpreter's argument
+passthrough does not.
+
+**Suggested fix.**
+
+1. Generator-level numeric-arg passthrough audit: when emitting
+   bridge wrappers for `dart:ui` / `dart:math` / `painting` calls
+   that take `double` parameters, gate the passthrough behind a
+   `D4.checkFiniteNumeric` (or env-flagged variant) that surfaces
+   the offending call site instead of letting the engine assert
+   anonymously.
+2. Add a `D4RT_TRACE_NUMERIC_ARGS=1` env flag to the generator
+   that, when set, logs the receiver / argument tuple at every
+   `dart:ui` numeric crossing. Run hr5 + secondary suites with
+   the flag on, recover the first 10 `clampDouble` triggers,
+   then close them at source (interpreted side) or at the bridge
+   (numeric guard).
+
+**Verification path.** With the trace flag on, count of
+`<optimized out>` clampDouble assertions should drop to zero in
+hr5 + secondary FE samples after the per-call-site fixes. No
+script change required if the fix lands at the bridge level.
+
+---
+
+## E10 — gir TID=31 `render_animated_size_state_test` 2.0 px overflow — intrinsic-pass audit (carry-over from `interpreter_unfixable.md`)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** interpreter (`_InterpretedSlottedRenderBox`)
+
+**Status.** Pre-existing in every baseline since the post-C22
+campaign; re-confirmed in this run as a true `gir` failure
+(TID=31). Migrated from `interpreter_unfixable.md` because the
+durable fix is an interpreter intrinsic-pass change.
+
+**Symptom.** `Expected: true / Actual: <false> / A RenderFlex
+overflowed by 2.0 pixels on the bottom.` — a single 2-pixel
+overflow during `RenderAnimatedSize`'s mid-animation layout
+sample, asserted via `tester.takeException`.
+
+**Likely cause.** Under native Flutter the same animation step
+produces no overflow because the intrinsic-pass prediction lands
+on a pixel-aligned size. Under the interpreter, the intrinsic
+pass routes through `_InterpretedSlottedRenderBox` proxy
+render-objects, which add a sub-pixel rounding gap in the
+animated-size transition. The 2-pixel overflow is the visible
+symptom of that intrinsic-pass delta.
+
+**Why no script-side workaround works.** The script's whole
+purpose is to drive the animated-size transition and assert
+clean intrinsic-pass behaviour. Pinning a fixed size defeats the
+test. Removing the `tester.takeException` assertion silences the
+diagnostic but doesn't fix the underlying 2-pixel error.
+
+**Suggested fix.** Audit the interpreter's intrinsic pass through
+`_InterpretedSlottedRenderBox` for mid-animation size sampling.
+The 2-pixel gap is consistent across runs, so the rounding site
+is deterministic — likely a single `roundToDouble()` /
+`floor()` insertion to match native Flutter's behaviour.
+
+**Verification path.** Re-run gir in isolation with the fix; gir
+TID=31 must move from failure → success, no regression in the
+W4-skipped 54/5/4 baseline.
+
+---
+
+## E11 — gir TID=37 `back_button_listener_test` Router routerDelegate — `RouterDelegate` adapter proxy (carry-over from `interpreter_unfixable.md`)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** interpreter / abstract-class proxies
+
+**Status.** Pre-existing in every baseline since the post-C22
+campaign; re-confirmed in this run as a true `gir` failure
+(TID=37). Migrated from `interpreter_unfixable.md` because the
+durable fix is an adapter proxy following the established
+pattern.
+
+**Symptom.**
+
+```
+Runtime Error: Error in generic constructor factory for 'Router':
+Argument Error: Invalid parameter "routerDelegate":
+expected RouterDelegate<dynamic>, got
+InterpretedInstance(_BackLabRouterDelegate)
+```
+
+**Likely cause.** The script declares
+`class _BackLabRouterDelegate extends RouterDelegate<...>` and
+passes an instance of it to `Router(...)`. At the bridge call
+site, the interpreted instance is wrapped in
+`InterpretedInstance` rather than coerced to a native
+`RouterDelegate<dynamic>`, and Flutter's generic-constructor
+argument validator rejects it. Same family as the
+`InheritedModel` proxy gap and the abstract-delegate gaps that
+the C20-series fixes resolved one by one (e.g.,
+`RenderAligningShiftedBox`).
+
+**Suggested fix.** Add a `RouterDelegate` adapter proxy
+following the pattern used for `State` / `StatefulWidget` /
+`RenderAligningShiftedBox` — i.e., a `_InterpretedRouterDelegate`
+adapter class that extends the real abstract `RouterDelegate`,
+holds an `InterpretedInstance`, and delegates the abstract
+methods (`build`, `setNewRoutePath`, `popRoute`,
+`addListener`/`removeListener`) to the interpreted class. Wire
+it up via `D4.registerInterfaceProxy('RouterDelegate', …)` in
+`d4rt_runtime_registrations.dart`. The same pattern generalises
+to any bridged abstract delegate accepted by a `Router`-style
+native constructor (`RouteInformationProvider`,
+`RouteInformationParser`, `BackButtonDispatcher`).
+
+**Verification path.** gir TID=37 must move from failure →
+success after the adapter is registered. Bisect-test the
+back_button_listener script in isolation. No regression in
+existing State / StatelessWidget / StatefulWidget proxy tests.
+
+**Mirror requirement.** The fix must land in **both**
+`tom_d4rt/lib/src/d4rt_runtime_registrations.dart` (analyzer
+path) and
+`tom_d4rt_ast/lib/src/runtime/d4rt_runtime_registrations.dart`
+(AST-driven path), per the non-obvious "Keep tom_d4rt ↔
+tom_d4rt_ast in sync" rule.
+
+---
+
+## E12 — Auto-generated abstract-class adapters (DESIGN, NEW)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low (design exploration) · **Owner:** generator / interpreter
+
+**Origin.** User question 2026-04-28: instead of hand-registering
+adapter proxies for each abstract framework class (`State`,
+`StatelessWidget`, `StatefulWidget`, plus E11's
+`RouterDelegate`, …), can the bridge generator emit a
+non-abstract subclass for *every* abstract class in the scanned
+codebase, automatically?
+
+**Concept.** For each abstract class `Abstract` discovered by
+`bridge_generator.dart`'s analyzer scan, emit:
+
+```dart
+final class _D4InterpretedAbstract extends Abstract
+    implements D4InterpretedProxy {
+  _D4InterpretedAbstract(this.interpretedInstance);
+  @override final InterpretedInstance interpretedInstance;
+
+  // For each abstract method in Abstract:
+  @override
+  ReturnType abstractMethod(ArgTypes args) =>
+      D4.dispatchInterpreted<ReturnType>(
+          interpretedInstance, 'abstractMethod', [args]);
+}
+```
+
+Plus an `D4.registerInterfaceProxy('Abstract', (instance) =>
+_D4InterpretedAbstract(instance))` registration in the generated
+`*.b.dart`. The analyzer already produces the abstract-method
+list (it's how the bridge generator emits `BridgedClass` entries
+today), so the data flow exists.
+
+**What works straightforwardly.**
+
+- Concrete-method delegation: any non-abstract method on the
+  abstract class can be inherited verbatim from the bridged
+  superclass, no override needed. The native implementation
+  remains accessible.
+- Abstract method dispatch: a single `D4.dispatchInterpreted`
+  call per abstract method, keyed by name, mirrors the existing
+  hand-written `_InterpretedState.build(...)` pattern.
+- Constructor: synthesise a single positional `(InterpretedInstance
+  interpretedInstance)` constructor; if the abstract class has a
+  required `super(...)` chain (e.g., `State` doesn't, but some
+  framework abstracts do), forward defaults that match the
+  framework's contract.
+
+**What needs care.**
+
+1. **Property interceptors.** Some abstract classes need
+   `D4.registerPropertyInterceptor` so that property reads (e.g.
+   `state.widget`) return the *interpreted* instance, not a
+   native wrapper. The auto-generator can detect "abstract
+   property whose return type is the surrounding generic" and
+   emit the interceptor automatically; less common shapes (e.g.,
+   `State.context` returning `BuildContext`) need manual review.
+2. **Generic abstract classes** (`State<T>`, `RouterDelegate<T>`).
+   The adapter must capture the generic parameter at registration
+   time, not at class definition. The C20 series has already
+   solved this for `State<T>`; the pattern can be lifted into the
+   auto-generator template.
+3. **Mixed inheritance** (e.g., `State<T>` with
+   `WidgetsBindingObserver` mixin). The adapter only wraps the
+   abstract class, but the mixin's methods need to be visible
+   through the interpreted side. This is a `bridgedSuperObject` /
+   `nativeProxy` resolution-order question that the existing
+   manual adapters already handle correctly; auto-generation
+   needs to preserve the same lookup precedence.
+4. **Constructor-required arguments.** Abstract classes whose
+   constructor takes required arguments (rare for framework
+   abstracts, but possible for, say,
+   `CustomScrollPhysics(parent: ScrollPhysics?)`) need the
+   adapter to forward those arguments from the interpreted side
+   — turning a single-positional adapter constructor into one
+   that mirrors the bridged constructor's signature.
+5. **Sealed / unsealed**. `final class` in the adapter prevents
+   further subclassing, which matches what we want for native
+   safety. `sealed` abstract framework classes may need a
+   per-variant adapter or explicit `extends` of one variant.
+
+**Suggested phasing.**
+
+- **Phase 1 (low risk):** Generator emits adapters only for
+  abstract classes that today have a hand-written manual adapter
+  and an interface-proxy registration. Check the generated
+  output against the manual one; iterate until they match.
+- **Phase 2:** Extend generation to abstract classes referenced
+  by `extends` in the *interpreted* test corpus
+  (`tom_d4rt_flutterm/test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/**/*.dart`)
+  but currently failing with the "InterpretedInstance not
+  coerced" shape (e.g., E11's `RouterDelegate`). Each new
+  adapter closes one or more failing scripts.
+- **Phase 3:** Emit adapters for *every* abstract class in
+  `flutter/material.dart` + `flutter/widgets.dart` +
+  `flutter/rendering.dart` reachable from the existing barrel
+  file, gated behind a generator flag. Inventory the emitted
+  set, hand-review the property-interceptor and
+  required-constructor cases.
+
+**Why this is worth pursuing.** Each new abstract-class gap
+today costs an investigation cycle (cluster identification,
+pattern recognition, manual adapter, registration). Phase 2
+alone would close E11 and any future "interpreted-extends-bridged
+abstract delegate" symptom without per-script work. Phase 3
+would convert "abstract class inheritance" from a recurring
+limitation into a one-time generator capability.
+
+**Verification path.** Phase 1 must reproduce existing test
+behaviour byte-for-byte (no regression in the C20 / state
+tests). Phase 2 must close E11 and any other adapter-shaped
+failures. Phase 3 must not introduce regressions; new adapters
+should only *add* successful coercions.
+
+**Mirror requirement.** Same as E11 — adapters land in both
+`tom_d4rt` and `tom_d4rt_ast` runtime registrations.
+
+---
+
+# Cluster R — `gir` W1–W5 transport cascade (carry-over from `interpreter_issues.md`)
 
 - [x] **Mitigated 2026-04-28 evening** (skip applied) - [ ] Fixed  - [ ] Partial · **Severity:** High → Medium · **Owner:** test runner / `tom_d4rt_flutterm_app` watchdog (durable fix); skip applied as day-1 mitigation
 
@@ -386,10 +668,10 @@ anything.
 
 | TID | Script | Result | Shape |
 |---|---|---|---|
-| 31 | `retest/rendering/render_animated_size_state_test.dart` | failure | RenderFlex overflowed by 2.0 pixels (pre-existing — see `interpreter_unfixable.md`) |
+| 31 | `retest/rendering/render_animated_size_state_test.dart` | failure | RenderFlex overflowed by 2.0 pixels — see E10 |
 | 33 | `retest/services/message_codec_test.dart` | failure | E1 — `_ByteDataView.lengthInBytes` undefined |
 | 34 | `retest/services/method_codec_test.dart` | failure | E1 — `_ByteDataView.lengthInBytes` undefined |
-| 37 | `retest/widgets/back_button_listener_test.dart` | failure | Router routerDelegate coercion (pre-existing — see `interpreter_unfixable.md`) |
+| 37 | `retest/widgets/back_button_listener_test.dart` | failure | Router routerDelegate coercion — see E11 |
 
 The 4 non-cascade are all known: 2 pre-existing pre-C22 carry-overs
 documented in `interpreter_unfixable.md`, plus the 2 newly-surfaced
@@ -452,148 +734,47 @@ the lock_state wedge itself is captured below as Cluster F4.
 
 ---
 
-# Wedger fix-clusters (F1–F5) — for the 5 currently-skipped wedger tests
+# Wedgers W1–W5 — pass in isolation (verified 2026-04-28)
 
-These clusters track the interpreter / test-app investigation
-work needed to remove the W1–W5 skips. Each skipped script is a
-"deep demo" that destabilises the test app process for the rest
-of the suite. Together they represent the residual structural
-debt: until each is either fixed at the interpreter / test-app
-level or moved to `interpreter_unfixable.md` with a script-side
-workaround, gir cannot run them in-suite.
+The previous draft of this analysis tracked five "fix-clusters"
+F1–F5, one per skipped wedger script. **F1–F5 are removed**: a
+follow-up isolation run on 2026-04-28 evening (logged in
+`tom_d4rt_flutterm/test/blocking_tests_test.dart`) confirmed
+that **all five wedger scripts pass cleanly when run in their
+own dedicated suite**, in the order W1 → W2 → W3 → W4 → W5:
 
-The shared root cause across F1–F4 is suspected to be the same
-test-app crash mode (HTTP request handler dies mid-build, taking
-the process with it; subsequent /clear calls on the dead socket
-yield `Connection refused`). F5 is a distinct shape (animation
-ticker / post-frame callback past teardown).
+| Wedger | Script | totalMs | frameworkErrors | Outcome |
+|---|---|---|---|---|
+| W1 | `retest/widgets/context_action_test.dart` | 1725 | 0 | success |
+| W2 | `retest/widgets/default_text_editing_shortcuts_test.dart` | 11 100 (10 s wait) | 0 | success |
+| W3 | `retest/widgets/live_text_input_status_test.dart` | 11 172 (10 s wait) | 0 | success |
+| W4 | `retest/widgets/lock_state_test.dart` | 965 | 0 | success |
+| W5 | `widgets/animated_switcher_test.dart` | 1095 | 0 | success |
 
-## F1 — Remove skip on `retest/widgets/context_action_test.dart` (W1)
+All 5 ran as a group in 38 s wall time — no cascade reproduced,
+so individual single-script runs were unnecessary.
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** High · **Owner:** interpreter / test-app
+**Conclusion.** None of W1–W5 are intrinsically broken scripts.
+Each one passes its own assertion set with `frameworkErrors=0`.
+The cascade observed in `gir` / `gii` is a function of the
+test-app process having accumulated state from a long preceding
+suite — W4's `HttpException: Connection closed` only fires on
+`POST /build` after the app has been alive for ~13 minutes of
+prior tests, not in a fresh process.
 
-**Skip rationale.** Captured in `interpreter_issues.md` "[WEDGE —
-Open] W1": script wedges the test app `/clear` handler.
-
-**To investigate next.**
-
-1. Bisect the script to isolate the smallest demo subtree that
-   reproduces the wedge in `bisect_test.dart`.
-2. Capture stderr on the test-app side (`tom_d4rt_flutterm_app`
-   stdout + crash log) at the moment of `/clear` failure.
-3. If the crash mode matches W4 (HTTP handler dies mid-process),
-   the F4 fix template applies. Otherwise diagnose the
-   `Action` / `Intent` / `ActionDispatcher` interpreter shape
-   that the script exercises.
-
-**Closing criteria.** Removing the `skip:` and re-running gir
-serially must report 0 failures attributable to this script and
-zero cascade victims downstream. Bisect script must continue to
-pass cleanly.
-
-## F2 — Remove skip on `retest/widgets/default_text_editing_shortcuts_test.dart` (W2)
-
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** High · **Owner:** interpreter / test-app
-
-**Skip rationale.** Captured in `interpreter_issues.md` "[WEDGE —
-Open] W2": script's `/build` hangs.
-
-**To investigate next.**
-
-1. Profile the `/build` request handler with a heap snapshot at
-   the hang point — likely a runaway interpreter loop in the
-   `DefaultTextEditingShortcuts` resolver chain.
-2. The script shares Actions/Shortcuts/Intent shape with W1, so
-   the F1 diagnosis may resolve this one as a side-effect.
-3. If runaway is confirmed, add a per-build timeout in the test
-   app's HTTP handler that returns 504 instead of hanging, so the
-   test runner can move on without losing the process.
-
-**Closing criteria.** Same as F1.
-
-## F3 — Remove skip on `retest/widgets/live_text_input_status_test.dart` (W3)
-
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** test-app
-
-**Skip rationale.** Captured in `interpreter_issues.md` "[WEDGE —
-Open] W3": cascade victim of W2.
-
-**To investigate next.** This one is likely "free" — once F2
-closes, W3 should pass by virtue of running on a fresh test-app
-instance. Re-test as part of the F2 verification.
-
-**Closing criteria.** Removing the `skip:` and re-running gir
-must report 0 failures attributable to this script. No standalone
-diagnosis expected — fate-tied to F2.
-
-## F4 — Remove skip on `retest/widgets/lock_state_test.dart` (W4 — applied 2026-04-28)
-
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** High · **Owner:** interpreter / test-app
-
-**Skip rationale.** Captured in `interpreter_issues.md` "[WEDGE —
-Skipped 2026-04-28 evening] W4": script triggers
-`HttpException: Connection closed before full header was received`
-on `POST /build`, then 19 cascade victims at /clear. Skip applied
-this evening; gir re-run with W4 skipped recovers all 19 victims.
-
-**To investigate next.**
-
-1. Capture the test-app's stderr / process exit signal at the
-   moment of the HttpException — confirm whether the test-app
-   process crashed, exited cleanly, or was killed by an OOM.
-2. The script is 1183 lines with only 4 Actions/Intent
-   references, so the wedge family is broader than just
-   Actions/Shortcuts/Intent. Likely candidate: lock-state
-   transition logic in the demo widget tree spawning a runaway
-   listener chain or unbounded post-frame callback queue.
-3. Bisect the script in `bisect_test.dart` (single-script harness
-   with isolated test-app process) to recover the smallest
-   reproduction.
-4. If the test-app crash is rooted in the interpreter (e.g.,
-   stack-overflow during `setState` storm), fix at the
-   interpreter / `D4UserBridge State` level. If it's rooted in
-   Flutter's lock-state semantics under interpretation, document
-   under `interpreter_unfixable.md` with a script-side workaround.
-
-**Closing criteria.** Removing the `skip:` and re-running gir
-serially must report 0 failures attributable to this script and
-zero cascade victims downstream.
-
-**Watchdog dependency.** Even after F4 closes, the structural
-test-app watchdog (META in `interpreter_issues.md`) should still
-land — it provides defence-in-depth for any future deep-demo
-script that surfaces a similar crash mode.
-
-## F5 — Remove skip on `widgets/animated_switcher_test.dart` (W5 — gii)
-
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** interpreter / scheduler
-
-**Skip rationale.** Captured in `interpreter_issues.md` "[WEDGE —
-Open] W5": script wedges gii at test ID 54 with
-`_dependents.isEmpty` silenced assertion at line 6268, then
-"Lost connection to device" cascades the next 34 gii tests. Skip
-applied 2026-04-28 morning; gii now reports 81/2/0 (was 78/1/4).
-
-**To investigate next.**
-
-1. The error shape (`_dependents.isEmpty` + generation=99 internal
-   restart) suggests AnimatedSwitcher's outgoing-children list is
-   leaving animation tickers / post-frame callbacks scheduled
-   past teardown. The interpreter's State teardown path
-   (`State.deactivate` / `State.dispose`) likely doesn't cancel
-   all pending tickers when the parent rebuild swaps an outgoing
-   child.
-2. Bisect to isolate the smallest AnimatedSwitcher tree that
-   reproduces.
-3. Either (a) cancel pending tickers in the post-frame restart
-   hook in `tom_d4rt_flutterm_app/lib/main.dart`, or (b) reset
-   AnimatedSwitcher's outgoing-child list at suite-test boundary
-   in the test app.
-
-**Closing criteria.** Removing the `skip:` and re-running gii
-serially must report 0 failures attributable to this script and
-zero cascade victims downstream (the 34 scripts following test
-ID 54).
+**Implication for the fix campaign.** The per-wedger
+investigation work formerly tracked as F1–F5 (bisect → diagnose
+crash mode → fix script or document workaround) is **not
+necessary**. The only durable lever is the META structural
+test-app watchdog tracked in `interpreter_issues.md` "[META]
+Structural cascade in retest suite". Once the watchdog lands —
+auto-restart of the test-app process on transport failure with
+port re-discovery — the 5 skips can be removed from the long
+suites without further per-script work. Until then, the skips
+remain as the day-1 mitigation; the isolation harness
+(`test/blocking_tests_test.dart`) remains as the standing
+verification that each wedger script stays viable as the
+interpreter changes.
 
 ---
 
@@ -675,20 +856,20 @@ Two re-surfaces in this run:
 
 ## Wedge taxonomy (W1–W5)
 
-| ID | Script | Status this run | Fix-cluster |
+| ID | Script | Status this run | Isolation result |
 |---|---|---|---|
-| W1 | `retest/widgets/context_action_test.dart` | Skipped | F1 |
-| W2 | `retest/widgets/default_text_editing_shortcuts_test.dart` | Skipped | F2 |
-| W3 | `retest/widgets/live_text_input_status_test.dart` | Skipped (cascade victim of W2) | F3 |
-| W4 | `retest/widgets/lock_state_test.dart` | **Skipped 2026-04-28 evening** — gir re-run 54/5/4 (cascade closed) | F4 |
-| W5 | `widgets/animated_switcher_test.dart` (gii) | Skipped 2026-04-28 morning — gii 81/2/0 | F5 |
+| W1 | `retest/widgets/context_action_test.dart` | Skipped in `gir` | **Passes in isolation** (1725 ms, FE=0) |
+| W2 | `retest/widgets/default_text_editing_shortcuts_test.dart` | Skipped in `gir` | **Passes in isolation** (11 100 ms incl. 10 s wait, FE=0) |
+| W3 | `retest/widgets/live_text_input_status_test.dart` | Skipped in `gir` | **Passes in isolation** (11 172 ms incl. 10 s wait, FE=0) |
+| W4 | `retest/widgets/lock_state_test.dart` | Skipped 2026-04-28 evening in `gir` — re-run 54/5/4 (cascade closed) | **Passes in isolation** (965 ms, FE=0) |
+| W5 | `widgets/animated_switcher_test.dart` | Skipped 2026-04-28 morning in `gii` — gii 81/2/0 | **Passes in isolation** (1095 ms, FE=0) |
 
-All 5 wedgers are now skipped at the suite level. The
-fix-clusters F1–F5 above track the work needed to remove each
-skip. F4's day-1 mitigation already recovered 20 cascade-victim
-passes in this campaign; F1, F2, F3 remain to be exercised in a
-future run; F5 closure unblocks the 34 gii scripts that followed
-test ID 54.
+All 5 wedgers are skipped at the long-suite level but
+**individually viable** — verified 2026-04-28 by
+`test/blocking_tests_test.dart` (5 tests, all green in 38 s
+wall time). The per-wedger fix-cluster work formerly tracked
+as F1–F5 is no longer pursued; the durable fix is the META
+test-app watchdog only.
 
 ---
 
@@ -704,12 +885,11 @@ test ID 54.
 | E6 — Records `.$1`/`.$2` access              | Medium | interpreter | 1               | 1 FE |
 | E7 — `+=` on null double                     | Low    | interpreter | 1               | 1 FE |
 | E8 — `!` on null curve                       | Low    | script / interpreter | 1     | 8 FE |
-| R  — gir W4 transport cascade                | High → Mitigated | test runner | 1 trigger → 19 victims | 20 errors → 0 (after skip) |
-| F1 — Remove W1 skip (`context_action_test`)  | High   | interpreter / test-app | 1 | — (open) |
-| F2 — Remove W2 skip (`default_text_editing_shortcuts_test`) | High | interpreter / test-app | 1 | — (open) |
-| F3 — Remove W3 skip (`live_text_input_status_test`) | Medium | test-app | 1 | — (fate-tied to F2) |
-| F4 — Remove W4 skip (`lock_state_test`)      | High   | interpreter / test-app | 1 | — (skip applied; durable fix open) |
-| F5 — Remove W5 skip (`animated_switcher_test`) | Medium | interpreter / scheduler | 1 | — (open; unblocks 34 gii scripts) |
+| E9 — `clampDouble` numeric-arg passthrough audit | Low | generator | (cross-suite) | (residual class) |
+| E10 — `render_animated_size_state` 2.0 px overflow | Low | interpreter | 1 (gir TID=31) | 1 failure |
+| E11 — `back_button_listener` Router routerDelegate adapter | Medium | interpreter | 1 (gir TID=37) | 1 failure |
+| E12 — Auto-generated abstract-class adapters (DESIGN) | Low | generator | (n/a) | (design exploration) |
+| R  — gir W1–W5 transport cascade             | High → Mitigated | test runner | 1 trigger → 19 victims | 20 errors → 0 (after skip; W1–W5 pass in isolation) |
 
 Closed-on-or-before this run (no action needed):
 C20a (2026-04-27), C20b (2026-04-27), C20d (2026-04-27),
@@ -745,6 +925,12 @@ above), D5/D7 (2026-04-27).
 4. **Real interpreter bugs to fix next:**
    - **E1** (`_ByteDataView.lengthInBytes`) — high-impact, 2 gir
      failures, ~10-line fix in the `dart:typed_data` bridge.
+   - **E11** (`RouterDelegate` adapter proxy) — 1 gir failure
+     today, but the adapter pattern unblocks any future
+     interpreted-extends-bridged abstract delegate.
+   - **E10** (`render_animated_size_state` 2.0 px overflow) —
+     1 gir failure, single rounding site in
+     `_InterpretedSlottedRenderBox` intrinsic pass.
    - **E6** (Records `.$1` access) — single FE but the shape
      gates any future Records-heavy test.
    - **E3** (`_controller` on `SingleTickerProviderStateMixin`
@@ -752,6 +938,12 @@ above), D5/D7 (2026-04-27).
      template.
    - **E7** (`+=` on null double) — 1-line fix, mirrors a known
      null-check shape.
+   - **E9** (`clampDouble` numeric-arg passthrough) — instrument
+     bridge wrappers with `D4.checkFiniteNumeric`, capture
+     trigger sites, close at source.
+   - **E12** (auto-generated abstract-class adapters) — design
+     exploration; phase 1 reproduces existing manual adapters
+     from generator output.
 
 5. **Test-app watchdog (META) is still the highest-leverage
    structural change** — even with W4 skipped, F1, F2, F3, F4
@@ -761,13 +953,13 @@ above), D5/D7 (2026-04-27).
    skip path (F4 day-1 mitigation) is "good enough for now" but
    shouldn't displace the watchdog work.
 
-6. **Wedger fix-clusters F1–F5 are the residual structural
-   debt.** Each is a single-script investigation: bisect →
-   diagnose crash mode → fix or document workaround. F3 is
-   fate-tied to F2; F5 unblocks 34 gii scripts on closure.
-   F1/F2/F4 share a likely common root cause (test-app HTTP
-   handler dies mid-request) — diagnosing one may close all
-   three.
+6. **Wedgers W1–W5 pass in isolation** (verified 2026-04-28
+   `test/blocking_tests_test.dart`, 38 s wall time, all FE=0).
+   The previous F1–F5 fix-clusters are dropped — none of W1–W5
+   are intrinsically broken scripts; the cascade is purely a
+   function of test-app process longevity. The META watchdog is
+   the only durable lever; once it lands the 5 skips can be
+   removed without per-script work.
 
 7. **Suite-level cleanliness check after W4 skip:** the corpus
    is clean for `essential` (108/0/0), `important` (164/0/0),

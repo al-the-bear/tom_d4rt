@@ -26,12 +26,15 @@ the entry belongs in `script_rewrites.md` — please move it.
 
 | Section | Category | Source |
 |---|---|---|
-| [Abstract Class Inheritance — architecture](#abstract-class-inheritance) | Interpreter limitation (worked around via adapter proxies) | Architectural |
+| [Abstract Class Inheritance — architecture](#abstract-class-inheritance) | Interpreter limitation (worked around via adapter proxies; auto-generation explored as E12) | Architectural |
 | [GappedRangeSliderTrackShape framework null errors](#index-32-gappedrangeslidertrackshape-null-errors) | Truly unfixable (framework null path) | `material/gapped_range_slider_track_shape_test.dart` |
-| [Residual `dart:ui/math.dart:14` `clampDouble` assertion](#residual-dartuimathdart14-clampdouble-assertion-in-widgetsslotted_multi_child_render_object_widget_test) | Interpreter limitation (numeric-arg passthrough) | `widgets/slotted_multi_child_render_object_widget_test.dart` |
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
-| [`render_animated_size_state` 2.0 px overflow](#gir-tid31-render_animated_size_state_testdart--pre-existing-20-px-overflow) | Interpreter limitation (intrinsic-pass null-checks) | `retest/rendering/render_animated_size_state_test.dart` |
-| [`back_button_listener` Router routerDelegate coercion](#gir-tid37-back_button_listener_testdart--router-routerdelegate-coercion) | Interpreter limitation (interpreted-extends-bridged abstract delegate at native bridge boundary) | `retest/widgets/back_button_listener_test.dart` |
+
+Entries that previously lived here but have **suggested
+interpreter / generator fixes** have been moved to
+`testlog_20260428-1333-issue-analysis/error_analysis.md` for the
+next round of work — see the migration log at the bottom of this
+file.
 
 ---
 
@@ -149,96 +152,6 @@ later in this file.
 
 ---
 
-## Residual `dart:ui/math.dart:14` `clampDouble` assertion in `widgets/slotted_multi_child_render_object_widget_test.dart`
-
-**Status.** Documented residual after C21 close (2026-04-27).
-
-**Symptom.**
-
-```
-'dart:ui/math.dart': Failed assertion: line 14 pos 10: '<optimized out>': is not true.
-```
-
-Line 14 of `dart:ui/math.dart` is:
-
-```dart
-double clampDouble(double x, double min, double max) {
-  assert(min <= max && !max.isNaN && !min.isNaN);
-  ...
-}
-```
-
-**Where it triggers.** Deep inside the Flutter framework's paint /
-layout pipeline when one of the four specimens in
-`_SmcrowSpecimenAllFilled` / `_SmcrowSpecimenIconTitleOnly` /
-`_SmcrowSpecimenTrendEmphasis` / `_SmcrowSpecimenActionsForward`
-renders. Stack-trace optimisation hides the originating call, but
-the only paths in the script that reach Flutter `clampDouble` are:
-
-1. `_SmcrowSparkPainter.paint` — uses `math.min` / `math.max` from
-   `dart:math` over `values` and produces `(values[i] - minV) / range
-   * (size.height - 4) - 2`. With `values` non-empty, `minV ≤ maxV`
-   holds and `range >= 1e-6` is enforced. Output is finite.
-2. `_SmcrowDashboardRender.performLayout` — produces `headerH` and
-   `dy` from finite components (now that null-shorting is fixed).
-   Output is finite for all specimens.
-3. `Color.withValues(alpha: 0.14)` — internally clamps the alpha
-   channel via `clampDouble` with literal bounds. A literal call
-   like `Color(...).withValues(alpha: 0.14)` cannot trip the
-   assertion in the engine, but the interpreted variant routing
-   through the bridged `Color.withValues` adapter could pass NaN
-   if the receiver `color` is null and the script side coerces it
-   through `?? const Color(0xFF000000)` after a typed-as-non-null
-   field was actually carrying a null in interpreted dispatch.
-
-**Why this is an interpreter limitation, not a script bug.** The
-assertion fires in the Flutter engine layer (`dart:ui`), not in
-interpreter code, but the bad numeric argument crosses the bridge
-boundary from the interpreter side. Without an in-bridge
-instrumentation pass capturing every numeric argument that enters
-a `dart:ui` call, narrowing the exact trigger requires a
-generator-level numeric-argument logger gated by an env flag
-(work item, not a script change).
-
-**Pre-existing in baseline.** The same `dart:ui/math.dart:14`
-assertion is present in the post-C22 baseline test logs
-(`hardly_relevant_classes_5_test.log.txt:500`,
-`hardly_relevant_classes_5_test.result.json:545`,
-`secondary_classes_test.result.json` etc.) — i.e., it surfaces in
-multiple scripts that exercise paint of bridged `Color.withValues`
-or stroked paths under interpreter dispatch, not only in this
-specimen. Marking C21 fixed because the C21-specific cascade
-(null-shorting through `?.` chains that cause the slotted layout
-to throw "Cannot access property 'height' on null") is closed, and
-the residual is a pre-existing class of downstream Flutter
-assertion that needs its own targeted instrumentation pass.
-
-**Vanilla Dart trigger.** Reproducible in vanilla Dart only by
-constructing a `Color.withValues(alpha: <NaN-or-out-of-range>)`
-call, e.g.:
-
-```dart
-Color(0xFF112233).withValues(alpha: double.nan); // asserts in dart:ui clampDouble
-```
-
-In the interpreted slotted test, the trigger is one of the
-several `withValues(alpha: <literal>)` / canvas-clamp paths
-listed above where the bridged numeric argument is produced from
-an interpreted-side computation that can be NaN/Infinity in some
-slot-population permutations.
-
-**Note.** A defensive *script-side* guard
-(`v.isNaN || v.isInfinite ? 0.0 : v`) does mask the symptom, but
-since the trigger is the interpreter's argument-passthrough path
-producing a NaN where native dispatch wouldn't, the durable fix
-is a generator-level numeric-arg passthrough audit, not a
-per-script clamp. The script-side guard is mentioned in
-`script_rewrites.md` only as a *temporary* workaround when
-authoring fresh scripts that rely on `Color.withValues` and would
-otherwise be blocked by this residual.
-
----
-
 ## Cluster R — `gir` W1-W5 transport cascade (test-app structural)
 
 **Why truly unfixable at the interpreter or the script level.**
@@ -297,84 +210,27 @@ durable lever is the META watchdog.
 
 ---
 
-## gir TID=31 `render_animated_size_state_test.dart` — pre-existing 2.0 px overflow
-
-**Status.** Pre-existing in every baseline since the post-C22
-campaign; re-confirmed in
-`testlog_20260428-1333-issue-analysis`.
-
-**Symptom.** `Expected: true / Actual: <false> / A RenderFlex
-overflowed by 2.0 pixels on the bottom.` — a single 2-pixel
-overflow during `RenderAnimatedSize`'s mid-animation layout
-sample.
-
-**Why this is an interpreter limitation, not a script bug.** The
-script asserts `tester.takeException` returns null after the
-animation step. Under native Flutter the same animation step
-produces no overflow because the intrinsic-pass prediction lands
-on a pixel-aligned size. Under the interpreter, the intrinsic
-pass routes through `_InterpretedSlottedRenderBox` proxy
-render-objects, which add a sub-pixel rounding gap in the
-animated-size transition. The 2-pixel overflow is the visible
-symptom of that intrinsic-pass delta. Script-side rewrites have
-been tried (padding tweaks, fixed-size containers); they all
-either produce a different overflow or break the animation
-assertion the script is testing.
-
-**No script workaround.** The script's whole purpose is to drive
-the animated-size transition and assert clean intrinsic-pass
-behaviour. Pinning a fixed size defeats the test. Removing the
-assertion silences the diagnostic but doesn't fix the underlying
-2-pixel error.
-
-**Suggested durable fix.** Audit the interpreter's intrinsic
-pass through `_InterpretedSlottedRenderBox` for mid-animation
-size sampling. The 2-pixel gap is consistent across runs, so
-likely a single rounding site that needs a `roundToDouble()` or
-`floor()` to match native Flutter's behaviour.
-
----
-
-## gir TID=37 `back_button_listener_test.dart` — Router routerDelegate coercion
-
-**Status.** Pre-existing in every baseline since the post-C22
-campaign; re-confirmed in
-`testlog_20260428-1333-issue-analysis`.
-
-**Symptom.** `Runtime Error: Error in generic constructor factory
-for 'Router': Argument Error: Invalid parameter "routerDelegate":
-expected RouterDelegate<dynamic>, got
-InterpretedInstance(_BackLabRouterDelegate)`.
-
-**Why this is an interpreter limitation, not a script bug.** The
-script declares `class _BackLabRouterDelegate extends
-RouterDelegate<...>` and passes an instance of it to `Router(...)`.
-This is the "interpreted-extends-bridged abstract delegate at the
-native bridge boundary" shape: at the bridge call site, the
-interpreted instance is wrapped in `InterpretedInstance` rather
-than coerced to a native `RouterDelegate<dynamic>`, and Flutter's
-generic-constructor argument validator rejects it. Same family as
-the `InheritedModel` proxy gap and several earlier abstract-
-delegate gaps that the C20-series fixes resolved one by one.
-
-**No script workaround that preserves the test's intent.** The
-script's purpose is to drive `BackButtonListener` against a
-custom `RouterDelegate` subclass. A "thin native shim" that the
-script constructs and passes a callback to (mentioned in the
-script's own `// SKIP` comment) circumvents the test rather than
-exercising the interpreted-`RouterDelegate` path that the script
-is meant to validate.
-
-**Suggested durable fix.** Add a `RouterDelegate` adapter proxy
-following the pattern used for `State` /
-`StatefulWidget` / `RenderAligningShiftedBox` adapters in the
-C20-series. The same pattern generalises to any bridged abstract
-delegate accepted by a `Router`-style native constructor.
-
 ---
 
 ## Change Log
 
+- 2026-04-28 (later evening): **Move suggested-fix entries to
+  `error_analysis.md`.** Three sections that previously lived
+  here had concrete interpreter / generator fix proposals
+  attached, and therefore belong in the active fix-tracking doc
+  rather than the unfixable-issue catalogue:
+  - "Residual `dart:ui/math.dart:14` `clampDouble` assertion" —
+    moved to error_analysis.md as **E9** (numeric-arg
+    passthrough audit).
+  - "gir TID=31 `render_animated_size_state` 2.0 px overflow" —
+    moved to error_analysis.md as **E10** (intrinsic-pass audit
+    in `_InterpretedSlottedRenderBox`).
+  - "gir TID=37 `back_button_listener` Router routerDelegate
+    coercion" — moved to error_analysis.md as **E11**
+    (`RouterDelegate` adapter proxy registration).
+  An exploratory section on auto-generating abstract-class
+  adapters across the bridge generator's scanned codebase was
+  added as **E12** in `error_analysis.md`.
 - 2026-04-28 (evening): Restructure into "truly unfixable" vs
   "interpreter architectural limitation"; move script-rewriteable
   cases (enum exhaustiveness, system_color_palette platform
