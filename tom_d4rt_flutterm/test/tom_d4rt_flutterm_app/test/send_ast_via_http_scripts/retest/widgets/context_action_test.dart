@@ -760,8 +760,11 @@ dynamic build(BuildContext context) {
             builder: (innerContext) {
               // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch does not
               // work for user-defined Intent subclasses — call directly instead.
+              // Note: avoid `const` on user-defined Intent subclasses; const
+              // evaluation of bridged-type subclasses can yield a bridged
+              // instance that loses user-defined fields.
               final result = greetAction.invoke(
-                const GreetIntent('Flutter Developer'),
+                GreetIntent('Flutter Developer'),
                 innerContext,
               );
               print('  Greet action result: $result');
@@ -1146,7 +1149,7 @@ dynamic build(BuildContext context) {
                   // does not work — use extracted variable directly instead.
                   final action = ctxCompareAction;
                   final result = ctxCompareAction.invoke(
-                    const GreetIntent('Copilot'),
+                    GreetIntent('Copilot'),
                     innerContext,
                   );
                   print('  ContextAction comparison result: $result');
@@ -1196,6 +1199,7 @@ dynamic build(BuildContext context) {
                           child: Text(
                             'Type: ${action.runtimeType}',
                             style: TextStyle(fontSize: 10.0, color: cCopper, fontWeight: FontWeight.w600),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),
@@ -1355,12 +1359,15 @@ dynamic build(BuildContext context) {
                           children: [
                             Icon(Icons.account_tree, color: cForest, size: 24.0),
                             const SizedBox(width: 8.0),
-                            Text(
-                              'Found ${treeClimbAction.ancestorCount} Container ancestors',
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.bold,
-                                color: cForest,
+                            Expanded(
+                              child: Text(
+                                'Found ${treeClimbAction.ancestorCount} Container ancestors',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: cForest,
+                                ),
                               ),
                             ),
                           ],
@@ -1452,7 +1459,7 @@ dynamic build(BuildContext context) {
                       // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
                       // does not work — use extracted variables directly instead.
                       final action = ltrGreetAction;
-                      ltrGreetAction.invoke(const GreetIntent('LTR User'), innerContext);
+                      ltrGreetAction.invoke(GreetIntent('LTR User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
@@ -1473,6 +1480,8 @@ dynamic build(BuildContext context) {
                             Text(
                               action.lastResult,
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ],
@@ -1496,7 +1505,7 @@ dynamic build(BuildContext context) {
                       // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
                       // does not work — use extracted variables directly instead.
                       final action = rtlGreetAction;
-                      rtlGreetAction.invoke(const GreetIntent('RTL User'), innerContext);
+                      rtlGreetAction.invoke(GreetIntent('RTL User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
@@ -1517,6 +1526,8 @@ dynamic build(BuildContext context) {
                             Text(
                               action.lastResult,
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: TextStyle(fontSize: 9.0, color: cSlate.withValues(alpha: 0.7)),
                             ),
                           ],
@@ -1798,7 +1809,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 // Desktop
                 Container(
-                  width: 150.0,
+                  width: 145.0,
                   height: 80.0,
                   decoration: BoxDecoration(
                     color: cNavy.withValues(alpha: 0.05),
@@ -1992,12 +2003,18 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: cForest.withValues(alpha: 0.3)),
                     ),
                     child: Center(
-                      child: Text(
-                        'Result: ${result ?? "null"}',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: cForest,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Result: ${result ?? "null"}',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: cForest,
+                          ),
                         ),
                       ),
                     ),
