@@ -1371,14 +1371,62 @@ safety net for future scripts.
 
 ## E16 — `Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter` (script-side, C3 carry-over)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (avoid the pattern in unbounded parents)
+- [x] Fixed (2026-04-28, by E8 layout-cascade fix) - [ ] Partial - [ ] Open · **Severity:** Low · **Owner:** scripts (avoid the pattern in unbounded parents)
 
-**Status.** Documented in `script_rewrites.md` as the C3 cascade.
-8 framework errors from one cascade in
-`widgets/scroll_deceleration_rate_test.dart`. Two script-side
-rewrite attempts in `doc/testlog_20260427-c3/` **increased** the
-error count from 8 to 11 and were reverted; the script remains
-at the 8-error baseline.
+**Status (2026-04-28 close — folded into E8).** Closed
+**fixed**. The cluster's 8-FE baseline was inherited from the
+pre-E8-fix testlog and is now stale: commit
+`9cf1da11` ("flutterm: close E8 partial — drop Row(stretch)
+cascade") landed the suggested-fix #2 (drop
+`crossAxisAlignment: stretch`) at **all four** Row+Expanded
+sites in the script — `_TelemetryRow.build`,
+`_CoastCurves.build`, the Enum Reference card row, and the
+When-to-use card row. With unconstrained cross-axis stretch
+removed, the cascade collapses: each card sizes to its
+intrinsic content height (the cards already pin a height
+constant or have intrinsic content), the `BoxConstraints
+forces an infinite height` assertion at
+`ChildLayoutHelper.layoutChild` no longer fires, and the
+post-failure walk's null-check artifacts disappear.
+
+**Verification (2026-04-28, regression rule (a) — script
+already changed by E8 commit; this cluster closes the
+documentation gap).** `D4RT_SKIP_BRIDGE_REGEN=1 flutter test
+test/hardly_relevant_classes_5_test.dart --plain-name
+"scroll_deceleration_rate"`:
+
+```
+[METRIC] script=widgets/scroll_deceleration_rate_test.dart
+status=success httpStatus=200 frameworkErrors=2
+⚠️  FRAMEWORK ERROR (2 error(s)):
+    Null check operator used on a null value
+    Null check operator used on a null value
++1: All tests passed!
+```
+
+Log: `doc/testlog_20260428-e16-fix/hr5_scroll_deceleration_rate_post.log.txt`.
+
+**Why this is Fixed even though FE=2 remains.** The two
+remaining `Null check operator used on a null value` errors
+are **E8 residuals** (interpreter-level
+state-field-`ScrollController`-through-`StatelessWidget`-chain
+limitation, documented in `interpreter_unfixable.md` E8 §
+"ScrollController state field passed through `StatelessWidget`
+chain to a `Scrollable`"). They scale linearly with the number
+of leaf `Scrollable`s consuming a propagated state-field
+controller (1 leaf → 1 error, 2 leaves → 2 errors); they have
+no relationship to E16's `Row(stretch)` cascade. The E16-attributed
+sub-symptoms — the `BoxConstraints forces an infinite height`,
+the two `RenderBox was not laid out` `hasSize` assertions, and
+the three null-check post-failure-walk artifacts — are all
+gone.
+
+**Suggested fix that landed.** Suggested fix #2 in the original
+write-up: "drop `crossAxisAlignment: stretch`; if matched
+heights are required, give each card the same `height:`
+constant." Applied at all four sites; `_SparkCard` pins
+`height: 120`, the other cards size to intrinsic content. The
+visual layout is preserved.
 
 **Symptom.** Cluster of 8 entries:
 1. `BoxConstraints forces an infinite height` from
