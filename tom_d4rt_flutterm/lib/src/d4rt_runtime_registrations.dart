@@ -14,7 +14,7 @@ import 'dart:ui' show Color, Offset;
 
 import 'package:flutter/animation.dart' show Tween;
 import 'package:flutter/foundation.dart'
-    show ChangeNotifier, Key, ValueKey, ValueNotifier, debugPrint;
+    show ChangeNotifier, Key, ValueKey, ValueNotifier, VoidCallback, debugPrint;
 import 'package:flutter/material.dart'
     show
         ButtonSegment,
@@ -75,6 +75,7 @@ import 'package:flutter/widgets.dart'
         RestorableValue,
         RestorationBucket,
         RestorationMixin,
+        RouterDelegate,
         ScrollableDetails,
         ScrollController,
         ScrollPhysics,
@@ -721,6 +722,29 @@ void registerD4rtInterfaceProxyOverrides() {
     final cached = instance.nativeProxy;
     if (cached is ParentData) return cached;
     final proxy = _InterpretedContainerBoxParentData(visitor, instance);
+    instance.nativeProxy = proxy;
+    return proxy;
+  });
+
+  // Cluster E11 — RouterDelegate adapter proxy.
+  //
+  // Scripts that subclass `RouterDelegate<T>` (typically combined with a
+  // ChangeNotifier-shaped mixin) need a real native `RouterDelegate` to
+  // satisfy `Router(routerDelegate: …)`'s parameter type-check
+  // (`extractBridgedArg<RouterDelegate<dynamic>>`).
+  //
+  // The bridge for `RouterDelegate` is `isAbstract: true` with no concrete
+  // constructor that the interpreter can chain through, so the user
+  // subclass never gets a `bridgedSuperObject`. Without a registered proxy,
+  // the cast falls through and throws.
+  //
+  // The proxy extends the real abstract `RouterDelegate<dynamic>` and
+  // forwards `setNewRoutePath`, `popRoute`, `build`, and the `Listenable`
+  // contract (`addListener`/`removeListener`) to the interpreted class.
+  D4.registerInterfaceProxy('RouterDelegate', (visitor, instance) {
+    final cached = instance.nativeProxy;
+    if (cached is RouterDelegate) return cached;
+    final proxy = _InterpretedRouterDelegate(visitor, instance);
     instance.nativeProxy = proxy;
     return proxy;
   });
@@ -4117,5 +4141,95 @@ class _InterpretedTextSelectionGestureDetectorBuilderDelegate
       'Interpreted class ${_instance.klass.name} selectionEnabled getter '
       'must return a bool; got ${raw.runtimeType}',
     );
+  }
+}
+
+// =============================================================================
+// Cluster E11 — RouterDelegate proxy
+// =============================================================================
+//
+// Native [RouterDelegate<dynamic>] backed by an interpreted subclass.
+// Registered as the interface-proxy factory for 'RouterDelegate'.
+//
+// The proxy extends the real abstract `RouterDelegate<dynamic>` and forwards
+// `setNewRoutePath`, `popRoute`, `build`, and the `Listenable` contract
+// (`addListener`/`removeListener`) to the interpreted class. Test scripts
+// commonly mix in a small `_ChangeNotifierShim` (since the bridge does not
+// expose `ChangeNotifier`); the proxy delegates listener registration to that
+// shim via the interpreted instance.
+//
+// The generic type parameter is bound to `dynamic` because Dart cannot
+// specialise generic type arguments at runtime; this is the same trick used
+// for `_InterpretedParentDataWidget` and `_InterpretedAction`. Scripts that
+// declare `RouterDelegate<Foo>` work at the interpreter level; only the
+// proxy boundary erases to `dynamic`.
+class _InterpretedRouterDelegate extends RouterDelegate<dynamic>
+    implements D4InterpretedProxy {
+  _InterpretedRouterDelegate(this._visitor, this._instance);
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  static const Object _kNotImplemented = Object();
+
+  @override
+  Object get d4rtInstance => _instance;
+
+  Object? _maybeInvoke(String methodName, List<Object?> args,
+      [Map<String, Object?> named = const {}]) {
+    final method = _instance.klass.findInstanceMethod(methodName);
+    if (method == null) return _kNotImplemented;
+    return method.bind(_instance).call(_visitor, args, named);
+  }
+
+  @override
+  Future<void> setNewRoutePath(Object? configuration) async {
+    final result = _maybeInvoke('setNewRoutePath', [configuration]);
+    if (identical(result, _kNotImplemented)) return;
+    if (result is Future) {
+      await result;
+    }
+  }
+
+  @override
+  Future<bool> popRoute() async {
+    final result = _maybeInvoke('popRoute', const []);
+    if (identical(result, _kNotImplemented)) return false;
+    if (result is Future) {
+      final awaited = await result;
+      if (awaited is bool) return awaited;
+      return false;
+    }
+    if (result is bool) return result;
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final method = _instance.klass.findInstanceMethod('build');
+    if (method == null) {
+      throw StateError(
+        'Interpreted class ${_instance.klass.name} does not implement build()',
+      );
+    }
+    final result = method.bind(_instance).call(_visitor, [context], const {});
+    return D4.extractBridgedArg<Widget>(result, 'build', _visitor);
+  }
+
+  @override
+  void addListener(VoidCallback listener) {
+    final result = _maybeInvoke('addListener', [listener]);
+    if (identical(result, _kNotImplemented)) {
+      // No interpreted addListener — the interpreted subclass doesn't notify
+      // anyone, so silently ignore. The framework will still poll
+      // `currentConfiguration` when needed.
+      return;
+    }
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    final result = _maybeInvoke('removeListener', [listener]);
+    if (identical(result, _kNotImplemented)) return;
   }
 }

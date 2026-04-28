@@ -854,13 +854,54 @@ passed (post-fix log: `gir_post.log.txt`).
 
 ## E11 — gir TID=37 `back_button_listener_test` Router routerDelegate — `RouterDelegate` adapter proxy (carry-over from `interpreter_unfixable.md`)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium · **Owner:** interpreter / abstract-class proxies
+- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter / abstract-class proxies (cast resolved); script (residual layout overflow)
 
-**Status.** Pre-existing in every baseline since the post-C22
-campaign; re-confirmed in this run as a true `gir` failure
-(TID=37). Migrated from `interpreter_unfixable.md` because the
-durable fix is an adapter proxy following the established
-pattern.
+**Status (2026-04-28 close — partial).** The cast failure
+identified as the cluster symptom is resolved by registering an
+`_InterpretedRouterDelegate` adapter proxy in
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`.
+Pre-fix `gir_pre.log.txt` shows `Argument Error: Invalid
+parameter "routerDelegate"` plus 1 framework error; post-fix
+`gir_post.log.txt` shows the cast error is gone and the widget
+tree builds, then surfaces 2 unrelated `RenderFlex overflowed`
+framework errors (153 px and 133 px on the bottom). These come
+from the script's own complex multi-stage demo UI (1900+ lines,
+30+ nested Columns) and are not caused by the proxy — they were
+previously masked by the cast failure since the widget tree
+never built. Regression sweep:
+
+- `essential_post.log.txt` — 108/0/0 (pass/skip/fail)
+- `important_post.log.txt` — 164/0/0
+- `secondary_post.log.txt` — 653/1/0
+
+No regressions in any of the three suites. The proxy lands
+cleanly. The residual overflow is the same family as **E10**
+(script-side layout overflow under interpreter text metrics) and
+should be tracked as its own follow-up; opening **E13** below.
+
+**Implementation summary.**
+
+1. Added `RouterDelegate` to the `package:flutter/widgets.dart`
+   show clause and `VoidCallback` to the
+   `package:flutter/foundation.dart` show clause in
+   `d4rt_runtime_registrations.dart`.
+2. Registered `D4.registerInterfaceProxy('RouterDelegate', …)`
+   in `_registerInterfaceProxies()` with the `instance.nativeProxy`
+   caching pattern (matches `Intent`, `Action`, `RenderAligningShiftedBox`).
+3. Implemented `_InterpretedRouterDelegate extends RouterDelegate<dynamic>
+   implements D4InterpretedProxy` with the `_kNotImplemented` sentinel +
+   `_maybeInvoke` helper pattern. Forwards `setNewRoutePath` (Future<void>),
+   `popRoute` (Future<bool>), `build` (Widget via
+   `D4.extractBridgedArg<Widget>`), and the `Listenable` contract
+   (`addListener`/`removeListener`).
+
+**Mirror requirement (revised).** Speculative in the original
+entry — there is only **one** `d4rt_runtime_registrations.dart`
+in the workspace (`tom_d4rt_flutterm/lib/src/`). No mirror in
+`tom_d4rt` or `tom_d4rt_ast` exists, so no mirror update was
+needed.
+
+**Original entry (unchanged) below.**
 
 **Symptom.**
 
@@ -906,6 +947,55 @@ path) and
 `tom_d4rt_ast/lib/src/runtime/d4rt_runtime_registrations.dart`
 (AST-driven path), per the non-obvious "Keep tom_d4rt ↔
 tom_d4rt_ast in sync" rule.
+
+---
+
+## E13 — gir TID=37 `back_button_listener_test` residual `RenderFlex` overflow (follow-up to E11)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** script (deep bisect needed)
+
+**Origin.** Once the E11 `RouterDelegate` adapter proxy lands,
+the cast failure is gone and the script's widget tree builds.
+The build then surfaces two `RenderFlex overflowed` framework
+errors (153 px and 133 px on the bottom). Same family as **E10**
+(`render_animated_size_state_test` 2 px overflow): script-side
+layout under interpreter text metrics. These overflows were
+previously masked by the cast failure since the widget tree
+never built.
+
+**Symptom.**
+
+```
+A RenderFlex overflowed by 153 pixels on the bottom.
+A RenderFlex overflowed by 133 pixels on the bottom.
+```
+
+**Likely cause.** The script's `_BackButtonLabHome` build is a
+1900+ line multi-stage demo with 30+ nested `Column`s across
+`_header`, `_toolbar`, `_stageBody` (six different stage
+sub-widgets), `_timelinePanel`, and `_footer`. At least one
+nested vertical layout exceeds the test canvas budget under
+interpreter text metrics, just as `_primaryMorphTile` did in
+E10. Without an isolated reproduction (the script renders many
+sub-views), bisect is required to localise the offending
+`Column`/`Row` pair.
+
+**Suggested fix path (script-side).**
+
+1. Bisect by stage: temporarily switch each `_DemoStage` and
+   re-run gir on the `back_button_listener_test` script. Identify
+   which stage triggers the overflows.
+2. Within the offending stage, comment out half the children at
+   a time until the overflow disappears — same recipe as E10's
+   bisect trail.
+3. Apply the narrowest fix possible: trim padding, replace fixed
+   `SizedBox` heights with `Spacer`, or wrap the offending
+   `Column` in `SingleChildScrollView` if the content is meant
+   to scroll.
+
+**Verification path.** Re-run gir TID=37; metric should report
+`frameworkErrors=0`. Cluster closes when the script's content
+fits the test canvas with no `RenderFlex` warnings.
 
 ---
 
