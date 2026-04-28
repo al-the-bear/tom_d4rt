@@ -1579,8 +1579,46 @@ work for InheritedModel.
 
 ## D1 — `image_sampler_slot` cascade
 
-Closed 2026-04-27 in prior run via skip from `hardly_relevant_classes_1`.
-This run: hr1 reports 205/2/0 (clean), confirming the closure holds.
+- [x] Fixed (closed-as-deferred 2026-04-27, re-confirmed 2026-04-28) - [ ] Partial - [ ] Open · **Severity:** High (engine-cascade) → Mitigated · **Owner:** test runner (skip in `hardly_relevant_classes_1_test.dart`)
+
+**Status.** Closed 2026-04-27 in prior run via skip from
+`hardly_relevant_classes_1`. This run: hr1 reports 205/2/0
+(clean); 2026-04-28 re-confirmation reports **203/2/0**
+(test corpus drift of 2 scripts between runs, suite still
+clean), confirming the closure holds.
+
+**Symptom.** `dart_ui/image_sampler_slot_test.dart` itself runs
+to `status=success frameworkErrors=0`, but the
+`ui.FragmentProgram` / `ui.FragmentShader` shader-pipeline
+initialisation it triggers leaves the test-app process in a
+state where every subsequent script in
+`hardly_relevant_classes_1_test` (124 scripts: remaining
+`dart_ui/*` + all `gestures/*`) times out at the 30 s
+per-script limit, eventually cascading into `transport_error`
+/ `clear_failed`.
+
+**Why not interpreter-fixable.** The hang is in the engine's
+GPU / Skia pipeline teardown, after the interpreter has already
+returned `status=success`. No interpreter or bridge change can
+reach into the engine's internal pipeline state. Documented in
+`script_rewrites.md` under "FragmentProgram engine cascade in
+multi-test suites" (option a — skip from suite, run via
+`bisect_test.dart` — selected).
+
+**Mitigation in place.** `test/hardly_relevant_classes_1_test.dart`
+(line 567–593) skips the script with detailed inline rationale
+(`skip:` reason references this cluster and the earlier resolved
+timing-race entry in `interpreter_issues.md`). The script
+remains in-scope for `bisect_test.dart` and any dedicated
+`dart_ui` suite.
+
+| Verification | Result | Status |
+| --- | --- | --- |
+| `testlog_20260428-1333-issue-analysis` (initial) | hr1 205/2/0 | OK |
+| `testlog_20260428-d1-confirm/hr1_post.log.txt` (re-confirm) | hr1 203/2/0 | OK |
+
+**Closing criteria.** No FE in hr1 from cascading timeouts.
+Met since 2026-04-27, re-confirmed 2026-04-28.
 
 ## D2 — bridged-mixin field access
 
