@@ -168,6 +168,23 @@ class _D4rtTestPageState extends State<D4rtTestPage>
       // during development, but do not forward to the original handler which
       // would display a red error screen and block the test app UI.
       debugPrint('[D4rtApp] [silenced assertion] $message');
+      // Internal restart: when the _dependents.isEmpty assertion fires it means
+      // stale InheritedElement dependents are still registered in the old tree.
+      // Schedule a state reset after the current frame so the widget subtree is
+      // fully unmounted before the next /build request arrives.  This prevents
+      // the same assertion from firing again on the next clear/build cycle and
+      // avoids turning the app into a red error screen after sequential failures.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {
+            _d4rtWidget = null;
+            _lastError = null;
+            _widgetGeneration++;
+          });
+          debugPrint('[D4rtApp] [silenced assertion] internal restart applied '
+              '(generation=$_widgetGeneration)');
+        }
+      });
     } else {
       // Forward all other errors to the original handler for logging / display.
       _originalFlutterErrorHandler?.call(details);

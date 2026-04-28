@@ -656,6 +656,7 @@ class SendTestRunner {
     int port = defaultPort,
     bool clearFirst = true,
     bool includeSource = false,
+    Duration? waitBeforeClear,
   }) async {
     final packageRoot = Directory.current.path;
     final fullPath = p.join(packageRoot, scriptsPath, scriptPath);
@@ -675,6 +676,9 @@ class SendTestRunner {
 
     // Clear UI first if requested
     if (clearFirst) {
+      if (waitBeforeClear != null) {
+        await Future<void>.delayed(waitBeforeClear);
+      }
       final clearStopwatch = Stopwatch()..start();
       try {
         await _httpGet(client, '/clear', host: host, port: port);

@@ -285,35 +285,34 @@ void main() {
     test('retest: widgets/context_action_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/context_action_test.dart',
+        // Wait before clearing so the previous script's widget tree has time
+        // to fully deactivate, avoiding _dependents.isEmpty assertion crashes.
+        waitBeforeClear: const Duration(seconds: 10),
       );
-      // Allow 10 s for the test app to recover after this hard-failing script
-      // before the next test sends a request. Without this pause the cascade
-      // of failures below triggers "Lost connection to device".
-      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
     });
 
     test('retest: widgets/default_selection_style_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/default_selection_style_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
       );
-      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
     });
 
     test('retest: widgets/default_text_editing_shortcuts_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/default_text_editing_shortcuts_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
       );
-      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
     });
 
     test('retest: widgets/live_text_input_status_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/live_text_input_status_test.dart',
+        waitBeforeClear: const Duration(seconds: 10),
       );
-      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
     });
 
