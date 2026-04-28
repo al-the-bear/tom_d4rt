@@ -732,11 +732,14 @@ class _TwoDSSHomeState extends State<_TwoDSSHome>
             colors: <Color>[_twoDSSParchment, _twoDSSParchmentDeep],
           ),
         ),
-        child: SingleChildScrollView(
+        // NOTE [E2 batch 3 fix]: replaced `SingleChildScrollView > Column(crossAxisAlignment.stretch)`
+        // with `ListView`. The Column's `stretch` cross-axis under a SingleChildScrollView
+        // gave the `_TwoDSS*` section children unbounded vertical extent, cascading
+        // through a 17-deep relayoutBoundary chain and tripping the semantic-walk
+        // assertion. ListView lays out children on a bounded vertical track.
+        child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+          children: <Widget>[
               _TwoDSSPreambleCard(),
               const SizedBox(height: 24),
               _TwoDSSAnatomyStrip(),
@@ -826,7 +829,6 @@ class _TwoDSSHomeState extends State<_TwoDSSHome>
               _TwoDSSEpilogueCard(),
               const SizedBox(height: 28),
             ],
-          ),
         ),
       ),
     );

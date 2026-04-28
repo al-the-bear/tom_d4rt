@@ -252,12 +252,53 @@ shows `standard_component_type=0`, others at original baseline).
 Per regression rule (a), test-script-only changes; individual
 retest sufficient.
 
-**Remaining.** 12 scripts / ~120 FE (top-of-table 8 +
+**Batch 3 (table positions #5–#8 — top-of-table sweep) — 2026-04-28.**
+Four scripts, 73 FE → 0 FE. **All four closed.**
+
+- `widgets/two_dimensional_scrollable_state_test.dart` (20 FE → 0).
+  Replaced root `body: DecoratedBox > SingleChildScrollView >
+  Column(crossAxisAlignment.stretch)` with `DecoratedBox >
+  ListView(padding, children: [...])` (C22 pattern). The
+  Column's `stretch` cross-axis under SingleChildScrollView gave
+  the `_TwoDSS*` section children unbounded vertical extent,
+  cascading through a 17-deep relayoutBoundary chain.
+- `widgets/scroll_position_types_test.dart` (19 FE → 0). Same
+  C22 shape: `body: SafeArea > SingleChildScrollView >
+  Column(crossAxisAlignment.stretch)` replaced with `SafeArea >
+  ListView(padding, children: [...])`.
+- `widgets/web_browser_detection_test.dart` (19 FE → 0). Two
+  inner cascades — `_WbdCapabilityGrid` and `_WbdComparisonGrid`
+  each returned `Column(crossAxisAlignment.stretch)` inside a
+  horizontal `SingleChildScrollView`, giving Column's cross-axis
+  (= horizontal) infinite width. Removed `stretch` and used
+  `mainAxisSize.min`. The matrix rows/headers already have
+  intrinsic widths.
+- `widgets/weak_map_test.dart` (15 FE → 0). Single inner
+  cascade in `_WmLatChapterMatrix._buildRow`: `Container > Row(
+  crossAxisAlignment.stretch) + [SizedBox, Expanded(_buildCell)]`
+  inside `SliverToBoxAdapter` (unbounded vertical). Row's
+  cross-axis (= vertical) `stretch` triggered the C3 cascade.
+  Switched to `crossAxisAlignment.start`; cells are icon+text
+  containers with their own intrinsic height.
+
+**Verification.** `test/e2_batch3_bisect_test.dart` (isolation
+harness, since deleted): pre-fix
+`doc/testlog_20260428-e2-batch3-fix/e2_batch3_bisect_pre.log.txt`
+(20/19/19/15 FE), post-fix
+`…/e2_batch3_bisect_post.log.txt` (0/0/0/0 FE, all 4 tests
+passed). Per regression rule (a), test-script-only changes;
+individual retest sufficient.
+
+**Remaining.** 8 scripts / ~92 FE (top-of-table 4
+[`shortcut_activator` 33, `unfocus_disposition` 27,
+`widget_test` 26, `widget_state_text_style` 21] +
 `widget_state_color` 9 + `scroll_deceleration_rate` 8 +
 `text_magnifier_configuration` 6 + `scrollbar_painter` 4 −
-batch-2 closures). Three of those (deferred above) are bound to
-the C3 unfixable family; the top-of-table batch is the next
-candidate.
+batch-3 closures). Three of the deferred set
+(`widget_state_color`, `scroll_deceleration_rate`,
+`text_magnifier_configuration`) remain bound to the C3
+unfixable family; the four top-of-table 21–33 FE scripts are
+the next candidate.
 
 **Top-FE scripts (this run, ordered by FE count):**
 

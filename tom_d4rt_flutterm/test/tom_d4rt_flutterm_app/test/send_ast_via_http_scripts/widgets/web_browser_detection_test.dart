@@ -1572,8 +1572,13 @@ class _WbdCapabilityGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE [E2 batch 3 fix]: removed `crossAxisAlignment: CrossAxisAlignment.stretch`.
+    // This Column lives inside a horizontal `SingleChildScrollView`, which gives
+    // it an unbounded cross-axis (= horizontal) width. With `stretch` set,
+    // Column tried to stretch to infinite width, cascading through the
+    // relayoutBoundary chain. Each row already has its own intrinsic width.
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         _WbdMatrixHeader(),
         for (int i = 0; i < _wbdCapabilities.length; i++)
@@ -2893,8 +2898,10 @@ class _WbdComparisonGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE [E2 batch 3 fix]: removed `crossAxisAlignment: CrossAxisAlignment.stretch`.
+    // Same horizontal-SingleChildScrollView cascade as `_WbdCapabilityGrid`.
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         _WbdComparisonHeaderRow(),
         for (int i = 0; i < _wbdComparisonRows.length; i++)

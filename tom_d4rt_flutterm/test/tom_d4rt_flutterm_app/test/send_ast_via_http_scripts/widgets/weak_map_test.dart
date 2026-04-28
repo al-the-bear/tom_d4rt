@@ -2727,11 +2727,17 @@ class _WmLatChapterMatrix extends StatelessWidget {
     final Color bg = i.isEven
         ? (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.4)
         : Colors.transparent;
+    // NOTE [E2 batch 3 fix]: Row had `crossAxisAlignment: CrossAxisAlignment.stretch`
+    // while sitting inside a SliverToBoxAdapter (unbounded vertical). Stretch on
+    // Row's cross-axis (= vertical) tries to size children to the parent's max
+    // height, which is infinite, cascading through the relayoutBoundary chain.
+    // Cells are icon+text containers with their own intrinsic height — no need
+    // to align them to a stretched vertical band.
     return Container(
       color: bg,
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
             width: 150,

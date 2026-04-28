@@ -178,11 +178,14 @@ class _ScrollPositionZooHomeState extends State<_ScrollPositionZooHome> {
     return Scaffold(
       backgroundColor: kPaper,
       body: SafeArea(
-        child: SingleChildScrollView(
+        // NOTE [E2 batch 3 fix]: replaced `SingleChildScrollView > Column(crossAxisAlignment.stretch)`
+        // with `ListView`. The Column's `stretch` cross-axis under a SingleChildScrollView
+        // gave the section children unbounded vertical extent, cascading through the
+        // relayoutBoundary chain and tripping the semantic-walk assertion. ListView
+        // lays out children on a bounded vertical track.
+        child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+          children: <Widget>[
               const _HeroHeader(),
               const SizedBox(height: 28),
               _SpecimenPlainListView(
@@ -227,7 +230,6 @@ class _ScrollPositionZooHomeState extends State<_ScrollPositionZooHome> {
               const _FooterSummary(),
               const SizedBox(height: 32),
             ],
-          ),
         ),
       ),
     );

@@ -1,0 +1,393 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e2_batch3_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/two_dimensional_scrollable_state_test.dart
+[METRIC] script=widgets/two_dimensional_scrollable_state_test.dart sourceBytes=110713 sourceChars=110613 bundleJsonBytes=1253450 clearMs=97 readMs=12 bundleMs=427 httpMs=3190 totalMs=3729 status=success httpStatus=200 outputLines=0 frameworkErrors=20
+
+  ⚠️  FRAMEWORK ERROR in widgets/two_dimensional_scrollable_state_test.dart (20 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#3a894 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#7383f relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#79bf7 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#9acec relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#bfb5f relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderFlex#2dfba relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#83ac0 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#7c263 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#bd3ce relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#a787b relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#01175 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#08e05 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#5a1d4 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#fb532 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#bedfa relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#ebc86 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#b614b relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderDecoratedBox#b614b relayoutBoundary=up1
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:15 +0 -1: widgets/two_dimensional_scrollable_state_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(0.0<=w<=Infinity, h=Infinity); RenderBox was not laid out: RenderFlex#3a894 relayoutBoundary=up17 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#7383f relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#79bf7 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#9acec relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#bfb5f relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#2dfba relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#83ac0 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderSingleChildViewport#7c263 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderIgnorePointer#bd3ce relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsAnnotations#a787b relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#01175 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsGestureHandler#08e05 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#5a1d4 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderScrollSemantics#fb532 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderTransform#bedfa relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderClipRect#ebc86 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#b614b relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#b614b relayoutBoundary=up1
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; 'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch3_bisect_test.dart 33:7                main.<fn>
+  
+00:15 +0 -1: widgets/scroll_position_types_test.dart
+[METRIC] script=widgets/scroll_position_types_test.dart sourceBytes=81596 sourceChars=81508 bundleJsonBytes=938884 clearMs=83 readMs=1 bundleMs=87 httpMs=1270 totalMs=1442 status=success httpStatus=200 outputLines=0 frameworkErrors=19
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_position_types_test.dart (19 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#f6edc relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#1c847 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#d25ca relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#104a8 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderFlex#fcbb6 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#d4798 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#a4dbe relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#fe0a2 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasS…
+       RenderBox was not laid out: RenderSemanticsAnnotations#fa7a2 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12…
+       RenderBox was not laid out: RenderPointerListener#253e5 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#0cfab relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos…
+       RenderBox was not laid out: RenderPointerListener#2def7 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'ha…
+       RenderBox was not laid out: _RenderScrollSemantics#66452 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#7ae8e relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#92d3e relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#fec5a relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderTransform#7ae8e relayoutBoundary=up3
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+00:17 +0 -2: widgets/scroll_position_types_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(0.0<=w<=Infinity, h=Infinity); RenderBox was not laid out: RenderFlex#f6edc relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#1c847 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#d25ca relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#104a8 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#fcbb6 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#d4798 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderSingleChildViewport#a4dbe relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderIgnorePointer#fe0a2 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsAnnotations#fa7a2 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#253e5 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsGestureHandler#0cfab relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#2def7 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderScrollSemantics#66452 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderTransform#7ae8e relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderClipRect#92d3e relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#fec5a relayoutBoundary=up1 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderTransform#7ae8e relayoutBoundary=up3
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; 'package:flutter/src/rendering/object.dart': Failed assertion: line 5737 pos 14: '!childSemantics.renderObject._needsLayout': is not true.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch3_bisect_test.dart 33:7                main.<fn>
+  
+00:17 +0 -2: widgets/web_browser_detection_test.dart
+[METRIC] script=widgets/web_browser_detection_test.dart sourceBytes=120848 sourceChars=120714 bundleJsonBytes=1418158 clearMs=118 readMs=1 bundleMs=101 httpMs=2820 totalMs=3041 status=success httpStatus=200 outputLines=0 frameworkErrors=19
+
+  ⚠️  FRAMEWORK ERROR in widgets/web_browser_detection_test.dart (19 error(s)):
+       BoxConstraints forces an infinite width.
+These invalid constraints were provided to RenderDecoratedBox's layout() function by the following function, which probably computed the invalid constraints in…
+       RenderBox was not laid out: RenderFlex#a8a36 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderSingleChildViewport#b34c4 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderIgnorePointer#981ef relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'has…
+       RenderBox was not laid out: RenderSemanticsAnnotations#eb917 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 1…
+       RenderBox was not laid out: RenderPointerListener#b89d0 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderSemanticsGestureHandler#40ec3 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 po…
+       RenderBox was not laid out: RenderPointerListener#2663d relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: _RenderScrollSemantics#c9dbf relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'h…
+       RenderBox was not laid out: RenderTransform#5cceb relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderClipRect#5b192 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#3bf46 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#01ec3 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderFlex#924ad relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#f05fd relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#8e661 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:20 +0 -3: widgets/web_browser_detection_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite width.
+  These invalid constraints were provided to RenderDecoratedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(w=Infinity, 0.0<=h<=Infinity); RenderBox was not laid out: RenderFlex#a8a36 relayoutBoundary=up16 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderSingleChildViewport#b34c4 relayoutBoundary=up15 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderIgnorePointer#981ef relayoutBoundary=up14 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsAnnotations#eb917 relayoutBoundary=up13 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#b89d0 relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderSemanticsGestureHandler#40ec3 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPointerListener#2663d relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderScrollSemantics#c9dbf relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderTransform#5cceb relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderClipRect#5b192 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#3bf46 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#01ec3 relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#924ad relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#f05fd relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#8e661 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch3_bisect_test.dart 33:7                main.<fn>
+  
+00:20 +0 -3: widgets/weak_map_test.dart
+[METRIC] script=widgets/weak_map_test.dart sourceBytes=120389 sourceChars=120236 bundleJsonBytes=1513716 clearMs=508 readMs=1 bundleMs=144 httpMs=2035 totalMs=2691 status=success httpStatus=200 outputLines=0 frameworkErrors=15
+
+  ⚠️  FRAMEWORK ERROR in widgets/weak_map_test.dart (15 error(s)):
+       BoxConstraints forces an infinite height.
+These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints…
+       RenderBox was not laid out: RenderFlex#67e4d relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#03af6 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: _RenderColoredBox#70373 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderFlex#7f6c6 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#83025 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#1f1f8 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#cd2d6 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderDecoratedBox#5941d relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSi…
+       RenderBox was not laid out: RenderPadding#92eb4 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderPadding#5917f relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       RenderBox was not laid out: RenderFlex#91aa6 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+'package:flutter/src/rendering/box.dart':
+Failed assertion: line 2251 pos 12: 'hasSize'
+       Null check operator used on a null value
+       Null check operator used on a null value
+       Null check operator used on a null value
+00:22 +0 -4: widgets/weak_map_test.dart [E]
+  Expected: true
+    Actual: <false>
+  BoxConstraints forces an infinite height.
+  These invalid constraints were provided to RenderConstrainedBox's layout() function by the following function, which probably computed the invalid constraints in question:
+    ChildLayoutHelper.layoutChild (package:flutter/src/rendering/layout_helper.dart:62:11)
+  The offending constraints were:
+    BoxConstraints(0.0<=w<=Infinity, h=Infinity); RenderBox was not laid out: RenderFlex#67e4d relayoutBoundary=up12 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#03af6 relayoutBoundary=up11 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: _RenderColoredBox#70373 relayoutBoundary=up10 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#7f6c6 relayoutBoundary=up9 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#83025 relayoutBoundary=up8 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#1f1f8 relayoutBoundary=up7 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#cd2d6 relayoutBoundary=up6 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderDecoratedBox#5941d relayoutBoundary=up5 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#92eb4 relayoutBoundary=up4 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderPadding#5917f relayoutBoundary=up3 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; RenderBox was not laid out: RenderFlex#91aa6 relayoutBoundary=up2 NEEDS-PAINT NEEDS-COMPOSITING-BITS-UPDATE
+  'package:flutter/src/rendering/box.dart':
+  Failed assertion: line 2251 pos 12: 'hasSize'; Null check operator used on a null value; Null check operator used on a null value; Null check operator used on a null value
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e2_batch3_bisect_test.dart 33:7                main.<fn>
+  
+00:22 +0 -4: (tearDownAll)
+00:23 +0 -4: Some tests failed.
