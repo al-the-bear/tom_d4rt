@@ -2615,48 +2615,89 @@ scripts changed → no regression risk, no retest required.
 
 ## Fa5 — `InheritedModel` / `InheritedWidget` `runtimeType` collapse
 
-- [ ] Fixed  - [ ] Partial  - [x] Deferred · **Severity:** Medium (architectural) · **Owner:** interpreter
+- [x] Fixed (closed-by-pre-existing-infrastructure 2026-04-28)  - [ ] Partial  - [ ] Deferred · **Severity:** Medium (architectural) · **Owner:** interpreter
 
-**Scope.** Architectural carry-over from
-`testlog_20260427-1339-post-c22` — any script that subclasses
-`InheritedModel` and calls
-`InheritedModel.inheritFrom<T>(context, aspect: ...)` fails
-because the interpreted subclass collapses to the same native
-`runtimeType` (whatever the proxy class is) — the framework's
-type-keyed lookup misses. Same shape applies to user
-`InheritedWidget` subclasses with typed
-`dependOnInheritedWidgetOfExactType<T>` calls.
+**Resolution (2026-04-28).** Both closing criteria already
+satisfied by infrastructure that landed in
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+prior to this audit. Authored reproducers, calibrated the
+harness with a deliberate-fail canary, and confirmed the
+existing interceptors handle the runtimeType collapse for both
+`InheritedWidget` and `InheritedModel` subclasses.
 
-**Why deferred.** No script in the current corpus exercises this
-shape after the window-scope rewrites. Logged for completeness
-but no reproducer.
+**Pre-existing infrastructure (no code changes needed).**
 
-**Path to closure.**
+- `_registerBridgedMethodInterceptors()` registers method
+  interceptors on `Element` for
+  `dependOnInheritedWidgetOfExactType`,
+  `getInheritedWidgetOfExactType`, and
+  `getElementForInheritedWidgetOfExactType` — they walk the
+  ancestor chain, match by
+  `_InterpretedInheritedWidget._instance.klass.name` against the
+  script-supplied type-arg name, and unwrap to the underlying
+  `InterpretedInstance` so script field/method dispatch stays in
+  the `InterpretedClass`.
+- A static interceptor on `InheritedModel.inheritFrom` (Plan E
+  in `d4rt_runtime_registrations.dart`) replicates the ancestor
+  walk, registers the aspect-aware dependency, and returns the
+  `InterpretedInstance` for matched script subclasses.
+- `_findInheritedElementForType(from, typeArgs)` is the shared
+  name-based ancestor walker; `_unwrapInheritedWidget(widget)`
+  converts the proxy back to the interpreted instance.
 
-1. **Author a reproducer script.** A minimal interpreted
-   `InheritedModel<int>` subclass plus a child that calls
-   `InheritedModel.inheritFrom<MyModel>(context, aspect: 'a')`.
-   Add to `widgets/`.
-2. **Confirm the failure shape.** The expected symptom is
-   `null` returned from `inheritFrom` because the interpreter's
-   proxy class doesn't preserve the user-declared type identity.
-3. **Propose a fix.** Two candidates:
-   - **Type tag.** Generate a per-script-class proxy whose
-     `runtimeType` returns a synthetic `Type` matching the
-     interpreted class name. Verify it covers
-     `InheritedModel`/`InheritedWidget`.
-   - **Override `updateShouldNotifyDependent`.** Route
-     Flutter's dependency check through the interpreted class's
-     overridden comparator so the framework consults the
-     interpreted aspect comparator regardless of `runtimeType`
-     collapse.
-4. **Mirror tom_d4rt ↔ tom_d4rt_ast.**
+**Verification.**
+
+Two minimal reproducers added under
+`test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/repro_fa5/`:
+
+1. `inherited_widget_exact_type.dart` — declares
+   `class MyScope extends InheritedWidget`; child calls
+   `MyScope.of(context)` (which delegates to
+   `dependOnInheritedWidgetOfExactType<MyScope>`); reader throws
+   if the result is null or fields don't match
+   `(value=42, label="fa5-test")`.
+2. `inherited_model_inherit_from.dart` — declares
+   `class CounterModel extends InheritedModel<CounterAspect>`
+   with `enum CounterAspect { value, label }`; two readers call
+   `InheritedModel.inheritFrom<CounterModel>(context, aspect: ...)`
+   for `value` and `label` aspects respectively; throw if null
+   or values don't match.
+
+**Calibration.** A `canary_must_fail.dart` reproducer
+deliberately throws inside a child widget's `build()`. Running
+the canary first proves the SendTestRunner harness records
+`frameworkErrors=1` for child-build throws, so a clean FE=0
+result on the inherited reproducers means the readers WERE
+mounted and the assertions WERE reached.
+
+**Test results** (captured
+`doc/testlog_20260428-fa5-fix/canary_repro.log.txt`):
+
+```
+[METRIC] script=repro_fa5/canary_must_fail.dart …
+  status=success frameworkErrors=1
+  ⚠️ FRAMEWORK ERROR: InternalInterpreterException(
+       originalThrownValue: Bad state: fa5-canary: deliberate
+       throw to verify harness signal)
+[METRIC] script=repro_fa5/inherited_widget_exact_type.dart …
+  status=success frameworkErrors=0
+[METRIC] script=repro_fa5/inherited_model_inherit_from.dart …
+  status=success frameworkErrors=0
+```
+
+Canary FE=1 confirms the harness catches reader throws; both
+inherited reproducers report FE=0 → readers were reached and
+the lookups returned the correct interpreted instances. Both
+closing criteria met.
+
+**Regression scope.** Test-script-only addition (regression rule
+(a)). No bridge generator, interpreter, or non-test
+flutterm code changed — individual retest of the new harness
+is sufficient. No tom_d4rt ↔ tom_d4rt_ast mirror work needed.
 
 **Closing criteria.** Reproducer renders the inherited data
 correctly; `inheritFrom<T>` returns the interpreted instance.
-
-**Estimated effort.** Reproducer 0.25 day. Investigation 1 day.
-Fix + mirror 1–2 days.
+**Both met.**
 
 ---
 
@@ -2747,7 +2788,7 @@ day to remove skips and validate.
 | Fa2 — E8 interpreter residual | interpreter | 1 (deferred) | 2–3 days | FE=0 or typed `UnsupportedError` |
 | Fa3 — E11 residual (RenderFlex overflow) | scripts | 1 | 1 short PR | gir TID=37 FE=0 |
 | Fa4 — E12 codegen (deferred) | generator + regs | ≥30 manual entries | ~3 weeks (≥12 PRs) | ≥10 manual entries removed (split into per-shape sub-clusters) |
-| Fa5 — `InheritedModel` collapse | interpreter | (no reproducer yet) | 1–2 days | Reproducer + `inheritFrom<T>` works |
+| Fa5 — `InheritedModel` collapse | interpreter | (closed-by-infra) | 0 (already fixed) | Reproducer + `inheritFrom<T>` works |
 | Fa6 — D7 Option 2 composite RO proxy | generator | (architectural) | 2–3 days | Two-mixin shape passes |
 | Fa7 — META test-app watchdog | runner | 5 W-script skips | 2–3 days | Single wedger ≠ cascade |
 

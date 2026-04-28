@@ -1,0 +1,17 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/fa5_repro_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: [fa5] repro_fa5/canary_must_fail.dart
+[METRIC] script=repro_fa5/canary_must_fail.dart sourceBytes=708 sourceChars=706 bundleJsonBytes=6754 clearMs=45 readMs=7 bundleMs=177 httpMs=749 totalMs=983 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in repro_fa5/canary_must_fail.dart (1 error(s)):
+       InternalInterpreterException(originalThrownValue: Bad state: fa5-canary: deliberate throw to verify harness signal)
+FA5 STATUS: true  FE: 1  SCRIPT: repro_fa5/canary_must_fail.dart
+  ERR: InternalInterpreterException(originalThrownValue: Bad state: fa5-canary: deliberate throw to verify harness signal)
+00:12 +1: [fa5] repro_fa5/inherited_widget_exact_type.dart
+[METRIC] script=repro_fa5/inherited_widget_exact_type.dart sourceBytes=2271 sourceChars=2265 bundleJsonBytes=23517 clearMs=58 readMs=1 bundleMs=72 httpMs=484 totalMs=616 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA5 STATUS: true  FE: 0  SCRIPT: repro_fa5/inherited_widget_exact_type.dart
+00:13 +2: [fa5] repro_fa5/inherited_model_inherit_from.dart
+[METRIC] script=repro_fa5/inherited_model_inherit_from.dart sourceBytes=3470 sourceChars=3460 bundleJsonBytes=40203 clearMs=51 readMs=3 bundleMs=36 httpMs=464 totalMs=555 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA5 STATUS: true  FE: 0  SCRIPT: repro_fa5/inherited_model_inherit_from.dart
+00:13 +3: (tearDownAll)
+00:14 +3: All tests passed!
