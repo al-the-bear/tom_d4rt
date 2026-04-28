@@ -279,7 +279,19 @@ class _RenderBoxContainerDefaultsMixinStudioState extends State<_RenderBoxContai
   }
 
   void _updateSnapshot(_RenderSnapshot next) {
-    setState(() => _snapshot = next);
+    // E15 script-side fix — `_emitSnapshot` is invoked from inside the
+    // render object's `performLayout`, `paint`, and `hitTestChildren`,
+    // i.e. mid-frame phases where `setState` is illegal under Flutter's
+    // scheduler contract. Defer the state mutation to the next post-frame
+    // callback so the visual update lands without violating the contract.
+    // The interpreter's `StateUserBridge.overrideMethodSetState` deferral
+    // remains as a safety net but is no longer relied on by this script.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _snapshot = next);
+    });
   }
 
   void _handleNodeTap(String label) {

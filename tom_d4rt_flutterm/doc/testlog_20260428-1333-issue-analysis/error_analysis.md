@@ -1292,14 +1292,54 @@ assert the fallback path the production code takes.
 
 ## E15 — `State.setState` during scheduler frame phases (script-side, C20d carry-over)
 
-- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Medium · **Owner:** scripts (refactor trigger to post-frame)
+- [x] Fixed (2026-04-28)  - [ ] Partial  - [ ] Open · **Severity:** Medium · **Owner:** scripts (refactor trigger to post-frame)
 
-**Status.** Mitigated at the interpreter level by
-`StateUserBridge.overrideMethodSetState` (defers `setState` to
-the next post-frame callback when invoked mid-frame) — this is a
-runtime-safety mitigation, not a contract fix. The scripts still
-violate Flutter's scheduler contract; the deferral merely
-prevents the assertion from corrupting the rest of the test.
+**Status (2026-04-28 close).** Both C20d-catalogued driver
+scripts have been refactored to schedule the offending
+`setState` via `WidgetsBinding.instance.addPostFrameCallback`,
+so neither script relies on the
+`StateUserBridge.overrideMethodSetState` deferral mitigation
+to pass anymore. The deferral remains in place as a safety net
+for future scripts (per the closing criteria), but is now
+inert for these two scripts.
+
+**Refactor applied.**
+
+- `rendering/render_box_container_defaults_mixin_test.dart`:
+  the `_DefaultsContainer` render object's `_emitSnapshot()` is
+  invoked from inside `performLayout`, `paint`, and
+  `hitTestChildren`. The terminal `setState` lives in
+  `_RenderBoxContainerLabState._updateSnapshot`, which is now
+  wrapped in `WidgetsBinding.instance.addPostFrameCallback`
+  with a `mounted` guard. Same observable visual update; no
+  scheduler violation.
+- `rendering/render_custom_paint_test.dart`:
+  `_BackgroundScenePainter.paint(canvas, size)` invokes the
+  injected `onSnapshot` callback. The receiver
+  `_RenderCustomPaintLabState._setSnapshot` is now wrapped in
+  `WidgetsBinding.instance.addPostFrameCallback` with a
+  `mounted` guard inside the post-frame closure as well.
+
+**Verification (regression rule (a) — script-only changes).**
+
+| Test | gii result | FE |
+|---|---|---|
+| `rendering/render_box_container_defaults_mixin_test.dart` | PASS | 0 |
+| `rendering/render_custom_paint_test.dart` | PASS | 0 |
+
+Logs in `doc/testlog_20260428-e15-fix/`. The previously
+co-occurring `Bad state: No element` error from
+`path.computeMetrics().first` in
+`render_custom_paint_test.dart` did not recur in this run; it
+remains a separate latent script-side concern (the `pathLab`
+geometry produces a non-empty path before metric extraction in
+the executed paths, so the assertion is not tripped here).
+
+**Original symptom (now suppressed both at script and
+interpreter levels).** `setState() or markNeedsBuild() called
+when widget tree was locked.` The script invokes `setState`
+from a paint / layout / transient callback site, which
+Flutter's scheduler prohibits.
 
 **Symptom.** `setState() or markNeedsBuild() called when widget
 tree was locked.` The script invokes `setState` from a paint /

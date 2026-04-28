@@ -759,8 +759,20 @@ class _RenderCustomPaintStudioState extends State<_RenderCustomPaintStudio> with
     if (!mounted) {
       return;
     }
-    setState(() {
-      _snapshot = snapshot;
+    // E15 script-side fix — this callback is invoked from inside
+    // `_BackgroundScenePainter.paint`, i.e. a mid-frame phase where
+    // `setState` is illegal under Flutter's scheduler contract. Defer
+    // the state mutation to the next post-frame callback so the visual
+    // update lands without violating the contract. The interpreter's
+    // `StateUserBridge.overrideMethodSetState` deferral remains as a
+    // safety net but is no longer relied on by this script.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _snapshot = snapshot;
+      });
     });
   }
 
