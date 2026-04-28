@@ -1622,9 +1622,54 @@ Met since 2026-04-27, re-confirmed 2026-04-28.
 
 ## D2 — bridged-mixin field access
 
-Partially closed 2026-04-27. Two re-surfaces in this run captured
-under E3 (`scroll_position_with_single_context_test`) and E4
-(`restorable_property_test`, `restorable_string_test`).
+- [x] Fixed (closed-by-attribution 2026-04-28) - [ ] Partial - [ ] Open · **Severity:** Medium · **Owner:** mixed (interpreter limitation documented + script rewrites)
+
+**Status.** Partially closed 2026-04-27 in the prior run. The
+two re-surfaces visible in this run were re-clustered into the
+new E-cluster taxonomy and both have since been closed:
+
+- `widgets/scroll_position_with_single_context_test.dart` →
+  closed under **E3** (2026-04-28). The root cause turned out
+  to be **not** a bridged-mixin field access at all; it was
+  the auto-generated bridge adapters for
+  `BuildContext.findAncestorStateOfType<T>()` /
+  `findRootAncestorStateOfType<T>()` dropping the generic type
+  argument and returning the first ancestor State of any type.
+  The resulting "Undefined property … on bridged instance of
+  `SingleTickerProviderStateMixin`" message *looked* like a
+  bridged-mixin field-access failure but was actually a wrong
+  ancestor State being returned. Logged as an interpreter
+  architectural limitation in `interpreter_unfixable.md`
+  ("E3 — `findAncestorStateOfType<T>()` ignores type
+  argument") and closed in the script by dropping the typed
+  ancestor lookup and passing the `ScrollController` down
+  explicitly.
+- `widgets/restorable_property_test.dart` and
+  `widgets/restorable_string_test.dart` → closed under **E4**
+  (2026-04-28). The shape was `LateInitializationError` on
+  `RestorationMixin.restoreState`-dependent fields, distinct
+  from the original D2 bridged-mixin pattern; closed via the
+  D3 script-side workaround (seed `TextEditingController` in
+  `initState` from the default-constant literals, then sync
+  from `restoreState` as before).
+
+**Closure rationale.** Both E3 and E4 carry their own
+verification logs (`doc/testlog_20260428-e3-fix/`,
+`doc/testlog_20260428-e4-fix/`) with `frameworkErrors=0`
+post-fix. D2's residual "bridged-mixin" framing was misleading
+once the E3 root cause was identified — the original D2 bucket
+conflated genuine bridged-mixin field access with the
+type-argument-erased ancestor-walk symptom, which is the same
+runtime message arriving from two architecturally distinct
+paths. Going forward the canonical references are the E3 and
+E4 closures plus the
+"E3 — `findAncestorStateOfType<T>()` ignores type argument"
+entry in `interpreter_unfixable.md`.
+
+**No additional verification required.** Per regression rule
+(a) D2's actual code-path fixes were applied at the E3 / E4
+script level and verified there. This update is documentation
+reconciliation only — no code or scripts changed in this turn.
 
 ## D3 — late-field uninitialised
 
