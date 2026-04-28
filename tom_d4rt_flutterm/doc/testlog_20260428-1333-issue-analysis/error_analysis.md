@@ -1868,10 +1868,56 @@ Closed in C21 + C20-series; no FE evidence in this run.
 
 ## D8 — misc gaps (compound `+=` with null, callback required-arg)
 
-Two re-surfaces in this run:
-- E7: `restorable_double_n_test` `+= null` (D8a).
-- E8: `scroll_deceleration_rate_test` `null check on null` (likely
-  D8 family, distinct from `+=`).
+- [ ] Fixed - [x] Partial (closed-by-attribution to E7 + E8 — 2026-04-28) - [ ] Open · **Severity:** Mixed (Low) · **Owner:** mixed (scripts closed; interpreter residual under E8)
+
+**Status.** D8 catalogues two distinct architectural micro-gaps
+that share a "miscellaneous correctness" theme rather than a
+single root cause. The two re-surfaces in this run were
+re-clustered into the new E-cluster taxonomy, with split
+outcomes:
+
+- **D8a — Compound `+=` with null** →
+  **E7** (`hr5/widgets/restorable_double_n_test.dart`) — **Fixed**
+  2026-04-28. Symptom: `Unimplemented Error: Compound assignment
+  operator += not handled for types double and null`. Closed by
+  a script-side rewrite that explicitly checks for null before
+  the compound assignment, with the architectural limitation
+  (interpreter does not currently expand `a += b` to
+  `a = a + b` with the proper null-aware semantics for
+  `double? += double`) logged for future interpreter work.
+  Verified at FE=0 in the E7 closure logs.
+- **D8 family follow-up — `null check on null`** →
+  **E8** (`widgets/scroll_deceleration_rate_test.dart`) —
+  **Partial** (8 FE → 2 FE). Bisect showed the 8-FE baseline
+  was a layout cascade plus an interpreter limitation, not a
+  single null assertion as the original "Suggested fix"
+  hypothesised. The cascade portion was closed at the script
+  level; the residual 2 FE are a mount-time
+  controller-propagation null shape that scales linearly with
+  the leaf `Scrollable` count and is bound to the same
+  interpreter layout/intrinsics path family as the C3
+  unfixables. Tracked under E8 for the residual interpreter
+  fix; no further script-side authoring workaround helps.
+
+**Closure rationale.** The D8 meta-cluster status follows the
+union of E7 + E8: E7 is fully closed, E8 is Partial → D8 is
+**Partial**. Promoted from the brief carry-over note to an
+explicit Partial-by-attribution closure block.
+
+D8 → Fixed when:
+
+1. The 2 residual FE in E8's
+   `scroll_deceleration_rate_test` close (interpreter-side
+   work — same intrinsics-path family that closes the C3
+   unfixables in `script_rewrites.md` §C3); and
+2. No new D8-shape micro-gaps re-surface in subsequent
+   baselines.
+
+**No additional verification required in this turn.** Both E7
+and E8 carry their own verification logs
+(`doc/testlog_20260428-e7-fix/`, `doc/testlog_20260428-e8-fix/`).
+No code or scripts changed in this turn — this update is
+documentation reconciliation only.
 
 ## Wedge taxonomy (W1–W5)
 
