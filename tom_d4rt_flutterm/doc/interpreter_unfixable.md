@@ -546,6 +546,25 @@ next interpreter pass.
   framing was speculative, and a script-side workaround is
   available. Tracked in `script_rewrites.md` until / unless a
   debug-build bisect proves otherwise.
+- 2026-04-28 (close-out, E14): Cluster **E14 — `SystemColor`
+  platform guard on Linux** in
+  `testlog_20260428-1333-issue-analysis/error_analysis.md`
+  closed as deferred-pending-platform-support. No interpreter
+  or generator change is possible: the Linux desktop test
+  harness does not expose Flutter's `SystemColor` platform
+  channel, and the interpreter faithfully forwards the `null`
+  it receives — fabricating colours would make the test pass
+  on a lie. The closure rests on three artifacts already in
+  place: (1) the `Platform.isLinux` test-runner skip at
+  `tom_d4rt_flutterm/test/generator_interpreter_retest_test.dart:74`,
+  (2) script-side `try/catch` around `ui.SystemColor.light` /
+  `ui.SystemColor.dark` with a fallback UI in
+  `retest/dart_ui/system_color_palette_test.dart` (lines
+  831-842, marked with a `D4RT-LIMITATION` comment), and
+  (3) the canonical write-up in `script_rewrites.md` under
+  "Platform capability guard — `SystemColor` on Linux"
+  (lines 79-100). Reopen and drop the skip if Linux gains
+  `SystemColor` support upstream.
 - 2026-04-28 (later evening): **Move suggested-fix entries to
   `error_analysis.md`.** Three sections that previously lived
   here had concrete interpreter / generator fix proposals

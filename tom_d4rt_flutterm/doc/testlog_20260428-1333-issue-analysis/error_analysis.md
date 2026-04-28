@@ -1234,7 +1234,7 @@ interpreter mirror required.
 
 ## E14 — `SystemColor` platform guard on Linux (script-side, 1 script) — carry-over from `script_rewrites.md`
 
-- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Low · **Owner:** scripts (platform skip)
+- [ ] Fixed  - [x] Partial (closed-as-deferred 2026-04-28)  - [ ] Open · **Severity:** Low · **Owner:** scripts (platform skip)
 
 **Status.** Already gated in
 `generator_interpreter_retest_test.dart:74` with
@@ -1242,6 +1242,32 @@ interpreter mirror required.
 Tracked here for completeness; the partial mark reflects that
 the symptom is suppressed on Linux but no positive coverage
 exists.
+
+**Status (2026-04-28 close).** No code or generator action
+required. The closing artifacts are already in place across
+three layers:
+
+1. **Test-runner skip** — `generator_interpreter_retest_test.dart:69-74`
+   skips `retest: dart_ui/system_color_palette_test.dart` when
+   `Platform.isLinux` is true.
+2. **Script-side guard** — `retest/dart_ui/system_color_palette_test.dart`
+   wraps `ui.SystemColor.light` / `ui.SystemColor.dark` lookups
+   in a `try/catch` (lines 837-842) and renders a fallback UI
+   on `MissingPluginException` / null returns. A
+   `D4RT-LIMITATION` comment at line 831 records the rationale.
+3. **Documentation** — the underlying platform limitation and
+   the script-level workaround live in
+   `doc/script_rewrites.md` under
+   "Platform capability guard — `SystemColor` on Linux"
+   (lines 79-100). This cluster carries that entry into the
+   2026-04-28 testlog for trail completeness.
+
+**Why this stays Partial, not Fixed.** "Fixed" would imply
+positive coverage on the targeted platform; on Linux the test
+is skipped, so the cluster is closed-as-deferred-pending-platform-support
+rather than closed-as-passing. Mark Fixed only when Linux
+gains `SystemColor` support upstream and the skip can be
+dropped with the test going green.
 
 **Symptom.** `SystemColor.*` lookups return null on Linux desktop
 test harnesses; downstream painting fails because the bridged
