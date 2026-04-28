@@ -646,135 +646,235 @@ should only *add* successful coercions.
 
 ---
 
-# Cluster R — `gir` W1–W5 transport cascade (carry-over from `interpreter_issues.md`)
+## E13 — Enum exhaustiveness on bridged enums (script-side, 15 scripts) — carry-over from `script_rewrites.md`
 
-- [x] **Mitigated 2026-04-28 evening** (skip applied) - [ ] Fixed  - [ ] Partial · **Severity:** High → Medium · **Owner:** test runner / `tom_d4rt_flutterm_app` watchdog (durable fix); skip applied as day-1 mitigation
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (add `default:` arm)
 
-**Status.** This is the W4 wedger entry in
-`interpreter_issues.md` ("Watchlist") manifesting in the
-`generator_interpreter_retest_test` suite. `widgets/lock_state_test.dart`
-(gir TID=43) wedged the test app /build endpoint with
-`HttpException: Connection closed before full header was received`,
-and the next 19 retests (TIDs 44–62) all aborted with
-`SocketException: Connection refused (errno = 111)` against
-ephemeral ports (34210, 34232, …). This is the textbook W4
-cascade shape predicted by the `[META] Structural cascade in
-retest suite` entry: the test app crashed, the runner attempted
-to reconnect to a fresh port that was never opened, and every
-subsequent gir test failed at /clear before it could submit
-anything.
+**Status.** Tracked as the "Enum exhaustiveness — `switch` over
+bridged enum" entry in `script_rewrites.md`. Mirrored here so the
+single fix list is complete. 15 scripts share the shape.
 
-**True non-cascade gir failures (4):**
+**Symptom.** Compile-time error
+`The type 'BridgedEnumValue' is not exhaustively matched by the switch cases since it doesn't match 'BridgedEnumValue(<missing>)'`.
+The script declares an exhaustive `switch` over a bridged enum
+and the analyzer cannot prove exhaustiveness because the bridged
+enum's full value set is registered at runtime, after parse time.
 
-| TID | Script | Result | Shape |
-|---|---|---|---|
-| 31 | `retest/rendering/render_animated_size_state_test.dart` | failure | RenderFlex overflowed by 2.0 pixels — see E10 |
-| 33 | `retest/services/message_codec_test.dart` | failure | E1 — `_ByteDataView.lengthInBytes` undefined |
-| 34 | `retest/services/method_codec_test.dart` | failure | E1 — `_ByteDataView.lengthInBytes` undefined |
-| 37 | `retest/widgets/back_button_listener_test.dart` | failure | Router routerDelegate coercion — see E11 |
+**Affected scripts (15).**
+`dart_ui/color_space_test.dart` (Index 13),
+`material/button_bar_layout_behavior_test.dart` (Index 25),
+`material/button_text_theme_test.dart` (Index 27),
+`material/dropdown_menu_close_behavior_test.dart` (Index 30),
+`material/hour_format_test.dart` (Index 34),
+`material/material_banner_closed_reason_test.dart` (Index 36),
+`material/navigation_destination_label_behavior_test.dart` (Index 38),
+`material/navigation_rail_label_type_test.dart` (Index 40),
+`material/popup_menu_position_test.dart`,
+`painting/axis_direction_test.dart`,
+`rendering/hit_test_behavior_test.dart`,
+`rendering/render_android_view_test.dart`,
+`dart_ui/vertex_mode_test.dart`,
+`services/live_text_input_status_test.dart`,
+`services/lock_state_test.dart`.
 
-The 4 non-cascade are all known: 2 pre-existing pre-C22 carry-overs
-documented in `interpreter_unfixable.md`, plus the 2 newly-surfaced
-E1 cases.
+**Why not interpreter-fixable.** Closing the gap would require
+the host analyzer to consult the runtime registry during
+exhaustiveness inference — a cross-layer change with no clean
+landing site. The interpreter has no hook in the exhaustiveness
+pass.
 
-**Cascade victims (20).** All from TID=44 to TID=62: lock_state
-itself's HttpException after which every subsequent script
-errored at `GET /clear` with Connection refused. List:
-`widgets/{nested_scroll_view_state, next_focus_intent, object_key,
-raw_dialog_route, raw_keyboard_listener, raw_menu_overlay_info,
-raw_radio, redo_text_intent, regular_window_controller_delegate,
-regular_window_controller_linux, regular_window_controller_mac_o_s,
-regular_window_controller, regular_window_controller_win32,
-regular_window, render_abstract_layout_builder_mixin,
-render_nested_scroll_view_viewport, render_tap_region_surface,
-replace_text_intent, request_focus_action}_test.dart`.
+**Suggested fix (script-side).** Add a `default:` arm to each
+`switch`. Where the test's intent is "verify all values are
+handled", supplement the default with explicit
+`expect(values.length, equals(N))` so the test still asserts the
+enum's cardinality without relying on exhaustiveness inference.
+Each script is independent; can be batched 5–6 per PR.
 
-**Suggested fix.** Two complementary changes, neither blocking:
-
-1. **Test-app watchdog** (META structural fix) — extend
-   `SendTestRunner` so a single `Connection closed` /
-   `Connection refused` triggers a fast app-process restart and
-   a port re-discovery, rather than letting subsequent /clear
-   calls fail against a dead socket. This converts a 20-script
-   cascade into a single failure + 19 retries.
-2. **Skip W4 in gir** — apply the same `skip:` pattern used for
-   W1, W2, W3, W5 to `widgets/lock_state_test.dart` until the
-   underlying wedge is diagnosed. This recovers 19 cascade
-   victims immediately.
-
-The watchdog work is tracked in `interpreter_issues.md` "[META]
-Structural cascade in retest suite" and is out of scope for a
-single-cluster fix.
-
-**2026-04-28 evening update — skip applied.** Per user request,
-`widgets/lock_state_test.dart` is now skipped in
-`generator_interpreter_retest_test.dart` with the same `skip:`
-pattern used for W1, W2, W3, W5. A targeted re-run of the gir
-suite (W4-skip artefacts:
-`generator_interpreter_retest_test.W4skip.{log.txt,result.json}`)
-confirms:
-
-| Metric | Initial run (W4 active) | After W4 skip | Δ |
-|---|---|---|---|
-| Wall time | ~13 min (cascade timeouts) | **1 m 12 s** | -91 % |
-| Pass | 34 | **54** | **+20** |
-| Skip | 4 | **5** | +1 (lock_state) |
-| Fail | 4 | **4** | 0 |
-| Error | 20 | **0** | **-20** |
-| FE scripts | 2 | 2 | 0 |
-
-The 4 remaining failures with the cascade closed are exactly the
-2 pre-existing carry-overs from `interpreter_unfixable.md` (gir
-TIDs 31, 37) plus the 2 newly-surfaced E1 cases (TIDs 33, 34).
-Every cascade victim (TIDs 44–62) now passes.
-
-The skip is the day-1 mitigation; the durable fix is still the
-test-app watchdog. The interpreter-side investigation work for
-the lock_state wedge itself is captured below as Cluster F4.
+**Closing criteria.** All 15 scripts compile and pass; no
+interpreter mirror required.
 
 ---
 
-# Wedgers W1–W5 — pass in isolation (verified 2026-04-28)
+## E14 — `SystemColor` platform guard on Linux (script-side, 1 script) — carry-over from `script_rewrites.md`
 
-The previous draft of this analysis tracked five "fix-clusters"
-F1–F5, one per skipped wedger script. **F1–F5 are removed**: a
-follow-up isolation run on 2026-04-28 evening (logged in
-`tom_d4rt_flutterm/test/blocking_tests_test.dart`) confirmed
-that **all five wedger scripts pass cleanly when run in their
-own dedicated suite**, in the order W1 → W2 → W3 → W4 → W5:
+- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Low · **Owner:** scripts (platform skip)
 
-| Wedger | Script | totalMs | frameworkErrors | Outcome |
-|---|---|---|---|---|
-| W1 | `retest/widgets/context_action_test.dart` | 1725 | 0 | success |
-| W2 | `retest/widgets/default_text_editing_shortcuts_test.dart` | 11 100 (10 s wait) | 0 | success |
-| W3 | `retest/widgets/live_text_input_status_test.dart` | 11 172 (10 s wait) | 0 | success |
-| W4 | `retest/widgets/lock_state_test.dart` | 965 | 0 | success |
-| W5 | `widgets/animated_switcher_test.dart` | 1095 | 0 | success |
+**Status.** Already gated in
+`generator_interpreter_retest_test.dart:74` with
+`skip: Platform.isLinux ? 'SystemColor not supported on Linux'`.
+Tracked here for completeness; the partial mark reflects that
+the symptom is suppressed on Linux but no positive coverage
+exists.
 
-All 5 ran as a group in 38 s wall time — no cascade reproduced,
-so individual single-script runs were unnecessary.
+**Symptom.** `SystemColor.*` lookups return null on Linux desktop
+test harnesses; downstream painting fails because the bridged
+engine does not expose system-palette colours.
 
-**Conclusion.** None of W1–W5 are intrinsically broken scripts.
-Each one passes its own assertion set with `frameworkErrors=0`.
-The cascade observed in `gir` / `gii` is a function of the
-test-app process having accumulated state from a long preceding
-suite — W4's `HttpException: Connection closed` only fires on
-`POST /build` after the app has been alive for ~13 minutes of
-prior tests, not in a fresh process.
+**Affected script.** `retest/dart_ui/system_color_palette_test.dart`
+(Index 16).
 
-**Implication for the fix campaign.** The per-wedger
-investigation work formerly tracked as F1–F5 (bisect → diagnose
-crash mode → fix script or document workaround) is **not
-necessary**. The only durable lever is the META structural
-test-app watchdog tracked in `interpreter_issues.md` "[META]
-Structural cascade in retest suite". Once the watchdog lands —
-auto-restart of the test-app process on transport failure with
-port re-discovery — the 5 skips can be removed from the long
-suites without further per-script work. Until then, the skips
-remain as the day-1 mitigation; the isolation harness
-(`test/blocking_tests_test.dart`) remains as the standing
-verification that each wedger script stays viable as the
-interpreter changes.
+**Why not interpreter-fixable.** The interpreter is faithfully
+forwarding `null` from the bridged platform channel. Returning
+fabricated colours would make the test pass on a lie.
+
+**Suggested fix (script-side).** Keep the `Platform.isLinux`
+skip. When authoring fresh scripts that touch `SystemColor`,
+gate on `Platform.isLinux` (and other unsupported platforms) and
+assert the fallback path the production code takes.
+
+**Closing criteria.** Skip remains in place; if Linux gains
+`SystemColor` support upstream, drop the skip and re-verify.
+
+---
+
+## E15 — `State.setState` during scheduler frame phases (script-side, C20d carry-over)
+
+- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Medium · **Owner:** scripts (refactor trigger to post-frame)
+
+**Status.** Mitigated at the interpreter level by
+`StateUserBridge.overrideMethodSetState` (defers `setState` to
+the next post-frame callback when invoked mid-frame) — this is a
+runtime-safety mitigation, not a contract fix. The scripts still
+violate Flutter's scheduler contract; the deferral merely
+prevents the assertion from corrupting the rest of the test.
+
+**Symptom.** `setState() or markNeedsBuild() called when widget
+tree was locked.` The script invokes `setState` from a paint /
+layout / transient callback site, which Flutter's scheduler
+prohibits.
+
+**Affected scripts.** Multiple deep-demo scripts that drive
+animation controllers from inside `paint`, `performLayout`, or
+transient callbacks (catalogued under C20d in
+`doc/testlog_20260427-1339-post-c22/error_analysis.md`).
+
+**Why not interpreter-fixable beyond the deferral mitigation
+already in place.** Flutter's scheduler keeps the widget tree
+locked during build / layout / paint / transient phases. The
+interpreter cannot relax the contract without breaking native
+parity.
+
+**Suggested fix (script-side).** Schedule the state change with
+`WidgetsBinding.instance.addPostFrameCallback((_) =>
+setState(...))`, or refactor the trigger to a gesture / timer
+callback that runs outside frame phases. Same observable test
+output, no scheduler violation.
+
+**Closing criteria.** Each affected script drops to 0 FE without
+relying on the deferral mitigation; the deferral remains as a
+safety net for future scripts.
+
+---
+
+## E16 — `Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter` (script-side, C3 carry-over)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (avoid the pattern in unbounded parents)
+
+**Status.** Documented in `script_rewrites.md` as the C3 cascade.
+8 framework errors from one cascade in
+`widgets/scroll_deceleration_rate_test.dart`. Two script-side
+rewrite attempts in `doc/testlog_20260427-c3/` **increased** the
+error count from 8 to 11 and were reverted; the script remains
+at the 8-error baseline.
+
+**Symptom.** Cluster of 8 entries:
+1. `BoxConstraints forces an infinite height` from
+   `ChildLayoutHelper.layoutChild` with
+   `BoxConstraints(0.0<=w<=Infinity, h=Infinity)`.
+2. `RenderBox was not laid out: RenderFlex#…` (`hasSize`
+   assertion at `box.dart:2251`).
+3. `RenderBox was not laid out: RenderPadding#…` (same
+   assertion).
+4. Five `Null check operator used on a null value` entries from
+   the framework's post-failure walk over half-laid-out boxes.
+
+**Affected script.** `widgets/scroll_deceleration_rate_test.dart`
+(`_TelemetryRow.build()` lines 828–858 and `_CoastCurves.build()`
+lines 1083–…).
+
+**Underlying trigger.** `Padding > Row(crossAxisAlignment:
+CrossAxisAlignment.stretch, children: [Expanded(...), SizedBox,
+Expanded(...)])` inside a `SliverToBoxAdapter` child of a
+`CustomScrollView`. `SliverToBoxAdapter` gives bounded width but
+unbounded height; `crossAxisAlignment: stretch` asks each
+`Expanded` child to receive `BoxConstraints(0..w, h=Infinity)`,
+which trips the layout-helper assertion before `RenderFlex`
+settles a height.
+
+**Why not interpreter-fixable.** The constraint chain is computed
+inside Flutter's `RenderObject` layout protocol. Two earlier
+script-side attempts (intrinsic-pass workaround, drop-stretch)
+both regressed; this script needs structural reauthoring.
+
+**Suggested fix (script-side).** Two equivalent rewrites preserve
+the visual layout:
+1. Pin a finite height on the row's parent —
+   `SizedBox(height: <intrinsic>, child: Row(... Expanded ...))`
+   — so cross-axis stretch resolves against a bounded value.
+2. Replace `Expanded` with explicit `SizedBox(width: …)` children
+   and drop `crossAxisAlignment: stretch`; if matched heights are
+   required, give each card the same `height:` constant.
+
+**Closing criteria.** FE drops to 0 in `secondary_classes_test`
+for `scroll_deceleration_rate_test`; rendered output unchanged.
+
+---
+
+## E17 — `RangeSlider` with `onChanged: null` + default M3 gapped track shape (script-side, Index 32)
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (no-op `onChanged` recommended)
+
+**Status.** Migrated 2026-04-28 from `interpreter_unfixable.md`
+to `script_rewrites.md` per user assessment that the null-deref
+pattern is most consistent with a script-side contract violation,
+not a framework null path. Tracked here so the single fix list is
+complete.
+
+**Symptom.** Multiple null-related errors (`Null check operator
+used on a null value`, null-receiver method invocations) thrown
+during the slider track painting code path. Stack frames land
+inside Flutter's `RangeSlider` / `RangeSliderTrackShape.paint`,
+not in script-controlled code.
+
+**Affected script.**
+`material/gapped_range_slider_track_shape_test.dart` (41 lines).
+
+**Underlying trigger.** `RangeSlider(values: range, min: 0,
+max: 1, onChanged: null)` inside the default Material 3
+`SliderTheme`. M3 resolves the default `rangeTrackShape` to
+`GappedRangeSliderTrackShape`, whose `paint` method walks the
+active / inactive segment colours via the slider's enabled
+state. With `onChanged: null` the slider is disabled, and the
+gapped shape's paint path follows a branch that — under M3
+defaults — reads a `MaterialStateProperty` value that resolves
+to `null`.
+
+**Why not interpreter-fixable.** The contract that
+`RangeSlider`'s gapped track shape paints cleanly is satisfied
+for *enabled* sliders with a fully populated theme; passing
+`onChanged: null` is the documented-but-edge-case "disabled
+slider" path.
+
+**Suggested fix (script-side).** Three low-cost rewrites preserve
+the script's intent:
+1. **No-op `onChanged`** — pass `onChanged: (RangeValues _) {}`
+   so the slider stays enabled. **Recommended path.**
+2. **Wrap in `IgnorePointer`** — keep `onChanged` non-null but
+   wrap the `RangeSlider` in `IgnorePointer` to disable input
+   while leaving the painter on the enabled code path.
+3. **Override the track shape explicitly** —
+   `SliderTheme(data: SliderTheme.of(context).copyWith(
+   rangeTrackShape: const GappedRangeSliderTrackShape()), …)`.
+
+**Open verification step.** Before declaring fully closed,
+reproduce the script under vanilla `flutter test` (no
+interpreter) with `onChanged: null` to confirm the same
+null-deref fires natively. If it does not, the entry returns to
+interpreter-side investigation. If it does, file upstream
+(Flutter GitHub) and apply workaround 1.
+
+**Closing criteria.** FE drops to 0 in
+`generator_interpreter_issues_test`; rendered output unchanged.
 
 ---
 
@@ -889,6 +989,11 @@ test-app watchdog only.
 | E10 — `render_animated_size_state` 2.0 px overflow | Low | interpreter | 1 (gir TID=31) | 1 failure |
 | E11 — `back_button_listener` Router routerDelegate adapter | Medium | interpreter | 1 (gir TID=37) | 1 failure |
 | E12 — Auto-generated abstract-class adapters (DESIGN) | Low | generator | (n/a) | (design exploration) |
+| E13 — Enum exhaustiveness on bridged enums   | Low    | scripts     | 15              | 15 compile errors |
+| E14 — `SystemColor` Linux platform guard     | Low    | scripts     | 1 (skipped)     | 0 FE (skip in place) |
+| E15 — `setState` in scheduler frame phases (C20d) | Medium | scripts | (multiple deep-demo) | (deferral mitigation in place) |
+| E16 — `Row(stretch)` + `Expanded` in `SliverToBoxAdapter` (C3) | Low | scripts | 1 | 8 FE |
+| E17 — `RangeSlider` `onChanged: null` + M3 gapped (Index 32) | Low | scripts | 1 | (FE cluster, gii) |
 | R  — gir W1–W5 transport cascade             | High → Mitigated | test runner | 1 trigger → 19 victims | 20 errors → 0 (after skip; W1–W5 pass in isolation) |
 
 Closed-on-or-before this run (no action needed):
@@ -944,6 +1049,22 @@ above), D5/D7 (2026-04-27).
    - **E12** (auto-generated abstract-class adapters) — design
      exploration; phase 1 reproduces existing manual adapters
      from generator output.
+
+   **Script-side rewrites to apply (no interpreter change):**
+   - **E13** — add `default:` arms to 15 bridged-enum `switch`
+     scripts (batchable 5–6 per PR).
+   - **E14** — `SystemColor` Linux skip is in place; no action
+     beyond keeping the platform guard.
+   - **E15** — apply `addPostFrameCallback` / outside-frame
+     refactor to C20d-affected scripts so they don't rely on
+     the interpreter's deferral mitigation.
+   - **E16** — pin a finite height on the `Row` parent or drop
+     `crossAxisAlignment: stretch` in
+     `scroll_deceleration_rate_test`.
+   - **E17** — switch `gapped_range_slider_track_shape_test` to
+     `onChanged: (_) {}` (recommended) and bisect under vanilla
+     `flutter test` to confirm the script-contract-violation
+     diagnosis.
 
 5. **Test-app watchdog (META) is still the highest-leverage
    structural change** — even with W4 skipped, F1, F2, F3, F4
