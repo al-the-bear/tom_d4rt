@@ -1,6 +1,0 @@
-00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/generator_interpreter_issues_test.dart
-00:00 +0: (setUpAll)
-00:11 +0: Section 2 - Bridge Generator Issues (80) rendering/box_hit_test_result_test.dart
-[METRIC] script=rendering/box_hit_test_result_test.dart sourceBytes=53094 sourceChars=49078 bundleJsonBytes=534681 clearMs=47 readMs=11 bundleMs=258 httpMs=1437 totalMs=1754 status=success httpStatus=200 outputLines=6 frameworkErrors=0
-00:13 +1: (tearDownAll)
-00:13 +1: All tests passed!
