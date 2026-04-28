@@ -24,6 +24,7 @@ script-side rewrite that makes the test pass cleanly.
 | [Layout cascade — `Column`+`Expanded` in unbounded parent](#layout-cascade--columnexpanded-in-unbounded-parent-d6e2) | 18 scripts (D6 / E2) | Flutter `RenderFlex` constraint contract |
 | [`Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter`](#rowcrossaxisalignment-stretch--expanded-in-slivertoboxadapter-c3) | `widgets/scroll_deceleration_rate_test.dart` | Flutter `RenderFlex` cross-axis contract |
 | [`BorderRadius` shorthand vs uniform-corner constraint](#borderradius-shorthand-vs-uniform-corner-constraint-e5) | `widgets/widgets_binding_observer_test.dart` | Flutter `BorderRadius` contract |
+| [`whereType<T>()` does not filter nulls in d4rt stdlib](#wheretypet-does-not-filter-nulls-in-d4rt-stdlib-e7) | `widgets/restorable_double_n_test.dart` | d4rt stdlib generic-erasure limitation |
 | [`RangeSlider` with `onChanged: null` + default M3 gapped track shape](#rangeslider-with-onchanged-null--default-m3-gapped-track-shape-index-32) | `material/gapped_range_slider_track_shape_test.dart` | Flutter `RangeSliderTrackShape.paint` disabled-state contract |
 | [`FragmentProgram` engine cascade in multi-test suites](#fragmentprogram-engine-cascade-in-multi-test-suites) | `dart_ui/image_sampler_slot_test.dart` | Engine pipeline teardown |
 
@@ -271,6 +272,75 @@ script-side rewrite that makes the test pass cleanly.
   test specifically wants both, switch to `ShapeDecoration` with
   a `RoundedRectangleBorder` whose `side` is uniform. Same
   rendered output, no contract violation.
+
+---
+
+## `whereType<T>()` does not filter nulls in d4rt stdlib (E7)
+
+- **Source:** `widgets/restorable_double_n_test.dart` (1 framework
+  error, only reproducible inside the `hr5` suite chain
+  `restorable_bool_n` → `restorable_change_notifier` →
+  `restorable_date_time_n` → `restorable_double_n`; standalone the
+  script is FE-free, see
+  `doc/testlog_20260428-e7-fix/e7_bisect_pre.log.txt` vs
+  `e7_bisect_pre_chain.log.txt`).
+- **Symptom.** `Unimplemented Error: Compound assignment operator
+  += not handled for types double and null` raised inside the
+  `_averageLogged` getter on the `+= v` site, where `v` originates
+  from `_allDays.map((d) => d.value).whereType<double>().toList()`
+  with `RestorableDoubleN(null)` entries in `_allDays`.
+- **Underlying d4rt limitation.** The stdlib bridge for
+  `Iterable.whereType` discards the generic type argument:
+
+  ```dart
+  // tom_d4rt/lib/src/stdlib/core/iterable.dart:177
+  'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+    return (target as Iterable).whereType();
+  },
+  ```
+
+  The same shape is repeated for `List`, `Set`, `HashSet`, `Runes`,
+  and `Uint8List`. Because `whereType()` (no type argument) is
+  equivalent to `whereType<dynamic>()`, it never filters anything
+  out — every element of the source iterable, including `null`, is
+  passed through. The receiving `for (final double v in logged)`
+  loop in d4rt does not statically refuse the null assignment, so
+  the null reaches `sum += v` as the right-hand side and the
+  compound-assignment dispatcher hits its unimplemented arm
+  (`double += null`).
+- **Why this is interpreter-architectural, not a quick fix.**
+  Propagating the generic argument from the call site to the
+  stdlib adapter would require generic type tracking in
+  `BridgedClass` method dispatch — a cross-cutting change that
+  touches every bridged generic method (`whereType`, `cast`,
+  `whereType` variants on every collection, plus `cast`
+  equivalents). It also overlaps with the broader limitation
+  documented in `interpreter_unfixable.md` for generic stdlib
+  methods. The case is tracked there as a wider follow-up.
+- **Why the chain matters.** Standalone, the script's first
+  `_averageLogged` evaluation runs in a freshly-cleared
+  interpreter and the `_allDays` `RestorableDoubleN(null)`
+  entries' `value` getter happens to return a non-null sentinel
+  (engine default) before restoration completes, so the loop
+  computes against numeric values only. After the chain warm-up,
+  the prior `restorable_*` scripts leave the interpreter in a
+  state where `RestorableDoubleN(null).value` returns `null`
+  promptly, exposing the unfiltered `whereType` path.
+- **Workaround.** Replace the chained `.map(...).whereType<T>().toList()`
+  with explicit null-guarded accumulation:
+
+  ```dart
+  final List<double> logged = <double>[];
+  for (final RestorableDoubleN d in _allDays) {
+    final double? v = d.value;
+    if (v != null) {
+      logged.add(v);
+    }
+  }
+  ```
+
+  Same semantics, no reliance on the d4rt-eroded
+  `whereType<double>()` filter.
 
 ---
 

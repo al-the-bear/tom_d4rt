@@ -595,9 +595,9 @@ name)` that:
 
 ---
 
-## E7 — `widgets/restorable_double_n_test` `+=` on null (NEW)
+## E7 — `widgets/restorable_double_n_test` `+=` on null (FIXED — script-side)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** interpreter
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** script (architectural limitation logged)
 
 **Symptom.** `hr5/widgets/restorable_double_n_test.dart` 1 FE:
 
@@ -605,18 +605,54 @@ name)` that:
 Unimplemented Error: Compound assignment operator += not handled for types double and null
 ```
 
-**Likely cause.** Same shape as the prior testlog's D8a entry —
-compound assignment `x += y` where the left side is a nullable
-`double?` that is currently null. The interpreter doesn't yet
-treat `null += y` as an error class with the standard Dart
-"`null` check operator …" semantics; instead it raises an
-`UnimplementedError`.
+**Actual cause (root-cause fix landed 2026-04-28).** The error
+format is `<lhs.runtimeType> and <rhs.runtimeType>`, so it is the
+RHS that is null, not the LHS. The RHS originates from
+`_allDays.map((d) => d.value).whereType<double>().toList()` —
+where `_allDays` contains `RestorableDoubleN(null)` entries with
+`value == null`. The d4rt stdlib bridge for `whereType` discards
+the generic argument:
 
-**Suggested fix.** Extend the compound-assignment path in both
-interpreters to throw a `Null check operator used on a null
-value` (matching Flutter's `!` operator semantics) when the LHS
-is null and the operator requires a non-null receiver. Mirror
-across `tom_d4rt` and `tom_d4rt_ast`.
+```dart
+// tom_d4rt/lib/src/stdlib/core/iterable.dart:177
+'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+  return (target as Iterable).whereType();
+},
+```
+
+`whereType()` (no argument) is `whereType<dynamic>()` and never
+filters anything, so nulls flow through into the loop and reach
+`sum += v` as the right-hand side, which has no implementation in
+the compound-assign dispatcher (`double += null`). This is the
+same family as **E3** — generic type arguments erased at the
+bridge boundary.
+
+**Fix landed.** Script-side: replaced
+`.map(...).whereType<double>().toList()` in `_averageLogged` with
+explicit null-guarded accumulation. See `script_rewrites.md` →
+"`whereType<T>()` does not filter nulls in d4rt stdlib (E7)" for
+the rewrite.
+
+**Architectural follow-up.** The deeper limitation —
+generic-argument erasure at the stdlib bridge boundary — is
+catalogued in `interpreter_unfixable.md` → "E7 —
+`Iterable.whereType<T>()` drops generic argument". A future
+unified change would propagate generic arguments through bridged
+dispatch and close E3 + E7 together.
+
+**Verification (2026-04-28).**
+
+- Pre-fix: standalone FE=0 (false negative —
+  `doc/testlog_20260428-e7-fix/e7_bisect_pre.log.txt`); chain
+  bisect (`restorable_bool_n` → `restorable_change_notifier` →
+  `restorable_date_time_n` → `restorable_double_n`) reproduces
+  FE=1
+  (`doc/testlog_20260428-e7-fix/e7_bisect_pre_chain.log.txt`).
+- Post-fix: chain bisect FE=0 across all four scripts
+  (`doc/testlog_20260428-e7-fix/e7_bisect_post_v1.log.txt`).
+- Regression scope (rule (a) — script-only change): single test
+  retest sufficient. The chain bisect is the regression suite for
+  this cluster.
 
 ---
 

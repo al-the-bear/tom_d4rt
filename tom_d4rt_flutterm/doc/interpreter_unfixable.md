@@ -30,6 +30,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
 | [E3 — `findAncestorStateOfType<T>()` ignores type argument](#e3--findancestorstateoftypet-ignores-type-argument) | Interpreter limitation (bridge generator drops `T`; script-side rewrite supplied) | `widgets/scroll_position_with_single_context_test.dart` |
 | [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
+| [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -353,6 +354,73 @@ named fields are not reflectively accessible without
 **Documented.** 2026-04-28 with the E6 fix in
 `tom_d4rt/lib/src/interpreter_visitor.dart` and
 `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
+
+---
+
+## E7 — `Iterable.whereType<T>()` drops generic argument (interpreter limitation)
+
+**Category.** Interpreter / generator architectural limitation
+(same family as E3 — bridged generic methods drop their type
+argument at the boundary).
+
+**Triggering shape.** Any d4rt script that relies on
+`whereType<T>()` to remove `null` (or off-type values) from an
+iterable and feeds the result into code that requires the
+declared type.
+
+```dart
+final List<double> logged = _allDays
+    .map((RestorableDoubleN d) => d.value) // Iterable<double?>
+    .whereType<double>()                    // expected to drop nulls
+    .toList();
+double sum = 0.0;
+for (final double v in logged) {
+  sum += v;                                 // null reaches here
+}
+```
+
+**Where it fails.** The stdlib bridges for collection types call
+`whereType()` (no type argument) inside the adapter:
+
+```dart
+// tom_d4rt/lib/src/stdlib/core/iterable.dart:177
+'whereType': (visitor, target, positionalArgs, namedArgs, _) {
+  return (target as Iterable).whereType();
+},
+// Same shape: list.dart, set.dart, hash_set.dart, runes.dart,
+// typed_data/uint8_list.dart, plus `cast` adapters alongside.
+```
+
+`whereType()` with no argument resolves to `whereType<dynamic>()`,
+which never filters anything. The d4rt bridge has no view of the
+caller's `<double>` annotation, so the filter is silently a
+no-op.
+
+**Why it's an architectural limitation.** Propagating the call
+site's generic argument through the bridge dispatcher would
+require generic type tracking on every `BridgedClass` method
+call. It would touch every generic stdlib method (`whereType`,
+`cast`, and their per-collection variants), the bridge generator's
+emitted adapters, and the interpreter's method-resolution path.
+This is the same architectural ceiling already documented for
+**E3 — `findAncestorStateOfType<T>()`** above; both are instances
+of the broader generic-type-argument-erasure issue. A targeted
+follow-up would unify the two under a shared "preserve generic
+arg through bridged dispatch" change.
+
+**Why not just hard-code `whereType<T>()` per common T?** Dart
+allows `whereType<MyDomainType>()` for any user type, including
+interpreted classes. A switch over a few well-known `T`s would
+fix the common cases (`whereType<double>`, `whereType<Widget>`,
+…) but leave the long tail.
+
+**Workaround at the script level.** Replace
+`.map(...).whereType<T>()` with explicit accumulation that
+null-checks (or type-checks) inline. See the E7 entry in
+`script_rewrites.md` for the canonical rewrite.
+
+**Documented.** 2026-04-28 alongside the E7 script-side closure
+of `widgets/restorable_double_n_test.dart`.
 
 ---
 

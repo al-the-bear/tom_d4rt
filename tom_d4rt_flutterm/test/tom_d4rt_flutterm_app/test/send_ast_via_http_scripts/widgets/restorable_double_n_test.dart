@@ -155,10 +155,13 @@ class _WeightLogDemoState extends State<WeightLogDemo>
 
   /// Arithmetic mean of the non-null day entries, or null if all skipped.
   double? get _averageLogged {
-    final List<double> logged = _allDays
-        .map((RestorableDoubleN d) => d.value)
-        .whereType<double>()
-        .toList();
+    final List<double> logged = <double>[];
+    for (final RestorableDoubleN d in _allDays) {
+      final double? v = d.value;
+      if (v != null) {
+        logged.add(v);
+      }
+    }
     if (logged.isEmpty) {
       return null;
     }
