@@ -2703,7 +2703,7 @@ correctly; `inheritFrom<T>` returns the interpreted instance.
 
 ## Fa6 — D7 Option 2: composite render-object proxy generator
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium (architectural) · **Owner:** generator (proxy generator) + flutterm registrations
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Severity:** Medium (architectural) · **Owner:** generator (proxy generator) + flutterm registrations
 
 **Scope.** D7 in the prior testlog closed via Option 1 (per-mixin
 native proxies for `SlottedContainerRenderObjectMixin` only).
@@ -2712,13 +2712,58 @@ mixins the interpreted class chain declares — remains the right
 long-term answer for any future
 interpreted-extends-`RenderBox`-with-mixin case.
 
+**Status (2026-04-28).** **Deferred — sibling of Fa4.** No
+currently-failing scripts depend on Option 2; the corpus passes
+empirically against existing Option-1 hand-written proxies.
+Migrating to Option 2 (per-shape generator emission) requires
+the same multi-week generator-substrate change as Fa4 (E12
+codegen) and would be cleanest to land alongside it. Reproducers
+and harness landed for future work — see "Closure evidence"
+below.
+
 **Why this still matters.** Option 1 is one-mixin-at-a-time
 expansion. Each new bridged render-object mixin needs another
 hand-written proxy class. Option 2 generates a per-script-class
 composite proxy on demand based on `_classChainHasBridgedMixin`,
 eliminating linear fan-out.
 
-**Suggested approach.**
+**Closure evidence (2026-04-28 deferral).**
+
+1. **Empirical:** every multi-mixin script in the corpus reports
+   `frameworkErrors=0`. From this testlog
+   (`generator_interpreter_issues_test.result.json`):
+   `relayout_when_system_fonts_change_mixin_test.dart` (1 mixin,
+   FE=0), `render_box_container_defaults_mixin_test.dart` (2
+   mixins, FE=0), `render_object_element_test.dart` (2 mixins,
+   FE=0), `render_object_widget_test.dart` (2 mixins, FE=0),
+   `parent_data_widget_test.dart` (FE=0),
+   `single_child_render_object_*_test.dart` (FE=0). The
+   hardcoded `_InterpretedRenderBox`,
+   `_InterpretedRenderBoxContainer`, and
+   `_InterpretedSlottedRenderBox` proxies cover the corpus
+   today.
+2. **Reproducers landed** at
+   `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/repro_fa6/`:
+   `canary_must_fail.dart` (calibration: harness records FE=1
+   for child build throws), `two_mixin_container_render_box.dart`
+   (Container+Defaults shape — exercises
+   `_InterpretedRenderBoxContainer`),
+   `three_mixin_relayout_container.dart`
+   (Container+Defaults+RelayoutWhenSystemFontsChangeMixin — the
+   Option-2 motivator). Run via `test/fa6_repro_test.dart`.
+   Initial run captured at
+   `doc/testlog_20260428-fa6-fix/initial_repro.log.txt`: canary
+   FE=1, both real reproducers FE=0.
+3. **Substrate gap (same as Fa4).**
+   `tom_d4rt_generator/lib/src/proxy_generator.dart` emits the
+   callback-adapter shape (e.g. `D4rtCustomPainter`), not an
+   InterpretedInstance-backed composite. Adding Option 2 means a
+   new generator code path that walks the script's class chain,
+   discovers the bridged-mixin set, and emits a per-shape
+   composite proxy class — multi-week work that mirrors the
+   E12 codegen scope.
+
+**Suggested approach (when Option 2 is picked up).**
 
 1. **Extend `tom_d4rt_generator/proxy_generator.dart`** with a
    "render-object composite proxy" code path that, given an
@@ -2730,18 +2775,26 @@ eliminating linear fan-out.
    when more than one bridged mixin is present.
 3. **Add a regression-shaped test** that declares an
    interpreted render object mixing in two bridged mixins and
-   asserts the composite proxy carries both.
+   asserts the composite proxy carries both. The Fa6
+   reproducers above are the natural starting point.
 
-**Closing criteria.** Two-mixin and three-mixin shape pass
-without per-mixin manual registration. Existing single-mixin
-slot-mixin path continues to work.
+**Re-opening trigger.** Re-open Fa6 if a new corpus script
+exposes a composite-mixin shape that breaks (FE>0) on Option-1
+infrastructure, or when Fa4's generator substrate work lands and
+the same machinery can be reused for render-object mixins.
+
+**Closing criteria (when re-opened).** Two-mixin and three-mixin
+shape pass without per-mixin manual registration. Existing
+single-mixin slot-mixin path continues to work.
 
 **Cross-reference.** Fa4 (E12 codegen) is the abstract-delegate
 peer; Fa6 is the render-object peer. Both share the
 "auto-generate shapes the analyzer can already see" thesis.
 
 **Estimated effort.** Generator 1–2 days. Tests 0.5 day.
-Documentation 0.25 day.
+Documentation 0.25 day. (Quoted as standalone effort; in
+practice tracked alongside Fa4's multi-week generator-substrate
+work.)
 
 ---
 
@@ -2789,7 +2842,7 @@ day to remove skips and validate.
 | Fa3 — E11 residual (RenderFlex overflow) | scripts | 1 | 1 short PR | gir TID=37 FE=0 |
 | Fa4 — E12 codegen (deferred) | generator + regs | ≥30 manual entries | ~3 weeks (≥12 PRs) | ≥10 manual entries removed (split into per-shape sub-clusters) |
 | Fa5 — `InheritedModel` collapse | interpreter | (closed-by-infra) | 0 (already fixed) | Reproducer + `inheritFrom<T>` works |
-| Fa6 — D7 Option 2 composite RO proxy | generator | (architectural) | 2–3 days | Two-mixin shape passes |
+| Fa6 — D7 Option 2 composite RO proxy | generator | (deferred — sibling of Fa4) | 2–3 days standalone (track with Fa4) | Two-mixin shape passes |
 | Fa7 — META test-app watchdog | runner | 5 W-script skips | 2–3 days | Single wedger ≠ cascade |
 
 **Suggested execution order.**

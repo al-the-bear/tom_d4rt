@@ -1,0 +1,17 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/fa6_repro_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: [fa6] repro_fa6/canary_must_fail.dart
+[METRIC] script=repro_fa6/canary_must_fail.dart sourceBytes=690 sourceChars=688 bundleJsonBytes=6754 clearMs=41 readMs=7 bundleMs=175 httpMs=725 totalMs=952 status=success httpStatus=200 outputLines=0 frameworkErrors=1
+
+  ⚠️  FRAMEWORK ERROR in repro_fa6/canary_must_fail.dart (1 error(s)):
+       InternalInterpreterException(originalThrownValue: Bad state: fa6-canary: deliberate throw to verify harness signal)
+FA6 STATUS: true  FE: 1  SCRIPT: repro_fa6/canary_must_fail.dart
+  ERR: InternalInterpreterException(originalThrownValue: Bad state: fa6-canary: deliberate throw to verify harness signal)
+00:12 +1: [fa6] repro_fa6/two_mixin_container_render_box.dart
+[METRIC] script=repro_fa6/two_mixin_container_render_box.dart sourceBytes=2590 sourceChars=2586 bundleJsonBytes=35105 clearMs=51 readMs=1 bundleMs=76 httpMs=621 totalMs=749 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA6 STATUS: true  FE: 0  SCRIPT: repro_fa6/two_mixin_container_render_box.dart
+00:13 +2: [fa6] repro_fa6/three_mixin_relayout_container.dart
+[METRIC] script=repro_fa6/three_mixin_relayout_container.dart sourceBytes=4378 sourceChars=4370 bundleJsonBytes=53124 clearMs=48 readMs=3 bundleMs=36 httpMs=612 totalMs=701 status=success httpStatus=200 outputLines=0 frameworkErrors=0
+FA6 STATUS: true  FE: 0  SCRIPT: repro_fa6/three_mixin_relayout_container.dart
+00:14 +3: (tearDownAll)
+00:14 +3: All tests passed!
