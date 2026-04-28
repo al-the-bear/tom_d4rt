@@ -3093,6 +3093,60 @@ whether to un-skip.
 
 ---
 
+### [WEDGE — Open] W5 (2026-04-28) — `widgets/animated_switcher_test.dart` wedges gii at test ID 54
+
+**Symptom:** During `generator_interpreter_issues_test.dart` (Section 2 "Bridge
+Generator Issues (80)"), test ID 54 (`widgets/animated_switcher_test.dart`,
+`generator_interpreter_issues_test.dart:433`) hangs the test app's `/build`
+endpoint for ~60s, then emits `Lost connection to device`. The remaining 34
+gii tests cascade with `Bad state: Transport failure` / `Connection reset by
+peer` from the now-dead app.
+
+**Captured stderr from `testlog_20260428-1220-issue-analysis/generator_interpreter_issues_test.log.txt`:**
+
+```
+[D4rtApp] [silenced assertion] 'package:flutter/src/widgets/framework.dart':
+  Failed assertion: line 6268 pos 12: '_dependents.isEmpty': is not true.
+[D4rtApp] [silenced assertion] internal restart applied (generation=99)
+[D4rtApp] POST /build
+[D4rtApp] Building widget [widgets/animated_switcher_test.dart] (631969 bytes)
+Lost connection to device.
+Captured app STDERR tail:
+  [process] test app exited with code 0
+```
+
+The bundle is 631 KB — large but not abnormal. The `_dependents.isEmpty` assertion
+fired on the *previous* test (`animated_cross_fade_test`) and the internal
+post-frame restart applied (generation=99). The hang then occurred during the
+next `/build` POST.
+
+**Likely area:** `AnimatedSwitcher` keeps a list of outgoing children animating
+while the new child fades/slides in. Combined with the script's deep-demo
+payload (widget tree assembled in d4rt across many `Builder` scopes) and the
+just-applied generation=99 restart, post-frame callbacks for the outgoing
+animations appear to keep firing past teardown, blocking the next `/build`.
+
+This is the same wedge family as W1/W2/W3/W4 (deep-demo scripts with
+`Actions`/`Shortcuts`/`Animation`/`Builder` scenes), now reaching the
+**generator_interpreter_issues** suite — not just `_retest_test.dart`. The
+META section below already lists this risk class.
+
+**Workaround:** Skipped in `generator_interpreter_issues_test.dart` (line 433
+`test(...)` body wrapped with `skip: 'W5: …'`). Reason matches the existing
+skip on `widgets/animated_cross_fade_test.dart` if it surfaces (none observed
+yet — the cascade in this run was rooted only at `animated_switcher`).
+
+**To investigate next:** Reproduce in isolation. Capture the test app's
+stdout while `/build` is in flight on `animated_switcher_test.dart`. Hypothesis:
+the outgoing `KeyedSubtree` slide/fade transitions retain the pre-restart
+`State` instances and their tickers continue to fire past the
+post-frame restart (the silenced assertion at generation=99 path). If
+confirmed, the fix is to (a) cancel pending tickers in the
+`tom_d4rt_flutterm_app` post-frame restart hook, or (b) reset the
+`AnimatedSwitcher` outgoing-child list before re-entering the build.
+
+---
+
 ### [WEDGE — Watchlist] W4 (2026-04-28) — `retest/widgets/lock_state_test.dart` independent wedger
 
 **Status:** Watchlist — *not* skipped. Run5 (W1+W2+W3 skipped)
