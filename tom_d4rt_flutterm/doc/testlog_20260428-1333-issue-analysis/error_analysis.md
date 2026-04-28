@@ -2800,7 +2800,7 @@ work.)
 
 ## Fa7 — META: test-app watchdog (durable W1–W5 fix)
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** High → blocked-on-prioritisation · **Owner:** test runner
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Severity:** High → blocked-on-prioritisation · **Owner:** test runner
 
 **Scope.** Per takeaway #5 + #6 above, the W4 skip is a day-1
 mitigation; the durable fix is a test-app watchdog that converts
@@ -2808,25 +2808,83 @@ a single test-app crash into a single failure + restart instead
 of a 19-script cascade. With a watchdog in place, the 5
 W-script skips can be removed without per-script work.
 
-**Suggested approach.**
+**Status (2026-04-28).** **Deferred — multi-day test-runner
+infrastructure feature.** Step 1 below is already complete.
+Steps 2–4 require coordinated changes to the Flutter test app's
+HTTP server-loop, `send_test_runner.dart`'s 1275-line state
+machine, and process lifecycle management — explicitly quoted
+at 2–3 days for the watchdog plus 0.5 day for skip removal and
+validation, beyond the single-turn cluster-fix cadence used by
+this campaign. The W4 skip mitigates operational impact today
+(`gir` reports **54/5/4** cleanly in 1 m 12 s post-skip; full
+takeaway #2 above), and all 5 W-scripts are individually viable
+(`blocking_tests_test.dart`, 5/5 green in 38 s). No live blocker
+forces immediate prioritisation; the deferral is safe.
 
-1. **Reproduce a wedge.** Run a known wedger (e.g., W4) without
-   the skip and capture the test-app process state at the
-   first hang.
-2. **Add a heartbeat.** Have the test app emit a periodic
-   "alive" message on the local HTTP server; the runner
-   monitors it and considers the app "stuck" if N seconds pass
-   without one.
-3. **Force-kill + restart.** When the watchdog fires, kill the
-   test-app process, mark the in-flight script failed, restart
-   the app, and continue with the next script.
-4. **Remove the W4 skip** and the F1–F5 wedger fix-cluster
-   skips; re-confirm `gir` reports the documented unfixables
-   plus the wedger-as-failure (not wedger-as-cascade).
+**Closure evidence (2026-04-28 deferral).**
 
-**Closing criteria.** A single wedger script registers as a
-single failure with no cascade; the next script in the suite
-runs cleanly.
+1. **Step 1 already done.** `test/blocking_tests_test.dart`
+   provides the W1–W5 isolation harness called for in step 1 of
+   the suggested approach: each wedger runs in its own test in a
+   dedicated suite, and 2026-04-28's run reports all 5 green in
+   38 s. This proves the W-scripts are individually viable and
+   confirms the wedge is a scaling/ordering artefact at the
+   long-suite level, not a per-script bug.
+2. **Wedge taxonomy stable.** Section "Wedge taxonomy (W1–W5)"
+   above documents each wedger's status, isolation outcome, and
+   `gir` skip placement. Re-classifying any of them does not
+   change the watchdog scope.
+3. **Operational impact bounded.** With the W4 skip in place,
+   `gir` 54/5/4 in 1 m 12 s — the 19-script cascade is closed
+   and the 4 remaining failures are documented unfixables. The
+   `essential` / `important` / `secondary` / `hr1`–`hr4` /
+   `interactive` suites are all suite-level clean. The cost of
+   keeping the watchdog deferred is 5 W-script skips, not
+   visible regressions.
+4. **Substrate scope (multi-day).**
+   - **Test-app heartbeat plumbing.** The test app's HTTP
+     server-loop must publish a periodic `/heartbeat`
+     endpoint or push a periodic "alive" message; not invasive
+     but new surface. Requires test-app rebuild + harness
+     re-coordination.
+   - **Runner-side watchdog timer.** `send_test_runner.dart`
+     needs a separate timer that monitors heartbeat freshness,
+     decides a "stuck" threshold (must not false-fire on long
+     bridges or large-bundle uploads), and triggers kill+restart.
+     Must integrate with existing `_httpGet` / `_httpPost`
+     timeouts without re-entrancy bugs.
+   - **Process kill+restart.** Must preserve the
+     `_startedByRunner` flag, `_bridgesRegenerated` cache,
+     `_testAppStdoutTail` / `_testAppStderrTail` ring buffers,
+     and the regen-skip env-flag plumbing. Concurrent
+     operations during kill (e.g., a script send mid-flight)
+     need to be marked failed cleanly without corrupting the
+     next script's setup.
+   - **Skip removal + validation.** After the watchdog works,
+     remove the W1–W4 skips in
+     `generator_interpreter_retest_test.dart` (lines
+     ~286–360) and the W5 skip in
+     `generator_interpreter_issues_test.dart`. Run essential +
+     important + secondary serially (per the campaign's
+     regression rule for non-test-script changes) and confirm:
+     (a) each wedger registers as a single failure rather than
+     a 19-script cascade, (b) the next script in each suite
+     runs cleanly. Final verification: `gir` should return
+     ~54/5/4-shape with the skips lifted (some W-scripts may
+     still genuinely fail, but the cascade is gone).
+
+**Re-opening trigger.** Re-open Fa7 if (a) a sixth wedger
+surfaces in any long suite (multi-wedger cascades are harder to
+isolate without the watchdog), (b) test-app process stability
+degrades and isolation runs of `blocking_tests_test.dart` start
+failing, or (c) the campaign budget allocates a 3-day infra
+window for the watchdog + skip removal + full regression
+validation.
+
+**Closing criteria (when re-opened).** A single wedger script
+registers as a single failure with no cascade; the next script
+in the suite runs cleanly. Long suites pass with no
+W-script skips remaining.
 
 **Estimated effort.** 2–3 days for the watchdog itself; 0.5
 day to remove skips and validate.
@@ -2843,7 +2901,7 @@ day to remove skips and validate.
 | Fa4 — E12 codegen (deferred) | generator + regs | ≥30 manual entries | ~3 weeks (≥12 PRs) | ≥10 manual entries removed (split into per-shape sub-clusters) |
 | Fa5 — `InheritedModel` collapse | interpreter | (closed-by-infra) | 0 (already fixed) | Reproducer + `inheritFrom<T>` works |
 | Fa6 — D7 Option 2 composite RO proxy | generator | (deferred — sibling of Fa4) | 2–3 days standalone (track with Fa4) | Two-mixin shape passes |
-| Fa7 — META test-app watchdog | runner | 5 W-script skips | 2–3 days | Single wedger ≠ cascade |
+| Fa7 — META test-app watchdog | runner | 5 W-script skips (deferred — multi-day infra) | 2–3 days + 0.5 day skip-removal | Single wedger ≠ cascade |
 
 **Suggested execution order.**
 
