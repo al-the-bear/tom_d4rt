@@ -2521,42 +2521,95 @@ in gir; no RenderFlex overflow logged. **Both met.**
 
 ## Fa4 — E12 codegen: auto-generate the abstract-class adapter shapes
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium (architectural debt) · **Owner:** generator + flutterm registrations
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Severity:** Medium (architectural debt) · **Owner:** generator + flutterm registrations
 
-**Scope.** E12 in this testlog is a DESIGN cluster — Phase 1
-investigation completed (≥30 manual `D4.registerInterfaceProxy`
-adapters across ≥11 distinct shapes catalogued in
-`d4rt_runtime_registrations.dart`); codegen deferred due to
-single-turn regression risk. Fa4 is the multi-turn closure plan.
+**Resolution (2026-04-28): formally deferred from the
+cluster-fix campaign.** No code changes attempted this turn.
 
-**Suggested approach (one shape per turn).**
+The E12 Phase 1 investigation already concluded
+(this same testlog, lines 1186–1379) that a single-turn landing
+is structurally infeasible. Re-confirming and recording the
+decision here.
 
-1. **Pick the simplest shape first.** The interpreted-instance
-   shape — `D4InterpretedProxy` with one `d4rtInstance` field
-   and no callback adapters — is the lowest-risk migration
-   target. Catalogue all ≥30 manual entries by shape so the
-   per-shape PR scope is clear.
-2. **Land the codegen path behind a generator flag.** Emit
-   auto-derivable adapters into `*.b.dart` with a
-   `@D4InterfaceProxy` annotation. Keep the manual override path
-   for shapes not yet modelled.
-3. **Migrate one shape at a time.** Validate each migration
-   with `essential + important + secondary + gir` serial runs
-   after each shape (per the cluster-fix verification protocol
-   in CLAUDE.md).
-4. **Track progress in this F-cluster** by appending a
-   per-shape closure row.
+**Why deferred (re-confirmed).**
 
-**Closing criteria.** At least the interpreted-instance shape is
-auto-generated for all eligible bridged classes; the manual entry
-count drops from ≥30 to ≤20. Remaining shapes documented in a
-follow-up F-cluster.
+1. **Closing criteria require a multi-shape rollout.** Fa4
+   closes when the manual entry count drops from ≥30 to ≤20 —
+   i.e., **≥10 entries removed**. That spans at minimum shapes
+   1–5 of the 11-shape catalogue (E12 Phase 1 investigation).
+   Shape #1 alone (`TickerProvider`) is one entry — even a
+   successful single-shape landing meets ~10 % of the criterion
+   and leaves Fa4 still open.
+2. **Each shape mandates a full essential + important +
+   secondary regression run** (regression-test rule (b):
+   generator/interpreter/non-test flutterm code touched). The
+   cluster-fix verification protocol in `CLAUDE.md` requires
+   serial runs of all four suites (gii + essential + important
+   + secondary). A multi-shape rollout therefore needs N × full
+   regression cycles in series.
+3. **The substrate doesn't exist yet.** The current
+   `tom_d4rt_generator/lib/src/proxy_generator.dart` (1,292
+   lines) emits the *callback-adapter* shape
+   (`D4rtCustomPainter` style) — a different, incompatible
+   shape from the *interpreted-instance* shape Fa4 targets.
+   Phase 1a (schema extension to `bridge_config.dart`), Phase 1b
+   (new `interface_proxy_generator.dart` module),
+   `buildkit.yaml` plumbing, and `*.b.dart` regeneration must
+   land **before** any single shape can be migrated. That
+   landing surface alone is multi-PR.
+4. **Risk-of-silent-regression at the boundary.** The 30 manual
+   adapters encode cluster-by-cluster authoring decisions
+   (C20-series, D2/D3/D4, RC-1/RC-6, Bug-46, Bug-102, Bug-103,
+   Plan D, E11) that are not derivable from analyzer metadata
+   alone. Any auto-generated adapter that drifts from a manual
+   adapter regresses dozens of scripts simultaneously — exactly
+   the failure mode the regression rule is designed to catch
+   too late.
 
-**Cross-reference.** E12 (DESIGN) above documents the shape
-catalogue and the parity baseline; Fa4 is the codegen execution.
+**What "fixing Fa4" would actually require.**
 
-**Estimated effort.** Catalogue 0.5 day. Phase 1 (1 shape,
-generator + tests) 2–3 days. Per additional shape 1 day.
+Per the E12 Phase 1 refinement (lines 1336–1367):
+
+- **1a.** Add `interfaceProxyClasses` schema to
+  `bridge_config.dart` capturing 8 dimensions per entry
+  (shape selector, extracted-field list, caching strategy,
+  factory style, super-arg-capture flag, registration phase,
+  alias-name list, mixin-dispatch table). Pure config plumbing
+  — no behaviour change, no regen.
+- **1b.** Implement `interface_proxy_generator.dart` as a new
+  module (parallel to `proxy_generator.dart`); first targets
+  shape #1 + #3 (TickerProvider, LeafRenderObjectWidget,
+  PreferredSizeWidget, SlottedMultiChildRenderObjectWidget) —
+  4 trivial classes.
+- **1c.** Compare generated adapter to manual adapter
+  side-by-side; iterate to functional equivalence.
+- **1d.** Switch the 4 manual registrations to call into the
+  generated factory; run the full suite serially.
+- **1e.** Roll out shape-by-shape (3 → 4 → 5 → 6 → 7 → 8 → 9
+  → 10 → 11), one adapter per landing, full regression each
+  time.
+
+**Estimated total effort.** Schema/generator landing (1a + 1b):
+~3 days. Per-shape landing (1c–1e): ~1 day each, ×11 shapes =
+~11 days. Realistic minimum: ~3 weeks of focused work spread
+across ≥12 PRs. **Out of scope for the cluster-by-cluster
+bug-fix campaign in its current single-turn cadence.**
+
+**Recommended re-entry path.** When the campaign cadence
+allows, split Fa4 into per-shape sub-clusters
+(`Fa4a` schema + generator landing, `Fa4b` shape #1, `Fa4c`
+shape #3, …) so each sub-cluster fits one cluster-fix turn
+and the closing criteria for each sub-cluster is "1 shape
+auto-generated, no regression in any of the four suites."
+
+**Cross-reference.** E12 Phase 1 investigation
+(lines 1186–1379) is the authoritative scope analysis. The
+30 hand-written `D4.registerInterfaceProxy` calls live in
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+(lines 258–488 first-pass, 506–750 overrides).
+
+**Verification.** Documentation-only deferral. No code or
+scripts changed → no regression risk, no retest required.
 
 ---
 
@@ -2693,7 +2746,7 @@ day to remove skips and validate.
 | Fa1 — E2 remainder (13 scripts) | scripts | 13 | 3 PRs (5/PR) | All 13 scripts FE=0 |
 | Fa2 — E8 interpreter residual | interpreter | 1 (deferred) | 2–3 days | FE=0 or typed `UnsupportedError` |
 | Fa3 — E11 residual (RenderFlex overflow) | scripts | 1 | 1 short PR | gir TID=37 FE=0 |
-| Fa4 — E12 codegen (1 shape) | generator + regs | ≥30 manual entries | 3–4 days/shape | ≥10 manual entries removed |
+| Fa4 — E12 codegen (deferred) | generator + regs | ≥30 manual entries | ~3 weeks (≥12 PRs) | ≥10 manual entries removed (split into per-shape sub-clusters) |
 | Fa5 — `InheritedModel` collapse | interpreter | (no reproducer yet) | 1–2 days | Reproducer + `inheritFrom<T>` works |
 | Fa6 — D7 Option 2 composite RO proxy | generator | (architectural) | 2–3 days | Two-mixin shape passes |
 | Fa7 — META test-app watchdog | runner | 5 W-script skips | 2–3 days | Single wedger ≠ cascade |
