@@ -913,7 +913,16 @@ class _TelemetryCard extends StatelessWidget {
           const SizedBox(height: 6),
           _TelemetryRowKV(
             k: 'max',
-            v: controller.hasClients
+            // Guard with `hasContentDimensions`: `hasClients=true` only
+            // means a scroll position is attached; `maxScrollExtent`
+            // throws "Null check operator used on a null value" when
+            // `_maxScrollExtent` is still null (between attach and the
+            // first `applyContentDimensions`). The harness can rebuild
+            // the telemetry card during that window and trip the null
+            // check. See Fa2 cluster diagnosis in
+            // doc/testlog_20260428-1333-issue-analysis/error_analysis.md.
+            v: controller.hasClients &&
+                    controller.position.hasContentDimensions
                 ? controller.position.maxScrollExtent.toStringAsFixed(0)
                 : '—',
             color: _kTextSecondary,

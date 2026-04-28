@@ -425,92 +425,98 @@ of `widgets/restorable_double_n_test.dart`.
 
 ---
 
-## E8 — `ScrollController` state field passed through `StatelessWidget` chain to a `Scrollable` (interpreter limitation)
+## E8 — Reading `ScrollPosition.maxScrollExtent` between attach and first `applyContentDimensions` (script-side guard required)
 
-**Symptom.** A `ScrollController` declared as a `final` state
-field in a `StatefulWidget`'s `State`, then propagated as a
-constructor parameter through one or more `StatelessWidget`
-classes, and finally handed to a `Scrollable` (`ListView`,
-`ListView.builder`, `SingleChildScrollView`, …) raises a single
-"Null check operator used on a null value" framework error per
-leaf `Scrollable` that receives the propagated controller. The
-error fires during initial mount, before any user interaction or
-listener callback can run.
+**Status.** **Resolved as script-side guard tightening** (Fa2,
+2026-04-28). The original E8 diagnosis below was wrong — see
+"Misdiagnosis correction" at the end of this entry.
 
-**Reproducer (minimal).**
+**Symptom.** A `ScrollController` is declared as a state field,
+attached to a `Scrollable` (typically a sibling `ListView`), and
+the same state field is then read from a *separate* widget that
+guards with `controller.hasClients ? controller.position.<X> : …`,
+where `<X>` is one of the position getters that asserts
+`hasContentDimensions` (e.g. `minScrollExtent`,
+`maxScrollExtent`, `viewportDimension`). Two `Null check operator
+used on a null value` framework errors fire during the harness
+snapshot — one per consumer of the position.
+
+**Triggering Dart/Flutter pattern.**
 
 ```dart
-class _Page extends StatefulWidget {
-  @override State<_Page> createState() => _PageState();
-}
-
-class _PageState extends State<_Page> {
-  final ScrollController _ctl = ScrollController();
-  @override
-  Widget build(_) => SizedBox(
-        height: 420,
-        child: _Pass(controller: _ctl),
-      );
-}
-
-class _Pass extends StatelessWidget {
+class _TelemetryCard extends StatelessWidget {
   final ScrollController controller;
-  const _Pass({required this.controller});
+  const _TelemetryCard({required this.controller});
   @override
-  Widget build(_) => ListView.builder(
-        controller: controller,
-        itemCount: 50,
-        itemBuilder: (c, i) => Text('$i'),
+  Widget build(BuildContext context) => Text(
+        controller.hasClients
+            ? controller.position.maxScrollExtent.toStringAsFixed(0)
+            : '—', // ← unsafe: hasClients ⇏ hasContentDimensions
       );
 }
 ```
 
-This produces 1 framework error per mount.
+`hasClients == true` only means a `ScrollPosition` has been
+*attached* to the controller; it does **not** mean the position
+has finished its first layout. Between attach and the first call
+to `applyContentDimensions`, the position's private
+`_maxScrollExtent` field is still null, and `maxScrollExtent`'s
+getter (`return _maxScrollExtent!;`) throws `Null check operator
+used on a null value`. The same applies to `minScrollExtent` and
+to anything that reads the not-yet-set extents.
 
-**Bisect findings (from `widgets/scroll_deceleration_rate_test.dart`).**
+In a normal compiled Flutter app this race is rarely visible
+because `build` runs after layout has stabilised. The d4rt
+`SendTestRunner` harness, however, captures the screenshot during
+the first frame after attach — exactly inside the
+attach-but-not-laid-out window — so the unsafe getter call lands
+during the build that produces the screenshot.
 
-| Variant | FE |
-|---|---|
-| Original (state-field controllers, 4 `Row(stretch)+Expanded` cascades) | 8 |
-| Drop `crossAxisAlignment: stretch` from the 4 cascading `Row` sites (script-side layout fix) | 2 |
-| Replace passed-through state-field controller with a locally-constructed `ScrollController()` inside the leaf widget | 0 |
-| Disable the `controller`'s `addListener` calls in `initState` | 2 (no change → not listener-driven) |
-| Drop `BouncingScrollPhysics(decelerationRate:)` (use default physics) | 2 (no change → not physics-driven) |
-| Drop `ScrollConfiguration` + custom `ScrollBehavior` wrapper | 2 (no change → not behavior-driven) |
-| Replace `ListView.builder` with `ListView` or `SingleChildScrollView` | 2 (no change → not builder-specific) |
-| Render only one of the two `Scrollable`s | 1 (linear scaling: 1 leaf → 1 error, 2 leaves → 2 errors) |
+**Workaround (script-side, functionally equivalent).** Tighten
+the guard to also require `hasContentDimensions`:
 
-The error count scales linearly with the number of leaf
-`Scrollable`s receiving the propagated state-field controller.
-Listener attachment, physics, scroll behavior, and the choice
-between `ListView`, `ListView.builder`, and `SingleChildScrollView`
-are all immaterial.
+```dart
+controller.hasClients && controller.position.hasContentDimensions
+    ? controller.position.maxScrollExtent.toStringAsFixed(0)
+    : '—',
+```
 
-**Why it cannot be worked around at the script level.** The
-script (`widgets/scroll_deceleration_rate_test.dart`) demonstrates
-synchronized scroll telemetry across two parallel `ListView`s —
-`_TelemetryRow`, `_CoastCurves`, `_FlingControls`, and the listener
-callbacks all read from the same `_normalCtl` / `_fastCtl` that
-the `Scrollable`s consume. Localising the controllers inside the
-lane widgets would sever the connection that the entire test is
-built around. The script-side layout-cascade fix (8→2) lands
-already; the residual 2 errors require an interpreter fix.
+This preserves the same visual output (the `'—'` fallback
+already exists for the "no clients" case; the harden-up path
+extends it to "attached but not yet measured"). No behavioural
+change in a real running app — by the time the user can see the
+card, content dimensions are set.
 
-**Suspected interpreter site.** State-field references
-(`widget.controller` traversing `final ScrollController` fields
-declared on a parent `State`) appear to lose identity or value
-when the bridged `Scrollable` calls back into the interpreter
-during initial layout. Locally-constructed controllers (instances
-created inside the leaf `build()`) do not exhibit this. The
-asymmetry strongly suggests a `BridgedInstance` lifecycle problem
-specific to instances captured by interpreted closures across
-widget tree levels.
+**Applied at.**
+`widgets/scroll_deceleration_rate_test.dart` (Fa2 fix,
+commit covering the cluster). Drops FE from 2 → 0 on the
+`hardly_relevant_classes_5` retest.
 
-**Status.** E8 closed as **partial** (8→2). Layout-cascade fix
-landed in the script; remaining 2 errors documented here for the
-next interpreter pass.
+**Why this is not an interpreter bug.** The d4rt interpreter
+correctly forwards the call, and the bridged `ScrollPosition`
+correctly throws — that is the documented native behaviour of
+`maxScrollExtent` before `hasContentDimensions`. The script's
+guard was simply incomplete.
 
-**Documented.** 2026-04-28.
+**Misdiagnosis correction.** The previous E8 entry attributed
+the residual 2 framework errors to a `BridgedInstance` lifecycle
+problem with state-field `ScrollController` propagated through a
+`StatelessWidget` chain. That diagnosis was wrong: the bisect
+table that supported it (locally-constructed controller "fixes"
+the issue) was an artefact of the `_TelemetryRow` path being
+short-circuited when the controller was rebuilt locally. Bisecting
+slivers of `widgets/scroll_deceleration_rate_test.dart` after the
+layout-cascade fix located the FE precisely on the
+`_TelemetryCard.maxScrollExtent` ternary inside `_TelemetryRow`;
+removing only that line drops FE from 2 → 0 with everything else
+intact, including the state-field controller propagation through
+`_DynoTrackPair → _DynoLane → ListView.builder`. Six minimal
+reproducers built from the misdiagnosis (state-field +
+StatelessWidget chain, with and without listeners / physics /
+ValueListenableBuilder) all reported FE=0; only after restoring
+the unguarded `maxScrollExtent` read did the failure surface.
+
+**Documented.** 2026-04-28 (corrected from prior misdiagnosis).
 
 ---
 

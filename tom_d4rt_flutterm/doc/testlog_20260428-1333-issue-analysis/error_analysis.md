@@ -2403,50 +2403,78 @@ or generator change.
 
 ---
 
-## Fa2 — E8 interpreter residual: `scroll_deceleration_rate_test` `Row(stretch)+Expanded` intrinsics
+## Fa2 — E8 misdiagnosed; root cause is unsafe `ScrollPosition.maxScrollExtent` read in `_TelemetryCard`
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low (1 script, 8 FE) · **Owner:** interpreter (intrinsics)
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Low (1 script, 2 FE → 0 FE) · **Owner:** script (guard tightening)
 
-**Scope.** Script-side workaround landed in this testlog (cluster
-E8); the interpreter residual remains. Reproduces as
-`Null check operator used on a null value` in the d4rt slot-mixin
-proxy intrinsic pipeline when a `Row(crossAxisAlignment: stretch)`
-with `Expanded` children is wrapped in `SliverToBoxAdapter`. The
-cross-axis stretch propagates `h=Infinity` into each `Expanded`,
-which then null-walks through the proxy's missing intrinsic-pass
-hooks. Two prior script-side workarounds made it worse.
+**Resolution summary (2026-04-28).** The cluster's original
+hypothesis (slot-mixin proxy intrinsic null-walk under
+`Row(stretch)+Expanded`) was incorrect — that pattern had already
+been removed from the script in the prior E8 layout-cascade fix
+and adding it back to a stripped reproducer did **not** trigger
+the FE. The previous E8 diagnosis (state-field
+`ScrollController` propagated through a `StatelessWidget` chain)
+was also wrong — six minimal reproducers built from that pattern
+all reported FE=0.
 
-**Path to closure.**
+**Actual root cause.** Inside `_TelemetryCard.build`,
+`controller.position.maxScrollExtent.toStringAsFixed(0)` is read
+when only `controller.hasClients` is checked. `hasClients == true`
+means a `ScrollPosition` is *attached*, but `maxScrollExtent`'s
+getter is `return _maxScrollExtent!;` — it throws "Null check
+operator used on a null value" until `applyContentDimensions`
+runs. The d4rt `SendTestRunner` snapshot lands in the brief window
+between attach and first layout, so each of the two
+`_TelemetryCard` instances (`.normal` and `.fast`) trips the
+null-check on its own controller — yielding exactly 2 FE.
 
-1. **Reproduce in isolation.** Strip
-   `scroll_deceleration_rate_test` to a minimal reproducer:
-   `SliverToBoxAdapter` → `Row(stretch)` →
-   `2× Expanded(child: Container(height: 80))`. Confirm the
-   cascade without the surrounding test scaffolding.
-2. **Trace the intrinsic pass.** Capture the call stack at the
-   first null dereference; identify whether the gap is in
-   `_InterpretedSlottedRenderBox.computeMinIntrinsicHeight` or
-   in the `RenderFlex` intrinsics consultation. (Native Flutter
-   handles this via `RenderFlex._computeIntrinsics` walking the
-   children with `IntrinsicHeight` semantics.)
-3. **Plumb intrinsics through the proxy.** Either route
-   intrinsic queries to a default implementation
-   (`return constraints.smallest`) or surface a typed
-   `UnsupportedError` so the interpreter fails with a clear
-   "intrinsics not supported on slotted RO" message rather than
-   null-walking.
-4. **Mirror tom_d4rt ↔ tom_d4rt_ast** (per the d4rt sync rule).
+**Bisect path.**
 
-**Closing criteria.** Either (a) `scroll_deceleration_rate_test`
-reports FE=0 with no `Null check operator used on a null value`,
-or (b) the interpreter throws a typed `UnsupportedError` and the
-test runner records a clean skip rather than a null-walk crash.
+1. Confirm 2 FE with a verbatim copy of the test file
+   (`scroll_decel_full_copy.dart`).
+2. Strip slivers 3..11 (everything below `_DynoTrackPair`) → FE=0.
+3. Restore only sliver 3 (`_TelemetryRow`) → FE=2.
+4. Inside `_TelemetryRow → _TelemetryCard`, replace the
+   `controller.position.maxScrollExtent…` ternary value with a
+   constant `'—'` → FE=0.
+5. Restore the ternary but force `false` as the condition → FE=0
+   (truthy branch never runs).
+6. Tighten the guard to
+   `controller.hasClients && controller.position.hasContentDimensions`
+   → FE=0 (both conditions hold only after first layout).
 
-**Cross-reference.** Architectural rationale in
-`interpreter_unfixable.md` under C3.
+**Fix (script-side).** Single-line guard tightening in
+`widgets/scroll_deceleration_rate_test.dart` `_TelemetryCard.build`:
 
-**Estimated effort.** Reproducer 0.5 day. Interpreter intrinsic
-plumbing 1–2 days (in both interpreters). Mirror + tests 0.5 day.
+```dart
+v: controller.hasClients &&
+        controller.position.hasContentDimensions
+    ? controller.position.maxScrollExtent.toStringAsFixed(0)
+    : '—',
+```
+
+Functionally equivalent to the original (the `'—'` fallback
+already covered "no clients"; the tightened guard extends it to
+"attached but not yet measured"). No behaviour change in a real
+running app — by the time the card is visible to a user, content
+dimensions are set.
+
+**Verification.** `D4RT_SKIP_BRIDGE_REGEN=1 flutter test
+test/hardly_relevant_classes_5_test.dart --plain-name
+scroll_deceleration_rate` reports `frameworkErrors=0` (was 2
+before the fix). Per rule (a) — script-only change — single-test
+retest is sufficient.
+
+**Reproducers retained.** Minimal isolation reproducers in
+`test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/repro_fa2/`
+(state-field controller / scrolling pill / pruned dyno track /
+ternary maxScrollExtent) — all FE=0; kept as evidence that the
+prior diagnosis path (state-field + StatelessWidget chain +
+layout cascade) is *not* the trigger.
+
+**Cross-reference.** Corrected diagnosis recorded in
+`interpreter_unfixable.md` under E8 (entry replaced with the
+script-side workaround and a misdiagnosis correction note).
 
 ---
 

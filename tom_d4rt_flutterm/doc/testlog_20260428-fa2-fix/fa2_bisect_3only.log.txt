@@ -1,0 +1,13 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/fa2_repro_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: [fa2] repro_fa2/scroll_decel_full_copy.dart
+[METRIC] script=repro_fa2/scroll_decel_full_copy.dart sourceBytes=69945 sourceChars=69860 bundleJsonBytes=853387 clearMs=43 readMs=11 bundleMs=359 httpMs=1320 totalMs=1735 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in repro_fa2/scroll_decel_full_copy.dart (2 error(s)):
+       Null check operator used on a null value
+       Null check operator used on a null value
+FA2 STATUS: true  FE: 2  SCRIPT: repro_fa2/scroll_decel_full_copy.dart
+  ERR: Null check operator used on a null value
+  ERR: Null check operator used on a null value
+00:13 +1: (tearDownAll)
+00:13 +1: All tests passed!
