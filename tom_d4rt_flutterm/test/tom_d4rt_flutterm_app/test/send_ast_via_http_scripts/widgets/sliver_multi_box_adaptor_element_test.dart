@@ -1489,9 +1489,18 @@ class _SmbaeRulerListSliver extends StatelessWidget {
         itemCount: _rows.length,
         itemBuilder: (BuildContext context, int index) {
           final _SmbaeListRow row = _rows[index];
+          // E2: dropped `IntrinsicHeight + Row(crossAxisAlignment: stretch)`
+          // — the gutter already pins a fixed `height: 64`, so we can
+          // wrap the whole row in a `SizedBox(height: 64)` and let
+          // children size against the bounded main-axis extent instead
+          // of asking for intrinsic measurements (which the
+          // surrounding sliver render-tree did not support and which
+          // surfaced as `RenderBox was not laid out` on the
+          // `RenderIntrinsicHeight`).
           return Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: IntrinsicHeight(
+            child: SizedBox(
+              height: 64,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
@@ -1588,10 +1597,21 @@ class _SmbaeRulerGridSliver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // E2: replaced `IntrinsicHeight + Row(crossAxisAlignment: stretch)`
+    // wrapping a `GridView.builder(shrinkWrap: true)` with
+    // `SizedBox(height: 240)`. `IntrinsicHeight` walks its child with
+    // `getMaxIntrinsicHeight`, but `RenderShrinkWrappingViewport`
+    // refuses to compute intrinsics ("Calculating the intrinsic
+    // dimensions would require instantiating every child of the
+    // viewport, which defeats the point of viewports being lazy.").
+    // Pinning a fixed height — the gutter already declared `height:
+    // 240` — keeps the same visual layout without asking the grid
+    // for intrinsics.
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       sliver: SliverToBoxAdapter(
-        child: IntrinsicHeight(
+        child: SizedBox(
+          height: 240,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

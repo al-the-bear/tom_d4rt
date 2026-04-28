@@ -156,6 +156,55 @@ hr5 FE-script count halved (38 → 19, of which the layout-cascade
 shape covers most). No suite-level test failures — the affected
 scripts don't assert on `tester.takeException`.
 
+**Batch 1 (bottom of table — #13–#16) — 2026-04-28.**
+
+- `widgets/restoration_mixin_test.dart` (3 FE expected) — already
+  at FE=0 on a fresh run; left untouched.
+- `widgets/text_selection_gesture_detector_builder_delegate_test.dart`
+  (5 FE → 0). Replaced root `SingleChildScrollView(child:
+  Column(crossAxisAlignment: stretch, …))` with `ListView(…)`. The
+  unbounded-height stretch column was propagating through the
+  `_TsgdbdStage` cards down to `RenderEditable.performLayout`,
+  which in turn handed `BoxConstraints(w=…, h=-Infinity; NOT
+  NORMALIZED)` to `_RenderEditableCustomPaint`. `ListView` lays
+  out children on a bounded vertical track and resolves the
+  EditableText's height naturally.
+- `widgets/sliver_multi_box_adaptor_element_test.dart` (6 FE → 0).
+  Two `IntrinsicHeight + Row(crossAxisAlignment: stretch)` blocks
+  replaced with `SizedBox(height: <gutter-height>)`. The second
+  one wrapped a `GridView.builder(shrinkWrap: true)` —
+  `IntrinsicHeight` walks its child with `getMaxIntrinsicHeight`,
+  but `RenderShrinkWrappingViewport` refuses to compute intrinsics
+  ("Calculating the intrinsic dimensions would require
+  instantiating every child of the viewport, which defeats the
+  point of viewports being lazy."). Pinning a fixed height —
+  the gutter already declared `height: 240` (and `64` for the
+  list variant) — keeps the same visual layout without asking the
+  grid for intrinsics. Cascading `RenderBox was not laid out` and
+  4 null-check FEs vanish with the root.
+- `widgets/scrollbar_painter_test.dart` (4 FE) — **deferred** for
+  this batch. The 4 residual `RenderFlex overflowed by 40/54
+  pixels on the bottom` warnings are inside individual section
+  sub-widgets of a 2345-line file (already documented as
+  "cosmetic … separate script-authoring follow-up" in commit
+  `126cf860`). The cascade root was closed there; the residual
+  overflows live behind a 6-deep nesting of fixed-height
+  containers and the test runner truncates the RenderFlex's
+  source location. Out of scope for batch 1.
+
+**Verification.** `test/e2_batch1_bisect_test.dart` (isolation
+harness, since deleted): pre-fix
+`doc/testlog_20260428-e2-batch1-fix/e2_batch1_bisect_pre.log.txt`,
+post-fix `…/e2_batch1_bisect_post.log.txt` — 3 of 4 scripts at
+FE=0; `scrollbar_painter_test` unchanged at 4 FE (intentional —
+cascade root was already closed in `126cf860`). Per regression
+rule (a), test-script-only changes; individual retest
+sufficient.
+
+**Remaining.** 13 scripts / ~133 FE (`scrollbar_painter_test` 4 +
+top-of-table 12 entries). The top-of-table batch is the next
+candidate.
+
 **Top-FE scripts (this run, ordered by FE count):**
 
 | Suite | Script | FE |

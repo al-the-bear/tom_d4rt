@@ -145,76 +145,81 @@ class _TsgdbdAppState extends State<_TsgdbdApp>
       child: Scaffold(
         backgroundColor: _tsgdbdNavy,
         body: SafeArea(
-          child: SingleChildScrollView(
+          // C22 ListView-replacement pattern: the previous
+          // `SingleChildScrollView(child: Column(crossAxisAlignment: stretch))`
+          // gave its children an unbounded main-axis extent, which
+          // propagated through the cards down to `RenderEditable` and
+          // surfaced as `BoxConstraints(w=…, h=-Infinity; NOT NORMALIZED)`
+          // in the secondary suite. `ListView` lays out children on a
+          // bounded vertical track and resolves the EditableText's
+          // height naturally, killing the cascade.
+          child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _TsgdbdHeroHeader(controller: _pulseController),
-                const SizedBox(height: 22),
-                const _TsgdbdIntroCard(),
-                const SizedBox(height: 20),
-                _TsgdbdSectionHeading(
-                  ordinal: '01',
-                  title: 'Interface surface',
-                  subtitle: 'Three getters, no more, no less.',
-                ),
-                const SizedBox(height: 12),
-                const _TsgdbdApiCard(),
-                const SizedBox(height: 20),
-                _TsgdbdSectionHeading(
-                  ordinal: '02',
-                  title: 'Live integration — selection enabled',
-                  subtitle:
-                      'Concrete delegate wired through builder into EditableText.',
-                ),
-                const SizedBox(height: 12),
-                const _TsgdbdStage(
-                  title: 'Bridge A — selection ON, force press OFF',
-                  selectionEnabled: true,
-                  forcePressEnabled: false,
-                  accent: _tsgdbdMustard,
-                ),
-                const SizedBox(height: 24),
-                _TsgdbdSectionHeading(
-                  ordinal: '03',
-                  title: 'Companion — selection suppressed',
-                  subtitle:
-                      'Same interface, different configuration. No text selection.',
-                ),
-                const SizedBox(height: 12),
-                const _TsgdbdSuppressedStage(),
-                const SizedBox(height: 24),
-                _TsgdbdSectionHeading(
-                  ordinal: '04',
-                  title: 'Signal-flow diagram',
-                  subtitle:
-                      'Gesture → Detector → Delegate → EditableTextState.',
-                ),
-                const SizedBox(height: 12),
-                _TsgdbdSignalFlowCard(controller: _pulseController),
-                const SizedBox(height: 24),
-                _TsgdbdSectionHeading(
-                  ordinal: '05',
-                  title: 'Method directory',
-                  subtitle:
-                      'Delegate properties and the builder callbacks they gate.',
-                ),
-                const SizedBox(height: 12),
-                const _TsgdbdMethodDirectory(),
-                const SizedBox(height: 24),
-                _TsgdbdSectionHeading(
-                  ordinal: '06',
-                  title: 'Pitfall',
-                  subtitle: 'One delegate, one key, one EditableTextState.',
-                ),
-                const SizedBox(height: 12),
-                const _TsgdbdPitfallCard(),
-                const SizedBox(height: 24),
-                const _TsgdbdFooter(),
-                const SizedBox(height: 40),
-              ],
-            ),
+            children: <Widget>[
+              _TsgdbdHeroHeader(controller: _pulseController),
+              const SizedBox(height: 22),
+              const _TsgdbdIntroCard(),
+              const SizedBox(height: 20),
+              _TsgdbdSectionHeading(
+                ordinal: '01',
+                title: 'Interface surface',
+                subtitle: 'Three getters, no more, no less.',
+              ),
+              const SizedBox(height: 12),
+              const _TsgdbdApiCard(),
+              const SizedBox(height: 20),
+              _TsgdbdSectionHeading(
+                ordinal: '02',
+                title: 'Live integration — selection enabled',
+                subtitle:
+                    'Concrete delegate wired through builder into EditableText.',
+              ),
+              const SizedBox(height: 12),
+              const _TsgdbdStage(
+                title: 'Bridge A — selection ON, force press OFF',
+                selectionEnabled: true,
+                forcePressEnabled: false,
+                accent: _tsgdbdMustard,
+              ),
+              const SizedBox(height: 24),
+              _TsgdbdSectionHeading(
+                ordinal: '03',
+                title: 'Companion — selection suppressed',
+                subtitle:
+                    'Same interface, different configuration. No text selection.',
+              ),
+              const SizedBox(height: 12),
+              const _TsgdbdSuppressedStage(),
+              const SizedBox(height: 24),
+              _TsgdbdSectionHeading(
+                ordinal: '04',
+                title: 'Signal-flow diagram',
+                subtitle:
+                    'Gesture → Detector → Delegate → EditableTextState.',
+              ),
+              const SizedBox(height: 12),
+              _TsgdbdSignalFlowCard(controller: _pulseController),
+              const SizedBox(height: 24),
+              _TsgdbdSectionHeading(
+                ordinal: '05',
+                title: 'Method directory',
+                subtitle:
+                    'Delegate properties and the builder callbacks they gate.',
+              ),
+              const SizedBox(height: 12),
+              const _TsgdbdMethodDirectory(),
+              const SizedBox(height: 24),
+              _TsgdbdSectionHeading(
+                ordinal: '06',
+                title: 'Pitfall',
+                subtitle: 'One delegate, one key, one EditableTextState.',
+              ),
+              const SizedBox(height: 12),
+              const _TsgdbdPitfallCard(),
+              const SizedBox(height: 24),
+              const _TsgdbdFooter(),
+              const SizedBox(height: 40),
+            ],
           ),
         ),
       ),
