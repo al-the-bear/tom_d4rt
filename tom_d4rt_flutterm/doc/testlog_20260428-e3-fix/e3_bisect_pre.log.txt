@@ -1,0 +1,19 @@
+00:00 +0: loading /srv/repos/al_the_bear/inhouse/second_wind/enterprise_flutter/tom_agent_container/tom_ai/d4rt/tom_d4rt_flutterm/test/e3_bisect_test.dart
+00:00 +0: (setUpAll)
+00:11 +0: widgets/scroll_position_with_single_context_test.dart
+[METRIC] script=widgets/scroll_position_with_single_context_test.dart sourceBytes=64322 sourceChars=64246 bundleJsonBytes=794693 clearMs=48 readMs=11 bundleMs=336 httpMs=1662 totalMs=2060 status=success httpStatus=200 outputLines=0 frameworkErrors=2
+
+  ⚠️  FRAMEWORK ERROR in widgets/scroll_position_with_single_context_test.dart (2 error(s)):
+       Runtime Error: Undefined property or method '_controller' on bridged instance of 'SingleTickerProviderStateMixin'.
+       A RenderFlex overflowed by 98110 pixels on the right.
+00:13 +0 -1: widgets/scroll_position_with_single_context_test.dart [E]
+  Expected: true
+    Actual: <false>
+  Runtime Error: Undefined property or method '_controller' on bridged instance of 'SingleTickerProviderStateMixin'.; A RenderFlex overflowed by 98110 pixels on the right.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/e3_bisect_test.dart 34:5                       main.<fn>
+  
+00:13 +0 -1: (tearDownAll)
+00:14 +0 -1: Some tests failed.

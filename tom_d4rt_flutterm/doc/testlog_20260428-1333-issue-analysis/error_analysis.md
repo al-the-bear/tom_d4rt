@@ -214,40 +214,58 @@ mirror needed (script-side changes only).
 
 ## E3 — Bridged-mixin field/getter access — carry-over D2 partial
 
-- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Medium · **Owner:** interpreter (root cause documented as interpreter limitation; closed via script rewrite)
 
-**Status.** D2 (4 scripts, 6 FE) was closed in the prior run via
-`Environment.toBridgedInstance` supertype-narrowing + the
-`D4InterpretedProxy` unwrap fallback. **Two scripts have
-re-surfaced** in this run with adjacent shapes:
+**Resolution (2026-04-28).** Root cause identified and recorded
+as an interpreter architectural limitation in
+`interpreter_unfixable.md` ("E3 — `findAncestorStateOfType<T>()`
+ignores type argument"). Closed by rewriting the single open
+script (`widgets/scroll_position_with_single_context_test.dart`)
+to drop the typed ancestor-state lookup in `_HeroPulseIcon` and
+pass the `ScrollController` down explicitly.
 
-- `widgets/scroll_position_with_single_context_test.dart` (hr5):
-  `Runtime Error: Undefined property or method '_controller' on bridged instance of 'SingleTickerProviderStateMixin'.`
-  Same shape as the closed D2 `_controller` case; likely a
-  different code path (e.g. constructor-passed callback that
-  evaluates before the proxy round-trip is set up).
-- `widgets/restorable_property_test.dart` (secondary):
-  `Runtime Error: LateInitializationError: Late variable '_value' without initializer is accessed before being assigned.`
-  See E4 — distinct cluster (late-init).
-- `widgets/restorable_string_test.dart` (secondary):
-  `Runtime Error: LateInitializationError: Late variable '_productNameController' without initializer is accessed before being assigned.`
-  See E4.
+**Earlier (incorrect) hypothesis.** The original analysis below
+guessed the failure was a `vsync.createTicker` constructor-phase
+ordering issue. That was wrong — the failing script does not use
+`SingleTickerProviderStateMixin` at all. The bridge name in the
+error message comes from a *framework-internal* state that
+happens to be the nearest ancestor State found by an
+ungeneric-`T` `findAncestorStateOfType` call.
 
-**Likely cause for `_controller`.** The hr5 single-context script
-constructs a `ScrollPositionWithSingleContext` from inside the
-script's `State.build`, and the bridged constructor calls back
-into `vsync.createTicker` synchronously before the
-`D4InterpretedProxy` round-trip sets up. The D2 fix made the
-mixin-side property visible *post* round-trip, but constructor-
-phase access still hits the empty bridged shell. The fix template
-matches the C20d "StateUserBridge scheduler-phase deferral"
-pattern.
+**Actual root cause.** The auto-generated bridge adapters for
+`BuildContext.findAncestorStateOfType<T>()` /
+`findRootAncestorStateOfType<T>()` drop the generic type
+argument and call `t.findAncestorStateOfType()` (i.e.
+`T = dynamic`). Flutter then walks ancestors and returns the
+*first* State of any type — which in a typical script is some
+framework-internal `_AnimatedContainerState` /
+`OverlayState` / `NavigatorState` / etc. that mixes in
+`SingleTickerProviderStateMixin` or
+`TickerProviderStateMixin`. The script then accesses a member
+that only exists on its *own* State subclass, the bridge for the
+framework State has no such adapter, and the runtime surfaces
+`Undefined property or method 'X' on bridged instance of
+'SingleTickerProviderStateMixin'.` (or whichever framework State
+the walk happened to land on).
 
-**Suggested fix.** Extend the `D4UserBridge` template for
-`SingleTickerProviderStateMixin` to defer `createTicker` to
-post-frame OR to expose the interpreted-side `_controller` field
-via the proxy at construction time (not after first build). The
-restoration-mixin late-init shape (E4) is a separate cluster.
+**Why a generator/runtime fix was deferred.** A type-aware
+adapter requires changes to every Element subclass' bridge in
+`widgets_bridges.b.dart` (100+ adapter sites), a new D4 helper
+mirrored across `tom_d4rt` and `tom_d4rt_ast`, and full bridge
+regeneration. Out of scope for the cluster-by-cluster bug-fix
+campaign; tracked in `interpreter_unfixable.md`.
+
+**Verification.**
+`test/e3_bisect_test.dart` (isolation harness) →
+`frameworkErrors=0`, all tests pass post-fix
+(`doc/testlog_20260428-e3-fix/e3_bisect_post.log.txt`).
+
+Pre-fix log (for reference):
+`doc/testlog_20260428-e3-fix/e3_bisect_pre.log.txt`.
+
+The other "carry-over" entries (`restorable_property_test`,
+`restorable_string_test`) are tracked under **E4** (late-init
+cluster, distinct shape).
 
 ---
 

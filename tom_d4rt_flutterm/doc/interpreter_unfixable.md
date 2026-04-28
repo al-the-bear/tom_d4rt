@@ -28,6 +28,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 |---|---|---|
 | [Abstract Class Inheritance — architecture](#abstract-class-inheritance) | Interpreter limitation (worked around via adapter proxies; auto-generation explored as E12) | Architectural |
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
+| [E3 — `findAncestorStateOfType<T>()` ignores type argument](#e3--findancestorstateoftypet-ignores-type-argument) | Interpreter limitation (bridge generator drops `T`; script-side rewrite supplied) | `widgets/scroll_position_with_single_context_test.dart` |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -189,6 +190,102 @@ durable lever is the META watchdog.
    retries. Given that W1–W5 all pass in isolation, the watchdog
    alone — without per-script F1–F5 work — should restore the
    skipped tests to the long suites once it lands.
+
+---
+
+## E3 — `findAncestorStateOfType<T>()` ignores type argument
+
+**Trigger.** A `StatelessWidget` (or any descendant) calls
+`context.findAncestorStateOfType<SpecificStateClass>()` to grab a
+typed handle to an owning State subclass declared in the same
+script, e.g.:
+
+```dart
+final _SpwscDemoHomeState? state =
+    context.findAncestorStateOfType<_SpwscDemoHomeState>();
+state?._controller.hasClients; // KaBOOM
+```
+
+**Underlying interpreter limitation.** The auto-generated bridge
+adapters for `BuildContext.findAncestorStateOfType` (and
+`findRootAncestorStateOfType`) drop the generic type argument:
+
+```dart
+'findAncestorStateOfType': (visitor, target, positional, named, typeArgs) {
+  final t = D4.validateTarget<…Element>(target, '…Element');
+  return t.findAncestorStateOfType(); // <-- T missing
+},
+```
+
+The native Flutter API resolves the type at compile time
+(`findAncestorStateOfType<T>` is monomorphised), so the generator
+has no obvious surface to forward an interpreted `T` into. With
+`T == dynamic`, Flutter walks ancestors and returns the *first*
+State of any type. In a real script that is almost always the
+wrong State — typically an `_AnimatedContainerState`,
+`NavigatorState`, `OverlayState`, or some other framework State
+mixing in `SingleTickerProviderStateMixin` /
+`TickerProviderStateMixin`. The script then calls a member that
+only exists on its own State subclass, the bridge adapter for
+the framework State doesn't have the field, and the runtime
+surfaces:
+
+```
+Runtime Error: Undefined property or method '_controller' on
+bridged instance of 'SingleTickerProviderStateMixin'.
+```
+
+(Same shape for `TickerProviderStateMixin`, `NavigatorState`,
+etc., depending on which State the walk happens to land on.)
+
+A "proper" fix would require the bridge generator to emit a
+type-aware adapter that:
+
+1. Walks ancestors via `Element.visitAncestorElements`.
+2. For each `StatefulElement`, checks whether its
+   `state` is a `D4InterpretedProxy` whose `d4rtInstance`
+   `InterpretedInstance` extends the requested
+   `InterpretedClass` (or, for native targets, an `is T` check
+   against the resolved native bridge).
+3. Returns the **`InterpretedInstance`** directly so script-side
+   field access works.
+
+This change touches every Element subclass adapter in
+`widgets_bridges.b.dart` (100+ call sites), needs a runtime D4
+helper mirrored across `tom_d4rt` and `tom_d4rt_ast`, and full
+bridge regeneration. It is tracked separately and not part of
+the cluster-by-cluster bug-fix campaign.
+
+**Workaround at the script level.** Pass the controller (or
+state-derived value) down explicitly, e.g.:
+
+```dart
+// Owner — give the descendant what it needs.
+actions: [
+  _HeroPulseIcon(controller: _controller),
+  const SizedBox(width: 12),
+],
+
+// Descendant — drop the typed ancestor lookup.
+class _HeroPulseIcon extends StatelessWidget {
+  const _HeroPulseIcon({required this.controller});
+  final ScrollController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!controller.hasClients) return const _PulseDot(active: false);
+    return ValueListenableBuilder<bool>(
+      valueListenable: controller.position.isScrollingNotifier,
+      builder: (_, scrolling, __) => _PulseDot(active: scrolling),
+    );
+  }
+}
+```
+
+Functionally equivalent in real Flutter, and side-steps the
+interpreter limitation entirely. Applied to
+`widgets/scroll_position_with_single_context_test.dart` (E3,
+2026-04-28).
 
 ---
 

@@ -204,7 +204,10 @@ class _SpwscDemoHomeState extends State<_SpwscDemoHome> {
           'ScrollPositionWithSingleContext — the workhorse position',
           style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: -0.2),
         ),
-        actions: const [_HeroPulseIcon(), SizedBox(width: 12)],
+        actions: [
+          _HeroPulseIcon(controller: _controller),
+          const SizedBox(width: 12),
+        ],
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: _handleScrollNotification,
@@ -539,23 +542,29 @@ class _GaugePainter extends CustomPainter {
 // Hero pulse — uses ValueListenableBuilder on isScrollingNotifier.
 // ---------------------------------------------------------------------------
 class _HeroPulseIcon extends StatelessWidget {
-  const _HeroPulseIcon();
+  const _HeroPulseIcon({required this.controller});
+
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (BuildContext context) {
-        final _SpwscDemoHomeState? state = context
-            .findAncestorStateOfType<_SpwscDemoHomeState>();
-        if (state == null || !state._controller.hasClients) {
-          return const _PulseDot(active: false);
-        }
-        return ValueListenableBuilder<bool>(
-          valueListenable: state._controller.position.isScrollingNotifier,
-          builder: (BuildContext context, bool scrolling, _) {
-            return _PulseDot(active: scrolling);
-          },
-        );
+    // Note: this widget originally read the owning State via
+    // `context.findAncestorStateOfType<_SpwscDemoHomeState>()`. Under the
+    // d4rt interpreter the bridge dispatch ignores the generic type
+    // argument and returns the *nearest* ancestor State of any type — in
+    // this tree that resolves to a framework-internal State that mixes in
+    // `SingleTickerProviderStateMixin`, which has no `_controller` field
+    // and surfaces a runtime error. Receiving the controller as an
+    // explicit constructor parameter is functionally equivalent and avoids
+    // the typed ancestor lookup entirely. See `interpreter_unfixable.md`
+    // (E3-typed-ancestor-state) for details.
+    if (!controller.hasClients) {
+      return const _PulseDot(active: false);
+    }
+    return ValueListenableBuilder<bool>(
+      valueListenable: controller.position.isScrollingNotifier,
+      builder: (BuildContext context, bool scrolling, _) {
+        return _PulseDot(active: scrolling);
       },
     );
   }
