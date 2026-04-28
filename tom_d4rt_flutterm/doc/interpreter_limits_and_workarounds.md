@@ -16,6 +16,9 @@ bridge-side adapter infrastructure.
 | 6 | [Real Dart isolates not supported](#6-real-dart-isolates-not-supported) | 1 (skipped) | Won't fix — fundamental limit |
 | 7 | [FragmentProgram.fromAsset hangs on missing assets (Linux)](#7-fragmentprogramfromasset-hangs-on-missing-assets-linux) | 1 (skipped) | Script fix needed |
 
+
+Potential #8? Map.contains ✅ Fixed (script — `<int>{}` to disambiguate empty literal from `Map`; d4rt's empty-collection inference defaults `{}` to `Map` when LHS has no inline type argument) | Low | script | 1 | 0 |
+
 ---
 
 ## 5. Abstract Class Inheritance

@@ -286,6 +286,10 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/context_action_test.dart',
       );
+      // Allow 10 s for the test app to recover after this hard-failing script
+      // before the next test sends a request. Without this pause the cascade
+      // of failures below triggers "Lost connection to device".
+      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
     });
 
@@ -293,22 +297,25 @@ void main() {
       final result = await SendTestRunner.send(
         'retest/widgets/default_selection_style_test.dart',
       );
+      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
-    }, skip: 'crashes the test app; investigate separately');
+    });
 
     test('retest: widgets/default_text_editing_shortcuts_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/default_text_editing_shortcuts_test.dart',
       );
+      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
-    }, skip: 'crashes the test app (onLayout setter on RenderProxyBox); investigate separately');
+    });
 
     test('retest: widgets/live_text_input_status_test.dart', () async {
       final result = await SendTestRunner.send(
         'retest/widgets/live_text_input_status_test.dart',
       );
+      await Future<void>.delayed(const Duration(seconds: 10));
       expectSuccess(result);
-    }, skip: 'crashes the test app (onLayout setter + app exit); investigate separately');
+    });
 
     test('retest: widgets/lock_state_test.dart', () async {
       final result = await SendTestRunner.send(

@@ -582,10 +582,6 @@ void main() {
       expect(result.success, isTrue, reason: result.error);
     });
 
-    test('showmenu_test.dart', () async {
-      final result = await SendTestRunner.send('material/showmenu_test.dart');
-      expect(result.success, isTrue, reason: result.error);
-    }, skip: 'moved to interactive_tests_test.dart (tap Option A to dismiss)');
   });
 
   // ============================================================

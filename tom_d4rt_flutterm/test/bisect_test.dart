@@ -1,4 +1,9 @@
-/// Bisect test harness
+/// Bisect test harness — probe which "clean failure" test crashes the app.
+///
+/// The 3 previously-suspected tests all pass FE=0 in isolation.
+/// The cascade in the full retest suite started after context_action_test
+/// failed — check whether any of the clean-failure tests (back_button,
+/// box_scroll, context_action) leave the app dead for the canary.
 @TestOn('vm')
 library;
 
@@ -15,24 +20,51 @@ void main() {
     await SendTestRunner.tearDown();
   });
 
-  for (final script in <String>[
-    // Deprecated API tests (secondary_classes_test.dart)
-    'material/button_types_test.dart',        // ButtonBar deprecated
-    'material/toggle_segmented_test.dart',    // ButtonBar deprecated
-    'material/button_styles_misc_test.dart',  // ButtonBarThemeData deprecated
-    'widgets/platform_menu_widgets_test.dart', // RawKeyboardListener deprecated
-    // Interactive dialog tests (plain send, no interaction)
-    'material/showdialog_test.dart',
-    'material/showbottomsheet_test.dart',
-    'material/showmenu_test.dart',
-    'material/showdatepicker_test.dart',
-    'material/showtimepicker_test.dart',
-  ]) {
-    test(script, () async {
-      final result = await SendTestRunner.send(script);
-      print('STATUS: ${result.success}');
-      print('FRAMEWORK_ERRORS: ${result.frameworkErrors}');
-      print('OUTPUT_COUNT: ${result.output.length}');
-    });
-  }
+  // ── Probe A: back_button_listener_test (Router generic factory error) ────
+  test('[probeA] back_button_listener_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'retest/widgets/back_button_listener_test.dart',
+    );
+    print('STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+  });
+
+  test('[canary after A] render_darwin_platform_view_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'rendering/render_darwin_platform_view_test.dart',
+    );
+    print('CANARY-A STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+    expect(result.success, isTrue, reason: 'canary-A failed — probe-A crashed the app');
+  });
+
+  // ── Probe B: box_scroll_view_test (SizedBox child error) ─────────────────
+  test('[probeB] box_scroll_view_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'retest/widgets/box_scroll_view_test.dart',
+    );
+    print('STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+  });
+
+  test('[canary after B] render_darwin_platform_view_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'rendering/render_darwin_platform_view_test.dart',
+    );
+    print('CANARY-B STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+    expect(result.success, isTrue, reason: 'canary-B failed — probe-B crashed the app');
+  });
+
+  // ── Probe C: context_action_test (Actions Map<Type,Action<Intent>> error) ─
+  test('[probeC] context_action_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'retest/widgets/context_action_test.dart',
+    );
+    print('STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+  });
+
+  test('[canary after C] render_darwin_platform_view_test.dart', () async {
+    final result = await SendTestRunner.send(
+      'rendering/render_darwin_platform_view_test.dart',
+    );
+    print('CANARY-C STATUS: ${result.success}  FE: ${result.frameworkErrors}');
+    expect(result.success, isTrue, reason: 'canary-C failed — probe-C crashed the app');
+  });
 }
