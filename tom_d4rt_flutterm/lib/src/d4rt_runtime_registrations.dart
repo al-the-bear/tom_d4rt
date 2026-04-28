@@ -110,6 +110,10 @@ import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 import 'bridges/flutter_proxies.b.dart' show D4rtMultiChildLayoutDelegate;
 import 'bridges/flutter_relaxers.b.dart' show $RelaxedTween;
 
+// Track which interpreted Intent subclass names have already emitted the
+// type-keyed dispatch warning so we only print once per class.
+final Set<String> _warnedIntentProxyClasses = {};
+
 /// Register all runtime registrations (interface proxies, type coercions,
 /// generic constructor factories).
 ///
@@ -322,6 +326,22 @@ void _registerInterfaceProxies() {
   D4.registerInterfaceProxy('Intent', (visitor, instance) {
     final cached = instance.nativeProxy;
     if (cached is Intent) return cached;
+    // Warn once per class: type-keyed dispatch via Actions.invoke<T> /
+    // Actions(actions: {T: action}) won't work for interpreted Intent
+    // subclasses — all share runtimeType _InterpretedIntent, so Flutter's
+    // Actions widget can never find the per-class key in its action map.
+    // Workaround: call action.invoke(intent[, context]) directly.
+    final className = instance.klass.name;
+    if (_warnedIntentProxyClasses.add(className)) {
+      debugPrint(
+        '[D4rt] D4rt-LIMIT: User-defined Intent subclass "$className" wrapped '
+        'as _InterpretedIntent. Actions.invoke<$className> / type-keyed '
+        'dispatch (Actions(actions: {$className: myAction})) will NOT work — '
+        'all interpreted Intent subclasses share runtimeType _InterpretedIntent '
+        'at runtime. Workaround: call action.invoke(intent[, context]) directly '
+        'on the Action instance instead of using Actions.invoke.',
+      );
+    }
     final proxy = _InterpretedIntent(visitor, instance);
     instance.nativeProxy ??= proxy;
     return proxy;

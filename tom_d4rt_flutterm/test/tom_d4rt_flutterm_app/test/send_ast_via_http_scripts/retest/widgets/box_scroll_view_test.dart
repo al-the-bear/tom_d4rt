@@ -1192,7 +1192,12 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
       ),
+      // D4RT-WORKAROUND: Column with Expanded would throw "unbounded height"
+      // when _deviceShell is placed inside a SingleChildScrollView chain.
+      // Use mainAxisSize.min and size the Stack from its non-positioned body
+      // child (which is always a SizedBox with explicit height).
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             height: 34,
@@ -1213,13 +1218,11 @@ class _BoxScrollViewDeepDemoState extends State<_BoxScrollViewDeepDemo> {
               ],
             ),
           ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(child: _background(_pattern)),
-                Positioned.fill(child: body),
-              ],
-            ),
+          Stack(
+            children: <Widget>[
+              Positioned.fill(child: _background(_pattern)),
+              body,
+            ],
           ),
         ],
       ),

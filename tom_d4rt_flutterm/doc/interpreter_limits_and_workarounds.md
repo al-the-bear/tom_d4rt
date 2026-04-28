@@ -15,9 +15,7 @@ bridge-side adapter infrastructure.
 | 5 | [Abstract class inheritance](#5-abstract-class-inheritance) | State-related | Adapter + interceptor |
 | 6 | [Real Dart isolates not supported](#6-real-dart-isolates-not-supported) | 1 (skipped) | Won't fix — fundamental limit |
 | 7 | [FragmentProgram.fromAsset hangs on missing assets (Linux)](#7-fragmentprogramfromasset-hangs-on-missing-assets-linux) | 1 (skipped) | Script fix needed |
-
-
-Potential #8? Map.contains ✅ Fixed (script — `<int>{}` to disambiguate empty literal from `Map`; d4rt's empty-collection inference defaults `{}` to `Map` when LHS has no inline type argument) | Low | script | 1 | 0 |
+| 8 | [Action/Intent type-keyed dispatch](#8-actionintent-type-keyed-dispatch-with-user-defined-subclasses) | Several | Script workaround |
 
 ---
 
@@ -721,3 +719,136 @@ try {
 Until the script is fixed, the test is **skipped** in
 `hardly_relevant_classes_1_test.dart` to prevent test-suite cascade
 failures.
+
+---
+
+## 8. Action/Intent Type-Keyed Dispatch with User-Defined Subclasses
+
+### Error Messages
+
+```
+flutter: Unable to find an action for an Intent with type _InterpretedIntent in an Actions widget.
+```
+
+Or silently returns null when `Actions.invoke<T>(context, intent)` is called with a
+user-defined Intent subclass.
+
+### Impact
+
+- Any script that defines custom Intent subclasses and uses them with `Actions.invoke<T>` or
+  `Actions(actions: {MyIntentClass: myAction})`.
+- Affects: `context_action_test.dart` and any other script with user-defined Action/Intent pairs.
+
+### Why This Cannot Be Fixed in the Interpreter
+
+Dart's `Actions` widget dispatches by `intent.runtimeType`. It does:
+
+```dart
+actions[intent.runtimeType]; // looks up the action by the intent's runtime Type
+```
+
+In D4rt, **all** user-defined Intent subclasses are wrapped in a single native proxy class
+`_InterpretedIntent`. Dart does not allow creating new `Type` values at runtime, so every
+interpreted Intent subclass has `runtimeType == _InterpretedIntent` — regardless of the
+script-level class name.
+
+When the `Actions` widget is constructed with:
+```dart
+Actions(
+  actions: {GreetIntent: greetAction, ToggleIntent: toggleAction},
+  ...
+)
+```
+
+D4rt coerces this map via `D4.coerceMap<Type, Action<Intent>>`. The map keys are
+`InterpretedClass` objects (the D4rt class descriptors). `coerceMapKey<Type>` converts each
+`InterpretedClass` to its nearest bridged native supertype — which is `Intent` for all of them.
+The resulting native map is `{Intent: lastAction}`, collapsing all entries to a single key.
+
+At dispatch time, `actions[intent.runtimeType]` = `actions[_InterpretedIntent]` — neither
+`Intent` nor `_InterpretedIntent` is in the map, so no action is found.
+
+This is **fundamental to Dart's type system**: there is no API to create a new distinct
+runtime `Type` value without declaring a new class at compile time.
+
+The proxy factory emits a `debugPrint` warning the first time each interpreted Intent class
+is wrapped, identifying the class name and explaining the limitation:
+```
+[D4rt] D4rt-LIMIT: User-defined Intent subclass "GreetIntent" wrapped as _InterpretedIntent.
+Actions.invoke<GreetIntent> / type-keyed dispatch (...) will NOT work — all interpreted Intent
+subclasses share runtimeType _InterpretedIntent at runtime. Workaround: call
+action.invoke(intent[, context]) directly on the Action instance.
+```
+
+### Partial Support: SDK-Provided Intent Types
+
+**Intent subclasses defined in the Flutter SDK itself work correctly** because they are real
+Dart classes with distinct `runtimeType` values. These can be used with `Actions.invoke<T>`
+and `Actions(actions: {T: myAction})` without any workaround:
+
+| SDK Intent Type | Works with `Actions.invoke`? |
+|----------------|------------------------------|
+| `VoidCallbackIntent` | ✅ Yes |
+| `DismissIntent` | ✅ Yes |
+| `ScrollIntent` | ✅ Yes |
+| `ActivateIntent` | ✅ Yes |
+| `ButtonActivateIntent` | ✅ Yes |
+| `ExpandSelectionByCharacterIntent` | ✅ Yes |
+| `SelectAllTextIntent` | ✅ Yes |
+| `CopySelectionTextIntent` | ✅ Yes |
+| `DoNothingIntent` | ✅ Yes |
+| Any other SDK-defined Intent | ✅ Yes |
+| **User-defined `class MyIntent extends Intent`** | ❌ No |
+
+User-defined `Action` subclasses (e.g. `class MyAction extends Action<MyIntent>`) work
+correctly when invoked directly — the `invoke()` method delegates to the interpreter. Only
+the type-keyed lookup mechanism (`Actions.invoke<T>`, `Actions(actions: {T: ...})`) fails.
+
+### Script Workaround
+
+Replace all `Actions.invoke<T>(context, intent)` calls with direct invocation on the action
+instance:
+
+```dart
+// BEFORE: Fails — type-keyed dispatch cannot find the action
+Actions.invoke<GreetIntent>(context, const GreetIntent('World'));
+
+// AFTER: Works — call action.invoke() directly
+// D4RT-LIMITATION: Actions.invoke type-keyed dispatch (#8) — call directly
+greetAction.invoke(const GreetIntent('World'), context);
+```
+
+Similarly, replace `Actions.find<T>(context)` (which also uses type-keyed lookup) by
+extracting the action instance before the `Actions` widget:
+
+```dart
+// BEFORE: Fails
+final action = Actions.find<GreetIntent>(context) as GreetContextAction;
+
+// AFTER: Use the already-known action variable directly
+// D4RT-LIMITATION: Actions.find type-keyed lookup (#8) — use variable directly
+final action = greetAction; // variable declared before the Actions widget
+```
+
+For `Actions(actions: {T: action})` widget construction, the map will silently collapse to a
+single entry; the widget tree still renders, but `Actions.invoke` won't work. Continue
+providing the map for documentation purposes, but add the direct-call workaround for all
+invoke sites.
+
+### Fixed Scripts
+
+- `retest/widgets/context_action_test.dart` — all `Actions.invoke<T>` and `Actions.find<T>`
+  calls replaced with direct action invocation. All 9 dispatch sites rewritten.
+
+### Surveyed Test Files (33 Action/Intent scripts checked)
+
+The following patterns were identified across the full retest corpus:
+
+| Pattern | Files | Works? |
+|---------|-------|--------|
+| SDK Intent types with `Actions.invoke` (e.g. `ScrollIntent`, `DismissIntent`) | Several | ✅ Yes |
+| User-defined `Action` subclass direct `invoke()` | Several | ✅ Yes |
+| `Actions(actions: {SdkIntent: action})` widget construction | Several | ✅ Yes |
+| `Actions.invoke<UserDefinedIntent>(ctx, intent)` | `context_action_test.dart` | ❌ No |
+| `Actions.find<UserDefinedIntent>(ctx)` | `context_action_test.dart` | ❌ No |
+| `Actions(actions: {UserDefinedIntent: action})` map key | `context_action_test.dart` | ❌ Collapsed |

@@ -758,10 +758,11 @@ dynamic build(BuildContext context) {
           },
           child: Builder(
             builder: (innerContext) {
-              // Invoke the action to produce a visible result
-              final result = Actions.invoke<GreetIntent>(
-                innerContext,
+              // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch does not
+              // work for user-defined Intent subclasses — call directly instead.
+              final result = greetAction.invoke(
                 const GreetIntent('Flutter Developer'),
+                innerContext,
               );
               print('  Greet action result: $result');
 
@@ -1002,6 +1003,9 @@ dynamic build(BuildContext context) {
   print('Side-by-side to show what context access enables');
 
   final plainAction = PlainAction();
+  // D4RT-LIMITATION #8: extract action before the widget tree so Actions.find
+  // (type-keyed) can be replaced with a direct variable reference.
+  final ctxCompareAction = GreetContextAction();
 
   final scene4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1035,10 +1039,9 @@ dynamic build(BuildContext context) {
               },
               child: Builder(
                 builder: (innerContext) {
-                  final result = Actions.invoke<PlainActionIntent>(
-                    innerContext,
-                    const PlainActionIntent(),
-                  );
+                  // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch —
+                  // call directly on the action instance instead.
+                  final result = plainAction.invoke(const PlainActionIntent());
                   print('  PlainAction result: $result');
 
                   return Column(
@@ -1135,14 +1138,16 @@ dynamic build(BuildContext context) {
             width: 260.0,
             child: Actions(
               actions: <Type, Action<Intent>>{
-                GreetIntent: GreetContextAction(),
+                GreetIntent: ctxCompareAction,
               },
               child: Builder(
                 builder: (innerContext) {
-                  final action = Actions.find<GreetIntent>(innerContext);
-                  final result = Actions.invoke<GreetIntent>(
-                    innerContext,
+                  // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
+                  // does not work — use extracted variable directly instead.
+                  final action = ctxCompareAction;
+                  final result = ctxCompareAction.invoke(
                     const GreetIntent('Copilot'),
+                    innerContext,
                   );
                   print('  ContextAction comparison result: $result');
 
@@ -1215,6 +1220,10 @@ dynamic build(BuildContext context) {
 
   final themeAction = ThemeReadContextAction();
   final treeClimbAction = TreeClimbContextAction();
+  // D4RT-LIMITATION #8: extract action instances before the widget tree so
+  // Actions.find (type-keyed) can be replaced with direct variable references.
+  final ltrGreetAction = GreetContextAction();
+  final rtlGreetAction = GreetContextAction();
 
   final scene5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1245,7 +1254,8 @@ dynamic build(BuildContext context) {
           },
           child: Builder(
             builder: (innerContext) {
-              Actions.invoke<ThemeReadIntent>(innerContext, const ThemeReadIntent());
+              // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
+              themeAction.invoke(const ThemeReadIntent(), innerContext);
 
               return Row(
                 children: [
@@ -1335,10 +1345,8 @@ dynamic build(BuildContext context) {
                 },
                 child: Builder(
                   builder: (innerContext) {
-                    Actions.invoke<TreeClimbIntent>(
-                      innerContext,
-                      const TreeClimbIntent(),
-                    );
+                    // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
+                    treeClimbAction.invoke(const TreeClimbIntent(), innerContext);
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1437,15 +1445,14 @@ dynamic build(BuildContext context) {
                 textDirection: TextDirection.ltr,
                 child: Actions(
                   actions: <Type, Action<Intent>>{
-                    GreetIntent: GreetContextAction(),
+                    GreetIntent: ltrGreetAction,
                   },
                   child: Builder(
                     builder: (innerContext) {
-                      final action = Actions.find<GreetIntent>(innerContext) as GreetContextAction;
-                      Actions.invoke<GreetIntent>(
-                        innerContext,
-                        const GreetIntent('LTR User'),
-                      );
+                      // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
+                      // does not work — use extracted variables directly instead.
+                      final action = ltrGreetAction;
+                      ltrGreetAction.invoke(const GreetIntent('LTR User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
@@ -1482,15 +1489,14 @@ dynamic build(BuildContext context) {
                 textDirection: TextDirection.rtl,
                 child: Actions(
                   actions: <Type, Action<Intent>>{
-                    GreetIntent: GreetContextAction(),
+                    GreetIntent: rtlGreetAction,
                   },
                   child: Builder(
                     builder: (innerContext) {
-                      final action = Actions.find<GreetIntent>(innerContext) as GreetContextAction;
-                      Actions.invoke<GreetIntent>(
-                        innerContext,
-                        const GreetIntent('RTL User'),
-                      );
+                      // D4RT-LIMITATION #8: Actions.find/invoke type-keyed dispatch
+                      // does not work — use extracted variables directly instead.
+                      final action = rtlGreetAction;
+                      rtlGreetAction.invoke(const GreetIntent('RTL User'), innerContext);
                       return Container(
                         padding: const EdgeInsets.all(10.0),
                         margin: const EdgeInsets.all(4.0),
@@ -1544,6 +1550,10 @@ dynamic build(BuildContext context) {
   // ════════════════════════════════════════════════════════════
   print('\n--- Scene 6: Practical Patterns ---');
   print('Real-world ContextAction usage scenarios');
+
+  // D4RT-LIMITATION #8: extract action before the widget tree so Actions.invoke
+  // (type-keyed) can be replaced with a direct variable reference.
+  final showInfoAction = _ShowInfoContextAction();
 
   final scene6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1926,14 +1936,12 @@ dynamic build(BuildContext context) {
         width: 380.0,
         child: Actions(
           actions: <Type, Action<Intent>>{
-            ShowInfoIntent: _ShowInfoContextAction(),
+            ShowInfoIntent: showInfoAction,
           },
           child: Builder(
             builder: (innerContext) {
-              final result = Actions.invoke<ShowInfoIntent>(
-                innerContext,
-                const ShowInfoIntent(),
-              );
+              // D4RT-LIMITATION #8: Actions.invoke type-keyed dispatch — call directly.
+              final result = showInfoAction.invoke(const ShowInfoIntent(), innerContext);
               print('  ShowInfoContextAction result: $result');
 
               return Column(
