@@ -565,30 +565,22 @@ class _DynoLane extends StatelessWidget {
             sublabel: sublabel,
             color: color,
           ),
-          // The ListView — wrapped in ScrollConfiguration with our behavior
+          // The ListView — BISECT: no BouncingScrollPhysics
           Expanded(
-            child: ScrollConfiguration(
-              behavior: _DecelerationBehavior(
-                decelerationRate: decelerationRate,
+            child: ListView.builder(
+              controller: controller,
+              padding: const EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 8,
               ),
-              child: ListView.builder(
-                controller: controller,
-                physics: BouncingScrollPhysics(
-                  decelerationRate: decelerationRate,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 8,
-                ),
-                itemCount: 50,
-                itemBuilder: (context, index) {
-                  return _LaneTile(
-                    index: index,
-                    color: tilePalette[index % tilePalette.length],
-                    accent: color,
-                  );
-                },
-              ),
+              itemCount: 50,
+              itemBuilder: (context, index) {
+                return _LaneTile(
+                  index: index,
+                  color: tilePalette[index % tilePalette.length],
+                  accent: color,
+                );
+              },
             ),
           ),
         ],
@@ -828,10 +820,14 @@ class _TelemetryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // `crossAxisAlignment: stretch` propagates the parent
+    // `SliverToBoxAdapter`'s unbounded-height into each `Expanded`
+    // child and trips the C3/E8 cascade. Default cross-alignment lets
+    // each card size itself to its content, which is what the original
+    // visual layout intended (cards have intrinsic content heights).
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 6, 20, 6),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: _TelemetryCard(
@@ -1074,10 +1070,13 @@ class _CoastCurves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Same shape as `_TelemetryRow.build`: avoid `crossAxisAlignment:
+    // stretch` because `SliverToBoxAdapter` propagates an unbounded
+    // height. `_SparkCard` already pins `height: 120`, so the row's
+    // cross-axis simply matches the cards' intrinsic 120 px.
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 6, 20, 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: _SparkCard(
@@ -1476,8 +1475,12 @@ class _EnumReferenceCard extends StatelessWidget {
               text: 'Enum Reference',
             ),
             const SizedBox(height: 14),
+            // No `crossAxisAlignment: stretch` — outer
+            // `SliverToBoxAdapter > Padding > Container > Column` is
+            // vertically unbounded. Stretch would propagate infinity
+            // into the `Expanded` children (C3/E8 cascade). Default
+            // alignment lets `_EnumCell` size itself naturally.
             Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
                   child: _EnumCell(
@@ -1820,8 +1823,11 @@ class _WhenToUseCard extends StatelessWidget {
               text: 'When to use which',
             ),
             const SizedBox(height: 12),
+            // No `crossAxisAlignment: stretch` — same reason as the
+            // Enum Reference card above. Outer parent is vertically
+            // unbounded; stretching would propagate infinity into
+            // `Expanded`.
             Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: const <Widget>[
                 Expanded(
                   child: _UseTile(

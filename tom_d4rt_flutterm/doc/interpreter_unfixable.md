@@ -31,6 +31,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [E3 — `findAncestorStateOfType<T>()` ignores type argument](#e3--findancestorstateoftypet-ignores-type-argument) | Interpreter limitation (bridge generator drops `T`; script-side rewrite supplied) | `widgets/scroll_position_with_single_context_test.dart` |
 | [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
 | [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
+| [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -424,11 +425,107 @@ of `widgets/restorable_double_n_test.dart`.
 
 ---
 
+## E8 — `ScrollController` state field passed through `StatelessWidget` chain to a `Scrollable` (interpreter limitation)
+
+**Symptom.** A `ScrollController` declared as a `final` state
+field in a `StatefulWidget`'s `State`, then propagated as a
+constructor parameter through one or more `StatelessWidget`
+classes, and finally handed to a `Scrollable` (`ListView`,
+`ListView.builder`, `SingleChildScrollView`, …) raises a single
+"Null check operator used on a null value" framework error per
+leaf `Scrollable` that receives the propagated controller. The
+error fires during initial mount, before any user interaction or
+listener callback can run.
+
+**Reproducer (minimal).**
+
+```dart
+class _Page extends StatefulWidget {
+  @override State<_Page> createState() => _PageState();
+}
+
+class _PageState extends State<_Page> {
+  final ScrollController _ctl = ScrollController();
+  @override
+  Widget build(_) => SizedBox(
+        height: 420,
+        child: _Pass(controller: _ctl),
+      );
+}
+
+class _Pass extends StatelessWidget {
+  final ScrollController controller;
+  const _Pass({required this.controller});
+  @override
+  Widget build(_) => ListView.builder(
+        controller: controller,
+        itemCount: 50,
+        itemBuilder: (c, i) => Text('$i'),
+      );
+}
+```
+
+This produces 1 framework error per mount.
+
+**Bisect findings (from `widgets/scroll_deceleration_rate_test.dart`).**
+
+| Variant | FE |
+|---|---|
+| Original (state-field controllers, 4 `Row(stretch)+Expanded` cascades) | 8 |
+| Drop `crossAxisAlignment: stretch` from the 4 cascading `Row` sites (script-side layout fix) | 2 |
+| Replace passed-through state-field controller with a locally-constructed `ScrollController()` inside the leaf widget | 0 |
+| Disable the `controller`'s `addListener` calls in `initState` | 2 (no change → not listener-driven) |
+| Drop `BouncingScrollPhysics(decelerationRate:)` (use default physics) | 2 (no change → not physics-driven) |
+| Drop `ScrollConfiguration` + custom `ScrollBehavior` wrapper | 2 (no change → not behavior-driven) |
+| Replace `ListView.builder` with `ListView` or `SingleChildScrollView` | 2 (no change → not builder-specific) |
+| Render only one of the two `Scrollable`s | 1 (linear scaling: 1 leaf → 1 error, 2 leaves → 2 errors) |
+
+The error count scales linearly with the number of leaf
+`Scrollable`s receiving the propagated state-field controller.
+Listener attachment, physics, scroll behavior, and the choice
+between `ListView`, `ListView.builder`, and `SingleChildScrollView`
+are all immaterial.
+
+**Why it cannot be worked around at the script level.** The
+script (`widgets/scroll_deceleration_rate_test.dart`) demonstrates
+synchronized scroll telemetry across two parallel `ListView`s —
+`_TelemetryRow`, `_CoastCurves`, `_FlingControls`, and the listener
+callbacks all read from the same `_normalCtl` / `_fastCtl` that
+the `Scrollable`s consume. Localising the controllers inside the
+lane widgets would sever the connection that the entire test is
+built around. The script-side layout-cascade fix (8→2) lands
+already; the residual 2 errors require an interpreter fix.
+
+**Suspected interpreter site.** State-field references
+(`widget.controller` traversing `final ScrollController` fields
+declared on a parent `State`) appear to lose identity or value
+when the bridged `Scrollable` calls back into the interpreter
+during initial layout. Locally-constructed controllers (instances
+created inside the leaf `build()`) do not exhibit this. The
+asymmetry strongly suggests a `BridgedInstance` lifecycle problem
+specific to instances captured by interpreted closures across
+widget tree levels.
+
+**Status.** E8 closed as **partial** (8→2). Layout-cascade fix
+landed in the script; remaining 2 errors documented here for the
+next interpreter pass.
+
+**Documented.** 2026-04-28.
+
+---
+
 ---
 
 ## Change Log
 
-- 2026-04-28 (latest): **Move Index 32
+- 2026-04-28 (latest): **Add E8 entry — `ScrollController`
+  state-field-through-StatelessWidget-chain.** Cluster E8
+  closed partial (8→2). Layout-cascade fix (drop `stretch`
+  from 4 `Row` sites) landed in `script_rewrites.md`. Residual
+  2 framework errors are interpreter-level (state-field
+  identity loss across bridged `Scrollable.attach`) and
+  documented for next interpreter pass.
+- 2026-04-28: **Move Index 32
   `GappedRangeSliderTrackShape` to `script_rewrites.md`.** Per
   user assessment, the null-deref pattern is most consistent
   with a script-side contract violation against

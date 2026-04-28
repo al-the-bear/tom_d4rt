@@ -195,11 +195,24 @@ script-side rewrite that makes the test pass cleanly.
 
 ---
 
-## `Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter` (C3)
+## `Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter` (C3 / E8 partial)
 
 - **Source:** `widgets/scroll_deceleration_rate_test.dart` (8
-  framework errors; bisected to `_TelemetryRow.build()` lines
-  828–858 and `_CoastCurves.build()` lines 1083–…).
+  framework errors; on E8 re-bisect 2026-04-28, four cascading
+  sites were identified, not two: `_TelemetryRow.build()`,
+  `_CoastCurves.build()`, the Enum Reference card row, and the
+  When-to-use card row).
+- **2026-04-28 update — E8 partial closure landed.** Dropping
+  `crossAxisAlignment: stretch` from all four `Row` sites (and
+  letting cross-alignment default) reduces the framework-error
+  count from **8 → 2**. The two prior C3 attempts
+  (`IntrinsicHeight`, `SizedBox(height:)` wrapping) are
+  superseded — neither was tried directly on the four
+  cascading rows, and the simple `stretch` removal sidesteps
+  the unbounded-cross-axis assertion entirely. The remaining 2
+  errors are interpreter-level (state-field `ScrollController`
+  passed through a `StatelessWidget` chain to a `Scrollable`)
+  and tracked in `interpreter_unfixable.md` under E8.
 - **Symptom (cluster of 8 entries from one cascade):**
   1. `BoxConstraints forces an infinite height.` reported by
      `ChildLayoutHelper.layoutChild` with constraints

@@ -656,26 +656,45 @@ dispatch and close E3 + E7 together.
 
 ---
 
-## E8 — `widgets/scroll_deceleration_rate_test` null-check on null (NEW)
+## E8 — `widgets/scroll_deceleration_rate_test` null-check on null
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** script / interpreter
+- [ ] Fixed  - [x] Partial  - [ ] Open · **Severity:** Low · **Owner:** script (landed) + interpreter (residual)
 
-**Symptom.** `hr5/widgets/scroll_deceleration_rate_test.dart`
-8 FE, all of shape:
+**Status (2026-04-28).** Closed **partial**: 8 FE → 2 FE.
 
-```
-Null check operator used on a null value
-```
+**Bisect findings.** The 8-error baseline was a layout cascade
+plus an interpreter limitation, not a single null assertion as
+the original "Suggested fix" hypothesised:
 
-**Likely cause.** The script asserts a `Curves.fastOutSlowIn!`
-or similar `!`-promoted access where the value is genuinely null
-under the deep-demo path. Could be a script bug or a missing
-bridge property that returns null where the native side returns
-a non-null instance. Bisect needed.
+- 6 of 8 errors were a `Row(crossAxisAlignment: stretch) +
+  Expanded` cascade in vertically-unbounded parents
+  (`SliverToBoxAdapter` and `Container > Column(start)`).
+  Identified at four call sites: `_TelemetryRow.build()`,
+  `_CoastCurves.build()`, the Enum Reference card row, and the
+  When-to-use card row. **Script-side fix landed**: drop
+  `crossAxisAlignment: stretch` at all four sites. Tracked in
+  `script_rewrites.md` under "C3 / E8 partial".
+- The remaining 2 errors are an interpreter-level limitation:
+  a state-field `ScrollController` declared on a `State` and
+  propagated through a `StatelessWidget` chain to a leaf
+  `Scrollable` produces exactly one null-check per leaf. Linear
+  scaling confirmed (1 lane → 1 error, 2 lanes → 2 errors).
+  Listener attachment, physics, scroll behavior, and the choice
+  between `ListView`, `ListView.builder`, and `SingleChildScrollView`
+  are all immaterial. Locally-constructed controllers do not
+  exhibit the failure. Documented in `interpreter_unfixable.md`
+  under E8.
 
-**Suggested fix.** Bisect-run the script under `--reporter
-expanded` to recover the throwing line, then either fix the
-script or expose the missing bridge getter.
+**Logs.** `doc/testlog_20260428-e8-fix/` contains the bisect
+harness output, including the per-section bisect, the per-lane
+scaling test, the listener-disabled test, and the final
+partial-fix log (`e8_final_partial.log.txt`).
+
+**Next step.** Interpreter pass to investigate state-field
+identity preservation across bridged `Scrollable.attach`. Until
+that lands, the script renders cleanly except for 2 framework
+errors emitted at mount time per `Scrollable` consuming a
+propagated state-field controller.
 
 ---
 
