@@ -14,7 +14,7 @@ import 'dart:ui' show Color, Offset;
 
 import 'package:flutter/animation.dart' show Tween;
 import 'package:flutter/foundation.dart'
-    show ChangeNotifier, Key, ValueKey, ValueNotifier;
+    show ChangeNotifier, Key, ValueKey, ValueNotifier, debugPrint;
 import 'package:flutter/material.dart'
     show
         ButtonSegment,
@@ -52,8 +52,10 @@ import 'package:flutter/widgets.dart'
     show
         Action,
         Axis,
+        BoxScrollView,
         BuildContext,
         DiagonalDragBehavior,
+        EdgeInsetsGeometry,
         EditableTextState,
         Element,
         GlobalKey,
@@ -74,6 +76,8 @@ import 'package:flutter/widgets.dart'
         RestorationBucket,
         RestorationMixin,
         ScrollableDetails,
+        ScrollController,
+        ScrollPhysics,
         ScrollViewKeyboardDismissBehavior,
         SingleChildRenderObjectWidget,
         SingleTickerProviderStateMixin,
@@ -223,6 +227,20 @@ void _registerBridgedSupertypes() {
     'ValueNotifier': ['ChangeNotifier', 'Listenable'],
     'Animation': ['Listenable'],
     'AnimationController': ['Animation', 'Listenable'],
+    // Action hierarchy — scripts subclass Action<T> or ContextAction<T> and
+    // pass instances to Actions(actions: <Type, Action<Intent>>{…}).
+    // Without these entries, transitiveSupertypeNames('ContextAction') returns
+    // only 'ContextAction' and never reaches the registered 'Action' proxy,
+    // causing coerceMap to throw "InterpretedInstance is not a subtype of
+    // Action<Intent>".
+    'Action': [],
+    'ContextAction': ['Action'],
+    // ScrollView / BoxScrollView hierarchy — scripts subclass BoxScrollView
+    // and pass instances as Widget children (e.g. SizedBox(child: _MyScroll())).
+    // Without these entries, the proxy walk stops at 'BoxScrollView' with no
+    // registered proxy, and coerce<Widget> throws the same cast error.
+    'ScrollView': ['StatelessWidget', 'Widget'],
+    'BoxScrollView': ['ScrollView', 'StatelessWidget', 'Widget'],
   });
 }
 
@@ -329,6 +347,16 @@ void _registerInterfaceProxies() {
     instance.nativeProxy ??= proxy;
     return proxy;
   });
+
+  // BoxScrollView — scripts subclass BoxScrollView (or ListView/GridView/etc.)
+  // and pass instances where a Widget is expected. The proxy extends BoxScrollView
+  // so it IS a Widget, and forwards buildChildLayout() back to the interpreter.
+  // Super-arg capture is enabled so the proxy can reconstruct the native scroll
+  // parameters (scrollDirection, physics, shrinkWrap, padding, …).
+  D4.registerInterfaceProxy('BoxScrollView', (visitor, instance) {
+    return _InterpretedBoxScrollView.create(visitor, instance);
+  });
+  D4.markProxyCapturesSuperArgs('BoxScrollView');
 
   // PreferredSizeWidget — scripts subclass StatelessWidget and implement
   // PreferredSizeWidget (the typical "custom AppBar" pattern):
@@ -2224,18 +2252,26 @@ class _InterpretedIntent extends Intent {
 class _InterpretedAction extends Action<Intent> {
   _InterpretedAction(this._visitor, this._instance) : super();
 
-  // ignore: unused_field
   final InterpreterVisitor _visitor;
-  // ignore: unused_field
   final InterpretedInstance _instance;
 
   @override
   Object? invoke(Intent intent) {
-    throw UnimplementedError(
-        'Interpreted Action subclasses cannot be dispatched through '
-        'Actions.invoke yet (interpreted ${_instance.klass.name}). '
-        'The proxy exists to satisfy Map<Type, Action<Intent>> coercion '
-        'at the bridge boundary; invocation is not forwarded.');
+    // Forward to the interpreted class's invoke() method. ContextAction
+    // subclasses declare invoke(T intent, [BuildContext? context]) — we
+    // pass only intent (context is null) which matches the optional parameter.
+    try {
+      final method = _instance.klass.findInstanceMethod('invoke');
+      if (method != null) {
+        final raw = method.bind(_instance).call(_visitor, [intent], {});
+        if (raw == null) return null;
+        if (raw is BridgedInstance) return raw.nativeObject;
+        return raw;
+      }
+    } catch (e) {
+      debugPrint('[D4rt] _InterpretedAction.invoke() forwarding error: $e');
+    }
+    return null;
   }
 }
 
@@ -3633,6 +3669,95 @@ class _InterpretedTwoDimensionalScrollView extends TwoDimensionalScrollView {
   ) =>
       _invokeInterpretedAs<Widget>(_visitor, _instance, 'buildViewport',
           [context, verticalOffset, horizontalOffset]);
+}
+
+// =============================================================================
+// BoxScrollView proxy
+// =============================================================================
+//
+// Scripts that subclass `BoxScrollView` (or the more common `ListView` /
+// `GridView`) and pass instances where a `Widget` is expected (e.g.
+// `SizedBox(child: _MyBoxScroll(...))`) need a real native `BoxScrollView`
+// so Flutter can drive the scroll pipeline.
+//
+// The proxy reads the captured super-constructor args (scrollDirection,
+// reverse, physics, shrinkWrap, padding, …) and forwards `buildChildLayout`
+// back to the interpreter. Without `markProxyCapturesSuperArgs('BoxScrollView')`
+// all args are null and fall back to defaults (Axis.vertical / false / …);
+// in practice most scripts use those exact defaults so fallback is fine.
+
+/// Native [BoxScrollView] backing an interpreted subclass.
+///
+/// Delegates [buildChildLayout] to the interpreted class's override,
+/// enabling scripts that extend [BoxScrollView] to power a real scrollable.
+class _InterpretedBoxScrollView extends BoxScrollView {
+  _InterpretedBoxScrollView._(
+    this._visitor,
+    this._instance, {
+    super.key,
+    super.scrollDirection = Axis.vertical,
+    super.reverse = false,
+    super.controller,
+    super.primary,
+    super.physics,
+    super.shrinkWrap = false,
+    super.padding,
+    super.dragStartBehavior = DragStartBehavior.start,
+    super.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
+    super.restorationId,
+    super.clipBehavior = Clip.hardEdge,
+    super.hitTestBehavior = HitTestBehavior.opaque,
+  });
+
+  static _InterpretedBoxScrollView create(
+    InterpreterVisitor visitor,
+    InterpretedInstance instance,
+  ) {
+    final proxy = _InterpretedBoxScrollView._(
+      visitor,
+      instance,
+      key: _readSuperArg<Key>(instance, 'key', visitor) ??
+          _readKey(instance, visitor),
+      scrollDirection:
+          _readSuperArg<Axis>(instance, 'scrollDirection', visitor) ??
+              Axis.vertical,
+      reverse: _readSuperArg<bool>(instance, 'reverse', visitor) ?? false,
+      controller:
+          _readSuperArg<ScrollController>(instance, 'controller', visitor),
+      primary: _readSuperArg<bool>(instance, 'primary', visitor),
+      physics:
+          _readSuperArg<ScrollPhysics>(instance, 'physics', visitor),
+      shrinkWrap:
+          _readSuperArg<bool>(instance, 'shrinkWrap', visitor) ?? false,
+      padding: _readSuperArg<EdgeInsetsGeometry>(instance, 'padding', visitor),
+      dragStartBehavior:
+          _readSuperArg<DragStartBehavior>(
+                  instance, 'dragStartBehavior', visitor) ??
+              DragStartBehavior.start,
+      keyboardDismissBehavior:
+          _readSuperArg<ScrollViewKeyboardDismissBehavior>(
+                  instance, 'keyboardDismissBehavior', visitor) ??
+              ScrollViewKeyboardDismissBehavior.manual,
+      restorationId:
+          _readSuperArg<String>(instance, 'restorationId', visitor),
+      clipBehavior:
+          _readSuperArg<Clip>(instance, 'clipBehavior', visitor) ?? Clip.hardEdge,
+      hitTestBehavior:
+          _readSuperArg<HitTestBehavior>(
+                  instance, 'hitTestBehavior', visitor) ??
+              HitTestBehavior.opaque,
+    );
+    instance.nativeProxy ??= proxy;
+    return proxy;
+  }
+
+  final InterpreterVisitor _visitor;
+  final InterpretedInstance _instance;
+
+  @override
+  Widget buildChildLayout(BuildContext context) =>
+      _invokeInterpretedAs<Widget>(
+          _visitor, _instance, 'buildChildLayout', [context]);
 }
 
 /// Native [TwoDimensionalViewport] backing an interpreted subclass.
