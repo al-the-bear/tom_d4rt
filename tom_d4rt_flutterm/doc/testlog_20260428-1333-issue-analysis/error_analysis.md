@@ -2274,3 +2274,347 @@ above), D5/D7 (2026-04-27).
    cluster (E1 for the new ones; F1–F5 for the skipped wedgers).
    Remaining FE noise (E2 layout cascade) does not cause test
    failures.
+
+---
+
+# Forward clusters — next steps to finish the open todos
+
+> **Note on F-namespace.** Takeaway #6 above retires the earlier
+> "F1–F5 wedger fix-clusters" plan (W1–W5 pass in isolation; the
+> META watchdog is the only durable lever, no per-script F-clusters
+> required). The clusters in this section are the *forward* todos
+> after the 2026-04-28 close pass — they do **not** continue the
+> dropped F1–F5 wedger plan. Numbered **Fa1–Fa7** ("forward, after
+> 2026-04-28") to avoid collision.
+
+These clusters are the concrete next-step roadmap to close the
+items still **Open** or **Partial** at the end of this testlog.
+Each Fa-cluster is independently actionable, has a defined closing
+criterion, and is sized for a single PR (or a small batch of PRs
+where noted).
+
+## Fa1 — E2 layout cascade: finish the remaining 13 script rewrites
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Low (cosmetic, script-only) · **Owner:** test scripts
+
+**Scope.** E2 reports 16 scripts in this testlog with 3 patched
+in the prior run (D6 → C22 ListView pattern); 13 still produce
+the `BoxConstraints forces an infinite height/width` /
+`negative minimum height` cascades. Two flavours:
+
+- **Infinite-height/width (8 scripts).**
+  `widgets/scroll_position_types_test.dart`,
+  `widgets/text_magnifier_configuration_test.dart`,
+  `widgets/widget_test.dart`, `widgets/weak_map_test.dart`,
+  `widgets/widget_state_color_test.dart`,
+  `widgets/widget_state_text_style_test.dart`,
+  `widgets/web_browser_detection_test.dart` (infinite-width
+  flavour), `widgets/standard_component_type_test.dart`
+  (`RenderParagraph` infinite-size flavour),
+  `widgets/sliver_multi_box_adaptor_element_test.dart`
+  (`RenderShrinkWrappingViewport` intrinsic flavour).
+- **Negative minimum height (5 scripts).**
+  `widgets/select_all_text_intent_test.dart`,
+  `widgets/transpose_characters_intent_test.dart`,
+  `widgets/undo_history_value_test.dart`,
+  `widgets/unfocus_disposition_test.dart`,
+  `widgets/update_selection_intent_test.dart`.
+
+**Pattern (infinite-h/w).** Replace
+`SingleChildScrollView(child: Column(crossAxisAlignment: stretch, children: [...]))`
+with `ListView(children: [...])` and rewrap any width-sensitive
+sections in `Center(child: ConstrainedBox(maxWidth: …, child: …))`
+to preserve original max-width design intent. (Same playbook as
+the 3 D6 wins.) Width-flavour scripts pin the parent width or
+drop `mainAxisSize: max` from the inner `Row`. The
+`RenderShrinkWrappingViewport` script must drop the intrinsic
+call.
+
+**Pattern (negative-min-h).** A computed height inside the
+script goes negative when the parent is small. Clamp at the
+source:
+
+```dart
+final h = (parentHeight - 120).clamp(0.0, double.infinity);
+```
+
+Or wrap the section in `SizedBox(height: max(0.0, h))`.
+
+**Closing criteria.** All 13 scripts report FE=0 in
+`bisect_test.dart`; no `infinite height/width` or
+`negative minimum height` errors in suite logs. No interpreter
+or generator change.
+
+**Estimated effort.** 13 independent script-only PRs, each
+≤30 minutes. Batch 5/PR.
+
+---
+
+## Fa2 — E8 interpreter residual: `scroll_deceleration_rate_test` `Row(stretch)+Expanded` intrinsics
+
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low (1 script, 8 FE) · **Owner:** interpreter (intrinsics)
+
+**Scope.** Script-side workaround landed in this testlog (cluster
+E8); the interpreter residual remains. Reproduces as
+`Null check operator used on a null value` in the d4rt slot-mixin
+proxy intrinsic pipeline when a `Row(crossAxisAlignment: stretch)`
+with `Expanded` children is wrapped in `SliverToBoxAdapter`. The
+cross-axis stretch propagates `h=Infinity` into each `Expanded`,
+which then null-walks through the proxy's missing intrinsic-pass
+hooks. Two prior script-side workarounds made it worse.
+
+**Path to closure.**
+
+1. **Reproduce in isolation.** Strip
+   `scroll_deceleration_rate_test` to a minimal reproducer:
+   `SliverToBoxAdapter` → `Row(stretch)` →
+   `2× Expanded(child: Container(height: 80))`. Confirm the
+   cascade without the surrounding test scaffolding.
+2. **Trace the intrinsic pass.** Capture the call stack at the
+   first null dereference; identify whether the gap is in
+   `_InterpretedSlottedRenderBox.computeMinIntrinsicHeight` or
+   in the `RenderFlex` intrinsics consultation. (Native Flutter
+   handles this via `RenderFlex._computeIntrinsics` walking the
+   children with `IntrinsicHeight` semantics.)
+3. **Plumb intrinsics through the proxy.** Either route
+   intrinsic queries to a default implementation
+   (`return constraints.smallest`) or surface a typed
+   `UnsupportedError` so the interpreter fails with a clear
+   "intrinsics not supported on slotted RO" message rather than
+   null-walking.
+4. **Mirror tom_d4rt ↔ tom_d4rt_ast** (per the d4rt sync rule).
+
+**Closing criteria.** Either (a) `scroll_deceleration_rate_test`
+reports FE=0 with no `Null check operator used on a null value`,
+or (b) the interpreter throws a typed `UnsupportedError` and the
+test runner records a clean skip rather than a null-walk crash.
+
+**Cross-reference.** Architectural rationale in
+`interpreter_unfixable.md` under C3.
+
+**Estimated effort.** Reproducer 0.5 day. Interpreter intrinsic
+plumbing 1–2 days (in both interpreters). Mirror + tests 0.5 day.
+
+---
+
+## Fa3 — E11 residual: `back_button_listener_test` RenderFlex overflow
+
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium · **Owner:** interpreter (abstract-class proxies cast resolved); script (residual layout overflow)
+
+**Scope.** E11 cluster (gir TID=37) — the cast assertion
+on `_InterpretedRouterDelegate` was resolved by the abstract-class
+proxy fix; the residual is a RenderFlex overflow under the
+demo's chrome (this is the duplicate-ID E13 row tracked at
+line 953 of this testlog).
+
+**Path to closure.**
+
+1. **Open the script.**
+   `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/back_button_listener_test.dart`.
+2. **Identify the overflow site.** Per the diagnostic in the
+   testlog (E13 row at 953), a header/chrome `Row` overflows the
+   horizontal axis at the demo's narrowest breakpoint.
+3. **Patch.** Wrap the overflowing children in `Flexible`/`Expanded`,
+   or add `overflow: TextOverflow.ellipsis` on the offending
+   `Text` widgets, or switch to `Wrap` for the chrome row.
+4. **Retest.** `bisect_test.dart` for the single script; confirm
+   FE=0 for the gir TID=37 case.
+
+**Closing criteria.** `back_button_listener_test` reports FE=0
+in gir; no RenderFlex overflow logged.
+
+**Estimated effort.** Single script-only PR, ≤30 minutes.
+
+---
+
+## Fa4 — E12 codegen: auto-generate the abstract-class adapter shapes
+
+- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Medium (architectural debt) · **Owner:** generator + flutterm registrations
+
+**Scope.** E12 in this testlog is a DESIGN cluster — Phase 1
+investigation completed (≥30 manual `D4.registerInterfaceProxy`
+adapters across ≥11 distinct shapes catalogued in
+`d4rt_runtime_registrations.dart`); codegen deferred due to
+single-turn regression risk. Fa4 is the multi-turn closure plan.
+
+**Suggested approach (one shape per turn).**
+
+1. **Pick the simplest shape first.** The interpreted-instance
+   shape — `D4InterpretedProxy` with one `d4rtInstance` field
+   and no callback adapters — is the lowest-risk migration
+   target. Catalogue all ≥30 manual entries by shape so the
+   per-shape PR scope is clear.
+2. **Land the codegen path behind a generator flag.** Emit
+   auto-derivable adapters into `*.b.dart` with a
+   `@D4InterfaceProxy` annotation. Keep the manual override path
+   for shapes not yet modelled.
+3. **Migrate one shape at a time.** Validate each migration
+   with `essential + important + secondary + gir` serial runs
+   after each shape (per the cluster-fix verification protocol
+   in CLAUDE.md).
+4. **Track progress in this F-cluster** by appending a
+   per-shape closure row.
+
+**Closing criteria.** At least the interpreted-instance shape is
+auto-generated for all eligible bridged classes; the manual entry
+count drops from ≥30 to ≤20. Remaining shapes documented in a
+follow-up F-cluster.
+
+**Cross-reference.** E12 (DESIGN) above documents the shape
+catalogue and the parity baseline; Fa4 is the codegen execution.
+
+**Estimated effort.** Catalogue 0.5 day. Phase 1 (1 shape,
+generator + tests) 2–3 days. Per additional shape 1 day.
+
+---
+
+## Fa5 — `InheritedModel` / `InheritedWidget` `runtimeType` collapse
+
+- [ ] Fixed  - [ ] Partial  - [x] Deferred · **Severity:** Medium (architectural) · **Owner:** interpreter
+
+**Scope.** Architectural carry-over from
+`testlog_20260427-1339-post-c22` — any script that subclasses
+`InheritedModel` and calls
+`InheritedModel.inheritFrom<T>(context, aspect: ...)` fails
+because the interpreted subclass collapses to the same native
+`runtimeType` (whatever the proxy class is) — the framework's
+type-keyed lookup misses. Same shape applies to user
+`InheritedWidget` subclasses with typed
+`dependOnInheritedWidgetOfExactType<T>` calls.
+
+**Why deferred.** No script in the current corpus exercises this
+shape after the window-scope rewrites. Logged for completeness
+but no reproducer.
+
+**Path to closure.**
+
+1. **Author a reproducer script.** A minimal interpreted
+   `InheritedModel<int>` subclass plus a child that calls
+   `InheritedModel.inheritFrom<MyModel>(context, aspect: 'a')`.
+   Add to `widgets/`.
+2. **Confirm the failure shape.** The expected symptom is
+   `null` returned from `inheritFrom` because the interpreter's
+   proxy class doesn't preserve the user-declared type identity.
+3. **Propose a fix.** Two candidates:
+   - **Type tag.** Generate a per-script-class proxy whose
+     `runtimeType` returns a synthetic `Type` matching the
+     interpreted class name. Verify it covers
+     `InheritedModel`/`InheritedWidget`.
+   - **Override `updateShouldNotifyDependent`.** Route
+     Flutter's dependency check through the interpreted class's
+     overridden comparator so the framework consults the
+     interpreted aspect comparator regardless of `runtimeType`
+     collapse.
+4. **Mirror tom_d4rt ↔ tom_d4rt_ast.**
+
+**Closing criteria.** Reproducer renders the inherited data
+correctly; `inheritFrom<T>` returns the interpreted instance.
+
+**Estimated effort.** Reproducer 0.25 day. Investigation 1 day.
+Fix + mirror 1–2 days.
+
+---
+
+## Fa6 — D7 Option 2: composite render-object proxy generator
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Medium (architectural) · **Owner:** generator (proxy generator) + flutterm registrations
+
+**Scope.** D7 in the prior testlog closed via Option 1 (per-mixin
+native proxies for `SlottedContainerRenderObjectMixin` only).
+Option 2 — composite proxies that mix in *whatever* bridged
+mixins the interpreted class chain declares — remains the right
+long-term answer for any future
+interpreted-extends-`RenderBox`-with-mixin case.
+
+**Why this still matters.** Option 1 is one-mixin-at-a-time
+expansion. Each new bridged render-object mixin needs another
+hand-written proxy class. Option 2 generates a per-script-class
+composite proxy on demand based on `_classChainHasBridgedMixin`,
+eliminating linear fan-out.
+
+**Suggested approach.**
+
+1. **Extend `tom_d4rt_generator/proxy_generator.dart`** with a
+   "render-object composite proxy" code path that, given an
+   interpreted class chain mixing in N bridged
+   `Render*Mixin`s, emits a single composite proxy class that
+   `extends RenderBox with Mixin1, Mixin2, …`.
+2. **Wire the proxy factory selector** in
+   `_classChainHasBridgedMixin` to route to the composite
+   when more than one bridged mixin is present.
+3. **Add a regression-shaped test** that declares an
+   interpreted render object mixing in two bridged mixins and
+   asserts the composite proxy carries both.
+
+**Closing criteria.** Two-mixin and three-mixin shape pass
+without per-mixin manual registration. Existing single-mixin
+slot-mixin path continues to work.
+
+**Cross-reference.** Fa4 (E12 codegen) is the abstract-delegate
+peer; Fa6 is the render-object peer. Both share the
+"auto-generate shapes the analyzer can already see" thesis.
+
+**Estimated effort.** Generator 1–2 days. Tests 0.5 day.
+Documentation 0.25 day.
+
+---
+
+## Fa7 — META: test-app watchdog (durable W1–W5 fix)
+
+- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** High → blocked-on-prioritisation · **Owner:** test runner
+
+**Scope.** Per takeaway #5 + #6 above, the W4 skip is a day-1
+mitigation; the durable fix is a test-app watchdog that converts
+a single test-app crash into a single failure + restart instead
+of a 19-script cascade. With a watchdog in place, the 5
+W-script skips can be removed without per-script work.
+
+**Suggested approach.**
+
+1. **Reproduce a wedge.** Run a known wedger (e.g., W4) without
+   the skip and capture the test-app process state at the
+   first hang.
+2. **Add a heartbeat.** Have the test app emit a periodic
+   "alive" message on the local HTTP server; the runner
+   monitors it and considers the app "stuck" if N seconds pass
+   without one.
+3. **Force-kill + restart.** When the watchdog fires, kill the
+   test-app process, mark the in-flight script failed, restart
+   the app, and continue with the next script.
+4. **Remove the W4 skip** and the F1–F5 wedger fix-cluster
+   skips; re-confirm `gir` reports the documented unfixables
+   plus the wedger-as-failure (not wedger-as-cascade).
+
+**Closing criteria.** A single wedger script registers as a
+single failure with no cascade; the next script in the suite
+runs cleanly.
+
+**Estimated effort.** 2–3 days for the watchdog itself; 0.5
+day to remove skips and validate.
+
+---
+
+# Fa-cluster summary table
+
+| Cluster | Owner | Open Scripts / Surface | Effort | Closing Criterion |
+|---|---|---|---|---|
+| Fa1 — E2 remainder (13 scripts) | scripts | 13 | 3 PRs (5/PR) | All 13 scripts FE=0 |
+| Fa2 — E8 interpreter residual | interpreter | 1 (deferred) | 2–3 days | FE=0 or typed `UnsupportedError` |
+| Fa3 — E11 residual (RenderFlex overflow) | scripts | 1 | 1 short PR | gir TID=37 FE=0 |
+| Fa4 — E12 codegen (1 shape) | generator + regs | ≥30 manual entries | 3–4 days/shape | ≥10 manual entries removed |
+| Fa5 — `InheritedModel` collapse | interpreter | (no reproducer yet) | 1–2 days | Reproducer + `inheritFrom<T>` works |
+| Fa6 — D7 Option 2 composite RO proxy | generator | (architectural) | 2–3 days | Two-mixin shape passes |
+| Fa7 — META test-app watchdog | runner | 5 W-script skips | 2–3 days | Single wedger ≠ cascade |
+
+**Suggested execution order.**
+
+1. **Fa1, Fa3** first (script-only, fast wins, no regression
+   risk).
+2. **Fa7 META watchdog** in parallel — it's the highest-leverage
+   structural change and unblocks removing the 5 W-script skips.
+3. **Fa2** investigation can start without touching shipping
+   code (single-script reproducer first).
+4. **Fa4 + Fa6** are the architectural pieces; schedule them
+   after Fa1/Fa3 land. They share the auto-generation thesis.
+5. **Fa5** lowest priority — depends on a reproducer being
+   authored.
