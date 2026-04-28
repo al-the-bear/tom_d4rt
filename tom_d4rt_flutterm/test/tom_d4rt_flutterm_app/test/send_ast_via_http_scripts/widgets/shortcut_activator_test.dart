@@ -520,11 +520,11 @@ class _ActivatorWorkshopScreenState extends State<_ActivatorWorkshopScreen>
     return LayoutBuilder(
       builder: (ctx, constraints) {
         final wide = constraints.maxWidth >= 1180;
-        return SingleChildScrollView(
+        // Fa1 — C22 ListView replacement to avoid the
+        // SingleChildScrollView + Column(stretch) infinite-height cascade.
+        return ListView(
           padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+          children: <Widget>[
               _SurfacePanel(
                 title: 'ShortcutActivator surface',
                 subtitle:
@@ -632,7 +632,6 @@ class _ActivatorWorkshopScreenState extends State<_ActivatorWorkshopScreen>
               const SizedBox(height: 28),
               _Footer(logSize: _log.length, helpShown: _helpShown),
             ],
-          ),
         );
       },
     );

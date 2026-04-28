@@ -1813,21 +1813,20 @@ dynamic build(BuildContext context) {
       ),
       body: const _UsiLabScaffoldBg(
         child: SafeArea(
-          child: SingleChildScrollView(
+          // Fa1 — C22 ListView replacement to avoid the
+          // SingleChildScrollView + Column(stretch) infinite-height cascade.
+          child: ListView(
             padding: EdgeInsets.only(bottom: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _UsiLabBanner(),
-                _UsiLabPreamble(),
-                _UsiLabFlowDiagram(),
-                _UsiLabLaboratory(),
-                _UsiLabComparison(),
-                _UsiLabCheatSheet(),
-                _UsiLabEpilogue(),
-                _UsiLabGlossary(),
-              ],
-            ),
+            children: [
+              _UsiLabBanner(),
+              _UsiLabPreamble(),
+              _UsiLabFlowDiagram(),
+              _UsiLabLaboratory(),
+              _UsiLabComparison(),
+              _UsiLabCheatSheet(),
+              _UsiLabEpilogue(),
+              _UsiLabGlossary(),
+            ],
           ),
         ),
       ),

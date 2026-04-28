@@ -178,11 +178,11 @@ class _SelectAllCommandCenterHomeState
       backgroundColor: const Color(0xFF0F172A),
       appBar: _buildAppBar(),
       body: SafeArea(
-        child: SingleChildScrollView(
+        // Fa1 — C22 ListView replacement to avoid the
+        // SingleChildScrollView + Column(stretch) infinite-height cascade.
+        child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 14, 20, 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+          children: <Widget>[
               _SelectionSweepHero(progress: _heroSweep),
               const SizedBox(height: 22),
               _SelectAllKeycapHero(
@@ -204,8 +204,7 @@ class _SelectAllCommandCenterHomeState
               const _InstructionalTrio(),
               const SizedBox(height: 22),
               const _FooterBadge(),
-            ],
-          ),
+          ],
         ),
       ),
     );

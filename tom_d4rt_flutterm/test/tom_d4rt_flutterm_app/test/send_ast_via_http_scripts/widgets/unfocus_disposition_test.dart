@@ -236,11 +236,11 @@ class _UdStageHomeState extends State<_UdStageHome>
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final wide = constraints.maxWidth >= 960;
-                return SingleChildScrollView(
+                // Fa1 — C22 ListView replacement to avoid the
+                // SingleChildScrollView + Column(stretch) infinite-height cascade.
+                return ListView(
                   padding: const EdgeInsets.fromLTRB(28, 24, 28, 48),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
+                  children: [
                       _UdHeader(
                         disposition: _disposition,
                         onDispositionChanged: (v) =>
@@ -296,8 +296,7 @@ class _UdStageHomeState extends State<_UdStageHome>
                       _UdEpilogueCard(),
                       const SizedBox(height: 24),
                       const _UdFooterStrip(),
-                    ],
-                  ),
+                  ],
                 );
               },
             ),

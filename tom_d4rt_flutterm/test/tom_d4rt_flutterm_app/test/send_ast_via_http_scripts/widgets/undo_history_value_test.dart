@@ -1537,11 +1537,11 @@ dynamic build(BuildContext context) {
     decoration: const BoxDecoration(),
     child: CustomPaint(
       painter: const _UhValParchmentBackgroundPainter(),
-      child: SingleChildScrollView(
+      // Fa1 — C22 ListView replacement to avoid the
+      // SingleChildScrollView + Column infinite-height cascade.
+      child: ListView(
         padding: const EdgeInsets.fromLTRB(18, 12, 18, 28),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+        children: [
             // ── Header ──────────────────────────────────────────────────
             Container(
               width: double.infinity,
@@ -2019,8 +2019,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 16),
-          ],
-        ),
+        ],
       ),
     ),
   );

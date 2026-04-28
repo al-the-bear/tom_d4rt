@@ -2295,7 +2295,60 @@ where noted).
 
 ## Fa1 — E2 layout cascade: finish the remaining 13 script rewrites
 
-- [ ] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Severity:** Low (cosmetic, script-only) · **Owner:** test scripts
+- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low (cosmetic, script-only) · **Owner:** test scripts
+
+**Resolution (2026-04-28).** 7 scripts patched with the C22
+`ListView` pattern, clearing **113 of 135 framework errors** on
+the `fa1_bisect_test.dart` harness:
+
+| Script | Pre FE | Post FE | Δ |
+|---|---:|---:|---:|
+| `widgets/shortcut_activator_test.dart` | 33 | **0** | -33 |
+| `widgets/widget_test.dart` | 26 | **0** | -26 |
+| `widgets/widget_state_text_style_test.dart` | 21 | **0** | -21 |
+| `widgets/unfocus_disposition_test.dart` | 27 | **0** | -27 |
+| `widgets/undo_history_value_test.dart` | 3 | **0** | -3 |
+| `widgets/update_selection_intent_test.dart` | 3 | **0** | -3 |
+| `widgets/select_all_text_intent_test.dart` | 3 | 3 | 0 |
+| `widgets/transpose_characters_intent_test.dart` | 2 | 2 | 0 |
+| `widgets/widget_state_color_test.dart` | 9 | 9 | 0 (C3-deferred) |
+| `widgets/text_magnifier_configuration_test.dart` | 6 | 6 | 0 (C3-deferred) |
+| `widgets/scroll_deceleration_rate_test.dart` | 2 | 2 | 0 (E8-deferred) |
+| **Total** | **135** | **22** | **-113** |
+
+**Remaining 22 FE.** Two residual pockets, both deferred:
+
+- **Negative-min-height on `_RenderEditableCustomPaint` (5 FE in
+  2 scripts).** `select_all_text_intent_test.dart` (3 FE) and
+  `transpose_characters_intent_test.dart` (2 FE) keep producing
+  `BoxConstraints has a negative minimum height` from
+  `_RenderEditableCustomPaint`'s layout — independent of the
+  outer cascade (transpose has no `SingleChildScrollView` at all,
+  yet still fires). The shape is the EditableText/_TextSelection
+  scaffold receiving `h=-Infinity` from a parent
+  `Container+Column(stretch)+TextField(maxLines: …)` chain that
+  the C22 swap does not unblock. Action: defer to a follow-up
+  Fa-cluster targeted at the EditableText-specific path; not a
+  pure cascade fix.
+- **C3-family / E8-deferred carry-over (17 FE in 3 scripts).**
+  `widget_state_color`, `text_magnifier_configuration`, and
+  `scroll_deceleration_rate` continue to fail under previously
+  documented unfixable patterns (C3 `Row(stretch)+Expanded` in
+  unbounded vertical / E8 intrinsic-pass proxy null). No C22
+  delta expected; tracked elsewhere.
+
+**Files patched.**
+
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/shortcut_activator_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/widget_state_text_style_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/unfocus_disposition_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/select_all_text_intent_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/undo_history_value_test.dart`
+- `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/widgets/update_selection_intent_test.dart`
+
+Logs: `doc/testlog_20260428-fa1-fix/fa1_bisect_pre.log.txt` (135
+FE baseline) and `fa1_bisect_post.log.txt` (22 FE after rewrites).
 
 **Scope.** E2 reports 16 scripts in this testlog with 3 patched
 in the prior run (D6 → C22 ListView pattern); 13 still produce

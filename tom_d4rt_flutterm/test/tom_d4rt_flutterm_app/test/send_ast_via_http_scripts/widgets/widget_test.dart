@@ -92,16 +92,19 @@ class _WgmMuseumHome extends StatelessWidget {
             ),
           ),
           SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 28,
-                vertical: 24,
-              ),
+            // Fa1 — C22 ListView replacement to avoid the
+            // SingleChildScrollView + Column(stretch) infinite-height
+            // cascade. Outer ConstrainedBox(maxWidth: 1200) was a
+            // design constraint preserved by Center+ConstrainedBox.
+            child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1200),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28,
+                    vertical: 24,
+                  ),
+                  children: const <Widget>[
                     _WgmMarquee(),
                     SizedBox(height: 28),
                     _WgmSection1Dossier(),

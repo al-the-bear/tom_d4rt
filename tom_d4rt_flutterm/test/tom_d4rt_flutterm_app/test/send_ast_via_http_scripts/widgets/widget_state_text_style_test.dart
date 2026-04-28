@@ -407,12 +407,12 @@ class _WstsHomeState extends State<_WstsHome>
           ),
           Positioned.fill(
             child: SafeArea(
-              child: SingleChildScrollView(
+              // Fa1 — C22 ListView replacement to avoid the
+              // SingleChildScrollView + Column(stretch) infinite-height cascade.
+              child: ListView(
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 48),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const _WstsMasthead(),
+                children: <Widget>[
+                  const _WstsMasthead(),
                     const SizedBox(height: 32),
                     const _WstsDossier(),
                     const SizedBox(height: 32),
@@ -457,7 +457,6 @@ class _WstsHomeState extends State<_WstsHome>
                     const SizedBox(height: 24),
                     const _WstsEpilogue(),
                   ],
-                ),
               ),
             ),
           ),
