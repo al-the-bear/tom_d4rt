@@ -16,14 +16,17 @@ void main() {
   });
 
   for (final script in <String>[
-    // D7 — SlottedContainerRenderObjectMixin cluster. Option (1) of
-    // C1 (slot-mixin proxy variant) closed the createRenderObject
-    // assertion in all 3 scripts; element_test fully clean. The two
-    // multi_child_* scripts have residual layout cascades that this
-    // round investigates.
-    'widgets/slotted_render_object_element_test.dart',
-    'widgets/slotted_multi_child_render_object_widget_mixin_test.dart',
-    'widgets/slotted_multi_child_render_object_widget_test.dart',
+    // Deprecated API tests (secondary_classes_test.dart)
+    'material/button_types_test.dart',        // ButtonBar deprecated
+    'material/toggle_segmented_test.dart',    // ButtonBar deprecated
+    'material/button_styles_misc_test.dart',  // ButtonBarThemeData deprecated
+    'widgets/platform_menu_widgets_test.dart', // RawKeyboardListener deprecated
+    // Interactive dialog tests (plain send, no interaction)
+    'material/showdialog_test.dart',
+    'material/showbottomsheet_test.dart',
+    'material/showmenu_test.dart',
+    'material/showdatepicker_test.dart',
+    'material/showtimepicker_test.dart',
   ]) {
     test(script, () async {
       final result = await SendTestRunner.send(script);
