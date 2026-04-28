@@ -705,7 +705,13 @@ class _WboAppBar extends StatelessWidget implements PreferredSizeWidget {
   final _WboSnapshot snapshot;
 
   @override
-  Size get preferredSize => const Size.fromHeight(76);
+  // The MaterialApp theme sets `bodyMedium.height = 1.4`, which the inner
+  // `_WboTelemetryPill` Text widgets inherit through DefaultTextStyle. With
+  // that line-height multiplier, each pill's internal Column measures about
+  // 51 px (Column 33.0 + padding 16 + border 2). The previous height of 76
+  // (content area 46.5 after padding + border) overflowed each pill by 4.5
+  // px. 86 gives the pills room to breathe (content area ~56.5).
+  Size get preferredSize => const Size.fromHeight(86);
 
   @override
   Widget build(BuildContext context) {
@@ -3409,65 +3415,84 @@ class _WboSectionFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: _kPanel,
-        borderRadius: BorderRadius.circular(16),
-        border: Border(
-          top: BorderSide(color: accent.withOpacity(0.7), width: 2),
-          left: BorderSide(color: _kRail),
-          right: BorderSide(color: _kRail),
-          bottom: BorderSide(color: _kRail),
-        ),
-      ),
-      padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
+    // Flutter forbids `borderRadius` together with a non-uniform `Border`
+    // (e.g. a coloured top edge + neutral rails on the other sides). The
+    // section frame's visual identity has two parts: rounded corners and a
+    // tinted top edge. Keep both by using a uniform `Border.all` for the
+    // rails and rendering the tinted top strip as a clipped overlay on top
+    // of the rounded card.
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: _kPanel,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _kRail),
+          ),
+          padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: accent.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: accent.withOpacity(0.55)),
-                ),
-                child: Icon(icon, color: accent, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      title.toUpperCase(),
-                      style: TextStyle(
-                        color: accent,
-                        fontSize: 12,
-                        letterSpacing: 1.8,
-                        fontWeight: FontWeight.w800,
-                      ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: accent.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: accent.withOpacity(0.55)),
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        color: _kDim,
-                        fontSize: 12,
-                        height: 1.4,
-                      ),
+                    child: Icon(icon, color: accent, size: 20),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          title.toUpperCase(),
+                          style: TextStyle(
+                            color: accent,
+                            fontSize: 12,
+                            letterSpacing: 1.8,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: const TextStyle(
+                            color: _kDim,
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              const SizedBox(height: 14),
+              child,
             ],
           ),
-          const SizedBox(height: 14),
-          child,
-        ],
-      ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          top: 0,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(16),
+            ),
+            child: Container(
+              height: 2,
+              color: accent.withOpacity(0.7),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

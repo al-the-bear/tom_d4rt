@@ -494,23 +494,44 @@ emulation in the interpreter.
 
 ## E5 — `widgets/widgets_binding_observer_test` borderRadius non-uniform (NEW)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** script
+- [x] Fixed  - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** script
 
 **Symptom.** `secondary/widgets/widgets_binding_observer_test.dart`
-emits 3 FE:
+emitted 3 FE:
 
 - `A borderRadius can only be given on borders with uniform colors. The following is not uniform: BorderSide.color`
-- `A RenderFlex overflowed by 4.5 pixels on the bottom.`
+- 2× `A RenderFlex overflowed by 4.5 pixels on the bottom.`
 
-**Likely cause.** A Border definition in the script's demo
-applies a non-uniform `BorderSide.color` (e.g., per-side colour)
-while also setting `borderRadius`. Flutter's `Border.paint` only
-permits `borderRadius` when all four sides share the same
-colour. The 4.5 px overflow is a layout-cascade by-product and
-overlaps with E2.
+**Root cause.** Two distinct script-side issues, identical bucket:
 
-**Suggested fix.** Script-side: drop `borderRadius` for the
-non-uniform-colour border, or unify the side colours.
+1. `_WboSectionFrame.build` set `borderRadius: 16` together with a
+   non-uniform `Border` (coloured top, neutral rails on the other
+   sides). Flutter's `Border.paint` only permits `borderRadius` when
+   all four sides share the same colour.
+2. `_WboAppBar` declared `preferredSize: 76`, but the MaterialApp
+   theme sets `bodyMedium.height = 1.4`. The two `_WboTelemetryPill`
+   Text widgets inherit that line-height multiplier through
+   `DefaultTextStyle`, so each pill measures
+   `(9 + 13) × 1.4 + 2 + 16 + 2 = 51` px against a 46.5 px content
+   area (76 − 14 − 14 − 1.5 border). Overflow:
+   `51 − 46.5 = 4.5` px per pill, two pills → two FE.
+
+**Resolution.**
+
+1. `_WboSectionFrame.build` rewritten as a `Stack`: outer rounded
+   `Container` uses uniform `Border.all(color: _kRail)`; the tinted
+   top edge is a `Positioned` + `ClipRRect`-clipped `Container(height: 2)`
+   overlay. Both visual cues preserved without violating the
+   uniform-colour constraint.
+2. `_WboAppBar.preferredSize` raised from 76 to 86 (content area
+   ~56.5 px, ample slack for the 51-px pills). The cause is
+   documented in an inline comment so the next reader doesn't
+   collapse the height again.
+
+**Verification (2026-04-28).** Post-fix bisect
+(`doc/testlog_20260428-e5-fix/e5_bisect_post.log.txt`) reports
+`frameworkErrors=0` for `widgets/widgets_binding_observer_test.dart`.
+Script-only change → rule (a): individual retest sufficient.
 
 ---
 
