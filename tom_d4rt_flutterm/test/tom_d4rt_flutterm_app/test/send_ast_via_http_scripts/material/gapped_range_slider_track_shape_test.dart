@@ -23,11 +23,19 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 16),
               SliderTheme(
                 data: SliderTheme.of(context),
+                // E17 script-side fix — `onChanged: null` puts the slider on
+                // the disabled-paint code path, which under M3 defaults can
+                // resolve a `MaterialStateProperty` track-color slot to null
+                // and trip the gapped track shape's paint method. A no-op
+                // `onChanged` keeps the slider enabled (still a static
+                // preview because the values are not stored back), so the
+                // gapped track shape paints through the well-supported
+                // enabled branch regardless of theme defaults.
                 child: RangeSlider(
                   values: range,
                   min: 0,
                   max: 1,
-                  onChanged: null,
+                  onChanged: (RangeValues _) {},
                 ),
               ),
               const SizedBox(height: 8),

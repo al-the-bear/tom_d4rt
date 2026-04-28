@@ -1473,13 +1473,32 @@ for `scroll_deceleration_rate_test`; rendered output unchanged.
 
 ## E17 — `RangeSlider` with `onChanged: null` + default M3 gapped track shape (script-side, Index 32)
 
-- [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (no-op `onChanged` recommended)
+- [x] Fixed (2026-04-28) - [ ] Partial  - [ ] Open · **Severity:** Low · **Owner:** scripts (no-op `onChanged` applied)
 
 **Status.** Migrated 2026-04-28 from `interpreter_unfixable.md`
 to `script_rewrites.md` per user assessment that the null-deref
 pattern is most consistent with a script-side contract violation,
 not a framework null path. Tracked here so the single fix list is
 complete.
+
+**Closure (2026-04-28).** Empirical pre-fix baseline showed FE=0
+in both surfaces — the cluster's null-deref pattern was no longer
+triggered in the current toolchain (likely resolved upstream or
+masked by an intervening interpreter change since the cluster was
+catalogued). The recommended path (suggested fix #1) was applied
+to the 41-line script anyway to harden against regression: the
+`onChanged: null` was switched to `onChanged: (RangeValues _) {}`
+with an inline comment explaining the M3 disabled-paint code path
+that originally tripped. Per regression rule (a), only test
+scripts changed → individual hr2 retest sufficient.
+
+| Verification | FE | Status |
+| --- | --- | --- |
+| `hr2_pre.log.txt` (`material/gapped_range_slider_track_shape_test.dart`, pre-fix) | 0 | OK |
+| `gir_pre.log.txt` (`retest/material/gapped_range_slider_track_shape_test.dart`, pre-fix) | 0 | OK |
+| `hr2_post.log.txt` (post-fix) | 0 | OK |
+
+Logs: `doc/testlog_20260428-e17-fix/`.
 
 **Symptom.** Multiple null-related errors (`Null check operator
 used on a null value`, null-receiver method invocations) thrown
