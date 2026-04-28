@@ -1755,7 +1755,68 @@ changed in this turn.
 
 ## D5 — Section E PreferredSize/Widget
 
-Closed in C20-series; no FE evidence in this run.
+- [x] Fixed (closed 2026-04-27 in C20-series, re-confirmed 2026-04-28) - [ ] Partial - [ ] Open · **Severity:** Medium · **Owner:** generator + tom_d4rt_flutterm registrations
+
+**Status.** Closed in the C20-series on 2026-04-27. Full closure
+detail in
+`doc/testlog_20260427-1339-post-c22/error_analysis.md` (D5
+section). No FE evidence in this run — none of the 8 originally
+affected scripts surfaced D5-shaped failures in
+`testlog_20260428-1333-issue-analysis`, so the closure holds.
+
+**Symptom (historical).** `Scaffold(appBar: …)` and other
+`PreferredSizeWidget?` / `Widget` parameters rejected
+interpreted instances at the native-bridge boundary with
+`Argument Error: Invalid parameter "appBar": expected
+PreferredSizeWidget?, got InterpretedInstance(_<…>AppBar)` and
+`expected Widget, got InterpretedInstance(_WbnPipeBackdrop)`
+on `DefaultTextStyle.merge`.
+
+**Fix (2026-04-27).** Two-part landing:
+
+1. **`PreferredSizeWidget` interface proxy** in
+   `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`:
+   added `_InterpretedPreferredSizeWidget extends StatelessWidget
+   implements PreferredSizeWidget` and its
+   `D4.registerInterfaceProxy('PreferredSizeWidget', …)`
+   registration. `preferredSize` reads the script's getter via
+   `instance.get('preferredSize', visitor: _visitor)` (unwrapping
+   native/bridged `Size`); `build` delegates to the interpreted
+   instance's `build` method. The interface-proxy walk extends
+   along `bridgedSuperclass` and `bridgedInterfaces` (transitive
+   supertypes), so `class _Foo extends StatelessWidget implements
+   PreferredSizeWidget` resolves correctly.
+2. **Static-method dispatch wrap in `D4.withActiveVisitor`** in
+   `tom_d4rt/lib/src/interpreter_visitor.dart` and the mirrored
+   `tom_d4rt_ast/lib/src/runtime/interpreter_visitor.dart`.
+   Without the wrap, `D4.getRequiredNamedArg<T>` and
+   `extractBridgedArg<T>` could not consult registered interface
+   proxies on the static-dispatch path, which is why
+   `DefaultTextStyle.merge` rejected interpreted `Widget`
+   arguments. Constructor dispatch already had this wrap.
+
+**Verification (2026-04-27).** Bisect on the 8 originally
+affected scripts: 6/8 went FE 1→0 cleanly; the remaining two
+(`widgets_binding_observer_test`, `snapshot_mode_test`) dropped
+the `PreferredSizeWidget` rejection and surfaced cosmetic
+follow-ups (borderRadius non-uniform + `RenderFlex` overflows)
+that were previously masked. All regression suites identical
+to baseline (essential 108/0/0, important 164/0 + 5 skips,
+secondary 649/0 + 5 skips, with one secondary-suite
+improvement). Logs:
+`doc/testlog_20260427-c4/c4_after_fix.log.txt`.
+
+**Re-confirmation (2026-04-28).** This run's full taxonomy
+sweep surfaced no D5-pattern failures across gii / essential /
+important / secondary / hr1–hr4 / interactive. The cosmetic
+follow-ups exposed by the D5 fix are tracked under separate
+clusters (E5 borderRadius non-uniform; E2 layout cascade) and
+do not re-open D5.
+
+**No additional verification required.** No code or scripts
+changed in this turn — D5 was already verified at landing time
+and the run baselines confirm no re-surface. This update is
+documentation reconciliation only.
 
 ## D6 — layout cascade
 
