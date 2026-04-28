@@ -1183,6 +1183,203 @@ should only *add* successful coercions.
 
 ---
 
+### Phase 1 — Investigation (2026-04-28)
+
+- [ ] Fixed - [ ] Partial - [x] Open · **Outcome:** plan refined, codegen deferred (regression risk in single-turn implementation)
+
+**What was investigated.** Surveyed every existing
+hand-written interface-proxy registration to determine
+whether Phase 1's "byte-for-byte parity" goal is reachable by
+extending the current proxy-generator pipeline.
+
+**Inventory.** 30 hand-written `D4.registerInterfaceProxy`
+calls in `tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`,
+spread across two registration functions:
+
+- `registerD4rtInterfaceProxies()` — first-pass registrations
+  (lines 258–488): TickerProvider, StatelessWidget,
+  StatefulWidget, LeafRenderObjectWidget,
+  SingleChildRenderObjectWidget, MultiChildRenderObjectWidget,
+  Intent, Action, BoxScrollView, PreferredSizeWidget,
+  SlottedMultiChildRenderObjectWidget, InheritedWidget,
+  ThemeExtension, TwoDimensionalScrollView,
+  TwoDimensionalViewport, RenderTwoDimensionalViewport,
+  WidgetStatesConstraint.
+- `registerD4rtInterfaceProxyOverrides()` — second-pass
+  registrations that **override** auto-generated entries from
+  `registerProxyFactories()` (lines 506–750):
+  MultiChildLayoutDelegate, SingleChildLayoutDelegate,
+  CustomClipper, CustomPainter, RestorableProperty,
+  RestorableValue, TextSelectionGestureDetectorBuilderDelegate,
+  RenderBox, RenderAligningShiftedBox, ParentDataWidget,
+  ContainerBoxParentData, ParentData, RouterDelegate.
+
+**Key architectural finding.** The existing `proxyClasses`
+mechanism in `buildkit.yaml` (consumed by
+`tom_d4rt_generator/lib/src/proxy_generator.dart`) emits
+**callback-adapter** proxies — e.g.
+`class D4rtCustomPainter extends CustomPainter {
+  final void Function(Canvas, Size) onPaint;
+  final bool Function(CustomPainter) onShouldRepaint;
+  D4rtCustomPainter({required this.onPaint, …});
+}` — designed for scripts that **instantiate** the proxy
+with explicit callbacks
+(`D4rtCustomPainter(onPaint: …, onShouldRepaint: …)`).
+
+The 30 manual `registerInterfaceProxy` adapters serve a
+**different** purpose: they wrap an `InterpretedInstance` so
+that scripts that **subclass** the abstract class (`class
+_MyPainter extends CustomPainter { @override void paint(…) … }`)
+can be passed at the bridge boundary where a real
+`CustomPainter` is required. These adapters all implement
+`D4InterpretedProxy` and expose `d4rtInstance`, so the
+interpreter's property/method dispatch can round-trip through
+the adapter back into the interpreted class.
+
+These two mechanisms **cannot share a generator template** —
+the callback-adapter shape doesn't unwrap interpreted method
+calls and the interpreted-instance shape doesn't accept raw
+callback arguments. The `registerD4rtInterfaceProxyOverrides`
+function exists precisely because, for the 4 classes that
+appear in both sets (CustomClipper, CustomPainter,
+MultiChildLayoutDelegate, SingleChildLayoutDelegate), the
+manual adapter must run **after** `registerProxyFactories` to
+overwrite the entry in `_interfaceProxies`.
+
+**Per-class variation matrix.** The 30 manual adapters split
+across at least 11 distinct adapter shapes:
+
+1. **Trivial delegation** — `_InterpretedX(visitor, instance)`
+   only. (`TickerProvider`)
+2. **Inline key extraction** — try/catch on `instance.get('key')`.
+   (`StatelessWidget`, `StatefulWidget`)
+3. **Helper `_readKey`** — same intent, less duplication.
+   (`LeafRenderObjectWidget`, `PreferredSizeWidget`,
+   `SlottedMultiChildRenderObjectWidget`)
+4. **Helper `_readKey` + `_readChildWidget`** —
+   (`SingleChildRenderObjectWidget`, `ParentDataWidget` — with
+   `??= const SizedBox()` fallback)
+5. **Helper `_readKey` + `_readChildrenWidgets`** —
+   (`MultiChildRenderObjectWidget`)
+6. **`nativeProxy` cache + warn-once** — emits a one-time
+   `[D4rt] D4rt-LIMIT:` warning per script class explaining a
+   runtime-type collapse caveat. (`Intent`)
+7. **`nativeProxy` cache + cast-to-erased-generic** — proxy
+   tagged at `Action<Intent>` even when script declares
+   `Action<SelectIntent>`. (`Action`)
+8. **Static factory `_X.create(visitor, instance)`** — used
+   when the proxy must capture super-args from the bridged
+   constructor before adapter materialisation.
+   (`BoxScrollView`)
+9. **Static factory + `markProxyCapturesSuperArgs` flag** —
+   opts the proxy into the C7 super-arg-capture path in
+   `callable.dart`. (`TwoDimensionalScrollView`,
+   `TwoDimensionalViewport`, `RenderTwoDimensionalViewport`)
+10. **Single proxy class registered under multiple names** —
+    `_InterpretedRestorableValue` registered under both
+    `'RestorableProperty'` and `'RestorableValue'`;
+    `_InterpretedContainerBoxParentData` registered under both
+    `'ContainerBoxParentData'` and `'ParentData'`.
+11. **`nativeProxy` cache + mixin-conditional dispatch** —
+    `RenderBox` chooses between three proxy classes
+    (`_InterpretedRenderBox`, `_InterpretedRenderBoxContainer`,
+    `_InterpretedSlottedRenderBox`) based on whether the
+    script's class chain mixes in
+    `ContainerRenderObjectMixin` or
+    `SlottedContainerRenderObjectMixin`.
+
+**Why Phase 1 cannot land in a single turn.** The
+class-specific decisions captured in those 11 shapes are not
+derivable from analyzer metadata alone — they encode authoring
+choices made cluster-by-cluster over months of bug-fix work
+(C20-series, D2/D3/D4, RC-1/RC-6, Bug-46, Bug-102, Bug-103,
+Plan D, Cluster E11, …). Many adapter shapes are documented
+in the surrounding source comments with explicit "why this
+specific shape" reasoning. A generator template that aimed for
+byte-for-byte parity would need to:
+
+1. Extend `buildkit.yaml`'s `proxyClasses` schema to a
+   parallel `interfaceProxyClasses` schema (or augment the
+   existing entry kind) that captures: (a) adapter "shape"
+   selector (1–11 above); (b) extracted-field list (key /
+   child / children / custom getter list); (c) caching
+   strategy (`nativeProxy` cache vs no cache); (d) static
+   factory vs constructor; (e) super-arg-capture flag;
+   (f) registration phase (first-pass vs override); (g)
+   alias-name list (multiple `registerInterfaceProxy` names);
+   (h) mixin-dispatch table (per-mixin proxy class).
+2. Implement an `interface_proxy_generator.dart` separate
+   from `proxy_generator.dart` (different code-emission
+   templates), or refactor `proxy_generator.dart` to handle
+   both via a kind discriminator.
+3. Emit the per-class adapter classes in a new
+   `flutter_interface_proxies.b.dart` (or extend
+   `flutter_proxies.b.dart` with a clearly-separated section).
+4. Verify byte-for-byte (or behaviourally) against the manual
+   adapter for every entry; regenerate; regression-test
+   essential + important + secondary.
+
+**Single-turn risk profile.** Even a "subset" Phase 1 (e.g.,
+just shape #1 trivial delegation = `TickerProvider`) would
+require landing the schema extension + new generator module +
+buildkit.yaml entries + bridge regeneration + suite-level
+regression in one turn. The minimum landing surface still
+touches `tom_d4rt_generator` source + tom_d4rt_flutterm
+buildkit + `.b.dart` regeneration + manual-adapter retirement.
+That is a multi-commit landing whose failure modes are exactly
+the ones the regression rule is designed to catch — touching
+generator/interpreter/flutterm-non-test code mandates the
+essential + important + secondary suite re-run, and any
+mismatch in adapter shape silently regresses dozens of scripts
+at once.
+
+**Refined Phase 1 deliverable.**
+
+The original Phase 1 statement ("emit adapters for classes
+with hand-written equivalents and check parity") is the wrong
+unit of work because it assumes the existing
+`proxy_generator.dart` machinery is the right substrate. It
+isn't — that pipeline emits a different adapter shape. The
+refined Phase 1 is:
+
+- **1a.** Add `interfaceProxyClasses` schema to
+  `tom_d4rt_generator/lib/src/bridge_config.dart`, isomorphic
+  to the variation-matrix items 1–11. Pure config plumbing —
+  zero behaviour change. No bridge regen needed.
+- **1b.** Implement `interface_proxy_generator.dart` as a new
+  module. Emits one adapter class + one
+  `registerInterfaceProxy` call per entry. First targets:
+  shape #1 + #3 (TickerProvider, LeafRenderObjectWidget,
+  PreferredSizeWidget, SlottedMultiChildRenderObjectWidget) —
+  4 trivial classes, no caching, no warn-once, no mixin
+  dispatch.
+- **1c.** Compare generated adapter to manual adapter
+  side-by-side; iterate until functionally equivalent.
+- **1d.** Switch the 4 manual registrations to call into the
+  generated factory; run essential + important + secondary.
+- **1e.** Roll out shape-by-shape (3 → 4 → 5 → 6 → 7 → 8 → 9
+  → 10 → 11), one adapter per landing, full regression each
+  time.
+
+This is a multi-week effort — minimum 1 PR per shape (~11 PRs)
+plus the schema/generator landing PRs upfront. Out of scope
+for the cluster-by-cluster bug-fix campaign in its current
+cadence.
+
+**Status update.** E12 stays **Open** as design exploration.
+Phase 1 plan refined per the above; codegen implementation
+deferred. The 30 manual adapters remain authoritative until
+the refined Phase 1 lands.
+
+**Verification.** Documentation-only update; no code or
+scripts changed in this turn → no regression risk, no retest
+required. The investigation findings are reproducible from
+`tom_d4rt_flutterm/lib/src/d4rt_runtime_registrations.dart`
+(lines 258–750) and
+`tom_d4rt_generator/lib/src/proxy_generator.dart`.
+
+---
+
 ## E13 — Enum exhaustiveness on bridged enums (script-side, 15 scripts) — carry-over from `script_rewrites.md`
 
 - [ ] Fixed  - [ ] Partial  - [x] Open · **Severity:** Low · **Owner:** scripts (add `default:` arm)
