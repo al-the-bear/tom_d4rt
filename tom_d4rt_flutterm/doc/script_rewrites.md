@@ -24,6 +24,7 @@ script-side rewrite that makes the test pass cleanly.
 | [Layout cascade — `Column`+`Expanded` in unbounded parent](#layout-cascade--columnexpanded-in-unbounded-parent-d6e2) | 18 scripts (D6 / E2) | Flutter `RenderFlex` constraint contract |
 | [`Row(crossAxisAlignment: stretch)` + `Expanded` in `SliverToBoxAdapter`](#rowcrossaxisalignment-stretch--expanded-in-slivertoboxadapter-c3) | `widgets/scroll_deceleration_rate_test.dart` | Flutter `RenderFlex` cross-axis contract |
 | [`BorderRadius` shorthand vs uniform-corner constraint](#borderradius-shorthand-vs-uniform-corner-constraint-e5) | `widgets/widgets_binding_observer_test.dart` | Flutter `BorderRadius` contract |
+| [`RangeSlider` with `onChanged: null` + default M3 gapped track shape](#rangeslider-with-onchanged-null--default-m3-gapped-track-shape-index-32) | `material/gapped_range_slider_track_shape_test.dart` | Flutter `RangeSliderTrackShape.paint` disabled-state contract |
 | [`FragmentProgram` engine cascade in multi-test suites](#fragmentprogram-engine-cascade-in-multi-test-suites) | `dart_ui/image_sampler_slot_test.dart` | Engine pipeline teardown |
 
 ---
@@ -273,6 +274,68 @@ script-side rewrite that makes the test pass cleanly.
 
 ---
 
+## `RangeSlider` with `onChanged: null` + default M3 gapped track shape (Index 32)
+
+- **Source:** `material/gapped_range_slider_track_shape_test.dart`
+  (41 lines).
+- **Symptom.** Multiple null-related errors (`Null check operator
+  used on a null value`, null-receiver method invocations) thrown
+  during the slider track painting code path. Stack frames land
+  inside Flutter's `RangeSlider` / `RangeSliderTrackShape.paint`,
+  not in script-controlled code, which originally led the issue
+  to be classified as a framework null path in
+  `interpreter_unfixable.md`.
+- **Underlying Dart/Flutter trigger.** The script renders a
+  `RangeSlider(values: range, min: 0, max: 1, onChanged: null)`
+  inside the default Material 3 `SliderTheme`. Material 3
+  resolves the default `rangeTrackShape` to
+  `GappedRangeSliderTrackShape`, whose `paint` method walks the
+  active / inactive segment colours via the slider's enabled
+  state. With `onChanged: null` the slider is disabled, and the
+  gapped shape's paint path follows a branch that — in the
+  combination of theme defaults the script picks up — reads a
+  `MaterialStateProperty` value that resolves to `null`. The
+  null then propagates into the painter and surfaces as the
+  observed null-deref cluster.
+- **Why this is script-side, not interpreter-side or framework-bug.**
+  The contract that `RangeSlider`'s gapped track shape paints
+  cleanly is satisfied for *enabled* sliders with a fully
+  populated theme; passing `onChanged: null` is the
+  documented-but-edge-case "disabled slider" path. The native
+  Flutter behaviour for this exact shape (disabled +
+  gapped-default + minimal theme) hasn't been bisected against a
+  vanilla `flutter test` run; until that bisect proves a genuine
+  framework bug (which would then go upstream as a
+  `flutter/flutter` issue), the symptom is best treated as a
+  script contract violation: the script writer chose a
+  combination that Flutter doesn't fully support in M3 defaults.
+- **Workaround.** Three low-cost rewrites that preserve the
+  script's intent (rendering a `GappedRangeSliderTrackShape`
+  preview):
+  1. **No-op `onChanged`** — pass
+     `onChanged: (RangeValues _) {}` so the slider stays enabled.
+     The test app doesn't drive interactions; the no-op handler
+     keeps the contract intact.
+  2. **Wrap in `IgnorePointer`** — keep `onChanged` non-null but
+     wrap the `RangeSlider` in `IgnorePointer` to disable input
+     while leaving the painter on the enabled code path.
+  3. **Override the track shape explicitly** —
+     `SliderTheme(data: SliderTheme.of(context).copyWith(
+     rangeTrackShape: const GappedRangeSliderTrackShape()), …)`
+     — which forces the gapped shape regardless of M3 defaults
+     and ensures the surrounding theme tokens the painter needs
+     are populated.
+  Option 1 is the smallest edit and the recommended path.
+- **Open verification step.** Before declaring this fully
+  closed, the script should be reproduced under vanilla
+  `flutter test` (no interpreter) with `onChanged: null` to
+  confirm the same null-deref fires natively. If it does not,
+  the entry returns to interpreter-side investigation. If it
+  does, file the case upstream (Flutter GitHub) and apply
+  workaround 1.
+
+---
+
 ## `FragmentProgram` engine cascade in multi-test suites
 
 - **Source:**
@@ -333,6 +396,15 @@ treat as an active script-rewrite case again.
 
 ## Change Log
 
+- **2026-04-28 (latest):** Added Index 32
+  `gapped_range_slider_track_shape_test.dart`, migrated from
+  `interpreter_unfixable.md` per user assessment that the
+  null-deref pattern is most consistent with a script-side
+  contract violation (`onChanged: null` with the M3 default
+  gapped track shape) rather than a true framework null path.
+  Workaround 1 (no-op `onChanged`) is the recommended edit. Open
+  verification step: reproduce under vanilla `flutter test` to
+  confirm.
 - **2026-04-28 (evening):** Restructured into a single index of
   active script-rewrite cases. **Added** the script-rewriteable
   cases moved out of `interpreter_unfixable.md` (enum

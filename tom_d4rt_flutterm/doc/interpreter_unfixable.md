@@ -27,7 +27,6 @@ the entry belongs in `script_rewrites.md` — please move it.
 | Section | Category | Source |
 |---|---|---|
 | [Abstract Class Inheritance — architecture](#abstract-class-inheritance) | Interpreter limitation (worked around via adapter proxies; auto-generation explored as E12) | Architectural |
-| [GappedRangeSliderTrackShape framework null errors](#index-32-gappedrangeslidertrackshape-null-errors) | Truly unfixable (framework null path) | `material/gapped_range_slider_track_shape_test.dart` |
 | [`gir` W1–W5 transport cascade — structural](#cluster-r--gir-w1-w5-transport-cascade-test-app-structural) | Truly unfixable (test-app transport layer) | W1–W5 wedgers (all 5 pass in isolation, see `test/blocking_tests_test.dart`) |
 
 Entries that previously lived here but have **suggested
@@ -135,23 +134,6 @@ later in this file.
 
 ---
 
-## Index 32: GappedRangeSliderTrackShape null errors
-
-- **Source:** `test/tom_d4rt_flutterm_app/test/send_ast_via_http_scripts/material/gapped_range_slider_track_shape_test.dart`
-- **Symptom:** Multiple null-related errors during slider track painting operations.
-- **Root cause:** Framework-level code path where axis/value
-  transformation produces null receivers that flow into subsequent
-  method invocations. The errors occur in internal painting logic,
-  not script-controllable code.
-- **Why truly unfixable:** The null values emerge from framework
-  transformations; script workarounds cannot intercept or guard
-  them, and the interpreter is faithfully forwarding the
-  framework's null. Fixing this would require monkey-patching
-  Flutter's slider painter — out of scope for both the script and
-  the interpreter.
-
----
-
 ## Cluster R — `gir` W1-W5 transport cascade (test-app structural)
 
 **Why truly unfixable at the interpreter or the script level.**
@@ -214,6 +196,17 @@ durable lever is the META watchdog.
 
 ## Change Log
 
+- 2026-04-28 (latest): **Move Index 32
+  `GappedRangeSliderTrackShape` to `script_rewrites.md`.** Per
+  user assessment, the null-deref pattern is most consistent
+  with a script-side contract violation against
+  `RangeSliderTrackShape.paint` rather than a genuine framework
+  null path that requires monkey-patching. The previous
+  classification in this doc claimed the entry as "truly
+  unfixable" without a debug-build bisect to confirm — that
+  framing was speculative, and a script-side workaround is
+  available. Tracked in `script_rewrites.md` until / unless a
+  debug-build bisect proves otherwise.
 - 2026-04-28 (later evening): **Move suggested-fix entries to
   `error_analysis.md`.** Three sections that previously lived
   here had concrete interpreter / generator fix proposals
