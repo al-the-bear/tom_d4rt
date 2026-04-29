@@ -266,7 +266,17 @@ until step 3.
 - Run `dart test` in `tom_d4rt_ast` and `tom_d4rt` — new tests must pass, no existing test regresses.
 - Run the 4-suite battery in `tom_d4rt_flutterm` — should be a no-op (no flutterm code touched).
 
-**Status.** _pending_
+**Status.** _done_ (2026-04-29) — testlog `testlog_20260429-1124-step1-unwrapAs/`.
+Twelve new unit tests pass in both `tom_d4rt` and `tom_d4rt_ast`. Flutterm
+3-suite battery matches baseline exactly (108/164/653). Other tom_d4rt_*
+projects: zero regressions vs `testlog_20260429-1054-consol-baseline`. The
+parallel-run summary showed an apparent +1 failure / -93 tests delta in
+`tom_d4rt_exec` and a -66 tests delta in `tom_ast_generator`; both were
+confirmed to be pre-existing setUpAll parallel-test races on the shared
+`example/d4` project — `dart test --concurrency=1` reproduces the exact
+baseline failure set (25F+1E in tom_d4rt_exec) and fewer-or-equal failures
+in tom_ast_generator. No flutterm caller yet — `FlutterD4rt._unwrap`
+unchanged; helper is dead code until step 3.
 
 ---
 
@@ -492,7 +502,7 @@ Update this section as each step completes, reverts, or defers.
 
 | Step | Owner | Status | Commit(s) | Testlog | Summary |
 |------|-------|--------|-----------|---------|---------|
-| 1 | — | pending | — | — | — |
+| 1 | claude | done | _pending push_ | testlog_20260429-1124-step1-unwrapAs/ | D4.unwrapAs<T> + D4UnwrapException dual-landed; 12 new tests pass; flutterm 3-suite + other tom_d4rt_* match baseline (parallel-run setUpAll flake confirmed via --concurrency=1 reruns). |
 | 2 | — | pending | — | — | — |
 | 3 | — | pending | — | — | — |
 | 4 | — | pending | — | — | — |

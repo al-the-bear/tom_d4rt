@@ -1,0 +1,811 @@
+00:00 +0: loading test/stdin/stdin_preprocessing_test.dart
+00:00 +0: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +1: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +2: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +3: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +4: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +5: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +6: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +7: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +8: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +9: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +10: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +11: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +12: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +13: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +14: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +15: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +16: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +17: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +18: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +19: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +20: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +21: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +22: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +23: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +24: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +25: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +26: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +27: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +28: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +29: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +30: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +31: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +32: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +33: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +34: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +35: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +36: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +37: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +38: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +39: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +40: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +41: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +42: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +43: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +44: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +45: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +46: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +47: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +48: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +49: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +50: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +51: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +52: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +53: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +54: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +55: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +56: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +57: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +58: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +59: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +60: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +61: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +62: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +62: test/cli_api_script_test.dart: CLI API Script Execution - State Modification variable persistence variable shadowing in new execution
+20
+00:00 +63: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +64: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +65: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +66: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +67: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +68: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +69: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +70: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +71: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +72: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +73: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +74: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +75: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +76: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:00 +77: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +78: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +79: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +80: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +81: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +82: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +83: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +84: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +85: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +86: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +87: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +88: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +89: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +90: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +91: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +92: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +93: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +94: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +94: test/cli_api_script_test.dart: CLI API Script Execution - State Modification multiline script execution multiline execute runs in fresh environment
+fresh
+00:01 +95: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +96: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +97: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +98: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +99: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +100: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +101: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +102: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +103: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +104: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +105: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +106: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +107: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +108: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +109: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +110: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +111: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +112: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +113: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +114: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +115: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +116: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +117: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +118: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +119: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +120: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +121: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +122: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +123: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +124: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +125: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +126: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +127: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +128: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +129: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +130: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +131: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +132: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +133: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +134: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +135: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +136: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +137: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +138: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +139: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +140: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +141: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +142: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +143: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +144: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +145: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +146: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +147: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +148: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +149: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +150: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +151: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +152: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +153: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +154: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +155: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +156: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +157: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +158: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +159: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +160: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +161: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +162: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +163: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +164: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +165: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +166: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +167: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +168: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +169: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +170: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +171: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +172: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +173: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +174: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +175: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +176: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +177: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +178: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +179: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +180: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +181: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +182: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +183: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +184: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +185: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +186: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +187: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +188: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +189: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +190: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +191: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +192: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +193: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +194: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +195: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +196: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +197: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +198: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +199: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +200: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +201: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +202: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +203: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +204: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +205: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +206: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +207: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +208: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +209: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +210: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +211: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +212: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +213: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +214: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +215: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +216: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +217: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +218: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +219: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +220: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +221: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +222: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +223: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +224: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +225: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +226: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +227: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +228: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +229: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +230: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +231: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +232: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +233: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +234: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:01 +235: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +236: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +237: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +238: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +239: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +240: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +241: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +242: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +243: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +244: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +245: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +246: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +247: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +248: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +249: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +250: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +251: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +252: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +253: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +254: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +255: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +256: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +257: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +258: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +259: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +260: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +261: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +262: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +263: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +264: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +265: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +266: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +267: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +268: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +269: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +270: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +271: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +272: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +273: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +274: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +275: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +276: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +277: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +278: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +279: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +280: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +281: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +282: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +283: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +284: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +285: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +286: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +287: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +288: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +289: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +290: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +291: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +292: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +293: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +294: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +295: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +296: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +297: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +298: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +299: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +300: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +301: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +302: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +303: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +304: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +305: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +306: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +307: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +308: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +309: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +310: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +311: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +312: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +313: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +314: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +315: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +316: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +317: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +318: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +319: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +320: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +321: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +322: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +323: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +324: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +325: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +326: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +327: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +328: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +329: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +330: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +331: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +332: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +333: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +334: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +335: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +336: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +337: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +338: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +339: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +340: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +341: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +342: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +343: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +344: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +345: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +346: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +347: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +348: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +349: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +350: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:02 +351: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +352: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +352: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient.isAvailable returns bool
+VS Code bridge available: false
+00:03 +353: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +354: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +354: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Bridge Availability VSCodeBridgeClient can connect when available
+Skipping: VS Code bridge not available
+00:03 +355: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +356: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +357: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +358: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +359: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +360: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +361: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +362: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +363: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +364: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+hello
+00:03 +365: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +366: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +367: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +368: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +369: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +370: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +371: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +372: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +373: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +374: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +375: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +376: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +377: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +378: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +378: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.isInitialized returns correct state
+Skipping: VS Code bridge not available
+00:03 +379: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +380: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +381: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +381: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getVersion returns version string
+Skipping: VS Code bridge not available
+00:03 +382: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +383: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +384: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +384: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCode Class VSCode.getEnv returns environment info
+Skipping: VS Code bridge not available
+00:03 +385: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +386: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +387: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +387: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getWorkspaceFolders returns list
+Skipping: VS Code bridge not available
+00:03 +388: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +389: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +389: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWorkspace getConfiguration returns configuration
+Skipping: VS Code bridge not available
+00:03 +390: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +391: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +392: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +393: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +393: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow showInformationMessage displays message
+Skipping: VS Code bridge not available
+00:03 +394: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +395: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:03 +396: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +397: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +398: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +398: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeWindow getActiveTextEditor returns editor info
+Skipping: VS Code bridge not available
+00:04 +399: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +400: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +401: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +402: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +403: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +404: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +405: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +405: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands getCommands returns list of commands
+Skipping: VS Code bridge not available
+00:04 +406: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +407: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +408: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +409: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +410: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +411: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +412: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +413: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +413: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeCommands executeCommand can run basic command
+Skipping: VS Code bridge not available
+00:04 +414: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +415: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +416: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +417: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +418: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +419: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +420: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +421: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +422: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +423: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +424: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +424: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getAll returns list of extensions
+Skipping: VS Code bridge not available
+00:04 +425: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +426: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +427: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +427: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution execute runs fresh program
+42
+00:04 +428: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +429: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +429: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - VSCodeExtensions getExtension returns specific extension
+Skipping: VS Code bridge not available
+00:04 +430: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +431: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +432: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +433: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +433: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCode class from script
+Skipping: VS Code bridge not available
+00:04 +434: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +435: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +435: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can access VSCodeBridgeClient from script
+Skipping: VS Code bridge not available
+00:04 +436: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +437: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +437: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create VSCodeUri from script
+Skipping: VS Code bridge not available
+00:04 +438: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +439: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +440: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +440: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create WorkspaceFolder from script
+Skipping: VS Code bridge not available
+00:04 +441: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +442: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +443: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +444: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +445: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +445: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Position and Range from script
+Skipping: VS Code bridge not available
+00:04 +446: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +447: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +447: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create Selection from script
+Skipping: VS Code bridge not available
+00:04 +448: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +448: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create QuickPickItem from script
+Skipping: VS Code bridge not available
+00:04 +449: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +450: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +451: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +452: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +452: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create InputBoxOptions from script
+Skipping: VS Code bridge not available
+00:04 +453: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +454: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +454: test/cli_api_comprehensive_test.dart: CLI API Controller - Core Methods code execution executeFile runs file
+from file
+00:04 +455: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +456: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +456: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - D4rt Script Execution can create MessageOptions from script
+Skipping: VS Code bridge not available
+00:04 +457: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +457: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get VS Code version through bridge
+Skipping: VS Code bridge not available
+00:04 +458: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +459: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +460: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +461: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +462: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +462: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get workspace folders through bridge
+Skipping: VS Code bridge not available
+00:04 +463: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +463: test/vscode_scripting_api_bridges_test.dart: VS Code Scripting API - Live Bridge Commands script can get active editor through bridge
+Skipping: VS Code bridge not available
+00:04 +464: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +465: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +466: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:04 +467: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +468: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +469: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +470: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +471: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +472: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +473: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +474: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +475: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +476: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +477: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +477: test/cli_api_test.dart: D4rtCliController execute runs code in fresh environment
+42
+00:05 +478: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +479: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +480: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +481: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +482: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +483: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +484: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +485: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +486: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +487: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +488: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +489: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +490: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +491: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +492: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +493: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +494: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +495: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +496: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +497: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +498: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +499: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +500: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +501: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +502: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +503: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +504: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +505: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +506: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +507: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +508: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +509: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +510: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +511: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +512: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +513: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +514: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +515: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:05 +516: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +517: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +518: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +519: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +520: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +521: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +522: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +523: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +524: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +525: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +526: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +527: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +528: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +529: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +530: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +531: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +532: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +533: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +534: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +535: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +536: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +537: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +538: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +539: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +540: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +541: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +542: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +543: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +544: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +545: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +546: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +547: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +548: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +549: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +550: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +551: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +552: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +553: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +554: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +555: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +556: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +557: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +558: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +559: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +560: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +561: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +562: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +563: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +564: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +565: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +566: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +567: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +568: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +569: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +570: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +571: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +572: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+Hello Echo00:06 +573: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +574: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+no newlineafter00:06 +575: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +576: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +577: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +578: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +579: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:06 +580: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +581: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +582: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +583: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+{"cmdLine":"nonexistent_command_xyz ","exitCode":2,"reason":"Could not find nonexistent_command_xyz on the path.","stackTrace":"package:dcli/src/process/process/in_isolate/process_runner.dart 124:28  ProcessRunner.start\npackage:dcli/src/process/process/process_in_isolate.dart 155:3          _run\npackage:dcli/src/process/process/process_in_isolate.dart 73:17          _body\n"}
+00:07 +584: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +585: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +586: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +587: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+ls: cannot access '/nonexistent/directory/xyz': No such file or directory
+00:07 +588: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +589: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +590: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +591: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +592: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +593: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +594: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +594: test/process_execution_test.dart: Progress class print outputs to console
+printed
+00:07 +595: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +596: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +597: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +598: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +599: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +600: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +601: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +602: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +603: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +604: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +605: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +606: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +607: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +608: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +609: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +610: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:07 +611: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +612: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +613: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +614: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +615: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +616: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +617: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +618: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +619: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +620: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +621: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +622: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +623: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +624: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +625: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +626: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +627: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +628: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +629: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +630: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +631: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +632: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +633: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +634: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +635: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +636: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +637: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +638: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +639: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +640: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +641: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +642: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +643: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +644: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +645: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +646: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +647: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +648: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +649: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +650: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +651: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +652: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +653: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +654: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +655: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +656: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +657: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +658: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +659: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +660: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:08 +661: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +662: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +663: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +664: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +665: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +666: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +667: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +668: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +669: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +670: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +671: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +672: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +673: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +674: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +675: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +676: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +677: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +678: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +679: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +680: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +681: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +682: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +683: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +684: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +685: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +686: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +687: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +688: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +689: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +690: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +691: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +692: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +693: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +694: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+00:09 +695: test/stdin/stdin_preprocessing_test.dart: stdin shell script test_stdin.sh passes all checks
+══════════════════════════════════════════════════════════════
+  dcli --stdin Smart Preprocessing Tests
+══════════════════════════════════════════════════════════════
+
+Case 1: Bare statements (auto-import, auto-wrap)
+  ✓ bare print statement exits 0 (exit=0)
+  ✓ bare print statement output
+  ✓ bare return int → exit code 42 (exit=42)
+  ✓ bare return 0 → exit code 0 (exit=0)
+  ✓ multi-line bare statements exit 0 (exit=0)
+  ✓ multi-line bare computes correctly
+  ✓ stdlib bridges available in bare mode (exit=0)
+  ✓ dart:math max() works
+  ✓ dart:io Platform available in bare mode (exit=0)
+
+Case 2: main() without imports (auto-prefix imports)
+  ✓ void main without imports exits 0 (exit=0)
+  ✓ void main output correct
+  ✓ Object main with bridge usage exits 0 (exit=0)
+  ✓ bridge imports auto-prefixed for main
+  ✓ int main() return value used as exit code (exit=7)
+
+Case 3: Complete script (imports + main)
+  ✓ complete script exits 0 (exit=0)
+  ✓ complete script output correct
+  ✓ complete script with dart:io exits 0 (exit=0)
+  ✓ complete script accesses dart:io
+
+Error handling
+  ✓ empty stdin exits 1 (exit=1)
+  ✓ empty stdin error message
+  ✓ syntax error exits 2 (exit=2)
+  ✓ runtime error exits 2 (exit=2)
+
+══════════════════════════════════════════════════════════════
+  All 22 tests passed ✓
+══════════════════════════════════════════════════════════════
+
+03:58 +696: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should print output and exit 0
+04:12 +697: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should use int return as exit code
+04:27 +698: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should auto-import dart:math (stdlib bridge)
+04:41 +699: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — bare statements should auto-import dart:io
+04:56 +700: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should execute void main and exit 0
+05:11 +701: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should auto-prefix imports for bridge usage
+05:25 +702: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — main without imports should use int return from main as exit code
+05:40 +703: test/stdin/stdin_preprocessing_test.dart: stdin preprocessing — complete script should execute complete script as-is
+05:55 +704: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 1 on empty stdin
+06:09 +705: test/stdin/stdin_preprocessing_test.dart: stdin error handling should exit 2 on runtime error
+06:24 +706: All tests passed!
