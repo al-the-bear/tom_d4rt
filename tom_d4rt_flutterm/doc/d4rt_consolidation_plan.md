@@ -564,7 +564,23 @@ single call). Remove the `_relaxersRegistered` static bool from
   process creates two `FlutterD4rt` instances (the test app does not,
   but other harnesses might).
 
-**Status.** _pending_
+**Status.** _done_ — landed on 2026-04-29 (testlog
+`testlog_20260429-step5-idempotency/`).
+
+`registerGenericConstructor` and `registerGenericTypeWrapper` got
+companion `Set<Factory>` identity maps that no-op on duplicate
+factory identities; the other three named registrations (already
+overwrite-by-key idempotent) plus `BridgedClass.registerSupertypes`
+(already Set-add idempotent) got explicit "**Idempotent:**" docstring
+tags. The `_relaxersRegistered` static-bool guard plus its
+`_ensureRelaxersRegistered()` wrapper are gone — `flutter_d4rt.dart`'s
+`_registerBridges()` now calls `registerRelaxers()` and
+`registerD4rtRuntimeExtensions()` directly on every instance. Hard-sync
+between `tom_d4rt_ast/lib/src/runtime/generator/d4.dart` and
+`tom_d4rt/lib/src/generator/d4.dart` is preserved. New file
+`tom_d4rt_ast/test/runtime/register_idempotency_test.dart` adds 7
+register-twice tests, all green. All 10 suites match step-4 baselines
+exactly except `tom_d4rt_ast` which gains +7 from the new tests.
 
 ---
 
@@ -655,7 +671,7 @@ Update this section as each step completes, reverts, or defers.
 | 2 | claude | done | (this session) | testlog_20260429-step2-executeBundleAs/ | `D4rtRunner.executeBundleAs<T>` / `executeBundleAsAsync<T>` added on tom_d4rt_ast; mirrored on tom_d4rt_exec `D4rt`. 16 new tests (5 ast + 11 exec) all green. Flutterm 3-suite matches baseline 108 / 164 / 653~1; tom_d4rt_exec +2234 −26 vs baseline +2223 −26 (+11 new); tom_d4rt_ast +101 −2 vs +84 −2 (+17 cumulative w/ step 1). |
 | 3 | claude | done | (this session) | testlog_20260429-step3-flutterD4rt-cutover/ | `FlutterD4rt._unwrap<T>` deleted; all 4 entry points route through `executeBundleAs<T>` / `executeBundleAsAsync<T>`. `D4UnwrapException` re-thrown as `FlutterD4rtException` for public-contract preservation. Bridge registration de-duplicated. Flutterm 3-suite + every other tom_d4rt_* suite match the consol-baseline / step 2 baselines exactly — zero regressions. |
 | 4 | claude | done | (this session) | testlog_20260429-step4-d4rt-base-unwrap/ + testlog_20260429-step4-sync-third-twin/ + testlog_20260429-step4-recursive-sync/ | `_bridgeInterpreterValueToNative` leaf unwrap delegated to `D4.unwrapAs<Object?>` across **all three** copies (initial land: tom_d4rt_ast/interpreter_visitor.dart + tom_d4rt/d4rt_base.dart leaf branch; sync addendum: tom_d4rt/interpreter_visitor.dart). Recursive sync addendum: ported the recursive list/map/record top-level unwrap from `tom_d4rt/d4rt_base.dart:1938` to `tom_d4rt_ast/d4rt_runner.dart`'s `_executeInEnvironment` (the recursion was a fork omission, not a deliberate asymmetry — corrected in this session). All 10 suites match step-3 baselines exactly across all three runs — zero regressions. |
-| 5 | — | pending | — | — | — |
+| 5 | claude | done | (this session) | testlog_20260429-step5-idempotency/ | `registerGenericConstructor` and `registerGenericTypeWrapper` made idempotent via per-key `Set<Factory>` identity dedupe (chained-on-itself was the load-bearing reason `_relaxersRegistered` existed). The three already-idempotent overwrite registries (`registerInterfaceProxy`, `registerTypeCoercion`, `registerSupplementaryMethod`) plus `BridgedClass.registerSupertypes` got explicit "**Idempotent:**" docstring tags. `_relaxersRegistered` static-bool guard removed from `flutter_d4rt.dart`. Sync between tom_d4rt and tom_d4rt_ast preserved. New file `register_idempotency_test.dart` adds 7 register-twice tests (all green). 10-suite battery matches step-4 baselines exactly; `tom_d4rt_ast` gains +7 from the new tests. |
 | 6 | — | pending | — | — | — |
 | 7 | — | pending | — | — | — |
 
