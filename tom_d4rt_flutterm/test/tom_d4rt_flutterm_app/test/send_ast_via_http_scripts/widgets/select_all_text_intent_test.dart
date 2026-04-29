@@ -4,6 +4,35 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
+//
+// Emits 3 FE in this order:
+//   1. BoxConstraints has a negative minimum height (provided to
+//      _RenderEditableCustomPaint's layout()).
+//   2. RenderBox was not laid out: _RenderEditableCustomPaint
+//      ('hasSize' assertion).
+//   3. '!childSemantics.renderObject._needsLayout': is not true
+//      (object.dart:5737).
+//
+// Triggered by the Tier-A `TextField(maxLines: 3)` inside a
+// `Column(crossAxisAlignment: stretch)` whose grandparent Column is
+// further wrapped in panel chrome with computed but not pinned
+// vertical extent. The semantics layout pass runs while
+// `_RenderEditableCustomPaint` is still flagged needs-layout — a
+// flutter framework race when the editable's parent constraint
+// shrinks to negative minimum height during the same frame.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (EditableText sub-pocket): replace the Tier-A TextField demo with
+// `SelectableText` + a static cursor glyph (no editable render
+// path), or wrap the TextField in
+// `SizedBox(height: <pinned>)` so the constraint never shrinks
+// negative. Deferred — Tier-A is the headline demo; replacing the
+// live TextField removes the actual select-all behaviour shown.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] — flips
+// to FE=0 if the underlying flutter behaviour changes.
+
 // =====================================================================
 // Select-All Command Center — a hand-authored, deep visual demo of
 // SelectAllTextIntent. It shows three concentric rings of usage:

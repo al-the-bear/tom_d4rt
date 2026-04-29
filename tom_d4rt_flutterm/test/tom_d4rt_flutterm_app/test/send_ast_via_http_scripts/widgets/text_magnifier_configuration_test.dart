@@ -7,6 +7,24 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 C3-deferred sub-pocket)
+//
+// Emits 6 FE: "BoxConstraints forces an infinite height" provided
+// to `RenderPadding`'s layout(), "RenderBox was not laid out" on
+// `RenderFlex` and `RenderPadding` ('hasSize' assertions), then
+// three `Null check operator used on a null value` follow-ups in
+// the paint walk. Same C3 shape as
+// `widgets/widget_state_color_test.dart` — `Row(stretch)` with
+// `Expanded` children inside an unbounded-height sliver context.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (C3 sub-pocket): drop `crossAxisAlignment: stretch` from the
+// hero row, or pin the parent vertical extent before the sliver
+// boundary. Deferred — the magnifier-atelier hero composition
+// leans on the stretched row for the brass-rimmed-lens layout.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+
 // ---------------------------------------------------------------------------
 // Palette — "Magnifier Atelier" — sky, glass, ruby, brass.
 // ---------------------------------------------------------------------------

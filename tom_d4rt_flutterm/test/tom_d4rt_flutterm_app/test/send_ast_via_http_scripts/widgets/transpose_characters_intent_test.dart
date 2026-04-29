@@ -20,6 +20,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
+//
+// Emits 2 FE: BoxConstraints negative-minimum-height on
+// `_RenderEditableCustomPaint`, followed by the
+// `!childSemantics.renderObject._needsLayout` semantics-layout race
+// (object.dart:5737). Same shape as
+// `widgets/select_all_text_intent_test.dart` — Tier-A TextField in
+// a stretched Column whose grandparent computes a vertical extent
+// that shrinks to negative minimum height while semantics tries to
+// dirty-walk the editable's render object.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (EditableText sub-pocket): pin the TextField parent height with
+// `SizedBox(height: <fixed>)` or replace the live TextField with a
+// SelectableText + static caret glyph. Deferred — the live
+// TextField is the demo's primary surface for showing
+// transpose-characters dispatch.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+
 // ============================================================================
 // Palette & typography — one place, one truth.
 // ============================================================================

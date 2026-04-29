@@ -54,4 +54,26 @@ void main() {
     print(
         'FA1 STATUS: ${result.success}  FE: ${result.frameworkErrors.length}  SCRIPT: widgets/scroll_deceleration_rate_test.dart');
   });
+
+  // 2250-issue-analysis residual: scripts annotated with
+  // `D4RT-SCRIPT-LIMITATION: layout cascade` per the closing-criterion
+  // path documented in interpreter_unfixable.md §Fa1-N1. Re-run kept
+  // here as a recurring sentinel — if any of these drop to FE=0 in a
+  // future run the annotation can be removed and the script counted
+  // as actually fixed.
+  for (final script in const <String>[
+    'widgets/snapshot_mode_test.dart',
+    'widgets/restorable_double_test.dart',
+    'widgets/restoration_mixin_test.dart',
+    'widgets/select_all_text_intent_test.dart',
+    'widgets/transpose_characters_intent_test.dart',
+    'widgets/widget_state_color_test.dart',
+    'widgets/text_magnifier_configuration_test.dart',
+  ]) {
+    test('[fa1-2250-sentinel] $script', () async {
+      final result = await SendTestRunner.send(script);
+      print(
+          'FA1 STATUS: ${result.success}  FE: ${result.frameworkErrors.length}  SCRIPT: $script');
+    });
+  }
 }

@@ -15,6 +15,14 @@ hard test failures. Every framework-error (FE>0) incident matches
 a pre-existing carry-over from `testlog_20260428-1333-issue-analysis`
 — no new failure shapes emerged.
 
+**Update 2026-04-28:** cluster **N1** closed via the
+**annotation route** — six owning scripts now carry a
+`D4RT-SCRIPT-LIMITATION: layout cascade` header explicitly
+deferring the rewrite, with full sub-pocket workaround recipes in
+`doc/interpreter_unfixable.md` §Fa1-N1 and a sentinel at
+`test/fa1_bisect_test.dart [fa1-2250-sentinel]`. See cluster N1
+below.
+
 | Suite | Pass / Skip / Fail | FE-bearing scripts | Notes |
 |---|---:|---:|---|
 | `essential_classes_test`            | 108 / 0 / 0 | 0 | clean |
@@ -117,7 +125,7 @@ Source: `[METRIC] script=… frameworkErrors=N` lines with N ≥ 1.
 
 ## N1 — `Fa1 / E2` layout-cascade FE residuals confirmed open
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low (cosmetic; zero test failures) · **Owner:** test scripts (rewrite) — 2 sub-pockets
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · **Annotation closure (2026-04-28)** · **Severity:** Low (cosmetic; zero test failures) · **Owner:** test scripts (rewrite) — 2 sub-pockets
 
 Seven of the eight FE-bearing scripts in this run are confirmed
 sub-patterns of the **E2 layout cascade** (`testlog_20260428-1333`
@@ -136,8 +144,57 @@ Closing this cluster needs ~7 script rewrites; each is independent
 and can be parallelised across PRs. None of them block any
 suite-level pass.
 
-**Action:** none new; the work item is `Fa1` from 1333. Re-opened
-in the carry-over section below.
+### Resolution — annotation closure (2026-04-28)
+
+Per the closing criterion documented in the carry-over section
+below ("each script carries a `// D4RT-SCRIPT-LIMITATION: layout
+cascade` annotation explicitly deferring the rewrite"), the
+cluster is closed via the **annotation route**, not surgical
+rewrites. Surgical rewrites were considered and discarded — six
+scripts × ~14 k lines × Flutter-layout-sensitivity vs. **zero
+test-failure impact** does not justify the surface area.
+
+**Done:**
+
+1. **Six scripts annotated** with a `D4RT-SCRIPT-LIMITATION:
+   layout cascade` header comment naming the sub-pocket, FE count,
+   triggering codepath, and the per-pocket closing recipe:
+   - `widgets/snapshot_mode_test.dart` — small-overflow, FE=1
+   - `widgets/select_all_text_intent_test.dart` — EditableText, FE=3
+   - `widgets/transpose_characters_intent_test.dart` — EditableText, FE=2
+   - `widgets/restoration_mixin_test.dart` — EditableText, FE=3
+   - `widgets/widget_state_color_test.dart` — C3 sliver-row, FE=9
+   - `widgets/text_magnifier_configuration_test.dart` — C3 sliver-row, FE=6
+   - (`restorable_double_test.dart` left un-annotated: its FE
+     count flakes between 0 and 1 across runs and depends on
+     inter-script ordering, not on its own structure. Tracked in
+     the sentinel without an annotation header.)
+
+2. **Sub-pocket workaround recipes documented** in
+   `doc/interpreter_unfixable.md` §`Fa1-N1 — Layout-cascade FE
+   residuals on 6 deep-demo scripts (script-side,
+   annotation-deferred)` — three sub-pockets with concrete
+   rewrite snippets (small-overflow → `SingleChildScrollView`;
+   EditableText → C22 ListView + `Material` ancestor; C3 →
+   drop `crossAxisAlignment: stretch` or pin a finite parent
+   height).
+
+3. **Sentinel installed** at
+   `test/fa1_bisect_test.dart [fa1-2250-sentinel]` covering all
+   7 candidate scripts so any future drop in FE counts (e.g. if
+   Flutter changes the underlying behaviour) is captured.
+
+4. **Post-annotation sentinel run** captured to
+   `fa1_post_annotation.log.txt`. Per-script FE counts unchanged
+   from baseline (annotations are comments only) — this is the
+   expected outcome and confirms zero regression.
+
+**Why "Reverted/Deferred" rather than "Fixed":** the underlying
+Flutter-layout misalignments still exist; no interpreter,
+generator, or runtime defect is resolved. The cluster is closed
+because the chosen closing route — annotation — is now in place
+on every owning script and the sentinel will surface any
+behavioural change.
 
 ## N2 — `E4` late-field uninit on `RestorableProperty` shape (re-confirmed open)
 
@@ -197,6 +254,11 @@ pure FE noise. No interpreter or generator change required.
 0 FE for the 7 listed scripts; or each script carries a
 `// D4RT-SCRIPT-LIMITATION: layout cascade` annotation explicitly
 deferring the rewrite.
+
+**Closing criterion met (2026-04-28):** annotation route taken on
+all 6 owning scripts (the 7th, `restorable_double_test.dart`, is
+flaky and tracked by the sentinel without an annotation). See
+cluster N1 §Resolution above and `interpreter_unfixable.md` Fa1-N1.
 
 ## C-E1 — `_ByteDataView.lengthInBytes` undefined (carry-over from 1333 §E1)
 

@@ -74,6 +74,36 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 C3-deferred sub-pocket)
+//
+// Emits 9 FE in a single cascade:
+//   - "BoxConstraints forces an infinite height" provided to
+//     `RenderConstrainedBox`'s layout()
+//   - "RenderBox was not laid out" on RenderFlex (×2),
+//     RenderRepaintBoundary, sliver_multi_box_adaptor.dart:629
+//     ('child.hasSize' assertion)
+//   - "Null check operator used on a null value" (×2) — the layout
+//     pass tries to read `firstChild`/`lastChild` of a sliver that
+//     never sized.
+//
+// Triggered by the chameleon terrarium's wide horizontally-scrolling
+// strip, which uses `Row(crossAxisAlignment: stretch)` with
+// `Expanded` children inside a `SliverToBoxAdapter` inside a
+// `CustomScrollView`. The Sliver protocol gives unbounded vertical
+// extent which Row(stretch) cannot resolve, so every grandchild
+// fails to lay out and the null-check operator hits in the
+// downstream paint walk.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (C3 sub-pocket): drop `crossAxisAlignment: stretch` (use
+// `crossAxisAlignment: start`) and let each card decide its own
+// height, or pin a finite parent height with
+// `SliverToBoxAdapter(child: SizedBox(height: <fixed>, child: Row(...)))`.
+// Deferred — the visual demo's hero strip leans on the stretched
+// row to align card chrome; a non-trivial visual rework.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+
 // ---------------------------------------------------------------------------
 // Palette constants — declared once so every widget in the file uses the
 // same colors. Literal `Color(0xFF...)` keeps the palette deterministic

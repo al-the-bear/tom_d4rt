@@ -32,6 +32,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [E6 — Native Dart Record named-field access](#e6--native-dart-record-named-field-access-interpreter-limitation) | Interpreter limitation (no reflection for named fields without `dart:mirrors`; positional access works, named access requires destructuring or class wrapper) | E6 partial closure (`widgets/platform_menu_widgets_test.dart` only used positional access; named-field consumers must use the workarounds) |
 | [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
 | [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
+| [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. | `snapshot_mode_test.dart` (small-overflow, 1 FE), `select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE), `widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -517,6 +518,214 @@ ValueListenableBuilder) all reported FE=0; only after restoring
 the unguarded `maxScrollExtent` read did the failure surface.
 
 **Documented.** 2026-04-28 (corrected from prior misdiagnosis).
+
+---
+
+## Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts (script-side, annotation-deferred)
+
+**Cluster reference.** `error_analysis.md` cluster N1 / Fa1
+(`testlog_20260428-2250-issue-analysis`).
+
+**Severity.** Cosmetic only — every affected script passes at the
+suite level (zero test failures). The framework errors are
+recorded by Flutter's debug overlay but do not fail any
+assertion that the harness counts as a hard test failure.
+
+**Status.** Reverted/Deferred. Each script carries a
+`D4RT-SCRIPT-LIMITATION: layout cascade` annotation block
+explaining the local cause and the closing route. The closing
+route is documented (below) but not applied because the
+risk-vs-reward of large-script rewrites isn't justified for
+zero-failure noise. A sentinel is kept in
+`test/fa1_bisect_test.dart` (`[fa1-2250-sentinel]` group) so any
+future flutter behaviour change that drops these to FE=0 will
+surface in a routine baseline run.
+
+### Affected scripts and FE shapes
+
+| Script | FE | Sub-pocket | Triggering Flutter codepath |
+|---|---:|---|---|
+| `widgets/snapshot_mode_test.dart`                | 1 | small-overflow   | `RenderFlex` overflowed by 14 px on the bottom — one of the panel-level Columns has fixed children summing > available height |
+| `widgets/select_all_text_intent_test.dart`       | 3 | EditableText     | Negative-min-h on `_RenderEditableCustomPaint` + semantics-layout race |
+| `widgets/transpose_characters_intent_test.dart`  | 2 | EditableText     | Same as above (semantics race fires; the leading constraint failure is suppressed by Flutter's tolerance, leaving 2 FE) |
+| `widgets/restoration_mixin_test.dart`            | 3 | EditableText     | Same as `select_all_text_intent_test.dart` |
+| `widgets/widget_state_color_test.dart`           | 9 | C3 (Row(stretch)+Expanded inside Sliver) | Row(stretch) + Expanded children inside SliverToBoxAdapter — sliver protocol gives unbounded vertical, Row(stretch) cannot resolve |
+| `widgets/text_magnifier_configuration_test.dart` | 6 | C3 (Row(stretch)+Expanded inside Sliver) | Same as `widget_state_color_test.dart` |
+
+**Not annotated.** `widgets/restorable_double_test.dart` —
+emitted FE=1 in the `secondary_classes_test` suite at testlog
+2250, but FE=0 in isolation under `fa1_bisect_test.dart`. The
+inter-script ordering flake doesn't fit the script-annotation
+pattern; tracked separately if it persists.
+
+### Sub-pocket rewrite recipes (the closing routes)
+
+#### Small-overflow pocket (snapshot_mode)
+
+The flutter debug overlay records `RenderFlex overflowed by N
+pixels` whenever a Column or Row's children exceed the available
+main-axis extent by N pixels. The demo's panel-level layouts use
+fixed `SizedBox(height: <constant>)` spacers and content that, on
+the test app's surface size, sum to slightly more than the
+panel height.
+
+**Workaround patterns — same functional result, no FE:**
+
+1. Convert the offending panel Column to a `ListView` (the C22
+   pattern already applied to `shortcut_activator_test.dart`
+   etc.) so the children scroll instead of overflowing.
+2. Wrap the panel body in `SingleChildScrollView`.
+3. Reduce the offending fixed-height spacer (`SizedBox(height:
+   24)` → `SizedBox(height: 10)` etc.) by the documented
+   overflow amount.
+
+The blocker is **finding the offending panel** without runtime
+instrumentation — the FE message lists no `Widget` ancestor. A
+bisecting harness that replaces panels one at a time with
+`SizedBox.shrink()` would localise the offender; deferred as
+non-essential effort.
+
+#### EditableText pocket (select_all_text_intent, transpose_characters_intent, restoration_mixin)
+
+The flutter framework's `_RenderEditableCustomPaint` is laid out
+during the layout pass. When its parent (typically the
+`Container > TextField(maxLines: N)` chain inside a
+`Column(crossAxisAlignment: stretch)`) computes a constraint
+where the minimum height shrinks below zero — a normal edge case
+when the editable's preferred height exceeds the panel chrome's
+remaining vertical extent — the layout assertion `'hasSize'`
+fires. Compounding it, `_RenderEditable.attach()` registers
+itself with the semantics owner; if semantics tries to
+re-evaluate the editable in the same frame it walks the render
+object before layout completes, hitting
+`!childSemantics.renderObject._needsLayout` (object.dart:5737).
+
+**Workaround patterns — same functional result, no FE:**
+
+1. Pin the TextField parent height with `SizedBox(height:
+   <fixed>)` so the constraint never shrinks negative:
+
+    ```dart
+    SizedBox(
+      height: 80, // pinned — fits 3 lines of body text
+      child: TextField(
+        controller: _tierAController,
+        maxLines: 3,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          isDense: true,
+        ),
+      ),
+    )
+    ```
+
+2. Replace the live `TextField` demo with a static
+   `SelectableText` + a manually-drawn caret glyph. The
+   select-all dispatch surface remains visible; only the
+   *editable* render path is removed:
+
+    ```dart
+    SelectableText(
+      _tierAController.text,
+      style: const TextStyle(...),
+    )
+    ```
+
+3. Drop `crossAxisAlignment: stretch` on the parent Column so
+   the editable computes an intrinsic width without forcing a
+   stretched parent; the editable's own width is left free:
+
+    ```dart
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start, // was stretch
+      children: <Widget>[ ..., TextField(...), ... ],
+    )
+    ```
+
+The blocker is that the TextField *is* the demo — Tier-A in
+`select_all_text_intent_test.dart` exists specifically to show
+the select-all intent firing on a live editable. Replacing it
+with a SelectableText loses the demo's central value
+proposition. Deferred until a per-script visual rework is
+prioritised.
+
+#### C3 pocket (widget_state_color, text_magnifier_configuration)
+
+A `Row(crossAxisAlignment: stretch)` with `Expanded` children
+placed inside a `SliverToBoxAdapter` (or anywhere inside a
+`CustomScrollView`) hits a fundamental incompatibility in
+flutter's render protocol: slivers measure their adapter children
+with `BoxConstraints(minHeight: 0, maxHeight:
+double.infinity)`. `Row(stretch)` requires a *finite* parent
+height to stretch its children to. The result: `BoxConstraints
+forces an infinite height`, the row's children fail to lay out
+(`hasSize` assertion), the sliver adapter's
+`firstChild`/`lastChild` walk hits null in the paint phase, and
+9 FE cascade out for `widget_state_color_test.dart` (6 for
+`text_magnifier_configuration_test.dart`).
+
+**Workaround patterns — same functional result, no FE:**
+
+1. Drop `crossAxisAlignment: stretch` (use the default `start`
+   or `center`); explicitly set each card's height where the
+   visual symmetry needs it:
+
+    ```dart
+    Row(
+      crossAxisAlignment: CrossAxisAlignment.start, // was stretch
+      children: <Widget>[
+        SizedBox(height: 220, child: Expanded(child: card1)),
+        SizedBox(height: 220, child: Expanded(child: card2)),
+        SizedBox(height: 220, child: Expanded(child: card3)),
+      ],
+    )
+    ```
+
+2. Pin the parent vertical extent before the sliver boundary,
+   so `Row(stretch)` sees a finite height:
+
+    ```dart
+    SliverToBoxAdapter(
+      child: SizedBox(
+        height: 220, // pinned
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[ ... ],
+        ),
+      ),
+    )
+    ```
+
+3. Replace the `Row` with `IntrinsicHeight + Row(stretch)` (the
+   IntrinsicHeight provides a finite vertical extent for the
+   Row's stretch axis):
+
+    ```dart
+    IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[ ... ],
+      ),
+    )
+    ```
+
+The blocker is that the demo's hero strip leans on stretched
+rows for the brass-rimmed-lens / chameleon-card visual
+composition; pinning a height changes the demo's appearance.
+Deferred until a per-script visual rework is prioritised.
+
+### Sentinel test
+
+`test/fa1_bisect_test.dart` carries a recurring sentinel group
+`[fa1-2250-sentinel]` that runs each of the 7 scripts (6
+annotated + `restorable_double` to track the inter-suite flake)
+and prints `FA1 STATUS: <bool>  FE: <int>  SCRIPT: <path>`. If
+any script's FE drops to 0 in a future run (e.g., flutter
+upstream changes the sliver protocol or relaxes the semantics
+race), the annotation can be removed and the script counted as
+genuinely fixed without script-side surgery.
+
+**Documented.** 2026-04-28 (Fa1-N1 closure via annotation).
 
 ---
 

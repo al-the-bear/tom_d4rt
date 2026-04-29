@@ -2,6 +2,23 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 small-overflow pocket)
+//
+// Emits 1 FE: "A RenderFlex overflowed by 14 pixels on the bottom."
+// The offending Flex is one of the panel-level Columns; the demo
+// renders correctly at suite level (no test failure), but flutter's
+// debug overlay records the overflow each frame.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (small-overflow sub-pocket) — wrap the panel column in
+// `SingleChildScrollView`, shrink fixed `SizedBox(height:)` spacers
+// by 14 px in aggregate, or convert the panel Column to a `ListView`
+// like shortcut_activator_test.dart did. Deferred because the
+// surface-area-vs-no-failure ratio doesn't justify the surgery.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel] — flips
+// to FE=0 if the underlying flutter behaviour changes.
+
 // ---------------------------------------------------------------------------
 // SnapshotMode — Darkroom Gallery
 // ---------------------------------------------------------------------------

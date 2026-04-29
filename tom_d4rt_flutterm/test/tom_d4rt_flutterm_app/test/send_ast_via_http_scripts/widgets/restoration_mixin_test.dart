@@ -1,5 +1,24 @@
 import 'package:flutter/material.dart';
 
+// D4RT-SCRIPT-LIMITATION: layout cascade (Fa1 EditableText pocket)
+//
+// Emits 3 FE: BoxConstraints negative-minimum-height on
+// `_RenderEditableCustomPaint`, RenderBox-was-not-laid-out
+// (`hasSize`), and the `!childSemantics.renderObject._needsLayout`
+// race (object.dart:5737).
+//
+// The board-game session tracker contains a TextField for entering
+// player names that, when laid out within the panel chrome, hits
+// the same negative-minimum-height race as the other
+// EditableText-pocket scripts.
+//
+// Closing route documented in interpreter_unfixable.md §Fa1-N1
+// (EditableText sub-pocket). Deferred — same risk/reward profile
+// as select_all_text_intent_test.dart and
+// transpose_characters_intent_test.dart.
+//
+// Sentinel: test/fa1_bisect_test.dart [fa1-2250-sentinel].
+
 // =============================================================================
 // RestorationMixin deep-demo — Board Game Session tracker
 // -----------------------------------------------------------------------------
