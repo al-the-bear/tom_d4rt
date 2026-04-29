@@ -5,9 +5,6 @@ import 'bridges/material_bridges.b.dart';
 import 'bridges/flutter_relaxers.b.dart';
 import 'd4rt_runtime_registrations.dart';
 
-/// Whether [registerRelaxers] has been called.
-bool _relaxersRegistered = false;
-
 /// D4rt interpreter configured with Flutter Material bridges.
 ///
 /// Wraps a [D4rt] interpreter with pre-registered Flutter Material bridges
@@ -54,7 +51,22 @@ class FlutterD4rt {
   }
 
   void _registerBridges() {
-    _ensureRelaxersRegistered();
+    // Step 5: All D4 / BridgedClass registries are idempotent — the per-key
+    // overwrite / set-add / factory-identity-dedupe semantics make these
+    // calls safe to fire on every `FlutterD4rt` instance. The previous
+    // `_relaxersRegistered` static-bool guard was load-bearing only because
+    // `registerGenericConstructor` and `registerGenericTypeWrapper`
+    // would otherwise chain/append duplicate factories on each call; both
+    // now no-op when invoked with the same factory identity twice.
+    //
+    // GEN-079: auto-generated generic type relaxers.
+    registerRelaxers();
+    // RC-2 (TODO): once d4rtgen emits `registerGenericConstructors()` in
+    // flutter_relaxers.b.dart, uncomment the call below. Today the generic
+    // constructor factories live in `registerD4rtRuntimeExtensions()`.
+    // registerGenericConstructors();
+    registerD4rtRuntimeExtensions();
+
     FlutterMaterialBridges.register(_interpreter);
     // Bug-103: Run AFTER material bridges — the generator's
     // registerProxyFactories() emits <dynamic>-parameterised proxies for
@@ -62,19 +74,6 @@ class FlutterD4rt {
     // arguments so bridge boundaries typed on `CustomClipper<Path>` etc.
     // resolve correctly.
     registerD4rtInterfaceProxyOverrides();
-  }
-
-  /// GEN-079: Register auto-generated generic type relaxers once globally.
-  /// RC-2: Register auto-generated generic constructor factories.
-  static void _ensureRelaxersRegistered() {
-    if (!_relaxersRegistered) {
-      registerRelaxers();
-      // TODO(RC-2): Uncomment after d4rtgen re-run generates
-      // registerGenericConstructors() in flutter_relaxers.b.dart.
-      // registerGenericConstructors();
-      registerD4rtRuntimeExtensions();
-      _relaxersRegistered = true;
-    }
   }
 
   /// The underlying [D4rt] interpreter.
