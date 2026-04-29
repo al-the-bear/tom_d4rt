@@ -1661,6 +1661,95 @@ class D4 {
     return value;
   }
 
+  /// Unwrap an interpreter result to the requested native type [T].
+  ///
+  /// This is the canonical lift-and-cast helper used by embedders that need
+  /// a typed native value out of a value produced by `executeBundle`,
+  /// `eval`, or any bridge-boundary callback. It consolidates the three
+  /// scattered unwrap paths previously open-coded in `FlutterD4rt._unwrap`,
+  /// generated bridge adapters, and ad-hoc embedder code.
+  ///
+  /// Behaviour:
+  /// 1. `null` → returned as-is when `null is T` (i.e. `T` is nullable);
+  ///    otherwise throws [D4UnwrapException].
+  /// 2. [BridgedInstance] → returns [BridgedInstance.nativeObject] cast to
+  ///    [T] when assignable; otherwise throws [D4UnwrapException].
+  /// 3. [BridgedEnumValue] → returns [BridgedEnumValue.nativeValue] cast to
+  ///    [T] when assignable; otherwise throws [D4UnwrapException].
+  /// 4. [InterpretedInstance] → returns
+  ///    [InterpretedInstance.bridgedSuperObject] when it is a `T`, or asks
+  ///    the active visitor to construct an interface proxy via
+  ///    [tryCreateInterfaceProxyWithVisitor]. Falls back to
+  ///    [D4.activeVisitor] when [visitor] is null. Throws
+  ///    [D4UnwrapException] when no proxy can be produced.
+  /// 5. Any other value that already `is T` is returned as-is.
+  /// 6. Otherwise throws [D4UnwrapException].
+  ///
+  /// [expectedDescription] overrides the default `T.toString()` in
+  /// generated error messages — useful when the calling context already
+  /// knows a more specific description than the type system can express
+  /// (e.g. `'Widget (top-level build result)'`).
+  static T unwrapAs<T>(
+    Object? value, {
+    InterpreterVisitor? visitor,
+    String? expectedDescription,
+  }) {
+    final expected = expectedDescription ?? T.toString();
+
+    if (value == null) {
+      if (null is T) return null as T;
+      throw D4UnwrapException(
+        expectedType: expected,
+        actualType: 'null',
+      );
+    }
+
+    if (value is BridgedInstance) {
+      final native = value.nativeObject;
+      if (native is T) return native as T;
+      throw D4UnwrapException(
+        expectedType: expected,
+        actualType: native.runtimeType.toString(),
+        source: 'BridgedInstance<${value.bridgedClass.name}>',
+      );
+    }
+
+    if (value is BridgedEnumValue) {
+      final native = value.nativeValue;
+      if (native is T) return native as T;
+      throw D4UnwrapException(
+        expectedType: expected,
+        actualType: native.runtimeType.toString(),
+        source: 'BridgedEnumValue',
+      );
+    }
+
+    if (value is T) return value as T;
+
+    if (value is InterpretedInstance) {
+      final bridgedSuper = value.bridgedSuperObject;
+      if (bridgedSuper is T) return bridgedSuper;
+      final effectiveVisitor = visitor ?? _activeVisitor;
+      if (effectiveVisitor != null) {
+        final proxy =
+            tryCreateInterfaceProxyWithVisitor<T>(value, effectiveVisitor);
+        if (proxy != null) return proxy;
+      }
+      throw D4UnwrapException(
+        expectedType: expected,
+        actualType: 'InterpretedInstance(${value.klass.name})',
+        source: 'InterpretedInstance',
+        extra: 'no registered interface proxy for its bridged '
+            'superclass/interfaces',
+      );
+    }
+
+    throw D4UnwrapException(
+      expectedType: expected,
+      actualType: value.runtimeType.toString(),
+    );
+  }
+
   // ==========================================================================
   // RC-1: Interface Proxy Helpers
   // ==========================================================================
