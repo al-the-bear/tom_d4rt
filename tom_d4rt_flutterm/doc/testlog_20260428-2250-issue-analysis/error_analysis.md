@@ -33,6 +33,14 @@ limitation (bridged `RestorationMixin` proxy lifecycle dispatch
 under cross-script ordering) is documented in
 `doc/interpreter_unfixable.md` §N2. See cluster N2 below.
 
+**Update 2026-04-29:** carry-over cluster **C-Fa1** flipped to
+**Reverted/Deferred** — documentation reconciliation only. The
+actual closure work landed with N1 (annotation route on 6
+owning scripts; `restorable_double_test.dart` flake-tracked by
+the `[fa1-2250-sentinel]` group; `scroll_deceleration_rate_test`
+closed under E8). Sentinel re-verified at 7/7 with FE counts
+unchanged from baseline. See cluster C-Fa1 §Resolution below.
+
 | Suite | Pass / Skip / Fail | FE-bearing scripts | Notes |
 |---|---:|---:|---|
 | `essential_classes_test`            | 108 / 0 / 0 | 0 | clean |
@@ -295,7 +303,7 @@ are merely reconfirmed as open with no per-script delta vs 1333.
 
 ## C-Fa1 — E2 layout cascade: 7 script rewrites still pending (carry-over from Fa1)
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Low · **Owner:** test scripts
+- [ ] Fixed  - [ ] Partial  - [x] Reverted/Deferred · Annotation closure (2026-04-29 — cross-reference N1) · **Severity:** Low · **Owner:** test scripts
 
 Verbatim status from `testlog_20260428-1333` Fa1: 7 of the 22 FE
 emitters were patched with the C22 ListView pattern; **22 FE
@@ -326,6 +334,37 @@ deferring the rewrite.
 all 6 owning scripts (the 7th, `restorable_double_test.dart`, is
 flaky and tracked by the sentinel without an annotation). See
 cluster N1 §Resolution above and `interpreter_unfixable.md` Fa1-N1.
+
+### Resolution (2026-04-29)
+
+C-Fa1 is the carry-over twin of N1; its closure work landed
+together with N1 in the same campaign. Reconciliation only — no
+new code or test changes were required for this cluster:
+
+- The 6 owning scripts each carry a
+  `// D4RT-SCRIPT-LIMITATION: layout cascade` annotation header
+  explicitly deferring the rewrite, exactly as the closing
+  criterion permits ("…or each script carries a … annotation").
+- `restorable_double_test.dart` is the lone hold-out — it remains
+  flaky under cross-script ordering and is tracked by the
+  `[fa1-2250-sentinel]` group in `test/fa1_bisect_test.dart`
+  without an annotation, so any regression in its FE count would
+  surface immediately.
+- `scroll_deceleration_rate_test.dart` is closed separately under
+  `interpreter_unfixable.md` §E8 (lines 430+, script reference
+  ~line 493) and is not part of this cluster's annotation set.
+
+**Verification (2026-04-29):** re-ran `fa1_bisect_test.dart`
+under `D4RT_SKIP_BRIDGE_REGEN=1` with the
+`--plain-name='[fa1-2250-sentinel]'` filter; sentinel group
+passes 7/7 with FE counts identical to baseline (1, 0, 3, 3, 2,
+9, 6). Log captured at
+`doc/testlog_n2_fix/fa1_sentinel_cfa1_check.log.txt`. No
+regression observed.
+
+Status: **Reverted/Deferred** via the documented annotation
+closure path. Future rewrites of any individual script may flip
+its FE contribution to 0, but the cluster as a whole is closed.
 
 ## C-E1 — `_ByteDataView.lengthInBytes` undefined (carry-over from 1333 §E1)
 
