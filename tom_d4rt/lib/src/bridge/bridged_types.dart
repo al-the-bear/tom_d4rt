@@ -28,6 +28,12 @@ class BridgedClass implements RuntimeType {
   static final Map<String, Set<String>> _supertypeRegistry = {};
 
   /// Register supertype relationships for bridged classes.
+  ///
+  /// **Idempotent:** The per-key value is a [Set], and we use [Set.addAll]
+  /// — repeated calls with the same hierarchy add nothing the second time.
+  /// Safe to invoke twice when a process re-runs a generator-emitted
+  /// `registerProxyFactories()` block (e.g. on a second `FlutterD4rt`
+  /// instance after `_relaxersRegistered` is removed).
   static void registerSupertypes(Map<String, List<String>> hierarchy) {
     for (final entry in hierarchy.entries) {
       _supertypeRegistry

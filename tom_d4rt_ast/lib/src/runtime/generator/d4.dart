@@ -145,6 +145,11 @@ class D4 {
   ///
   /// The [bridgedTypeName] is the name of the bridged class/interface.
   /// The [factory] creates a native proxy that delegates to the InterpreterVisitor.
+  ///
+  /// **Idempotent:** Repeated calls with the same [bridgedTypeName] simply
+  /// overwrite the previously registered factory — calling this twice (e.g.
+  /// from a generated `registerProxyFactories()` that fires on every
+  /// `FlutterD4rt` instance) is safe and well-defined.
   static void registerInterfaceProxy(
     String bridgedTypeName,
     InterfaceProxyFactory factory,
@@ -218,6 +223,11 @@ class D4 {
   /// may have the same name, we use the native [Type] objects.
   /// [sourceType] and [targetType] are the actual Dart [Type] objects.
   /// The [factory] converts the source to the target type.
+  ///
+  /// **Idempotent:** Repeated calls with the same `(sourceType, targetType)`
+  /// pair overwrite the previously registered factory in both
+  /// [_typeCoercions] and [_typeCoercionsByType] — safe to invoke twice
+  /// when a process re-runs the generator's `registerRelaxers()` block.
   static void registerTypeCoercion({
     required Type sourceType,
     required Type targetType,
@@ -231,6 +241,13 @@ class D4 {
 
   static final Map<_TypePair, TypeCoercionFactory> _typeCoercionsByType = {};
 
+  /// Per-base-type identity tracking for [registerGenericTypeWrapper] —
+  /// keyed by the same [baseTypeName] used by [_genericTypeWrappers].
+  /// Lets the registration call dedupe by factory identity so a second
+  /// `registerRelaxers()` does not re-append the same factory.
+  static final Map<String, Set<GenericTypeWrapperFactory>>
+      _genericTypeWrapperIdentities = {};
+
   /// Register a wrapper factory for a generic base type (additive).
   ///
   /// Multiple factories can be registered for the same base type — each module
@@ -240,10 +257,20 @@ class D4 {
   ///
   /// The [baseTypeName] is the unparameterized type name (e.g., 'WidgetStateProperty').
   /// The [factory] receives the raw value and the desired inner type argument string.
+  ///
+  /// **Idempotent:** If the same [factory] (compared by identity) has
+  /// already been registered for [baseTypeName], the call is a no-op.
+  /// Distinct factories for the same base type are still appended in
+  /// registration order. This lets `registerRelaxers()` and similar
+  /// generator-emitted blocks fire multiple times (e.g. on a second
+  /// `FlutterD4rt` instance) without growing the per-key list.
   static void registerGenericTypeWrapper(
     String baseTypeName,
     GenericTypeWrapperFactory factory,
   ) {
+    final identities =
+        _genericTypeWrapperIdentities.putIfAbsent(baseTypeName, () => {});
+    if (!identities.add(factory)) return;
     (_genericTypeWrappers[baseTypeName] ??= []).add(factory);
   }
 
@@ -259,6 +286,16 @@ class D4 {
   /// generic type arguments. Otherwise, the regular constructor adapter runs.
   static final Map<String, GenericConstructorFactory> _genericConstructors = {};
 
+  /// Per-key identity tracking for [registerGenericConstructor]. The
+  /// chained-factory closure captures and grows on every call, which is
+  /// the right behaviour for *distinct* factories layering on top of each
+  /// other but the wrong behaviour for the *same* factory firing twice
+  /// (e.g. when `registerRelaxers()` is invoked on every `FlutterD4rt`
+  /// instance after the `_relaxersRegistered` guard is removed).
+  /// We dedupe by factory identity, keyed by `'$className.$constructorName'`.
+  static final Map<String, Set<GenericConstructorFactory>>
+      _genericConstructorIdentities = {};
+
   /// Register a generic constructor factory for a bridged class.
   ///
   /// [className] - The bridged class name (e.g., 'GlobalKey').
@@ -269,12 +306,20 @@ class D4 {
   /// new factory runs first. If it returns `null` (unhandled type), the
   /// previously-registered factory runs as fallback. This enables downstream
   /// packages to extend type dispatches without knowledge of upstream types.
+  ///
+  /// **Idempotent:** If the same [factory] (by identity) is already
+  /// registered for `$className.$constructorName`, the call is a no-op —
+  /// no extra chaining, no duplicate dispatch. Distinct factories for the
+  /// same key still chain as documented above.
   static void registerGenericConstructor(
     String className,
     String constructorName,
     GenericConstructorFactory factory,
   ) {
     final key = '$className.$constructorName';
+    final identities =
+        _genericConstructorIdentities.putIfAbsent(key, () => {});
+    if (!identities.add(factory)) return;
     final existing = _genericConstructors[key];
     if (existing != null) {
       // Chain: try new factory first, fall back to existing
@@ -321,6 +366,10 @@ class D4 {
   /// [bridgedClassName] - The name of the bridged class.
   /// [methodName] - The method name to add.
   /// [adapter] - The method adapter (same signature as generated adapters).
+  ///
+  /// **Idempotent:** Repeated calls with the same `(bridgedClassName,
+  /// methodName)` overwrite the previously registered adapter — safe to
+  /// call twice when generator-emitted blocks fire multiple times.
   static void registerSupplementaryMethod(
     String bridgedClassName,
     String methodName,
