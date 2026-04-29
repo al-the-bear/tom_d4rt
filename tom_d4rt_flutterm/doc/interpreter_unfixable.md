@@ -33,6 +33,7 @@ the entry belongs in `script_rewrites.md` — please move it.
 | [E7 — `Iterable.whereType<T>()` drops generic argument](#e7--iterablewheretypet-drops-generic-argument-interpreter-limitation) | Interpreter limitation (stdlib `whereType`/`cast` adapters discard `T`; same family as E3 generic-erasure). Script-side rewrite supplied in `script_rewrites.md`. | `widgets/restorable_double_n_test.dart` |
 | [E8 — `ScrollController` state field passed through a `StatelessWidget` chain to a `Scrollable`](#e8--scrollcontroller-state-field-passed-through-statelesswidget-chain-to-a-scrollable-interpreter-limitation) | Interpreter limitation (scaling: each leaf `Scrollable` that receives the propagated controller produces exactly one null-check; locally-constructed controllers do not exhibit it). Layout-cascade fix already lands script-side (8→2); residual 2 errors deferred. | `widgets/scroll_deceleration_rate_test.dart` (E8 partial closure) |
 | [Fa1-N1 — Layout-cascade FE residuals on 6 deep-demo scripts](#fa1-n1--layout-cascade-fe-residuals-on-6-deep-demo-scripts-script-side-annotation-deferred) | Script-side limitation (cosmetic only; zero test failures). Closing route documented per sub-pocket; deferred via `D4RT-SCRIPT-LIMITATION: layout cascade` annotations. Sentinel: `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. | `snapshot_mode_test.dart` (small-overflow, 1 FE), `select_all_text_intent_test.dart` / `transpose_characters_intent_test.dart` / `restoration_mixin_test.dart` (EditableText, 3+2+3 FE), `widget_state_color_test.dart` / `text_magnifier_configuration_test.dart` (C3 sliver-row, 9+6 FE) |
+| [N2 — Bridged `RestorableProperty` proxy: late-`_value` + cross-script `for-in BridgedInstance<Object>`](#n2--bridged-restorableproperty-proxy-script-side-eager-init--defensive-iteration) | Same architectural limitation as D3/D4 (bridged `RestorationMixin` lifecycle dispatch under cross-script ordering); script-side workaround supplied: eager-init `_value` from constructor + `_favoritesSnapshot()` defensive iteration. | `widgets/restorable_property_test.dart` (closed 2026-04-29) |
 
 Entries that previously lived here but have **suggested
 interpreter / generator fixes** have been moved to
@@ -728,6 +729,189 @@ genuinely fixed without script-side surgery.
 **Documented.** 2026-04-28 (Fa1-N1 closure via annotation).
 
 ---
+
+## N2 — Bridged `RestorableProperty` proxy: script-side eager-init + defensive iteration
+
+- **Cluster:** N2 (testlog_20260428-2250-issue-analysis) ·
+  **Severity:** Low (single FE, zero test failures) · **Owner:**
+  scripts (the underlying interpreter limitation is the same one
+  documented above for D3/D4 — bridged `RestorationMixin`
+  lifecycle dispatch under cross-script ordering)
+- **Affected script:** `widgets/restorable_property_test.dart`
+- **Status:** Closed via script-side workaround 2026-04-29.
+  Single-suite isolation already FE=0; the FE only surfaces when
+  the script runs inside the full `secondary_classes_test`
+  ordering.
+
+### What the underlying Dart/Flutter code does
+
+The script demonstrates writing **custom** `RestorableProperty<T>`
+subclasses, which is the canonical way to persist non-primitive
+state across `RestorationMixin`. Both `_RestorableColor` and
+`_RestorableStringList` follow the textbook pattern:
+
+```dart
+class _RestorableColor extends RestorableProperty<Color> {
+  _RestorableColor([Color? defaultValue])
+      : _defaultValue = defaultValue ?? const Color(0xFF3F51B5);
+
+  final Color _defaultValue;
+  late Color _value;                      // ← (A) late-init
+
+  Color get value => _value;
+  set value(Color newValue) { /* … */ }
+
+  @override
+  Color createDefaultValue() => _defaultValue;
+
+  @override
+  void initWithValue(Color value) {       // ← (B) framework writes _value here
+    _value = value;
+    notifyListeners();
+  }
+  // …
+}
+
+class _RestorableStringList extends RestorableProperty<List<String>> {
+  _RestorableStringList([List<String>? defaultValue])
+      : _defaultValue = List<String>.unmodifiable(defaultValue ?? const <String>[]);
+
+  final List<String> _defaultValue;
+  late List<String> _value;
+
+  // ← (C) defensive copy through `List.unmodifiable`
+  List<String> get value => List<String>.unmodifiable(_value);
+  // …
+}
+
+// In `_buildFavoritesStrip`:
+final List<String> favs = _favoriteSwatches.value;
+return Wrap(children: <Widget>[
+  for (final String hex in favs) _favoriteChip(hex),  // ← (D) for-in
+]);
+```
+
+In real Flutter the chain is: `initState()` → `restoreState()` is
+called *before* the first build → `registerForRestoration` calls
+`initWithValue(createDefaultValue())` (or
+`initWithValue(fromPrimitives(saved))`) → `_value` is set → first
+`build()` runs and `_value` is safe to read.
+
+### Why it FE-fires under d4rt
+
+Two distinct shapes, both rooted in the bridged
+`RestorationMixin` proxy (the same architectural limitation
+documented above for D3/D4):
+
+1. **(A) `late _value` LateInit.** Under cross-script ordering
+   the bridged `registerForRestoration` → user-override
+   `initWithValue` dispatch can be skipped or reordered, so
+   `_value` is read before `initWithValue` was called and the
+   `late` field throws `LateInitializationError`.
+
+2. **(C)→(D) `for-in BridgedInstance<Object>`.** Even after the
+   late-init shape is fixed by eager-seeding (workaround below),
+   reading `_favoriteSwatches.value` from script context can
+   short-circuit through the bridge proxy and return a
+   `BridgedInstance<Object>` instead of dispatching to the user's
+   `value` getter override. The `for-in` then trips
+   "`Value used in collection 'for-in' must be an Iterable, but
+   got BridgedInstance<Object>`".
+
+Both shapes only surface inside the multi-script
+`secondary_classes_test` sequence — the script in isolation
+records FE=0. The interpreter cannot deliver bridged
+`RestorationMixin` proxy dispatch deterministically under
+cross-script ordering without a full restore-bucket emulation,
+which is the architectural limitation already catalogued for
+D3/D4 in the closed clusters of `testlog_20260428-1333` and
+`testlog_20260427-1339`.
+
+### Workaround applied (script-side, single-test verified)
+
+Three small, surgical edits to
+`widgets/restorable_property_test.dart`:
+
+**(1) Eager-seed `_value` from constructor and drop `late`.**
+
+```dart
+_RestorableColor([Color? defaultValue])
+    : _defaultValue = defaultValue ?? const Color(0xFF3F51B5),
+      _value = defaultValue ?? const Color(0xFF3F51B5);   // ← seeded
+
+final Color _defaultValue;
+Color _value;                                              // ← no longer late
+```
+
+Functionally equivalent to the textbook pattern: `initWithValue`
+still reassigns `_value` from the framework-supplied value when
+the lifecycle does run, so restoration round-trips remain
+correct. The default is just a *safe initial* that prevents
+LateInit if the framework dispatch is skipped.
+
+**(2) Replace `List.unmodifiable` with `List.from` in the list
+getter.**
+
+```dart
+List<String> get value => List<String>.from(_value);
+```
+
+`List.unmodifiable` returns a bridged read-only view that surfaces
+as `BridgedInstance<Object>` to script-side iteration in some
+ordering paths. `List.from` returns a plain `List<String>` and
+preserves the defensive-copy guarantee (callers still cannot
+mutate `_value`).
+
+**(3) Defensive snapshot for the iteration site.**
+
+```dart
+List<String> _favoritesSnapshot() {
+  try {
+    final dynamic raw = _favoriteSwatches.value;
+    if (raw is List<String>) return raw;
+    if (raw is List) {
+      final List<String> out = <String>[];
+      for (final dynamic e in raw) {
+        out.add(e.toString());
+      }
+      return out;
+    }
+  } catch (_) {
+    // Fall through — bridge proxy didn't dispatch to override.
+  }
+  return const <String>[];
+}
+
+// Use:
+final List<String> favs = _favoritesSnapshot();
+//                       and …
+if (_favoritesSnapshot().contains(hex)) { /* … */ }
+```
+
+If the proxy chain dispatches correctly, the snapshot returns the
+real list. If the cross-script ordering path falls through to a
+`BridgedInstance<Object>`, the type checks fail and we get an
+empty list — equivalent to the "no favourites yet" first-render
+branch the framework would have produced in real Flutter, so the
+demo still renders coherently with no FE.
+
+### Verification
+
+- **Pre-fix (testlog_20260428-2250):** `restorable_property_test`
+  FE=1 (`LateInitializationError`) inside `secondary_classes_test`.
+- **Post-eager-init only:** `restorable_property_test` FE=1
+  (shape changed to `for-in BridgedInstance<Object>`) — the
+  late-init shape was cured but exposed the iteration shape.
+- **Post-full workaround:** `restorable_property_test` FE=0
+  inside `secondary_classes_test` (`secondary_post3.log.txt`).
+- Single-test invocation (regression rule (a) was sufficient
+  because all changes are confined to a single test script):
+  `secondary_classes_test --plain-name 'restorable_property'` →
+  FE=0.
+
+**Documented.** 2026-04-29 (N2 closure via script-side
+eager-init + defensive iteration; underlying interpreter
+limitation remains the same one catalogued for D3/D4).
 
 ---
 

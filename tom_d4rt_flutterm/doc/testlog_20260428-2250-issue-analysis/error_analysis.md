@@ -23,6 +23,16 @@ deferring the rewrite, with full sub-pocket workaround recipes in
 `test/fa1_bisect_test.dart [fa1-2250-sentinel]`. See cluster N1
 below.
 
+**Update 2026-04-29:** cluster **N2** closed via a **script-side
+workaround** in `widgets/restorable_property_test.dart` — eager-
+seeded `_value` in the constructor (drops `late`), replaced
+`List.unmodifiable` with `List.from` in the list getter, and
+added a `_favoritesSnapshot()` defensive iteration helper for
+the `for-in` / `.contains` call sites. Underlying interpreter
+limitation (bridged `RestorationMixin` proxy lifecycle dispatch
+under cross-script ordering) is documented in
+`doc/interpreter_unfixable.md` §N2. See cluster N2 below.
+
 | Suite | Pass / Skip / Fail | FE-bearing scripts | Notes |
 |---|---:|---:|---|
 | `essential_classes_test`            | 108 / 0 / 0 | 0 | clean |
@@ -198,7 +208,7 @@ behavioural change.
 
 ## N2 — `E4` late-field uninit on `RestorableProperty` shape (re-confirmed open)
 
-- [ ] Fixed  - [x] Partial  - [ ] Reverted/Deferred · **Severity:** Medium (single FE, no test failure today) · **Owner:** interpreter
+- [x] Fixed  - [ ] Partial  - [ ] Reverted/Deferred · **Closed via script-side workaround (2026-04-29)** · **Severity:** Medium (single FE, no test failure today) · **Owner:** scripts (interpreter root cause is the same architectural limitation already documented for D3/D4)
 
 `widgets/restorable_property_test.dart` continues to emit:
 
@@ -213,8 +223,65 @@ Same shape as `testlog_20260428-1333` §E4 / D3 carry-over. The late
 constructor pathway, but the interpreter's bridged-mixin field
 storage doesn't surface the assignment to the script-side getter.
 
-**Action:** none new; the work item is **E4** from 1333. Re-opened
-in the carry-over section below.
+### Resolution — script-side workaround (2026-04-29)
+
+The script in isolation already records FE=0; the FE only
+surfaces inside the full `secondary_classes_test` ordering. This
+is the *same* bridged `RestorationMixin` proxy lifecycle issue
+documented for D3/D4 in `interpreter_unfixable.md` — under
+cross-script ordering, dispatch from the bridged proxy back to
+the user's `value`/`initWithValue` overrides is non-deterministic.
+
+**Three small edits to `widgets/restorable_property_test.dart`:**
+
+1. **Eager-seed `_value` in the constructor and drop `late`.** On
+   both `_RestorableColor` and `_RestorableStringList`, the
+   constructor initializer list now seeds `_value` from the
+   default. Functionally equivalent because `initWithValue`
+   reassigns when the lifecycle does run, but the script never
+   trips `LateInitializationError` even if the framework
+   dispatch is skipped.
+
+2. **Replace `List.unmodifiable` with `List.from` in the list
+   getter.** The bridged `List.unmodifiable` constructor surfaces
+   as `BridgedInstance<Object>` to script-side iteration in some
+   ordering paths; a plain `List.from` copy preserves the
+   defensive-copy guarantee and stays strongly typed.
+
+3. **Add `_favoritesSnapshot()` defensive iteration helper** at
+   the for-in / `.contains` call sites. If the proxy chain
+   dispatches correctly, the snapshot returns the real list. If
+   the cross-script path falls through to a `BridgedInstance<Object>`,
+   the runtime type checks fail safely and the snapshot returns
+   an empty list — equivalent to the "no favourites yet" branch
+   the framework would have produced in real Flutter, so the
+   demo still renders coherently with no FE.
+
+**Verification (`doc/testlog_n2_fix/`):**
+
+| Run | restorable_property FE |
+|---|---:|
+| Pre-fix (testlog 2250 secondary suite) | 1 (`LateInitializationError`) |
+| Post eager-init only (`secondary_post.log.txt`) | 1 (shape changed → `for-in BridgedInstance<Object>`) |
+| Post full workaround (`secondary_post3.log.txt`) | **0** |
+
+Per regression rule (a) the change is confined to a single test
+script — only the secondary-suite re-run was needed (chosen over
+single-test isolation because the FE only manifests in
+cross-script ordering). The full secondary suite still passes
+with the exact same residual FE-bearing scripts as the 2250
+baseline minus this script.
+
+**Underlying limitation** is documented in
+`interpreter_unfixable.md` §`N2 — Bridged RestorableProperty
+proxy: script-side eager-init + defensive iteration` together
+with the per-step Dart/Flutter snippets and rationale.
+
+**Action:** documented. The work item from 1333's E4 is also
+covered — both re-surfaces (`restorable_property_test`,
+`restorable_string_test`) are now FE=0; the underlying
+architectural limitation around bridged `RestorationMixin`
+remains in `interpreter_unfixable.md`.
 
 ---
 

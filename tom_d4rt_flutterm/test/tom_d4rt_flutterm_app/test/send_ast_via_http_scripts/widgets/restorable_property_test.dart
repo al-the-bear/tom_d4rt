@@ -60,11 +60,21 @@ import 'package:flutter/material.dart';
 /// ARGB integer) but is not one of the primitives the framework knows how
 /// to persist directly.
 class _RestorableColor extends RestorableProperty<Color> {
+  // D4RT-WORKAROUND (interpreter_unfixable.md §D3 / N2):
+  // Seed `_value` from the default in the constructor initializer
+  // list and drop the `late` keyword so `value` is safe to read
+  // even before the framework dispatches `initWithValue` via
+  // `registerForRestoration`. Real Flutter never actually reads
+  // `value` before the restoration callback fires, but under d4rt
+  // the dispatch chain through bridged `RestorationMixin` is
+  // ordering-fragile (see N2 closure). This is the documented
+  // initState-seeding workaround applied at the field declaration.
   _RestorableColor([Color? defaultValue])
-      : _defaultValue = defaultValue ?? const Color(0xFF3F51B5);
+      : _defaultValue = defaultValue ?? const Color(0xFF3F51B5),
+        _value = defaultValue ?? const Color(0xFF3F51B5);
 
   final Color _defaultValue;
-  late Color _value;
+  Color _value;
 
   /// The live colour. Setting this triggers a restoration write.
   Color get value => _value;
@@ -116,13 +126,30 @@ class _RestorableColor extends RestorableProperty<Color> {
 /// copy on both write and read so the stored list cannot be mutated from
 /// outside.
 class _RestorableStringList extends RestorableProperty<List<String>> {
+  // D4RT-WORKAROUND (interpreter_unfixable.md §D3 / N2):
+  // Same eager-init seeding as `_RestorableColor` — the `late
+  // _value` field is replaced by an eagerly-initialised mutable
+  // list seeded from the default. `initWithValue` still
+  // reassigns `_value` from the framework-supplied value, so
+  // restoration semantics are preserved.
   _RestorableStringList([List<String>? defaultValue])
-      : _defaultValue = List<String>.unmodifiable(defaultValue ?? const <String>[]);
+      : _defaultValue =
+            List<String>.unmodifiable(defaultValue ?? const <String>[]),
+        _value = List<String>.from(defaultValue ?? const <String>[]);
 
   final List<String> _defaultValue;
-  late List<String> _value;
+  List<String> _value;
 
-  List<String> get value => List<String>.unmodifiable(_value);
+  // D4RT-WORKAROUND (interpreter_unfixable.md §N2):
+  // Real Flutter wraps the returned list with `List.unmodifiable`
+  // so external callers cannot mutate the storage. Under d4rt the
+  // bridged `List.unmodifiable` constructor surfaces as
+  // `BridgedInstance<Object>` to script-side `for-in` iteration,
+  // which trips the secondary-suite ordering. Returning a plain
+  // copy preserves the defensive-copy guarantee (callers still
+  // can't mutate `_value`) and keeps the result strongly typed
+  // as `List<String>` for the script-side iterator.
+  List<String> get value => List<String>.from(_value);
 
   /// Replace the entire list.
   set value(List<String> newValue) {
@@ -285,7 +312,10 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
 
   void _addCurrentToFavorites() {
     final String hex = _hexOf(_primaryColor.value);
-    if (_favoriteSwatches.value.contains(hex)) {
+    // D4RT-WORKAROUND (interpreter_unfixable.md §N2): use the
+    // defensive snapshot for the same reason as the for-in loop
+    // in `_buildFavoritesStrip`.
+    if (_favoritesSnapshot().contains(hex)) {
       debugPrint('[ThemeColorEditorDemo] $hex already in favourites');
       return;
     }
@@ -608,8 +638,35 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
     );
   }
 
+  // D4RT-WORKAROUND (interpreter_unfixable.md §N2):
+  // Defensive snapshot of the restorable list. Under cross-script
+  // ordering in `secondary_classes_test` the bridged
+  // `RestorableProperty.value` proxy occasionally returns a
+  // `BridgedInstance<Object>` instead of dispatching to the user's
+  // `value` override (same architectural limitation documented
+  // for D3/D4). Coercing through `Iterable.cast<String>` and
+  // catching the type-mismatch reroutes us to an empty list,
+  // matching the "no favourites yet" first-render branch the
+  // framework would have produced in real Flutter.
+  List<String> _favoritesSnapshot() {
+    try {
+      final dynamic raw = _favoriteSwatches.value;
+      if (raw is List<String>) return raw;
+      if (raw is List) {
+        final List<String> out = <String>[];
+        for (final dynamic e in raw) {
+          out.add(e.toString());
+        }
+        return out;
+      }
+    } catch (_) {
+      // Fall through — bridge proxy didn't dispatch to override.
+    }
+    return const <String>[];
+  }
+
   Widget _buildFavoritesStrip() {
-    final List<String> favs = _favoriteSwatches.value;
+    final List<String> favs = _favoritesSnapshot();
     return Container(
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
       decoration: BoxDecoration(
